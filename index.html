@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <!-- Questa riga rende il sito responsive: si adatta alla larghezza del telefono -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ErasmusWiz — Cruscotto Erasmus Ca' Foscari</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="intestazione">
+    <div class="contenitore">
+      <h1>ErasmusWiz</h1>
+      <p class="sottotitolo">Il tuo cruscotto per la domanda Erasmus a Ca' Foscari</p>
+    </div>
+  </header>
+
+  <!-- Banner automatico: anno accademico dei dati (riempito da js/app.js
+       leggendo BANDO_INFO in js/dati-bando.js) -->
+  <div id="banner-anno" class="banner-anno"></div>
+
+  <main class="contenitore">
+
+    <!-- SEZIONE IDONEITÀ (Fase 4) -->
+    <section class="sezione">
+      <h2>Sei idoneo? I requisiti del bando</h2>
+      <p class="intro-sezione">Prima di tutto, controlla di avere i requisiti per partecipare. Sono uguali per tutte le mete.</p>
+      <!-- Questo contenitore viene riempito dal JavaScript (js/app.js) -->
+      <div id="lista-requisiti" class="griglia-requisiti"></div>
+    </section>
+
+    <!-- SEZIONE TIMELINE DELLA DOMANDA (Fase 2) -->
+    <section class="sezione">
+      <h2>Timeline della domanda</h2>
+      <p class="intro-sezione">Le tappe della candidatura Ca' Foscari in ordine di tempo, con il conto alla rovescia per ognuna.</p>
+      <!-- Questo contenitore viene riempito dal JavaScript (js/app.js) -->
+      <div id="timeline"></div>
+    </section>
+
+    <!-- SEZIONE CHECKLIST (Fase 5) -->
+    <section class="sezione">
+      <h2>La tua checklist</h2>
+      <p class="intro-sezione">Spunta i passi man mano che li completi. Le spunte restano salvate sul tuo dispositivo.</p>
+      <div id="barra-progresso" class="barra-progresso"><div id="barra-riempimento" class="barra-riempimento"></div></div>
+      <div id="lista-checklist" class="lista-checklist"></div>
+    </section>
+
+    <!-- SEZIONE PROFILO STUDENTE (Fase 3) -->
+    <section class="sezione">
+      <h2>Il tuo profilo</h2>
+      <p class="intro-sezione">Inserisci i tuoi dati una volta: le mete qui sotto si ordinano in base a quanto sono compatibili con te. I dati restano salvati solo sul tuo dispositivo.</p>
+
+      <form id="form-profilo" class="form-profilo">
+        <div class="campo-form">
+          <label for="area">Area disciplinare</label>
+          <select id="area"></select>
+        </div>
+
+        <div class="campo-form">
+          <label for="livello">Livello di studi</label>
+          <select id="livello">
+            <option value="L">Triennale (L)</option>
+            <option value="LM">Magistrale (LM)</option>
+          </select>
+        </div>
+
+        <fieldset class="gruppo-lingue">
+          <legend>Le tue lingue</legend>
+
+          <div class="riga-lingua">
+            <select class="lingua-nome">
+              <option value="">— nessuna —</option>
+              <option value="Inglese">Inglese</option>
+              <option value="Francese">Francese</option>
+              <option value="Spagnolo">Spagnolo</option>
+              <option value="Tedesco">Tedesco</option>
+            </select>
+            <select class="lingua-livello">
+              <option value="A1">A1</option>
+              <option value="A2">A2</option>
+              <option value="B1">B1</option>
+              <option value="B2">B2</option>
+              <option value="C1">C1</option>
+              <option value="C2">C2</option>
+            </select>
+            <label class="checkbox"><input type="checkbox" class="lingua-certificata"> certificata</label>
+          </div>
+
+          <div class="riga-lingua">
+            <select class="lingua-nome">
+              <option value="">— nessuna —</option>
+              <option value="Inglese">Inglese</option>
+              <option value="Francese">Francese</option>
+              <option value="Spagnolo">Spagnolo</option>
+              <option value="Tedesco">Tedesco</option>
+            </select>
+            <select class="lingua-livello">
+              <option value="A1">A1</option>
+              <option value="A2">A2</option>
+              <option value="B1">B1</option>
+              <option value="B2">B2</option>
+              <option value="C1">C1</option>
+              <option value="C2">C2</option>
+            </select>
+            <label class="checkbox"><input type="checkbox" class="lingua-certificata"> certificata</label>
+          </div>
+        </fieldset>
+
+        <button type="submit" class="bottone-primario">Calcola compatibilità</button>
+      </form>
+    </section>
+
+    <!-- SEZIONE METE -->
+    <section class="sezione">
+      <h2>Mete disponibili</h2>
+      <p class="intro-sezione" id="intro-mete">Compila il profilo qui sopra per vedere le mete ordinate per compatibilità.</p>
+      <!-- Questo contenitore viene riempito dal JavaScript (js/app.js) -->
+      <div id="lista-mete" class="griglia-mete"></div>
+    </section>
+
+    <!-- SEZIONE CHI SIAMO (Ondata A2) -->
+    <section class="sezione" id="chi-siamo">
+      <h2>Chi siamo e perché</h2>
+      <p class="intro-sezione">
+        ErasmusWiz è un progetto indipendente nato da chi ha vissuto la trafila
+        della domanda Erasmus e voleva renderla più chiara. Raccogliamo in un
+        unico cruscotto le informazioni del bando, sempre con il link alla fonte
+        ufficiale, perché nessuno perda una scadenza o una meta per un
+        documento difficile da trovare. I tuoi dati (profilo e spunte) restano
+        solo sul tuo dispositivo: niente account, niente tracciamento.
+      </p>
+    </section>
+
+  </main>
+
+  <footer class="pie-pagina">
+    <div class="contenitore">
+      <p><strong>Sito non ufficiale</strong>, non affiliato all'Università Ca' Foscari Venezia.
+        Fa sempre fede il <a href="https://www.unive.it/erasmus-studio" target="_blank" rel="noopener">bando ufficiale</a>.</p>
+      <p>Dati del bando a.a. 2026/2027 — ultima verifica dei dati: 10 giugno 2026.</p>
+      <p><a href="https://github.com/nicorotolo/erasmuswiz/issues" target="_blank" rel="noopener">Segnala un errore</a></p>
+    </div>
+  </footer>
+
+  <!-- ORDINE IMPORTANTE: prima i file DATI, poi il file LOGICA.
+       Così quando app.js parte, le variabili METE e SCADENZE_CAFOSCARI esistono già. -->
+  <script src="js/dati-bando.js"></script>
+  <script src="js/dati-mete.js"></script>
+  <script src="js/dati-scadenze.js"></script>
+  <script src="js/dati-checklist.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

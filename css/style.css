@@ -1,0 +1,441 @@
+/* ============================================================
+   STILE DI ERASMUSWIZ
+   Approccio "mobile-first": le regole base valgono per il
+   telefono; più in basso una regola aggiunge la griglia
+   quando lo schermo è largo (desktop).
+   ============================================================ */
+
+/* --- Reset di base: toglie i margini di default del browser --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* la larghezza include bordo e padding: più facile da gestire */
+}
+
+:root {
+  /* Colori centralizzati: cambiandoli qui cambia tutto il sito */
+  --colore-primario: #1f4e79;
+  --colore-primario-chiaro: #2e6da4;
+  --colore-testo: #1c1c1c;
+  --colore-testo-tenue: #555;
+  --colore-sfondo: #f4f6f9;
+  --colore-card: #ffffff;
+  --bordo: #e2e6ea;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--colore-testo);
+  background: var(--colore-sfondo);
+  line-height: 1.5;
+}
+
+/* Contenitore centrato con un limite di larghezza, così su desktop
+   il testo non si allarga troppo */
+.contenitore {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* --- Intestazione --- */
+.intestazione {
+  background: var(--colore-primario);
+  color: #fff;
+  padding: 28px 0;
+}
+.intestazione h1 {
+  font-size: 1.8rem;
+}
+.sottotitolo {
+  opacity: 0.9;
+  margin-top: 4px;
+}
+
+/* --- Sezioni --- */
+.sezione {
+  margin: 32px auto;
+}
+.sezione h2 {
+  font-size: 1.4rem;
+  color: var(--colore-primario);
+  border-bottom: 2px solid var(--bordo);
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+}
+
+/* --- Intro sotto il titolo di una sezione --- */
+.intro-sezione {
+  color: var(--colore-testo-tenue);
+  margin-bottom: 18px;
+  font-size: 0.95rem;
+}
+
+/* --- Timeline della domanda ---
+   Ogni tappa è una riga con un pallino numerato a sinistra (collegato
+   da una linea verticale) e il contenuto a destra. */
+#timeline {
+  position: relative;
+}
+.tappa {
+  position: relative;
+  display: flex;
+  gap: 14px;
+  padding-bottom: 22px;
+}
+/* La linea verticale che collega i pallini: la disegniamo sotto ogni
+   pallino, tranne l'ultima tappa. */
+.tappa:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 15px;          /* metà della larghezza del pallino */
+  top: 32px;
+  bottom: 0;
+  width: 2px;
+  background: var(--bordo);
+}
+.tappa-pallino {
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--colore-primario);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  z-index: 1;
+}
+.tappa-contenuto {
+  background: var(--colore-card);
+  border: 1px solid var(--bordo);
+  border-left: 4px solid var(--colore-primario-chiaro);
+  border-radius: 8px;
+  padding: 14px 16px;
+  flex: 1;
+}
+.tappa-titolo {
+  font-weight: 600;
+}
+.tappa-data {
+  color: var(--colore-primario);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.tappa-descrizione {
+  color: var(--colore-testo-tenue);
+  font-size: 0.95rem;
+  margin-top: 4px;
+}
+.tappa-countdown {
+  margin-top: 10px;
+  display: inline-block;
+  background: #eef4fb;
+  color: var(--colore-primario);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 6px 12px;
+  border-radius: 999px;
+}
+
+/* Stile delle tappe già passate: tutto più spento, pallino grigio,
+   etichetta countdown rossastra ("Scaduta..."). */
+.tappa-passata .tappa-pallino {
+  background: #9aa3ad;
+}
+.tappa-passata .tappa-contenuto {
+  border-left-color: #9aa3ad;
+  opacity: 0.85;
+}
+.tappa-passata .tappa-data {
+  color: var(--colore-testo-tenue);
+}
+.tappa-passata .tappa-countdown {
+  background: #fdecec;
+  color: #b3261e;
+}
+
+/* --- Idoneità: griglia di requisiti --- */
+.griglia-requisiti {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+.requisito {
+  background: var(--colore-card);
+  border: 1px solid var(--bordo);
+  border-top: 3px solid var(--colore-primario);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+.requisito-titolo {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.requisito-valore {
+  color: var(--colore-primario);
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin: 4px 0 6px;
+}
+.requisito-descrizione {
+  color: var(--colore-testo-tenue);
+  font-size: 0.9rem;
+}
+
+@media (min-width: 700px) {
+  .griglia-requisiti {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+/* --- Checklist --- */
+.barra-progresso {
+  background: var(--bordo);
+  border-radius: 999px;
+  height: 22px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.barra-riempimento {
+  background: var(--colore-primario);
+  color: #fff;
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: width 0.3s ease;
+  min-width: 56px;
+}
+.lista-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.voce-checklist {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: var(--colore-card);
+  border: 1px solid var(--bordo);
+  border-radius: 8px;
+  padding: 12px 14px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+.voce-checklist input {
+  margin-top: 2px;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  cursor: pointer;
+}
+.voce-fatta {
+  background: #f1f6f1;
+  border-color: #cfe3cf;
+}
+.voce-fatta span {
+  text-decoration: line-through;
+  color: var(--colore-testo-tenue);
+}
+
+/* --- Form profilo --- */
+.form-profilo {
+  background: var(--colore-card);
+  border: 1px solid var(--bordo);
+  border-radius: 10px;
+  padding: 18px;
+}
+.campo-form {
+  margin-bottom: 14px;
+}
+.campo-form label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+}
+.campo-form select,
+.riga-lingua select {
+  width: 100%;
+  padding: 9px 10px;
+  border: 1px solid var(--bordo);
+  border-radius: 6px;
+  font-size: 0.95rem;
+  background: #fff;
+}
+.gruppo-lingue {
+  border: 1px solid var(--bordo);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 16px;
+}
+.gruppo-lingue legend {
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0 6px;
+}
+.riga-lingua {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.riga-lingua .lingua-nome,
+.riga-lingua .lingua-livello {
+  flex: 1 1 120px;
+  width: auto;
+}
+.riga-lingua .checkbox {
+  flex: 0 0 auto;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.bottone-primario {
+  background: var(--colore-primario);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 11px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.bottone-primario:hover {
+  background: var(--colore-primario-chiaro);
+}
+
+/* --- Badge di compatibilità nelle card --- */
+.badge-comp {
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+}
+.badge-percentuale {
+  display: block;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.badge-dettaglio {
+  display: block;
+  font-size: 0.85rem;
+  margin-top: 3px;
+  opacity: 0.9;
+}
+.badge-ok    { background: #e6f4ea; color: #1e7d34; }
+.badge-medio { background: #fef6e6; color: #95701a; }
+.badge-basso { background: #fdecec; color: #b3261e; }
+
+/* --- Griglia delle mete ---
+   Su telefono (regola base) è una sola colonna. */
+.griglia-mete {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+/* --- Card di una meta --- */
+.card-meta {
+  background: var(--colore-card);
+  border: 1px solid var(--bordo);
+  border-radius: 10px;
+  padding: 18px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.card-meta h3 {
+  color: var(--colore-primario);
+  font-size: 1.15rem;
+  margin-bottom: 2px;
+}
+.card-luogo {
+  color: var(--colore-testo-tenue);
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+}
+.campo {
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+.campo-etichetta {
+  display: block;
+  font-weight: 600;
+  color: var(--colore-testo);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 2px;
+}
+.campo ul {
+  list-style: none;
+  padding-left: 0;
+}
+.campo li {
+  padding: 1px 0;
+}
+.card-link {
+  display: inline-block;
+  margin-top: 8px;
+  color: #fff;
+  background: var(--colore-primario-chiaro);
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+.card-link:hover {
+  background: var(--colore-primario);
+}
+
+/* --- Banner anno accademico (sotto l'intestazione) --- */
+.banner-anno {
+  background: #eef4fb;
+  color: var(--colore-primario);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--bordo);
+}
+.banner-anno:empty {
+  display: none; /* se il JS non lo riempie, il banner non occupa spazio */
+}
+
+/* --- Piè di pagina --- */
+.pie-pagina {
+  background: #e9edf2;
+  color: var(--colore-testo-tenue);
+  font-size: 0.85rem;
+  padding: 20px 0;
+  margin-top: 40px;
+  text-align: center;
+}
+.pie-pagina p {
+  margin: 4px 0;
+}
+.pie-pagina a {
+  color: var(--colore-primario);
+}
+
+/* ============================================================
+   DESKTOP: quando lo schermo è largo almeno 700px, le card
+   delle mete si dispongono in griglia su più colonne.
+   ============================================================ */
+@media (min-width: 700px) {
+  .griglia-mete {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
+  .intestazione h1 {
+    font-size: 2.2rem;
+  }
+}
