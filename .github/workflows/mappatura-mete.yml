@@ -1,0 +1,91 @@
+# Mappatura notturna delle mete Erasmus.
+# Gira sui server di GitHub (computer spento): due volte a notte Claude Code
+# arricchisce un lotto di ~10-15 destinazioni e apre una pull request da
+# revisionare. Il sito live cambia solo dopo il merge.
+name: Mappatura mete Erasmus
+
+on:
+  schedule:
+    - cron: "0 23 * * *" # ~01:00 ora italiana (estiva)
+    - cron: "0 2 * * *"  # ~04:00 ora italiana (estiva)
+  workflow_dispatch: {}
+
+concurrency:
+  group: mappatura-mete
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  mappatura:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Lotto di mappatura con Claude Code
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          claude_args: "--allowedTools Bash,Read,Edit,Write,Glob,Grep,WebFetch,WebSearch"
+          prompt: |
+            Lavori sul repo ErasmusWiz (sito statico HTML/CSS/JS, GitHub Pages:
+            https://nicorotolo.github.io/erasmuswiz/). Esegui UN lotto di
+            mappatura delle mete Erasmus (~10-15 destinazioni) e apri una
+            pull request. NON fare push su main.
+
+            SCALETTA DI PRIORITA':
+            1. Completare le mete del Dipartimento di Economia di Ca' Foscari
+               in js/dati-mete.js con requisitoLingua vuoto ([]) o
+               scadenzeOspitante/linkPdf mancanti.
+            2. Quando Economia e' completa: mappare un altro dipartimento di
+               Ca' Foscari (Management, poi Lingue, ecc.) creando
+               js/dati-mete-<dipartimento>.js con lo stesso schema dei record
+               di js/dati-mete.js (e SENZA modificarne il caricamento in
+               index.html/app.js: lo integrera' Nicola).
+            3. Quando Ca' Foscari e' completa: scrivere/aggiornare SOLO il
+               piano per la prossima universita' in docs/PIANO_MAPPATURA.md,
+               senza iniziare la mappatura finche' Nicola non approva.
+
+            PROCEDURA:
+            1. Leggi STATO_DEL_SITO.md e js/dati-mete.js per capire a che
+               punto e' la mappatura e quale lotto tocca.
+            2. La mappa codice-Erasmus -> scheda PDF di Ca' Foscari e' sulla
+               pagina https://www.unive.it/data/11679 (schede su
+               apps.unive.it/dati/web/attach/destinazioni_erasmus/<id>).
+               Leggi le schede ONLINE: non scaricare PDF nel repo.
+            3. Per ogni destinazione estrai: requisito di lingua (lingua +
+               livello CEFR + condizione), scadenze nomination/application
+               dell'ospitante, link alla scheda (campo linkPdf) e, se
+               disponibili, alloggio e prerequisiti.
+            4. REGOLA DI ONESTA': se la scheda non indica un livello CEFR
+               esplicito NON inventarlo - lascia requisitoLingua vuoto e
+               aggiungi in notePratiche una nota "Lingua: ... da verificare.
+               [Fonte: scheda destinazione]" (vedi il record di Vienna
+               A WIEN01 in js/dati-mete.js come esempio). Cita sempre la
+               fonte. Se una scheda e' illeggibile o irraggiungibile,
+               segnalalo in notePratiche e passa oltre.
+            5. Modifica SOLO i file dati (js/dati-*.js) e STATO_DEL_SITO.md;
+               mai js/app.js, index.html o il CSS. Mantieni esattamente lo
+               schema dei record esistenti (Aix-Marseille e' l'esempio
+               completo).
+            6. Aggiorna STATO_DEL_SITO.md: data in alto, sezione 6 (conteggio
+               mete fatte/restanti) e sezione 8 (cosa ha fatto questo run e
+               prossimo lotto).
+            7. Verifica la sintassi: node --check js/dati-mete.js (e degli
+               altri file dati toccati).
+            8. Crea un branch mappatura/lotto-<YYYYMMDD-HHMM>, committa con
+               messaggio in italiano (es. "A4 lotto N: lingue e scadenze per
+               X mete"), fai push del branch e apri una pull request verso
+               main con 'gh pr create', riassumendo nel corpo: mete
+               arricchite, mete "da verificare" e perche', eventuali schede
+               illeggibili.
+
+            Se non c'e' piu' nulla da mappare in scaletta, termina senza
+            aprire PR spiegando il motivo nel log.
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

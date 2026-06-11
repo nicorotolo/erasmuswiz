@@ -10,7 +10,10 @@
 checklist VALIDATI sul PDF ufficiale; 31 mete (lotti 1+2) hanno lingua,
 scadenze ospitante e link alla scheda PDF; sito online su GitHub Pages:
 **https://nicorotolo.github.io/erasmuswiz/**
-**Prossimo passo:** analytics GoatCounter/Plausible (A3 — serve account di Nicola)
+**Prossimo passo:** attivare il secret `CLAUDE_CODE_OAUTH_TOKEN` per la
+mappatura notturna automatica (GitHub Action); poi analytics (A3)
+**Novita':** GitHub Action `mappatura-mete.yml` — due volte a notte, in cloud,
+arricchisce un lotto di ~10-15 mete e apre una PR da revisionare la mattina
 
 ---
 
@@ -52,6 +55,7 @@ Profilo → Mete.
 | `js/dati-mete.js` | **dati** | Mete Erasmus |
 | `js/dati-scadenze.js` | **dati** | Scadenze Ca' Foscari (timeline) |
 | `js/dati-checklist.js` | **dati** | Passi della checklist |
+| `.github/workflows/mappatura-mete.yml` | automazione | GitHub Action notturna (cloud): mappa un lotto di mete e apre una PR |
 | `fonti/` | **fonti ufficiali** | PDF/ODS del bando 2026/27 Ca' Foscari (lista destinazioni, legenda, EUTOPIA) — base del database mete |
 | `README.md` | guida | Spiegazione file + come aggiungere una meta + come testare |
 | `STATO_DEL_SITO.md` | guida | Questo file: stato aggiornato |
@@ -111,6 +115,13 @@ Creta, Barcellona UAB (×2), Amsterdam UvA. 10 record con livello CEFR esplicito
 6 (Gent, Copenaghen, Vienna, Louvain, UAB×2) "lingua da verificare" con nota,
 fonte e link scheda. La scheda di Louvain è un PDF scansionato non leggibile.
 
+0. **Attivare la mappatura notturna in cloud:** Nicola genera il token con
+   `claude setup-token` e lo salva come secret `CLAUDE_CODE_OAUTH_TOKEN` su
+   GitHub (repo → Settings → Secrets and variables → Actions). Poi primo test
+   manuale dalla tab Actions ("Mappatura mete Erasmus" → Run workflow). Da
+   quel momento ogni notte (≈01:00 e 04:00) un agente cloud arricchisce un
+   lotto di mete e apre una PR da revisionare la mattina. Scaletta automatica:
+   Economia restante → altri dipartimenti CF → piano altre università.
 1. **A3 (resto):** aggiungere analytics (GoatCounter/Plausible) — **serve che
    Nicola crei l'account** (1 riga di script da incollare poi); valutare dominio.
 2. **A4 lotto 3:** lingue delle ~27 mete restanti, a lotti (la mappa
