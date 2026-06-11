@@ -90,13 +90,16 @@ const METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (sem. invernale)", periodo: "entro 1 maggio" },
+      { cosa: "Nomination (sem. estivo)", periodo: "entro 1 novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
-    linkPdf: "",
-    linkSito: "",
-    notePratiche: "Periodo vincolato: SI - Solo 1° semestre/YES - First semester only - Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L; studenti: 3; mesi: 6."
+    linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254353",
+    linkSito: "https://international.univie.ac.at/en/student-mobility/incoming-students/",
+    notePratiche: "Periodo vincolato: SI - Solo 1° semestre/YES - First semester only - Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L; studenti: 3; mesi: 6. || Lingua: la scheda non indica un livello CEFR (corsi prevalentemente in tedesco; corsi intensivi di tedesco disponibili) - da verificare. [Fonte: scheda destinazione]"
   },
   {
     id: "bantwerp01-0311-marenzia",
@@ -163,9 +166,9 @@ const METE = [
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
-    linkPdf: "",
+    linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254372",
     linkSito: "",
-    notePratiche: "Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, LM, PhD; studenti: 3; mesi: 5."
+    notePratiche: "Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, LM, PhD; studenti: 3; mesi: 5. || Lingua: la scheda Ca' Foscari e un PDF scansionato non leggibile automaticamente - aprire il link scheda e verificare. [Fonte: scheda destinazione]"
   },
   {
     id: "bgent01-0410-gautamsa",
@@ -180,14 +183,19 @@ const METE = [
       { numero: 4, mesi: 5, livello: "L", note: "" }
     ],
     requisitoLingua: [],
-    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    prerequisiti: "Mobilita solo al 3° anno di triennale, con 120 ECTS registrati nel piano di studi al momento dell'application.",
+    scadenzeOspitante: [
+      { cosa: "Nomination (1 semestre)", periodo: "entro 15 aprile" },
+      { cosa: "Nomination (2 semestre)", periodo: "entro 15 ottobre" },
+      { cosa: "Application (1 semestre)", periodo: "entro 15 maggio" },
+      { cosa: "Application (2 semestre)", periodo: "entro 15 novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
-    linkPdf: "",
+    linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/19576803",
     linkSito: "",
-    notePratiche: "Mobilities must be carried out during the third year of Bachelor's degree and 120 ECTS must be registered in the study plan at the time of Application - Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L 3° anno (vedi colonna Note); studenti: 4; mesi: 5."
+    notePratiche: "Mobilities must be carried out during the third year of Bachelor's degree and 120 ECTS must be registered in the study plan at the time of Application - Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L 3° anno (vedi colonna Note); studenti: 4; mesi: 5. || Lingua: la scheda chiede una 'buona conoscenza di olandese e/o inglese' senza livello CEFR - vedi pagina requisiti UGent (ugent.be) - da verificare. [Fonte: scheda destinazione]"
   },
   {
     id: "cynicosia01-0311-pappadaf",
@@ -383,9 +391,9 @@ const METE = [
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
-    linkPdf: "",
-    linkSito: "",
-    notePratiche: "Periodo vincolato: SI - Solo 1° semestre/YES - First semester only - Incoming students within the economics-agreement are welcome to register for all Economics-courses and seminars on BSc/MSc-level regardless of which level they are studying. They can also register for courses at other Social Science-departments, if they are admitted to the departments in question. - Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 4; mesi: 5."
+    linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254454",
+    linkSito: "https://studies.ku.dk/study-abroad/erasmus/",
+    notePratiche: "Periodo vincolato: SI - Solo 1° semestre/YES - First semester only - Incoming students within the economics-agreement are welcome to register for all Economics-courses and seminars on BSc/MSc-level regardless of which level they are studying. They can also register for courses at other Social Science-departments, if they are admitted to the departments in question. - Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 4; mesi: 5. || Lingua: la scheda rimanda al sito UCPH (studies.ku.dk) senza indicare un livello CEFR - da verificare. [Fonte: scheda destinazione]"
   },
   {
     id: "dkodense01-0311-mintoand",
@@ -455,13 +463,18 @@ const METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (1 sem./anno intero)", periodo: "15 febbraio - 1 maggio" },
+      { cosa: "Nomination (2 semestre)", periodo: "15 settembre - 1 novembre" },
+      { cosa: "Application (1 sem./anno intero)", periodo: "15 febbraio - 15 maggio" },
+      { cosa: "Application (2 semestre)", periodo: "15 settembre - 15 novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
-    linkPdf: "",
+    linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254477",
     linkSito: "",
-    notePratiche: "Few courses in Economics available in the first semester - Aperta a: Laurea Triennale in Commercio Estero e Turismo - [Dati ufficiali bando 2026/27] ciclo: L; studenti: 3; mesi: 5."
+    notePratiche: "Few courses in Economics available in the first semester - Aperta a: Laurea Triennale in Commercio Estero e Turismo - [Dati ufficiali bando 2026/27] ciclo: L; studenti: 3; mesi: 5. || Lingua: corsi soprattutto in catalano/spagnolo, alcuni in inglese; requisiti specifici per facolta (vedi factsheet UAB) - da verificare. [Fonte: factsheet UAB 2026/27]"
   },
   {
     id: "ebarcelo02-0311-lugosala",
@@ -477,13 +490,18 @@ const METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (1 sem./anno intero)", periodo: "15 febbraio - 1 maggio" },
+      { cosa: "Nomination (2 semestre)", periodo: "15 settembre - 1 novembre" },
+      { cosa: "Application (1 sem./anno intero)", periodo: "15 febbraio - 15 maggio" },
+      { cosa: "Application (2 semestre)", periodo: "15 settembre - 15 novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
-    linkPdf: "",
+    linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254471",
     linkSito: "",
-    notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 5."
+    notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 5. || Lingua: corsi soprattutto in catalano/spagnolo, alcuni in inglese; requisiti specifici per facolta (vedi factsheet UAB) - da verificare. [Fonte: factsheet UAB 2026/27]"
   },
   {
     id: "ecordoba23-0311-rosonrob",
@@ -498,15 +516,23 @@ const METE = [
       { numero: 3, mesi: 6, livello: "L", note: "su 3 posti totali condivisi tra i livelli" },
       { numero: 3, mesi: 6, livello: "LM", note: "su 3 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B1", condizione: "certificato obbligatorio per corsi in inglese (non serve un esame ufficiale; da caricare nell'application)" },
+      { lingua: "Spagnolo", livello: "B1", condizione: "certificato obbligatorio per corsi in spagnolo; alcuni corsi richiedono B2-C1" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno/anno intero)", periodo: "15 febbraio - 15 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "15 settembre - 15 novembre" },
+      { cosa: "Application (autunno/anno intero)", periodo: "1 marzo - 1 giugno" },
+      { cosa: "Application (primavera)", periodo: "1 ottobre - 30 novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
-    linkPdf: "",
+    linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/23270906",
     linkSito: "",
-    notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 3; mesi: 6."
+    notePratiche: "Due campus (Cordova e Siviglia/Dos Hermanas): gli studenti vengono divisi tra i campus quando il corso e disponibile in entrambi. Tassa di 80 euro a fine enrollment. - Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 3; mesi: 6."
   },
   {
     id: "ejaen01-0410-teglioan",
@@ -573,15 +599,23 @@ const METE = [
     posti: [
       { numero: 4, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "obbligatorio per i bachelor in inglese (certificato richiesto)" },
+      { lingua: "Spagnolo", livello: "B1", condizione: "per gli altri bachelor (B2 fortemente raccomandato, certificato richiesto)" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (1 semestre)", periodo: "22 aprile - 22 maggio" },
+      { cosa: "Nomination (2 semestre)", periodo: "23 settembre - 23 ottobre" },
+      { cosa: "Application (1 semestre)", periodo: "entro 16 giugno" },
+      { cosa: "Application (2 semestre)", periodo: "entro 16 dicembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
-    linkPdf: "",
+    linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254513",
     linkSito: "",
-    notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L; studenti: 4; mesi: 5."
+    notePratiche: "Senza certificato di lingua (o con livello inferiore) l'application non viene accettata. - Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L; studenti: 4; mesi: 5."
   },
   {
     id: "emataro01-1015-colombin",
@@ -664,13 +698,21 @@ const METE = [
       { numero: 3, mesi: 9, livello: "L", note: "" },
       { numero: 2, mesi: 9, livello: "PhD", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "certificato o attestazione richiesti per i corsi in inglese" },
+      { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato per i corsi in spagnolo" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno/anno intero)", periodo: "entro 15 aprile" },
+      { cosa: "Nomination (primavera)", periodo: "entro 24 ottobre" },
+      { cosa: "Application (autunno/anno intero)", periodo: "entro 15 maggio" },
+      { cosa: "Application (primavera)", periodo: "entro 14 novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
-    linkPdf: "",
+    linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254523",
     linkSito: "",
     notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L (3 stud. x 9 mesi), PhD (2 stud. x 5 mesi); studenti: 5; mesi: 9."
   },
@@ -899,13 +941,21 @@ const METE = [
       { numero: 3, mesi: 5, livello: "L", note: "su 3 posti totali condivisi tra i livelli" },
       { numero: 3, mesi: 5, livello: "LM", note: "su 3 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Francese", livello: "B2", condizione: "B2 nella lingua dei corsi; certificato o lettera di un docente di lingua" },
+      { lingua: "Inglese", livello: "B2", condizione: "alcuni corsi in inglese/spagnolo a seconda di ciclo e area" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno/anno intero)", periodo: "entro 15 aprile 2026" },
+      { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre 2026" },
+      { cosa: "Application (autunno/anno intero)", periodo: "entro 4 maggio 2026" },
+      { cosa: "Application (primavera)", periodo: "entro 15 ottobre 2026" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
-    linkPdf: "",
+    linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254586",
     linkSito: "",
     notePratiche: "Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 3; mesi: 5."
   },
@@ -921,13 +971,21 @@ const METE = [
     posti: [
       { numero: 4, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Francese", livello: "B2", condizione: "B2 nella lingua dei corsi; certificato o lettera di un docente di lingua" },
+      { lingua: "Inglese", livello: "B2", condizione: "alcuni corsi in inglese/spagnolo a seconda di ciclo e area" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno/anno intero)", periodo: "entro 15 aprile 2026" },
+      { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre 2026" },
+      { cosa: "Application (autunno/anno intero)", periodo: "entro 4 maggio 2026" },
+      { cosa: "Application (primavera)", periodo: "entro 15 ottobre 2026" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
-    linkPdf: "",
+    linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254586",
     linkSito: "",
     notePratiche: "Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 4; mesi: 5."
   },
@@ -975,15 +1033,23 @@ const METE = [
     posti: [
       { numero: 5, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Francese", livello: "B2", condizione: "DELF/TCF obbligatorio per corsi in francese (non per i corsi di francese per stranieri)" },
+      { lingua: "Inglese", livello: "B2", condizione: "test obbligatorio per corsi in inglese: TOEFL iBT 92 / IELTS 6.5 / Cambridge 160 (non piu vecchio di 2 anni)" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (1 sem./anno intero)", periodo: "entro 24 aprile" },
+      { cosa: "Nomination (2 semestre)", periodo: "entro 2 ottobre" },
+      { cosa: "Application (1 sem./anno intero)", periodo: "28 aprile - 15 maggio" },
+      { cosa: "Application (2 semestre)", periodo: "5 - 16 ottobre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
-    linkPdf: "",
+    linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254608",
     linkSito: "",
-    notePratiche: "Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 5; mesi: 5."
+    notePratiche: "Non accettano lettere della home university come certificato di lingua. - Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 5; mesi: 5."
   },
   {
     id: "gathine04-0311-casarinr",
@@ -1022,13 +1088,18 @@ const METE = [
       { numero: 3, mesi: 5, livello: "L", note: "su 3 posti totali condivisi tra i livelli" },
       { numero: 3, mesi: 5, livello: "LM", note: "su 3 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "requisito standard UoC; lingua principale dei corsi: greco, alcuni corsi/valutazioni alternative in inglese" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Application (anno intero/sem. invernale)", periodo: "entro 15 giugno" },
+      { cosa: "Application (sem. primaverile)", periodo: "entro 15 novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
-    linkPdf: "",
+    linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/28264979",
     linkSito: "",
     notePratiche: "more info at: www.uoc.gr/intrel/en/students-en/information-and-advicefacebook page \"Accommodation Erasmus in Rethymno\" - Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L,LM; studenti: 3; mesi: 5."
   },
@@ -1269,13 +1340,20 @@ const METE = [
       { numero: 2, mesi: 5, livello: "L", note: "su 2 posti totali condivisi tra i livelli" },
       { numero: 2, mesi: 5, livello: "LM", note: "su 2 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
-    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "test obbligatorio: TOEFL iBT 92 (min 22/sezione) / IELTS 6.5 (min 6.0/sezione) / Cambridge 180" }
+    ],
+    prerequisiti: "Triennale: almeno 2 anni completi di corsi in economia/business (incl. matematica e statistica) e almeno 90 ECTS all'inizio dello scambio.",
+    scadenzeOspitante: [
+      { cosa: "Nomination (1 semestre)", periodo: "entro 15 aprile 2026" },
+      { cosa: "Nomination (2 semestre)", periodo: "entro 1 ottobre 2026" },
+      { cosa: "Application (1 semestre)", periodo: "entro 22 aprile 2026" },
+      { cosa: "Application (2 semestre)", periodo: "entro 8 ottobre 2026" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
-    linkPdf: "",
+    linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/23270747",
     linkSito: "",
     notePratiche: "Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 5."
   },
@@ -1320,15 +1398,22 @@ const METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "statement della home university (fluency B2) o titolo di studio interamente in inglese" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno/anno intero)", periodo: "20 febbraio - 20 aprile" },
+      { cosa: "Nomination (primavera)", periodo: "20 luglio - 20 settembre" },
+      { cosa: "Application (autunno/anno intero)", periodo: "entro 27 aprile" },
+      { cosa: "Application (primavera)", periodo: "entro 27 settembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
-    linkPdf: "",
+    linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254708",
     linkSito: "",
-    notePratiche: "Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 5."
+    notePratiche: "Nomination solo tramite piattaforma online Nova SBE (no email). Corsi interamente in inglese (alcuni del 1° anno anche in portoghese). - Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 5."
   },
   {
     id: "plisboa03-0311-rosonrob",
@@ -1343,15 +1428,22 @@ const METE = [
       { numero: 4, mesi: 5, livello: "L", note: "su 4 posti totali condivisi tra i livelli" },
       { numero: 4, mesi: 5, livello: "PhD", note: "su 4 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "statement della home university (fluency B2) o titolo di studio interamente in inglese" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno/anno intero)", periodo: "20 febbraio - 20 aprile" },
+      { cosa: "Nomination (primavera)", periodo: "20 luglio - 20 settembre" },
+      { cosa: "Application (autunno/anno intero)", periodo: "entro 27 aprile" },
+      { cosa: "Application (primavera)", periodo: "entro 27 settembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
-    linkPdf: "",
+    linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29572326",
     linkSito: "",
-    notePratiche: "Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L (5 mesi), PhD (10 mesi); studenti: 4; mesi: 5."
+    notePratiche: "Nomination solo tramite piattaforma online Nova SBE (no email). Corsi interamente in inglese (alcuni del 1° anno anche in portoghese). - Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L (5 mesi), PhD (10 mesi); studenti: 4; mesi: 5."
   },
   {
     id: "plkrakow04-0410-bastiane",
