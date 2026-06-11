@@ -6,8 +6,10 @@ name: Mappatura mete Erasmus
 
 on:
   schedule:
-    - cron: "0 23 * * *" # ~01:00 ora italiana (estiva)
-    - cron: "0 2 * * *"  # ~04:00 ora italiana (estiva)
+    # I limiti dell'abbonamento Claude sono a finestre mobili di 5 ore:
+    # i due run distano >5h cosi' cadono in finestre separate.
+    - cron: "0 23 * * *"  # ~01:00 ora italiana (estiva)
+    - cron: "15 4 * * *"  # ~06:15 ora italiana (estiva)
   workflow_dispatch: {}
 
 concurrency:
