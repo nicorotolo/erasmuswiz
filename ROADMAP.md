@@ -50,7 +50,10 @@ codice irrobustito. ~6 sessioni.
     istituzionali.
   - GoatCounter o Plausible (script 1 riga, niente cookie banner): senza
     numeri non esiste "trazione dimostrata".
-- [ ] **A4. Contenuti — lotto 1 lingue** (Nicola, 2-3 sessioni)
+- [x] **A4. Contenuti — lotto 1 lingue** ✅ 2026-06-11 (15 mete top per
+  posti×mesi: lingua dalle schede ufficiali dove indicano un livello CEFR,
+  scadenze ospitante, link PDF; schede in `fonti/schede/`; 5 mete restano
+  "da verificare" con nota e fonte)
   - NON tutte e 57: le **15 mete più richieste** (chiedere ai contatti
     Ca' Foscari quali sono, o usare posti×durata come proxy).
   - Metodo a lotti: scheda apps.unive.it → compilare `requisitoLingua`,

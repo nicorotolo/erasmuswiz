@@ -4,12 +4,13 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-06-10 (sessione 2: Ondata A + pubblicazione)
-**Fase v1 raggiunta:** Fase 5 / 5 + Ondata A (A1, A2, A5) — SITO PUBBLICATO
+**Ultimo aggiornamento:** 2026-06-10 (sessione 3: A4 — lingue/scadenze 15 mete top)
+**Fase v1 raggiunta:** Fase 5 / 5 + Ondata A (A1, A2, A4, A5) — SITO PUBBLICATO
 **Cosa funziona:** tutto, testato; mete REALI (58 Economia); bando, scadenze e
-checklist VALIDATI sul PDF ufficiale; sito online su GitHub Pages:
+checklist VALIDATI sul PDF ufficiale; le 15 mete più richieste hanno lingua,
+scadenze ospitante e link alla scheda PDF; sito online su GitHub Pages:
 **https://nicorotolo.github.io/erasmuswiz/**
-**Prossimo passo:** lingue delle 15 mete più richieste (A4) + analytics (A3)
+**Prossimo passo:** analytics GoatCounter/Plausible (A3 — serve account di Nicola)
 
 ---
 
@@ -75,8 +76,9 @@ Il CODICE è pronto. Le mete ora sono **REALI** (dalla lista ufficiale del bando
 |------|---------------|---------|
 | **58 mete Economia** (`dati-mete.js`) | **REALI** dalla lista ufficiale 2026/27 | — |
 | → posti/livello/area/coordinatore/codice Erasmus | reali, dalla lista | ok |
-| → requisito di **lingua** (57 mete su 58) | **VUOTO = "da verificare"** (non è nella lista) | Recuperare dalle schede destinazione |
-| → scadenze ospitante/alloggio/prerequisiti/linkPdf | vuoti / segnati "da verificare" | Arricchire dalle schede (apps.unive.it) |
+| → requisito di **lingua** | **15 mete top: FATTE** (10 con livello CEFR da scheda; 5 "da verificare" con nota e fonte) | Restanti 43 mete, a lotti |
+| → scadenze ospitante / linkPdf | **15 mete top: FATTE** (13 con scadenze nomination/application; 15 con link scheda PDF) | Restanti mete; alloggio/prerequisiti ancora da arricchire |
+| → schede PDF scaricate | 15 PDF in `fonti/schede/` (solo locale, gitignore) | — |
 | Meta Aix-Marseille | **completa e reale** (da scheda PDF) | Esempio di riferimento |
 | 2 mete "ESEMPIO" (Madrid, Monaco) | **RIMOSSE** ✅ | fatto |
 | Requisiti bando (`dati-bando.js`) | **REALI** ✅ validati art. per art. sul PDF (8 requisiti, con rif. agli articoli) | Riverificare sul bando 2027/28 |
@@ -100,14 +102,18 @@ poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
 
-Fatto in questa sessione: A1 (XSS + banner anno), A2 (disclaimer, Chi siamo,
-Segnala un errore), A5 (bando/scadenze/checklist validati), pubblicazione su
-GitHub Pages (repo `nicorotolo/erasmuswiz`, aggiornamento = `git push`).
+Fatto in sessione 3 (2026-06-10/11): **A4 lotto 1** — individuate le 15 mete più
+richieste (proxy posti×mesi), scaricate le 15 schede destinazione da
+apps.unive.it (in `fonti/schede/`, solo locale) e compilati `requisitoLingua`
+(solo dove la scheda indica un livello CEFR esplicito — mai inventato),
+`scadenzeOspitante` e `linkPdf` in `dati-mete.js`. 5 mete (Groningen, Pafos,
+Vytautas, NTNU, Rovira) restano "lingua da verificare" con nota e fonte perché
+la scheda non indica un livello CEFR.
 
-1. **A3 (resto):** aggiungere analytics (GoatCounter/Plausible) + valutare dominio.
-2. **A4 Lingue:** requisito linguistico reale delle 15 mete più richieste dalle
-   schede destinazione (apps.unive.it).
-3. **Schede:** arricchire scadenze ospitante/alloggio/prerequisiti/linkPdf meta per meta.
+1. **A3 (resto):** aggiungere analytics (GoatCounter/Plausible) — **serve che
+   Nicola crei l'account** (1 riga di script da incollare poi); valutare dominio.
+2. **A4 lotto 2:** lingue delle mete restanti, a lotti.
+3. **Schede:** arricchire alloggio/prerequisiti meta per meta.
 4. **Ondata B:** post-selezione (vedi ROADMAP.md).
 5. **Test utenti:** far usare il cruscotto a 2-3 studenti Erasmus veri.
 
