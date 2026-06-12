@@ -425,13 +425,16 @@ const METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Application (sem. autunnale, inizio 1 settembre)", periodo: "entro 1 maggio" },
+      { cosa: "Application (sem. primaverile, inizio 1 febbraio)", periodo: "entro 1 ottobre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254454",
     linkSito: "https://studies.ku.dk/study-abroad/erasmus/",
-    notePratiche: "Periodo vincolato: SI - Solo 1° semestre/YES - First semester only - Incoming students within the economics-agreement are welcome to register for all Economics-courses and seminars on BSc/MSc-level regardless of which level they are studying. They can also register for courses at other Social Science-departments, if they are admitted to the departments in question. - Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 4; mesi: 5. || Lingua: la scheda rimanda al sito UCPH (studies.ku.dk) senza indicare un livello CEFR - da verificare. [Fonte: scheda destinazione]"
+    notePratiche: "Periodo vincolato: SI - Solo 1° semestre/YES - First semester only - Incoming students within the economics-agreement are welcome to register for all Economics-courses and seminars on BSc/MSc-level regardless of which level they are studying. They can also register for courses at other Social Science-departments, if they are admitted to the departments in question. - Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 4; mesi: 5. || Lingua: nessun livello CEFR indicato; alcuni corsi potrebbero richiedere una prova di inglese - da verificare. [Fonte: ku.dk/studies/exchange]"
   },
   {
     id: "dkodense01-0311-mintoand",
@@ -477,15 +480,23 @@ const METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato per i corsi in spagnolo (B1 minimo per Infermieristica)" },
+      { lingua: "Inglese", livello: "B2", condizione: "raccomandato per i corsi in inglese" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (1 semestre)", periodo: "entro 1 giugno" },
+      { cosa: "Application (1 semestre)", periodo: "entro 15 giugno" },
+      { cosa: "Nomination (2 semestre)", periodo: "entro 1 novembre" },
+      { cosa: "Application (2 semestre)", periodo: "entro 15 novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254460",
     linkSito: "https://sri.ua.es/en/movilidad/incoming-students/fact-sheet.html",
-    notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 5. || Lingua: la scheda Ca' Foscari e solo un rimando al factsheet UA (sri.ua.es) - livello da verificare. [Fonte: scheda destinazione]"
+    notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 5. || I livelli linguistici indicati sono raccomandati (non strettamente obbligatori tranne per Infermieristica). [Fonte: sri.ua.es/en/movilidad/incoming-students/fact-sheet.html]"
   },
   {
     id: "ebarcelo02-0311-camattin",
@@ -620,13 +631,16 @@ const METE = [
       { lingua: "Inglese", livello: "B2", condizione: "spagnolo O inglese a livello B2 - nessun certificato richiesto (garantisce l'universita di provenienza)" }
     ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    alloggio: "Info: www.uc3m.es (sezione Accommodation per exchange students).",
+    scadenzeOspitante: [
+      { cosa: "Nomination (1 semestre - autunno)", periodo: "13 marzo - 15 maggio" },
+      { cosa: "Nomination (2 semestre - primavera)", periodo: "15 settembre - 16 ottobre" }
+    ],
+    alloggio: "Info su alloggi e costo vita (~700-800 EUR/mese): www.uc3m.es (sezione Accommodation per exchange students).",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254511",
     linkSito: "https://www.uc3m.es/studies/international-exchange-students-in-UC3M-/bachelor-degrees",
-    notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L (2 stud.), LM (2 stud., solo IV anno di Madrid); studenti: 4; mesi: 5. || Corsi di spagnolo a pagamento prima e durante il semestre. Alcuni corsi possono non essere aperti agli exchange (vedi course offer). [Fonte: scheda destinazione]"
+    notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L (2 stud.), LM (2 stud., solo IV anno di Madrid); studenti: 4; mesi: 5. || Non e richiesto un modulo di application separato: la nomination dell'universita di provenienza e sufficiente. Corsi di spagnolo a pagamento prima e durante il semestre. Alcuni corsi possono non essere aperti agli exchange (vedi course offer). [Fonte: uc3m.es/studies/international-exchange-students]"
   },
   {
     id: "emadrid26-0311-teglioan",
@@ -1411,13 +1425,18 @@ const METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (sem. autunnale, UE/SEE)", periodo: "entro 11 maggio" },
+      { cosa: "Application (sem. autunnale, UE/SEE)", periodo: "entro 17 maggio" },
+      { cosa: "Nomination (sem. primaverile, UE/SEE)", periodo: "entro 11 novembre" },
+      { cosa: "Application (sem. primaverile, UE/SEE)", periodo: "entro 17 novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254671",
-    linkSito: "",
-    notePratiche: "Aperta a: CdS del Dipartimento di Economia e Laurea Magistrale in Relazioni internazionali comparate - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 6; mesi: 5. || Lingua: la scheda Ca' Foscari rimanda al factsheet VMU (vdu.lt) - livello da verificare. [Fonte: scheda destinazione]"
+    linkSito: "https://www.vdu.lt/en/international-cooperation/vmu-promotional-materials/vmu-fact-sheet/",
+    notePratiche: "Aperta a: CdS del Dipartimento di Economia e Laurea Magistrale in Relazioni internazionali comparate - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 6; mesi: 5. || Lingua: il sito VMU non indica un livello CEFR esplicito; disponibile supporto Online Language Support (OLS) - da verificare. Nomination via erasmus@vdu.lt. [Fonte: vdu.lt/en/international-cooperation]"
   },
   {
     id: "ntrondhe01-0311-bertarel",
@@ -1432,15 +1451,22 @@ const METE = [
       { numero: 3, mesi: 10, livello: "L", note: "su 3 posti totali condivisi tra i livelli" },
       { numero: 3, mesi: 10, livello: "LM", note: "su 3 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "minimo B2 (preferibilmente C1); nessun certificato richiesto per gli exchange (la nomination dell'ateneo di provenienza e sufficiente)" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (sem. autunnale, UE/SEE)", periodo: "entro 15 aprile" },
+      { cosa: "Application (sem. autunnale, UE/SEE)", periodo: "entro 1 maggio" },
+      { cosa: "Nomination (sem. primaverile)", periodo: "entro 15 settembre" },
+      { cosa: "Application (sem. primaverile)", periodo: "entro 1 ottobre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/23271913",
-    linkSito: "",
-    notePratiche: "Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 3; mesi: 10. || Lingua: la scheda Ca' Foscari e solo un rimando - requisiti sul sito NTNU, da verificare. [Fonte: scheda destinazione]"
+    linkSito: "https://www.ntnu.edu/studies/exchange/how_to_apply",
+    notePratiche: "Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 3; mesi: 10. || Mobilita di 10 mesi (anno intero). [Fonte: ntnu.edu/studies/exchange/how_to_apply]"
   },
   {
     id: "nlamsterd01-0311-dicatald",
