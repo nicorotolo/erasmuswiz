@@ -4,16 +4,16 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-06-11 (sessione 5: A4 COMPLETATO — lotti 3+4, tutte le 58 mete coperte)
+**Ultimo aggiornamento:** 2026-06-12 (sessione 6: lotto A4-bis — 10 mete Economia aggiornate con CEFR, 4 note confermate "nessun livello disponibile")
 **Fase v1 raggiunta:** Fase 5 / 5 + Ondata A (A1, A2, A4, A5) — SITO PUBBLICATO
 **Cosa funziona:** tutto, testato; mete REALI (58 Economia); bando, scadenze e
-checklist VALIDATI sul PDF ufficiale; **TUTTE le 58 mete** hanno lingua (37 con
-livello CEFR, 21 "da verificare" con nota e fonte), link alla scheda PDF (58/58)
+checklist VALIDATI sul PDF ufficiale; **TUTTE le 58 mete** hanno lingua (47 con
+livello CEFR, 11 "da verificare" / senza CEFR disponibile), link alla scheda PDF (58/58)
 e scadenze ospitante (48/58); sito online su GitHub Pages:
 **https://nicorotolo.github.io/erasmuswiz/**
-**Prossimo passo:** analytics (A3, serve account di Nicola); arricchire
-alloggio/prerequisiti; la mappatura notturna (Action) puo' ora puntare ad
-altri dipartimenti
+**Prossimo passo:** analytics (A3, serve account di Nicola); completare il lotto A4-ter
+(7 mete ancora da verificare: UCL Louvain, Pula, Kaunas, Trondheim, Groningen,
+Nova Gorica, Ankara Bilkent)
 **Novita':** GitHub Action `mappatura-mete.yml` — due volte a notte, in cloud,
 arricchisce un lotto di ~10-15 mete e apre una PR da revisionare la mattina
 
@@ -82,7 +82,7 @@ Il CODICE è pronto. Le mete ora sono **REALI** (dalla lista ufficiale del bando
 |------|---------------|---------|
 | **58 mete Economia** (`dati-mete.js`) | **REALI** dalla lista ufficiale 2026/27 | — |
 | → posti/livello/area/coordinatore/codice Erasmus | reali, dalla lista | ok |
-| → requisito di **lingua** | **58/58 mete: FATTE** ✅ (37 con livello CEFR da scheda; 21 "da verificare" con nota e fonte) | Sciogliere i 21 "da verificare" contattando atenei/siti |
+| → requisito di **lingua** | **58/58 mete: FATTE** ✅ (47 con livello CEFR; 7 "da verificare"; 4 confermate senza CEFR) | Sciogliere i 7 rimasti (lotto A4-ter) |
 | → scadenze ospitante / linkPdf | **58/58 con link scheda PDF** ✅; 48/58 con scadenze nomination/application | Alloggio/prerequisiti ancora da arricchire per molte mete |
 | → schede PDF scaricate | 53 PDF in `fonti/schede/` (solo locale, gitignore) | — |
 | Meta Aix-Marseille | **completa e reale** (da scheda PDF) | Esempio di riferimento |
@@ -108,6 +108,17 @@ poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
 
+Fatto in sessione 6 (2026-06-12): **A4-bis** — verificate online (siti ufficiali
+atenei + factsheet) 15 mete "da verificare" (MCI Innsbruck, Wien, Antwerpen,
+KU Leuven, Gent, Pafos, Copenaghen, Alicante, UAB×2, UIB Palma×2, URV Tarragona,
+Tenerife, e aggiornamento note per UCL Louvain già segnalata). Risultato:
+10 mete ora con CEFR reale (MCI B2, Antwerpen B2, Leuven B2 raccomandato, Gent B2,
+Alicante B1+B2 raccomandati, UAB×2 B2, UIB×2 A2, URV B1/B2); 4 note aggiornate
+ma senza CEFR (Wien: livello non specificato, Pafos: sito NUP non indica soglia,
+UCPH: esplicitamente nessun requisito per Economics, Tenerife: Iriarte non indica livello).
+Totale CEFR: 47/58. Restano 7 mete da verificare: UCL Louvain, Pula, Kaunas,
+Trondheim, Groningen, Nova Gorica, Ankara Bilkent.
+
 Fatto in sessione 5 (2026-06-11): **A4 COMPLETATO** — scaricate 23 nuove schede
 PDF dalla pagina unive.it/data/11679 e arricchiti gli ultimi 25 record meta
 (lotto 3: Innsbruck MCI, Antwerpen, Leuven, Francoforte ×2, Mannheim, Alicante,
@@ -118,12 +129,12 @@ Torun, Nova Gorica, Ankara Bilkent). Risultato: 58/58 mete con lingua (37 CEFR
 ospitante. Attenzione: la scheda Leuven collegata da CF è della Faculty of
 Science (segnalato nella nota della meta).
 
-0. **Attivare la mappatura notturna in cloud:** Nicola genera il token con
+0. **Lotto A4-ter (prossimo run):** verificare le 7 mete rimaste (UCL Louvain,
+   Pula, Kaunas, Trondheim, Groningen, Nova Gorica, Ankara Bilkent).
+0b. **Attivare la mappatura notturna in cloud:** Nicola genera il token con
    `claude setup-token` e lo salva come secret `CLAUDE_CODE_OAUTH_TOKEN` su
    GitHub (repo → Settings → Secrets and variables → Actions). Poi primo test
-   manuale dalla tab Actions ("Mappatura mete Erasmus" → Run workflow). Ora che
-   Economia è completa, la scaletta automatica può passare ad: alloggio/
-   prerequisiti Economia → altri dipartimenti CF → piano altre università.
+   manuale dalla tab Actions ("Mappatura mete Erasmus" → Run workflow).
 1. **A3 (resto):** aggiungere analytics (GoatCounter/Plausible) — **serve che
    Nicola crei l'account** (1 riga di script da incollare poi); valutare dominio.
 2. **Sciogliere i 21 "lingua da verificare"** (siti atenei / email IRO).

@@ -66,7 +66,9 @@ const METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "richiesto per i programmi triennali; accettati TOEFL iBT 75, IELTS Academic 5.5, PTE Academic 50 o attestazione del docente di lingua della home university" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
       { cosa: "Nomination (sem. autunnale)", periodo: "entro 1 aprile" },
@@ -79,7 +81,7 @@ const METE = [
     crediti: "Fino a 30 ECTS/semestre da un degree program + International Program (opzionale).",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254345",
     linkSito: "https://www.mci.edu/en/international",
-    notePratiche: "Aperta a: Laurea Triennale in Commercio Estero e Turismo - [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 5. || Lingua: corsi in inglese e tedesco; serve un test di lingua (TOEFL/IELTS o test online MCI) ma la scheda non indica un livello CEFR - vedi mci.edu/exchange-incoming - da verificare. Corso di lingua MCI ~100 EUR. [Fonte: scheda destinazione]"
+    notePratiche: "Aperta a: Laurea Triennale in Commercio Estero e Turismo - [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 5. || Lingua: inglese B2 richiesto (TOEFL/IELTS/PTE o attestazione docente di lingua). Corso di lingua MCI ~100 EUR. [Fonte: sito ufficiale MCI mci4me.at, sezione exchange incoming]"
   },
   {
     id: "awien01-0311-rosonrob",
@@ -104,7 +106,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254353",
     linkSito: "https://international.univie.ac.at/en/student-mobility/incoming-students/",
-    notePratiche: "Periodo vincolato: SI - Solo 1° semestre/YES - First semester only - Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L; studenti: 3; mesi: 6. || Lingua: la scheda non indica un livello CEFR (corsi prevalentemente in tedesco; corsi intensivi di tedesco disponibili) - da verificare. [Fonte: scheda destinazione]"
+    notePratiche: "Periodo vincolato: SI - Solo 1° semestre/YES - First semester only - Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L; studenti: 3; mesi: 6. || Lingua: il sito Univie dichiara 'you need to be proficient in German' ma non indica un livello CEFR minimo obbligatorio come soglia generale (nessun certificato richiesto; l'unico livello esplicito, C1, riguarda solo i corsi di German Studies). Corsi intensivi di tedesco disponibili. [Fonte: international.univie.ac.at]"
   },
   {
     id: "bantwerp01-0311-marenzia",
@@ -119,7 +121,9 @@ const METE = [
       { numero: 1, mesi: 5, livello: "L", note: "su 1 posti totali condivisi tra i livelli" },
       { numero: 1, mesi: 5, livello: "LM", note: "su 1 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "obbligatorio per tutti gli exchange students; accettati TOEFL iBT 79-80, IELTS 6.5, Cambridge First, certificato OLS Erasmus+, o dichiarazione se madrelingua / se si e studiato in programma interamente in inglese. Il Duolingo Test NON e accettato" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     alloggio: "Supporto del housing team UAntwerp: www.uantwerpen.be/housing",
@@ -127,7 +131,7 @@ const METE = [
     crediti: "Oltre 330 ECTS di corsi per exchange alla FBE; codici 1xxx = bachelor, 2xxx = master.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254355",
     linkSito: "https://www.uantwerpen.be/internationalexchange",
-    notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 1; mesi: 5. || Lingua: i corsi aperti agli exchange sono in inglese, ma la scheda non indica un livello CEFR - vedi uantwerpen.be (application documents) - da verificare. Obbligatorio restare fino a fine sessione d'esame (no esami online); presenza agli Orientation Days obbligatoria. [Fonte: scheda destinazione]"
+    notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 1; mesi: 5. || Obbligatorio restare fino a fine sessione d'esame (no esami online); presenza agli Orientation Days obbligatoria. [Fonte: uantwerpen.be/en/study/erasmus-and-exchange-students]"
   },
   {
     id: "bleuven01-1015-colombin",
@@ -141,7 +145,9 @@ const METE = [
     posti: [
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "fortemente raccomandato per studenti Erasmus UE/SEE (nessun certificato formale richiesto; la home university garantisce la padronanza). Per extra-UE obbligatorio IELTS min. 7.0 o equivalente" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
       { cosa: "Nomination (1 sem./anno intero)", periodo: "entro 15 aprile" },
@@ -154,7 +160,7 @@ const METE = [
     crediti: "30 ECTS/semestre raccomandati (60/anno).",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254365",
     linkSito: "https://www.kuleuven.be/english/life-at-ku-leuven",
-    notePratiche: "Aperta a: Laurea Magistrale in Sviluppo interculturale dei sistemi turistici e Laurea Magistrale in Tourism Management and Sustainability - [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 2; mesi: 6. || Lingua: nessun certificato di inglese richiesto, ma e attesa piena padronanza (garantita dall'universita di provenienza). ATTENZIONE: la scheda collegata da Ca' Foscari e della Faculty of Science - verificare i requisiti della facolta di destinazione. Costo vita stimato 1.000-1.350 EUR/mese. [Fonte: scheda destinazione]"
+    notePratiche: "Aperta a: Laurea Magistrale in Sviluppo interculturale dei sistemi turistici e Laurea Magistrale in Tourism Management and Sustainability - [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 2; mesi: 6. || ATTENZIONE: la scheda collegata da Ca' Foscari e della Faculty of Science - verificare i requisiti della facolta di destinazione effettiva. Costo vita stimato 1.000-1.350 EUR/mese. [Fonte: kuleuven.be/english/apply/language-requirements]"
   },
   {
     id: "blouvain01-0311-micheluc",
@@ -192,7 +198,10 @@ const METE = [
     posti: [
       { numero: 4, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "obbligatorio per seguire corsi in inglese alla Faculty of Economics and Business Administration; certificato ufficiale richiesto (la sola dichiarazione della home university non e sufficiente)" },
+      { lingua: "Olandese", livello: "B2", condizione: "solo se si vogliono frequentare corsi del programma in lingua olandese (opzionale)" }
+    ],
     prerequisiti: "Mobilita solo al 3° anno di triennale, con 120 ECTS registrati nel piano di studi al momento dell'application.",
     scadenzeOspitante: [
       { cosa: "Nomination (1 semestre)", periodo: "entro 15 aprile" },
@@ -205,7 +214,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/19576803",
     linkSito: "",
-    notePratiche: "Mobilities must be carried out during the third year of Bachelor's degree and 120 ECTS must be registered in the study plan at the time of Application - Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L 3° anno (vedi colonna Note); studenti: 4; mesi: 5. || Lingua: la scheda chiede una 'buona conoscenza di olandese e/o inglese' senza livello CEFR - vedi pagina requisiti UGent (ugent.be) - da verificare. [Fonte: scheda destinazione]"
+    notePratiche: "Mobilities must be carried out during the third year of Bachelor's degree and 120 ECTS must be registered in the study plan at the time of Application - Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L 3° anno (vedi colonna Note); studenti: 4; mesi: 5. [Fonte: Fact Sheet UGent - Faculty of Economics and Business Administration 2025-2026]"
   },
   {
     id: "cynicosia01-0311-pappadaf",
@@ -260,7 +269,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/28244638",
     linkSito: "",
-    notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L , LM, PHD; studenti: 4; mesi: 5. || Lingua: la guida per incoming non indica un livello CEFR - da verificare con l'ateneo (corsi in inglese/greco). [Fonte: scheda destinazione]"
+    notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L , LM, PHD; studenti: 4; mesi: 5. || Lingua: corsi in inglese/greco; le pagine Erasmus incoming di NUP (nup.ac.cy/erasmus-program) non indicano un livello CEFR per gli studenti exchange. Da verificare contattando l'IRO. [Fonte: nup.ac.cy]"
   },
   {
     id: "czostrava01-0311-nardonma",
@@ -431,7 +440,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254454",
     linkSito: "https://studies.ku.dk/study-abroad/erasmus/",
-    notePratiche: "Periodo vincolato: SI - Solo 1° semestre/YES - First semester only - Incoming students within the economics-agreement are welcome to register for all Economics-courses and seminars on BSc/MSc-level regardless of which level they are studying. They can also register for courses at other Social Science-departments, if they are admitted to the departments in question. - Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 4; mesi: 5. || Lingua: la scheda rimanda al sito UCPH (studies.ku.dk) senza indicare un livello CEFR - da verificare. [Fonte: scheda destinazione]"
+    notePratiche: "Periodo vincolato: SI - Solo 1° semestre/YES - First semester only - Incoming students within the economics-agreement are welcome to register for all Economics-courses and seminars on BSc/MSc-level regardless of which level they are studying. They can also register for courses at other Social Science-departments, if they are admitted to the departments in question. - Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 4; mesi: 5. || Lingua: UCPH dichiara esplicitamente 'you do not submit proof of English proficiency with your application' per studenti Erasmus/exchange in Economics - nessun requisito CEFR applicabile. [Fonte: ku.dk/studies/exchange]"
   },
   {
     id: "dkodense01-0311-mintoand",
@@ -477,7 +486,10 @@ const METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato per corsi in spagnolo (non obbligatorio per Economics; solo per Infermieristica e requisito minimo)" },
+      { lingua: "Inglese", livello: "B2", condizione: "raccomandato per corsi in inglese" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
@@ -485,7 +497,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254460",
     linkSito: "https://sri.ua.es/en/movilidad/incoming-students/fact-sheet.html",
-    notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 5. || Lingua: la scheda Ca' Foscari e solo un rimando al factsheet UA (sri.ua.es) - livello da verificare. [Fonte: scheda destinazione]"
+    notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 5. || Lingua: B1 spagnolo e B2 inglese indicati come 'recommended' nel factsheet UA (non obbligatori per Economics). [Fonte: sri.ua.es/en/movilidad/incoming-students/fact-sheet.html]"
   },
   {
     id: "ebarcelo02-0311-camattin",
@@ -499,7 +511,9 @@ const METE = [
     posti: [
       { numero: 3, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese / Spagnolo / Catalano", livello: "B2", condizione: "B2 nella lingua di insegnamento dei corsi scelti (Faculty of Economics and Business Studies UAB). Per corsi in catalano e accettato anche un certificato di spagnolo" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
       { cosa: "Nomination (1 sem./anno intero)", periodo: "15 febbraio - 1 maggio" },
@@ -512,7 +526,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254477",
     linkSito: "",
-    notePratiche: "Few courses in Economics available in the first semester - Aperta a: Laurea Triennale in Commercio Estero e Turismo - [Dati ufficiali bando 2026/27] ciclo: L; studenti: 3; mesi: 5. || Lingua: corsi soprattutto in catalano/spagnolo, alcuni in inglese; requisiti specifici per facolta (vedi factsheet UAB) - da verificare. [Fonte: factsheet UAB 2026/27]"
+    notePratiche: "Few courses in Economics available in the first semester - Aperta a: Laurea Triennale in Commercio Estero e Turismo - [Dati ufficiali bando 2026/27] ciclo: L; studenti: 3; mesi: 5. [Fonte: uab.cat/web/international-exchange, Faculty of Economics and Business Studies]"
   },
   {
     id: "ebarcelo02-0311-lugosala",
@@ -526,7 +540,9 @@ const METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese / Spagnolo / Catalano", livello: "B2", condizione: "B2 nella lingua di insegnamento dei corsi scelti (Faculty of Economics and Business Studies UAB). Per corsi in catalano e accettato anche un certificato di spagnolo" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
       { cosa: "Nomination (1 sem./anno intero)", periodo: "15 febbraio - 1 maggio" },
@@ -539,7 +555,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254471",
     linkSito: "",
-    notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 5. || Lingua: corsi soprattutto in catalano/spagnolo, alcuni in inglese; requisiti specifici per facolta (vedi factsheet UAB) - da verificare. [Fonte: factsheet UAB 2026/27]"
+    notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 5. [Fonte: uab.cat/web/international-exchange, Faculty of Economics and Business Studies]"
   },
   {
     id: "ecordoba23-0311-rosonrob",
@@ -700,7 +716,9 @@ const METE = [
       { numero: 2, mesi: 5, livello: "L", note: "su 2 posti totali condivisi tra i livelli" },
       { numero: 2, mesi: 5, livello: "LM", note: "su 2 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Spagnolo e/o Catalano", livello: "A2", condizione: "livello minimo richiesto per studenti visiting Erasmus+ (undergraduate); test online su piattaforma OLS. Offerta corsi di lingua: spagnolo 100 EUR, catalano 25 EUR, 6 ECTS" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
       { cosa: "Nomination (1 sem./anno intero)", periodo: "entro 30 aprile" },
@@ -713,7 +731,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/20173684",
     linkSito: "https://internacional.uib.cat/Mobilitat-i-intercanvi/",
-    notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 5. || Lingua: la scheda non indica un livello CEFR (corsi prevalentemente in spagnolo/catalano; corsi di lingua per exchange: spagnolo 100 EUR, catalano 25 EUR, 6 ECTS) - da verificare. [Fonte: scheda destinazione]"
+    notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 5. [Fonte: internacional.uib.eu, pagina Visiting Students - Undergraduate Degree Studies]"
   },
   {
     id: "epalma01-1015-dottival",
@@ -728,7 +746,9 @@ const METE = [
       { numero: 2, mesi: 5, livello: "L", note: "su 2 posti totali condivisi tra i livelli" },
       { numero: 2, mesi: 5, livello: "LM", note: "su 2 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Spagnolo e/o Catalano", livello: "A2", condizione: "livello minimo richiesto per studenti visiting Erasmus+ (undergraduate); test online su piattaforma OLS. Offerta corsi di lingua: spagnolo 100 EUR, catalano 25 EUR, 6 ECTS" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
       { cosa: "Nomination (1 sem./anno intero)", periodo: "entro 30 aprile" },
@@ -741,7 +761,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/20173684",
     linkSito: "https://internacional.uib.cat/Mobilitat-i-intercanvi/",
-    notePratiche: "Aperta a: CdS del Dipartimento di Economia e Laurea Magistrale in Tourism Management and Sustainability - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 5. || Lingua: la scheda non indica un livello CEFR (corsi prevalentemente in spagnolo/catalano; corsi di lingua per exchange: spagnolo 100 EUR, catalano 25 EUR, 6 ECTS) - da verificare. [Fonte: scheda destinazione]"
+    notePratiche: "Aperta a: CdS del Dipartimento di Economia e Laurea Magistrale in Tourism Management and Sustainability - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 5. [Fonte: internacional.uib.eu, pagina Visiting Students - Undergraduate Degree Studies]"
   },
   {
     id: "epamplon02-0421-devidosa",
@@ -811,7 +831,10 @@ const METE = [
       { numero: 2, mesi: 9, livello: "L", note: "" },
       { numero: 4, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Spagnolo", livello: "B1", condizione: "requisito standard per i corsi di triennale (Bachelor's degrees). Per Medicina, Fisioterapia e Nutrizione richiesto B2" },
+      { lingua: "Spagnolo", livello: "B2", condizione: "per corsi di laurea magistrale (Master's degrees) e per le facolta sanitarie (Medicina, Fisioterapia, Nutrizione Umana)" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
       { cosa: "Nomination (autunno/anno intero)", periodo: "1 aprile - 20 maggio 2026" },
@@ -824,7 +847,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29138130",
     linkSito: "",
-    notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 9. || Aperta a: Laurea Magistrale in Global Development and Entrepreneurship - [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 4; mesi: 9. || Lingua: requisiti specifici per facolta (vedi pagina Academic Plans and Language Requirements URV) - da verificare. [Fonte: factsheet URV]"
+    notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 9. || Aperta a: Laurea Magistrale in Global Development and Entrepreneurship - [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 4; mesi: 9. || Lingua: B1 spagnolo per triennale, B2 per magistrale; variazioni per facolta sanitarie. [Fonte: urv.cat/en/international/welcome/languages-at-the-urv]"
   },
   {
     id: "etenerif28-1015-colombin",
@@ -847,7 +870,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26909297",
     linkSito: "",
-    notePratiche: "Aperta a: CdS del Dipartimento di Economia e Laurea Magistrale in Tourism Management and Sustainability - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 6. || Lingua: insegnamento in inglese E spagnolo (materiali in entrambe le lingue, corsi extra di inglese/spagnolo con certificazione) ma la scheda non indica un livello CEFR - da verificare. Semestri: 9/9-16/1 e 26/1-22/5. Nomination via email (nome, data di nascita, email, corso). [Fonte: scheda destinazione]"
+    notePratiche: "Aperta a: CdS del Dipartimento di Economia e Laurea Magistrale in Tourism Management and Sustainability - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 6. || Lingua: insegnamento in inglese e spagnolo; la pagina Erasmus di Iriarte (iriarteuniversidad.es/en/iriarte/erasmus-students) non indica un livello CEFR minimo - contattare mobility@iriarteuniversidad.es per conferma. Semestri: 9/9-16/1 e 26/1-22/5. Nomination via email (nome, data di nascita, email, corso). [Fonte: iriarteuniversidad.es]"
   },
   {
     id: "fbordeau58-0311-pappadaf",
