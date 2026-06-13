@@ -1,7 +1,7 @@
 # Mappatura notturna delle mete Erasmus.
 # Gira sui server di GitHub (computer spento): due volte a notte Claude Code
-# arricchisce un lotto di ~10-15 destinazioni e apre una pull request da
-# revisionare. Il sito live cambia solo dopo il merge.
+# arricchisce UN batch di mete (determinato da mappatura-stato.json) e apre
+# una pull request da revisionare. Il sito live cambia solo dopo il merge.
 name: Mappatura mete Erasmus
 
 on:
@@ -37,59 +37,139 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           claude_args: "--allowedTools Bash,Read,Edit,Write,Glob,Grep,WebFetch,WebSearch"
           prompt: |
-            Lavori sul repo ErasmusWiz (sito statico HTML/CSS/JS, GitHub Pages:
-            https://nicorotolo.github.io/erasmuswiz/). Esegui UN lotto di
-            mappatura delle mete Erasmus (~10-15 destinazioni) e apri una
-            pull request. NON fare push su main.
+            # MAPPATURA METE ERASMUS — ErasmusWiz
 
-            SCALETTA DI PRIORITA':
-            1. Completare le mete del Dipartimento di Economia di Ca' Foscari
-               in js/dati-mete.js con requisitoLingua vuoto ([]) o
-               scadenzeOspitante/linkPdf mancanti.
-            2. Quando Economia e' completa: mappare un altro dipartimento di
-               Ca' Foscari (Management, poi Lingue, ecc.) creando
-               js/dati-mete-<dipartimento>.js con lo stesso schema dei record
-               di js/dati-mete.js (e SENZA modificarne il caricamento in
-               index.html/app.js: lo integrera' Nicola).
-            3. Quando Ca' Foscari e' completa: scrivere/aggiornare SOLO il
-               piano per la prossima universita' in docs/PIANO_MAPPATURA.md,
-               senza iniziare la mappatura finche' Nicola non approva.
+            Sei un ricercatore che lavora alla mappatura delle mete Erasmus per ErasmusWiz
+            (sito statico di Ca' Foscari Venezia, GitHub Pages: https://nicorotolo.github.io/erasmuswiz/).
+            Il tuo compito e' completare i dati mancanti per UN batch di mete, aggiornare
+            i file JS e il file di stato, poi aprire una PR. NON fare push su main.
 
-            PROCEDURA:
-            1. Leggi STATO_DEL_SITO.md e js/dati-mete.js per capire a che
-               punto e' la mappatura e quale lotto tocca.
-            2. La mappa codice-Erasmus -> scheda PDF di Ca' Foscari e' sulla
-               pagina https://www.unive.it/data/11679 (schede su
-               apps.unive.it/dati/web/attach/destinazioni_erasmus/<id>).
-               Leggi le schede ONLINE: non scaricare PDF nel repo.
-            3. Per ogni destinazione estrai: requisito di lingua (lingua +
-               livello CEFR + condizione), scadenze nomination/application
-               dell'ospitante, link alla scheda (campo linkPdf) e, se
-               disponibili, alloggio e prerequisiti.
-            4. REGOLA DI ONESTA': se la scheda non indica un livello CEFR
-               esplicito NON inventarlo - lascia requisitoLingua vuoto e
-               aggiungi in notePratiche una nota "Lingua: ... da verificare.
-               [Fonte: scheda destinazione]" (vedi il record di Vienna
-               A WIEN01 in js/dati-mete.js come esempio). Cita sempre la
-               fonte. Se una scheda e' illeggibile o irraggiungibile,
-               segnalalo in notePratiche e passa oltre.
-            5. Modifica SOLO i file dati (js/dati-*.js) e STATO_DEL_SITO.md;
-               mai js/app.js, index.html o il CSS. Mantieni esattamente lo
-               schema dei record esistenti (Aix-Marseille e' l'esempio
-               completo).
-            6. Aggiorna STATO_DEL_SITO.md: data in alto, sezione 6 (conteggio
-               mete fatte/restanti) e sezione 8 (cosa ha fatto questo run e
-               prossimo lotto).
-            7. Verifica la sintassi: node --check js/dati-mete.js (e degli
-               altri file dati toccati).
-            8. Crea un branch mappatura/lotto-<YYYYMMDD-HHMM>, committa con
-               messaggio in italiano (es. "A4 lotto N: lingue e scadenze per
-               X mete"), fai push del branch e apri una pull request verso
-               main con 'gh pr create', riassumendo nel corpo: mete
-               arricchite, mete "da verificare" e perche', eventuali schede
-               illeggibili.
+            ## STEP 1 — Leggi il file di stato
 
-            Se non c'e' piu' nulla da mappare in scaletta, termina senza
-            aprire PR spiegando il motivo nel log.
+            Leggi `mappatura-stato.json`. Prendi:
+            - `prossimiBatch[0]` = batch da lavorare ora
+            - Il suo `id`, `tipo`, lista `mete` (codici Erasmus), `dipartimento`
+            - In `statoDipartimenti[dipartimento]`: il `fileJs` da modificare
+
+            Se `prossimiBatch` e' vuoto: termina senza aprire PR e scrivi nel log
+            "Mappatura completata — nessun batch pendente in mappatura-stato.json".
+
+            ## STEP 2 — Leggi i dati correnti
+
+            Leggi il fileJs del dipartimento (es: `js/dati-mete.js`).
+            Per ciascuna meta nel batch (per codiceErasmus), nota esattamente cosa manca:
+            - `requisitoLingua: []` → devi trovare livello CEFR
+            - `scadenzeOspitante: []` → devi trovare nomination e application deadlines
+
+            ## STEP 3 — Ricerca dati mancanti
+
+            Per ogni meta nel batch, cerca le informazioni usando WebFetch e WebSearch.
+
+            Fonti (in ordine di priorita'):
+            1. Scheda Ca' Foscari: URL in `linkPdf` del blocco meta
+               (https://apps.unive.it/dati/web/attach/destinazioni_erasmus/XXXXX)
+            2. Sito incoming ufficiale dell'ateneo: `linkSito` gia' nel blocco
+            3. Cerca: "[nome universita] Erasmus incoming students deadlines 2025 2026"
+            4. Cerca: "[nome universita] exchange students fact sheet 2026"
+
+            ### Regole per requisitoLingua:
+            - Trova livello CEFR (A1-C1) per la lingua di insegnamento
+            - Se offre corsi in piu' lingue (es. inglese + locale), includi entrambi
+            - Se il sito NON specifica livello CEFR: lascia `[]` e aggiungi in
+              notePratiche: "|| Lingua: nessun requisito CEFR formale indicato sul sito ufficiale"
+            - NON inventare livelli — meglio `[]` con nota che un dato sbagliato
+            - Formato: [{ lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }]
+
+            ### Regole per scadenzeOspitante:
+            - Cerca nomination E application deadlines, per sem. autunnale E primaverile
+            - Formato: { cosa: "Nomination (autunno/anno intero)", periodo: "entro 15 aprile" }
+            - Se trovi solo 2024/25 e non ancora 2025/26: usa quelli con nota in notePratiche:
+              "|| Scadenze: basate su 2024/25 — verificare aggiornamento"
+            - Se davvero non trovabile: lascia `[]` con nota in notePratiche
+
+            ### Regole generali:
+            - Aggiorna `linkSito` se vuoto o generico (usa URL diretto alla pagina incoming)
+            - In `notePratiche`: NON toccare la parte "Aperta a: ... [Dati ufficiali...]".
+              Aggiungi nuove info DOPO con " || " come separatore
+            - Se una meta e' irraggiungibile dopo ricerca approfondita: passa oltre,
+              lascia `[]` con nota, NON bloccare il batch
+
+            ### Se tipo == "nuovo_dipartimento":
+            - Vai su https://www.unive.it/data/11679 e filtra per il dipartimento indicato
+            - Crea il fileJs con TUTTE le mete di quel dipartimento (stesso schema di js/dati-mete.js)
+            - Per campi non trovabili ora: usa `[]` o `""`
+            - Aggiungi i batch di quel dipartimento in fondo a `prossimiBatch` in mappatura-stato.json
+
+            ## STEP 4 — Aggiorna il fileJs
+
+            Modifica `js/dati-mete.js` (o il fileJs del dipartimento corrente).
+            Sostituisci l'intero blocco `{...}` di ogni meta lavorata con la versione aggiornata.
+            Il file deve restare JavaScript valido — nessun commento `// FONTE:` nel codice finale.
+            Verifica: `node --check js/dati-mete.js`
+
+            ## STEP 5 — Aggiorna mappatura-stato.json
+
+            Aggiorna il file in modo preciso:
+            1. Rimuovi `prossimiBatch[0]` (batch appena completato)
+            2. In `statoDipartimenti[dipartimento]`:
+               - Rimuovi da `pendingLingua` le mete che ora hanno requisitoLingua != []
+               - Rimuovi da `pendingScadenze` le mete che ora hanno scadenzeOspitante != []
+               - Se pendingScadenze e pendingLingua sono entrambi vuoti: imposta stato = "completo"
+            3. Incrementa `runCompletati` di 1
+            4. Aggiorna `aggiornato` con data odierna (YYYY-MM-DD)
+            5. Aggiungi in `storico`: { "batch": N, "data": "YYYY-MM-DD", "mete": X, "note": "..." }
+            6. Se il dipartimento e' diventato "completo": aggiorna `dipartimentoCorrente` con il prossimo
+
+            ## STEP 6 — Aggiorna STATO_DEL_SITO.md
+
+            Aggiorna solo: data in alto, sezione 6 (conteggio mete), sezione 8 (cosa ha fatto questo run).
+            NON modificare il resto del file.
+
+            ## STEP 7 — Crea branch, commit, apri PR
+
+            ```bash
+            BRANCH="mappatura/lotto-$(date +%Y%m%d-%H%M)"
+            git checkout -b "$BRANCH"
+            git add js/dati-mete.js js/dati-mete-*.js mappatura-stato.json STATO_DEL_SITO.md 2>/dev/null || true
+            git diff --cached --stat
+            BATCH_DESC="[descrizione breve delle mete lavorate]"
+            git commit -m "mete: $BATCH_DESC — $(date +%Y-%m-%d)"
+            git push origin "$BRANCH"
+            gh pr create \
+              --title "Mappatura mete: $BATCH_DESC — $(date +%Y-%m-%d)" \
+              --body "## Batch completato
+
+            **Tipo:** [tipo]
+            **Mete lavorate:** [lista codici Erasmus separati da virgola]
+
+            ### Dati aggiunti
+            - [meta 1]: [requisitoLingua / scadenze aggiunte]
+            - [meta 2]: [requisitoLingua / scadenze aggiunte]
+
+            ### Mete saltate o dati non trovati
+            [se presenti, elenca meta + motivo]
+
+            ### Stato aggiornato
+            - Batch rimanenti in coda: [N]
+            - Prossimo batch: [descrizione prossimiBatch[0]]" \
+              --base main
+            ```
+
+            ## RIFERIMENTO: struttura corretta per requisitoLingua e scadenzeOspitante
+
+            Esempio da Aix-Marseille (la meta di riferimento completa):
+            ```js
+            requisitoLingua: [
+              { lingua: "Francese", livello: "B1", condizione: "per i corsi in francese" },
+              { lingua: "Inglese", livello: "B2", condizione: "per i corsi in inglese" }
+            ],
+            scadenzeOspitante: [
+              { cosa: "Nomination (autunno/anno intero)", periodo: "1 marzo - 1 aprile" },
+              { cosa: "Application (autunno/anno intero)", periodo: "entro 15 aprile" },
+              { cosa: "Nomination (primavera)", periodo: "1 settembre - 1 ottobre" },
+              { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
+            ],
+            ```
+
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
