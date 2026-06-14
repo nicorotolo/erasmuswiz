@@ -1,21 +1,13 @@
 {
   "versione": "2.0",
-  "aggiornato": "2026-06-13",
+  "aggiornato": "2026-06-14",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
 
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Economia",
-  "runCompletati": 8,
+  "runCompletati": 9,
 
   "prossimiBatch": [
-    {
-      "id": "eco-batch-9",
-      "priorita": 2,
-      "dipartimento": "Economia",
-      "descrizione": "Lingua da verificare - batch A",
-      "tipo": "lingua",
-      "mete": ["A INNSBRU08", "A WIEN01", "B GENT01", "DK KOBENHA01", "E BARCELO02"]
-    },
     {
       "id": "eco-batch-10",
       "priorita": 3,
@@ -75,11 +67,10 @@
       "fileJs": "js/dati-mete.js",
       "stato": "in_corso",
       "totale": 58,
-      "completate": 42,
+      "completate": 46,
       "pendingScadenze": [],
       "pendingLingua": [
-        "A INNSBRU08", "A WIEN01", "B GENT01",
-        "CY PAFOS01", "DK KOBENHA01", "E BARCELO02", "E PALMA01", "E TARRAGO01",
+        "CY PAFOS01", "DK KOBENHA01", "E PALMA01", "E TARRAGO01",
         "E TENERIF28", "HR PULA01", "LT KAUNAS01", "NL GRONING01", "SI NOVA-GO07", "TR ANKARA07"
       ]
     },
@@ -104,6 +95,7 @@
     { "batch": 5, "data": "2026-06-12", "mete": 1,  "note": "Alicante UA: nomination+application+lingua" },
     { "batch": 6, "data": "2026-06-12", "mete": 1,  "note": "UC3M Madrid: nomination dates" },
     { "batch": 7, "data": "2026-06-12", "mete": 2,  "note": "Vytautas Magnus + NTNU: nomination+application+lingua" },
-    { "batch": 8, "data": "2026-06-13", "mete": 5,  "note": "Antwerp, Louvain, Neapolis, Sevilla, Iriarte: scadenze; lingue completate dove CEFR ufficiale disponibile" }
+    { "batch": 8, "data": "2026-06-13", "mete": 5,  "note": "Antwerp, Louvain, Neapolis, Sevilla, Iriarte: scadenze; lingue completate dove CEFR ufficiale disponibile" },
+    { "batch": 9, "data": "2026-06-14", "mete": 5,  "note": "Innsbruck, Vienna, Gent, Barcelona: lingua completata; Copenhagen resta senza CEFR generale ufficiale" }
   ]
 }
