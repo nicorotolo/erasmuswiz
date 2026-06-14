@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Management",
-  "runCompletati": 16,
+  "runCompletati": 17,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "management-batch-2",
-      "priorita": 7,
-      "dipartimento": "Management",
-      "descrizione": "Management - scadenze e lingua lotto 1",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "A KLAGENF01",
-        "A WIEN01",
-        "B BRUXEL04",
-        "B LOUVAIN01",
-        "D BAMBERG01"
-      ]
-    },
     {
       "id": "management-batch-3",
       "priorita": 7,
@@ -246,6 +232,17 @@
       "tipo": "nuovo_dipartimento",
       "mete": [],
       "fileJs": "js/dati-mete-filosofia.js"
+    },
+    {
+      "id": "management-batch-17",
+      "priorita": 7,
+      "dipartimento": "Management",
+      "descrizione": "Management - secondo tentativo lingua lotto 1",
+      "tipo": "lingua",
+      "mete": [
+        "A KLAGENF01",
+        "A WIEN01"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -275,13 +272,8 @@
       "fileJs": "js/dati-mete-management.js",
       "stato": "in_corso",
       "totale": 76,
-      "completate": 0,
+      "completate": 3,
       "pendingScadenze": [
-        "A KLAGENF01",
-        "A WIEN01",
-        "B BRUXEL04",
-        "B LOUVAIN01",
-        "D BAMBERG01",
         "D DEGGEND01",
         "D ERLANGE01",
         "D FRANKFU07",
@@ -355,9 +347,6 @@
       "pendingLingua": [
         "A KLAGENF01",
         "A WIEN01",
-        "B BRUXEL04",
-        "B LOUVAIN01",
-        "D BAMBERG01",
         "D DEGGEND01",
         "D ERLANGE01",
         "D FRANKFU07",
@@ -428,7 +417,10 @@
         "SF HELSINK39",
         "TR ISTANBU01"
       ],
-      "tentativiLingua": {},
+      "tentativiLingua": {
+        "A KLAGENF01": 1,
+        "A WIEN01": 1
+      },
       "linguaNonTrovabile": []
     },
     "Lingue e culture orientali": {
@@ -554,6 +546,12 @@
       "data": "2026-06-14",
       "mete": 76,
       "note": "Avvio Venice School of Management: creato file dati con tutte le mete ufficiali 2026/27 e pianificati i batch scadenze+lingua."
+    },
+    {
+      "batch": 17,
+      "data": "2026-06-14",
+      "mete": 5,
+      "note": "Management lotto 1: scadenze completate per Klagenfurt, Vienna, ULB Phisoc, UCLouvain LSM e Bamberg; lingue completate per ULB, UCLouvain e Bamberg; Klagenfurt e Vienna restano senza CEFR generale ufficiale."
     }
   ]
 }
