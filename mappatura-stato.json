@@ -4,23 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Economia",
-  "runCompletati": 12,
+  "runCompletati": 13,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "eco-batch-13",
-      "priorita": 6,
-      "dipartimento": "Economia",
-      "descrizione": "Lingua - ultimo tentativo per Palma (gia' 1 ricerca infruttuosa: nessun CEFR ufficiale)",
-      "tipo": "lingua_ultimo_tentativo",
-      "mete": [
-        "E PALMA01"
-      ]
-    },
     {
       "id": "eco-batch-14",
       "priorita": 7,
@@ -90,7 +80,6 @@
       "pendingLingua": [
         "CY PAFOS01",
         "DK KOBENHA01",
-        "E PALMA01",
         "E TENERIF28",
         "TR ANKARA07"
       ],
@@ -98,10 +87,12 @@
         "CY PAFOS01": 1,
         "DK KOBENHA01": 1,
         "E TENERIF28": 1,
-        "E PALMA01": 1,
+        "E PALMA01": 2,
         "TR ANKARA07": 1
       },
-      "linguaNonTrovabile": []
+      "linguaNonTrovabile": [
+        "E PALMA01"
+      ]
     },
     "Management": {
       "fileJs": "js/dati-mete-management.js",
@@ -206,6 +197,12 @@
       "data": "2026-06-14",
       "mete": 4,
       "note": "KU Leuven completata con inglese C1 per corsi master FEB; Pafos, Copenhagen e Iriarte restano senza CEFR ufficiale e vanno a ultimo tentativo"
+    },
+    {
+      "batch": 13,
+      "data": "2026-06-14",
+      "mete": 1,
+      "note": "UIB Palma: ultimo tentativo lingua, nessun CEFR ufficiale pubblicato; spostata in linguaNonTrovabile"
     }
   ]
 }
