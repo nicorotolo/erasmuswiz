@@ -166,15 +166,23 @@ const METE = [
       { numero: 2, mesi: 5, livello: "L", note: "su 2 posti totali condivisi tra i livelli" },
       { numero: 2, mesi: 5, livello: "LM", note: "su 2 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B1", condizione: "per corsi in inglese" },
+      { lingua: "Tedesco", livello: "B1", condizione: "per corsi in tedesco" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 1 maggio" },
+      { cosa: "Application (autunno)", periodo: "1 aprile - 1 giugno" },
+      { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
+      { cosa: "Application (primavera)", periodo: "1 ottobre - 1 dicembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254406",
     linkSito: "",
-    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 5. Periodo vincolato: SI - Solo 1° semestre/YES - First semester only"
+    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 5. Periodo vincolato: SI - Solo 1° semestre/YES - First semester only || Scadenze e lingua: fact sheet DIT; B1 nella lingua di insegnamento, senza test obbligatorio prima dell'arrivo"
   },
   {
     id: "06-d-erlange01-0410-business-and-administr",
@@ -189,15 +197,23 @@ const METE = [
       { numero: 4, mesi: 5, livello: "L", note: "su 4 posti totali condivisi tra i livelli" },
       { numero: 4, mesi: 5, livello: "LM", note: "su 4 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Tedesco", livello: "B1", condizione: "per School of Business, Economics and Society" },
+      { lingua: "Inglese", livello: "B1", condizione: "per School of Business, Economics and Society" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 30 aprile" },
+      { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" },
+      { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254409",
     linkSito: "",
-    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 4; mesi: 5. Periodo vincolato: SI - Solo 1° semestre/YES - First semester only"
+    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 4; mesi: 5. Periodo vincolato: SI - Solo 1° semestre/YES - First semester only || Scadenze: fact sheet FAU per studenti UE/SEE/Svizzera || Lingua: WiSo richiede/recomanda B1 in tedesco o inglese"
   },
   {
     id: "07-d-frankfu07-0410-business-and-administr",
@@ -212,15 +228,23 @@ const METE = [
       { numero: 6, mesi: 5, livello: "L", note: "su 6 posti totali condivisi tra i livelli" },
       { numero: 6, mesi: 5, livello: "LM", note: "su 6 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "C1", condizione: "per moduli in inglese" },
+      { lingua: "Tedesco", livello: "C1", condizione: "per moduli in tedesco" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
+      { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre" },
+      { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29532998",
     linkSito: "",
-    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM; studenti: 6; mesi: 5. Specifiche: Courses are entirely taught in English. Host university offers 3 Master’s programs: Master’s students (LM) must choose a specific program, while Bachelor’s students (L) can mix courses from different programs. Accommodation support is provided."
+    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM; studenti: 6; mesi: 5. Specifiche: Courses are entirely taught in English. Host university offers 3 Master’s programs: Master’s students (LM) must choose a specific program, while Bachelor’s students (L) can mix courses from different programs. Accommodation support is provided. || Scadenze e lingua: fact sheet Frankfurt School 2026/27; inglese TOEFL iBT 90/IELTS 7.0/Cambridge C1, tedesco C1 per moduli in tedesco"
   },
   {
     id: "08-d-hamburg01-0410-business-and-administr",
@@ -235,15 +259,23 @@ const METE = [
       { numero: 3, mesi: 5, livello: "L", note: "su 3 posti totali condivisi tra i livelli" },
       { numero: 3, mesi: 5, livello: "LM", note: "su 3 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Tedesco", livello: "B2", condizione: "per corsi in tedesco" },
+      { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
+      { cosa: "Application (autunno)", periodo: "circa 1 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
+      { cosa: "Application (primavera)", periodo: "circa 15 novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29533799",
     linkSito: "",
-    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM; studenti: 3; mesi: 5. Periodo vincolato: SI - Solo 1° semestre/YES - First semester only Specifiche: The cross-over course choice is possible for Bachelor students, so they have a wider offer of English taught courses. In this case they should choose at least 50% (usually 3 courses) from their Faculty of enrollment and 2 from the other Faculty. On the Master level at the moment it is not possible. For modules where the language of instruction is “German/English.” , it means that professors ask during the first week of semester if there are any participants who are not fluent in German and in case students prefer the course in English – they talk in English. The literature is also in English. Following the link you will find the list of courses for both faculties, available in both English and German: https://www.wiso.uni-hamburg.de/internationales/international-office/study-with-us/studying-at-uhh/course-choice.html"
+    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM; studenti: 3; mesi: 5. Periodo vincolato: SI - Solo 1° semestre/YES - First semester only Specifiche: The cross-over course choice is possible for Bachelor students, so they have a wider offer of English taught courses. In this case they should choose at least 50% (usually 3 courses) from their Faculty of enrollment and 2 from the other Faculty. On the Master level at the moment it is not possible. For modules where the language of instruction is “German/English.” , it means that professors ask during the first week of semester if there are any participants who are not fluent in German and in case students prefer the course in English – they talk in English. The literature is also in English. Following the link you will find the list of courses for both faculties, available in both English and German: https://www.wiso.uni-hamburg.de/internationales/international-office/study-with-us/studying-at-uhh/course-choice.html || Scadenze e lingua: fact sheet WiSo/UHH; certificato B2 in tedesco e/o inglese"
   },
   {
     id: "09-d-hamburg13-0410-business-and-administr",
@@ -257,15 +289,23 @@ const METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" },
+      { lingua: "Tedesco", livello: "B2", condizione: "per corsi in tedesco" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "4 mesi prima dell'inizio del term" },
+      { cosa: "Application (autunno)", periodo: "3 mesi prima dell'inizio del term" },
+      { cosa: "Nomination (primavera)", periodo: "4 mesi prima dell'inizio del term" },
+      { cosa: "Application (primavera)", periodo: "3 mesi prima dell'inizio del term" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/28286275",
     linkSito: "",
-    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 5. Periodo vincolato: SI - 1 studente nel 1° semestre e 1 studente nel 2° semestre; No term 4 (luglio-settembre)/YES - 1 student in the Fall semester and 1 student in the Spring semester; No term 4 (july-september)"
+    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 5. Periodo vincolato: SI - 1 studente nel 1° semestre e 1 studente nel 2° semestre; No term 4 (luglio-settembre)/YES - 1 student in the Fall semester and 1 student in the Spring semester; No term 4 (july-september) || Scadenze: sito/fact sheet HSBA, nomination 4 mesi e application 3 mesi prima del term || Lingua: B2 inglese e/o tedesco richiesto a tutti tranne madrelingua"
   },
   {
     id: "10-d-heilbro01-0410-business-and-administr",

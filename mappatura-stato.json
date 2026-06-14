@@ -1,30 +1,16 @@
 {
   "versione": "2.0",
-  "aggiornato": "2026-06-14",
+  "aggiornato": "2026-06-15",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Management",
-  "runCompletati": 17,
+  "runCompletati": 18,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "management-batch-3",
-      "priorita": 7,
-      "dipartimento": "Management",
-      "descrizione": "Management - scadenze e lingua lotto 2",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "D DEGGEND01",
-        "D ERLANGE01",
-        "D FRANKFU07",
-        "D HAMBURG01",
-        "D HAMBURG13"
-      ]
-    },
     {
       "id": "management-batch-4",
       "priorita": 7,
@@ -272,13 +258,8 @@
       "fileJs": "js/dati-mete-management.js",
       "stato": "in_corso",
       "totale": 76,
-      "completate": 3,
+      "completate": 8,
       "pendingScadenze": [
-        "D DEGGEND01",
-        "D ERLANGE01",
-        "D FRANKFU07",
-        "D HAMBURG01",
-        "D HAMBURG13",
         "D HEILBRO01",
         "D KOBLENZ03",
         "D KOLN01",
@@ -347,11 +328,6 @@
       "pendingLingua": [
         "A KLAGENF01",
         "A WIEN01",
-        "D DEGGEND01",
-        "D ERLANGE01",
-        "D FRANKFU07",
-        "D HAMBURG01",
-        "D HAMBURG13",
         "D HEILBRO01",
         "D KOBLENZ03",
         "D KOLN01",
@@ -552,6 +528,12 @@
       "data": "2026-06-14",
       "mete": 5,
       "note": "Management lotto 1: scadenze completate per Klagenfurt, Vienna, ULB Phisoc, UCLouvain LSM e Bamberg; lingue completate per ULB, UCLouvain e Bamberg; Klagenfurt e Vienna restano senza CEFR generale ufficiale."
+    },
+    {
+      "batch": 18,
+      "data": "2026-06-15",
+      "mete": 5,
+      "note": "Management lotto 2: Deggendorf, FAU Erlangen-Nuernberg, Frankfurt School, University of Hamburg e HSBA completate con scadenze e requisiti lingua CEFR ufficiali."
     }
   ]
 }
