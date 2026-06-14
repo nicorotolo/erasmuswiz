@@ -1708,7 +1708,10 @@ const METE = [
       { numero: 2, mesi: 5, livello: "LM", note: "su 2 posti totali condivisi tra i livelli" },
       { numero: 2, mesi: 5, livello: "PhD", note: "su 2 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "oppure Sloveno B2; richiesta competenza in almeno una delle due lingue" },
+      { lingua: "Sloveno", livello: "B2", condizione: "oppure Inglese B2; richiesta competenza in almeno una delle due lingue" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
       { cosa: "Nomination (sem. autunnale)", periodo: "entro 15 maggio" },
@@ -1721,7 +1724,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/28244595",
     linkSito: "https://www.nova-uni.si",
-    notePratiche: "Lingua: la scheda non indica un livello CEFR - da verificare con international@nova-uni.si. Tutti gli incoming Erasmus studiano a Lubiana (non a Nova Gorica). [Fonte: scheda destinazione] || Students are assigned to the Ljubljana Campus. Guide: https://epf.nova-uni.si/wp-content/uploads/2020/05/Study-info-Course-catalogue-with-eUniversity-2020.pdf - Aperta a: CdS del Dipartimento di Economia e Laurea Magistrale in Relazioni internazionali comparate - [Dati ufficiali bando 2026/27] ciclo: L , LM, PHD; studenti: 2; mesi: 5."
+    notePratiche: "Lingua: la scheda non indica un livello CEFR - da verificare con international@nova-uni.si. Tutti gli incoming Erasmus studiano a Lubiana (non a Nova Gorica). [Fonte: scheda destinazione] || Students are assigned to the Ljubljana Campus. Guide: https://epf.nova-uni.si/wp-content/uploads/2020/05/Study-info-Course-catalogue-with-eUniversity-2020.pdf - Aperta a: CdS del Dipartimento di Economia e Laurea Magistrale in Relazioni internazionali comparate - [Dati ufficiali bando 2026/27] ciclo: L , LM, PHD; studenti: 2; mesi: 5. || Lingua: New University richiede competenza B2 CEFR in inglese o sloveno per incoming Erasmus (Info Package 2024/25)."
   },
   {
     id: "trankara07-0311-nardonma",
@@ -1750,6 +1753,6 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/28265358",
     linkSito: "https://exchange.bilkent.edu.tr/",
-    notePratiche: "Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L , LM, PHD; studenti: 2; mesi: 6. || Lingua: serve una lettera di competenza in inglese dell'universita di provenienza, senza livello CEFR esplicito - da verificare. Navette gratuite campus-centro; corsi di turco base (5 ECTS). [Fonte: scheda destinazione]"
+    notePratiche: "Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L , LM, PHD; studenti: 2; mesi: 6. || Lingua: serve una lettera di competenza in inglese dell'universita di provenienza, senza livello CEFR esplicito - da verificare. Navette gratuite campus-centro; corsi di turco base (5 ECTS). [Fonte: scheda destinazione] || Lingua: CEFR non pubblicato ufficialmente"
   }
 ];

@@ -4,24 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Economia",
-  "runCompletati": 10,
+  "runCompletati": 11,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "eco-batch-11",
-      "priorita": 4,
-      "dipartimento": "Economia",
-      "descrizione": "Lingua da verificare - batch C",
-      "tipo": "lingua",
-      "mete": [
-        "SI NOVA-GO07",
-        "TR ANKARA07"
-      ]
-    },
     {
       "id": "eco-batch-12",
       "priorita": 5,
@@ -43,6 +32,16 @@
       "tipo": "lingua_ultimo_tentativo",
       "mete": [
         "E PALMA01"
+      ]
+    },
+    {
+      "id": "eco-batch-14",
+      "priorita": 7,
+      "dipartimento": "Economia",
+      "descrizione": "Lingua - ultimo tentativo per Bilkent (nessun CEFR ufficiale trovato nella prima ricerca)",
+      "tipo": "lingua_ultimo_tentativo",
+      "mete": [
+        "TR ANKARA07"
       ]
     },
     {
@@ -87,7 +86,7 @@
       "fileJs": "js/dati-mete.js",
       "stato": "in_corso",
       "totale": 58,
-      "completate": 50,
+      "completate": 51,
       "pendingScadenze": [],
       "pendingLingua": [
         "B LEUVEN01",
@@ -95,11 +94,11 @@
         "DK KOBENHA01",
         "E PALMA01",
         "E TENERIF28",
-        "SI NOVA-GO07",
         "TR ANKARA07"
       ],
       "tentativiLingua": {
-        "E PALMA01": 1
+        "E PALMA01": 1,
+        "TR ANKARA07": 1
       },
       "linguaNonTrovabile": []
     },
@@ -194,6 +193,12 @@
       "data": "2026-06-14",
       "mete": 0,
       "note": "Correzione manuale post-batch-10: aggiunto blocco config (maxTentativiLingua, sogliaAvanzamentoDipartimento); reinserito B LEUVEN01 in pendingLingua (era sparito dal tracking); creati eco-batch-12 e eco-batch-13 per le 5 mete lingua che non erano in nessun batch; aggiunto validatore scripts/valida-stato.mjs."
+    },
+    {
+      "batch": 11,
+      "data": "2026-06-14",
+      "mete": 2,
+      "note": "New University: lingua B2 CEFR inglese/sloveno; Bilkent: nessun CEFR ufficiale pubblicato, pianificato ultimo tentativo"
     }
   ]
 }
