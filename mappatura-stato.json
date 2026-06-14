@@ -3,26 +3,14 @@
   "aggiornato": "2026-06-14",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
-  "dipartimentoCorrente": "Economia",
-  "runCompletati": 14,
+  "dipartimentoCorrente": "Management",
+  "runCompletati": 15,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "eco-batch-15",
-      "priorita": 7,
-      "dipartimento": "Economia",
-      "descrizione": "Lingua - ultimo tentativo per mete senza CEFR ufficiale dopo prima ricerca",
-      "tipo": "lingua_ultimo_tentativo",
-      "mete": [
-        "CY PAFOS01",
-        "DK KOBENHA01",
-        "E TENERIF28"
-      ]
-    },
     {
       "id": "management-batch-1",
       "priorita": 7,
@@ -63,25 +51,24 @@
   "statoDipartimenti": {
     "Economia": {
       "fileJs": "js/dati-mete.js",
-      "stato": "in_corso",
+      "stato": "completo",
       "totale": 58,
       "completate": 52,
       "pendingScadenze": [],
-      "pendingLingua": [
-        "CY PAFOS01",
-        "DK KOBENHA01",
-        "E TENERIF28"
-      ],
+      "pendingLingua": [],
       "tentativiLingua": {
-        "CY PAFOS01": 1,
-        "DK KOBENHA01": 1,
-        "E TENERIF28": 1,
+        "CY PAFOS01": 2,
+        "DK KOBENHA01": 2,
+        "E TENERIF28": 2,
         "E PALMA01": 2,
         "TR ANKARA07": 2
       },
       "linguaNonTrovabile": [
         "E PALMA01",
-        "TR ANKARA07"
+        "TR ANKARA07",
+        "CY PAFOS01",
+        "DK KOBENHA01",
+        "E TENERIF28"
       ]
     },
     "Management": {
@@ -199,6 +186,12 @@
       "data": "2026-06-14",
       "mete": 1,
       "note": "Bilkent University: ultimo tentativo lingua, nessun CEFR ufficiale pubblicato; spostata in linguaNonTrovabile"
+    },
+    {
+      "batch": 15,
+      "data": "2026-06-14",
+      "mete": 3,
+      "note": "Neapolis Pafos, Copenhagen e Iriarte Tenerife: ultimo tentativo lingua, nessun CEFR ufficiale pubblicato; spostate in linguaNonTrovabile. Economia chiusa e passaggio a Management."
     }
   ]
 }
