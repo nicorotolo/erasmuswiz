@@ -12,19 +12,6 @@
   },
   "prossimiBatch": [
     {
-      "id": "eco-batch-12",
-      "priorita": 5,
-      "dipartimento": "Economia",
-      "descrizione": "Lingua da verificare - mete recuperate (mai cercate prima)",
-      "tipo": "lingua",
-      "mete": [
-        "B LEUVEN01",
-        "CY PAFOS01",
-        "DK KOBENHA01",
-        "E TENERIF28"
-      ]
-    },
-    {
       "id": "eco-batch-13",
       "priorita": 6,
       "dipartimento": "Economia",
@@ -42,6 +29,18 @@
       "tipo": "lingua_ultimo_tentativo",
       "mete": [
         "TR ANKARA07"
+      ]
+    },
+    {
+      "id": "eco-batch-15",
+      "priorita": 7,
+      "dipartimento": "Economia",
+      "descrizione": "Lingua - ultimo tentativo per mete senza CEFR ufficiale dopo prima ricerca",
+      "tipo": "lingua_ultimo_tentativo",
+      "mete": [
+        "CY PAFOS01",
+        "DK KOBENHA01",
+        "E TENERIF28"
       ]
     },
     {
@@ -86,10 +85,9 @@
       "fileJs": "js/dati-mete.js",
       "stato": "in_corso",
       "totale": 58,
-      "completate": 51,
+      "completate": 52,
       "pendingScadenze": [],
       "pendingLingua": [
-        "B LEUVEN01",
         "CY PAFOS01",
         "DK KOBENHA01",
         "E PALMA01",
@@ -97,6 +95,9 @@
         "TR ANKARA07"
       ],
       "tentativiLingua": {
+        "CY PAFOS01": 1,
+        "DK KOBENHA01": 1,
+        "E TENERIF28": 1,
         "E PALMA01": 1,
         "TR ANKARA07": 1
       },
@@ -199,6 +200,12 @@
       "data": "2026-06-14",
       "mete": 2,
       "note": "New University: lingua B2 CEFR inglese/sloveno; Bilkent: nessun CEFR ufficiale pubblicato, pianificato ultimo tentativo"
+    },
+    {
+      "batch": 12,
+      "data": "2026-06-14",
+      "mete": 4,
+      "note": "KU Leuven completata con inglese C1 per corsi master FEB; Pafos, Copenhagen e Iriarte restano senza CEFR ufficiale e vanno a ultimo tentativo"
     }
   ]
 }

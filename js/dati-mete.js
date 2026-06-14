@@ -152,7 +152,9 @@ const METE = [
     posti: [
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "C1", condizione: "per corsi master/graduate della Faculty of Economics and Business" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
       { cosa: "Nomination (1 sem./anno intero)", periodo: "entro 15 aprile" },
@@ -165,7 +167,7 @@ const METE = [
     crediti: "30 ECTS/semestre raccomandati (60/anno).",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254365",
     linkSito: "https://www.kuleuven.be/english/life-at-ku-leuven",
-    notePratiche: "Aperta a: Laurea Magistrale in Sviluppo interculturale dei sistemi turistici e Laurea Magistrale in Tourism Management and Sustainability - [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 2; mesi: 6. || Lingua: nessun certificato di inglese richiesto, ma e attesa piena padronanza (garantita dall'universita di provenienza). ATTENZIONE: la scheda collegata da Ca' Foscari e della Faculty of Science - verificare i requisiti della facolta di destinazione. Costo vita stimato 1.000-1.350 EUR/mese. [Fonte: scheda destinazione]"
+    notePratiche: "Aperta a: Laurea Magistrale in Sviluppo interculturale dei sistemi turistici e Laurea Magistrale in Tourism Management and Sustainability - [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 2; mesi: 6. || Lingua: nessun certificato di inglese richiesto, ma e attesa piena padronanza (garantita dall'universita di provenienza). ATTENZIONE: la scheda collegata da Ca' Foscari e della Faculty of Science - verificare i requisiti della facolta di destinazione. Costo vita stimato 1.000-1.350 EUR/mese. [Fonte: scheda destinazione] || Lingua: KU Leuven FEB richiede inglese B2 per corsi bachelor e C1 per corsi master; per questa meta Ca' Foscari il livello indicato e LM. [Fonti: KU Leuven FEB nomination/application; KU Leuven FEB courses]"
   },
   {
     id: "blouvain01-0311-micheluc",
@@ -285,7 +287,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/28244638",
     linkSito: "https://www.nup.ac.cy/study-in-cyprus/erasmus-program/",
-    notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L , LM, PHD; studenti: 4; mesi: 5. || Lingua: nessun requisito CEFR specifico per incoming Erasmus indicato nelle pagine ufficiali; corsi in inglese/greco e requisiti di inglese pubblicati solo come informazione generale di ammissione. [Fonti: scheda destinazione; NUP Erasmus deadlines]"
+    notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L , LM, PHD; studenti: 4; mesi: 5. || Lingua: nessun requisito CEFR specifico per incoming Erasmus indicato nelle pagine ufficiali; corsi in inglese/greco e requisiti di inglese pubblicati solo come informazione generale di ammissione. [Fonti: scheda destinazione; NUP Erasmus deadlines] || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "czostrava01-0311-nardonma",
@@ -459,7 +461,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254454",
     linkSito: "https://studies.ku.dk/study-abroad/erasmus/",
-    notePratiche: "Periodo vincolato: SI - Solo 1° semestre/YES - First semester only - Incoming students within the economics-agreement are welcome to register for all Economics-courses and seminars on BSc/MSc-level regardless of which level they are studying. They can also register for courses at other Social Science-departments, if they are admitted to the departments in question. - Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 4; mesi: 5. || Lingua: nessun requisito CEFR generale indicato per Economics; UCPH dice che per la maggior parte delle materie non serve caricare prova di inglese, mentre la prova e richiesta solo per alcune materie specifiche quando si scelgono i corsi. [Fonti: ku.dk/studies/exchange; UCPH Course information]"
+    notePratiche: "Periodo vincolato: SI - Solo 1° semestre/YES - First semester only - Incoming students within the economics-agreement are welcome to register for all Economics-courses and seminars on BSc/MSc-level regardless of which level they are studying. They can also register for courses at other Social Science-departments, if they are admitted to the departments in question. - Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 4; mesi: 5. || Lingua: nessun requisito CEFR generale indicato per Economics; UCPH dice che per la maggior parte delle materie non serve caricare prova di inglese, mentre la prova e richiesta solo per alcune materie specifiche quando si scelgono i corsi. [Fonti: ku.dk/studies/exchange; UCPH Course information] || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "dkodense01-0311-mintoand",
@@ -900,7 +902,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26909297",
     linkSito: "https://www.iriarteuniversidad.es/inicio/erasmus-students/",
-    notePratiche: "Aperta a: CdS del Dipartimento di Economia e Laurea Magistrale in Tourism Management and Sustainability - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 6. || Lingua: nessun requisito CEFR indicato; Iriarte dichiara inglese e spagnolo come lingue ufficiali e corsi/esami preparabili in entrambe. Semestri 2026/27: welcome 4 e 7 settembre, fine 18 dicembre, esami 11-15 gennaio; primavera welcome 21-22 gennaio, fine 13 maggio, esami 17-28 maggio. Nomination tutto l'anno; enrollment all'arrivo. [Fonti: scheda destinazione; Iriarte Erasmus; Iriarte accommodation key dates 26/27]"
+    notePratiche: "Aperta a: CdS del Dipartimento di Economia e Laurea Magistrale in Tourism Management and Sustainability - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 6. || Lingua: nessun requisito CEFR indicato; Iriarte dichiara inglese e spagnolo come lingue ufficiali e corsi/esami preparabili in entrambe. Semestri 2026/27: welcome 4 e 7 settembre, fine 18 dicembre, esami 11-15 gennaio; primavera welcome 21-22 gennaio, fine 13 maggio, esami 17-28 maggio. Nomination tutto l'anno; enrollment all'arrivo. [Fonti: scheda destinazione; Iriarte Erasmus; Iriarte accommodation key dates 26/27] || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "fbordeau58-0311-pappadaf",
