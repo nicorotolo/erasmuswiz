@@ -1,0 +1,42 @@
+# Auto-merge delle PR aperte da Codex (label "codex-automation").
+# IMPORTANTE: questa Action NON usa Claude né alcun token a pagamento.
+# Gira sui runner gratuiti di GitHub e usa solo il GITHUB_TOKEN integrato.
+# Cosa fa: quando il connettore apre/aggiorna una PR di mappatura, ri-esegue
+# `node --check` + il validatore e, se è tutto coerente, fonde la PR su main.
+name: Auto-merge mappatura
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: auto-merge-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    # Solo PR etichettate dal connettore Codex e dirette a main
+    if: >
+      github.event.pull_request.base.ref == 'main' &&
+      contains(join(github.event.pull_request.labels.*.name, ','), 'codex')
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: node --check sui file dati
+        run: for f in js/dati-mete*.js; do [ -e "$f" ] || continue; node --check "$f"; done
+      - name: Validatore di coerenza
+        run: node scripts/valida-stato.mjs
+      - name: Merge squash su main
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh pr merge "${{ github.event.pull_request.number }}" --squash --delete-branch
