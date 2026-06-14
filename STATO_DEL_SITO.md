@@ -4,7 +4,7 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-06-14 (run mappatura: Palma ultimo tentativo; CEFR non pubblicato ufficialmente)
+**Ultimo aggiornamento:** 2026-06-14 (run mappatura: Bilkent ultimo tentativo; CEFR non pubblicato ufficialmente)
 **Fase v1 raggiunta:** Fase 5 / 5 + Ondata A (A1, A2, A4, A5) — SITO PUBBLICATO
 **Cosa funziona:** tutto, testato; mete REALI (58 Economia); bando, scadenze e
 checklist VALIDATI sul PDF ufficiale; **52/58 righe Economia** sono complete con
@@ -83,7 +83,7 @@ Il CODICE è pronto. Le mete ora sono **REALI** (dalla lista ufficiale del bando
 |------|---------------|---------|
 | **58 mete Economia** (`dati-mete.js`) | **REALI** dalla lista ufficiale 2026/27 | completare gli ultimi requisiti lingua |
 | → posti/livello/area/coordinatore/codice Erasmus | reali, dalla lista | ok |
-| → requisito di **lingua** | **52/58 righe complete** con CEFR e scadenze; restano 6 righe senza CEFR ufficiale, di cui 2 righe Palma gia' classificate non trovabili | Prossimi batch: Pafos, Copenhagen, Tenerife, Bilkent |
+| → requisito di **lingua** | **52/58 righe complete** con CEFR e scadenze; restano 6 righe senza CEFR ufficiale, di cui 3 righe gia' classificate non trovabili | Prossimi batch: Pafos, Copenhagen, Tenerife |
 | → scadenze ospitante / linkPdf | **58/58 con link scheda PDF** ✅; **58/58 con scadenze** nomination/application | ok |
 | → schede PDF scaricate | 53 PDF in `fonti/schede/` (solo locale, gitignore) | — |
 | Meta Aix-Marseille | **completa e reale** (da scheda PDF) | Esempio di riferimento |
@@ -119,6 +119,7 @@ Fatto in run notturno (2026-06-12): **scadenze arricchite per 5 mete** —
 Fatto in run mappatura (2026-06-14): **New University completata** — lingua B2 CEFR in inglese o sloveno da Info Package ufficiale. **Bilkent resta senza CEFR ufficiale**: richiesta lettera di competenza in inglese, pianificato ultimo tentativo.
 Fatto in run mappatura (2026-06-14): **KU Leuven completata** — inglese C1 per corsi master della Faculty of Economics and Business. **Pafos, Copenhagen e Iriarte restano senza CEFR ufficiale**: pianificato ultimo tentativo.
 Fatto in run mappatura (2026-06-14): **Palma ultimo tentativo completato** — la scheda UIB 2026/27 e le pagine incoming non pubblicano un requisito CEFR; E PALMA01 spostata in linguaNonTrovabile.
+Fatto in run mappatura (2026-06-14): **Bilkent ultimo tentativo completato** - le pagine exchange ufficiali richiedono una lettera di competenza in inglese, ma non pubblicano un livello CEFR; TR ANKARA07 spostata in linguaNonTrovabile.
 Totale Economia: 52/58 righe complete con lingua CEFR e scadenze; 58/58 con scadenze ospitante.
 
 0. **Attivare la mappatura notturna in cloud:** Nicola genera il token con

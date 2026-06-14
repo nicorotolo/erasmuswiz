@@ -1755,6 +1755,6 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/28265358",
     linkSito: "https://exchange.bilkent.edu.tr/",
-    notePratiche: "Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L , LM, PHD; studenti: 2; mesi: 6. || Lingua: serve una lettera di competenza in inglese dell'universita di provenienza, senza livello CEFR esplicito - da verificare. Navette gratuite campus-centro; corsi di turco base (5 ECTS). [Fonte: scheda destinazione] || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L , LM, PHD; studenti: 2; mesi: 6. || Lingua: serve una lettera di competenza in inglese dell'universita di provenienza, senza livello CEFR esplicito - da verificare. Navette gratuite campus-centro; corsi di turco base (5 ECTS). [Fonte: scheda destinazione] || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   }
 ];
