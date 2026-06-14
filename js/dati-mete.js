@@ -119,15 +119,22 @@ const METE = [
       { numero: 1, mesi: 5, livello: "L", note: "su 1 posti totali condivisi tra i livelli" },
       { numero: 1, mesi: 5, livello: "LM", note: "su 1 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "obbligatorio per tutti i corsi FBE (certificato TOEFL iBT min. 79, IELTS, Cambridge First o equiv.)" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno/anno intero)", periodo: "entro 15 aprile" },
+      { cosa: "Application (autunno/anno intero)", periodo: "entro 15 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+      { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
+    ],
     alloggio: "Supporto del housing team UAntwerp: www.uantwerpen.be/housing",
     visto: "Cittadini UE: nessun visto. Permesso di soggiorno se >3 mesi. Extra-UE: visto obbligatorio (verificare).",
     crediti: "Oltre 330 ECTS di corsi per exchange alla FBE; codici 1xxx = bachelor, 2xxx = master.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254355",
-    linkSito: "https://www.uantwerpen.be/internationalexchange",
-    notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 1; mesi: 5. || Lingua: i corsi aperti agli exchange sono in inglese, ma la scheda non indica un livello CEFR - vedi uantwerpen.be (application documents) - da verificare. Obbligatorio restare fino a fine sessione d'esame (no esami online); presenza agli Orientation Days obbligatoria. [Fonte: scheda destinazione]"
+    linkSito: "https://www.uantwerpen.be/en/study/erasmus-and-exchange-students/how-to-apply/study-exchange/",
+    notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 1; mesi: 5. || Obbligatorio restare fino a fine sessione d'esame (no esami online); presenza agli Orientation Days obbligatoria. [Fonte: scheda destinazione + sito ufficiale UAntwerp]"
   },
   {
     id: "bleuven01-1015-colombin",
@@ -170,15 +177,23 @@ const METE = [
       { numero: 3, mesi: 5, livello: "LM", note: "su 3 posti totali condivisi tra i livelli" },
       { numero: 3, mesi: 5, livello: "PhD", note: "su 3 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Francese", livello: "B2", condizione: "per corsi in francese (triennale: maggior parte dei corsi)" },
+      { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese (magistrale: programmi Economics in inglese)" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno/anno intero)", periodo: "entro 30 aprile" },
+      { cosa: "Application (autunno/anno intero)", periodo: "entro 30 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
+      { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+    ],
+    alloggio: "Mercato alloggi difficile: prenotare PRIMA di arrivare. Residenze universitarie disponibili in numero limitato.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254372",
-    linkSito: "",
-    notePratiche: "Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, LM, PhD; studenti: 3; mesi: 5. || Lingua: la scheda Ca' Foscari e un PDF scansionato non leggibile automaticamente - aprire il link scheda e verificare. [Fonte: scheda destinazione]"
+    linkSito: "https://uclouvain.be/en/study/international/exchange-students.html",
+    notePratiche: "Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, LM, PhD; studenti: 3; mesi: 5. || Procedura via piattaforma Mobility Online. Corsi bachelor principalmente in francese; programmi master in Economics disponibili in inglese. [Fonte: sito ufficiale ESPO UCLouvain]"
   },
   {
     id: "bgent01-0410-gautamsa",
@@ -252,15 +267,22 @@ const METE = [
       { numero: 4, mesi: 5, livello: "LM", note: "su 4 posti totali condivisi tra i livelli" },
       { numero: 4, mesi: 5, livello: "PhD", note: "su 4 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "requisito implicito: corsi in inglese; il livello minimo accettato dalla pagina ammissioni corrisponde a B2 (IELTS min. 5.0 / Cambridge FCE)" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+      { cosa: "Application (autunno)", periodo: "entro 15 giugno" },
+      { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
+      { cosa: "Application (primavera)", periodo: "entro 15 dicembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/28244638",
-    linkSito: "",
-    notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L , LM, PHD; studenti: 4; mesi: 5. || Lingua: la guida per incoming non indica un livello CEFR - da verificare con l'ateneo (corsi in inglese/greco). [Fonte: scheda destinazione]"
+    linkSito: "https://www.nup.ac.cy/study-in-cyprus/erasmus-program/",
+    notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L , LM, PHD; studenti: 4; mesi: 5. || Corsi in inglese (nessun requisito di greco per incoming Erasmus). || Lingua: livello CEFR non indicato esplicitamente per Erasmus incoming; il sito ammissioni indica B2 come soglia pratica (IELTS 5.0 / Cambridge FCE). [Fonte: nup.ac.cy/erasmus-program + nup.ac.cy/english-proficiency]"
   },
   {
     id: "czostrava01-0311-nardonma",
@@ -801,16 +823,19 @@ const METE = [
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
     requisitoLingua: [
-      { lingua: "Spagnolo", livello: "B1", condizione: "minimo richiesto; B2 fortemente raccomandato - le lezioni sono in spagnolo" }
+      { lingua: "Spagnolo", livello: "B1", condizione: "minimo richiesto; B2 fortemente raccomandato — le lezioni sono in spagnolo" }
     ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination + Application (autunno) — portale SEVIUS", periodo: "marzo–fine giugno (es. 2025-26: 17 mar – 27 giu 2025)" },
+      { cosa: "Nomination + Application (primavera) — portale SEVIUS", periodo: "settembre–novembre (es. 2025-26: 25 set – 30 nov 2025)" }
+    ],
     alloggio: "Tramite SACU (Servicio a la Comunidad Universitaria).",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "6 ECTS per materia; 1 ECTS = 25 ore di carico di lavoro.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254529",
-    linkSito: "https://fceye.us.es/",
-    notePratiche: "Periodo vincolato: SI - Solo 1° semestre/YES - First semester only - Aperta a: CdS del Dipartimento di Economia e Laurea Magistrale in Relazioni internazionali comparate - [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 2; mesi: 6. [Fonte: scheda destinazione]"
+    linkSito: "https://www.us.es/estudia-en-la-us/oportunidades-internacionales/incoming",
+    notePratiche: "Periodo vincolato: SI - Solo 1° semestre/YES - First semester only - Aperta a: CdS del Dipartimento di Economia e Laurea Magistrale in Relazioni internazionali comparate - [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 2; mesi: 6. || Sevilla usa un portale unico SEVIUS: nomination e application avvengono nella stessa finestra temporale (nessuna deadline separata). Le date esatte variano ogni anno — verificare sul sito us.es/incoming. [Fonte: PDF ufficiali Universidad de Sevilla 2025-26]"
   },
   {
     id: "etarrago01-0311-lucchett",
@@ -855,13 +880,16 @@ const METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (tutto l'anno)", periodo: "aperta tutto l'anno — via email a mobility@iriarteuniversidad.es" },
+      { cosa: "Application/Enrollment", periodo: "all'arrivo (add & drop nel primo mese di lezione)" }
+    ],
     alloggio: "Alloggi propri nelle migliori zone di Puerto de la Cruz + supporto nella ricerca di appartamenti privati. Costo vita ~1.000 EUR/mese.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26909297",
-    linkSito: "",
-    notePratiche: "Aperta a: CdS del Dipartimento di Economia e Laurea Magistrale in Tourism Management and Sustainability - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 6. || Lingua: insegnamento in inglese E spagnolo (materiali in entrambe le lingue, corsi extra di inglese/spagnolo con certificazione) ma la scheda non indica un livello CEFR - da verificare. Semestri: 9/9-16/1 e 26/1-22/5. Nomination via email (nome, data di nascita, email, corso). [Fonte: scheda destinazione]"
+    linkSito: "https://www.iriarteuniversidad.es/en/iriarte/erasmus-students/",
+    notePratiche: "Aperta a: CdS del Dipartimento di Economia e Laurea Magistrale in Tourism Management and Sustainability - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 6. || Lingua: insegnamento in inglese E spagnolo (oltre 214 ECTS disponibili in inglese); nessun livello CEFR dichiarato pubblicamente per incoming Erasmus. || Semestri: autunno (welcome 4-7 set, lezioni fino 18 dic, esami 11-15 gen) e primavera (welcome 21-22 gen, lezioni fino 13 mag, esami 17-28 mag). [Fonte: iriarteuniversidad.es/erasmus-students]"
   },
   {
     id: "fbordeau58-0311-pappadaf",

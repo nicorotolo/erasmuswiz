@@ -4,17 +4,16 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-06-12 (run notturno: scadenze per 5 mete — Copenhagen, Alicante, UC3M, Vytautas Magnus, NTNU)
+**Ultimo aggiornamento:** 2026-06-14 (run notturno: scadenze + lingua per le 5 mete rimaste — Antwerp, UCL Louvain, Neapolis Pafos, Siviglia, IRIARTE Tenerife)
 **Fase v1 raggiunta:** Fase 5 / 5 + Ondata A (A1, A2, A4, A5) — SITO PUBBLICATO
 **Cosa funziona:** tutto, testato; mete REALI (58 Economia); bando, scadenze e
-checklist VALIDATI sul PDF ufficiale; **TUTTE le 58 mete** hanno lingua (39 con
-livello CEFR, 19 "da verificare" con nota e fonte), link alla scheda PDF (58/58)
-e scadenze ospitante (53/58); sito online su GitHub Pages:
+checklist VALIDATI sul PDF ufficiale; **TUTTE le 58 mete** hanno lingua (42 con
+livello CEFR, 16 "da verificare" con nota e fonte), link alla scheda PDF (58/58)
+e scadenze ospitante (**58/58** ✅); sito online su GitHub Pages:
 **https://nicorotolo.github.io/erasmuswiz/**
-**Prossimo passo:** analytics (A3, serve account di Nicola); arricchire
-alloggio/prerequisiti; sciogliere i 5 scadenze mancanti (Antwerp, Louvain, Pafos,
-Siviglia, Tenerife); la mappatura notturna (Action) puo' ora puntare ad
-altri dipartimenti
+**Prossimo passo:** analytics (A3, serve account di Nicola); sciogliere i 13 "lingua
+da verificare" (batch 9-11: Innsbruck, Vienna, Gent, Copenhagen, Barcellona ecc.);
+avanzare verso Management (batch 1); mappatura notturna pronta per il prossimo ciclo
 **Novita':** GitHub Action `mappatura-mete.yml` — due volte a notte, in cloud,
 arricchisce un lotto di ~10-15 mete e apre una PR da revisionare la mattina
 
@@ -83,8 +82,8 @@ Il CODICE è pronto. Le mete ora sono **REALI** (dalla lista ufficiale del bando
 |------|---------------|---------|
 | **58 mete Economia** (`dati-mete.js`) | **REALI** dalla lista ufficiale 2026/27 | — |
 | → posti/livello/area/coordinatore/codice Erasmus | reali, dalla lista | ok |
-| → requisito di **lingua** | **58/58 mete: FATTE** ✅ (39 con livello CEFR da scheda; 19 "da verificare" con nota e fonte) | Sciogliere i 19 "da verificare" contattando atenei/siti |
-| → scadenze ospitante / linkPdf | **58/58 con link scheda PDF** ✅; **53/58 con scadenze** nomination/application | 5 mete ancora senza scadenze ospitante (Antwerp, Louvain, Pafos, Siviglia, Tenerife) |
+| → requisito di **lingua** | **58/58 mete: FATTE** ✅ (42 con livello CEFR; 16 "da verificare" con nota e fonte) | Sciogliere i 13 ancora "da verificare" nei batch 9-11 |
+| → scadenze ospitante / linkPdf | **58/58 con link scheda PDF** ✅; **58/58 con scadenze** ✅ (incluse nomination via email e portale SEVIUS) | — |
 | → schede PDF scaricate | 53 PDF in `fonti/schede/` (solo locale, gitignore) | — |
 | Meta Aix-Marseille | **completa e reale** (da scheda PDF) | Esempio di riferimento |
 | 2 mete "ESEMPIO" (Madrid, Monaco) | **RIMOSSE** ✅ | fatto |
@@ -117,8 +116,13 @@ Fatto in run notturno (2026-06-12): **scadenze arricchite per 5 mete** —
   Vytautas Magnus (LT KAUNAS01): nomination 11/5 e 11/11, application 17/5 e 17/11;
   NTNU (N TRONDHE01): nomination 15/4 e 15/9, application 1/5 e 1/10, lingua inglese B2.
 Totale: 53/58 mete con scadenze; 39 CEFR + 19 "da verificare".
-Rimangono 5 mete senza scadenze (Antwerp, Louvain, Pafos, Siviglia, Tenerife):
-non e stato possibile estrarre date certe da PDF/siti; da verificare manualmente.
+Fatto in run notturno (2026-06-14): **eco-batch-8 completato** — scadenze + lingua per le 5 mete rimaste:
+  Antwerp (UAntwerp): B2 inglese confermato, scadenze nom 15/4 e 15/10, app 15/5 e 1/11;
+  UCL Louvain: B2 fr (bachelor) + B2 eng (master), nom 30/4 e 31/10, app 30/5 e 30/11;
+  Neapolis Pafos: B2 inglese (implicito), nom 15/5 e 15/11, app 15/6 e 15/12;
+  Siviglia (FCEYE): scadenze via portale SEVIUS (finestra unica mar-giu e set-nov);
+  IRIARTE Tenerife: nomination tutto l'anno via email, enrollment on arrival.
+**Stato Economia:** pendingScadenze = [] ✅ (58/58 con scadenze!); pendingLingua: 13 mete rimaste (batch 9-11).
 
 0. **Attivare la mappatura notturna in cloud:** Nicola genera il token con
    `claude setup-token` e lo salva come secret `CLAUDE_CODE_OAUTH_TOKEN` su

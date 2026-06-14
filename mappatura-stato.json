@@ -1,21 +1,13 @@
 {
   "versione": "2.0",
-  "aggiornato": "2026-06-13",
+  "aggiornato": "2026-06-14",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
 
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Economia",
-  "runCompletati": 7,
+  "runCompletati": 8,
 
   "prossimiBatch": [
-    {
-      "id": "eco-batch-8",
-      "priorita": 1,
-      "dipartimento": "Economia",
-      "descrizione": "Scadenze mancanti + lingua per le 5 mete stubborn",
-      "tipo": "scadenze+lingua",
-      "mete": ["B ANTWERP01", "B LOUVAIN01", "CY PAFOS01", "E SEVILLA01", "E TENERIF28"]
-    },
     {
       "id": "eco-batch-9",
       "priorita": 2,
@@ -84,11 +76,11 @@
       "stato": "in_corso",
       "totale": 58,
       "completate": 39,
-      "pendingScadenze": ["B ANTWERP01", "B LOUVAIN01", "CY PAFOS01", "E SEVILLA01", "E TENERIF28"],
+      "pendingScadenze": [],
       "pendingLingua": [
-        "A INNSBRU08", "A WIEN01", "B ANTWERP01", "B GENT01", "B LOUVAIN01",
-        "CY PAFOS01", "DK KOBENHA01", "E BARCELO02", "E PALMA01", "E TARRAGO01",
-        "E TENERIF28", "HR PULA01", "LT KAUNAS01", "NL GRONING01", "SI NOVA-GO07", "TR ANKARA07"
+        "A INNSBRU08", "A WIEN01", "B GENT01", "DK KOBENHA01", "E BARCELO02",
+        "E PALMA01", "E TARRAGO01", "E TENERIF28", "HR PULA01", "LT KAUNAS01",
+        "NL GRONING01", "SI NOVA-GO07", "TR ANKARA07"
       ]
     },
     "Management": { "fileJs": "js/dati-mete-management.js", "stato": "non_iniziato" },
@@ -111,6 +103,7 @@
     { "batch": 4, "data": "2026-06-12", "mete": 1,  "note": "Copenhagen KU: application deadlines" },
     { "batch": 5, "data": "2026-06-12", "mete": 1,  "note": "Alicante UA: nomination+application+lingua" },
     { "batch": 6, "data": "2026-06-12", "mete": 1,  "note": "UC3M Madrid: nomination dates" },
-    { "batch": 7, "data": "2026-06-12", "mete": 2,  "note": "Vytautas Magnus + NTNU: nomination+application+lingua" }
+    { "batch": 7, "data": "2026-06-12", "mete": 2,  "note": "Vytautas Magnus + NTNU: nomination+application+lingua" },
+    { "batch": 8, "data": "2026-06-14", "mete": 5,  "note": "5 mete stubborn: Antwerp (B2 eng + scadenze), UCL Louvain (B2 fr/eng + scadenze), Neapolis Pafos (B2 eng + scadenze), Siviglia (scadenze SEVIUS), IRIARTE Tenerife (nomination via email). pendingScadenze ora vuoto." }
   ]
 }
