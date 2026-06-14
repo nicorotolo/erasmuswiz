@@ -756,7 +756,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/20173684",
     linkSito: "https://internacional.uib.cat/Mobilitat-i-intercanvi/",
-    notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 5. || Lingua: la scheda non indica un livello CEFR (corsi prevalentemente in spagnolo/catalano; corsi di lingua per exchange: spagnolo 100 EUR, catalano 25 EUR, 6 ECTS) - da verificare. [Fonte: scheda destinazione]"
+    notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 5. || Lingua: la scheda non indica un livello CEFR (corsi prevalentemente in spagnolo/catalano; corsi di lingua per exchange: spagnolo 100 EUR, catalano 25 EUR, 6 ECTS) - da verificare. [Fonte: scheda destinazione] || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "epalma01-1015-dottival",
@@ -784,7 +784,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/20173684",
     linkSito: "https://internacional.uib.cat/Mobilitat-i-intercanvi/",
-    notePratiche: "Aperta a: CdS del Dipartimento di Economia e Laurea Magistrale in Tourism Management and Sustainability - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 5. || Lingua: la scheda non indica un livello CEFR (corsi prevalentemente in spagnolo/catalano; corsi di lingua per exchange: spagnolo 100 EUR, catalano 25 EUR, 6 ECTS) - da verificare. [Fonte: scheda destinazione]"
+    notePratiche: "Aperta a: CdS del Dipartimento di Economia e Laurea Magistrale in Tourism Management and Sustainability - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 5. || Lingua: la scheda non indica un livello CEFR (corsi prevalentemente in spagnolo/catalano; corsi di lingua per exchange: spagnolo 100 EUR, catalano 25 EUR, 6 ECTS) - da verificare. [Fonte: scheda destinazione] || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "epamplon02-0421-devidosa",
@@ -857,7 +857,9 @@ const METE = [
       { numero: 2, mesi: 9, livello: "L", note: "" },
       { numero: 4, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B1", condizione: "richiesto per seguire corsi in inglese presso la Faculty of Economics and Business" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
       { cosa: "Nomination (autunno/anno intero)", periodo: "1 aprile - 20 maggio 2026" },
@@ -870,7 +872,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29138130",
     linkSito: "",
-    notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 9. || Aperta a: Laurea Magistrale in Global Development and Entrepreneurship - [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 4; mesi: 9. || Lingua: requisiti specifici per facolta (vedi pagina Academic Plans and Language Requirements URV) - da verificare. [Fonte: factsheet URV]"
+    notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 9. || Aperta a: Laurea Magistrale in Global Development and Entrepreneurship - [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 4; mesi: 9. || Lingua: Faculty of Economics and Business URV richiede certificato B1 di inglese per corsi in inglese. [Fonte: pagina Academic Mobility Coordinators URV]"
   },
   {
     id: "etenerif28-1015-colombin",
@@ -1282,7 +1284,9 @@ const METE = [
     posti: [
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "livello equivalente CEFR richiesto per gli studenti Erasmus incoming" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
       { cosa: "Nomination (autunno/anno intero)", periodo: "15 aprile - 15 maggio" },
@@ -1293,7 +1297,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26909796",
     linkSito: "https://www.unipu.hr",
-    notePratiche: "Periodo vincolato: SI - Solo 1° semestre/YES - First semester only - Aperta a: Laurea Magistrale in Sviluppo interculturale dei sistemi turistici e Laurea Magistrale in Tourism Management and Sustainability - [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 2; mesi: 6. || Lingua: la scheda non indica un livello CEFR - da verificare. Corso di croato gratuito ogni semestre; Student X-card per mense e sconti. [Fonte: scheda destinazione]"
+    notePratiche: "Periodo vincolato: SI - Solo 1° semestre/YES - First semester only - Aperta a: Laurea Magistrale in Sviluppo interculturale dei sistemi turistici e Laurea Magistrale in Tourism Management and Sustainability - [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 2; mesi: 6. || Lingua: UNIPU richiede competenze linguistiche equivalenti a B2 CEFR per lettura, scrittura e parlato. Corso di croato gratuito ogni semestre; Student X-card per mense e sconti. [Fonti: scheda destinazione; pagina nomination UNIPU]"
   },
   {
     id: "hrsplit01-0311-camattin",
@@ -1460,7 +1464,9 @@ const METE = [
       { numero: 6, mesi: 5, livello: "L", note: "su 6 posti totali condivisi tra i livelli" },
       { numero: 6, mesi: 5, livello: "LM", note: "su 6 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "richiesto per seguire corsi in inglese e per l'application exchange" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
       { cosa: "Nomination (sem. autunnale, UE/SEE)", periodo: "entro 11 maggio" },
@@ -1473,7 +1479,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254671",
     linkSito: "https://www.vdu.lt/en/international-cooperation/vmu-promotional-materials/vmu-fact-sheet/",
-    notePratiche: "Aperta a: CdS del Dipartimento di Economia e Laurea Magistrale in Relazioni internazionali comparate - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 6; mesi: 5. || Lingua: il sito VMU non indica un livello CEFR esplicito; disponibile supporto Online Language Support (OLS) - da verificare. Nomination via erasmus@vdu.lt. [Fonte: vdu.lt/en/international-cooperation]"
+    notePratiche: "Aperta a: CdS del Dipartimento di Economia e Laurea Magistrale in Relazioni internazionali comparate - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 6; mesi: 5. || Lingua: VMU richiede inglese non inferiore a B2 CEFR; prova linguistica da allegare all'application. Nomination via erasmus@vdu.lt. [Fonte: pagina Incoming Exchange Students VMU]"
   },
   {
     id: "ntrondhe01-0311-bertarel",
@@ -1549,7 +1555,10 @@ const METE = [
       { numero: 6, mesi: 6, livello: "LM", note: "su 6 posti totali condivisi tra i livelli" },
       { numero: 6, mesi: 6, livello: "PhD", note: "su 6 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "per bachelor exchange presso Faculty of Economics and Business" },
+      { lingua: "Inglese", livello: "C1", condizione: "per master exchange presso Faculty of Economics and Business" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
       { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
@@ -1562,7 +1571,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/13945919",
     linkSito: "",
-    notePratiche: "Periodo vincolato: SI - 3 studenti nel 1° semestre e 3 studenti nel 2° semestre/YES - 3 students in the fall semester and 3 students in the spring semester - English language proficency test needed at the time of registration - Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, LM, PhD; studenti: 6; mesi: 6. || Lingua: corsi in INGLESE; serve una prova di conoscenza (test riconosciuti, dettagli sulla pagina RuG/FEB english-proficiency) - livello esatto da verificare. [Fonte: factsheet FEB 2026-27]"
+    notePratiche: "Periodo vincolato: SI - 3 studenti nel 1° semestre e 3 studenti nel 2° semestre/YES - 3 students in the fall semester and 3 students in the spring semester - English language proficency test needed at the time of registration - Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, LM, PhD; studenti: 6; mesi: 6. || Lingua: Faculty of Economics and Business richiede prova di inglese; bachelor almeno B2, master almeno C1 in base ai requisiti exchange pubblicati. [Fonti: factsheet FEB 2026-27; pagina RuG/FEB english-proficiency]"
   },
   {
     id: "plisboa03-0413-rosonrob",

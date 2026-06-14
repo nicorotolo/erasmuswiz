@@ -5,17 +5,9 @@
 
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Economia",
-  "runCompletati": 9,
+  "runCompletati": 10,
 
   "prossimiBatch": [
-    {
-      "id": "eco-batch-10",
-      "priorita": 3,
-      "dipartimento": "Economia",
-      "descrizione": "Lingua da verificare - batch B",
-      "tipo": "lingua",
-      "mete": ["E PALMA01", "E TARRAGO01", "HR PULA01", "LT KAUNAS01", "NL GRONING01"]
-    },
     {
       "id": "eco-batch-11",
       "priorita": 4,
@@ -70,9 +62,12 @@
       "completate": 46,
       "pendingScadenze": [],
       "pendingLingua": [
-        "CY PAFOS01", "DK KOBENHA01", "E PALMA01", "E TARRAGO01",
-        "E TENERIF28", "HR PULA01", "LT KAUNAS01", "NL GRONING01", "SI NOVA-GO07", "TR ANKARA07"
-      ]
+        "CY PAFOS01", "DK KOBENHA01", "E PALMA01",
+        "E TENERIF28", "SI NOVA-GO07", "TR ANKARA07"
+      ],
+      "tentativiLingua": {
+        "E PALMA01": 1
+      }
     },
     "Management": { "fileJs": "js/dati-mete-management.js", "stato": "non_iniziato" },
     "Lingue e culture orientali": { "fileJs": "js/dati-mete-lingue.js", "stato": "non_iniziato" },
@@ -96,6 +91,7 @@
     { "batch": 6, "data": "2026-06-12", "mete": 1,  "note": "UC3M Madrid: nomination dates" },
     { "batch": 7, "data": "2026-06-12", "mete": 2,  "note": "Vytautas Magnus + NTNU: nomination+application+lingua" },
     { "batch": 8, "data": "2026-06-13", "mete": 5,  "note": "Antwerp, Louvain, Neapolis, Sevilla, Iriarte: scadenze; lingue completate dove CEFR ufficiale disponibile" },
-    { "batch": 9, "data": "2026-06-14", "mete": 5,  "note": "Innsbruck, Vienna, Gent, Barcelona: lingua completata; Copenhagen resta senza CEFR generale ufficiale" }
+    { "batch": 9, "data": "2026-06-14", "mete": 5,  "note": "Innsbruck, Vienna, Gent, Barcelona: lingua completata; Copenhagen resta senza CEFR generale ufficiale" },
+    { "batch": 10, "data": "2026-06-14", "mete": 5, "note": "Tarragona, Pula, Kaunas e Groningen: lingua completata; Palma resta senza CEFR ufficiale pubblicato" }
   ]
 }
