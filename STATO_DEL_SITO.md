@@ -4,7 +4,7 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-06-12 (run notturno: scadenze per 5 mete — Copenhagen, Alicante, UC3M, Vytautas Magnus, NTNU)
+**Ultimo aggiornamento:** 2026-06-14 (run notturno: lingua completata per 4 mete eco-batch-9)
 **Fase v1 raggiunta:** Fase 5 / 5 + Ondata A (A1, A2, A4, A5) — SITO PUBBLICATO
 **Cosa funziona:** tutto, testato; mete REALI (58 Economia); bando, scadenze e
 checklist VALIDATI sul PDF ufficiale; **TUTTE le 58 mete** hanno lingua (39 con
@@ -83,7 +83,7 @@ Il CODICE è pronto. Le mete ora sono **REALI** (dalla lista ufficiale del bando
 |------|---------------|---------|
 | **58 mete Economia** (`dati-mete.js`) | **REALI** dalla lista ufficiale 2026/27 | — |
 | → posti/livello/area/coordinatore/codice Erasmus | reali, dalla lista | ok |
-| → requisito di **lingua** | **58/58 mete: FATTE** ✅ (39 con livello CEFR da scheda; 19 "da verificare" con nota e fonte) | Sciogliere i 19 "da verificare" contattando atenei/siti |
+| → requisito di **lingua** | **58/58 mete: FATTE** ✅ (43 con livello CEFR ufficiale; 15 "da verificare" con nota e fonte) | Sciogliere i 15 "da verificare" contattando atenei/siti |
 | → scadenze ospitante / linkPdf | **58/58 con link scheda PDF** ✅; **53/58 con scadenze** nomination/application | 5 mete ancora senza scadenze ospitante (Antwerp, Louvain, Pafos, Siviglia, Tenerife) |
 | → schede PDF scaricate | 53 PDF in `fonti/schede/` (solo locale, gitignore) | — |
 | Meta Aix-Marseille | **completa e reale** (da scheda PDF) | Esempio di riferimento |
@@ -116,7 +116,13 @@ Fatto in run notturno (2026-06-12): **scadenze arricchite per 5 mete** —
   UC3M (E MADRID14): nomination 13/3-15/5 e 15/9-16/10;
   Vytautas Magnus (LT KAUNAS01): nomination 11/5 e 11/11, application 17/5 e 17/11;
   NTNU (N TRONDHE01): nomination 15/4 e 15/9, application 1/5 e 1/10, lingua inglese B2.
-Totale: 53/58 mete con scadenze; 39 CEFR + 19 "da verificare".
+Fatto in run 2026-06-14 (eco-batch-9): **lingua completata per 4 mete** —
+  MCI Innsbruck: B2 inglese (C1 master);
+  Universitat Wien: B2 tedesco + B2 inglese;
+  Ghent University: B2 inglese;
+  UAB Barcelona (2 accordi): B2 nella lingua dei corsi (spagnolo/catalano/inglese).
+  Copenhagen Economics (DK KOBENHA01): nessun CEFR formale richiesto per Economics — rimane in pending.
+Totale: 53/58 mete con scadenze; 43 CEFR + 15 "da verificare".
 Rimangono 5 mete senza scadenze (Antwerp, Louvain, Pafos, Siviglia, Tenerife):
 non e stato possibile estrarre date certe da PDF/siti; da verificare manualmente.
 
