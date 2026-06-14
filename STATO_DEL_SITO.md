@@ -4,17 +4,17 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-06-14 (run mappatura: chiusura Economia; ultime lingue senza CEFR ufficiale)
+**Ultimo aggiornamento:** 2026-06-14 (run mappatura: avvio Management; create 76 mete ufficiali)
 **Fase v1 raggiunta:** Fase 5 / 5 + Ondata A (A1, A2, A4, A5) — SITO PUBBLICATO
-**Cosa funziona:** tutto, testato; mete REALI (58 Economia); bando, scadenze e
+**Cosa funziona:** tutto, testato; mete REALI (58 Economia + 76 Management in file dati separato); bando, scadenze e
 checklist VALIDATI sul PDF ufficiale; **52/58 righe Economia** sono complete con
 lingua CEFR e scadenze ospitante; le altre 6 righe sono state classificate come
 CEFR non pubblicato ufficialmente; link alla scheda PDF (58/58) e scadenze
 ospitante (58/58); sito online su GitHub Pages:
 **https://nicorotolo.github.io/erasmuswiz/**
 **Prossimo passo:** analytics (A3, serve account di Nicola); arricchire
-alloggio/prerequisiti; avviare la mappatura del dipartimento Management; la
-mappatura notturna (Action) puo' continuare creando il file dati del nuovo dipartimento
+alloggio/prerequisiti; completare lingua e scadenze delle mete Management nei
+batch gia' pianificati
 **Novita':** GitHub Action `mappatura-mete.yml` — due volte a notte, in cloud,
 arricchisce un lotto di ~10-15 mete e apre una PR da revisionare la mattina
 
@@ -82,6 +82,7 @@ Il CODICE è pronto. Le mete ora sono **REALI** (dalla lista ufficiale del bando
 | Dato | Stato attuale | Da fare |
 |------|---------------|---------|
 | **58 mete Economia** (`dati-mete.js`) | **REALI** dalla lista ufficiale 2026/27 | Economia chiusa; arricchimenti futuri su alloggio/prerequisiti |
+| **76 mete Management** (`dati-mete-management.js`) | **REALI** dalla lista ufficiale 2026/27; 74 codici Erasmus unici; link scheda PDF presenti | completare lingua e scadenze nei batch Management |
 | → posti/livello/area/coordinatore/codice Erasmus | reali, dalla lista | ok |
 | → requisito di **lingua** | **52/58 righe complete** con CEFR e scadenze; le 6 righe restanti sono classificate come CEFR non pubblicato ufficialmente/non trovabile | Economia chiusa; prossimo batch: Management |
 | → scadenze ospitante / linkPdf | **58/58 con link scheda PDF** ✅; **58/58 con scadenze** nomination/application | ok |
@@ -121,15 +122,16 @@ Fatto in run mappatura (2026-06-14): **KU Leuven completata** — inglese C1 per
 Fatto in run mappatura (2026-06-14): **Palma ultimo tentativo completato** — la scheda UIB 2026/27 e le pagine incoming non pubblicano un requisito CEFR; E PALMA01 spostata in linguaNonTrovabile.
 Fatto in run mappatura (2026-06-14): **Bilkent ultimo tentativo completato** - le pagine exchange ufficiali richiedono una lettera di competenza in inglese, ma non pubblicano un livello CEFR; TR ANKARA07 spostata in linguaNonTrovabile.
 Fatto in run mappatura (2026-06-14): **Pafos, Copenhagen e Iriarte ultimo tentativo completato** - le fonti ufficiali non pubblicano un requisito CEFR generale per queste mete; CY PAFOS01, DK KOBENHA01 ed E TENERIF28 spostate in linguaNonTrovabile. Economia chiusa, prossimo batch Management.
+Fatto in run mappatura (2026-06-14): **Management avviato** - creato `js/dati-mete-management.js` con 76 mete ufficiali Venice School of Management, 74 codici Erasmus unici e link PDF scheda; pianificati 15 batch `scadenze+lingua`.
 Totale Economia: 52/58 righe complete con lingua CEFR e scadenze; 58/58 con scadenze ospitante; 6 righe senza CEFR ufficiale classificate non trovabili.
+Totale Management: 0/76 righe complete; 76/76 con link scheda PDF; lingua e scadenze da completare.
 
 0. **Attivare la mappatura notturna in cloud:** Nicola genera il token con
    `claude setup-token` e lo salva come secret `CLAUDE_CODE_OAUTH_TOKEN` su
    GitHub (repo → Settings → Secrets and variables → Actions). Poi primo test
    manuale dalla tab Actions ("Mappatura mete Erasmus" → Run workflow). Ora che
-   Economia è quasi completa, il prossimo run può:
-   - completare gli ultimi requisiti lingua senza CEFR ufficiale
-   - poi avanzare verso il prossimo dipartimento CF (Management).
+   Management e' stato inizializzato, il prossimo run puo' lavorare il primo lotto
+   `management-batch-2` cercando scadenze e requisito lingua.
 1. **A3 (resto):** aggiungere analytics (GoatCounter/Plausible) — **serve che
    Nicola crei l'account** (1 riga di script da incollare poi); valutare dominio.
 2. **Sciogliere le lingue ancora senza CEFR ufficiale** (siti atenei / email IRO).

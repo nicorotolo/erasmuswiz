@@ -4,7 +4,7 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Management",
-  "runCompletati": 15,
+  "runCompletati": 16,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
@@ -12,13 +12,213 @@
   },
   "prossimiBatch": [
     {
-      "id": "management-batch-1",
+      "id": "management-batch-2",
       "priorita": 7,
       "dipartimento": "Management",
-      "descrizione": "NUOVO DIPARTIMENTO: scarica lista destinazioni Management e crea js/dati-mete-management.js con tutte le mete (stessa struttura di dati-mete.js). Fonte: https://www.unive.it/data/11679 filtrando per Dipartimento = Management / Venice School of Management.",
-      "tipo": "nuovo_dipartimento",
-      "mete": [],
-      "fileJs": "js/dati-mete-management.js"
+      "descrizione": "Management - scadenze e lingua lotto 1",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "A KLAGENF01",
+        "A WIEN01",
+        "B BRUXEL04",
+        "B LOUVAIN01",
+        "D BAMBERG01"
+      ]
+    },
+    {
+      "id": "management-batch-3",
+      "priorita": 7,
+      "dipartimento": "Management",
+      "descrizione": "Management - scadenze e lingua lotto 2",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D DEGGEND01",
+        "D ERLANGE01",
+        "D FRANKFU07",
+        "D HAMBURG01",
+        "D HAMBURG13"
+      ]
+    },
+    {
+      "id": "management-batch-4",
+      "priorita": 7,
+      "dipartimento": "Management",
+      "descrizione": "Management - scadenze e lingua lotto 3",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D HEILBRO01",
+        "D KOBLENZ03",
+        "D KOLN01",
+        "D LUNEBUR01",
+        "D MUNCHEN12"
+      ]
+    },
+    {
+      "id": "management-batch-5",
+      "priorita": 7,
+      "dipartimento": "Management",
+      "descrizione": "Management - scadenze e lingua lotto 4",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D REGENSB01",
+        "DK ARHUS01",
+        "DK KOBENHA05",
+        "DK ODENSE01",
+        "E ALCAL-H01"
+      ]
+    },
+    {
+      "id": "management-batch-6",
+      "priorita": 7,
+      "dipartimento": "Management",
+      "descrizione": "Management - scadenze e lingua lotto 5",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E BARCELO258",
+        "E GRANADA01",
+        "E MADRID04",
+        "E MADRID114",
+        "E MADRID232"
+      ]
+    },
+    {
+      "id": "management-batch-7",
+      "priorita": 7,
+      "dipartimento": "Management",
+      "descrizione": "Management - scadenze e lingua lotto 6",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E MALAGA01",
+        "E VALENCI01",
+        "E ZARAGOZ01",
+        "F ANGERS10",
+        "F BORDEAU57"
+      ]
+    },
+    {
+      "id": "management-batch-8",
+      "priorita": 7,
+      "dipartimento": "Management",
+      "descrizione": "Management - scadenze e lingua lotto 7",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F CERGY03",
+        "F CHAMBER01",
+        "F COURBEV04",
+        "F DIJON01",
+        "F DIJON11"
+      ]
+    },
+    {
+      "id": "management-batch-9",
+      "priorita": 7,
+      "dipartimento": "Management",
+      "descrizione": "Management - scadenze e lingua lotto 8",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F LEHAVRE04",
+        "F LILLE11",
+        "F LYON23",
+        "F MONTPEL54",
+        "F NANCY43"
+      ]
+    },
+    {
+      "id": "management-batch-10",
+      "priorita": 7,
+      "dipartimento": "Management",
+      "descrizione": "Management - scadenze e lingua lotto 9",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F NANTES12",
+        "F PARIS256",
+        "F PARIS270",
+        "F POITIER01",
+        "F REIMS25"
+      ]
+    },
+    {
+      "id": "management-batch-11",
+      "priorita": 7,
+      "dipartimento": "Management",
+      "descrizione": "Management - scadenze e lingua lotto 10",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F RENNES01",
+        "F STRASBO48",
+        "F TOULOUS01",
+        "F TOULOUS03",
+        "F PARIS525"
+      ]
+    },
+    {
+      "id": "management-batch-12",
+      "priorita": 7,
+      "dipartimento": "Management",
+      "descrizione": "Management - scadenze e lingua lotto 11",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "G ATHINE04",
+        "HU BUDAPES03",
+        "IRL DUBLIN01",
+        "IRLGALWAY01",
+        "IS REYKJAV05"
+      ]
+    },
+    {
+      "id": "management-batch-13",
+      "priorita": 7,
+      "dipartimento": "Management",
+      "descrizione": "Management - scadenze e lingua lotto 12",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "LT VILNIUS01",
+        "MT MALTA01",
+        "N KRISTIA01",
+        "N STAVANG01",
+        "NL AMSTERD01"
+      ]
+    },
+    {
+      "id": "management-batch-14",
+      "priorita": 7,
+      "dipartimento": "Management",
+      "descrizione": "Management - scadenze e lingua lotto 13",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "NL GRONING01",
+        "NL TILBURG01",
+        "P COIMBRA01",
+        "P LISBOA07",
+        "P LISBOA109"
+      ]
+    },
+    {
+      "id": "management-batch-15",
+      "priorita": 7,
+      "dipartimento": "Management",
+      "descrizione": "Management - scadenze e lingua lotto 14",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "P PORTO02",
+        "PL LODZ01",
+        "PL RZESZOW01",
+        "PL WARSZAW21",
+        "S HUDDING01"
+      ]
+    },
+    {
+      "id": "management-batch-16",
+      "priorita": 7,
+      "dipartimento": "Management",
+      "descrizione": "Management - scadenze e lingua lotto 15",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "S LINKOPI01",
+        "S STOCKHO01",
+        "SF HELSINK39",
+        "TR ISTANBU01"
+      ]
     },
     {
       "id": "lingue-batch-1",
@@ -73,7 +273,163 @@
     },
     "Management": {
       "fileJs": "js/dati-mete-management.js",
-      "stato": "non_iniziato"
+      "stato": "in_corso",
+      "totale": 76,
+      "completate": 0,
+      "pendingScadenze": [
+        "A KLAGENF01",
+        "A WIEN01",
+        "B BRUXEL04",
+        "B LOUVAIN01",
+        "D BAMBERG01",
+        "D DEGGEND01",
+        "D ERLANGE01",
+        "D FRANKFU07",
+        "D HAMBURG01",
+        "D HAMBURG13",
+        "D HEILBRO01",
+        "D KOBLENZ03",
+        "D KOLN01",
+        "D LUNEBUR01",
+        "D MUNCHEN12",
+        "D REGENSB01",
+        "DK ARHUS01",
+        "DK KOBENHA05",
+        "DK ODENSE01",
+        "E ALCAL-H01",
+        "E BARCELO258",
+        "E GRANADA01",
+        "E MADRID04",
+        "E MADRID114",
+        "E MADRID232",
+        "E MALAGA01",
+        "E VALENCI01",
+        "E ZARAGOZ01",
+        "F ANGERS10",
+        "F BORDEAU57",
+        "F CERGY03",
+        "F CHAMBER01",
+        "F COURBEV04",
+        "F DIJON01",
+        "F DIJON11",
+        "F LEHAVRE04",
+        "F LILLE11",
+        "F LYON23",
+        "F MONTPEL54",
+        "F NANCY43",
+        "F NANTES12",
+        "F PARIS256",
+        "F PARIS270",
+        "F POITIER01",
+        "F REIMS25",
+        "F RENNES01",
+        "F STRASBO48",
+        "F TOULOUS01",
+        "F TOULOUS03",
+        "F PARIS525",
+        "G ATHINE04",
+        "HU BUDAPES03",
+        "IRL DUBLIN01",
+        "IRLGALWAY01",
+        "IS REYKJAV05",
+        "LT VILNIUS01",
+        "MT MALTA01",
+        "N KRISTIA01",
+        "N STAVANG01",
+        "NL AMSTERD01",
+        "NL GRONING01",
+        "NL TILBURG01",
+        "P COIMBRA01",
+        "P LISBOA07",
+        "P LISBOA109",
+        "P PORTO02",
+        "PL LODZ01",
+        "PL RZESZOW01",
+        "PL WARSZAW21",
+        "S HUDDING01",
+        "S LINKOPI01",
+        "S STOCKHO01",
+        "SF HELSINK39",
+        "TR ISTANBU01"
+      ],
+      "pendingLingua": [
+        "A KLAGENF01",
+        "A WIEN01",
+        "B BRUXEL04",
+        "B LOUVAIN01",
+        "D BAMBERG01",
+        "D DEGGEND01",
+        "D ERLANGE01",
+        "D FRANKFU07",
+        "D HAMBURG01",
+        "D HAMBURG13",
+        "D HEILBRO01",
+        "D KOBLENZ03",
+        "D KOLN01",
+        "D LUNEBUR01",
+        "D MUNCHEN12",
+        "D REGENSB01",
+        "DK ARHUS01",
+        "DK KOBENHA05",
+        "DK ODENSE01",
+        "E ALCAL-H01",
+        "E BARCELO258",
+        "E GRANADA01",
+        "E MADRID04",
+        "E MADRID114",
+        "E MADRID232",
+        "E MALAGA01",
+        "E VALENCI01",
+        "E ZARAGOZ01",
+        "F ANGERS10",
+        "F BORDEAU57",
+        "F CERGY03",
+        "F CHAMBER01",
+        "F COURBEV04",
+        "F DIJON01",
+        "F DIJON11",
+        "F LEHAVRE04",
+        "F LILLE11",
+        "F LYON23",
+        "F MONTPEL54",
+        "F NANCY43",
+        "F NANTES12",
+        "F PARIS256",
+        "F PARIS270",
+        "F POITIER01",
+        "F REIMS25",
+        "F RENNES01",
+        "F STRASBO48",
+        "F TOULOUS01",
+        "F TOULOUS03",
+        "F PARIS525",
+        "G ATHINE04",
+        "HU BUDAPES03",
+        "IRL DUBLIN01",
+        "IRLGALWAY01",
+        "IS REYKJAV05",
+        "LT VILNIUS01",
+        "MT MALTA01",
+        "N KRISTIA01",
+        "N STAVANG01",
+        "NL AMSTERD01",
+        "NL GRONING01",
+        "NL TILBURG01",
+        "P COIMBRA01",
+        "P LISBOA07",
+        "P LISBOA109",
+        "P PORTO02",
+        "PL LODZ01",
+        "PL RZESZOW01",
+        "PL WARSZAW21",
+        "S HUDDING01",
+        "S LINKOPI01",
+        "S STOCKHO01",
+        "SF HELSINK39",
+        "TR ISTANBU01"
+      ],
+      "tentativiLingua": {},
+      "linguaNonTrovabile": []
     },
     "Lingue e culture orientali": {
       "fileJs": "js/dati-mete-lingue.js",
@@ -192,6 +548,12 @@
       "data": "2026-06-14",
       "mete": 3,
       "note": "Neapolis Pafos, Copenhagen e Iriarte Tenerife: ultimo tentativo lingua, nessun CEFR ufficiale pubblicato; spostate in linguaNonTrovabile. Economia chiusa e passaggio a Management."
+    },
+    {
+      "batch": 16,
+      "data": "2026-06-14",
+      "mete": 76,
+      "note": "Avvio Venice School of Management: creato file dati con tutte le mete ufficiali 2026/27 e pianificati i batch scadenze+lingua."
     }
   ]
 }
