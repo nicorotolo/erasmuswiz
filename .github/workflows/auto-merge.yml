@@ -1,33 +1,28 @@
-# Auto-merge delle PR aperte da Codex (label "codex-automation").
-# IMPORTANTE: questa Action NON usa Claude né alcun token a pagamento.
-# Gira sui runner gratuiti di GitHub e usa solo il GITHUB_TOKEN integrato.
-# Cosa fa: quando il connettore apre/aggiorna una PR di mappatura, ri-esegue
-# `node --check` + il validatore e, se è tutto coerente, fonde la PR su main.
+# Auto-merge dei lotti di mappatura spinti da Codex.
+# Codex non apre PR (non ha gh e il connettore non le crea da solo): spinge solo
+# un branch "mappatura/...". Questa Action si attiva su QUEL push, ri-valida e
+# fonde il branch su main. NON usa Claude né token a pagamento: solo i runner
+# gratuiti di GitHub e il GITHUB_TOKEN integrato.
 name: Auto-merge mappatura
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened, labeled]
+  push:
+    branches:
+      - 'mappatura/**'
 
 permissions:
   contents: write
-  pull-requests: write
 
 concurrency:
-  group: auto-merge-${{ github.event.pull_request.number }}
+  group: auto-merge-mappatura
   cancel-in-progress: false
 
 jobs:
   merge:
     runs-on: ubuntu-latest
-    # Solo PR etichettate dal connettore Codex e dirette a main
-    if: >
-      github.event.pull_request.base.ref == 'main' &&
-      contains(join(github.event.pull_request.labels.*.name, ','), 'codex')
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
@@ -37,6 +32,20 @@ jobs:
       - name: Validatore di coerenza
         run: node scripts/valida-stato.mjs
       - name: Merge squash su main
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh pr merge "${{ github.event.pull_request.number }}" --squash --delete-branch
+        run: |
+          set -euo pipefail
+          BRANCH="${GITHUB_REF#refs/heads/}"
+          SHA="${GITHUB_SHA}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+          git checkout -B main origin/main
+          git merge --squash "$SHA"
+          if git diff --cached --quiet; then
+            echo "::notice::Nessuna modifica rispetto a main, niente da mergere."
+          else
+            git commit -m "mappatura: auto-merge $BRANCH"
+            git push origin main
+            echo "::notice::Branch $BRANCH fuso su main."
+          fi
+          git push origin --delete "$BRANCH" || true
