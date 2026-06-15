@@ -12,15 +12,6 @@
   },
   "prossimiBatch": [
     {
-      "id": "lingue-batch-1",
-      "priorita": 8,
-      "dipartimento": "Lingue e culture orientali",
-      "descrizione": "NUOVO DIPARTIMENTO: scarica lista destinazioni Lingue e crea js/dati-mete-lingue.js.",
-      "tipo": "nuovo_dipartimento",
-      "mete": [],
-      "fileJs": "js/dati-mete-lingue.js"
-    },
-    {
       "id": "scienze-batch-1",
       "priorita": 9,
       "dipartimento": "Scienze ambientali, informatica e statistica",
@@ -110,6 +101,75 @@
         "S LINKOPI01",
         "S STOCKHO01"
       ]
+    },
+    {
+      "id": "lingue-batch-2",
+      "priorita": 6,
+      "dipartimento": "Lingue e culture orientali",
+      "descrizione": "Lingue e culture orientali - completamento lingua e scadenze",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "TR ISTANBU01",
+        "B GENT01",
+        "E ALICANT01",
+        "E SEVILLA01",
+        "F PARIS014"
+      ]
+    },
+    {
+      "id": "lingue-batch-3",
+      "priorita": 6,
+      "dipartimento": "Lingue e culture orientali",
+      "descrizione": "Lingue e culture orientali - completamento lingua e scadenze",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "TR ANKARA04",
+        "TR ISTANBU21",
+        "TR ANKARA01",
+        "D MUNCHEN01",
+        "F PARIS178"
+      ]
+    },
+    {
+      "id": "lingue-batch-4",
+      "priorita": 6,
+      "dipartimento": "Lingue e culture orientali",
+      "descrizione": "Lingue e culture orientali - completamento lingua e scadenze",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D HEIDELB01",
+        "IRLCORK01",
+        "F LYON03",
+        "A WIEN01",
+        "B LEUVEN01"
+      ]
+    },
+    {
+      "id": "lingue-batch-5",
+      "priorita": 6,
+      "dipartimento": "Lingue e culture orientali",
+      "descrizione": "Lingue e culture orientali - completamento lingua e scadenze",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E BARCELO02",
+        "S LUND01",
+        "B LEUVEN01",
+        "E MADRID04",
+        "F LYON61"
+      ]
+    },
+    {
+      "id": "lingue-batch-6",
+      "priorita": 6,
+      "dipartimento": "Lingue e culture orientali",
+      "descrizione": "Lingue e culture orientali - completamento lingua e scadenze",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D BERLIN01",
+        "F GRENOBL23",
+        "F GRENOBL23",
+        "D KONSTAN01"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -169,7 +229,63 @@
     },
     "Lingue e culture orientali": {
       "fileJs": "js/dati-mete-lingue.js",
-      "stato": "non_iniziato"
+      "stato": "in_corso",
+      "totale": 24,
+      "completate": 0,
+      "pendingScadenze": [
+        "TR ISTANBU01",
+        "B GENT01",
+        "E ALICANT01",
+        "E SEVILLA01",
+        "F PARIS014",
+        "TR ANKARA04",
+        "TR ISTANBU21",
+        "TR ANKARA01",
+        "D MUNCHEN01",
+        "F PARIS178",
+        "D HEIDELB01",
+        "IRLCORK01",
+        "F LYON03",
+        "A WIEN01",
+        "B LEUVEN01",
+        "E BARCELO02",
+        "S LUND01",
+        "B LEUVEN01",
+        "E MADRID04",
+        "F LYON61",
+        "D BERLIN01",
+        "F GRENOBL23",
+        "F GRENOBL23",
+        "D KONSTAN01"
+      ],
+      "pendingLingua": [
+        "TR ISTANBU01",
+        "B GENT01",
+        "E ALICANT01",
+        "E SEVILLA01",
+        "F PARIS014",
+        "TR ANKARA04",
+        "TR ISTANBU21",
+        "TR ANKARA01",
+        "D MUNCHEN01",
+        "F PARIS178",
+        "D HEIDELB01",
+        "IRLCORK01",
+        "F LYON03",
+        "A WIEN01",
+        "B LEUVEN01",
+        "E BARCELO02",
+        "S LUND01",
+        "B LEUVEN01",
+        "E MADRID04",
+        "F LYON61",
+        "D BERLIN01",
+        "F GRENOBL23",
+        "F GRENOBL23",
+        "D KONSTAN01"
+      ],
+      "tentativiLingua": {},
+      "linguaNonTrovabile": []
     },
     "Scienze ambientali, informatica e statistica": {
       "fileJs": "js/dati-mete-scienze.js",
