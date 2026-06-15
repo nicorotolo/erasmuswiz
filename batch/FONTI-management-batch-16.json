@@ -1,0 +1,21 @@
+{
+  "S LINKOPI01": {
+    "scadenzeOspitante": "https://liu.se/en/education/exchange-studies",
+    "linkSito": "https://liu.se/en/education/exchange-studies"
+  },
+  "S STOCKHO01": {
+    "requisitoLingua": "https://www.su.se/english/divisions/stockholm-business-school/education/incoming-exchange-students",
+    "scadenzeOspitante": "https://www.su.se/english/divisions/stockholm-business-school/education/incoming-exchange-students",
+    "linkSito": "https://www.su.se/english/divisions/stockholm-business-school/education/incoming-exchange-students"
+  },
+  "SF HELSINK39": {
+    "requisitoLingua": "https://www.arcada.fi/sites/default/files/2026-02/Arcada%20Fact%20sheet%202026-2027_updated%20February%202026_10.pdf",
+    "scadenzeOspitante": "https://www.arcada.fi/en/study-arcada/exchange-studies-arcada/application-exchange-studies",
+    "linkSito": "https://www.arcada.fi/en/study-arcada/exchange-studies-arcada/application-exchange-studies"
+  },
+  "TR ISTANBU01": {
+    "requisitoLingua": "https://intl.bogazici.edu.tr/sites/intl.bogazici.edu.tr/files/bogazici_university_fact_sheet_2025-2026_1.pdf",
+    "scadenzeOspitante": "https://intl.bogazici.edu.tr/nomination",
+    "linkSito": "https://intl.bogazici.edu.tr/nomination"
+  }
+}
