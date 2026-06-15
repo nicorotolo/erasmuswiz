@@ -58,7 +58,7 @@ Profilo → Mete.
 | `js/dati-mete.js` | **dati** | Mete Erasmus |
 | `js/dati-scadenze.js` | **dati** | Scadenze Ca' Foscari (timeline) |
 | `js/dati-checklist.js` | **dati** | Passi della checklist |
-| `.github/workflows/mappatura-mete.yml` | automazione | GitHub Action notturna (cloud): mappa un lotto di mete e apre una PR |
+| `automazioni/PROMPT_CODEX_mappatura.md` | automazione | Prompt dell'automazione Codex (ogni 15 min): unica fonte della mappatura mete. (Action Claude `mappatura-mete.yml` RIMOSSA) |
 | `scripts/lib-mete.mjs` | automazione | Utilità condivise: scanner JS (rispetta stringhe/parentesi) + serializzazione |
 | `scripts/prepara-batch.mjs` | automazione | Imbuto in ingresso: estrae il prossimo batch in `batch/INPUT.json` (pochi KB) |
 | `scripts/applica-batch.mjs` | automazione | Imbuto in uscita: fonde `batch/OUTPUT.json` nel fileJs, `node --check`, aggiorna lo stato |
