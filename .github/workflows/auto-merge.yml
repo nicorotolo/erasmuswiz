@@ -47,8 +47,9 @@ jobs:
             echo "::warning::$1"
             gh issue create \
               --title "Auto-merge: intervento manuale su $BRANCH" \
-              --body "$1"$'\n\n'"Branch: \`$BRANCH\` ($SHA). Il merge automatico si e' fermato per sicurezza (nessun dato perso). Il branch e' ancora su GitHub: integralo o cancellalo a mano." \
+              --body "$1"$'\n\n'"Branch: \`$BRANCH\` (SHA: \`$SHA\`). Il branch e' stato rimosso automaticamente per sbloccare i run futuri — il SHA e' conservato qui per recupero manuale se necessario." \
               2>/dev/null || true
+            git push origin --delete "$BRANCH" 2>/dev/null || true
             exit 0
           }
 
