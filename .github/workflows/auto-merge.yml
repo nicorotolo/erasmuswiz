@@ -43,7 +43,6 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git fetch origin main
 
-          # Helper: in caso di problema apre una Issue e termina in VERDE (mai rosso).
           apri_issue() {
             echo "::warning::$1"
             gh issue create \
@@ -53,41 +52,34 @@ jobs:
             exit 0
           }
 
-          # 1) Gia' integrato? Niente da fare: cancella il branch.
           if git merge-base --is-ancestor "$SHA" origin/main; then
             echo "::notice::$BRANCH gia' su main. Cancello il branch."
             git push origin --delete "$BRANCH" || true
             exit 0
           fi
 
-          # 2) Merge a 3 vie sui contenuti (combina i lotti, non sovrascrive).
           git checkout -B main origin/main
           git merge --squash "$SHA" || true
 
-          # 3) Riallinea SEMPRE i file umani/infra a main: qui niente conflitti.
           git checkout origin/main -- STATO_DEL_SITO.md .gitignore .github 2>/dev/null || true
 
-          # 4) Conflitti VERI rimasti (solo dati/stato)? -> Issue, non fallire.
           if git ls-files -u | grep -q .; then
             git reset --hard origin/main
             apri_issue "Conflitto reale sui dati nel branch $BRANCH: serve merge manuale."
           fi
 
-          # 5) Dopo il riallineamento non c'e' nulla di utile da fondere?
           if git diff --cached --quiet; then
             echo "::notice::Nessuna modifica dati utile in $BRANCH. Cancello il branch."
             git push origin --delete "$BRANCH" || true
             exit 0
           fi
 
-          # 6) Valida il RISULTATO prima di pubblicare.
           for f in js/dati-mete*.js; do
             [ -e "$f" ] || continue
             node --check "$f" || apri_issue "node --check fallito su $f dopo il merge di $BRANCH."
           done
           node scripts/valida-stato.mjs || apri_issue "Validatore di coerenza fallito dopo il merge di $BRANCH."
 
-          # 7) Pubblica e pulisci.
           git commit -m "mappatura: auto-merge $BRANCH"
           git push origin main || apri_issue "Push su main rifiutato per $BRANCH: riprovare."
           git push origin --delete "$BRANCH" || true
