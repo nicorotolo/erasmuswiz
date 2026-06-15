@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Management",
-  "runCompletati": 28,
+  "runCompletati": 29,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "management-batch-14",
-      "priorita": 7,
-      "dipartimento": "Management",
-      "descrizione": "Management - scadenze e lingua lotto 13",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "NL GRONING01",
-        "NL TILBURG01",
-        "P COIMBRA01",
-        "P LISBOA07",
-        "P LISBOA109"
-      ]
-    },
     {
       "id": "management-batch-15",
       "priorita": 7,
@@ -130,6 +116,16 @@
       "mete": [
         "MT MALTA01"
       ]
+    },
+    {
+      "id": "management-batch-22",
+      "priorita": 7,
+      "dipartimento": "Management",
+      "descrizione": "Management - secondo tentativo lingua lotto 5",
+      "tipo": "lingua",
+      "mete": [
+        "P COIMBRA01"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -159,13 +155,8 @@
       "fileJs": "js/dati-mete-management.js",
       "stato": "in_corso",
       "totale": 76,
-      "completate": 55,
+      "completate": 60,
       "pendingScadenze": [
-        "NL GRONING01",
-        "NL TILBURG01",
-        "P COIMBRA01",
-        "P LISBOA07",
-        "P LISBOA109",
         "P PORTO02",
         "PL LODZ01",
         "PL RZESZOW01",
@@ -184,11 +175,7 @@
         "F NANTES12",
         "F RENNES01",
         "MT MALTA01",
-        "NL GRONING01",
-        "NL TILBURG01",
         "P COIMBRA01",
-        "P LISBOA07",
-        "P LISBOA109",
         "P PORTO02",
         "PL LODZ01",
         "PL RZESZOW01",
@@ -206,7 +193,8 @@
         "F NANCY43": 1,
         "F NANTES12": 1,
         "F RENNES01": 1,
-        "MT MALTA01": 1
+        "MT MALTA01": 1,
+        "P COIMBRA01": 1
       },
       "linguaNonTrovabile": []
     },
@@ -405,6 +393,12 @@
       "data": "2026-06-15",
       "mete": 5,
       "note": "Management lotto 12: Vilnius, Malta, Agder, Stavanger e UvA Amsterdam arricchite con scadenze; lingue completate dove CEFR ufficiale disponibile, Malta pianificata per secondo tentativo."
+    },
+    {
+      "batch": 29,
+      "data": "2026-06-15",
+      "mete": 5,
+      "note": "Management lotto 13: Groningen FEB, Tilburg TiSEM, Coimbra FEUC, Iscte Business School e ISEG Lisboa arricchite con scadenze; lingue completate dove CEFR ufficiale disponibile, Coimbra pianificata per secondo tentativo."
     }
   ]
 }

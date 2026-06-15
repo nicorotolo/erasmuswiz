@@ -1886,15 +1886,20 @@ const METE = [
       { numero: 4, mesi: 5, livello: "LM", note: "su 4 posti totali condivisi tra i livelli" },
       { numero: 4, mesi: 5, livello: "PhD", note: "su 4 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [{ lingua: "Inglese", livello: "B2", condizione: "per corsi bachelor in inglese" }, { lingua: "Inglese", livello: "C1", condizione: "per corsi master in inglese" }],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
+      { cosa: "Application (autunno)", periodo: "entro 1 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre" },
+      { cosa: "Application (primavera)", periodo: "entro 15 ottobre per studenti UE; entro 6 ottobre per studenti extra-UE" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26988821",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM, PhD; studenti: 4; mesi: 5."
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM, PhD; studenti: 4; mesi: 5. || Scadenze e lingua: RUG FEB fact sheet 2026/27; nomination 15 aprile/1 ottobre; application 1 maggio/15 ottobre UE o 6 ottobre extra-UE; inglese B2 per bachelor e C1 per master"
   },
   {
     id: "63-nl-tilburg01-0410-business-and-administ",
@@ -1909,15 +1914,20 @@ const METE = [
       { numero: 5, mesi: 5, livello: "L", note: "su 5 posti totali condivisi tra i livelli" },
       { numero: 5, mesi: 5, livello: "LM", note: "su 5 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [{ lingua: "Inglese", livello: "B2", condizione: "per corsi bachelor in inglese" }, { lingua: "Inglese", livello: "C1", condizione: "per corsi master in inglese" }],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "prima della application del 15 maggio" },
+      { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "prima della application del 15 ottobre" },
+      { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29516653",
     linkSito: "",
-    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM; studenti: 5; mesi: 5."
+    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM; studenti: 5; mesi: 5. || Scadenze e lingua: Tilburg exchange application; application 15 maggio/15 ottobre; partner nomina prima dell invito; inglese B2 bachelor e C1 master, certificato non richiesto agli exchange nominati"
   },
   {
     id: "64-p-coimbra01-0413-management-and-adminis",
@@ -1934,13 +1944,18 @@ const METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 30 giugno" },
+      { cosa: "Application (autunno)", periodo: "dal 1 marzo al 15 luglio" },
+      { cosa: "Nomination (primavera)", periodo: "entro 30 giugno" },
+      { cosa: "Application (primavera)", periodo: "dal 1 settembre al 15 dicembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254701",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 6."
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 6. || Scadenze: University of Coimbra incoming/FEUC 2025/26; nomination entro 30 giugno; application 1 marzo-15 luglio e 1 settembre-15 dicembre || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "65-p-lisboa07-0410-business-and-administra",
@@ -1954,15 +1969,20 @@ const METE = [
     posti: [
       { numero: 6, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [{ lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }, { lingua: "Portoghese", livello: "B2", condizione: "per corsi in portoghese" }],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 1 giugno" },
+      { cosa: "Application (autunno)", periodo: "dopo nomination, prima dell enrolment; enrolment entro 30 giugno" },
+      { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
+      { cosa: "Application (primavera)", periodo: "dopo nomination, prima dell enrolment; enrolment entro 30 novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/28286278",
     linkSito: "",
-    notePratiche: "Aperta a: Laurea Magistrale in Global Accounting and Finance [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 6; mesi: 5. Specifiche: Students are allowed to select modules from the Master in Accounting and Management Control only"
+    notePratiche: "Aperta a: Laurea Magistrale in Global Accounting and Finance [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 6; mesi: 5. Specifiche: Students are allowed to select modules from the Master in Accounting and Management Control only. || Scadenze e lingua: Iscte Business School fact sheet/procedure; nomination 1 giugno/1 novembre; enrolment 30 giugno/30 novembre; livello B2 CEFR nella lingua di insegnamento, inglese o portoghese"
   },
   {
     id: "66-p-lisboa109-0410-business-and-administr",
@@ -1977,15 +1997,20 @@ const METE = [
       { numero: 4, mesi: 5, livello: "L", note: "su 4 posti totali condivisi tra i livelli" },
       { numero: 4, mesi: 5, livello: "LM", note: "su 4 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [{ lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "dal 1 al 30 aprile" },
+      { cosa: "Application (autunno)", periodo: "dal 1 al 30 aprile" },
+      { cosa: "Nomination (primavera)", periodo: "dal 1 al 30 settembre" },
+      { cosa: "Application (primavera)", periodo: "dal 1 al 30 settembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254709",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 4; mesi: 5."
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 4; mesi: 5. || Scadenze e lingua: ISEG fact sheet 2026/27; nomination e application 1-30 aprile per autunno, 1-30 settembre per primavera; inglese B2 consigliato/richiesto per corsi in inglese"
   },
   {
     id: "67-p-porto02-0410-business-and-administrat",
