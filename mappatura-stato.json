@@ -4,23 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Scienze ambientali, informatica e statistica",
-  "runCompletati": 36,
+  "runCompletati": 37,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "management-batch-20",
-      "priorita": 7,
-      "dipartimento": "Management",
-      "descrizione": "Management - secondo tentativo lingua lotto 3",
-      "tipo": "lingua",
-      "mete": [
-        "F RENNES01"
-      ]
-    },
     {
       "id": "management-batch-21",
       "priorita": 7,
@@ -356,10 +346,9 @@
       "fileJs": "js/dati-mete-management.js",
       "stato": "in_corso",
       "totale": 76,
-      "completate": 67,
+      "completate": 68,
       "pendingScadenze": [],
       "pendingLingua": [
-        "F RENNES01",
         "MT MALTA01",
         "P COIMBRA01",
         "S LINKOPI01",
@@ -370,7 +359,6 @@
         "F LILLE11": 2,
         "F NANCY43": 2,
         "F NANTES12": 2,
-        "F RENNES01": 1,
         "MT MALTA01": 1,
         "P COIMBRA01": 1,
         "S LINKOPI01": 1,
@@ -836,6 +824,12 @@
       "data": "2026-06-15",
       "mete": 1,
       "note": "Management management-batch-19: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 37,
+      "data": "2026-06-15",
+      "mete": 1,
+      "note": "Management management-batch-20: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

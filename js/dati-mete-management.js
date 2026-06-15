@@ -1444,7 +1444,10 @@ const METE = [
       { numero: 3, mesi: 5, livello: "L", note: "su 3 posti totali condivisi tra i livelli" },
       { numero: 3, mesi: 5, livello: "LM", note: "su 3 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per il Rennes Exchange Programme in Economics e i corsi in inglese" },
+        { lingua: "Francese", livello: "B2", condizione: "per i corsi in francese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
       { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
@@ -1456,8 +1459,8 @@ const METE = [
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254546",
-    linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L (3°anno), LM; studenti: 3; mesi: 5. Specifiche: For Bachelor's students the mobility is allowed at the third year only since two years of undergraduate studies are required for admission to Rennes Exchange Programme in Economics || Scadenze: fact sheet Universite de Rennes 2025/26 || Lingua: CEFR non pubblicato ufficialmente"
+    linkSito: "https://eco.univ-rennes.fr/en/rennes-exchange-programme-economics",
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L (3°anno), LM; studenti: 3; mesi: 5. Specifiche: For Bachelor's students the mobility is allowed at the third year only since two years of undergraduate studies are required for admission to Rennes Exchange Programme in Economics || Scadenze: fact sheet Universite de Rennes 2025/26"
   },
   {
     id: "48-f-strasbo48-0410-business-and-administr",
