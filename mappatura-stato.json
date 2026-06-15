@@ -4,24 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Scienze ambientali, informatica e statistica",
-  "runCompletati": 34,
+  "runCompletati": 35,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "management-batch-18",
-      "priorita": 7,
-      "dipartimento": "Management",
-      "descrizione": "Management - secondo tentativo lingua lotto 2",
-      "tipo": "lingua",
-      "mete": [
-        "F LILLE11",
-        "F NANCY43"
-      ]
-    },
     {
       "id": "management-batch-19",
       "priorita": 7,
@@ -380,8 +369,6 @@
       "completate": 67,
       "pendingScadenze": [],
       "pendingLingua": [
-        "F LILLE11",
-        "F NANCY43",
         "F NANTES12",
         "F RENNES01",
         "MT MALTA01",
@@ -391,8 +378,8 @@
       ],
       "tentativiLingua": {
         "A KLAGENF01": 2,
-        "F LILLE11": 1,
-        "F NANCY43": 1,
+        "F LILLE11": 2,
+        "F NANCY43": 2,
         "F NANTES12": 1,
         "F RENNES01": 1,
         "MT MALTA01": 1,
@@ -401,7 +388,9 @@
         "S STOCKHO01": 1
       },
       "linguaNonTrovabile": [
-        "A KLAGENF01"
+        "A KLAGENF01",
+        "F LILLE11",
+        "F NANCY43"
       ]
     },
     "Lingue e culture orientali": {
@@ -845,6 +834,12 @@
       "data": "2026-06-15",
       "mete": 2,
       "note": "Management management-batch-17: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 35,
+      "data": "2026-06-15",
+      "mete": 2,
+      "note": "Management management-batch-18: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

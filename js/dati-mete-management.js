@@ -1188,8 +1188,8 @@ const METE = [
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29516647",
-    linkSito: "",
-    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM; studenti: 6; mesi: 5. || Scadenze: IÉSEG Exchange Program Factsheet 2025/2026 || Lingua: CEFR non pubblicato ufficialmente; richiesto working level of English, nessun test ufficiale"
+    linkSito: "https://www.ieseg.fr/en/international/study-at-ieseg-in-exchange/",
+    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM; studenti: 6; mesi: 5. || Scadenze: IÉSEG Exchange Program Factsheet 2025/2026 || Lingua: CEFR non pubblicato ufficialmente; richiesto working level of English, nessun test ufficiale || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "39-f-lyon23-0410-business-and-administrati",
@@ -1278,8 +1278,8 @@ const METE = [
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26909325",
-    linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM,PhD; studenti: 5; mesi: 5. || Scadenze: Université de Lorraine Student Mobility Fact Sheet 2025/2026 || Lingua: CEFR non pubblicato ufficialmente nella scheda IAE Metz; corsi offerti in inglese"
+    linkSito: "https://iaemetz.univ-lorraine.fr/en/international/internal-exchange",
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM,PhD; studenti: 5; mesi: 5. || Scadenze: Université de Lorraine Student Mobility Fact Sheet 2025/2026 || Lingua: CEFR non pubblicato ufficialmente nella scheda IAE Metz; corsi offerti in inglese || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "42-f-nantes12-0410-business-and-administra",
