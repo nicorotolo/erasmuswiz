@@ -1293,13 +1293,18 @@ const METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "dal 1 febbraio al 10 aprile" },
+      { cosa: "Application (autunno)", periodo: "entro 13 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "dal 1 settembre al 30 settembre" },
+      { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29139585",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 10; mesi: 6. Specifiche: Students cannot mix BA and MA modules. MA modules migh have a limited number of spots available. Student must choose a track and cannot mix modules of different tracks. Students can also choose modules offered in the frame of summer and winter programmes. Master's students have the following two options: • attend the 4th year of undergraduate courses (pick and choose, 2 tracks and one main course) • attend the Grande Ecole. Please be aware that the academic offer is more limited in the Spring Semester"
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 10; mesi: 6. Specifiche: Students cannot mix BA and MA modules. MA modules migh have a limited number of spots available. Student must choose a track and cannot mix modules of different tracks. Students can also choose modules offered in the frame of summer and winter programmes. Master's students have the following two options: • attend the 4th year of undergraduate courses (pick and choose, 2 tracks and one main course) • attend the Grande Ecole. Please be aware that the academic offer is more limited in the Spring Semester || Scadenze: Audencia fact sheet 2026/27 || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "43-f-paris256-0410-business-and-administra",
@@ -1314,15 +1319,23 @@ const METE = [
       { numero: 10, mesi: 5, livello: "L", note: "su 10 posti totali condivisi tra i livelli" },
       { numero: 10, mesi: 5, livello: "LM", note: "su 10 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "per programmi/corsi in inglese" },
+      { lingua: "Francese", livello: "B2", condizione: "per programmi/corsi in francese" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 30 maggio" },
+      { cosa: "Application (autunno)", periodo: "dopo nomination, tramite application form online" },
+      { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" },
+      { cosa: "Application (primavera)", periodo: "dopo nomination, tramite application form online" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29516577",
     linkSito: "",
-    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM; studenti: 10; mesi: 5."
+    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM; studenti: 10; mesi: 5. || Scadenze: nomination da fact sheet PSB precedente; application corrente online dopo nomination, verificare date aggiornate || Lingua: pagina exchange PSB, B2 per inglese/francese"
   },
   {
     id: "44-f-paris270-0410-business-and-administra",
@@ -1337,15 +1350,23 @@ const METE = [
       { numero: 12, mesi: 5, livello: "L", note: "su 12 posti totali condivisi tra i livelli" },
       { numero: 12, mesi: 5, livello: "LM", note: "su 12 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" },
+      { lingua: "Francese", livello: "B2", condizione: "per corsi in francese" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "prima della registrazione online" },
+      { cosa: "Application (autunno)", periodo: "entro 1 giugno" },
+      { cosa: "Nomination (primavera)", periodo: "prima della registrazione online" },
+      { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29139474",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L(6), LM (6); studenti: 12; mesi: 5."
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L(6), LM (6); studenti: 12; mesi: 5. || Scadenze: pagina EMLV exchange students || Lingua: B2 nella lingua di insegnamento"
   },
   {
     id: "45-f-poitier01-0410-business-and-administr",
@@ -1359,15 +1380,23 @@ const METE = [
     posti: [
       { numero: 3, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Francese", livello: "B2", condizione: "per corsi in francese" },
+      { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "dal 1 marzo al 15 maggio" },
+      { cosa: "Application (autunno)", periodo: "entro 1 giugno" },
+      { cosa: "Nomination (primavera)", periodo: "dal 1 settembre al 1 novembre" },
+      { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/23331167",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 3; mesi: 6."
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 3; mesi: 6. || Scadenze: IAE Poitiers fact sheet 2025/26 || Lingua: B2 CEFR in francese e/o inglese"
   },
   {
     id: "46-f-reims25-0410-business-and-administrat",
@@ -1382,15 +1411,22 @@ const METE = [
       { numero: 12, mesi: 5, livello: "L", note: "su 12 posti totali condivisi tra i livelli" },
       { numero: 12, mesi: 5, livello: "LM", note: "su 12 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "livello raccomandato per exchange students" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "dal 15 marzo al 15 aprile" },
+      { cosa: "Application (autunno)", periodo: "entro fine aprile" },
+      { cosa: "Nomination (primavera)", periodo: "dal 1 settembre al 1 ottobre" },
+      { cosa: "Application (primavera)", periodo: "entro inizio novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29139491",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L(6), LM(6); studenti: 12; mesi: 5. Specifiche: 3 campuses: Reims, Rouen and Paris. In Paris the course offer is limited. It is recommended to choose Reims or Rouen campuses"
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L(6), LM(6); studenti: 12; mesi: 5. Specifiche: 3 campuses: Reims, Rouen and Paris. In Paris the course offer is limited. It is recommended to choose Reims or Rouen campuses || Scadenze: NEOMA fact sheet 2025/26 || Lingua: inglese B2/CECRL raccomandato per exchange students; certificato non richiesto"
   },
   {
     id: "47-f-rennes01-0410-business-and-administra",

@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Management",
-  "runCompletati": 24,
+  "runCompletati": 25,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "management-batch-10",
-      "priorita": 7,
-      "dipartimento": "Management",
-      "descrizione": "Management - scadenze e lingua lotto 9",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "F NANTES12",
-        "F PARIS256",
-        "F PARIS270",
-        "F POITIER01",
-        "F REIMS25"
-      ]
-    },
     {
       "id": "management-batch-11",
       "priorita": 7,
@@ -156,6 +142,16 @@
         "F LILLE11",
         "F NANCY43"
       ]
+    },
+    {
+      "id": "management-batch-19",
+      "priorita": 7,
+      "dipartimento": "Management",
+      "descrizione": "Management - secondo tentativo lingua lotto 3",
+      "tipo": "lingua",
+      "mete": [
+        "F NANTES12"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -185,13 +181,8 @@
       "fileJs": "js/dati-mete-management.js",
       "stato": "in_corso",
       "totale": 76,
-      "completate": 38,
+      "completate": 42,
       "pendingScadenze": [
-        "F NANTES12",
-        "F PARIS256",
-        "F PARIS270",
-        "F POITIER01",
-        "F REIMS25",
         "F RENNES01",
         "F STRASBO48",
         "F TOULOUS01",
@@ -228,10 +219,6 @@
         "F LILLE11",
         "F NANCY43",
         "F NANTES12",
-        "F PARIS256",
-        "F PARIS270",
-        "F POITIER01",
-        "F REIMS25",
         "F RENNES01",
         "F STRASBO48",
         "F TOULOUS01",
@@ -266,7 +253,8 @@
         "A KLAGENF01": 1,
         "A WIEN01": 1,
         "F LILLE11": 1,
-        "F NANCY43": 1
+        "F NANCY43": 1,
+        "F NANTES12": 1
       },
       "linguaNonTrovabile": []
     },
@@ -441,6 +429,12 @@
       "data": "2026-06-15",
       "mete": 5,
       "note": "Management lotto 8: EM Normandie, IESEG, emlyon, IAE Montpellier e IAE Metz arricchite con scadenze; lingue completate dove CEFR ufficiale disponibile."
+    },
+    {
+      "batch": 25,
+      "data": "2026-06-15",
+      "mete": 5,
+      "note": "Management lotto 9: Audencia, Paris School of Business, EMLV, IAE Poitiers e NEOMA arricchite con scadenze; lingue completate dove CEFR ufficiale disponibile."
     }
   ]
 }
