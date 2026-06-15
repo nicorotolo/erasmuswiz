@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Management",
-  "runCompletati": 19,
+  "runCompletati": 20,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "management-batch-5",
-      "priorita": 7,
-      "dipartimento": "Management",
-      "descrizione": "Management - scadenze e lingua lotto 4",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "D REGENSB01",
-        "DK ARHUS01",
-        "DK KOBENHA05",
-        "DK ODENSE01",
-        "E ALCAL-H01"
-      ]
-    },
     {
       "id": "management-batch-6",
       "priorita": 7,
@@ -244,13 +230,8 @@
       "fileJs": "js/dati-mete-management.js",
       "stato": "in_corso",
       "totale": 76,
-      "completate": 14,
+      "completate": 19,
       "pendingScadenze": [
-        "D REGENSB01",
-        "DK ARHUS01",
-        "DK KOBENHA05",
-        "DK ODENSE01",
-        "E ALCAL-H01",
         "E BARCELO258",
         "E GRANADA01",
         "E MADRID04",
@@ -309,11 +290,6 @@
       "pendingLingua": [
         "A KLAGENF01",
         "A WIEN01",
-        "D REGENSB01",
-        "DK ARHUS01",
-        "DK KOBENHA05",
-        "DK ODENSE01",
-        "E ALCAL-H01",
         "E BARCELO258",
         "E GRANADA01",
         "E MADRID04",
@@ -516,6 +492,12 @@
       "data": "2026-06-15",
       "mete": 5,
       "note": "Management lotto 3: Heilbronn, WHU, Cologne WiSo, Leuphana Lueneburg e Munich Business School arricchite con scadenze e requisiti lingua ufficiali; Leuphana aggiornata su entrambi gli accordi D LUNEBUR01."
+    },
+    {
+      "batch": 20,
+      "data": "2026-06-15",
+      "mete": 5,
+      "note": "Management lotto 4: Regensburg, Aarhus BSS, Copenhagen Business School, SDU Odense e Universidad de Alcala arricchite con scadenze e requisiti lingua ufficiali."
     }
   ]
 }

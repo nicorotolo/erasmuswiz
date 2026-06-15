@@ -473,15 +473,23 @@ const METE = [
       { numero: 4, mesi: 5, livello: "L", note: "su 4 posti totali condivisi tra i livelli" },
       { numero: 4, mesi: 5, livello: "LM", note: "su 4 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese; B2/C1 raccomandato per Faculty of Business, Economics and Management Information Systems" },
+      { lingua: "Tedesco", livello: "B2", condizione: "per corsi in tedesco" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 1 maggio" },
+      { cosa: "Application (autunno)", periodo: "1 aprile - 15 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
+      { cosa: "Application (primavera)", periodo: "1 settembre - 15 novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26908440",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L (3° anno),LM; studenti: 4; mesi: 5. Periodo vincolato: SI - Solo 1° semestre/YES - First semester only"
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L (3° anno),LM; studenti: 4; mesi: 5. Periodo vincolato: SI - Solo 1° semestre/YES - First semester only || Scadenze: Universität Regensburg exchange application, nomination 1/5 e 1/11, application 1/4-15/5 e 1/9-15/11 || Lingua: B2 tedesco per corsi in tedesco; B2 inglese per corsi in inglese, B2/C1 indicato per la Faculty of Business, Economics and Management Information Systems"
   },
   {
     id: "16-d-lunebur01-0410-business-and-administr",
@@ -526,15 +534,22 @@ const METE = [
       { numero: 5, mesi: 5, livello: "L", note: "su 5 posti totali condivisi tra i livelli" },
       { numero: 5, mesi: 5, livello: "LM", note: "su 5 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "per seguire corsi in inglese; Aarhus richiede documentazione/competenza equivalente per gli exchange" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "15 febbraio - 25 marzo" },
+      { cosa: "Application (autunno)", periodo: "entro 1 aprile" },
+      { cosa: "Nomination (primavera)", periodo: "15 agosto - 25 settembre" },
+      { cosa: "Application (primavera)", periodo: "entro 1 ottobre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3282417",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 5; mesi: 5."
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 5; mesi: 5. || Scadenze: Aarhus University exchange admission 2026, nomination 15/2-25/3 e 15/8-25/9, application 1/4 e 1/10 || Lingua: inglese B2 per corsi in inglese secondo requisiti exchange"
   },
   {
     id: "18-dk-kobenha05-0410-business-and-administ",
@@ -549,15 +564,22 @@ const METE = [
       { numero: 4, mesi: 5, livello: "L", note: "su 4 posti totali condivisi tra i livelli" },
       { numero: 4, mesi: 5, livello: "LM", note: "su 4 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "C1", condizione: "per application exchange se serve prova linguistica; CAE C1/IELTS 7.0/TOEFL iBT 94 equivalenti" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "secondo procedura partner CBS" },
+      { cosa: "Application (autunno)", periodo: "entro ultima settimana di aprile" },
+      { cosa: "Nomination (primavera)", periodo: "secondo procedura partner CBS" },
+      { cosa: "Application (primavera)", periodo: "entro ultima settimana di ottobre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/28285753",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM; studenti: 4; mesi: 5. Specifiche: Info for incoming students at https://www.cbs.dk/en/study/internationals/exchange-students"
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM; studenti: 4; mesi: 5. Specifiche: Info for incoming students at https://www.cbs.dk/en/study/internationals/exchange-students || Scadenze: CBS exchange students, application entro ultima settimana di aprile/ottobre; nomination gestita dalla home university con form CBS || Lingua: test riconosciuti CBS per exchange equivalenti almeno C1; singoli corsi business spesso indicano B2 CEFR raccomandato"
   },
   {
     id: "19-dk-odense01-0410-business-and-administr",
@@ -573,15 +595,22 @@ const METE = [
       { numero: 4, mesi: 5, livello: "LM", note: "su 4 posti totali condivisi tra i livelli" },
       { numero: 4, mesi: 5, livello: "PhD", note: "su 4 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "documentazione di competenza inglese equivalente almeno al Danish B2 standard" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 1 maggio" },
+      { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
+      { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3282419",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L , LM, PhD (PhD solo 3 mesi); studenti: 4; mesi: 5."
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L , LM, PhD (PhD solo 3 mesi); studenti: 4; mesi: 5. || Scadenze: SDU exchange application, nomination 1/5 e 1/11, application 15/5 e 15/11 || Lingua: inglese equivalente almeno al Danish B2 standard"
   },
   {
     id: "20-e-alcal-h01-0410-business-and-administr",
@@ -596,15 +625,24 @@ const METE = [
       { numero: 4, mesi: 5, livello: "L", note: "su 4 posti totali condivisi tra i livelli" },
       { numero: 4, mesi: 5, livello: "LM", note: "su 4 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Spagnolo", livello: "B1", condizione: "minimo per Faculty of Economics/Law; master e corsi pienamente in spagnolo richiedono B2" },
+      { lingua: "Spagnolo", livello: "B2", condizione: "standard entry requirement e per programmi master/corsi in spagnolo" },
+      { lingua: "Inglese", livello: "B2", condizione: "per corsi tenuti in inglese, secondo livello richiesto agli studenti regolari" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "1 marzo - 30 aprile" },
+      { cosa: "Application (autunno)", periodo: "1 maggio - 31 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "15 settembre - 15 ottobre" },
+      { cosa: "Application (primavera)", periodo: "1 ottobre - 31 ottobre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254457",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 4; mesi: 5. Specifiche: Master programs we teach are fully in Spanish, and require a B2 level of Spanish. With regards to the undergraduate modules, we require a mandatory B1 level of Spanish. We do accept a letter of confirmation from the home university or an official certificate."
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 4; mesi: 5. Specifiche: Master programs we teach are fully in Spanish, and require a B2 level of Spanish. With regards to the undergraduate modules, we require a mandatory B1 level of Spanish. We do accept a letter of confirmation from the home university or an official certificate. || Scadenze: UAH fact sheet/procedura Erasmus, nomination 1/3-30/4 e 15/9-15/10, application 1/5-31/5 e 1/10-31/10 || Lingua: spagnolo B2 standard; Faculty of Economics richiede minimo B1 spagnolo, inglese B2 per corsi in inglese"
   },
   {
     id: "21-e-barcelo258-0410-business-and-administ",
