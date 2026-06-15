@@ -1591,15 +1591,22 @@ const METE = [
     posti: [
       { numero: 4, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 30 aprile" },
+      { cosa: "Application (autunno)", periodo: "entro 31 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
+      { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254640",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 4; mesi: 5."
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 4; mesi: 5. || Scadenze e lingua: AUEB fact sheet 2025/26; corsi disponibili in inglese"
   },
   {
     id: "53-hu-budapes03-0311-economics-e-0413-mana",
@@ -1615,15 +1622,22 @@ const METE = [
       { numero: 4, mesi: 5, livello: "LM", note: "su 4 posti totali condivisi tra i livelli" },
       { numero: 4, mesi: 5, livello: "PhD", note: "su 4 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "per exchange students" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "1 aprile - 20 aprile" },
+      { cosa: "Application (autunno)", periodo: "entro 5 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "1 ottobre - 20 ottobre" },
+      { cosa: "Application (primavera)", periodo: "entro 5 novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/13972946",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM, PhD; studenti: 4; mesi: 5."
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM, PhD; studenti: 4; mesi: 5. || Scadenze e lingua: Corvinus incoming exchange 2025/26-2026/27; inglese CEFR B2 minimo"
   },
   {
     id: "54-irl-dublin01-0410-business-and-administ",
@@ -1637,15 +1651,22 @@ const METE = [
     posti: [
       { numero: 4, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "livello raccomandato per Trinity Business School" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 30 marzo" },
+      { cosa: "Application (autunno)", periodo: "entro 19 aprile" },
+      { cosa: "Nomination (primavera)", periodo: "entro 30 settembre" },
+      { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29139263",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 4; mesi: 5. Specifiche: TBS modules are available here: https://www.tcd.ie/business/programmes/undergraduate/study-abroad/module-outlines/ Student will take 50% in TBS. They may take modules in other school pending acceptance by the other school at time of application. See here: https://www.tcd.ie/students/orientation/visiting-exchange/module-enrolment.php"
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 4; mesi: 5. Specifiche: TBS modules are available here: https://www.tcd.ie/business/programmes/undergraduate/study-abroad/module-outlines/ Student will take 50% in TBS. They may take modules in other school pending acceptance by the other school at time of application. See here: https://www.tcd.ie/students/orientation/visiting-exchange/module-enrolment.php || Scadenze: Trinity Erasmus exchange 2026/27 e fact sheet 2026/27 || Lingua: Trinity Business School raccomanda inglese B2"
   },
   {
     id: "55-irlgalway01-0410-business-and-administr",
@@ -1659,15 +1680,22 @@ const METE = [
     posti: [
       { numero: 4, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "richiesto per completare l'application Erasmus" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 15 marzo" },
+      { cosa: "Application (autunno)", periodo: "entro 15 aprile" },
+      { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+      { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29470349",
     linkSito: "",
-    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 4; mesi: 5."
+    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 4; mesi: 5. || Scadenze e lingua: University of Galway Erasmus factsheet 2025/26 e pagina incoming; inglese CEFR B2 richiesto"
   },
   {
     id: "56-is-reykjav05-0410-business-and-administ",
@@ -1681,15 +1709,22 @@ const METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "per studenti non madrelingua inglese" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "prima dell'application, secondo istruzioni incoming@ru.is" },
+      { cosa: "Application (autunno)", periodo: "entro 1 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "prima dell'application, secondo istruzioni incoming@ru.is" },
+      { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26910247",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 2; mesi: 5."
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 2; mesi: 5. || Scadenze: pagina ufficiale RU application dates; nomination gestita prima dell'application || Lingua: fact sheet RU, Cambridge/DAAD B2 accettato"
   },
   {
     id: "57-lt-vilnius01-0410-business-and-administ",

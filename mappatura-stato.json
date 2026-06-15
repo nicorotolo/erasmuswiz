@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Management",
-  "runCompletati": 26,
+  "runCompletati": 27,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "management-batch-12",
-      "priorita": 7,
-      "dipartimento": "Management",
-      "descrizione": "Management - scadenze e lingua lotto 11",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "G ATHINE04",
-        "HU BUDAPES03",
-        "IRL DUBLIN01",
-        "IRLGALWAY01",
-        "IS REYKJAV05"
-      ]
-    },
     {
       "id": "management-batch-13",
       "priorita": 7,
@@ -177,13 +163,8 @@
       "fileJs": "js/dati-mete-management.js",
       "stato": "in_corso",
       "totale": 76,
-      "completate": 46,
+      "completate": 51,
       "pendingScadenze": [
-        "G ATHINE04",
-        "HU BUDAPES03",
-        "IRL DUBLIN01",
-        "IRLGALWAY01",
-        "IS REYKJAV05",
         "LT VILNIUS01",
         "MT MALTA01",
         "N KRISTIA01",
@@ -211,11 +192,6 @@
         "F NANCY43",
         "F NANTES12",
         "F RENNES01",
-        "G ATHINE04",
-        "HU BUDAPES03",
-        "IRL DUBLIN01",
-        "IRLGALWAY01",
-        "IS REYKJAV05",
         "LT VILNIUS01",
         "MT MALTA01",
         "N KRISTIA01",
@@ -429,6 +405,12 @@
       "data": "2026-06-15",
       "mete": 5,
       "note": "Management lotto 10: Rennes, EM Strasbourg, TSM, Toulouse III IUT ed ESLSCA arricchite con scadenze; lingue completate dove CEFR ufficiale disponibile, Rennes pianificata per secondo tentativo."
+    },
+    {
+      "batch": 27,
+      "data": "2026-06-15",
+      "mete": 5,
+      "note": "Management lotto 11: AUEB, Corvinus, Trinity Business School, University of Galway e Reykjavik University arricchite con scadenze nomination/application e requisiti lingua CEFR ufficiali o da fact sheet."
     }
   ]
 }
