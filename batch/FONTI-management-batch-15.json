@@ -1,0 +1,27 @@
+{
+  "P PORTO02": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/23280419",
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/23280419",
+    "linkSito": "https://www.up.pt/fep/en/internationalisation/mobility/mobility-in/"
+  },
+  "PL LODZ01": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26984428",
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26984428",
+    "linkSito": "https://www.uni.lodz.pl/en/international-mobility/erasmus-studies/erasmus-studies-2026-2027"
+  },
+  "PL RZESZOW01": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254719",
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254719",
+    "linkSito": "https://dwm.prz.edu.pl/en/erasmus/student/academic-calendar"
+  },
+  "PL WARSZAW21": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29139624",
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29139624",
+    "linkSito": "https://www.kozminski.edu.pl/en/community/incoming-students"
+  },
+  "S HUDDING01": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254735",
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254735",
+    "linkSito": "https://www.sh.se/exchange/"
+  }
+}

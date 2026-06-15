@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Management",
-  "runCompletati": 29,
+  "runCompletati": 30,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "management-batch-15",
-      "priorita": 7,
-      "dipartimento": "Management",
-      "descrizione": "Management - scadenze e lingua lotto 14",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "P PORTO02",
-        "PL LODZ01",
-        "PL RZESZOW01",
-        "PL WARSZAW21",
-        "S HUDDING01"
-      ]
-    },
     {
       "id": "management-batch-16",
       "priorita": 7,
@@ -155,13 +141,8 @@
       "fileJs": "js/dati-mete-management.js",
       "stato": "in_corso",
       "totale": 76,
-      "completate": 60,
+      "completate": 64,
       "pendingScadenze": [
-        "P PORTO02",
-        "PL LODZ01",
-        "PL RZESZOW01",
-        "PL WARSZAW21",
-        "S HUDDING01",
         "S LINKOPI01",
         "S STOCKHO01",
         "SF HELSINK39",
@@ -176,11 +157,6 @@
         "F RENNES01",
         "MT MALTA01",
         "P COIMBRA01",
-        "P PORTO02",
-        "PL LODZ01",
-        "PL RZESZOW01",
-        "PL WARSZAW21",
-        "S HUDDING01",
         "S LINKOPI01",
         "S STOCKHO01",
         "SF HELSINK39",
@@ -399,6 +375,12 @@
       "data": "2026-06-15",
       "mete": 5,
       "note": "Management lotto 13: Groningen FEB, Tilburg TiSEM, Coimbra FEUC, Iscte Business School e ISEG Lisboa arricchite con scadenze; lingue completate dove CEFR ufficiale disponibile, Coimbra pianificata per secondo tentativo."
+    },
+    {
+      "batch": 30,
+      "data": "2026-06-15",
+      "mete": 5,
+      "note": "Management management-batch-15: merge automatico via applica-batch.mjs."
     }
   ]
 }
