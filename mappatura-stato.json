@@ -3,23 +3,14 @@
   "aggiornato": "2026-06-15",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
-  "dipartimentoCorrente": "Management",
-  "runCompletati": 31,
+  "dipartimentoCorrente": "Scienze ambientali, informatica e statistica",
+  "runCompletati": 32,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "scienze-batch-1",
-      "priorita": 9,
-      "dipartimento": "Scienze ambientali, informatica e statistica",
-      "descrizione": "NUOVO DIPARTIMENTO: crea js/dati-mete-scienze.js.",
-      "tipo": "nuovo_dipartimento",
-      "mete": [],
-      "fileJs": "js/dati-mete-scienze.js"
-    },
     {
       "id": "filosofia-batch-1",
       "priorita": 10,
@@ -170,6 +161,74 @@
         "F GRENOBL23",
         "D KONSTAN01"
       ]
+    },
+    {
+      "id": "scienze-batch-2",
+      "priorita": 8,
+      "dipartimento": "Scienze ambientali, informatica e statistica",
+      "descrizione": "Scienze ambientali, informatica e statistica - completamento lingua e scadenze lotto 1",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "IS REYKJAV01",
+        "D BINGEN01",
+        "N BERGEN01",
+        "B ANTWERP01",
+        "D SAARBRU01"
+      ]
+    },
+    {
+      "id": "scienze-batch-3",
+      "priorita": 8,
+      "dipartimento": "Scienze ambientali, informatica e statistica",
+      "descrizione": "Scienze ambientali, informatica e statistica - completamento lingua e scadenze lotto 2",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SF HELSINK40",
+        "E BARCELO16",
+        "E BARCELO01",
+        "F TOULOUS02",
+        "F CHAMBER01"
+      ]
+    },
+    {
+      "id": "scienze-batch-4",
+      "priorita": 8,
+      "dipartimento": "Scienze ambientali, informatica e statistica",
+      "descrizione": "Scienze ambientali, informatica e statistica - completamento lingua e scadenze lotto 3",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E BARCELO02",
+        "TR ANKARA08",
+        "P LISBOA03",
+        "CZ OLOMOUC01",
+        "CZ BRNO05"
+      ]
+    },
+    {
+      "id": "scienze-batch-5",
+      "priorita": 8,
+      "dipartimento": "Scienze ambientali, informatica e statistica",
+      "descrizione": "Scienze ambientali, informatica e statistica - completamento lingua e scadenze lotto 4",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "A WIEN02",
+        "NL TILBURG01",
+        "F PARIS482",
+        "SF TURKU05",
+        "SF KOKKOLA05"
+      ]
+    },
+    {
+      "id": "scienze-batch-6",
+      "priorita": 8,
+      "dipartimento": "Scienze ambientali, informatica e statistica",
+      "descrizione": "Scienze ambientali, informatica e statistica - completamento lingua e scadenze lotto 5",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "RO TIMISOA01",
+        "PL KRAKOW02",
+        "D BRAUNSC01"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -289,7 +348,61 @@
     },
     "Scienze ambientali, informatica e statistica": {
       "fileJs": "js/dati-mete-scienze.js",
-      "stato": "non_iniziato"
+      "stato": "in_corso",
+      "totale": 25,
+      "completate": 0,
+      "pendingScadenze": [
+        "IS REYKJAV01",
+        "D BINGEN01",
+        "N BERGEN01",
+        "B ANTWERP01",
+        "D SAARBRU01",
+        "SF HELSINK40",
+        "E BARCELO16",
+        "E BARCELO01",
+        "F TOULOUS02",
+        "F CHAMBER01",
+        "E BARCELO02",
+        "TR ANKARA08",
+        "P LISBOA03",
+        "CZ OLOMOUC01",
+        "CZ BRNO05",
+        "A WIEN02",
+        "NL TILBURG01",
+        "F PARIS482",
+        "SF TURKU05",
+        "SF KOKKOLA05",
+        "RO TIMISOA01",
+        "PL KRAKOW02",
+        "D BRAUNSC01"
+      ],
+      "pendingLingua": [
+        "IS REYKJAV01",
+        "D BINGEN01",
+        "N BERGEN01",
+        "B ANTWERP01",
+        "D SAARBRU01",
+        "SF HELSINK40",
+        "E BARCELO16",
+        "E BARCELO01",
+        "F TOULOUS02",
+        "F CHAMBER01",
+        "E BARCELO02",
+        "TR ANKARA08",
+        "P LISBOA03",
+        "CZ OLOMOUC01",
+        "CZ BRNO05",
+        "A WIEN02",
+        "NL TILBURG01",
+        "F PARIS482",
+        "SF TURKU05",
+        "SF KOKKOLA05",
+        "RO TIMISOA01",
+        "PL KRAKOW02",
+        "D BRAUNSC01"
+      ],
+      "tentativiLingua": {},
+      "linguaNonTrovabile": []
     },
     "Filosofia e Beni Culturali": {
       "fileJs": "js/dati-mete-filosofia.js",
@@ -496,6 +609,12 @@
       "data": "2026-06-15",
       "mete": 4,
       "note": "Management management-batch-16: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 32,
+      "data": "2026-06-15",
+      "mete": 25,
+      "note": "Scienze ambientali, informatica e statistica avviato: creato js/dati-mete-scienze.js con 25 mete ufficiali, lingua e scadenze da completare nei batch successivi."
     }
   ]
 }
