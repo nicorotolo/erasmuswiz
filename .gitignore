@@ -4,3 +4,10 @@ fonti/
 # File di lavoro locali
 .claude/
 *.txt
+
+# Artefatti accidentali da run AI (nomi anomali tipo b.comp.ordine, m.requisitoLingua.length)
+*.ordine
+*.length
+contesto
+ZAINO.checklist
+chatgpt-project/

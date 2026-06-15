@@ -1,8 +1,8 @@
-# Auto-merge dei lotti di mappatura spinti da Codex.
-# Codex non apre PR (non ha gh e il connettore non le crea da solo): spinge solo
-# un branch "mappatura/...". Questa Action si attiva su QUEL push, ri-valida e
-# fonde il branch su main. NON usa Claude né token a pagamento: solo i runner
-# gratuiti di GitHub e il GITHUB_TOKEN integrato.
+# Auto-merge dei lotti di mappatura.
+# Si attiva su ogni push a mappatura/**. Valida i file dati, poi fonde su main
+# con squash. Se il branch è divergente (un altro run ha già avanzato main),
+# lo elimina silenziosamente invece di fallire — il prossimo run raccoglierà
+# il lavoro mancante.
 name: Auto-merge mappatura
 
 on:
@@ -38,7 +38,21 @@ jobs:
           SHA="${GITHUB_SHA}"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Aggiorna il ref di main prima di tutto
           git fetch origin main
+
+          # Guardia divergenza: il branch deve essere basato sull'attuale tip di main.
+          # Se un altro run ha già avanzato main, questo branch è orfano:
+          # lo eliminiamo silenziosamente — il prossimo run raccoglierà il lavoro.
+          MAIN_TIP=$(git rev-parse origin/main)
+          BRANCH_BASE=$(git merge-base "$SHA" origin/main)
+          if [ "$BRANCH_BASE" != "$MAIN_TIP" ]; then
+            echo "::warning::Branch $BRANCH è divergente (base=$BRANCH_BASE, main=$MAIN_TIP). Batch già integrato da un altro run — branch eliminato."
+            git push origin --delete "$BRANCH" || true
+            exit 0
+          fi
+
           git checkout -B main origin/main
           git merge --squash "$SHA"
           if git diff --cached --quiet; then

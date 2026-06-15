@@ -127,6 +127,11 @@ jobs:
 
             ## STEP 7 — Crea branch, commit, apri PR
 
+            ⚠️ REGOLA ASSOLUTA: questo step si esegue UNA SOLA VOLTA, per UN SOLO batch.
+            Dopo `gh pr create` il tuo lavoro è FINITO. Non tornare allo STEP 1.
+            Non leggere di nuovo mappatura-stato.json. Non cercare altri batch.
+            Una sessione = un batch = una PR. Stop.
+
             ```bash
             BRANCH="mappatura/lotto-$(date +%Y%m%d-%H%M)"
             git checkout -b "$BRANCH"
