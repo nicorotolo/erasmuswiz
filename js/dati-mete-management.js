@@ -807,15 +807,22 @@ const METE = [
     posti: [
       { numero: 6, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato per seguire i corsi; certificato non richiesto" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "da meta aprile a meta giugno" },
+      { cosa: "Application (autunno)", periodo: "selezione insegnamenti da meta luglio a meta settembre" },
+      { cosa: "Nomination (primavera)", periodo: "da meta aprile a fine ottobre" },
+      { cosa: "Application (primavera)", periodo: "selezione insegnamenti da meta dicembre a meta febbraio" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254514",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 6; mesi: 5."
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 6; mesi: 5. || Scadenze: UMA fact sheet 2025/26, nomination via Algoria; application operativa tramite selezione insegnamenti in Algoria || Lingua: spagnolo B1 raccomandato, certificato non richiesto"
   },
   {
     id: "27-e-valenci01-0410-business-and-administr",
@@ -829,15 +836,22 @@ const METE = [
     posti: [
       { numero: 4, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato; certificato ufficiale non richiesto" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 31 maggio" },
+      { cosa: "Application (autunno)", periodo: "entro 30 giorni dalla email di accettazione" },
+      { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
+      { cosa: "Application (primavera)", periodo: "entro 30 giorni dalla email di accettazione" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/23280406",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 4; mesi: 5. Periodo vincolato: SI - Solo 1° semestre/YES - First semester only"
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 4; mesi: 5. Periodo vincolato: SI - Solo 1° semestre/YES - First semester only || Scadenze: UV incoming Erasmus, nomination 1/3-31/5 per autunno e 1/9-31/10 per primavera; application entro 30 giorni dalla email || Lingua: certificato non richiesto, spagnolo B1 raccomandato"
   },
   {
     id: "28-e-zaragoz01-0410-business-and-administr",
@@ -851,15 +865,22 @@ const METE = [
     posti: [
       { numero: 8, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Spagnolo", livello: "B1", condizione: "livello minimo consigliato/richiesto per seguire le lezioni alla Facolta di Economia e Impresa" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 30 maggio" },
+      { cosa: "Application (autunno)", periodo: "entro 16 giugno" },
+      { cosa: "Nomination (primavera)", periodo: "entro 20 ottobre" },
+      { cosa: "Application (primavera)", periodo: "entro 7 novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254542",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 8; mesi: 5. Periodo vincolato: SI - 4 studenti nel 1° semestre e 4 studenti nel 2° semestre/YES - 4 students in the fall semester and 4 students in the spring semester"
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 8; mesi: 5. Periodo vincolato: SI - 4 studenti nel 1° semestre e 4 studenti nel 2° semestre/YES - 4 students in the fall semester and 4 students in the spring semester || Scadenze: UNIZAR Erasmus incoming 2025/26, nomination 30/5 e 20/10, application 16/6 e 7/11 || Lingua: Facolta di Economia e Impresa indica spagnolo non inferiore a B1 CEFR"
   },
   {
     id: "29-f-angers10-0410-business-and-administra",
@@ -874,15 +895,22 @@ const METE = [
       { numero: 8, mesi: 5, livello: "L", note: "su 8 posti totali condivisi tra i livelli" },
       { numero: 8, mesi: 5, livello: "LM", note: "su 8 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "per corsi insegnati in inglese" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 1 maggio" },
+      { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre" },
+      { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29139555",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 8; mesi: 5. Periodo vincolato: SI - 4 studenti nel 1° semestre e 4 studenti nel 2° semestre/YES - 4 students in the fall semester and 4 students in the spring semester Specifiche: ESSCA has got many campuses,both in France and abroad (Aix-en-Provence,Angers,Bordeaux,Budapest,Luxembourg,Lyon,Malaga,Paris,Shanghai,Strasbourg); with only exception of Shanghai, students can go to any campus; students are required to choose 2 options in terms of campuses, and then they will see which one can be accommodated (Paris is quite crowded, so it is recommended t to consider the other campuses); core modules are the same in each campus, only electives change from campus to campus. Regardless of the chosen campus, students will receive the Erasmus grant as if the mobility is carried out in France"
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 8; mesi: 5. Periodo vincolato: SI - 4 studenti nel 1° semestre e 4 studenti nel 2° semestre/YES - 4 students in the fall semester and 4 students in the spring semester Specifiche: ESSCA has got many campuses,both in France and abroad (Aix-en-Provence,Angers,Bordeaux,Budapest,Luxembourg,Lyon,Malaga,Paris,Shanghai,Strasbourg); with only exception of Shanghai, students can go to any campus; students are required to choose 2 options in terms of campuses, and then they will see which one can be accommodated (Paris is quite crowded, so it is recommended t to consider the other campuses); core modules are the same in each campus, only electives change from campus to campus. Regardless of the chosen campus, students will receive the Erasmus grant as if the mobility is carried out in France || Scadenze: ESSCA fall/spring semester pages, nomination 1/5 e 1/10, application 15/5 e 15/10 || Lingua: inglese B2 per corsi in inglese"
   },
   {
     id: "30-f-bordeau57-0410-business-and-administr",
@@ -897,15 +925,23 @@ const METE = [
       { numero: 12, mesi: 5, livello: "L", note: "su 12 posti totali condivisi tra i livelli" },
       { numero: 12, mesi: 5, livello: "LM", note: "su 12 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "per corsi insegnati in inglese" },
+      { lingua: "Francese", livello: "B2", condizione: "per corsi insegnati in francese" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
+      { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "entro 30 settembre" },
+      { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29532980",
     linkSito: "",
-    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM; studenti: 12; mesi: 5. Specifiche: 2 campuses open to exchange students: Marseille and Bordeaux"
+    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM; studenti: 12; mesi: 5. Specifiche: 2 campuses open to exchange students: Marseille and Bordeaux || Scadenze: KEDGE fact sheet 2025/26, nomination 15/4 e 30/9, application 15/5 e 15/10 || Lingua: inglese B2 per corsi in inglese; francese B2 per corsi in francese"
   },
   {
     id: "31-f-cergy03-0410-business-and-administrat",
