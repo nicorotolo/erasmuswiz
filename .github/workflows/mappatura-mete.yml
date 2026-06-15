@@ -44,81 +44,95 @@ jobs:
             Il tuo compito e' completare i dati mancanti per UN batch di mete, aggiornare
             i file JS e il file di stato, poi aprire una PR. NON fare push su main.
 
-            ## STEP 1 — Leggi il file di stato
+            ## PIPELINE A IMBUTO — leggi questo prima di tutto
 
-            Leggi `mappatura-stato.json`. Prendi:
-            - `prossimiBatch[0]` = batch da lavorare ora
-            - Il suo `id`, `tipo`, lista `mete` (codici Erasmus), `dipartimento`
-            - In `statoDipartimenti[dipartimento]`: il `fileJs` da modificare
+            NON leggere mai i file `js/dati-mete*.js` per intero (sono enormi e
+            sprecano token). Due script deterministici fanno l'estrazione e il
+            merge; tu fai SOLO la ricerca web e produci un piccolo JSON.
 
-            Se `prossimiBatch` e' vuoto: termina senza aprire PR e scrivi nel log
-            "Mappatura completata — nessun batch pendente in mappatura-stato.json".
+            ## STEP 1 — Prepara il batch (estrazione minima)
 
-            ## STEP 2 — Leggi i dati correnti
+            Esegui:
+            ```bash
+            node scripts/prepara-batch.mjs
+            ```
+            - Se esce con codice 2 ("Nessun batch pendente"): termina senza aprire
+              PR e scrivi nel log "Mappatura completata — nessun batch pendente".
+            - Altrimenti viene creato `batch/INPUT.json`: contiene il batch corrente
+              con SOLO i campi-contesto (codiceErasmus, universita, citta, paese,
+              linkPdf, linkSito) e, per ogni meta, `campiDaRiempire`.
 
-            Leggi il fileJs del dipartimento (es: `js/dati-mete.js`).
-            Per ciascuna meta nel batch (per codiceErasmus), nota esattamente cosa manca:
-            - `requisitoLingua: []` → devi trovare livello CEFR
-            - `scadenzeOspitante: []` → devi trovare nomination e application deadlines
+            Leggi `batch/INPUT.json` (è piccolo, pochi KB). NON aprire il fileJs.
 
-            ## STEP 3 — Ricerca dati mancanti
+            ## STEP 2 — Ricerca dati mancanti
 
-            Per ogni meta nel batch, cerca le informazioni usando WebFetch e WebSearch.
+            Per ogni meta in `batch/INPUT.json`, cerca SOLO i campi elencati in
+            `campiDaRiempire`, usando WebFetch e WebSearch.
 
             Fonti (in ordine di priorita'):
-            1. Scheda Ca' Foscari: URL in `linkPdf` del blocco meta
+            1. Scheda Ca' Foscari: URL in `linkPdf`
                (https://apps.unive.it/dati/web/attach/destinazioni_erasmus/XXXXX)
-            2. Sito incoming ufficiale dell'ateneo: `linkSito` gia' nel blocco
+            2. Sito incoming ufficiale dell'ateneo: `linkSito` se presente
             3. Cerca: "[nome universita] Erasmus incoming students deadlines 2025 2026"
             4. Cerca: "[nome universita] exchange students fact sheet 2026"
 
             ### Regole per requisitoLingua:
             - Trova livello CEFR (A1-C1) per la lingua di insegnamento
             - Se offre corsi in piu' lingue (es. inglese + locale), includi entrambi
-            - Se il sito NON specifica livello CEFR: lascia `[]` e aggiungi in
-              notePratiche: "|| Lingua: nessun requisito CEFR formale indicato sul sito ufficiale"
-            - NON inventare livelli — meglio `[]` con nota che un dato sbagliato
-            - Formato: [{ lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }]
+            - Se il sito NON specifica livello CEFR: OMETTI il campo e metti in
+              `notePraticheAppend`: "Lingua: nessun requisito CEFR formale indicato sul sito ufficiale"
+            - NON inventare livelli — meglio ometterlo che un dato sbagliato
 
             ### Regole per scadenzeOspitante:
             - Cerca nomination E application deadlines, per sem. autunnale E primaverile
-            - Formato: { cosa: "Nomination (autunno/anno intero)", periodo: "entro 15 aprile" }
-            - Se trovi solo 2024/25 e non ancora 2025/26: usa quelli con nota in notePratiche:
-              "|| Scadenze: basate su 2024/25 — verificare aggiornamento"
-            - Se davvero non trovabile: lascia `[]` con nota in notePratiche
+            - Se trovi solo 2024/25 e non ancora 2025/26: usali, con
+              `notePraticheAppend`: "Scadenze: basate su 2024/25 — verificare aggiornamento"
+            - Se davvero non trovabile: OMETTI il campo
 
             ### Regole generali:
-            - Aggiorna `linkSito` se vuoto o generico (usa URL diretto alla pagina incoming)
-            - In `notePratiche`: NON toccare la parte "Aperta a: ... [Dati ufficiali...]".
-              Aggiungi nuove info DOPO con " || " come separatore
-            - Se una meta e' irraggiungibile dopo ricerca approfondita: passa oltre,
-              lascia `[]` con nota, NON bloccare il batch
+            - `linkSito`: includilo solo se trovi l'URL diretto alla pagina incoming
+            - Se una meta e' irraggiungibile: OMETTILA dall'OUTPUT, NON bloccare il batch
+            - Le note iniziali ("Aperta a: ... [Dati ufficiali...]") le preserva lo
+              script: tu fornisci solo il testo da aggiungere in `notePraticheAppend`.
 
             ### Se tipo == "nuovo_dipartimento":
-            - Vai su https://www.unive.it/data/11679 e filtra per il dipartimento indicato
-            - Crea il fileJs con TUTTE le mete di quel dipartimento (stesso schema di js/dati-mete.js)
-            - Per campi non trovabili ora: usa `[]` o `""`
-            - Aggiungi i batch di quel dipartimento in fondo a `prossimiBatch` in mappatura-stato.json
+            - In questo caso NON usare la pipeline a imbuto. Vai su
+              https://www.unive.it/data/11679, filtra per il dipartimento indicato,
+              crea il fileJs con TUTTE le mete (schema di js/dati-mete.js), e aggiungi
+              i relativi batch in fondo a `prossimiBatch` in mappatura-stato.json.
 
-            ## STEP 4 — Aggiorna il fileJs
+            ## STEP 3 — Scrivi batch/OUTPUT.json
 
-            Modifica `js/dati-mete.js` (o il fileJs del dipartimento corrente).
-            Sostituisci l'intero blocco `{...}` di ogni meta lavorata con la versione aggiornata.
-            Il file deve restare JavaScript valido — nessun commento `// FONTE:` nel codice finale.
-            Verifica: `node --check js/dati-mete.js`
+            Crea `batch/OUTPUT.json`: una chiave per ogni codiceErasmus con dati
+            trovati (le mete senza dati si omettono). Per ogni meta, SOLO i campi
+            trovati + opzionale `notePraticheAppend` + `fonti` (campo→URL). Esempio:
+            ```json
+            {
+              "E GRANADA01": {
+                "requisitoLingua": [
+                  { "lingua": "Spagnolo", "livello": "B1", "condizione": "per corsi in spagnolo" }
+                ],
+                "scadenzeOspitante": [
+                  { "cosa": "Nomination (sem. autunnale)", "periodo": "entro 15 maggio" }
+                ],
+                "linkSito": "https://...",
+                "notePraticheAppend": "Scadenze: basate su 2024/25 — verificare",
+                "fonti": { "scadenzeOspitante": "https://.../deadlines" }
+              }
+            }
+            ```
+            NON modificare i file JS a mano. NON includere campi immutabili.
 
-            ## STEP 5 — Aggiorna mappatura-stato.json
+            ## STEP 4 — Applica il merge (deterministico)
 
-            Aggiorna il file in modo preciso:
-            1. Rimuovi `prossimiBatch[0]` (batch appena completato)
-            2. In `statoDipartimenti[dipartimento]`:
-               - Rimuovi da `pendingLingua` le mete che ora hanno requisitoLingua != []
-               - Rimuovi da `pendingScadenze` le mete che ora hanno scadenzeOspitante != []
-               - Se pendingScadenze e pendingLingua sono entrambi vuoti: imposta stato = "completo"
-            3. Incrementa `runCompletati` di 1
-            4. Aggiorna `aggiornato` con data odierna (YYYY-MM-DD)
-            5. Aggiungi in `storico`: { "batch": N, "data": "YYYY-MM-DD", "mete": X, "note": "..." }
-            6. Se il dipartimento e' diventato "completo": aggiorna `dipartimentoCorrente` con il prossimo
+            Esegui:
+            ```bash
+            node scripts/applica-batch.mjs
+            ```
+            Lo script fonde l'OUTPUT nel fileJs (solo i campi trovati, campi
+            immutabili intatti), esegue `node --check`, aggiorna
+            `mappatura-stato.json` e salva le fonti in `batch/FONTI-<id>.json`.
+            Se lo script esce con errore, NON committare: riporta l'errore e fermati.
 
             ## STEP 6 — NON toccare STATO_DEL_SITO.md
 
@@ -136,7 +150,7 @@ jobs:
             ```bash
             BRANCH="mappatura/lotto-$(date +%Y%m%d-%H%M)"
             git checkout -b "$BRANCH"
-            git add js/dati-mete.js js/dati-mete-*.js mappatura-stato.json 2>/dev/null || true
+            git add js/dati-mete.js js/dati-mete-*.js mappatura-stato.json batch/FONTI-*.json 2>/dev/null || true
             git diff --cached --stat
             BATCH_DESC="[descrizione breve delle mete lavorate]"
             git commit -m "mete: $BATCH_DESC — $(date +%Y-%m-%d)"
