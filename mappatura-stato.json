@@ -4,23 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Scienze ambientali, informatica e statistica",
-  "runCompletati": 35,
+  "runCompletati": 36,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "management-batch-19",
-      "priorita": 7,
-      "dipartimento": "Management",
-      "descrizione": "Management - secondo tentativo lingua lotto 3",
-      "tipo": "lingua",
-      "mete": [
-        "F NANTES12"
-      ]
-    },
     {
       "id": "management-batch-20",
       "priorita": 7,
@@ -369,7 +359,6 @@
       "completate": 67,
       "pendingScadenze": [],
       "pendingLingua": [
-        "F NANTES12",
         "F RENNES01",
         "MT MALTA01",
         "P COIMBRA01",
@@ -380,7 +369,7 @@
         "A KLAGENF01": 2,
         "F LILLE11": 2,
         "F NANCY43": 2,
-        "F NANTES12": 1,
+        "F NANTES12": 2,
         "F RENNES01": 1,
         "MT MALTA01": 1,
         "P COIMBRA01": 1,
@@ -390,7 +379,8 @@
       "linguaNonTrovabile": [
         "A KLAGENF01",
         "F LILLE11",
-        "F NANCY43"
+        "F NANCY43",
+        "F NANTES12"
       ]
     },
     "Lingue e culture orientali": {
@@ -840,6 +830,12 @@
       "data": "2026-06-15",
       "mete": 2,
       "note": "Management management-batch-18: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 36,
+      "data": "2026-06-15",
+      "mete": 1,
+      "note": "Management management-batch-19: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

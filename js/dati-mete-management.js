@@ -1306,8 +1306,8 @@ const METE = [
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29139585",
-    linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 10; mesi: 6. Specifiche: Students cannot mix BA and MA modules. MA modules migh have a limited number of spots available. Student must choose a track and cannot mix modules of different tracks. Students can also choose modules offered in the frame of summer and winter programmes. Master's students have the following two options: • attend the 4th year of undergraduate courses (pick and choose, 2 tracks and one main course) • attend the Grande Ecole. Please be aware that the academic offer is more limited in the Spring Semester || Scadenze: Audencia fact sheet 2026/27 || Lingua: CEFR non pubblicato ufficialmente"
+    linkSito: "https://www.audencia.com/en/our-business-school/an-international-school/erasmus-programs",
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 10; mesi: 6. Specifiche: Students cannot mix BA and MA modules. MA modules migh have a limited number of spots available. Student must choose a track and cannot mix modules of different tracks. Students can also choose modules offered in the frame of summer and winter programmes. Master's students have the following two options: • attend the 4th year of undergraduate courses (pick and choose, 2 tracks and one main course) • attend the Grande Ecole. Please be aware that the academic offer is more limited in the Spring Semester || Scadenze: Audencia fact sheet 2026/27 || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "43-f-paris256-0410-business-and-administra",
