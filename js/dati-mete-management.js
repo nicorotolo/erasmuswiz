@@ -955,15 +955,23 @@ const METE = [
     posti: [
       { numero: 9, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" },
+      { lingua: "Francese", livello: "B2", condizione: "per corsi business in francese" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "5 aprile - 30 aprile" },
+      { cosa: "Application (autunno)", periodo: "5 maggio - 30 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "5 ottobre - 30 ottobre" },
+      { cosa: "Application (primavera)", periodo: "5 novembre - 30 novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/13945949",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 9; mesi: 5."
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 9; mesi: 5. || Scadenze e lingua: ESSEC Global BBA factsheet 2026/27"
   },
   {
     id: "32-f-chamber01-0410-business-and-administr",
@@ -978,15 +986,23 @@ const METE = [
       { numero: 2, mesi: 6, livello: "L", note: "su 2 posti totali condivisi tra i livelli" },
       { numero: 2, mesi: 6, livello: "LM", note: "su 2 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Francese", livello: "B2", condizione: "raccomandato per corsi in francese" },
+      { lingua: "Inglese", livello: "B2", condizione: "richiesto per corsi in inglese" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro fine marzo" },
+      { cosa: "Application (autunno)", periodo: "da meta marzo a fine aprile" },
+      { cosa: "Nomination (primavera)", periodo: "entro fine ottobre" },
+      { cosa: "Application (primavera)", periodo: "da meta ottobre a meta novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254555",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 6."
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 6. || Scadenze e lingua: information sheet USMB 2026/27"
   },
   {
     id: "33-f-courbev04-0410-business-and-administr",
@@ -1001,15 +1017,23 @@ const METE = [
       { numero: 4, mesi: 5, livello: "L", note: "su 4 posti totali condivisi tra i livelli" },
       { numero: 4, mesi: 5, livello: "LM", note: "su 4 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" },
+      { lingua: "Francese", livello: "B2", condizione: "per corsi in francese" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+      { cosa: "Application (autunno)", periodo: "entro 31 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+      { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254556",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 4; mesi: 5."
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 4; mesi: 5. || Scadenze e lingua: EDC Paris fact sheet 2025/26"
   },
   {
     id: "34-f-dijon01-0413-management-and-administr",
@@ -1023,15 +1047,23 @@ const METE = [
     posti: [
       { numero: 6, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Francese", livello: "B2", condizione: "per corsi in francese" },
+      { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 30 aprile" },
+      { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" },
+      { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3282436",
     linkSito: "",
-    notePratiche: "Aperta a: Laurea Magistrale in Economia e gestione delle arti e delle attività culturali [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 6; mesi: 6."
+    notePratiche: "Aperta a: Laurea Magistrale in Economia e gestione delle arti e delle attività culturali [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 6; mesi: 6. || Scadenze e lingua: UBE/Ca' Foscari factsheet 2025/26"
   },
   {
     id: "35-f-dijon11-0410-business-and-administrat",
@@ -1047,15 +1079,24 @@ const METE = [
       { numero: 4, mesi: 5, livello: "LM", note: "su 4 posti totali condivisi tra i livelli" },
       { numero: 4, mesi: 5, livello: "PhD", note: "su 4 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B1", condizione: "Bachelor/Pre-Master/Master in Management year 1" },
+      { lingua: "Inglese", livello: "B2", condizione: "Master in Management year 2/MSc" },
+      { lingua: "Francese", livello: "B2", condizione: "per corsi in francese" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "27 aprile - 4 maggio" },
+      { cosa: "Application (autunno)", periodo: "4 maggio - 18 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "12 ottobre - 26 ottobre" },
+      { cosa: "Application (primavera)", periodo: "26 ottobre - 9 novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29139290",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM,PhD; studenti: 4; mesi: 5. Specifiche: 2 campuses: Dijon and Lyon. Students must choose modules only from one programme, they cannot mix modules from different programmes. For all MSc, there is a limited number of 24 ECTS. Students going to Dijon can add 6 ECTS credits (French course worth 2 ECTS + Intercultural and Communication Management worth 4 ECTS)"
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM,PhD; studenti: 4; mesi: 5. Specifiche: 2 campuses: Dijon and Lyon. Students must choose modules only from one programme, they cannot mix modules from different programmes. For all MSc, there is a limited number of 24 ECTS. Students going to Dijon can add 6 ECTS credits (French course worth 2 ECTS + Intercultural and Communication Management worth 4 ECTS) || Scadenze e lingua: BSB factsheet 2026/27"
   },
   {
     id: "36-f-dijon11-0413-management-and-administr",
@@ -1069,15 +1110,24 @@ const METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B1", condizione: "Bachelor/Pre-Master/Master in Management year 1" },
+      { lingua: "Inglese", livello: "B2", condizione: "Master in Management year 2/MSc" },
+      { lingua: "Francese", livello: "B2", condizione: "per corsi in francese" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "27 aprile - 4 maggio" },
+      { cosa: "Application (autunno)", periodo: "4 maggio - 18 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "12 ottobre - 26 ottobre" },
+      { cosa: "Application (primavera)", periodo: "26 ottobre - 9 novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29139290",
     linkSito: "",
-    notePratiche: "Aperta a: Laurea Magistrale in Economia e gestione delle arti e delle attività culturali [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 2; mesi: 5. Periodo vincolato: SI - Solo 1° semestre/YES - First semester only Specifiche: Campus Dijon, Master of Arts and Cultural Management. Students must take all the courses of the Master of Arts and Cultural Management (24 ECTS). If needed, it is possible to add 2 pre-determined modules. Maximum: 30 ECTS"
+    notePratiche: "Aperta a: Laurea Magistrale in Economia e gestione delle arti e delle attività culturali [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 2; mesi: 5. Periodo vincolato: SI - Solo 1° semestre/YES - First semester only Specifiche: Campus Dijon, Master of Arts and Cultural Management. Students must take all the courses of the Master of Arts and Cultural Management (24 ECTS). If needed, it is possible to add 2 pre-determined modules. Maximum: 30 ECTS || Scadenze e lingua: BSB factsheet 2026/27"
   },
   {
     id: "37-f-lehavre04-0410-business-and-administr",

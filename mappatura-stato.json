@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Management",
-  "runCompletati": 22,
+  "runCompletati": 23,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "management-batch-8",
-      "priorita": 7,
-      "dipartimento": "Management",
-      "descrizione": "Management - scadenze e lingua lotto 7",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "F CERGY03",
-        "F CHAMBER01",
-        "F COURBEV04",
-        "F DIJON01",
-        "F DIJON11"
-      ]
-    },
     {
       "id": "management-batch-9",
       "priorita": 7,
@@ -202,13 +188,8 @@
       "fileJs": "js/dati-mete-management.js",
       "stato": "in_corso",
       "totale": 76,
-      "completate": 29,
+      "completate": 35,
       "pendingScadenze": [
-        "F CERGY03",
-        "F CHAMBER01",
-        "F COURBEV04",
-        "F DIJON01",
-        "F DIJON11",
         "F LEHAVRE04",
         "F LILLE11",
         "F LYON23",
@@ -252,11 +233,6 @@
       "pendingLingua": [
         "A KLAGENF01",
         "A WIEN01",
-        "F CERGY03",
-        "F CHAMBER01",
-        "F COURBEV04",
-        "F DIJON01",
-        "F DIJON11",
         "F LEHAVRE04",
         "F LILLE11",
         "F LYON23",
@@ -462,6 +438,12 @@
       "data": "2026-06-15",
       "mete": 5,
       "note": "Management lotto 6: Malaga, Valencia, Zaragoza, ESSCA Angers e KEDGE Bordeaux arricchite con scadenze nomination/application e requisiti lingua ufficiali o raccomandati."
+    },
+    {
+      "batch": 23,
+      "data": "2026-06-15",
+      "mete": 5,
+      "note": "Management lotto 7: ESSEC Cergy, USMB Annecy, EDC Paris, UBE Dijon e BSB Dijon arricchite con scadenze nomination/application e requisiti lingua ufficiali."
     }
   ]
 }
