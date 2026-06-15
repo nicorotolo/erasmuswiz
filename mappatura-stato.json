@@ -4,22 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Scienze ambientali, informatica e statistica",
-  "runCompletati": 32,
+  "runCompletati": 33,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "filosofia-batch-1",
-      "priorita": 10,
-      "dipartimento": "Filosofia e Beni Culturali",
-      "descrizione": "NUOVO DIPARTIMENTO: crea js/dati-mete-filosofia.js.",
-      "tipo": "nuovo_dipartimento",
-      "mete": [],
-      "fileJs": "js/dati-mete-filosofia.js"
-    },
     {
       "id": "management-batch-17",
       "priorita": 7,
@@ -229,6 +220,145 @@
         "PL KRAKOW02",
         "D BRAUNSC01"
       ]
+    },
+    {
+      "id": "filosofia-batch-2",
+      "priorita": 6,
+      "dipartimento": "Filosofia e Beni Culturali",
+      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 1",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "CZ BRNO05",
+        "CZ PRAHA07",
+        "D BERLIN02",
+        "D KASSEL01",
+        "D GOTTING01"
+      ]
+    },
+    {
+      "id": "filosofia-batch-3",
+      "priorita": 6,
+      "dipartimento": "Filosofia e Beni Culturali",
+      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 2",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D FRANKFU01",
+        "E SEVILLA03",
+        "F PARIS003",
+        "B LIEGE01",
+        "F LILLE103"
+      ]
+    },
+    {
+      "id": "filosofia-batch-4",
+      "priorita": 6,
+      "dipartimento": "Filosofia e Beni Culturali",
+      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 3",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "NL AMSTERD01",
+        "D WIESBAD01",
+        "F PARIS008",
+        "F MONTPEL03",
+        "F PARIS001"
+      ]
+    },
+    {
+      "id": "filosofia-batch-5",
+      "priorita": 6,
+      "dipartimento": "Filosofia e Beni Culturali",
+      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 4",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "B GENT01",
+        "S LUND01",
+        "N OSLO72",
+        "NL GRONING01",
+        "TR ANKARA07"
+      ]
+    },
+    {
+      "id": "filosofia-batch-6",
+      "priorita": 6,
+      "dipartimento": "Filosofia e Beni Culturali",
+      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 5",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "P LISBOA01",
+        "DK ROSKILD01",
+        "E SALAMAN02",
+        "NL UTRECHT01",
+        "F PARIS014"
+      ]
+    },
+    {
+      "id": "filosofia-batch-7",
+      "priorita": 6,
+      "dipartimento": "Filosofia e Beni Culturali",
+      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 6",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E BARCELO15",
+        "NL NIJMEGE01",
+        "DK KOBENHA01",
+        "E MADRID04",
+        "N TROMSO01"
+      ]
+    },
+    {
+      "id": "filosofia-batch-8",
+      "priorita": 6,
+      "dipartimento": "Filosofia e Beni Culturali",
+      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 7",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E MADRID03",
+        "E BARCELO02",
+        "E OVIEDO01",
+        "NL WAGENIN01",
+        "N-STAVANG-01"
+      ]
+    },
+    {
+      "id": "filosofia-batch-9",
+      "priorita": 6,
+      "dipartimento": "Filosofia e Beni Culturali",
+      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 8",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D MUNCHEN01",
+        "HU BUDAPES01",
+        "F STRASBO48",
+        "D FREIBUR01",
+        "P COIMBRA01"
+      ]
+    },
+    {
+      "id": "filosofia-batch-10",
+      "priorita": 6,
+      "dipartimento": "Filosofia e Beni Culturali",
+      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 9",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "A WIEN01",
+        "D KOBLENZ01",
+        "F PARIS468",
+        "F TOURS01",
+        "G EGALEO02"
+      ]
+    },
+    {
+      "id": "filosofia-batch-11",
+      "priorita": 6,
+      "dipartimento": "Filosofia e Beni Culturali",
+      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 10",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D STUTTGA01",
+        "D TUBINGE01",
+        "F BORDEAU03",
+        "F GRENOBL55"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -406,7 +536,113 @@
     },
     "Filosofia e Beni Culturali": {
       "fileJs": "js/dati-mete-filosofia.js",
-      "stato": "non_iniziato"
+      "stato": "in_corso",
+      "totale": 66,
+      "completate": 0,
+      "pendingScadenze": [
+        "CZ BRNO05",
+        "CZ PRAHA07",
+        "D BERLIN02",
+        "D KASSEL01",
+        "D GOTTING01",
+        "D FRANKFU01",
+        "E SEVILLA03",
+        "F PARIS003",
+        "B LIEGE01",
+        "F LILLE103",
+        "NL AMSTERD01",
+        "D WIESBAD01",
+        "F PARIS008",
+        "F MONTPEL03",
+        "F PARIS001",
+        "B GENT01",
+        "S LUND01",
+        "N OSLO72",
+        "NL GRONING01",
+        "TR ANKARA07",
+        "P LISBOA01",
+        "DK ROSKILD01",
+        "E SALAMAN02",
+        "NL UTRECHT01",
+        "F PARIS014",
+        "E BARCELO15",
+        "NL NIJMEGE01",
+        "DK KOBENHA01",
+        "E MADRID04",
+        "N TROMSO01",
+        "E MADRID03",
+        "E BARCELO02",
+        "E OVIEDO01",
+        "NL WAGENIN01",
+        "N-STAVANG-01",
+        "D MUNCHEN01",
+        "HU BUDAPES01",
+        "F STRASBO48",
+        "D FREIBUR01",
+        "P COIMBRA01",
+        "A WIEN01",
+        "D KOBLENZ01",
+        "F PARIS468",
+        "F TOURS01",
+        "G EGALEO02",
+        "D STUTTGA01",
+        "D TUBINGE01",
+        "F BORDEAU03",
+        "F GRENOBL55"
+      ],
+      "pendingLingua": [
+        "CZ BRNO05",
+        "CZ PRAHA07",
+        "D BERLIN02",
+        "D KASSEL01",
+        "D GOTTING01",
+        "D FRANKFU01",
+        "E SEVILLA03",
+        "F PARIS003",
+        "B LIEGE01",
+        "F LILLE103",
+        "NL AMSTERD01",
+        "D WIESBAD01",
+        "F PARIS008",
+        "F MONTPEL03",
+        "F PARIS001",
+        "B GENT01",
+        "S LUND01",
+        "N OSLO72",
+        "NL GRONING01",
+        "TR ANKARA07",
+        "P LISBOA01",
+        "DK ROSKILD01",
+        "E SALAMAN02",
+        "NL UTRECHT01",
+        "F PARIS014",
+        "E BARCELO15",
+        "NL NIJMEGE01",
+        "DK KOBENHA01",
+        "E MADRID04",
+        "N TROMSO01",
+        "E MADRID03",
+        "E BARCELO02",
+        "E OVIEDO01",
+        "NL WAGENIN01",
+        "N-STAVANG-01",
+        "D MUNCHEN01",
+        "HU BUDAPES01",
+        "F STRASBO48",
+        "D FREIBUR01",
+        "P COIMBRA01",
+        "A WIEN01",
+        "D KOBLENZ01",
+        "F PARIS468",
+        "F TOURS01",
+        "G EGALEO02",
+        "D STUTTGA01",
+        "D TUBINGE01",
+        "F BORDEAU03",
+        "F GRENOBL55"
+      ],
+      "tentativiLingua": {},
+      "linguaNonTrovabile": []
     }
   },
   "regoleProgressione": {
@@ -615,6 +851,67 @@
       "data": "2026-06-15",
       "mete": 25,
       "note": "Scienze ambientali, informatica e statistica avviato: creato js/dati-mete-scienze.js con 25 mete ufficiali, lingua e scadenze da completare nei batch successivi."
+    }
+  ],
+  "storicoBatch": [
+    {
+      "id": "filosofia-batch-1",
+      "data": "2026-06-15",
+      "dipartimento": "Filosofia e Beni Culturali",
+      "tipo": "nuovo_dipartimento",
+      "esito": "completato",
+      "mete": [
+        "CZ BRNO05",
+        "CZ PRAHA07",
+        "D BERLIN02",
+        "D KASSEL01",
+        "D GOTTING01",
+        "D FRANKFU01",
+        "E SEVILLA03",
+        "F PARIS003",
+        "B LIEGE01",
+        "F LILLE103",
+        "NL AMSTERD01",
+        "D WIESBAD01",
+        "F PARIS008",
+        "F MONTPEL03",
+        "F PARIS001",
+        "B GENT01",
+        "S LUND01",
+        "N OSLO72",
+        "NL GRONING01",
+        "TR ANKARA07",
+        "P LISBOA01",
+        "DK ROSKILD01",
+        "E SALAMAN02",
+        "NL UTRECHT01",
+        "F PARIS014",
+        "E BARCELO15",
+        "NL NIJMEGE01",
+        "DK KOBENHA01",
+        "E MADRID04",
+        "N TROMSO01",
+        "E MADRID03",
+        "E BARCELO02",
+        "E OVIEDO01",
+        "NL WAGENIN01",
+        "N-STAVANG-01",
+        "D MUNCHEN01",
+        "HU BUDAPES01",
+        "F STRASBO48",
+        "D FREIBUR01",
+        "P COIMBRA01",
+        "A WIEN01",
+        "D KOBLENZ01",
+        "F PARIS468",
+        "F TOURS01",
+        "G EGALEO02",
+        "D STUTTGA01",
+        "D TUBINGE01",
+        "F BORDEAU03",
+        "F GRENOBL55"
+      ],
+      "note": "Creato js/dati-mete-filosofia.js con 66 righe ufficiali; lingua e scadenze da completare nei batch successivi."
     }
   ]
 }
