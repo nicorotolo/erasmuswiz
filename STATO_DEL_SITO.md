@@ -4,7 +4,7 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-06-15 (run mappatura: Management lotto 4, 19 mete complete)
+**Ultimo aggiornamento:** 2026-06-15 (debug + infra: auto-merge waterproof, repo pulito)
 **Fase v1 raggiunta:** Fase 5 / 5 + Ondata A (A1, A2, A4, A5) — SITO PUBBLICATO
 **Cosa funziona:** tutto, testato; mete REALI (58 Economia + 76 Management in file dati separato); bando, scadenze e
 checklist VALIDATI sul PDF ufficiale; **52/58 righe Economia** sono complete con
@@ -127,6 +127,7 @@ Fatto in run mappatura (2026-06-14): **Management lotto 1 arricchito** - scadenz
 Fatto in run mappatura (2026-06-15): **Management lotto 2 completato** - Deggendorf, FAU Erlangen-Nuernberg, Frankfurt School, University of Hamburg e HSBA arricchite con scadenze nomination/application e requisiti lingua CEFR ufficiali.
 Fatto in run mappatura (2026-06-15): **Management lotto 3 completato** - Heilbronn, WHU, Cologne WiSo, Leuphana Lueneburg e Munich Business School arricchite con scadenze nomination/application e requisiti lingua ufficiali; Leuphana aggiornata su entrambe le righe D LUNEBUR01.
 Fatto in run mappatura (2026-06-15): **Management lotto 4 completato** - Regensburg, Aarhus BSS, Copenhagen Business School, SDU Odense e Universidad de Alcala arricchite con scadenze nomination/application e requisiti lingua ufficiali.
+Fatto in sessione debug (2026-06-15): **infra waterproof** - diagnosticato e risolto bug race condition auto-merge (branch divergenti ora eliminati silenziosamente); aggiunto stop esplicito anti-doppio-batch nel prompt; puliti 13 branch orfani; ripristinati file corrotti da OneDrive.
 Totale Economia: 52/58 righe complete con lingua CEFR e scadenze; 58/58 con scadenze ospitante; 6 righe senza CEFR ufficiale classificate non trovabili.
 Totale Management: 19/76 righe complete; 76/76 con link scheda PDF; scadenze completate per 21/76 righe; lingua CEFR completata per 19/76 righe.
 
@@ -135,8 +136,8 @@ Totale Management: 19/76 righe complete; 76/76 con link scheda PDF; scadenze com
    GitHub (repo → Settings → Secrets and variables → Actions). Poi primo test
    manuale dalla tab Actions ("Mappatura mete Erasmus" → Run workflow). Ora che
    il quarto lotto Management e' stato arricchito, il prossimo run ordinario puo'
-   lavorare `management-batch-6`; il batch `management-batch-17` serve solo per
-   il secondo tentativo lingua di Klagenfurt e Vienna.
+   lavorare `management-batch-6`; i batch `management-batch-17` e `management-batch-18`
+   servono per il secondo tentativo lingua di Klagenfurt, Vienna e Aarhus BSS.
 1. **A3 (resto):** aggiungere analytics (GoatCounter/Plausible) — **serve che
    Nicola crei l'account** (1 riga di script da incollare poi); valutare dominio.
 2. **Sciogliere le lingue ancora senza CEFR ufficiale** (siti atenei / email IRO).
