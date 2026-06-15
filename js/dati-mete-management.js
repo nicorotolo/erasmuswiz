@@ -1774,7 +1774,9 @@ const METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per seguire lezioni e preparare elaborati in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
       { cosa: "Nomination (autunno)", periodo: "prima dell'application, tramite home university" },
@@ -1786,7 +1788,7 @@ const METE = [
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29516624",
-    linkSito: "",
+    linkSito: "https://www.um.edu.mt/studentlife/internationalopportunities/erasmus/incoming/",
     notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 5. || Scadenze: pagina ufficiale University of Malta incoming/visiting students; nomination richiesta prima dell'application || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
