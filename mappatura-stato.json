@@ -4,24 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Scienze ambientali, informatica e statistica",
-  "runCompletati": 33,
+  "runCompletati": 34,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "management-batch-17",
-      "priorita": 7,
-      "dipartimento": "Management",
-      "descrizione": "Management - secondo tentativo lingua lotto 1",
-      "tipo": "lingua",
-      "mete": [
-        "A KLAGENF01",
-        "A WIEN01"
-      ]
-    },
     {
       "id": "management-batch-18",
       "priorita": 7,
@@ -388,11 +377,9 @@
       "fileJs": "js/dati-mete-management.js",
       "stato": "in_corso",
       "totale": 76,
-      "completate": 66,
+      "completate": 67,
       "pendingScadenze": [],
       "pendingLingua": [
-        "A KLAGENF01",
-        "A WIEN01",
         "F LILLE11",
         "F NANCY43",
         "F NANTES12",
@@ -403,8 +390,7 @@
         "S STOCKHO01"
       ],
       "tentativiLingua": {
-        "A KLAGENF01": 1,
-        "A WIEN01": 1,
+        "A KLAGENF01": 2,
         "F LILLE11": 1,
         "F NANCY43": 1,
         "F NANTES12": 1,
@@ -414,7 +400,9 @@
         "S LINKOPI01": 1,
         "S STOCKHO01": 1
       },
-      "linguaNonTrovabile": []
+      "linguaNonTrovabile": [
+        "A KLAGENF01"
+      ]
     },
     "Lingue e culture orientali": {
       "fileJs": "js/dati-mete-lingue.js",
@@ -851,6 +839,12 @@
       "data": "2026-06-15",
       "mete": 25,
       "note": "Scienze ambientali, informatica e statistica avviato: creato js/dati-mete-scienze.js con 25 mete ufficiali, lingua e scadenze da completare nei batch successivi."
+    },
+    {
+      "batch": 34,
+      "data": "2026-06-15",
+      "mete": 2,
+      "note": "Management management-batch-17: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
