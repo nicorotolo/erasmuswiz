@@ -1,11 +1,11 @@
-// lib-mete.mjs — utilità condivise per la pipeline a imbuto della mappatura.
-// Nessuna dipendenza esterna. Lavora sul TESTO del file js/dati-mete*.js
-// (mai con regex ingenue: usa uno scanner che rispetta stringhe e parentesi
-// annidate), così i campi immutabili non vengono mai toccati.
+// lib-mete.mjs — utilita condivise per la pipeline a imbuto della mappatura.
+// Nessuna dipendenza esterna. Lavora sul TESTO del file js/dati-mete*.js con
+// uno scanner che rispetta stringhe e parentesi annidate, cosi i campi
+// immutabili non vengono mai toccati.
 
 import fs from "node:fs";
 
-// Campi che l'LLM può completare. Tutto il resto è immutabile.
+// Campi che l'LLM puo completare. Tutto il resto e immutabile.
 export const CAMPI_RIEMPIBILI = ["requisitoLingua", "scadenzeOspitante", "linkSito"];
 // Campi-contesto utili alla ricerca (gli unici che mandiamo all'LLM).
 export const CAMPI_CONTESTO = [
@@ -16,25 +16,21 @@ export function leggiStato(path = "mappatura-stato.json") {
   return JSON.parse(fs.readFileSync(path, "utf8"));
 }
 
-// Scorre `text` a partire da `from` e ritorna l'indice subito DOPO il valore
-// che inizia in quel punto, rispettando stringhe e annidamento di []{}.
-// Si ferma quando torna a profondità 0 e incontra `,` o `}` di chiusura blocco.
+// Ritorna l'indice subito DOPO il valore che inizia in `from`, rispettando
+// stringhe e annidamento di []{}(). Si ferma a profondita 0 su `,` o chiusura.
 function fineValore(text, from) {
-  let i = from;
-  let depth = 0;
-  let str = null; // carattere di apertura stringa attivo
+  let i = from, depth = 0, str = null;
   while (i < text.length) {
     const c = text[i];
     if (str) {
       if (c === "\\") { i += 2; continue; }
       if (c === str) str = null;
-      i++;
-      continue;
+      i++; continue;
     }
     if (c === '"' || c === "'" || c === "`") { str = c; i++; continue; }
     if (c === "[" || c === "{" || c === "(") { depth++; i++; continue; }
     if (c === "]" || c === "}" || c === ")") {
-      if (depth === 0) return i;        // chiusura del blocco padre
+      if (depth === 0) return i;
       depth--; i++; continue;
     }
     if (c === "," && depth === 0) return i;
@@ -43,15 +39,10 @@ function fineValore(text, from) {
   return i;
 }
 
-// Trova lo span [inizio, fine) dell'intero oggetto meta che contiene
-// `codiceErasmus: "<codice>"`. `inizio` è la `{`, `fine` la `}` corrispondente.
-export function spanMeta(text, codice) {
-  const ago = `codiceErasmus: "${codice}"`;
-  const pos = text.indexOf(ago);
-  if (pos === -1) throw new Error(`Meta non trovata: ${codice}`);
-  // Risali alla `{` di apertura dell'oggetto.
-  let start = text.lastIndexOf("{", pos);
-  // Scendi fino alla `}` bilanciata.
+// Dato un indice dentro un oggetto meta, ritorna lo span [start, end) (start =
+// `{` di apertura, end dopo la `}` bilanciata).
+function spanDaPosizione(text, pos) {
+  const start = text.lastIndexOf("{", pos);
   let i = start, depth = 0, str = null;
   for (; i < text.length; i++) {
     const c = text[i];
@@ -63,25 +54,49 @@ export function spanMeta(text, codice) {
   return { start, end: i };
 }
 
+// Span del PRIMO oggetto meta con quel codiceErasmus.
+export function spanMeta(text, codice) {
+  const pos = text.indexOf(`codiceErasmus: "${codice}"`);
+  if (pos === -1) throw new Error(`Meta non trovata: ${codice}`);
+  return spanDaPosizione(text, pos);
+}
+
+// Span di TUTTI i blocchi con quel codiceErasmus (il codice NON e univoco).
+export function spanTutteMete(text, codice) {
+  const ago = `codiceErasmus: "${codice}"`;
+  const out = [];
+  let from = 0, pos;
+  while ((pos = text.indexOf(ago, from)) !== -1) {
+    const sp = spanDaPosizione(text, pos);
+    out.push(sp);
+    from = sp.end;
+  }
+  if (out.length === 0) throw new Error(`Meta non trovata: ${codice}`);
+  return out;
+}
+
+// Carica l'array METE valutando il sorgente JS (stessa tecnica del validatore).
+export function caricaMete(src) {
+  return Function('"use strict"; ' + src + "; return METE;")();
+}
+
 // Estrae il valore grezzo (testo) di un campo dentro un blocco meta.
 export function valoreCampo(blocco, campo) {
   const re = new RegExp(`(^|[\\s,{])${campo}\\s*:\\s*`, "m");
   const m = re.exec(blocco);
   if (!m) return null;
   const from = m.index + m[0].length;
-  const to = fineValore(blocco, from);
-  return blocco.slice(from, to).trim();
+  return blocco.slice(from, fineValore(blocco, from)).trim();
 }
 
-// Vero se il campo è "vuoto/segnaposto" e quindi va riempito.
+// Vero se il campo e vuoto/segnaposto e quindi va riempito.
 export function campoVuoto(raw) {
   if (raw == null) return true;
   const v = raw.trim();
-  return v === "[]" || v === '""' || v === "''" ||
-         /^"Da verificare/i.test(v) || /^"da verificare/i.test(v);
+  return v === "[]" || v === '""' || v === "''" || /^"?da verificare/i.test(v);
 }
 
-// --- Serializzazione di valori JS in stile-file (chiavi non quotate) ---
+// Serializza un valore JS in stile-file (chiavi non quotate).
 export function serializza(val, indent = "      ") {
   if (Array.isArray(val)) {
     if (val.length === 0) return "[]";
@@ -89,10 +104,8 @@ export function serializza(val, indent = "      ") {
     return "[\n" + items.join(",\n") + "\n" + indent + "]";
   }
   if (val && typeof val === "object") {
-    const parts = Object.entries(val).map(
-      ([k, v]) => `${k}: ${serializza(v, indent)}`
-    );
+    const parts = Object.entries(val).map(([k, v]) => `${k}: ${serializza(v, indent)}`);
     return "{ " + parts.join(", ") + " }";
   }
-  return JSON.stringify(val); // stringhe, numeri, bool, null
+  return JSON.stringify(val);
 }

@@ -27,8 +27,17 @@ if (!fileJs) throw new Error(`Dipartimento senza fileJs: ${dip}`);
 
 const text = fs.readFileSync(fileJs, "utf8");
 
-const mete = batch.mete.map((codice) => {
-  const { start, end } = spanMeta(text, codice);
+// Quali campi cercare in base al tipo del batch.
+const tipo = batch.tipo || "scadenze+lingua";
+const cercaLingua = tipo.includes("lingua");
+const cercaScadenze = tipo.includes("scadenze");
+
+// Codici unici nell'ordine del batch (un codice può avere più blocchi: per la
+// ricerca basta una voce, i dati valgono per tutti gli accordi dell'ateneo).
+const codiciUnici = [...new Set(batch.mete)];
+
+const mete = codiciUnici.map((codice) => {
+  const { start, end } = spanMeta(text, codice); // primo blocco = contesto
   const blocco = text.slice(start, end);
 
   const contesto = {};
@@ -38,9 +47,11 @@ const mete = batch.mete.map((codice) => {
       try { contesto[campo] = JSON.parse(raw); } catch { contesto[campo] = raw; }
     }
   }
-  const daRiempire = CAMPI_RIEMPIBILI.filter((campo) =>
-    campoVuoto(valoreCampo(blocco, campo))
-  );
+  const daRiempire = CAMPI_RIEMPIBILI.filter((campo) => {
+    if (campo === "requisitoLingua" && !cercaLingua) return false;
+    if (campo === "scadenzeOspitante" && !cercaScadenze) return false;
+    return campoVuoto(valoreCampo(blocco, campo));
+  });
   return { ...contesto, campiDaRiempire: daRiempire };
 });
 
