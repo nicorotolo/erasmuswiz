@@ -320,15 +320,22 @@ const METE = [
       { numero: 3, mesi: 5, livello: "L", note: "su 3 posti totali condivisi tra i livelli" },
       { numero: 3, mesi: 5, livello: "LM", note: "su 3 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "per corsi bachelor in inglese; requisiti master da verificare sul portale HHN" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 1 maggio" },
+      { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
+      { cosa: "Application (primavera)", periodo: "entro 1 dicembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254425",
     linkSito: "",
-    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 3; mesi: 5. Periodo vincolato: SI - Solo 1° semestre/YES - First semester only"
+    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 3; mesi: 5. Periodo vincolato: SI - Solo 1° semestre/YES - First semester only || Scadenze: HHN Information Sheet, nomination 1/5 e 15/11, application 15/5 e 1/12 || Lingua: B2 inglese CEFR pubblicato per bachelor; per master HHN rimanda a requisiti specifici"
   },
   {
     id: "11-d-koblenz03-0410-business-and-administr",
@@ -343,15 +350,22 @@ const METE = [
       { numero: 4, mesi: 5, livello: "L", note: "su 4 posti totali condivisi tra i livelli" },
       { numero: 4, mesi: 5, livello: "LM", note: "su 4 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "per studenti exchange BSc/MSc nominati da partner" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 1 giugno" },
+      { cosa: "Application (autunno)", periodo: "istruzioni dopo nomination; scadenza indicata da WHU" },
+      { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre" },
+      { cosa: "Application (primavera)", periodo: "istruzioni dopo nomination; scadenza indicata da WHU" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/28285711",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 4; mesi: 5."
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 4; mesi: 5. || Scadenze: WHU BSc/MSc Exchange 2026/27, nomination 1/6 e 1/10; application online inviata dopo nomination || Lingua: nomination partner considerata prova di inglese almeno B2"
   },
   {
     id: "12-d-koln01-0410-business-and-administrati",
@@ -367,15 +381,23 @@ const METE = [
       { numero: 5, mesi: 5, livello: "LM", note: "su 5 posti totali condivisi tra i livelli" },
       { numero: 5, mesi: 5, livello: "PhD", note: "su 5 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" },
+      { lingua: "Tedesco", livello: "B2", condizione: "per corsi in tedesco" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 1 maggio" },
+      { cosa: "Application (autunno)", periodo: "entro 5 giugno" },
+      { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
+      { cosa: "Application (primavera)", periodo: "entro 1 dicembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254429",
     linkSito: "",
-    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM, PhD (vedi colonna Note); studenti: 5; mesi: 5. Periodo vincolato: SI - Solo 1° semestre/YES - First semester only"
+    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM, PhD (vedi colonna Note); studenti: 5; mesi: 5. Periodo vincolato: SI - Solo 1° semestre/YES - First semester only || Scadenze: Cologne WiSo Fact Sheet 2026/27, nomination 1/5 e 1/11, application 5/6 e 1/12 || Lingua: B2 CEFR in inglese o tedesco"
   },
   {
     id: "13-d-lunebur01-0410-business-and-administr",
@@ -389,15 +411,23 @@ const METE = [
     posti: [
       { numero: 3, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" },
+      { lingua: "Tedesco", livello: "B1", condizione: "per corsi in tedesco" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+      { cosa: "Application (autunno)", periodo: "entro 15 luglio" },
+      { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
+      { cosa: "Application (primavera)", periodo: "entro 15 gennaio" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26984854",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 3; mesi: 6. Periodo vincolato: SI - Solo 1° semestre/YES - First semester only"
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 3; mesi: 6. Periodo vincolato: SI - Solo 1° semestre/YES - First semester only || Scadenze: Leuphana Fact Sheet 2025/26, nomination 15/5 e 15/11, application 15/7 e 15/1 || Lingua: B2 inglese per corsi in inglese, B1 tedesco per corsi in tedesco"
   },
   {
     id: "14-d-munchen12-0410-business-and-administr",
@@ -412,15 +442,23 @@ const METE = [
       { numero: 2, mesi: 4, livello: "L", note: "su 2 posti totali condivisi tra i livelli" },
       { numero: 2, mesi: 4, livello: "LM", note: "su 2 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "per Undergraduate Exchange Semester" },
+      { lingua: "Inglese", livello: "B2", condizione: "per Graduate Exchange Semester; IELTS 6.5/TOEFL iBT 85 equivalenti" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 31 marzo" },
+      { cosa: "Application (autunno)", periodo: "entro 30 aprile" },
+      { cosa: "Nomination (primavera)", periodo: "entro 15 settembre" },
+      { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/13945952",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 4. Periodo vincolato: SI - 1 studente nel 1° semestre e 1 studente nel 2° semestre/YES - 1 student in the Fall semester and 1 student in the Spring semester"
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 4. Periodo vincolato: SI - 1 studente nel 1° semestre e 1 studente nel 2° semestre/YES - 1 student in the Fall semester and 1 student in the Spring semester || Scadenze: MBS incoming exchange/fact sheet, nomination 31/3 e 15/9, application 30/4 e 15/10 || Lingua: inglese richiesto; TOEFL/IELTS equivalenti almeno B2"
   },
   {
     id: "15-d-regensb01-0410-business-and-administr",
@@ -457,15 +495,23 @@ const METE = [
     posti: [
       { numero: 3, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" },
+      { lingua: "Tedesco", livello: "B1", condizione: "per corsi in tedesco" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+      { cosa: "Application (autunno)", periodo: "entro 15 luglio" },
+      { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
+      { cosa: "Application (primavera)", periodo: "entro 15 gennaio" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26984854",
     linkSito: "",
-    notePratiche: "Aperta a: Laurea Magistrale in Innovation and Management for Culture and Creativity [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 3; mesi: 5. Periodo vincolato: SI - Solo 1° semestre/YES - First semester only"
+    notePratiche: "Aperta a: Laurea Magistrale in Innovation and Management for Culture and Creativity [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 3; mesi: 5. Periodo vincolato: SI - Solo 1° semestre/YES - First semester only || Scadenze: Leuphana Fact Sheet 2025/26, nomination 15/5 e 15/11, application 15/7 e 15/1 || Lingua: B2 inglese per corsi in inglese, B1 tedesco per corsi in tedesco"
   },
   {
     id: "17-dk-arhus01-0410-business-and-administra",
