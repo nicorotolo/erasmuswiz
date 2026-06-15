@@ -4,26 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Management",
-  "runCompletati": 30,
+  "runCompletati": 31,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "management-batch-16",
-      "priorita": 7,
-      "dipartimento": "Management",
-      "descrizione": "Management - scadenze e lingua lotto 15",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "S LINKOPI01",
-        "S STOCKHO01",
-        "SF HELSINK39",
-        "TR ISTANBU01"
-      ]
-    },
     {
       "id": "lingue-batch-1",
       "priorita": 8,
@@ -112,6 +99,17 @@
       "mete": [
         "P COIMBRA01"
       ]
+    },
+    {
+      "id": "management-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Management",
+      "descrizione": "Management - follow-up pending",
+      "tipo": "lingua",
+      "mete": [
+        "S LINKOPI01",
+        "S STOCKHO01"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -141,13 +139,8 @@
       "fileJs": "js/dati-mete-management.js",
       "stato": "in_corso",
       "totale": 76,
-      "completate": 64,
-      "pendingScadenze": [
-        "S LINKOPI01",
-        "S STOCKHO01",
-        "SF HELSINK39",
-        "TR ISTANBU01"
-      ],
+      "completate": 66,
+      "pendingScadenze": [],
       "pendingLingua": [
         "A KLAGENF01",
         "A WIEN01",
@@ -158,9 +151,7 @@
         "MT MALTA01",
         "P COIMBRA01",
         "S LINKOPI01",
-        "S STOCKHO01",
-        "SF HELSINK39",
-        "TR ISTANBU01"
+        "S STOCKHO01"
       ],
       "tentativiLingua": {
         "A KLAGENF01": 1,
@@ -170,7 +161,9 @@
         "F NANTES12": 1,
         "F RENNES01": 1,
         "MT MALTA01": 1,
-        "P COIMBRA01": 1
+        "P COIMBRA01": 1,
+        "S LINKOPI01": 1,
+        "S STOCKHO01": 1
       },
       "linguaNonTrovabile": []
     },
@@ -381,6 +374,12 @@
       "data": "2026-06-15",
       "mete": 5,
       "note": "Management management-batch-15: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 31,
+      "data": "2026-06-15",
+      "mete": 4,
+      "note": "Management management-batch-16: merge automatico via applica-batch.mjs."
     }
   ]
 }
