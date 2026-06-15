@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Management",
-  "runCompletati": 20,
+  "runCompletati": 21,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "management-batch-6",
-      "priorita": 7,
-      "dipartimento": "Management",
-      "descrizione": "Management - scadenze e lingua lotto 5",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "E BARCELO258",
-        "E GRANADA01",
-        "E MADRID04",
-        "E MADRID114",
-        "E MADRID232"
-      ]
-    },
     {
       "id": "management-batch-7",
       "priorita": 7,
@@ -230,13 +216,8 @@
       "fileJs": "js/dati-mete-management.js",
       "stato": "in_corso",
       "totale": 76,
-      "completate": 19,
+      "completate": 24,
       "pendingScadenze": [
-        "E BARCELO258",
-        "E GRANADA01",
-        "E MADRID04",
-        "E MADRID114",
-        "E MADRID232",
         "E MALAGA01",
         "E VALENCI01",
         "E ZARAGOZ01",
@@ -290,11 +271,6 @@
       "pendingLingua": [
         "A KLAGENF01",
         "A WIEN01",
-        "E BARCELO258",
-        "E GRANADA01",
-        "E MADRID04",
-        "E MADRID114",
-        "E MADRID232",
         "E MALAGA01",
         "E VALENCI01",
         "E ZARAGOZ01",
@@ -498,6 +474,12 @@
       "data": "2026-06-15",
       "mete": 5,
       "note": "Management lotto 4: Regensburg, Aarhus BSS, Copenhagen Business School, SDU Odense e Universidad de Alcala arricchite con scadenze e requisiti lingua ufficiali."
+    },
+    {
+      "batch": 21,
+      "data": "2026-06-15",
+      "mete": 5,
+      "note": "Management lotto 5: ESCI-UPF, Granada, UAM Madrid ed ESIC Madrid arricchite con scadenze nomination/application e requisiti lingua ufficiali."
     }
   ]
 }

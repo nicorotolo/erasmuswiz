@@ -656,15 +656,23 @@ const METE = [
     posti: [
       { numero: 2, mesi: 6, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato per corsi in spagnolo/catalano" },
+      { lingua: "Inglese", livello: "B2", condizione: "raccomandato per corsi in inglese" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 12 maggio" },
+      { cosa: "Application (autunno)", periodo: "entro 29 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre" },
+      { cosa: "Application (primavera)", periodo: "entro 16 ottobre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/28285679",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 6."
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 6. || Scadenze: ESCI-UPF exchange students 2026/27, nomination 12/5 e 1/10, application 29/5 e 16/10 || Lingua: ESCI-UPF non impone un requisito specifico, ma raccomanda spagnolo B1 o inglese B2 secondo lingua dei corsi"
   },
   {
     id: "22-e-granada01-0413-management-and-adminis",
@@ -678,15 +686,23 @@ const METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Spagnolo", livello: "B1", condizione: "per corsi in spagnolo" },
+      { lingua: "Inglese", livello: "B1", condizione: "per corsi in inglese" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "1 aprile - 30 aprile" },
+      { cosa: "Application (autunno)", periodo: "1 aprile - 15 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "1 ottobre - 31 ottobre" },
+      { cosa: "Application (primavera)", periodo: "1 ottobre - 31 ottobre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254489",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 5."
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 5. || Scadenze: UGR Faculty of Economics and Business fact sheet 2026/27, nomination 1/4-30/4 e 1/10-31/10, application 1/4-15/5 e 1/10-31/10 || Lingua: spagnolo B1 per corsi in spagnolo; inglese B1 per corsi in inglese"
   },
   {
     id: "23-e-madrid04-0410-business-and-administra",
@@ -700,15 +716,23 @@ const METE = [
     posti: [
       { numero: 4, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Spagnolo", livello: "B2", condizione: "obbligatorio per Faculty of Economics and Business" },
+      { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "1 aprile - 30 aprile" },
+      { cosa: "Application (autunno)", periodo: "1 maggio - 31 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "1 settembre - 30 settembre" },
+      { cosa: "Application (primavera)", periodo: "1 ottobre - 31 ottobre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254507",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 4; mesi: 5."
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 4; mesi: 5. || Scadenze: UAM fact sheet 2026/27, nomination 1/4-30/4 e 1/9-30/9, application 1/5-31/5 e 1/10-31/10 || Lingua: spagnolo B2 obbligatorio per Faculty of Economics and Business; inglese B2 per corsi in inglese"
   },
   {
     id: "24-e-madrid114-0410-business-and-administr",
@@ -723,15 +747,23 @@ const METE = [
       { numero: 4, mesi: 5, livello: "L", note: "su 4 posti totali condivisi tra i livelli" },
       { numero: 4, mesi: 5, livello: "LM", note: "su 4 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Spagnolo", livello: "B2", condizione: "per corsi in spagnolo" },
+      { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese; B2 o superiore per graduate" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
+      { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "entro 16 ottobre" },
+      { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254510",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: 2 L; 2 LM; studenti: 4; mesi: 5. Specifiche: BA students and 1st year MA students can choose between VALENCIA or BARCELONA campus. MA students will be assigned to the MADRID campus but they should be enrolled in their final year of Master during mobility. Incoming students will be admitted either in the Business or Marketing degrees"
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: 2 L; 2 LM; studenti: 4; mesi: 5. Specifiche: BA students and 1st year MA students can choose between VALENCIA or BARCELONA campus. MA students will be assigned to the MADRID campus but they should be enrolled in their final year of Master during mobility. Incoming students will be admitted either in the Business or Marketing degrees || Scadenze: ESIC fact sheet 2026/27, nomination 15/4 e 16/10, application 15/5 e 1/11 || Lingua: accreditamento inglese o spagnolo B2; B2 o superiore per graduate"
   },
   {
     id: "25-e-madrid232-0410-business-and-administr",
@@ -745,15 +777,23 @@ const METE = [
     posti: [
       { numero: 4, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Spagnolo", livello: "B2", condizione: "per corsi in spagnolo" },
+      { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
+      { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+      { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26953719",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 4; mesi: 5. Specifiche: Campus Madrid"
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 4; mesi: 5. Specifiche: Campus Madrid || Scadenze: ESIC University Madrid fact sheet 2026/27, nomination 15/4 e 15/10, application 15/5 e 15/11 || Lingua: accreditamento spagnolo B2 o inglese B2"
   },
   {
     id: "26-e-malaga01-0410-business-and-administra",
