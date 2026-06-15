@@ -120,10 +120,11 @@ jobs:
             5. Aggiungi in `storico`: { "batch": N, "data": "YYYY-MM-DD", "mete": X, "note": "..." }
             6. Se il dipartimento e' diventato "completo": aggiorna `dipartimentoCorrente` con il prossimo
 
-            ## STEP 6 — Aggiorna STATO_DEL_SITO.md
+            ## STEP 6 — NON toccare STATO_DEL_SITO.md
 
-            Aggiorna solo: data in alto, sezione 6 (conteggio mete), sezione 8 (cosa ha fatto questo run).
-            NON modificare il resto del file.
+            ⚠️ NON modificare `STATO_DEL_SITO.md`. È un documento-bussola umano e
+            viene aggiornato fuori dal flusso automatico. Modificarlo qui causa
+            conflitti di merge tra lotti paralleli. Lascialo invariato.
 
             ## STEP 7 — Crea branch, commit, apri PR
 
@@ -135,7 +136,7 @@ jobs:
             ```bash
             BRANCH="mappatura/lotto-$(date +%Y%m%d-%H%M)"
             git checkout -b "$BRANCH"
-            git add js/dati-mete.js js/dati-mete-*.js mappatura-stato.json STATO_DEL_SITO.md 2>/dev/null || true
+            git add js/dati-mete.js js/dati-mete-*.js mappatura-stato.json 2>/dev/null || true
             git diff --cached --stat
             BATCH_DESC="[descrizione breve delle mete lavorate]"
             git commit -m "mete: $BATCH_DESC — $(date +%Y-%m-%d)"

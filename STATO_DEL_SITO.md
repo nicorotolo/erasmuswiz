@@ -4,7 +4,7 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-06-15 (debug + infra: auto-merge waterproof, repo pulito)
+**Ultimo aggiornamento:** 2026-06-15 (debug definitivo auto-merge: conflitto-radice su STATO_DEL_SITO.md eliminato; auto-merge bulletproof — su conflitto vero apre Issue invece di fallire; STATO_DEL_SITO.md tolto dal payload dei batch)
 **Fase v1 raggiunta:** Fase 5 / 5 + Ondata A (A1, A2, A4, A5) — SITO PUBBLICATO
 **Cosa funziona:** tutto, testato; mete REALI (58 Economia + 76 Management in file dati separato); bando, scadenze e
 checklist VALIDATI sul PDF ufficiale; **52/58 righe Economia** sono complete con

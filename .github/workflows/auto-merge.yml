@@ -1,8 +1,11 @@
-# Auto-merge dei lotti di mappatura.
-# Si attiva su ogni push a mappatura/**. Valida i file dati, poi fonde su main
-# con squash. Se il branch è divergente (un altro run ha già avanzato main),
-# lo elimina silenziosamente invece di fallire — il prossimo run raccoglierà
-# il lavoro mancante.
+# Auto-merge dei lotti di mappatura (push su mappatura/**).
+# Filosofia "bulletproof": questo workflow NON deve MAI finire in rosso.
+#  - Fonde solo i file DATI (js/dati-mete*.js) e lo stato (mappatura-stato.json),
+#    con un merge a 3 vie che COMBINA correttamente i lotti (non sovrascrive).
+#  - I file umani/infra (STATO_DEL_SITO.md, .github/**, .gitignore) vengono
+#    SEMPRE riallineati alla versione di main: non possono generare conflitti.
+#  - Se resta un conflitto VERO sui dati, NON fallisce: apre una Issue e si ferma
+#    in verde. Il branch resta su GitHub, nessun lavoro viene perso.
 name: Auto-merge mappatura
 
 on:
@@ -12,6 +15,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: auto-merge-mappatura
@@ -27,39 +31,64 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-      - name: node --check sui file dati
-        run: for f in js/dati-mete*.js; do [ -e "$f" ] || continue; node --check "$f"; done
-      - name: Validatore di coerenza
-        run: node scripts/valida-stato.mjs
-      - name: Merge squash su main
+
+      - name: Integra il lotto su main
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          set -euo pipefail
+          set -uo pipefail
           BRANCH="${GITHUB_REF#refs/heads/}"
           SHA="${GITHUB_SHA}"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          # Aggiorna il ref di main prima di tutto
           git fetch origin main
 
-          # Guardia divergenza: il branch deve essere basato sull'attuale tip di main.
-          # Se un altro run ha già avanzato main, questo branch è orfano:
-          # lo eliminiamo silenziosamente — il prossimo run raccoglierà il lavoro.
-          MAIN_TIP=$(git rev-parse origin/main)
-          BRANCH_BASE=$(git merge-base "$SHA" origin/main)
-          if [ "$BRANCH_BASE" != "$MAIN_TIP" ]; then
-            echo "::warning::Branch $BRANCH è divergente (base=$BRANCH_BASE, main=$MAIN_TIP). Batch già integrato da un altro run — branch eliminato."
+          # Helper: in caso di problema apre una Issue e termina in VERDE (mai rosso).
+          apri_issue() {
+            echo "::warning::$1"
+            gh issue create \
+              --title "Auto-merge: intervento manuale su $BRANCH" \
+              --body "$1"$'\n\n'"Branch: \`$BRANCH\` ($SHA). Il merge automatico si e' fermato per sicurezza (nessun dato perso). Il branch e' ancora su GitHub: integralo o cancellalo a mano." \
+              2>/dev/null || true
+            exit 0
+          }
+
+          # 1) Gia' integrato? Niente da fare: cancella il branch.
+          if git merge-base --is-ancestor "$SHA" origin/main; then
+            echo "::notice::$BRANCH gia' su main. Cancello il branch."
             git push origin --delete "$BRANCH" || true
             exit 0
           fi
 
+          # 2) Merge a 3 vie sui contenuti (combina i lotti, non sovrascrive).
           git checkout -B main origin/main
-          git merge --squash "$SHA"
-          if git diff --cached --quiet; then
-            echo "::notice::Nessuna modifica rispetto a main, niente da mergere."
-          else
-            git commit -m "mappatura: auto-merge $BRANCH"
-            git push origin main
-            echo "::notice::Branch $BRANCH fuso su main."
+          git merge --squash "$SHA" || true
+
+          # 3) Riallinea SEMPRE i file umani/infra a main: qui niente conflitti.
+          git checkout origin/main -- STATO_DEL_SITO.md .gitignore .github 2>/dev/null || true
+
+          # 4) Conflitti VERI rimasti (solo dati/stato)? -> Issue, non fallire.
+          if git ls-files -u | grep -q .; then
+            git reset --hard origin/main
+            apri_issue "Conflitto reale sui dati nel branch $BRANCH: serve merge manuale."
           fi
+
+          # 5) Dopo il riallineamento non c'e' nulla di utile da fondere?
+          if git diff --cached --quiet; then
+            echo "::notice::Nessuna modifica dati utile in $BRANCH. Cancello il branch."
+            git push origin --delete "$BRANCH" || true
+            exit 0
+          fi
+
+          # 6) Valida il RISULTATO prima di pubblicare.
+          for f in js/dati-mete*.js; do
+            [ -e "$f" ] || continue
+            node --check "$f" || apri_issue "node --check fallito su $f dopo il merge di $BRANCH."
+          done
+          node scripts/valida-stato.mjs || apri_issue "Validatore di coerenza fallito dopo il merge di $BRANCH."
+
+          # 7) Pubblica e pulisci.
+          git commit -m "mappatura: auto-merge $BRANCH"
+          git push origin main || apri_issue "Push su main rifiutato per $BRANCH: riprovare."
           git push origin --delete "$BRANCH" || true
+          echo "::notice::$BRANCH fuso su main e branch cancellato."
