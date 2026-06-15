@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Management",
-  "runCompletati": 23,
+  "runCompletati": 24,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "management-batch-9",
-      "priorita": 7,
-      "dipartimento": "Management",
-      "descrizione": "Management - scadenze e lingua lotto 8",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "F LEHAVRE04",
-        "F LILLE11",
-        "F LYON23",
-        "F MONTPEL54",
-        "F NANCY43"
-      ]
-    },
     {
       "id": "management-batch-10",
       "priorita": 7,
@@ -159,6 +145,17 @@
         "A KLAGENF01",
         "A WIEN01"
       ]
+    },
+    {
+      "id": "management-batch-18",
+      "priorita": 7,
+      "dipartimento": "Management",
+      "descrizione": "Management - secondo tentativo lingua lotto 2",
+      "tipo": "lingua",
+      "mete": [
+        "F LILLE11",
+        "F NANCY43"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -188,13 +185,8 @@
       "fileJs": "js/dati-mete-management.js",
       "stato": "in_corso",
       "totale": 76,
-      "completate": 35,
+      "completate": 38,
       "pendingScadenze": [
-        "F LEHAVRE04",
-        "F LILLE11",
-        "F LYON23",
-        "F MONTPEL54",
-        "F NANCY43",
         "F NANTES12",
         "F PARIS256",
         "F PARIS270",
@@ -233,10 +225,7 @@
       "pendingLingua": [
         "A KLAGENF01",
         "A WIEN01",
-        "F LEHAVRE04",
         "F LILLE11",
-        "F LYON23",
-        "F MONTPEL54",
         "F NANCY43",
         "F NANTES12",
         "F PARIS256",
@@ -275,7 +264,9 @@
       ],
       "tentativiLingua": {
         "A KLAGENF01": 1,
-        "A WIEN01": 1
+        "A WIEN01": 1,
+        "F LILLE11": 1,
+        "F NANCY43": 1
       },
       "linguaNonTrovabile": []
     },
@@ -444,6 +435,12 @@
       "data": "2026-06-15",
       "mete": 5,
       "note": "Management lotto 7: ESSEC Cergy, USMB Annecy, EDC Paris, UBE Dijon e BSB Dijon arricchite con scadenze nomination/application e requisiti lingua ufficiali."
+    },
+    {
+      "batch": 24,
+      "data": "2026-06-15",
+      "mete": 5,
+      "note": "Management lotto 8: EM Normandie, IESEG, emlyon, IAE Montpellier e IAE Metz arricchite con scadenze; lingue completate dove CEFR ufficiale disponibile."
     }
   ]
 }

@@ -1142,15 +1142,23 @@ const METE = [
       { numero: 4, mesi: 5, livello: "L", note: "su 4 posti totali condivisi tra i livelli" },
       { numero: 4, mesi: 5, livello: "LM", note: "su 4 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" },
+      { lingua: "Francese", livello: "B2", condizione: "per corsi in francese" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 30 aprile" },
+      { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+      { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29516590",
     linkSito: "",
-    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM; studenti: 4; mesi: 5."
+    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM; studenti: 4; mesi: 5. || Scadenze e lingua: pagina Exchange Programmes EM Normandie 2026/27"
   },
   {
     id: "38-f-lille11-0410-business-and-administrat",
@@ -1167,13 +1175,18 @@ const METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
+      { cosa: "Application (autunno)", periodo: "entro 20 aprile" },
+      { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+      { cosa: "Application (primavera)", periodo: "entro 20 ottobre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29516647",
     linkSito: "",
-    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM; studenti: 6; mesi: 5."
+    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM; studenti: 6; mesi: 5. || Scadenze: IÉSEG Exchange Program Factsheet 2025/2026 || Lingua: CEFR non pubblicato ufficialmente; richiesto working level of English, nessun test ufficiale"
   },
   {
     id: "39-f-lyon23-0410-business-and-administrati",
@@ -1188,15 +1201,22 @@ const METE = [
       { numero: 12, mesi: 5, livello: "L", note: "su 12 posti totali condivisi tra i livelli" },
       { numero: 12, mesi: 5, livello: "LM", note: "su 12 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 1 maggio" },
+      { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre" },
+      { cosa: "Application (primavera)", periodo: "entro 10 ottobre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/16148038",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L (6 stud.), LM (6 stud.); studenti: 12; mesi: 5."
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L (6 stud.), LM (6 stud.); studenti: 12; mesi: 5. || Scadenze e lingua: pagine emlyon Global BBA/Master in Management exchange students 2025/2026"
   },
   {
     id: "40-f-montpel54-0410-business-and-administr",
@@ -1211,15 +1231,23 @@ const METE = [
       { numero: 2, mesi: 5, livello: "L", note: "su 2 posti totali condivisi tra i livelli" },
       { numero: 2, mesi: 5, livello: "LM", note: "su 2 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Francese", livello: "B2", condizione: "per corsi in francese" },
+      { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+      { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
+      { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/28285692",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 5. Specifiche: It is not possible to select modules offederd by a different department"
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 5. Specifiche: It is not possible to select modules offederd by a different department || Scadenze e lingua: pagina IAE Montpellier incoming/exchange students 2025/2026"
   },
   {
     id: "41-f-nancy43-0410-business-and-administrat",
@@ -1237,13 +1265,18 @@ const METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+      { cosa: "Application (autunno)", periodo: "entro 31 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+      { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26909325",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM,PhD; studenti: 5; mesi: 5."
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM,PhD; studenti: 5; mesi: 5. || Scadenze: Université de Lorraine Student Mobility Fact Sheet 2025/2026 || Lingua: CEFR non pubblicato ufficialmente nella scheda IAE Metz; corsi offerti in inglese"
   },
   {
     id: "42-f-nantes12-0410-business-and-administra",
