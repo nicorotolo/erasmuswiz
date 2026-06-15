@@ -1443,13 +1443,18 @@ const METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+      { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
+      { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254546",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L (3°anno), LM; studenti: 3; mesi: 5. Specifiche: For Bachelor's students the mobility is allowed at the third year only since two years of undergraduate studies are required for admission to Rennes Exchange Programme in Economics"
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L (3°anno), LM; studenti: 3; mesi: 5. Specifiche: For Bachelor's students the mobility is allowed at the third year only since two years of undergraduate studies are required for admission to Rennes Exchange Programme in Economics || Scadenze: fact sheet Universite de Rennes 2025/26 || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "48-f-strasbo48-0410-business-and-administr",
@@ -1465,15 +1470,23 @@ const METE = [
       { numero: 2, mesi: 6, livello: "LM", note: "su 2 posti totali condivisi tra i livelli" },
       { numero: 2, mesi: 6, livello: "PhD", note: "su 2 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" },
+      { lingua: "Francese", livello: "B2", condizione: "per corsi in francese" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
+      { cosa: "Application (autunno)", periodo: "entro 30 aprile" },
+      { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+      { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29573593",
     linkSito: "",
-    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM, PhD; studenti: 2; mesi: 6."
+    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM, PhD; studenti: 2; mesi: 6. || Scadenze: EM Strasbourg fact sheet 2025/26 || Lingua: B2 nella lingua di insegnamento fortemente raccomandato; certificato non richiesto"
   },
   {
     id: "49-f-toulous01-0410-business-and-administr",
@@ -1488,15 +1501,23 @@ const METE = [
       { numero: 6, mesi: 5, livello: "L", note: "su 6 posti totali condivisi tra i livelli" },
       { numero: 6, mesi: 5, livello: "LM", note: "su 6 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" },
+      { lingua: "Francese", livello: "B2", condizione: "per corsi in francese" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 20 aprile" },
+      { cosa: "Application (autunno)", periodo: "entro 20 aprile" },
+      { cosa: "Nomination (primavera)", periodo: "entro 20 ottobre" },
+      { cosa: "Application (primavera)", periodo: "entro 20 ottobre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29139504",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 6; mesi: 5."
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 6; mesi: 5. || Scadenze: TSM incoming 2026/27 || Lingua: certificato B2 richiesto nella lingua dei corsi scelti"
   },
   {
     id: "50-f-toulous03-0410-business-and-administr",
@@ -1510,15 +1531,23 @@ const METE = [
     posti: [
       { numero: 10, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" },
+      { lingua: "Francese", livello: "B2", condizione: "per corsi in francese" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 30 maggio" },
+      { cosa: "Application (autunno)", periodo: "entro 30 maggio" },
+      { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
+      { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29516638",
     linkSito: "",
-    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 10; mesi: 5."
+    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 10; mesi: 5. || Scadenze: Universite Toulouse III Erasmus incoming || Lingua: B2 indicato per inglese/francese da lista partner; verificare con IUT prima della candidatura"
   },
   {
     id: "51-f-paris525-0410-business-and-administra",
@@ -1532,15 +1561,23 @@ const METE = [
     posti: [
       { numero: 4, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+      { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" },
+      { lingua: "Francese", livello: "B2", condizione: "per corsi in francese" }
+    ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+      { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+      { cosa: "Application (autunno)", periodo: "entro 1 giugno" },
+      { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+      { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
+    ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29516610",
     linkSito: "",
-    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 4; mesi: 5."
+    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 4; mesi: 5. || Scadenze: ESLSCA fact sheet 2025/26 || Lingua: B2 per corsi in inglese/francese secondo fact sheet"
   },
   {
     id: "52-g-athine04-0410-business-and-administra",
