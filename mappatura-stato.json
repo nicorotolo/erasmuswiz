@@ -4,26 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Lingue e culture orientali",
-  "runCompletati": 44,
+  "runCompletati": 45,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "lingue-batch-6",
-      "priorita": 6,
-      "dipartimento": "Lingue e culture orientali",
-      "descrizione": "Lingue e culture orientali - completamento lingua e scadenze",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "D BERLIN01",
-        "F GRENOBL23",
-        "F GRENOBL23",
-        "D KONSTAN01"
-      ]
-    },
     {
       "id": "scienze-batch-2",
       "priorita": 8,
@@ -312,20 +299,13 @@
       "fileJs": "js/dati-mete-lingue.js",
       "stato": "in_corso",
       "totale": 24,
-      "completate": 16,
-      "pendingScadenze": [
-        "D BERLIN01",
-        "F GRENOBL23",
-        "D KONSTAN01"
-      ],
+      "completate": 20,
+      "pendingScadenze": [],
       "pendingLingua": [
         "E SEVILLA01",
         "TR ISTANBU21",
         "IRLCORK01",
-        "A WIEN01",
-        "D BERLIN01",
-        "F GRENOBL23",
-        "D KONSTAN01"
+        "A WIEN01"
       ],
       "tentativiLingua": {
         "E SEVILLA01": 1,
@@ -776,6 +756,12 @@
       "data": "2026-06-16",
       "mete": 5,
       "note": "Lingue e culture orientali lingue-batch-5: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 45,
+      "data": "2026-06-16",
+      "mete": 3,
+      "note": "Lingue e culture orientali lingue-batch-6: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

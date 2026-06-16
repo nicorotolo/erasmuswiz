@@ -1,0 +1,14 @@
+{
+  "D BERLIN01": {
+    "requisitoLingua": "https://www.fu-berlin.de/en/studium/international/studium_fu/auslandssemester/erasmus_in/infos_incomingstudents/Sprachvoraussetzungen.html",
+    "scadenzeOspitante": "https://www.fu-berlin.de/en/studium/international/studium_fu/auslandssemester/erasmus_in/infos_incomingstudents/Nominierung.html"
+  },
+  "F GRENOBL23": {
+    "requisitoLingua": "https://spe.ntu.edu.tw/wp-content/uploads/Sciences_Po_Grenoble-France-Fact-Sheet_2025-2026.pdf",
+    "scadenzeOspitante": "https://spe.ntu.edu.tw/wp-content/uploads/Sciences_Po_Grenoble-France-Fact-Sheet_2025-2026.pdf"
+  },
+  "D KONSTAN01": {
+    "requisitoLingua": "https://www.uni-konstanz.de/en/international-office/study-in-konstanz/exchange-studies/application/",
+    "scadenzeOspitante": "https://www.ff.unsa.ba/images/25_26/erasmus/Konstanz/UniKonstanz_Fact-Sheet_2026-27.pdf"
+  }
+}
