@@ -248,14 +248,21 @@ const METE = [
         note: ""
       }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "per seguire corsi a METU" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 giugno" },
+        { cosa: "Application (autunno)", periodo: "entro 31 luglio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 31 dicembre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/16627884",
-    linkSito: "http://www.metu.edu.tr/",
+    linkSito: "https://ico.metu.edu.tr/erasmus-ka131-erasmus-european-mobility-program",
     notePratiche: "Aperta a: Dipartimento di Studi sull'Asia e sull'Africa Mediterranea [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 6. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -288,13 +295,18 @@ const METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "15 marzo - 15 giugno" },
+        { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "15 settembre - 15 dicembre" },
+        { cosa: "Application (primavera)", periodo: "entro 30 dicembre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/16635981",
-    linkSito: "http://www.yeditepe.edu.tr/en",
-    notePratiche: "Aperta a: Dipartimento di Studi sull'Asia e sull'Africa Mediterranea [Dati ufficiali bando 2026/27] ciclo/posti: 3x4 L e 1x4 LM. Lingua e scadenze ospitante da completare nei batch successivi."
+    linkSito: "https://international.yeditepe.edu.tr/en/international/erasmus-incoming-students",
+    notePratiche: "Aperta a: Dipartimento di Studi sull'Asia e sull'Africa Mediterranea [Dati ufficiali bando 2026/27] ciclo/posti: 3x4 L e 1x4 LM. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "07-tr-ankara01-0222-history-and-archaeology",
@@ -324,14 +336,20 @@ const METE = [
         note: ""
       }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Turco", livello: "B2", condizione: "certificato di competenza in turco" },
+        { lingua: "Inglese", livello: "B2", condizione: "certificato di competenza in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 18 maggio 2026" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre 2025" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/16624958",
-    linkSito: "https://en.ankara.edu.tr/",
+    linkSito: "https://iso.ankara.edu.tr/en/2026/05/13/2026-2027-fall-term-ankara-university-incoming-exchange-student-nomination-period-is-now-open-2/",
     notePratiche: "Aperta a: Dipartimento di Studi sull'Asia e sull'Africa Mediterranea [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -362,14 +380,22 @@ const METE = [
         note: "solo 1° sem."
       }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B2", condizione: "richiesto all'inizio degli studi per corsi in tedesco" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254437",
-    linkSito: "http://www.en.uni-muenchen.de/students/exchange/incomings/austausch_engl/index.html",
+    linkSito: "https://www.lmu.de/en/study/all-degrees-and-programs/programs-for-international-visiting-students/erasmus-and-lmuexchange/how-to-apply/",
     notePratiche: "Aperta a: Dipartimento di Studi sull'Asia e sull'Africa Mediterranea [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5 solo 1° sem.. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -400,14 +426,24 @@ const METE = [
         note: ""
       }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per corsi di lingua e civilta" },
+        { lingua: "Francese", livello: "B2", condizione: "raccomandato per corsi tematici e disciplinari" },
+        { lingua: "Francese", livello: "C1", condizione: "per corsi professionalizzanti" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi professionalizzanti" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "2 marzo - 31 marzo 2026" },
+        { cosa: "Application (autunno)", periodo: "6 aprile - 30 aprile 2026" },
+        { cosa: "Nomination (primavera)", periodo: "7 settembre - 4 ottobre 2026" },
+        { cosa: "Application (primavera)", periodo: "5 ottobre - 1 novembre 2026" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/24658609",
-    linkSito: "http://www.inalco.fr/",
+    linkSito: "https://www.inalco.fr/en/exchange-students-inalco",
     notePratiche: "Aperta a: Dipartimento di Studi sull'Asia e sull'Africa Mediterranea [Dati ufficiali bando 2026/27] ciclo/posti: 3 x 5. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
