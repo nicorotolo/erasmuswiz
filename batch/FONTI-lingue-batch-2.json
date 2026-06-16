@@ -1,0 +1,21 @@
+{
+  "TR ISTANBU01": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/16634507",
+    "scadenzeOspitante": "https://intl.bogazici.edu.tr/nomination"
+  },
+  "B GENT01": {
+    "requisitoLingua": "https://www.ugent.be/lw/en/exchange",
+    "scadenzeOspitante": "https://www.auckland.ac.nz/assets/study/programmes-and-courses/360-auckland-abroad/overview-of-360-auckland-abroad/exchange-partner-fact-sheets/Belgium/ghent-university-fact-sheet-2024.pdf"
+  },
+  "E ALICANT01": {
+    "requisitoLingua": "https://sri.ua.es/en/movilidad/incoming-students/fact-sheet.html",
+    "scadenzeOspitante": "https://sri.ua.es/en/movilidad/incoming-students/exchange/application-procedure.html"
+  },
+  "E SEVILLA01": {
+    "scadenzeOspitante": "https://www.us.es/sites/default/files/internacional/factsheet-US.pdf"
+  },
+  "F PARIS014": {
+    "requisitoLingua": "https://www.sciencespo.fr/en/academics/exchange-programme/language-requirements-accepted-language-tests/",
+    "scadenzeOspitante": "https://www.sciencespo.fr/en/academics/exchange-programme/coming/"
+  }
+}
