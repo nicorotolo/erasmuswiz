@@ -1,0 +1,18 @@
+{
+  "E BARCELO02": {
+    "requisitoLingua": "https://www.uab.cat/sites/ContentServer/international-mobility/itinerarios/incoming-exchange-students/international-exchange-students/general-information-1345749164807.html",
+    "scadenzeOspitante": "https://www.uab.cat/sites/ContentServer/studies/undergraduate/undergraduate-offer/uab-programmes/exchange-applications-1345671040042.html"
+  },
+  "S LUND01": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254741",
+    "scadenzeOspitante": "https://www.ht.lu.se/en/international/information-for-incoming-exchange-students/how-and-when-to-apply/"
+  },
+  "E MADRID04": {
+    "requisitoLingua": "https://www.uam.es/uam/media/doc/1606851974487/uam-factsheet-26-27-eng.pdf",
+    "scadenzeOspitante": "https://www.uam.es/uam/media/doc/1606851974487/uam-factsheet-26-27-eng.pdf"
+  },
+  "F LYON61": {
+    "requisitoLingua": "https://www.sciencespo-lyon.fr/?jet_download=b74f4e562285c85c2367751cfcaccdab9ff2351b",
+    "scadenzeOspitante": "https://www.sciencespo-lyon.fr/?jet_download=b74f4e562285c85c2367751cfcaccdab9ff2351b"
+  }
+}

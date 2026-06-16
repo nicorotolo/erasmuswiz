@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Lingue e culture orientali",
-  "runCompletati": 43,
+  "runCompletati": 44,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "lingue-batch-5",
-      "priorita": 6,
-      "dipartimento": "Lingue e culture orientali",
-      "descrizione": "Lingue e culture orientali - completamento lingua e scadenze",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "E BARCELO02",
-        "S LUND01",
-        "B LEUVEN01",
-        "E MADRID04",
-        "F LYON61"
-      ]
-    },
     {
       "id": "lingue-batch-6",
       "priorita": 6,
@@ -326,12 +312,8 @@
       "fileJs": "js/dati-mete-lingue.js",
       "stato": "in_corso",
       "totale": 24,
-      "completate": 12,
+      "completate": 16,
       "pendingScadenze": [
-        "E BARCELO02",
-        "S LUND01",
-        "E MADRID04",
-        "F LYON61",
         "D BERLIN01",
         "F GRENOBL23",
         "D KONSTAN01"
@@ -341,10 +323,6 @@
         "TR ISTANBU21",
         "IRLCORK01",
         "A WIEN01",
-        "E BARCELO02",
-        "S LUND01",
-        "E MADRID04",
-        "F LYON61",
         "D BERLIN01",
         "F GRENOBL23",
         "D KONSTAN01"
@@ -792,6 +770,12 @@
       "data": "2026-06-16",
       "mete": 5,
       "note": "Lingue e culture orientali lingue-batch-4: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 44,
+      "data": "2026-06-16",
+      "mete": 5,
+      "note": "Lingue e culture orientali lingue-batch-5: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
