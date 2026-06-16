@@ -1950,7 +1950,10 @@ const METE = [
       { numero: 2, mesi: 6, livello: "L", note: "su 2 posti totali condivisi tra i livelli" },
       { numero: 2, mesi: 6, livello: "LM", note: "su 2 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Portoghese", livello: "B1", condizione: "minimo raccomandato per corsi FEUC in portoghese" },
+        { lingua: "Inglese", livello: "B2", condizione: "minimo raccomandato per corsi FEUC in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
       { cosa: "Nomination (autunno)", periodo: "entro 30 giugno" },
@@ -1962,7 +1965,7 @@ const METE = [
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254701",
-    linkSito: "",
+    linkSito: "https://www.uc.pt/feuc/cooperacao-internacional/incoming-mobility-students/",
     notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 6. || Scadenze: University of Coimbra incoming/FEUC 2025/26; nomination entro 30 giugno; application 1 marzo-15 luglio e 1 settembre-15 dicembre || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
