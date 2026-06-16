@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Lingue e culture orientali",
-  "runCompletati": 45,
+  "runCompletati": 46,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "scienze-batch-2",
-      "priorita": 8,
-      "dipartimento": "Scienze ambientali, informatica e statistica",
-      "descrizione": "Scienze ambientali, informatica e statistica - completamento lingua e scadenze lotto 1",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "IS REYKJAV01",
-        "D BINGEN01",
-        "N BERGEN01",
-        "B ANTWERP01",
-        "D SAARBRU01"
-      ]
-    },
     {
       "id": "scienze-batch-3",
       "priorita": 8,
@@ -248,6 +234,16 @@
         "IRLCORK01",
         "A WIEN01"
       ]
+    },
+    {
+      "id": "scienze ambientali, informatica e statistica-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Scienze ambientali, informatica e statistica",
+      "descrizione": "Scienze ambientali, informatica e statistica - follow-up pending",
+      "tipo": "lingua",
+      "mete": [
+        "IS REYKJAV01"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -319,13 +315,8 @@
       "fileJs": "js/dati-mete-scienze.js",
       "stato": "in_corso",
       "totale": 25,
-      "completate": 0,
+      "completate": 4,
       "pendingScadenze": [
-        "IS REYKJAV01",
-        "D BINGEN01",
-        "N BERGEN01",
-        "B ANTWERP01",
-        "D SAARBRU01",
         "SF HELSINK40",
         "E BARCELO16",
         "E BARCELO01",
@@ -347,10 +338,6 @@
       ],
       "pendingLingua": [
         "IS REYKJAV01",
-        "D BINGEN01",
-        "N BERGEN01",
-        "B ANTWERP01",
-        "D SAARBRU01",
         "SF HELSINK40",
         "E BARCELO16",
         "E BARCELO01",
@@ -370,7 +357,9 @@
         "PL KRAKOW02",
         "D BRAUNSC01"
       ],
-      "tentativiLingua": {},
+      "tentativiLingua": {
+        "IS REYKJAV01": 1
+      },
       "linguaNonTrovabile": []
     },
     "Filosofia e Beni Culturali": {
@@ -762,6 +751,12 @@
       "data": "2026-06-16",
       "mete": 3,
       "note": "Lingue e culture orientali lingue-batch-6: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 46,
+      "data": "2026-06-16",
+      "mete": 5,
+      "note": "Scienze ambientali, informatica e statistica scienze-batch-2: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

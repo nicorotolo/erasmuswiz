@@ -1,0 +1,22 @@
+{
+  "IS REYKJAV01": {
+    "scadenzeOspitante": "https://english.hi.is/sites/default/files/2024-12/fact-sheet-2025-2026-des24.pdf",
+    "notePraticheAppend": "https://english.hi.is/sites/default/files/2024-12/fact-sheet-2025-2026-des24.pdf"
+  },
+  "D BINGEN01": {
+    "requisitoLingua": "https://www.th-bingen.de/fileadmin/international/Incoming_Infomaterial_Studierende/Fact_Sheet_2027_Stand2026-03-03_Oi.pdf",
+    "scadenzeOspitante": "https://www.th-bingen.de/en/international/aus-dem-ausland/austauschstudium"
+  },
+  "N BERGEN01": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254679",
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254679"
+  },
+  "B ANTWERP01": {
+    "requisitoLingua": "https://www.uantwerpen.be/en/study/erasmus-and-exchange-students/how-to-apply/application-documents/",
+    "scadenzeOspitante": "https://www.uantwerpen.be/en/study/erasmus-and-exchange-students/how-to-apply/study-exchange/"
+  },
+  "D SAARBRU01": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/24672667",
+    "scadenzeOspitante": "https://www.uni-saarland.de/en/global/welcome-center/exchange-freemover/erasmus-programme.html"
+  }
+}

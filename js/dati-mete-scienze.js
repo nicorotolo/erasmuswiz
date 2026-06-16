@@ -22,13 +22,18 @@ const METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 aprile per cittadini UE/SEE; entro 15 marzo per cittadini non UE/SEE" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 settembre per cittadini UE/SEE; entro 15 agosto per cittadini non UE/SEE" },
+        { cosa: "Application (autunno)", periodo: "entro 1 maggio per cittadini UE/SEE; entro 1 aprile per cittadini non UE/SEE" },
+        { cosa: "Application (primavera)", periodo: "entro 1 ottobre per cittadini UE/SEE; entro 1 settembre per cittadini non UE/SEE" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254670",
     linkSito: "http://english.hi.is/university/prospective_exchange_students",
-    notePratiche: "Aperta a: Dipartimento di Scienze Ambientali, Informatica e Statistica [Dati ufficiali bando 2026/27] ciclo/posti: 2x5 L e LM, non-EU solo secondo semestre.. Lingua e scadenze ospitante da completare nei batch successivi."
+    notePratiche: "Aperta a: Dipartimento di Scienze Ambientali, Informatica e Statistica [Dati ufficiali bando 2026/27] ciclo/posti: 2x5 L e LM, non-EU solo secondo semestre.. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente. Scadenze: basate su 2025/26"
   },
   {
     id: "01-d-bingen01-0521-environmental-sciences",
@@ -42,9 +47,17 @@ const METE = [
     posti: [
       { numero: 1, mesi: 6, livello: "LM", note: "solo primo semestre" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B1", condizione: "se il programma e' erogato in tedesco" },
+        { lingua: "Inglese", livello: "B1", condizione: "se il programma e' erogato in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 1 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
+        { cosa: "Application (autunno)", periodo: "entro 1 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 1 dicembre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -64,9 +77,17 @@ const METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per i corsi generali offerti agli exchange students" },
+        { lingua: "Inglese", livello: "C1", condizione: "per corsi di English language and literature" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "15 marzo - 15 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "1 settembre - 1 ottobre" },
+        { cosa: "Application (autunno)", periodo: "entro 25 aprile" },
+        { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -87,9 +108,16 @@ const METE = [
       { numero: 2, mesi: 6, livello: "L", note: "su 2 posti totali condivisi tra i livelli" },
       { numero: 2, mesi: 6, livello: "LM", note: "su 2 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per studenti non madrelingua inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -110,9 +138,16 @@ const METE = [
       { numero: 2, mesi: 6, livello: "L", note: "su 2 posti totali condivisi tra i livelli; solo primo semestre" },
       { numero: 2, mesi: 6, livello: "LM", note: "su 2 posti totali condivisi tra i livelli; solo primo semestre" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B1", condizione: "livello minimo consigliato per incoming students; didattica undergraduate principalmente in tedesco" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 dicembre" },
+        { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 31 dicembre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
