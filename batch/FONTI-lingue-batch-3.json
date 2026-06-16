@@ -1,0 +1,27 @@
+{
+  "TR ANKARA04": {
+    "requisitoLingua": "https://ico.metu.edu.tr/erasmus-ka131-erasmus-european-mobility-program",
+    "scadenzeOspitante": "https://ico.metu.edu.tr/erasmus-ka131-erasmus-european-mobility-program",
+    "linkSito": "https://ico.metu.edu.tr/erasmus-ka131-erasmus-european-mobility-program"
+  },
+  "TR ISTANBU21": {
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/16635981",
+    "linkSito": "https://international.yeditepe.edu.tr/en/international/erasmus-incoming-students",
+    "notePraticheAppend": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/16635981"
+  },
+  "TR ANKARA01": {
+    "requisitoLingua": "https://iso.ankara.edu.tr/en/2026/05/13/2026-2027-fall-term-ankara-university-incoming-exchange-student-nomination-period-is-now-open-2/",
+    "scadenzeOspitante": "https://iso.ankara.edu.tr/en/2026/05/13/2026-2027-fall-term-ankara-university-incoming-exchange-student-nomination-period-is-now-open-2/",
+    "linkSito": "https://iso.ankara.edu.tr/en/2026/05/13/2026-2027-fall-term-ankara-university-incoming-exchange-student-nomination-period-is-now-open-2/"
+  },
+  "D MUNCHEN01": {
+    "requisitoLingua": "https://www.lmu.de/en/study/all-degrees-and-programs/programs-for-international-visiting-students/erasmus-and-lmuexchange/information-for-partner-universities/",
+    "scadenzeOspitante": "https://cms-cdn.lmu.de/media/lmu/downloads/erasmus_semp_uk_students_key-data-lmu-4.pdf",
+    "linkSito": "https://www.lmu.de/en/study/all-degrees-and-programs/programs-for-international-visiting-students/erasmus-and-lmuexchange/how-to-apply/"
+  },
+  "F PARIS178": {
+    "requisitoLingua": "https://www.inalco.fr/sites/default/files/2026-02/Inalco%20-%20Fact%20Sheet%20-%202026-2027_0.pdf",
+    "scadenzeOspitante": "https://www.inalco.fr/sites/default/files/2026-02/Inalco%20-%20Fact%20Sheet%20-%202026-2027_0.pdf",
+    "linkSito": "https://www.inalco.fr/en/exchange-students-inalco"
+  }
+}
