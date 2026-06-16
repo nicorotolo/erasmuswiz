@@ -1,0 +1,27 @@
+{
+  "D HEIDELB01": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254423",
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254423",
+    "linkSito": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254423"
+  },
+  "IRLCORK01": {
+    "scadenzeOspitante": "https://www.ucc.ie/en/international/studyatucc/incomingerasmusstudents/howdoiapply/",
+    "linkSito": "https://www.ucc.ie/en/international/studyatucc/incomingerasmusstudents/",
+    "notePraticheAppend": "https://www.ucc.ie/en/international/studyatucc/incomingerasmusstudents/englishlanguageproficiency/"
+  },
+  "F LYON03": {
+    "requisitoLingua": "https://www.uottawa.ca/study/sites/g/files/bhrskd296/files/2025-08/Fact%20Sheet_University%20Jean%20Moulin%20Lyon%203_25-26.pdf",
+    "scadenzeOspitante": "https://www.uottawa.ca/study/sites/g/files/bhrskd296/files/2025-08/Fact%20Sheet_University%20Jean%20Moulin%20Lyon%203_25-26.pdf",
+    "linkSito": "https://www.univ-lyon3.fr/exchange-students"
+  },
+  "A WIEN01": {
+    "scadenzeOspitante": "https://international.univie.ac.at/en/information-for-incoming-exchange-students/exchange-semester-at-the-university-of-vienna",
+    "linkSito": "https://international.univie.ac.at/en/information-for-incoming-exchange-students/exchange-semester-at-the-university-of-vienna",
+    "notePraticheAppend": "https://international.univie.ac.at/en/information-for-incoming-exchange-students/exchange-semester-at-the-university-of-vienna"
+  },
+  "B LEUVEN01": {
+    "requisitoLingua": "https://www.arts.kuleuven.be/english/education/brussels/files/fact-sheet-b-leuven01-fac-of-arts-antwerp-brussels-leuven-2026-2027.pdf",
+    "scadenzeOspitante": "https://www.arts.kuleuven.be/english/education/brussels/nomination-application-and-registration",
+    "linkSito": "https://www.arts.kuleuven.be/english/education/brussels/nomination-application-and-registration"
+  }
+}

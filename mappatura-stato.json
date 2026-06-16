@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Lingue e culture orientali",
-  "runCompletati": 42,
+  "runCompletati": 43,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "lingue-batch-4",
-      "priorita": 6,
-      "dipartimento": "Lingue e culture orientali",
-      "descrizione": "Lingue e culture orientali - completamento lingua e scadenze",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "D HEIDELB01",
-        "IRLCORK01",
-        "F LYON03",
-        "A WIEN01",
-        "B LEUVEN01"
-      ]
-    },
     {
       "id": "lingue-batch-5",
       "priorita": 6,
@@ -278,6 +264,17 @@
       "mete": [
         "TR ISTANBU21"
       ]
+    },
+    {
+      "id": "lingue e culture orientali-batch-followup-3",
+      "priorita": 6,
+      "dipartimento": "Lingue e culture orientali",
+      "descrizione": "Lingue e culture orientali - follow-up pending",
+      "tipo": "lingua",
+      "mete": [
+        "IRLCORK01",
+        "A WIEN01"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -329,13 +326,8 @@
       "fileJs": "js/dati-mete-lingue.js",
       "stato": "in_corso",
       "totale": 24,
-      "completate": 8,
+      "completate": 12,
       "pendingScadenze": [
-        "D HEIDELB01",
-        "IRLCORK01",
-        "F LYON03",
-        "A WIEN01",
-        "B LEUVEN01",
         "E BARCELO02",
         "S LUND01",
         "E MADRID04",
@@ -347,11 +339,8 @@
       "pendingLingua": [
         "E SEVILLA01",
         "TR ISTANBU21",
-        "D HEIDELB01",
         "IRLCORK01",
-        "F LYON03",
         "A WIEN01",
-        "B LEUVEN01",
         "E BARCELO02",
         "S LUND01",
         "E MADRID04",
@@ -362,7 +351,9 @@
       ],
       "tentativiLingua": {
         "E SEVILLA01": 1,
-        "TR ISTANBU21": 1
+        "TR ISTANBU21": 1,
+        "IRLCORK01": 1,
+        "A WIEN01": 1
       },
       "linguaNonTrovabile": []
     },
@@ -795,6 +786,12 @@
       "data": "2026-06-16",
       "mete": 5,
       "note": "Lingue e culture orientali lingue-batch-3: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 43,
+      "data": "2026-06-16",
+      "mete": 5,
+      "note": "Lingue e culture orientali lingue-batch-4: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
