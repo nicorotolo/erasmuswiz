@@ -3,25 +3,14 @@
   "aggiornato": "2026-06-16",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
-  "dipartimentoCorrente": "Scienze ambientali, informatica e statistica",
-  "runCompletati": 39,
+  "dipartimentoCorrente": "Lingue e culture orientali",
+  "runCompletati": 40,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "management-batch-followup-1",
-      "priorita": 6,
-      "dipartimento": "Management",
-      "descrizione": "Management - follow-up pending",
-      "tipo": "lingua",
-      "mete": [
-        "S LINKOPI01",
-        "S STOCKHO01"
-      ]
-    },
     {
       "id": "lingue-batch-2",
       "priorita": 6,
@@ -324,27 +313,24 @@
     },
     "Management": {
       "fileJs": "js/dati-mete-management.js",
-      "stato": "in_corso",
+      "stato": "completo",
       "totale": 76,
-      "completate": 70,
+      "completate": 71,
       "pendingScadenze": [],
-      "pendingLingua": [
-        "S LINKOPI01",
-        "S STOCKHO01"
-      ],
+      "pendingLingua": [],
       "tentativiLingua": {
         "A KLAGENF01": 2,
         "F LILLE11": 2,
         "F NANCY43": 2,
         "F NANTES12": 2,
-        "S LINKOPI01": 1,
-        "S STOCKHO01": 1
+        "S LINKOPI01": 2
       },
       "linguaNonTrovabile": [
         "A KLAGENF01",
         "F LILLE11",
         "F NANCY43",
-        "F NANTES12"
+        "F NANTES12",
+        "S LINKOPI01"
       ]
     },
     "Lingue e culture orientali": {
@@ -818,6 +804,12 @@
       "data": "2026-06-16",
       "mete": 1,
       "note": "Management management-batch-22: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 40,
+      "data": "2026-06-16",
+      "mete": 2,
+      "note": "Management management-batch-followup-1: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
