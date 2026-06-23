@@ -167,9 +167,16 @@ const METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per la mobilita per studio; prova richiesta agli studenti non madrelingua iscritti a un corso di laurea non impartito in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno o intero anno)", periodo: "dal 20 marzo al 15 aprile 2026" },
+        { cosa: "Application (autunno o intero anno)", periodo: "dal 20 marzo al 25 aprile 2026" },
+        { cosa: "Nomination (primavera)", periodo: "dal 25 settembre al 20 ottobre 2026" },
+        { cosa: "Application (primavera)", periodo: "dal 25 settembre al 30 ottobre 2026" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -189,15 +196,17 @@ const METE = [
     posti: [
       { numero: 2, mesi: 6, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B2", condizione: "se si frequentano corsi in spagnolo; esenti gli studenti provenienti dall'America Latina" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26967311",
-    linkSito: "https://www.iqs.edu/es/international-students/estudiar-en-iqs/programas-de-movilidad",
-    notePratiche: "Aperta a: Dipartimento di Scienze Ambientali, Informatica e Statistica [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 6 L. Lingua e scadenze ospitante da completare nei batch successivi."
+    linkSito: "https://iqs.edu/es/iqs/campus-life/oficina-internacional/programas-de-movilidad/",
+    notePratiche: "Aperta a: Dipartimento di Scienze Ambientali, Informatica e Statistica [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 6 L. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente per l'inglese"
   },
   {
     id: "07-e-barcelo01-1015-travel-tourism-leisure",
@@ -211,9 +220,17 @@ const METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese; certificato ufficiale o attestazione dell'universita di provenienza" },
+        { lingua: "Spagnolo", livello: "B2", condizione: "per corsi in spagnolo; certificato ufficiale o attestazione dell'universita di provenienza" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro il 15 maggio 2026" },
+        { cosa: "Application (autunno)", periodo: "entro il 31 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro il 15 ottobre 2026" },
+        { cosa: "Application (primavera)", periodo: "entro il 31 ottobre 2026" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -233,9 +250,18 @@ const METE = [
     posti: [
       { numero: 2, mesi: 6, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "livello minimo per corsi in francese" },
+        { lingua: "Inglese", livello: "B1", condizione: "livello minimo per corsi in inglese" },
+        { lingua: "Francese", livello: "A1", condizione: "livello minimo nel secondo semestre per studenti nominati a French as a Foreign Language; nessun minimo nel primo semestre" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro il 10 maggio 2026" },
+        { cosa: "Application (autunno)", periodo: "entro il 24 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro il 27 settembre 2026" },
+        { cosa: "Application (primavera)", periodo: "entro l'11 ottobre 2026" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -255,9 +281,17 @@ const METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "raccomandato per corsi in francese" },
+        { lingua: "Inglese", livello: "B2", condizione: "richiesto per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno o intero anno)", periodo: "entro la fine di marzo" },
+        { cosa: "Application (autunno o intero anno)", periodo: "da meta marzo alla fine di aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro la fine di ottobre" },
+        { cosa: "Application (primavera)", periodo: "da meta ottobre a meta novembre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -299,9 +333,17 @@ const METE = [
     posti: [
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese; certificato ufficiale o attestazione dell'universita di provenienza" },
+        { lingua: "Spagnolo", livello: "B2", condizione: "per corsi in spagnolo; certificato ufficiale o attestazione dell'universita di provenienza" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro il 15 maggio 2026" },
+        { cosa: "Application (autunno)", periodo: "entro il 31 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro il 15 ottobre 2026" },
+        { cosa: "Application (primavera)", periodo: "entro il 31 ottobre 2026" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",

@@ -1,0 +1,22 @@
+{
+  "SF HELSINK40": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29510770",
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29510770"
+  },
+  "E BARCELO16": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26967311",
+    "linkSito": "https://iqs.edu/es/iqs/campus-life/oficina-internacional/programas-de-movilidad/"
+  },
+  "E BARCELO01": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26909268",
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26909268"
+  },
+  "F TOULOUS02": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26984371",
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26984371"
+  },
+  "F CHAMBER01": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29130906",
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29130906"
+  }
+}

@@ -1,30 +1,16 @@
 {
   "versione": "2.0",
-  "aggiornato": "2026-06-16",
+  "aggiornato": "2026-06-23",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Lingue e culture orientali",
-  "runCompletati": 46,
+  "runCompletati": 47,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "scienze-batch-3",
-      "priorita": 8,
-      "dipartimento": "Scienze ambientali, informatica e statistica",
-      "descrizione": "Scienze ambientali, informatica e statistica - completamento lingua e scadenze lotto 2",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "SF HELSINK40",
-        "E BARCELO16",
-        "E BARCELO01",
-        "F TOULOUS02",
-        "F CHAMBER01"
-      ]
-    },
     {
       "id": "scienze-batch-4",
       "priorita": 8,
@@ -244,6 +230,16 @@
       "mete": [
         "IS REYKJAV01"
       ]
+    },
+    {
+      "id": "scienze ambientali, informatica e statistica-batch-followup-2",
+      "priorita": 6,
+      "dipartimento": "Scienze ambientali, informatica e statistica",
+      "descrizione": "Scienze ambientali, informatica e statistica - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E BARCELO16"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -315,13 +311,9 @@
       "fileJs": "js/dati-mete-scienze.js",
       "stato": "in_corso",
       "totale": 25,
-      "completate": 4,
+      "completate": 9,
       "pendingScadenze": [
-        "SF HELSINK40",
         "E BARCELO16",
-        "E BARCELO01",
-        "F TOULOUS02",
-        "F CHAMBER01",
         "E BARCELO02",
         "TR ANKARA08",
         "P LISBOA03",
@@ -338,11 +330,6 @@
       ],
       "pendingLingua": [
         "IS REYKJAV01",
-        "SF HELSINK40",
-        "E BARCELO16",
-        "E BARCELO01",
-        "F TOULOUS02",
-        "F CHAMBER01",
         "E BARCELO02",
         "TR ANKARA08",
         "P LISBOA03",
@@ -757,6 +744,12 @@
       "data": "2026-06-16",
       "mete": 5,
       "note": "Scienze ambientali, informatica e statistica scienze-batch-2: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 47,
+      "data": "2026-06-23",
+      "mete": 5,
+      "note": "Scienze ambientali, informatica e statistica scienze-batch-3: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
