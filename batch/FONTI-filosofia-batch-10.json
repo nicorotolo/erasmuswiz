@@ -1,0 +1,19 @@
+{
+  "A WIEN01": {
+    "requisitoLingua": "https://international.univie.ac.at/en/student-mobility/incoming-students/non-eu-student-exchange-program/requirements/",
+    "scadenzeOspitante": "https://international.univie.ac.at/en/information-for-incoming-exchange-students/exchange-semester-at-the-university-of-vienna"
+  },
+  "D KOBLENZ01": {
+    "requisitoLingua": "https://www.hs-koblenz.de/sozialwissenschaften/internationales/incoming"
+  },
+  "F PARIS468": {
+    "requisitoLingua": "https://lettres.sorbonne-universite.fr/node/9727"
+  },
+  "F TOURS01": {
+    "requisitoLingua": "https://international.univ-tours.fr/",
+    "scadenzeOspitante": "https://international.univ-tours.fr/english-version/admission-process-for-exchange-students/1-online-pre-registration-mobility-online-only-for-regular-exchange-students-including-erasmus"
+  },
+  "G EGALEO02": {
+    "requisitoLingua": "https://erasmusglobal.uniwa.gr/wp-content/uploads/INCOMINGS-GENERAL-ERASMUS-PROCEDURES-STUDENTS-0609.pdf"
+  }
+}
