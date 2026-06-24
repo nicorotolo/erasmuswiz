@@ -1,0 +1,21 @@
+{
+  "A WIEN02": {
+    "requisitoLingua": "https://www.tuwien.at/fileadmin/Assets/dienstleister/international_office/incoming/TU_Wien_Fact_Sheet.pdf",
+    "scadenzeOspitante": "https://www.tuwien.at/fileadmin/Assets/dienstleister/international_office/incoming/TU_Wien_Fact_Sheet.pdf"
+  },
+  "NL TILBURG01": {
+    "requisitoLingua": "https://www.tilburguniversity.edu/education/exchange-programs/language-requirements"
+  },
+  "F PARIS482": {
+    "requisitoLingua": "https://u-paris.fr/sciences/wp-content/uploads/sites/21/2024/11/Universit%C3%A9-Paris-Cit%C3%A9-FPARIS482-Facult%C3%A9-des-Sciences-Fact-sheet-2025-26.pdf",
+    "scadenzeOspitante": "https://u-paris.fr/sciences/wp-content/uploads/sites/21/2024/11/Universit%C3%A9-Paris-Cit%C3%A9-FPARIS482-Facult%C3%A9-des-Sciences-Fact-sheet-2025-26.pdf"
+  },
+  "SF TURKU05": {
+    "requisitoLingua": "https://www.turkuamk.fi/en/education/exchange-studies/how-to-apply/",
+    "scadenzeOspitante": "https://www.turkuamk.fi/en/education/exchange-studies/how-to-apply/"
+  },
+  "SF KOKKOLA05": {
+    "requisitoLingua": "https://net.centria.fi/en/education/incoming-exchange-students/",
+    "scadenzeOspitante": "https://net.centria.fi/en/education/incoming-exchange-students/"
+  }
+}

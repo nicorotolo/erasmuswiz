@@ -1,30 +1,16 @@
 {
   "versione": "2.0",
-  "aggiornato": "2026-06-23",
+  "aggiornato": "2026-06-24",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Lingue e culture orientali",
-  "runCompletati": 48,
+  "runCompletati": 49,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "scienze-batch-5",
-      "priorita": 8,
-      "dipartimento": "Scienze ambientali, informatica e statistica",
-      "descrizione": "Scienze ambientali, informatica e statistica - completamento lingua e scadenze lotto 4",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "A WIEN02",
-        "NL TILBURG01",
-        "F PARIS482",
-        "SF TURKU05",
-        "SF KOKKOLA05"
-      ]
-    },
     {
       "id": "scienze-batch-6",
       "priorita": 8,
@@ -238,6 +224,16 @@
         "TR ANKARA08",
         "CZ OLOMOUC01"
       ]
+    },
+    {
+      "id": "scienze ambientali, informatica e statistica-batch-followup-4",
+      "priorita": 6,
+      "dipartimento": "Scienze ambientali, informatica e statistica",
+      "descrizione": "Scienze ambientali, informatica e statistica - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "NL TILBURG01"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -309,16 +305,12 @@
       "fileJs": "js/dati-mete-scienze.js",
       "stato": "in_corso",
       "totale": 25,
-      "completate": 11,
+      "completate": 15,
       "pendingScadenze": [
         "E BARCELO16",
         "TR ANKARA08",
         "CZ OLOMOUC01",
-        "A WIEN02",
         "NL TILBURG01",
-        "F PARIS482",
-        "SF TURKU05",
-        "SF KOKKOLA05",
         "RO TIMISOA01",
         "PL KRAKOW02",
         "D BRAUNSC01"
@@ -327,11 +319,6 @@
         "IS REYKJAV01",
         "E BARCELO02",
         "TR ANKARA08",
-        "A WIEN02",
-        "NL TILBURG01",
-        "F PARIS482",
-        "SF TURKU05",
-        "SF KOKKOLA05",
         "RO TIMISOA01",
         "PL KRAKOW02",
         "D BRAUNSC01"
@@ -750,6 +737,12 @@
       "data": "2026-06-23",
       "mete": 5,
       "note": "Scienze ambientali, informatica e statistica scienze-batch-4: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 49,
+      "data": "2026-06-24",
+      "mete": 5,
+      "note": "Scienze ambientali, informatica e statistica scienze-batch-5: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
