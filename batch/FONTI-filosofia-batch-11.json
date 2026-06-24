@@ -1,0 +1,16 @@
+{
+  "D STUTTGA01": {
+    "requisitoLingua": "https://www.uni-stuttgart.de/en/study/application/international-non-degree/erasmus/",
+    "scadenzeOspitante": "https://www.uni-stuttgart.de/en/study/application/international-non-degree/erasmus/"
+  },
+  "D TUBINGE01": {
+    "requisitoLingua": "https://uni-tuebingen.de/en/international/study-in-tuebingen/erasmus-and-exchange-to-tuebingen/application-and-preparation/",
+    "scadenzeOspitante": "https://uni-tuebingen.de/en/113870"
+  },
+  "F BORDEAU03": {
+    "scadenzeOspitante": "https://www.u-bordeaux-montaigne.fr/en/study/application/exchange-program/organize-your-stay/apply.html"
+  },
+  "F GRENOBL55": {
+    "requisitoLingua": "https://international.univ-grenoble-alpes.fr/education/programs/exchange-programs/uga-faculties-international-relations-offices-634837.kjsp"
+  }
+}
