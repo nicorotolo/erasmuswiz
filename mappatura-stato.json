@@ -4,25 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Lingue e culture orientali",
-  "runCompletati": 49,
+  "runCompletati": 50,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "scienze-batch-6",
-      "priorita": 8,
-      "dipartimento": "Scienze ambientali, informatica e statistica",
-      "descrizione": "Scienze ambientali, informatica e statistica - completamento lingua e scadenze lotto 5",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "RO TIMISOA01",
-        "PL KRAKOW02",
-        "D BRAUNSC01"
-      ]
-    },
     {
       "id": "filosofia-batch-2",
       "priorita": 6,
@@ -234,6 +222,16 @@
       "mete": [
         "NL TILBURG01"
       ]
+    },
+    {
+      "id": "scienze ambientali, informatica e statistica-batch-followup-5",
+      "priorita": 6,
+      "dipartimento": "Scienze ambientali, informatica e statistica",
+      "descrizione": "Scienze ambientali, informatica e statistica - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "RO TIMISOA01"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -305,28 +303,25 @@
       "fileJs": "js/dati-mete-scienze.js",
       "stato": "in_corso",
       "totale": 25,
-      "completate": 15,
+      "completate": 17,
       "pendingScadenze": [
         "E BARCELO16",
         "TR ANKARA08",
         "CZ OLOMOUC01",
         "NL TILBURG01",
-        "RO TIMISOA01",
-        "PL KRAKOW02",
-        "D BRAUNSC01"
+        "RO TIMISOA01"
       ],
       "pendingLingua": [
         "IS REYKJAV01",
         "E BARCELO02",
         "TR ANKARA08",
-        "RO TIMISOA01",
-        "PL KRAKOW02",
-        "D BRAUNSC01"
+        "RO TIMISOA01"
       ],
       "tentativiLingua": {
         "IS REYKJAV01": 1,
         "E BARCELO02": 1,
-        "TR ANKARA08": 1
+        "TR ANKARA08": 1,
+        "RO TIMISOA01": 1
       },
       "linguaNonTrovabile": []
     },
@@ -743,6 +738,12 @@
       "data": "2026-06-24",
       "mete": 5,
       "note": "Scienze ambientali, informatica e statistica scienze-batch-5: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 50,
+      "data": "2026-06-24",
+      "mete": 3,
+      "note": "Scienze ambientali, informatica e statistica scienze-batch-6: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
