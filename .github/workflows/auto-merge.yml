@@ -1,11 +1,11 @@
 # Auto-merge dei lotti di mappatura (push su mappatura/**).
-# Filosofia "bulletproof": questo workflow NON deve MAI finire in rosso.
+# Filosofia: ogni lotto deve avere un esito osservabile e verificabile.
 #  - Fonde solo i file DATI (js/dati-mete*.js) e lo stato (mappatura-stato.json),
 #    con un merge a 3 vie che COMBINA correttamente i lotti (non sovrascrive).
 #  - I file umani/infra (STATO_DEL_SITO.md, .github/**, .gitignore) vengono
 #    SEMPRE riallineati alla versione di main: non possono generare conflitti.
-#  - Se resta un conflitto VERO sui dati, NON fallisce: apre una Issue e si ferma
-#    in verde. Il branch resta su GitHub, nessun lavoro viene perso.
+#  - Se resta un conflitto vero sui dati, apre una Issue, rimuove il branch per
+#    sbloccare i run successivi e termina in errore. Lo SHA resta nell'Issue.
 name: Auto-merge mappatura
 
 on:
@@ -25,12 +25,13 @@ jobs:
   merge:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
-          node-version: "20"
+          node-version: "24"
+          package-manager-cache: false
 
       - name: Integra il lotto su main
         env:
@@ -43,14 +44,14 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git fetch origin main
 
-          apri_issue() {
-            echo "::warning::$1"
+          apri_issue_e_fallisci() {
+            echo "::error::$1"
             gh issue create \
               --title "Auto-merge: intervento manuale su $BRANCH" \
               --body "$1"$'\n\n'"Branch: \`$BRANCH\` (SHA: \`$SHA\`). Il branch e' stato rimosso automaticamente per sbloccare i run futuri — il SHA e' conservato qui per recupero manuale se necessario." \
               2>/dev/null || true
             git push origin --delete "$BRANCH" 2>/dev/null || true
-            exit 0
+            exit 1
           }
 
           if git merge-base --is-ancestor "$SHA" origin/main; then
@@ -66,22 +67,20 @@ jobs:
 
           if git ls-files -u | grep -q .; then
             git reset --hard origin/main
-            apri_issue "Conflitto reale sui dati nel branch $BRANCH: serve merge manuale."
+            apri_issue_e_fallisci "Conflitto reale sui dati nel branch $BRANCH: serve merge manuale."
           fi
 
           if git diff --cached --quiet; then
-            echo "::notice::Nessuna modifica dati utile in $BRANCH. Cancello il branch."
-            git push origin --delete "$BRANCH" || true
-            exit 0
+            apri_issue_e_fallisci "Nessuna modifica dati utile in $BRANCH: il run era obsoleto o duplicato."
           fi
 
           for f in js/dati-mete*.js; do
             [ -e "$f" ] || continue
-            node --check "$f" || apri_issue "node --check fallito su $f dopo il merge di $BRANCH."
+            node --check "$f" || apri_issue_e_fallisci "node --check fallito su $f dopo il merge di $BRANCH."
           done
-          node scripts/valida-stato.mjs || apri_issue "Validatore di coerenza fallito dopo il merge di $BRANCH."
+          node scripts/valida-stato.mjs || apri_issue_e_fallisci "Validatore di coerenza fallito dopo il merge di $BRANCH."
 
           git commit -m "mappatura: auto-merge $BRANCH"
-          git push origin main || apri_issue "Push su main rifiutato per $BRANCH: riprovare."
+          git push origin main || apri_issue_e_fallisci "Push su main rifiutato per $BRANCH: riprovare."
           git push origin --delete "$BRANCH" || true
           echo "::notice::$BRANCH fuso su main e branch cancellato."
