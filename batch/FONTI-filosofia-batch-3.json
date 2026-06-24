@@ -1,0 +1,17 @@
+{
+  "D FRANKFU01": {
+    "requisitoLingua": "https://www.wiwi.uni-frankfurt.de/en/international/international-exchange-students/application",
+    "scadenzeOspitante": "https://www.wiwi.uni-frankfurt.de/en/international/international-exchange-students/application"
+  },
+  "E SEVILLA03": {
+    "scadenzeOspitante": "https://www.upo.es/aric/foreign-students/he-sido-seleccionado/"
+  },
+  "F PARIS003": {
+    "requisitoLingua": "https://www.sorbonne-nouvelle.fr/venir-dans-le-cadre-d-un-programme-d-echange-23187.kjsp",
+    "scadenzeOspitante": "https://www.sorbonne-nouvelle.fr/venir-dans-le-cadre-d-un-programme-d-echange-23187.kjsp"
+  },
+  "B LIEGE01": {
+    "scadenzeOspitante": "https://www.international.uliege.be/cms/c_9116184/en/international-application-form-/-incoming-exchange-student"
+  },
+  "F LILLE103": {}
+}
