@@ -1,0 +1,12 @@
+{
+  "B GENT01": {
+    "requisitoLingua": "https://www.ugent.be/lw/en/exchange",
+    "scadenzeOspitante": "https://www.ugent.be/prospect/en/administration/application/application-exchange/faq.htm"
+  },
+  "S LUND01": {
+    "scadenzeOspitante": "https://www.lunduniversity.lu.se/admissions/exchange-and-study-abroad/exchange-studies/information-partner-coordinators/fact-sheet-university-wide-agreements"
+  },
+  "N OSLO72": {},
+  "NL GRONING01": {},
+  "TR ANKARA07": {}
+}
