@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Lingue e culture orientali",
-  "runCompletati": 57,
+  "runCompletati": 58,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "filosofia-batch-9",
-      "priorita": 6,
-      "dipartimento": "Filosofia e Beni Culturali",
-      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 8",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "D MUNCHEN01",
-        "HU BUDAPES01",
-        "F STRASBO48",
-        "D FREIBUR01",
-        "P COIMBRA01"
-      ]
-    },
     {
       "id": "filosofia-batch-10",
       "priorita": 6,
@@ -221,6 +207,19 @@
         "E OVIEDO01",
         "N-STAVANG-01"
       ]
+    },
+    {
+      "id": "filosofia e beni culturali-batch-followup-8",
+      "priorita": 6,
+      "dipartimento": "Filosofia e Beni Culturali",
+      "descrizione": "Filosofia e Beni Culturali - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D MUNCHEN01",
+        "D FREIBUR01",
+        "P COIMBRA01",
+        "F STRASBO48"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -318,7 +317,7 @@
       "fileJs": "js/dati-mete-filosofia.js",
       "stato": "in_corso",
       "totale": 66,
-      "completate": 21,
+      "completate": 22,
       "pendingScadenze": [
         "CZ PRAHA07",
         "F LILLE103",
@@ -334,11 +333,7 @@
         "N TROMSO01",
         "E OVIEDO01",
         "N-STAVANG-01",
-        "D MUNCHEN01",
-        "HU BUDAPES01",
         "F STRASBO48",
-        "D FREIBUR01",
-        "P COIMBRA01",
         "A WIEN01",
         "D KOBLENZ01",
         "F PARIS468",
@@ -375,8 +370,6 @@
         "E OVIEDO01",
         "N-STAVANG-01",
         "D MUNCHEN01",
-        "HU BUDAPES01",
-        "F STRASBO48",
         "D FREIBUR01",
         "P COIMBRA01",
         "A WIEN01",
@@ -413,7 +406,10 @@
         "N TROMSO01": 1,
         "E BARCELO02": 1,
         "E OVIEDO01": 1,
-        "N-STAVANG-01": 1
+        "N-STAVANG-01": 1,
+        "D MUNCHEN01": 1,
+        "D FREIBUR01": 1,
+        "P COIMBRA01": 1
       },
       "linguaNonTrovabile": []
     }
@@ -768,6 +764,12 @@
       "data": "2026-06-24",
       "mete": 5,
       "note": "Filosofia e Beni Culturali filosofia-batch-8: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 58,
+      "data": "2026-06-24",
+      "mete": 5,
+      "note": "Filosofia e Beni Culturali filosofia-batch-9: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

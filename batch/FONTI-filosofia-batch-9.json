@@ -1,0 +1,18 @@
+{
+  "D MUNCHEN01": {
+    "scadenzeOspitante": "https://www.lmu.de/en/study/all-degrees-and-programs/programs-for-international-visiting-students/erasmus-and-lmuexchange/timeline-for-exchange-students.html"
+  },
+  "HU BUDAPES01": {
+    "requisitoLingua": "https://btk.elte.hu/en/frequently-asked-questions-incoming-erasmus",
+    "scadenzeOspitante": "https://btk.elte.hu/en/incoming-nomination"
+  },
+  "F STRASBO48": {
+    "requisitoLingua": "https://philo.unistra.fr/international/venir-etudier-a-la-faculte-de-philosophie-incoming-exchange-students/"
+  },
+  "D FREIBUR01": {
+    "scadenzeOspitante": "https://www.unr.uni-freiburg.de/dokumente/erasmus-1/fact-sheet-2025-26"
+  },
+  "P COIMBRA01": {
+    "scadenzeOspitante": "https://www.uc.pt/en/iru/study-abroad/incoming-students-study-at-the-university-of-coimbra/"
+  }
+}
