@@ -1,0 +1,16 @@
+{
+  "CZ BRNO05": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254382",
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254382"
+  },
+  "D BERLIN02": {
+    "requisitoLingua": "https://www.static.tu.berlin/fileadmin/www/10004219/INT_SB/Dokumente/Incomings/Austausch_allgemein/ERASMUS/Language_requirements_Europe.pdf",
+    "scadenzeOspitante": "https://www.tu.berlin/en/international/students-1/international-students/exchange-studies-at-tu-berlin/exchange-application/dates-and-deadlines"
+  },
+  "D KASSEL01": {
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/28265804"
+  },
+  "D GOTTING01": {
+    "scadenzeOspitante": "https://www.uni-goettingen.de/de/document/download/dff495948c1f6e67c1b475bd38aae949.pdf/Fact_Sheet_D_GOTTING01_E%2BKA131_2026_27.pdf"
+  }
+}

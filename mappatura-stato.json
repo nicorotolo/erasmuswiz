@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Lingue e culture orientali",
-  "runCompletati": 50,
+  "runCompletati": 51,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "filosofia-batch-2",
-      "priorita": 6,
-      "dipartimento": "Filosofia e Beni Culturali",
-      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 1",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "CZ BRNO05",
-        "CZ PRAHA07",
-        "D BERLIN02",
-        "D KASSEL01",
-        "D GOTTING01"
-      ]
-    },
     {
       "id": "filosofia-batch-3",
       "priorita": 6,
@@ -232,6 +218,18 @@
       "mete": [
         "RO TIMISOA01"
       ]
+    },
+    {
+      "id": "filosofia e beni culturali-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Filosofia e Beni Culturali",
+      "descrizione": "Filosofia e Beni Culturali - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "CZ PRAHA07",
+        "D KASSEL01",
+        "D GOTTING01"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -329,13 +327,9 @@
       "fileJs": "js/dati-mete-filosofia.js",
       "stato": "in_corso",
       "totale": 66,
-      "completate": 0,
+      "completate": 3,
       "pendingScadenze": [
-        "CZ BRNO05",
         "CZ PRAHA07",
-        "D BERLIN02",
-        "D KASSEL01",
-        "D GOTTING01",
         "D FRANKFU01",
         "E SEVILLA03",
         "F PARIS003",
@@ -382,9 +376,7 @@
         "F GRENOBL55"
       ],
       "pendingLingua": [
-        "CZ BRNO05",
         "CZ PRAHA07",
-        "D BERLIN02",
         "D KASSEL01",
         "D GOTTING01",
         "D FRANKFU01",
@@ -432,7 +424,11 @@
         "F BORDEAU03",
         "F GRENOBL55"
       ],
-      "tentativiLingua": {},
+      "tentativiLingua": {
+        "CZ PRAHA07": 1,
+        "D KASSEL01": 1,
+        "D GOTTING01": 1
+      },
       "linguaNonTrovabile": []
     }
   },
@@ -744,6 +740,12 @@
       "data": "2026-06-24",
       "mete": 3,
       "note": "Scienze ambientali, informatica e statistica scienze-batch-6: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 51,
+      "data": "2026-06-24",
+      "mete": 5,
+      "note": "Filosofia e Beni Culturali filosofia-batch-2: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
