@@ -1,0 +1,14 @@
+{
+  "NL AMSTERD01": {
+    "requisitoLingua": "https://www.uva.nl/en/programmes/exchange/humanities/application-and-admission/application-and-entry-requirements.html",
+    "scadenzeOspitante": "https://www.uva.nl/binaries/content/assets/faculteiten/faculteit-der-geesteswetenschappen/exchange/factsheet-uva---humanities-2026-2027.pdf"
+  },
+  "D WIESBAD01": {
+    "scadenzeOspitante": "https://www.hs-rm.de/en/international/from-abroad/exchange-students/exchange-students-application"
+  },
+  "F PARIS008": {},
+  "F MONTPEL03": {},
+  "F PARIS001": {
+    "scadenzeOspitante": "https://international.pantheonsorbonne.fr/sites/default/files/2024-12/Factsheet_P1PS_incoming_exchange_25-26.pdf"
+  }
+}

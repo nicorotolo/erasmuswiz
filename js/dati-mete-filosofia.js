@@ -402,9 +402,16 @@ const METE = [
     posti: [
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi BA in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 1 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -458,13 +465,16 @@ const METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 31 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29534005",
     linkSito: "https://www.hs-rm.de/en/international/wege-an-die-hsrm/exchange-students",
-    notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 4 x 5 L e LM, solo 1° sem.. Lingua e scadenze ospitante da completare nei batch successivi."
+    notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 4 x 5 L e LM, solo 1° sem.. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "17-f-paris008-0223-philosophy-and-ethics",
@@ -487,7 +497,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254604",
     linkSito: "https://www.univ-paris8.fr/",
-    notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5 L e LM. Lingua e scadenze ospitante da completare nei batch successivi."
+    notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5 L e LM. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "18-f-montpel03-0210-arts",
@@ -510,7 +520,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254569",
     linkSito: "https://www.univ-montp3.fr/fr/erasmus",
-    notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5 L e LM. Lingua e scadenze ospitante da completare nei batch successivi."
+    notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5 L e LM. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "19-f-paris001-0223-philosophy-and-ethics",
@@ -527,13 +537,18 @@ const METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 1 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254581",
     linkSito: "http://www.pantheonsorbonne.fr/international/foreign-students/exchange-student-application-bachelor-master/",
-    notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5 L e LM. Lingua e scadenze ospitante da completare nei batch successivi."
+    notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5 L e LM. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "20-nl-amsterd01-0223-philosophy-and-ethics",
@@ -547,9 +562,16 @@ const METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi BA in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 1 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -1218,7 +1240,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254605",
     linkSito: "https://www.univ-paris8.fr/",
-    notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 9. Lingua e scadenze ospitante da completare nei batch successivi."
+    notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 9. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "50-hu-budapes01-0210-arts",
