@@ -1,0 +1,20 @@
+{
+  "P LISBOA01": {
+    "requisitoLingua": "https://fch.lisboa.ucp.pt/asset/35261/file",
+    "scadenzeOspitante": "https://fch.lisboa.ucp.pt/asset/35261/file"
+  },
+  "DK ROSKILD01": {
+    "scadenzeOspitante": "https://ruc.dk/en/admission-exchange"
+  },
+  "E SALAMAN02": {
+    "scadenzeOspitante": "https://rel-int.usal.es/es/module-variations/estudiantes-extranjeros/becas-intercambio-extranjeros/991-convocatoria-de-becas-de-intercambio-con-universidades-extranjeras-curso-2025-2026"
+  },
+  "NL UTRECHT01": {
+    "requisitoLingua": "https://www.uu.nl/en/education/exchange-students-humanities/how-to-apply",
+    "scadenzeOspitante": "https://www.uu.nl/en/education/exchange-students-humanities/how-to-apply"
+  },
+  "F PARIS014": {
+    "requisitoLingua": "https://www.sciencespo.fr/international/sites/sciencespo.fr.international/files/sciencespo-factsheet-exchange-programme-incoming-en.pdf",
+    "scadenzeOspitante": "https://www.sciencespo.fr/international/sites/sciencespo.fr.international/files/sciencespo-factsheet-exchange-programme-incoming-en.pdf"
+  }
+}

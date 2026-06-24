@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Lingue e culture orientali",
-  "runCompletati": 54,
+  "runCompletati": 55,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "filosofia-batch-6",
-      "priorita": 6,
-      "dipartimento": "Filosofia e Beni Culturali",
-      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 5",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "P LISBOA01",
-        "DK ROSKILD01",
-        "E SALAMAN02",
-        "NL UTRECHT01",
-        "F PARIS014"
-      ]
-    },
     {
       "id": "filosofia-batch-7",
       "priorita": 6,
@@ -226,6 +212,17 @@
         "NL GRONING01",
         "TR ANKARA07"
       ]
+    },
+    {
+      "id": "filosofia e beni culturali-batch-followup-5",
+      "priorita": 6,
+      "dipartimento": "Filosofia e Beni Culturali",
+      "descrizione": "Filosofia e Beni Culturali - follow-up pending",
+      "tipo": "lingua",
+      "mete": [
+        "DK ROSKILD01",
+        "E SALAMAN02"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -323,7 +320,7 @@
       "fileJs": "js/dati-mete-filosofia.js",
       "stato": "in_corso",
       "totale": 66,
-      "completate": 14,
+      "completate": 17,
       "pendingScadenze": [
         "CZ PRAHA07",
         "F LILLE103",
@@ -332,11 +329,6 @@
         "N OSLO72",
         "NL GRONING01",
         "TR ANKARA07",
-        "P LISBOA01",
-        "DK ROSKILD01",
-        "E SALAMAN02",
-        "NL UTRECHT01",
-        "F PARIS014",
         "E BARCELO15",
         "NL NIJMEGE01",
         "DK KOBENHA01",
@@ -377,11 +369,8 @@
         "N OSLO72",
         "NL GRONING01",
         "TR ANKARA07",
-        "P LISBOA01",
         "DK ROSKILD01",
         "E SALAMAN02",
-        "NL UTRECHT01",
-        "F PARIS014",
         "E BARCELO15",
         "NL NIJMEGE01",
         "DK KOBENHA01",
@@ -421,7 +410,9 @@
         "S LUND01": 1,
         "N OSLO72": 1,
         "NL GRONING01": 1,
-        "TR ANKARA07": 1
+        "TR ANKARA07": 1,
+        "DK ROSKILD01": 1,
+        "E SALAMAN02": 1
       },
       "linguaNonTrovabile": []
     }
@@ -758,6 +749,12 @@
       "data": "2026-06-24",
       "mete": 5,
       "note": "Filosofia e Beni Culturali filosofia-batch-5: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 55,
+      "data": "2026-06-24",
+      "mete": 5,
+      "note": "Filosofia e Beni Culturali filosofia-batch-6: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
