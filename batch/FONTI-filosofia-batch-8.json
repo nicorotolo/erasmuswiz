@@ -1,0 +1,13 @@
+{
+  "E MADRID03": {
+    "requisitoLingua": "https://www.ucm.es/english/language-policy",
+    "scadenzeOspitante": "https://www.ucm.es/english/deadlines"
+  },
+  "E BARCELO02": {
+    "scadenzeOspitante": "https://www-balan.uab.cat/doc/uabfactsheet2026_27"
+  },
+  "NL WAGENIN01": {
+    "requisitoLingua": "https://www.wur.nl/en/education/studying-wageningen/study-abroad-and-exchange",
+    "scadenzeOspitante": "https://www.wur.nl/en/education/studying-wageningen/study-abroad-and-exchange"
+  }
+}
