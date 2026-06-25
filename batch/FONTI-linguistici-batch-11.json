@@ -1,0 +1,22 @@
+{
+  "F PARIS468": {
+    "requisitoLingua": "https://lettres.sorbonne-universite.fr/en/academics/international-exchange-students",
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254595"
+  },
+  "PL KRAKOW01": {
+    "requisitoLingua": "https://erasmus.uj.edu.pl/en_GB/incoming/studies",
+    "scadenzeOspitante": "https://erasmus.uj.edu.pl/en_GB/incoming/studies"
+  },
+  "D BERLIN13": {
+    "requisitoLingua": "https://www.hu-berlin.de/en/university/international/coming-to-hu/programmes/exchange-semester",
+    "scadenzeOspitante": "https://www.hu-berlin.de/en/university/international/coming-to-hu/programmes/exchange-semester/information-for-our-partner-universities"
+  },
+  "D MUNCHEN01": {
+    "requisitoLingua": "https://www.lmu.de/en/study/all-degrees-and-programs/programs-for-international-visiting-students/erasmus-and-lmuexchange/how-to-apply/",
+    "scadenzeOspitante": "https://www.lmu.de/en/study/all-degrees-and-programs/programs-for-international-visiting-students/erasmus-and-lmuexchange/timeline-for-exchange-students.html"
+  },
+  "IRL DUBLIN01": {
+    "scadenzeOspitante": "https://www.tcd.ie/global/mobility/inbound/how-to-apply/eu-and-erasmus-exchange/",
+    "notePraticheAppend": "https://www.tcd.ie/study/english-language-requirements/"
+  }
+}
