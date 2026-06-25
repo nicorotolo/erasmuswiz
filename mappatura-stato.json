@@ -3,24 +3,14 @@
   "aggiornato": "2026-06-25",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
-  "dipartimentoCorrente": "Filosofia e Beni Culturali",
-  "runCompletati": 83,
+  "dipartimentoCorrente": "Scienze Molecolari e Nanosistemi",
+  "runCompletati": 84,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "molecolari-batch-1",
-      "priorita": 1,
-      "dipartimento": "Scienze Molecolari e Nanosistemi",
-      "descrizione": "Nuovo dipartimento Scienze Molecolari e Nanosistemi",
-      "tipo": "nuovo_dipartimento",
-      "mete": [],
-      "fileJs": "js/dati-mete-molecolari.js",
-      "fonte": "https://www.unive.it/data/11679"
-    },
     {
       "id": "linguistici-batch-1",
       "priorita": 2,
@@ -40,6 +30,31 @@
       "mete": [],
       "fileJs": "js/dati-mete-umanistici.js",
       "fonte": "https://www.unive.it/data/11679"
+    },
+    {
+      "id": "molecolari-batch-2",
+      "priorita": 5,
+      "dipartimento": "Scienze Molecolari e Nanosistemi",
+      "descrizione": "Scienze Molecolari e Nanosistemi - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "LT VILNIUS01",
+        "E BARCELO02",
+        "D JENA01",
+        "NL NIJMEGE01",
+        "F BORDEAU54"
+      ]
+    },
+    {
+      "id": "molecolari-batch-3",
+      "priorita": 5,
+      "dipartimento": "Scienze Molecolari e Nanosistemi",
+      "descrizione": "Scienze Molecolari e Nanosistemi - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F BORDEAU58",
+        "D AACHEN 01"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -148,6 +163,32 @@
         "DK KOBENHA01",
         "D FREIBUR01"
       ]
+    },
+    "Scienze Molecolari e Nanosistemi": {
+      "fileJs": "js/dati-mete-molecolari.js",
+      "stato": "in_corso",
+      "totale": 8,
+      "completate": 0,
+      "pendingScadenze": [
+        "LT VILNIUS01",
+        "E BARCELO02",
+        "D JENA01",
+        "NL NIJMEGE01",
+        "F BORDEAU54",
+        "F BORDEAU58",
+        "D AACHEN 01"
+      ],
+      "pendingLingua": [
+        "LT VILNIUS01",
+        "E BARCELO02",
+        "D JENA01",
+        "NL NIJMEGE01",
+        "F BORDEAU54",
+        "F BORDEAU58",
+        "D AACHEN 01"
+      ],
+      "tentativiLingua": {},
+      "linguaNonTrovabile": []
     }
   },
   "regoleProgressione": {
@@ -656,6 +697,12 @@
       "data": "2026-06-25",
       "mete": 1,
       "note": "Filosofia e Beni Culturali filosofia e beni culturali-batch-followup-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 84,
+      "data": "2026-06-25",
+      "mete": 8,
+      "note": "Avvio Scienze Molecolari e Nanosistemi: creato js/dati-mete-molecolari.js con 8 mete; accodati 2 sotto-batch."
     }
   ],
   "storicoBatch": [
