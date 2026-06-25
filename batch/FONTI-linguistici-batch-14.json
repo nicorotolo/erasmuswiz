@@ -1,0 +1,22 @@
+{
+  "PL WARSZAW01": {
+    "requisitoLingua": "https://bwz.uw.edu.pl/en/frequently-asked-questions/",
+    "scadenzeOspitante": "https://bwz.uw.edu.pl/en/frequently-asked-questions/"
+  },
+  "A KLAGENF01": {
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254346",
+    "notePraticheAppend": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254346"
+  },
+  "F LILLE11": {
+    "requisitoLingua": "https://espol.school/en/international/arriving-exchange-student/",
+    "scadenzeOspitante": "https://espol.school/en/international/arriving-exchange-student/"
+  },
+  "E SEVILLA01": {
+    "scadenzeOspitante": "https://www.us.es/sites/default/files/inline-files/Instructions%20to%20Nominate%20Incoming%20Students%202026-27%20first%20%20semester%20and%20full%20year%20University%20of%20Seville%20.pdf",
+    "notePraticheAppend": "https://www.us.es/sites/default/files/internacional/factsheet-US.pdf"
+  },
+  "DK ODENSE01": {
+    "requisitoLingua": "https://www.sdu.dk/en/uddannelse/exchange/apply",
+    "scadenzeOspitante": "https://www.sdu.dk/en/uddannelse/exchange/apply"
+  }
+}
