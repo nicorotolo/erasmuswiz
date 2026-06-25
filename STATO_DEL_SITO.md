@@ -4,19 +4,12 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-06-15 (pipeline a imbuto per la mappatura: l'agente non legge più i file JS interi — `scripts/prepara-batch.mjs` estrae solo il batch in `batch/INPUT.json`, l'agente produce `batch/OUTPUT.json` con solo i campi trovati, `scripts/applica-batch.mjs` fa merge deterministico + `node --check` + aggiorna lo stato. ~60-80% di token in meno per run e campi immutabili non più toccabili dall'LLM. Prima: debug definitivo auto-merge)
-**Fase v1 raggiunta:** Fase 5 / 5 + Ondata A (A1, A2, A4, A5) — SITO PUBBLICATO
-**Cosa funziona:** tutto, testato; mete REALI (58 Economia + 76 Management in file dati separato); bando, scadenze e
-checklist VALIDATI sul PDF ufficiale; **52/58 righe Economia** sono complete con
-lingua CEFR e scadenze ospitante; le altre 6 righe sono state classificate come
-CEFR non pubblicato ufficialmente; link alla scheda PDF (58/58) e scadenze
-ospitante (58/58); sito online su GitHub Pages:
+**Ultimo aggiornamento:** 2026-06-25 (patch infrastrutturale "accoda e parti": `scripts/prepara-batch.mjs` ora gestisce `nuovo_dipartimento` senza leggere un file dati inesistente e `scripts/setup-dipartimento.mjs` inizializza lo stato del nuovo dipartimento, accodando sotto-batch deterministici da 5 mete. Validazione: `Stato coerente`.)
+**Fase v1 raggiunta:** Fase 5 / 5 + Ondata A (A1, A2, A4, A5) — SITO PUBBLICATO + infrastruttura mappatura multi-dipartimento
+**Cosa funziona:** tutto, testato; mete REALI per Economia, Management, Lingue, Scienze e Filosofia; bando, scadenze e checklist validati; pipeline di mappatura coerente e pronta per nuovi dipartimenti; sito online su GitHub Pages:
 **https://nicorotolo.github.io/erasmuswiz/**
-**Prossimo passo:** analytics (A3, serve account di Nicola); arricchire
-alloggio/prerequisiti; completare lingua e scadenze delle mete Management nei
-batch gia' pianificati
-**Novita':** GitHub Action `mappatura-mete.yml` — due volte a notte, in cloud,
-arricchisce un lotto di ~10-15 mete e apre una PR da revisionare la mattina
+**Prossimo passo:** analytics (A3, serve account di Nicola); arricchire alloggio/prerequisiti; usare la pipeline `nuovo_dipartimento` per i prossimi ampliamenti.
+**Novita':** pipeline Codex "accoda e parti": un batch `nuovo_dipartimento` produce `batch/INPUT.json`, poi `setup-dipartimento.mjs` registra il file dati e accoda i sotto-batch iniziali.
 
 ---
 
@@ -61,6 +54,7 @@ Profilo → Mete.
 | `automazioni/PROMPT_CODEX_mappatura.md` | automazione | Prompt dell'automazione Codex (ogni 15 min): unica fonte della mappatura mete. (Action Claude `mappatura-mete.yml` RIMOSSA) |
 | `scripts/lib-mete.mjs` | automazione | Utilità condivise: scanner JS (rispetta stringhe/parentesi) + serializzazione |
 | `scripts/prepara-batch.mjs` | automazione | Imbuto in ingresso: estrae il prossimo batch in `batch/INPUT.json` (pochi KB) |
+| `scripts/setup-dipartimento.mjs` | automazione | Bootstrap deterministico per `nuovo_dipartimento`: valida il nuovo file dati, registra lo stato e accoda sotto-batch da 5 mete |
 | `scripts/applica-batch.mjs` | automazione | Imbuto in uscita: fonde `batch/OUTPUT.json` nel fileJs, `node --check`, aggiorna lo stato |
 | `fonti/` | **fonti ufficiali** | PDF/ODS del bando 2026/27 Ca' Foscari (lista destinazioni, legenda, EUTOPIA) — base del database mete |
 | `README.md` | guida | Spiegazione file + come aggiungere una meta + come testare |
@@ -80,21 +74,22 @@ Profilo → Mete.
 ## 6. ⚠️ STATO DEI CONTENUTI (il vero lavoro che resta)
 
 Il CODICE è pronto. Le mete ora sono **REALI** (dalla lista ufficiale del bando
-2026/27). Resta da completare lingua e dettagli-scheda, e validare bando/checklist.
+2026/27). La pipeline di mappatura ha completato i dipartimenti tracciati nello stato corrente; resta il lavoro qualitativo su dettagli-scheda, alloggio e prerequisiti.
 
 | Dato | Stato attuale | Da fare |
 |------|---------------|---------|
-| **58 mete Economia** (`dati-mete.js`) | **REALI** dalla lista ufficiale 2026/27 | Economia chiusa; arricchimenti futuri su alloggio/prerequisiti |
-| **76 mete Management** (`dati-mete-management.js`) | **REALI** dalla lista ufficiale 2026/27; 74 codici Erasmus unici; link scheda PDF presenti; **19/76 righe complete** | completare lingua e scadenze nei batch Management |
+| **58 mete Economia** (`dati-mete.js`) | **REALI** dalla lista ufficiale 2026/27; stato mappatura completo: **52/58 righe complete**, 5 senza CEFR ufficiale nello stato corrente | arricchimenti futuri su alloggio/prerequisiti |
+| **76 mete Management** (`dati-mete-management.js`) | **REALI** dalla lista ufficiale 2026/27; stato mappatura completo: **71/76 righe complete**, 5 senza CEFR ufficiale | arricchimenti futuri su alloggio/prerequisiti |
+| **24 mete Lingue e culture orientali** (`dati-mete-lingue.js`) | **REALI** dalla lista ufficiale 2026/27; stato mappatura completo: **23/24 righe complete**, 1 senza CEFR ufficiale | arricchimenti futuri su alloggio/prerequisiti |
+| **25 mete Scienze ambientali, informatica e statistica** (`dati-mete-scienze.js`) | **REALI** dalla lista ufficiale 2026/27; stato mappatura completo: **23/25 righe complete**, 2 senza CEFR ufficiale | arricchimenti futuri su alloggio/prerequisiti |
+| **66 mete Filosofia e Beni Culturali** (`dati-mete-filosofia.js`) | **REALI** dalla lista ufficiale 2026/27; stato mappatura completo: **56/66 righe complete**, 11 senza CEFR ufficiale | arricchimenti futuri su alloggio/prerequisiti |
 | → posti/livello/area/coordinatore/codice Erasmus | reali, dalla lista | ok |
-| → requisito di **lingua** | Economia: **52/58 righe complete** con CEFR e scadenze, 6 senza CEFR ufficiale classificate non trovabili. Management: **19/76 righe complete**; 2 mete del primo lotto hanno scadenze ma non CEFR generale ufficiale | continuare i batch Management |
-| → scadenze ospitante / linkPdf | Economia: **58/58 con link scheda PDF** e **58/58 con scadenze** nomination/application. Management: **76/76 con link scheda PDF** e **21/76 con scadenze** | continuare i batch Management |
-| → schede PDF scaricate | 53 PDF in `fonti/schede/` (solo locale, gitignore) | — |
-| Meta Aix-Marseille | **completa e reale** (da scheda PDF) | Esempio di riferimento |
-| 2 mete "ESEMPIO" (Madrid, Monaco) | **RIMOSSE** ✅ | fatto |
-| Requisiti bando (`dati-bando.js`) | **REALI** ✅ validati art. per art. sul PDF (8 requisiti, con rif. agli articoli) | Riverificare sul bando 2027/28 |
-| Scadenze (`dati-scadenze.js`) | **REALI** ✅ 7 tappe dal bando (candidature, laureandi, graduatoria, accettazione, ISEE, mobilità) | Riverificare ogni anno |
-| Checklist (`dati-checklist.js`) | **REALI** ✅ 9 passi validati sul bando | Riverificare ogni anno |
+| → requisito di **lingua** | I dipartimenti tracciati hanno pending lingua a 0; le mete senza CEFR ufficiale restano classificate come non trovabili | non inventare livelli non pubblicati |
+| → scadenze ospitante / linkPdf | I dipartimenti tracciati hanno pending scadenze a 0 nello stato corrente | riverificare su cambio anno/bando |
+| → schede PDF scaricate | locali in `fonti/schede/` (gitignore) | — |
+| Requisiti bando (`dati-bando.js`) | **REALI** validati art. per art. sul PDF | Riverificare sul bando 2027/28 |
+| Scadenze (`dati-scadenze.js`) | **REALI** 7 tappe dal bando | Riverificare ogni anno |
+| Checklist (`dati-checklist.js`) | **REALI** 9 passi validati sul bando | Riverificare ogni anno |
 
 **Nota motore di compatibilità:** `app.js` ora gestisce la lingua mancante in modo
 onesto. Per le mete senza lingua mostra 🟡 "Idoneo — verifica la lingua" (se hai
@@ -113,6 +108,7 @@ poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
 
+Fatto in sessione (2026-06-25): **patch infrastrutturale accoda e parti** - `prepara-batch.mjs` gestisce `nuovo_dipartimento` senza crash su file dati assente; aggiunto `setup-dipartimento.mjs` per creare lo stato e accodare sotto-batch deterministici da 5 mete. Validato con `node --check` e `valida-stato.mjs` ("Stato coerente").
 Fatto in sessione 5 (2026-06-11): **A4 COMPLETATO** — tutte le 58 mete con lingua e link scheda.
 Fatto in run notturno (2026-06-12): **scadenze arricchite per 5 mete** —
   Copenhagen (KU): application 1/5 e 1/10;
