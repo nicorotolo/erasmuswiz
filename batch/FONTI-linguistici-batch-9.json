@@ -1,0 +1,22 @@
+{
+  "S GOTEBOR01": {
+    "requisitoLingua": "https://www.gu.se/en/study-in-gothenburg/incoming-exchange-student/exchange-studies-at-the-faculty-of-humanities",
+    "scadenzeOspitante": "https://www.gu.se/en/study-in-gothenburg/incoming-exchange-student/exchange-studies-at-the-faculty-of-humanities"
+  },
+  "N OSLO01": {
+    "scadenzeOspitante": "https://www.uio.no/english/studies/admission/exchange/",
+    "notePraticheAppend": "https://www.uio.no/english/studies/admission/exchange/erasmus/"
+  },
+  "CZ BRNO05": {
+    "requisitoLingua": "https://czs.muni.cz/en/student-from-abroad/exchange-non-degree-studies/erasmus-europe",
+    "scadenzeOspitante": "https://czs.muni.cz/en/student-from-abroad/exchange-non-degree-studies/erasmus-europe"
+  },
+  "A INNSBRU01": {
+    "requisitoLingua": "https://www.uibk.ac.at/en/international-relations-office/student-mobility/incoming/studying-uibk/",
+    "scadenzeOspitante": "https://www.uibk.ac.at/en/international-relations-office/student-mobility/incoming/mobility-programmes/erasmus-studmob/"
+  },
+  "E PALMA01": {
+    "scadenzeOspitante": "https://internacional.uib.eu/documents/d/internacional/uib_-fact-sheet_2026-27_epalma01-rev",
+    "notePraticheAppend": "https://internacional.uib.eu/documents/d/internacional/uib_-fact-sheet_2026-27_epalma01-rev"
+  }
+}
