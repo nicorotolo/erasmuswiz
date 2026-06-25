@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Studi Umanistici",
-  "runCompletati": 104,
+  "runCompletati": 105,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "linguistici-batch-18",
-      "priorita": 5,
-      "dipartimento": "Studi Linguistici e Culturali Comparati",
-      "descrizione": "Studi Linguistici e Culturali Comparati - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "CZ PRAHA07",
-        "CY PAFOS01",
-        "NL ROTTERD01",
-        "A WIEN78",
-        "G ATHINE42"
-      ]
-    },
     {
       "id": "linguistici-batch-19",
       "priorita": 5,
@@ -370,15 +356,10 @@
       "fileJs": "js/dati-mete-linguistici.js",
       "stato": "in_corso",
       "totale": 114,
-      "completate": 79,
+      "completate": 84,
       "pendingScadenze": [
         "P PORTO02",
         "F PARIS178",
-        "CZ PRAHA07",
-        "CY PAFOS01",
-        "NL ROTTERD01",
-        "A WIEN78",
-        "G ATHINE42",
         "G ATHINE01",
         "G KALLITH02",
         "G KOMOTIN01",
@@ -406,11 +387,6 @@
         "D MUNSTER01",
         "TR ISTANBU07",
         "E CORDOBA01",
-        "CZ PRAHA07",
-        "CY PAFOS01",
-        "NL ROTTERD01",
-        "A WIEN78",
-        "G ATHINE42",
         "G ATHINE01",
         "G KALLITH02",
         "G KOMOTIN01",
@@ -1122,6 +1098,12 @@
       "data": "2026-06-25",
       "mete": 5,
       "note": "Studi Linguistici e Culturali Comparati linguistici-batch-17: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 105,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Linguistici e Culturali Comparati linguistici-batch-18: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
