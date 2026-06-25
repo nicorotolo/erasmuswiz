@@ -1,0 +1,22 @@
+{
+  "E BILBAO02": {
+    "scadenzeOspitante": "https://www.deusto.es/en/home/study/courses/study-abroad/programs-semester",
+    "notePraticheAppend": "https://www.deusto.es/en/home/we-are-deusto/faculties/social-human-sciences/international"
+  },
+  "D BERLIN01": {
+    "requisitoLingua": "https://www.fu-berlin.de/en/studium/international/studium_fu/auslandssemester/erasmus_in/infos_incomingstudents/Sprachvoraussetzungen.html",
+    "scadenzeOspitante": "https://www.fu-berlin.de/en/studium/international/studium_fu/auslandssemester/erasmus_in/infos_incomingstudents/Nominierung.html"
+  },
+  "RS NOVISAD02": {
+    "requisitoLingua": "https://www.ff.uns.ac.rs/uploads/files/Medjunarodna%20saradnja/Razmena%20studenata/Dolazeci%20studenti/Erasmus_International_Student_and_Staff_Mobility_Factsheet.pdf",
+    "scadenzeOspitante": "https://www.ff.uns.ac.rs/uploads/files/Medjunarodna%20saradnja/Razmena%20studenata/Dolazeci%20studenti/Erasmus_International_Student_and_Staff_Mobility_Factsheet.pdf"
+  },
+  "E BARCELO02": {
+    "requisitoLingua": "https://www.uab.cat/web/international-exchange/incoming-exchange-students/upon-arrival-at-the-uab-1345698199683.html?cid=1345698199683&d=Touch&pagename=i-FFL%2FPage%2FTemplatePageInteriorWEB_FacultatsUAB2015_RWD",
+    "scadenzeOspitante": "https://www.uab.cat/doc/uabfactsheet_2026_27"
+  },
+  "E MADRID03": {
+    "requisitoLingua": "https://filosofia.ucm.es/incoming-students",
+    "scadenzeOspitante": "https://www.ucm.es/english/deadlines"
+  }
+}

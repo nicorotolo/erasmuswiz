@@ -171,13 +171,16 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 8 maggio 2026" },
+        { cosa: "Application (primavera)", periodo: "entro 5 ottobre 2026" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "https://www.deusto.es/en/home/we-are-deusto/faculties/social-human-sciences",
-    notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 4 x 5 L e LM. Lingua e scadenze ospitante da completare nei batch successivi."
+    notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 4 x 5 L e LM. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "06-d-berlin01-0220",
@@ -191,9 +194,15 @@ var METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "LM", note: "solo primo semestre" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B2", condizione: "raccomandato per la lingua di insegnamento" },
+        { lingua: "Inglese", livello: "B2", condizione: "raccomandato per la lingua di insegnamento" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 1 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -213,9 +222,14 @@ var METE = [
     posti: [
       { numero: 4, mesi: 5, livello: "L/LM" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per studenti internazionali" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination e documenti (autunno)", periodo: "entro 30 giugno" },
+        { cosa: "Nomination e documenti (primavera)", periodo: "entro 15 novembre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -235,9 +249,18 @@ var METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "L" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per studenti da paesi non anglofoni che seguono corsi in inglese" },
+        { lingua: "Spagnolo", livello: "B2", condizione: "per studenti da paesi non ispanofoni/catalanofoni che seguono corsi in spagnolo" },
+        { lingua: "Catalano", livello: "B2", condizione: "per studenti da paesi non ispanofoni/catalanofoni che seguono corsi in catalano" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "15 febbraio - 1 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "15 settembre - 1 novembre" },
+        { cosa: "Application (autunno)", periodo: "15 febbraio - 15 maggio" },
+        { cosa: "Application (primavera)", periodo: "15 settembre - 15 novembre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -257,9 +280,18 @@ var METE = [
     posti: [
       { numero: 3, mesi: 5, livello: "L/LM" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "per corsi di laurea in spagnolo" },
+        { lingua: "Spagnolo", livello: "B2", condizione: "per corsi magistrali o dottorali in spagnolo" },
+        { lingua: "Inglese", livello: "B2", condizione: "per insegnamenti in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "15 marzo - 15 maggio" },
+        { cosa: "Application (autunno)", periodo: "1 aprile - 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "1 settembre - 15 novembre" },
+        { cosa: "Application (primavera)", periodo: "15 settembre - 20 novembre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -391,9 +423,18 @@ var METE = [
       { numero: 3, mesi: 9, livello: "LM", note: "su 3 posti totali condivisi tra i livelli" },
       { numero: 3, mesi: 9, livello: "L", note: "su 3 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "per corsi di laurea in spagnolo" },
+        { lingua: "Spagnolo", livello: "B2", condizione: "per corsi magistrali o dottorali in spagnolo" },
+        { lingua: "Inglese", livello: "B2", condizione: "per insegnamenti in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "15 marzo - 15 maggio" },
+        { cosa: "Application (autunno)", periodo: "1 aprile - 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "1 settembre - 15 novembre" },
+        { cosa: "Application (primavera)", periodo: "15 settembre - 20 novembre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -1620,9 +1661,18 @@ var METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "L" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per studenti da paesi non anglofoni che seguono corsi in inglese" },
+        { lingua: "Spagnolo", livello: "B2", condizione: "per studenti da paesi non ispanofoni/catalanofoni che seguono corsi in spagnolo" },
+        { lingua: "Catalano", livello: "B2", condizione: "per studenti da paesi non ispanofoni/catalanofoni che seguono corsi in catalano" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "15 febbraio - 1 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "15 settembre - 1 novembre" },
+        { cosa: "Application (autunno)", periodo: "15 febbraio - 15 maggio" },
+        { cosa: "Application (primavera)", periodo: "15 settembre - 15 novembre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",

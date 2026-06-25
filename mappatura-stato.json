@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Studi Umanistici",
-  "runCompletati": 89,
+  "runCompletati": 90,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "linguistici-batch-3",
-      "priorita": 5,
-      "dipartimento": "Studi Linguistici e Culturali Comparati",
-      "descrizione": "Studi Linguistici e Culturali Comparati - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "E BILBAO02",
-        "D BERLIN01",
-        "RS NOVISAD02",
-        "E BARCELO02",
-        "E MADRID03"
-      ]
-    },
     {
       "id": "linguistici-batch-4",
       "priorita": 5,
@@ -325,6 +311,16 @@
       "mete": [
         "LT VILNIUS01"
       ]
+    },
+    {
+      "id": "studi linguistici e culturali comparati-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Studi Linguistici e Culturali Comparati",
+      "descrizione": "Studi Linguistici e Culturali Comparati - follow-up pending",
+      "tipo": "lingua",
+      "mete": [
+        "E BILBAO02"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -454,13 +450,8 @@
       "fileJs": "js/dati-mete-linguistici.js",
       "stato": "in_corso",
       "totale": 114,
-      "completate": 8,
+      "completate": 14,
       "pendingScadenze": [
-        "E BILBAO02",
-        "D BERLIN01",
-        "RS NOVISAD02",
-        "E BARCELO02",
-        "E MADRID03",
         "D BAMBERG01",
         "F BESANCO01",
         "D OSNABRU01",
@@ -548,10 +539,6 @@
       ],
       "pendingLingua": [
         "E BILBAO02",
-        "D BERLIN01",
-        "RS NOVISAD02",
-        "E BARCELO02",
-        "E MADRID03",
         "D BAMBERG01",
         "F BESANCO01",
         "D OSNABRU01",
@@ -637,7 +624,9 @@
         "F PARIS001",
         "TR ISTANBU17"
       ],
-      "tentativiLingua": {},
+      "tentativiLingua": {
+        "E BILBAO02": 1
+      },
       "linguaNonTrovabile": []
     },
     "Studi Umanistici": {
@@ -1231,6 +1220,12 @@
       "data": "2026-06-25",
       "mete": 5,
       "note": "Studi Linguistici e Culturali Comparati linguistici-batch-2: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 90,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Linguistici e Culturali Comparati linguistici-batch-3: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
