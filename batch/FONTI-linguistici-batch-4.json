@@ -1,0 +1,22 @@
+{
+  "D BAMBERG01": {
+    "requisitoLingua": "https://www.uni-bamberg.de/en/studies/exchange-students-eg-erasmus/how-do-i-apply/faqs-application/",
+    "scadenzeOspitante": "https://www.uni-bamberg.de/en/studies/exchange-students-eg-erasmus/how-do-i-apply/faqs-application/"
+  },
+  "F BESANCO01": {
+    "scadenzeOspitante": "https://mobility.univ-fcomte.fr/mobility/BewerbungServlet?aust_prog=SMS&identifier=BESANCO01&kz_bew_art=IN&kz_bew_pers=S&sprache=en",
+    "notePraticheAppend": "http://www.univ-fcomte.fr/"
+  },
+  "D OSNABRU01": {
+    "requisitoLingua": "https://www.uni-osnabrueck.de/fb1/en/international/international-studentsincoming/erasmus-and-exchange-students",
+    "scadenzeOspitante": "https://www.uni-osnabrueck.de/en/studying/our-study-programs/exchange-studies-at-osnabrueck-university"
+  },
+  "E VALENCI01": {
+    "requisitoLingua": "https://links.uv.es/incoming/languages",
+    "scadenzeOspitante": "https://www.uv.es/uvweb/philology-translation-communication/en/mobility-exchanges/incoming-students-other-universities/erasmus-studies/incoming-students/general-information-1285848124744.html"
+  },
+  "E MURCIA01": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254517",
+    "scadenzeOspitante": "https://erasmus.um.es/erasmus/ControlAlexErasmus?ayuda=&idioma=I001&opcion=informacion&seccion=ALEX&validado=S"
+  }
+}
