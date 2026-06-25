@@ -293,7 +293,10 @@ const METE = [
         note: "e 1x4"
       }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" },
+        { lingua: "Italiano", livello: "B2", condizione: "per corsi in italiano" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Nomination (autunno)", periodo: "15 marzo - 15 giugno" },

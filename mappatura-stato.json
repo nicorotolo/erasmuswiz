@@ -1,26 +1,16 @@
 {
   "versione": "2.0",
-  "aggiornato": "2026-06-24",
+  "aggiornato": "2026-06-25",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Lingue e culture orientali",
-  "runCompletati": 61,
+  "runCompletati": 62,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "lingue e culture orientali-batch-followup-2",
-      "priorita": 6,
-      "dipartimento": "Lingue e culture orientali",
-      "descrizione": "Lingue e culture orientali - follow-up pending",
-      "tipo": "lingua",
-      "mete": [
-        "TR ISTANBU21"
-      ]
-    },
     {
       "id": "lingue e culture orientali-batch-followup-3",
       "priorita": 6,
@@ -258,16 +248,14 @@
       "fileJs": "js/dati-mete-lingue.js",
       "stato": "in_corso",
       "totale": 24,
-      "completate": 20,
+      "completate": 21,
       "pendingScadenze": [],
       "pendingLingua": [
-        "TR ISTANBU21",
         "IRLCORK01",
         "A WIEN01"
       ],
       "tentativiLingua": {
         "E SEVILLA01": 2,
-        "TR ISTANBU21": 1,
         "IRLCORK01": 1,
         "A WIEN01": 1
       },
@@ -768,6 +756,12 @@
       "data": "2026-06-24",
       "mete": 1,
       "note": "Lingue e culture orientali lingue e culture orientali-batch-followup-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 62,
+      "data": "2026-06-25",
+      "mete": 1,
+      "note": "Lingue e culture orientali lingue e culture orientali-batch-followup-2: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
