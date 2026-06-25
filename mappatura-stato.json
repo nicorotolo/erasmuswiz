@@ -3,24 +3,14 @@
   "aggiornato": "2026-06-25",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
-  "dipartimentoCorrente": "Studi Umanistici",
-  "runCompletati": 111,
+  "dipartimentoCorrente": "Studi Linguistici e Culturali Comparati",
+  "runCompletati": 112,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "scienze molecolari e nanosistemi-batch-followup-1",
-      "priorita": 6,
-      "dipartimento": "Scienze Molecolari e Nanosistemi",
-      "descrizione": "Scienze Molecolari e Nanosistemi - follow-up pending",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "LT VILNIUS01"
-      ]
-    },
     {
       "id": "studi linguistici e culturali comparati-batch-followup-1",
       "priorita": 6,
@@ -311,18 +301,12 @@
     },
     "Scienze Molecolari e Nanosistemi": {
       "fileJs": "js/dati-mete-molecolari.js",
-      "stato": "in_corso",
+      "stato": "completo",
       "totale": 8,
-      "completate": 7,
-      "pendingScadenze": [
-        "LT VILNIUS01"
-      ],
-      "pendingLingua": [
-        "LT VILNIUS01"
-      ],
-      "tentativiLingua": {
-        "LT VILNIUS01": 1
-      },
+      "completate": 8,
+      "pendingScadenze": [],
+      "pendingLingua": [],
+      "tentativiLingua": {},
       "linguaNonTrovabile": []
     },
     "Studi Linguistici e Culturali Comparati": {
@@ -1077,6 +1061,12 @@
       "data": "2026-06-25",
       "mete": 3,
       "note": "Studi Umanistici umanistici-batch-5: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 112,
+      "data": "2026-06-25",
+      "mete": 1,
+      "note": "Scienze Molecolari e Nanosistemi scienze molecolari e nanosistemi-batch-followup-1: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
