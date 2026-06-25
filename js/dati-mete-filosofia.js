@@ -723,7 +723,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254739",
     linkSito: "http://www.lunduniversity.lu.se",
-    notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 4 x 5 L. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 4 x 5 L. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "25-n-oslo72-0312-political-sciences-and-civics",
@@ -739,13 +739,16 @@ const METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 20 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 20 maggio" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26910267",
     linkSito: "https://oslonyehoyskole.no/english",
-    notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 3 x 5 L solo 1°sem. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 3 x 5 L solo 1°sem. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "26-nl-groning01-0310-social-and-behavioural-sciences",
@@ -767,7 +770,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/16144709",
     linkSito: "https://www.rug.nl/education/exchange/",
-    notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 6 x 5 L. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 6 x 5 L. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "27-nl-groning01-0223-philosophy-and-ethics",
@@ -790,7 +793,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/16144750",
     linkSito: "https://www.rug.nl/education/exchange/",
-    notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5 L e LM. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5 L e LM. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "28-tr-ankara07-0312-political-sciences-and-civics",
@@ -806,13 +809,16 @@ const METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno/anno)", periodo: "entro 12 giugno 2026" },
+        { cosa: "Application (primavera)", periodo: "entro 7 novembre 2026" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/16629371",
     linkSito: "http://exchange.bilkent.edu.tr/",
-    notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 3 x 5 L. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 3 x 5 L. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "29-p-lisboa01-0312-political-sciences-and-civics",
