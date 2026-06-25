@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Studi Umanistici",
-  "runCompletati": 101,
+  "runCompletati": 102,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "linguistici-batch-15",
-      "priorita": 5,
-      "dipartimento": "Studi Linguistici e Culturali Comparati",
-      "descrizione": "Studi Linguistici e Culturali Comparati - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "E BARCELO15",
-        "E LLEIDA01",
-        "F PARIS178",
-        "E MADRID04",
-        "E SEVILLA03"
-      ]
-    },
     {
       "id": "linguistici-batch-16",
       "priorita": 5,
@@ -251,6 +237,17 @@
         "A KLAGENF01",
         "E SEVILLA01"
       ]
+    },
+    {
+      "id": "studi linguistici e culturali comparati-batch-followup-10",
+      "priorita": 6,
+      "dipartimento": "Studi Linguistici e Culturali Comparati",
+      "descrizione": "Studi Linguistici e Culturali Comparati - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E LLEIDA01",
+        "F PARIS178"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -380,14 +377,10 @@
       "fileJs": "js/dati-mete-linguistici.js",
       "stato": "in_corso",
       "totale": 114,
-      "completate": 68,
+      "completate": 71,
       "pendingScadenze": [
         "P PORTO02",
-        "E BARCELO15",
-        "E LLEIDA01",
         "F PARIS178",
-        "E MADRID04",
-        "E SEVILLA03",
         "D FRANKFU01",
         "D DUSSELD01",
         "D MUNSTER01",
@@ -426,11 +419,7 @@
         "F MONTPEL03",
         "A KLAGENF01",
         "E SEVILLA01",
-        "E BARCELO15",
         "E LLEIDA01",
-        "F PARIS178",
-        "E MADRID04",
-        "E SEVILLA03",
         "D FRANKFU01",
         "D DUSSELD01",
         "D MUNSTER01",
@@ -468,7 +457,8 @@
         "S LUND01": 1,
         "F MONTPEL03": 1,
         "A KLAGENF01": 1,
-        "E SEVILLA01": 1
+        "E SEVILLA01": 1,
+        "E LLEIDA01": 1
       },
       "linguaNonTrovabile": []
     },
@@ -1135,6 +1125,12 @@
       "data": "2026-06-25",
       "mete": 5,
       "note": "Studi Linguistici e Culturali Comparati linguistici-batch-14: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 102,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Linguistici e Culturali Comparati linguistici-batch-15: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

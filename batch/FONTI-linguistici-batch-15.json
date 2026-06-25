@@ -1,0 +1,21 @@
+{
+  "E BARCELO15": {
+    "requisitoLingua": "https://www.upf.edu/web/incoming/exchange-students-before-your-application",
+    "scadenzeOspitante": "https://www.upf.edu/web/incoming/exchange-students-before-your-application"
+  },
+  "E LLEIDA01": {
+    "scadenzeOspitante": "https://www.udl.cat/ca/serveis/ori/estudiantat_estranger/eng/application/",
+    "notePraticheAppend": "https://be-global.oia.hokudai.ac.jp/wp-content/uploads/2024/12/GENERAL-INFORMATION.pdf"
+  },
+  "F PARIS178": {
+    "requisitoLingua": "https://www.inalco.fr/en/exchange-students-inalco"
+  },
+  "E MADRID04": {
+    "requisitoLingua": "https://www.uam.es/uam/media/doc/1606851974487/uam-factsheet-26-27-eng.pdf",
+    "scadenzeOspitante": "https://www.uam.es/uam/media/doc/1606851974487/uam-factsheet-26-27-eng.pdf"
+  },
+  "E SEVILLA03": {
+    "requisitoLingua": "https://www.upo.es/cms1/export/sites/upo/aric/area/DATA-SHEET-UPO-25-26-final.pdf",
+    "scadenzeOspitante": "https://www.upo.es/cms1/export/sites/upo/aric/area/DATA-SHEET-UPO-25-26-final.pdf"
+  }
+}
