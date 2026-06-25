@@ -4,24 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Studi Umanistici",
-  "runCompletati": 87,
+  "runCompletati": 88,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "molecolari-batch-3",
-      "priorita": 5,
-      "dipartimento": "Scienze Molecolari e Nanosistemi",
-      "descrizione": "Scienze Molecolari e Nanosistemi - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "F BORDEAU58",
-        "D AACHEN 01"
-      ]
-    },
     {
       "id": "linguistici-batch-2",
       "priorita": 5,
@@ -463,16 +452,12 @@
       "fileJs": "js/dati-mete-molecolari.js",
       "stato": "in_corso",
       "totale": 8,
-      "completate": 4,
+      "completate": 7,
       "pendingScadenze": [
-        "LT VILNIUS01",
-        "F BORDEAU58",
-        "D AACHEN 01"
+        "LT VILNIUS01"
       ],
       "pendingLingua": [
-        "LT VILNIUS01",
-        "F BORDEAU58",
-        "D AACHEN 01"
+        "LT VILNIUS01"
       ],
       "tentativiLingua": {
         "LT VILNIUS01": 1
@@ -1258,6 +1243,12 @@
       "data": "2026-06-25",
       "mete": 5,
       "note": "Scienze Molecolari e Nanosistemi molecolari-batch-2: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 88,
+      "data": "2026-06-25",
+      "mete": 2,
+      "note": "Scienze Molecolari e Nanosistemi molecolari-batch-3: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
