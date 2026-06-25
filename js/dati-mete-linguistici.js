@@ -169,7 +169,10 @@ var METE = [
       { numero: 4, mesi: 5, livello: "LM", note: "su 4 posti totali condivisi tra i livelli" },
       { numero: 4, mesi: 5, livello: "L", note: "su 4 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "per studenti undergraduate; B2 fortemente raccomandato" },
+        { lingua: "Inglese", livello: "B1", condizione: "per studenti undergraduate; B2 fortemente raccomandato" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Application (autunno)", periodo: "entro 8 maggio 2026" },
