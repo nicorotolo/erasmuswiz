@@ -1,0 +1,21 @@
+{
+  "LT VILNIUS01": {
+    "notePraticheAppend": "https://www.vu.lt/en/required-attachments"
+  },
+  "E BARCELO02": {
+    "requisitoLingua": "https://www.uab.cat/web/international-exchange/itineraries/incoming-exchange-students/courses-and-language-requirements-1345799671584.html?cid=1345799671584&d=Touch&pagename=i-FC%2FPage%2FTemplatePageInteriorWEB_FacultatsUAB2015_RWD",
+    "scadenzeOspitante": "https://www.uab.cat/web/international-exchange/itineraries/incoming-exchange-students/planning-to-come-1345799671559.html?cid=1345799671559&d=Touch&pagename=i-FC%2FPage%2FTemplatePageInteriorWEB_FacultatsUAB2015_RWD"
+  },
+  "D JENA01": {
+    "requisitoLingua": "https://www.uni-jena.de/en/223146/study-programmes",
+    "scadenzeOspitante": "https://www.uni-jena.de/unijenamedia/23895/factsheetstudentexchange.pdf"
+  },
+  "NL NIJMEGE01": {
+    "requisitoLingua": "https://www.ru.nl/en/education/application-and-admission/language-requirements/english-language-requirements/minimum-test-scores-exchange-students",
+    "scadenzeOspitante": "https://www.ru.nl/en/education/more-education-and-training/courses-for-exchange-students/for-partner-universities"
+  },
+  "F BORDEAU54": {
+    "requisitoLingua": "https://www.bordeaux-inp.fr/sites/default/files/upload/bordeaux_inp_factsheet.pdf",
+    "scadenzeOspitante": "https://www.bordeaux-inp.fr/sites/default/files/upload/bordeaux_inp_factsheet.pdf"
+  }
+}
