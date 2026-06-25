@@ -1596,7 +1596,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "http://www.ht.lu.se/",
-    notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5 L e LM. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5 L e LM. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "54-d-konstan01-0232",
@@ -1700,7 +1700,9 @@ var METE = [
       { numero: 3, mesi: 10, livello: "LM", note: "su 3 posti totali condivisi tra i livelli" },
       { numero: 3, mesi: 10, livello: "L", note: "su 3 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "minimo per studenti Erasmus+ in ingresso" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Nomination (autunno)", periodo: "entro 30 aprile" },
