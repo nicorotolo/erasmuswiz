@@ -1224,7 +1224,10 @@ var METE = [
     posti: [
       { numero: 3, mesi: 9, livello: "L/LM" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato per la maggior parte dei corsi, insegnati in spagnolo" },
+        { lingua: "Inglese", livello: "B2", condizione: "raccomandato per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Application (autunno)", periodo: "entro 30 maggio" },
@@ -1374,7 +1377,10 @@ var METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "L" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "lingua di insegnamento dell'universita" },
+        { lingua: "Inglese", livello: "C1", condizione: "per corsi del Department of English" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Application (autunno/anno)", periodo: "entro 1 maggio" },
