@@ -1,0 +1,22 @@
+{
+  "D FRANKFU01": {
+    "requisitoLingua": "https://www.wiwi.uni-frankfurt.de/en/international/international-exchange-students/application",
+    "scadenzeOspitante": "https://www.wiwi.uni-frankfurt.de/en/international/international-exchange-students/application"
+  },
+  "D DUSSELD01": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/23148310",
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/23148310"
+  },
+  "D MUNSTER01": {
+    "scadenzeOspitante": "https://www.uc3m.es/secretaria-virtual/media/secretaria-virtual/doc/archivo/doc_e_fs_d_munster01_2526/d-munster01-fact-sheet_uni_muenster.pdf",
+    "notePraticheAppend": "https://www.uc3m.es/secretaria-virtual/media/secretaria-virtual/doc/archivo/doc_e_fs_d_munster01_2526/d-munster01-fact-sheet_uni_muenster.pdf"
+  },
+  "E LEON01": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254499",
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254499"
+  },
+  "F BORDEAU03": {
+    "requisitoLingua": "https://www.u-bordeaux-montaigne.fr/_attachment/nouvelle-liste-de-liens/Info%20Sheet_2026-2027.pdf?download=true",
+    "scadenzeOspitante": "https://www.u-bordeaux-montaigne.fr/_attachment/nouvelle-liste-de-liens/Info%20Sheet_2026-2027.pdf?download=true"
+  }
+}
