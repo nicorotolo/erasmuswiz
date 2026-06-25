@@ -200,7 +200,12 @@ const METE = [
         { lingua: "Spagnolo", livello: "B2", condizione: "se si frequentano corsi in spagnolo; esenti gli studenti provenienti dall'America Latina" }
       ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "entro 1 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
+        { cosa: "Application (autunno/anno intero)", periodo: "marzo-giugno" },
+        { cosa: "Application (primavera)", periodo: "settembre-ottobre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
