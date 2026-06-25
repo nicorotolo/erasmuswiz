@@ -1,0 +1,22 @@
+{
+  "G ATHINE01": {
+    "requisitoLingua": "https://en.interel.uoa.gr/fileadmin/depts/interel.uoa.gr/www/uploads/erasmus_en/2026-2027/incoming_1312026-2027/NKUA__G_ATHINE01__EXTENDED_FACT_SHEET_2026-2027.pdf",
+    "scadenzeOspitante": "https://en.interel.uoa.gr/fileadmin/depts/interel.uoa.gr/www/uploads/erasmus_en/2026-2027/incoming_1312026-2027/NKUA__G_ATHINE01__EXTENDED_FACT_SHEET_2026-2027.pdf"
+  },
+  "G KALLITH02": {
+    "requisitoLingua": "https://ajk.elte.hu/dstore/document/326079/ERASMUS%2B%20FACTSHEET%202026-2027%20-%20PANTEION%20UNIVERSITY.pdf",
+    "scadenzeOspitante": "https://ajk.elte.hu/dstore/document/326079/ERASMUS%2B%20FACTSHEET%202026-2027%20-%20PANTEION%20UNIVERSITY.pdf"
+  },
+  "G KOMOTIN01": {
+    "scadenzeOspitante": "https://docs.univr.it/documenti/ProgrammaMobilita/all/all287849.pdf",
+    "notePraticheAppend": "https://docs.univr.it/documenti/ProgrammaMobilita/all/all287849.pdf"
+  },
+  "TR ISTANBU03": {
+    "scadenzeOspitante": "https://eurep.auth.gr/sites/default/files/fact_sheets/TR%20ISTANBU03_Factsheet_0.pdf",
+    "notePraticheAppend": "https://eurep.auth.gr/sites/default/files/fact_sheets/TR%20ISTANBU03_Factsheet_0.pdf"
+  },
+  "A WIEN01": {
+    "scadenzeOspitante": "https://international.univie.ac.at/en/information-for-incoming-exchange-students/exchange-semester-at-the-university-of-vienna",
+    "notePraticheAppend": "https://international.univie.ac.at/en/information-for-incoming-exchange-students/exchange-semester-at-the-university-of-vienna"
+  }
+}
