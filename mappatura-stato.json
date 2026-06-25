@@ -10,7 +10,38 @@
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
-  "prossimiBatch": [],
+  "prossimiBatch": [
+    {
+      "id": "molecolari-batch-1",
+      "priorita": 1,
+      "dipartimento": "Scienze Molecolari e Nanosistemi",
+      "descrizione": "Nuovo dipartimento Scienze Molecolari e Nanosistemi",
+      "tipo": "nuovo_dipartimento",
+      "mete": [],
+      "fileJs": "js/dati-mete-molecolari.js",
+      "fonte": "https://www.unive.it/data/11679"
+    },
+    {
+      "id": "linguistici-batch-1",
+      "priorita": 2,
+      "dipartimento": "Studi Linguistici e Culturali Comparati",
+      "descrizione": "Nuovo dipartimento Studi Linguistici e Culturali Comparati",
+      "tipo": "nuovo_dipartimento",
+      "mete": [],
+      "fileJs": "js/dati-mete-linguistici.js",
+      "fonte": "https://www.unive.it/data/11679"
+    },
+    {
+      "id": "umanistici-batch-1",
+      "priorita": 3,
+      "dipartimento": "Studi Umanistici",
+      "descrizione": "Nuovo dipartimento Studi Umanistici",
+      "tipo": "nuovo_dipartimento",
+      "mete": [],
+      "fileJs": "js/dati-mete-umanistici.js",
+      "fonte": "https://www.unive.it/data/11679"
+    }
+  ],
   "statoDipartimenti": {
     "Economia": {
       "fileJs": "js/dati-mete.js",
