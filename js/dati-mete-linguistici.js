@@ -342,7 +342,9 @@ var METE = [
       { numero: 3, mesi: 10, livello: "LM", note: "su 3 posti totali condivisi tra i livelli" },
       { numero: 3, mesi: 10, livello: "L", note: "su 3 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2 o C1", condizione: "a seconda del programma" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Application (2025/26)", periodo: "15 settembre 2025 - 17 giugno 2026" }
