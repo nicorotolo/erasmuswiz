@@ -33,7 +33,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254670",
     linkSito: "http://english.hi.is/university/prospective_exchange_students",
-    notePratiche: "Aperta a: Dipartimento di Scienze Ambientali, Informatica e Statistica [Dati ufficiali bando 2026/27] ciclo/posti: 2x5 L e LM, non-EU solo secondo semestre.. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente. Scadenze: basate su 2025/26"
+    notePratiche: "Aperta a: Dipartimento di Scienze Ambientali, Informatica e Statistica [Dati ufficiali bando 2026/27] ciclo/posti: 2x5 L e LM, non-EU solo secondo semestre.. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente. Scadenze: basate su 2025/26 || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "01-d-bingen01-0521-environmental-sciences",
