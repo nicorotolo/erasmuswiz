@@ -1297,7 +1297,10 @@ const METE = [
     posti: [
       { numero: 3, mesi: 5, livello: "LM", note: "solo primo semestre" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B2", condizione: "generalmente richiesto per incoming LMU" },
+        { lingua: "Inglese", livello: "B2", condizione: "generalmente richiesto per incoming LMU" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
@@ -1477,13 +1480,18 @@ const METE = [
         { lingua: "Francese", livello: "B2", condizione: "per i corsi della Facolta di Filosofia; certificato DELF B2 richiesto ai non francofoni" }
       ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno)", periodo: "entro 6 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 11 novembre" },
+        { cosa: "Application online (autunno/anno)", periodo: "entro 12 maggio" },
+        { cosa: "Application online (primavera)", periodo: "entro 11 novembre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254630",
     linkSito: "http://www.unistra.fr",
-    notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 1 x 5 L ,LM. Lingua e scadenze ospitante da completare nei batch successivi."
+    notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 1 x 5 L ,LM. Lingua e scadenze ospitante da completare nei batch successivi. || Scadenze: basate su 2024/25"
   },
   {
     id: "52-e-madrid03-0223-philosophy-and-ethics",
@@ -1543,7 +1551,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254414",
     linkSito: "http://www.uni-freiburg.de",
-    notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 6 , solo 1° sem. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 6 , solo 1° sem. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "54-d-berlin02-0223-philosophy-and-ethics",
@@ -1588,7 +1596,10 @@ const METE = [
     posti: [
       { numero: 3, mesi: 9, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Portoghese", livello: "B1", condizione: "livello raccomandato; la maggior parte dei corsi e' in portoghese" },
+        { lingua: "Inglese", livello: "B2", condizione: "livello raccomandato" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Nomination (autunno e primavera)", periodo: "dal 1 gennaio al 30 giugno" },
