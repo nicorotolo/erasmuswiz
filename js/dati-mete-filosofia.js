@@ -1866,7 +1866,9 @@ const METE = [
       { numero: 6, mesi: 5, livello: "LM", note: "su 6 posti totali condivisi tra i livelli" },
       { numero: 6, mesi: 5, livello: "PhD", note: "su 6 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "per frequentare lezioni e seminari" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Nomination e application (autunno)", periodo: "entro 31 maggio" },
@@ -1897,7 +1899,12 @@ const METE = [
         { lingua: "Francese", livello: "B1/B2", condizione: "per mobilita di scambio presso UFR Arts et Sciences Humaines" }
       ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno)", periodo: "dal 15 marzo al 30 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "dal 30 agosto al 30 settembre" },
+        { cosa: "Application (autunno/anno)", periodo: "dal 15 marzo al 30 maggio" },
+        { cosa: "Application (primavera)", periodo: "dal 30 agosto al 18 ottobre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
