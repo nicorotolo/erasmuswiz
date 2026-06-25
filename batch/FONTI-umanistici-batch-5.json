@@ -1,0 +1,14 @@
+{
+  "TR ISTANBU17": {
+    "scadenzeOspitante": "https://intlaffairs.hku.hk/backend/wp-content/uploads/2022/12/KU-Fact-Sheet-2025-2026.pdf",
+    "notePraticheAppend": "https://intlaffairs.hku.hk/backend/wp-content/uploads/2022/12/KU-Fact-Sheet-2025-2026.pdf"
+  },
+  "S STOCKHO01": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254743",
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254743"
+  },
+  "PL WARSZAW01": {
+    "requisitoLingua": "https://bwz.uw.edu.pl/wp-content/uploads/sites/92/2025/11/University_of_Warsaw-factsheet-2025.pdf",
+    "scadenzeOspitante": "https://bwz.uw.edu.pl/wp-content/uploads/sites/92/2025/11/University_of_Warsaw-factsheet-2025.pdf"
+  }
+}

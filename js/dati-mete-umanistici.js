@@ -495,13 +495,16 @@ var METE = [
     posti: [{ numero: 2, mesi: 5, livello: "LM e PhD" }],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination e application (autunno/anno)", periodo: "1 aprile - 1 giugno" },
+        { cosa: "Nomination e application (primavera, seconda call)", periodo: "1 settembre - 1 novembre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/28260920",
     linkSito: "https://oip.ku.edu.tr/mobility-programs/incoming/",
-    notePratiche: "Aperta a: Dipartimento di Studi Umanistici [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5 LM e PhD. Lingua e scadenze ospitante da completare nei batch successivi."
+    notePratiche: "Aperta a: Dipartimento di Studi Umanistici [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5 LM e PhD. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "19-s-stockho01-0230-languages",
@@ -513,9 +516,17 @@ var METE = [
     areeDisciplinari: [{ codice: "0230", nome: "Languages" }],
     coordinatoreCf: "Zava Alberto",
     posti: [{ numero: 1, mesi: 6 }],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" },
+        { lingua: "Francese/Italiano/Portoghese/Spagnolo", livello: "B2", condizione: "per corsi nella relativa lingua di insegnamento" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 1 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre" },
+        { cosa: "Application (autunno)", periodo: "entro 10 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 10 ottobre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -533,9 +544,16 @@ var METE = [
     areeDisciplinari: [{ codice: "0230", nome: "Languages" }],
     coordinatoreCf: "Zava Alberto",
     posti: [{ numero: 1, mesi: 5, livello: "LM" }],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Polacco o Inglese", livello: "B2", condizione: "per incoming exchange students" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno)", periodo: "entro 30 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
+        { cosa: "Application (autunno/anno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",

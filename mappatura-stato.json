@@ -4,25 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Studi Umanistici",
-  "runCompletati": 110,
+  "runCompletati": 111,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "umanistici-batch-5",
-      "priorita": 5,
-      "dipartimento": "Studi Umanistici",
-      "descrizione": "Studi Umanistici - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "TR ISTANBU17",
-        "S STOCKHO01",
-        "PL WARSZAW01"
-      ]
-    },
     {
       "id": "scienze molecolari e nanosistemi-batch-followup-1",
       "priorita": 6,
@@ -201,6 +189,16 @@
         "G KOMOTIN01",
         "TR ISTANBU03",
         "A WIEN01"
+      ]
+    },
+    {
+      "id": "studi umanistici-batch-followup-3",
+      "priorita": 6,
+      "dipartimento": "Studi Umanistici",
+      "descrizione": "Studi Umanistici - follow-up pending",
+      "tipo": "lingua",
+      "mete": [
+        "TR ISTANBU17"
       ]
     }
   ],
@@ -386,26 +384,21 @@
       "fileJs": "js/dati-mete-umanistici.js",
       "stato": "in_corso",
       "totale": 21,
-      "completate": 13,
-      "pendingScadenze": [
-        "TR ISTANBU17",
-        "S STOCKHO01",
-        "PL WARSZAW01"
-      ],
+      "completate": 15,
+      "pendingScadenze": [],
       "pendingLingua": [
         "IRL DUBLIN01",
         "G KOMOTIN01",
         "TR ISTANBU03",
         "A WIEN01",
-        "TR ISTANBU17",
-        "S STOCKHO01",
-        "PL WARSZAW01"
+        "TR ISTANBU17"
       ],
       "tentativiLingua": {
         "IRL DUBLIN01": 1,
         "G KOMOTIN01": 1,
         "TR ISTANBU03": 1,
-        "A WIEN01": 1
+        "A WIEN01": 1,
+        "TR ISTANBU17": 1
       },
       "linguaNonTrovabile": []
     }
@@ -1078,6 +1071,12 @@
       "data": "2026-06-25",
       "mete": 5,
       "note": "Studi Umanistici umanistici-batch-4: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 111,
+      "data": "2026-06-25",
+      "mete": 3,
+      "note": "Studi Umanistici umanistici-batch-5: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
