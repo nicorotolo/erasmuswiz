@@ -1,0 +1,22 @@
+{
+  "S LUND01": {
+    "scadenzeOspitante": "https://www.lunduniversity.lu.se/study/exchange-and-study-abroad/exchange-studies/information-partner-coordinators/fact-sheet-university-wide-agreements",
+    "notePraticheAppend": "https://www.lunduniversity.lu.se/study/admission-degree-studies/entry-requirements/english-requirements"
+  },
+  "D KONSTAN01": {
+    "requisitoLingua": "https://www.uni-konstanz.de/en/international-office/study-in-konstanz/exchange-studies/application/",
+    "scadenzeOspitante": "https://www.uni-konstanz.de/securedl/sdl-eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3ODA3Njc0NDEsImV4cCI6MTc4MTQ1ODY0MSwidXNlciI6MCwiZ3JvdXBzIjpbMCwtMV0sImZpbGUiOiJmaWxlYWRtaW4vemVudHJhbC91bml2ZXJzaXRhZXQvaW50ZXJuYXRpb25hbC9JbnRlcm5hdGlvbmFsZV9TdHVkaWVyZW5kZS9TdHVkaWVyZW5faW5fS29uc3RhbnovVW5pS29uc3RhbnpfRmFjdC1TaGVldF8yMDI2LTI3LnBkZiIsInBhZ2UiOjU2NDExfQ.uMlxpjm_jD7179ktuJNdeQV0OyzVYaf8PJ_x-58k0J4/UniKonstanz_Fact-Sheet_2026-27.pdf"
+  },
+  "F MONTPEL03": {
+    "scadenzeOspitante": "https://ufr4.www.univ-montp3.fr/sites/default/files/upvm-erasmusfactsheet_25-26-2.pdf",
+    "notePraticheAppend": "https://www.univ-montp3.fr/en/international/study-montpellier-bachelors-masters-doctorate/incoming-students-exchange"
+  },
+  "F GRENOBL55": {
+    "requisitoLingua": "https://socle.univ-grenoble-alpes.fr/en/international/coming-to-study-at-ufr/how-to-apply/how-to-apply-330848.kjsp",
+    "scadenzeOspitante": "https://socle.univ-grenoble-alpes.fr/en/international/coming-to-study-at-ufr/how-to-apply/how-to-apply-330848.kjsp"
+  },
+  "B LOUVAIN01": {
+    "requisitoLingua": "https://www.uclouvain.be/en/faculties/fial/etudiant-in",
+    "scadenzeOspitante": "https://www.uclouvain.be/en/faculties/fial/etudiant-in"
+  }
+}

@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Studi Umanistici",
-  "runCompletati": 98,
+  "runCompletati": 99,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "linguistici-batch-12",
-      "priorita": 5,
-      "dipartimento": "Studi Linguistici e Culturali Comparati",
-      "descrizione": "Studi Linguistici e Culturali Comparati - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "S LUND01",
-        "D KONSTAN01",
-        "F MONTPEL03",
-        "F GRENOBL55",
-        "B LOUVAIN01"
-      ]
-    },
     {
       "id": "linguistici-batch-13",
       "priorita": 5,
@@ -271,6 +257,17 @@
       "mete": [
         "IRL DUBLIN01"
       ]
+    },
+    {
+      "id": "studi linguistici e culturali comparati-batch-followup-8",
+      "priorita": 6,
+      "dipartimento": "Studi Linguistici e Culturali Comparati",
+      "descrizione": "Studi Linguistici e Culturali Comparati - follow-up pending",
+      "tipo": "lingua",
+      "mete": [
+        "S LUND01",
+        "F MONTPEL03"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -400,14 +397,9 @@
       "fileJs": "js/dati-mete-linguistici.js",
       "stato": "in_corso",
       "totale": 114,
-      "completate": 56,
+      "completate": 59,
       "pendingScadenze": [
         "P PORTO02",
-        "S LUND01",
-        "D KONSTAN01",
-        "F MONTPEL03",
-        "F GRENOBL55",
-        "B LOUVAIN01",
         "D LEIPZIG01",
         "E MADRID26",
         "E CADIZ01",
@@ -458,10 +450,7 @@
         "MT MALTA01",
         "IRL DUBLIN01",
         "S LUND01",
-        "D KONSTAN01",
         "F MONTPEL03",
-        "F GRENOBL55",
-        "B LOUVAIN01",
         "D LEIPZIG01",
         "E MADRID26",
         "E CADIZ01",
@@ -510,7 +499,9 @@
         "E PALMA01": 1,
         "E BURGOS01": 1,
         "MT MALTA01": 1,
-        "IRL DUBLIN01": 1
+        "IRL DUBLIN01": 1,
+        "S LUND01": 1,
+        "F MONTPEL03": 1
       },
       "linguaNonTrovabile": []
     },
@@ -1159,6 +1150,12 @@
       "data": "2026-06-25",
       "mete": 5,
       "note": "Studi Linguistici e Culturali Comparati linguistici-batch-11: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 99,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Linguistici e Culturali Comparati linguistici-batch-12: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
