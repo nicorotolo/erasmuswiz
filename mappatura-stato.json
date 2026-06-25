@@ -3,24 +3,14 @@
   "aggiornato": "2026-06-25",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
-  "dipartimentoCorrente": "Studi Linguistici e Culturali Comparati",
-  "runCompletati": 85,
+  "dipartimentoCorrente": "Studi Umanistici",
+  "runCompletati": 86,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "umanistici-batch-1",
-      "priorita": 3,
-      "dipartimento": "Studi Umanistici",
-      "descrizione": "Nuovo dipartimento Studi Umanistici",
-      "tipo": "nuovo_dipartimento",
-      "mete": [],
-      "fileJs": "js/dati-mete-umanistici.js",
-      "fonte": "https://www.unive.it/data/11679"
-    },
     {
       "id": "molecolari-batch-2",
       "priorita": 5,
@@ -309,6 +299,60 @@
         "NL TILBURG01",
         "F PARIS001",
         "TR ISTANBU17"
+      ]
+    },
+    {
+      "id": "umanistici-batch-2",
+      "priorita": 5,
+      "dipartimento": "Studi Umanistici",
+      "descrizione": "Studi Umanistici - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "IRL DUBLIN01",
+        "D HEIDELB01",
+        "A WIEN78",
+        "G ATHINE42",
+        "G ATHINE01"
+      ]
+    },
+    {
+      "id": "umanistici-batch-3",
+      "priorita": 5,
+      "dipartimento": "Studi Umanistici",
+      "descrizione": "Studi Umanistici - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "G KALLITH02",
+        "G KOMOTIN01",
+        "TR ISTANBU03",
+        "A WIEN01",
+        "LUXLUX-VIL01"
+      ]
+    },
+    {
+      "id": "umanistici-batch-4",
+      "priorita": 5,
+      "dipartimento": "Studi Umanistici",
+      "descrizione": "Studi Umanistici - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D BERLIN13",
+        "NL TILBURG01",
+        "SF HELSINK01",
+        "D MUNCHEN01",
+        "F PARIS001"
+      ]
+    },
+    {
+      "id": "umanistici-batch-5",
+      "priorita": 5,
+      "dipartimento": "Studi Umanistici",
+      "descrizione": "Studi Umanistici - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "TR ISTANBU17",
+        "S STOCKHO01",
+        "PL WARSZAW01"
       ]
     }
   ],
@@ -641,6 +685,54 @@
         "NL TILBURG01",
         "F PARIS001",
         "TR ISTANBU17"
+      ],
+      "tentativiLingua": {},
+      "linguaNonTrovabile": []
+    },
+    "Studi Umanistici": {
+      "fileJs": "js/dati-mete-umanistici.js",
+      "stato": "in_corso",
+      "totale": 21,
+      "completate": 0,
+      "pendingScadenze": [
+        "IRL DUBLIN01",
+        "D HEIDELB01",
+        "A WIEN78",
+        "G ATHINE42",
+        "G ATHINE01",
+        "G KALLITH02",
+        "G KOMOTIN01",
+        "TR ISTANBU03",
+        "A WIEN01",
+        "LUXLUX-VIL01",
+        "D BERLIN13",
+        "NL TILBURG01",
+        "SF HELSINK01",
+        "D MUNCHEN01",
+        "F PARIS001",
+        "TR ISTANBU17",
+        "S STOCKHO01",
+        "PL WARSZAW01"
+      ],
+      "pendingLingua": [
+        "IRL DUBLIN01",
+        "D HEIDELB01",
+        "A WIEN78",
+        "G ATHINE42",
+        "G ATHINE01",
+        "G KALLITH02",
+        "G KOMOTIN01",
+        "TR ISTANBU03",
+        "A WIEN01",
+        "LUXLUX-VIL01",
+        "D BERLIN13",
+        "NL TILBURG01",
+        "SF HELSINK01",
+        "D MUNCHEN01",
+        "F PARIS001",
+        "TR ISTANBU17",
+        "S STOCKHO01",
+        "PL WARSZAW01"
       ],
       "tentativiLingua": {},
       "linguaNonTrovabile": []
@@ -1164,6 +1256,12 @@
       "data": "2026-06-25",
       "mete": 114,
       "note": "Avvio Studi Linguistici e Culturali Comparati: creato js/dati-mete-linguistici.js con 114 mete; accodati 19 sotto-batch."
+    },
+    {
+      "batch": 86,
+      "data": "2026-06-25",
+      "mete": 21,
+      "note": "Avvio Studi Umanistici: creato js/dati-mete-umanistici.js con 21 mete; accodati 4 sotto-batch."
     }
   ],
   "storicoBatch": [
