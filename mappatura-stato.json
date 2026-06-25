@@ -4,23 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Scienze ambientali, informatica e statistica",
-  "runCompletati": 66,
+  "runCompletati": 67,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "scienze ambientali, informatica e statistica-batch-followup-4",
-      "priorita": 6,
-      "dipartimento": "Scienze ambientali, informatica e statistica",
-      "descrizione": "Scienze ambientali, informatica e statistica - follow-up pending",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "NL TILBURG01"
-      ]
-    },
     {
       "id": "scienze ambientali, informatica e statistica-batch-followup-5",
       "priorita": 6,
@@ -219,9 +209,8 @@
       "fileJs": "js/dati-mete-scienze.js",
       "stato": "in_corso",
       "totale": 25,
-      "completate": 22,
+      "completate": 23,
       "pendingScadenze": [
-        "NL TILBURG01",
         "RO TIMISOA01"
       ],
       "pendingLingua": [
@@ -732,6 +721,12 @@
       "data": "2026-06-25",
       "mete": 3,
       "note": "Scienze ambientali, informatica e statistica scienze ambientali, informatica e statistica-batch-followup-3: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 67,
+      "data": "2026-06-25",
+      "mete": 1,
+      "note": "Scienze ambientali, informatica e statistica scienze ambientali, informatica e statistica-batch-followup-4: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
