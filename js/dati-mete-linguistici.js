@@ -918,9 +918,16 @@ var METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "L/LM" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "C1", condizione: "per corsi della Faculty of Arts; documentazione richiesta solo per specifici corsi di laurea indicati" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "15 febbraio - 25 marzo" },
+        { cosa: "Application (autunno)", periodo: "entro 1 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "15 agosto - 25 settembre" },
+        { cosa: "Application (primavera)", periodo: "entro 1 ottobre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -941,9 +948,15 @@ var METE = [
       { numero: 1, mesi: 6, livello: "LM", note: "su 1 posti totali condivisi tra i livelli" },
       { numero: 1, mesi: 6, livello: "L", note: "su 1 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi con lingua di insegnamento inglese" },
+        { lingua: "Francese/Italiano/Portoghese/Spagnolo", livello: "B2", condizione: "per corsi con lingua di insegnamento francese, italiana, portoghese o spagnola" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 10 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 10 ottobre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -963,9 +976,16 @@ var METE = [
     posti: [
       { numero: 2, mesi: 6, livello: "L", note: "solo primo semestre" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco/Inglese", livello: "B2", condizione: "raccomandato per la lingua di insegnamento" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 31 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 31 dicembre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -986,9 +1006,16 @@ var METE = [
       { numero: 4, mesi: 6, livello: "LM", note: "su 4 posti totali condivisi tra i livelli; solo primo semestre" },
       { numero: 4, mesi: 6, livello: "L", note: "su 4 posti totali condivisi tra i livelli; solo primo semestre" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco/Inglese", livello: "B1/B2", condizione: "per seguire corsi in tedesco o inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 1 giugno" },
+        { cosa: "Application (autunno)", periodo: "entro 1 luglio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 dicembre" },
+        { cosa: "Application (primavera)", periodo: "entro 1 gennaio" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -1009,9 +1036,17 @@ var METE = [
       { numero: 2, mesi: 10, livello: "LM", note: "su 2 posti totali condivisi tra i livelli" },
       { numero: 2, mesi: 10, livello: "L", note: "su 2 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi generali offerti agli exchange students" },
+        { lingua: "Inglese", livello: "C1", condizione: "per corsi di English language and literature" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "15 marzo - 15 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 25 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "1 settembre - 1 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -2787,9 +2822,15 @@ var METE = [
     posti: [
       { numero: 1, mesi: 6, livello: "L/LM" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi con lingua di insegnamento inglese" },
+        { lingua: "Francese/Italiano/Portoghese/Spagnolo", livello: "B2", condizione: "per corsi con lingua di insegnamento francese, italiana, portoghese o spagnola" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 10 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 10 ottobre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",

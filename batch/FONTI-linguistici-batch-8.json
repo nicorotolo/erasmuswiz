@@ -1,0 +1,22 @@
+{
+  "DK ARHUS01": {
+    "requisitoLingua": "https://international.au.dk/education/admissions/exchange/admission-to-aarhus-university/language-requirements",
+    "scadenzeOspitante": "https://international.au.dk/education/admissions/exchange/admission-to-aarhus-university"
+  },
+  "S STOCKHO01": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254743",
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254743"
+  },
+  "D BREMEN01": {
+    "requisitoLingua": "https://www.uni-bremen.de/en/studies/orientation-application/applying-for-studies/applications-from-abroad/exchange-students-from-partner-universities",
+    "scadenzeOspitante": "https://www.uni-bremen.de/en/studies/orientation-application/applying-for-studies/applications-from-abroad/exchange-students-from-partner-universities"
+  },
+  "D BOCHUM01": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254404",
+    "scadenzeOspitante": "https://international.ruhr-uni-bochum.de/en/erasmus-rub"
+  },
+  "N BERGEN01": {
+    "requisitoLingua": "https://www4.uib.no/en/studies/for-exchange-students-at-uib/how-to-nominate-students-for-exchange-to-uib",
+    "scadenzeOspitante": "https://www4.uib.no/en/studies/for-exchange-students-at-uib/how-to-nominate-students-for-exchange-to-uib"
+  }
+}
