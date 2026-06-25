@@ -1,0 +1,22 @@
+{
+  "E BURGOS01": {
+    "scadenzeOspitante": "https://www.ubu.es/english-version/international-students/ects-guide-practical-information-about-burgos-and-ubu-foreign-students-and-visitors/what-do-coming/erasmusexchange-students",
+    "notePraticheAppend": "https://www.department.mb.tf.fau.de/files/2025/12/UNIVERSIDAD-DE-BURGOS-fact_sheet_2025-2026_en.pdf"
+  },
+  "E VALLADO01": {
+    "requisitoLingua": "https://relint.uva.es/inicio/internacional/english/welcome-guide-english/",
+    "scadenzeOspitante": "https://relint.uva.es/inicio/internacional/english/students/erasmus-plus-ka103-en/"
+  },
+  "SF HELSINK01": {
+    "requisitoLingua": "https://studies.helsinki.fi/instructions/article/how-apply-exchange-student",
+    "scadenzeOspitante": "https://apps.unive.it/common2/file/download/destinazioni_erasmus/6790f3379f2d8"
+  },
+  "D TUBINGE01": {
+    "requisitoLingua": "https://uni-tuebingen.de/en/international/study-in-tuebingen/erasmus-and-exchange-to-tuebingen/application-and-preparation/",
+    "scadenzeOspitante": "https://uni-tuebingen.de/en/international/study-in-tuebingen/erasmus-and-exchange-to-tuebingen/application-and-preparation/"
+  },
+  "MT MALTA01": {
+    "scadenzeOspitante": "https://www.um.edu.mt/international/incomingvisiting/",
+    "notePraticheAppend": "https://www.um.edu.mt/international/incomingvisiting/"
+  }
+}
