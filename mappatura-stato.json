@@ -4,23 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Studi Linguistici e Culturali Comparati",
-  "runCompletati": 118,
+  "runCompletati": 119,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "studi linguistici e culturali comparati-batch-followup-7",
-      "priorita": 6,
-      "dipartimento": "Studi Linguistici e Culturali Comparati",
-      "descrizione": "Studi Linguistici e Culturali Comparati - follow-up pending",
-      "tipo": "lingua",
-      "mete": [
-        "IRL DUBLIN01"
-      ]
-    },
     {
       "id": "studi linguistici e culturali comparati-batch-followup-8",
       "priorita": 6,
@@ -251,12 +241,11 @@
       "fileJs": "js/dati-mete-linguistici.js",
       "stato": "in_corso",
       "totale": 114,
-      "completate": 96,
+      "completate": 98,
       "pendingScadenze": [
         "F PARIS178"
       ],
       "pendingLingua": [
-        "IRL DUBLIN01",
         "S LUND01",
         "F MONTPEL03",
         "A KLAGENF01",
@@ -273,7 +262,6 @@
       "tentativiLingua": {
         "N OSLO01": 2,
         "E PALMA01": 2,
-        "IRL DUBLIN01": 1,
         "S LUND01": 1,
         "F MONTPEL03": 1,
         "A KLAGENF01": 1,
@@ -1031,6 +1019,12 @@
       "data": "2026-06-25",
       "mete": 2,
       "note": "Studi Linguistici e Culturali Comparati studi linguistici e culturali comparati-batch-followup-6: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 119,
+      "data": "2026-06-25",
+      "mete": 1,
+      "note": "Studi Linguistici e Culturali Comparati studi linguistici e culturali comparati-batch-followup-7: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
