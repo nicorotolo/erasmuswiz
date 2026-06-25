@@ -1,0 +1,18 @@
+{
+  "LUXLUX-VIL01": {
+    "requisitoLingua": "https://www.uni.lu/en/mobility/incoming-exchange-students/what-can-you-study/",
+    "scadenzeOspitante": "https://www.uni.lu/en/mobility/incoming-exchange-students/how-do-you-apply/"
+  },
+  "NL TILBURG01": {
+    "requisitoLingua": "https://www.tilburguniversity.edu/education/exchange-programs/language-requirements",
+    "scadenzeOspitante": "https://www.tilburguniversity.edu/sites/default/files/download/Incoming%20Exchange%20Program%20fact%20sheet.pdf"
+  },
+  "F PARIS001": {
+    "requisitoLingua": "https://international.pantheonsorbonne.fr/en/join-paris-1-pantheon-sorbonne/exchange-student",
+    "scadenzeOspitante": "https://international.pantheonsorbonne.fr/en/join-paris-1-pantheon-sorbonne/exchange-student"
+  },
+  "TR ISTANBU17": {
+    "scadenzeOspitante": "https://intlaffairs.hku.hk/backend/wp-content/uploads/2022/12/KU-Fact-Sheet-2025-2026.pdf",
+    "notePraticheAppend": "https://intlaffairs.hku.hk/backend/wp-content/uploads/2022/12/KU-Fact-Sheet-2025-2026.pdf"
+  }
+}
