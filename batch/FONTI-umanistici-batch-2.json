@@ -1,0 +1,22 @@
+{
+  "IRL DUBLIN01": {
+    "scadenzeOspitante": "https://www.tcd.ie/global/mobility/inbound/how-to-apply/eu-and-erasmus-exchange/",
+    "notePraticheAppend": "https://www.fib.upc.edu/pdf/mobilitat/keydata/IRLDUBLIN01.pdf"
+  },
+  "D HEIDELB01": {
+    "requisitoLingua": "https://www-2024.erasmus.lettere.uniroma2.it/wp-content/uploads/2025/01/Ruprecht-Karls-Universitat-Heidelberg-D-HEIDELB01.pdf",
+    "scadenzeOspitante": "https://www.uni-heidelberg.de/en/international-affairs/erasmus/incoming/studies-and-enrolment"
+  },
+  "A WIEN78": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/25758391",
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/25758391"
+  },
+  "G ATHINE42": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254641",
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254641"
+  },
+  "G ATHINE01": {
+    "requisitoLingua": "https://en.interel.uoa.gr/erasmus_student_mobility/language_of_course",
+    "scadenzeOspitante": "https://en.interel.uoa.gr/erasmus_student_mobility/application_procedure"
+  }
+}

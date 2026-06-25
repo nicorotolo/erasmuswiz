@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Studi Umanistici",
-  "runCompletati": 107,
+  "runCompletati": 108,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "umanistici-batch-2",
-      "priorita": 5,
-      "dipartimento": "Studi Umanistici",
-      "descrizione": "Studi Umanistici - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "IRL DUBLIN01",
-        "D HEIDELB01",
-        "A WIEN78",
-        "G ATHINE42",
-        "G ATHINE01"
-      ]
-    },
     {
       "id": "umanistici-batch-3",
       "priorita": 5,
@@ -222,6 +208,16 @@
       "mete": [
         "TR ISTANBU17"
       ]
+    },
+    {
+      "id": "studi umanistici-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Studi Umanistici",
+      "descrizione": "Studi Umanistici - follow-up pending",
+      "tipo": "lingua",
+      "mete": [
+        "IRL DUBLIN01"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -406,13 +402,8 @@
       "fileJs": "js/dati-mete-umanistici.js",
       "stato": "in_corso",
       "totale": 21,
-      "completate": 0,
+      "completate": 5,
       "pendingScadenze": [
-        "IRL DUBLIN01",
-        "D HEIDELB01",
-        "A WIEN78",
-        "G ATHINE42",
-        "G ATHINE01",
         "G KALLITH02",
         "G KOMOTIN01",
         "TR ISTANBU03",
@@ -429,10 +420,6 @@
       ],
       "pendingLingua": [
         "IRL DUBLIN01",
-        "D HEIDELB01",
-        "A WIEN78",
-        "G ATHINE42",
-        "G ATHINE01",
         "G KALLITH02",
         "G KOMOTIN01",
         "TR ISTANBU03",
@@ -447,7 +434,9 @@
         "S STOCKHO01",
         "PL WARSZAW01"
       ],
-      "tentativiLingua": {},
+      "tentativiLingua": {
+        "IRL DUBLIN01": 1
+      },
       "linguaNonTrovabile": []
     }
   },
@@ -1101,6 +1090,12 @@
       "data": "2026-06-25",
       "mete": 4,
       "note": "Studi Linguistici e Culturali Comparati linguistici-batch-20: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 108,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Umanistici umanistici-batch-2: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

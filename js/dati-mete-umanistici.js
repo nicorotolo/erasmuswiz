@@ -19,13 +19,18 @@ var METE = [
     posti: [{ numero: 3, mesi: 5 }],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno)", periodo: "entro 30 marzo" },
+        { cosa: "Application (autunno/anno)", periodo: "entro 19 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 settembre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26940226",
     linkSito: "https://www.tcd.ie/study/study-abroad/inbound/",
-    notePratiche: "Aperta a: Dipartimento di Studi Umanistici [Dati ufficiali bando 2026/27] ciclo/posti: 3 x 5. Lingua e scadenze ospitante da completare nei batch successivi."
+    notePratiche: "Aperta a: Dipartimento di Studi Umanistici [Dati ufficiali bando 2026/27] ciclo/posti: 3 x 5. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "01-d-heidelb01-0222-history-and-archaeology",
@@ -37,9 +42,17 @@ var METE = [
     areeDisciplinari: [{ codice: "0222", nome: "History and Archaeology" }],
     coordinatoreCf: "Calvelli Lorenzo",
     posti: [{ numero: 2, mesi: 6, livello: "L", note: "solo primo semestre" }],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "minimo per studenti exchange" },
+        { lingua: "Tedesco", livello: "B2", condizione: "minimo per studenti exchange" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 dicembre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -57,9 +70,16 @@ var METE = [
     areeDisciplinari: [{ codice: "0222", nome: "History and Archaeology" }],
     coordinatoreCf: "Calvelli Lorenzo",
     posti: [{ numero: 2, mesi: 10, livello: "LM" }],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2-C1", condizione: "prova di conoscenza per candidati Erasmus" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno)", periodo: "entro 15 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 30 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -77,9 +97,17 @@ var METE = [
     areeDisciplinari: [{ codice: "0230", nome: "Languages" }],
     coordinatoreCf: "Carpinato Caterina",
     posti: [{ numero: 1, mesi: 5 }],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Greco", livello: "B1", condizione: "lingua principale di insegnamento ed esame; livello raccomandato" },
+        { lingua: "Inglese", livello: "B2", condizione: "seconda lingua; livello richiesto" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -97,9 +125,16 @@ var METE = [
     areeDisciplinari: [{ codice: "0230", nome: "Languages" }],
     coordinatoreCf: "Carpinato Caterina",
     posti: [{ numero: 1, mesi: 5 }],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Greco", livello: "B2", condizione: "minimo richiesto in greco o inglese" },
+        { lingua: "Inglese", livello: "B2", condizione: "minimo richiesto in greco o inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "dal 15 aprile al 15 giugno 2026" },
+        { cosa: "Application (anno)", periodo: "dal 15 aprile al 15 giugno 2026" },
+        { cosa: "Application (primavera)", periodo: "dal 15 settembre al 15 novembre 2026" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -217,9 +252,16 @@ var METE = [
     areeDisciplinari: [{ codice: "0222", nome: "History and Archaeology" }],
     coordinatoreCf: "De Vido Stefania",
     posti: [{ numero: 2, mesi: 10 }],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Greco", livello: "B2", condizione: "minimo richiesto in greco o inglese" },
+        { lingua: "Inglese", livello: "B2", condizione: "minimo richiesto in greco o inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "dal 15 aprile al 15 giugno 2026" },
+        { cosa: "Application (anno)", periodo: "dal 15 aprile al 15 giugno 2026" },
+        { cosa: "Application (primavera)", periodo: "dal 15 settembre al 15 novembre 2026" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
