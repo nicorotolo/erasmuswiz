@@ -6,7 +6,7 @@
 // Lingua e scadenze ospitante restano vuote: saranno completate nei batch successivi.
 // ============================================================
 
-const METE = [
+var METE = [
   {
     id: "00-tr-istanbu01-0222-history-and-archaeology",
     universita: "Boğaziçi University - Department of History",

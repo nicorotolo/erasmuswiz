@@ -2,75 +2,160 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <!-- Questa riga rende il sito responsive: si adatta alla larghezza del telefono -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ErasmusWiz — Cruscotto Erasmus Ca' Foscari</title>
+  <title>ErasmusWiz — Il tuo cruscotto Erasmus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
-  <!-- Analytics: GoatCounter — privacy-friendly, niente cookie -->
   <script data-goatcounter="https://erasmuswiz.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
 
-  <header class="intestazione">
-    <div class="contenitore">
-      <h1>ErasmusWiz</h1>
-      <p class="sottotitolo">Il tuo cruscotto per la domanda Erasmus a Ca' Foscari</p>
-    </div>
-  </header>
+  <!-- Contenuto principale -->
+  <main class="main-content">
 
-  <!-- Banner automatico: anno accademico dei dati (riempito da js/app.js
-       leggendo BANDO_INFO in js/dati-bando.js) -->
-  <div id="banner-anno" class="banner-anno"></div>
+    <!-- ====================================================
+         TAB: OGGI — "La missione di oggi"
+    ==================================================== -->
+    <section id="tab-oggi" class="tab-pane attivo">
 
-  <main class="contenitore">
-
-    <!-- SEZIONE IDONEITÀ (Fase 4) -->
-    <section class="sezione">
-      <h2>Sei idoneo? I requisiti del bando</h2>
-      <p class="intro-sezione">Prima di tutto, controlla di avere i requisiti per partecipare. Sono uguali per tutte le mete.</p>
-      <!-- Questo contenitore viene riempito dal JavaScript (js/app.js) -->
-      <div id="lista-requisiti" class="griglia-requisiti"></div>
-    </section>
-
-    <!-- SEZIONE TIMELINE DELLA DOMANDA (Fase 2) -->
-    <section class="sezione">
-      <h2>Timeline della domanda</h2>
-      <p class="intro-sezione">Le tappe della candidatura Ca' Foscari in ordine di tempo, con il conto alla rovescia per ognuna.</p>
-      <!-- Questo contenitore viene riempito dal JavaScript (js/app.js) -->
-      <div id="timeline"></div>
-    </section>
-
-    <!-- SEZIONE CHECKLIST (Fase 5) -->
-    <section class="sezione">
-      <h2>La tua checklist</h2>
-      <p class="intro-sezione">Spunta i passi man mano che li completi. Le spunte restano salvate sul tuo dispositivo.</p>
-      <div id="barra-progresso" class="barra-progresso"><div id="barra-riempimento" class="barra-riempimento"></div></div>
-      <div id="lista-checklist" class="lista-checklist"></div>
-    </section>
-
-    <!-- SEZIONE PROFILO STUDENTE (Fase 3) -->
-    <section class="sezione">
-      <h2>Il tuo profilo</h2>
-      <p class="intro-sezione">Inserisci i tuoi dati una volta: le mete qui sotto si ordinano in base a quanto sono compatibili con te. I dati restano salvati solo sul tuo dispositivo.</p>
-
-      <form id="form-profilo" class="form-profilo">
-        <div class="campo-form">
-          <label for="area">Area disciplinare</label>
-          <select id="area"></select>
+      <!-- Saluto + Wiz -->
+      <div class="home-header">
+        <div class="home-header-text">
+          <p class="home-data" id="home-data"></p>
+          <h1 class="home-saluto">Ciao, <span id="home-nome">Studente</span></h1>
         </div>
+        <img src="img/wiz-hero.png" alt="Wiz" class="wiz-mascot flip" style="height:72px">
+      </div>
 
+      <!-- Mini-percorso a tappe -->
+      <div class="percorso-wrap">
+        <div class="percorso-header">
+          <span class="percorso-label">Il tuo viaggio</span>
+          <span class="percorso-tappa-attiva" id="percorso-tappa">Tappa 1 · Inizia</span>
+        </div>
+        <div class="percorso-tappe" id="percorso-tappe"></div>
+      </div>
+
+      <!-- Card Missione di oggi -->
+      <div class="missione-card" id="missione-card">
+        <div class="missione-top">
+          <div class="missione-tag">
+            <span>✨</span>
+            <span>La tua missione di oggi</span>
+          </div>
+          <span class="missione-scadenza" id="missione-scadenza" style="display:none"></span>
+        </div>
+        <h2 class="missione-titolo" id="missione-titolo">Caricamento…</h2>
+        <p class="missione-dettaglio" id="missione-dettaglio"></p>
+        <div class="missione-bottoni">
+          <button class="btn-primary" id="btn-fatto" type="button">Fatto ✨</button>
+          <button class="btn-secondary" id="btn-come" type="button">Come si fa?</button>
+        </div>
+        <img src="img/wiz-hero.png" alt="Wiz" class="wiz-mascot missione-wiz-desktop">
+      </div>
+
+      <!-- Pill countdown — sempre blu notte -->
+      <div class="countdown-pill" id="countdown-pill">
+        <div class="countdown-sinistra">
+          <span class="countdown-dot"></span>
+          <div>
+            <div class="countdown-titolo" id="countdown-titolo">Chiusura candidature</div>
+            <div class="countdown-sub" id="countdown-sub">niente proroghe</div>
+          </div>
+        </div>
+        <div class="countdown-timer" id="countdown-timer">—</div>
+      </div>
+
+      <!-- Card Preparazione -->
+      <div class="preparazione-card" id="preparazione-card">
+        <div class="preparazione-header">
+          <span class="preparazione-label">Preparazione candidatura</span>
+          <span class="preparazione-count" id="prep-count">0/0</span>
+        </div>
+        <div class="prep-barra">
+          <div class="prep-barra-fill" id="prep-fill" style="width:0%"></div>
+        </div>
+        <div class="prep-steps" id="prep-steps"></div>
+      </div>
+
+    </section>
+
+    <!-- ====================================================
+         TAB: METE
+    ==================================================== -->
+    <section id="tab-mete" class="tab-pane nascosto">
+      <div class="sezione-header">
+        <h2 class="sezione-titolo">🗺️ Mete disponibili</h2>
+        <p class="sezione-sottotitolo" id="intro-mete-v2">Compila il profilo per vedere le mete ordinate per compatibilità.</p>
+      </div>
+      <div id="profilo-strip"></div>
+      <div id="griglia-mete-v2" class="griglia-mete-v2"></div>
+    </section>
+
+    <!-- ====================================================
+         TAB: TIMELINE / SCADENZE
+    ==================================================== -->
+    <section id="tab-timeline" class="tab-pane nascosto">
+      <div class="sezione-header">
+        <h2 class="sezione-titolo">⏳ Scadenze</h2>
+        <p class="sezione-sottotitolo">Le tappe della candidatura Ca' Foscari, con conto alla rovescia dal vivo.</p>
+      </div>
+      <div id="timeline-v2"></div>
+    </section>
+
+    <!-- ====================================================
+         TAB: CHECKLIST
+    ==================================================== -->
+    <section id="tab-checklist" class="tab-pane nascosto">
+      <div class="sezione-header">
+        <h2 class="sezione-titolo">📋 La tua checklist</h2>
+        <p class="sezione-sottotitolo">Spunta i passi man mano che li completi. Restano salvati sul tuo dispositivo.</p>
+      </div>
+      <div class="barra-wrap">
+        <div class="barra-progresso">
+          <div class="barra-riempimento" id="barra-riempimento-v2"></div>
+        </div>
+        <span class="barra-label" id="barra-label-v2"></span>
+      </div>
+      <div id="banner-wiz" class="banner-celebrazione" style="display:none; margin: 0 20px 14px;"></div>
+      <div id="lista-checklist-v2" class="lista-checklist-v2"></div>
+    </section>
+
+    <!-- ====================================================
+         TAB: IDONEITÀ (accessibile da JS, non nella nav)
+    ==================================================== -->
+    <section id="tab-idoneita" class="tab-pane nascosto">
+      <div class="sezione-header">
+        <h2 class="sezione-titolo">📋 Requisiti del bando</h2>
+        <p class="sezione-sottotitolo">Verifica di avere i requisiti per partecipare. Sono uguali per tutte le mete.</p>
+      </div>
+      <div id="lista-requisiti-v2" class="griglia-requisiti-v2"></div>
+    </section>
+
+    <!-- ====================================================
+         TAB: PROFILO (accessibile da JS, non nella nav)
+    ==================================================== -->
+    <section id="tab-profilo" class="tab-pane nascosto">
+      <div class="sezione-header">
+        <h2 class="sezione-titolo">👤 Il tuo profilo</h2>
+        <p class="sezione-sottotitolo">Inserisci i tuoi dati una volta: le mete si ordinano per compatibilità. I dati restano solo sul tuo dispositivo.</p>
+      </div>
+      <form id="form-profilo-v2" class="form-profilo-v2">
         <div class="campo-form">
-          <label for="livello">Livello di studi</label>
-          <select id="livello">
+          <label for="area-v2">Area disciplinare</label>
+          <select id="area-v2"></select>
+        </div>
+        <div class="campo-form">
+          <label for="livello-v2">Livello di studi</label>
+          <select id="livello-v2">
             <option value="L">Triennale (L)</option>
             <option value="LM">Magistrale (LM)</option>
           </select>
         </div>
-
-        <fieldset class="gruppo-lingue">
+        <fieldset class="gruppo-lingue-v2">
           <legend>Le tue lingue</legend>
-
           <div class="riga-lingua">
             <select class="lingua-nome">
               <option value="">— nessuna —</option>
@@ -80,16 +165,14 @@
               <option value="Tedesco">Tedesco</option>
             </select>
             <select class="lingua-livello">
-              <option value="A1">A1</option>
-              <option value="A2">A2</option>
-              <option value="B1">B1</option>
-              <option value="B2">B2</option>
-              <option value="C1">C1</option>
-              <option value="C2">C2</option>
+              <option value="A1">A1</option><option value="A2">A2</option>
+              <option value="B1">B1</option><option value="B2">B2</option>
+              <option value="C1">C1</option><option value="C2">C2</option>
             </select>
-            <label class="checkbox"><input type="checkbox" class="lingua-certificata"> certificata</label>
+            <label class="checkbox-lingua">
+              <input type="checkbox" class="lingua-certificata"> certificata
+            </label>
           </div>
-
           <div class="riga-lingua">
             <select class="lingua-nome">
               <option value="">— nessuna —</option>
@@ -99,57 +182,77 @@
               <option value="Tedesco">Tedesco</option>
             </select>
             <select class="lingua-livello">
-              <option value="A1">A1</option>
-              <option value="A2">A2</option>
-              <option value="B1">B1</option>
-              <option value="B2">B2</option>
-              <option value="C1">C1</option>
-              <option value="C2">C2</option>
+              <option value="A1">A1</option><option value="A2">A2</option>
+              <option value="B1">B1</option><option value="B2">B2</option>
+              <option value="C1">C1</option><option value="C2">C2</option>
             </select>
-            <label class="checkbox"><input type="checkbox" class="lingua-certificata"> certificata</label>
+            <label class="checkbox-lingua">
+              <input type="checkbox" class="lingua-certificata"> certificata
+            </label>
           </div>
         </fieldset>
-
-        <button type="submit" class="bottone-primario">Calcola compatibilità</button>
+        <button type="submit" class="btn-primario">Salva profilo e calcola compatibilità</button>
       </form>
-    </section>
-
-    <!-- SEZIONE METE -->
-    <section class="sezione">
-      <h2>Mete disponibili</h2>
-      <p class="intro-sezione" id="intro-mete">Compila il profilo qui sopra per vedere le mete ordinate per compatibilità.</p>
-      <!-- Questo contenitore viene riempito dal JavaScript (js/app.js) -->
-      <div id="lista-mete" class="griglia-mete"></div>
-    </section>
-
-    <!-- SEZIONE CHI SIAMO (Ondata A2) -->
-    <section class="sezione" id="chi-siamo">
-      <h2>Chi siamo e perché</h2>
-      <p class="intro-sezione">
-        ErasmusWiz è un progetto indipendente nato da chi ha vissuto la trafila
-        della domanda Erasmus e voleva renderla più chiara. Raccogliamo in un
-        unico cruscotto le informazioni del bando, sempre con il link alla fonte
-        ufficiale, perché nessuno perda una scadenza o una meta per un
-        documento difficile da trovare. I tuoi dati (profilo e spunte) restano
-        solo sul tuo dispositivo: niente account, niente tracciamento.
-      </p>
+      <div class="profilo-salvato" id="profilo-salvato" hidden>
+        <p>✅ Profilo salvato!</p>
+        <button class="btn-primary btn-primary-sm" type="button" onclick="mostraTab('mete')">Vedi le mete compatibili →</button>
+      </div>
     </section>
 
   </main>
 
-  <footer class="pie-pagina">
-    <div class="contenitore">
+  <footer class="footer-v2">
+    <div class="footer-inner">
       <p><strong>Sito non ufficiale</strong>, non affiliato all'Università Ca' Foscari Venezia.
         Fa sempre fede il <a href="https://www.unive.it/erasmus-studio" target="_blank" rel="noopener">bando ufficiale</a>.</p>
-      <p>Dati del bando a.a. 2026/2027 — ultima verifica dei dati: 10 giugno 2026.</p>
-      <p><a href="https://github.com/nicorotolo/erasmuswiz/issues" target="_blank" rel="noopener">Segnala un errore</a></p>
+      <p>Bando a.a. 2026/2027 —
+        <a href="https://github.com/nicorotolo/erasmuswiz/issues" target="_blank" rel="noopener">Segnala un errore</a></p>
     </div>
   </footer>
 
-  <!-- ORDINE IMPORTANTE: prima i file DATI, poi il file LOGICA.
-       Così quando app.js parte, le variabili METE e SCADENZE_CAFOSCARI esistono già. -->
+  <!-- Navigazione principale — in basso su mobile, in alto su desktop -->
+  <nav class="nav-bottom" aria-label="Navigazione principale">
+    <a href="#" class="nav-item attivo" data-tab="oggi">
+      <span class="nav-icon">✨</span>
+      <span class="nav-label">Oggi</span>
+    </a>
+    <a href="#" class="nav-item" data-tab="mete">
+      <span class="nav-icon">🗺️</span>
+      <span class="nav-label">Mete</span>
+    </a>
+    <a href="#" class="nav-item" data-tab="timeline">
+      <span class="nav-icon">⏳</span>
+      <span class="nav-label">Scadenze</span>
+    </a>
+    <a href="#" class="nav-item" data-tab="checklist">
+      <span class="nav-icon">📋</span>
+      <span class="nav-label">Checklist</span>
+    </a>
+    <button class="toggle-tema" id="toggle-tema" aria-label="Passa al tema notte">🌙</button>
+  </nav>
+
+  <!-- Overlay celebrazione (mostrato da JS) -->
+  <div class="celebrazione-overlay" id="celebrazione-overlay" style="display:none">
+    <img src="img/wiz-hero.png" alt="Wiz festeggia" class="celebrazione-wiz">
+    <div class="celebrazione-titolo" id="celebrazione-titolo">Missione completata! 🎉</div>
+    <div class="celebrazione-sub" id="celebrazione-sub">Continua così!</div>
+    <button class="celebrazione-btn" id="celebrazione-btn">Avanti →</button>
+  </div>
+
+  <!-- Dati -->
   <script src="js/dati-bando.js"></script>
+  <!-- Mete: ogni file dipartimento dichiara `var METE`; le accumuliamo tutte in _meteAll -->
   <script src="js/dati-mete.js"></script>
+  <script>var _meteAll = METE;</script>
+  <script src="js/dati-mete-management.js"></script>
+  <script>_meteAll = _meteAll.concat(METE);</script>
+  <script src="js/dati-mete-lingue.js"></script>
+  <script>_meteAll = _meteAll.concat(METE);</script>
+  <script src="js/dati-mete-scienze.js"></script>
+  <script>_meteAll = _meteAll.concat(METE);</script>
+  <script src="js/dati-mete-filosofia.js"></script>
+  <script>_meteAll = _meteAll.concat(METE);</script>
+  <script>METE = _meteAll;</script>
   <script src="js/dati-scadenze.js"></script>
   <script src="js/dati-checklist.js"></script>
   <script src="js/app.js"></script>

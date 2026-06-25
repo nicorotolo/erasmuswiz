@@ -6,7 +6,7 @@
 // Lingua e scadenze ospitante restano vuote: saranno completate nei batch successivi.
 // ============================================================
 
-const METE = [
+var METE = [
   {
     id: "00-is-reykjav01-0521-environmental-sciences",
     universita: "University of Iceland",

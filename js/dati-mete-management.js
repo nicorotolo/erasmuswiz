@@ -1,4 +1,4 @@
-Ôªø// ============================================================
+// ============================================================
 // DATI DELLE METE ERASMUS - Venice School of Management
 // ------------------------------------------------------------
 // Fonte ufficiale: pagina Ca' Foscari Erasmus+ per studio Europa
@@ -6,7 +6,7 @@
 // Lingua e scadenze ospitante restano vuote: saranno completate nei batch successivi.
 // ============================================================
 
-const METE = [
+var METE = [
   {
     id: "00-a-klagenf01-0410-business-and-administr",
     universita: "UNIVERSITY OF KLAGENFURT - FACULTY OF MANAGEMENT, ECONOMICS AND LAW",
@@ -32,7 +32,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254346",
     linkSito: "https://www.aau.at/en/international/studying-in-klagenfurt/students-in-mobility-programmes/",
-    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 3; mesi: 5. Periodo vincolato: SI - Solo 1¬∞ semestre/YES - First semester only || Scadenze: fact sheet AAU 2026/27 || Lingua: CEFR generale non pubblicato ufficialmente per exchange; verificare requisiti dei singoli corsi || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
+    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 3; mesi: 5. Periodo vincolato: SI - Solo 1∞ semestre/YES - First semester only || Scadenze: fact sheet AAU 2026/27 || Lingua: CEFR generale non pubblicato ufficialmente per exchange; verificare requisiti dei singoli corsi || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "01-a-wien01-0410-business-and-administrati",
@@ -63,7 +63,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/13945968",
     linkSito: "https://international.univie.ac.at/en/information-for-incoming-exchange-students/exchange-semester-at-the-university-of-vienna/",
-    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 3; mesi: 6. Periodo vincolato: SI - Solo 1¬∞ semestre/YES - First semester only || Scadenze: nomination ufficiale entro 1 maggio/1 novembre; application inviata via email dopo la nomination || Lingua: CEFR non pubblicato ufficialmente; l'ateneo richiede conferma delle competenze linguistiche nella nomination"
+    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 3; mesi: 6. Periodo vincolato: SI - Solo 1∞ semestre/YES - First semester only || Scadenze: nomination ufficiale entro 1 maggio/1 novembre; application inviata via email dopo la nomination || Lingua: CEFR non pubblicato ufficialmente; l'ateneo richiede conferma delle competenze linguistiche nella nomination"
   },
   {
     id: "02-b-bruxel04-0413-management-and-administ",
@@ -92,11 +92,11 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254358",
     linkSito: "",
-    notePratiche: "Aperta a: Laurea Magistrale in Economia e gestione delle arti e delle attivit√† culturali [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 5; mesi: 5. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
+    notePratiche: "Aperta a: Laurea Magistrale in Economia e gestione delle arti e delle attivit‡ culturali [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 5; mesi: 5. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
     id: "03-b-louvain01-0410-business-and-administr",
-    universita: "Universit√© catholique de Louvain - Louvain School of Management",
+    universita: "UniversitÈ catholique de Louvain - Louvain School of Management",
     citta: "Louvain-la-Neuve",
     paese: "Belgio",
     codiceErasmus: "B LOUVAIN01",
@@ -154,7 +154,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254388",
     linkSito: "",
-    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM, PhD; studenti: 6; mesi: 5. Periodo vincolato: SI - Solo 1¬∞ semestre/YES - First semester only || Scadenze: information sheet Bamberg 2024/25 e pagina ufficiale How do I apply || Lingua: richiesto almeno B1 tedesco e/o almeno B2 inglese"
+    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM, PhD; studenti: 6; mesi: 5. Periodo vincolato: SI - Solo 1∞ semestre/YES - First semester only || Scadenze: information sheet Bamberg 2024/25 e pagina ufficiale How do I apply || Lingua: richiesto almeno B1 tedesco e/o almeno B2 inglese"
   },
   {
     id: "05-d-deggend01-0410-business-and-administr",
@@ -185,7 +185,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254406",
     linkSito: "",
-    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 5. Periodo vincolato: SI - Solo 1¬∞ semestre/YES - First semester only || Scadenze e lingua: fact sheet DIT; B1 nella lingua di insegnamento, senza test obbligatorio prima dell'arrivo"
+    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 5. Periodo vincolato: SI - Solo 1∞ semestre/YES - First semester only || Scadenze e lingua: fact sheet DIT; B1 nella lingua di insegnamento, senza test obbligatorio prima dell'arrivo"
   },
   {
     id: "06-d-erlange01-0410-business-and-administr",
@@ -216,7 +216,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254409",
     linkSito: "",
-    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 4; mesi: 5. Periodo vincolato: SI - Solo 1¬∞ semestre/YES - First semester only || Scadenze: fact sheet FAU per studenti UE/SEE/Svizzera || Lingua: WiSo richiede/recomanda B1 in tedesco o inglese"
+    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 4; mesi: 5. Periodo vincolato: SI - Solo 1∞ semestre/YES - First semester only || Scadenze: fact sheet FAU per studenti UE/SEE/Svizzera || Lingua: WiSo richiede/recomanda B1 in tedesco o inglese"
   },
   {
     id: "07-d-frankfu07-0410-business-and-administr",
@@ -247,7 +247,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29532998",
     linkSito: "",
-    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM; studenti: 6; mesi: 5. Specifiche: Courses are entirely taught in English. Host university offers 3 Master‚Äôs programs: Master‚Äôs students (LM) must choose a specific program, while Bachelor‚Äôs students (L) can mix courses from different programs. Accommodation support is provided. || Scadenze e lingua: fact sheet Frankfurt School 2026/27; inglese TOEFL iBT 90/IELTS 7.0/Cambridge C1, tedesco C1 per moduli in tedesco"
+    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM; studenti: 6; mesi: 5. Specifiche: Courses are entirely taught in English. Host university offers 3 Masterís programs: Masterís students (LM) must choose a specific program, while Bachelorís students (L) can mix courses from different programs. Accommodation support is provided. || Scadenze e lingua: fact sheet Frankfurt School 2026/27; inglese TOEFL iBT 90/IELTS 7.0/Cambridge C1, tedesco C1 per moduli in tedesco"
   },
   {
     id: "08-d-hamburg01-0410-business-and-administr",
@@ -278,7 +278,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29533799",
     linkSito: "",
-    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM; studenti: 3; mesi: 5. Periodo vincolato: SI - Solo 1¬∞ semestre/YES - First semester only Specifiche: The cross-over course choice is possible for Bachelor students, so they have a wider offer of English taught courses. In this case they should choose at least 50% (usually 3 courses) from their Faculty of enrollment and 2 from the other Faculty. On the Master level at the moment it is not possible. For modules where the language of instruction is ‚ÄúGerman/English.‚Äù , it means that professors ask during the first week of semester if there are any participants who are not fluent in German and in case students prefer the course in English ‚Äì they talk in English. The literature is also in English. Following the link you will find the list of courses for both faculties, available in both English and German: https://www.wiso.uni-hamburg.de/internationales/international-office/study-with-us/studying-at-uhh/course-choice.html || Scadenze e lingua: fact sheet WiSo/UHH; certificato B2 in tedesco e/o inglese"
+    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM; studenti: 3; mesi: 5. Periodo vincolato: SI - Solo 1∞ semestre/YES - First semester only Specifiche: The cross-over course choice is possible for Bachelor students, so they have a wider offer of English taught courses. In this case they should choose at least 50% (usually 3 courses) from their Faculty of enrollment and 2 from the other Faculty. On the Master level at the moment it is not possible. For modules where the language of instruction is ìGerman/English.î , it means that professors ask during the first week of semester if there are any participants who are not fluent in German and in case students prefer the course in English ñ they talk in English. The literature is also in English. Following the link you will find the list of courses for both faculties, available in both English and German: https://www.wiso.uni-hamburg.de/internationales/international-office/study-with-us/studying-at-uhh/course-choice.html || Scadenze e lingua: fact sheet WiSo/UHH; certificato B2 in tedesco e/o inglese"
   },
   {
     id: "09-d-hamburg13-0410-business-and-administr",
@@ -308,7 +308,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/28286275",
     linkSito: "",
-    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 5. Periodo vincolato: SI - 1 studente nel 1¬∞ semestre e 1 studente nel 2¬∞ semestre; No term 4 (luglio-settembre)/YES - 1 student in the Fall semester and 1 student in the Spring semester; No term 4 (july-september) || Scadenze: sito/fact sheet HSBA, nomination 4 mesi e application 3 mesi prima del term || Lingua: B2 inglese e/o tedesco richiesto a tutti tranne madrelingua"
+    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 5. Periodo vincolato: SI - 1 studente nel 1∞ semestre e 1 studente nel 2∞ semestre; No term 4 (luglio-settembre)/YES - 1 student in the Fall semester and 1 student in the Spring semester; No term 4 (july-september) || Scadenze: sito/fact sheet HSBA, nomination 4 mesi e application 3 mesi prima del term || Lingua: B2 inglese e/o tedesco richiesto a tutti tranne madrelingua"
   },
   {
     id: "10-d-heilbro01-0410-business-and-administr",
@@ -338,11 +338,11 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254425",
     linkSito: "",
-    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 3; mesi: 5. Periodo vincolato: SI - Solo 1¬∞ semestre/YES - First semester only || Scadenze: HHN Information Sheet, nomination 1/5 e 15/11, application 15/5 e 1/12 || Lingua: B2 inglese CEFR pubblicato per bachelor; per master HHN rimanda a requisiti specifici"
+    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 3; mesi: 5. Periodo vincolato: SI - Solo 1∞ semestre/YES - First semester only || Scadenze: HHN Information Sheet, nomination 1/5 e 15/11, application 15/5 e 1/12 || Lingua: B2 inglese CEFR pubblicato per bachelor; per master HHN rimanda a requisiti specifici"
   },
   {
     id: "11-d-koblenz03-0410-business-and-administr",
-    universita: "WHU ‚Äì Otto Beisheim School of Management",
+    universita: "WHU ñ Otto Beisheim School of Management",
     citta: "Vallendar",
     paese: "Germania",
     codiceErasmus: "D KOBLENZ03",
@@ -400,7 +400,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254429",
     linkSito: "",
-    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM, PhD (vedi colonna Note); studenti: 5; mesi: 5. Periodo vincolato: SI - Solo 1¬∞ semestre/YES - First semester only || Scadenze: Cologne WiSo Fact Sheet 2026/27, nomination 1/5 e 1/11, application 5/6 e 1/12 || Lingua: B2 CEFR in inglese o tedesco"
+    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM, PhD (vedi colonna Note); studenti: 5; mesi: 5. Periodo vincolato: SI - Solo 1∞ semestre/YES - First semester only || Scadenze: Cologne WiSo Fact Sheet 2026/27, nomination 1/5 e 1/11, application 5/6 e 1/12 || Lingua: B2 CEFR in inglese o tedesco"
   },
   {
     id: "13-d-lunebur01-0410-business-and-administr",
@@ -430,7 +430,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26984854",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 3; mesi: 6. Periodo vincolato: SI - Solo 1¬∞ semestre/YES - First semester only || Scadenze: Leuphana Fact Sheet 2025/26, nomination 15/5 e 15/11, application 15/7 e 15/1 || Lingua: B2 inglese per corsi in inglese, B1 tedesco per corsi in tedesco"
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 3; mesi: 6. Periodo vincolato: SI - Solo 1∞ semestre/YES - First semester only || Scadenze: Leuphana Fact Sheet 2025/26, nomination 15/5 e 15/11, application 15/7 e 15/1 || Lingua: B2 inglese per corsi in inglese, B1 tedesco per corsi in tedesco"
   },
   {
     id: "14-d-munchen12-0410-business-and-administr",
@@ -461,11 +461,11 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/13945952",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 4. Periodo vincolato: SI - 1 studente nel 1¬∞ semestre e 1 studente nel 2¬∞ semestre/YES - 1 student in the Fall semester and 1 student in the Spring semester || Scadenze: MBS incoming exchange/fact sheet, nomination 31/3 e 15/9, application 30/4 e 15/10 || Lingua: inglese richiesto; TOEFL/IELTS equivalenti almeno B2"
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 4. Periodo vincolato: SI - 1 studente nel 1∞ semestre e 1 studente nel 2∞ semestre/YES - 1 student in the Fall semester and 1 student in the Spring semester || Scadenze: MBS incoming exchange/fact sheet, nomination 31/3 e 15/9, application 30/4 e 15/10 || Lingua: inglese richiesto; TOEFL/IELTS equivalenti almeno B2"
   },
   {
     id: "15-d-regensb01-0410-business-and-administr",
-    universita: "Universit√§t Regensburg - Faculty of Business, Economics, and Management Information Systems",
+    universita: "Universit‰t Regensburg - Faculty of Business, Economics, and Management Information Systems",
     citta: "Regensburg",
     paese: "Germania",
     codiceErasmus: "D REGENSB01",
@@ -492,7 +492,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26908440",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L (3¬∞ anno),LM; studenti: 4; mesi: 5. Periodo vincolato: SI - Solo 1¬∞ semestre/YES - First semester only || Scadenze: Universit√§t Regensburg exchange application, nomination 1/5 e 1/11, application 1/4-15/5 e 1/9-15/11 || Lingua: B2 tedesco per corsi in tedesco; B2 inglese per corsi in inglese, B2/C1 indicato per la Faculty of Business, Economics and Management Information Systems"
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L (3∞ anno),LM; studenti: 4; mesi: 5. Periodo vincolato: SI - Solo 1∞ semestre/YES - First semester only || Scadenze: Universit‰t Regensburg exchange application, nomination 1/5 e 1/11, application 1/4-15/5 e 1/9-15/11 || Lingua: B2 tedesco per corsi in tedesco; B2 inglese per corsi in inglese, B2/C1 indicato per la Faculty of Business, Economics and Management Information Systems"
   },
   {
     id: "16-d-lunebur01-0410-business-and-administr",
@@ -522,7 +522,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26984854",
     linkSito: "",
-    notePratiche: "Aperta a: Laurea Magistrale in Innovation and Management for Culture and Creativity [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 3; mesi: 5. Periodo vincolato: SI - Solo 1¬∞ semestre/YES - First semester only || Scadenze: Leuphana Fact Sheet 2025/26, nomination 15/5 e 15/11, application 15/7 e 15/1 || Lingua: B2 inglese per corsi in inglese, B1 tedesco per corsi in tedesco"
+    notePratiche: "Aperta a: Laurea Magistrale in Innovation and Management for Culture and Creativity [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 3; mesi: 5. Periodo vincolato: SI - Solo 1∞ semestre/YES - First semester only || Scadenze: Leuphana Fact Sheet 2025/26, nomination 15/5 e 15/11, application 15/7 e 15/1 || Lingua: B2 inglese per corsi in inglese, B1 tedesco per corsi in tedesco"
   },
   {
     id: "17-dk-arhus01-0410-business-and-administra",
@@ -617,7 +617,7 @@ const METE = [
   },
   {
     id: "20-e-alcal-h01-0410-business-and-administr",
-    universita: "UNIVERSIDAD DE ALCALA (UAH) - Facultad de Ciencias Econ√≥micas, Empresariales y Turismo - Departamento de Econom√≠a y Direcci√≥n de Empresas",
+    universita: "UNIVERSIDAD DE ALCALA (UAH) - Facultad de Ciencias EconÛmicas, Empresariales y Turismo - Departamento de EconomÌa y DirecciÛn de Empresas",
     citta: "Alcala de Henares",
     paese: "Spagna",
     codiceErasmus: "E ALCAL-H01",
@@ -854,7 +854,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/23280406",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 4; mesi: 5. Periodo vincolato: SI - Solo 1¬∞ semestre/YES - First semester only || Scadenze: UV incoming Erasmus, nomination 1/3-31/5 per autunno e 1/9-31/10 per primavera; application entro 30 giorni dalla email || Lingua: certificato non richiesto, spagnolo B1 raccomandato"
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 4; mesi: 5. Periodo vincolato: SI - Solo 1∞ semestre/YES - First semester only || Scadenze: UV incoming Erasmus, nomination 1/3-31/5 per autunno e 1/9-31/10 per primavera; application entro 30 giorni dalla email || Lingua: certificato non richiesto, spagnolo B1 raccomandato"
   },
   {
     id: "28-e-zaragoz01-0410-business-and-administr",
@@ -883,7 +883,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254542",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 8; mesi: 5. Periodo vincolato: SI - 4 studenti nel 1¬∞ semestre e 4 studenti nel 2¬∞ semestre/YES - 4 students in the fall semester and 4 students in the spring semester || Scadenze: UNIZAR Erasmus incoming 2025/26, nomination 30/5 e 20/10, application 16/6 e 7/11 || Lingua: Facolta di Economia e Impresa indica spagnolo non inferiore a B1 CEFR"
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 8; mesi: 5. Periodo vincolato: SI - 4 studenti nel 1∞ semestre e 4 studenti nel 2∞ semestre/YES - 4 students in the fall semester and 4 students in the spring semester || Scadenze: UNIZAR Erasmus incoming 2025/26, nomination 30/5 e 20/10, application 16/6 e 7/11 || Lingua: Facolta di Economia e Impresa indica spagnolo non inferiore a B1 CEFR"
   },
   {
     id: "29-f-angers10-0410-business-and-administra",
@@ -913,7 +913,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29139555",
     linkSito: "",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 8; mesi: 5. Periodo vincolato: SI - 4 studenti nel 1¬∞ semestre e 4 studenti nel 2¬∞ semestre/YES - 4 students in the fall semester and 4 students in the spring semester Specifiche: ESSCA has got many campuses,both in France and abroad (Aix-en-Provence,Angers,Bordeaux,Budapest,Luxembourg,Lyon,Malaga,Paris,Shanghai,Strasbourg); with only exception of Shanghai, students can go to any campus; students are required to choose 2 options in terms of campuses, and then they will see which one can be accommodated (Paris is quite crowded, so it is recommended t to consider the other campuses); core modules are the same in each campus, only electives change from campus to campus. Regardless of the chosen campus, students will receive the Erasmus grant as if the mobility is carried out in France || Scadenze: ESSCA fall/spring semester pages, nomination 1/5 e 1/10, application 15/5 e 15/10 || Lingua: inglese B2 per corsi in inglese"
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 8; mesi: 5. Periodo vincolato: SI - 4 studenti nel 1∞ semestre e 4 studenti nel 2∞ semestre/YES - 4 students in the fall semester and 4 students in the spring semester Specifiche: ESSCA has got many campuses,both in France and abroad (Aix-en-Provence,Angers,Bordeaux,Budapest,Luxembourg,Lyon,Malaga,Paris,Shanghai,Strasbourg); with only exception of Shanghai, students can go to any campus; students are required to choose 2 options in terms of campuses, and then they will see which one can be accommodated (Paris is quite crowded, so it is recommended t to consider the other campuses); core modules are the same in each campus, only electives change from campus to campus. Regardless of the chosen campus, students will receive the Erasmus grant as if the mobility is carried out in France || Scadenze: ESSCA fall/spring semester pages, nomination 1/5 e 1/10, application 15/5 e 15/10 || Lingua: inglese B2 per corsi in inglese"
   },
   {
     id: "30-f-bordeau57-0410-business-and-administr",
@@ -978,7 +978,7 @@ const METE = [
   },
   {
     id: "32-f-chamber01-0410-business-and-administr",
-    universita: "Universit√© Savoie Mont Blanc - IAE Annecy",
+    universita: "UniversitÈ Savoie Mont Blanc - IAE Annecy",
     citta: "Annecy",
     paese: "Francia",
     codiceErasmus: "F CHAMBER01",
@@ -1040,7 +1040,7 @@ const METE = [
   },
   {
     id: "34-f-dijon01-0413-management-and-administr",
-    universita: "Universit√© Bourgogne Europe - Institut Diderot",
+    universita: "UniversitÈ Bourgogne Europe - Institut Diderot",
     citta: "Dijon",
     paese: "Francia",
     codiceErasmus: "F DIJON01",
@@ -1066,7 +1066,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3282436",
     linkSito: "",
-    notePratiche: "Aperta a: Laurea Magistrale in Economia e gestione delle arti e delle attivit√† culturali [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 6; mesi: 6. || Scadenze e lingua: UBE/Ca' Foscari factsheet 2025/26"
+    notePratiche: "Aperta a: Laurea Magistrale in Economia e gestione delle arti e delle attivit‡ culturali [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 6; mesi: 6. || Scadenze e lingua: UBE/Ca' Foscari factsheet 2025/26"
   },
   {
     id: "35-f-dijon11-0410-business-and-administrat",
@@ -1130,7 +1130,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29139290",
     linkSito: "",
-    notePratiche: "Aperta a: Laurea Magistrale in Economia e gestione delle arti e delle attivit√† culturali [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 2; mesi: 5. Periodo vincolato: SI - Solo 1¬∞ semestre/YES - First semester only Specifiche: Campus Dijon, Master of Arts and Cultural Management. Students must take all the courses of the Master of Arts and Cultural Management (24 ECTS). If needed, it is possible to add 2 pre-determined modules. Maximum: 30 ECTS || Scadenze e lingua: BSB factsheet 2026/27"
+    notePratiche: "Aperta a: Laurea Magistrale in Economia e gestione delle arti e delle attivit‡ culturali [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 2; mesi: 5. Periodo vincolato: SI - Solo 1∞ semestre/YES - First semester only Specifiche: Campus Dijon, Master of Arts and Cultural Management. Students must take all the courses of the Master of Arts and Cultural Management (24 ECTS). If needed, it is possible to add 2 pre-determined modules. Maximum: 30 ECTS || Scadenze e lingua: BSB factsheet 2026/27"
   },
   {
     id: "37-f-lehavre04-0410-business-and-administr",
@@ -1165,7 +1165,7 @@ const METE = [
   },
   {
     id: "38-f-lille11-0410-business-and-administrat",
-    universita: "Universit√© Catholique de Lille - IESEG School of Management",
+    universita: "UniversitÈ Catholique de Lille - IESEG School of Management",
     citta: "Lille",
     paese: "Francia",
     codiceErasmus: "F LILLE11",
@@ -1189,7 +1189,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29516647",
     linkSito: "https://www.ieseg.fr/en/international/study-at-ieseg-in-exchange/",
-    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM; studenti: 6; mesi: 5. || Scadenze: I√âSEG Exchange Program Factsheet 2025/2026 || Lingua: CEFR non pubblicato ufficialmente; richiesto working level of English, nessun test ufficiale || Lingua: CEFR non trovato dopo ricerca approfondita"
+    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM; studenti: 6; mesi: 5. || Scadenze: I…SEG Exchange Program Factsheet 2025/2026 || Lingua: CEFR non pubblicato ufficialmente; richiesto working level of English, nessun test ufficiale || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "39-f-lyon23-0410-business-and-administrati",
@@ -1254,7 +1254,7 @@ const METE = [
   },
   {
     id: "41-f-nancy43-0410-business-and-administrat",
-    universita: "Universit√© de Lorraine - IAE Metz",
+    universita: "UniversitÈ de Lorraine - IAE Metz",
     citta: "Metz",
     paese: "Francia",
     codiceErasmus: "F NANCY43",
@@ -1279,7 +1279,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26909325",
     linkSito: "https://iaemetz.univ-lorraine.fr/en/international/internal-exchange",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM,PhD; studenti: 5; mesi: 5. || Scadenze: Universit√© de Lorraine Student Mobility Fact Sheet 2025/2026 || Lingua: CEFR non pubblicato ufficialmente nella scheda IAE Metz; corsi offerti in inglese || Lingua: CEFR non trovato dopo ricerca approfondita"
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM,PhD; studenti: 5; mesi: 5. || Scadenze: UniversitÈ de Lorraine Student Mobility Fact Sheet 2025/2026 || Lingua: CEFR non pubblicato ufficialmente nella scheda IAE Metz; corsi offerti in inglese || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "42-f-nantes12-0410-business-and-administra",
@@ -1307,7 +1307,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29139585",
     linkSito: "https://www.audencia.com/en/our-business-school/an-international-school/erasmus-programs",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 10; mesi: 6. Specifiche: Students cannot mix BA and MA modules. MA modules migh have a limited number of spots available. Student must choose a track and cannot mix modules of different tracks. Students can also choose modules offered in the frame of summer and winter programmes. Master's students have the following two options: ‚Ä¢ attend the 4th year of undergraduate courses (pick and choose, 2 tracks and one main course) ‚Ä¢ attend the Grande Ecole. Please be aware that the academic offer is more limited in the Spring Semester || Scadenze: Audencia fact sheet 2026/27 || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 10; mesi: 6. Specifiche: Students cannot mix BA and MA modules. MA modules migh have a limited number of spots available. Student must choose a track and cannot mix modules of different tracks. Students can also choose modules offered in the frame of summer and winter programmes. Master's students have the following two options: ï attend the 4th year of undergraduate courses (pick and choose, 2 tracks and one main course) ï attend the Grande Ecole. Please be aware that the academic offer is more limited in the Spring Semester || Scadenze: Audencia fact sheet 2026/27 || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "43-f-paris256-0410-business-and-administra",
@@ -1373,7 +1373,7 @@ const METE = [
   },
   {
     id: "45-f-poitier01-0410-business-and-administr",
-    universita: "UNIVERSITE DE POITIERS - Institut d‚ÄôAdministration des Entreprises",
+    universita: "UNIVERSITE DE POITIERS - Institut díAdministration des Entreprises",
     citta: "Poitiers",
     paese: "Francia",
     codiceErasmus: "F POITIER01",
@@ -1460,7 +1460,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254546",
     linkSito: "https://eco.univ-rennes.fr/en/rennes-exchange-programme-economics",
-    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L (3¬∞anno), LM; studenti: 3; mesi: 5. Specifiche: For Bachelor's students the mobility is allowed at the third year only since two years of undergraduate studies are required for admission to Rennes Exchange Programme in Economics || Scadenze: fact sheet Universite de Rennes 2025/26"
+    notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L (3∞anno), LM; studenti: 3; mesi: 5. Specifiche: For Bachelor's students the mobility is allowed at the third year only since two years of undergraduate studies are required for admission to Rennes Exchange Programme in Economics || Scadenze: fact sheet Universite de Rennes 2025/26"
   },
   {
     id: "48-f-strasbo48-0410-business-and-administr",
@@ -1557,7 +1557,7 @@ const METE = [
   },
   {
     id: "51-f-paris525-0410-business-and-administra",
-    universita: "ESLSCA Business School Paris (=Ecole Sup√©rieure Libre des Sciences Commerciales Appliqu√©es)",
+    universita: "ESLSCA Business School Paris (=Ecole SupÈrieure Libre des Sciences Commerciales AppliquÈes)",
     citta: "Parigi",
     paese: "Francia",
     codiceErasmus: "F PARIS525",
@@ -1705,7 +1705,7 @@ const METE = [
   },
   {
     id: "56-is-reykjav05-0410-business-and-administ",
-    universita: "Reykjav√≠k University - Department of Business Administration",
+    universita: "ReykjavÌk University - Department of Business Administration",
     citta: "Reykjavik",
     paese: "Islanda",
     codiceErasmus: "IS REYKJAV05",
@@ -1970,7 +1970,7 @@ const METE = [
   },
   {
     id: "65-p-lisboa07-0410-business-and-administra",
-    universita: "Iscte - Instituto Universit√°rio de Lisboa - Business School",
+    universita: "Iscte - Instituto Universit·rio de Lisboa - Business School",
     citta: "Lisbona",
     paese: "Portogallo",
     codiceErasmus: "P LISBOA07",
@@ -2230,7 +2230,7 @@ const METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254742",
     linkSito: "https://www.su.se/english/divisions/stockholm-business-school/education/incoming-exchange-students",
-    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L(3¬∞anno) , LM, PhD; studenti: 8; mesi: 5. || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L(3∞anno) , LM, PhD; studenti: 8; mesi: 5. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "74-sf-helsink39-0410-business-and-administ",

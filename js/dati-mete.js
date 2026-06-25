@@ -18,7 +18,7 @@
 //   Aix-Marseille (prima meta) e' l'esempio completo, gia' arricchito.
 // ============================================================
 
-const METE = [
+var METE = [
   // ----- META COMPLETA DI ESEMPIO (dati validati da scheda ufficiale) -----
   {
     id: "amu-eco-0311",

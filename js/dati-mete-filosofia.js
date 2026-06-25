@@ -6,7 +6,7 @@
 // Lingua e scadenze ospitante restano vuote: saranno completate nei batch successivi.
 // ============================================================
 
-const METE = [
+var METE = [
   {
     id: "00-cz-brno05-0210-arts",
     universita: "Masarykova Univerzita - Department of the History of Art",
