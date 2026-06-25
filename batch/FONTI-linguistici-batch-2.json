@@ -1,0 +1,22 @@
+{
+  "A GRAZ01": {
+    "requisitoLingua": "https://static.uni-graz.at/fileadmin/_files/_administrative_sites/_international/Dokumente/Erasmus/Factsheet_Erasmus.pdf",
+    "scadenzeOspitante": "https://static.uni-graz.at/fileadmin/_files/_administrative_sites/_international/Dokumente/Erasmus/Factsheet_Erasmus.pdf"
+  },
+  "N TRONDHE01": {
+    "requisitoLingua": "https://www.ntnu.edu/studies/langcourses/languagerequirements",
+    "scadenzeOspitante": "https://www.ntnu.edu/studies/exchange/how_to_apply"
+  },
+  "D HEIDELB01": {
+    "requisitoLingua": "https://backend.uni-heidelberg.de/de/dokumente/erasmus-fact-sheet/download",
+    "scadenzeOspitante": "https://www.uni-heidelberg.de/en/international-affairs/erasmus/incoming/studies-and-enrolment"
+  },
+  "E CORDOBA23": {
+    "requisitoLingua": "https://becas.usal.es/listados/Coordinadores%20Sicue%20Universidades/Loyola%20Andalucia.pdf",
+    "scadenzeOspitante": "https://becas.usal.es/listados/Coordinadores%20Sicue%20Universidades/Loyola%20Andalucia.pdf"
+  },
+  "TR NEVSEHI03": {
+    "requisitoLingua": "https://oldweb.kapadokya.edu.tr/MediaUploader/Documents/cu-infosheet-2024-2025_2.pdf",
+    "scadenzeOspitante": "https://oldweb.kapadokya.edu.tr/MediaUploader/Documents/cu-infosheet-2024-2025_2.pdf"
+  }
+}
