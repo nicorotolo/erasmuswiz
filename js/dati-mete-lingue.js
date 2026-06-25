@@ -517,7 +517,9 @@ const METE = [
         note: ""
       }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "generalmente richiesto per studenti Erasmus incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Nomination (autunno)", periodo: "entro 9 maggio 2026" },
@@ -605,7 +607,11 @@ const METE = [
         note: ""
       }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "C1", condizione: "per studenti BA dal 2021/2022 nel campo South Asian, Tibetan and Buddhist Studies" },
+        { lingua: "Inglese", livello: "B2", condizione: "per studenti MA e PhD nel campo South Asian, Tibetan and Buddhist Studies" },
+        { lingua: "Tedesco", livello: "B2", condizione: "raccomandato dal 2021/2022 per studenti MA e PhD nel campo South Asian, Tibetan and Buddhist Studies" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Nomination (autunno)", periodo: "entro 1 maggio" },

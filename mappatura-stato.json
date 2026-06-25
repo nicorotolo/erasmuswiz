@@ -3,25 +3,14 @@
   "aggiornato": "2026-06-25",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
-  "dipartimentoCorrente": "Lingue e culture orientali",
-  "runCompletati": 62,
+  "dipartimentoCorrente": "Scienze ambientali, informatica e statistica",
+  "runCompletati": 63,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "lingue e culture orientali-batch-followup-3",
-      "priorita": 6,
-      "dipartimento": "Lingue e culture orientali",
-      "descrizione": "Lingue e culture orientali - follow-up pending",
-      "tipo": "lingua",
-      "mete": [
-        "IRLCORK01",
-        "A WIEN01"
-      ]
-    },
     {
       "id": "scienze ambientali, informatica e statistica-batch-followup-1",
       "priorita": 6,
@@ -246,18 +235,13 @@
     },
     "Lingue e culture orientali": {
       "fileJs": "js/dati-mete-lingue.js",
-      "stato": "in_corso",
+      "stato": "completo",
       "totale": 24,
-      "completate": 21,
+      "completate": 23,
       "pendingScadenze": [],
-      "pendingLingua": [
-        "IRLCORK01",
-        "A WIEN01"
-      ],
+      "pendingLingua": [],
       "tentativiLingua": {
-        "E SEVILLA01": 2,
-        "IRLCORK01": 1,
-        "A WIEN01": 1
+        "E SEVILLA01": 2
       },
       "linguaNonTrovabile": [
         "E SEVILLA01"
@@ -762,6 +746,12 @@
       "data": "2026-06-25",
       "mete": 1,
       "note": "Lingue e culture orientali lingue e culture orientali-batch-followup-2: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 63,
+      "data": "2026-06-25",
+      "mete": 2,
+      "note": "Lingue e culture orientali lingue e culture orientali-batch-followup-3: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
