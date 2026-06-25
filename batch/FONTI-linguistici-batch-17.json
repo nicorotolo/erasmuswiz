@@ -1,0 +1,22 @@
+{
+  "F CHAMBER01": {
+    "requisitoLingua": "https://www.univ-smb.fr/wp-content/uploads/2025/02/usmb-information-sheet-for-academic-year-2025-2026.pdf",
+    "scadenzeOspitante": "https://www.univ-smb.fr/wp-content/uploads/2025/02/usmb-information-sheet-for-academic-year-2025-2026.pdf"
+  },
+  "IRLLIMERIC01": {
+    "requisitoLingua": "https://www.ul.ie/global/incoming-students/erasmus-students/academic-matters",
+    "scadenzeOspitante": "https://www.ul.ie/global/incoming-students/erasmus-students/nomination-application-erasmus"
+  },
+  "TR ISTANBU07": {
+    "requisitoLingua": "https://erasmus.yildiz.edu.tr/page/Erasmus--Europe/Requirements-and-Nomination/462",
+    "scadenzeOspitante": "https://erasmus.yildiz.edu.tr/page/Erasmus--Europe/Requirements-and-Nomination/462"
+  },
+  "F PARIS010": {
+    "requisitoLingua": "https://university.parisnanterre.fr/international-student-studying-at-university-paris-nanterre/incoming-university-exchange",
+    "scadenzeOspitante": "https://university.parisnanterre.fr/international-student-studying-at-university-paris-nanterre/incoming-university-exchange"
+  },
+  "E CORDOBA01": {
+    "requisitoLingua": "https://www.uco.es/internacional/extranjeros/images/documentos/2026/FactsheetErasmusKA131-171-2026EN.pdf",
+    "scadenzeOspitante": "https://www.uco.es/internacional/extranjeros/images/documentos/2026/FactsheetErasmusKA131-171-2026EN.pdf"
+  }
+}

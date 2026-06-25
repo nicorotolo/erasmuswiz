@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Studi Umanistici",
-  "runCompletati": 103,
+  "runCompletati": 104,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "linguistici-batch-17",
-      "priorita": 5,
-      "dipartimento": "Studi Linguistici e Culturali Comparati",
-      "descrizione": "Studi Linguistici e Culturali Comparati - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "F CHAMBER01",
-        "IRLLIMERIC01",
-        "TR ISTANBU07",
-        "F PARIS010",
-        "E CORDOBA01"
-      ]
-    },
     {
       "id": "linguistici-batch-18",
       "priorita": 5,
@@ -244,6 +230,17 @@
       "mete": [
         "D MUNSTER01"
       ]
+    },
+    {
+      "id": "studi linguistici e culturali comparati-batch-followup-12",
+      "priorita": 6,
+      "dipartimento": "Studi Linguistici e Culturali Comparati",
+      "descrizione": "Studi Linguistici e Culturali Comparati - follow-up pending",
+      "tipo": "lingua",
+      "mete": [
+        "TR ISTANBU07",
+        "E CORDOBA01"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -373,15 +370,10 @@
       "fileJs": "js/dati-mete-linguistici.js",
       "stato": "in_corso",
       "totale": 114,
-      "completate": 75,
+      "completate": 79,
       "pendingScadenze": [
         "P PORTO02",
         "F PARIS178",
-        "F CHAMBER01",
-        "IRLLIMERIC01",
-        "TR ISTANBU07",
-        "F PARIS010",
-        "E CORDOBA01",
         "CZ PRAHA07",
         "CY PAFOS01",
         "NL ROTTERD01",
@@ -412,10 +404,7 @@
         "E SEVILLA01",
         "E LLEIDA01",
         "D MUNSTER01",
-        "F CHAMBER01",
-        "IRLLIMERIC01",
         "TR ISTANBU07",
-        "F PARIS010",
         "E CORDOBA01",
         "CZ PRAHA07",
         "CY PAFOS01",
@@ -446,7 +435,9 @@
         "A KLAGENF01": 1,
         "E SEVILLA01": 1,
         "E LLEIDA01": 1,
-        "D MUNSTER01": 1
+        "D MUNSTER01": 1,
+        "TR ISTANBU07": 1,
+        "E CORDOBA01": 1
       },
       "linguaNonTrovabile": []
     },
@@ -1125,6 +1116,12 @@
       "data": "2026-06-25",
       "mete": 5,
       "note": "Studi Linguistici e Culturali Comparati linguistici-batch-16: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 104,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Linguistici e Culturali Comparati linguistici-batch-17: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

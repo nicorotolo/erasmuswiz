@@ -2430,9 +2430,17 @@ var METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "L/LM" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "consigliato per corsi in francese" },
+        { lingua: "Inglese", livello: "B2", condizione: "richiesto per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno)", periodo: "entro fine marzo" },
+        { cosa: "Nomination (primavera)", periodo: "entro fine ottobre" },
+        { cosa: "Application (autunno/anno)", periodo: "da meta marzo a fine aprile" },
+        { cosa: "Application (primavera)", periodo: "da meta ottobre a meta novembre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -2453,9 +2461,16 @@ var METE = [
       { numero: 2, mesi: 5, livello: "LM", note: "su 2 posti totali condivisi tra i livelli; solo secondo semestre" },
       { numero: 2, mesi: 5, livello: "L", note: "su 2 posti totali condivisi tra i livelli; solo secondo semestre" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per studenti Erasmus" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno)", periodo: "entro 1 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre" },
+        { cosa: "Application (autunno/anno)", periodo: "entro 31 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -2507,13 +2522,16 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno)", periodo: "entro 30 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 settembre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "http://www.erasmus.yildiz.edu.tr/page/27/1",
-    notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 1 x 5 L. Lingua e scadenze ospitante da completare nei batch successivi."
+    notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 1 x 5 L. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "87-f-paris010-0230",
@@ -2527,9 +2545,14 @@ var METE = [
     posti: [
       { numero: 3, mesi: 5, livello: "L/LM" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Lingua di insegnamento", livello: "B1", condizione: "francese o inglese, secondo la lingua dei corsi" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno/anno)", periodo: "dal 15 aprile al 31 maggio" },
+        { cosa: "Application (primavera)", periodo: "dal 15 aprile al 31 ottobre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -2549,9 +2572,14 @@ var METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "L/LM" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Lingua di insegnamento", livello: "B1", condizione: "francese o inglese, secondo la lingua dei corsi" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno/anno)", periodo: "dal 15 aprile al 31 maggio" },
+        { cosa: "Application (primavera)", periodo: "dal 15 aprile al 31 ottobre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -2573,13 +2601,17 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno)", periodo: "entro 31 maggio 2026" },
+        { cosa: "Application (autunno/anno)", periodo: "dal 1 aprile al 30 giugno 2026" },
+        { cosa: "Application (primavera)", periodo: "dal 1 ottobre al 30 novembre 2026" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "http://www.uco.es/",
-    notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 10 L. Lingua e scadenze ospitante da completare nei batch successivi."
+    notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 10 L. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "90-cz-praha07-0232",
