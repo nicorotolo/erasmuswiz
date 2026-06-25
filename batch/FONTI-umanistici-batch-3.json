@@ -1,0 +1,19 @@
+{
+  "G KALLITH02": {
+    "requisitoLingua": "https://erasmus.panteion.gr/en/application",
+    "scadenzeOspitante": "https://ajk.elte.hu/dstore/document/326079/ERASMUS%2B%20FACTSHEET%202026-2027%20-%20PANTEION%20UNIVERSITY.pdf"
+  },
+  "G KOMOTIN01": {
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254648"
+  },
+  "TR ISTANBU03": {
+    "scadenzeOspitante": "https://www.univpm.it/Entra/Engine/RAServeFile.php/f/erasmus/2024-2025/partner/agg.to/TR_ISTANBU03_2024-25.pdf"
+  },
+  "A WIEN01": {
+    "scadenzeOspitante": "https://international.univie.ac.at/en/information-for-incoming-exchange-students/exchange-semester-at-the-university-of-vienna"
+  },
+  "LUXLUX-VIL01": {
+    "requisitoLingua": "https://www.uni.lu/en/mobility/incoming-exchange-students/what-can-you-study/",
+    "scadenzeOspitante": "https://www.uni.lu/en/mobility/incoming-exchange-students/how-do-you-apply/"
+  }
+}

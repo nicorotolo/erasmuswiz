@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Studi Umanistici",
-  "runCompletati": 108,
+  "runCompletati": 109,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "umanistici-batch-3",
-      "priorita": 5,
-      "dipartimento": "Studi Umanistici",
-      "descrizione": "Studi Umanistici - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "G KALLITH02",
-        "G KOMOTIN01",
-        "TR ISTANBU03",
-        "A WIEN01",
-        "LUXLUX-VIL01"
-      ]
-    },
     {
       "id": "umanistici-batch-4",
       "priorita": 5,
@@ -218,6 +204,18 @@
       "mete": [
         "IRL DUBLIN01"
       ]
+    },
+    {
+      "id": "studi umanistici-batch-followup-2",
+      "priorita": 6,
+      "dipartimento": "Studi Umanistici",
+      "descrizione": "Studi Umanistici - follow-up pending",
+      "tipo": "lingua",
+      "mete": [
+        "G KOMOTIN01",
+        "TR ISTANBU03",
+        "A WIEN01"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -402,13 +400,8 @@
       "fileJs": "js/dati-mete-umanistici.js",
       "stato": "in_corso",
       "totale": 21,
-      "completate": 5,
+      "completate": 7,
       "pendingScadenze": [
-        "G KALLITH02",
-        "G KOMOTIN01",
-        "TR ISTANBU03",
-        "A WIEN01",
-        "LUXLUX-VIL01",
         "D BERLIN13",
         "NL TILBURG01",
         "SF HELSINK01",
@@ -420,11 +413,9 @@
       ],
       "pendingLingua": [
         "IRL DUBLIN01",
-        "G KALLITH02",
         "G KOMOTIN01",
         "TR ISTANBU03",
         "A WIEN01",
-        "LUXLUX-VIL01",
         "D BERLIN13",
         "NL TILBURG01",
         "SF HELSINK01",
@@ -435,7 +426,10 @@
         "PL WARSZAW01"
       ],
       "tentativiLingua": {
-        "IRL DUBLIN01": 1
+        "IRL DUBLIN01": 1,
+        "G KOMOTIN01": 1,
+        "TR ISTANBU03": 1,
+        "A WIEN01": 1
       },
       "linguaNonTrovabile": []
     }
@@ -1096,6 +1090,12 @@
       "data": "2026-06-25",
       "mete": 5,
       "note": "Studi Umanistici umanistici-batch-2: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 109,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Umanistici umanistici-batch-3: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
