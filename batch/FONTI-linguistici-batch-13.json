@@ -1,0 +1,22 @@
+{
+  "D LEIPZIG01": {
+    "requisitoLingua": "https://www.uni-leipzig.de/fileadmin/ul/Dokumente/SI_Erasmus_Fact-Sheet_EN.pdf",
+    "scadenzeOspitante": "https://www.uni-leipzig.de/fileadmin/ul/Dokumente/SI_Erasmus_Fact-Sheet_EN.pdf"
+  },
+  "E MADRID26": {
+    "requisitoLingua": "https://www.urjc.es/images/Internacional/erasmus%20y%20movilidad/erasmus%20plus/incoming/00_ENG_FACTSHEET_00_2026_2027.pdf",
+    "scadenzeOspitante": "https://www.urjc.es/images/Internacional/erasmus%20y%20movilidad/erasmus%20plus/incoming/00_ENG_FACTSHEET_00_2026_2027.pdf"
+  },
+  "E CADIZ01": {
+    "requisitoLingua": "https://internacional.uca.es/incoming-mobilities/students/erasmus-ka103-incoming/?lang=en",
+    "scadenzeOspitante": "https://internacional.uca.es/incoming-mobilities/students/erasmus-ka103-incoming/?lang=en"
+  },
+  "A KLAGENF02": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/25783769",
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/25783769"
+  },
+  "E CIUDA-R01": {
+    "requisitoLingua": "https://www.uclm.es/en/misiones/internacional/movilidad/movilidad_entrante/estudiantes/estudiante-visitante",
+    "scadenzeOspitante": "https://www.uclm.es/en/misiones/internacional/movilidad/movilidad_entrante/estudiantes/estudiantes-de-intercambio"
+  }
+}

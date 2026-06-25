@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Studi Umanistici",
-  "runCompletati": 99,
+  "runCompletati": 100,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "linguistici-batch-13",
-      "priorita": 5,
-      "dipartimento": "Studi Linguistici e Culturali Comparati",
-      "descrizione": "Studi Linguistici e Culturali Comparati - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "D LEIPZIG01",
-        "E MADRID26",
-        "E CADIZ01",
-        "A KLAGENF02",
-        "E CIUDA-R01"
-      ]
-    },
     {
       "id": "linguistici-batch-14",
       "priorita": 5,
@@ -397,14 +383,9 @@
       "fileJs": "js/dati-mete-linguistici.js",
       "stato": "in_corso",
       "totale": 114,
-      "completate": 59,
+      "completate": 64,
       "pendingScadenze": [
         "P PORTO02",
-        "D LEIPZIG01",
-        "E MADRID26",
-        "E CADIZ01",
-        "A KLAGENF02",
-        "E CIUDA-R01",
         "PL WARSZAW01",
         "A KLAGENF01",
         "F LILLE11",
@@ -451,11 +432,6 @@
         "IRL DUBLIN01",
         "S LUND01",
         "F MONTPEL03",
-        "D LEIPZIG01",
-        "E MADRID26",
-        "E CADIZ01",
-        "A KLAGENF02",
-        "E CIUDA-R01",
         "PL WARSZAW01",
         "A KLAGENF01",
         "F LILLE11",
@@ -1156,6 +1132,12 @@
       "data": "2026-06-25",
       "mete": 5,
       "note": "Studi Linguistici e Culturali Comparati linguistici-batch-12: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 100,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Linguistici e Culturali Comparati linguistici-batch-13: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
