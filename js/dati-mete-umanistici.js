@@ -300,9 +300,17 @@ var METE = [
     areeDisciplinari: [{ codice: "0231", nome: "Languages Acquisition" }],
     coordinatoreCf: "Drusi Riccardo",
     posti: [{ numero: 1, mesi: 5, livello: "L e LM", note: "solo primo semestre" }],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B2", condizione: "per corsi in tedesco" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi solo in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (autunno)", periodo: "15 aprile - 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
+        { cosa: "Application (primavera)", periodo: "15 ottobre - 30 novembre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -320,9 +328,17 @@ var METE = [
     areeDisciplinari: [{ codice: "0220", nome: "Humanities" }],
     coordinatoreCf: "Fischer Franz",
     posti: [{ numero: 3, mesi: 5, livello: "LM" }],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per studenti exchange Bachelor" },
+        { lingua: "Inglese", livello: "C1", condizione: "per studenti exchange Master" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 1 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -343,9 +359,18 @@ var METE = [
       { numero: 2, mesi: 5, livello: "L" },
       { numero: 2, mesi: 5, livello: "LM" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi principalmente in inglese" },
+        { lingua: "Finlandese", livello: "B2", condizione: "per corsi principalmente in finlandese" },
+        { lingua: "Svedese", livello: "B2", condizione: "per corsi principalmente in svedese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "1 marzo - 31 marzo" },
+        { cosa: "Application (autunno)", periodo: "1 aprile - 15 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "1 agosto - 15 settembre" },
+        { cosa: "Application (primavera)", periodo: "16 settembre - 30 settembre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -386,9 +411,17 @@ var METE = [
     areeDisciplinari: [{ codice: "0220", nome: "Humanities" }],
     coordinatoreCf: "Maiocchi Massimo",
     posti: [{ numero: 1, mesi: 6, note: "solo primo semestre" }],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B2", condizione: "entro l'inizio degli studi; B1 minimo per application" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese; B1 minimo per application" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -406,9 +439,17 @@ var METE = [
     areeDisciplinari: [{ codice: "0232", nome: "Literature and linguistics" }],
     coordinatoreCf: "Pontani Filippomaria",
     posti: [{ numero: 1, mesi: 5, livello: "L e LM", note: "solo primo semestre" }],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B2", condizione: "per corsi in tedesco" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi solo in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (autunno)", periodo: "15 aprile - 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
+        { cosa: "Application (primavera)", periodo: "15 ottobre - 30 novembre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
@@ -426,9 +467,15 @@ var METE = [
     areeDisciplinari: [{ codice: "0222", nome: "History and Archaeology" }],
     coordinatoreCf: "Rova Elena",
     posti: [{ numero: 2, mesi: 5 }],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "per corsi Bachelor e/o Master in francese" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 4 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",

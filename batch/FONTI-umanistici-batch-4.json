@@ -1,0 +1,22 @@
+{
+  "D BERLIN13": {
+    "requisitoLingua": "https://apps.unive.it/common2/file/download/destinazioni_erasmus/601f96bc1d05a",
+    "scadenzeOspitante": "https://www.hu-berlin.de/en/university/international/coming-to-hu/programmes/exchange-semester"
+  },
+  "NL TILBURG01": {
+    "requisitoLingua": "https://www.tilburguniversity.edu/education/exchange-programs/language-requirements",
+    "scadenzeOspitante": "https://www.iseg.ulisboa.pt/internacional/wp-content/uploads/sites/10/2023/10/Tilburg_University_fact_sheet-26_27.pdf"
+  },
+  "SF HELSINK01": {
+    "requisitoLingua": "https://www.u-tokyo.ac.jp/content/400275528.pdf",
+    "scadenzeOspitante": "https://www.u-tokyo.ac.jp/content/400275528.pdf"
+  },
+  "D MUNCHEN01": {
+    "requisitoLingua": "https://www.lmu.de/en/study/all-degrees-and-programs/programs-for-international-visiting-students/erasmus-and-lmuexchange/how-to-apply/",
+    "scadenzeOspitante": "https://www.lmu.de/en/study/all-degrees-and-programs/programs-for-international-visiting-students/erasmus-and-lmuexchange/timeline-for-exchange-students.html"
+  },
+  "F PARIS001": {
+    "requisitoLingua": "https://international.pantheonsorbonne.fr/en/join-paris-1-pantheon-sorbonne/exchange-student",
+    "scadenzeOspitante": "https://international.pantheonsorbonne.fr/en/join-paris-1-pantheon-sorbonne/exchange-student"
+  }
+}

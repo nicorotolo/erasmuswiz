@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Studi Umanistici",
-  "runCompletati": 109,
+  "runCompletati": 110,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "umanistici-batch-4",
-      "priorita": 5,
-      "dipartimento": "Studi Umanistici",
-      "descrizione": "Studi Umanistici - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "D BERLIN13",
-        "NL TILBURG01",
-        "SF HELSINK01",
-        "D MUNCHEN01",
-        "F PARIS001"
-      ]
-    },
     {
       "id": "umanistici-batch-5",
       "priorita": 5,
@@ -400,13 +386,8 @@
       "fileJs": "js/dati-mete-umanistici.js",
       "stato": "in_corso",
       "totale": 21,
-      "completate": 7,
+      "completate": 13,
       "pendingScadenze": [
-        "D BERLIN13",
-        "NL TILBURG01",
-        "SF HELSINK01",
-        "D MUNCHEN01",
-        "F PARIS001",
         "TR ISTANBU17",
         "S STOCKHO01",
         "PL WARSZAW01"
@@ -416,11 +397,6 @@
         "G KOMOTIN01",
         "TR ISTANBU03",
         "A WIEN01",
-        "D BERLIN13",
-        "NL TILBURG01",
-        "SF HELSINK01",
-        "D MUNCHEN01",
-        "F PARIS001",
         "TR ISTANBU17",
         "S STOCKHO01",
         "PL WARSZAW01"
@@ -1096,6 +1072,12 @@
       "data": "2026-06-25",
       "mete": 5,
       "note": "Studi Umanistici umanistici-batch-3: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 110,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Umanistici umanistici-batch-4: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
