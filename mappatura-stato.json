@@ -4,25 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Filosofia e Beni Culturali",
-  "runCompletati": 69,
+  "runCompletati": 70,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "filosofia e beni culturali-batch-followup-2",
-      "priorita": 6,
-      "dipartimento": "Filosofia e Beni Culturali",
-      "descrizione": "Filosofia e Beni Culturali - follow-up pending",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "E SEVILLA03",
-        "B LIEGE01",
-        "F LILLE103"
-      ]
-    },
     {
       "id": "filosofia e beni culturali-batch-followup-3",
       "priorita": 6,
@@ -122,6 +110,16 @@
         "F BORDEAU03",
         "F GRENOBL55"
       ]
+    },
+    {
+      "id": "filosofia e beni culturali-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Filosofia e Beni Culturali",
+      "descrizione": "Filosofia e Beni Culturali - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F LILLE103"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -203,7 +201,7 @@
       "fileJs": "js/dati-mete-filosofia.js",
       "stato": "in_corso",
       "totale": 66,
-      "completate": 27,
+      "completate": 30,
       "pendingScadenze": [
         "F LILLE103",
         "F PARIS008",
@@ -225,9 +223,6 @@
         "F GRENOBL55"
       ],
       "pendingLingua": [
-        "E SEVILLA03",
-        "B LIEGE01",
-        "F LILLE103",
         "D WIESBAD01",
         "F PARIS008",
         "F MONTPEL03",
@@ -256,9 +251,7 @@
       "tentativiLingua": {
         "CZ PRAHA07": 2,
         "D KASSEL01": 2,
-        "E SEVILLA03": 1,
-        "B LIEGE01": 1,
-        "F LILLE103": 1,
+        "F LILLE103": 2,
         "D WIESBAD01": 1,
         "F PARIS008": 1,
         "F MONTPEL03": 1,
@@ -286,7 +279,8 @@
       },
       "linguaNonTrovabile": [
         "CZ PRAHA07",
-        "D KASSEL01"
+        "D KASSEL01",
+        "F LILLE103"
       ]
     }
   },
@@ -712,6 +706,12 @@
       "data": "2026-06-25",
       "mete": 3,
       "note": "Filosofia e Beni Culturali filosofia e beni culturali-batch-followup-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 70,
+      "data": "2026-06-25",
+      "mete": 3,
+      "note": "Filosofia e Beni Culturali filosofia e beni culturali-batch-followup-2: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
