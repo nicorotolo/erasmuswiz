@@ -3,24 +3,14 @@
   "aggiornato": "2026-06-25",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
-  "dipartimentoCorrente": "Scienze Molecolari e Nanosistemi",
-  "runCompletati": 84,
+  "dipartimentoCorrente": "Studi Linguistici e Culturali Comparati",
+  "runCompletati": 85,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "linguistici-batch-1",
-      "priorita": 2,
-      "dipartimento": "Studi Linguistici e Culturali Comparati",
-      "descrizione": "Nuovo dipartimento Studi Linguistici e Culturali Comparati",
-      "tipo": "nuovo_dipartimento",
-      "mete": [],
-      "fileJs": "js/dati-mete-linguistici.js",
-      "fonte": "https://www.unive.it/data/11679"
-    },
     {
       "id": "umanistici-batch-1",
       "priorita": 3,
@@ -54,6 +44,271 @@
       "mete": [
         "F BORDEAU58",
         "D AACHEN 01"
+      ]
+    },
+    {
+      "id": "linguistici-batch-2",
+      "priorita": 5,
+      "dipartimento": "Studi Linguistici e Culturali Comparati",
+      "descrizione": "Studi Linguistici e Culturali Comparati - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "A GRAZ01",
+        "N TRONDHE01",
+        "D HEIDELB01",
+        "E CORDOBA23",
+        "TR NEVSEHI03"
+      ]
+    },
+    {
+      "id": "linguistici-batch-3",
+      "priorita": 5,
+      "dipartimento": "Studi Linguistici e Culturali Comparati",
+      "descrizione": "Studi Linguistici e Culturali Comparati - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E BILBAO02",
+        "D BERLIN01",
+        "RS NOVISAD02",
+        "E BARCELO02",
+        "E MADRID03"
+      ]
+    },
+    {
+      "id": "linguistici-batch-4",
+      "priorita": 5,
+      "dipartimento": "Studi Linguistici e Culturali Comparati",
+      "descrizione": "Studi Linguistici e Culturali Comparati - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D BAMBERG01",
+        "F BESANCO01",
+        "D OSNABRU01",
+        "E VALENCI01",
+        "E MURCIA01"
+      ]
+    },
+    {
+      "id": "linguistici-batch-5",
+      "priorita": 5,
+      "dipartimento": "Studi Linguistici e Culturali Comparati",
+      "descrizione": "Studi Linguistici e Culturali Comparati - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E MALAGA01",
+        "HU BUDAPES12",
+        "E SALAMAN02",
+        "E LAS-PAL01",
+        "D HAMBURG01"
+      ]
+    },
+    {
+      "id": "linguistici-batch-6",
+      "priorita": 5,
+      "dipartimento": "Studi Linguistici e Culturali Comparati",
+      "descrizione": "Studi Linguistici e Culturali Comparati - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "CZ OLOMOUC01",
+        "F PARIS003",
+        "P LISBOA03",
+        "P PORTO02",
+        "P LISBOA01"
+      ]
+    },
+    {
+      "id": "linguistici-batch-7",
+      "priorita": 5,
+      "dipartimento": "Studi Linguistici e Culturali Comparati",
+      "descrizione": "Studi Linguistici e Culturali Comparati - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E BADAJOZ01",
+        "D SAARBRU01",
+        "D KOLN01",
+        "D KIEL01",
+        "S UPPSALA01"
+      ]
+    },
+    {
+      "id": "linguistici-batch-8",
+      "priorita": 5,
+      "dipartimento": "Studi Linguistici e Culturali Comparati",
+      "descrizione": "Studi Linguistici e Culturali Comparati - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "DK ARHUS01",
+        "S STOCKHO01",
+        "D BREMEN01",
+        "D BOCHUM01",
+        "N BERGEN01"
+      ]
+    },
+    {
+      "id": "linguistici-batch-9",
+      "priorita": 5,
+      "dipartimento": "Studi Linguistici e Culturali Comparati",
+      "descrizione": "Studi Linguistici e Culturali Comparati - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "S GOTEBOR01",
+        "N OSLO01",
+        "CZ BRNO05",
+        "A INNSBRU01",
+        "E PALMA01"
+      ]
+    },
+    {
+      "id": "linguistici-batch-10",
+      "priorita": 5,
+      "dipartimento": "Studi Linguistici e Culturali Comparati",
+      "descrizione": "Studi Linguistici e Culturali Comparati - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E BURGOS01",
+        "E VALLADO01",
+        "SF HELSINK01",
+        "D TUBINGE01",
+        "MT MALTA01"
+      ]
+    },
+    {
+      "id": "linguistici-batch-11",
+      "priorita": 5,
+      "dipartimento": "Studi Linguistici e Culturali Comparati",
+      "descrizione": "Studi Linguistici e Culturali Comparati - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F PARIS468",
+        "PL KRAKOW01",
+        "D BERLIN13",
+        "D MUNCHEN01",
+        "IRL DUBLIN01"
+      ]
+    },
+    {
+      "id": "linguistici-batch-12",
+      "priorita": 5,
+      "dipartimento": "Studi Linguistici e Culturali Comparati",
+      "descrizione": "Studi Linguistici e Culturali Comparati - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "S LUND01",
+        "D KONSTAN01",
+        "F MONTPEL03",
+        "F GRENOBL55",
+        "B LOUVAIN01"
+      ]
+    },
+    {
+      "id": "linguistici-batch-13",
+      "priorita": 5,
+      "dipartimento": "Studi Linguistici e Culturali Comparati",
+      "descrizione": "Studi Linguistici e Culturali Comparati - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D LEIPZIG01",
+        "E MADRID26",
+        "E CADIZ01",
+        "A KLAGENF02",
+        "E CIUDA-R01"
+      ]
+    },
+    {
+      "id": "linguistici-batch-14",
+      "priorita": 5,
+      "dipartimento": "Studi Linguistici e Culturali Comparati",
+      "descrizione": "Studi Linguistici e Culturali Comparati - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "PL WARSZAW01",
+        "A KLAGENF01",
+        "F LILLE11",
+        "E SEVILLA01",
+        "DK ODENSE01"
+      ]
+    },
+    {
+      "id": "linguistici-batch-15",
+      "priorita": 5,
+      "dipartimento": "Studi Linguistici e Culturali Comparati",
+      "descrizione": "Studi Linguistici e Culturali Comparati - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E BARCELO15",
+        "E LLEIDA01",
+        "F PARIS178",
+        "E MADRID04",
+        "E SEVILLA03"
+      ]
+    },
+    {
+      "id": "linguistici-batch-16",
+      "priorita": 5,
+      "dipartimento": "Studi Linguistici e Culturali Comparati",
+      "descrizione": "Studi Linguistici e Culturali Comparati - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D FRANKFU01",
+        "D DUSSELD01",
+        "D MUNSTER01",
+        "E LEON01",
+        "F BORDEAU03"
+      ]
+    },
+    {
+      "id": "linguistici-batch-17",
+      "priorita": 5,
+      "dipartimento": "Studi Linguistici e Culturali Comparati",
+      "descrizione": "Studi Linguistici e Culturali Comparati - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F CHAMBER01",
+        "IRLLIMERIC01",
+        "TR ISTANBU07",
+        "F PARIS010",
+        "E CORDOBA01"
+      ]
+    },
+    {
+      "id": "linguistici-batch-18",
+      "priorita": 5,
+      "dipartimento": "Studi Linguistici e Culturali Comparati",
+      "descrizione": "Studi Linguistici e Culturali Comparati - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "CZ PRAHA07",
+        "CY PAFOS01",
+        "NL ROTTERD01",
+        "A WIEN78",
+        "G ATHINE42"
+      ]
+    },
+    {
+      "id": "linguistici-batch-19",
+      "priorita": 5,
+      "dipartimento": "Studi Linguistici e Culturali Comparati",
+      "descrizione": "Studi Linguistici e Culturali Comparati - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "G ATHINE01",
+        "G KALLITH02",
+        "G KOMOTIN01",
+        "TR ISTANBU03",
+        "A WIEN01"
+      ]
+    },
+    {
+      "id": "linguistici-batch-20",
+      "priorita": 5,
+      "dipartimento": "Studi Linguistici e Culturali Comparati",
+      "descrizione": "Studi Linguistici e Culturali Comparati - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "LUXLUX-VIL01",
+        "NL TILBURG01",
+        "F PARIS001",
+        "TR ISTANBU17"
       ]
     }
   ],
@@ -186,6 +441,206 @@
         "F BORDEAU54",
         "F BORDEAU58",
         "D AACHEN 01"
+      ],
+      "tentativiLingua": {},
+      "linguaNonTrovabile": []
+    },
+    "Studi Linguistici e Culturali Comparati": {
+      "fileJs": "js/dati-mete-linguistici.js",
+      "stato": "in_corso",
+      "totale": 114,
+      "completate": 0,
+      "pendingScadenze": [
+        "A GRAZ01",
+        "N TRONDHE01",
+        "D HEIDELB01",
+        "E CORDOBA23",
+        "TR NEVSEHI03",
+        "E BILBAO02",
+        "D BERLIN01",
+        "RS NOVISAD02",
+        "E BARCELO02",
+        "E MADRID03",
+        "D BAMBERG01",
+        "F BESANCO01",
+        "D OSNABRU01",
+        "E VALENCI01",
+        "E MURCIA01",
+        "E MALAGA01",
+        "HU BUDAPES12",
+        "E SALAMAN02",
+        "E LAS-PAL01",
+        "D HAMBURG01",
+        "CZ OLOMOUC01",
+        "F PARIS003",
+        "P LISBOA03",
+        "P PORTO02",
+        "P LISBOA01",
+        "E BADAJOZ01",
+        "D SAARBRU01",
+        "D KOLN01",
+        "D KIEL01",
+        "S UPPSALA01",
+        "DK ARHUS01",
+        "S STOCKHO01",
+        "D BREMEN01",
+        "D BOCHUM01",
+        "N BERGEN01",
+        "S GOTEBOR01",
+        "N OSLO01",
+        "CZ BRNO05",
+        "A INNSBRU01",
+        "E PALMA01",
+        "E BURGOS01",
+        "E VALLADO01",
+        "SF HELSINK01",
+        "D TUBINGE01",
+        "MT MALTA01",
+        "F PARIS468",
+        "PL KRAKOW01",
+        "D BERLIN13",
+        "D MUNCHEN01",
+        "IRL DUBLIN01",
+        "S LUND01",
+        "D KONSTAN01",
+        "F MONTPEL03",
+        "F GRENOBL55",
+        "B LOUVAIN01",
+        "D LEIPZIG01",
+        "E MADRID26",
+        "E CADIZ01",
+        "A KLAGENF02",
+        "E CIUDA-R01",
+        "PL WARSZAW01",
+        "A KLAGENF01",
+        "F LILLE11",
+        "E SEVILLA01",
+        "DK ODENSE01",
+        "E BARCELO15",
+        "E LLEIDA01",
+        "F PARIS178",
+        "E MADRID04",
+        "E SEVILLA03",
+        "D FRANKFU01",
+        "D DUSSELD01",
+        "D MUNSTER01",
+        "E LEON01",
+        "F BORDEAU03",
+        "F CHAMBER01",
+        "IRLLIMERIC01",
+        "TR ISTANBU07",
+        "F PARIS010",
+        "E CORDOBA01",
+        "CZ PRAHA07",
+        "CY PAFOS01",
+        "NL ROTTERD01",
+        "A WIEN78",
+        "G ATHINE42",
+        "G ATHINE01",
+        "G KALLITH02",
+        "G KOMOTIN01",
+        "TR ISTANBU03",
+        "A WIEN01",
+        "LUXLUX-VIL01",
+        "NL TILBURG01",
+        "F PARIS001",
+        "TR ISTANBU17"
+      ],
+      "pendingLingua": [
+        "A GRAZ01",
+        "N TRONDHE01",
+        "D HEIDELB01",
+        "E CORDOBA23",
+        "TR NEVSEHI03",
+        "E BILBAO02",
+        "D BERLIN01",
+        "RS NOVISAD02",
+        "E BARCELO02",
+        "E MADRID03",
+        "D BAMBERG01",
+        "F BESANCO01",
+        "D OSNABRU01",
+        "E VALENCI01",
+        "E MURCIA01",
+        "E MALAGA01",
+        "HU BUDAPES12",
+        "E SALAMAN02",
+        "E LAS-PAL01",
+        "D HAMBURG01",
+        "CZ OLOMOUC01",
+        "F PARIS003",
+        "P LISBOA03",
+        "P PORTO02",
+        "P LISBOA01",
+        "E BADAJOZ01",
+        "D SAARBRU01",
+        "D KOLN01",
+        "D KIEL01",
+        "S UPPSALA01",
+        "DK ARHUS01",
+        "S STOCKHO01",
+        "D BREMEN01",
+        "D BOCHUM01",
+        "N BERGEN01",
+        "S GOTEBOR01",
+        "N OSLO01",
+        "CZ BRNO05",
+        "A INNSBRU01",
+        "E PALMA01",
+        "E BURGOS01",
+        "E VALLADO01",
+        "SF HELSINK01",
+        "D TUBINGE01",
+        "MT MALTA01",
+        "F PARIS468",
+        "PL KRAKOW01",
+        "D BERLIN13",
+        "D MUNCHEN01",
+        "IRL DUBLIN01",
+        "S LUND01",
+        "D KONSTAN01",
+        "F MONTPEL03",
+        "F GRENOBL55",
+        "B LOUVAIN01",
+        "D LEIPZIG01",
+        "E MADRID26",
+        "E CADIZ01",
+        "A KLAGENF02",
+        "E CIUDA-R01",
+        "PL WARSZAW01",
+        "A KLAGENF01",
+        "F LILLE11",
+        "E SEVILLA01",
+        "DK ODENSE01",
+        "E BARCELO15",
+        "E LLEIDA01",
+        "F PARIS178",
+        "E MADRID04",
+        "E SEVILLA03",
+        "D FRANKFU01",
+        "D DUSSELD01",
+        "D MUNSTER01",
+        "E LEON01",
+        "F BORDEAU03",
+        "F CHAMBER01",
+        "IRLLIMERIC01",
+        "TR ISTANBU07",
+        "F PARIS010",
+        "E CORDOBA01",
+        "CZ PRAHA07",
+        "CY PAFOS01",
+        "NL ROTTERD01",
+        "A WIEN78",
+        "G ATHINE42",
+        "G ATHINE01",
+        "G KALLITH02",
+        "G KOMOTIN01",
+        "TR ISTANBU03",
+        "A WIEN01",
+        "LUXLUX-VIL01",
+        "NL TILBURG01",
+        "F PARIS001",
+        "TR ISTANBU17"
       ],
       "tentativiLingua": {},
       "linguaNonTrovabile": []
@@ -703,6 +1158,12 @@
       "data": "2026-06-25",
       "mete": 8,
       "note": "Avvio Scienze Molecolari e Nanosistemi: creato js/dati-mete-molecolari.js con 8 mete; accodati 2 sotto-batch."
+    },
+    {
+      "batch": 85,
+      "data": "2026-06-25",
+      "mete": 114,
+      "note": "Avvio Studi Linguistici e Culturali Comparati: creato js/dati-mete-linguistici.js con 114 mete; accodati 19 sotto-batch."
     }
   ],
   "storicoBatch": [
