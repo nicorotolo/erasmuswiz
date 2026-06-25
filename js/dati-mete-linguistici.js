@@ -486,7 +486,9 @@ var METE = [
       { numero: 4, mesi: 9, livello: "PhD", note: "su 4 posti totali condivisi tra i livelli" },
       { numero: 4, mesi: 9, livello: "L", note: "su 4 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "consigliato per seguire i corsi; certificato non richiesto" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Nomination (autunno/anno)", periodo: "da meta aprile a meta giugno" },
