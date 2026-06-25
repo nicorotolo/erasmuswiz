@@ -3,24 +3,14 @@
   "aggiornato": "2026-06-25",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
-  "dipartimentoCorrente": "Scienze ambientali, informatica e statistica",
-  "runCompletati": 67,
+  "dipartimentoCorrente": "Filosofia e Beni Culturali",
+  "runCompletati": 68,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "scienze ambientali, informatica e statistica-batch-followup-5",
-      "priorita": 6,
-      "dipartimento": "Scienze ambientali, informatica e statistica",
-      "descrizione": "Scienze ambientali, informatica e statistica - follow-up pending",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "RO TIMISOA01"
-      ]
-    },
     {
       "id": "filosofia e beni culturali-batch-followup-1",
       "priorita": 6,
@@ -207,21 +197,18 @@
     },
     "Scienze ambientali, informatica e statistica": {
       "fileJs": "js/dati-mete-scienze.js",
-      "stato": "in_corso",
+      "stato": "completo",
       "totale": 25,
       "completate": 23,
-      "pendingScadenze": [
-        "RO TIMISOA01"
-      ],
-      "pendingLingua": [
-        "RO TIMISOA01"
-      ],
+      "pendingScadenze": [],
+      "pendingLingua": [],
       "tentativiLingua": {
         "IS REYKJAV01": 2,
-        "RO TIMISOA01": 1
+        "RO TIMISOA01": 2
       },
       "linguaNonTrovabile": [
-        "IS REYKJAV01"
+        "IS REYKJAV01",
+        "RO TIMISOA01"
       ]
     },
     "Filosofia e Beni Culturali": {
@@ -727,6 +714,12 @@
       "data": "2026-06-25",
       "mete": 1,
       "note": "Scienze ambientali, informatica e statistica scienze ambientali, informatica e statistica-batch-followup-4: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 68,
+      "data": "2026-06-25",
+      "mete": 1,
+      "note": "Scienze ambientali, informatica e statistica scienze ambientali, informatica e statistica-batch-followup-5: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
