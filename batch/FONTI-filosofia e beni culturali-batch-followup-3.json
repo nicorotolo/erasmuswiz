@@ -1,0 +1,16 @@
+{
+  "D WIESBAD01": {
+    "requisitoLingua": "https://www.hs-rm.de/en/international/wege-an-die-hsrm/exchange-students"
+  },
+  "F PARIS008": {
+    "requisitoLingua": "https://apps.unive.it/common2/file/download/destinazioni_erasmus/688b4a9bb38d8",
+    "scadenzeOspitante": "https://apps.unive.it/common2/file/download/destinazioni_erasmus/688b4a9bb38d8"
+  },
+  "F MONTPEL03": {
+    "requisitoLingua": "https://www.uc3m.es/secretaria-virtual/media/secretaria-virtual/doc/archivo/doc_e_fs_f_montpel03_2526/f-montpel03_upvm-erasmusfactsheet_25-26.pdf",
+    "scadenzeOspitante": "https://www.uc3m.es/secretaria-virtual/media/secretaria-virtual/doc/archivo/doc_e_fs_f_montpel03_2526/f-montpel03_upvm-erasmusfactsheet_25-26.pdf"
+  },
+  "F PARIS001": {
+    "requisitoLingua": "https://international.pantheonsorbonne.fr/en/join-paris-1-pantheon-sorbonne/exchange-student"
+  }
+}
