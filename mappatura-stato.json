@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Studi Umanistici",
-  "runCompletati": 92,
+  "runCompletati": 93,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "linguistici-batch-6",
-      "priorita": 5,
-      "dipartimento": "Studi Linguistici e Culturali Comparati",
-      "descrizione": "Studi Linguistici e Culturali Comparati - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "CZ OLOMOUC01",
-        "F PARIS003",
-        "P LISBOA03",
-        "P PORTO02",
-        "P LISBOA01"
-      ]
-    },
     {
       "id": "linguistici-batch-7",
       "priorita": 5,
@@ -313,6 +299,16 @@
       "mete": [
         "E MALAGA01"
       ]
+    },
+    {
+      "id": "studi linguistici e culturali comparati-batch-followup-4",
+      "priorita": 6,
+      "dipartimento": "Studi Linguistici e Culturali Comparati",
+      "descrizione": "Studi Linguistici e Culturali Comparati - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "P PORTO02"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -442,13 +438,9 @@
       "fileJs": "js/dati-mete-linguistici.js",
       "stato": "in_corso",
       "totale": 114,
-      "completate": 23,
+      "completate": 28,
       "pendingScadenze": [
-        "CZ OLOMOUC01",
-        "F PARIS003",
-        "P LISBOA03",
         "P PORTO02",
-        "P LISBOA01",
         "E BADAJOZ01",
         "D SAARBRU01",
         "D KOLN01",
@@ -523,11 +515,6 @@
         "E BILBAO02",
         "F BESANCO01",
         "E MALAGA01",
-        "CZ OLOMOUC01",
-        "F PARIS003",
-        "P LISBOA03",
-        "P PORTO02",
-        "P LISBOA01",
         "E BADAJOZ01",
         "D SAARBRU01",
         "D KOLN01",
@@ -1214,6 +1201,12 @@
       "data": "2026-06-25",
       "mete": 5,
       "note": "Studi Linguistici e Culturali Comparati linguistici-batch-5: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 93,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Linguistici e Culturali Comparati linguistici-batch-6: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

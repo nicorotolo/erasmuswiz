@@ -1,0 +1,21 @@
+{
+  "CZ OLOMOUC01": {
+    "requisitoLingua": "https://international.upol.cz/fileadmin/userdata/cm/zahr/FACTSHEETS/CZ_OLOMOUC01_factsheet_2026_2027_General.pdf",
+    "scadenzeOspitante": "https://international.upol.cz/en/exchange-programmes/im-an-exchange-student/study/erasmus-europe/"
+  },
+  "F PARIS003": {
+    "requisitoLingua": "https://www.sorbonne-nouvelle.fr/application-as-an-exchange-student-73618.kjsp?RH=1615979247765",
+    "scadenzeOspitante": "https://www.sorbonne-nouvelle.fr/application-as-an-exchange-student-73618.kjsp?RH=1615979247765"
+  },
+  "P LISBOA03": {
+    "requisitoLingua": "https://www.fcsh.unl.pt/en/international/incoming-students/",
+    "scadenzeOspitante": "https://www.fcsh.unl.pt/en/international/incoming-students/"
+  },
+  "P PORTO02": {
+    "requisitoLingua": "https://www.letras.up.pt/gapro/default.aspx?l=1&m=178&n=0&s=0"
+  },
+  "P LISBOA01": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254706",
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254706"
+  }
+}
