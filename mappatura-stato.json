@@ -4,25 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Filosofia e Beni Culturali",
-  "runCompletati": 74,
+  "runCompletati": 75,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "filosofia e beni culturali-batch-followup-7",
-      "priorita": 6,
-      "dipartimento": "Filosofia e Beni Culturali",
-      "descrizione": "Filosofia e Beni Culturali - follow-up pending",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "E BARCELO02",
-        "E OVIEDO01",
-        "N-STAVANG-01"
-      ]
-    },
     {
       "id": "filosofia e beni culturali-batch-followup-8",
       "priorita": 6,
@@ -160,12 +148,10 @@
       "fileJs": "js/dati-mete-filosofia.js",
       "stato": "in_corso",
       "totale": 66,
-      "completate": 39,
+      "completate": 43,
       "pendingScadenze": [
         "F LILLE103",
         "NL GRONING01",
-        "E OVIEDO01",
-        "N-STAVANG-01",
         "F STRASBO48",
         "D KOBLENZ01",
         "F PARIS468",
@@ -173,9 +159,6 @@
         "F GRENOBL55"
       ],
       "pendingLingua": [
-        "E BARCELO02",
-        "E OVIEDO01",
-        "N-STAVANG-01",
         "D MUNCHEN01",
         "D FREIBUR01",
         "P COIMBRA01",
@@ -194,9 +177,6 @@
         "TR ANKARA07": 2,
         "DK ROSKILD01": 2,
         "DK KOBENHA01": 2,
-        "E BARCELO02": 1,
-        "E OVIEDO01": 1,
-        "N-STAVANG-01": 1,
         "D MUNCHEN01": 1,
         "D FREIBUR01": 1,
         "P COIMBRA01": 1,
@@ -670,6 +650,12 @@
       "data": "2026-06-25",
       "mete": 5,
       "note": "Filosofia e Beni Culturali filosofia e beni culturali-batch-followup-6: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 75,
+      "data": "2026-06-25",
+      "mete": 3,
+      "note": "Filosofia e Beni Culturali filosofia e beni culturali-batch-followup-7: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

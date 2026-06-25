@@ -1,0 +1,13 @@
+{
+  "E BARCELO02": {
+    "requisitoLingua": "https://www.uab.cat/web/international-exchange/incoming-exchange-students/uab-programmes/recommendations-1345698503512.html"
+  },
+  "E OVIEDO01": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254520",
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254520"
+  },
+  "N-STAVANG-01": {
+    "requisitoLingua": "https://www.uis.no/en/studies/nomination-guide-for-partner-institutions",
+    "scadenzeOspitante": "https://www.uis.no/en/studies/student/application-guide-for-inbound-exchange-students"
+  }
+}
