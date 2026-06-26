@@ -9,9 +9,13 @@ const CHIAVE_ZAINO = "erasmuswiz-zaino";
 function caricaZaino() {
   try {
     const g = localStorage.getItem(CHIAVE_ZAINO);
-    return g ? JSON.parse(g) : { profilo: null, checklist: {} };
+    const z = g ? JSON.parse(g) : { profilo: null, checklist: {}, metePreferite: [], fase: "domanda", checklistPost: {} };
+    if (!Array.isArray(z.metePreferite)) z.metePreferite = [];
+    if (!z.fase) z.fase = "domanda";
+    if (!z.checklistPost || typeof z.checklistPost !== "object") z.checklistPost = {};
+    return z;
   } catch (e) {
-    return { profilo: null, checklist: {} };
+    return { profilo: null, checklist: {}, metePreferite: [], fase: "domanda", checklistPost: {} };
   }
 }
 
@@ -72,7 +76,9 @@ function postiInParole(posto) {
 // ============================================================
 function mostraTab(nome) {
   document.querySelectorAll(".nav-item[data-tab]").forEach(t => {
-    t.classList.toggle("attivo", t.dataset.tab === nome);
+    const isAttivo = t.dataset.tab === nome;
+    t.classList.toggle("attivo", isAttivo);
+    t.setAttribute("aria-current", isAttivo ? "page" : "false");
   });
   document.querySelectorAll(".tab-pane").forEach(p => {
     const attivo = p.id === `tab-${nome}`;
@@ -121,6 +127,7 @@ function initTema() {
     document.body.classList.toggle("tema-notte");
     const notte = document.body.classList.contains("tema-notte");
     btn.textContent = notte ? "☀️" : "🌙";
+    btn.setAttribute("aria-label", notte ? "Passa al tema giorno" : "Passa al tema notte");
     localStorage.setItem("ew-tema", notte ? "notte" : "giorno");
   });
 }
@@ -136,6 +143,8 @@ function renderHome() {
       weekday: "long", day: "numeric", month: "short", year: "numeric"
     });
   }
+  const nomeEl = document.getElementById("home-nome");
+  if (nomeEl) nomeEl.textContent = ZAINO.profilo?.nome || "Studente";
 }
 
 // ============================================================
@@ -485,9 +494,11 @@ function renderChecklist() {
   aggiornaProgressoV2();
 }
 
-function aggiornaProgressoV2() {
-  const tot   = (CHECKLIST || []).length;
-  const fatti = (CHECKLIST || []).filter(v => ZAINO.checklist && ZAINO.checklist[v.id]).length;
+function aggiornaProgressoV2(lista, spunte) {
+  const _lista  = lista  || CHECKLIST || [];
+  const _spunte = spunte || (ZAINO.checklist || {});
+  const tot   = _lista.length;
+  const fatti = _lista.filter(v => _spunte[v.id]).length;
   const perc  = tot === 0 ? 0 : Math.round((fatti / tot) * 100);
   const fill  = document.getElementById("barra-riempimento-v2");
   const lbl   = document.getElementById("barra-label-v2");
@@ -604,6 +615,23 @@ function renderMete() {
     if (intro) intro.textContent = "Compila il profilo per vedere le mete ordinate per compatibilità.";
   }
 
+  const testo = (document.getElementById("cerca-mete")?.value || "").trim().toLowerCase();
+  if (testo) {
+    elenco = elenco.filter(({ meta }) =>
+      (meta.universita || "").toLowerCase().includes(testo) ||
+      (meta.citta     || "").toLowerCase().includes(testo) ||
+      (meta.paese     || "").toLowerCase().includes(testo)
+    );
+  }
+
+  const conta = document.getElementById("conta-mete");
+  if (conta) conta.textContent = elenco.length + (elenco.length === 1 ? " meta" : " mete");
+
+  if (elenco.length === 0 && testo) {
+    cont.appendChild(crea("p", "stato-vuoto-v2", `Nessuna meta trovata per «${testo}».`));
+    return;
+  }
+
   elenco.forEach(({ meta, comp }) => {
     const card = crea("article", "card-meta-v2");
 
@@ -657,8 +685,154 @@ function renderMete() {
     link.rel    = "noopener";
     card.appendChild(link);
 
+    const ePreferita = ZAINO.metePreferite.includes(meta.id);
+    const btnPref = crea("button",
+      "btn-preferita" + (ePreferita ? " preferita" : ""),
+      ePreferita ? "⭐ Preferita" : "☆ Aggiungi ai preferiti");
+    btnPref.type  = "button";
+    btnPref.title = ePreferita ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti";
+    btnPref.addEventListener("click", () => togglePreferita(meta.id));
+    card.appendChild(btnPref);
+
     cont.appendChild(card);
   });
+}
+
+// ============================================================
+// METE PREFERITE
+// ============================================================
+function renderPreferite(msg) {
+  const cont = document.getElementById("sezione-preferite");
+  if (!cont) return;
+  cont.innerHTML = "";
+
+  const n = ZAINO.metePreferite.length;
+  if (n === 0 && !msg) return;
+
+  const header = crea("div", "preferite-header");
+  header.appendChild(crea("span", "preferite-label", `Le tue mete preferite (${n}/5)`));
+  cont.appendChild(header);
+
+  if (msg) cont.appendChild(crea("p", "msg-preferite", msg));
+
+  if (n > 0) {
+    const lista = crea("div", "preferite-lista");
+    ZAINO.metePreferite.forEach(id => {
+      const meta = (METE || []).find(m => m.id === id);
+      if (!meta) return;
+      const item = crea("div", "preferita-item");
+      item.appendChild(crea("span", "preferita-nome", meta.universita));
+      const btnRim = crea("button", "preferita-rimuovi", "✕");
+      btnRim.type = "button";
+      btnRim.title = "Rimuovi dai preferiti";
+      btnRim.addEventListener("click", () => togglePreferita(id));
+      item.appendChild(btnRim);
+      lista.appendChild(item);
+    });
+    cont.appendChild(lista);
+  }
+}
+
+function togglePreferita(id) {
+  const idx = ZAINO.metePreferite.indexOf(id);
+  if (idx !== -1) {
+    ZAINO.metePreferite.splice(idx, 1);
+    salvaZaino(ZAINO);
+    renderPreferite();
+    renderMete();
+  } else if (ZAINO.metePreferite.length >= 5) {
+    renderPreferite("Il bando ne ammette al massimo 5. Rimuovi una meta per aggiungerne un'altra.");
+  } else {
+    ZAINO.metePreferite.push(id);
+    salvaZaino(ZAINO);
+    renderPreferite();
+    renderMete();
+  }
+}
+
+// ============================================================
+// CHECKLIST POST-SELEZIONE
+// ============================================================
+function renderChecklistPost() {
+  const cont = document.getElementById("lista-checklist-v2");
+  if (!cont) return;
+  cont.innerHTML = "";
+  if (!ZAINO.checklistPost) ZAINO.checklistPost = {};
+
+  const lista  = CHECKLIST_POST || [];
+  const spunte = ZAINO.checklistPost;
+
+  const fasi = [];
+  lista.forEach(voce => {
+    if (!fasi.includes(voce.fase)) fasi.push(voce.fase);
+  });
+
+  fasi.forEach(fase => {
+    const voci = lista.filter(v => v.fase === fase);
+    const gruppo = crea("div", "gruppo-post");
+    gruppo.appendChild(crea("h3", "gruppo-post-titolo", fase));
+
+    voci.forEach(voce => {
+      const spuntato = !!spunte[voce.id];
+      const label = document.createElement("label");
+      label.className = ["voce-checklist-v2", spuntato ? "fatta" : ""].join(" ").trim();
+
+      const cb = document.createElement("input");
+      cb.type    = "checkbox";
+      cb.checked = spuntato;
+      cb.addEventListener("change", () => {
+        if (cb.checked) mostraBannerWiz();
+        ZAINO.checklistPost[voce.id] = cb.checked;
+        salvaZaino(ZAINO);
+        renderChecklistPost();
+        aggiornaProgressoV2(lista, spunte);
+      });
+
+      label.appendChild(cb);
+      label.appendChild(crea("span", null, voce.testo));
+      gruppo.appendChild(label);
+    });
+
+    cont.appendChild(gruppo);
+  });
+
+  aggiornaProgressoV2(lista, spunte);
+}
+
+function initToggleFase() {
+  const btnDomanda    = document.getElementById("fase-domanda");
+  const btnSelezionato = document.getElementById("fase-selezionato");
+  if (!btnDomanda || !btnSelezionato) return;
+
+  function aggiornaBottoniFase() {
+    const selezionato = ZAINO.fase === "selezionato";
+    btnDomanda.classList.toggle("fase-attiva", !selezionato);
+    btnSelezionato.classList.toggle("fase-attiva", selezionato);
+  }
+
+  function renderChecklistAttiva() {
+    if (ZAINO.fase === "selezionato") {
+      renderChecklistPost();
+    } else {
+      renderChecklist();
+    }
+  }
+
+  btnDomanda.addEventListener("click", () => {
+    ZAINO.fase = "domanda";
+    salvaZaino(ZAINO);
+    aggiornaBottoniFase();
+    renderChecklistAttiva();
+  });
+
+  btnSelezionato.addEventListener("click", () => {
+    ZAINO.fase = "selezionato";
+    salvaZaino(ZAINO);
+    aggiornaBottoniFase();
+    renderChecklistAttiva();
+  });
+
+  aggiornaBottoniFase();
 }
 
 // ============================================================
@@ -699,6 +873,8 @@ function popolaAreeV2() {
 function precompilaFormV2() {
   const p = ZAINO.profilo;
   if (!p) return;
+  const nomeInput = document.getElementById("nome-v2");
+  if (nomeInput && p.nome) nomeInput.value = p.nome;
   const area    = document.getElementById("area-v2");
   const livello = document.getElementById("livello-v2");
   if (area)    area.value    = p.area;
@@ -731,12 +907,15 @@ function initProfilo() {
         certificata: riga.querySelector(".lingua-certificata").checked,
       });
     });
+    const nomeDigitato = (document.getElementById("nome-v2")?.value || "").trim();
     ZAINO.profilo = {
+      nome:    nomeDigitato || undefined,
       area:    document.getElementById("area-v2").value,
       livello: document.getElementById("livello-v2").value,
       lingue,
     };
     salvaZaino(ZAINO);
+    renderHome();
     renderMete();
     renderMissione();
     if (salvato) salvato.hidden = false;
@@ -751,8 +930,16 @@ function init() {
   initTema();
   renderHome();
   renderTimeline();
-  renderChecklist();
+  initToggleFase();
+  if (ZAINO.fase === "selezionato") {
+    renderChecklistPost();
+  } else {
+    renderChecklist();
+  }
+  renderPreferite();
   renderMete();
+  const inputCerca = document.getElementById("cerca-mete");
+  if (inputCerca) inputCerca.addEventListener("input", renderMete);
   renderIdoneita();
   initProfilo();
   initCountdownPill();
