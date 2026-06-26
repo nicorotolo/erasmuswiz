@@ -2164,7 +2164,15 @@ var METE = [
       { numero: 2, mesi: 5, livello: "LM", note: "su 2 posti totali condivisi tra i livelli" },
       { numero: 2, mesi: 5, livello: "L", note: "su 2 posti totali condivisi tra i livelli" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "obbligatorio per corsi in inglese" },
+        { lingua: "Spagnolo", livello: "B1", condizione: "fortemente raccomandato" },
+        { lingua: "Catalano", livello: "A1", condizione: "opzionale, raccomandato per corsi in catalano" },
+        { lingua: "Catalano", livello: "B1", condizione: "richiesto per corsi di Catalan Philology" },
+        { lingua: "Occitano", livello: "B1", condizione: "richiesto per corsi di Occitan Studies" },
+        { lingua: "Spagnolo", livello: "B2", condizione: "richiesto per corsi di Hispanic Philology" },
+        { lingua: "Inglese", livello: "B2", condizione: "richiesto per corsi di English Studies" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Application (autunno)", periodo: "entro 1 luglio 2026" },
@@ -2195,7 +2203,12 @@ var METE = [
         { lingua: "Francese", livello: "C1", condizione: "per professional track" }
       ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno e primavera)", periodo: "2 marzo - 31 marzo 2026" },
+        { cosa: "Application (autunno e primavera)", periodo: "6 aprile - 30 aprile 2026" },
+        { cosa: "Nomination (seconda campagna, se organizzata)", periodo: "7 settembre - 4 ottobre 2026" },
+        { cosa: "Application (seconda campagna, se organizzata)", periodo: "5 ottobre - 1 novembre 2026" }
+      ],
     alloggio: "Da verificare sulla scheda/sito dell'universita ospitante.",
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
