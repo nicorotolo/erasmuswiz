@@ -4,6 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ErasmusWiz — Il tuo cruscotto Erasmus</title>
+  <meta name="description" content="ErasmusWiz: il cruscotto gratuito per studenti Ca' Foscari che fanno domanda Erasmus. 249 mete, requisiti del bando, scadenze, checklist e compatibilità lingua — tutto in un clic.">
+  <!-- Open Graph (WhatsApp, Telegram, LinkedIn…) -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://nicorotolo.github.io/erasmuswiz/">
+  <meta property="og:title"       content="ErasmusWiz — Il tuo cruscotto Erasmus">
+  <meta property="og:description" content="249 mete, requisiti del bando, scadenze e checklist per la domanda Erasmus Ca' Foscari. Gratuito, nessun account.">
+  <meta property="og:image"       content="https://nicorotolo.github.io/erasmuswiz/img/wiz-hero.png">
+  <!-- Twitter / X -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="ErasmusWiz — Il tuo cruscotto Erasmus">
+  <meta name="twitter:description" content="249 mete, requisiti del bando, scadenze e checklist per la domanda Erasmus Ca' Foscari.">
+  <meta name="twitter:image"       content="https://nicorotolo.github.io/erasmuswiz/img/wiz-hero.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
@@ -91,6 +103,11 @@
         <p class="sezione-sottotitolo" id="intro-mete-v2">Compila il profilo per vedere le mete ordinate per compatibilità.</p>
       </div>
       <div id="profilo-strip"></div>
+      <div class="cerca-mete-barra">
+        <input id="cerca-mete" type="search" placeholder="Cerca per università, città o paese…" autocomplete="off">
+        <span id="conta-mete"></span>
+      </div>
+      <div id="sezione-preferite"></div>
       <div id="griglia-mete-v2" class="griglia-mete-v2"></div>
     </section>
 
@@ -112,6 +129,10 @@
       <div class="sezione-header">
         <h2 class="sezione-titolo">📋 La tua checklist</h2>
         <p class="sezione-sottotitolo">Spunta i passi man mano che li completi. Restano salvati sul tuo dispositivo.</p>
+      </div>
+      <div class="toggle-fase-wrap">
+        <button class="toggle-fase-btn fase-attiva" id="fase-domanda" type="button">📝 Sto preparando la candidatura</button>
+        <button class="toggle-fase-btn" id="fase-selezionato" type="button">🎉 Sono stato selezionato</button>
       </div>
       <div class="barra-wrap">
         <div class="barra-progresso">
@@ -143,6 +164,10 @@
         <p class="sezione-sottotitolo">Inserisci i tuoi dati una volta: le mete si ordinano per compatibilità. I dati restano solo sul tuo dispositivo.</p>
       </div>
       <form id="form-profilo-v2" class="form-profilo-v2">
+        <div class="campo-form">
+          <label for="nome-v2">Il tuo nome</label>
+          <input id="nome-v2" type="text" maxlength="30" placeholder="es. Marco">
+        </div>
         <div class="campo-form">
           <label for="area-v2">Area disciplinare</label>
           <select id="area-v2"></select>
@@ -252,9 +277,16 @@
   <script>_meteAll = _meteAll.concat(METE);</script>
   <script src="js/dati-mete-filosofia.js"></script>
   <script>_meteAll = _meteAll.concat(METE);</script>
+  <script src="js/dati-mete-linguistici.js"></script>
+  <script>_meteAll = _meteAll.concat(METE);</script>
+  <script src="js/dati-mete-umanistici.js"></script>
+  <script>_meteAll = _meteAll.concat(METE);</script>
+  <script src="js/dati-mete-molecolari.js"></script>
+  <script>_meteAll = _meteAll.concat(METE);</script>
   <script>METE = _meteAll;</script>
   <script src="js/dati-scadenze.js"></script>
   <script src="js/dati-checklist.js"></script>
+  <script src="js/dati-postselezione.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

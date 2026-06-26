@@ -4,12 +4,23 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-06-25 (patch infrastrutturale "accoda e parti": `scripts/prepara-batch.mjs` ora gestisce `nuovo_dipartimento` senza leggere un file dati inesistente e `scripts/setup-dipartimento.mjs` inizializza lo stato del nuovo dipartimento, accodando sotto-batch deterministici da 5 mete. Validazione: `Stato coerente`.)
-**Fase v1 raggiunta:** Fase 5 / 5 + Ondata A (A1, A2, A4, A5) — SITO PUBBLICATO + infrastruttura mappatura multi-dipartimento
-**Cosa funziona:** tutto, testato; mete REALI per Economia, Management, Lingue, Scienze e Filosofia; bando, scadenze e checklist validati; pipeline di mappatura coerente e pronta per nuovi dipartimenti; sito online su GitHub Pages:
+**Ultimo aggiornamento:** 2026-06-26 (Fase 5 ROADMAP: condivisibilità Open Graph. Aggiunti in `index.html` `<head>`: `meta description`, 5 tag `og:*` (type, url, title, description, image) e 3 tag `twitter:*` (card, title, description, image). URL pubblico `https://nicorotolo.github.io/erasmuswiz/`, immagine `img/wiz-hero.png`. Solo `index.html` toccato, nessun JS.)
+
+**Ultimo aggiornamento precedente:** 2026-06-26 (Mappatura multi-dipartimento completata. Aggiunti 3 nuovi dipartimenti Ca' Foscari: **Scienze Molecolari e Nanosistemi** (8 mete, `dati-mete-molecolari.js`, tutte arricchite 8/8), **Studi Linguistici e Culturali Comparati** (114 mete, `dati-mete-linguistici.js`, 104/114 arricchite — 10 in linguaNonTrovabile), **Studi Umanistici** (21 mete, `dati-mete-umanistici.js`, 18/21 arricchite — 3 in linguaNonTrovabile). Tutti e 3 i dipartimenti marcati "completo" da Codex (soglia 0.85 raggiunta). Arricchimento eseguito automaticamente dall'automazione Codex in 45 run (batch 84→129). `index.html` aggiornato con catena `_meteAll` per i 3 nuovi file. Totale mete: **392** su **8 dipartimenti**. `node --check` OK su tutti e 3 i file. EUTOPIA (46 accordi cross-dipartimentali) annotata come task futura — richiede logica filtro speciale, non implementata ora.)
+
+**Ultimo aggiornamento precedente:** 2026-06-26 (Fase 4 ROADMAP: fase post-selezione. Nuovo file `js/dati-postselezione.js` con `CHECKLIST_POST` — 20 voci reali in 5 fasi (Accettazione, Learning Agreement, Documenti pre-partenza, Arrivo, Rientro), fonte: pagina ufficiale Ca' Foscari procedure outgoing 2026/27. `caricaZaino()` esteso con `fase:"domanda"` e `checklistPost:{}` + fallback per zaini vecchi. Toggle "Sto preparando la candidatura / Sono stato selezionato" in cima al tab Checklist (HTML+CSS). Nuove funzioni in `app.js`: `renderChecklistPost()` con voci raggruppate per fase, `initToggleFase()` che salva `ZAINO.fase` e switch tra le due checklist. `aggiornaProgressoV2(lista, spunte)` reso parametrico. `node --check` OK su app.js e dati-postselezione.js.)
+
+**Ultimo aggiornamento precedente:** 2026-06-26 (Fase 3 ROADMAP: mete preferite. `caricaZaino()` ora include `metePreferite: []` con fallback per zaini vecchi. Aggiunto `<div id="sezione-preferite">` in `#tab-mete`. Nuove funzioni: `renderPreferite()` (sezione riepilogo con contatore N/5 e rimozione ✕) e `togglePreferita(id)` (aggiunge/rimuove con limite morbido a 5). Bottone ⭐ su ogni card in `renderMete()`: mostra "⭐ Preferita" se già salvata, "☆ Aggiungi ai preferiti" altrimenti. CSS in `style.css` con sfondo oro e dark-mode override. `node --check` OK.)
+
+**Ultimo aggiornamento precedente:** 2026-06-25 (MERGE GitHub→locale: i dati mappati da Codex su GitHub (che la copia locale non aveva) sono stati portati nel working tree mantenendo il design v2. Catalogo passato da 134 a **249 mete su 5 dipartimenti**: Economia 58, Management 76, Lingue 24, Scienze 25, Filosofia 66. I 3 nuovi file dati (`dati-mete-lingue.js`, `dati-mete-scienze.js`, `dati-mete-filosofia.js`) collegati in `index.html` con la catena di concat `_meteAll`; tutti i 5 file mete convertiti a `var METE`. ATTENZIONE: il merge NON è stato fatto via git (working tree su branch `feature/pipeline-imbuto` con modifiche non committate + lock OneDrive su `.git`); i file dati sono stati estratti con `git show origin/main:...`. Backup pre-merge in `_backup-20260625-*/`.)
+**Fase raggiunta:** Fase 5 / 5 + Ondata A completa + ROADMAP Fase 1 ✅ + ROADMAP Fase 2 ✅ + ROADMAP Fase 3 ✅ + ROADMAP Fase 4 ✅ (post-selezione) — SITO PUBBLICATO con design v2, ora multi-dipartimento (8), **392 mete totali**
+**Cosa funziona:** tutto, validato (node --check su tutti i JS); mete REALI su 8 dipartimenti Ca' Foscari; bando, scadenze e checklist VALIDATI sul PDF ufficiale. Completezza lingua per dipartimento:
+Economia 52/58; Management 71/76; Lingue 23/24; Scienze 23/25; Filosofia 56/66;
+Scienze Molecolari 8/8; Studi Linguistici 104/114; Studi Umanistici 18/21.
+Sito online su GitHub Pages con design v2 (push effettuato 2026-06-25, commit `8bc3206` su main):
 **https://nicorotolo.github.io/erasmuswiz/**
-**Prossimo passo:** analytics (A3, serve account di Nicola); arricchire alloggio/prerequisiti; usare la pipeline `nuovo_dipartimento` per i prossimi ampliamenti.
-**Novita':** pipeline Codex "accoda e parti": un batch `nuovo_dipartimento` produce `batch/INPUT.json`, poi `setup-dipartimento.mjs` registra il file dati e accoda i sotto-batch iniziali.
+**Prossimo passo:** (1) ✅ push del v2 + dati su GitHub FATTO; (2) completare lingua Filosofia (19 righe) e le scadenze residue; (3) verificare a video i 5 dipartimenti (locale e pubblico); (4) test utenti reali.
+**Automazione:** OpenAI Codex ("Mappatura mete Erasmus", progetto 3. ErasmusWiz) ATTIVA — gira ogni ~9 min su Worktree, modello GPT-5.5 Basso. Nessun token aggiuntivo necessario.
 
 ---
 
@@ -27,9 +38,10 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | 3 — Mete filtrabili + compatibilità | Profilo studente, filtro per area, punteggio pesato, icone oneste | ✅ Fatta e testata |
 | 4 — Blocco Idoneità | Requisiti del bando in chiaro | ✅ Fatta e testata |
 | 5 — Checklist con spunte salvate | Passi spuntabili + barra progresso, salvati su dispositivo | ✅ Fatta e testata |
+| v2 — Redesign UI | Tab OGGI/METE/TIMELINE/CHECKLIST, missione del giorno, percorso a tappe, countdown pill, mascotte Wiz, dark mode, GoatCounter | ✅ Promossa a main (2026-06-23) |
 
-**Sezioni visibili nella pagina (in ordine):** Idoneità → Checklist → Timeline →
-Profilo → Mete.
+**Tab visibili nella pagina (navigazione inferiore):** Oggi (missione) → Mete → Scadenze → Checklist.
+**Tab nascosti (accessibili da JS):** Idoneità · Profilo.
 
 ## 3. ARCHITETTURA (le 2 regole d'oro, rispettate)
 
@@ -44,17 +56,25 @@ Profilo → Mete.
 
 | File | Tipo | A cosa serve |
 |------|------|--------------|
-| `index.html` | codice | Struttura della pagina (sezioni vuote riempite dal JS) |
-| `css/style.css` | codice | Stile responsive (mobile-first) |
-| `js/app.js` | codice | Logica: legge i dati e costruisce tutte le sezioni |
+| `index.html` | codice | Struttura v2 (tab OGGI/METE/TIMELINE/CHECKLIST + Idoneità/Profilo nascosti) |
+| `css/style.css` | codice | Design system v2: dark mode, font Bricolage/Jakarta/SpaceMono, responsive |
+| `js/app.js` | codice | Logica v2: missione del giorno, percorso, countdown, mete, checklist, profilo |
+| `img/wiz-hero.png` | asset | Mascotte Wiz (illustrazione) |
 | `js/dati-bando.js` | **dati** | Requisiti del bando (Idoneità) |
-| `js/dati-mete.js` | **dati** | Mete Erasmus |
+| `js/dati-mete.js` | **dati** | Mete Erasmus — Economia (58 mete, `var METE`) |
+| `js/dati-mete-management.js` | **dati** | Mete Erasmus — Management (76 mete, `var METE`; concat in index.html) |
+| `js/dati-mete-lingue.js` | **dati** | Mete Erasmus — Lingue e culture orientali (24 mete, `var METE`) |
+| `js/dati-mete-scienze.js` | **dati** | Mete Erasmus — Scienze ambientali/informatica/statistica (25 mete, `var METE`) |
+| `js/dati-mete-filosofia.js` | **dati** | Mete Erasmus — Filosofia e Beni Culturali (66 mete, `var METE`) |
+| `js/dati-mete-molecolari.js` | **dati** | Mete Erasmus — Scienze Molecolari e Nanosistemi (8 mete, `var METE`) |
+| `js/dati-mete-linguistici.js` | **dati** | Mete Erasmus — Studi Linguistici e Culturali Comparati (114 mete, `var METE`) |
+| `js/dati-mete-umanistici.js` | **dati** | Mete Erasmus — Studi Umanistici (21 mete, `var METE`) |
 | `js/dati-scadenze.js` | **dati** | Scadenze Ca' Foscari (timeline) |
 | `js/dati-checklist.js` | **dati** | Passi della checklist |
+| `v2/` | storico | Design v2 originale (sottocartella, non più il sito principale) |
 | `automazioni/PROMPT_CODEX_mappatura.md` | automazione | Prompt dell'automazione Codex (ogni 15 min): unica fonte della mappatura mete. (Action Claude `mappatura-mete.yml` RIMOSSA) |
 | `scripts/lib-mete.mjs` | automazione | Utilità condivise: scanner JS (rispetta stringhe/parentesi) + serializzazione |
 | `scripts/prepara-batch.mjs` | automazione | Imbuto in ingresso: estrae il prossimo batch in `batch/INPUT.json` (pochi KB) |
-| `scripts/setup-dipartimento.mjs` | automazione | Bootstrap deterministico per `nuovo_dipartimento`: valida il nuovo file dati, registra lo stato e accoda sotto-batch da 5 mete |
 | `scripts/applica-batch.mjs` | automazione | Imbuto in uscita: fonde `batch/OUTPUT.json` nel fileJs, `node --check`, aggiorna lo stato |
 | `fonti/` | **fonti ufficiali** | PDF/ODS del bando 2026/27 Ca' Foscari (lista destinazioni, legenda, EUTOPIA) — base del database mete |
 | `README.md` | guida | Spiegazione file + come aggiungere una meta + come testare |
@@ -74,22 +94,28 @@ Profilo → Mete.
 ## 6. ⚠️ STATO DEI CONTENUTI (il vero lavoro che resta)
 
 Il CODICE è pronto. Le mete ora sono **REALI** (dalla lista ufficiale del bando
-2026/27). La pipeline di mappatura ha completato i dipartimenti tracciati nello stato corrente; resta il lavoro qualitativo su dettagli-scheda, alloggio e prerequisiti.
+2026/27). Resta da completare lingua e dettagli-scheda, e validare bando/checklist.
 
 | Dato | Stato attuale | Da fare |
 |------|---------------|---------|
-| **58 mete Economia** (`dati-mete.js`) | **REALI** dalla lista ufficiale 2026/27; stato mappatura completo: **52/58 righe complete**, 5 senza CEFR ufficiale nello stato corrente | arricchimenti futuri su alloggio/prerequisiti |
-| **76 mete Management** (`dati-mete-management.js`) | **REALI** dalla lista ufficiale 2026/27; stato mappatura completo: **71/76 righe complete**, 5 senza CEFR ufficiale | arricchimenti futuri su alloggio/prerequisiti |
-| **24 mete Lingue e culture orientali** (`dati-mete-lingue.js`) | **REALI** dalla lista ufficiale 2026/27; stato mappatura completo: **23/24 righe complete**, 1 senza CEFR ufficiale | arricchimenti futuri su alloggio/prerequisiti |
-| **25 mete Scienze ambientali, informatica e statistica** (`dati-mete-scienze.js`) | **REALI** dalla lista ufficiale 2026/27; stato mappatura completo: **23/25 righe complete**, 2 senza CEFR ufficiale | arricchimenti futuri su alloggio/prerequisiti |
-| **66 mete Filosofia e Beni Culturali** (`dati-mete-filosofia.js`) | **REALI** dalla lista ufficiale 2026/27; stato mappatura completo: **56/66 righe complete**, 11 senza CEFR ufficiale | arricchimenti futuri su alloggio/prerequisiti |
+| **58 mete Economia** (`dati-mete.js`) | **REALI** dalla lista ufficiale 2026/27 | Economia chiusa; arricchimenti futuri su alloggio/prerequisiti |
+| **76 mete Management** (`dati-mete-management.js`) | **REALI** 2026/27; link scheda PDF presenti; **71/76 lingua**, **76/76 scadenze** | completare le 5 lingue residue |
+| **24 mete Lingue** (`dati-mete-lingue.js`) | **REALI** 2026/27; **23/24 lingua**, **24/24 scadenze** | 1 lingua residua |
+| **25 mete Scienze** (`dati-mete-scienze.js`) | **REALI** 2026/27; **23/25 lingua**, **25/25 scadenze** | 2 lingue residue |
+| **66 mete Filosofia** (`dati-mete-filosofia.js`) | **REALI** 2026/27; **56/66 lingua**, **66/66 scadenze** | 10 lingue in linguaNonTrovabile (non trovabili su siti ufficiali) |
+| **8 mete Scienze Molecolari** (`dati-mete-molecolari.js`) | **REALI** 2026/27; **8/8 lingua**, **8/8 scadenze** ✅ | completo |
+| **114 mete Studi Linguistici** (`dati-mete-linguistici.js`) | **REALI** 2026/27; **104/114 lingua**, **114/114 scadenze** | 10 lingue in linguaNonTrovabile |
+| **21 mete Studi Umanistici** (`dati-mete-umanistici.js`) | **REALI** 2026/27; **18/21 lingua**, **21/21 scadenze** | 3 lingue in linguaNonTrovabile |
+| **⚠️ EUTOPIA (46 accordi)** | non mappati | Cross-dipartimentali, richiede logica filtro speciale; task futura |
 | → posti/livello/area/coordinatore/codice Erasmus | reali, dalla lista | ok |
-| → requisito di **lingua** | I dipartimenti tracciati hanno pending lingua a 0; le mete senza CEFR ufficiale restano classificate come non trovabili | non inventare livelli non pubblicati |
-| → scadenze ospitante / linkPdf | I dipartimenti tracciati hanno pending scadenze a 0 nello stato corrente | riverificare su cambio anno/bando |
-| → schede PDF scaricate | locali in `fonti/schede/` (gitignore) | — |
-| Requisiti bando (`dati-bando.js`) | **REALI** validati art. per art. sul PDF | Riverificare sul bando 2027/28 |
-| Scadenze (`dati-scadenze.js`) | **REALI** 7 tappe dal bando | Riverificare ogni anno |
-| Checklist (`dati-checklist.js`) | **REALI** 9 passi validati sul bando | Riverificare ogni anno |
+| → requisito di **lingua** | Economia: **52/58 righe complete** con CEFR e scadenze, 6 senza CEFR ufficiale classificate non trovabili. Management: **19/76 righe complete**; 2 mete del primo lotto hanno scadenze ma non CEFR generale ufficiale | continuare i batch Management |
+| → scadenze ospitante / linkPdf | Economia: **58/58 con link scheda PDF** e **58/58 con scadenze** nomination/application. Management: **76/76 con link scheda PDF** e **21/76 con scadenze** | continuare i batch Management |
+| → schede PDF scaricate | 53 PDF in `fonti/schede/` (solo locale, gitignore) | — |
+| Meta Aix-Marseille | **completa e reale** (da scheda PDF) | Esempio di riferimento |
+| 2 mete "ESEMPIO" (Madrid, Monaco) | **RIMOSSE** ✅ | fatto |
+| Requisiti bando (`dati-bando.js`) | **REALI** ✅ validati art. per art. sul PDF (8 requisiti, con rif. agli articoli) | Riverificare sul bando 2027/28 |
+| Scadenze (`dati-scadenze.js`) | **REALI** ✅ 7 tappe dal bando (candidature, laureandi, graduatoria, accettazione, ISEE, mobilità) | Riverificare ogni anno |
+| Checklist (`dati-checklist.js`) | **REALI** ✅ 9 passi validati sul bando | Riverificare ogni anno |
 
 **Nota motore di compatibilità:** `app.js` ora gestisce la lingua mancante in modo
 onesto. Per le mete senza lingua mostra 🟡 "Idoneo — verifica la lingua" (se hai
@@ -108,7 +134,6 @@ poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
 
-Fatto in sessione (2026-06-25): **patch infrastrutturale accoda e parti** - `prepara-batch.mjs` gestisce `nuovo_dipartimento` senza crash su file dati assente; aggiunto `setup-dipartimento.mjs` per creare lo stato e accodare sotto-batch deterministici da 5 mete. Validato con `node --check` e `valida-stato.mjs` ("Stato coerente").
 Fatto in sessione 5 (2026-06-11): **A4 COMPLETATO** — tutte le 58 mete con lingua e link scheda.
 Fatto in run notturno (2026-06-12): **scadenze arricchite per 5 mete** —
   Copenhagen (KU): application 1/5 e 1/10;
@@ -132,19 +157,41 @@ Fatto in sessione debug (2026-06-15): **infra waterproof** - diagnosticato e ris
 Totale Economia: 52/58 righe complete con lingua CEFR e scadenze; 58/58 con scadenze ospitante; 6 righe senza CEFR ufficiale classificate non trovabili.
 Totale Management: 19/76 righe complete; 76/76 con link scheda PDF; scadenze completate per 21/76 righe; lingua CEFR completata per 19/76 righe.
 
-0. **Attivare la mappatura notturna in cloud:** Nicola genera il token con
-   `claude setup-token` e lo salva come secret `CLAUDE_CODE_OAUTH_TOKEN` su
-   GitHub (repo → Settings → Secrets and variables → Actions). Poi primo test
-   manuale dalla tab Actions ("Mappatura mete Erasmus" → Run workflow). Ora che
-   il quarto lotto Management e' stato arricchito, il prossimo run ordinario puo'
-   lavorare `management-batch-6`; i batch `management-batch-17` e `management-batch-18`
-   servono per il secondo tentativo lingua di Klagenfurt, Vienna e Aarhus BSS.
-1. **A3 (resto):** aggiungere analytics (GoatCounter/Plausible) — **serve che
-   Nicola crei l'account** (1 riga di script da incollare poi); valutare dominio.
-2. **Sciogliere le lingue ancora senza CEFR ufficiale** (siti atenei / email IRO).
-3. **Schede:** arricchire alloggio/prerequisiti meta per meta.
-4. **Ondata B:** post-selezione (vedi ROADMAP.md).
-5. **Test utenti:** far usare il cruscotto a 2-3 studenti Erasmus veri.
+Fatto in sessione (2026-06-23): **v2 promossa a sito principale** — `index.html`
+root sostituito con il design v2 (tab OGGI/METE/TIMELINE/CHECKLIST, missione del
+giorno, percorso a tappe, countdown pill, mascotte Wiz, dark mode). `css/style.css`
+e `js/app.js` aggiornati, `img/wiz-hero.png` copiato, `const METE` → `var METE`
+in entrambi i file dati, concat Economia+Management inline in `index.html`.
+GoatCounter (A3) già integrato nella v2: account `erasmuswiz.goatcounter.com`.
+
+Fatto in sessione (2026-06-25): **MERGE GitHub→locale.** Il lavoro di Codex
+(che merge solo su GitHub) è stato portato nel working tree locale. Scoperta la
+divergenza incrociata: GitHub aveva i dati nuovi ma il design v1; il locale aveva
+il v2 ma i dati vecchi. Merge selettivo: presi i file `js/dati-*.js` +
+`mappatura-stato.json` da `origin/main` con `git show`, tenuto il codice v2
+(`index.html`, `css/style.css`, `js/app.js`, `img/`). Aggiunti 3 dipartimenti
+(Lingue, Scienze, Filosofia) → **249 mete totali**. Convertiti i 5 file mete a
+`var METE` e collegati in `index.html` con catena `_meteAll`. Validato: `node
+--check` su tutti i JS OK, simulazione concat = 249 mete / 249 ID unici / 0
+problemi strutturali. Backup pre-merge in `_backup-20260625-*/`. **Push su GitHub
+FATTO** (commit `8bc3206` su main, via `pubblica-v2-su-github.bat`): il sito
+pubblico ora serve il v2 con 249 mete. `node_modules/` (jsdom usato per i test)
+aggiunto a `.gitignore`, da cancellare a mano.
+
+0. **⬆️ PUSH locale → GitHub:** i 3 nuovi file (`dati-mete-molecolari.js`,
+   `dati-mete-linguistici.js`, `dati-mete-umanistici.js`) e l'`index.html`
+   aggiornato sono solo in locale (branch `feature/pipeline-imbuto`). Vanno pushati
+   su `origin/main` con il metodo bat già usato (`pubblica-v2-su-github.bat` o
+   equivalente) per aggiornare il sito pubblico.
+1. **Mappatura Codex automatica:** l'automazione è ATTIVA (ogni ~9 min, GPT-5.5 Basso).
+   8 dipartimenti tutti "completo" — Codex può fermarsi o essere puntato su EUTOPIA.
+2. **EUTOPIA (task futura):** 46 accordi cross-dipartimentali (presenti in
+   `fonti/Lista_destinazioni_Erasmus__per_studio_europa_a.a._2026-2027.ods`, riga
+   "EUTOPIA"). Richiedono logica filtro speciale (non legati a un singolo
+   dipartimentoCf). Da pianificare in sessione dedicata.
+3. **Testare in locale** (`python -m http.server 8000`) e verificare che 392 mete
+   si carichino correttamente (tutti e 8 i file nella catena `_meteAll`).
+4. **Test utenti reali:** far usare il cruscotto a 2-3 studenti Ca' Foscari.
 
 ### Idee future (solo con trazione provata — vedi PROGETTO_ERASMUS.md)
 - Fase post-selezione (checklist che cambia dopo l'assegnazione).
