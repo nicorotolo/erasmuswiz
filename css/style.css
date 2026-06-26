@@ -213,6 +213,32 @@ body {
   margin-top: 2px;
 }
 
+/* Selettore d'ateneo */
+.ateneo-selettore {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 4px 10px 4px 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.ateneo-selettore .ateneo-icona { font-size: 14px; line-height: 1; }
+.ateneo-selettore select {
+  border: none;
+  background: transparent;
+  font-family: var(--font-body, inherit);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--text-dark);
+  cursor: pointer;
+  outline: none;
+  padding-right: 2px;
+}
+.ateneo-selettore select:focus-visible { outline: 2px solid var(--primary); border-radius: 4px; }
+
 /* ================================================================
    PERCORSO A TAPPE
 ================================================================ */
