@@ -4,25 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Studi Umanistici",
-  "runCompletati": 127,
+  "runCompletati": 128,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "studi umanistici-batch-followup-2",
-      "priorita": 6,
-      "dipartimento": "Studi Umanistici",
-      "descrizione": "Studi Umanistici - follow-up pending",
-      "tipo": "lingua",
-      "mete": [
-        "G KOMOTIN01",
-        "TR ISTANBU03",
-        "A WIEN01"
-      ]
-    },
     {
       "id": "studi umanistici-batch-followup-3",
       "priorita": 6,
@@ -185,21 +173,20 @@
       "fileJs": "js/dati-mete-umanistici.js",
       "stato": "in_corso",
       "totale": 21,
-      "completate": 16,
+      "completate": 17,
       "pendingScadenze": [],
       "pendingLingua": [
-        "G KOMOTIN01",
-        "TR ISTANBU03",
-        "A WIEN01",
         "TR ISTANBU17"
       ],
       "tentativiLingua": {
-        "G KOMOTIN01": 1,
-        "TR ISTANBU03": 1,
-        "A WIEN01": 1,
+        "G KOMOTIN01": 2,
+        "A WIEN01": 2,
         "TR ISTANBU17": 1
       },
-      "linguaNonTrovabile": []
+      "linguaNonTrovabile": [
+        "G KOMOTIN01",
+        "A WIEN01"
+      ]
     }
   },
   "regoleProgressione": {
@@ -972,6 +959,12 @@
       "data": "2026-06-26",
       "mete": 1,
       "note": "Studi Umanistici studi umanistici-batch-followup-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 128,
+      "data": "2026-06-26",
+      "mete": 3,
+      "note": "Studi Umanistici studi umanistici-batch-followup-2: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

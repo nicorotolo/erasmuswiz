@@ -190,7 +190,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254648",
     linkSito: "http://www.duth.gr",
-    notePratiche: "Aperta a: Dipartimento di Studi Umanistici [Dati ufficiali bando 2026/27] ciclo/posti: 1 x 5 L. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2024/25"
+    notePratiche: "Aperta a: Dipartimento di Studi Umanistici [Dati ufficiali bando 2026/27] ciclo/posti: 1 x 5 L. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2024/25 || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "07-tr-istanbu03-0230-languages",
@@ -202,7 +202,10 @@ var METE = [
     areeDisciplinari: [{ codice: "0230", nome: "Languages" }],
     coordinatoreCf: "Cinquegrani Alessandro",
     posti: [{ numero: 1, mesi: 4, livello: "L e PhD" }],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per mobilita SMS presso Faculty of Letters - Italian Language and Literature" },
+        { lingua: "Italiano", livello: "B2", condizione: "per mobilita SMS presso Faculty of Letters - Italian Language and Literature" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Application (autunno)", periodo: "entro 15 giugno" },
@@ -236,7 +239,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254351",
     linkSito: "https://international.univie.ac.at/en/",
-    notePratiche: "Aperta a: Dipartimento di Studi Umanistici [Dati ufficiali bando 2026/27] ciclo/posti: 1 x 6 L e LM, solo primo semestre. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Aperta a: Dipartimento di Studi Umanistici [Dati ufficiali bando 2026/27] ciclo/posti: 1 x 6 L e LM, solo primo semestre. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "09-luxlux-vil01-0222-history-and-archaeology",
@@ -401,7 +404,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/28260897",
     linkSito: "https://international.univie.ac.at/en/student-mobility/incoming-students/",
-    notePratiche: "Aperta a: Dipartimento di Studi Umanistici [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5 LM, solo primo semestre. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Aperta a: Dipartimento di Studi Umanistici [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5 LM, solo primo semestre. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "15-d-munchen01-0220-humanities",
