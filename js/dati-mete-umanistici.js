@@ -17,7 +17,9 @@ var METE = [
     areeDisciplinari: [{ codice: "0230", nome: "Languages" }],
     coordinatoreCf: "Baglioni Daniele",
     posti: [{ numero: 3, mesi: 5 }],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per studenti Erasmus incoming; CEFR B2 o superiore attestabile dall'universita di origine in alcuni casi" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Nomination (autunno/anno)", periodo: "entro 30 marzo" },
