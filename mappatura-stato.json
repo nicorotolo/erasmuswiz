@@ -4,24 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Ca' Foscari Venezia",
   "dipartimentoCorrente": "Studi Umanistici",
-  "runCompletati": 128,
+  "runCompletati": 129,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
-  "prossimiBatch": [
-    {
-      "id": "studi umanistici-batch-followup-3",
-      "priorita": 6,
-      "dipartimento": "Studi Umanistici",
-      "descrizione": "Studi Umanistici - follow-up pending",
-      "tipo": "lingua",
-      "mete": [
-        "TR ISTANBU17"
-      ]
-    }
-  ],
+  "prossimiBatch": [],
   "statoDipartimenti": {
     "Economia": {
       "fileJs": "js/dati-mete.js",
@@ -171,17 +160,14 @@
     },
     "Studi Umanistici": {
       "fileJs": "js/dati-mete-umanistici.js",
-      "stato": "in_corso",
+      "stato": "completo",
       "totale": 21,
-      "completate": 17,
+      "completate": 18,
       "pendingScadenze": [],
-      "pendingLingua": [
-        "TR ISTANBU17"
-      ],
+      "pendingLingua": [],
       "tentativiLingua": {
         "G KOMOTIN01": 2,
-        "A WIEN01": 2,
-        "TR ISTANBU17": 1
+        "A WIEN01": 2
       },
       "linguaNonTrovabile": [
         "G KOMOTIN01",
@@ -965,6 +951,12 @@
       "data": "2026-06-26",
       "mete": 3,
       "note": "Studi Umanistici studi umanistici-batch-followup-2: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 129,
+      "data": "2026-06-26",
+      "mete": 1,
+      "note": "Studi Umanistici studi umanistici-batch-followup-3: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

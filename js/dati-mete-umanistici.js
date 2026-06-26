@@ -498,7 +498,9 @@ var METE = [
     areeDisciplinari: [{ codice: "0222", nome: "History and Archaeology" }],
     coordinatoreCf: "Tonghini Cristina",
     posti: [{ numero: 2, mesi: 5, livello: "LM e PhD" }],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per studenti incoming/exchange" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Nomination e application (autunno/anno)", periodo: "1 aprile - 1 giugno" },
