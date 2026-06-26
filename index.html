@@ -314,14 +314,26 @@
     };
   </script>
 
-  <!-- ---------- Sapienza Roma (placeholder, in arrivo) ---------- -->
-  <script src="js/atenei/sapienza/dati-mete.js"></script>
+  <!-- ---------- Sapienza Roma ---------- -->
+  <script src="js/atenei/sapienza/dati-bando.js"></script>
+  <script src="js/atenei/sapienza/dati-mete-giurisprudenza.js"></script>
+  <script>var _meteAllSap = METE;</script>
+  <!-- (future: altre Facoltà Sapienza si concatenano qui, come a Ca' Foscari) -->
+  <script src="js/atenei/sapienza/dati-scadenze.js"></script>
+  <script src="js/atenei/sapienza/dati-checklist.js"></script>
+  <script src="js/atenei/sapienza/dati-postselezione.js"></script>
   <script>
     ATENEI['sapienza'] = {
       key: 'sapienza',
       label: 'Sapienza Roma',
-      disponibile: (typeof METE !== 'undefined' && METE.length > 0),
-      mete: METE
+      disponibile: _meteAllSap.length > 0,
+      mete: _meteAllSap,
+      requisiti: REQUISITI_BANDO,
+      bandoInfo: BANDO_INFO,
+      scadenze: SCADENZE_CAFOSCARI,
+      scadenzeInfo: SCADENZE_INFO,
+      checklist: CHECKLIST,
+      checklistPost: CHECKLIST_POST
     };
   </script>
 

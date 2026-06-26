@@ -2,18 +2,75 @@
   "versione": "2.0",
   "aggiornato": "2026-06-26",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
-  "universitaCorrente": "Ca' Foscari Venezia",
-  "dipartimentoCorrente": "Studi Umanistici",
-  "runCompletati": 129,
+  "universitaCorrente": "Sapienza Roma",
+  "dipartimentoCorrente": "Giurisprudenza (Sapienza)",
+  "runCompletati": 130,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
-  "prossimiBatch": [],
+  "prossimiBatch": [
+    {
+      "id": "giurisprudenza-batch-1",
+      "priorita": 5,
+      "dipartimento": "Giurisprudenza (Sapienza)",
+      "descrizione": "Giurisprudenza (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-IUS-SALZBURG",
+        "SAP-IUS-INNSBRUCK",
+        "SAP-IUS-ULB-BXL",
+        "SAP-IUS-SOFIA",
+        "SAP-IUS-ASSAS-P2"
+      ]
+    },
+    {
+      "id": "giurisprudenza-batch-2",
+      "priorita": 5,
+      "dipartimento": "Giurisprudenza (Sapienza)",
+      "descrizione": "Giurisprudenza (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-IUS-AMU",
+        "SAP-IUS-BORDEAUX",
+        "SAP-IUS-LMU-MUC",
+        "SAP-IUS-HU-BERLIN",
+        "SAP-IUS-TUBINGEN"
+      ]
+    },
+    {
+      "id": "giurisprudenza-batch-3",
+      "priorita": 5,
+      "dipartimento": "Giurisprudenza (Sapienza)",
+      "descrizione": "Giurisprudenza (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-IUS-KOLN",
+        "SAP-IUS-WARSAW",
+        "SAP-IUS-PORTO",
+        "SAP-IUS-COIMBRA",
+        "SAP-IUS-BUCURESTI"
+      ]
+    },
+    {
+      "id": "giurisprudenza-batch-4",
+      "priorita": 5,
+      "dipartimento": "Giurisprudenza (Sapienza)",
+      "descrizione": "Giurisprudenza (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-IUS-LJUBLJANA",
+        "SAP-IUS-OLOMOUC",
+        "SAP-IUS-COMPLUTENSE",
+        "SAP-IUS-UAM-MADRID",
+        "SAP-IUS-STOCKHOLM"
+      ]
+    }
+  ],
   "statoDipartimenti": {
     "Economia": {
-      "fileJs": "js/dati-mete.js",
+      "fileJs": "js/atenei/cafoscari/dati-mete.js",
       "stato": "completo",
       "totale": 58,
       "completate": 52,
@@ -32,10 +89,11 @@
         "CY PAFOS01",
         "DK KOBENHA01",
         "E TENERIF28"
-      ]
+      ],
+      "ateneo": "Ca' Foscari Venezia"
     },
     "Management": {
-      "fileJs": "js/dati-mete-management.js",
+      "fileJs": "js/atenei/cafoscari/dati-mete-management.js",
       "stato": "completo",
       "totale": 76,
       "completate": 71,
@@ -54,10 +112,11 @@
         "F NANCY43",
         "F NANTES12",
         "S LINKOPI01"
-      ]
+      ],
+      "ateneo": "Ca' Foscari Venezia"
     },
     "Lingue e culture orientali": {
-      "fileJs": "js/dati-mete-lingue.js",
+      "fileJs": "js/atenei/cafoscari/dati-mete-lingue.js",
       "stato": "completo",
       "totale": 24,
       "completate": 23,
@@ -68,10 +127,11 @@
       },
       "linguaNonTrovabile": [
         "E SEVILLA01"
-      ]
+      ],
+      "ateneo": "Ca' Foscari Venezia"
     },
     "Scienze ambientali, informatica e statistica": {
-      "fileJs": "js/dati-mete-scienze.js",
+      "fileJs": "js/atenei/cafoscari/dati-mete-scienze.js",
       "stato": "completo",
       "totale": 25,
       "completate": 23,
@@ -84,10 +144,11 @@
       "linguaNonTrovabile": [
         "IS REYKJAV01",
         "RO TIMISOA01"
-      ]
+      ],
+      "ateneo": "Ca' Foscari Venezia"
     },
     "Filosofia e Beni Culturali": {
-      "fileJs": "js/dati-mete-filosofia.js",
+      "fileJs": "js/atenei/cafoscari/dati-mete-filosofia.js",
       "stato": "completo",
       "totale": 66,
       "completate": 56,
@@ -116,20 +177,22 @@
         "DK ROSKILD01",
         "DK KOBENHA01",
         "D FREIBUR01"
-      ]
+      ],
+      "ateneo": "Ca' Foscari Venezia"
     },
     "Scienze Molecolari e Nanosistemi": {
-      "fileJs": "js/dati-mete-molecolari.js",
+      "fileJs": "js/atenei/cafoscari/dati-mete-molecolari.js",
       "stato": "completo",
       "totale": 8,
       "completate": 8,
       "pendingScadenze": [],
       "pendingLingua": [],
       "tentativiLingua": {},
-      "linguaNonTrovabile": []
+      "linguaNonTrovabile": [],
+      "ateneo": "Ca' Foscari Venezia"
     },
     "Studi Linguistici e Culturali Comparati": {
-      "fileJs": "js/dati-mete-linguistici.js",
+      "fileJs": "js/atenei/cafoscari/dati-mete-linguistici.js",
       "stato": "completo",
       "totale": 114,
       "completate": 104,
@@ -156,10 +219,11 @@
         "G KOMOTIN01",
         "TR ISTANBU03",
         "A WIEN01"
-      ]
+      ],
+      "ateneo": "Ca' Foscari Venezia"
     },
     "Studi Umanistici": {
-      "fileJs": "js/dati-mete-umanistici.js",
+      "fileJs": "js/atenei/cafoscari/dati-mete-umanistici.js",
       "stato": "completo",
       "totale": 21,
       "completate": 18,
@@ -172,7 +236,61 @@
       "linguaNonTrovabile": [
         "G KOMOTIN01",
         "A WIEN01"
-      ]
+      ],
+      "ateneo": "Ca' Foscari Venezia"
+    },
+    "Giurisprudenza (Sapienza)": {
+      "fileJs": "js/atenei/sapienza/dati-mete-giurisprudenza.js",
+      "stato": "in_corso",
+      "totale": 20,
+      "completate": 0,
+      "pendingScadenze": [
+        "SAP-IUS-SALZBURG",
+        "SAP-IUS-INNSBRUCK",
+        "SAP-IUS-ULB-BXL",
+        "SAP-IUS-SOFIA",
+        "SAP-IUS-ASSAS-P2",
+        "SAP-IUS-AMU",
+        "SAP-IUS-BORDEAUX",
+        "SAP-IUS-LMU-MUC",
+        "SAP-IUS-HU-BERLIN",
+        "SAP-IUS-TUBINGEN",
+        "SAP-IUS-KOLN",
+        "SAP-IUS-WARSAW",
+        "SAP-IUS-PORTO",
+        "SAP-IUS-COIMBRA",
+        "SAP-IUS-BUCURESTI",
+        "SAP-IUS-LJUBLJANA",
+        "SAP-IUS-OLOMOUC",
+        "SAP-IUS-COMPLUTENSE",
+        "SAP-IUS-UAM-MADRID",
+        "SAP-IUS-STOCKHOLM"
+      ],
+      "pendingLingua": [
+        "SAP-IUS-SALZBURG",
+        "SAP-IUS-INNSBRUCK",
+        "SAP-IUS-ULB-BXL",
+        "SAP-IUS-SOFIA",
+        "SAP-IUS-ASSAS-P2",
+        "SAP-IUS-AMU",
+        "SAP-IUS-BORDEAUX",
+        "SAP-IUS-LMU-MUC",
+        "SAP-IUS-HU-BERLIN",
+        "SAP-IUS-TUBINGEN",
+        "SAP-IUS-KOLN",
+        "SAP-IUS-WARSAW",
+        "SAP-IUS-PORTO",
+        "SAP-IUS-COIMBRA",
+        "SAP-IUS-BUCURESTI",
+        "SAP-IUS-LJUBLJANA",
+        "SAP-IUS-OLOMOUC",
+        "SAP-IUS-COMPLUTENSE",
+        "SAP-IUS-UAM-MADRID",
+        "SAP-IUS-STOCKHOLM"
+      ],
+      "tentativiLingua": {},
+      "linguaNonTrovabile": [],
+      "ateneo": "Sapienza Roma"
     }
   },
   "regoleProgressione": {
@@ -957,6 +1075,12 @@
       "data": "2026-06-26",
       "mete": 1,
       "note": "Studi Umanistici studi umanistici-batch-followup-3: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 130,
+      "data": "2026-06-26",
+      "mete": 20,
+      "note": "Avvio Giurisprudenza (Sapienza): creato js/atenei/sapienza/dati-mete-giurisprudenza.js con 20 mete; accodati 4 sotto-batch."
     }
   ],
   "storicoBatch": [
