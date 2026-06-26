@@ -2556,7 +2556,10 @@ var METE = [
     posti: [
       { numero: 1, mesi: 5, livello: "L" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Turco", livello: "B1", condizione: "per la maggior parte dei corsi" },
+        { lingua: "Inglese", livello: "B1/B2", condizione: "per programmi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Nomination (autunno/anno)", periodo: "entro 30 aprile" },
@@ -2647,7 +2650,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "http://www.uco.es/",
-    notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 10 L. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 10 L. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "90-cz-praha07-0232",
