@@ -1,0 +1,22 @@
+{
+  "SAP-IUS-KOLN": {
+    "requisitoLingua": "https://eurep.auth.gr/sites/default/files/fact_sheets/D%20KOLN01_FactSheet_Partner_26_27.pdf",
+    "scadenzeOspitante": "https://eurep.auth.gr/sites/default/files/fact_sheets/D%20KOLN01_FactSheet_Partner_26_27.pdf",
+    "linkSito": "https://uni-koeln.de/en/studying-teaching/international/study-in-cologne/international-applications/exchange-students-from-partner-universities"
+  },
+  "SAP-IUS-WARSAW": {
+    "requisitoLingua": "https://bwz.uw.edu.pl/en/incoming/students-and-phd-candidates-incoming/short-term-studies-incoming/incoming-students/before-you-arrive/candidate/how-to-become-an-exchange-erasmus-student/",
+    "linkSito": "https://bwz.uw.edu.pl/en/incoming/students-and-phd-candidates-incoming/short-term-studies-incoming/incoming-students/before-you-arrive/candidate/how-to-become-an-exchange-erasmus-student/"
+  },
+  "SAP-IUS-PORTO": {
+    "scadenzeOspitante": "https://international.up.pt/public_files/Application_Procedures_2026-2027.pdf",
+    "linkSito": "https://international.up.pt/international_mobility_application"
+  },
+  "SAP-IUS-COIMBRA": {
+    "scadenzeOspitante": "https://www.uc.pt/en/iru/study-abroad/incoming-students-study-at-the-university-of-coimbra/",
+    "linkSito": "https://www.uc.pt/en/fduc/international-relations-and-mobility/incoming-mobility/"
+  },
+  "SAP-IUS-BUCURESTI": {
+    "linkSito": "https://unibuc.ro/international/programul-erasmus/studenti-erasmus/?lang=en"
+  }
+}
