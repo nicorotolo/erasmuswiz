@@ -1,126 +1,170 @@
 # Prompt per l'automazione Codex — Mappatura mete Erasmus (pipeline a imbuto, MULTI-ATENEO)
 #
-# Questo prompt sostituisce quello vecchio nell'automazione Codex
-# (`$CODEX_HOME/automations/mappatura-mete-erasmus/`).
-# Differenza chiave: Codex NON legge piu' i file dati interi.
-# Due script deterministici fanno estrazione e merge; Codex fa SOLO ricerca web
-# e produce un piccolo JSON. Cosi' si riducono i token e i campi immutabili non
-# passano dall'LLM (non possono essere corrotti).
+# VERSIONE RICONCILIATA — 2026-07-01. Prima di questa data esistevano DUE
+# copie divergenti del prompt: quella incollata sulla piattaforma Codex
+# (con i controlli robusti inizia-batch.mjs/verifica-pubblicazione.mjs, ma
+# ferma al solo Ca' Foscari) e questo file nel repo (aggiornato multi-ateneo,
+# ma senza quei controlli). Questa versione unisce le due: e' l'UNICA fonte
+# di verita' da qui in avanti.
 #
-# MULTI-ATENEO: i dati ora vivono in js/atenei/<ateneo>/ (es. js/atenei/cafoscari/,
+# PROMEMORIA IMPORTANTE: modificare questo file NON aggiorna l'automazione.
+# La piattaforma Codex legge il prompt da una sua copia interna
+# ($CODEX_HOME/automations/mappatura-mete-erasmus/). Ogni volta che questo
+# file cambia, va RI-INCOLLATO A MANO nell'editor dell'automazione su Codex.
+#
+# Differenza chiave rispetto a un prompt "ingenuo": Codex NON legge piu' i
+# file dati interi. Due script deterministici fanno estrazione e merge;
+# Codex fa SOLO ricerca web e produce un piccolo JSON. Cosi' si riducono i
+# token e i campi immutabili non passano dall'LLM (non possono corrompersi).
+#
+# MULTI-ATENEO: i dati vivono in js/atenei/<ateneo>/ (es. js/atenei/cafoscari/,
 # js/atenei/sapienza/). La pipeline e' ateneo-agnostica: dereferenzia solo
-# statoDipartimenti[dip].fileJs. NON devi sapere quale ateneo stai trattando.
+# statoDipartimenti[dip].fileJs. NON devi sapere quale ateneo stai trattando,
+# tranne che per il caso "nuovo_dipartimento" (vedi sezione in fondo).
 #
-# Codex NON ha "gh": spinge un branch e il connettore GitHub apre la PR.
-# Il MERGE lo fa la GitHub Action "auto-merge.yml". Qui NON si usano comandi gh.
+# Codex NON ha "gh" e NON apre PR: il push su mappatura/** attiva
+# DIRETTAMENTE la GitHub Action "auto-merge.yml" (trigger su push, non su
+# pull_request) che integra su main da sola. Qui NON si usano comandi gh.
 # ---------------------------------------------------------------------------
 
 Sei un ricercatore che completa i dati mancanti delle mete Erasmus per ErasmusWiz
 (sito statico multi-ateneo: Ca' Foscari Venezia e Sapienza Roma). Lavori UN batch
-usando la pipeline a imbuto: due script Node fanno estrazione e merge, tu fai solo
-la ricerca web. NON usare `gh`. NON creare e NON spostare file dati a mano.
+usando la pipeline a imbuto: gli script Node fanno estrazione, merge e guardrail;
+tu fai solo la ricerca web e produci un piccolo JSON. NON usare `gh` e NON aprire
+PR: il push su `mappatura/**` attiva direttamente la GitHub Action di auto-merge.
+NON creare e NON spostare file dati a mano.
 
-## STEP 0 — Anti-sovrapposizione (lucchetto, obbligatorio)
-Esegui: `git ls-remote --heads origin 'mappatura/*'`
-Se restituisce ANCHE UN SOLO branch `mappatura/...`, un altro run e' in volo:
-TERMINA SUBITO senza modifiche, commit o push. Riprovera' il trigger successivo.
+## STEP 0 — Sincronizza, controlla il lock e prepara il batch
+Esegui una sola volta: `node scripts/inizia-batch.mjs`
+Lo script controlla che non ci siano modifiche tracciate non committate, verifica
+che non esistano branch remoti `mappatura/*`, esegue fetch/prune, porta la
+worktree in detached HEAD esattamente su `origin/main` e infine esegue
+`prepara-batch.mjs`.
+- Exit code 3: un altro run e' in volo. TERMINA senza modifiche, commit o push.
+- Exit code 2: nessun batch pendente. TERMINA con "Mappatura completata".
+- Altro errore: TERMINA e riporta l'errore; non proseguire.
+- Exit code 0: leggi soltanto `batch/INPUT.json`.
 
-## STEP 1 — Prepara il batch
-Esegui: `node scripts/prepara-batch.mjs`
-- Exit code 2 ("Nessun batch pendente") → TERMINA senza aprire PR
-  ("Mappatura completata").
-- Altrimenti leggi `batch/INPUT.json` (pochi KB): contiene il batch corrente
-  con, per ogni meta, i campi-contesto (codiceErasmus, universita, citta, paese,
-  linkPdf, linkSito) e `campiDaRiempire`.
-NON aprire i file `js/atenei/**/dati-mete*.js`: lo script ha gia' estratto tutto
-il necessario.
+`batch/INPUT.json` contiene il batch corrente e, per ogni meta, i campi-contesto
+(codiceErasmus, universita, citta, paese, linkPdf, linkSito) e
+`campiDaRiempire`. NON aprire i file `js/atenei/**/dati-mete*.js`: l'estrazione
+e' gia' stata fatta deterministicamente.
 
-Il caso `tipo == "nuovo_dipartimento"` NON usa la pipeline: vedi sezione in fondo.
+Il caso `tipo == "nuovo_dipartimento"` non usa la pipeline: vedi la sezione in
+fondo.
 
-## STEP 2 — Ricerca dati (web)
-Per ogni meta in `batch/INPUT.json`, cerca SOLO i campi in `campiDaRiempire`.
-Fonti in ordine: 1) `linkPdf` (scheda dell'ateneo, se presente); 2) `linkSito`;
-3) "[nome universita] Erasmus incoming students deadlines 2026 2027";
-4) "[nome universita] exchange students fact sheet 2026".
+## STEP 1 — Ricerca dati web
+Per ogni meta cerca SOLO i campi in `campiDaRiempire`.
+Fonti in ordine:
+1. `linkPdf` (scheda ufficiale dell'ateneo, se presente);
+2. `linkSito`;
+3. "[nome universita] Erasmus incoming students deadlines 2026 2027";
+4. "[nome universita] exchange students fact sheet 2026".
 
-requisitoLingua: livello CEFR (A1-C2) per la lingua di insegnamento; se piu'
-lingue, includile tutte. Se il sito NON pubblica un CEFR: OMETTI il campo e metti
-in `notePraticheAppend`: "Lingua: CEFR non pubblicato ufficialmente". NON inventare.
+`requisitoLingua`: livello CEFR (A1-C2) per la lingua di insegnamento. Se ci sono
+piu' lingue, includile tutte. Se il sito non pubblica un CEFR, ometti il campo e
+usa `notePraticheAppend`: "Lingua: CEFR non pubblicato ufficialmente". Non
+inventare.
 Formato: `[{ "lingua": "Inglese", "livello": "B2", "condizione": "per corsi in inglese" }]`
 
-scadenzeOspitante: nomination E application, autunno E primavera. Se trovi solo
-2025/26 usali con `notePraticheAppend`: "Scadenze: basate su 2025/26". Se non
-trovabili: OMETTI il campo.
+`scadenzeOspitante`: cerca nomination E application, autunno E primavera. Se
+trovi soltanto 2025/26, usale aggiungendo `notePraticheAppend`: "Scadenze:
+basate su 2025/26". Se non sono trovabili, ometti il campo.
 Formato: `[{ "cosa": "Nomination (autunno)", "periodo": "entro 1 aprile" }]`
 
-Non bloccare il batch per una meta difficile: se non trovi nulla, OMETTILA.
+Non bloccare il batch per una meta difficile: se non trovi dati ufficiali,
+omettila.
 
-## STEP 3 — Scrivi batch/OUTPUT.json
-Una chiave per ogni codiceErasmus con dati trovati (le mete senza dati si
-omettono). Per ogni meta SOLO i campi trovati + opzionale `notePraticheAppend`
-+ `fonti` (campo→URL). NON includere campi immutabili. NON modificare i JS a mano.
+## STEP 2 — Scrivi batch/OUTPUT.json
+Inserisci una chiave per ogni `codiceErasmus` con dati trovati; ometti le mete
+senza dati. Per ogni meta inserisci SOLO i campi trovati, l'eventuale
+`notePraticheAppend` e `fonti` come mappa campo → URL. Non includere campi
+immutabili e non modificare i JS a mano.
 Esempio:
 ```json
 {
   "E GRANADA01": {
-    "requisitoLingua": [{ "lingua": "Spagnolo", "livello": "B1", "condizione": "per corsi in spagnolo" }],
-    "scadenzeOspitante": [{ "cosa": "Nomination (autunno)", "periodo": "entro 15 maggio" }],
-    "linkSito": "https://...",
+    "requisitoLingua": [
+      { "lingua": "Spagnolo", "livello": "B1", "condizione": "per corsi in spagnolo" }
+    ],
+    "scadenzeOspitante": [
+      { "cosa": "Nomination (autunno)", "periodo": "entro 15 maggio" }
+    ],
     "notePraticheAppend": "Scadenze: basate su 2025/26",
-    "fonti": { "scadenzeOspitante": "https://.../deadlines" }
+    "fonti": { "scadenzeOspitante": "https://example.edu/deadlines" }
   }
 }
 ```
 
-## STEP 4 — Applica il merge (deterministico)
+## STEP 3 — Applica il merge deterministico
 Esegui: `node scripts/applica-batch.mjs`
-Lo script: fonde l'OUTPUT su TUTTI i blocchi di ogni codice (codiceErasmus non e'
-univoco), esegue `node --check`, RICALCOLA `mappatura-stato.json` (pending,
+Lo script fonde l'OUTPUT su tutti i blocchi di ogni codice (codiceErasmus non e'
+univoco), esegue `node --check`, ricalcola `mappatura-stato.json` (pending,
 completate, tentativiLingua, linguaNonTrovabile dopo maxTentativi, avanzamento
 dipartimento, batch di follow-up per le pending rimaste) e salva le fonti in
-`batch/FONTI-<id>.json`. Se esce con errore: NON committare, riporta e fermati.
+`batch/FONTI-<id>.json`. Se fallisce, non committare: riporta l'errore e termina.
 
-## STEP 5 — Valida (obbligatorio)
+## STEP 4 — Valida (obbligatorio)
 Esegui: `node scripts/valida-stato.mjs`
-Deve stampare "Stato coerente". Se fallisce: NON committare. Gli script sono
-deterministici, quindi un fallimento qui e' un bug: riporta l'output e fermati
-(NON correggere mappatura-stato.json a mano).
+Deve stampare "Stato coerente". Se fallisce, non committare e non correggere
+`mappatura-stato.json` a mano: riporta l'output e termina.
 
-## STEP 6 — NON toccare STATO_DEL_SITO.md
-Gli script non lo toccano. Non modificarlo: e' un documento umano, causa conflitti.
+## STEP 5 — File fuori scope
+Non modificare `STATO_DEL_SITO.md`, `.github/**`, gli script o altri file
+infrastrutturali durante i batch dati. Sono documenti/config umani: modificarli
+qui causa conflitti inutili.
 
-## STEP 7 — Commit e push (la PR la apre il connettore)
-- Branch: `mappatura/lotto-AAAAMMGG-HHMM`
-- `git add js/atenei/ mappatura-stato.json batch/FONTI-*.json`
-  (i file dati ora stanno sotto js/atenei/<ateneo>/; questo path li copre tutti)
-- Commit: "mete: [descrizione breve] — AAAA-MM-GG"
-- Push del branch su origin. NIENTE altro: il connettore apre la PR (label
-  codex/codex-automation) e la Action "auto-merge" la fonde dopo aver ri-validato.
+## STEP 6 — Commit e push
+1. Crea il branch `mappatura/lotto-AAAAMMGG-HHMM` dalla detached HEAD corrente.
+2. Aggiungi soltanto: `js/atenei/ mappatura-stato.json batch/FONTI-*.json`
+   (i file dati vivono sotto `js/atenei/<ateneo>/`; questo path li copre tutti).
+3. Commit: `mete: [descrizione breve] - AAAA-MM-GG`.
+4. Push del branch su origin. Non aprire PR: la Action integra direttamente su
+   `main` dopo un merge a tre vie e una nuova validazione.
 
-## tipo == "nuovo_dipartimento" (fuori pipeline) — REGOLE PER ATENEO
+## STEP 7 — Verifica obbligatoria della pubblicazione
+Dopo il push esegui:
+`node scripts/verifica-pubblicazione.mjs mappatura/lotto-AAAAMMGG-HHMM`
+Lo script attende che la Action rimuova il branch e verifica su `origin/main` il
+commit esatto `mappatura: auto-merge <branch>`. Solo con exit code 0 puoi
+dichiarare il lotto pubblicato. Se fallisce o va in timeout, riporta che il
+lotto NON e' stato pubblicato e indica di controllare Action/Issue; non creare
+un secondo branch nello stesso run.
 
-La pipeline a imbuto vale solo per ARRICCHIRE mete esistenti. Per un nuovo
-dipartimento/Facolta' la lista mete va creata PRIMA. Dipende dall'ateneo:
+## tipo == "nuovo_dipartimento" (dentro la pipeline) — REGOLE PER ATENEO
+
+Quando `prepara-batch.mjs` scrive un `INPUT.json` con `"tipo":"nuovo_dipartimento"`,
+la creazione delle mete dipende dall'ateneo: NON e' la stessa procedura per tutti.
 
 ### Ca' Foscari (sorgente leggibile → self-seed consentito)
-1. https://www.unive.it/data/11679, filtra per il dipartimento.
-2. Crea il `fileJs` (sotto `js/atenei/cafoscari/`) con TUTTE le mete (schema di
-   `js/atenei/cafoscari/dati-mete.js`; requisitoLingua e scadenzeOspitante vuoti).
-3. In `statoDipartimenti[dip]`: stato="in_corso", totale=N, completate=0,
-   pendingScadenze=[tutti i codici], pendingLingua=[tutti i codici],
-   tentativiLingua={}, linguaNonTrovabile=[].
-4. Aggiungi in fondo a `prossimiBatch` i batch del dipartimento (lotti da 5).
-5. Esegui `node scripts/valida-stato.mjs`, poi commit + push (STEP 7).
+1. Estrai TUTTE le destinazioni del dipartimento da
+   `https://www.unive.it/data/11679` (filtra per il dipartimento indicato).
+2. Crea il file indicato in `"fileJs"` (sotto `js/atenei/cafoscari/`) con TUTTE
+   le mete, stessa struttura di `js/atenei/cafoscari/dati-mete.js` (campi
+   immutabili reali; `requisitoLingua` e `scadenzeOspitante` = `[]`).
+3. Esegui: `node scripts/setup-dipartimento.mjs`
+   (crea `statoDipartimenti[dip]` e accoda i sotto-batch da 5 in modo
+   deterministico; NON modificare lo stato a mano).
+4. Esegui `node scripts/valida-stato.mjs` (deve dire "Stato coerente").
+5. Commit + push del branch `mappatura/...` come gli altri lotti (STEP 6-7).
+
+NON eseguire `applica-batch.mjs` per questo batch: non c'e' OUTPUT da fondere.
 
 ### Sapienza Roma (NON self-seed)
 Le destinazioni Sapienza vivono solo nel database `goerasmus.web.uniroma1.it`,
-che e' renderizzato in JavaScript: NON e' affidabilmente leggibile da ricerca web.
-Quindi NON creare tu i file Sapienza e NON tentare di scrapare quel DB.
+renderizzato lato JavaScript: NON e' affidabilmente leggibile da ricerca web o
+`web_fetch` semplice. Quindi NON creare tu i file Sapienza e NON tentare di
+scrapare quel DB.
+
 Il file mete di ogni Facolta' Sapienza (es. `js/atenei/sapienza/dati-mete-economia.js`)
-viene creato da un umano. Tu ricevi solo batch di arricchimento (lingua+scadenze)
-sulle mete gia' presenti: trattali con la pipeline normale (STEP 1-7), uguale a
-Ca' Foscari. Se per errore trovi un batch `nuovo_dipartimento` di una Facolta'
-Sapienza con `fileJs` mancante, TERMINA e segnala (non inventare le mete).
+lo crea SEMPRE un umano, prima che tu veda il batch. Se `prepara-batch.mjs` ti
+presenta un `"nuovo_dipartimento"` per una Facolta' Sapienza con `fileJs`
+mancante sul disco: TERMINA e segnala il problema. Non inventare le mete, non
+creare il file, non improvvisare una struttura.
+
+Una volta che il file esiste (creato da un umano) e' gia' registrato in
+`statoDipartimenti` con i suoi batch in coda: da quel momento in poi lo tratti
+come qualsiasi altro dipartimento, con la pipeline normale (STEP 0-7).
 
 ## NOTA chiavi dipartimento (multi-ateneo)
 Le chiavi di `statoDipartimenti` devono essere UNICHE tra atenei. Una Facolta'
