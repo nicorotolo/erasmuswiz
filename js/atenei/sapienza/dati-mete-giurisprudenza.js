@@ -168,9 +168,17 @@ var METE = [
       { numero: 4, mesi: 9, livello: "L", note: "" },
       { numero: 4, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "per corsi in francese presso la Faculty of Law" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese; per la Faculty of Law e' richiesto anche Francese B1" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "entro 1 aprile 2026" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 21 aprile 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre 2026" },
+        { cosa: "Application (primavera)", periodo: "entro 21 ottobre 2026" }
+      ],
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli)."
   },
   {
@@ -186,9 +194,15 @@ var METE = [
       { numero: 3, mesi: 10, livello: "L", note: "" },
       { numero: 3, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "minimo per la Faculty of Law and Political Science; B2 raccomandato" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 1 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -204,9 +218,17 @@ var METE = [
       { numero: 3, mesi: 9, livello: "L", note: "" },
       { numero: 3, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B2", condizione: "entro l'inizio degli studi; almeno B1 al momento della domanda" },
+        { lingua: "Inglese", livello: "B2", condizione: "entro l'inizio degli studi per corsi in inglese; almeno B1 al momento della domanda" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -221,9 +243,16 @@ var METE = [
     posti: [
       { numero: 5, mesi: 10, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B2", condizione: "per la Facolta' di Giurisprudenza" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (autunno)", periodo: "15 aprile - 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
+        { cosa: "Application (primavera)", periodo: "15 ottobre - 30 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 5. Solo livello triennale."
   },
   {
@@ -239,9 +268,15 @@ var METE = [
       { numero: 4, mesi: 8, livello: "L", note: "" },
       { numero: 4, mesi: 8, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B1", condizione: "minimo obbligatorio nella lingua di insegnamento; B2 raccomandato" },
+        { lingua: "Inglese", livello: "B1", condizione: "minimo obbligatorio nella lingua di insegnamento; B2 raccomandato" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination/Application (autunno)", periodo: "aprile - maggio" },
+        { cosa: "Nomination/Application (primavera)", periodo: "ottobre - novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli)."
   },
   {

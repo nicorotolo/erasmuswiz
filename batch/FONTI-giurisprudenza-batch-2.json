@@ -1,0 +1,27 @@
+{
+  "SAP-IUS-AMU": {
+    "requisitoLingua": "https://advise.science.ust.hk/sites/default/files/Aix-Marseille-University_Factsheet_AY2026-27%20-%20For%20students.pdf",
+    "scadenzeOspitante": "https://advise.science.ust.hk/sites/default/files/Aix-Marseille-University_Factsheet_AY2026-27%20-%20For%20students.pdf",
+    "linkSito": "https://www.univ-amu.fr/en/international-students/international-students-exchange"
+  },
+  "SAP-IUS-BORDEAUX": {
+    "requisitoLingua": "https://www.u-bordeaux.fr/download_file/view/a5d45633-a059-4e4f-aef8-c88acac89188/3872",
+    "scadenzeOspitante": "https://www.u-bordeaux.fr/en/international/come-to-bordeaux/international-students/exchange-programmes",
+    "linkSito": "https://www.u-bordeaux.fr/en/international/come-to-bordeaux/international-students/exchange-programmes"
+  },
+  "SAP-IUS-LMU-MUC": {
+    "requisitoLingua": "https://www.lmu.de/en/study/all-degrees-and-programs/programs-for-international-visiting-students/erasmus-and-lmuexchange/how-to-apply/",
+    "scadenzeOspitante": "https://www.lmu.de/en/study/all-degrees-and-programs/programs-for-international-visiting-students/erasmus-and-lmuexchange/timeline-for-exchange-students.html",
+    "linkSito": "https://www.lmu.de/en/study/all-degrees-and-programs/programs-for-international-visiting-students/erasmus-and-lmuexchange/"
+  },
+  "SAP-IUS-HU-BERLIN": {
+    "requisitoLingua": "https://ajk.elte.hu/sites/default/files/%C3%81JK/documents/2025-11/%C3%81JK.HU%20Berlin_Incoming%20Fact%20Sheet_Erasmus.pdf",
+    "scadenzeOspitante": "https://ajk.elte.hu/sites/default/files/%C3%81JK/documents/2025-11/%C3%81JK.HU%20Berlin_Incoming%20Fact%20Sheet_Erasmus.pdf",
+    "linkSito": "https://www.rewi.hu-berlin.de/en/ip/students/students"
+  },
+  "SAP-IUS-TUBINGEN": {
+    "requisitoLingua": "https://uni-tuebingen.de/en/international/study-in-tuebingen/erasmus-and-exchange-to-tuebingen/application-and-preparation/",
+    "scadenzeOspitante": "https://uni-tuebingen.de/en/international/study-in-tuebingen/erasmus-and-exchange-to-tuebingen/",
+    "linkSito": "https://uni-tuebingen.de/en/international/study-in-tuebingen/erasmus-and-exchange-to-tuebingen/"
+  }
+}
