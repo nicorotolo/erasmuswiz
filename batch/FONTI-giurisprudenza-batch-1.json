@@ -1,0 +1,27 @@
+{
+  "SAP-IUS-SALZBURG": {
+    "requisitoLingua": "https://www.plus.ac.at/international-relations-department/international-relations-office/faq/incoming-exchange-students-erasmus/?lang=en",
+    "scadenzeOspitante": "https://www.plus.ac.at/international-relations-department/international-relations-office/service-for-students/in-salzburg/study-placements/exchange-students/?lang=en",
+    "linkSito": "https://www.plus.ac.at/international-relations-department/international-relations-office/service-for-students/in-salzburg/study-placements/exchange-students/?lang=en"
+  },
+  "SAP-IUS-INNSBRUCK": {
+    "requisitoLingua": "https://www.uibk.ac.at/en/admission-department/admission/language-certificates-for-admission-to-study-programmes/",
+    "scadenzeOspitante": "https://www.uibk.ac.at/en/international-relations-office/student-mobility/incoming/mobility-programmes/erasmus-studmob/",
+    "linkSito": "https://www.uibk.ac.at/en/international-relations-office/student-mobility/incoming/mobility-programmes/erasmus-studmob/"
+  },
+  "SAP-IUS-ULB-BXL": {
+    "requisitoLingua": "https://www.ulb.be/medias/fichier/factsheet-eu-26-27_1771598204643-pdf",
+    "scadenzeOspitante": "https://www.ulb.be/en/mobility/for-partner-universities",
+    "linkSito": "https://www.ulb.be/en/mobility/for-partner-universities"
+  },
+  "SAP-IUS-SOFIA": {
+    "requisitoLingua": "https://www.ajk.elte.hu/dstore/document/166355/BUL%202024_2025-BG-SOFIA06_Info-sheet.pdf",
+    "scadenzeOspitante": "https://www.ajk.elte.hu/dstore/document/166355/BUL%202024_2025-BG-SOFIA06_Info-sheet.pdf",
+    "linkSito": "https://erasmus.uni-sofia.bg/site/income/"
+  },
+  "SAP-IUS-ASSAS-P2": {
+    "requisitoLingua": "https://www.uni-goettingen.de/de/document/download/2b027df4cbe32223010870f49e1585c5.pdf/Institutional_Fact_Sheet_Paris-Pantheon-Assas%20II.pdf",
+    "scadenzeOspitante": "https://www.uni-goettingen.de/de/document/download/2b027df4cbe32223010870f49e1585c5.pdf/Institutional_Fact_Sheet_Paris-Pantheon-Assas%20II.pdf",
+    "linkSito": "https://www.assas-universite.fr/fr/international/venir-etudier-paris-2/venir-etudier-paris-2-en-programme-dechange"
+  }
+}

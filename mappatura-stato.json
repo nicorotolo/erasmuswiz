@@ -1,30 +1,16 @@
 {
   "versione": "2.0",
-  "aggiornato": "2026-06-26",
+  "aggiornato": "2026-07-01",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Giurisprudenza (Sapienza)",
-  "runCompletati": 130,
+  "runCompletati": 131,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "giurisprudenza-batch-1",
-      "priorita": 5,
-      "dipartimento": "Giurisprudenza (Sapienza)",
-      "descrizione": "Giurisprudenza (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "SAP-IUS-SALZBURG",
-        "SAP-IUS-INNSBRUCK",
-        "SAP-IUS-ULB-BXL",
-        "SAP-IUS-SOFIA",
-        "SAP-IUS-ASSAS-P2"
-      ]
-    },
     {
       "id": "giurisprudenza-batch-2",
       "priorita": 5,
@@ -243,13 +229,8 @@
       "fileJs": "js/atenei/sapienza/dati-mete-giurisprudenza.js",
       "stato": "in_corso",
       "totale": 20,
-      "completate": 0,
+      "completate": 5,
       "pendingScadenze": [
-        "SAP-IUS-SALZBURG",
-        "SAP-IUS-INNSBRUCK",
-        "SAP-IUS-ULB-BXL",
-        "SAP-IUS-SOFIA",
-        "SAP-IUS-ASSAS-P2",
         "SAP-IUS-AMU",
         "SAP-IUS-BORDEAUX",
         "SAP-IUS-LMU-MUC",
@@ -267,11 +248,6 @@
         "SAP-IUS-STOCKHOLM"
       ],
       "pendingLingua": [
-        "SAP-IUS-SALZBURG",
-        "SAP-IUS-INNSBRUCK",
-        "SAP-IUS-ULB-BXL",
-        "SAP-IUS-SOFIA",
-        "SAP-IUS-ASSAS-P2",
         "SAP-IUS-AMU",
         "SAP-IUS-BORDEAUX",
         "SAP-IUS-LMU-MUC",
@@ -1081,6 +1057,12 @@
       "data": "2026-06-26",
       "mete": 20,
       "note": "Avvio Giurisprudenza (Sapienza): creato js/atenei/sapienza/dati-mete-giurisprudenza.js con 20 mete; accodati 4 sotto-batch."
+    },
+    {
+      "batch": 131,
+      "data": "2026-07-01",
+      "mete": 5,
+      "note": "Giurisprudenza (Sapienza) giurisprudenza-batch-1: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
