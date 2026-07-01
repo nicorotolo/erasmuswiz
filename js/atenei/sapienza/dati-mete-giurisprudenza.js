@@ -396,9 +396,14 @@ var METE = [
       { numero: 3, mesi: 9, livello: "L", note: "" },
       { numero: 3, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Sloveno o Inglese", livello: "B2", condizione: "per studiare presso l'Universita di Ljubljana" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno/anno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -414,9 +419,16 @@ var METE = [
       { numero: 1, mesi: 10, livello: "L", note: "" },
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "se il livello minimo dell'accordo non e soddisfatto o per corsi KAA" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
+        { cosa: "Application (autunno/anno)", periodo: "entro 31 maggio per studenti senza visto; entro 30 aprile per studenti con visto" },
+        { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -432,9 +444,16 @@ var METE = [
       { numero: 1, mesi: 9, livello: "L", note: "" },
       { numero: 1, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "minimo generale CEFR per studenti Erasmus incoming; ogni facolta puo avere requisiti specifici" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno)", periodo: "15 marzo - 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "1 settembre - 15 novembre" },
+        { cosa: "Application (autunno/anno)", periodo: "1 aprile - 31 maggio" },
+        { cosa: "Application (primavera)", periodo: "15 settembre - 20 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -449,9 +468,17 @@ var METE = [
     posti: [
       { numero: 2, mesi: 10, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "obbligatorio certificato per studenti nominati alla Faculty of Law" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "1-30 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "1-30 settembre" },
+        { cosa: "Application (autunno)", periodo: "1-31 maggio" },
+        { cosa: "Application (primavera)", periodo: "1-31 ottobre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale (esiste un accordo separato per PhD)."
   },
   {
@@ -468,7 +495,12 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 1. Solo livello triennale."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 1 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 settembre" },
+        { cosa: "Application (autunno)", periodo: "entro 1 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 1 ottobre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 1. Solo livello triennale. || Lingua: CEFR non pubblicato ufficialmente"
   }
 ];
