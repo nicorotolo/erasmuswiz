@@ -1,0 +1,1222 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>ErasmusWiz — Dashboard Mappatura</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f0f0f0; font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #222; }
+  .page { width: 960px; margin: 0 auto; padding: 24px 0 48px; }
+
+  /* INTESTAZIONE */
+  .header { background: #fff; border: 1px solid #ccc; padding: 18px 24px; margin-bottom: 20px; }
+  .header h1 { font-size: 20px; font-weight: bold; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .header-meta { display: flex; gap: 32px; color: #555; font-size: 12px; }
+  .header-meta span strong { color: #222; }
+
+  /* SEZIONI */
+  .section { background: #fff; border: 1px solid #ccc; margin-bottom: 20px; }
+  .section-title {
+    background: #eee;
+    border-bottom: 1px solid #ccc;
+    padding: 8px 16px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #444;
+  }
+  .section-body { padding: 16px; }
+
+  /* TABELLE */
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { background: #f5f5f5; border: 1px solid #ddd; padding: 6px 10px; text-align: left; font-weight: bold; color: #333; }
+  td { border: 1px solid #ddd; padding: 6px 10px; vertical-align: top; }
+  tr:nth-child(even) td { background: #fafafa; }
+  tr.highlight td { background: #fff8e1; }
+  tr.highlight-first td { background: #fffde7; border-left: 3px solid #b8860b; }
+
+  /* BADGE STATO */
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 0.3px;
+  }
+  .badge-completo   { background: #d4edda; color: #2d6a2d; border: 1px solid #2d6a2d; }
+  .badge-in_corso   { background: #fff3cd; color: #b8860b; border: 1px solid #b8860b; }
+  .badge-non_iniziato { background: #e9e9e9; color: #888; border: 1px solid #bbb; }
+
+  /* BADGE TIPO BATCH */
+  .badge-tipo {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: bold;
+    background: #e8eef5;
+    color: #336;
+    border: 1px solid #aac;
+    white-space: nowrap;
+  }
+  .badge-tipo.nuovo { background: #f0e8ff; color: #503; border-color: #b09; }
+
+  /* BARRA PROGRESSO */
+  .progress-wrap { display: flex; align-items: center; gap: 10px; }
+  .progress-bar-bg { flex: 1; height: 12px; background: #e0e0e0; border-radius: 6px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; border-radius: 6px; background: #2d6a2d; }
+  .progress-bar-fill.medium { background: #b8860b; }
+  .progress-pct { font-size: 11px; color: #555; white-space: nowrap; width: 60px; }
+  .progress-count { font-size: 11px; color: #888; white-space: nowrap; }
+
+  /* METE PENDING */
+  .meta-list { list-style: none; column-count: 2; column-gap: 24px; }
+  .meta-list li { padding: 3px 0; font-family: monospace; font-size: 12px; border-bottom: 1px dotted #eee; display: flex; justify-content: space-between; }
+  .meta-list li.hard { color: #8b0000; font-weight: bold; }
+  .tentativi { font-size: 11px; color: #888; }
+  .tentativi.hard { color: #8b0000; }
+
+  .abandoned-label { font-size: 11px; font-weight: bold; color: #8b0000; margin-top: 14px; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .meta-list-abandoned li { color: #8b0000; }
+
+  /* DIPARTIMENTO RIGA */
+  .dip-row { display: grid; grid-template-columns: 200px 110px 1fr 80px 80px 80px; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; }
+  .dip-row:last-child { border-bottom: none; }
+  .dip-name { font-weight: bold; font-size: 12px; }
+  .dip-label { font-size: 11px; color: #888; text-align: center; }
+  .dip-val { text-align: center; font-size: 12px; }
+  .dip-val.zero { color: #bbb; }
+  .dip-val.has-val { color: #b8860b; font-weight: bold; }
+  .dip-val.red { color: #8b0000; font-weight: bold; }
+
+  .col-header { display: grid; grid-template-columns: 200px 110px 1fr 80px 80px 80px; gap: 12px; padding: 4px 0 8px; border-bottom: 2px solid #ccc; margin-bottom: 4px; font-size: 11px; font-weight: bold; color: #555; text-transform: uppercase; letter-spacing: 0.5px; }
+  .col-header > span:nth-child(n+4) { text-align: center; }
+
+  .empty-mete { color: #aaa; font-style: italic; font-size: 12px; }
+</style>
+</head>
+<body>
+<script>
+const STATO = {
+  "versione": "2.0",
+  "aggiornato": "2026-06-15",
+  "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da Codex via applica-batch.mjs ad ogni run (auto-merge su main tramite auto-merge.yml). NON modificare manualmente salvo emergenze.",
+  "universitaCorrente": "Ca' Foscari Venezia",
+  "dipartimentoCorrente": "Scienze ambientali, informatica e statistica",
+  "runCompletati": 34,
+  "config": {
+    "maxTentativiLingua": 2,
+    "sogliaAvanzamentoDipartimento": 0.85,
+    "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
+  },
+  "prossimiBatch": [
+    {
+      "id": "management-batch-18",
+      "priorita": 7,
+      "dipartimento": "Management",
+      "descrizione": "Management - secondo tentativo lingua lotto 2",
+      "tipo": "lingua",
+      "mete": [
+        "F LILLE11",
+        "F NANCY43"
+      ]
+    },
+    {
+      "id": "management-batch-19",
+      "priorita": 7,
+      "dipartimento": "Management",
+      "descrizione": "Management - secondo tentativo lingua lotto 3",
+      "tipo": "lingua",
+      "mete": [
+        "F NANTES12"
+      ]
+    },
+    {
+      "id": "management-batch-20",
+      "priorita": 7,
+      "dipartimento": "Management",
+      "descrizione": "Management - secondo tentativo lingua lotto 3",
+      "tipo": "lingua",
+      "mete": [
+        "F RENNES01"
+      ]
+    },
+    {
+      "id": "management-batch-21",
+      "priorita": 7,
+      "dipartimento": "Management",
+      "descrizione": "Management - secondo tentativo lingua lotto 4",
+      "tipo": "lingua",
+      "mete": [
+        "MT MALTA01"
+      ]
+    },
+    {
+      "id": "management-batch-22",
+      "priorita": 7,
+      "dipartimento": "Management",
+      "descrizione": "Management - secondo tentativo lingua lotto 5",
+      "tipo": "lingua",
+      "mete": [
+        "P COIMBRA01"
+      ]
+    },
+    {
+      "id": "management-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Management",
+      "descrizione": "Management - follow-up pending",
+      "tipo": "lingua",
+      "mete": [
+        "S LINKOPI01",
+        "S STOCKHO01"
+      ]
+    },
+    {
+      "id": "lingue-batch-2",
+      "priorita": 6,
+      "dipartimento": "Lingue e culture orientali",
+      "descrizione": "Lingue e culture orientali - completamento lingua e scadenze",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "TR ISTANBU01",
+        "B GENT01",
+        "E ALICANT01",
+        "E SEVILLA01",
+        "F PARIS014"
+      ]
+    },
+    {
+      "id": "lingue-batch-3",
+      "priorita": 6,
+      "dipartimento": "Lingue e culture orientali",
+      "descrizione": "Lingue e culture orientali - completamento lingua e scadenze",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "TR ANKARA04",
+        "TR ISTANBU21",
+        "TR ANKARA01",
+        "D MUNCHEN01",
+        "F PARIS178"
+      ]
+    },
+    {
+      "id": "lingue-batch-4",
+      "priorita": 6,
+      "dipartimento": "Lingue e culture orientali",
+      "descrizione": "Lingue e culture orientali - completamento lingua e scadenze",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D HEIDELB01",
+        "IRLCORK01",
+        "F LYON03",
+        "A WIEN01",
+        "B LEUVEN01"
+      ]
+    },
+    {
+      "id": "lingue-batch-5",
+      "priorita": 6,
+      "dipartimento": "Lingue e culture orientali",
+      "descrizione": "Lingue e culture orientali - completamento lingua e scadenze",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E BARCELO02",
+        "S LUND01",
+        "B LEUVEN01",
+        "E MADRID04",
+        "F LYON61"
+      ]
+    },
+    {
+      "id": "lingue-batch-6",
+      "priorita": 6,
+      "dipartimento": "Lingue e culture orientali",
+      "descrizione": "Lingue e culture orientali - completamento lingua e scadenze",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D BERLIN01",
+        "F GRENOBL23",
+        "F GRENOBL23",
+        "D KONSTAN01"
+      ]
+    },
+    {
+      "id": "scienze-batch-2",
+      "priorita": 8,
+      "dipartimento": "Scienze ambientali, informatica e statistica",
+      "descrizione": "Scienze ambientali, informatica e statistica - completamento lingua e scadenze lotto 1",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "IS REYKJAV01",
+        "D BINGEN01",
+        "N BERGEN01",
+        "B ANTWERP01",
+        "D SAARBRU01"
+      ]
+    },
+    {
+      "id": "scienze-batch-3",
+      "priorita": 8,
+      "dipartimento": "Scienze ambientali, informatica e statistica",
+      "descrizione": "Scienze ambientali, informatica e statistica - completamento lingua e scadenze lotto 2",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SF HELSINK40",
+        "E BARCELO16",
+        "E BARCELO01",
+        "F TOULOUS02",
+        "F CHAMBER01"
+      ]
+    },
+    {
+      "id": "scienze-batch-4",
+      "priorita": 8,
+      "dipartimento": "Scienze ambientali, informatica e statistica",
+      "descrizione": "Scienze ambientali, informatica e statistica - completamento lingua e scadenze lotto 3",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E BARCELO02",
+        "TR ANKARA08",
+        "P LISBOA03",
+        "CZ OLOMOUC01",
+        "CZ BRNO05"
+      ]
+    },
+    {
+      "id": "scienze-batch-5",
+      "priorita": 8,
+      "dipartimento": "Scienze ambientali, informatica e statistica",
+      "descrizione": "Scienze ambientali, informatica e statistica - completamento lingua e scadenze lotto 4",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "A WIEN02",
+        "NL TILBURG01",
+        "F PARIS482",
+        "SF TURKU05",
+        "SF KOKKOLA05"
+      ]
+    },
+    {
+      "id": "scienze-batch-6",
+      "priorita": 8,
+      "dipartimento": "Scienze ambientali, informatica e statistica",
+      "descrizione": "Scienze ambientali, informatica e statistica - completamento lingua e scadenze lotto 5",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "RO TIMISOA01",
+        "PL KRAKOW02",
+        "D BRAUNSC01"
+      ]
+    },
+    {
+      "id": "filosofia-batch-2",
+      "priorita": 6,
+      "dipartimento": "Filosofia e Beni Culturali",
+      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 1",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "CZ BRNO05",
+        "CZ PRAHA07",
+        "D BERLIN02",
+        "D KASSEL01",
+        "D GOTTING01"
+      ]
+    },
+    {
+      "id": "filosofia-batch-3",
+      "priorita": 6,
+      "dipartimento": "Filosofia e Beni Culturali",
+      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 2",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D FRANKFU01",
+        "E SEVILLA03",
+        "F PARIS003",
+        "B LIEGE01",
+        "F LILLE103"
+      ]
+    },
+    {
+      "id": "filosofia-batch-4",
+      "priorita": 6,
+      "dipartimento": "Filosofia e Beni Culturali",
+      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 3",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "NL AMSTERD01",
+        "D WIESBAD01",
+        "F PARIS008",
+        "F MONTPEL03",
+        "F PARIS001"
+      ]
+    },
+    {
+      "id": "filosofia-batch-5",
+      "priorita": 6,
+      "dipartimento": "Filosofia e Beni Culturali",
+      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 4",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "B GENT01",
+        "S LUND01",
+        "N OSLO72",
+        "NL GRONING01",
+        "TR ANKARA07"
+      ]
+    },
+    {
+      "id": "filosofia-batch-6",
+      "priorita": 6,
+      "dipartimento": "Filosofia e Beni Culturali",
+      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 5",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "P LISBOA01",
+        "DK ROSKILD01",
+        "E SALAMAN02",
+        "NL UTRECHT01",
+        "F PARIS014"
+      ]
+    },
+    {
+      "id": "filosofia-batch-7",
+      "priorita": 6,
+      "dipartimento": "Filosofia e Beni Culturali",
+      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 6",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E BARCELO15",
+        "NL NIJMEGE01",
+        "DK KOBENHA01",
+        "E MADRID04",
+        "N TROMSO01"
+      ]
+    },
+    {
+      "id": "filosofia-batch-8",
+      "priorita": 6,
+      "dipartimento": "Filosofia e Beni Culturali",
+      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 7",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E MADRID03",
+        "E BARCELO02",
+        "E OVIEDO01",
+        "NL WAGENIN01",
+        "N-STAVANG-01"
+      ]
+    },
+    {
+      "id": "filosofia-batch-9",
+      "priorita": 6,
+      "dipartimento": "Filosofia e Beni Culturali",
+      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 8",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D MUNCHEN01",
+        "HU BUDAPES01",
+        "F STRASBO48",
+        "D FREIBUR01",
+        "P COIMBRA01"
+      ]
+    },
+    {
+      "id": "filosofia-batch-10",
+      "priorita": 6,
+      "dipartimento": "Filosofia e Beni Culturali",
+      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 9",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "A WIEN01",
+        "D KOBLENZ01",
+        "F PARIS468",
+        "F TOURS01",
+        "G EGALEO02"
+      ]
+    },
+    {
+      "id": "filosofia-batch-11",
+      "priorita": 6,
+      "dipartimento": "Filosofia e Beni Culturali",
+      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 10",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D STUTTGA01",
+        "D TUBINGE01",
+        "F BORDEAU03",
+        "F GRENOBL55"
+      ]
+    }
+  ],
+  "statoDipartimenti": {
+    "Economia": {
+      "fileJs": "js/dati-mete.js",
+      "stato": "completo",
+      "totale": 58,
+      "completate": 52,
+      "pendingScadenze": [],
+      "pendingLingua": [],
+      "tentativiLingua": {
+        "CY PAFOS01": 2,
+        "DK KOBENHA01": 2,
+        "E TENERIF28": 2,
+        "E PALMA01": 2,
+        "TR ANKARA07": 2
+      },
+      "linguaNonTrovabile": [
+        "E PALMA01",
+        "TR ANKARA07",
+        "CY PAFOS01",
+        "DK KOBENHA01",
+        "E TENERIF28"
+      ]
+    },
+    "Management": {
+      "fileJs": "js/dati-mete-management.js",
+      "stato": "in_corso",
+      "totale": 76,
+      "completate": 67,
+      "pendingScadenze": [],
+      "pendingLingua": [
+        "F LILLE11",
+        "F NANCY43",
+        "F NANTES12",
+        "F RENNES01",
+        "MT MALTA01",
+        "P COIMBRA01",
+        "S LINKOPI01",
+        "S STOCKHO01"
+      ],
+      "tentativiLingua": {
+        "A KLAGENF01": 2,
+        "F LILLE11": 1,
+        "F NANCY43": 1,
+        "F NANTES12": 1,
+        "F RENNES01": 1,
+        "MT MALTA01": 1,
+        "P COIMBRA01": 1,
+        "S LINKOPI01": 1,
+        "S STOCKHO01": 1
+      },
+      "linguaNonTrovabile": [
+        "A KLAGENF01"
+      ]
+    },
+    "Lingue e culture orientali": {
+      "fileJs": "js/dati-mete-lingue.js",
+      "stato": "in_corso",
+      "totale": 24,
+      "completate": 0,
+      "pendingScadenze": [
+        "TR ISTANBU01",
+        "B GENT01",
+        "E ALICANT01",
+        "E SEVILLA01",
+        "F PARIS014",
+        "TR ANKARA04",
+        "TR ISTANBU21",
+        "TR ANKARA01",
+        "D MUNCHEN01",
+        "F PARIS178",
+        "D HEIDELB01",
+        "IRLCORK01",
+        "F LYON03",
+        "A WIEN01",
+        "B LEUVEN01",
+        "E BARCELO02",
+        "S LUND01",
+        "B LEUVEN01",
+        "E MADRID04",
+        "F LYON61",
+        "D BERLIN01",
+        "F GRENOBL23",
+        "F GRENOBL23",
+        "D KONSTAN01"
+      ],
+      "pendingLingua": [
+        "TR ISTANBU01",
+        "B GENT01",
+        "E ALICANT01",
+        "E SEVILLA01",
+        "F PARIS014",
+        "TR ANKARA04",
+        "TR ISTANBU21",
+        "TR ANKARA01",
+        "D MUNCHEN01",
+        "F PARIS178",
+        "D HEIDELB01",
+        "IRLCORK01",
+        "F LYON03",
+        "A WIEN01",
+        "B LEUVEN01",
+        "E BARCELO02",
+        "S LUND01",
+        "B LEUVEN01",
+        "E MADRID04",
+        "F LYON61",
+        "D BERLIN01",
+        "F GRENOBL23",
+        "F GRENOBL23",
+        "D KONSTAN01"
+      ],
+      "tentativiLingua": {},
+      "linguaNonTrovabile": []
+    },
+    "Scienze ambientali, informatica e statistica": {
+      "fileJs": "js/dati-mete-scienze.js",
+      "stato": "in_corso",
+      "totale": 25,
+      "completate": 0,
+      "pendingScadenze": [
+        "IS REYKJAV01",
+        "D BINGEN01",
+        "N BERGEN01",
+        "B ANTWERP01",
+        "D SAARBRU01",
+        "SF HELSINK40",
+        "E BARCELO16",
+        "E BARCELO01",
+        "F TOULOUS02",
+        "F CHAMBER01",
+        "E BARCELO02",
+        "TR ANKARA08",
+        "P LISBOA03",
+        "CZ OLOMOUC01",
+        "CZ BRNO05",
+        "A WIEN02",
+        "NL TILBURG01",
+        "F PARIS482",
+        "SF TURKU05",
+        "SF KOKKOLA05",
+        "RO TIMISOA01",
+        "PL KRAKOW02",
+        "D BRAUNSC01"
+      ],
+      "pendingLingua": [
+        "IS REYKJAV01",
+        "D BINGEN01",
+        "N BERGEN01",
+        "B ANTWERP01",
+        "D SAARBRU01",
+        "SF HELSINK40",
+        "E BARCELO16",
+        "E BARCELO01",
+        "F TOULOUS02",
+        "F CHAMBER01",
+        "E BARCELO02",
+        "TR ANKARA08",
+        "P LISBOA03",
+        "CZ OLOMOUC01",
+        "CZ BRNO05",
+        "A WIEN02",
+        "NL TILBURG01",
+        "F PARIS482",
+        "SF TURKU05",
+        "SF KOKKOLA05",
+        "RO TIMISOA01",
+        "PL KRAKOW02",
+        "D BRAUNSC01"
+      ],
+      "tentativiLingua": {},
+      "linguaNonTrovabile": []
+    },
+    "Filosofia e Beni Culturali": {
+      "fileJs": "js/dati-mete-filosofia.js",
+      "stato": "in_corso",
+      "totale": 66,
+      "completate": 0,
+      "pendingScadenze": [
+        "CZ BRNO05",
+        "CZ PRAHA07",
+        "D BERLIN02",
+        "D KASSEL01",
+        "D GOTTING01",
+        "D FRANKFU01",
+        "E SEVILLA03",
+        "F PARIS003",
+        "B LIEGE01",
+        "F LILLE103",
+        "NL AMSTERD01",
+        "D WIESBAD01",
+        "F PARIS008",
+        "F MONTPEL03",
+        "F PARIS001",
+        "B GENT01",
+        "S LUND01",
+        "N OSLO72",
+        "NL GRONING01",
+        "TR ANKARA07",
+        "P LISBOA01",
+        "DK ROSKILD01",
+        "E SALAMAN02",
+        "NL UTRECHT01",
+        "F PARIS014",
+        "E BARCELO15",
+        "NL NIJMEGE01",
+        "DK KOBENHA01",
+        "E MADRID04",
+        "N TROMSO01",
+        "E MADRID03",
+        "E BARCELO02",
+        "E OVIEDO01",
+        "NL WAGENIN01",
+        "N-STAVANG-01",
+        "D MUNCHEN01",
+        "HU BUDAPES01",
+        "F STRASBO48",
+        "D FREIBUR01",
+        "P COIMBRA01",
+        "A WIEN01",
+        "D KOBLENZ01",
+        "F PARIS468",
+        "F TOURS01",
+        "G EGALEO02",
+        "D STUTTGA01",
+        "D TUBINGE01",
+        "F BORDEAU03",
+        "F GRENOBL55"
+      ],
+      "pendingLingua": [
+        "CZ BRNO05",
+        "CZ PRAHA07",
+        "D BERLIN02",
+        "D KASSEL01",
+        "D GOTTING01",
+        "D FRANKFU01",
+        "E SEVILLA03",
+        "F PARIS003",
+        "B LIEGE01",
+        "F LILLE103",
+        "NL AMSTERD01",
+        "D WIESBAD01",
+        "F PARIS008",
+        "F MONTPEL03",
+        "F PARIS001",
+        "B GENT01",
+        "S LUND01",
+        "N OSLO72",
+        "NL GRONING01",
+        "TR ANKARA07",
+        "P LISBOA01",
+        "DK ROSKILD01",
+        "E SALAMAN02",
+        "NL UTRECHT01",
+        "F PARIS014",
+        "E BARCELO15",
+        "NL NIJMEGE01",
+        "DK KOBENHA01",
+        "E MADRID04",
+        "N TROMSO01",
+        "E MADRID03",
+        "E BARCELO02",
+        "E OVIEDO01",
+        "NL WAGENIN01",
+        "N-STAVANG-01",
+        "D MUNCHEN01",
+        "HU BUDAPES01",
+        "F STRASBO48",
+        "D FREIBUR01",
+        "P COIMBRA01",
+        "A WIEN01",
+        "D KOBLENZ01",
+        "F PARIS468",
+        "F TOURS01",
+        "G EGALEO02",
+        "D STUTTGA01",
+        "D TUBINGE01",
+        "F BORDEAU03",
+        "F GRENOBL55"
+      ],
+      "tentativiLingua": {},
+      "linguaNonTrovabile": []
+    }
+  },
+  "regoleProgressione": {
+    "completamentoDipartimento": "Quando pendingScadenze e pendingLingua di un dipartimento sono entrambi vuoti, segna stato = 'completo' e avanza al prossimo dipartimento in prossimiBatch.",
+    "nuovoDipartimento": "Per tipo = 'nuovo_dipartimento': scarica la lista ufficiale da https://www.unive.it/data/11679, filtra per il dipartimento, crea il file JS con lo stesso schema di dati-mete.js (tutti i campi reali eccetto requisitoLingua e scadenzeOspitante che restano da completare), popola prossimiBatch con i batch successivi di quel dipartimento.",
+    "metaCompleta": "Una meta e' completa quando: requisitoLingua != [] E scadenzeOspitante != []. Rimuoverla dai pending dopo il merge della PR.",
+    "seNonTrovi": "Se dopo ricerca su sito ufficiale + scheda Ca' Foscari il dato non e' trovabile, mantieni la meta in pending e aggiungi nota in notePratiche. Non bloccare il batch per una meta difficile.",
+    "avanzamentoConSoglia": "Se pendingScadenze=[] e tutte le mete in pendingLingua sono in linguaNonTrovabile e completate/totale >= config.sogliaAvanzamentoDipartimento, il dipartimento puo' diventare 'completo' anche con qualche lingua non trovata.",
+    "codiceNonUnivoco": "ATTENZIONE: codiceErasmus NON e' univoco (alcuni atenei hanno piu' accordi: es. E PALMA01, F PARIS001 x3). Quando aggiorni o conti una meta per codiceErasmus, opera su TUTTI i blocchi con quel codice. La chiave univoca reale e' il campo 'id'."
+  },
+  "storico": [
+    {
+      "batch": 1,
+      "data": "2026-06-11",
+      "mete": 10,
+      "note": "Prima sessione: lingue e scadenze per 10 mete Economia"
+    },
+    {
+      "batch": 2,
+      "data": "2026-06-11",
+      "mete": 10,
+      "note": "Seconda sessione manuale: completamento lingua 39/58"
+    },
+    {
+      "batch": 3,
+      "data": "2026-06-11",
+      "mete": 5,
+      "note": "Scadenze: 53/58 mete con date ospitante"
+    },
+    {
+      "batch": 4,
+      "data": "2026-06-12",
+      "mete": 1,
+      "note": "Copenhagen KU: application deadlines"
+    },
+    {
+      "batch": 5,
+      "data": "2026-06-12",
+      "mete": 1,
+      "note": "Alicante UA: nomination+application+lingua"
+    },
+    {
+      "batch": 6,
+      "data": "2026-06-12",
+      "mete": 1,
+      "note": "UC3M Madrid: nomination dates"
+    },
+    {
+      "batch": 7,
+      "data": "2026-06-12",
+      "mete": 2,
+      "note": "Vytautas Magnus + NTNU: nomination+application+lingua"
+    },
+    {
+      "batch": 8,
+      "data": "2026-06-13",
+      "mete": 5,
+      "note": "Antwerp, Louvain, Neapolis, Sevilla, Iriarte: scadenze; lingue completate dove CEFR ufficiale disponibile"
+    },
+    {
+      "batch": 9,
+      "data": "2026-06-14",
+      "mete": 5,
+      "note": "Innsbruck, Vienna, Gent, Barcelona: lingua completata; Copenhagen resta senza CEFR generale ufficiale"
+    },
+    {
+      "batch": 10,
+      "data": "2026-06-14",
+      "mete": 5,
+      "note": "Tarragona, Pula, Kaunas e Groningen: lingua completata; Palma resta senza CEFR ufficiale pubblicato"
+    },
+    {
+      "batch": "fix-2026-06-14",
+      "data": "2026-06-14",
+      "mete": 0,
+      "note": "Correzione manuale post-batch-10: aggiunto blocco config (maxTentativiLingua, sogliaAvanzamentoDipartimento); reinserito B LEUVEN01 in pendingLingua (era sparito dal tracking); creati eco-batch-12 e eco-batch-13 per le 5 mete lingua che non erano in nessun batch; aggiunto validatore scripts/valida-stato.mjs."
+    },
+    {
+      "batch": 11,
+      "data": "2026-06-14",
+      "mete": 2,
+      "note": "New University: lingua B2 CEFR inglese/sloveno; Bilkent: nessun CEFR ufficiale pubblicato, pianificato ultimo tentativo"
+    },
+    {
+      "batch": 12,
+      "data": "2026-06-14",
+      "mete": 4,
+      "note": "KU Leuven completata con inglese C1 per corsi master FEB; Pafos, Copenhagen e Iriarte restano senza CEFR ufficiale e vanno a ultimo tentativo"
+    },
+    {
+      "batch": 13,
+      "data": "2026-06-14",
+      "mete": 1,
+      "note": "UIB Palma: ultimo tentativo lingua, nessun CEFR ufficiale pubblicato; spostata in linguaNonTrovabile"
+    },
+    {
+      "batch": 14,
+      "data": "2026-06-14",
+      "mete": 1,
+      "note": "Bilkent University: ultimo tentativo lingua, nessun CEFR ufficiale pubblicato; spostata in linguaNonTrovabile"
+    },
+    {
+      "batch": 15,
+      "data": "2026-06-14",
+      "mete": 3,
+      "note": "Neapolis Pafos, Copenhagen e Iriarte Tenerife: ultimo tentativo lingua, nessun CEFR ufficiale pubblicato; spostate in linguaNonTrovabile. Economia chiusa e passaggio a Management."
+    },
+    {
+      "batch": 16,
+      "data": "2026-06-14",
+      "mete": 76,
+      "note": "Avvio Venice School of Management: creato file dati con tutte le mete ufficiali 2026/27 e pianificati i batch scadenze+lingua."
+    },
+    {
+      "batch": 17,
+      "data": "2026-06-14",
+      "mete": 5,
+      "note": "Management lotto 1: scadenze completate per Klagenfurt, Vienna, ULB Phisoc, UCLouvain LSM e Bamberg; lingue completate per ULB, UCLouvain e Bamberg; Klagenfurt e Vienna restano senza CEFR generale ufficiale."
+    },
+    {
+      "batch": 18,
+      "data": "2026-06-15",
+      "mete": 5,
+      "note": "Management lotto 2: Deggendorf, FAU Erlangen-Nuernberg, Frankfurt School, University of Hamburg e HSBA completate con scadenze e requisiti lingua CEFR ufficiali."
+    },
+    {
+      "batch": 19,
+      "data": "2026-06-15",
+      "mete": 5,
+      "note": "Management lotto 3: Heilbronn, WHU, Cologne WiSo, Leuphana Lueneburg e Munich Business School arricchite con scadenze e requisiti lingua ufficiali; Leuphana aggiornata su entrambi gli accordi D LUNEBUR01."
+    },
+    {
+      "batch": 20,
+      "data": "2026-06-15",
+      "mete": 5,
+      "note": "Management lotto 4: Regensburg, Aarhus BSS, Copenhagen Business School, SDU Odense e Universidad de Alcala arricchite con scadenze e requisiti lingua ufficiali."
+    },
+    {
+      "batch": 21,
+      "data": "2026-06-15",
+      "mete": 5,
+      "note": "Management lotto 5: ESCI-UPF, Granada, UAM Madrid ed ESIC Madrid arricchite con scadenze nomination/application e requisiti lingua ufficiali."
+    },
+    {
+      "batch": 22,
+      "data": "2026-06-15",
+      "mete": 5,
+      "note": "Management lotto 6: Malaga, Valencia, Zaragoza, ESSCA Angers e KEDGE Bordeaux arricchite con scadenze nomination/application e requisiti lingua ufficiali o raccomandati."
+    },
+    {
+      "batch": 23,
+      "data": "2026-06-15",
+      "mete": 5,
+      "note": "Management lotto 7: ESSEC Cergy, USMB Annecy, EDC Paris, UBE Dijon e BSB Dijon arricchite con scadenze nomination/application e requisiti lingua ufficiali."
+    },
+    {
+      "batch": 24,
+      "data": "2026-06-15",
+      "mete": 5,
+      "note": "Management lotto 8: EM Normandie, IESEG, emlyon, IAE Montpellier e IAE Metz arricchite con scadenze; lingue completate dove CEFR ufficiale disponibile."
+    },
+    {
+      "batch": 25,
+      "data": "2026-06-15",
+      "mete": 5,
+      "note": "Management lotto 9: Audencia, Paris School of Business, EMLV, IAE Poitiers e NEOMA arricchite con scadenze; lingue completate dove CEFR ufficiale disponibile."
+    },
+    {
+      "batch": 26,
+      "data": "2026-06-15",
+      "mete": 5,
+      "note": "Management lotto 10: Rennes, EM Strasbourg, TSM, Toulouse III IUT ed ESLSCA arricchite con scadenze; lingue completate dove CEFR ufficiale disponibile, Rennes pianificata per secondo tentativo."
+    },
+    {
+      "batch": 27,
+      "data": "2026-06-15",
+      "mete": 5,
+      "note": "Management lotto 11: AUEB, Corvinus, Trinity Business School, University of Galway e Reykjavik University arricchite con scadenze nomination/application e requisiti lingua CEFR ufficiali o da fact sheet."
+    },
+    {
+      "batch": 28,
+      "data": "2026-06-15",
+      "mete": 5,
+      "note": "Management lotto 12: Vilnius, Malta, Agder, Stavanger e UvA Amsterdam arricchite con scadenze; lingue completate dove CEFR ufficiale disponibile, Malta pianificata per secondo tentativo."
+    },
+    {
+      "batch": 29,
+      "data": "2026-06-15",
+      "mete": 5,
+      "note": "Management lotto 13: Groningen FEB, Tilburg TiSEM, Coimbra FEUC, Iscte Business School e ISEG Lisboa arricchite con scadenze; lingue completate dove CEFR ufficiale disponibile, Coimbra pianificata per secondo tentativo."
+    },
+    {
+      "batch": 30,
+      "data": "2026-06-15",
+      "mete": 5,
+      "note": "Management management-batch-15: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 31,
+      "data": "2026-06-15",
+      "mete": 4,
+      "note": "Management management-batch-16: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 32,
+      "data": "2026-06-15",
+      "mete": 25,
+      "note": "Scienze ambientali, informatica e statistica avviato: creato js/dati-mete-scienze.js con 25 mete ufficiali, lingua e scadenze da completare nei batch successivi."
+    },
+    {
+      "batch": 34,
+      "data": "2026-06-15",
+      "mete": 2,
+      "note": "Management management-batch-17: merge automatico via applica-batch.mjs."
+    }
+  ],
+  "storicoBatch": [
+    {
+      "id": "filosofia-batch-1",
+      "data": "2026-06-15",
+      "dipartimento": "Filosofia e Beni Culturali",
+      "tipo": "nuovo_dipartimento",
+      "esito": "completato",
+      "mete": [
+        "CZ BRNO05",
+        "CZ PRAHA07",
+        "D BERLIN02",
+        "D KASSEL01",
+        "D GOTTING01",
+        "D FRANKFU01",
+        "E SEVILLA03",
+        "F PARIS003",
+        "B LIEGE01",
+        "F LILLE103",
+        "NL AMSTERD01",
+        "D WIESBAD01",
+        "F PARIS008",
+        "F MONTPEL03",
+        "F PARIS001",
+        "B GENT01",
+        "S LUND01",
+        "N OSLO72",
+        "NL GRONING01",
+        "TR ANKARA07",
+        "P LISBOA01",
+        "DK ROSKILD01",
+        "E SALAMAN02",
+        "NL UTRECHT01",
+        "F PARIS014",
+        "E BARCELO15",
+        "NL NIJMEGE01",
+        "DK KOBENHA01",
+        "E MADRID04",
+        "N TROMSO01",
+        "E MADRID03",
+        "E BARCELO02",
+        "E OVIEDO01",
+        "NL WAGENIN01",
+        "N-STAVANG-01",
+        "D MUNCHEN01",
+        "HU BUDAPES01",
+        "F STRASBO48",
+        "D FREIBUR01",
+        "P COIMBRA01",
+        "A WIEN01",
+        "D KOBLENZ01",
+        "F PARIS468",
+        "F TOURS01",
+        "G EGALEO02",
+        "D STUTTGA01",
+        "D TUBINGE01",
+        "F BORDEAU03",
+        "F GRENOBL55"
+      ],
+      "note": "Creato js/dati-mete-filosofia.js con 66 righe ufficiali; lingua e scadenze da completare nei batch successivi."
+    }
+  ]
+}
+;
+</script>
+
+<div class="page">
+
+  <!-- SEZIONE 1: INTESTAZIONE -->
+  <div class="header">
+    <h1>ErasmusWiz — Dashboard Mappatura</h1>
+    <div class="header-meta">
+      <span>Università: <strong id="univ"></strong></span>
+      <span>Dip. corrente: <strong id="dipCorrente"></strong></span>
+      <span>Aggiornato: <strong id="aggiornato"></strong></span>
+      <span>Run completati: <strong id="runCompletati"></strong></span>
+    </div>
+  </div>
+
+  <!-- SEZIONE 2: PROGRESSO PER DIPARTIMENTO -->
+  <div class="section">
+    <div class="section-title">Sezione 2 — Progresso per Dipartimento</div>
+    <div class="section-body">
+      <div class="col-header">
+        <span>Dipartimento</span>
+        <span>Stato</span>
+        <span>Avanzamento</span>
+        <span>Pend. Lingua</span>
+        <span>Pend. Scad.</span>
+        <span>Non trovabile</span>
+      </div>
+      <div id="dip-rows"></div>
+    </div>
+  </div>
+
+  <!-- SEZIONE 3: PROSSIMI BATCH -->
+  <div class="section">
+    <div class="section-title">Sezione 3 — Prossimi Batch in Coda <span style="font-weight:normal;color:#b8860b">(▶ = prossimo run Codex)</span></div>
+    <div class="section-body">
+      <table id="batch-table">
+        <thead>
+          <tr>
+            <th style="width:60px">Priorità</th>
+            <th style="width:160px">ID Batch</th>
+            <th style="width:160px">Dipartimento</th>
+            <th style="width:130px">Tipo</th>
+            <th style="width:60px">N. mete</th>
+            <th>Descrizione</th>
+          </tr>
+        </thead>
+        <tbody id="batch-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SEZIONE 4: METE PENDING LINGUA -->
+  <div class="section">
+    <div class="section-title">Sezione 4 — Mete Pending Lingua (dipartimento corrente: <span id="dip4label"></span>)</div>
+    <div class="section-body" id="pending-lingua-body"></div>
+  </div>
+
+  <!-- SEZIONE 5: STORICO RUN -->
+  <div class="section">
+    <div class="section-title">Sezione 5 — Storico Run</div>
+    <div class="section-body">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:80px">Batch N</th>
+            <th style="width:110px">Data</th>
+            <th style="width:100px">Mete lavorate</th>
+            <th>Note</th>
+          </tr>
+        </thead>
+        <tbody id="storico-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ── INTESTAZIONE ─────────────────────────────────────────────
+document.getElementById('univ').textContent = STATO.universitaCorrente || '—';
+document.getElementById('dipCorrente').textContent = STATO.dipartimentoCorrente || '—';
+document.getElementById('aggiornato').textContent = STATO.aggiornato || '—';
+document.getElementById('runCompletati').textContent = STATO.runCompletati;
+
+// ── SEZIONE 2: DIPARTIMENTI ──────────────────────────────────
+function badgeHtml(stato) {
+  const map = {
+    'completo':      ['badge-completo',      'completo'],
+    'in_corso':      ['badge-in_corso',      'in corso'],
+    'non_iniziato':  ['badge-non_iniziato',  'non iniziato'],
+  };
+  const [cls, label] = map[stato] || ['badge-non_iniziato', stato];
+  return '<span class="badge ' + cls + '">' + label + '</span>';
+}
+
+const dipRows = document.getElementById('dip-rows');
+Object.entries(STATO.statoDipartimenti).forEach(([nome, dip]) => {
+  const totale = dip.totale || 0;
+  const completate = dip.completate || 0;
+  const pendLingua = (dip.pendingLingua || []).length;
+  const pendScad = (dip.pendingScadenze || []).length;
+  const nonTrov = (dip.linguaNonTrovabile || []).length;
+  const pct = totale > 0 ? Math.round((completate / totale) * 100) : 0;
+  const fillClass = pct >= 85 ? '' : 'medium';
+
+  const progressHtml = totale > 0
+    ? '<div class="progress-wrap">'
+      + '<div class="progress-bar-bg"><div class="progress-bar-fill ' + fillClass + '" style="width:' + pct + '%"></div></div>'
+      + '<span class="progress-pct">' + pct + '%</span>'
+      + '<span class="progress-count">' + completate + '/' + totale + '</span>'
+      + '</div>'
+    : '<span style="color:#bbb;font-size:11px">—</span>';
+
+  const row = document.createElement('div');
+  row.className = 'dip-row';
+  row.innerHTML =
+    '<span class="dip-name">' + nome + '</span>'
+    + '<span>' + badgeHtml(dip.stato) + '</span>'
+    + '<span>' + progressHtml + '</span>'
+    + '<span class="dip-val ' + (pendLingua > 0 ? 'has-val' : 'zero') + '">' + (pendLingua || '—') + '</span>'
+    + '<span class="dip-val ' + (pendScad > 0 ? 'has-val' : 'zero') + '">' + (pendScad || '—') + '</span>'
+    + '<span class="dip-val ' + (nonTrov > 0 ? 'red' : 'zero') + '">' + (nonTrov || '—') + '</span>';
+  dipRows.appendChild(row);
+});
+
+// ── SEZIONE 3: BATCH ─────────────────────────────────────────
+const batchBody = document.getElementById('batch-body');
+STATO.prossimiBatch.forEach(function(b, idx) {
+  const tr = document.createElement('tr');
+  const isFirst = idx === 0;  // il primo in lista = prossimo eseguito da Codex
+  if (isFirst) tr.className = 'highlight-first';
+  const isNuovo = b.tipo === 'nuovo_dipartimento';
+  const tipoClass = isNuovo ? 'badge-tipo nuovo' : 'badge-tipo';
+  tr.innerHTML =
+    '<td style="text-align:center;font-weight:bold">' + b.priorita + (isFirst ? ' ▶' : '') + '</td>'
+    + '<td><code style="font-size:11px">' + b.id + '</code></td>'
+    + '<td>' + b.dipartimento + '</td>'
+    + '<td><span class="' + tipoClass + '">' + b.tipo + '</span></td>'
+    + '<td style="text-align:center">' + (b.mete && b.mete.length > 0 ? b.mete.length : '<span style="color:#bbb">—</span>') + '</td>'
+    + '<td style="font-size:11px;color:#444">' + b.descrizione + '</td>';
+  batchBody.appendChild(tr);
+});
+
+// ── SEZIONE 4: PENDING LINGUA ─────────────────────────────────
+const dipCorrente = STATO.dipartimentoCorrente;
+document.getElementById('dip4label').textContent = dipCorrente;
+const dipBody = document.getElementById('pending-lingua-body');
+const dipData = STATO.statoDipartimenti[dipCorrente];
+
+if (!dipData || !dipData.pendingLingua || dipData.pendingLingua.length === 0) {
+  dipBody.innerHTML = '<span class="empty-mete">Nessuna meta in pending lingua per ' + dipCorrente + '.</span>';
+} else {
+  const tentativi = dipData.tentativiLingua || {};
+  const abbandonati = dipData.linguaNonTrovabile || [];
+
+  const ul = document.createElement('ul');
+  ul.className = 'meta-list';
+  dipData.pendingLingua.forEach(function(codice) {
+    const t = tentativi[codice] || 0;
+    const isHard = t >= 2;
+    const li = document.createElement('li');
+    if (isHard) li.className = 'hard';
+    li.innerHTML =
+      '<span>' + codice + '</span>'
+      + '<span class="tentativi' + (isHard ? ' hard' : '') + '">'
+      + (t > 0 ? t + ' tent.' : '0 tent.')
+      + '</span>';
+    ul.appendChild(li);
+  });
+  dipBody.appendChild(ul);
+
+  if (abbandonati.length > 0) {
+    const label = document.createElement('div');
+    label.className = 'abandoned-label';
+    label.textContent = 'Abbandonate (' + abbandonati.length + ')';
+    dipBody.appendChild(label);
+
+    const ul2 = document.createElement('ul');
+    ul2.className = 'meta-list meta-list-abandoned';
+    abbandonati.forEach(function(codice) {
+      const li = document.createElement('li');
+      li.innerHTML = '<span>' + codice + '</span><span class="tentativi hard">non trovabile</span>';
+      ul2.appendChild(li);
+    });
+    dipBody.appendChild(ul2);
+  }
+}
+
+// ── SEZIONE 5: STORICO ────────────────────────────────────────
+const storicoBody = document.getElementById('storico-body');
+const storicoInv = STATO.storico.slice().reverse();
+storicoInv.forEach(function(s) {
+  const tr = document.createElement('tr');
+  tr.innerHTML =
+    '<td style="text-align:center;font-weight:bold">' + s.batch + '</td>'
+    + '<td>' + s.data + '</td>'
+    + '<td style="text-align:center">' + s.mete + '</td>'
+    + '<td>' + s.note + '</td>';
+  storicoBody.appendChild(tr);
+});
+</script>
+</body>
+</html>
+
+
+
+
+
+

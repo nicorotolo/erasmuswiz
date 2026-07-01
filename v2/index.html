@@ -3,27 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ErasmusWiz — Il tuo cruscotto Erasmus</title>
-  <meta name="description" content="ErasmusWiz: il cruscotto gratuito per studenti Ca' Foscari che fanno domanda Erasmus. 249 mete, requisiti del bando, scadenze, checklist e compatibilità lingua — tutto in un clic.">
-  <!-- Open Graph (WhatsApp, Telegram, LinkedIn…) -->
-  <meta property="og:type"        content="website">
-  <meta property="og:url"         content="https://nicorotolo.github.io/erasmuswiz/">
-  <meta property="og:title"       content="ErasmusWiz — Il tuo cruscotto Erasmus">
-  <meta property="og:description" content="249 mete, requisiti del bando, scadenze e checklist per la domanda Erasmus Ca' Foscari. Gratuito, nessun account.">
-  <meta property="og:image"       content="https://nicorotolo.github.io/erasmuswiz/img/wiz-hero.png">
-  <!-- Twitter / X -->
-  <meta name="twitter:card"        content="summary_large_image">
-  <meta name="twitter:title"       content="ErasmusWiz — Il tuo cruscotto Erasmus">
-  <meta name="twitter:description" content="249 mete, requisiti del bando, scadenze e checklist per la domanda Erasmus Ca' Foscari.">
-  <meta name="twitter:image"       content="https://nicorotolo.github.io/erasmuswiz/img/wiz-hero.png">
+  <title>ErasmusWiz v2 — Il tuo cruscotto Erasmus</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
-  <!-- PWA: aggiungi a schermata Home (senza notifiche) -->
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#101b3f">
-  <link rel="icon" href="img/icon-192.png">
-  <link rel="apple-touch-icon" href="img/icon-192.png">
   <script data-goatcounter="https://erasmuswiz.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
 </head>
@@ -70,7 +53,6 @@
           <button class="btn-primary" id="btn-fatto" type="button">Fatto ✨</button>
           <button class="btn-secondary" id="btn-come" type="button">Come si fa?</button>
         </div>
-        <img src="img/wiz-hero.png" alt="Wiz" class="wiz-mascot missione-wiz-desktop">
       </div>
 
       <!-- Pill countdown — sempre blu notte -->
@@ -107,12 +89,6 @@
         <h2 class="sezione-titolo">🗺️ Mete disponibili</h2>
         <p class="sezione-sottotitolo" id="intro-mete-v2">Compila il profilo per vedere le mete ordinate per compatibilità.</p>
       </div>
-      <div id="profilo-strip"></div>
-      <div class="cerca-mete-barra">
-        <input id="cerca-mete" type="search" placeholder="Cerca per università, città o paese…" autocomplete="off">
-        <span id="conta-mete"></span>
-      </div>
-      <div id="sezione-preferite"></div>
       <div id="griglia-mete-v2" class="griglia-mete-v2"></div>
     </section>
 
@@ -135,17 +111,12 @@
         <h2 class="sezione-titolo">📋 La tua checklist</h2>
         <p class="sezione-sottotitolo">Spunta i passi man mano che li completi. Restano salvati sul tuo dispositivo.</p>
       </div>
-      <div class="toggle-fase-wrap">
-        <button class="toggle-fase-btn fase-attiva" id="fase-domanda" type="button">📝 Sto preparando la candidatura</button>
-        <button class="toggle-fase-btn" id="fase-selezionato" type="button">🎉 Sono stato selezionato</button>
-      </div>
       <div class="barra-wrap">
         <div class="barra-progresso">
           <div class="barra-riempimento" id="barra-riempimento-v2"></div>
         </div>
         <span class="barra-label" id="barra-label-v2"></span>
       </div>
-      <div id="banner-wiz" class="banner-celebrazione" style="display:none; margin: 0 20px 14px;"></div>
       <div id="lista-checklist-v2" class="lista-checklist-v2"></div>
     </section>
 
@@ -169,14 +140,6 @@
         <p class="sezione-sottotitolo">Inserisci i tuoi dati una volta: le mete si ordinano per compatibilità. I dati restano solo sul tuo dispositivo.</p>
       </div>
       <form id="form-profilo-v2" class="form-profilo-v2">
-        <div class="campo-form">
-          <label for="nome-v2">Il tuo nome</label>
-          <input id="nome-v2" type="text" maxlength="30" placeholder="es. Marco">
-        </div>
-        <div class="campo-form">
-          <label for="select-ateneo">🎓 Università</label>
-          <select id="select-ateneo" aria-label="Scegli l'università"></select>
-        </div>
         <div class="campo-form">
           <label for="area-v2">Area disciplinare</label>
           <select id="area-v2"></select>
@@ -228,8 +191,7 @@
         <button type="submit" class="btn-primario">Salva profilo e calcola compatibilità</button>
       </form>
       <div class="profilo-salvato" id="profilo-salvato" hidden>
-        <p>✅ Profilo salvato!</p>
-        <button class="btn-primary btn-primary-sm" type="button" onclick="mostraTab('mete')">Vedi le mete compatibili →</button>
+        <p>✅ Profilo salvato. Vai alla <a href="#" data-goto="mete">sezione Mete</a> per vedere i risultati.</p>
       </div>
     </section>
 
@@ -240,6 +202,7 @@
       <p><strong>Sito non ufficiale</strong>, non affiliato all'Università Ca' Foscari Venezia.
         Fa sempre fede il <a href="https://www.unive.it/erasmus-studio" target="_blank" rel="noopener">bando ufficiale</a>.</p>
       <p>Bando a.a. 2026/2027 —
+        <a href="../index.html">← Versione 1</a> ·
         <a href="https://github.com/nicorotolo/erasmuswiz/issues" target="_blank" rel="noopener">Segnala un errore</a></p>
     </div>
   </footer>
@@ -273,134 +236,11 @@
     <button class="celebrazione-btn" id="celebrazione-btn">Avanti →</button>
   </div>
 
-  <!-- Overlay dettaglio meta (riempito da app.js: apriDettaglioMeta) -->
-  <div class="meta-overlay" id="meta-overlay" style="display:none" role="dialog" aria-modal="true" aria-label="Dettaglio meta">
-    <div class="meta-modal" id="meta-modal">
-      <button class="meta-modal-chiudi" id="meta-modal-chiudi" type="button" aria-label="Chiudi">✕</button>
-      <div id="meta-modal-corpo" class="meta-modal-corpo"></div>
-    </div>
-  </div>
-
-  <!-- ============================================================
-       DATI MULTI-ATENEO
-       Ogni ateneo ha i suoi file in js/atenei/<key>/. Si caricano in
-       sequenza, poi si "fotografa" il set nel registro ATENEI.
-       app.js NON cambia: legge i globali dell'ateneo ATTIVO.
-       Vedi js/atenei/README.md
-  ============================================================ -->
-  <script>var ATENEI = {};</script>
-
-  <!-- ---------- Ca' Foscari Venezia ---------- -->
-  <script src="js/atenei/cafoscari/dati-bando.js"></script>
-  <!-- Mete: ogni file dipartimento dichiara `var METE`; le accumuliamo in _meteAll -->
-  <script src="js/atenei/cafoscari/dati-mete.js"></script>
-  <script>var _meteAll = METE;</script>
-  <script src="js/atenei/cafoscari/dati-mete-management.js"></script>
-  <script>_meteAll = _meteAll.concat(METE);</script>
-  <script src="js/atenei/cafoscari/dati-mete-lingue.js"></script>
-  <script>_meteAll = _meteAll.concat(METE);</script>
-  <script src="js/atenei/cafoscari/dati-mete-scienze.js"></script>
-  <script>_meteAll = _meteAll.concat(METE);</script>
-  <script src="js/atenei/cafoscari/dati-mete-filosofia.js"></script>
-  <script>_meteAll = _meteAll.concat(METE);</script>
-  <script src="js/atenei/cafoscari/dati-mete-linguistici.js"></script>
-  <script>_meteAll = _meteAll.concat(METE);</script>
-  <script src="js/atenei/cafoscari/dati-mete-umanistici.js"></script>
-  <script>_meteAll = _meteAll.concat(METE);</script>
-  <script src="js/atenei/cafoscari/dati-mete-molecolari.js"></script>
-  <script>_meteAll = _meteAll.concat(METE);</script>
-  <script src="js/atenei/cafoscari/dati-scadenze.js"></script>
-  <script src="js/atenei/cafoscari/dati-checklist.js"></script>
-  <script src="js/atenei/cafoscari/dati-postselezione.js"></script>
-  <script>
-    ATENEI['cafoscari'] = {
-      key: 'cafoscari',
-      label: "Ca' Foscari Venezia",
-      disponibile: true,
-      mete: _meteAll,
-      requisiti: REQUISITI_BANDO,
-      bandoInfo: BANDO_INFO,
-      scadenze: SCADENZE_CAFOSCARI,
-      scadenzeInfo: SCADENZE_INFO,
-      checklist: CHECKLIST,
-      checklistPost: CHECKLIST_POST
-    };
-  </script>
-
-  <!-- ---------- Sapienza Roma ---------- -->
-  <script src="js/atenei/sapienza/dati-bando.js"></script>
-  <script src="js/atenei/sapienza/dati-mete-giurisprudenza.js"></script>
-  <script>var _meteAllSap = METE;</script>
-  <!-- (future: altre Facoltà Sapienza si concatenano qui, come a Ca' Foscari) -->
-  <script src="js/atenei/sapienza/dati-scadenze.js"></script>
-  <script src="js/atenei/sapienza/dati-checklist.js"></script>
-  <script src="js/atenei/sapienza/dati-postselezione.js"></script>
-  <script>
-    ATENEI['sapienza'] = {
-      key: 'sapienza',
-      label: 'Sapienza Roma',
-      disponibile: _meteAllSap.length > 0,
-      mete: _meteAllSap,
-      requisiti: REQUISITI_BANDO,
-      bandoInfo: BANDO_INFO,
-      scadenze: SCADENZE_CAFOSCARI,
-      scadenzeInfo: SCADENZE_INFO,
-      checklist: CHECKLIST,
-      checklistPost: CHECKLIST_POST
-    };
-  </script>
-
-  <!-- ---------- Scelta ateneo attivo + esposizione globali per app.js ---------- -->
-  <script>
-    (function () {
-      var salvato = null;
-      try { salvato = localStorage.getItem('erasmuswiz_ateneo'); } catch (e) {}
-      var key = (salvato && ATENEI[salvato] && ATENEI[salvato].disponibile) ? salvato : 'cafoscari';
-      window.ATENEO_ATTIVO = key;
-      var A = ATENEI[key];
-      // Globali che app.js già legge: li puntiamo all'ateneo attivo.
-      METE               = A.mete            || [];
-      REQUISITI_BANDO    = A.requisiti       || [];
-      BANDO_INFO         = A.bandoInfo       || {};
-      SCADENZE_CAFOSCARI = A.scadenze        || [];
-      SCADENZE_INFO      = A.scadenzeInfo    || {};
-      CHECKLIST          = A.checklist       || [];
-      CHECKLIST_POST     = A.checklistPost   || [];
-    })();
-  </script>
-
+  <!-- Dati condivisi con v1 (percorso relativo dalla sottocartella v2/) -->
+  <script src="../js/dati-bando.js"></script>
+  <script src="../js/dati-mete.js"></script>
+  <script src="../js/dati-scadenze.js"></script>
+  <script src="../js/dati-checklist.js"></script>
   <script src="js/app.js"></script>
-
-  <!-- Selettore d'ateneo: popola la tendina e gestisce il cambio (salva + ricarica) -->
-  <script>
-    (function () {
-      var sel = document.getElementById('select-ateneo');
-      if (!sel) return;
-      Object.keys(ATENEI).forEach(function (k) {
-        var a = ATENEI[k];
-        var opt = document.createElement('option');
-        opt.value = k;
-        opt.textContent = a.disponibile ? a.label : (a.label + ' (in arrivo)');
-        opt.disabled = !a.disponibile;
-        if (k === window.ATENEO_ATTIVO) opt.selected = true;
-        sel.appendChild(opt);
-      });
-      sel.addEventListener('change', function () {
-        var k = sel.value;
-        if (!ATENEI[k] || !ATENEI[k].disponibile) { sel.value = window.ATENEO_ATTIVO; return; }
-        try { localStorage.setItem('erasmuswiz_ateneo', k); } catch (e) {}
-        location.reload();
-      });
-    })();
-  </script>
-
-  <!-- PWA: registra il service worker (no notifiche, solo cache base) -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function () {
-        navigator.serviceWorker.register('sw.js').catch(function () {});
-      });
-    }
-  </script>
 </body>
 </html>

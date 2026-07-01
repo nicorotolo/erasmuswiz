@@ -15,3 +15,13 @@ batch/OUTPUT.json
 contesto
 ZAINO.checklist
 chatgpt-project/
+
+# Dipendenze Node: mai committare, si rigenerano con npm install
+node_modules/
+
+# Backup locali creati durante le sessioni di sync
+_backup-*/
+
+# Artefatti da comandi rotti (log di errore o file dal nome anomalo)
+nuldel
+{,-

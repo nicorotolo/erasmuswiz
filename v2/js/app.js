@@ -1,7 +1,6 @@
 // ============================================================
 // ErasmusWiz v2 — Logica principale
-// Legge i dati dai file js/dati-*.js (condivisi con v1).
-// METE = array combinato Economia + Management (vedi index.html)
+// Legge i dati dai file ../js/dati-*.js (condivisi con v1).
 // ============================================================
 
 const CHIAVE_ZAINO = "erasmuswiz-zaino";
@@ -9,13 +8,9 @@ const CHIAVE_ZAINO = "erasmuswiz-zaino";
 function caricaZaino() {
   try {
     const g = localStorage.getItem(CHIAVE_ZAINO);
-    const z = g ? JSON.parse(g) : { profilo: null, checklist: {}, metePreferite: [], fase: "domanda", checklistPost: {} };
-    if (!Array.isArray(z.metePreferite)) z.metePreferite = [];
-    if (!z.fase) z.fase = "domanda";
-    if (!z.checklistPost || typeof z.checklistPost !== "object") z.checklistPost = {};
-    return z;
+    return g ? JSON.parse(g) : { profilo: null, checklist: {} };
   } catch (e) {
-    return { profilo: null, checklist: {}, metePreferite: [], fase: "domanda", checklistPost: {} };
+    return { profilo: null, checklist: {} };
   }
 }
 
@@ -72,13 +67,11 @@ function postiInParole(posto) {
 }
 
 // ============================================================
-// NAVIGAZIONE A TAB
+// NAVIGAZIONE A TAB (nav-bottom usa .nav-item)
 // ============================================================
 function mostraTab(nome) {
   document.querySelectorAll(".nav-item[data-tab]").forEach(t => {
-    const isAttivo = t.dataset.tab === nome;
-    t.classList.toggle("attivo", isAttivo);
-    t.setAttribute("aria-current", isAttivo ? "page" : "false");
+    t.classList.toggle("attivo", t.dataset.tab === nome);
   });
   document.querySelectorAll(".tab-pane").forEach(p => {
     const attivo = p.id === `tab-${nome}`;
@@ -112,7 +105,7 @@ function initNav() {
 }
 
 // ============================================================
-// TEMA NOTTE
+// TEMA NOTTE — toggle
 // ============================================================
 function initTema() {
   const btn = document.getElementById("toggle-tema");
@@ -127,7 +120,6 @@ function initTema() {
     document.body.classList.toggle("tema-notte");
     const notte = document.body.classList.contains("tema-notte");
     btn.textContent = notte ? "☀️" : "🌙";
-    btn.setAttribute("aria-label", notte ? "Passa al tema giorno" : "Passa al tema notte");
     localStorage.setItem("ew-tema", notte ? "notte" : "giorno");
   });
 }
@@ -143,8 +135,6 @@ function renderHome() {
       weekday: "long", day: "numeric", month: "short", year: "numeric"
     });
   }
-  const nomeEl = document.getElementById("home-nome");
-  if (nomeEl) nomeEl.textContent = ZAINO.profilo?.nome || "Studente";
 }
 
 // ============================================================
@@ -194,10 +184,6 @@ function renderPercorso() {
       : `Tappa ${tappaAttiva} · ${nome}`;
   }
 
-  const percorsoWrap = wrap.parentElement;
-  const vecchioLink = percorsoWrap && percorsoWrap.querySelector(".percorso-modifica-profilo");
-  if (vecchioLink) vecchioLink.remove();
-
   wrap.innerHTML = "";
   TAPPE_DEF.forEach((t, i) => {
     const isPartenza = t.id === "partenza";
@@ -223,13 +209,6 @@ function renderPercorso() {
       wrap.appendChild(linea);
     }
   });
-
-  if (percorsoWrap && tappaNum >= 2) {
-    const lnk = crea("a", "percorso-modifica-profilo", "Modifica profilo");
-    lnk.href = "#";
-    lnk.addEventListener("click", e => { e.preventDefault(); mostraTab("profilo"); });
-    percorsoWrap.appendChild(lnk);
-  }
 }
 
 // ============================================================
@@ -351,6 +330,7 @@ function renderMissione() {
 
   card.classList.remove("missione-urgente");
 
+  // Badge scadenza (rosso)
   if (scad) {
     if (m.prossima && m.giorni !== Infinity) {
       scad.textContent  = `scade tra ${m.giorni}g`;
@@ -444,27 +424,8 @@ function aggiornaCountdownV2() {
 }
 
 // ============================================================
-// BANNER WIZ (nota Wiz inline dopo spunta)
-// ============================================================
-function mostraBannerWiz() {
-  const banner = document.getElementById("banner-wiz");
-  if (!banner) return;
-  banner.innerHTML = '<img src="img/wiz-hero.png" alt="Wiz"><span class="banner-testo">Ottimo lavoro! Un passo in meno 🎉</span>';
-  banner.style.display = "flex";
-  clearTimeout(banner._t);
-  banner._t = setTimeout(() => { banner.style.display = "none"; }, 3500);
-}
-
-// ============================================================
 // CHECKLIST v2
 // ============================================================
-let analyticsChecklistInviato = false;
-function segnalaChecklistUsata() {
-  if (analyticsChecklistInviato) return;
-  analyticsChecklistInviato = true;
-  window.goatcounter?.count({ path: "checklist-usata", event: true });
-}
-
 function renderChecklist() {
   const cont = document.getElementById("lista-checklist-v2");
   if (!cont) return;
@@ -485,7 +446,6 @@ function renderChecklist() {
     cb.type    = "checkbox";
     cb.checked = spuntato;
     cb.addEventListener("change", () => {
-      if (cb.checked) { mostraBannerWiz(); segnalaChecklistUsata(); }
       ZAINO.checklist[voce.id] = cb.checked;
       salvaZaino(ZAINO);
       renderChecklist();
@@ -501,11 +461,9 @@ function renderChecklist() {
   aggiornaProgressoV2();
 }
 
-function aggiornaProgressoV2(lista, spunte) {
-  const _lista  = lista  || CHECKLIST || [];
-  const _spunte = spunte || (ZAINO.checklist || {});
-  const tot   = _lista.length;
-  const fatti = _lista.filter(v => _spunte[v.id]).length;
+function aggiornaProgressoV2() {
+  const tot   = (CHECKLIST || []).length;
+  const fatti = (CHECKLIST || []).filter(v => ZAINO.checklist && ZAINO.checklist[v.id]).length;
   const perc  = tot === 0 ? 0 : Math.round((fatti / tot) * 100);
   const fill  = document.getElementById("barra-riempimento-v2");
   const lbl   = document.getElementById("barra-label-v2");
@@ -587,26 +545,6 @@ function renderMete() {
   cont.innerHTML = "";
 
   const profilo = ZAINO.profilo;
-
-  const strip = document.getElementById("profilo-strip");
-  if (strip) {
-    strip.innerHTML = "";
-    if (profilo) {
-      const lingua1 = (profilo.lingue || [])[0];
-      const linguaTesto = lingua1 ? ` · ${lingua1.lingua} ${lingua1.livello}` : "";
-      strip.appendChild(crea("span", "profilo-strip-testo",
-        `Area: ${profilo.area} · ${livelloInParole(profilo.livello)}${linguaTesto}  `));
-      const lnk = crea("a", "profilo-strip-link", "Modifica profilo →");
-      lnk.href = "#";
-      lnk.addEventListener("click", e => { e.preventDefault(); mostraTab("profilo"); });
-      strip.appendChild(lnk);
-    } else {
-      const lnk = crea("a", "profilo-strip-link", "Compila il profilo per vedere le mete compatibili →");
-      lnk.href = "#";
-      lnk.addEventListener("click", e => { e.preventDefault(); mostraTab("profilo"); });
-      strip.appendChild(lnk);
-    }
-  }
   let elenco;
 
   if (profilo) {
@@ -620,23 +558,6 @@ function renderMete() {
   } else {
     elenco = (METE || []).map(m => ({ meta: m, comp: null }));
     if (intro) intro.textContent = "Compila il profilo per vedere le mete ordinate per compatibilità.";
-  }
-
-  const testo = (document.getElementById("cerca-mete")?.value || "").trim().toLowerCase();
-  if (testo) {
-    elenco = elenco.filter(({ meta }) =>
-      (meta.universita || "").toLowerCase().includes(testo) ||
-      (meta.citta     || "").toLowerCase().includes(testo) ||
-      (meta.paese     || "").toLowerCase().includes(testo)
-    );
-  }
-
-  const conta = document.getElementById("conta-mete");
-  if (conta) conta.textContent = elenco.length + (elenco.length === 1 ? " meta" : " mete");
-
-  if (elenco.length === 0 && testo) {
-    cont.appendChild(crea("p", "stato-vuoto-v2", `Nessuna meta trovata per «${testo}».`));
-    return;
   }
 
   elenco.forEach(({ meta, comp }) => {
@@ -690,299 +611,10 @@ function renderMete() {
     link.href   = meta.linkPdf || "https://www.unive.it/data/11631/";
     link.target = "_blank";
     link.rel    = "noopener";
-    link.addEventListener("click", e => e.stopPropagation());
     card.appendChild(link);
-
-    const ePreferita = ZAINO.metePreferite.includes(meta.id);
-    const btnPref = crea("button",
-      "btn-preferita" + (ePreferita ? " preferita" : ""),
-      ePreferita ? "⭐ Preferita" : "☆ Aggiungi ai preferiti");
-    btnPref.type  = "button";
-    btnPref.title = ePreferita ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti";
-    btnPref.addEventListener("click", e => { e.stopPropagation(); togglePreferita(meta.id); });
-    card.appendChild(btnPref);
-
-    // Tutta la card è cliccabile: apre il pannello di dettaglio.
-    card.classList.add("card-cliccabile");
-    card.setAttribute("role", "button");
-    card.setAttribute("tabindex", "0");
-    card.appendChild(crea("span", "card-dettagli-hint", "Tocca per i dettagli →"));
-    card.addEventListener("click", () => apriDettaglioMeta(meta));
-    card.addEventListener("keydown", e => {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); apriDettaglioMeta(meta); }
-    });
 
     cont.appendChild(card);
   });
-}
-
-// ============================================================
-// METE PREFERITE
-// ============================================================
-function renderPreferite(msg) {
-  const cont = document.getElementById("sezione-preferite");
-  if (!cont) return;
-  cont.innerHTML = "";
-
-  const n = ZAINO.metePreferite.length;
-  if (n === 0 && !msg) return;
-
-  const header = crea("div", "preferite-header");
-  header.appendChild(crea("span", "preferite-label", `Le tue mete preferite (${n}/5)`));
-  cont.appendChild(header);
-
-  if (msg) cont.appendChild(crea("p", "msg-preferite", msg));
-
-  if (n > 0) {
-    const lista = crea("div", "preferite-lista");
-    ZAINO.metePreferite.forEach(id => {
-      const meta = (METE || []).find(m => m.id === id);
-      if (!meta) return;
-      const item = crea("div", "preferita-item");
-      item.appendChild(crea("span", "preferita-nome", meta.universita));
-      const btnRim = crea("button", "preferita-rimuovi", "✕");
-      btnRim.type = "button";
-      btnRim.title = "Rimuovi dai preferiti";
-      btnRim.addEventListener("click", () => togglePreferita(id));
-      item.appendChild(btnRim);
-      lista.appendChild(item);
-    });
-    cont.appendChild(lista);
-  }
-}
-
-function togglePreferita(id) {
-  const idx = ZAINO.metePreferite.indexOf(id);
-  if (idx !== -1) {
-    ZAINO.metePreferite.splice(idx, 1);
-    salvaZaino(ZAINO);
-    renderPreferite();
-    renderMete();
-  } else if (ZAINO.metePreferite.length >= 5) {
-    renderPreferite("Il bando ne ammette al massimo 5. Rimuovi una meta per aggiungerne un'altra.");
-  } else {
-    ZAINO.metePreferite.push(id);
-    salvaZaino(ZAINO);
-    renderPreferite();
-    renderMete();
-  }
-}
-
-// ============================================================
-// DETTAGLIO META (pannello a comparsa)
-// ============================================================
-
-// Un valore è "reale" solo se non è vuoto e non è un segnaposto
-// ("Da verificare…"). Serve per NON mostrare campi-placeholder.
-function valoreReale(str) {
-  if (!str) return false;
-  const s = String(str).trim();
-  if (!s) return false;
-  if (/^da verificare/i.test(s)) return false;
-  return true;
-}
-
-// Costruisce una riga "etichetta + contenuto" nel pannello dettaglio.
-function rigaDettaglio(etichetta, contenuto) {
-  const blocco = crea("div", "dett-riga");
-  blocco.appendChild(crea("span", "dett-label", etichetta));
-  if (typeof contenuto === "string") {
-    blocco.appendChild(crea("div", "dett-valore", contenuto));
-  } else {
-    const wrap = crea("div", "dett-valore");
-    wrap.appendChild(contenuto);
-    blocco.appendChild(wrap);
-  }
-  return blocco;
-}
-
-function apriDettaglioMeta(meta) {
-  const overlay = document.getElementById("meta-overlay");
-  const corpo   = document.getElementById("meta-modal-corpo");
-  if (!overlay || !corpo) return;
-  corpo.innerHTML = "";
-
-  // --- Intestazione: università, luogo, codice ---
-  corpo.appendChild(crea("h2", "dett-titolo", meta.universita));
-  corpo.appendChild(crea("p", "dett-luogo",
-    meta.citta ? `${meta.citta} (${meta.paese})` : (meta.paese || "")));
-
-  // --- Compatibilità (solo se ho un profilo) ---
-  if (ZAINO.profilo) {
-    const comp = calcolaCompatibilita(meta, ZAINO.profilo);
-    const etichetta = comp.totale === null
-      ? `${comp.icona} ${comp.stato}`
-      : `${comp.icona} ${comp.totale}% — ${comp.stato}`;
-    const box = crea("div", "dett-compat");
-    box.appendChild(crea("span", "dett-compat-stato", etichetta));
-    if (comp.dettaglio) box.appendChild(crea("span", "dett-compat-detail", comp.dettaglio));
-    corpo.appendChild(box);
-  }
-
-  // --- Area disciplinare + dipartimento + coordinatore + codice ---
-  const aree = (meta.areeDisciplinari || []).map(a => `${a.nome} (${a.codice})`).join(", ");
-  if (aree) corpo.appendChild(rigaDettaglio("Area disciplinare", aree));
-  if (meta.dipartimentoCf) corpo.appendChild(rigaDettaglio("Dipartimento Ca' Foscari", meta.dipartimentoCf));
-  if (valoreReale(meta.coordinatoreCf)) corpo.appendChild(rigaDettaglio("Coordinatore Ca' Foscari", meta.coordinatoreCf));
-  if (meta.codiceErasmus) corpo.appendChild(rigaDettaglio("Codice Erasmus", meta.codiceErasmus));
-
-  // --- Posti ---
-  if (meta.posti && meta.posti.length) {
-    const ul = document.createElement("ul");
-    meta.posti.forEach(p => ul.appendChild(crea("li", null, postiInParole(p))));
-    corpo.appendChild(rigaDettaglio("Posti disponibili", ul));
-  }
-
-  // --- Requisiti linguistici ---
-  const ulL = document.createElement("ul");
-  if (meta.requisitoLingua && meta.requisitoLingua.length) {
-    meta.requisitoLingua.forEach(l =>
-      ulL.appendChild(crea("li", null, `${l.lingua} ${l.livello} — ${l.condizione}`)));
-  } else {
-    ulL.appendChild(crea("li", "dett-vuoto", "Non indicato nella lista ufficiale: controlla la scheda PDF."));
-  }
-  corpo.appendChild(rigaDettaglio("Requisiti linguistici", ulL));
-
-  // --- Scadenze università ospitante (dato reale, prima invisibile) ---
-  if (meta.scadenzeOspitante && meta.scadenzeOspitante.length) {
-    const ulS = document.createElement("ul");
-    meta.scadenzeOspitante.forEach(s =>
-      ulS.appendChild(crea("li", null, `${s.cosa}: ${s.periodo}`)));
-    corpo.appendChild(rigaDettaglio("Scadenze dell'università ospitante", ulS));
-  }
-
-  // --- Campi descrittivi: solo se REALI (niente segnaposto) ---
-  if (valoreReale(meta.crediti))      corpo.appendChild(rigaDettaglio("Crediti", meta.crediti));
-  if (valoreReale(meta.prerequisiti)) corpo.appendChild(rigaDettaglio("Prerequisiti", meta.prerequisiti));
-  if (valoreReale(meta.alloggio))     corpo.appendChild(rigaDettaglio("Alloggio", meta.alloggio));
-  if (valoreReale(meta.visto))        corpo.appendChild(rigaDettaglio("Visto", meta.visto));
-  if (valoreReale(meta.notePratiche)) corpo.appendChild(rigaDettaglio("Note pratiche", meta.notePratiche));
-
-  // --- Link ---
-  const boxLink = crea("div", "dett-link-wrap");
-  const lp = crea("a", "dett-link primario", "Scheda ufficiale (PDF) ↗");
-  lp.href = meta.linkPdf || "https://www.unive.it/data/11631/";
-  lp.target = "_blank"; lp.rel = "noopener";
-  boxLink.appendChild(lp);
-  if (valoreReale(meta.linkSito)) {
-    const ls = crea("a", "dett-link", "Sito dell'università ↗");
-    ls.href = meta.linkSito; ls.target = "_blank"; ls.rel = "noopener";
-    boxLink.appendChild(ls);
-  }
-  corpo.appendChild(boxLink);
-
-  // --- Nota onestà ---
-  corpo.appendChild(crea("p", "dett-nota",
-    "Dati dalla lista ufficiale del bando 2026/27. Per la candidatura fa sempre fede la scheda ufficiale."));
-
-  overlay.style.display = "flex";
-  document.body.classList.add("no-scroll");
-  const btnX = document.getElementById("meta-modal-chiudi");
-  if (btnX) btnX.focus();
-}
-
-function chiudiDettaglioMeta() {
-  const overlay = document.getElementById("meta-overlay");
-  if (!overlay) return;
-  overlay.style.display = "none";
-  document.body.classList.remove("no-scroll");
-}
-
-function initDettaglioMeta() {
-  const overlay = document.getElementById("meta-overlay");
-  const btnX    = document.getElementById("meta-modal-chiudi");
-  if (btnX)    btnX.addEventListener("click", chiudiDettaglioMeta);
-  if (overlay) overlay.addEventListener("click", e => {
-    if (e.target === overlay) chiudiDettaglioMeta(); // click fuori dal modale
-  });
-  document.addEventListener("keydown", e => {
-    if (e.key === "Escape") chiudiDettaglioMeta();
-  });
-}
-
-// ============================================================
-// CHECKLIST POST-SELEZIONE
-// ============================================================
-function renderChecklistPost() {
-  const cont = document.getElementById("lista-checklist-v2");
-  if (!cont) return;
-  cont.innerHTML = "";
-  if (!ZAINO.checklistPost) ZAINO.checklistPost = {};
-
-  const lista  = CHECKLIST_POST || [];
-  const spunte = ZAINO.checklistPost;
-
-  const fasi = [];
-  lista.forEach(voce => {
-    if (!fasi.includes(voce.fase)) fasi.push(voce.fase);
-  });
-
-  fasi.forEach(fase => {
-    const voci = lista.filter(v => v.fase === fase);
-    const gruppo = crea("div", "gruppo-post");
-    gruppo.appendChild(crea("h3", "gruppo-post-titolo", fase));
-
-    voci.forEach(voce => {
-      const spuntato = !!spunte[voce.id];
-      const label = document.createElement("label");
-      label.className = ["voce-checklist-v2", spuntato ? "fatta" : ""].join(" ").trim();
-
-      const cb = document.createElement("input");
-      cb.type    = "checkbox";
-      cb.checked = spuntato;
-      cb.addEventListener("change", () => {
-        if (cb.checked) { mostraBannerWiz(); segnalaChecklistUsata(); }
-        ZAINO.checklistPost[voce.id] = cb.checked;
-        salvaZaino(ZAINO);
-        renderChecklistPost();
-        aggiornaProgressoV2(lista, spunte);
-      });
-
-      label.appendChild(cb);
-      label.appendChild(crea("span", null, voce.testo));
-      gruppo.appendChild(label);
-    });
-
-    cont.appendChild(gruppo);
-  });
-
-  aggiornaProgressoV2(lista, spunte);
-}
-
-function initToggleFase() {
-  const btnDomanda    = document.getElementById("fase-domanda");
-  const btnSelezionato = document.getElementById("fase-selezionato");
-  if (!btnDomanda || !btnSelezionato) return;
-
-  function aggiornaBottoniFase() {
-    const selezionato = ZAINO.fase === "selezionato";
-    btnDomanda.classList.toggle("fase-attiva", !selezionato);
-    btnSelezionato.classList.toggle("fase-attiva", selezionato);
-  }
-
-  function renderChecklistAttiva() {
-    if (ZAINO.fase === "selezionato") {
-      renderChecklistPost();
-    } else {
-      renderChecklist();
-    }
-  }
-
-  btnDomanda.addEventListener("click", () => {
-    ZAINO.fase = "domanda";
-    salvaZaino(ZAINO);
-    aggiornaBottoniFase();
-    renderChecklistAttiva();
-  });
-
-  btnSelezionato.addEventListener("click", () => {
-    ZAINO.fase = "selezionato";
-    salvaZaino(ZAINO);
-    aggiornaBottoniFase();
-    renderChecklistAttiva();
-  });
-
-  aggiornaBottoniFase();
 }
 
 // ============================================================
@@ -1023,8 +655,6 @@ function popolaAreeV2() {
 function precompilaFormV2() {
   const p = ZAINO.profilo;
   if (!p) return;
-  const nomeInput = document.getElementById("nome-v2");
-  if (nomeInput && p.nome) nomeInput.value = p.nome;
   const area    = document.getElementById("area-v2");
   const livello = document.getElementById("livello-v2");
   if (area)    area.value    = p.area;
@@ -1057,15 +687,12 @@ function initProfilo() {
         certificata: riga.querySelector(".lingua-certificata").checked,
       });
     });
-    const nomeDigitato = (document.getElementById("nome-v2")?.value || "").trim();
     ZAINO.profilo = {
-      nome:    nomeDigitato || undefined,
       area:    document.getElementById("area-v2").value,
       livello: document.getElementById("livello-v2").value,
       lingue,
     };
     salvaZaino(ZAINO);
-    renderHome();
     renderMete();
     renderMissione();
     if (salvato) salvato.hidden = false;
@@ -1080,17 +707,8 @@ function init() {
   initTema();
   renderHome();
   renderTimeline();
-  initToggleFase();
-  if (ZAINO.fase === "selezionato") {
-    renderChecklistPost();
-  } else {
-    renderChecklist();
-  }
-  renderPreferite();
+  renderChecklist();
   renderMete();
-  initDettaglioMeta();
-  const inputCerca = document.getElementById("cerca-mete");
-  if (inputCerca) inputCerca.addEventListener("input", renderMete);
   renderIdoneita();
   initProfilo();
   initCountdownPill();

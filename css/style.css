@@ -618,6 +618,67 @@ body {
 }
 
 /* ================================================================
+   CARD CLICCABILE + DETTAGLIO META
+================================================================ */
+.card-cliccabile { cursor: pointer; position: relative; transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease; }
+.card-cliccabile:hover { border-color: var(--border-strong); box-shadow: 0 8px 22px rgba(31,45,82,.10); transform: translateY(-2px); }
+.card-cliccabile:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
+.card-dettagli-hint { display: block; margin-top: 10px; font-size: .8rem; font-weight: 700; color: var(--primary); }
+
+.meta-overlay {
+  position: fixed; inset: 0; z-index: 600;
+  background: rgba(16,27,63,.55);
+  display: flex; align-items: flex-end; justify-content: center;
+  animation: fadeIn .2s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.meta-modal {
+  position: relative;
+  background: var(--bg-card);
+  width: 100%; max-width: 640px;
+  max-height: 92vh; overflow-y: auto;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  padding: 26px 20px 32px;
+  box-shadow: 0 -10px 40px rgba(0,0,0,.25);
+  animation: slideUp .25s ease;
+}
+@keyframes slideUp { from { transform: translateY(24px); } to { transform: translateY(0); } }
+.meta-modal-chiudi {
+  position: absolute; top: 12px; right: 12px;
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid var(--border); background: var(--bg-app);
+  color: var(--text-muted); font-size: 16px; line-height: 1; cursor: pointer;
+}
+.meta-modal-chiudi:hover { background: var(--bg-card-hover); color: var(--text-dark); }
+
+.dett-titolo { font-family: var(--font-display); font-weight: 800; font-size: 1.25rem; line-height: 1.2; color: var(--text-dark); padding-right: 36px; }
+.dett-luogo { margin: 2px 0 14px; font-size: .92rem; color: var(--text-muted); }
+
+.dett-compat { display: flex; flex-direction: column; gap: 2px; margin-bottom: 16px; padding: 10px 12px; background: var(--bg-app); border: 1px solid var(--border); border-radius: var(--radius-md); }
+.dett-compat-stato { font-weight: 800; color: var(--text-dark); }
+.dett-compat-detail { font-size: .85rem; color: var(--text-muted); }
+
+.dett-riga { padding: 11px 0; border-top: 1px solid var(--border); }
+.dett-label { display: block; margin-bottom: 4px; font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--text-hint); }
+.dett-valore { font-size: .92rem; line-height: 1.5; color: var(--text-dark); }
+.dett-valore ul { margin: 0; padding-left: 18px; }
+.dett-valore li { margin: 2px 0; }
+.dett-vuoto { list-style: none; margin-left: -18px; font-style: italic; color: var(--text-muted); }
+
+.dett-link-wrap { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.dett-link { flex: 1 1 auto; padding: 12px 14px; text-align: center; text-decoration: none; font-weight: 700; font-size: .9rem; border: 1px solid var(--border-strong); border-radius: var(--radius-md); color: var(--text-dark); }
+.dett-link.primario { background: var(--primary); border-color: var(--primary); color: #fff; }
+.dett-link:hover { opacity: .92; }
+.dett-nota { margin-top: 16px; font-size: .78rem; line-height: 1.5; color: var(--text-hint); }
+
+body.no-scroll { overflow: hidden; }
+
+@media (min-width: 1024px) {
+  .meta-overlay { align-items: center; }
+  .meta-modal { border-radius: var(--radius-xl); max-height: 88vh; }
+}
+
+/* ================================================================
    TEMA NOTTE
 ================================================================ */
 body.tema-notte {
