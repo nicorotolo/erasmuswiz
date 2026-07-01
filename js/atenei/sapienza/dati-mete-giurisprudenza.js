@@ -319,8 +319,13 @@ var METE = [
         { lingua: "Inglese o Polacco", livello: "B2", condizione: "per incoming exchange students" }
       ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "entro 30 aprile" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Scadenze: basate su 2025/26"
   },
   {
     id: "sap-ius-porto",
@@ -335,7 +340,10 @@ var METE = [
       { numero: 1, mesi: 10, livello: "L", note: "" },
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" },
+        { lingua: "Portoghese", livello: "B2", condizione: "per corsi in portoghese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Application (autunno)", periodo: "entro 21 maggio" },
@@ -356,7 +364,10 @@ var METE = [
       { numero: 2, mesi: 9, livello: "L", note: "" },
       { numero: 2, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Portoghese", livello: "B1", condizione: "livello raccomandato per la maggior parte dei corsi" },
+        { lingua: "Inglese", livello: "B2", condizione: "livello raccomandato" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Nomination (autunno)", periodo: "tra 1 gennaio e 30 giugno" },
@@ -381,7 +392,7 @@ var METE = [
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-ius-ljubljana",

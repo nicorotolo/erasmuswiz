@@ -1,0 +1,18 @@
+{
+  "SAP-IUS-PORTO": {
+    "requisitoLingua": "https://www.up.pt/fep/en/internationalisation/mobility/mobility-in/",
+    "linkSito": "https://www.up.pt/portal/en/study/mobility/study-at-uporto/"
+  },
+  "SAP-IUS-COIMBRA": {
+    "requisitoLingua": "https://www.uc.pt/en/iru/study-abroad/incoming-students-study-at-the-university-of-coimbra/",
+    "linkSito": "https://www.uc.pt/en/fduc/international-relations-and-mobility/incoming-mobility/"
+  },
+  "SAP-IUS-BUCURESTI": {
+    "linkSito": "https://unibuc.ro/international/programul-erasmus/studenti-erasmus/?lang=en",
+    "notePraticheAppend": "https://unibuc.ro/international/programul-erasmus/studenti-erasmus/?lang=en"
+  },
+  "SAP-IUS-WARSAW": {
+    "scadenzeOspitante": "https://bwz.uw.edu.pl/wp-content/uploads/sites/92/2025/11/University_of_Warsaw-factsheet-2025.pdf",
+    "linkSito": "https://en.uw.edu.pl/education/exchange-and-guest-students/"
+  }
+}

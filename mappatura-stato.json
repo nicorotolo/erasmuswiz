@@ -4,26 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Giurisprudenza (Sapienza)",
-  "runCompletati": 134,
+  "runCompletati": 135,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "giurisprudenza (sapienza)-batch-followup-1",
-      "priorita": 6,
-      "dipartimento": "Giurisprudenza (Sapienza)",
-      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "SAP-IUS-PORTO",
-        "SAP-IUS-COIMBRA",
-        "SAP-IUS-BUCURESTI",
-        "SAP-IUS-WARSAW"
-      ]
-    },
     {
       "id": "giurisprudenza (sapienza)-batch-followup-2",
       "priorita": 6,
@@ -32,6 +19,16 @@
       "tipo": "lingua",
       "mete": [
         "SAP-IUS-STOCKHOLM"
+      ]
+    },
+    {
+      "id": "giurisprudenza (sapienza)-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Giurisprudenza (Sapienza)",
+      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-IUS-BUCURESTI"
       ]
     }
   ],
@@ -210,24 +207,20 @@
       "fileJs": "js/atenei/sapienza/dati-mete-giurisprudenza.js",
       "stato": "in_corso",
       "totale": 20,
-      "completate": 15,
+      "completate": 18,
       "pendingScadenze": [
-        "SAP-IUS-WARSAW",
         "SAP-IUS-BUCURESTI"
       ],
       "pendingLingua": [
-        "SAP-IUS-PORTO",
-        "SAP-IUS-COIMBRA",
-        "SAP-IUS-BUCURESTI",
         "SAP-IUS-STOCKHOLM"
       ],
       "tentativiLingua": {
-        "SAP-IUS-PORTO": 1,
-        "SAP-IUS-COIMBRA": 1,
-        "SAP-IUS-BUCURESTI": 1,
+        "SAP-IUS-BUCURESTI": 2,
         "SAP-IUS-STOCKHOLM": 1
       },
-      "linguaNonTrovabile": [],
+      "linguaNonTrovabile": [
+        "SAP-IUS-BUCURESTI"
+      ],
       "ateneo": "Sapienza Roma"
     }
   },
@@ -1043,6 +1036,12 @@
       "data": "2026-07-01",
       "mete": 5,
       "note": "Giurisprudenza (Sapienza) giurisprudenza-batch-4: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 135,
+      "data": "2026-07-01",
+      "mete": 4,
+      "note": "Giurisprudenza (Sapienza) giurisprudenza (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
