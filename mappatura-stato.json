@@ -10,7 +10,148 @@
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
-  "prossimiBatch": [],
+  "prossimiBatch": [
+    {
+      "id": "giurisprudenza (sapienza)-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Giurisprudenza (Sapienza)",
+      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-IUS-STETIENNE",
+        "SAP-IUS-UPHF",
+        "SAP-IUS-LEHAVRE",
+        "SAP-IUS-TOURS",
+        "SAP-IUS-LYON3"
+      ]
+    },
+    {
+      "id": "giurisprudenza (sapienza)-batch-followup-2",
+      "priorita": 6,
+      "dipartimento": "Giurisprudenza (Sapienza)",
+      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-IUS-ROUEN",
+        "SAP-IUS-LILLE",
+        "SAP-IUS-GREIFSWALD",
+        "SAP-IUS-FREIBURG",
+        "SAP-IUS-HANNOVER"
+      ]
+    },
+    {
+      "id": "giurisprudenza (sapienza)-batch-followup-3",
+      "priorita": 6,
+      "dipartimento": "Giurisprudenza (Sapienza)",
+      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-IUS-SAARLAND",
+        "SAP-IUS-REGENSBURG",
+        "SAP-IUS-BREMEN",
+        "SAP-IUS-MARBURG",
+        "SAP-IUS-ATHENS"
+      ]
+    },
+    {
+      "id": "giurisprudenza (sapienza)-batch-followup-4",
+      "priorita": 6,
+      "dipartimento": "Giurisprudenza (Sapienza)",
+      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-IUS-PIRAEUS",
+        "SAP-IUS-VGTU-VILNIUS",
+        "SAP-IUS-GDANSK",
+        "SAP-IUS-JAGIELLONSKI",
+        "SAP-IUS-WROCLAW"
+      ]
+    },
+    {
+      "id": "giurisprudenza (sapienza)-batch-followup-5",
+      "priorita": 6,
+      "dipartimento": "Giurisprudenza (Sapienza)",
+      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-IUS-OLSZTYN",
+        "SAP-IUS-ASE-BUCURESTI",
+        "SAP-IUS-PANEUROPSKA",
+        "SAP-IUS-SANJORGE",
+        "SAP-IUS-AVILA"
+      ]
+    },
+    {
+      "id": "giurisprudenza (sapienza)-batch-followup-6",
+      "priorita": 6,
+      "dipartimento": "Giurisprudenza (Sapienza)",
+      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-IUS-UCLM",
+        "SAP-IUS-UPNA",
+        "SAP-IUS-ZARAGOZA",
+        "SAP-IUS-VALLADOLID",
+        "SAP-IUS-MALAGA"
+      ]
+    },
+    {
+      "id": "giurisprudenza (sapienza)-batch-followup-7",
+      "priorita": 6,
+      "dipartimento": "Giurisprudenza (Sapienza)",
+      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-IUS-SALAMANCA",
+        "SAP-IUS-LEON",
+        "SAP-IUS-GRANADA",
+        "SAP-IUS-LASPALMAS",
+        "SAP-IUS-CADIZ"
+      ]
+    },
+    {
+      "id": "medicina-psicologia-area-medica-batch-1",
+      "priorita": 5,
+      "dipartimento": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza)",
+      "descrizione": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-MEDIC2-INNSBRUCK",
+        "SAP-MEDIC2-LUEBECK",
+        "SAP-MEDIC2-BOCHUM",
+        "SAP-MEDIC2-MALTA",
+        "SAP-MEDIC2-LISBOA"
+      ]
+    },
+    {
+      "id": "medicina-psicologia-area-medica-batch-2",
+      "priorita": 5,
+      "dipartimento": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza)",
+      "descrizione": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-MEDIC2-SANPABLOCEU-A",
+        "SAP-MEDIC2-ALICANTE",
+        "SAP-MEDIC2-COMILLAS-A",
+        "SAP-MEDIC2-SALAMANCA",
+        "SAP-MEDIC2-SANPABLOCEU-B"
+      ]
+    },
+    {
+      "id": "medicina-psicologia-area-medica-batch-3",
+      "priorita": 5,
+      "dipartimento": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza)",
+      "descrizione": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-MEDIC2-VALENCIA",
+        "SAP-MEDIC2-ALFONSOX",
+        "SAP-MEDIC2-CORUNA",
+        "SAP-MEDIC2-BARCELONA",
+        "SAP-MEDIC2-COMILLAS-B"
+      ]
+    }
+  ],
   "statoDipartimenti": {
     "Economia": {
       "fileJs": "js/atenei/cafoscari/dati-mete.js",
@@ -184,15 +325,130 @@
     },
     "Giurisprudenza (Sapienza)": {
       "fileJs": "js/atenei/sapienza/dati-mete-giurisprudenza.js",
-      "stato": "completo",
-      "totale": 20,
+      "stato": "in_corso",
+      "totale": 55,
       "completate": 20,
-      "pendingScadenze": [],
-      "pendingLingua": [],
+      "pendingScadenze": [
+        "SAP-IUS-STETIENNE",
+        "SAP-IUS-UPHF",
+        "SAP-IUS-LEHAVRE",
+        "SAP-IUS-TOURS",
+        "SAP-IUS-LYON3",
+        "SAP-IUS-ROUEN",
+        "SAP-IUS-LILLE",
+        "SAP-IUS-GREIFSWALD",
+        "SAP-IUS-FREIBURG",
+        "SAP-IUS-HANNOVER",
+        "SAP-IUS-SAARLAND",
+        "SAP-IUS-REGENSBURG",
+        "SAP-IUS-BREMEN",
+        "SAP-IUS-MARBURG",
+        "SAP-IUS-ATHENS",
+        "SAP-IUS-PIRAEUS",
+        "SAP-IUS-VGTU-VILNIUS",
+        "SAP-IUS-GDANSK",
+        "SAP-IUS-JAGIELLONSKI",
+        "SAP-IUS-WROCLAW",
+        "SAP-IUS-OLSZTYN",
+        "SAP-IUS-ASE-BUCURESTI",
+        "SAP-IUS-PANEUROPSKA",
+        "SAP-IUS-SANJORGE",
+        "SAP-IUS-AVILA",
+        "SAP-IUS-UCLM",
+        "SAP-IUS-UPNA",
+        "SAP-IUS-ZARAGOZA",
+        "SAP-IUS-VALLADOLID",
+        "SAP-IUS-MALAGA",
+        "SAP-IUS-SALAMANCA",
+        "SAP-IUS-LEON",
+        "SAP-IUS-GRANADA",
+        "SAP-IUS-LASPALMAS",
+        "SAP-IUS-CADIZ"
+      ],
+      "pendingLingua": [
+        "SAP-IUS-STETIENNE",
+        "SAP-IUS-UPHF",
+        "SAP-IUS-LEHAVRE",
+        "SAP-IUS-TOURS",
+        "SAP-IUS-LYON3",
+        "SAP-IUS-ROUEN",
+        "SAP-IUS-LILLE",
+        "SAP-IUS-GREIFSWALD",
+        "SAP-IUS-FREIBURG",
+        "SAP-IUS-HANNOVER",
+        "SAP-IUS-SAARLAND",
+        "SAP-IUS-REGENSBURG",
+        "SAP-IUS-BREMEN",
+        "SAP-IUS-MARBURG",
+        "SAP-IUS-ATHENS",
+        "SAP-IUS-PIRAEUS",
+        "SAP-IUS-VGTU-VILNIUS",
+        "SAP-IUS-GDANSK",
+        "SAP-IUS-JAGIELLONSKI",
+        "SAP-IUS-WROCLAW",
+        "SAP-IUS-OLSZTYN",
+        "SAP-IUS-ASE-BUCURESTI",
+        "SAP-IUS-PANEUROPSKA",
+        "SAP-IUS-SANJORGE",
+        "SAP-IUS-AVILA",
+        "SAP-IUS-UCLM",
+        "SAP-IUS-UPNA",
+        "SAP-IUS-ZARAGOZA",
+        "SAP-IUS-VALLADOLID",
+        "SAP-IUS-MALAGA",
+        "SAP-IUS-SALAMANCA",
+        "SAP-IUS-LEON",
+        "SAP-IUS-GRANADA",
+        "SAP-IUS-LASPALMAS",
+        "SAP-IUS-CADIZ"
+      ],
       "tentativiLingua": {},
       "linguaNonTrovabile": [
         "SAP-IUS-BUCURESTI"
       ],
+      "ateneo": "Sapienza Roma"
+    },
+    "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza)": {
+      "fileJs": "js/atenei/sapienza/dati-mete-medicina-psicologia-area-medica.js",
+      "stato": "in_corso",
+      "totale": 15,
+      "completate": 0,
+      "pendingScadenze": [
+        "SAP-MEDIC2-INNSBRUCK",
+        "SAP-MEDIC2-LUEBECK",
+        "SAP-MEDIC2-BOCHUM",
+        "SAP-MEDIC2-MALTA",
+        "SAP-MEDIC2-LISBOA",
+        "SAP-MEDIC2-SANPABLOCEU-A",
+        "SAP-MEDIC2-ALICANTE",
+        "SAP-MEDIC2-COMILLAS-A",
+        "SAP-MEDIC2-SALAMANCA",
+        "SAP-MEDIC2-SANPABLOCEU-B",
+        "SAP-MEDIC2-VALENCIA",
+        "SAP-MEDIC2-ALFONSOX",
+        "SAP-MEDIC2-CORUNA",
+        "SAP-MEDIC2-BARCELONA",
+        "SAP-MEDIC2-COMILLAS-B"
+      ],
+      "pendingLingua": [
+        "SAP-MEDIC2-INNSBRUCK",
+        "SAP-MEDIC2-LUEBECK",
+        "SAP-MEDIC2-BOCHUM",
+        "SAP-MEDIC2-MALTA",
+        "SAP-MEDIC2-LISBOA",
+        "SAP-MEDIC2-SANPABLOCEU-A",
+        "SAP-MEDIC2-ALICANTE",
+        "SAP-MEDIC2-COMILLAS-A",
+        "SAP-MEDIC2-SALAMANCA",
+        "SAP-MEDIC2-SANPABLOCEU-B",
+        "SAP-MEDIC2-VALENCIA",
+        "SAP-MEDIC2-ALFONSOX",
+        "SAP-MEDIC2-CORUNA",
+        "SAP-MEDIC2-BARCELONA",
+        "SAP-MEDIC2-COMILLAS-B"
+      ],
+      "tentativiLingua": {},
+      "linguaNonTrovabile": [],
       "ateneo": "Sapienza Roma"
     }
   },
@@ -1026,6 +1282,18 @@
       "data": "2026-07-01",
       "mete": 1,
       "note": "Giurisprudenza (Sapienza) giurisprudenza (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": "manuale-2026-07-01",
+      "data": "2026-07-01",
+      "mete": 35,
+      "note": "Espansione manuale Giurisprudenza (Sapienza): da 20 a 55 mete (56 righe DB Sapienza IUS, esclusa 1 duplicato PhD/Specializzandi). Accodati 7 sotto-batch di follow-up (35 mete, lingua+scadenze)."
+    },
+    {
+      "batch": "manuale-2026-07-01-b",
+      "data": "2026-07-01",
+      "mete": 15,
+      "note": "Avvio manuale Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza): creato js/atenei/sapienza/dati-mete-medicina-psicologia-area-medica.js con 15 mete (ambito=MEDIC2, 2 pagine DB); accodati 3 sotto-batch iniziali dopo i 7 di Giurisprudenza, cosi' l'automazione prosegue senza fermarsi."
     }
   ],
   "storicoBatch": [
@@ -1033,8 +1301,8 @@
       "id": "filosofia-batch-1",
       "data": "2026-06-15",
       "dipartimento": "Filosofia e Beni Culturali",
-      "tipo": "nuovo_dipartimento",
       "esito": "completato",
+      "tipo": "nuovo_dipartimento",
       "mete": [
         "CZ BRNO05",
         "CZ PRAHA07",

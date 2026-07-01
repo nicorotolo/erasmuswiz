@@ -4,7 +4,11 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-06-30 (ROADMAP Fase 8: evento analytics "checklist usata". In `js/app.js` aggiunti il flag di modulo `analyticsChecklistInviato` e la funzione `segnalaChecklistUsata()`, che invia `window.goatcounter?.count({ path: "checklist-usata", event: true })` una sola volta per sessione. Chiamata dentro i due listener `change` della checklist: `renderChecklist()` (checklist normale) e `renderChecklistPost()` (post-selezione), solo alla prima spunta di una voce. `node --check js/app.js` OK. Da testare: spuntare una voce checklist sul sito e verificare nel pannello GoatCounter (`erasmuswiz.goatcounter.com`) la comparsa dell'evento `checklist-usata`.)
+**Ultimo aggiornamento:** 2026-07-01 (BATCH NOTTURNI Sapienza: Giurisprudenza espansa 20→55 mete + avviata 2ª Facoltà. Estratte dal DB ufficiale Go Erasmus+ (`?ambito=IUS`, 6 pagine) le 35 mete Giurisprudenza mancanti (56 righe reali meno 1 duplicato PhD/Specializzandi UAM Madrid, non modellato per lo stesso motivo già usato altrove). Riscritto `js/atenei/sapienza/dati-mete-giurisprudenza.js`: 55 mete totali, le 20 originali con l'arricchimento reale già fatto da Codex (lingua+scadenze) preservato intatto, le 35 nuove in seed grezzo. `mappatura-stato.json` aggiornato: totale 55/completate 20, 7 nuovi batch di follow-up in coda. Individuata e avviata una 2ª Facoltà Sapienza — **Medicina e Psicologia, Area medica e professioni sanitarie** (`ambito=MEDIC2`, la più piccola tra le 17 disponibili: 15 mete, 2 pagine DB) — creato `js/atenei/sapienza/dati-mete-medicina-psicologia-area-medica.js` con tutti i campi reali (qui il promotore/coordinatore varia per accordo, non è unico come Giurisprudenza) e 3 batch iniziali accodati DOPO i 7 di Giurisprudenza, così l'automazione Codex finisce Giurisprudenza e prosegue da sola. `index.html`: nuova Facoltà agganciata alla catena `_meteAllSap` di Sapienza. Validato con `scripts/valida-stato.mjs` → "Stato coerente"; `node --check` OK su entrambi i file dati. ⚠️ Durante la ricerca dell'ambito giusto è stato cliccato per errore un link "Esporta i risultati" sul sito Sapienza (possibile download non richiesto sul PC di Nicola, dati pubblici non sensibili, da verificare). NON ANCORA PUBBLICATO: lanciare `PUBBLICA.bat`.)
+
+**Ultimo aggiornamento precedente:** 2026-07-01 (FIX BUG multi-ateneo: 6 punti hardcoded su Ca' Foscari resi dinamici. Il selettore ateneo (Sapienza Roma) funzionava per i dati ma non per l'interfaccia: footer disclaimer, link "bando ufficiale", sottotitolo tab Scadenze, etichetta "Dipartimento Ca' Foscari", etichetta "Coordinatore Ca' Foscari" e il link "Portale Ca' Foscari" (che puntava sempre a unive.it anche con Sapienza attiva — bug più grave, mandava lo studente sul portale sbagliato) restavano fissi. Aggiunti `bandoUrl`/`portaleUrl` a entrambi gli oggetti `ATENEI[...]` in `index.html`, esposti come `window.ATENEO_LABEL`/`ATENEO_BANDO_URL`/`ATENEO_PORTALE_URL` nel blocco "Scelta ateneo attivo"; dati id stabili a footer (`footer-disclaimer`, `footer-link-bando`) e sottotitolo Scadenze (`scadenze-sottotitolo`). In `js/app.js`: etichette generiche "Dipartimento / Facoltà" e "Coordinatore / Docente referente" (card compatta + modale dettaglio), link portale/PDF ora usa `window.ATENEO_PORTALE_URL`, nuova funzione `applicaBrandingAteneo()` chiamata in `init()` dopo `initTema()` che riscrive footer e sottotitolo in base all'ateneo attivo. Meta tag SEO/Open Graph lasciati intenzionalmente su Ca' Foscari. Verificato in preview locale (porta 8001): con Sapienza attiva tutti i 6 punti mostrano correttamente "Sapienza Roma" e i link puntano a uniroma1.it; tornando su Ca' Foscari tutto rientra come prima (nessuna regressione). `node --check js/app.js` OK.)
+
+**Ultimo aggiornamento precedente:** 2026-06-30 (ROADMAP Fase 8: evento analytics "checklist usata". In `js/app.js` aggiunti il flag di modulo `analyticsChecklistInviato` e la funzione `segnalaChecklistUsata()`, che invia `window.goatcounter?.count({ path: "checklist-usata", event: true })` una sola volta per sessione. Chiamata dentro i due listener `change` della checklist: `renderChecklist()` (checklist normale) e `renderChecklistPost()` (post-selezione), solo alla prima spunta di una voce. `node --check js/app.js` OK. Da testare: spuntare una voce checklist sul sito e verificare nel pannello GoatCounter (`erasmuswiz.goatcounter.com`) la comparsa dell'evento `checklist-usata`.)
 
 **Ultimo aggiornamento precedente:** 2026-06-30 (ROADMAP Fase 7: PWA "aggiungi a schermata Home", senza notifiche. Creati `manifest.json` (nome, theme_color `#101b3f`, background `#eef3fb`, `display:standalone`, `start_url:./index.html`), `sw.js` (service worker minimo: cache base di index.html/style.css/app.js/wiz-hero.png/manifest.json, niente offline completo) e due icone `img/icon-192.png` / `img/icon-512.png` (generate via script Node senza dipendenze esterne, sfondo blu notte + "EW" bianco — provvisorie, da sostituire con un'icona disegnata se si vuole un look migliore). In `index.html` `<head>` aggiunti `<link rel="manifest">`, `<meta name="theme-color">`, `<link rel="icon">`/`apple-touch-icon`; prima di `</body>` aggiunta la registrazione del service worker (`navigator.serviceWorker.register('sw.js')`, solo se supportato, errori ignorati silenziosamente). Verificato in preview locale (porta 8001): sito carica senza errori console, `navigator.serviceWorker.getRegistrations()` → 1 registrazione attiva, manifest raggiungibile. `node --check sw.js` OK, manifest.json JSON valido. DA FARE: testare "Aggiungi a schermata Home" da telefono reale (il preview desktop non lo mostra); valutare se sostituire le icone placeholder con una vera icona/logo.)
 
@@ -83,7 +87,8 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | `js/atenei/cafoscari/dati-scadenze.js` | **dati** | Scadenze Ca' Foscari (timeline) — `var SCADENZE_INFO`, `var SCADENZE_CAFOSCARI` |
 | `js/atenei/cafoscari/dati-checklist.js` | **dati** | Passi della checklist — `var CHECKLIST` |
 | `js/atenei/cafoscari/dati-postselezione.js` | **dati** | Checklist post-selezione — `var CHECKLIST_POST` |
-| `js/atenei/sapienza/dati-mete-giurisprudenza.js` | **dati** | Mete Giurisprudenza Sapienza (seed campione 20/56; lingua+scadenze da arricchire) |
+| `js/atenei/sapienza/dati-mete-giurisprudenza.js` | **dati** | Mete Giurisprudenza Sapienza (55/56 destinazioni reali; 20 arricchite lingua+scadenze da Codex, 35 in coda) |
+| `js/atenei/sapienza/dati-mete-medicina-psicologia-area-medica.js` | **dati** | Mete Medicina e Psicologia - Area medica Sapienza (15 destinazioni reali, seed grezzo da arricchire) |
 | `js/atenei/sapienza/dati-scadenze.js` | **dati** | Scadenze bando Sapienza 26/27 (REALI) |
 | `js/atenei/sapienza/dati-bando.js` · `dati-checklist.js` · `dati-postselezione.js` | **dati** | Idoneità/checklist/post-selezione Sapienza (**PROVVISORI**, da validare sul bando) |
 | `js/atenei/sapienza/dati-mete.js` | **dati** | Deprecato (vuoto; sostituito dai file per Facoltà) |
@@ -151,6 +156,22 @@ python -m http.server 8000
 poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
+
+**Aggiornamento 2026-07-01 (batch notturni Sapienza):**
+0. **⬆️ PUBBLICA.bat da lanciare:** Giurisprudenza espansa a 55 mete, nuova Facoltà
+   Medicina e Psicologia - Area medica (15 mete) creata e agganciata a `index.html`,
+   `mappatura-stato.json` con 10 batch in coda (7 Giurisprudenza + 3 Medicina). Tutto
+   solo in locale finché non si esegue `PUBBLICA.bat`.
+1. **Lasciare girare Codex stanotte:** con 10 batch in coda (~9 min/run) dovrebbe
+   completare Giurisprudenza e avanzare parecchio su Medicina senza intervento.
+2. **Prossima sessione:** controllare `mappatura-stato.json` (`runCompletati`,
+   `storico`) per vedere quanti batch sono stati processati; se Medicina finisce,
+   individuare una 3ª Facoltà (candidate scartate per ora: Lettere e Filosofia
+   ~450 mete/troppo grande, Economia senza sedi pubblicate).
+3. Verificare a video (http://localhost:8000) che con Sapienza attiva compaiano
+   sia Giurisprudenza sia Medicina e Psicologia tra le mete.
+
+
 
 Fatto in sessione 5 (2026-06-11): **A4 COMPLETATO** — tutte le 58 mete con lingua e link scheda.
 Fatto in run notturno (2026-06-12): **scadenze arricchite per 5 mete** —

@@ -122,7 +122,7 @@
     <section id="tab-timeline" class="tab-pane nascosto">
       <div class="sezione-header">
         <h2 class="sezione-titolo">⏳ Scadenze</h2>
-        <p class="sezione-sottotitolo">Le tappe della candidatura Ca' Foscari, con conto alla rovescia dal vivo.</p>
+        <p id="scadenze-sottotitolo" class="sezione-sottotitolo">Le tappe della candidatura Ca' Foscari, con conto alla rovescia dal vivo.</p>
       </div>
       <div id="timeline-v2"></div>
     </section>
@@ -237,8 +237,8 @@
 
   <footer class="footer-v2">
     <div class="footer-inner">
-      <p><strong>Sito non ufficiale</strong>, non affiliato all'Università Ca' Foscari Venezia.
-        Fa sempre fede il <a href="https://www.unive.it/erasmus-studio" target="_blank" rel="noopener">bando ufficiale</a>.</p>
+      <p id="footer-disclaimer"><strong>Sito non ufficiale</strong>, non affiliato all'Università Ca' Foscari Venezia.
+        Fa sempre fede il <a id="footer-link-bando" href="https://www.unive.it/erasmus-studio" target="_blank" rel="noopener">bando ufficiale</a>.</p>
       <p>Bando a.a. 2026/2027 —
         <a href="https://github.com/nicorotolo/erasmuswiz/issues" target="_blank" rel="noopener">Segnala un errore</a></p>
     </div>
@@ -323,7 +323,9 @@
       scadenze: SCADENZE_CAFOSCARI,
       scadenzeInfo: SCADENZE_INFO,
       checklist: CHECKLIST,
-      checklistPost: CHECKLIST_POST
+      checklistPost: CHECKLIST_POST,
+      bandoUrl: "https://www.unive.it/erasmus-studio",
+      portaleUrl: "https://www.unive.it/data/11631/"
     };
   </script>
 
@@ -331,6 +333,8 @@
   <script src="js/atenei/sapienza/dati-bando.js"></script>
   <script src="js/atenei/sapienza/dati-mete-giurisprudenza.js"></script>
   <script>var _meteAllSap = METE;</script>
+  <script src="js/atenei/sapienza/dati-mete-medicina-psicologia-area-medica.js"></script>
+  <script>_meteAllSap = _meteAllSap.concat(METE);</script>
   <!-- (future: altre Facoltà Sapienza si concatenano qui, come a Ca' Foscari) -->
   <script src="js/atenei/sapienza/dati-scadenze.js"></script>
   <script src="js/atenei/sapienza/dati-checklist.js"></script>
@@ -346,7 +350,9 @@
       scadenze: SCADENZE_CAFOSCARI,
       scadenzeInfo: SCADENZE_INFO,
       checklist: CHECKLIST,
-      checklistPost: CHECKLIST_POST
+      checklistPost: CHECKLIST_POST,
+      bandoUrl: "https://www.uniroma1.it/it/pagina/bando-erasmus-2026-2027-studio",
+      portaleUrl: "https://www.uniroma1.it/it/pagina/erasmus-studenti-sapienza-studio"
     };
   </script>
 
@@ -366,6 +372,9 @@
       SCADENZE_INFO      = A.scadenzeInfo    || {};
       CHECKLIST          = A.checklist       || [];
       CHECKLIST_POST     = A.checklistPost   || [];
+      window.ATENEO_LABEL       = A.label      || "Ca' Foscari Venezia";
+      window.ATENEO_BANDO_URL   = A.bandoUrl   || "https://www.unive.it/erasmus-studio";
+      window.ATENEO_PORTALE_URL = A.portaleUrl || "https://www.unive.it/data/11631/";
     })();
   </script>
 

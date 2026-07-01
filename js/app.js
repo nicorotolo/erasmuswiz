@@ -681,13 +681,13 @@ function renderMete() {
       listaLingue.appendChild(crea("li", null, "Da verificare — non indicata nella lista ufficiale."));
     }
 
-    card.appendChild(campoV2("Dipartimento Ca' Foscari", meta.dipartimentoCf));
+    card.appendChild(campoV2("Dipartimento / Facoltà", meta.dipartimentoCf));
     card.appendChild(campoV2("Posti disponibili",         listaPosti));
     card.appendChild(campoV2("Requisiti linguistici",     listaLingue));
 
     const link = crea("a", "link-scheda-v2",
-      meta.linkPdf ? "Scheda ufficiale (PDF)" : "Portale Ca' Foscari");
-    link.href   = meta.linkPdf || "https://www.unive.it/data/11631/";
+      meta.linkPdf ? "Scheda ufficiale (PDF)" : `Portale ${window.ATENEO_LABEL || "Ca' Foscari"}`);
+    link.href   = meta.linkPdf || window.ATENEO_PORTALE_URL || "https://www.unive.it/data/11631/";
     link.target = "_blank";
     link.rel    = "noopener";
     link.addEventListener("click", e => e.stopPropagation());
@@ -822,8 +822,8 @@ function apriDettaglioMeta(meta) {
   // --- Area disciplinare + dipartimento + coordinatore + codice ---
   const aree = (meta.areeDisciplinari || []).map(a => `${a.nome} (${a.codice})`).join(", ");
   if (aree) corpo.appendChild(rigaDettaglio("Area disciplinare", aree));
-  if (meta.dipartimentoCf) corpo.appendChild(rigaDettaglio("Dipartimento Ca' Foscari", meta.dipartimentoCf));
-  if (valoreReale(meta.coordinatoreCf)) corpo.appendChild(rigaDettaglio("Coordinatore Ca' Foscari", meta.coordinatoreCf));
+  if (meta.dipartimentoCf) corpo.appendChild(rigaDettaglio("Dipartimento / Facoltà", meta.dipartimentoCf));
+  if (valoreReale(meta.coordinatoreCf)) corpo.appendChild(rigaDettaglio("Coordinatore / Docente referente", meta.coordinatoreCf));
   if (meta.codiceErasmus) corpo.appendChild(rigaDettaglio("Codice Erasmus", meta.codiceErasmus));
 
   // --- Posti ---
@@ -861,7 +861,7 @@ function apriDettaglioMeta(meta) {
   // --- Link ---
   const boxLink = crea("div", "dett-link-wrap");
   const lp = crea("a", "dett-link primario", "Scheda ufficiale (PDF) ↗");
-  lp.href = meta.linkPdf || "https://www.unive.it/data/11631/";
+  lp.href = meta.linkPdf || window.ATENEO_PORTALE_URL || "https://www.unive.it/data/11631/";
   lp.target = "_blank"; lp.rel = "noopener";
   boxLink.appendChild(lp);
   if (valoreReale(meta.linkSito)) {
@@ -1075,9 +1075,23 @@ function initProfilo() {
 // ============================================================
 // AVVIO
 // ============================================================
+function applicaBrandingAteneo() {
+  const label = window.ATENEO_LABEL || "Ca' Foscari Venezia";
+  const disclaimer = document.getElementById("footer-disclaimer");
+  if (disclaimer) {
+    disclaimer.innerHTML = `<strong>Sito non ufficiale</strong>, non affiliato all'Università ${label}. ` +
+      `Fa sempre fede il <a id="footer-link-bando" href="${window.ATENEO_BANDO_URL || "https://www.unive.it/erasmus-studio"}" target="_blank" rel="noopener">bando ufficiale</a>.`;
+  }
+  const sottotitoloScadenze = document.getElementById("scadenze-sottotitolo");
+  if (sottotitoloScadenze) {
+    sottotitoloScadenze.textContent = `Le tappe della candidatura ${label}, con conto alla rovescia dal vivo.`;
+  }
+}
+
 function init() {
   initNav();
   initTema();
+  applicaBrandingAteneo();
   renderHome();
   renderTimeline();
   initToggleFase();

@@ -1,0 +1,284 @@
+// ============================================================
+// METE ERASMUS — SAPIENZA · Medicina e Psicologia
+//   Area medica e professioni sanitarie
+// ------------------------------------------------------------
+// Fonte: database ufficiale "Go Erasmus+" Sapienza, filtro Facoltà =
+//   Medicina e Psicologia - Area medica e professioni sanitarie (ambito=MEDIC2).
+//   Bando Erasmus+ 2026/27.
+//   https://accordi-didattica.web.uniroma1.it/goerasmus?ambito=MEDIC2
+//
+// 2026-07-01: seed iniziale, 15 destinazioni (tutte quelle disponibili, 2
+// pagine del DB). A differenza di Giurisprudenza, qui il promotore/coordinatore
+// NON è unico per tutta la Facoltà: ogni accordo ha il suo docente promotore
+// (riportato in coordinatoreCf).
+//
+// NOTA duplicati: alcuni atenei partner compaiono due volte come accordi
+// SEPARATI (stesso ateneo, promotore diverso): Universidad San Pablo-CEU
+// (Daniele De Nuzzo / Maria Chiara Vulpiani) e Universidad Pontificia Comillas
+// (Maria Chiara Vulpiani / Flavia Pantaleo). Modellati come mete distinte con
+// suffisso -A/-B su id e codiceErasmus.
+//
+// Campi DA ARRICCHIRE col bot: requisitoLingua, scadenzeOspitante (tutti vuoti).
+//
+// ⚠️ codiceErasmus: chiave-join PROVVISORIA e sintetica (prefisso
+//   "SAP-MEDIC2-"). Il DB lista non espone il codice Erasmus ufficiale.
+// ============================================================
+
+var METE = [
+  {
+    id: "sap-medic2-innsbruck",
+    universita: "Medizinische Universität Innsbruck",
+    citta: "Innsbruck",
+    paese: "Austria",
+    codiceErasmus: "SAP-MEDIC2-INNSBRUCK",
+    dipartimentoCf: "Medicina e Psicologia - Area medica e professioni sanitarie",
+    areeDisciplinari: [{ codice: "0912", nome: "Medicine" }],
+    coordinatoreCf: "Giovanni Battista Orsi",
+    posti: [
+      { numero: 3, mesi: 6, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 3. Solo livello Magistrale."
+  },
+  {
+    id: "sap-medic2-luebeck",
+    universita: "Universität zu Lübeck",
+    citta: "Lubecca",
+    paese: "Germania",
+    codiceErasmus: "SAP-MEDIC2-LUEBECK",
+    dipartimentoCf: "Medicina e Psicologia - Area medica e professioni sanitarie",
+    areeDisciplinari: [{ codice: "0912", nome: "Medicine" }],
+    coordinatoreCf: "Giovanni Battista Orsi",
+    posti: [
+      { numero: 2, mesi: 10, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2. Solo livello Magistrale."
+  },
+  {
+    id: "sap-medic2-bochum",
+    universita: "Ruhr-Universität Bochum",
+    citta: "Bochum",
+    paese: "Germania",
+    codiceErasmus: "SAP-MEDIC2-BOCHUM",
+    dipartimentoCf: "Medicina e Psicologia - Area medica e professioni sanitarie",
+    areeDisciplinari: [{ codice: "0912", nome: "Medicine" }],
+    coordinatoreCf: "Marco Salvetti",
+    posti: [
+      { numero: 2, mesi: 10, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2. Solo livello Magistrale."
+  },
+  {
+    id: "sap-medic2-malta",
+    universita: "University of Malta",
+    citta: "Msida",
+    paese: "Malta",
+    codiceErasmus: "SAP-MEDIC2-MALTA",
+    dipartimentoCf: "Medicina e Psicologia - Area medica e professioni sanitarie",
+    areeDisciplinari: [{ codice: "0912", nome: "Medicine" }],
+    coordinatoreCf: "Mario Vetrano",
+    posti: [
+      { numero: 3, mesi: 3, livello: "L", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 3. Solo livello triennale."
+  },
+  {
+    id: "sap-medic2-lisboa",
+    universita: "Universidade Nova de Lisboa",
+    citta: "Lisbona",
+    paese: "Portogallo",
+    codiceErasmus: "SAP-MEDIC2-LISBOA",
+    dipartimentoCf: "Medicina e Psicologia - Area medica e professioni sanitarie",
+    areeDisciplinari: [{ codice: "0912", nome: "Medicine" }],
+    coordinatoreCf: "Giovanni Battista Orsi",
+    posti: [
+      { numero: 3, mesi: 10, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 3. Solo livello Magistrale."
+  },
+  {
+    id: "sap-medic2-sanpabloceu-a",
+    universita: "Universidad San Pablo-CEU",
+    citta: "Madrid",
+    paese: "Spagna",
+    codiceErasmus: "SAP-MEDIC2-SANPABLOCEU-A",
+    dipartimentoCf: "Medicina e Psicologia - Area medica e professioni sanitarie",
+    areeDisciplinari: [{ codice: "0912", nome: "Medicine" }],
+    coordinatoreCf: "Daniele De Nuzzo",
+    posti: [
+      { numero: 2, mesi: 3, livello: "L", note: "" },
+      { numero: 2, mesi: 3, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Secondo accordo distinto con lo stesso ateneo (promotore Daniele De Nuzzo, vedi anche sap-medic2-sanpabloceu-b)."
+  },
+  {
+    id: "sap-medic2-alicante",
+    universita: "Universidad de Alicante",
+    citta: "Alicante",
+    paese: "Spagna",
+    codiceErasmus: "SAP-MEDIC2-ALICANTE",
+    dipartimentoCf: "Medicina e Psicologia - Area medica e professioni sanitarie",
+    areeDisciplinari: [{ codice: "0912", nome: "Medicine" }],
+    coordinatoreCf: "Daniele De Nuzzo",
+    posti: [
+      { numero: 2, mesi: 3, livello: "L", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale."
+  },
+  {
+    id: "sap-medic2-comillas-a",
+    universita: "Universidad Pontificia Comillas",
+    citta: "Madrid",
+    paese: "Spagna",
+    codiceErasmus: "SAP-MEDIC2-COMILLAS-A",
+    dipartimentoCf: "Medicina e Psicologia - Area medica e professioni sanitarie",
+    areeDisciplinari: [{ codice: "0912", nome: "Medicine" }],
+    coordinatoreCf: "Maria Chiara Vulpiani",
+    posti: [
+      { numero: 1, mesi: 3, livello: "L", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 1. Solo livello triennale. Secondo accordo distinto con lo stesso ateneo (promotore Maria Chiara Vulpiani, vedi anche sap-medic2-comillas-b con promotore Flavia Pantaleo)."
+  },
+  {
+    id: "sap-medic2-salamanca",
+    universita: "Universidad de Salamanca",
+    citta: "Salamanca",
+    paese: "Spagna",
+    codiceErasmus: "SAP-MEDIC2-SALAMANCA",
+    dipartimentoCf: "Medicina e Psicologia - Area medica e professioni sanitarie",
+    areeDisciplinari: [{ codice: "0912", nome: "Medicine" }],
+    coordinatoreCf: "Maria Chiara Vulpiani",
+    posti: [
+      { numero: 2, mesi: 6, livello: "L", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale."
+  },
+  {
+    id: "sap-medic2-sanpabloceu-b",
+    universita: "Universidad San Pablo-CEU",
+    citta: "Madrid",
+    paese: "Spagna",
+    codiceErasmus: "SAP-MEDIC2-SANPABLOCEU-B",
+    dipartimentoCf: "Medicina e Psicologia - Area medica e professioni sanitarie",
+    areeDisciplinari: [{ codice: "0912", nome: "Medicine" }],
+    coordinatoreCf: "Maria Chiara Vulpiani",
+    posti: [
+      { numero: 2, mesi: 3, livello: "L", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale. Secondo accordo distinto con lo stesso ateneo (promotore Maria Chiara Vulpiani, vedi anche sap-medic2-sanpabloceu-a con promotore Daniele De Nuzzo)."
+  },
+  {
+    id: "sap-medic2-valencia",
+    universita: "Universidad Católica de Valencia \"San Vicente Mártir\"",
+    citta: "Valencia",
+    paese: "Spagna",
+    codiceErasmus: "SAP-MEDIC2-VALENCIA",
+    dipartimentoCf: "Medicina e Psicologia - Area medica e professioni sanitarie",
+    areeDisciplinari: [{ codice: "0912", nome: "Medicine" }],
+    coordinatoreCf: "Franco Giubilei",
+    posti: [
+      { numero: 2, mesi: 6, livello: "L", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale."
+  },
+  {
+    id: "sap-medic2-alfonsox",
+    universita: "Universidad Alfonso X El Sabio",
+    citta: "Madrid",
+    paese: "Spagna",
+    codiceErasmus: "SAP-MEDIC2-ALFONSOX",
+    dipartimentoCf: "Medicina e Psicologia - Area medica e professioni sanitarie",
+    areeDisciplinari: [{ codice: "0912", nome: "Medicine" }],
+    coordinatoreCf: "Mario Vetrano",
+    posti: [
+      { numero: 4, mesi: 3, livello: "L", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 4. Solo livello triennale."
+  },
+  {
+    id: "sap-medic2-coruna",
+    universita: "Universidad de La Coruña",
+    citta: "La Coruña",
+    paese: "Spagna",
+    codiceErasmus: "SAP-MEDIC2-CORUNA",
+    dipartimentoCf: "Medicina e Psicologia - Area medica e professioni sanitarie",
+    areeDisciplinari: [{ codice: "0912", nome: "Medicine" }],
+    coordinatoreCf: "Mario Vetrano",
+    posti: [
+      { numero: 3, mesi: 3, livello: "L", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 3. Solo livello triennale."
+  },
+  {
+    id: "sap-medic2-barcelona",
+    universita: "Universidad de Barcelona",
+    citta: "Barcellona",
+    paese: "Spagna",
+    codiceErasmus: "SAP-MEDIC2-BARCELONA",
+    dipartimentoCf: "Medicina e Psicologia - Area medica e professioni sanitarie",
+    areeDisciplinari: [{ codice: "0912", nome: "Medicine" }],
+    coordinatoreCf: "Flavia Pantaleo",
+    posti: [
+      { numero: 4, mesi: 3, livello: "L", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 4. Solo livello triennale."
+  },
+  {
+    id: "sap-medic2-comillas-b",
+    universita: "Universidad Pontificia Comillas",
+    citta: "Madrid",
+    paese: "Spagna",
+    codiceErasmus: "SAP-MEDIC2-COMILLAS-B",
+    dipartimentoCf: "Medicina e Psicologia - Area medica e professioni sanitarie",
+    areeDisciplinari: [{ codice: "0912", nome: "Medicine" }],
+    coordinatoreCf: "Flavia Pantaleo",
+    posti: [
+      { numero: 2, mesi: 3, livello: "L", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale. Secondo accordo distinto con lo stesso ateneo (promotore Flavia Pantaleo, vedi anche sap-medic2-comillas-a con promotore Maria Chiara Vulpiani)."
+  }
+];

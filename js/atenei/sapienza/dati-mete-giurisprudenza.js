@@ -1,18 +1,24 @@
 // ============================================================
-// METE ERASMUS — SAPIENZA · Facoltà di GIURISPRUDENZA  (SEED CAMPIONE)
+// METE ERASMUS — SAPIENZA · Facoltà di GIURISPRUDENZA
 // ------------------------------------------------------------
 // Fonte: database ufficiale "Go Erasmus+" Sapienza, filtro Facoltà =
 //   Giurisprudenza (ambito=IUS). Bando Erasmus+ 2026/27.
 //   https://accordi-didattica.web.uniroma1.it/goerasmus?ambito=IUS
 //
-// CAMPIONE per il test con studenti: 20 destinazioni su 56 totali,
-// scelte per varietà di Paese. Le altre 36 si aggiungono dopo.
+// 2026-07-01: espanso da 20 a 55 destinazioni (tutte quelle disponibili).
+// Il DB elenca 56 righe, ma la 56ª è un secondo accordo Universidad Autónoma
+// de Madrid riservato a PhD/Specializzandi (duplicato dello stesso ateneo
+// già presente in riga L/LM): il sito non gestisce il livello PhD, quindi
+// non è stato modellato come meta separata, seguendo lo stesso criterio già
+// usato per le altre mete con posti anche PhD (annotati in notePratiche).
+// Le prime 20 mete sono già arricchite dall'automazione Codex (lingua +
+// scadenze); le 35 nuove sono seed grezzo da arricchire.
 //
 // Campi REALI dal DB (lista): paese, universita, posti, durata (mesi),
 //   livello, coordinatore (promotore = Gianluca Scarchillo per tutta la
 //   Facoltà). Area = ISCED Law (0421), comune a Giurisprudenza.
 //
-// Campi DA ARRICCHIRE col bot (vuoti qui): requisitoLingua, scadenzeOspitante.
+// Campi DA ARRICCHIRE col bot (vuoti per le 35 nuove): requisitoLingua, scadenzeOspitante.
 //
 // ⚠️ codiceErasmus: chiave-join PROVVISORIA e sintetica (prefisso "SAP-IUS-").
 //   Il DB lista non espone il codice Erasmus ufficiale; serve solo come
@@ -522,5 +528,630 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 1 ottobre" }
       ],
     notePratiche: "Posti totali dell'accordo: 1. Solo livello triennale. || Lingua: CEFR non pubblicato ufficialmente"
+  },
+  {
+    id: "sap-ius-stetienne",
+    universita: "Université Jean Monnet Saint-Étienne",
+    citta: "Saint-Étienne",
+    paese: "Francia",
+    codiceErasmus: "SAP-IUS-STETIENNE",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 4, mesi: 9, livello: "L", note: "" },
+      { numero: 4, mesi: 9, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+  },
+  {
+    id: "sap-ius-uphf",
+    universita: "Université Polytechnique Hauts-de-France",
+    citta: "Valenciennes",
+    paese: "Francia",
+    codiceErasmus: "SAP-IUS-UPHF",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 2, mesi: 5, livello: "L", note: "" },
+      { numero: 2, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-ius-lehavre",
+    universita: "Université Le Havre Normandie",
+    citta: "Le Havre",
+    paese: "Francia",
+    codiceErasmus: "SAP-IUS-LEHAVRE",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 1, mesi: 10, livello: "L", note: "" },
+      { numero: 1, mesi: 10, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-ius-tours",
+    universita: "Université de Tours",
+    citta: "Tours",
+    paese: "Francia",
+    codiceErasmus: "SAP-IUS-TOURS",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 1, mesi: 5, livello: "L", note: "" },
+      { numero: 1, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+  },
+  {
+    id: "sap-ius-lyon3",
+    universita: "Université Jean Moulin (Lyon III)",
+    citta: "Lione",
+    paese: "Francia",
+    codiceErasmus: "SAP-IUS-LYON3",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 3, mesi: 9, livello: "L", note: "" },
+      { numero: 3, mesi: 9, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-ius-rouen",
+    universita: "Université de Rouen Normandie",
+    citta: "Rouen",
+    paese: "Francia",
+    codiceErasmus: "SAP-IUS-ROUEN",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 1, mesi: 9, livello: "L", note: "" },
+      { numero: 1, mesi: 9, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+  },
+  {
+    id: "sap-ius-lille",
+    universita: "Université de Lille",
+    citta: "Lille",
+    paese: "Francia",
+    codiceErasmus: "SAP-IUS-LILLE",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 1, mesi: 10, livello: "L", note: "" },
+      { numero: 1, mesi: 10, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+  },
+  {
+    id: "sap-ius-greifswald",
+    universita: "Universität Greifswald",
+    citta: "Greifswald",
+    paese: "Germania",
+    codiceErasmus: "SAP-IUS-GREIFSWALD",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 3, mesi: 10, livello: "L", note: "" },
+      { numero: 3, mesi: 10, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+  },
+  {
+    id: "sap-ius-freiburg",
+    universita: "Albert-Ludwigs-Universität Freiburg",
+    citta: "Friburgo",
+    paese: "Germania",
+    codiceErasmus: "SAP-IUS-FREIBURG",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 2, mesi: 10, livello: "L", note: "" },
+      { numero: 2, mesi: 10, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+  },
+  {
+    id: "sap-ius-hannover",
+    universita: "Gottfried Wilhelm Leibniz Universität Hannover",
+    citta: "Hannover",
+    paese: "Germania",
+    codiceErasmus: "SAP-IUS-HANNOVER",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 1, mesi: 10, livello: "L", note: "" },
+      { numero: 1, mesi: 10, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-ius-saarland",
+    universita: "Universität des Saarlandes",
+    citta: "Saarbrücken",
+    paese: "Germania",
+    codiceErasmus: "SAP-IUS-SAARLAND",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 4, mesi: 10, livello: "L", note: "" },
+      { numero: 4, mesi: 10, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+  },
+  {
+    id: "sap-ius-regensburg",
+    universita: "Universität Regensburg",
+    citta: "Ratisbona",
+    paese: "Germania",
+    codiceErasmus: "SAP-IUS-REGENSBURG",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 1, mesi: 9, livello: "L", note: "" },
+      { numero: 1, mesi: 9, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+  },
+  {
+    id: "sap-ius-bremen",
+    universita: "Universität Bremen",
+    citta: "Brema",
+    paese: "Germania",
+    codiceErasmus: "SAP-IUS-BREMEN",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 4, mesi: 9, livello: "L", note: "" },
+      { numero: 4, mesi: 9, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+  },
+  {
+    id: "sap-ius-marburg",
+    universita: "Philipps-Universität Marburg",
+    citta: "Marburgo",
+    paese: "Germania",
+    codiceErasmus: "SAP-IUS-MARBURG",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 1, mesi: 10, livello: "L", note: "" },
+      { numero: 1, mesi: 10, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+  },
+  {
+    id: "sap-ius-athens",
+    universita: "National and Kapodistrian University of Athens (NKUA)",
+    citta: "Atene",
+    paese: "Grecia",
+    codiceErasmus: "SAP-IUS-ATHENS",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 2, mesi: 10, livello: "L", note: "" },
+      { numero: 2, mesi: 10, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+  },
+  {
+    id: "sap-ius-piraeus",
+    universita: "Panepistimio Pireos (University of Piraeus)",
+    citta: "Pireo",
+    paese: "Grecia",
+    codiceErasmus: "SAP-IUS-PIRAEUS",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 4, mesi: 5, livello: "L", note: "" },
+      { numero: 4, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-ius-vgtu-vilnius",
+    universita: "Vilniaus Gedimino Technikos Universitetas (VGTU)",
+    citta: "Vilnius",
+    paese: "Lituania",
+    codiceErasmus: "SAP-IUS-VGTU-VILNIUS",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 3, mesi: 6, livello: "L", note: "" },
+      { numero: 3, mesi: 6, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-ius-gdansk",
+    universita: "Uniwersytet Gdanski",
+    citta: "Danzica",
+    paese: "Polonia",
+    codiceErasmus: "SAP-IUS-GDANSK",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 2, mesi: 10, livello: "L", note: "" },
+      { numero: 2, mesi: 10, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+  },
+  {
+    id: "sap-ius-jagiellonski",
+    universita: "Uniwersytet Jagiellonski",
+    citta: "Cracovia",
+    paese: "Polonia",
+    codiceErasmus: "SAP-IUS-JAGIELLONSKI",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 1, mesi: 5, livello: "L", note: "" },
+      { numero: 1, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+  },
+  {
+    id: "sap-ius-wroclaw",
+    universita: "Uniwersytet Wroclawski",
+    citta: "Breslavia",
+    paese: "Polonia",
+    codiceErasmus: "SAP-IUS-WROCLAW",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 2, mesi: 10, livello: "L", note: "" },
+      { numero: 2, mesi: 10, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+  },
+  {
+    id: "sap-ius-olsztyn",
+    universita: "Uniwersytet Warminsko-Mazurski w Olsztynie",
+    citta: "Olsztyn",
+    paese: "Polonia",
+    codiceErasmus: "SAP-IUS-OLSZTYN",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 4, mesi: 10, livello: "L", note: "" },
+      { numero: 4, mesi: 10, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+  },
+  {
+    id: "sap-ius-ase-bucuresti",
+    universita: "Academia de Studii Economice din Bucuresti",
+    citta: "Bucarest",
+    paese: "Romania",
+    codiceErasmus: "SAP-IUS-ASE-BUCURESTI",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 3, mesi: 9, livello: "L", note: "" },
+      { numero: 3, mesi: 9, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+  },
+  {
+    id: "sap-ius-paneuropska",
+    universita: "Paneuropska Vysoka Skola",
+    citta: "Bratislava",
+    paese: "Slovacchia",
+    codiceErasmus: "SAP-IUS-PANEUROPSKA",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 3, mesi: 9, livello: "L", note: "" },
+      { numero: 3, mesi: 9, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+  },
+  {
+    id: "sap-ius-sanjorge",
+    universita: "Fundación Universidad San Jorge",
+    citta: "Saragozza",
+    paese: "Spagna",
+    codiceErasmus: "SAP-IUS-SANJORGE",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 2, mesi: 10, livello: "L", note: "" },
+      { numero: 2, mesi: 10, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+  },
+  {
+    id: "sap-ius-avila",
+    universita: "Universidad Católica de Ávila \"Santa Teresa de Jesús\"",
+    citta: "Ávila",
+    paese: "Spagna",
+    codiceErasmus: "SAP-IUS-AVILA",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 3, mesi: 9, livello: "L", note: "" },
+      { numero: 3, mesi: 9, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+  },
+  {
+    id: "sap-ius-uclm",
+    universita: "Universidad de Castilla-La Mancha",
+    citta: "Ciudad Real",
+    paese: "Spagna",
+    codiceErasmus: "SAP-IUS-UCLM",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 1, mesi: 5, livello: "L", note: "" },
+      { numero: 1, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+  },
+  {
+    id: "sap-ius-upna",
+    universita: "Universidad Pública de Navarra (UPNA)",
+    citta: "Pamplona",
+    paese: "Spagna",
+    codiceErasmus: "SAP-IUS-UPNA",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 1, mesi: 9, livello: "L", note: "" },
+      { numero: 1, mesi: 9, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+  },
+  {
+    id: "sap-ius-zaragoza",
+    universita: "Universidad de Zaragoza",
+    citta: "Saragozza",
+    paese: "Spagna",
+    codiceErasmus: "SAP-IUS-ZARAGOZA",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 3, mesi: 10, livello: "L", note: "" },
+      { numero: 3, mesi: 10, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+  },
+  {
+    id: "sap-ius-valladolid",
+    universita: "Universidad de Valladolid",
+    citta: "Valladolid",
+    paese: "Spagna",
+    codiceErasmus: "SAP-IUS-VALLADOLID",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 1, mesi: 9, livello: "L", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 1. Solo livello triennale."
+  },
+  {
+    id: "sap-ius-malaga",
+    universita: "Universidad de Málaga",
+    citta: "Málaga",
+    paese: "Spagna",
+    codiceErasmus: "SAP-IUS-MALAGA",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 3, mesi: 9, livello: "L", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 3. Solo livello triennale."
+  },
+  {
+    id: "sap-ius-salamanca",
+    universita: "Universidad de Salamanca",
+    citta: "Salamanca",
+    paese: "Spagna",
+    codiceErasmus: "SAP-IUS-SALAMANCA",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 3, mesi: 10, livello: "L", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 3. Solo livello triennale."
+  },
+  {
+    id: "sap-ius-leon",
+    universita: "Universidad de León",
+    citta: "León",
+    paese: "Spagna",
+    codiceErasmus: "SAP-IUS-LEON",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 2, mesi: 10, livello: "L", note: "" },
+      { numero: 2, mesi: 10, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+  },
+  {
+    id: "sap-ius-granada",
+    universita: "Universidad de Granada",
+    citta: "Granada",
+    paese: "Spagna",
+    codiceErasmus: "SAP-IUS-GRANADA",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 3, mesi: 9, livello: "L", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 3. Solo livello triennale."
+  },
+  {
+    id: "sap-ius-laspalmas",
+    universita: "Universidad de Las Palmas de Gran Canaria",
+    citta: "Las Palmas de Gran Canaria",
+    paese: "Spagna",
+    codiceErasmus: "SAP-IUS-LASPALMAS",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 5, mesi: 9, livello: "L", note: "" },
+      { numero: 5, mesi: 9, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 5 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+  },
+  {
+    id: "sap-ius-cadiz",
+    universita: "Universidad de Cádiz",
+    citta: "Cadice",
+    paese: "Spagna",
+    codiceErasmus: "SAP-IUS-CADIZ",
+    dipartimentoCf: "Giurisprudenza",
+    areeDisciplinari: [{ codice: "0421", nome: "Law" }],
+    coordinatoreCf: "Scarchillo Gianluca",
+    posti: [
+      { numero: 2, mesi: 9, livello: "L", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale."
   }
 ];
