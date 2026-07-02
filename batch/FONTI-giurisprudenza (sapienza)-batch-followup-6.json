@@ -1,0 +1,22 @@
+{
+  "SAP-IUS-UCLM": {
+    "scadenzeOspitante": "https://www.uclm.es/en/misiones/internacional/movilidad/movilidad_entrante/estudiantes/estudiantes-de-intercambio",
+    "linkSito": "https://www.uclm.es/en/misiones/internacional/movilidad/movilidad_entrante/estudiantes/estudiantes-de-intercambio"
+  },
+  "SAP-IUS-UPNA": {
+    "linkSito": "https://www.unavarra.es/"
+  },
+  "SAP-IUS-ZARAGOZA": {
+    "scadenzeOspitante": "https://educacion.unizar.es/sites/educacion/files/archivos/MOVILIDAD/Incoming/2025_2026_exchange_students_sheet.pdf",
+    "linkSito": "https://internacional.unizar.es/erasmus-incoming-students-academic-year-25-26"
+  },
+  "SAP-IUS-VALLADOLID": {
+    "requisitoLingua": "https://relint.uva.es/wp-content/uploads/2026/01/E-VALLADO01-Infosheet-26-27.pdf",
+    "scadenzeOspitante": "https://relint.uva.es/wp-content/uploads/2026/01/E-VALLADO01-Infosheet-26-27.pdf",
+    "linkSito": "https://relint.uva.es/"
+  },
+  "SAP-IUS-MALAGA": {
+    "requisitoLingua": "https://www.uma.es/relaciones-internacionales/navegador_de_ficheros/Incoming/descargar/Fact_sheet_INGLES.pdf",
+    "linkSito": "https://www.uma.es/relaciones-internacionales/"
+  }
+}
