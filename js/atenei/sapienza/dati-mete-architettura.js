@@ -396,8 +396,11 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Nomination e application (autunno)", periodo: "entro 10 maggio" },
+        { cosa: "Nomination e application (primavera)", periodo: "entro 10 novembre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-archi-paris8",
@@ -412,9 +415,14 @@ var METE = [
       { numero: 1, mesi: 12, livello: "L", note: "" },
       { numero: 1, mesi: 12, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "raccomandato per seguire i corsi" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application/enrolment (autunno o anno intero)", periodo: "entro 30 giugno" },
+        { cosa: "Application/enrolment (primavera)", periodo: "entro 30 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -429,9 +437,17 @@ var METE = [
     posti: [
       { numero: 2, mesi: 12, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "A2-B1", condizione: "raccomandato per studenti non francofoni" },
+        { lingua: "Inglese", livello: "B2", condizione: "per lezioni in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno o anno intero)", periodo: "entro 1 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre 2026" },
+        { cosa: "Application (autunno o anno intero)", periodo: "entro 1 giugno 2026" },
+        { cosa: "Application (primavera)", periodo: "entro 30 ottobre 2026" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2. Solo livello Magistrale. Ulteriore accordo distinto con lo stesso ateneo (promotore Federica Dal Falco)."
   },
   {
@@ -450,7 +466,7 @@ var METE = [
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-archi-lyon",
@@ -464,9 +480,16 @@ var METE = [
     posti: [
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "altamente raccomandato; certificazione ufficiale non richiesta" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno o anno intero)", periodo: "entro 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" },
+        { cosa: "Application (autunno o anno intero)", periodo: "entro 15 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 1. Solo livello Magistrale. Disponibile anche per PhD/Specializzandi."
   },
   {

@@ -1,0 +1,24 @@
+{
+  "SAP-ARCHI-NANTES-DESIGN": {
+    "scadenzeOspitante": "https://lecolededesign.com/en/international/coming-nantes-exchange-student",
+    "linkSito": "https://lecolededesign.com/en/international/coming-nantes-exchange-student"
+  },
+  "SAP-ARCHI-PARIS8": {
+    "requisitoLingua": "https://www.univ-paris8.fr/en/-international-exchanges-",
+    "scadenzeOspitante": "https://www.univ-paris8.fr/en/-international-exchanges-",
+    "linkSito": "https://www.univ-paris8.fr/en/-international-exchanges-"
+  },
+  "SAP-ARCHI-GRENOBLE-A": {
+    "requisitoLingua": "https://www.grenoble.archi.fr/wp-content/uploads/2026/01/ENSAG-UGA-FactSheet-26-27.pdf",
+    "scadenzeOspitante": "https://www.grenoble.archi.fr/wp-content/uploads/2026/01/ENSAG-UGA-FactSheet-26-27.pdf",
+    "linkSito": "https://www.grenoble.archi.fr/wp-content/uploads/2026/01/ENSAG-UGA-FactSheet-26-27.pdf"
+  },
+  "SAP-ARCHI-GUSTAVE-EIFFEL": {
+    "linkSito": "https://www.univ-gustave-eiffel.fr/en/international/international-students/exchange-students"
+  },
+  "SAP-ARCHI-LYON": {
+    "requisitoLingua": "https://www.lyon.archi.fr/sites/default/files/media/2026-03/ensal_erasmus_key_data_26-27_1.pdf",
+    "scadenzeOspitante": "https://www.lyon.archi.fr/sites/default/files/media/2026-03/ensal_erasmus_key_data_26-27_1.pdf",
+    "linkSito": "https://www.lyon.archi.fr/en/school/studying-ensal"
+  }
+}

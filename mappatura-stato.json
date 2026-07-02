@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza)",
-  "runCompletati": 150,
+  "runCompletati": 151,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "architettura-batch-4",
-      "priorita": 5,
-      "dipartimento": "Architettura (Sapienza)",
-      "descrizione": "Architettura (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "SAP-ARCHI-NANTES-DESIGN",
-        "SAP-ARCHI-PARIS8",
-        "SAP-ARCHI-GRENOBLE-A",
-        "SAP-ARCHI-GUSTAVE-EIFFEL",
-        "SAP-ARCHI-LYON"
-      ]
-    },
     {
       "id": "architettura-batch-5",
       "priorita": 5,
@@ -353,6 +339,17 @@
         "SAP-ARCHI-EKA-TALLINN",
         "SAP-ARCHI-LILLE"
       ]
+    },
+    {
+      "id": "architettura (sapienza)-batch-followup-3",
+      "priorita": 6,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-NANTES-DESIGN",
+        "SAP-ARCHI-GUSTAVE-EIFFEL"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -574,13 +571,9 @@
       "fileJs": "js/atenei/sapienza/dati-mete-architettura.js",
       "stato": "in_corso",
       "totale": 113,
-      "completate": 12,
+      "completate": 15,
       "pendingScadenze": [
-        "SAP-ARCHI-NANTES-DESIGN",
-        "SAP-ARCHI-PARIS8",
-        "SAP-ARCHI-GRENOBLE-A",
         "SAP-ARCHI-GUSTAVE-EIFFEL",
-        "SAP-ARCHI-LYON",
         "SAP-ARCHI-ROUEN",
         "SAP-ARCHI-PARIS-LAVILLETTE",
         "SAP-ARCHI-EAVT-MARNE",
@@ -680,10 +673,7 @@
         "SAP-ARCHI-EKA-TALLINN",
         "SAP-ARCHI-LILLE",
         "SAP-ARCHI-NANTES-DESIGN",
-        "SAP-ARCHI-PARIS8",
-        "SAP-ARCHI-GRENOBLE-A",
         "SAP-ARCHI-GUSTAVE-EIFFEL",
-        "SAP-ARCHI-LYON",
         "SAP-ARCHI-ROUEN",
         "SAP-ARCHI-PARIS-LAVILLETTE",
         "SAP-ARCHI-EAVT-MARNE",
@@ -781,7 +771,9 @@
       "tentativiLingua": {
         "SAP-ARCHI-INNSBRUCK": 1,
         "SAP-ARCHI-EKA-TALLINN": 1,
-        "SAP-ARCHI-LILLE": 1
+        "SAP-ARCHI-LILLE": 1,
+        "SAP-ARCHI-NANTES-DESIGN": 1,
+        "SAP-ARCHI-GUSTAVE-EIFFEL": 1
       },
       "linguaNonTrovabile": [],
       "ateneo": "Sapienza Roma"
@@ -1713,6 +1705,12 @@
       "data": "2026-07-02",
       "mete": 5,
       "note": "Architettura (Sapienza) architettura-batch-3: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 151,
+      "data": "2026-07-02",
+      "mete": 5,
+      "note": "Architettura (Sapienza) architettura-batch-4: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
