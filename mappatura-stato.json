@@ -3,14 +3,126 @@
   "aggiornato": "2026-07-02",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
-  "dipartimentoCorrente": "Giurisprudenza (Sapienza)",
-  "runCompletati": 145,
+  "dipartimentoCorrente": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza)",
+  "runCompletati": 137,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
+    {
+      "id": "giurisprudenza (sapienza)-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Giurisprudenza (Sapienza)",
+      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-IUS-STETIENNE",
+        "SAP-IUS-UPHF",
+        "SAP-IUS-LEHAVRE",
+        "SAP-IUS-TOURS",
+        "SAP-IUS-LYON3"
+      ]
+    },
+    {
+      "id": "giurisprudenza (sapienza)-batch-followup-2",
+      "priorita": 6,
+      "dipartimento": "Giurisprudenza (Sapienza)",
+      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-IUS-ROUEN",
+        "SAP-IUS-LILLE",
+        "SAP-IUS-GREIFSWALD",
+        "SAP-IUS-FREIBURG",
+        "SAP-IUS-HANNOVER"
+      ]
+    },
+    {
+      "id": "giurisprudenza (sapienza)-batch-followup-3",
+      "priorita": 6,
+      "dipartimento": "Giurisprudenza (Sapienza)",
+      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-IUS-SAARLAND",
+        "SAP-IUS-REGENSBURG",
+        "SAP-IUS-BREMEN",
+        "SAP-IUS-MARBURG",
+        "SAP-IUS-ATHENS"
+      ]
+    },
+    {
+      "id": "giurisprudenza (sapienza)-batch-followup-4",
+      "priorita": 6,
+      "dipartimento": "Giurisprudenza (Sapienza)",
+      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-IUS-PIRAEUS",
+        "SAP-IUS-VGTU-VILNIUS",
+        "SAP-IUS-GDANSK",
+        "SAP-IUS-JAGIELLONSKI",
+        "SAP-IUS-WROCLAW"
+      ]
+    },
+    {
+      "id": "giurisprudenza (sapienza)-batch-followup-5",
+      "priorita": 6,
+      "dipartimento": "Giurisprudenza (Sapienza)",
+      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-IUS-OLSZTYN",
+        "SAP-IUS-ASE-BUCURESTI",
+        "SAP-IUS-PANEUROPSKA",
+        "SAP-IUS-SANJORGE",
+        "SAP-IUS-AVILA"
+      ]
+    },
+    {
+      "id": "giurisprudenza (sapienza)-batch-followup-6",
+      "priorita": 6,
+      "dipartimento": "Giurisprudenza (Sapienza)",
+      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-IUS-UCLM",
+        "SAP-IUS-UPNA",
+        "SAP-IUS-ZARAGOZA",
+        "SAP-IUS-VALLADOLID",
+        "SAP-IUS-MALAGA"
+      ]
+    },
+    {
+      "id": "giurisprudenza (sapienza)-batch-followup-7",
+      "priorita": 6,
+      "dipartimento": "Giurisprudenza (Sapienza)",
+      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-IUS-SALAMANCA",
+        "SAP-IUS-LEON",
+        "SAP-IUS-GRANADA",
+        "SAP-IUS-LASPALMAS",
+        "SAP-IUS-CADIZ"
+      ]
+    },
+    {
+      "id": "medicina-psicologia-area-medica-batch-1",
+      "priorita": 5,
+      "dipartimento": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza)",
+      "descrizione": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-MEDIC2-INNSBRUCK",
+        "SAP-MEDIC2-LUEBECK",
+        "SAP-MEDIC2-BOCHUM",
+        "SAP-MEDIC2-MALTA",
+        "SAP-MEDIC2-LISBOA"
+      ]
+    },
     {
       "id": "medicina-psicologia-area-medica-batch-2",
       "priorita": 5,
@@ -40,69 +152,323 @@
       ]
     },
     {
-      "id": "giurisprudenza (sapienza)-batch-followup-1",
-      "priorita": 6,
-      "dipartimento": "Giurisprudenza (Sapienza)",
-      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
+      "id": "architettura-batch-1",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
       "tipo": "scadenze+lingua",
       "mete": [
-        "SAP-IUS-UPHF",
-        "SAP-IUS-LEHAVRE",
-        "SAP-IUS-TOURS"
+        "SAP-ARCHI-INNSBRUCK",
+        "SAP-ARCHI-ULB-BXL",
+        "SAP-ARCHI-MONS",
+        "SAP-ARCHI-UCLOUVAIN",
+        "SAP-ARCHI-LIEGE"
       ]
     },
     {
-      "id": "giurisprudenza (sapienza)-batch-followup-2",
-      "priorita": 6,
-      "dipartimento": "Giurisprudenza (Sapienza)",
-      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
-      "tipo": "lingua",
-      "mete": [
-        "SAP-IUS-GREIFSWALD",
-        "SAP-IUS-HANNOVER"
-      ]
-    },
-    {
-      "id": "giurisprudenza (sapienza)-batch-followup-3",
-      "priorita": 6,
-      "dipartimento": "Giurisprudenza (Sapienza)",
-      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
+      "id": "architettura-batch-2",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
       "tipo": "scadenze+lingua",
       "mete": [
-        "SAP-IUS-ATHENS"
+        "SAP-ARCHI-KULEUVEN",
+        "SAP-ARCHI-UACEG-SOFIA",
+        "SAP-ARCHI-NICOSIA",
+        "SAP-ARCHI-ZAGABRIA-A",
+        "SAP-ARCHI-ZAGABRIA-B"
       ]
     },
     {
-      "id": "giurisprudenza (sapienza)-batch-followup-4",
-      "priorita": 6,
-      "dipartimento": "Giurisprudenza (Sapienza)",
-      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
+      "id": "architettura-batch-3",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
       "tipo": "scadenze+lingua",
       "mete": [
-        "SAP-IUS-OLSZTYN"
+        "SAP-ARCHI-TALTECH",
+        "SAP-ARCHI-EKA-TALLINN",
+        "SAP-ARCHI-LILLE",
+        "SAP-ARCHI-MONTPELLIER",
+        "SAP-ARCHI-SAINT-ETIENNE"
       ]
     },
     {
-      "id": "giurisprudenza (sapienza)-batch-followup-5",
-      "priorita": 6,
-      "dipartimento": "Giurisprudenza (Sapienza)",
-      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
+      "id": "architettura-batch-4",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
       "tipo": "scadenze+lingua",
       "mete": [
-        "SAP-IUS-UCLM",
-        "SAP-IUS-UPNA",
-        "SAP-IUS-ZARAGOZA",
-        "SAP-IUS-MALAGA"
+        "SAP-ARCHI-NANTES-DESIGN",
+        "SAP-ARCHI-PARIS8",
+        "SAP-ARCHI-GRENOBLE-A",
+        "SAP-ARCHI-GUSTAVE-EIFFEL",
+        "SAP-ARCHI-LYON"
       ]
     },
     {
-      "id": "medicina e psicologia - area medica e professioni sanitarie (sapienza)-batch-followup-1",
-      "priorita": 6,
-      "dipartimento": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza)",
-      "descrizione": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza) - follow-up pending",
-      "tipo": "lingua",
+      "id": "architettura-batch-5",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
       "mete": [
-        "SAP-MEDIC2-INNSBRUCK"
+        "SAP-ARCHI-ROUEN",
+        "SAP-ARCHI-PARIS-LAVILLETTE",
+        "SAP-ARCHI-EAVT-MARNE",
+        "SAP-ARCHI-RENNES",
+        "SAP-ARCHI-NANCY"
+      ]
+    },
+    {
+      "id": "architettura-batch-6",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-NANTES-ARCHI",
+        "SAP-ARCHI-GRENOBLE-B",
+        "SAP-ARCHI-SORBONNE",
+        "SAP-ARCHI-VERSAILLES-PAYSAGE",
+        "SAP-ARCHI-TOULOUSE"
+      ]
+    },
+    {
+      "id": "architettura-batch-7",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-MARSEILLE",
+        "SAP-ARCHI-VERSAILLES-ARCHI",
+        "SAP-ARCHI-BORDEAUX-PAYSAGE",
+        "SAP-ARCHI-UNI-STUTTGART",
+        "SAP-ARCHI-AACHEN"
+      ]
+    },
+    {
+      "id": "architettura-batch-8",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-KOLN-A",
+        "SAP-ARCHI-WEIMAR",
+        "SAP-ARCHI-HS-DARMSTADT",
+        "SAP-ARCHI-KASSEL-A",
+        "SAP-ARCHI-TU-DARMSTADT"
+      ]
+    },
+    {
+      "id": "architettura-batch-9",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-BREMEN",
+        "SAP-ARCHI-KASSEL-B",
+        "SAP-ARCHI-HFT-STUTTGART-A",
+        "SAP-ARCHI-MAINZ",
+        "SAP-ARCHI-FREISING"
+      ]
+    },
+    {
+      "id": "architettura-batch-10",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-COTTBUS",
+        "SAP-ARCHI-HILDESHEIM",
+        "SAP-ARCHI-HANNOVER",
+        "SAP-ARCHI-FRANKFURT",
+        "SAP-ARCHI-KARLSRUHE"
+      ]
+    },
+    {
+      "id": "architettura-batch-11",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-HFT-STUTTGART-B",
+        "SAP-ARCHI-KOLN-B",
+        "SAP-ARCHI-TUM-A",
+        "SAP-ARCHI-TUM-B",
+        "SAP-ARCHI-BRAUNSCHWEIG"
+      ]
+    },
+    {
+      "id": "architettura-batch-12",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-HVANNEYRI",
+        "SAP-ARCHI-RIGA",
+        "SAP-ARCHI-VILNIUS",
+        "SAP-ARCHI-MALTA",
+        "SAP-ARCHI-ZWOLLE"
+      ]
+    },
+    {
+      "id": "architettura-batch-13",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-WAGENINGEN",
+        "SAP-ARCHI-POZNAN",
+        "SAP-ARCHI-PW-WARSZAWA",
+        "SAP-ARCHI-LUBLIN",
+        "SAP-ARCHI-COVILHA"
+      ]
+    },
+    {
+      "id": "architettura-batch-14",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-VIANA-CASTELO",
+        "SAP-ARCHI-MADEIRA",
+        "SAP-ARCHI-PORTO-A",
+        "SAP-ARCHI-EVORA",
+        "SAP-ARCHI-PORTO-B"
+      ]
+    },
+    {
+      "id": "architettura-batch-15",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-LUSIADA-LISBOA",
+        "SAP-ARCHI-AVEIRO",
+        "SAP-ARCHI-TIMISOARA-A",
+        "SAP-ARCHI-TIMISOARA-B",
+        "SAP-ARCHI-ION-MINCU-BUCAREST"
+      ]
+    },
+    {
+      "id": "architettura-batch-16",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-CLUJ-NAPOCA",
+        "SAP-ARCHI-STU-BRATISLAVA-A",
+        "SAP-ARCHI-STU-BRATISLAVA-B",
+        "SAP-ARCHI-LJUBLJANA",
+        "SAP-ARCHI-ALCALA"
+      ]
+    },
+    {
+      "id": "architettura-batch-17",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-UCAM-MURCIA",
+        "SAP-ARCHI-UC-VALENCIA",
+        "SAP-ARCHI-UCJC-MADRID",
+        "SAP-ARCHI-UPV-VALENCIA-A",
+        "SAP-ARCHI-UPV-VALENCIA-B"
+      ]
+    },
+    {
+      "id": "architettura-batch-18",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-UFV-MADRID",
+        "SAP-ARCHI-UNAV-PAMPLONA",
+        "SAP-ARCHI-UPCT-CARTAGENA",
+        "SAP-ARCHI-CORUNA",
+        "SAP-ARCHI-UPV-VALENCIA-C"
+      ]
+    },
+    {
+      "id": "architettura-batch-19",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-GIRONA",
+        "SAP-ARCHI-ZARAGOZA",
+        "SAP-ARCHI-VALLADOLID",
+        "SAP-ARCHI-NEBRIJA-MADRID",
+        "SAP-ARCHI-MALAGA"
+      ]
+    },
+    {
+      "id": "architettura-batch-20",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-UCLM-CIUDADREAL",
+        "SAP-ARCHI-UAX-MADRID",
+        "SAP-ARCHI-VIC-A",
+        "SAP-ARCHI-VIC-B",
+        "SAP-ARCHI-VAXJO"
+      ]
+    },
+    {
+      "id": "architettura-batch-21",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-UMEA",
+        "SAP-ARCHI-HESSO",
+        "SAP-ARCHI-OZYEGIN-ISTANBUL",
+        "SAP-ARCHI-TOBB-ANKARA",
+        "SAP-ARCHI-AYBU-ANKARA"
+      ]
+    },
+    {
+      "id": "architettura-batch-22",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-GAZI-ANKARA",
+        "SAP-ARCHI-MSGSU-ISTANBUL-A",
+        "SAP-ARCHI-ITU-ISTANBUL",
+        "SAP-ARCHI-MSGSU-ISTANBUL-B",
+        "SAP-ARCHI-IZMIR-EKONOMI"
+      ]
+    },
+    {
+      "id": "architettura-batch-23",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-BURSA",
+        "SAP-ARCHI-PECS",
+        "SAP-ARCHI-BME-BUDAPEST"
       ]
     }
   ],
@@ -281,36 +647,82 @@
       "fileJs": "js/atenei/sapienza/dati-mete-giurisprudenza.js",
       "stato": "in_corso",
       "totale": 55,
-      "completate": 44,
+      "completate": 20,
       "pendingScadenze": [
-        "SAP-IUS-UPHF",
-        "SAP-IUS-ATHENS",
-        "SAP-IUS-OLSZTYN",
-        "SAP-IUS-UPNA",
-        "SAP-IUS-MALAGA"
-      ],
-      "pendingLingua": [
+        "SAP-IUS-STETIENNE",
         "SAP-IUS-UPHF",
         "SAP-IUS-LEHAVRE",
         "SAP-IUS-TOURS",
+        "SAP-IUS-LYON3",
+        "SAP-IUS-ROUEN",
+        "SAP-IUS-LILLE",
         "SAP-IUS-GREIFSWALD",
+        "SAP-IUS-FREIBURG",
         "SAP-IUS-HANNOVER",
+        "SAP-IUS-SAARLAND",
+        "SAP-IUS-REGENSBURG",
+        "SAP-IUS-BREMEN",
+        "SAP-IUS-MARBURG",
+        "SAP-IUS-ATHENS",
+        "SAP-IUS-PIRAEUS",
+        "SAP-IUS-VGTU-VILNIUS",
+        "SAP-IUS-GDANSK",
+        "SAP-IUS-JAGIELLONSKI",
+        "SAP-IUS-WROCLAW",
         "SAP-IUS-OLSZTYN",
+        "SAP-IUS-ASE-BUCURESTI",
+        "SAP-IUS-PANEUROPSKA",
+        "SAP-IUS-SANJORGE",
+        "SAP-IUS-AVILA",
         "SAP-IUS-UCLM",
         "SAP-IUS-UPNA",
-        "SAP-IUS-ZARAGOZA"
+        "SAP-IUS-ZARAGOZA",
+        "SAP-IUS-VALLADOLID",
+        "SAP-IUS-MALAGA",
+        "SAP-IUS-SALAMANCA",
+        "SAP-IUS-LEON",
+        "SAP-IUS-GRANADA",
+        "SAP-IUS-LASPALMAS",
+        "SAP-IUS-CADIZ"
       ],
-      "tentativiLingua": {
-        "SAP-IUS-UPHF": 1,
-        "SAP-IUS-LEHAVRE": 1,
-        "SAP-IUS-TOURS": 1,
-        "SAP-IUS-GREIFSWALD": 1,
-        "SAP-IUS-HANNOVER": 1,
-        "SAP-IUS-OLSZTYN": 1,
-        "SAP-IUS-UCLM": 1,
-        "SAP-IUS-UPNA": 1,
-        "SAP-IUS-ZARAGOZA": 1
-      },
+      "pendingLingua": [
+        "SAP-IUS-STETIENNE",
+        "SAP-IUS-UPHF",
+        "SAP-IUS-LEHAVRE",
+        "SAP-IUS-TOURS",
+        "SAP-IUS-LYON3",
+        "SAP-IUS-ROUEN",
+        "SAP-IUS-LILLE",
+        "SAP-IUS-GREIFSWALD",
+        "SAP-IUS-FREIBURG",
+        "SAP-IUS-HANNOVER",
+        "SAP-IUS-SAARLAND",
+        "SAP-IUS-REGENSBURG",
+        "SAP-IUS-BREMEN",
+        "SAP-IUS-MARBURG",
+        "SAP-IUS-ATHENS",
+        "SAP-IUS-PIRAEUS",
+        "SAP-IUS-VGTU-VILNIUS",
+        "SAP-IUS-GDANSK",
+        "SAP-IUS-JAGIELLONSKI",
+        "SAP-IUS-WROCLAW",
+        "SAP-IUS-OLSZTYN",
+        "SAP-IUS-ASE-BUCURESTI",
+        "SAP-IUS-PANEUROPSKA",
+        "SAP-IUS-SANJORGE",
+        "SAP-IUS-AVILA",
+        "SAP-IUS-UCLM",
+        "SAP-IUS-UPNA",
+        "SAP-IUS-ZARAGOZA",
+        "SAP-IUS-VALLADOLID",
+        "SAP-IUS-MALAGA",
+        "SAP-IUS-SALAMANCA",
+        "SAP-IUS-LEON",
+        "SAP-IUS-GRANADA",
+        "SAP-IUS-LASPALMAS",
+        "SAP-IUS-CADIZ"
+      ],
+      "tentativiLingua": {},
       "linguaNonTrovabile": [
         "SAP-IUS-BUCURESTI"
       ],
@@ -320,8 +732,13 @@
       "fileJs": "js/atenei/sapienza/dati-mete-medicina-psicologia-area-medica.js",
       "stato": "in_corso",
       "totale": 15,
-      "completate": 4,
+      "completate": 0,
       "pendingScadenze": [
+        "SAP-MEDIC2-INNSBRUCK",
+        "SAP-MEDIC2-LUEBECK",
+        "SAP-MEDIC2-BOCHUM",
+        "SAP-MEDIC2-MALTA",
+        "SAP-MEDIC2-LISBOA",
         "SAP-MEDIC2-SANPABLOCEU-A",
         "SAP-MEDIC2-ALICANTE",
         "SAP-MEDIC2-COMILLAS-A",
@@ -335,6 +752,10 @@
       ],
       "pendingLingua": [
         "SAP-MEDIC2-INNSBRUCK",
+        "SAP-MEDIC2-LUEBECK",
+        "SAP-MEDIC2-BOCHUM",
+        "SAP-MEDIC2-MALTA",
+        "SAP-MEDIC2-LISBOA",
         "SAP-MEDIC2-SANPABLOCEU-A",
         "SAP-MEDIC2-ALICANTE",
         "SAP-MEDIC2-COMILLAS-A",
@@ -346,9 +767,246 @@
         "SAP-MEDIC2-BARCELONA",
         "SAP-MEDIC2-COMILLAS-B"
       ],
-      "tentativiLingua": {
-        "SAP-MEDIC2-INNSBRUCK": 1
-      },
+      "tentativiLingua": {},
+      "linguaNonTrovabile": [],
+      "ateneo": "Sapienza Roma"
+    },
+    "Architettura (Sapienza)": {
+      "fileJs": "js/atenei/sapienza/dati-mete-architettura.js",
+      "stato": "in_corso",
+      "totale": 113,
+      "completate": 0,
+      "pendingScadenze": [
+        "SAP-ARCHI-INNSBRUCK",
+        "SAP-ARCHI-ULB-BXL",
+        "SAP-ARCHI-MONS",
+        "SAP-ARCHI-UCLOUVAIN",
+        "SAP-ARCHI-LIEGE",
+        "SAP-ARCHI-KULEUVEN",
+        "SAP-ARCHI-UACEG-SOFIA",
+        "SAP-ARCHI-NICOSIA",
+        "SAP-ARCHI-ZAGABRIA-A",
+        "SAP-ARCHI-ZAGABRIA-B",
+        "SAP-ARCHI-TALTECH",
+        "SAP-ARCHI-EKA-TALLINN",
+        "SAP-ARCHI-LILLE",
+        "SAP-ARCHI-MONTPELLIER",
+        "SAP-ARCHI-SAINT-ETIENNE",
+        "SAP-ARCHI-NANTES-DESIGN",
+        "SAP-ARCHI-PARIS8",
+        "SAP-ARCHI-GRENOBLE-A",
+        "SAP-ARCHI-GUSTAVE-EIFFEL",
+        "SAP-ARCHI-LYON",
+        "SAP-ARCHI-ROUEN",
+        "SAP-ARCHI-PARIS-LAVILLETTE",
+        "SAP-ARCHI-EAVT-MARNE",
+        "SAP-ARCHI-RENNES",
+        "SAP-ARCHI-NANCY",
+        "SAP-ARCHI-NANTES-ARCHI",
+        "SAP-ARCHI-GRENOBLE-B",
+        "SAP-ARCHI-SORBONNE",
+        "SAP-ARCHI-VERSAILLES-PAYSAGE",
+        "SAP-ARCHI-TOULOUSE",
+        "SAP-ARCHI-MARSEILLE",
+        "SAP-ARCHI-VERSAILLES-ARCHI",
+        "SAP-ARCHI-BORDEAUX-PAYSAGE",
+        "SAP-ARCHI-UNI-STUTTGART",
+        "SAP-ARCHI-AACHEN",
+        "SAP-ARCHI-KOLN-A",
+        "SAP-ARCHI-WEIMAR",
+        "SAP-ARCHI-HS-DARMSTADT",
+        "SAP-ARCHI-KASSEL-A",
+        "SAP-ARCHI-TU-DARMSTADT",
+        "SAP-ARCHI-BREMEN",
+        "SAP-ARCHI-KASSEL-B",
+        "SAP-ARCHI-HFT-STUTTGART-A",
+        "SAP-ARCHI-MAINZ",
+        "SAP-ARCHI-FREISING",
+        "SAP-ARCHI-COTTBUS",
+        "SAP-ARCHI-HILDESHEIM",
+        "SAP-ARCHI-HANNOVER",
+        "SAP-ARCHI-FRANKFURT",
+        "SAP-ARCHI-KARLSRUHE",
+        "SAP-ARCHI-HFT-STUTTGART-B",
+        "SAP-ARCHI-KOLN-B",
+        "SAP-ARCHI-TUM-A",
+        "SAP-ARCHI-TUM-B",
+        "SAP-ARCHI-BRAUNSCHWEIG",
+        "SAP-ARCHI-HVANNEYRI",
+        "SAP-ARCHI-RIGA",
+        "SAP-ARCHI-VILNIUS",
+        "SAP-ARCHI-MALTA",
+        "SAP-ARCHI-ZWOLLE",
+        "SAP-ARCHI-WAGENINGEN",
+        "SAP-ARCHI-POZNAN",
+        "SAP-ARCHI-PW-WARSZAWA",
+        "SAP-ARCHI-LUBLIN",
+        "SAP-ARCHI-COVILHA",
+        "SAP-ARCHI-VIANA-CASTELO",
+        "SAP-ARCHI-MADEIRA",
+        "SAP-ARCHI-PORTO-A",
+        "SAP-ARCHI-EVORA",
+        "SAP-ARCHI-PORTO-B",
+        "SAP-ARCHI-LUSIADA-LISBOA",
+        "SAP-ARCHI-AVEIRO",
+        "SAP-ARCHI-TIMISOARA-A",
+        "SAP-ARCHI-TIMISOARA-B",
+        "SAP-ARCHI-ION-MINCU-BUCAREST",
+        "SAP-ARCHI-CLUJ-NAPOCA",
+        "SAP-ARCHI-STU-BRATISLAVA-A",
+        "SAP-ARCHI-STU-BRATISLAVA-B",
+        "SAP-ARCHI-LJUBLJANA",
+        "SAP-ARCHI-ALCALA",
+        "SAP-ARCHI-UCAM-MURCIA",
+        "SAP-ARCHI-UC-VALENCIA",
+        "SAP-ARCHI-UCJC-MADRID",
+        "SAP-ARCHI-UPV-VALENCIA-A",
+        "SAP-ARCHI-UPV-VALENCIA-B",
+        "SAP-ARCHI-UFV-MADRID",
+        "SAP-ARCHI-UNAV-PAMPLONA",
+        "SAP-ARCHI-UPCT-CARTAGENA",
+        "SAP-ARCHI-CORUNA",
+        "SAP-ARCHI-UPV-VALENCIA-C",
+        "SAP-ARCHI-GIRONA",
+        "SAP-ARCHI-ZARAGOZA",
+        "SAP-ARCHI-VALLADOLID",
+        "SAP-ARCHI-NEBRIJA-MADRID",
+        "SAP-ARCHI-MALAGA",
+        "SAP-ARCHI-UCLM-CIUDADREAL",
+        "SAP-ARCHI-UAX-MADRID",
+        "SAP-ARCHI-VIC-A",
+        "SAP-ARCHI-VIC-B",
+        "SAP-ARCHI-VAXJO",
+        "SAP-ARCHI-UMEA",
+        "SAP-ARCHI-HESSO",
+        "SAP-ARCHI-OZYEGIN-ISTANBUL",
+        "SAP-ARCHI-TOBB-ANKARA",
+        "SAP-ARCHI-AYBU-ANKARA",
+        "SAP-ARCHI-GAZI-ANKARA",
+        "SAP-ARCHI-MSGSU-ISTANBUL-A",
+        "SAP-ARCHI-ITU-ISTANBUL",
+        "SAP-ARCHI-MSGSU-ISTANBUL-B",
+        "SAP-ARCHI-IZMIR-EKONOMI",
+        "SAP-ARCHI-BURSA",
+        "SAP-ARCHI-PECS",
+        "SAP-ARCHI-BME-BUDAPEST"
+      ],
+      "pendingLingua": [
+        "SAP-ARCHI-INNSBRUCK",
+        "SAP-ARCHI-ULB-BXL",
+        "SAP-ARCHI-MONS",
+        "SAP-ARCHI-UCLOUVAIN",
+        "SAP-ARCHI-LIEGE",
+        "SAP-ARCHI-KULEUVEN",
+        "SAP-ARCHI-UACEG-SOFIA",
+        "SAP-ARCHI-NICOSIA",
+        "SAP-ARCHI-ZAGABRIA-A",
+        "SAP-ARCHI-ZAGABRIA-B",
+        "SAP-ARCHI-TALTECH",
+        "SAP-ARCHI-EKA-TALLINN",
+        "SAP-ARCHI-LILLE",
+        "SAP-ARCHI-MONTPELLIER",
+        "SAP-ARCHI-SAINT-ETIENNE",
+        "SAP-ARCHI-NANTES-DESIGN",
+        "SAP-ARCHI-PARIS8",
+        "SAP-ARCHI-GRENOBLE-A",
+        "SAP-ARCHI-GUSTAVE-EIFFEL",
+        "SAP-ARCHI-LYON",
+        "SAP-ARCHI-ROUEN",
+        "SAP-ARCHI-PARIS-LAVILLETTE",
+        "SAP-ARCHI-EAVT-MARNE",
+        "SAP-ARCHI-RENNES",
+        "SAP-ARCHI-NANCY",
+        "SAP-ARCHI-NANTES-ARCHI",
+        "SAP-ARCHI-GRENOBLE-B",
+        "SAP-ARCHI-SORBONNE",
+        "SAP-ARCHI-VERSAILLES-PAYSAGE",
+        "SAP-ARCHI-TOULOUSE",
+        "SAP-ARCHI-MARSEILLE",
+        "SAP-ARCHI-VERSAILLES-ARCHI",
+        "SAP-ARCHI-BORDEAUX-PAYSAGE",
+        "SAP-ARCHI-UNI-STUTTGART",
+        "SAP-ARCHI-AACHEN",
+        "SAP-ARCHI-KOLN-A",
+        "SAP-ARCHI-WEIMAR",
+        "SAP-ARCHI-HS-DARMSTADT",
+        "SAP-ARCHI-KASSEL-A",
+        "SAP-ARCHI-TU-DARMSTADT",
+        "SAP-ARCHI-BREMEN",
+        "SAP-ARCHI-KASSEL-B",
+        "SAP-ARCHI-HFT-STUTTGART-A",
+        "SAP-ARCHI-MAINZ",
+        "SAP-ARCHI-FREISING",
+        "SAP-ARCHI-COTTBUS",
+        "SAP-ARCHI-HILDESHEIM",
+        "SAP-ARCHI-HANNOVER",
+        "SAP-ARCHI-FRANKFURT",
+        "SAP-ARCHI-KARLSRUHE",
+        "SAP-ARCHI-HFT-STUTTGART-B",
+        "SAP-ARCHI-KOLN-B",
+        "SAP-ARCHI-TUM-A",
+        "SAP-ARCHI-TUM-B",
+        "SAP-ARCHI-BRAUNSCHWEIG",
+        "SAP-ARCHI-HVANNEYRI",
+        "SAP-ARCHI-RIGA",
+        "SAP-ARCHI-VILNIUS",
+        "SAP-ARCHI-MALTA",
+        "SAP-ARCHI-ZWOLLE",
+        "SAP-ARCHI-WAGENINGEN",
+        "SAP-ARCHI-POZNAN",
+        "SAP-ARCHI-PW-WARSZAWA",
+        "SAP-ARCHI-LUBLIN",
+        "SAP-ARCHI-COVILHA",
+        "SAP-ARCHI-VIANA-CASTELO",
+        "SAP-ARCHI-MADEIRA",
+        "SAP-ARCHI-PORTO-A",
+        "SAP-ARCHI-EVORA",
+        "SAP-ARCHI-PORTO-B",
+        "SAP-ARCHI-LUSIADA-LISBOA",
+        "SAP-ARCHI-AVEIRO",
+        "SAP-ARCHI-TIMISOARA-A",
+        "SAP-ARCHI-TIMISOARA-B",
+        "SAP-ARCHI-ION-MINCU-BUCAREST",
+        "SAP-ARCHI-CLUJ-NAPOCA",
+        "SAP-ARCHI-STU-BRATISLAVA-A",
+        "SAP-ARCHI-STU-BRATISLAVA-B",
+        "SAP-ARCHI-LJUBLJANA",
+        "SAP-ARCHI-ALCALA",
+        "SAP-ARCHI-UCAM-MURCIA",
+        "SAP-ARCHI-UC-VALENCIA",
+        "SAP-ARCHI-UCJC-MADRID",
+        "SAP-ARCHI-UPV-VALENCIA-A",
+        "SAP-ARCHI-UPV-VALENCIA-B",
+        "SAP-ARCHI-UFV-MADRID",
+        "SAP-ARCHI-UNAV-PAMPLONA",
+        "SAP-ARCHI-UPCT-CARTAGENA",
+        "SAP-ARCHI-CORUNA",
+        "SAP-ARCHI-UPV-VALENCIA-C",
+        "SAP-ARCHI-GIRONA",
+        "SAP-ARCHI-ZARAGOZA",
+        "SAP-ARCHI-VALLADOLID",
+        "SAP-ARCHI-NEBRIJA-MADRID",
+        "SAP-ARCHI-MALAGA",
+        "SAP-ARCHI-UCLM-CIUDADREAL",
+        "SAP-ARCHI-UAX-MADRID",
+        "SAP-ARCHI-VIC-A",
+        "SAP-ARCHI-VIC-B",
+        "SAP-ARCHI-VAXJO",
+        "SAP-ARCHI-UMEA",
+        "SAP-ARCHI-HESSO",
+        "SAP-ARCHI-OZYEGIN-ISTANBUL",
+        "SAP-ARCHI-TOBB-ANKARA",
+        "SAP-ARCHI-AYBU-ANKARA",
+        "SAP-ARCHI-GAZI-ANKARA",
+        "SAP-ARCHI-MSGSU-ISTANBUL-A",
+        "SAP-ARCHI-ITU-ISTANBUL",
+        "SAP-ARCHI-MSGSU-ISTANBUL-B",
+        "SAP-ARCHI-IZMIR-EKONOMI",
+        "SAP-ARCHI-BURSA",
+        "SAP-ARCHI-PECS",
+        "SAP-ARCHI-BME-BUDAPEST"
+      ],
+      "tentativiLingua": {},
       "linguaNonTrovabile": [],
       "ateneo": "Sapienza Roma"
     }
@@ -1197,52 +1855,10 @@
       "note": "Avvio manuale Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza): creato js/atenei/sapienza/dati-mete-medicina-psicologia-area-medica.js con 15 mete (ambito=MEDIC2, 2 pagine DB); accodati 3 sotto-batch iniziali dopo i 7 di Giurisprudenza, cosi' l'automazione prosegue senza fermarsi."
     },
     {
-      "batch": 138,
+      "batch": "manuale-2026-07-02",
       "data": "2026-07-02",
-      "mete": 5,
-      "note": "Giurisprudenza (Sapienza) giurisprudenza (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
-    },
-    {
-      "batch": 139,
-      "data": "2026-07-02",
-      "mete": 5,
-      "note": "Giurisprudenza (Sapienza) giurisprudenza (sapienza)-batch-followup-2: merge automatico via applica-batch.mjs."
-    },
-    {
-      "batch": 140,
-      "data": "2026-07-02",
-      "mete": 5,
-      "note": "Giurisprudenza (Sapienza) giurisprudenza (sapienza)-batch-followup-3: merge automatico via applica-batch.mjs."
-    },
-    {
-      "batch": 141,
-      "data": "2026-07-02",
-      "mete": 5,
-      "note": "Giurisprudenza (Sapienza) giurisprudenza (sapienza)-batch-followup-4: merge automatico via applica-batch.mjs."
-    },
-    {
-      "batch": 142,
-      "data": "2026-07-02",
-      "mete": 5,
-      "note": "Giurisprudenza (Sapienza) giurisprudenza (sapienza)-batch-followup-5: merge automatico via applica-batch.mjs."
-    },
-    {
-      "batch": 143,
-      "data": "2026-07-02",
-      "mete": 5,
-      "note": "Giurisprudenza (Sapienza) giurisprudenza (sapienza)-batch-followup-6: merge automatico via applica-batch.mjs."
-    },
-    {
-      "batch": 144,
-      "data": "2026-07-02",
-      "mete": 5,
-      "note": "Giurisprudenza (Sapienza) giurisprudenza (sapienza)-batch-followup-7: merge automatico via applica-batch.mjs."
-    },
-    {
-      "batch": 145,
-      "data": "2026-07-02",
-      "mete": 5,
-      "note": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza) medicina-psicologia-area-medica-batch-1: merge automatico via applica-batch.mjs."
+      "mete": 113,
+      "note": "Avvio manuale 3a Facolta Sapienza: ARCHITETTURA (ambito=ARCHI). Verificato prima che Economia resta senza sedi pubblicate (bando 26/27, confermato in diretta sul DB). Estratte via web_fetch tutte le 118 righe (12 pagine) del DB Go Erasmus+; 5 righe erano riservate esclusivamente a PhD/Specializzandi e non modellate (stesso criterio di Giurisprudenza), risultato 113 mete reali in js/atenei/sapienza/dati-mete-architettura.js. Promotore non unico per Facolta (come Medicina): ogni accordo ha il suo coordinatoreCf. 12 atenei compaiono piu' volte come accordi distinti (promotore/posti/livelli diversi), disambiguati con suffisso -a/-b/-c su id e codiceErasmus. Agganciato a index.html nella catena _meteAllSap. Accodati 23 batch da 5 mete (ultimo da 3) in prossimiBatch, DOPO i 3 di Medicina, cosi' Codex prosegue in automatico senza fermarsi. Validato con node --check e scripts/valida-stato.mjs su copia scratch (bash risultava stale sul file mappatura-stato.json, letto/validato solo via Read/Write)."
     }
   ],
   "storicoBatch": [
