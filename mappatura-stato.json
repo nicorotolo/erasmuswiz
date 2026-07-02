@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza)",
-  "runCompletati": 158,
+  "runCompletati": 159,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "architettura-batch-12",
-      "priorita": 5,
-      "dipartimento": "Architettura (Sapienza)",
-      "descrizione": "Architettura (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "SAP-ARCHI-HVANNEYRI",
-        "SAP-ARCHI-RIGA",
-        "SAP-ARCHI-VILNIUS",
-        "SAP-ARCHI-MALTA",
-        "SAP-ARCHI-ZWOLLE"
-      ]
-    },
     {
       "id": "architettura-batch-13",
       "priorita": 5,
@@ -305,6 +291,16 @@
         "SAP-ARCHI-HFT-STUTTGART-B",
         "SAP-ARCHI-BRAUNSCHWEIG"
       ]
+    },
+    {
+      "id": "architettura (sapienza)-batch-followup-9",
+      "priorita": 6,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-HVANNEYRI"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -526,16 +522,12 @@
       "fileJs": "js/atenei/sapienza/dati-mete-architettura.js",
       "stato": "in_corso",
       "totale": 113,
-      "completate": 42,
+      "completate": 46,
       "pendingScadenze": [
         "SAP-ARCHI-GUSTAVE-EIFFEL",
         "SAP-ARCHI-EAVT-MARNE",
         "SAP-ARCHI-FREISING",
         "SAP-ARCHI-HVANNEYRI",
-        "SAP-ARCHI-RIGA",
-        "SAP-ARCHI-VILNIUS",
-        "SAP-ARCHI-MALTA",
-        "SAP-ARCHI-ZWOLLE",
         "SAP-ARCHI-WAGENINGEN",
         "SAP-ARCHI-POZNAN",
         "SAP-ARCHI-PW-WARSZAWA",
@@ -603,10 +595,6 @@
         "SAP-ARCHI-HFT-STUTTGART-B",
         "SAP-ARCHI-BRAUNSCHWEIG",
         "SAP-ARCHI-HVANNEYRI",
-        "SAP-ARCHI-RIGA",
-        "SAP-ARCHI-VILNIUS",
-        "SAP-ARCHI-MALTA",
-        "SAP-ARCHI-ZWOLLE",
         "SAP-ARCHI-WAGENINGEN",
         "SAP-ARCHI-POZNAN",
         "SAP-ARCHI-PW-WARSZAWA",
@@ -672,7 +660,8 @@
         "SAP-ARCHI-HFT-STUTTGART-A": 1,
         "SAP-ARCHI-HILDESHEIM": 1,
         "SAP-ARCHI-HFT-STUTTGART-B": 1,
-        "SAP-ARCHI-BRAUNSCHWEIG": 1
+        "SAP-ARCHI-BRAUNSCHWEIG": 1,
+        "SAP-ARCHI-HVANNEYRI": 1
       },
       "linguaNonTrovabile": [],
       "ateneo": "Sapienza Roma"
@@ -1652,6 +1641,12 @@
       "data": "2026-07-02",
       "mete": 5,
       "note": "Architettura (Sapienza) architettura-batch-11: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 159,
+      "data": "2026-07-02",
+      "mete": 5,
+      "note": "Architettura (Sapienza) architettura-batch-12: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

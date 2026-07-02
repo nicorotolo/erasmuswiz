@@ -1,0 +1,25 @@
+{
+  "SAP-ARCHI-HVANNEYRI": {
+    "linkSito": "https://www.lbhi.is/"
+  },
+  "SAP-ARCHI-RIGA": {
+    "requisitoLingua": "https://www.rtu.lv/en/studies/admission-1",
+    "scadenzeOspitante": "https://erasmus.yildiz.edu.tr/media/files/LV%20RIGA02_Riga%20Technical%20University.pdf",
+    "linkSito": "https://www.rtu.lv/en/internationalization/incoming-exchange/erasmus-europe-students"
+  },
+  "SAP-ARCHI-VILNIUS": {
+    "requisitoLingua": "https://vilniustech.lt/en/international-students/exchange-students/semester-year-exchange-studies-at-vilnius-tech/",
+    "scadenzeOspitante": "https://vilniustech.lt/en/international-students/exchange-students/semester-year-exchange-studies-at-vilnius-tech/",
+    "linkSito": "https://vilniustech.lt/en/international-students/exchange-students/semester-year-exchange-studies-at-vilnius-tech/"
+  },
+  "SAP-ARCHI-MALTA": {
+    "requisitoLingua": "https://www.um.edu.mt/studentlife/internationalopportunities/erasmus/incoming/",
+    "scadenzeOspitante": "https://www.um.edu.mt/international/incomingvisiting/",
+    "linkSito": "https://www.um.edu.mt/international/incomingvisiting/"
+  },
+  "SAP-ARCHI-ZWOLLE": {
+    "requisitoLingua": "https://www.windesheim.com/study-programmes/exchange-programmes/application-information",
+    "scadenzeOspitante": "https://www.windesheim.com/study-programmes/exchange-programmes/application-information",
+    "linkSito": "https://www.windesheim.com/study-programmes/exchange-programmes"
+  }
+}
