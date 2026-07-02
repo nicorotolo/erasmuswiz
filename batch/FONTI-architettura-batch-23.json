@@ -1,0 +1,16 @@
+{
+  "SAP-ARCHI-BURSA": {
+    "scadenzeOspitante": "https://www.uludag.edu.tr/en/erasmus/application-procedure-for-incoming-students-53513",
+    "linkSito": "https://www.uludag.edu.tr/en/erasmus/application-procedure-for-incoming-students-53513"
+  },
+  "SAP-ARCHI-PECS": {
+    "requisitoLingua": "https://international.pte.hu/sites/international.pte.hu/files/doc/HU%20-%20PECS01_Info_For_partners_2026-2027.pdf",
+    "scadenzeOspitante": "https://international.pte.hu/mobility-programs/erasmus/erasmus-application-and-dates",
+    "linkSito": "https://international.pte.hu/mobility-programs/erasmus/erasmus-application-and-dates"
+  },
+  "SAP-ARCHI-BME-BUDAPEST": {
+    "requisitoLingua": "https://kth.bme.hu/en/for-applicants/exchange-students/",
+    "scadenzeOspitante": "https://beyondborders.dtu.dk/bb_library/Budapest%20University%20of%20Technology%20and%20Economics%20BME/Budapest%20University%20of%20Technology%20and%20Economics%20BME%20-%20Faculty%20of%20Architecture/Documents/BME_factsheet_2026-2027.pdf",
+    "linkSito": "https://kth.bme.hu/en/for-applicants/exchange-students/"
+  }
+}
