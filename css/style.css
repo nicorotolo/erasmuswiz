@@ -240,7 +240,7 @@ body {
 .ateneo-selettore select:focus-visible { outline: 2px solid var(--primary); border-radius: 4px; }
 
 /* ================================================================
-   PERCORSO A TAPPE
+   PERCORSO A 4 FASI (DISEGNO_UX.md §2.1) — home-percorso UX2
 ================================================================ */
 .percorso-wrap {
   margin: 12px 20px 0;
@@ -251,25 +251,34 @@ body {
 }
 .percorso-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
 .percorso-label { font-size: 11px; font-weight: 800; color: var(--text-hint); letter-spacing: .06em; text-transform: uppercase; }
-.percorso-tappa-attiva { font-size: 11.5px; font-weight: 700; color: var(--gold-dark); }
-.percorso-tappe { display: flex; align-items: center; }
-.percorso-dot {
-  width: 26px; height: 26px; flex: 0 0 26px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px; font-weight: 800;
+.fase-stepper { display: flex; flex-direction: column; gap: 8px; }
+.fase-card {
+  display: flex; align-items: center; gap: 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  background: var(--bg-card);
 }
-.percorso-dot.fatto   { background: var(--primary); color: #fff; }
-.percorso-dot.attivo  {
-  background: #fff; border: 3px solid #ffb627; color: var(--text-dark);
-  box-shadow: 0 4px 10px rgba(255,182,39,.35);
-  width: 30px; height: 30px; flex: 0 0 30px;
+.fase-card.fase-attivo {
+  border: 2px solid #ffb627;
+  box-shadow: 0 4px 10px rgba(255,182,39,.2);
 }
-.percorso-dot.futuro  { background: #fff; border: 2px solid var(--border); color: var(--text-hint); }
-.percorso-dot.partenza { background: #fff; border: 2px solid var(--border); font-size: 13px; }
-.percorso-linea { flex: 1; height: 3px; }
-.percorso-linea.fatta  { background: var(--primary); }
-.percorso-linea.futura { background: var(--border); }
+.fase-card.fase-fatto { opacity: .75; }
+.fase-card.fase-futuro { opacity: .6; }
+.fase-stato-icona { font-size: 15px; flex: 0 0 auto; }
+.fase-testi { flex: 1; min-width: 0; }
+.fase-domanda { font-size: 13.5px; font-weight: 800; color: var(--text-dark); }
+.fase-riassunto { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
+.fase-cta {
+  flex: 0 0 auto;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-card);
+  border-radius: var(--radius-sm, 8px);
+  padding: 6px 10px;
+  font-size: 11.5px; font-weight: 700; color: var(--primary);
+  cursor: pointer;
+}
+.fase-cta:hover { border-color: var(--primary); }
 
 /* ================================================================
    CARD MISSIONE DI OGGI
@@ -381,6 +390,12 @@ body {
 .sezione-header { margin: 20px 20px 16px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
 .sezione-titolo { font-family: var(--font-display); font-size: 1.35rem; font-weight: 800; color: var(--text-dark); margin-bottom: 5px; }
 .sezione-sottotitolo { color: var(--text-muted); font-size: 0.88rem; }
+
+.link-torna-tab {
+  display: inline-block; margin: 0 20px 14px; font-size: 12.5px;
+  font-weight: 700; color: var(--primary); text-decoration: none;
+}
+.link-torna-tab:hover { text-decoration: underline; }
 
 /* ================================================================
    BARRA PROGRESSO CHECKLIST
@@ -616,6 +631,34 @@ body {
   font-family: var(--font-body); font-size: 16px; font-weight: 800;
   box-shadow: 0 10px 26px rgba(255,215,102,.35); cursor: pointer;
 }
+
+/* ================================================================
+   ONBOARDING OVERLAY (3 domande)
+================================================================ */
+.onboarding-overlay {
+  position: fixed; inset: 0; z-index: 700;
+  background: linear-gradient(180deg, #101b3f 0%, #1b377b 100%);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 32px; text-align: center; animation: fadeInScale .3s ease;
+  overflow-y: auto;
+}
+.onboarding-wiz { height: 96px; width: auto; margin-bottom: 8px; }
+.onboarding-passo { width: 100%; max-width: 380px; }
+.onboarding-eyebrow { font-size: .78rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--gold); margin: 0 0 6px; }
+.onboarding-domanda {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(24px, 6vw, 30px); letter-spacing: -.02em; color: #fff; margin: 0 0 20px;
+}
+.onboarding-opzioni { display: flex; flex-direction: column; gap: 10px; }
+.onboarding-opzione {
+  width: 100%; padding: 15px 18px; text-align: left;
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); border-radius: 14px;
+  color: #fff; font-family: var(--font-body); font-size: 16px; font-weight: 700; cursor: pointer;
+}
+.onboarding-opzione:hover { background: rgba(255,255,255,.16); }
+.onboarding-landing-dettaglio { font-size: 15px; line-height: 1.5; color: #c8d6f5; margin: 0 0 24px; }
+#onboarding-btn-inizia { width: 100%; max-width: 320px; padding: 16px; font-size: 16px; }
 
 /* ================================================================
    CARD CLICCABILE + DETTAGLIO META

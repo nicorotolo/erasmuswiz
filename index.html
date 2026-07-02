@@ -46,13 +46,13 @@
         <img src="img/wiz-hero.png" alt="Wiz" class="wiz-mascot flip" style="height:72px">
       </div>
 
-      <!-- Mini-percorso a tappe -->
+      <!-- Percorso a 4 fasi (DISEGNO_UX.md §2.1) -->
       <div class="percorso-wrap">
         <div class="percorso-header">
-          <span class="percorso-label">Il tuo viaggio</span>
-          <span class="percorso-tappa-attiva" id="percorso-tappa">Tappa 1 · Inizia</span>
+          <span class="percorso-label">Il tuo percorso</span>
+          <a href="#" class="percorso-modifica-profilo" data-goto="profilo">Modifica profilo</a>
         </div>
-        <div class="percorso-tappe" id="percorso-tappe"></div>
+        <div class="fase-stepper" id="fase-stepper"></div>
       </div>
 
       <!-- Card Missione di oggi -->
@@ -124,6 +124,7 @@
         <h2 class="sezione-titolo">⏳ Scadenze</h2>
         <p id="scadenze-sottotitolo" class="sezione-sottotitolo">Le tappe della candidatura Ca' Foscari, con conto alla rovescia dal vivo.</p>
       </div>
+      <a href="#" class="link-torna-tab" data-goto="checklist">← Torna alla candidatura</a>
       <div id="timeline-v2"></div>
     </section>
 
@@ -135,6 +136,7 @@
         <h2 class="sezione-titolo">📋 La tua checklist</h2>
         <p class="sezione-sottotitolo">Spunta i passi man mano che li completi. Restano salvati sul tuo dispositivo.</p>
       </div>
+      <a href="#" class="link-torna-tab" data-goto="timeline">Vedi tutte le scadenze ⏳</a>
       <div class="toggle-fase-wrap">
         <button class="toggle-fase-btn fase-attiva" id="fase-domanda" type="button">📝 Sto preparando la candidatura</button>
         <button class="toggle-fase-btn" id="fase-selezionato" type="button">🎉 Sono stato selezionato</button>
@@ -247,20 +249,16 @@
   <!-- Navigazione principale — in basso su mobile, in alto su desktop -->
   <nav class="nav-bottom" aria-label="Navigazione principale">
     <a href="#" class="nav-item attivo" data-tab="oggi">
-      <span class="nav-icon">✨</span>
-      <span class="nav-label">Oggi</span>
+      <span class="nav-icon">🧭</span>
+      <span class="nav-label">Percorso</span>
     </a>
     <a href="#" class="nav-item" data-tab="mete">
       <span class="nav-icon">🗺️</span>
       <span class="nav-label">Mete</span>
     </a>
-    <a href="#" class="nav-item" data-tab="timeline">
-      <span class="nav-icon">⏳</span>
-      <span class="nav-label">Scadenze</span>
-    </a>
-    <a href="#" class="nav-item" data-tab="checklist">
-      <span class="nav-icon">📋</span>
-      <span class="nav-label">Checklist</span>
+    <a href="#" class="nav-item" data-tab="checklist" id="nav-candidatura">
+      <span class="nav-icon" id="nav-candidatura-icona">📋</span>
+      <span class="nav-label" id="nav-candidatura-label">Candidatura</span>
     </a>
     <button class="toggle-tema" id="toggle-tema" aria-label="Passa al tema notte">🌙</button>
   </nav>
@@ -271,6 +269,35 @@
     <div class="celebrazione-titolo" id="celebrazione-titolo">Missione completata! 🎉</div>
     <div class="celebrazione-sub" id="celebrazione-sub">Continua così!</div>
     <button class="celebrazione-btn" id="celebrazione-btn">Avanti →</button>
+  </div>
+
+  <!-- Overlay onboarding (riempito da app.js: initOnboarding) -->
+  <div class="onboarding-overlay" id="onboarding-overlay" style="display:none" role="dialog" aria-modal="true" aria-label="Benvenuto">
+    <img src="img/wiz-hero.png" alt="Wiz" class="wiz-mascot onboarding-wiz">
+    <div class="onboarding-passo" id="onboarding-passo-1">
+      <p class="onboarding-eyebrow">1 di 3</p>
+      <h2 class="onboarding-domanda">Dove studi?</h2>
+      <div class="onboarding-opzioni" id="onboarding-opzioni-ateneo"></div>
+    </div>
+    <div class="onboarding-passo" id="onboarding-passo-2" style="display:none">
+      <p class="onboarding-eyebrow">2 di 3</p>
+      <h2 class="onboarding-domanda">Cosa studi?</h2>
+      <div class="onboarding-opzioni" id="onboarding-opzioni-dipartimento"></div>
+    </div>
+    <div class="onboarding-passo" id="onboarding-passo-3" style="display:none">
+      <p class="onboarding-eyebrow">3 di 3</p>
+      <h2 class="onboarding-domanda">A che punto sei?</h2>
+      <div class="onboarding-opzioni" id="onboarding-opzioni-livello">
+        <button type="button" class="onboarding-opzione" data-livello="L">Triennale</button>
+        <button type="button" class="onboarding-opzione" data-livello="LM">Magistrale</button>
+      </div>
+    </div>
+    <div class="onboarding-passo" id="onboarding-passo-landing" style="display:none">
+      <p class="onboarding-eyebrow">Fatto ✨</p>
+      <h2 class="onboarding-domanda" id="onboarding-landing-titolo">Ecco cosa c'è per te</h2>
+      <p class="onboarding-landing-dettaglio" id="onboarding-landing-dettaglio"></p>
+      <button type="button" class="btn-primary" id="onboarding-btn-inizia">Inizia il percorso →</button>
+    </div>
   </div>
 
   <!-- Overlay dettaglio meta (riempito da app.js: apriDettaglioMeta) -->

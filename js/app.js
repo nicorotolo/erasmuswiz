@@ -13,9 +13,10 @@ function caricaZaino() {
     if (!Array.isArray(z.metePreferite)) z.metePreferite = [];
     if (!z.fase) z.fase = "domanda";
     if (!z.checklistPost || typeof z.checklistPost !== "object") z.checklistPost = {};
+    if (typeof z.onboardingFatto !== "boolean") z.onboardingFatto = !!z.profilo;
     return z;
   } catch (e) {
-    return { profilo: null, checklist: {}, metePreferite: [], fase: "domanda", checklistPost: {} };
+    return { profilo: null, checklist: {}, metePreferite: [], fase: "domanda", checklistPost: {}, onboardingFatto: false };
   }
 }
 
@@ -148,88 +149,95 @@ function renderHome() {
 }
 
 // ============================================================
-// PERCORSO A TAPPE
+// PERCORSO A 4 FASI (DISEGNO_UX.md §2.1) — home-percorso UX2
 // ============================================================
-const TAPPE_DEF = [
-  { id: 1, label: "1" },
-  { id: 2, label: "2" },
-  { id: 3, label: "3" },
-  { id: 4, label: "4" },
-  { id: 5, label: "5" },
-  { id: "partenza", label: "🎒" },
-];
+function calcolaFasi() {
+  const profiloOk    = !!ZAINO.profilo;
+  const nPreferite    = (ZAINO.metePreferite || []).length;
+  const meteOk        = nPreferite >= 1;
+  const checklistTot   = (CHECKLIST || []).length;
+  const checklistFatti = (CHECKLIST || []).filter(v => ZAINO.checklist && ZAINO.checklist[v.id]).length;
+  const checklistOk    = checklistTot > 0 && checklistFatti === checklistTot;
+  const selezionato    = ZAINO.fase === "selezionato";
 
-const NOMI_TAPPA = {
-  1: "Compila il profilo",
-  2: "Esplora le mete",
-  3: "Avvia la checklist",
-  4: "Prepara i documenti",
-  5: "Invia la candidatura",
-  partenza: "Sei pronto a partire!",
-};
+  const fasi = [
+    {
+      id: 1, tab: "idoneita", domanda: "Posso partire?", fatto: profiloOk,
+      riassunto: profiloOk
+        ? "Profilo compilato — rivedi i requisiti quando vuoi."
+        : "Verifica i requisiti del bando prima di iniziare.",
+      cta: profiloOk ? "Rivedi i requisiti" : "Controlla se sei idoneo",
+    },
+    {
+      id: 2, tab: "mete", domanda: "Dove posso andare?", fatto: meteOk,
+      riassunto: meteOk
+        ? `${nPreferite} ${nPreferite === 1 ? "meta salvata" : "mete salvate"} tra i preferiti.`
+        : "Esplora le mete compatibili con il tuo profilo.",
+      cta: meteOk ? "Vedi le tue mete" : "Esplora le mete",
+    },
+    {
+      id: 3, tab: "checklist", domanda: "La candidatura", fatto: checklistOk,
+      riassunto: checklistTot === 0
+        ? "Nessun passo ancora disponibile."
+        : `${checklistFatti}/${checklistTot} passi completati.`,
+      cta: checklistOk ? "Rivedi la checklist" : "Vai alla checklist",
+    },
+    {
+      id: 4, tab: "checklist", domanda: "Sono stato preso!", fatto: false,
+      riassunto: selezionato
+        ? "In preparazione alla partenza 🎒"
+        : "Quando sarai selezionato, qui trovi la preparazione alla partenza.",
+      cta: selezionato ? "Continua la preparazione" : "Vai alla candidatura",
+    },
+  ];
 
-function calcolaTappaAttiva() {
-  if (!ZAINO.profilo) return 1;
-  const tot   = (CHECKLIST || []).length;
-  const fatti = (CHECKLIST || []).filter(v => ZAINO.checklist && ZAINO.checklist[v.id]).length;
-  if (fatti === 0) return 2;
-  if (fatti < Math.ceil(tot * 0.4)) return 3;
-  if (fatti < Math.ceil(tot * 0.8)) return 4;
-  if (fatti < tot) return 5;
-  return "partenza";
+  if (selezionato) {
+    fasi[0].stato = fasi[1].stato = fasi[2].stato = "fatto";
+    fasi[3].stato = "attivo";
+  } else {
+    let attivoAssegnato = false;
+    fasi.slice(0, 3).forEach(f => {
+      if (f.fatto) { f.stato = "fatto"; }
+      else if (!attivoAssegnato) { f.stato = "attivo"; attivoAssegnato = true; }
+      else { f.stato = "futuro"; }
+    });
+    fasi[3].stato = "futuro";
+  }
+  return fasi;
 }
 
-function renderPercorso() {
-  const wrap  = document.getElementById("percorso-tappe");
-  const label = document.getElementById("percorso-tappa");
+function renderFaseStepper() {
+  const wrap = document.getElementById("fase-stepper");
   if (!wrap) return;
-
-  const tappaAttiva = calcolaTappaAttiva();
-  const tappaNum = tappaAttiva === "partenza" ? 99 : tappaAttiva;
-
-  if (label) {
-    const nome = NOMI_TAPPA[tappaAttiva] || "";
-    label.textContent = tappaAttiva === "partenza"
-      ? "🎒 " + nome
-      : `Tappa ${tappaAttiva} · ${nome}`;
-  }
-
-  const percorsoWrap = wrap.parentElement;
-  const vecchioLink = percorsoWrap && percorsoWrap.querySelector(".percorso-modifica-profilo");
-  if (vecchioLink) vecchioLink.remove();
-
   wrap.innerHTML = "";
-  TAPPE_DEF.forEach((t, i) => {
-    const isPartenza = t.id === "partenza";
-    const idNum = isPartenza ? 99 : t.id;
 
-    let stato;
-    if (isPartenza) {
-      stato = tappaNum >= 99 ? "attivo" : "partenza";
-    } else if (idNum < tappaNum) {
-      stato = "fatto";
-    } else if (idNum === tappaNum) {
-      stato = "attivo";
-    } else {
-      stato = "futuro";
-    }
+  calcolaFasi().forEach(f => {
+    const card   = crea("div", `fase-card fase-${f.stato}`);
+    const icona  = f.stato === "fatto" ? "✅" : f.stato === "attivo" ? "▶" : "🔒";
+    card.appendChild(crea("div", "fase-stato-icona", icona));
 
-    const dot = crea("div", "percorso-dot " + stato);
-    dot.textContent = stato === "fatto" ? "✓" : t.label;
-    wrap.appendChild(dot);
+    const testi = crea("div", "fase-testi");
+    testi.appendChild(crea("div", "fase-domanda", f.domanda));
+    testi.appendChild(crea("div", "fase-riassunto", f.riassunto));
+    card.appendChild(testi);
 
-    if (i < TAPPE_DEF.length - 1) {
-      const linea = crea("div", "percorso-linea " + (idNum < tappaNum ? "fatta" : "futura"));
-      wrap.appendChild(linea);
-    }
+    const btn = crea("button", "fase-cta", f.cta);
+    btn.type = "button";
+    btn.addEventListener("click", () => mostraTab(f.tab));
+    card.appendChild(btn);
+
+    wrap.appendChild(card);
   });
+}
 
-  if (percorsoWrap && tappaNum >= 2) {
-    const lnk = crea("a", "percorso-modifica-profilo", "Modifica profilo");
-    lnk.href = "#";
-    lnk.addEventListener("click", e => { e.preventDefault(); mostraTab("profilo"); });
-    percorsoWrap.appendChild(lnk);
-  }
+// Etichetta del 3° tab in nav: "Candidatura" (in corso) oppure "Partenza" (selezionato)
+function aggiornaNavCandidatura() {
+  const icona = document.getElementById("nav-candidatura-icona");
+  const label = document.getElementById("nav-candidatura-label");
+  if (!icona || !label) return;
+  const selezionato = ZAINO.fase === "selezionato";
+  icona.textContent = selezionato ? "🎒" : "📋";
+  label.textContent = selezionato ? "Partenza" : "Candidatura";
 }
 
 // ============================================================
@@ -402,7 +410,7 @@ function renderMissione() {
   }
 
   renderPreparazione();
-  renderPercorso();
+  renderFaseStepper();
 }
 
 // ============================================================
@@ -758,6 +766,7 @@ function togglePreferita(id) {
     salvaZaino(ZAINO);
     renderPreferite();
     renderMete();
+    renderFaseStepper();
   } else if (ZAINO.metePreferite.length >= 5) {
     renderPreferite("Il bando ne ammette al massimo 5. Rimuovi una meta per aggiungerne un'altra.");
   } else {
@@ -765,6 +774,7 @@ function togglePreferita(id) {
     salvaZaino(ZAINO);
     renderPreferite();
     renderMete();
+    renderFaseStepper();
   }
 }
 
@@ -973,6 +983,8 @@ function initToggleFase() {
     salvaZaino(ZAINO);
     aggiornaBottoniFase();
     renderChecklistAttiva();
+    aggiornaNavCandidatura();
+    renderFaseStepper();
   });
 
   btnSelezionato.addEventListener("click", () => {
@@ -980,6 +992,8 @@ function initToggleFase() {
     salvaZaino(ZAINO);
     aggiornaBottoniFase();
     renderChecklistAttiva();
+    aggiornaNavCandidatura();
+    renderFaseStepper();
   });
 
   aggiornaBottoniFase();
@@ -998,6 +1012,141 @@ function renderIdoneita() {
     card.appendChild(crea("div", "requisito-v2-desc",   req.descrizione));
     cont.appendChild(card);
   });
+}
+
+// ============================================================
+// ONBOARDING — 3 domande + valore immediato (UX1)
+// ============================================================
+const CHIAVE_ONBOARDING_STEP = "ew-onboarding-riprendi-step";
+
+function areaDominanteDipartimento(dipartimento) {
+  const conteggi = {};
+  (METE || []).forEach(m => {
+    if (m.dipartimentoCf !== dipartimento) return;
+    m.areeDisciplinari.forEach(a => { conteggi[a.codice] = (conteggi[a.codice] || 0) + 1; });
+  });
+  let migliore = null, max = 0;
+  Object.keys(conteggi).forEach(cod => {
+    if (conteggi[cod] > max) { max = conteggi[cod]; migliore = cod; }
+  });
+  return migliore;
+}
+
+function prossimaScadenzaInfo() {
+  const ora    = new Date();
+  const future = (SCADENZE_CAFOSCARI || [])
+    .filter(s => new Date(s.data) > ora)
+    .sort((a, b) => new Date(a.data) - new Date(b.data));
+  return future[0] || null;
+}
+
+function mostraPassoOnboarding(id) {
+  ["onboarding-passo-1", "onboarding-passo-2", "onboarding-passo-3", "onboarding-passo-landing"]
+    .forEach(pid => {
+      const el = document.getElementById(pid);
+      if (el) el.style.display = pid === id ? "" : "none";
+    });
+}
+
+function popolaPassoAteneo() {
+  const cont = document.getElementById("onboarding-opzioni-ateneo");
+  if (!cont) return;
+  cont.innerHTML = "";
+  Object.keys(ATENEI).forEach(k => {
+    const a = ATENEI[k];
+    if (!a.disponibile) return;
+    const btn = crea("button", "onboarding-opzione", a.label);
+    btn.type = "button";
+    btn.addEventListener("click", () => {
+      if (k !== window.ATENEO_ATTIVO) {
+        try {
+          localStorage.setItem("erasmuswiz_ateneo", k);
+          sessionStorage.setItem(CHIAVE_ONBOARDING_STEP, "2");
+        } catch (e) {}
+        location.reload();
+        return;
+      }
+      popolaPassoDipartimento();
+      mostraPassoOnboarding("onboarding-passo-2");
+    });
+    cont.appendChild(btn);
+  });
+}
+
+function popolaPassoDipartimento() {
+  const cont = document.getElementById("onboarding-opzioni-dipartimento");
+  if (!cont) return;
+  cont.innerHTML = "";
+  const visti = [];
+  (METE || []).forEach(m => {
+    if (m.dipartimentoCf && !visti.includes(m.dipartimentoCf)) visti.push(m.dipartimentoCf);
+  });
+  visti.forEach(dip => {
+    const btn = crea("button", "onboarding-opzione", dip);
+    btn.type = "button";
+    btn.addEventListener("click", () => {
+      window._onboardingDipartimento = dip;
+      window._onboardingArea = areaDominanteDipartimento(dip);
+      mostraPassoOnboarding("onboarding-passo-3");
+    });
+    cont.appendChild(btn);
+  });
+}
+
+function completaOnboarding(livello) {
+  const area = window._onboardingArea;
+  const dip  = window._onboardingDipartimento;
+  ZAINO.profilo = { area, livello, lingue: [] };
+  ZAINO.onboardingFatto = true;
+  salvaZaino(ZAINO);
+
+  const nMete = (METE || []).filter(m => m.areeDisciplinari.some(a => a.codice === area)).length;
+  const prossima = prossimaScadenzaInfo();
+  const titolo = document.getElementById("onboarding-landing-titolo");
+  const dett   = document.getElementById("onboarding-landing-dettaglio");
+  if (titolo) titolo.textContent = `Per te ci sono ${nMete} ${nMete === 1 ? "meta" : "mete"} a ${dip}`;
+  if (dett) {
+    if (prossima) {
+      const giorni = Math.ceil((new Date(prossima.data) - new Date()) / 86400000);
+      dett.textContent = `La prossima scadenza è ${prossima.cosa}, tra ${giorni} ${giorni === 1 ? "giorno" : "giorni"}.`;
+    } else {
+      dett.textContent = "";
+    }
+  }
+  mostraPassoOnboarding("onboarding-passo-landing");
+}
+
+function initOnboarding() {
+  const overlay = document.getElementById("onboarding-overlay");
+  if (!overlay) return;
+  if (ZAINO.onboardingFatto) { overlay.style.display = "none"; return; }
+
+  overlay.style.display = "flex";
+
+  let stepRipresa = null;
+  try { stepRipresa = sessionStorage.getItem(CHIAVE_ONBOARDING_STEP); sessionStorage.removeItem(CHIAVE_ONBOARDING_STEP); } catch (e) {}
+
+  popolaPassoAteneo();
+  if (stepRipresa === "2") {
+    popolaPassoDipartimento();
+    mostraPassoOnboarding("onboarding-passo-2");
+  } else {
+    mostraPassoOnboarding("onboarding-passo-1");
+  }
+
+  document.querySelectorAll("#onboarding-opzioni-livello .onboarding-opzione").forEach(btn => {
+    btn.addEventListener("click", () => completaOnboarding(btn.dataset.livello));
+  });
+
+  const btnInizia = document.getElementById("onboarding-btn-inizia");
+  if (btnInizia) {
+    btnInizia.addEventListener("click", () => {
+      overlay.style.display = "none";
+      renderHome();
+      renderMete();
+      renderMissione();
+    });
+  }
 }
 
 // ============================================================
@@ -1108,7 +1257,9 @@ function init() {
   renderIdoneita();
   initProfilo();
   initCountdownPill();
+  aggiornaNavCandidatura();
   renderMissione();
+  initOnboarding();
   setInterval(aggiornaCountdownV2, 1000);
 }
 

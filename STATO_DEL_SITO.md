@@ -4,7 +4,78 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-02 (AVVIATA 3ª FACOLTÀ SAPIENZA — Architettura (113 mete) + roadmap capacità Codex. Verificato prima in diretta sul DB che **Economia Sapienza resta senza sedi pubblicate** sul bando 26/27 (come nella sessione precedente). Scelta **Architettura** (`ambito=ARCHI`) come 3ª Facoltà, esplicitamente non piccola su richiesta di Nicola: estratte via `web_fetch` tutte le 118 righe (12 pagine) del DB Go Erasmus+; 5 righe erano riservate a soli PhD/Specializzandi e non modellate (stesso criterio di Giurisprudenza) → **113 mete reali**. Creato `js/atenei/sapienza/dati-mete-architettura.js` (id/codici a slug corto, coerenti con lo standard già in uso — non i nomi completi usati per errore nella prima bozza, poi corretta); 12 atenei compaiono più volte come accordi distinti, disambiguati con `-a/-b/-c`. Promotore non unico per Facoltà (come Medicina). Agganciato a `index.html` nella catena `_meteAllSap`. `mappatura-stato.json`: nuova voce `statoDipartimenti["Architettura (Sapienza)"]` + **23 batch da 5 mete accodati** in `prossimiBatch`, dopo i 3 di Medicina — coda totale ora **33 batch / 163 mete** (7 Giurisprudenza-followup + 3 Medicina + 23 Architettura). Validato: `node --check` OK su `dati-mete-architettura.js` (113 id/113 codici univoci); `mappatura-stato.json` validato a mano leggendo il contenuto vero col tool Read (il mount bash risultava STALE/troncato per questo file, problema ambientale noto, non un difetto della modifica). ⚠️ **REALITY-CHECK CAPACITÀ (vedi anche sezione 8):** al ritmo dichiarato (5 mete/7 min continuativi) la coda attuale si esaurirebbe in **~4 ore**, non "giorni" — e persino l'INTERO catalogo Sapienza rimanente (~1455 mete su 14 Facoltà) durerebbe solo **~1,5 giorni** se Codex girasse davvero H24. Lo storico reale (`mappatura-stato.json.storico`) mostra invece buchi di più giorni (es. 16→23 giugno), segno che l'automazione (Codex "Worktree" locale, non un'Action cloud) NON gira 24/7 continuativamente. NON ANCORA PUBBLICATO: lanciare `PUBBLICA.bat`.)
+**Ultimo aggiornamento:** 2026-07-02 — sessione 4 (**UX2 IMPLEMENTATA — home-percorso
+a 4 fasi + nav ridotta a 3 tab.** La home (`#tab-oggi`, nav "Percorso" 🧭) non mostra
+più il vecchio mini-percorso a 5 tappe astratte: al suo posto uno stepper verticale
+con le 4 fasi di `DISEGNO_UX.md` §2.1 — "Posso partire?" (✅ quando c'è un profilo),
+"Dove posso andare?" (✅ quando ≥1 meta preferita), "La candidatura" (✅ a checklist
+completa), "Sono stato preso!" (attiva quando `ZAINO.fase==="selezionato"`, forza le
+prime 3 a "fatte"). Ogni card mostra icona di stato (✅/▶/🔒), la domanda-guida, un
+riassunto testuale calcolato dallo zaino e una CTA che naviga al tab giusto (Idoneità,
+Mete, Candidatura). Link "Modifica profilo" nell'header dello stepper (riusa il
+sistema `data-goto` già esistente per Idoneità/Profilo). Nav inferiore passata da 4 a
+3 voci: **Percorso · Mete · Candidatura** — il terzo tab (`data-tab="checklist"`,
+id `nav-candidatura`) cambia icona/etichetta in **🎒 Partenza** quando lo studente
+segna "Sono stato selezionato" (nuova `aggiornaNavCandidatura()`, chiamata da
+`init()` e dai due bottoni di `initToggleFase()`). Il tab Scadenze/Timeline è uscito
+dalla nav (come già Idoneità/Profilo) mantenendo però la pagina intatta: raggiungibile
+con un link "Vedi tutte le scadenze ⏳" dal tab Checklist e un link di ritorno
+"← Torna alla candidatura" dal tab Timeline (stesso pattern `data-goto` esistente).
+In `js/app.js`: rimossi come dead code il vecchio `TAPPE_DEF`/`NOMI_TAPPA`/
+`calcolaTappaAttiva`/`renderPercorso` (5 tappe astratte, sostituiti dalle 4 fasi
+concrete); aggiunte `calcolaFasi()` e `renderFaseStepper()`, chiamate da
+`renderMissione()` (come già `renderPercorso()` prima) e anche da `togglePreferita()`
+e dai due handler di `initToggleFase()` per aggiornamento live senza reload. **Non
+toccati:** motore di compatibilità, file dati mete, `ZAINO.onboardingFatto` (UX1).
+Nuovi stili in `css/style.css`: `.fase-stepper`/`.fase-card`/`.fase-stato-icona`/
+`.fase-testi`/`.fase-domanda`/`.fase-riassunto`/`.fase-cta` (con `var(--bg-card)` per
+compatibilità dark mode) al posto delle vecchie `.percorso-dot`/`.percorso-tappe`/
+`.percorso-linea`; nuovo `.link-torna-tab` per i link di navigazione verso/da Timeline.
+Validato: `node --check js/app.js` OK; test end-to-end nel browser (preview locale)
+su ENTRAMBI gli atenei — localStorage pulito → onboarding → landing → stepper con
+fase 1 ✅ e fase 2 ▶ (profilo compilato, 0 mete preferite) per sia Ca' Foscari
+Economia sia Sapienza Giurisprudenza; nav mostra "🎒 Partenza" subito dopo aver
+cliccato "Sono stato selezionato" nel tab Checklist, coerente con `ZAINO.fase` in
+localStorage; link "Vedi tutte le scadenze"/"Torna alla candidatura" funzionanti;
+zaino esistente (localStorage NON pulito) → nessun onboarding, tab e fase ripristinati
+dall'hash/zaino come prima. Nessun errore in console in tutte le prove.
+Roadmap: UX2 spuntata. Prossima sessione: UX3 (fusione Scadenze+Checklist + export
+.ics).)
+
+**Ultimo aggiornamento precedente:** 2026-07-02 — sessione 3 (**UX1 IMPLEMENTATA — onboarding
+3 domande + valore immediato.** Nuovo overlay a schermo intero (`index.html`,
+sezione `#onboarding-overlay`) mostrato al primo accesso: 1) "Dove studi?" →
+ateneo (riusa il registro `ATENEI{}`; se diverso da quello attivo salva
+`erasmuswiz_ateneo` + un marcatore in `sessionStorage` e ricarica, riprendendo
+l'onboarding allo step 2 dopo il reload); 2) "Cosa studi?" → dipartimento/
+facoltà (`dipartimentoCf` distinti nelle mete dell'ateneo attivo); 3) "A che
+punto sei?" → Triennale/Magistrale. Landing con valore immediato: "Per te ci
+sono N mete a [dipartimento]" + prossima scadenza con countdown in giorni,
+poi "Inizia il percorso →". Nessun campo di testo, nessuna domanda sulle
+lingue (arriveranno in UX2/fase Mete come da `DISEGNO_UX.md` §3).
+Implementazione in `js/app.js`: `areaDominanteDipartimento()` traduce la
+scelta "dipartimento" nel campo `profilo.area` già usato dal motore di
+compatibilità esistente (moda dei codici `areeDisciplinari` delle mete di
+quel dipartimento — stesso comportamento del form profilo manuale, motore
+di compatibilità NON toccato); `caricaZaino()` estesa con
+`ZAINO.onboardingFatto` con fallback `!!z.profilo` per gli zaini esistenti
+(chi ha già un profilo NON rivede l'onboarding). Nuovi stili in
+`css/style.css` (`.onboarding-*`, riuso della palette/overlay esistenti).
+Validato: `node --check js/app.js` OK; test end-to-end nel browser (preview
+locale) su ENTRAMBI gli atenei — localStorage pulito → onboarding compare,
+numeri "N mete" coerenti col tab Mete dopo (Ca' Foscari Economia: 39 mete;
+Sapienza Giurisprudenza: 55 mete), cambio ateneo Sapienza dentro l'onboarding
+→ reload → ripresa corretta allo step 2 con le 3 Facoltà Sapienza; zaino
+esistente → onboarding NON compare, home già popolata. Nessun errore in
+console. **Nota emersa durante il test:** il service worker PWA (sw.js,
+Fase 7) cache-a `index.html` — chi ha già visitato il sito potrebbe vedere
+la versione vecchia finché il service worker non si aggiorna da solo o non
+svuota la cache del browser; da tenere presente per il rilascio.
+Roadmap: UX1 spuntata. Prossima sessione: UX2 (home-percorso + nav a 3 tab).)
+
+**Ultimo aggiornamento precedente:** 2026-07-02 — sessione 2 (DECISO RIDISEGNO UX. Analisi critica del piano in sessione di brainstorming: la UX attuale (4 tab per feature, profilo chiesto prima del valore, "traduzione della burocrazia" invisibile in interfaccia, nessun gancio di retention) non regge la promessa del prodotto. Creato **`DISEGNO_UX.md`** (specifica vincolante v3): onboarding a 3 domande con valore immediato, home = percorso a 4 fasi ("Posso partire?" → "Dove posso andare?" → "Candidatura" → "Sono stato preso"), nav ridotta a 3 tab, fusione Scadenze+Checklist con export .ics, traduttore a 3 registri (bando→significato→azione, con fonte), banner "dati in verifica" per i contenuti provvisori Sapienza. ROADMAP.md riscritta: nuova **ONDATA UX (UX1–UX6) = priorità attuale**; Ondata B assorbita (B2 già fatta, B1/B3→UX5/UX6). Decisione: il test utente (fratello di Nicola, studente Sapienza Giurisprudenza di ritorno dall'Erasmus, disponibile da settimana prossima) si farà sulla versione NUOVA. Mappatura Codex: continua in background come "dessert" di fine sessione, non più piatto principale. Nessun codice toccato in questa sessione.)
+
+**Ultimo aggiornamento precedente:** 2026-07-02 (AVVIATA 3ª FACOLTÀ SAPIENZA — Architettura (113 mete) + roadmap capacità Codex. Verificato prima in diretta sul DB che **Economia Sapienza resta senza sedi pubblicate** sul bando 26/27 (come nella sessione precedente). Scelta **Architettura** (`ambito=ARCHI`) come 3ª Facoltà, esplicitamente non piccola su richiesta di Nicola: estratte via `web_fetch` tutte le 118 righe (12 pagine) del DB Go Erasmus+; 5 righe erano riservate a soli PhD/Specializzandi e non modellate (stesso criterio di Giurisprudenza) → **113 mete reali**. Creato `js/atenei/sapienza/dati-mete-architettura.js` (id/codici a slug corto, coerenti con lo standard già in uso — non i nomi completi usati per errore nella prima bozza, poi corretta); 12 atenei compaiono più volte come accordi distinti, disambiguati con `-a/-b/-c`. Promotore non unico per Facoltà (come Medicina). Agganciato a `index.html` nella catena `_meteAllSap`. `mappatura-stato.json`: nuova voce `statoDipartimenti["Architettura (Sapienza)"]` + **23 batch da 5 mete accodati** in `prossimiBatch`, dopo i 3 di Medicina — coda totale ora **33 batch / 163 mete** (7 Giurisprudenza-followup + 3 Medicina + 23 Architettura). Validato: `node --check` OK su `dati-mete-architettura.js` (113 id/113 codici univoci); `mappatura-stato.json` validato a mano leggendo il contenuto vero col tool Read (il mount bash risultava STALE/troncato per questo file, problema ambientale noto, non un difetto della modifica). ⚠️ **REALITY-CHECK CAPACITÀ (vedi anche sezione 8):** al ritmo dichiarato (5 mete/7 min continuativi) la coda attuale si esaurirebbe in **~4 ore**, non "giorni" — e persino l'INTERO catalogo Sapienza rimanente (~1455 mete su 14 Facoltà) durerebbe solo **~1,5 giorni** se Codex girasse davvero H24. Lo storico reale (`mappatura-stato.json.storico`) mostra invece buchi di più giorni (es. 16→23 giugno), segno che l'automazione (Codex "Worktree" locale, non un'Action cloud) NON gira 24/7 continuativamente. NON ANCORA PUBBLICATO: lanciare `PUBBLICA.bat`.)
 
 **Ultimo aggiornamento precedente:** 2026-07-01 (BATCH NOTTURNI Sapienza: Giurisprudenza espansa 20→55 mete + avviata 2ª Facoltà. Estratte dal DB ufficiale Go Erasmus+ (`?ambito=IUS`, 6 pagine) le 35 mete Giurisprudenza mancanti (56 righe reali meno 1 duplicato PhD/Specializzandi UAM Madrid, non modellato per lo stesso motivo già usato altrove). Riscritto `js/atenei/sapienza/dati-mete-giurisprudenza.js`: 55 mete totali, le 20 originali con l'arricchimento reale già fatto da Codex (lingua+scadenze) preservato intatto, le 35 nuove in seed grezzo. `mappatura-stato.json` aggiornato: totale 55/completate 20, 7 nuovi batch di follow-up in coda. Individuata e avviata una 2ª Facoltà Sapienza — **Medicina e Psicologia, Area medica e professioni sanitarie** (`ambito=MEDIC2`, la più piccola tra le 17 disponibili: 15 mete, 2 pagine DB) — creato `js/atenei/sapienza/dati-mete-medicina-psicologia-area-medica.js` con tutti i campi reali (qui il promotore/coordinatore varia per accordo, non è unico come Giurisprudenza) e 3 batch iniziali accodati DOPO i 7 di Giurisprudenza, così l'automazione Codex finisce Giurisprudenza e prosegue da sola. `index.html`: nuova Facoltà agganciata alla catena `_meteAllSap` di Sapienza. Validato con `scripts/valida-stato.mjs` → "Stato coerente"; `node --check` OK su entrambi i file dati. ⚠️ Durante la ricerca dell'ambito giusto è stato cliccato per errore un link "Esporta i risultati" sul sito Sapienza (possibile download non richiesto sul PC di Nicola, dati pubblici non sensibili, da verificare). NON ANCORA PUBBLICATO: lanciare `PUBBLICA.bat`.)
 
@@ -29,7 +100,7 @@
 **Ultimo aggiornamento precedente:** 2026-06-26 (Fase 3 ROADMAP: mete preferite. `caricaZaino()` ora include `metePreferite: []` con fallback per zaini vecchi. Aggiunto `<div id="sezione-preferite">` in `#tab-mete`. Nuove funzioni: `renderPreferite()` (sezione riepilogo con contatore N/5 e rimozione ✕) e `togglePreferita(id)` (aggiunge/rimuove con limite morbido a 5). Bottone ⭐ su ogni card in `renderMete()`: mostra "⭐ Preferita" se già salvata, "☆ Aggiungi ai preferiti" altrimenti. CSS in `style.css` con sfondo oro e dark-mode override. `node --check` OK.)
 
 **Ultimo aggiornamento precedente:** 2026-06-25 (MERGE GitHub→locale: i dati mappati da Codex su GitHub (che la copia locale non aveva) sono stati portati nel working tree mantenendo il design v2. Catalogo passato da 134 a **249 mete su 5 dipartimenti**: Economia 58, Management 76, Lingue 24, Scienze 25, Filosofia 66. I 3 nuovi file dati (`dati-mete-lingue.js`, `dati-mete-scienze.js`, `dati-mete-filosofia.js`) collegati in `index.html` con la catena di concat `_meteAll`; tutti i 5 file mete convertiti a `var METE`. ATTENZIONE: il merge NON è stato fatto via git (working tree su branch `feature/pipeline-imbuto` con modifiche non committate + lock OneDrive su `.git`); i file dati sono stati estratti con `git show origin/main:...`. Backup pre-merge in `_backup-20260625-*/`.)
-**Fase raggiunta:** Fase 5 / 5 + Ondata A completa + ROADMAP Fase 1 ✅ + ROADMAP Fase 2 ✅ + ROADMAP Fase 3 ✅ + ROADMAP Fase 4 ✅ (post-selezione) + ROADMAP Fase 5 ✅ (condivisibilità) + ROADMAP Fase 7 ✅ (PWA, no notifiche) + ROADMAP Fase 8 ✅ (evento analytics checklist) — SITO PUBBLICATO con design v2, ora multi-dipartimento (8), **392 mete totali**
+**Fase raggiunta:** Fase 5 / 5 + Ondata A completa + ROADMAP Fase 1 ✅ + ROADMAP Fase 2 ✅ + ROADMAP Fase 3 ✅ + ROADMAP Fase 4 ✅ (post-selezione) + ROADMAP Fase 5 ✅ (condivisibilità) + ROADMAP Fase 7 ✅ (PWA, no notifiche) + ROADMAP Fase 8 ✅ (evento analytics checklist) + **ONDATA UX: UX1 ✅ (onboarding 3 domande, 2026-07-02) + UX2 ✅ (home-percorso 4 fasi + nav 3 tab, 2026-07-02)** — SITO PUBBLICATO con design v2, ora multi-dipartimento (8), **392 mete totali** Ca' Foscari + 3 Facoltà Sapienza (183 mete)
 **Cosa funziona:** tutto, validato (node --check su tutti i JS); mete REALI su 8 dipartimenti Ca' Foscari; bando, scadenze e checklist VALIDATI sul PDF ufficiale. Completezza lingua per dipartimento:
 Economia 52/58; Management 71/76; Lingue 23/24; Scienze 23/25; Filosofia 56/66;
 Scienze Molecolari 8/8; Studi Linguistici 104/114; Studi Umanistici 18/21.
@@ -105,6 +176,7 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | `fonti/` | **fonti ufficiali** | PDF/ODS del bando 2026/27 Ca' Foscari (lista destinazioni, legenda, EUTOPIA) — base del database mete |
 | `README.md` | guida | Spiegazione file + come aggiungere una meta + come testare |
 | `STATO_DEL_SITO.md` | guida | Questo file: stato aggiornato |
+| `DISEGNO_UX.md` | guida | **Specifica vincolante del ridisegno UX v3** (02/07) — da leggere nelle sessioni UX1–UX6 |
 | `PROGETTO_ERASMUS.md` | guida | Bussola strategica (idea, confini, rischi) |
 | `BRIEF_claude_code_fase1.md` | guida | Brief iniziale Fase 1 (storico) |
 | `DISEGNO_DATI_erasmus.md` | guida | Struttura dati validata + logica compatibilità |
@@ -159,6 +231,28 @@ python -m http.server 8000
 poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
+
+**Aggiornamento 2026-07-02 — sessione 4 (UX2 home-percorso):**
+0. **⬆️ PUBBLICA.bat ancora da lanciare** (include anche UX2 di questa sessione).
+1. **Prossima sessione di codice = UX3** (fusione Scadenze+Checklist + export
+   .ics): leggere `DISEGNO_UX.md` §6 prima di iniziare. Le voci di `CHECKLIST`
+   dovranno acquisire il campo `scadenzaId`; il tab Timeline (già fuori dalla
+   nav dopo UX2, raggiungibile da "Vedi tutte le scadenze ⏳") va probabilmente
+   assorbito nella nuova vista cronologica del tab Candidatura.
+2. Non toccare l'onboarding (UX1) né lo stepper a 4 fasi (UX2), già testati.
+
+**Aggiornamento 2026-07-02 — sessione 2 (ridisegno UX):**
+0. **⬆️ PUBBLICA.bat ancora da lanciare** (include anche Architettura della
+   sessione precedente + i 3 nuovi/aggiornati documenti di questa).
+1. **Prossima sessione di codice = UX1** (onboarding 3 domande): dare a
+   Claude Code il prompt UX1 (in fondo alla ROADMAP/DISEGNO_UX), che legge
+   `DISEGNO_UX.md` §3 e lavora SOLO su quel blocco.
+2. Poi UX2 → UX3 → UX4 in ordine; UX5 (contenuti traduttore) è lavoro di
+   Nicola con Claude in chat; UX6 = test col fratello (Sapienza,
+   Giurisprudenza) sulla versione nuova — preparare griglia di osservazione
+   e `FEEDBACK_UTENTI.md`.
+3. Mappatura Sapienza: SOLO a fine sessione se avanza tempo (1 Facoltà
+   piccola: POLIT 24 o IIIS 26). La coda Codex attuale (33 batch) basta.
 
 **Aggiornamento 2026-07-02 (3ª Facoltà Architettura + roadmap capacità):**
 0. **⬆️ PUBBLICA.bat da lanciare:** Architettura (113 mete) creata e agganciata,

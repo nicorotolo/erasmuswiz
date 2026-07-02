@@ -63,7 +63,55 @@ codice irrobustito. ~6 sessioni.
   - `dati-bando.js` e `dati-checklist.js` sono ancora ESEMPI: verificarli
     riga per riga sul PDF del bando in `/fonti`.
 
+### ONDATA UX — Ridisegno del percorso (luglio–agosto 2026) ⬅ PRIORITÀ ATTUALE
+
+> Decisione 02/07/2026: la UX attuale (4 tab per feature, profilo prima del
+> valore, traduzione invisibile) non funziona. Si ridisegna PRIMA del test
+> utente; il fratello di Nicola (studente Sapienza Giurisprudenza, reduce dal
+> processo Erasmus) testerà la versione NUOVA.
+> **Specifica vincolante: `DISEGNO_UX.md`** — Claude Code deve leggerla a
+> inizio sessione insieme ai soliti tre documenti. Una sessione = un blocco.
+
+- [x] **UX1. Onboarding 3 domande + valore immediato** ✅ 2026-07-02 (Claude Code, 1 sessione)
+  - Al primo accesso: 3 passi a selezione (ateneo → dipartimento/facoltà →
+    livello), niente campi di testo; poi atterraggio con "N mete per te +
+    prossima scadenza". Lingue NON chieste qui. `ZAINO.onboardingFatto` con
+    fallback zaini vecchi. Dettagli in `DISEGNO_UX.md` §3.
+  - Test: primo accesso (localStorage pulito) → onboarding → home con numeri
+    giusti per entrambi gli atenei; accesso con zaino esistente → NESSUN onboarding.
+- [x] **UX2. Home-percorso + nav a 3 tab** ✅ 2026-07-02 (Claude Code, 1 sessione)
+  - La home diventa lo stepper delle 4 fasi (stato, domanda-guida, una CTA);
+    nav inferiore: Percorso · Mete · Candidatura (→ Partenza se selezionato);
+    tab Idoneità e Profilo fuori dalla nav. `DISEGNO_UX.md` §2.
+  - Test: le 4 fasi avanzano correttamente (profilo → preferita → checklist →
+    selezionato); "Modifica profilo" raggiungibile; nessuna regressione mete.
+- [ ] **UX3. Fusione Scadenze+Checklist + export calendario** (Claude Code, 1-2 sessioni)
+  - Vista "Candidatura" cronologica: card-scadenza con dentro le voci di
+    checklist collegate (`scadenzaId` nei dati); bottone "Aggiungi al
+    calendario" (.ics generato client-side). `DISEGNO_UX.md` §6.
+  - Test: spunte salvate come prima (stesse chiavi zaino); .ics scaricato si
+    apre in Google Calendar; voci senza scadenzaId nel capitolo "Quando puoi".
+- [ ] **UX4. Traduttore a 3 registri (UI) + banner "dati in verifica"** (Claude Code, 1 sessione)
+  - Card requisito/checklist: spiegazione+azione visibili, "Cosa dice il
+    bando" espandibile con citazione e fonte; se i campi nuovi mancano, la UI
+    mostra il testo attuale (retrocompatibile). Banner `inVerifica:true` per
+    i dati provvisori (Sapienza). `DISEGNO_UX.md` §4 e §8.
+  - Test: requisito con campi nuovi → 3 registri; senza → identico a oggi;
+    banner visibile solo con Sapienza attiva.
+- [ ] **UX5. Contenuti del traduttore** (Nicola + Claude in chat, 2 sessioni)
+  - Scrivere `spiegazione`/`azione`/`citazione`/`fonte` per i requisiti e le
+    checklist di Ca' Foscari e Sapienza. Lavoro di contenuto, non di Codex.
+    Ogni citazione col riferimento all'articolo del bando.
+- [ ] **UX6. Test con utente reale** (Nicola, 1 sessione)
+  - Il fratello (Sapienza, Giurisprudenza) usa la versione nuova senza
+    spiegazioni. Osservare: primi 60 secondi, capisce cosa fare dopo?, parole
+    non capite. Annotare in `FEEDBACK_UTENTI.md`. Poi sessione correzioni.
+
 ### ONDATA B — Post-selezione: gli utenti di oggi (luglio–settembre 2026)
+
+> Aggiornamento 02/07/2026: B2 è FATTA (checklist post-selezione implementata
+> il 26/06). B1 e B3 sono assorbite da UX5/UX6 (validazione contenuti e test
+> utente sulla versione ridisegnata). B4 resta come sessione correzioni post-UX6.
 
 Obiettivo: la checklist post-selezione, unica feature che ha pubblico ADESSO.
 È anche il test del prodotto con utenti reali fuori stagione. ~6 sessioni.
@@ -141,6 +189,7 @@ canale di distribuzione attivo. ~6 sessioni.
 ## REGOLE DI INGAGGIO PER CLAUDE CODE (ogni sessione)
 
 1. Leggere `PROGETTO_ERASMUS.md`, `STATO_DEL_SITO.md` e questa roadmap.
+   Per le sessioni UX1–UX6 leggere anche `DISEGNO_UX.md` (specifica vincolante).
 2. Lavorare su UN solo blocco per sessione; non anticipare ondate future.
 3. Rispettare le due regole d'oro (codice/dati separati; zaino unico).
 4. Niente framework, build step, backend, account: restano fuori scope.
