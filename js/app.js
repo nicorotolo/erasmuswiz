@@ -14,9 +14,10 @@ function caricaZaino() {
     if (!z.fase) z.fase = "domanda";
     if (!z.checklistPost || typeof z.checklistPost !== "object") z.checklistPost = {};
     if (typeof z.onboardingFatto !== "boolean") z.onboardingFatto = !!z.profilo;
+    if (!z.autoverifica || typeof z.autoverifica !== "object") z.autoverifica = {};
     return z;
   } catch (e) {
-    return { profilo: null, checklist: {}, metePreferite: [], fase: "domanda", checklistPost: {}, onboardingFatto: false };
+    return { profilo: null, checklist: {}, metePreferite: [], fase: "domanda", checklistPost: {}, onboardingFatto: false, autoverifica: {} };
   }
 }
 
@@ -449,6 +450,12 @@ function aggiornaCountdownV2() {
     if (cd) cd.textContent = countdownInParole(c);
     if (c.passata) el.classList.add("passata");
   });
+  document.querySelectorAll(".cand-scadenza-card").forEach(el => {
+    const c  = calcolaCountdown(el.getAttribute("data-scadenza"));
+    const cd = el.querySelector(".cand-scadenza-countdown");
+    if (cd) cd.textContent = countdownInParole(c);
+    if (c.passata) el.closest(".cand-capitolo")?.classList.add("passata");
+  });
 }
 
 // ============================================================
@@ -473,38 +480,128 @@ function segnalaChecklistUsata() {
   window.goatcounter?.count({ path: "checklist-usata", event: true });
 }
 
+// ---- Voce checklist singola (checkbox + testo), riusata sia nei capitoli
+// per scadenza sia nel capitolo "Quando puoi" ----
+function creaVoceChecklist(voce, prossimaVoceId) {
+  const spuntato = !!ZAINO.checklist[voce.id];
+  const label    = document.createElement("label");
+  const cls = ["voce-checklist-v2"];
+  if (spuntato) cls.push("fatta");
+  if (!spuntato && voce.id === prossimaVoceId) cls.push("attiva");
+  label.className = cls.join(" ");
+
+  const cb = document.createElement("input");
+  cb.type    = "checkbox";
+  cb.checked = spuntato;
+  cb.addEventListener("change", () => {
+    if (cb.checked) { mostraBannerWiz(); segnalaChecklistUsata(); }
+    ZAINO.checklist[voce.id] = cb.checked;
+    salvaZaino(ZAINO);
+    renderChecklist();
+    aggiornaProgressoV2();
+    renderMissione();
+  });
+
+  label.appendChild(cb);
+  label.appendChild(crea("span", null, voce.testo));
+  return label;
+}
+
+// ---- Export .ics lato client (DISEGNO_UX.md §6, gancio di retention) ----
+function formattaDataICS(dataTecnica) {
+  const d = new Date(dataTecnica);
+  const pad = n => String(n).padStart(2, "0");
+  return `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`;
+}
+
+function escapaTestoICS(testo) {
+  return String(testo || "").replace(/([,;])/g, "\\$1").replace(/\n/g, "\\n");
+}
+
+function scaricaICSScadenza(scad) {
+  const dtStamp = formattaDataICS(new Date().toISOString());
+  const dtStart = formattaDataICS(scad.data);
+  const uid = `${scad.id || "ew-scadenza"}-${dtStart}@erasmuswiz`;
+  const ics = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//ErasmusWiz//Candidatura//IT",
+    "BEGIN:VEVENT",
+    `UID:${uid}`,
+    `DTSTAMP:${dtStamp}`,
+    `DTSTART:${dtStart}`,
+    `SUMMARY:${escapaTestoICS(scad.cosa)}`,
+    `DESCRIPTION:${escapaTestoICS(scad.descrizione)}\\n\\nErasmusWiz: https://nicorotolo.github.io/erasmuswiz/`,
+    "END:VEVENT",
+    "END:VCALENDAR",
+  ].join("\r\n");
+
+  const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement("a");
+  a.href     = url;
+  a.download = `erasmuswiz-${(scad.id || "scadenza")}.ics`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+// ============================================================
+// CANDIDATURA — vista cronologica fusa Scadenze+Checklist (UX3)
+// Ogni scadenza è un "capitolo": card con data/countdown/export
+// calendario, sotto le voci di checklist collegate (scadenzaId).
+// Le voci senza scadenzaId (o con uno sconosciuto) finiscono nel
+// capitolo finale "Quando puoi". DISEGNO_UX.md §6.
+// ============================================================
 function renderChecklist() {
   const cont = document.getElementById("lista-checklist-v2");
   if (!cont) return;
   cont.innerHTML = "";
   if (!ZAINO.checklist) ZAINO.checklist = {};
 
-  const prossimaVoceId = (CHECKLIST || []).find(v => !ZAINO.checklist[v.id])?.id;
+  const checklist = CHECKLIST || [];
+  const scadenze  = (SCADENZE_CAFOSCARI || []).slice().sort((a, b) => new Date(a.data) - new Date(b.data));
+  const idScadenzeNote = scadenze.map(s => s.id);
 
-  (CHECKLIST || []).forEach(voce => {
-    const spuntato = !!ZAINO.checklist[voce.id];
-    const label    = document.createElement("label");
-    const cls = ["voce-checklist-v2"];
-    if (spuntato) cls.push("fatta");
-    if (!spuntato && voce.id === prossimaVoceId) cls.push("attiva");
-    label.className = cls.join(" ");
+  const prossimaVoceId = checklist.find(v => !ZAINO.checklist[v.id])?.id;
 
-    const cb = document.createElement("input");
-    cb.type    = "checkbox";
-    cb.checked = spuntato;
-    cb.addEventListener("change", () => {
-      if (cb.checked) { mostraBannerWiz(); segnalaChecklistUsata(); }
-      ZAINO.checklist[voce.id] = cb.checked;
-      salvaZaino(ZAINO);
-      renderChecklist();
-      aggiornaProgressoV2();
-      renderMissione();
-    });
+  scadenze.forEach(scad => {
+    const vociCollegate = checklist.filter(v => v.scadenzaId === scad.id);
+    if (!vociCollegate.length) return; // niente da fare per questa scadenza: capitolo saltato
 
-    label.appendChild(cb);
-    label.appendChild(crea("span", null, voce.testo));
-    cont.appendChild(label);
+    const c = calcolaCountdown(scad.data);
+    const capitolo = crea("div", `cand-capitolo${c.passata ? " passata" : ""}`);
+
+    const card = crea("div", "cand-scadenza-card");
+    card.setAttribute("data-scadenza", scad.data);
+    card.appendChild(crea("div", "cand-scadenza-titolo", scad.cosa));
+    card.appendChild(crea("div", "cand-scadenza-data", formattaData(scad.data)));
+    card.appendChild(crea("div", "cand-scadenza-countdown", countdownInParole(c)));
+
+    const btnIcs = crea("button", "cand-btn-ics", "🗓 Aggiungi al calendario");
+    btnIcs.type = "button";
+    btnIcs.addEventListener("click", () => scaricaICSScadenza(scad));
+    card.appendChild(btnIcs);
+
+    capitolo.appendChild(card);
+
+    const listaVoci = crea("div", "cand-checklist-sotto");
+    vociCollegate.forEach(voce => listaVoci.appendChild(creaVoceChecklist(voce, prossimaVoceId)));
+    capitolo.appendChild(listaVoci);
+
+    cont.appendChild(capitolo);
   });
+
+  const vociSenzaScadenza = checklist.filter(v => !v.scadenzaId || !idScadenzeNote.includes(v.scadenzaId));
+  if (vociSenzaScadenza.length) {
+    const capitolo = crea("div", "cand-capitolo cand-capitolo-quando-puoi");
+    capitolo.appendChild(crea("div", "cand-capitolo-titolo", "Quando puoi"));
+    const listaVoci = crea("div", "cand-checklist-sotto");
+    vociSenzaScadenza.forEach(voce => listaVoci.appendChild(creaVoceChecklist(voce, prossimaVoceId)));
+    capitolo.appendChild(listaVoci);
+    cont.appendChild(capitolo);
+  }
 
   aggiornaProgressoV2();
 }
@@ -1002,14 +1099,91 @@ function initToggleFase() {
 // ============================================================
 // IDONEITÀ v2
 // ============================================================
+// ============================================================
+// BANNER "dati in verifica" (DISEGNO_UX.md §8)
+// Pilotato da BANDO_INFO.inVerifica (flag nei dati, niente hardcoding).
+// ============================================================
+function renderBannerVerifica() {
+  const testo = "⚠️ Dati in corso di verifica sul bando ufficiale — usali come traccia, non come fonte.";
+  const inVerifica = !!(window.BANDO_INFO && window.BANDO_INFO.inVerifica);
+  ["banner-verifica-idoneita", "banner-verifica-checklist"].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (inVerifica) {
+      el.textContent = testo;
+      el.style.display = "";
+    } else {
+      el.style.display = "none";
+    }
+  });
+}
+
+// ============================================================
+// IL TRADUTTORE — requisiti a 3 registri (DISEGNO_UX.md §4)
+// "in chiaro" (spiegazione+azione) / "cosa dice il bando" (citazione+fonte,
+// espandibile) / auto-verifica ("✓ Lo rispetto", salvata in ZAINO.autoverifica).
+// Retrocompatibile: se spiegazione/azione/citazione/fonte mancano, si mostra
+// il testo attuale (descrizione) senza rompere i dati esistenti.
+// ============================================================
 function renderIdoneita() {
   const cont = document.getElementById("lista-requisiti-v2");
   if (!cont) return;
-  (REQUISITI_BANDO || []).forEach(req => {
+  cont.innerHTML = "";
+  if (!ZAINO.autoverifica) ZAINO.autoverifica = {};
+
+  const requisiti = REQUISITI_BANDO || [];
+
+  const esitoEl = document.getElementById("idoneita-esito");
+  if (esitoEl) {
+    const tuttiVerificati = requisiti.length > 0 && requisiti.every(r => ZAINO.autoverifica[r.id]);
+    if (tuttiVerificati) {
+      esitoEl.textContent = "Sembri idoneo ✅ — fa sempre fede il bando ufficiale.";
+      esitoEl.style.display = "";
+    } else {
+      esitoEl.style.display = "none";
+    }
+  }
+
+  requisiti.forEach(req => {
     const card = crea("div", "requisito-v2");
     card.appendChild(crea("div", "requisito-v2-titolo", req.titolo));
     card.appendChild(crea("div", "requisito-v2-valore", req.valore));
-    card.appendChild(crea("div", "requisito-v2-desc",   req.descrizione));
+
+    // Registro 1 — "in chiaro": spiegazione umana (fallback: descrizione attuale)
+    card.appendChild(crea("div", "requisito-v2-desc", req.spiegazione || req.descrizione));
+    if (req.azione) {
+      card.appendChild(crea("div", "requisito-v2-azione", `→ ${req.azione}`));
+    }
+
+    // Registro 2 — "Cosa dice il bando" (espandibile), solo se c'è una citazione/fonte
+    if (req.citazione || req.fonte) {
+      const dettagli = document.createElement("details");
+      dettagli.className = "requisito-v2-bando";
+      const sommario = document.createElement("summary");
+      sommario.textContent = "Cosa dice il bando ▸";
+      dettagli.appendChild(sommario);
+      if (req.citazione) dettagli.appendChild(crea("blockquote", "requisito-v2-citazione", req.citazione));
+      if (req.fonte) dettagli.appendChild(crea("div", "requisito-v2-fonte", req.fonte));
+      card.appendChild(dettagli);
+    }
+
+    // Registro 3 — auto-verifica: "✓ Lo rispetto"
+    if (req.id) {
+      const label = document.createElement("label");
+      label.className = "requisito-v2-autoverifica";
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.checked = !!ZAINO.autoverifica[req.id];
+      cb.addEventListener("change", () => {
+        ZAINO.autoverifica[req.id] = cb.checked;
+        salvaZaino(ZAINO);
+        renderIdoneita();
+      });
+      label.appendChild(cb);
+      label.appendChild(document.createTextNode(" Lo rispetto"));
+      card.appendChild(label);
+    }
+
     cont.appendChild(card);
   });
 }
@@ -1255,6 +1429,7 @@ function init() {
   const inputCerca = document.getElementById("cerca-mete");
   if (inputCerca) inputCerca.addEventListener("input", renderMete);
   renderIdoneita();
+  renderBannerVerifica();
   initProfilo();
   initCountdownPill();
   aggiornaNavCandidatura();

@@ -85,13 +85,13 @@ codice irrobustito. ~6 sessioni.
     tab Idoneità e Profilo fuori dalla nav. `DISEGNO_UX.md` §2.
   - Test: le 4 fasi avanzano correttamente (profilo → preferita → checklist →
     selezionato); "Modifica profilo" raggiungibile; nessuna regressione mete.
-- [ ] **UX3. Fusione Scadenze+Checklist + export calendario** (Claude Code, 1-2 sessioni)
+- [x] **UX3. Fusione Scadenze+Checklist + export calendario** ✅ 2026-07-02 (Claude Code, 1 sessione)
   - Vista "Candidatura" cronologica: card-scadenza con dentro le voci di
     checklist collegate (`scadenzaId` nei dati); bottone "Aggiungi al
     calendario" (.ics generato client-side). `DISEGNO_UX.md` §6.
   - Test: spunte salvate come prima (stesse chiavi zaino); .ics scaricato si
     apre in Google Calendar; voci senza scadenzaId nel capitolo "Quando puoi".
-- [ ] **UX4. Traduttore a 3 registri (UI) + banner "dati in verifica"** (Claude Code, 1 sessione)
+- [x] **UX4. Traduttore a 3 registri (UI) + banner "dati in verifica"** ✅ 2026-07-02 (Claude Code, 1 sessione)
   - Card requisito/checklist: spiegazione+azione visibili, "Cosa dice il
     bando" espandibile con citazione e fonte; se i campi nuovi mancano, la UI
     mostra il testo attuale (retrocompatibile). Banner `inVerifica:true` per

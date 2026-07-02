@@ -4,7 +4,98 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-02 — sessione 4 (**UX2 IMPLEMENTATA — home-percorso
+**Ultimo aggiornamento:** 2026-07-02 — sessione 6 (**UX4 IMPLEMENTATA — traduttore a 3
+registri (UI) + banner "dati in verifica".** Tab Idoneità (`renderIdoneita()` in
+`js/app.js`): ogni card requisito mostra ora 3 registri — 1) "in chiaro" sempre
+visibile (`req.spiegazione || req.descrizione` + riga "→ azione" se `req.azione` è
+presente); 2) "Cosa dice il bando" in un `<details>` espandibile con citazione +
+fonte, mostrato SOLO se `req.citazione`/`req.fonte` esistono nei dati (oggi assenti
+per entrambi gli atenei — comportamento retrocompatibile confermato: card identiche
+a prima salvo la nuova checkbox); 3) auto-verifica "☐ Lo rispetto" per requisito,
+salvata in `ZAINO.autoverifica{}` (nuovo campo zaino, fallback `{}` per zaini vecchi
+in `caricaZaino()`) — quando tutti i requisiti sono spuntati compare il messaggio
+"Sembri idoneo ✅ — fa sempre fede il bando ufficiale" (`#idoneita-esito`). Aggiunto
+un `id` stabile a ogni voce di `REQUISITI_BANDO` (entrambi gli atenei, es.
+`cf-iscrizione`/`sap-lingua`) per avere una chiave univoca su cui salvare
+l'auto-verifica — nessun altro campo toccato, nessuna rottura sui dati esistenti.
+Nuova funzione `renderBannerVerifica()`: mostra "⚠️ Dati in corso di verifica sul
+bando ufficiale — usali come traccia, non come fonte" pilotata dal flag
+`BANDO_INFO.inVerifica` (aggiunto `inVerifica:true` SOLO a
+`js/atenei/sapienza/dati-bando.js`, Ca' Foscari resta senza il campo → banner
+nascosto), renderizzato sia nel tab Idoneità sia in cima al tab Candidatura (i due
+contenuti provvisori Sapienza). In `index.html`: nuovi contenitori
+`#banner-verifica-idoneita`, `#idoneita-esito`, `#banner-verifica-checklist`. Nuovi
+stili in `css/style.css` (`.requisito-v2-azione`, `.requisito-v2-bando`/`-citazione`/
+`-fonte`, `.requisito-v2-autoverifica`, `.idoneita-esito`, `.banner-in-verifica`).
+**Nota per UX5:** i campi `spiegazione`/`azione`/`citazione`/`fonte` NON sono ancora
+scritti nei file dati (lavoro di contenuto di Nicola) — la UI è pronta e
+retrocompatibile, li userà non appena compaiono nei `REQUISITI_BANDO`. Validato:
+`node --check` OK su `app.js` e sui due `dati-bando.js`; test end-to-end nel browser
+(preview locale, porta temporanea per bypassare una cache del browser rimasta sui
+file precedenti) su ENTRAMBI gli atenei — Ca' Foscari: 8 card coi 3 registri,
+checkbox "Lo rispetto" funzionante, spunta di tutti gli 8 requisiti mostra l'esito
+"Sembri idoneo ✅", stato persistito dopo reload, nessun banner "in verifica";
+Sapienza: banner "in verifica" visibile sia in Idoneità sia in Candidatura,
+`inVerifica:true` confermato. Nessun errore in console. **Non toccati:** onboarding
+(UX1), stepper 4 fasi (UX2 — la condizione di completamento fase 1 resta `profiloOk`
+come prima, non legata all'auto-verifica per non introdurre regressioni non richieste
+dai test della roadmap), vista cronologica Candidatura ed export .ics (UX3). Roadmap:
+UX4 spuntata. Prossima sessione: UX5 (contenuti del traduttore, lavoro di Nicola con
+Claude in chat) poi UX6 (test con l'utente reale). **Nota ambientale:** trovati 2 file
+spazzatura non tracciati nella root del progetto con nomi anomali (frammenti di
+codice, es. `listaVoci.appendChild(creaVoceChecklist(voce`) — probabile residuo di un
+comando di shell andato male in un'altra sessione; non toccati in questa sessione, da
+verificare e rimuovere con Nicola.)
+
+**Ultimo aggiornamento precedente:** 2026-07-02 — sessione 5 (**UX3 IMPLEMENTATA — fusione
+Scadenze+Checklist in vista cronologica + export .ics.** Il tab Candidatura
+(`#tab-checklist`, container `#lista-checklist-v2`) non mostra più la checklist
+piatta: ogni scadenza di `SCADENZE_CAFOSCARI` con almeno una voce collegata
+diventa un "capitolo" — card con titolo/data/countdown dal vivo + bottone
+"🗓 Aggiungi al calendario" (genera un `.ics` client-side via Blob, nessun
+server) — seguita dalle voci di `CHECKLIST` con quel `scadenzaId`, spuntabili
+come prima. Le voci senza `scadenzaId` (o con uno non riconosciuto) finiscono
+in un capitolo finale "Quando puoi". Le scadenze senza voci collegate (es.
+apertura candidature, laureandi, inizio mobilità) non generano un capitolo
+vuoto. In `js/app.js`: `renderChecklist()` riscritta per la vista cronologica
+(stesso nome/stessi punti di chiamata di init()/initToggleFase(), zero
+modifiche a index.html); nuova `creaVoceChecklist()` (checkbox riusata anche
+nel capitolo "Quando puoi"); nuove `formattaDataICS()`/`escapaTestoICS()`/
+`scaricaICSScadenza()` per l'export calendario; `aggiornaCountdownV2()` estesa
+per aggiornare anche i countdown delle nuove card `.cand-scadenza-card` (prima
+solo `.tappa-v2` della vecchia Timeline). **Dati:** ogni voce di `SCADENZE_*`
+in ENTRAMBI gli atenei ha ora un `id` stabile (es. `cf-chiusura`, `sap-
+chiusura1`); ogni voce di `CHECKLIST` in entrambi gli atenei ha un campo
+`scadenzaId` che la collega alla scadenza giusta (Sapienza: `sap-chk-
+graduatoria` resta senza `scadenzaId`, dato che il bando Sapienza non elenca
+ancora una data di graduatoria — cade in "Quando puoi", comportamento
+atteso). **Non toccati:** `dati-postselezione.js`/`CHECKLIST_POST` (fase 4,
+"Sono stato preso!" — resta la vista raggruppata per fase, invariata);
+onboarding (UX1); stepper 4 fasi (UX2); motore di compatibilità; `index.html`
+(nessuna modifica: la vista cronologica si inietta nello stesso contenitore
+già esistente). Nuovi stili in `css/style.css`: `.cand-capitolo`/
+`.cand-scadenza-card`/`.cand-scadenza-titolo`/`.cand-scadenza-data`/
+`.cand-scadenza-countdown`/`.cand-btn-ics`/`.cand-checklist-sotto`/
+`.cand-capitolo-quando-puoi`/`.cand-capitolo-titolo` (con `var(--bg-card)` per
+compatibilità dark mode, verificata a video). Validato: `node --check` OK su
+`js/app.js` e sui 4 file dati toccati; test end-to-end nel browser (preview
+locale) su ENTRAMBI gli atenei — Ca' Foscari: 9 voci raggruppate in 4 capitoli
+per scadenza (chiusura candidature 6 voci, graduatoria 1, accettazione 1, ISEE
+1), ordinati cronologicamente, nessun capitolo per apertura/laureandi/mobilità
+(0 voci collegate); Sapienza: 4 voci nel capitolo "Chiusura candidature (1ª
+finestra)" + 1 voce ("controlla la graduatoria…") in "Quando puoi". Spunta di
+una voce → salvata nello zaino con la stessa chiave di prima (`ZAINO.
+checklist`), barra di progresso aggiornata (verificato "1 di 9" → "2 di 9"
+dopo una spunta). Bottone "Aggiungi al calendario" testato intercettando
+`URL.createObjectURL`: file `.ics` generato con `BEGIN:VCALENDAR`/`DTSTART`/
+`SUMMARY`/`DESCRIPTION` validi (formato compatibile Google Calendar). Toggle
+fase → "Sono stato selezionato" verificato invariato (checklist post-
+selezione raggruppata per fase, nav "🎒 Partenza"). Dark mode verificato a
+video sulla nuova vista. Nessun errore in console in tutte le prove.
+Roadmap: UX3 spuntata. Prossima sessione: UX4 (traduttore 3 registri + banner
+"dati in verifica").)
+
+**Ultimo aggiornamento precedente:** 2026-07-02 — sessione 4 (**UX2 IMPLEMENTATA — home-percorso
 a 4 fasi + nav ridotta a 3 tab.** La home (`#tab-oggi`, nav "Percorso" 🧭) non mostra
 più il vecchio mini-percorso a 5 tappe astratte: al suo posto uno stepper verticale
 con le 4 fasi di `DISEGNO_UX.md` §2.1 — "Posso partire?" (✅ quando c'è un profilo),
@@ -100,7 +191,7 @@ Roadmap: UX1 spuntata. Prossima sessione: UX2 (home-percorso + nav a 3 tab).)
 **Ultimo aggiornamento precedente:** 2026-06-26 (Fase 3 ROADMAP: mete preferite. `caricaZaino()` ora include `metePreferite: []` con fallback per zaini vecchi. Aggiunto `<div id="sezione-preferite">` in `#tab-mete`. Nuove funzioni: `renderPreferite()` (sezione riepilogo con contatore N/5 e rimozione ✕) e `togglePreferita(id)` (aggiunge/rimuove con limite morbido a 5). Bottone ⭐ su ogni card in `renderMete()`: mostra "⭐ Preferita" se già salvata, "☆ Aggiungi ai preferiti" altrimenti. CSS in `style.css` con sfondo oro e dark-mode override. `node --check` OK.)
 
 **Ultimo aggiornamento precedente:** 2026-06-25 (MERGE GitHub→locale: i dati mappati da Codex su GitHub (che la copia locale non aveva) sono stati portati nel working tree mantenendo il design v2. Catalogo passato da 134 a **249 mete su 5 dipartimenti**: Economia 58, Management 76, Lingue 24, Scienze 25, Filosofia 66. I 3 nuovi file dati (`dati-mete-lingue.js`, `dati-mete-scienze.js`, `dati-mete-filosofia.js`) collegati in `index.html` con la catena di concat `_meteAll`; tutti i 5 file mete convertiti a `var METE`. ATTENZIONE: il merge NON è stato fatto via git (working tree su branch `feature/pipeline-imbuto` con modifiche non committate + lock OneDrive su `.git`); i file dati sono stati estratti con `git show origin/main:...`. Backup pre-merge in `_backup-20260625-*/`.)
-**Fase raggiunta:** Fase 5 / 5 + Ondata A completa + ROADMAP Fase 1 ✅ + ROADMAP Fase 2 ✅ + ROADMAP Fase 3 ✅ + ROADMAP Fase 4 ✅ (post-selezione) + ROADMAP Fase 5 ✅ (condivisibilità) + ROADMAP Fase 7 ✅ (PWA, no notifiche) + ROADMAP Fase 8 ✅ (evento analytics checklist) + **ONDATA UX: UX1 ✅ (onboarding 3 domande, 2026-07-02) + UX2 ✅ (home-percorso 4 fasi + nav 3 tab, 2026-07-02)** — SITO PUBBLICATO con design v2, ora multi-dipartimento (8), **392 mete totali** Ca' Foscari + 3 Facoltà Sapienza (183 mete)
+**Fase raggiunta:** Fase 5 / 5 + Ondata A completa + ROADMAP Fase 1 ✅ + ROADMAP Fase 2 ✅ + ROADMAP Fase 3 ✅ + ROADMAP Fase 4 ✅ (post-selezione) + ROADMAP Fase 5 ✅ (condivisibilità) + ROADMAP Fase 7 ✅ (PWA, no notifiche) + ROADMAP Fase 8 ✅ (evento analytics checklist) + **ONDATA UX: UX1 ✅ (onboarding 3 domande, 2026-07-02) + UX2 ✅ (home-percorso 4 fasi + nav 3 tab, 2026-07-02) + UX3 ✅ (fusione Scadenze+Checklist + export .ics, 2026-07-02) + UX4 ✅ (traduttore 3 registri + banner "in verifica", 2026-07-02)** — SITO PUBBLICATO con design v2, ora multi-dipartimento (8), **392 mete totali** Ca' Foscari + 3 Facoltà Sapienza (183 mete)
 **Cosa funziona:** tutto, validato (node --check su tutti i JS); mete REALI su 8 dipartimenti Ca' Foscari; bando, scadenze e checklist VALIDATI sul PDF ufficiale. Completezza lingua per dipartimento:
 Economia 52/58; Management 71/76; Lingue 23/24; Scienze 23/25; Filosofia 56/66;
 Scienze Molecolari 8/8; Studi Linguistici 104/114; Studi Umanistici 18/21.
@@ -231,6 +322,34 @@ python -m http.server 8000
 poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
+
+**Aggiornamento 2026-07-02 — sessione 6 (UX4 traduttore 3 registri + banner "in verifica"):**
+0. **⬆️ PUBBLICA.bat ancora da lanciare** (include anche UX4 di questa sessione).
+1. **Prossima sessione = UX5** (contenuti veri del traduttore, Nicola + Claude
+   in chat, non Claude Code): scrivere `spiegazione`/`azione`/`citazione`/
+   `fonte` per ogni voce di `REQUISITI_BANDO` di ENTRAMBI gli atenei (la UI di
+   UX4 li mostra già appena compaiono nei dati — nessun altro codice da
+   toccare). Ogni citazione con riferimento all'articolo del bando.
+2. Poi UX6 (test con il fratello di Nicola, Sapienza Giurisprudenza).
+3. Non toccare onboarding (UX1), stepper 4 fasi (UX2), vista cronologica
+   Candidatura/export .ics (UX3) né la UI del traduttore/auto-verifica (UX4),
+   già testati.
+4. **Da chiarire con Nicola:** 2 file spazzatura non tracciati nella root
+   (nomi anomali, frammenti di codice) — probabile residuo di un comando di
+   shell andato male; non toccati, da verificare prima di cancellarli.
+
+**Aggiornamento 2026-07-02 — sessione 5 (UX3 fusione Scadenze+Checklist):**
+0. **⬆️ PUBBLICA.bat ancora da lanciare** (include anche UX3 di questa sessione).
+1. **Prossima sessione di codice = UX4** (traduttore a 3 registri in UI +
+   banner "dati in verifica"): leggere `DISEGNO_UX.md` §4 e §8 prima di
+   iniziare. Tocca card requisito (`REQUISITI_BANDO`, tab Idoneità) e voci di
+   checklist: spiegazione/azione sempre visibili, "Cosa dice il bando"
+   espandibile con citazione+fonte; retrocompatibile se i campi mancano.
+   Banner `inVerifica:true` per Sapienza (bando/checklist provvisori).
+2. UX5 (contenuti veri spiegazione/azione/citazione/fonte) resta lavoro di
+   Nicola in chat, DOPO che UX4 ha pronta la UI che li mostra.
+3. Non toccare onboarding (UX1), stepper 4 fasi (UX2) né la vista cronologica
+   Candidatura (UX3), già testati.
 
 **Aggiornamento 2026-07-02 — sessione 4 (UX2 home-percorso):**
 0. **⬆️ PUBBLICA.bat ancora da lanciare** (include anche UX2 di questa sessione).

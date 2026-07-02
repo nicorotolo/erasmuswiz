@@ -475,6 +475,44 @@ body {
 }
 
 /* ================================================================
+   CANDIDATURA — vista cronologica fusa Scadenze+Checklist (UX3)
+================================================================ */
+.cand-capitolo { margin-bottom: 22px; }
+.cand-capitolo.passata .cand-scadenza-card { opacity: 0.7; }
+.cand-scadenza-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-left: 3px solid #ffb627; border-radius: var(--radius-md);
+  padding: 14px 16px; margin-bottom: 10px;
+}
+.cand-capitolo.passata .cand-scadenza-card { border-left-color: var(--green); }
+.cand-scadenza-titolo { font-weight: 700; color: var(--text-dark); margin-bottom: 3px; }
+.cand-scadenza-data    { font-family: var(--font-mono); color: var(--primary); font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; }
+.cand-scadenza-countdown {
+  display: inline-block; margin-bottom: 10px;
+  font-family: var(--font-mono); font-size: 0.82rem; font-weight: 700;
+  color: var(--red); background: var(--red-bg); padding: 3px 10px; border-radius: var(--radius-pill);
+}
+.cand-capitolo.passata .cand-scadenza-countdown { color: var(--green); background: var(--green-bg); }
+.cand-btn-ics {
+  display: block; margin-top: 4px;
+  padding: 7px 12px; border-radius: var(--radius-pill);
+  border: 1.5px solid var(--border); background: var(--bg-card);
+  color: var(--text-dark); font-size: 0.82rem; font-weight: 600;
+  cursor: pointer; transition: all 0.15s;
+}
+.cand-btn-ics:hover { border-color: var(--primary); color: var(--primary); }
+.cand-checklist-sotto {
+  display: flex; flex-direction: column; gap: 8px;
+  padding-left: 16px; border-left: 2px dashed var(--border);
+}
+.cand-capitolo-quando-puoi .cand-checklist-sotto { padding-left: 0; border-left: none; }
+.cand-capitolo-titolo {
+  font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--text-muted);
+  margin: 0 0 10px; padding: 0;
+}
+
+/* ================================================================
    CHECKLIST POST-SELEZIONE — gruppi per fase
 ================================================================ */
 .gruppo-post { margin-bottom: 8px; }
@@ -527,6 +565,21 @@ body {
 .requisito-v2-titolo { font-weight: 700; font-size: 0.88rem; color: var(--text-dark); }
 .requisito-v2-valore { color: var(--gold-dark); font-weight: 700; font-size: 1.05rem; margin: 5px 0 6px; }
 .requisito-v2-desc   { color: var(--text-muted); font-size: 0.83rem; }
+.requisito-v2-azione { color: var(--text-dark); font-size: 0.83rem; font-weight: 600; margin-top: 6px; }
+.requisito-v2-bando  { margin-top: 8px; font-size: 0.8rem; }
+.requisito-v2-bando summary { cursor: pointer; color: var(--gold-dark); font-weight: 600; }
+.requisito-v2-citazione { margin: 6px 0 4px; padding-left: 10px; border-left: 3px solid var(--border); color: var(--text-muted); font-style: italic; }
+.requisito-v2-fonte  { color: var(--text-muted); font-size: 0.78rem; }
+.requisito-v2-autoverifica { display: flex; align-items: center; gap: 6px; margin-top: 10px; font-size: 0.83rem; font-weight: 600; cursor: pointer; }
+.idoneita-esito {
+  margin: 0 20px 12px; padding: 10px 14px; border-radius: var(--radius-sm);
+  background: #e6f7ee; color: #1c7a4d; font-weight: 700; font-size: 0.88rem;
+}
+.banner-in-verifica {
+  margin: 0 20px 14px; padding: 10px 14px; border-radius: var(--radius-sm);
+  background: #fff4e0; border: 1px solid #ffb627; color: #8a5a00;
+  font-size: 0.83rem; font-weight: 600;
+}
 
 /* ================================================================
    PROFILO v2
