@@ -1,26 +1,18 @@
 {
   "SAP-IUS-SAARLAND": {
-    "requisitoLingua": "https://www.ul.ie/media/27385/download?inline=",
-    "scadenzeOspitante": "https://www.uni-saarland.de/en/global/welcome-center/exchange-freemover/erasmus-programme.html",
     "linkSito": "https://www.uni-saarland.de/en/global/welcome-center/exchange-freemover/erasmus-programme.html"
   },
   "SAP-IUS-REGENSBURG": {
-    "requisitoLingua": "https://www.ln.edu.hk/oge/f/page/113104/FactSheet2026_27_Regensburg.pdf",
-    "scadenzeOspitante": "https://www.uni-regensburg.de/en/international/coming-to-regensburg/exchange-programs/application",
-    "linkSito": "https://www.uni-regensburg.de/en/international/coming-to-regensburg/exchange-programs/application"
+    "linkSito": "https://www.uni-regensburg.de/en/international/coming-to-regensburg/exchange-programs"
   },
   "SAP-IUS-BREMEN": {
-    "requisitoLingua": "https://www.uni-bremen.de/en/studies/orientation-application/applying-for-studies/applications-from-abroad/exchange-students-from-partner-universities",
-    "scadenzeOspitante": "https://www.uni-bremen.de/en/studies/orientation-application/applying-for-studies/applications-from-abroad/exchange-students-from-partner-universities",
     "linkSito": "https://www.uni-bremen.de/en/studies/orientation-application/applying-for-studies/applications-from-abroad/exchange-students-from-partner-universities"
   },
   "SAP-IUS-MARBURG": {
-    "requisitoLingua": "https://www.ucg.ac.me/skladiste/blog_19379/objava_171577/fajlovi/Fact_Sheet_incomings.pdf",
-    "scadenzeOspitante": "https://www.uni-marburg.de/en/studying/incomings/exchange-programs/erasmus-program-countries/application-and-registration",
-    "linkSito": "https://www.uni-marburg.de/en/studying/incomings/exchange-programs/erasmus-program-countries/application-and-registration"
+    "linkSito": "https://www.uni-marburg.de/en/studying/incomings/exchange-programs/erasmus-program-countries"
   },
   "SAP-IUS-ATHENS": {
-    "requisitoLingua": "https://en.interel.uoa.gr/erasmus_student_mobility/nomination_procedure",
-    "linkSito": "https://en.interel.uoa.gr/erasmus_student_mobility/application_procedure"
+    "linkSito": "https://en.interel.uoa.gr/erasmus_student_mobility/application_procedure",
+    "scadenzeOspitante": "https://en.interel.uoa.gr/erasmus_student_mobility/nomination_procedure"
   }
 }

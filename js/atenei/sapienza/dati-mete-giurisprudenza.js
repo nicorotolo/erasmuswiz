@@ -900,7 +900,12 @@ var METE = [
         { lingua: "Inglese", livello: "B2", condizione: "secondo accordo bilaterale" }
       ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre 2026" },
+        { cosa: "Application (autunno)", periodo: "dal 15 aprile al 15 giugno 2026" },
+        { cosa: "Application (primavera)", periodo: "dal 15 settembre al 15 novembre 2026" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
