@@ -4,23 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 174,
+  "runCompletati": 175,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "architettura (sapienza)-batch-followup-1",
-      "priorita": 6,
-      "dipartimento": "Architettura (Sapienza)",
-      "descrizione": "Architettura (Sapienza) - follow-up pending",
-      "tipo": "lingua",
-      "mete": [
-        "SAP-ARCHI-INNSBRUCK"
-      ]
-    },
     {
       "id": "architettura (sapienza)-batch-followup-2",
       "priorita": 6,
@@ -424,7 +414,7 @@
       "fileJs": "js/atenei/sapienza/dati-mete-architettura.js",
       "stato": "in_corso",
       "totale": 113,
-      "completate": 75,
+      "completate": 76,
       "pendingScadenze": [
         "SAP-ARCHI-GUSTAVE-EIFFEL",
         "SAP-ARCHI-EAVT-MARNE",
@@ -437,7 +427,6 @@
         "SAP-ARCHI-HESSO"
       ],
       "pendingLingua": [
-        "SAP-ARCHI-INNSBRUCK",
         "SAP-ARCHI-EKA-TALLINN",
         "SAP-ARCHI-LILLE",
         "SAP-ARCHI-NANTES-DESIGN",
@@ -474,7 +463,6 @@
         "SAP-ARCHI-BURSA"
       ],
       "tentativiLingua": {
-        "SAP-ARCHI-INNSBRUCK": 1,
         "SAP-ARCHI-EKA-TALLINN": 1,
         "SAP-ARCHI-LILLE": 1,
         "SAP-ARCHI-NANTES-DESIGN": 1,
@@ -1584,6 +1572,12 @@
       "data": "2026-07-02",
       "mete": 3,
       "note": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza) medicina e psicologia - area medica e professioni sanitarie (sapienza)-batch-followup-3: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 175,
+      "data": "2026-07-02",
+      "mete": 1,
+      "note": "Architettura (Sapienza) architettura (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

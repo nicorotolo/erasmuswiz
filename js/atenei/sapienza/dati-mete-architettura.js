@@ -41,7 +41,10 @@ var METE = [
       { numero: 4, mesi: 5, livello: "L", note: "" },
       { numero: 4, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B2", condizione: "consigliato per seguire corsi in tedesco; il certificato non e' normalmente richiesto per incoming exchange" },
+        { lingua: "Inglese", livello: "B2", condizione: "consigliato per seguire corsi in inglese; il certificato non e' normalmente richiesto per incoming exchange" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Nomination (autunno)", periodo: "entro 1 maggio" },
