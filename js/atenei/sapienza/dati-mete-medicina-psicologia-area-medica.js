@@ -43,7 +43,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 29 maggio 2026" },
         { cosa: "Application (primavera)", periodo: "entro 27 novembre 2026" }
       ],
-    notePratiche: "Posti totali dell'accordo: 3. Solo livello Magistrale. || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 3. Solo livello Magistrale. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-medic2-luebeck",
