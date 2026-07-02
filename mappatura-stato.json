@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza)",
-  "runCompletati": 142,
+  "runCompletati": 143,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "giurisprudenza (sapienza)-batch-followup-6",
-      "priorita": 6,
-      "dipartimento": "Giurisprudenza (Sapienza)",
-      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "SAP-IUS-UCLM",
-        "SAP-IUS-UPNA",
-        "SAP-IUS-ZARAGOZA",
-        "SAP-IUS-VALLADOLID",
-        "SAP-IUS-MALAGA"
-      ]
-    },
     {
       "id": "giurisprudenza (sapienza)-batch-followup-7",
       "priorita": 6,
@@ -400,6 +386,18 @@
         "SAP-ARCHI-PECS",
         "SAP-ARCHI-BME-BUDAPEST"
       ]
+    },
+    {
+      "id": "giurisprudenza (sapienza)-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Giurisprudenza (Sapienza)",
+      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-IUS-UCLM",
+        "SAP-IUS-ZARAGOZA",
+        "SAP-IUS-MALAGA"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -577,17 +575,18 @@
       "fileJs": "js/atenei/sapienza/dati-mete-giurisprudenza.js",
       "stato": "in_corso",
       "totale": 55,
-      "completate": 51,
+      "completate": 52,
       "pendingScadenze": [
-        "SAP-IUS-UPNA",
         "SAP-IUS-MALAGA"
       ],
       "pendingLingua": [
         "SAP-IUS-UCLM",
-        "SAP-IUS-UPNA",
         "SAP-IUS-ZARAGOZA"
       ],
-      "tentativiLingua": {},
+      "tentativiLingua": {
+        "SAP-IUS-UCLM": 1,
+        "SAP-IUS-ZARAGOZA": 1
+      },
       "linguaNonTrovabile": [
         "SAP-IUS-BUCURESTI"
       ],
@@ -1754,6 +1753,12 @@
       "data": "2026-07-02",
       "mete": 5,
       "note": "Giurisprudenza (Sapienza) giurisprudenza (sapienza)-batch-followup-5: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 143,
+      "data": "2026-07-02",
+      "mete": 5,
+      "note": "Giurisprudenza (Sapienza) giurisprudenza (sapienza)-batch-followup-6: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
