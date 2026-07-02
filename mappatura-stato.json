@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Giurisprudenza (Sapienza)",
-  "runCompletati": 140,
+  "runCompletati": 141,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "giurisprudenza (sapienza)-batch-followup-4",
-      "priorita": 6,
-      "dipartimento": "Giurisprudenza (Sapienza)",
-      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "SAP-IUS-PIRAEUS",
-        "SAP-IUS-VGTU-VILNIUS",
-        "SAP-IUS-GDANSK",
-        "SAP-IUS-JAGIELLONSKI",
-        "SAP-IUS-WROCLAW"
-      ]
-    },
     {
       "id": "giurisprudenza (sapienza)-batch-followup-5",
       "priorita": 6,
@@ -318,15 +304,10 @@
       "fileJs": "js/atenei/sapienza/dati-mete-giurisprudenza.js",
       "stato": "in_corso",
       "totale": 55,
-      "completate": 29,
+      "completate": 34,
       "pendingScadenze": [
         "SAP-IUS-UPHF",
         "SAP-IUS-ATHENS",
-        "SAP-IUS-PIRAEUS",
-        "SAP-IUS-VGTU-VILNIUS",
-        "SAP-IUS-GDANSK",
-        "SAP-IUS-JAGIELLONSKI",
-        "SAP-IUS-WROCLAW",
         "SAP-IUS-OLSZTYN",
         "SAP-IUS-ASE-BUCURESTI",
         "SAP-IUS-PANEUROPSKA",
@@ -349,11 +330,6 @@
         "SAP-IUS-TOURS",
         "SAP-IUS-GREIFSWALD",
         "SAP-IUS-HANNOVER",
-        "SAP-IUS-PIRAEUS",
-        "SAP-IUS-VGTU-VILNIUS",
-        "SAP-IUS-GDANSK",
-        "SAP-IUS-JAGIELLONSKI",
-        "SAP-IUS-WROCLAW",
         "SAP-IUS-OLSZTYN",
         "SAP-IUS-ASE-BUCURESTI",
         "SAP-IUS-PANEUROPSKA",
@@ -1286,6 +1262,12 @@
       "data": "2026-07-02",
       "mete": 5,
       "note": "Giurisprudenza (Sapienza) giurisprudenza (sapienza)-batch-followup-3: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 141,
+      "data": "2026-07-02",
+      "mete": 5,
+      "note": "Giurisprudenza (Sapienza) giurisprudenza (sapienza)-batch-followup-4: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

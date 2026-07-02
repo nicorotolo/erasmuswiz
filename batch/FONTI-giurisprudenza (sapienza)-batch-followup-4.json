@@ -1,0 +1,27 @@
+{
+  "SAP-IUS-PIRAEUS": {
+    "requisitoLingua": "https://www.unipi.gr/wp-content/uploads/2025/03/FACT-SHEET-Student-Mobility-Erasmus-Academic-Year-2025-2026.pdf",
+    "scadenzeOspitante": "https://www.unipi.gr/wp-content/uploads/2025/03/FACT-SHEET-Student-Mobility-Erasmus-Academic-Year-2025-2026.pdf",
+    "linkSito": "https://www.unipi.gr/en/international-relations-office/erasmus-2-2/mobility-for-studies/"
+  },
+  "SAP-IUS-VGTU-VILNIUS": {
+    "requisitoLingua": "https://vilniustech.lt/en/international-students/exchange-students/semester-year-exchange-studies-at-vilnius-tech/",
+    "scadenzeOspitante": "https://vilniustech.lt/en/international-students/exchange-students/semester-year-exchange-studies-at-vilnius-tech/",
+    "linkSito": "https://vilniustech.lt/en/international-students/exchange-students/semester-year-exchange-studies-at-vilnius-tech/"
+  },
+  "SAP-IUS-GDANSK": {
+    "requisitoLingua": "https://en.ug.edu.pl/incoming-students/erasmus-2021-2027/erasmus-incoming-students/admissions",
+    "scadenzeOspitante": "https://www.bht-berlin.de/fileadmin/oe/auslandsamt/outgoing/Partnerhochschulen_Infos/PL_GDANSK01_University_of_Gda%C5%84sk_Erasmus_Fact_Sheet_2026-27.pdf",
+    "linkSito": "https://en.ug.edu.pl/incoming-students/erasmus-2021-2027/erasmus-incoming-students/admissions"
+  },
+  "SAP-IUS-JAGIELLONSKI": {
+    "requisitoLingua": "https://erasmus.uj.edu.pl/en_GB/incoming/studies",
+    "scadenzeOspitante": "https://cwm.uj.edu.pl/documents/1333512/157256874/JU%2BFACT%2BSHEET%2B2026-2027.pdf/f1e871cc-9c12-4502-b853-8f41501ce35d",
+    "linkSito": "https://erasmus.uj.edu.pl/en_GB/incoming/studies"
+  },
+  "SAP-IUS-WROCLAW": {
+    "requisitoLingua": "https://international.uni.wroc.pl/en/incoming-exchange-students/erasmus-exchange",
+    "scadenzeOspitante": "https://international.uni.wroc.pl/en/incoming-exchange-students/erasmus-exchange",
+    "linkSito": "https://international.uni.wroc.pl/en/incoming-exchange-students/erasmus-exchange"
+  }
+}
