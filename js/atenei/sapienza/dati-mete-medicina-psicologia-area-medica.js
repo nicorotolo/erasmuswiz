@@ -150,10 +150,18 @@ var METE = [
       { numero: 2, mesi: 3, livello: "L", note: "" },
       { numero: 2, mesi: 3, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B2", condizione: "per corsi in spagnolo" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Secondo accordo distinto con lo stesso ateneo (promotore Daniele De Nuzzo, vedi anche sap-medic2-sanpabloceu-b)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 settembre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Secondo accordo distinto con lo stesso ateneo (promotore Daniele De Nuzzo, vedi anche sap-medic2-sanpabloceu-b). || Scadenze: basate su 2025/26"
   },
   {
     id: "sap-medic2-alicante",
@@ -167,9 +175,17 @@ var METE = [
     posti: [
       { numero: 2, mesi: 3, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato per corsi in spagnolo" },
+        { lingua: "Inglese", livello: "B2", condizione: "raccomandato per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 1 giugno" },
+        { cosa: "Application (autunno)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale."
   },
   {
@@ -186,8 +202,11 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 1. Solo livello triennale. Secondo accordo distinto con lo stesso ateneo (promotore Maria Chiara Vulpiani, vedi anche sap-medic2-comillas-b con promotore Flavia Pantaleo)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 1 giugno per studenti Erasmus" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 novembre per studenti Erasmus" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 1. Solo livello triennale. Secondo accordo distinto con lo stesso ateneo (promotore Maria Chiara Vulpiani, vedi anche sap-medic2-comillas-b con promotore Flavia Pantaleo). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-medic2-salamanca",
@@ -201,9 +220,16 @@ var METE = [
     posti: [
       { numero: 2, mesi: 6, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "livello minimo raccomandato; certificato non richiesto" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application / registrazione Erasmus (autunno)", periodo: "dal 15 aprile al 1 luglio 2026" },
+        { cosa: "Application / registrazione Erasmus (primavera)", periodo: "dal 15 aprile al 1 luglio 2026; non e' prevista una seconda scadenza" },
+        { cosa: "Learning Agreement (autunno)", periodo: "entro 1 luglio 2026" },
+        { cosa: "Learning Agreement (primavera)", periodo: "entro 1 luglio 2026; non e' prevista una seconda scadenza" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale."
   },
   {
@@ -218,10 +244,18 @@ var METE = [
     posti: [
       { numero: 2, mesi: 3, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B2", condizione: "per corsi in spagnolo" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale. Secondo accordo distinto con lo stesso ateneo (promotore Maria Chiara Vulpiani, vedi anche sap-medic2-sanpabloceu-a con promotore Daniele De Nuzzo)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 settembre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale. Secondo accordo distinto con lo stesso ateneo (promotore Maria Chiara Vulpiani, vedi anche sap-medic2-sanpabloceu-a con promotore Daniele De Nuzzo). || Scadenze: basate su 2025/26"
   },
   {
     id: "sap-medic2-valencia",

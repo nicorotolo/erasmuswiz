@@ -1,0 +1,26 @@
+{
+  "SAP-MEDIC2-SANPABLOCEU-A": {
+    "requisitoLingua": "https://www.uspceu.com/en/international/study-abroad/incoming-mobility",
+    "scadenzeOspitante": "https://www.old.unina.it/documents/11958/67409787/E%2B%2BMADRID2_25_26.pdf",
+    "linkSito": "https://www.uspceu.com/en/international/study-abroad/incoming-mobility"
+  },
+  "SAP-MEDIC2-ALICANTE": {
+    "requisitoLingua": "https://sri.ua.es/en/movilidad/incoming-students/fact-sheet.html",
+    "scadenzeOspitante": "https://sri.ua.es/en/movilidad/incoming-students/exchange/application-procedure.html",
+    "linkSito": "https://sri.ua.es/en/movilidad/incoming-students.html"
+  },
+  "SAP-MEDIC2-COMILLAS-A": {
+    "scadenzeOspitante": "https://www.mcgill.ca/mcgillabroad/files/mcgillabroad/comillas_fact_sheet_2026-2027.pdf",
+    "linkSito": "https://www.comillas.edu/en/soy-estudiante-internacional/"
+  },
+  "SAP-MEDIC2-SALAMANCA": {
+    "requisitoLingua": "https://www.med.uni-wuerzburg.de/fileadmin/03000000/user_upload/dateien_studiendekanat/Internationales/Dateien/Factsheets/Info_USAL_26-27_MEDICINE_EN.pdf",
+    "scadenzeOspitante": "https://www.med.uni-wuerzburg.de/fileadmin/03000000/user_upload/dateien_studiendekanat/Internationales/Dateien/Factsheets/Info_USAL_26-27_MEDICINE_EN.pdf",
+    "linkSito": "https://internacional.usal.es/programas/erasmus-ka131/estudios/in/"
+  },
+  "SAP-MEDIC2-SANPABLOCEU-B": {
+    "requisitoLingua": "https://www.uspceu.com/en/international/study-abroad/incoming-mobility",
+    "scadenzeOspitante": "https://www.old.unina.it/documents/11958/67409787/E%2B%2BMADRID2_25_26.pdf",
+    "linkSito": "https://www.uspceu.com/en/international/study-abroad/incoming-mobility"
+  }
+}
