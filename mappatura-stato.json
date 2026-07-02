@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza)",
-  "runCompletati": 156,
+  "runCompletati": 157,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "architettura-batch-10",
-      "priorita": 5,
-      "dipartimento": "Architettura (Sapienza)",
-      "descrizione": "Architettura (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "SAP-ARCHI-COTTBUS",
-        "SAP-ARCHI-HILDESHEIM",
-        "SAP-ARCHI-HANNOVER",
-        "SAP-ARCHI-FRANKFURT",
-        "SAP-ARCHI-KARLSRUHE"
-      ]
-    },
     {
       "id": "architettura-batch-11",
       "priorita": 5,
@@ -312,6 +298,16 @@
         "SAP-ARCHI-HFT-STUTTGART-A",
         "SAP-ARCHI-FREISING"
       ]
+    },
+    {
+      "id": "architettura (sapienza)-batch-followup-7",
+      "priorita": 6,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - follow-up pending",
+      "tipo": "lingua",
+      "mete": [
+        "SAP-ARCHI-HILDESHEIM"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -533,16 +529,11 @@
       "fileJs": "js/atenei/sapienza/dati-mete-architettura.js",
       "stato": "in_corso",
       "totale": 113,
-      "completate": 35,
+      "completate": 39,
       "pendingScadenze": [
         "SAP-ARCHI-GUSTAVE-EIFFEL",
         "SAP-ARCHI-EAVT-MARNE",
         "SAP-ARCHI-FREISING",
-        "SAP-ARCHI-COTTBUS",
-        "SAP-ARCHI-HILDESHEIM",
-        "SAP-ARCHI-HANNOVER",
-        "SAP-ARCHI-FRANKFURT",
-        "SAP-ARCHI-KARLSRUHE",
         "SAP-ARCHI-HFT-STUTTGART-B",
         "SAP-ARCHI-KOLN-B",
         "SAP-ARCHI-TUM-A",
@@ -616,11 +607,7 @@
         "SAP-ARCHI-KASSEL-A",
         "SAP-ARCHI-KASSEL-B",
         "SAP-ARCHI-HFT-STUTTGART-A",
-        "SAP-ARCHI-COTTBUS",
         "SAP-ARCHI-HILDESHEIM",
-        "SAP-ARCHI-HANNOVER",
-        "SAP-ARCHI-FRANKFURT",
-        "SAP-ARCHI-KARLSRUHE",
         "SAP-ARCHI-HFT-STUTTGART-B",
         "SAP-ARCHI-KOLN-B",
         "SAP-ARCHI-TUM-A",
@@ -693,7 +680,8 @@
         "SAP-ARCHI-GUSTAVE-EIFFEL": 1,
         "SAP-ARCHI-KASSEL-A": 1,
         "SAP-ARCHI-KASSEL-B": 1,
-        "SAP-ARCHI-HFT-STUTTGART-A": 1
+        "SAP-ARCHI-HFT-STUTTGART-A": 1,
+        "SAP-ARCHI-HILDESHEIM": 1
       },
       "linguaNonTrovabile": [],
       "ateneo": "Sapienza Roma"
@@ -1661,6 +1649,12 @@
       "data": "2026-07-02",
       "mete": 5,
       "note": "Architettura (Sapienza) architettura-batch-9: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 157,
+      "data": "2026-07-02",
+      "mete": 5,
+      "note": "Architettura (Sapienza) architettura-batch-10: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

@@ -1,0 +1,26 @@
+{
+  "SAP-ARCHI-COTTBUS": {
+    "requisitoLingua": "https://www.b-tu.de/en/international/from-abroad-to-btu/exchange-programmes/exchange-students-incomings/erasmus-eu",
+    "scadenzeOspitante": "https://www.b-tu.de/en/international/from-abroad-to-btu/exchange-programmes/exchange-students-incomings/erasmus-eu",
+    "linkSito": "https://www.b-tu.de/en/international/from-abroad-to-btu/exchange-programmes/exchange-students-incomings/erasmus-eu"
+  },
+  "SAP-ARCHI-HILDESHEIM": {
+    "scadenzeOspitante": "https://www.hawk.de/en/studies/international/international-students/ersamus",
+    "linkSito": "https://www.hawk.de/en/studies/international/international-students/ersamus"
+  },
+  "SAP-ARCHI-HANNOVER": {
+    "requisitoLingua": "https://www.uni-hannover.de/en/studium/im-studium/international/incoming/austauschprogramme/bewerbung-incoming-incoming",
+    "scadenzeOspitante": "https://www.uni-hannover.de/en/studium/im-studium/international/incoming/austauschprogramme/bewerbung-incoming-incoming",
+    "linkSito": "https://www.uni-hannover.de/en/studium/im-studium/international/incoming/austauschprogramme/bewerbung-incoming-incoming"
+  },
+  "SAP-ARCHI-FRANKFURT": {
+    "requisitoLingua": "https://www.frankfurt-university.de/fileadmin/standard/Studium/International_Office/Incoming/How_to_register_with_Mobilty_Online.pdf",
+    "scadenzeOspitante": "https://www.frankfurt-university.de/en/studies/international-office/incomings/exchange/",
+    "linkSito": "https://www.frankfurt-university.de/en/studies/international-office/incomings/exchange/"
+  },
+  "SAP-ARCHI-KARLSRUHE": {
+    "requisitoLingua": "https://www.arch.kit.edu/english/internationales/4110.php",
+    "scadenzeOspitante": "https://www.intl.kit.edu/istudies/14810.php",
+    "linkSito": "https://www.intl.kit.edu/istudies/14810.php"
+  }
+}
