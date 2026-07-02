@@ -1,26 +1,21 @@
 {
   "SAP-IUS-STETIENNE": {
-    "requisitoLingua": "https://www.univ-st-etienne.fr/en/studies/exchange-programs.html",
-    "scadenzeOspitante": "https://www.univ-st-etienne.fr/en/studies/exchange-programs.html",
     "linkSito": "https://www.univ-st-etienne.fr/en/studies/exchange-programs.html"
   },
   "SAP-IUS-UPHF": {
-    "linkSito": "https://www.uphf.fr/en/training/applications-registrations/international-students-international-exchange",
-    "notePraticheAppend": "https://www.uphf.fr/en/training/applications-registrations/international-students-international-exchange"
+    "requisitoLingua": "https://www.ajk.elte.hu/sites/default/files/%C3%81JK/documents/2025-11/%C3%81JK.FACT%20SHEET%20UPHF-INSA%20HdF%202023-24.pdf",
+    "scadenzeOspitante": "https://www.ajk.elte.hu/sites/default/files/%C3%81JK/documents/2025-11/%C3%81JK.FACT%20SHEET%20UPHF-INSA%20HdF%202023-24.pdf",
+    "linkSito": "https://www.uphf.fr/en/training/applications-registrations/international-students-international-exchange"
   },
   "SAP-IUS-LEHAVRE": {
-    "scadenzeOspitante": "https://www.univ-lehavre.fr/en/international/going-international/student-mobility/",
-    "linkSito": "https://www.univ-lehavre.fr/en/international/going-international/student-mobility/",
-    "notePraticheAppend": "https://www.univ-lehavre.fr/en/international/going-international/student-mobility/"
+    "requisitoLingua": "https://www.ul.ie/media/43447/download?inline=",
+    "linkSito": "https://www.univ-lehavre.fr/"
   },
   "SAP-IUS-TOURS": {
-    "scadenzeOspitante": "https://international.univ-tours.fr/medias/fichier/university-of-tours-guidelines-for-partners-2025-2026_1751534735935-pdf?ID_FICHE=406122&INLINE=FALSE",
-    "linkSito": "https://international.univ-tours.fr/english-version/admission-process-for-exchange-students",
-    "notePraticheAppend": "https://international.univ-tours.fr/english-version/admission-process-for-exchange-students"
+    "requisitoLingua": "https://international.univ-tours.fr/english-version/admission-process-for-exchange-students/5-choose-courses-course-catalogue-international-relations-politics-courses-supervised-projects",
+    "linkSito": "https://international.univ-tours.fr/english-version/admission-process-for-exchange-students"
   },
   "SAP-IUS-LYON3": {
-    "requisitoLingua": "https://www.jura.fu-berlin.de/international/studierendenaustausch/outgoings/partnerunis/lyon/Fact-Sheet_Universite-Jean-Moulin-Lyon-3-_26-27_ENG.pdf",
-    "scadenzeOspitante": "https://www.jura.fu-berlin.de/international/studierendenaustausch/outgoings/partnerunis/lyon/Fact-Sheet_Universite-Jean-Moulin-Lyon-3-_26-27_ENG.pdf",
     "linkSito": "https://www.univ-lyon3.fr/exchange-students"
   }
 }
