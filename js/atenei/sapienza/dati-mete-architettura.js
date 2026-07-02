@@ -1606,8 +1606,13 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 settembre" },
+        { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2024/25"
   },
   {
     id: "sap-archi-madeira",
@@ -1625,7 +1630,7 @@ var METE = [
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-archi-porto-a",
@@ -1642,8 +1647,11 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Fabio Quici)."
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "dal 1 aprile al 21 maggio" },
+        { cosa: "Application (primavera)", periodo: "dal 1 settembre al 15 ottobre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Fabio Quici). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-archi-evora",
@@ -1661,7 +1669,7 @@ var METE = [
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-archi-porto-b",
@@ -1678,8 +1686,11 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Romeo Di Pietro)."
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "dal 1 aprile al 21 maggio" },
+        { cosa: "Application (primavera)", periodo: "dal 1 settembre al 15 ottobre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Romeo Di Pietro). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-archi-lusiada-lisboa",
