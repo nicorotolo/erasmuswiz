@@ -1,0 +1,27 @@
+{
+  "SAP-ARCHI-GAZI-ANKARA": {
+    "scadenzeOspitante": "https://erasmus.gazi.edu.tr/view/page/103344",
+    "linkSito": "https://erasmus.gazi.edu.tr/view/page/103344",
+    "notePraticheAppend": "https://erasmus.gazi.edu.tr/view/page/103344"
+  },
+  "SAP-ARCHI-MSGSU-ISTANBUL-A": {
+    "scadenzeOspitante": "https://msgsu.edu.tr/wp-content/uploads/2024/03/Incoming-Students-Info-Sheet3.pdf",
+    "linkSito": "https://msgsu.edu.tr/international/erasmus-incoming-student-how-to-apply/",
+    "notePraticheAppend": "https://msgsu.edu.tr/international/erasmus-incoming-student-how-to-apply/"
+  },
+  "SAP-ARCHI-ITU-ISTANBUL": {
+    "scadenzeOspitante": "https://erasmus.itu.edu.tr/en/student-mobility-for-studies/ka-171-partner-countries/incoming/nominations",
+    "linkSito": "https://erasmus.itu.edu.tr/en/student-mobility-for-studies/ka-171-partner-countries/incoming/nominations",
+    "notePraticheAppend": "https://erasmus.itu.edu.tr/en/student-mobility-for-studies/ka-171-partner-countries/incoming/nominations"
+  },
+  "SAP-ARCHI-MSGSU-ISTANBUL-B": {
+    "scadenzeOspitante": "https://msgsu.edu.tr/wp-content/uploads/2024/03/Incoming-Students-Info-Sheet3.pdf",
+    "linkSito": "https://msgsu.edu.tr/international/erasmus-incoming-student-how-to-apply/",
+    "notePraticheAppend": "https://msgsu.edu.tr/international/erasmus-incoming-student-how-to-apply/"
+  },
+  "SAP-ARCHI-IZMIR-EKONOMI": {
+    "scadenzeOspitante": "https://www.ieu.edu.tr/international/en/gelen-uluslararasi-degisim-ogrencileri",
+    "linkSito": "https://www.ieu.edu.tr/international/en/gelen-uluslararasi-degisim-ogrencileri",
+    "notePraticheAppend": "https://www.ieu.edu.tr/international/en/gelen-uluslararasi-degisim-ogrencileri"
+  }
+}

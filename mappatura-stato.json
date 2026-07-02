@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza)",
-  "runCompletati": 168,
+  "runCompletati": 169,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "architettura-batch-22",
-      "priorita": 5,
-      "dipartimento": "Architettura (Sapienza)",
-      "descrizione": "Architettura (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "SAP-ARCHI-GAZI-ANKARA",
-        "SAP-ARCHI-MSGSU-ISTANBUL-A",
-        "SAP-ARCHI-ITU-ISTANBUL",
-        "SAP-ARCHI-MSGSU-ISTANBUL-B",
-        "SAP-ARCHI-IZMIR-EKONOMI"
-      ]
-    },
     {
       "id": "architettura-batch-23",
       "priorita": 5,
@@ -255,6 +241,20 @@
       "mete": [
         "SAP-ARCHI-HESSO",
         "SAP-ARCHI-OZYEGIN-ISTANBUL"
+      ]
+    },
+    {
+      "id": "architettura (sapienza)-batch-followup-17",
+      "priorita": 6,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - follow-up pending",
+      "tipo": "lingua",
+      "mete": [
+        "SAP-ARCHI-GAZI-ANKARA",
+        "SAP-ARCHI-MSGSU-ISTANBUL-A",
+        "SAP-ARCHI-ITU-ISTANBUL",
+        "SAP-ARCHI-MSGSU-ISTANBUL-B",
+        "SAP-ARCHI-IZMIR-EKONOMI"
       ]
     }
   ],
@@ -488,11 +488,6 @@
         "SAP-ARCHI-UCJC-MADRID",
         "SAP-ARCHI-MALAGA",
         "SAP-ARCHI-HESSO",
-        "SAP-ARCHI-GAZI-ANKARA",
-        "SAP-ARCHI-MSGSU-ISTANBUL-A",
-        "SAP-ARCHI-ITU-ISTANBUL",
-        "SAP-ARCHI-MSGSU-ISTANBUL-B",
-        "SAP-ARCHI-IZMIR-EKONOMI",
         "SAP-ARCHI-BURSA",
         "SAP-ARCHI-PECS",
         "SAP-ARCHI-BME-BUDAPEST"
@@ -565,7 +560,12 @@
         "SAP-ARCHI-VIC-A": 1,
         "SAP-ARCHI-VIC-B": 1,
         "SAP-ARCHI-HESSO": 1,
-        "SAP-ARCHI-OZYEGIN-ISTANBUL": 1
+        "SAP-ARCHI-OZYEGIN-ISTANBUL": 1,
+        "SAP-ARCHI-GAZI-ANKARA": 1,
+        "SAP-ARCHI-MSGSU-ISTANBUL-A": 1,
+        "SAP-ARCHI-ITU-ISTANBUL": 1,
+        "SAP-ARCHI-MSGSU-ISTANBUL-B": 1,
+        "SAP-ARCHI-IZMIR-EKONOMI": 1
       },
       "linguaNonTrovabile": [],
       "ateneo": "Sapienza Roma"
@@ -1605,6 +1605,12 @@
       "data": "2026-07-02",
       "mete": 5,
       "note": "Architettura (Sapienza) architettura-batch-21: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 169,
+      "data": "2026-07-02",
+      "mete": 5,
+      "note": "Architettura (Sapienza) architettura-batch-22: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
