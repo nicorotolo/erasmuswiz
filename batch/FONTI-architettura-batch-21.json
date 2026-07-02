@@ -1,0 +1,26 @@
+{
+  "SAP-ARCHI-UMEA": {
+    "requisitoLingua": "https://factsheets.rennes-sb.com/Sweden/Umea%20University/USBE_Umea%20Fact%20Sheet%20-%202026-2027.pdf",
+    "scadenzeOspitante": "https://www.umu.se/en/education/application-and-admission/future-exchange-students/timeline-for-exchange-students/",
+    "linkSito": "https://www.umu.se/en/education/application-and-admission/future-exchange-students/timeline-for-exchange-students/"
+  },
+  "SAP-ARCHI-HESSO": {
+    "linkSito": "https://www.hes-so.ch/en/la-hes-so/etudier-a-la-hes-so/international-exchange-programmes/coming-to-hes-so",
+    "requisitoLingua": "https://www.hes-so.ch/en/la-hes-so/etudier-a-la-hes-so/international-exchange-programmes/coming-to-hes-so"
+  },
+  "SAP-ARCHI-OZYEGIN-ISTANBUL": {
+    "requisitoLingua": "https://www.ozyegin.edu.tr/en/international-exchange-and-partnership-programs/erasmus-study-mobility/incoming-students",
+    "scadenzeOspitante": "https://www.ozyegin.edu.tr/en/international-exchange-and-partnership-programs/erasmus-study-mobility/incoming-students",
+    "linkSito": "https://www.ozyegin.edu.tr/en/international-exchange-and-partnership-programs/erasmus-study-mobility/incoming-students"
+  },
+  "SAP-ARCHI-TOBB-ANKARA": {
+    "requisitoLingua": "https://www.etu.edu.tr/files/dosyalar/2026/04/17/36f3a747f8e54586b0d34c467e2b61ae.pdf",
+    "scadenzeOspitante": "https://www.etu.edu.tr/files/dosyalar/2026/04/17/36f3a747f8e54586b0d34c467e2b61ae.pdf",
+    "linkSito": "https://www.etu.edu.tr/files/dosyalar/2026/04/17/36f3a747f8e54586b0d34c467e2b61ae.pdf"
+  },
+  "SAP-ARCHI-AYBU-ANKARA": {
+    "requisitoLingua": "https://aybu.edu.tr/GetFile?id=Upload%2Fa2f476b2-3ad8-44e9-859e-9607fb5dde2f.pdf",
+    "scadenzeOspitante": "https://aybu.edu.tr/GetFile?id=Upload%2Fa2f476b2-3ad8-44e9-859e-9607fb5dde2f.pdf",
+    "linkSito": "https://aybu.edu.tr/international/en/sayfa/4803"
+  }
+}
