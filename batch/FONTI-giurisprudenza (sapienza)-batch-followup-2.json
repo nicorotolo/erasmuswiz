@@ -1,6 +1,25 @@
 {
-  "SAP-IUS-STOCKHOLM": {
-    "requisitoLingua": "https://www.ajk.elte.hu/dstore/document/290849/SULaw%20Departmental%20Fact%20Sheet%202026-2027%20FOR%20PARTNERS.pdf",
-    "linkSito": "https://www.su.se/english/divisions/department-of-law/education/incoming-exchange-students/student-exchange-programme"
+  "SAP-IUS-ROUEN": {
+    "requisitoLingua": "https://mesdemarches.univ-rouen.fr/en/inscriptions/eu-international-students-erasmus-and-icm-exchanges/",
+    "scadenzeOspitante": "https://www.univ-rouen.fr/wp-content/uploads/2025/06/Fact-Sheet-F-ROUEN01-24-25_EN-Courses.pdf",
+    "linkSito": "https://mesdemarches.univ-rouen.fr/en/inscriptions/eu-international-students-erasmus-and-icm-exchanges/"
+  },
+  "SAP-IUS-LILLE": {
+    "requisitoLingua": "https://droit.univ-lille.fr/filedroit/user_upload/Fact_Sheet_2026-2027.pdf",
+    "scadenzeOspitante": "https://droit.univ-lille.fr/filedroit/user_upload/Fact_Sheet_2026-2027.pdf",
+    "linkSito": "https://droit.univ-lille.fr/relations-internationales/i-am-an-international-student-1"
+  },
+  "SAP-IUS-GREIFSWALD": {
+    "scadenzeOspitante": "https://www.uni-greifswald.de/en/international/incoming/exchange-students-non-degree-seeking/erasmus-university-exchanges-1/",
+    "linkSito": "https://www.uni-greifswald.de/en/international/incoming/exchange-students-non-degree-seeking/erasmus-university-exchanges-1/"
+  },
+  "SAP-IUS-FREIBURG": {
+    "requisitoLingua": "https://www.upf.edu/documents/105229234/121071315/Albert-Ludwigs-Universit%C3%A4t%2BFreiburg%2BIm%2BBreisgau.pdf/1e0ab57d-c007-e615-38b3-69af7db93064",
+    "scadenzeOspitante": "https://www.upf.edu/documents/105229234/121071315/Albert-Ludwigs-Universit%C3%A4t%2BFreiburg%2BIm%2BBreisgau.pdf/1e0ab57d-c007-e615-38b3-69af7db93064",
+    "linkSito": "https://uni-freiburg.de/jura-international-en/"
+  },
+  "SAP-IUS-HANNOVER": {
+    "scadenzeOspitante": "https://www.uni-hannover.de/en/studium/im-studium/international/exchange-students/exchange-programmes-incoming-students",
+    "linkSito": "https://www.uni-hannover.de/en/studium/im-studium/international/exchange-students/exchange-programmes-incoming-students"
   }
 }

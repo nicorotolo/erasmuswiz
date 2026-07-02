@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Giurisprudenza (Sapienza)",
-  "runCompletati": 138,
+  "runCompletati": 139,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "giurisprudenza (sapienza)-batch-followup-2",
-      "priorita": 6,
-      "dipartimento": "Giurisprudenza (Sapienza)",
-      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "SAP-IUS-ROUEN",
-        "SAP-IUS-LILLE",
-        "SAP-IUS-GREIFSWALD",
-        "SAP-IUS-FREIBURG",
-        "SAP-IUS-HANNOVER"
-      ]
-    },
     {
       "id": "giurisprudenza (sapienza)-batch-followup-3",
       "priorita": 6,
@@ -147,6 +133,17 @@
         "SAP-IUS-UPHF",
         "SAP-IUS-LEHAVRE",
         "SAP-IUS-TOURS"
+      ]
+    },
+    {
+      "id": "giurisprudenza (sapienza)-batch-followup-2",
+      "priorita": 6,
+      "dipartimento": "Giurisprudenza (Sapienza)",
+      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
+      "tipo": "lingua",
+      "mete": [
+        "SAP-IUS-GREIFSWALD",
+        "SAP-IUS-HANNOVER"
       ]
     }
   ],
@@ -325,14 +322,9 @@
       "fileJs": "js/atenei/sapienza/dati-mete-giurisprudenza.js",
       "stato": "in_corso",
       "totale": 55,
-      "completate": 22,
+      "completate": 25,
       "pendingScadenze": [
         "SAP-IUS-UPHF",
-        "SAP-IUS-ROUEN",
-        "SAP-IUS-LILLE",
-        "SAP-IUS-GREIFSWALD",
-        "SAP-IUS-FREIBURG",
-        "SAP-IUS-HANNOVER",
         "SAP-IUS-SAARLAND",
         "SAP-IUS-REGENSBURG",
         "SAP-IUS-BREMEN",
@@ -363,10 +355,7 @@
         "SAP-IUS-UPHF",
         "SAP-IUS-LEHAVRE",
         "SAP-IUS-TOURS",
-        "SAP-IUS-ROUEN",
-        "SAP-IUS-LILLE",
         "SAP-IUS-GREIFSWALD",
-        "SAP-IUS-FREIBURG",
         "SAP-IUS-HANNOVER",
         "SAP-IUS-SAARLAND",
         "SAP-IUS-REGENSBURG",
@@ -397,7 +386,9 @@
       "tentativiLingua": {
         "SAP-IUS-UPHF": 1,
         "SAP-IUS-LEHAVRE": 1,
-        "SAP-IUS-TOURS": 1
+        "SAP-IUS-TOURS": 1,
+        "SAP-IUS-GREIFSWALD": 1,
+        "SAP-IUS-HANNOVER": 1
       },
       "linguaNonTrovabile": [
         "SAP-IUS-BUCURESTI"
@@ -1296,6 +1287,12 @@
       "data": "2026-07-02",
       "mete": 5,
       "note": "Giurisprudenza (Sapienza) giurisprudenza (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 139,
+      "data": "2026-07-02",
+      "mete": 5,
+      "note": "Giurisprudenza (Sapienza) giurisprudenza (sapienza)-batch-followup-2: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
