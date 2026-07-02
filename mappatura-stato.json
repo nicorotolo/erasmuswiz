@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza)",
-  "runCompletati": 159,
+  "runCompletati": 160,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "architettura-batch-13",
-      "priorita": 5,
-      "dipartimento": "Architettura (Sapienza)",
-      "descrizione": "Architettura (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "SAP-ARCHI-WAGENINGEN",
-        "SAP-ARCHI-POZNAN",
-        "SAP-ARCHI-PW-WARSZAWA",
-        "SAP-ARCHI-LUBLIN",
-        "SAP-ARCHI-COVILHA"
-      ]
-    },
     {
       "id": "architettura-batch-14",
       "priorita": 5,
@@ -522,17 +508,12 @@
       "fileJs": "js/atenei/sapienza/dati-mete-architettura.js",
       "stato": "in_corso",
       "totale": 113,
-      "completate": 46,
+      "completate": 51,
       "pendingScadenze": [
         "SAP-ARCHI-GUSTAVE-EIFFEL",
         "SAP-ARCHI-EAVT-MARNE",
         "SAP-ARCHI-FREISING",
         "SAP-ARCHI-HVANNEYRI",
-        "SAP-ARCHI-WAGENINGEN",
-        "SAP-ARCHI-POZNAN",
-        "SAP-ARCHI-PW-WARSZAWA",
-        "SAP-ARCHI-LUBLIN",
-        "SAP-ARCHI-COVILHA",
         "SAP-ARCHI-VIANA-CASTELO",
         "SAP-ARCHI-MADEIRA",
         "SAP-ARCHI-PORTO-A",
@@ -595,11 +576,6 @@
         "SAP-ARCHI-HFT-STUTTGART-B",
         "SAP-ARCHI-BRAUNSCHWEIG",
         "SAP-ARCHI-HVANNEYRI",
-        "SAP-ARCHI-WAGENINGEN",
-        "SAP-ARCHI-POZNAN",
-        "SAP-ARCHI-PW-WARSZAWA",
-        "SAP-ARCHI-LUBLIN",
-        "SAP-ARCHI-COVILHA",
         "SAP-ARCHI-VIANA-CASTELO",
         "SAP-ARCHI-MADEIRA",
         "SAP-ARCHI-PORTO-A",
@@ -1647,6 +1623,12 @@
       "data": "2026-07-02",
       "mete": 5,
       "note": "Architettura (Sapienza) architettura-batch-12: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 160,
+      "data": "2026-07-02",
+      "mete": 5,
+      "note": "Architettura (Sapienza) architettura-batch-13: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

@@ -1,0 +1,27 @@
+{
+  "SAP-ARCHI-WAGENINGEN": {
+    "requisitoLingua": "https://www.wur.nl/en/education/studying-wageningen/study-abroad-and-exchange",
+    "scadenzeOspitante": "https://www.wur.nl/en/education/studying-wageningen/study-abroad-and-exchange",
+    "linkSito": "https://www.wur.nl/en/education/studying-wageningen/study-abroad-and-exchange"
+  },
+  "SAP-ARCHI-POZNAN": {
+    "requisitoLingua": "https://put.poznan.pl/en/students-international-exchange-incoming/stepbystep",
+    "scadenzeOspitante": "https://put.poznan.pl/en/students-international-exchange-incoming/stepbystep",
+    "linkSito": "https://put.poznan.pl/en/students-international-exchange-incoming/stepbystep"
+  },
+  "SAP-ARCHI-PW-WARSZAWA": {
+    "requisitoLingua": "https://erasmus.pw.edu.pl/erasmusen/Incoming-Students/How-to-apply",
+    "scadenzeOspitante": "https://erasmus.pw.edu.pl/erasmusen/Incoming-Students/How-to-apply",
+    "linkSito": "https://erasmus.pw.edu.pl/erasmusen/Incoming-Students/How-to-apply"
+  },
+  "SAP-ARCHI-LUBLIN": {
+    "requisitoLingua": "https://bkm.pollub.pl/en/exchange-students/studies/applic/application-information-10.html",
+    "scadenzeOspitante": "https://bkm.pollub.pl/en/exchange-students/studies/applic/application-information-10.html",
+    "linkSito": "https://bkm.pollub.pl/en/exchange-students/studies/applic/application-information-10.html"
+  },
+  "SAP-ARCHI-COVILHA": {
+    "requisitoLingua": "https://www.ubi.pt/entidade/incoming_erasmus_studies",
+    "scadenzeOspitante": "https://www.ubi.pt/entidade/incoming_erasmus_studies",
+    "linkSito": "https://www.ubi.pt/entidade/incoming_erasmus_studies"
+  }
+}
