@@ -1,0 +1,24 @@
+{
+  "SAP-ARCHI-BREMEN": {
+    "requisitoLingua": "https://www.ubu.es/sites/default/files/portal_page/files/D%20BREMEN04_2025-26_FactSheet.pdf",
+    "scadenzeOspitante": "https://www.hs-bremen.de/en/hsb/faculties/school-of-electrical-engineering-and-computer-science/international-office/information-for-exchange-students/",
+    "linkSito": "https://www.hs-bremen.de/en/information-for/international-students/exchange-students/"
+  },
+  "SAP-ARCHI-KASSEL-B": {
+    "scadenzeOspitante": "https://www.uni-kassel.de/uni/en/study/before-the-application/study-guide-for-international-students/exchange-studies-at-the-university-of-kassel.html",
+    "linkSito": "https://www.uni-kassel.de/uni/en/study/before-the-application/study-guide-for-international-students/exchange-studies-at-the-university-of-kassel.html"
+  },
+  "SAP-ARCHI-HFT-STUTTGART-A": {
+    "scadenzeOspitante": "https://www.hft-stuttgart.com/studies/international/incoming",
+    "linkSito": "https://www.hft-stuttgart.com/studies/international/incoming"
+  },
+  "SAP-ARCHI-MAINZ": {
+    "requisitoLingua": "https://www.hs-mainz.de/studium/services/gestaltung/incoming/",
+    "scadenzeOspitante": "https://www.hs-mainz.de/studium/services/gestaltung/incoming/",
+    "linkSito": "https://www.hs-mainz.de/studium/services/gestaltung/incoming/"
+  },
+  "SAP-ARCHI-FREISING": {
+    "requisitoLingua": "https://www.hswt.de/en/international/ways-to-the-hswt/exchange-students",
+    "linkSito": "https://www.hswt.de/en/international/ways-to-the-hswt/exchange-students"
+  }
+}
