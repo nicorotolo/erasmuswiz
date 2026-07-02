@@ -1,0 +1,25 @@
+{
+  "SAP-ARCHI-TALTECH": {
+    "requisitoLingua": "https://taltech.ee/en/incoming-students",
+    "scadenzeOspitante": "https://taltech.ee/en/incoming-students",
+    "linkSito": "https://taltech.ee/en/incoming-students"
+  },
+  "SAP-ARCHI-EKA-TALLINN": {
+    "scadenzeOspitante": "https://erasmus.artun.ee/incoming-student/admission",
+    "linkSito": "https://erasmus.artun.ee/incoming-student/admission"
+  },
+  "SAP-ARCHI-LILLE": {
+    "scadenzeOspitante": "https://www.lille.archi.fr/etudiants-en-echange/",
+    "linkSito": "https://www.lille.archi.fr/etudiants-en-echange/"
+  },
+  "SAP-ARCHI-MONTPELLIER": {
+    "requisitoLingua": "https://eurep.auth.gr/sites/default/files/fact_sheets/F%20MONTPEL%2014_Factsheet_25-26.pdf",
+    "scadenzeOspitante": "https://eurep.auth.gr/sites/default/files/fact_sheets/F%20MONTPEL%2014_Factsheet_25-26.pdf",
+    "linkSito": "https://eurep.auth.gr/sites/default/files/fact_sheets/F%20MONTPEL%2014_Factsheet_25-26.pdf"
+  },
+  "SAP-ARCHI-SAINT-ETIENNE": {
+    "requisitoLingua": "https://www.st-etienne.archi.fr/wp-content/uploads/2026/03/ERASMUS-Intsheet-ENSASE_2026-27.pdf",
+    "scadenzeOspitante": "https://www.st-etienne.archi.fr/wp-content/uploads/2026/03/ERASMUS-Intsheet-ENSASE_2026-27.pdf",
+    "linkSito": "https://www.st-etienne.archi.fr/wp-content/uploads/2026/03/ERASMUS-Intsheet-ENSASE_2026-27.pdf"
+  }
+}
