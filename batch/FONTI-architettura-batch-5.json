@@ -1,0 +1,26 @@
+{
+  "SAP-ARCHI-ROUEN": {
+    "requisitoLingua": "https://etsag.ugr.es/sites/centros/etsag/public/inline-files/FACT%20SHEET%20ENSA%20Normandie-%20EN_0.pdf",
+    "scadenzeOspitante": "https://etsag.ugr.es/sites/centros/etsag/public/inline-files/FACT%20SHEET%20ENSA%20Normandie-%20EN_0.pdf",
+    "linkSito": "https://etsag.ugr.es/sites/centros/etsag/public/inline-files/FACT%20SHEET%20ENSA%20Normandie-%20EN_0.pdf"
+  },
+  "SAP-ARCHI-PARIS-LAVILLETTE": {
+    "requisitoLingua": "https://admin.paris-lavillette.archi.fr/wp-content/uploads/2026/01/2026-2027-ENSAPLV-ENG.pdf",
+    "scadenzeOspitante": "https://admin.paris-lavillette.archi.fr/wp-content/uploads/2026/01/2026-2027-ENSAPLV-ENG.pdf",
+    "linkSito": "https://paris-lavillette.archi.fr/en/international/studying-at-ensaplv-incoming-mobility/"
+  },
+  "SAP-ARCHI-EAVT-MARNE": {
+    "requisitoLingua": "https://paris-est.archi.fr/en/international/venir-a-l-ecole",
+    "linkSito": "https://paris-est.archi.fr/en/international/venir-a-l-ecole"
+  },
+  "SAP-ARCHI-RENNES": {
+    "requisitoLingua": "https://www.rennes.archi.fr/international/mobietudiantes/echanges-internationaux-etudiants-mobilite-entrante/",
+    "scadenzeOspitante": "https://www.rennes.archi.fr/international/mobietudiantes/echanges-internationaux-etudiants-mobilite-entrante/",
+    "linkSito": "https://www.rennes.archi.fr/international/mobietudiantes/echanges-internationaux-etudiants-mobilite-entrante/"
+  },
+  "SAP-ARCHI-NANCY": {
+    "requisitoLingua": "https://www.nancy.archi.fr/fr/international.html",
+    "scadenzeOspitante": "https://www.nancy.archi.fr/fr/international.html",
+    "linkSito": "https://www.nancy.archi.fr/fr/international.html"
+  }
+}

@@ -505,10 +505,17 @@ var METE = [
       { numero: 2, mesi: 10, livello: "L", note: "" },
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "necessario per la maggior parte dei corsi in francese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 1 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 1 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 1 dicembre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Scadenze: basate su 2024/25"
   },
   {
     id: "sap-archi-paris-lavillette",
@@ -522,9 +529,16 @@ var METE = [
     posti: [
       { numero: 2, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "livello minimo fortemente raccomandato per seguire i corsi" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 2 maggio 2026" },
+        { cosa: "Application (autunno)", periodo: "entro 22 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre 2026" },
+        { cosa: "Application (primavera)", periodo: "entro 13 novembre 2026" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2. Solo livello Magistrale."
   },
   {
@@ -540,7 +554,10 @@ var METE = [
       { numero: 2, mesi: 9, livello: "L", note: "" },
       { numero: 2, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1-B2", condizione: "raccomandato per corsi di Bachelor" },
+        { lingua: "Francese", livello: "B2-C1", condizione: "raccomandato per corsi di Master" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
@@ -558,9 +575,16 @@ var METE = [
       { numero: 2, mesi: 9, livello: "L", note: "" },
       { numero: 2, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "livello fortemente raccomandato per corsi insegnati in francese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio 2026" },
+        { cosa: "Application (autunno)", periodo: "entro 31 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 novembre 2026" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre 2026" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -576,10 +600,15 @@ var METE = [
       { numero: 3, mesi: 10, livello: "L", note: "" },
       { numero: 3, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "richiesto per studenti in mobilita entrante" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 2 maggio 2025" },
+        { cosa: "Application (primavera)", periodo: "entro 9 ottobre 2025" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). || Scadenze: basate su 2025/26"
   },
   {
     id: "sap-archi-nantes-archi",
