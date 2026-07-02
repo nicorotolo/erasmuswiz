@@ -1,0 +1,25 @@
+{
+  "SAP-ARCHI-HFT-STUTTGART-B": {
+    "scadenzeOspitante": "https://www.hft-stuttgart.com/studies/international/incoming",
+    "linkSito": "https://www.hft-stuttgart.com/studies/international/incoming"
+  },
+  "SAP-ARCHI-KOLN-B": {
+    "requisitoLingua": "https://www.th-koeln.de/en/international_office/before-the-mobility-btm_127961.php",
+    "scadenzeOspitante": "https://www.th-koeln.de/en/international_office/erasmus_71492.php",
+    "linkSito": "https://www.th-koeln.de/en/international_office/erasmus_71492.php"
+  },
+  "SAP-ARCHI-TUM-A": {
+    "requisitoLingua": "https://www.international.tum.de/en/global/exchange-programs-at-tum/",
+    "scadenzeOspitante": "https://www.upf.edu/documents/105229234/121071315/Technische%2BUniversit%C3%A4t%2BM%C3%BCnchen_TUM.pdf/296e29b4-7587-2129-18cd-882fd5492600?t=1680600893859",
+    "linkSito": "https://www.international.tum.de/en/global/exchange-programs-at-tum/"
+  },
+  "SAP-ARCHI-TUM-B": {
+    "requisitoLingua": "https://www.international.tum.de/en/global/exchange-programs-at-tum/",
+    "scadenzeOspitante": "https://www.upf.edu/documents/105229234/121071315/Technische%2BUniversit%C3%A4t%2BM%C3%BCnchen_TUM.pdf/296e29b4-7587-2129-18cd-882fd5492600?t=1680600893859",
+    "linkSito": "https://www.international.tum.de/en/global/exchange-programs-at-tum/"
+  },
+  "SAP-ARCHI-BRAUNSCHWEIG": {
+    "scadenzeOspitante": "https://www.uc3m.es/secretaria-virtual/media/secretaria-virtual/doc/archivo/doc_e_fs_d_branunsc01_2526/d-braunsc01_factsheet_tu_braunschweig25.pdf",
+    "linkSito": "https://www.tu-braunschweig.de/en/exchange-students/application"
+  }
+}
