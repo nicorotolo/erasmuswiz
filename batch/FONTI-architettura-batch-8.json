@@ -1,0 +1,27 @@
+{
+  "SAP-ARCHI-KOLN-A": {
+    "requisitoLingua": "https://www.th-koeln.de/en/international_office/before-the-mobility-btm_127961.php",
+    "scadenzeOspitante": "https://www.th-koeln.de/en/international_office/before-the-mobility-btm_127961.php",
+    "linkSito": "https://www.th-koeln.de/en/international_office/before-the-mobility-btm_127961.php"
+  },
+  "SAP-ARCHI-WEIMAR": {
+    "requisitoLingua": "https://www.uni-weimar.de/en/university/international/to-weimar/exchange-studies/language-skills/english-language-skills/",
+    "scadenzeOspitante": "https://www.uni-weimar.de/en/university/international/to-weimar/exchange-studies/application-process-for-exchange-students/",
+    "linkSito": "https://www.uni-weimar.de/en/university/international/to-weimar/exchange-studies/application-process-for-exchange-students/"
+  },
+  "SAP-ARCHI-HS-DARMSTADT": {
+    "requisitoLingua": "https://international.h-da.de/en/1/your-stay-at-h-da/students/international-exchange-students/application-admission",
+    "scadenzeOspitante": "https://international.h-da.de/en/1/your-stay-at-h-da/students/international-exchange-students/application-admission",
+    "linkSito": "https://international.h-da.de/en/1/your-stay-at-h-da/students/international-exchange-students/application-admission"
+  },
+  "SAP-ARCHI-KASSEL-A": {
+    "scadenzeOspitante": "https://www.uni-kassel.de/uni/en/study/before-the-application/study-guide-for-international-students/exchange-studies-at-the-university-of-kassel.html",
+    "linkSito": "https://www.uni-kassel.de/uni/en/study/before-the-application/study-guide-for-international-students/exchange-studies-at-the-university-of-kassel.html",
+    "notePraticheAppend": "https://www.uni-kassel.de/uni/en/study/before-the-application/study-guide-for-international-students/exchange-studies-at-the-university-of-kassel.html"
+  },
+  "SAP-ARCHI-TU-DARMSTADT": {
+    "requisitoLingua": "https://www.tu-darmstadt.de/studieren/studieninteressierte/internationale_studieninteressierte/austauschprogramme_inbound/index.en.jsp",
+    "scadenzeOspitante": "https://www.tu-darmstadt.de/media/daa_responsives_design/02_studium_medien/01_studieninteressierte_medien/05_internationale_studieninteressierte_medien/02_austauschstudium_medien/erasmus_infosheet_incomings_26___27.pdf",
+    "linkSito": "https://www.tu-darmstadt.de/studieren/studieninteressierte/internationale_studieninteressierte/austauschprogramme_inbound/index.en.jsp"
+  }
+}
