@@ -1705,9 +1705,14 @@ var METE = [
       { numero: 5, mesi: 12, livello: "L", note: "" },
       { numero: 5, mesi: 12, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Portoghese", livello: "B1", condizione: "raccomandato per lezioni e valutazioni in portoghese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno/anno intero)", periodo: "31 maggio - 30 giugno" },
+        { cosa: "Application (primavera)", periodo: "31 ottobre - 30 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 5 (condivisi tra i livelli)."
   },
   {
@@ -1724,8 +1729,13 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2. Solo livello Magistrale."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 31 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 2. Solo livello Magistrale. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-archi-timisoara-a",
@@ -1739,10 +1749,19 @@ var METE = [
     posti: [
       { numero: 3, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "per programmi/corsi disponibili in inglese" },
+        { lingua: "Tedesco", livello: "B1", condizione: "per programmi disponibili in tedesco" },
+        { lingua: "Rumeno", livello: "B1", condizione: "per corsi in rumeno" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 3. Solo livello triennale. Ulteriore accordo distinto con lo stesso ateneo (promotore Federica Dal Falco)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "entro 18 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 10 dicembre" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 18 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 10 dicembre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 3. Solo livello triennale. Ulteriore accordo distinto con lo stesso ateneo (promotore Federica Dal Falco). || Scadenze: basate su 2025/26"
   },
   {
     id: "sap-archi-timisoara-b",
@@ -1757,10 +1776,19 @@ var METE = [
       { numero: 4, mesi: 5, livello: "L", note: "" },
       { numero: 4, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "per programmi/corsi disponibili in inglese" },
+        { lingua: "Tedesco", livello: "B1", condizione: "per programmi disponibili in tedesco" },
+        { lingua: "Rumeno", livello: "B1", condizione: "per corsi in rumeno" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Daniela Esposito)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "entro 18 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 10 dicembre" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 18 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 10 dicembre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Daniela Esposito). || Scadenze: basate su 2025/26"
   },
   {
     id: "sap-archi-ion-mincu-bucarest",
@@ -1775,9 +1803,16 @@ var METE = [
       { numero: 2, mesi: 5, livello: "L", note: "" },
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi/esami in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 1 luglio" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {

@@ -1,0 +1,27 @@
+{
+  "SAP-ARCHI-LUSIADA-LISBOA": {
+    "requisitoLingua": "https://eurep.auth.gr/sites/default/files/fact_sheets/P%20LISBOA12_Factsheets_2026-2027.pdf",
+    "scadenzeOspitante": "https://eurep.auth.gr/sites/default/files/fact_sheets/P%20LISBOA12_Factsheets_2026-2027.pdf",
+    "linkSito": "https://mobilidade.lis.ulusiada.pt/pt-pt/mobilidade/erasmus43%3B/incomingstudents.aspx"
+  },
+  "SAP-ARCHI-AVEIRO": {
+    "scadenzeOspitante": "https://www.ua.pt/file/62654",
+    "linkSito": "https://www.ua.pt/file/62654",
+    "notePraticheAppend": "https://www.ua.pt/file/62654"
+  },
+  "SAP-ARCHI-TIMISOARA-A": {
+    "requisitoLingua": "https://www.th-rosenheim.de/fileadmin/abteilungen_und_einrichtungen/international_office/Dokumente/Partner-HS_Factsheets/RO_Timisoara_Factsheet.pdf",
+    "scadenzeOspitante": "https://international.upt.ro/en/incoming-students/erasmus-studies/studies-2025-2026/",
+    "linkSito": "https://international.upt.ro/en/incoming-students/erasmus-studies/studies-2025-2026/"
+  },
+  "SAP-ARCHI-TIMISOARA-B": {
+    "requisitoLingua": "https://www.th-rosenheim.de/fileadmin/abteilungen_und_einrichtungen/international_office/Dokumente/Partner-HS_Factsheets/RO_Timisoara_Factsheet.pdf",
+    "scadenzeOspitante": "https://international.upt.ro/en/incoming-students/erasmus-studies/studies-2025-2026/",
+    "linkSito": "https://international.upt.ro/en/incoming-students/erasmus-studies/studies-2025-2026/"
+  },
+  "SAP-ARCHI-ION-MINCU-BUCAREST": {
+    "requisitoLingua": "https://www.uauim.ro/en/university/exchanges-cooperation/erasmus/",
+    "scadenzeOspitante": "https://www.uauim.ro/en/university/exchanges-cooperation/erasmus/",
+    "linkSito": "https://www.uauim.ro/en/university/exchanges-cooperation/erasmus/"
+  }
+}
