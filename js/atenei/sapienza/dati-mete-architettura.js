@@ -160,9 +160,14 @@ var METE = [
     posti: [
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "raccomandato per Erasmus+; confermato dal coordinatore locale in nomination" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination/application (autunno)", periodo: "entro 30 aprile" },
+        { cosa: "Nomination/application (primavera)", periodo: "entro 1 ottobre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 1. Solo livello Magistrale."
   },
   {
@@ -178,10 +183,17 @@ var METE = [
       { numero: 2, mesi: 9, livello: "L", note: "" },
       { numero: 2, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "per studenti Erasmus" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 1 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Scadenze: basate su 2023/24"
   },
   {
     id: "sap-archi-nicosia",
@@ -196,9 +208,16 @@ var METE = [
       { numero: 1, mesi: 10, livello: "L", note: "" },
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "richiesto per studenti Erasmus incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 1 maggio 2026" },
+        { cosa: "Application (autunno)", periodo: "entro 20 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre 2026" },
+        { cosa: "Application (primavera)", periodo: "entro 20 ottobre 2026" }
+      ],
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -213,9 +232,15 @@ var METE = [
     posti: [
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "se si seguono corsi in inglese" },
+        { lingua: "Croato", livello: "B2", condizione: "alternativa per corsi in croato" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "dal 1 marzo al 15 maggio" },
+        { cosa: "Application (primavera)", periodo: "dal 1 settembre al 15 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 1. Solo livello Magistrale. Ulteriore accordo distinto con lo stesso ateneo (promotore Francesca Giofrè)."
   },
   {
@@ -231,9 +256,15 @@ var METE = [
       { numero: 2, mesi: 5, livello: "L", note: "" },
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "se si seguono corsi in inglese" },
+        { lingua: "Croato", livello: "B2", condizione: "alternativa per corsi in croato" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "dal 1 marzo al 15 maggio" },
+        { cosa: "Application (primavera)", periodo: "dal 1 settembre al 15 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. Ulteriore accordo distinto con lo stesso ateneo (promotore Carlo Martino)."
   },
   {

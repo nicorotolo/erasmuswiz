@@ -1,0 +1,27 @@
+{
+  "SAP-ARCHI-KULEUVEN": {
+    "requisitoLingua": "https://arch.kuleuven.be/english/studying/prospective-students/students-from-abroad/how-to-apply-as-an-exchange-student",
+    "scadenzeOspitante": "https://arch.kuleuven.be/english/studying/prospective-students/students-from-abroad/how-to-apply-as-an-exchange-student",
+    "linkSito": "https://arch.kuleuven.be/english/studying/prospective-students/students-from-abroad/how-to-apply-as-an-exchange-student"
+  },
+  "SAP-ARCHI-UACEG-SOFIA": {
+    "requisitoLingua": "https://etsag.ugr.es/sites/centros/etsag/public/inline-files/Information%20sheet%20UACEG%2023-24.pdf",
+    "scadenzeOspitante": "https://etsag.ugr.es/sites/centros/etsag/public/inline-files/Information%20sheet%20UACEG%2023-24.pdf",
+    "linkSito": "https://uacg.bg/page/applying-for-study-mobility"
+  },
+  "SAP-ARCHI-NICOSIA": {
+    "requisitoLingua": "https://www.unina.it/documents/d/guest/CY_NICOSIA01",
+    "scadenzeOspitante": "https://www.unina.it/documents/d/guest/CY_NICOSIA01",
+    "linkSito": "https://www.ucy.ac.cy/ir/mobility/erasmus/studies-incoming-er/?lang=en"
+  },
+  "SAP-ARCHI-ZAGABRIA-A": {
+    "requisitoLingua": "https://www.unizg.hr/homepage/international-exchange/exchange-students/how-to-apply/",
+    "scadenzeOspitante": "https://www.unizg.hr/homepage/international-exchange/exchange-students/how-to-apply/",
+    "linkSito": "https://www.unizg.hr/homepage/international-exchange/exchange-students/how-to-apply/"
+  },
+  "SAP-ARCHI-ZAGABRIA-B": {
+    "requisitoLingua": "https://www.unizg.hr/homepage/international-exchange/exchange-students/how-to-apply/",
+    "scadenzeOspitante": "https://www.unizg.hr/homepage/international-exchange/exchange-students/how-to-apply/",
+    "linkSito": "https://www.unizg.hr/homepage/international-exchange/exchange-students/how-to-apply/"
+  }
+}

@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza)",
-  "runCompletati": 148,
+  "runCompletati": 149,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "architettura-batch-2",
-      "priorita": 5,
-      "dipartimento": "Architettura (Sapienza)",
-      "descrizione": "Architettura (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "SAP-ARCHI-KULEUVEN",
-        "SAP-ARCHI-UACEG-SOFIA",
-        "SAP-ARCHI-NICOSIA",
-        "SAP-ARCHI-ZAGABRIA-A",
-        "SAP-ARCHI-ZAGABRIA-B"
-      ]
-    },
     {
       "id": "architettura-batch-3",
       "priorita": 5,
@@ -591,13 +577,8 @@
       "fileJs": "js/atenei/sapienza/dati-mete-architettura.js",
       "stato": "in_corso",
       "totale": 113,
-      "completate": 4,
+      "completate": 9,
       "pendingScadenze": [
-        "SAP-ARCHI-KULEUVEN",
-        "SAP-ARCHI-UACEG-SOFIA",
-        "SAP-ARCHI-NICOSIA",
-        "SAP-ARCHI-ZAGABRIA-A",
-        "SAP-ARCHI-ZAGABRIA-B",
         "SAP-ARCHI-TALTECH",
         "SAP-ARCHI-EKA-TALLINN",
         "SAP-ARCHI-LILLE",
@@ -704,11 +685,6 @@
       ],
       "pendingLingua": [
         "SAP-ARCHI-INNSBRUCK",
-        "SAP-ARCHI-KULEUVEN",
-        "SAP-ARCHI-UACEG-SOFIA",
-        "SAP-ARCHI-NICOSIA",
-        "SAP-ARCHI-ZAGABRIA-A",
-        "SAP-ARCHI-ZAGABRIA-B",
         "SAP-ARCHI-TALTECH",
         "SAP-ARCHI-EKA-TALLINN",
         "SAP-ARCHI-LILLE",
@@ -1734,6 +1710,12 @@
       "data": "2026-07-02",
       "mete": 5,
       "note": "Architettura (Sapienza) architettura-batch-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 149,
+      "data": "2026-07-02",
+      "mete": 5,
+      "note": "Architettura (Sapienza) architettura-batch-2: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
