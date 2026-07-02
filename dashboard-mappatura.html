@@ -101,11 +101,11 @@
 <script>
 const STATO = {
   "versione": "2.0",
-  "aggiornato": "2026-06-15",
-  "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da Codex via applica-batch.mjs ad ogni run (auto-merge su main tramite auto-merge.yml). NON modificare manualmente salvo emergenze.",
-  "universitaCorrente": "Ca' Foscari Venezia",
-  "dipartimentoCorrente": "Scienze ambientali, informatica e statistica",
-  "runCompletati": 34,
+  "aggiornato": "2026-07-02",
+  "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
+  "universitaCorrente": "Sapienza Roma",
+  "dipartimentoCorrente": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza)",
+  "runCompletati": 148,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
@@ -113,347 +113,369 @@ const STATO = {
   },
   "prossimiBatch": [
     {
-      "id": "management-batch-18",
-      "priorita": 7,
-      "dipartimento": "Management",
-      "descrizione": "Management - secondo tentativo lingua lotto 2",
+      "id": "architettura-batch-2",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-KULEUVEN",
+        "SAP-ARCHI-UACEG-SOFIA",
+        "SAP-ARCHI-NICOSIA",
+        "SAP-ARCHI-ZAGABRIA-A",
+        "SAP-ARCHI-ZAGABRIA-B"
+      ]
+    },
+    {
+      "id": "architettura-batch-3",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-TALTECH",
+        "SAP-ARCHI-EKA-TALLINN",
+        "SAP-ARCHI-LILLE",
+        "SAP-ARCHI-MONTPELLIER",
+        "SAP-ARCHI-SAINT-ETIENNE"
+      ]
+    },
+    {
+      "id": "architettura-batch-4",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-NANTES-DESIGN",
+        "SAP-ARCHI-PARIS8",
+        "SAP-ARCHI-GRENOBLE-A",
+        "SAP-ARCHI-GUSTAVE-EIFFEL",
+        "SAP-ARCHI-LYON"
+      ]
+    },
+    {
+      "id": "architettura-batch-5",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-ROUEN",
+        "SAP-ARCHI-PARIS-LAVILLETTE",
+        "SAP-ARCHI-EAVT-MARNE",
+        "SAP-ARCHI-RENNES",
+        "SAP-ARCHI-NANCY"
+      ]
+    },
+    {
+      "id": "architettura-batch-6",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-NANTES-ARCHI",
+        "SAP-ARCHI-GRENOBLE-B",
+        "SAP-ARCHI-SORBONNE",
+        "SAP-ARCHI-VERSAILLES-PAYSAGE",
+        "SAP-ARCHI-TOULOUSE"
+      ]
+    },
+    {
+      "id": "architettura-batch-7",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-MARSEILLE",
+        "SAP-ARCHI-VERSAILLES-ARCHI",
+        "SAP-ARCHI-BORDEAUX-PAYSAGE",
+        "SAP-ARCHI-UNI-STUTTGART",
+        "SAP-ARCHI-AACHEN"
+      ]
+    },
+    {
+      "id": "architettura-batch-8",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-KOLN-A",
+        "SAP-ARCHI-WEIMAR",
+        "SAP-ARCHI-HS-DARMSTADT",
+        "SAP-ARCHI-KASSEL-A",
+        "SAP-ARCHI-TU-DARMSTADT"
+      ]
+    },
+    {
+      "id": "architettura-batch-9",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-BREMEN",
+        "SAP-ARCHI-KASSEL-B",
+        "SAP-ARCHI-HFT-STUTTGART-A",
+        "SAP-ARCHI-MAINZ",
+        "SAP-ARCHI-FREISING"
+      ]
+    },
+    {
+      "id": "architettura-batch-10",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-COTTBUS",
+        "SAP-ARCHI-HILDESHEIM",
+        "SAP-ARCHI-HANNOVER",
+        "SAP-ARCHI-FRANKFURT",
+        "SAP-ARCHI-KARLSRUHE"
+      ]
+    },
+    {
+      "id": "architettura-batch-11",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-HFT-STUTTGART-B",
+        "SAP-ARCHI-KOLN-B",
+        "SAP-ARCHI-TUM-A",
+        "SAP-ARCHI-TUM-B",
+        "SAP-ARCHI-BRAUNSCHWEIG"
+      ]
+    },
+    {
+      "id": "architettura-batch-12",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-HVANNEYRI",
+        "SAP-ARCHI-RIGA",
+        "SAP-ARCHI-VILNIUS",
+        "SAP-ARCHI-MALTA",
+        "SAP-ARCHI-ZWOLLE"
+      ]
+    },
+    {
+      "id": "architettura-batch-13",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-WAGENINGEN",
+        "SAP-ARCHI-POZNAN",
+        "SAP-ARCHI-PW-WARSZAWA",
+        "SAP-ARCHI-LUBLIN",
+        "SAP-ARCHI-COVILHA"
+      ]
+    },
+    {
+      "id": "architettura-batch-14",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-VIANA-CASTELO",
+        "SAP-ARCHI-MADEIRA",
+        "SAP-ARCHI-PORTO-A",
+        "SAP-ARCHI-EVORA",
+        "SAP-ARCHI-PORTO-B"
+      ]
+    },
+    {
+      "id": "architettura-batch-15",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-LUSIADA-LISBOA",
+        "SAP-ARCHI-AVEIRO",
+        "SAP-ARCHI-TIMISOARA-A",
+        "SAP-ARCHI-TIMISOARA-B",
+        "SAP-ARCHI-ION-MINCU-BUCAREST"
+      ]
+    },
+    {
+      "id": "architettura-batch-16",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-CLUJ-NAPOCA",
+        "SAP-ARCHI-STU-BRATISLAVA-A",
+        "SAP-ARCHI-STU-BRATISLAVA-B",
+        "SAP-ARCHI-LJUBLJANA",
+        "SAP-ARCHI-ALCALA"
+      ]
+    },
+    {
+      "id": "architettura-batch-17",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-UCAM-MURCIA",
+        "SAP-ARCHI-UC-VALENCIA",
+        "SAP-ARCHI-UCJC-MADRID",
+        "SAP-ARCHI-UPV-VALENCIA-A",
+        "SAP-ARCHI-UPV-VALENCIA-B"
+      ]
+    },
+    {
+      "id": "architettura-batch-18",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-UFV-MADRID",
+        "SAP-ARCHI-UNAV-PAMPLONA",
+        "SAP-ARCHI-UPCT-CARTAGENA",
+        "SAP-ARCHI-CORUNA",
+        "SAP-ARCHI-UPV-VALENCIA-C"
+      ]
+    },
+    {
+      "id": "architettura-batch-19",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-GIRONA",
+        "SAP-ARCHI-ZARAGOZA",
+        "SAP-ARCHI-VALLADOLID",
+        "SAP-ARCHI-NEBRIJA-MADRID",
+        "SAP-ARCHI-MALAGA"
+      ]
+    },
+    {
+      "id": "architettura-batch-20",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-UCLM-CIUDADREAL",
+        "SAP-ARCHI-UAX-MADRID",
+        "SAP-ARCHI-VIC-A",
+        "SAP-ARCHI-VIC-B",
+        "SAP-ARCHI-VAXJO"
+      ]
+    },
+    {
+      "id": "architettura-batch-21",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-UMEA",
+        "SAP-ARCHI-HESSO",
+        "SAP-ARCHI-OZYEGIN-ISTANBUL",
+        "SAP-ARCHI-TOBB-ANKARA",
+        "SAP-ARCHI-AYBU-ANKARA"
+      ]
+    },
+    {
+      "id": "architettura-batch-22",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-GAZI-ANKARA",
+        "SAP-ARCHI-MSGSU-ISTANBUL-A",
+        "SAP-ARCHI-ITU-ISTANBUL",
+        "SAP-ARCHI-MSGSU-ISTANBUL-B",
+        "SAP-ARCHI-IZMIR-EKONOMI"
+      ]
+    },
+    {
+      "id": "architettura-batch-23",
+      "priorita": 5,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-ARCHI-BURSA",
+        "SAP-ARCHI-PECS",
+        "SAP-ARCHI-BME-BUDAPEST"
+      ]
+    },
+    {
+      "id": "giurisprudenza (sapienza)-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Giurisprudenza (Sapienza)",
+      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-IUS-UCLM",
+        "SAP-IUS-ZARAGOZA",
+        "SAP-IUS-MALAGA"
+      ]
+    },
+    {
+      "id": "medicina e psicologia - area medica e professioni sanitarie (sapienza)-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza)",
+      "descrizione": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza) - follow-up pending",
       "tipo": "lingua",
       "mete": [
-        "F LILLE11",
-        "F NANCY43"
+        "SAP-MEDIC2-INNSBRUCK"
       ]
     },
     {
-      "id": "management-batch-19",
-      "priorita": 7,
-      "dipartimento": "Management",
-      "descrizione": "Management - secondo tentativo lingua lotto 3",
+      "id": "medicina e psicologia - area medica e professioni sanitarie (sapienza)-batch-followup-2",
+      "priorita": 6,
+      "dipartimento": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza)",
+      "descrizione": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza) - follow-up pending",
       "tipo": "lingua",
       "mete": [
-        "F NANTES12"
+        "SAP-MEDIC2-COMILLAS-A"
       ]
     },
     {
-      "id": "management-batch-20",
-      "priorita": 7,
-      "dipartimento": "Management",
-      "descrizione": "Management - secondo tentativo lingua lotto 3",
+      "id": "medicina e psicologia - area medica e professioni sanitarie (sapienza)-batch-followup-3",
+      "priorita": 6,
+      "dipartimento": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza)",
+      "descrizione": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza) - follow-up pending",
       "tipo": "lingua",
       "mete": [
-        "F RENNES01"
+        "SAP-MEDIC2-ALFONSOX",
+        "SAP-MEDIC2-CORUNA",
+        "SAP-MEDIC2-COMILLAS-B"
       ]
     },
     {
-      "id": "management-batch-21",
-      "priorita": 7,
-      "dipartimento": "Management",
-      "descrizione": "Management - secondo tentativo lingua lotto 4",
+      "id": "architettura (sapienza)-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - follow-up pending",
       "tipo": "lingua",
       "mete": [
-        "MT MALTA01"
-      ]
-    },
-    {
-      "id": "management-batch-22",
-      "priorita": 7,
-      "dipartimento": "Management",
-      "descrizione": "Management - secondo tentativo lingua lotto 5",
-      "tipo": "lingua",
-      "mete": [
-        "P COIMBRA01"
-      ]
-    },
-    {
-      "id": "management-batch-followup-1",
-      "priorita": 6,
-      "dipartimento": "Management",
-      "descrizione": "Management - follow-up pending",
-      "tipo": "lingua",
-      "mete": [
-        "S LINKOPI01",
-        "S STOCKHO01"
-      ]
-    },
-    {
-      "id": "lingue-batch-2",
-      "priorita": 6,
-      "dipartimento": "Lingue e culture orientali",
-      "descrizione": "Lingue e culture orientali - completamento lingua e scadenze",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "TR ISTANBU01",
-        "B GENT01",
-        "E ALICANT01",
-        "E SEVILLA01",
-        "F PARIS014"
-      ]
-    },
-    {
-      "id": "lingue-batch-3",
-      "priorita": 6,
-      "dipartimento": "Lingue e culture orientali",
-      "descrizione": "Lingue e culture orientali - completamento lingua e scadenze",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "TR ANKARA04",
-        "TR ISTANBU21",
-        "TR ANKARA01",
-        "D MUNCHEN01",
-        "F PARIS178"
-      ]
-    },
-    {
-      "id": "lingue-batch-4",
-      "priorita": 6,
-      "dipartimento": "Lingue e culture orientali",
-      "descrizione": "Lingue e culture orientali - completamento lingua e scadenze",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "D HEIDELB01",
-        "IRLCORK01",
-        "F LYON03",
-        "A WIEN01",
-        "B LEUVEN01"
-      ]
-    },
-    {
-      "id": "lingue-batch-5",
-      "priorita": 6,
-      "dipartimento": "Lingue e culture orientali",
-      "descrizione": "Lingue e culture orientali - completamento lingua e scadenze",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "E BARCELO02",
-        "S LUND01",
-        "B LEUVEN01",
-        "E MADRID04",
-        "F LYON61"
-      ]
-    },
-    {
-      "id": "lingue-batch-6",
-      "priorita": 6,
-      "dipartimento": "Lingue e culture orientali",
-      "descrizione": "Lingue e culture orientali - completamento lingua e scadenze",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "D BERLIN01",
-        "F GRENOBL23",
-        "F GRENOBL23",
-        "D KONSTAN01"
-      ]
-    },
-    {
-      "id": "scienze-batch-2",
-      "priorita": 8,
-      "dipartimento": "Scienze ambientali, informatica e statistica",
-      "descrizione": "Scienze ambientali, informatica e statistica - completamento lingua e scadenze lotto 1",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "IS REYKJAV01",
-        "D BINGEN01",
-        "N BERGEN01",
-        "B ANTWERP01",
-        "D SAARBRU01"
-      ]
-    },
-    {
-      "id": "scienze-batch-3",
-      "priorita": 8,
-      "dipartimento": "Scienze ambientali, informatica e statistica",
-      "descrizione": "Scienze ambientali, informatica e statistica - completamento lingua e scadenze lotto 2",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "SF HELSINK40",
-        "E BARCELO16",
-        "E BARCELO01",
-        "F TOULOUS02",
-        "F CHAMBER01"
-      ]
-    },
-    {
-      "id": "scienze-batch-4",
-      "priorita": 8,
-      "dipartimento": "Scienze ambientali, informatica e statistica",
-      "descrizione": "Scienze ambientali, informatica e statistica - completamento lingua e scadenze lotto 3",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "E BARCELO02",
-        "TR ANKARA08",
-        "P LISBOA03",
-        "CZ OLOMOUC01",
-        "CZ BRNO05"
-      ]
-    },
-    {
-      "id": "scienze-batch-5",
-      "priorita": 8,
-      "dipartimento": "Scienze ambientali, informatica e statistica",
-      "descrizione": "Scienze ambientali, informatica e statistica - completamento lingua e scadenze lotto 4",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "A WIEN02",
-        "NL TILBURG01",
-        "F PARIS482",
-        "SF TURKU05",
-        "SF KOKKOLA05"
-      ]
-    },
-    {
-      "id": "scienze-batch-6",
-      "priorita": 8,
-      "dipartimento": "Scienze ambientali, informatica e statistica",
-      "descrizione": "Scienze ambientali, informatica e statistica - completamento lingua e scadenze lotto 5",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "RO TIMISOA01",
-        "PL KRAKOW02",
-        "D BRAUNSC01"
-      ]
-    },
-    {
-      "id": "filosofia-batch-2",
-      "priorita": 6,
-      "dipartimento": "Filosofia e Beni Culturali",
-      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 1",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "CZ BRNO05",
-        "CZ PRAHA07",
-        "D BERLIN02",
-        "D KASSEL01",
-        "D GOTTING01"
-      ]
-    },
-    {
-      "id": "filosofia-batch-3",
-      "priorita": 6,
-      "dipartimento": "Filosofia e Beni Culturali",
-      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 2",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "D FRANKFU01",
-        "E SEVILLA03",
-        "F PARIS003",
-        "B LIEGE01",
-        "F LILLE103"
-      ]
-    },
-    {
-      "id": "filosofia-batch-4",
-      "priorita": 6,
-      "dipartimento": "Filosofia e Beni Culturali",
-      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 3",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "NL AMSTERD01",
-        "D WIESBAD01",
-        "F PARIS008",
-        "F MONTPEL03",
-        "F PARIS001"
-      ]
-    },
-    {
-      "id": "filosofia-batch-5",
-      "priorita": 6,
-      "dipartimento": "Filosofia e Beni Culturali",
-      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 4",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "B GENT01",
-        "S LUND01",
-        "N OSLO72",
-        "NL GRONING01",
-        "TR ANKARA07"
-      ]
-    },
-    {
-      "id": "filosofia-batch-6",
-      "priorita": 6,
-      "dipartimento": "Filosofia e Beni Culturali",
-      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 5",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "P LISBOA01",
-        "DK ROSKILD01",
-        "E SALAMAN02",
-        "NL UTRECHT01",
-        "F PARIS014"
-      ]
-    },
-    {
-      "id": "filosofia-batch-7",
-      "priorita": 6,
-      "dipartimento": "Filosofia e Beni Culturali",
-      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 6",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "E BARCELO15",
-        "NL NIJMEGE01",
-        "DK KOBENHA01",
-        "E MADRID04",
-        "N TROMSO01"
-      ]
-    },
-    {
-      "id": "filosofia-batch-8",
-      "priorita": 6,
-      "dipartimento": "Filosofia e Beni Culturali",
-      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 7",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "E MADRID03",
-        "E BARCELO02",
-        "E OVIEDO01",
-        "NL WAGENIN01",
-        "N-STAVANG-01"
-      ]
-    },
-    {
-      "id": "filosofia-batch-9",
-      "priorita": 6,
-      "dipartimento": "Filosofia e Beni Culturali",
-      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 8",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "D MUNCHEN01",
-        "HU BUDAPES01",
-        "F STRASBO48",
-        "D FREIBUR01",
-        "P COIMBRA01"
-      ]
-    },
-    {
-      "id": "filosofia-batch-10",
-      "priorita": 6,
-      "dipartimento": "Filosofia e Beni Culturali",
-      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 9",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "A WIEN01",
-        "D KOBLENZ01",
-        "F PARIS468",
-        "F TOURS01",
-        "G EGALEO02"
-      ]
-    },
-    {
-      "id": "filosofia-batch-11",
-      "priorita": 6,
-      "dipartimento": "Filosofia e Beni Culturali",
-      "descrizione": "Filosofia e Beni Culturali - scadenze e lingua lotto 10",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "D STUTTGA01",
-        "D TUBINGE01",
-        "F BORDEAU03",
-        "F GRENOBL55"
+        "SAP-ARCHI-INNSBRUCK"
       ]
     }
   ],
   "statoDipartimenti": {
     "Economia": {
-      "fileJs": "js/dati-mete.js",
+      "fileJs": "js/atenei/cafoscari/dati-mete.js",
       "stato": "completo",
       "totale": 58,
       "completate": 52,
@@ -472,266 +494,431 @@ const STATO = {
         "CY PAFOS01",
         "DK KOBENHA01",
         "E TENERIF28"
-      ]
+      ],
+      "ateneo": "Ca' Foscari Venezia"
     },
     "Management": {
-      "fileJs": "js/dati-mete-management.js",
-      "stato": "in_corso",
+      "fileJs": "js/atenei/cafoscari/dati-mete-management.js",
+      "stato": "completo",
       "totale": 76,
-      "completate": 67,
+      "completate": 71,
       "pendingScadenze": [],
-      "pendingLingua": [
+      "pendingLingua": [],
+      "tentativiLingua": {
+        "A KLAGENF01": 2,
+        "F LILLE11": 2,
+        "F NANCY43": 2,
+        "F NANTES12": 2,
+        "S LINKOPI01": 2
+      },
+      "linguaNonTrovabile": [
+        "A KLAGENF01",
         "F LILLE11",
         "F NANCY43",
         "F NANTES12",
-        "F RENNES01",
-        "MT MALTA01",
-        "P COIMBRA01",
-        "S LINKOPI01",
-        "S STOCKHO01"
+        "S LINKOPI01"
       ],
-      "tentativiLingua": {
-        "A KLAGENF01": 2,
-        "F LILLE11": 1,
-        "F NANCY43": 1,
-        "F NANTES12": 1,
-        "F RENNES01": 1,
-        "MT MALTA01": 1,
-        "P COIMBRA01": 1,
-        "S LINKOPI01": 1,
-        "S STOCKHO01": 1
-      },
-      "linguaNonTrovabile": [
-        "A KLAGENF01"
-      ]
+      "ateneo": "Ca' Foscari Venezia"
     },
     "Lingue e culture orientali": {
-      "fileJs": "js/dati-mete-lingue.js",
-      "stato": "in_corso",
+      "fileJs": "js/atenei/cafoscari/dati-mete-lingue.js",
+      "stato": "completo",
       "totale": 24,
-      "completate": 0,
-      "pendingScadenze": [
-        "TR ISTANBU01",
-        "B GENT01",
-        "E ALICANT01",
-        "E SEVILLA01",
-        "F PARIS014",
-        "TR ANKARA04",
-        "TR ISTANBU21",
-        "TR ANKARA01",
-        "D MUNCHEN01",
-        "F PARIS178",
-        "D HEIDELB01",
-        "IRLCORK01",
-        "F LYON03",
-        "A WIEN01",
-        "B LEUVEN01",
-        "E BARCELO02",
-        "S LUND01",
-        "B LEUVEN01",
-        "E MADRID04",
-        "F LYON61",
-        "D BERLIN01",
-        "F GRENOBL23",
-        "F GRENOBL23",
-        "D KONSTAN01"
+      "completate": 23,
+      "pendingScadenze": [],
+      "pendingLingua": [],
+      "tentativiLingua": {
+        "E SEVILLA01": 2
+      },
+      "linguaNonTrovabile": [
+        "E SEVILLA01"
       ],
-      "pendingLingua": [
-        "TR ISTANBU01",
-        "B GENT01",
-        "E ALICANT01",
-        "E SEVILLA01",
-        "F PARIS014",
-        "TR ANKARA04",
-        "TR ISTANBU21",
-        "TR ANKARA01",
-        "D MUNCHEN01",
-        "F PARIS178",
-        "D HEIDELB01",
-        "IRLCORK01",
-        "F LYON03",
-        "A WIEN01",
-        "B LEUVEN01",
-        "E BARCELO02",
-        "S LUND01",
-        "B LEUVEN01",
-        "E MADRID04",
-        "F LYON61",
-        "D BERLIN01",
-        "F GRENOBL23",
-        "F GRENOBL23",
-        "D KONSTAN01"
-      ],
-      "tentativiLingua": {},
-      "linguaNonTrovabile": []
+      "ateneo": "Ca' Foscari Venezia"
     },
     "Scienze ambientali, informatica e statistica": {
-      "fileJs": "js/dati-mete-scienze.js",
-      "stato": "in_corso",
+      "fileJs": "js/atenei/cafoscari/dati-mete-scienze.js",
+      "stato": "completo",
       "totale": 25,
-      "completate": 0,
-      "pendingScadenze": [
+      "completate": 23,
+      "pendingScadenze": [],
+      "pendingLingua": [],
+      "tentativiLingua": {
+        "IS REYKJAV01": 2,
+        "RO TIMISOA01": 2
+      },
+      "linguaNonTrovabile": [
         "IS REYKJAV01",
-        "D BINGEN01",
-        "N BERGEN01",
-        "B ANTWERP01",
-        "D SAARBRU01",
-        "SF HELSINK40",
-        "E BARCELO16",
-        "E BARCELO01",
-        "F TOULOUS02",
-        "F CHAMBER01",
-        "E BARCELO02",
-        "TR ANKARA08",
-        "P LISBOA03",
-        "CZ OLOMOUC01",
-        "CZ BRNO05",
-        "A WIEN02",
-        "NL TILBURG01",
-        "F PARIS482",
-        "SF TURKU05",
-        "SF KOKKOLA05",
-        "RO TIMISOA01",
-        "PL KRAKOW02",
-        "D BRAUNSC01"
+        "RO TIMISOA01"
       ],
-      "pendingLingua": [
-        "IS REYKJAV01",
-        "D BINGEN01",
-        "N BERGEN01",
-        "B ANTWERP01",
-        "D SAARBRU01",
-        "SF HELSINK40",
-        "E BARCELO16",
-        "E BARCELO01",
-        "F TOULOUS02",
-        "F CHAMBER01",
-        "E BARCELO02",
-        "TR ANKARA08",
-        "P LISBOA03",
-        "CZ OLOMOUC01",
-        "CZ BRNO05",
-        "A WIEN02",
-        "NL TILBURG01",
-        "F PARIS482",
-        "SF TURKU05",
-        "SF KOKKOLA05",
-        "RO TIMISOA01",
-        "PL KRAKOW02",
-        "D BRAUNSC01"
-      ],
-      "tentativiLingua": {},
-      "linguaNonTrovabile": []
+      "ateneo": "Ca' Foscari Venezia"
     },
     "Filosofia e Beni Culturali": {
-      "fileJs": "js/dati-mete-filosofia.js",
-      "stato": "in_corso",
+      "fileJs": "js/atenei/cafoscari/dati-mete-filosofia.js",
+      "stato": "completo",
       "totale": 66,
-      "completate": 0,
-      "pendingScadenze": [
-        "CZ BRNO05",
+      "completate": 56,
+      "pendingScadenze": [],
+      "pendingLingua": [],
+      "tentativiLingua": {
+        "CZ PRAHA07": 2,
+        "D KASSEL01": 2,
+        "D WIESBAD01": 2,
+        "S LUND01": 2,
+        "N OSLO72": 2,
+        "TR ANKARA07": 2,
+        "DK ROSKILD01": 2,
+        "DK KOBENHA01": 2,
+        "D FREIBUR01": 2
+      },
+      "linguaNonTrovabile": [
         "CZ PRAHA07",
-        "D BERLIN02",
         "D KASSEL01",
-        "D GOTTING01",
-        "D FRANKFU01",
-        "E SEVILLA03",
-        "F PARIS003",
-        "B LIEGE01",
         "F LILLE103",
-        "NL AMSTERD01",
         "D WIESBAD01",
-        "F PARIS008",
-        "F MONTPEL03",
-        "F PARIS001",
-        "B GENT01",
         "S LUND01",
         "N OSLO72",
         "NL GRONING01",
         "TR ANKARA07",
-        "P LISBOA01",
         "DK ROSKILD01",
-        "E SALAMAN02",
-        "NL UTRECHT01",
-        "F PARIS014",
-        "E BARCELO15",
-        "NL NIJMEGE01",
         "DK KOBENHA01",
-        "E MADRID04",
-        "N TROMSO01",
-        "E MADRID03",
-        "E BARCELO02",
-        "E OVIEDO01",
-        "NL WAGENIN01",
-        "N-STAVANG-01",
-        "D MUNCHEN01",
-        "HU BUDAPES01",
-        "F STRASBO48",
-        "D FREIBUR01",
-        "P COIMBRA01",
-        "A WIEN01",
-        "D KOBLENZ01",
-        "F PARIS468",
-        "F TOURS01",
-        "G EGALEO02",
-        "D STUTTGA01",
-        "D TUBINGE01",
-        "F BORDEAU03",
-        "F GRENOBL55"
+        "D FREIBUR01"
+      ],
+      "ateneo": "Ca' Foscari Venezia"
+    },
+    "Scienze Molecolari e Nanosistemi": {
+      "fileJs": "js/atenei/cafoscari/dati-mete-molecolari.js",
+      "stato": "completo",
+      "totale": 8,
+      "completate": 8,
+      "pendingScadenze": [],
+      "pendingLingua": [],
+      "tentativiLingua": {},
+      "linguaNonTrovabile": [],
+      "ateneo": "Ca' Foscari Venezia"
+    },
+    "Studi Linguistici e Culturali Comparati": {
+      "fileJs": "js/atenei/cafoscari/dati-mete-linguistici.js",
+      "stato": "completo",
+      "totale": 114,
+      "completate": 104,
+      "pendingScadenze": [],
+      "pendingLingua": [],
+      "tentativiLingua": {
+        "N OSLO01": 2,
+        "E PALMA01": 2,
+        "S LUND01": 2,
+        "A KLAGENF01": 2,
+        "E SEVILLA01": 2,
+        "E CORDOBA01": 2,
+        "G KOMOTIN01": 2,
+        "TR ISTANBU03": 2,
+        "A WIEN01": 2
+      },
+      "linguaNonTrovabile": [
+        "N OSLO01",
+        "E PALMA01",
+        "S LUND01",
+        "A KLAGENF01",
+        "E SEVILLA01",
+        "E CORDOBA01",
+        "G KOMOTIN01",
+        "TR ISTANBU03",
+        "A WIEN01"
+      ],
+      "ateneo": "Ca' Foscari Venezia"
+    },
+    "Studi Umanistici": {
+      "fileJs": "js/atenei/cafoscari/dati-mete-umanistici.js",
+      "stato": "completo",
+      "totale": 21,
+      "completate": 18,
+      "pendingScadenze": [],
+      "pendingLingua": [],
+      "tentativiLingua": {
+        "G KOMOTIN01": 2,
+        "A WIEN01": 2
+      },
+      "linguaNonTrovabile": [
+        "G KOMOTIN01",
+        "A WIEN01"
+      ],
+      "ateneo": "Ca' Foscari Venezia"
+    },
+    "Giurisprudenza (Sapienza)": {
+      "fileJs": "js/atenei/sapienza/dati-mete-giurisprudenza.js",
+      "stato": "in_corso",
+      "totale": 55,
+      "completate": 52,
+      "pendingScadenze": [
+        "SAP-IUS-MALAGA"
       ],
       "pendingLingua": [
-        "CZ BRNO05",
-        "CZ PRAHA07",
-        "D BERLIN02",
-        "D KASSEL01",
-        "D GOTTING01",
-        "D FRANKFU01",
-        "E SEVILLA03",
-        "F PARIS003",
-        "B LIEGE01",
-        "F LILLE103",
-        "NL AMSTERD01",
-        "D WIESBAD01",
-        "F PARIS008",
-        "F MONTPEL03",
-        "F PARIS001",
-        "B GENT01",
-        "S LUND01",
-        "N OSLO72",
-        "NL GRONING01",
-        "TR ANKARA07",
-        "P LISBOA01",
-        "DK ROSKILD01",
-        "E SALAMAN02",
-        "NL UTRECHT01",
-        "F PARIS014",
-        "E BARCELO15",
-        "NL NIJMEGE01",
-        "DK KOBENHA01",
-        "E MADRID04",
-        "N TROMSO01",
-        "E MADRID03",
-        "E BARCELO02",
-        "E OVIEDO01",
-        "NL WAGENIN01",
-        "N-STAVANG-01",
-        "D MUNCHEN01",
-        "HU BUDAPES01",
-        "F STRASBO48",
-        "D FREIBUR01",
-        "P COIMBRA01",
-        "A WIEN01",
-        "D KOBLENZ01",
-        "F PARIS468",
-        "F TOURS01",
-        "G EGALEO02",
-        "D STUTTGA01",
-        "D TUBINGE01",
-        "F BORDEAU03",
-        "F GRENOBL55"
+        "SAP-IUS-UCLM",
+        "SAP-IUS-ZARAGOZA"
       ],
-      "tentativiLingua": {},
-      "linguaNonTrovabile": []
+      "tentativiLingua": {
+        "SAP-IUS-UCLM": 1,
+        "SAP-IUS-ZARAGOZA": 1
+      },
+      "linguaNonTrovabile": [
+        "SAP-IUS-BUCURESTI"
+      ],
+      "ateneo": "Sapienza Roma"
+    },
+    "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza)": {
+      "fileJs": "js/atenei/sapienza/dati-mete-medicina-psicologia-area-medica.js",
+      "stato": "in_corso",
+      "totale": 15,
+      "completate": 10,
+      "pendingScadenze": [],
+      "pendingLingua": [
+        "SAP-MEDIC2-INNSBRUCK",
+        "SAP-MEDIC2-COMILLAS-A",
+        "SAP-MEDIC2-ALFONSOX",
+        "SAP-MEDIC2-CORUNA",
+        "SAP-MEDIC2-COMILLAS-B"
+      ],
+      "tentativiLingua": {
+        "SAP-MEDIC2-INNSBRUCK": 1,
+        "SAP-MEDIC2-COMILLAS-A": 1,
+        "SAP-MEDIC2-ALFONSOX": 1,
+        "SAP-MEDIC2-CORUNA": 1,
+        "SAP-MEDIC2-COMILLAS-B": 1
+      },
+      "linguaNonTrovabile": [],
+      "ateneo": "Sapienza Roma"
+    },
+    "Architettura (Sapienza)": {
+      "fileJs": "js/atenei/sapienza/dati-mete-architettura.js",
+      "stato": "in_corso",
+      "totale": 113,
+      "completate": 4,
+      "pendingScadenze": [
+        "SAP-ARCHI-KULEUVEN",
+        "SAP-ARCHI-UACEG-SOFIA",
+        "SAP-ARCHI-NICOSIA",
+        "SAP-ARCHI-ZAGABRIA-A",
+        "SAP-ARCHI-ZAGABRIA-B",
+        "SAP-ARCHI-TALTECH",
+        "SAP-ARCHI-EKA-TALLINN",
+        "SAP-ARCHI-LILLE",
+        "SAP-ARCHI-MONTPELLIER",
+        "SAP-ARCHI-SAINT-ETIENNE",
+        "SAP-ARCHI-NANTES-DESIGN",
+        "SAP-ARCHI-PARIS8",
+        "SAP-ARCHI-GRENOBLE-A",
+        "SAP-ARCHI-GUSTAVE-EIFFEL",
+        "SAP-ARCHI-LYON",
+        "SAP-ARCHI-ROUEN",
+        "SAP-ARCHI-PARIS-LAVILLETTE",
+        "SAP-ARCHI-EAVT-MARNE",
+        "SAP-ARCHI-RENNES",
+        "SAP-ARCHI-NANCY",
+        "SAP-ARCHI-NANTES-ARCHI",
+        "SAP-ARCHI-GRENOBLE-B",
+        "SAP-ARCHI-SORBONNE",
+        "SAP-ARCHI-VERSAILLES-PAYSAGE",
+        "SAP-ARCHI-TOULOUSE",
+        "SAP-ARCHI-MARSEILLE",
+        "SAP-ARCHI-VERSAILLES-ARCHI",
+        "SAP-ARCHI-BORDEAUX-PAYSAGE",
+        "SAP-ARCHI-UNI-STUTTGART",
+        "SAP-ARCHI-AACHEN",
+        "SAP-ARCHI-KOLN-A",
+        "SAP-ARCHI-WEIMAR",
+        "SAP-ARCHI-HS-DARMSTADT",
+        "SAP-ARCHI-KASSEL-A",
+        "SAP-ARCHI-TU-DARMSTADT",
+        "SAP-ARCHI-BREMEN",
+        "SAP-ARCHI-KASSEL-B",
+        "SAP-ARCHI-HFT-STUTTGART-A",
+        "SAP-ARCHI-MAINZ",
+        "SAP-ARCHI-FREISING",
+        "SAP-ARCHI-COTTBUS",
+        "SAP-ARCHI-HILDESHEIM",
+        "SAP-ARCHI-HANNOVER",
+        "SAP-ARCHI-FRANKFURT",
+        "SAP-ARCHI-KARLSRUHE",
+        "SAP-ARCHI-HFT-STUTTGART-B",
+        "SAP-ARCHI-KOLN-B",
+        "SAP-ARCHI-TUM-A",
+        "SAP-ARCHI-TUM-B",
+        "SAP-ARCHI-BRAUNSCHWEIG",
+        "SAP-ARCHI-HVANNEYRI",
+        "SAP-ARCHI-RIGA",
+        "SAP-ARCHI-VILNIUS",
+        "SAP-ARCHI-MALTA",
+        "SAP-ARCHI-ZWOLLE",
+        "SAP-ARCHI-WAGENINGEN",
+        "SAP-ARCHI-POZNAN",
+        "SAP-ARCHI-PW-WARSZAWA",
+        "SAP-ARCHI-LUBLIN",
+        "SAP-ARCHI-COVILHA",
+        "SAP-ARCHI-VIANA-CASTELO",
+        "SAP-ARCHI-MADEIRA",
+        "SAP-ARCHI-PORTO-A",
+        "SAP-ARCHI-EVORA",
+        "SAP-ARCHI-PORTO-B",
+        "SAP-ARCHI-LUSIADA-LISBOA",
+        "SAP-ARCHI-AVEIRO",
+        "SAP-ARCHI-TIMISOARA-A",
+        "SAP-ARCHI-TIMISOARA-B",
+        "SAP-ARCHI-ION-MINCU-BUCAREST",
+        "SAP-ARCHI-CLUJ-NAPOCA",
+        "SAP-ARCHI-STU-BRATISLAVA-A",
+        "SAP-ARCHI-STU-BRATISLAVA-B",
+        "SAP-ARCHI-LJUBLJANA",
+        "SAP-ARCHI-ALCALA",
+        "SAP-ARCHI-UCAM-MURCIA",
+        "SAP-ARCHI-UC-VALENCIA",
+        "SAP-ARCHI-UCJC-MADRID",
+        "SAP-ARCHI-UPV-VALENCIA-A",
+        "SAP-ARCHI-UPV-VALENCIA-B",
+        "SAP-ARCHI-UFV-MADRID",
+        "SAP-ARCHI-UNAV-PAMPLONA",
+        "SAP-ARCHI-UPCT-CARTAGENA",
+        "SAP-ARCHI-CORUNA",
+        "SAP-ARCHI-UPV-VALENCIA-C",
+        "SAP-ARCHI-GIRONA",
+        "SAP-ARCHI-ZARAGOZA",
+        "SAP-ARCHI-VALLADOLID",
+        "SAP-ARCHI-NEBRIJA-MADRID",
+        "SAP-ARCHI-MALAGA",
+        "SAP-ARCHI-UCLM-CIUDADREAL",
+        "SAP-ARCHI-UAX-MADRID",
+        "SAP-ARCHI-VIC-A",
+        "SAP-ARCHI-VIC-B",
+        "SAP-ARCHI-VAXJO",
+        "SAP-ARCHI-UMEA",
+        "SAP-ARCHI-HESSO",
+        "SAP-ARCHI-OZYEGIN-ISTANBUL",
+        "SAP-ARCHI-TOBB-ANKARA",
+        "SAP-ARCHI-AYBU-ANKARA",
+        "SAP-ARCHI-GAZI-ANKARA",
+        "SAP-ARCHI-MSGSU-ISTANBUL-A",
+        "SAP-ARCHI-ITU-ISTANBUL",
+        "SAP-ARCHI-MSGSU-ISTANBUL-B",
+        "SAP-ARCHI-IZMIR-EKONOMI",
+        "SAP-ARCHI-BURSA",
+        "SAP-ARCHI-PECS",
+        "SAP-ARCHI-BME-BUDAPEST"
+      ],
+      "pendingLingua": [
+        "SAP-ARCHI-INNSBRUCK",
+        "SAP-ARCHI-KULEUVEN",
+        "SAP-ARCHI-UACEG-SOFIA",
+        "SAP-ARCHI-NICOSIA",
+        "SAP-ARCHI-ZAGABRIA-A",
+        "SAP-ARCHI-ZAGABRIA-B",
+        "SAP-ARCHI-TALTECH",
+        "SAP-ARCHI-EKA-TALLINN",
+        "SAP-ARCHI-LILLE",
+        "SAP-ARCHI-MONTPELLIER",
+        "SAP-ARCHI-SAINT-ETIENNE",
+        "SAP-ARCHI-NANTES-DESIGN",
+        "SAP-ARCHI-PARIS8",
+        "SAP-ARCHI-GRENOBLE-A",
+        "SAP-ARCHI-GUSTAVE-EIFFEL",
+        "SAP-ARCHI-LYON",
+        "SAP-ARCHI-ROUEN",
+        "SAP-ARCHI-PARIS-LAVILLETTE",
+        "SAP-ARCHI-EAVT-MARNE",
+        "SAP-ARCHI-RENNES",
+        "SAP-ARCHI-NANCY",
+        "SAP-ARCHI-NANTES-ARCHI",
+        "SAP-ARCHI-GRENOBLE-B",
+        "SAP-ARCHI-SORBONNE",
+        "SAP-ARCHI-VERSAILLES-PAYSAGE",
+        "SAP-ARCHI-TOULOUSE",
+        "SAP-ARCHI-MARSEILLE",
+        "SAP-ARCHI-VERSAILLES-ARCHI",
+        "SAP-ARCHI-BORDEAUX-PAYSAGE",
+        "SAP-ARCHI-UNI-STUTTGART",
+        "SAP-ARCHI-AACHEN",
+        "SAP-ARCHI-KOLN-A",
+        "SAP-ARCHI-WEIMAR",
+        "SAP-ARCHI-HS-DARMSTADT",
+        "SAP-ARCHI-KASSEL-A",
+        "SAP-ARCHI-TU-DARMSTADT",
+        "SAP-ARCHI-BREMEN",
+        "SAP-ARCHI-KASSEL-B",
+        "SAP-ARCHI-HFT-STUTTGART-A",
+        "SAP-ARCHI-MAINZ",
+        "SAP-ARCHI-FREISING",
+        "SAP-ARCHI-COTTBUS",
+        "SAP-ARCHI-HILDESHEIM",
+        "SAP-ARCHI-HANNOVER",
+        "SAP-ARCHI-FRANKFURT",
+        "SAP-ARCHI-KARLSRUHE",
+        "SAP-ARCHI-HFT-STUTTGART-B",
+        "SAP-ARCHI-KOLN-B",
+        "SAP-ARCHI-TUM-A",
+        "SAP-ARCHI-TUM-B",
+        "SAP-ARCHI-BRAUNSCHWEIG",
+        "SAP-ARCHI-HVANNEYRI",
+        "SAP-ARCHI-RIGA",
+        "SAP-ARCHI-VILNIUS",
+        "SAP-ARCHI-MALTA",
+        "SAP-ARCHI-ZWOLLE",
+        "SAP-ARCHI-WAGENINGEN",
+        "SAP-ARCHI-POZNAN",
+        "SAP-ARCHI-PW-WARSZAWA",
+        "SAP-ARCHI-LUBLIN",
+        "SAP-ARCHI-COVILHA",
+        "SAP-ARCHI-VIANA-CASTELO",
+        "SAP-ARCHI-MADEIRA",
+        "SAP-ARCHI-PORTO-A",
+        "SAP-ARCHI-EVORA",
+        "SAP-ARCHI-PORTO-B",
+        "SAP-ARCHI-LUSIADA-LISBOA",
+        "SAP-ARCHI-AVEIRO",
+        "SAP-ARCHI-TIMISOARA-A",
+        "SAP-ARCHI-TIMISOARA-B",
+        "SAP-ARCHI-ION-MINCU-BUCAREST",
+        "SAP-ARCHI-CLUJ-NAPOCA",
+        "SAP-ARCHI-STU-BRATISLAVA-A",
+        "SAP-ARCHI-STU-BRATISLAVA-B",
+        "SAP-ARCHI-LJUBLJANA",
+        "SAP-ARCHI-ALCALA",
+        "SAP-ARCHI-UCAM-MURCIA",
+        "SAP-ARCHI-UC-VALENCIA",
+        "SAP-ARCHI-UCJC-MADRID",
+        "SAP-ARCHI-UPV-VALENCIA-A",
+        "SAP-ARCHI-UPV-VALENCIA-B",
+        "SAP-ARCHI-UFV-MADRID",
+        "SAP-ARCHI-UNAV-PAMPLONA",
+        "SAP-ARCHI-UPCT-CARTAGENA",
+        "SAP-ARCHI-CORUNA",
+        "SAP-ARCHI-UPV-VALENCIA-C",
+        "SAP-ARCHI-GIRONA",
+        "SAP-ARCHI-ZARAGOZA",
+        "SAP-ARCHI-VALLADOLID",
+        "SAP-ARCHI-NEBRIJA-MADRID",
+        "SAP-ARCHI-MALAGA",
+        "SAP-ARCHI-UCLM-CIUDADREAL",
+        "SAP-ARCHI-UAX-MADRID",
+        "SAP-ARCHI-VIC-A",
+        "SAP-ARCHI-VIC-B",
+        "SAP-ARCHI-VAXJO",
+        "SAP-ARCHI-UMEA",
+        "SAP-ARCHI-HESSO",
+        "SAP-ARCHI-OZYEGIN-ISTANBUL",
+        "SAP-ARCHI-TOBB-ANKARA",
+        "SAP-ARCHI-AYBU-ANKARA",
+        "SAP-ARCHI-GAZI-ANKARA",
+        "SAP-ARCHI-MSGSU-ISTANBUL-A",
+        "SAP-ARCHI-ITU-ISTANBUL",
+        "SAP-ARCHI-MSGSU-ISTANBUL-B",
+        "SAP-ARCHI-IZMIR-EKONOMI",
+        "SAP-ARCHI-BURSA",
+        "SAP-ARCHI-PECS",
+        "SAP-ARCHI-BME-BUDAPEST"
+      ],
+      "tentativiLingua": {
+        "SAP-ARCHI-INNSBRUCK": 1
+      },
+      "linguaNonTrovabile": [],
+      "ateneo": "Sapienza Roma"
     }
   },
   "regoleProgressione": {
@@ -946,6 +1133,708 @@ const STATO = {
       "data": "2026-06-15",
       "mete": 2,
       "note": "Management management-batch-17: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 35,
+      "data": "2026-06-15",
+      "mete": 2,
+      "note": "Management management-batch-18: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 36,
+      "data": "2026-06-15",
+      "mete": 1,
+      "note": "Management management-batch-19: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 37,
+      "data": "2026-06-15",
+      "mete": 1,
+      "note": "Management management-batch-20: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 38,
+      "data": "2026-06-15",
+      "mete": 1,
+      "note": "Management management-batch-21: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 39,
+      "data": "2026-06-16",
+      "mete": 1,
+      "note": "Management management-batch-22: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 40,
+      "data": "2026-06-16",
+      "mete": 2,
+      "note": "Management management-batch-followup-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 41,
+      "data": "2026-06-16",
+      "mete": 5,
+      "note": "Lingue e culture orientali lingue-batch-2: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 42,
+      "data": "2026-06-16",
+      "mete": 5,
+      "note": "Lingue e culture orientali lingue-batch-3: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 43,
+      "data": "2026-06-16",
+      "mete": 5,
+      "note": "Lingue e culture orientali lingue-batch-4: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 44,
+      "data": "2026-06-16",
+      "mete": 5,
+      "note": "Lingue e culture orientali lingue-batch-5: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 45,
+      "data": "2026-06-16",
+      "mete": 3,
+      "note": "Lingue e culture orientali lingue-batch-6: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 46,
+      "data": "2026-06-16",
+      "mete": 5,
+      "note": "Scienze ambientali, informatica e statistica scienze-batch-2: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 47,
+      "data": "2026-06-23",
+      "mete": 5,
+      "note": "Scienze ambientali, informatica e statistica scienze-batch-3: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 48,
+      "data": "2026-06-23",
+      "mete": 5,
+      "note": "Scienze ambientali, informatica e statistica scienze-batch-4: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 49,
+      "data": "2026-06-24",
+      "mete": 5,
+      "note": "Scienze ambientali, informatica e statistica scienze-batch-5: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 50,
+      "data": "2026-06-24",
+      "mete": 3,
+      "note": "Scienze ambientali, informatica e statistica scienze-batch-6: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 51,
+      "data": "2026-06-24",
+      "mete": 5,
+      "note": "Filosofia e Beni Culturali filosofia-batch-2: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 52,
+      "data": "2026-06-24",
+      "mete": 5,
+      "note": "Filosofia e Beni Culturali filosofia-batch-3: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 53,
+      "data": "2026-06-24",
+      "mete": 5,
+      "note": "Filosofia e Beni Culturali filosofia-batch-4: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 54,
+      "data": "2026-06-24",
+      "mete": 5,
+      "note": "Filosofia e Beni Culturali filosofia-batch-5: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 55,
+      "data": "2026-06-24",
+      "mete": 5,
+      "note": "Filosofia e Beni Culturali filosofia-batch-6: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 56,
+      "data": "2026-06-24",
+      "mete": 5,
+      "note": "Filosofia e Beni Culturali filosofia-batch-7: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 57,
+      "data": "2026-06-24",
+      "mete": 5,
+      "note": "Filosofia e Beni Culturali filosofia-batch-8: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 58,
+      "data": "2026-06-24",
+      "mete": 5,
+      "note": "Filosofia e Beni Culturali filosofia-batch-9: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 59,
+      "data": "2026-06-24",
+      "mete": 5,
+      "note": "Filosofia e Beni Culturali filosofia-batch-10: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 60,
+      "data": "2026-06-24",
+      "mete": 4,
+      "note": "Filosofia e Beni Culturali filosofia-batch-11: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 61,
+      "data": "2026-06-24",
+      "mete": 1,
+      "note": "Lingue e culture orientali lingue e culture orientali-batch-followup-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 62,
+      "data": "2026-06-25",
+      "mete": 1,
+      "note": "Lingue e culture orientali lingue e culture orientali-batch-followup-2: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 63,
+      "data": "2026-06-25",
+      "mete": 2,
+      "note": "Lingue e culture orientali lingue e culture orientali-batch-followup-3: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 64,
+      "data": "2026-06-25",
+      "mete": 1,
+      "note": "Scienze ambientali, informatica e statistica scienze ambientali, informatica e statistica-batch-followup-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 65,
+      "data": "2026-06-25",
+      "mete": 1,
+      "note": "Scienze ambientali, informatica e statistica scienze ambientali, informatica e statistica-batch-followup-2: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 66,
+      "data": "2026-06-25",
+      "mete": 3,
+      "note": "Scienze ambientali, informatica e statistica scienze ambientali, informatica e statistica-batch-followup-3: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 67,
+      "data": "2026-06-25",
+      "mete": 1,
+      "note": "Scienze ambientali, informatica e statistica scienze ambientali, informatica e statistica-batch-followup-4: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 68,
+      "data": "2026-06-25",
+      "mete": 1,
+      "note": "Scienze ambientali, informatica e statistica scienze ambientali, informatica e statistica-batch-followup-5: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 69,
+      "data": "2026-06-25",
+      "mete": 3,
+      "note": "Filosofia e Beni Culturali filosofia e beni culturali-batch-followup-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 70,
+      "data": "2026-06-25",
+      "mete": 3,
+      "note": "Filosofia e Beni Culturali filosofia e beni culturali-batch-followup-2: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 71,
+      "data": "2026-06-25",
+      "mete": 4,
+      "note": "Filosofia e Beni Culturali filosofia e beni culturali-batch-followup-3: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 72,
+      "data": "2026-06-25",
+      "mete": 4,
+      "note": "Filosofia e Beni Culturali filosofia e beni culturali-batch-followup-4: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 73,
+      "data": "2026-06-25",
+      "mete": 2,
+      "note": "Filosofia e Beni Culturali filosofia e beni culturali-batch-followup-5: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 74,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Filosofia e Beni Culturali filosofia e beni culturali-batch-followup-6: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 75,
+      "data": "2026-06-25",
+      "mete": 3,
+      "note": "Filosofia e Beni Culturali filosofia e beni culturali-batch-followup-7: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 76,
+      "data": "2026-06-25",
+      "mete": 4,
+      "note": "Filosofia e Beni Culturali filosofia e beni culturali-batch-followup-8: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 77,
+      "data": "2026-06-25",
+      "mete": 4,
+      "note": "Filosofia e Beni Culturali filosofia e beni culturali-batch-followup-9: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 78,
+      "data": "2026-06-25",
+      "mete": 2,
+      "note": "Filosofia e Beni Culturali filosofia e beni culturali-batch-followup-10: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 79,
+      "data": "2026-06-25",
+      "mete": 1,
+      "note": "Filosofia e Beni Culturali filosofia e beni culturali-batch-followup-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 80,
+      "data": "2026-06-25",
+      "mete": 1,
+      "note": "Filosofia e Beni Culturali filosofia e beni culturali-batch-followup-2: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 81,
+      "data": "2026-06-25",
+      "mete": 1,
+      "note": "Filosofia e Beni Culturali filosofia e beni culturali-batch-followup-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 82,
+      "data": "2026-06-25",
+      "mete": 1,
+      "note": "Filosofia e Beni Culturali filosofia e beni culturali-batch-followup-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 83,
+      "data": "2026-06-25",
+      "mete": 1,
+      "note": "Filosofia e Beni Culturali filosofia e beni culturali-batch-followup-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 84,
+      "data": "2026-06-25",
+      "mete": 8,
+      "note": "Avvio Scienze Molecolari e Nanosistemi: creato js/dati-mete-molecolari.js con 8 mete; accodati 2 sotto-batch."
+    },
+    {
+      "batch": 85,
+      "data": "2026-06-25",
+      "mete": 114,
+      "note": "Avvio Studi Linguistici e Culturali Comparati: creato js/dati-mete-linguistici.js con 114 mete; accodati 19 sotto-batch."
+    },
+    {
+      "batch": 86,
+      "data": "2026-06-25",
+      "mete": 21,
+      "note": "Avvio Studi Umanistici: creato js/dati-mete-umanistici.js con 21 mete; accodati 4 sotto-batch."
+    },
+    {
+      "batch": 87,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Scienze Molecolari e Nanosistemi molecolari-batch-2: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 88,
+      "data": "2026-06-25",
+      "mete": 2,
+      "note": "Scienze Molecolari e Nanosistemi molecolari-batch-3: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 89,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Linguistici e Culturali Comparati linguistici-batch-2: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 90,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Linguistici e Culturali Comparati linguistici-batch-3: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 91,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Linguistici e Culturali Comparati linguistici-batch-4: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 92,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Linguistici e Culturali Comparati linguistici-batch-5: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 93,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Linguistici e Culturali Comparati linguistici-batch-6: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 94,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Linguistici e Culturali Comparati linguistici-batch-7: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 95,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Linguistici e Culturali Comparati linguistici-batch-8: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 96,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Linguistici e Culturali Comparati linguistici-batch-9: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 97,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Linguistici e Culturali Comparati linguistici-batch-10: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 98,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Linguistici e Culturali Comparati linguistici-batch-11: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 99,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Linguistici e Culturali Comparati linguistici-batch-12: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 100,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Linguistici e Culturali Comparati linguistici-batch-13: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 101,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Linguistici e Culturali Comparati linguistici-batch-14: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 102,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Linguistici e Culturali Comparati linguistici-batch-15: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 103,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Linguistici e Culturali Comparati linguistici-batch-16: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 104,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Linguistici e Culturali Comparati linguistici-batch-17: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 105,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Linguistici e Culturali Comparati linguistici-batch-18: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 106,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Linguistici e Culturali Comparati linguistici-batch-19: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 107,
+      "data": "2026-06-25",
+      "mete": 4,
+      "note": "Studi Linguistici e Culturali Comparati linguistici-batch-20: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 108,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Umanistici umanistici-batch-2: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 109,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Umanistici umanistici-batch-3: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 110,
+      "data": "2026-06-25",
+      "mete": 5,
+      "note": "Studi Umanistici umanistici-batch-4: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 111,
+      "data": "2026-06-25",
+      "mete": 3,
+      "note": "Studi Umanistici umanistici-batch-5: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 112,
+      "data": "2026-06-25",
+      "mete": 1,
+      "note": "Scienze Molecolari e Nanosistemi scienze molecolari e nanosistemi-batch-followup-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 113,
+      "data": "2026-06-25",
+      "mete": 1,
+      "note": "Studi Linguistici e Culturali Comparati studi linguistici e culturali comparati-batch-followup-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 114,
+      "data": "2026-06-25",
+      "mete": 1,
+      "note": "Studi Linguistici e Culturali Comparati studi linguistici e culturali comparati-batch-followup-2: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 115,
+      "data": "2026-06-25",
+      "mete": 1,
+      "note": "Studi Linguistici e Culturali Comparati studi linguistici e culturali comparati-batch-followup-3: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 116,
+      "data": "2026-06-25",
+      "mete": 1,
+      "note": "Studi Linguistici e Culturali Comparati studi linguistici e culturali comparati-batch-followup-4: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 117,
+      "data": "2026-06-25",
+      "mete": 2,
+      "note": "Studi Linguistici e Culturali Comparati studi linguistici e culturali comparati-batch-followup-5: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 118,
+      "data": "2026-06-25",
+      "mete": 2,
+      "note": "Studi Linguistici e Culturali Comparati studi linguistici e culturali comparati-batch-followup-6: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 119,
+      "data": "2026-06-25",
+      "mete": 1,
+      "note": "Studi Linguistici e Culturali Comparati studi linguistici e culturali comparati-batch-followup-7: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 120,
+      "data": "2026-06-25",
+      "mete": 2,
+      "note": "Studi Linguistici e Culturali Comparati studi linguistici e culturali comparati-batch-followup-8: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 121,
+      "data": "2026-06-26",
+      "mete": 2,
+      "note": "Studi Linguistici e Culturali Comparati studi linguistici e culturali comparati-batch-followup-9: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 122,
+      "data": "2026-06-26",
+      "mete": 2,
+      "note": "Studi Linguistici e Culturali Comparati studi linguistici e culturali comparati-batch-followup-10: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 123,
+      "data": "2026-06-26",
+      "mete": 1,
+      "note": "Studi Linguistici e Culturali Comparati studi linguistici e culturali comparati-batch-followup-11: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 124,
+      "data": "2026-06-26",
+      "mete": 2,
+      "note": "Studi Linguistici e Culturali Comparati studi linguistici e culturali comparati-batch-followup-12: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 125,
+      "data": "2026-06-26",
+      "mete": 3,
+      "note": "Studi Linguistici e Culturali Comparati studi linguistici e culturali comparati-batch-followup-13: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 126,
+      "data": "2026-06-26",
+      "mete": 1,
+      "note": "Studi Linguistici e Culturali Comparati studi linguistici e culturali comparati-batch-followup-14: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 127,
+      "data": "2026-06-26",
+      "mete": 1,
+      "note": "Studi Umanistici studi umanistici-batch-followup-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 128,
+      "data": "2026-06-26",
+      "mete": 3,
+      "note": "Studi Umanistici studi umanistici-batch-followup-2: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 129,
+      "data": "2026-06-26",
+      "mete": 1,
+      "note": "Studi Umanistici studi umanistici-batch-followup-3: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 130,
+      "data": "2026-06-26",
+      "mete": 20,
+      "note": "Avvio Giurisprudenza (Sapienza): creato js/atenei/sapienza/dati-mete-giurisprudenza.js con 20 mete; accodati 4 sotto-batch."
+    },
+    {
+      "batch": 131,
+      "data": "2026-07-01",
+      "mete": 5,
+      "note": "Giurisprudenza (Sapienza) giurisprudenza-batch-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 132,
+      "data": "2026-07-01",
+      "mete": 5,
+      "note": "Giurisprudenza (Sapienza) giurisprudenza-batch-2: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 133,
+      "data": "2026-07-01",
+      "mete": 5,
+      "note": "Giurisprudenza (Sapienza) giurisprudenza-batch-3: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 134,
+      "data": "2026-07-01",
+      "mete": 5,
+      "note": "Giurisprudenza (Sapienza) giurisprudenza-batch-4: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 135,
+      "data": "2026-07-01",
+      "mete": 4,
+      "note": "Giurisprudenza (Sapienza) giurisprudenza (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 136,
+      "data": "2026-07-01",
+      "mete": 1,
+      "note": "Giurisprudenza (Sapienza) giurisprudenza (sapienza)-batch-followup-2: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 137,
+      "data": "2026-07-01",
+      "mete": 1,
+      "note": "Giurisprudenza (Sapienza) giurisprudenza (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": "manuale-2026-07-01",
+      "data": "2026-07-01",
+      "mete": 35,
+      "note": "Espansione manuale Giurisprudenza (Sapienza): da 20 a 55 mete (56 righe DB Sapienza IUS, esclusa 1 duplicato PhD/Specializzandi). Accodati 7 sotto-batch di follow-up (35 mete, lingua+scadenze)."
+    },
+    {
+      "batch": "manuale-2026-07-01-b",
+      "data": "2026-07-01",
+      "mete": 15,
+      "note": "Avvio manuale Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza): creato js/atenei/sapienza/dati-mete-medicina-psicologia-area-medica.js con 15 mete (ambito=MEDIC2, 2 pagine DB); accodati 3 sotto-batch iniziali dopo i 7 di Giurisprudenza, cosi' l'automazione prosegue senza fermarsi."
+    },
+    {
+      "batch": "manuale-2026-07-02",
+      "data": "2026-07-02",
+      "mete": 113,
+      "note": "Avvio manuale 3a Facolta Sapienza: ARCHITETTURA (ambito=ARCHI). Verificato prima che Economia resta senza sedi pubblicate (bando 26/27, confermato in diretta sul DB). Estratte via web_fetch tutte le 118 righe (12 pagine) del DB Go Erasmus+; 5 righe erano riservate esclusivamente a PhD/Specializzandi e non modellate (stesso criterio di Giurisprudenza), risultato 113 mete reali in js/atenei/sapienza/dati-mete-architettura.js. Promotore non unico per Facolta (come Medicina): ogni accordo ha il suo coordinatoreCf. 12 atenei compaiono piu' volte come accordi distinti (promotore/posti/livelli diversi), disambiguati con suffisso -a/-b/-c su id e codiceErasmus. Agganciato a index.html nella catena _meteAllSap. Accodati 23 batch da 5 mete (ultimo da 3) in prossimiBatch, DOPO i 3 di Medicina, cosi' Codex prosegue in automatico senza fermarsi. Validato con node --check e scripts/valida-stato.mjs su copia scratch (bash risultava stale sul file mappatura-stato.json, letto/validato solo via Read/Write)."
+    },
+    {
+      "batch": 138,
+      "data": "2026-07-02",
+      "mete": 5,
+      "note": "Giurisprudenza (Sapienza) giurisprudenza (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 139,
+      "data": "2026-07-02",
+      "mete": 5,
+      "note": "Giurisprudenza (Sapienza) giurisprudenza (sapienza)-batch-followup-2: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 140,
+      "data": "2026-07-02",
+      "mete": 5,
+      "note": "Giurisprudenza (Sapienza) giurisprudenza (sapienza)-batch-followup-3: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 141,
+      "data": "2026-07-02",
+      "mete": 5,
+      "note": "Giurisprudenza (Sapienza) giurisprudenza (sapienza)-batch-followup-4: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 142,
+      "data": "2026-07-02",
+      "mete": 5,
+      "note": "Giurisprudenza (Sapienza) giurisprudenza (sapienza)-batch-followup-5: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 143,
+      "data": "2026-07-02",
+      "mete": 5,
+      "note": "Giurisprudenza (Sapienza) giurisprudenza (sapienza)-batch-followup-6: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 144,
+      "data": "2026-07-02",
+      "mete": 5,
+      "note": "Giurisprudenza (Sapienza) giurisprudenza (sapienza)-batch-followup-7: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 145,
+      "data": "2026-07-02",
+      "mete": 5,
+      "note": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza) medicina-psicologia-area-medica-batch-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 146,
+      "data": "2026-07-02",
+      "mete": 5,
+      "note": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza) medicina-psicologia-area-medica-batch-2: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 147,
+      "data": "2026-07-02",
+      "mete": 5,
+      "note": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza) medicina-psicologia-area-medica-batch-3: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 148,
+      "data": "2026-07-02",
+      "mete": 5,
+      "note": "Architettura (Sapienza) architettura-batch-1: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
@@ -953,8 +1842,8 @@ const STATO = {
       "id": "filosofia-batch-1",
       "data": "2026-06-15",
       "dipartimento": "Filosofia e Beni Culturali",
-      "tipo": "nuovo_dipartimento",
       "esito": "completato",
+      "tipo": "nuovo_dipartimento",
       "mete": [
         "CZ BRNO05",
         "CZ PRAHA07",
@@ -1214,6 +2103,7 @@ storicoInv.forEach(function(s) {
 </script>
 </body>
 </html>
+
 
 
 

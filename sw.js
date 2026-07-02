@@ -1,4 +1,6 @@
 // Service worker minimo: cache di base dei file statici, niente notifiche/offline completo.
+// Strategia "network-first": prova sempre la rete per primo, cosi' un nuovo deploy
+// si vede subito. La cache serve solo come fallback se sei offline.
 const CACHE_NOME = "erasmuswiz-v1";
 const FILE_DA_CACHE = [
   "./",
@@ -28,6 +30,12 @@ self.addEventListener("activate", (evento) => {
 self.addEventListener("fetch", (evento) => {
   if (evento.request.method !== "GET") return;
   evento.respondWith(
-    caches.match(evento.request).then((risposta) => risposta || fetch(evento.request))
+    fetch(evento.request)
+      .then((risposta) => {
+        const copia = risposta.clone();
+        caches.open(CACHE_NOME).then((cache) => cache.put(evento.request, copia));
+        return risposta;
+      })
+      .catch(() => caches.match(evento.request))
   );
 });
