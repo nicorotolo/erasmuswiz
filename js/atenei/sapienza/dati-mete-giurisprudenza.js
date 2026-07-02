@@ -1251,9 +1251,14 @@ var METE = [
     posti: [
       { numero: 3, mesi: 10, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "livello minimo raccomandato; certificato non richiesto" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "dal 15 aprile al 5 luglio 2026" },
+        { cosa: "Application (primavera)", periodo: "dal 15 aprile al 5 luglio 2026" }
+      ],
     notePratiche: "Posti totali dell'accordo: 3. Solo livello triennale."
   },
   {
@@ -1269,9 +1274,17 @@ var METE = [
       { numero: 2, mesi: 10, livello: "L", note: "" },
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B2", condizione: "livello raccomandato" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application/registrazione (autunno)", periodo: "entro 15 giugno" },
+        { cosa: "Application/registrazione (primavera)", periodo: "entro 15 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -1286,9 +1299,14 @@ var METE = [
     posti: [
       { numero: 3, mesi: 9, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato per la maggior parte dei corsi di laurea" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "dal 1 aprile al 15 maggio" },
+        { cosa: "Application (primavera)", periodo: "dal 1 al 31 ottobre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 3. Solo livello triennale."
   },
   {
@@ -1304,9 +1322,16 @@ var METE = [
       { numero: 5, mesi: 9, livello: "L", note: "" },
       { numero: 5, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "richiesto per alcune scuole/facolta' e raccomandato per corsi principalmente in spagnolo" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "dal 24 febbraio al 15 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "dal 2 ottobre al 10 novembre 2026" },
+        { cosa: "Application/documenti (autunno)", periodo: "entro 31 luglio" },
+        { cosa: "Application/documenti (primavera)", periodo: "entro 30 gennaio" }
+      ],
     notePratiche: "Posti totali dell'accordo: 5 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -1321,9 +1346,16 @@ var METE = [
     posti: [
       { numero: 2, mesi: 9, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "richiesto all'inizio del semestre; B2 per Medicina" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 25 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 25 ottobre" },
+        { cosa: "Application (autunno)", periodo: "entro 31 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale."
   }
 ];

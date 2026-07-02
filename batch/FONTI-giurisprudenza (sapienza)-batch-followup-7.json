@@ -1,0 +1,27 @@
+{
+  "SAP-IUS-SALAMANCA": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254525",
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254525",
+    "linkSito": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254525"
+  },
+  "SAP-IUS-LEON": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254499",
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254499",
+    "linkSito": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254499"
+  },
+  "SAP-IUS-GRANADA": {
+    "requisitoLingua": "https://internacional.ugr.es/en/students/incoming-mobility/undergraduate/exchange",
+    "scadenzeOspitante": "https://internacional.ugr.es/en/students/incoming-mobility/undergraduate/exchange",
+    "linkSito": "https://internacional.ugr.es/en/students/incoming-mobility/undergraduate/exchange"
+  },
+  "SAP-IUS-LASPALMAS": {
+    "requisitoLingua": "https://internacional.ulpgc.es/en/movilidad-incoming/universities/partner-universities/",
+    "scadenzeOspitante": "https://internacional.ulpgc.es/en/movilidad-incoming/universities/partner-universities/",
+    "linkSito": "https://internacional.ulpgc.es/en/movilidad-incoming/estudiantes-incoming/study-at-the-ulpgc-incoming/exchange-students/"
+  },
+  "SAP-IUS-CADIZ": {
+    "requisitoLingua": "https://internacional.uca.es/incoming-mobilities/students/erasmus-ka103-incoming/?lang=en",
+    "scadenzeOspitante": "https://internacional.uca.es/incoming-mobilities/students/erasmus-ka103-incoming/?lang=en",
+    "linkSito": "https://internacional.uca.es/incoming-mobilities/students/erasmus-ka103-incoming/?lang=en"
+  }
+}

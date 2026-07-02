@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Giurisprudenza (Sapienza)",
-  "runCompletati": 143,
+  "runCompletati": 144,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "giurisprudenza (sapienza)-batch-followup-7",
-      "priorita": 6,
-      "dipartimento": "Giurisprudenza (Sapienza)",
-      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "SAP-IUS-SALAMANCA",
-        "SAP-IUS-LEON",
-        "SAP-IUS-GRANADA",
-        "SAP-IUS-LASPALMAS",
-        "SAP-IUS-CADIZ"
-      ]
-    },
     {
       "id": "medicina-psicologia-area-medica-batch-1",
       "priorita": 5,
@@ -299,18 +285,13 @@
       "fileJs": "js/atenei/sapienza/dati-mete-giurisprudenza.js",
       "stato": "in_corso",
       "totale": 55,
-      "completate": 39,
+      "completate": 44,
       "pendingScadenze": [
         "SAP-IUS-UPHF",
         "SAP-IUS-ATHENS",
         "SAP-IUS-OLSZTYN",
         "SAP-IUS-UPNA",
-        "SAP-IUS-MALAGA",
-        "SAP-IUS-SALAMANCA",
-        "SAP-IUS-LEON",
-        "SAP-IUS-GRANADA",
-        "SAP-IUS-LASPALMAS",
-        "SAP-IUS-CADIZ"
+        "SAP-IUS-MALAGA"
       ],
       "pendingLingua": [
         "SAP-IUS-UPHF",
@@ -321,12 +302,7 @@
         "SAP-IUS-OLSZTYN",
         "SAP-IUS-UCLM",
         "SAP-IUS-UPNA",
-        "SAP-IUS-ZARAGOZA",
-        "SAP-IUS-SALAMANCA",
-        "SAP-IUS-LEON",
-        "SAP-IUS-GRANADA",
-        "SAP-IUS-LASPALMAS",
-        "SAP-IUS-CADIZ"
+        "SAP-IUS-ZARAGOZA"
       ],
       "tentativiLingua": {
         "SAP-IUS-UPHF": 1,
@@ -1266,6 +1242,12 @@
       "data": "2026-07-02",
       "mete": 5,
       "note": "Giurisprudenza (Sapienza) giurisprudenza (sapienza)-batch-followup-6: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 144,
+      "data": "2026-07-02",
+      "mete": 5,
+      "note": "Giurisprudenza (Sapienza) giurisprudenza (sapienza)-batch-followup-7: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
