@@ -4,24 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 176,
+  "runCompletati": 177,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "architettura (sapienza)-batch-followup-3",
-      "priorita": 6,
-      "dipartimento": "Architettura (Sapienza)",
-      "descrizione": "Architettura (Sapienza) - follow-up pending",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "SAP-ARCHI-NANTES-DESIGN",
-        "SAP-ARCHI-GUSTAVE-EIFFEL"
-      ]
-    },
     {
       "id": "architettura (sapienza)-batch-followup-4",
       "priorita": 6,
@@ -403,9 +392,8 @@
       "fileJs": "js/atenei/sapienza/dati-mete-architettura.js",
       "stato": "in_corso",
       "totale": 113,
-      "completate": 76,
+      "completate": 78,
       "pendingScadenze": [
-        "SAP-ARCHI-GUSTAVE-EIFFEL",
         "SAP-ARCHI-EAVT-MARNE",
         "SAP-ARCHI-FREISING",
         "SAP-ARCHI-HVANNEYRI",
@@ -416,8 +404,6 @@
         "SAP-ARCHI-HESSO"
       ],
       "pendingLingua": [
-        "SAP-ARCHI-NANTES-DESIGN",
-        "SAP-ARCHI-GUSTAVE-EIFFEL",
         "SAP-ARCHI-KASSEL-A",
         "SAP-ARCHI-KASSEL-B",
         "SAP-ARCHI-HFT-STUTTGART-A",
@@ -452,8 +438,6 @@
       "tentativiLingua": {
         "SAP-ARCHI-EKA-TALLINN": 2,
         "SAP-ARCHI-LILLE": 2,
-        "SAP-ARCHI-NANTES-DESIGN": 1,
-        "SAP-ARCHI-GUSTAVE-EIFFEL": 1,
         "SAP-ARCHI-KASSEL-A": 1,
         "SAP-ARCHI-KASSEL-B": 1,
         "SAP-ARCHI-HFT-STUTTGART-A": 1,
@@ -1574,6 +1558,12 @@
       "data": "2026-07-02",
       "mete": 2,
       "note": "Architettura (Sapienza) architettura (sapienza)-batch-followup-2: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 177,
+      "data": "2026-07-02",
+      "mete": 2,
+      "note": "Architettura (Sapienza) architettura (sapienza)-batch-followup-3: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
