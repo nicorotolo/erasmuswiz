@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza)",
-  "runCompletati": 147,
+  "runCompletati": 148,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "architettura-batch-1",
-      "priorita": 5,
-      "dipartimento": "Architettura (Sapienza)",
-      "descrizione": "Architettura (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "SAP-ARCHI-INNSBRUCK",
-        "SAP-ARCHI-ULB-BXL",
-        "SAP-ARCHI-MONS",
-        "SAP-ARCHI-UCLOUVAIN",
-        "SAP-ARCHI-LIEGE"
-      ]
-    },
     {
       "id": "architettura-batch-2",
       "priorita": 5,
@@ -374,6 +360,16 @@
         "SAP-MEDIC2-CORUNA",
         "SAP-MEDIC2-COMILLAS-B"
       ]
+    },
+    {
+      "id": "architettura (sapienza)-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - follow-up pending",
+      "tipo": "lingua",
+      "mete": [
+        "SAP-ARCHI-INNSBRUCK"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -595,13 +591,8 @@
       "fileJs": "js/atenei/sapienza/dati-mete-architettura.js",
       "stato": "in_corso",
       "totale": 113,
-      "completate": 0,
+      "completate": 4,
       "pendingScadenze": [
-        "SAP-ARCHI-INNSBRUCK",
-        "SAP-ARCHI-ULB-BXL",
-        "SAP-ARCHI-MONS",
-        "SAP-ARCHI-UCLOUVAIN",
-        "SAP-ARCHI-LIEGE",
         "SAP-ARCHI-KULEUVEN",
         "SAP-ARCHI-UACEG-SOFIA",
         "SAP-ARCHI-NICOSIA",
@@ -713,10 +704,6 @@
       ],
       "pendingLingua": [
         "SAP-ARCHI-INNSBRUCK",
-        "SAP-ARCHI-ULB-BXL",
-        "SAP-ARCHI-MONS",
-        "SAP-ARCHI-UCLOUVAIN",
-        "SAP-ARCHI-LIEGE",
         "SAP-ARCHI-KULEUVEN",
         "SAP-ARCHI-UACEG-SOFIA",
         "SAP-ARCHI-NICOSIA",
@@ -826,7 +813,9 @@
         "SAP-ARCHI-PECS",
         "SAP-ARCHI-BME-BUDAPEST"
       ],
-      "tentativiLingua": {},
+      "tentativiLingua": {
+        "SAP-ARCHI-INNSBRUCK": 1
+      },
       "linguaNonTrovabile": [],
       "ateneo": "Sapienza Roma"
     }
@@ -1739,6 +1728,12 @@
       "data": "2026-07-02",
       "mete": 5,
       "note": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza) medicina-psicologia-area-medica-batch-3: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 148,
+      "data": "2026-07-02",
+      "mete": 5,
+      "note": "Architettura (Sapienza) architettura-batch-1: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

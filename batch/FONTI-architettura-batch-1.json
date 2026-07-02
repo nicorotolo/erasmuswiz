@@ -1,0 +1,26 @@
+{
+  "SAP-ARCHI-INNSBRUCK": {
+    "scadenzeOspitante": "https://www.uibk.ac.at/en/international-relations-office/student-mobility/incoming/mobility-programmes/erasmus-studmob/",
+    "linkSito": "https://www.uibk.ac.at/en/international-relations-office/student-mobility/incoming/mobility-programmes/erasmus-studmob/"
+  },
+  "SAP-ARCHI-ULB-BXL": {
+    "requisitoLingua": "https://www.ulb.be/medias/fichier/factsheet-eu-26-27_1771598204643-pdf",
+    "scadenzeOspitante": "https://www.ulb.be/medias/fichier/factsheet-eu-26-27_1771598204643-pdf",
+    "linkSito": "https://www.ulb.be/en/incoming-mobility/incoming-erasmus-students"
+  },
+  "SAP-ARCHI-MONS": {
+    "requisitoLingua": "https://web.umons.ac.be/fweg/en/mobilite-etudiante-international/venir-mobilite-in/informations-pratiques/",
+    "scadenzeOspitante": "https://web.umons.ac.be/app/uploads/2023/02/Factsheet-UMONS_February-2023.pdf",
+    "linkSito": "https://web.umons.ac.be/fr/international/mobilite-incoming/"
+  },
+  "SAP-ARCHI-UCLOUVAIN": {
+    "requisitoLingua": "https://www.uclouvain.be/fr/facultes/espo/nomination-and-application",
+    "scadenzeOspitante": "https://www.uclouvain.be/fr/facultes/epl/exchange-application",
+    "linkSito": "https://www.uclouvain.be/fr/facultes/epl/exchange-application"
+  },
+  "SAP-ARCHI-LIEGE": {
+    "requisitoLingua": "https://www.international.uliege.be/cms/c_9116292/en/language-requirements-/incoming-exchange-students",
+    "scadenzeOspitante": "https://www.international.uliege.be/cms/c_9116184/en/international-application-form-/-incoming-exchange-student",
+    "linkSito": "https://www.international.uliege.be/cms/c_18643738/en/international-exchange-student"
+  }
+}
