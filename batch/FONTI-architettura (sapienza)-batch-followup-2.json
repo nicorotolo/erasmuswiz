@@ -1,0 +1,10 @@
+{
+  "SAP-ARCHI-EKA-TALLINN": {
+    "linkSito": "https://erasmus.artun.ee/incoming-student/admission",
+    "notePraticheAppend": "https://erasmus.artun.ee/incoming-student/admission"
+  },
+  "SAP-ARCHI-LILLE": {
+    "linkSito": "https://www.lille.archi.fr/etudiants-en-echange/",
+    "notePraticheAppend": "https://www.lille.archi.fr/etudiants-en-echange/"
+  }
+}

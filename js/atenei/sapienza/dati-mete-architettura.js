@@ -313,7 +313,7 @@ var METE = [
         { cosa: "Nomination/Application (autunno)", periodo: "entro 1 maggio" },
         { cosa: "Nomination/Application (primavera)", periodo: "entro 15 ottobre" }
       ],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-archi-lille",
@@ -334,7 +334,7 @@ var METE = [
         { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
         { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" }
       ],
-    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-archi-montpellier",
