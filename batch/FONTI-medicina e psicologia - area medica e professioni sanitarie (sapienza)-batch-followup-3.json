@@ -1,0 +1,14 @@
+{
+  "SAP-MEDIC2-ALFONSOX": {
+    "requisitoLingua": "https://www.uax.com/download/10316/file/UPDATED-FACTSHEET.pdf",
+    "linkSito": "https://www.uax.com/download/10316/file/UPDATED-FACTSHEET.pdf"
+  },
+  "SAP-MEDIC2-CORUNA": {
+    "requisitoLingua": "https://www.udc.es/en/ori/infestudantesextranxeiros/Admision/12y56_LanguageProficiency/",
+    "linkSito": "https://www.udc.es/en/ori/entrantes/"
+  },
+  "SAP-MEDIC2-COMILLAS-B": {
+    "linkSito": "https://www.comillas.edu/en/estudiantes-recibidos-incoming/",
+    "notePraticheAppend": "https://www.comillas.edu/en/estudiantes-recibidos-incoming/"
+  }
+}

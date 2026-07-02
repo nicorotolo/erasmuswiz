@@ -295,7 +295,10 @@ var METE = [
     posti: [
       { numero: 4, mesi: 3, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B2", condizione: "lingua di insegnamento" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese, soggetti a disponibilita" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Nomination (autunno)", periodo: "1 marzo - 31 marzo" },
@@ -317,7 +320,9 @@ var METE = [
     posti: [
       { numero: 3, mesi: 3, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato; non e richiesta certificazione" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Nomination (autunno)", periodo: "entro 1 giugno" },
@@ -367,6 +372,6 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 1 giugno 2026 per studenti Erasmus" },
         { cosa: "Application (primavera)", periodo: "entro 1 novembre 2026 per studenti Erasmus" }
       ],
-    notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale. Secondo accordo distinto con lo stesso ateneo (promotore Flavia Pantaleo, vedi anche sap-medic2-comillas-a con promotore Maria Chiara Vulpiani). || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale. Secondo accordo distinto con lo stesso ateneo (promotore Flavia Pantaleo, vedi anche sap-medic2-comillas-a con promotore Maria Chiara Vulpiani). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   }
 ];
