@@ -573,8 +573,11 @@ var METE = [
         { lingua: "Francese", livello: "B2-C1", condizione: "raccomandato per corsi di Master" }
       ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Nomination/application (autunno)", periodo: "entro 31 maggio" },
+        { cosa: "Nomination/application (primavera)", periodo: "entro 1 ottobre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Scadenze: basate su 2025/26"
   },
   {
     id: "sap-archi-rennes",

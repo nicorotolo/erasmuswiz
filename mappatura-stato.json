@@ -4,23 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 177,
+  "runCompletati": 178,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "architettura (sapienza)-batch-followup-4",
-      "priorita": 6,
-      "dipartimento": "Architettura (Sapienza)",
-      "descrizione": "Architettura (Sapienza) - follow-up pending",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "SAP-ARCHI-EAVT-MARNE"
-      ]
-    },
     {
       "id": "architettura (sapienza)-batch-followup-5",
       "priorita": 6,
@@ -392,9 +382,8 @@
       "fileJs": "js/atenei/sapienza/dati-mete-architettura.js",
       "stato": "in_corso",
       "totale": 113,
-      "completate": 78,
+      "completate": 79,
       "pendingScadenze": [
-        "SAP-ARCHI-EAVT-MARNE",
         "SAP-ARCHI-FREISING",
         "SAP-ARCHI-HVANNEYRI",
         "SAP-ARCHI-MADEIRA",
@@ -1564,6 +1553,12 @@
       "data": "2026-07-02",
       "mete": 2,
       "note": "Architettura (Sapienza) architettura (sapienza)-batch-followup-3: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 178,
+      "data": "2026-07-02",
+      "mete": 1,
+      "note": "Architettura (Sapienza) architettura (sapienza)-batch-followup-4: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
