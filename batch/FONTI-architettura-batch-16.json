@@ -1,0 +1,27 @@
+{
+  "SAP-ARCHI-CLUJ-NAPOCA": {
+    "scadenzeOspitante": "https://bri.utcluj.ro/en/erasmus_plus_incoming_students.php",
+    "linkSito": "https://bri.utcluj.ro/en/erasmus_plus_incoming_students.php",
+    "notePraticheAppend": "https://bri.utcluj.ro/en/erasmus_plus_incoming_students.php"
+  },
+  "SAP-ARCHI-STU-BRATISLAVA-A": {
+    "scadenzeOspitante": "https://www.stuba.sk/english/exchange-students/application-procedure-for-erasmus-incoming-students.html?page_id=10319",
+    "linkSito": "https://www.stuba.sk/english/exchange-students/application-procedure-for-erasmus-incoming-students.html?page_id=10319",
+    "notePraticheAppend": "https://www.stuba.sk/english/exchange-students/application-procedure-for-erasmus-incoming-students.html?page_id=10319"
+  },
+  "SAP-ARCHI-STU-BRATISLAVA-B": {
+    "scadenzeOspitante": "https://www.stuba.sk/english/exchange-students/application-procedure-for-erasmus-incoming-students.html?page_id=10319",
+    "linkSito": "https://www.stuba.sk/english/exchange-students/application-procedure-for-erasmus-incoming-students.html?page_id=10319",
+    "notePraticheAppend": "https://www.stuba.sk/english/exchange-students/application-procedure-for-erasmus-incoming-students.html?page_id=10319"
+  },
+  "SAP-ARCHI-LJUBLJANA": {
+    "requisitoLingua": "https://www.uni-lj.si/en/study/exchanges/tuji-studenti",
+    "scadenzeOspitante": "https://www.uni-lj.si/en/study/exchanges/tuji-studenti",
+    "linkSito": "https://www.uni-lj.si/en/study/exchanges/tuji-studenti"
+  },
+  "SAP-ARCHI-ALCALA": {
+    "requisitoLingua": "https://www.uah.es/export/sites/uah/en/internacional/.galleries/Galeria-de-descargas-de-Internacional/Factsheet-UAH-v.flash.pdf",
+    "scadenzeOspitante": "https://www.uah.es/export/sites/uah/en/internacional/.galleries/Galeria-de-descargas-de-Internacional/Factsheet-UAH-v.flash.pdf",
+    "linkSito": "https://www.uah.es/export/sites/uah/en/internacional/.galleries/Galeria-de-descargas-de-Internacional/Factsheet-UAH-v.flash.pdf"
+  }
+}

@@ -1830,8 +1830,11 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 15 luglio" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-archi-stu-bratislava-a",
@@ -1848,8 +1851,13 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Alessandra Capanna)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "1 aprile - 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "1 settembre - 31 ottobre" },
+        { cosa: "Application (autunno)", periodo: "1 aprile - 30 giugno" },
+        { cosa: "Application (primavera)", periodo: "1 settembre - 10 novembre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Alessandra Capanna). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-archi-stu-bratislava-b",
@@ -1866,8 +1874,13 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. Ulteriore accordo distinto con lo stesso ateneo (promotore Carmela Mariano)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "1 aprile - 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "1 settembre - 31 ottobre" },
+        { cosa: "Application (autunno)", periodo: "1 aprile - 30 giugno" },
+        { cosa: "Application (primavera)", periodo: "1 settembre - 10 novembre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. Ulteriore accordo distinto con lo stesso ateneo (promotore Carmela Mariano). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-archi-ljubljana",
@@ -1882,9 +1895,14 @@ var METE = [
       { numero: 1, mesi: 10, livello: "L", note: "" },
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Sloveno o inglese", livello: "B2", condizione: "per studiare presso l'ateneo" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -1900,9 +1918,17 @@ var METE = [
       { numero: 1, mesi: 10, livello: "L", note: "" },
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B2", condizione: "requisito standard per corsi in spagnolo" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 aprile 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 settembre 2026" },
+        { cosa: "Application (autunno)", periodo: "entro 31 maggio 2026" },
+        { cosa: "Application (primavera)", periodo: "entro 31 ottobre 2026" }
+      ],
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
