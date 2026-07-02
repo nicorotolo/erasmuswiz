@@ -623,9 +623,14 @@ var METE = [
       { numero: 2, mesi: 10, livello: "L", note: "" },
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "certificazione raccomandata per studenti incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application/registrazione (autunno o anno intero)", periodo: "entro 15 giugno" },
+        { cosa: "Application/registrazione (primavera)", periodo: "entro 15 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -641,9 +646,14 @@ var METE = [
       { numero: 3, mesi: 10, livello: "L", note: "" },
       { numero: 3, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "minimo per mobilita incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno o anno intero)", periodo: "entro 1 giugno 2026" },
+        { cosa: "Application (primavera)", periodo: "entro 30 ottobre 2026" }
+      ],
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Barbara Pizzo)."
   },
   {
@@ -659,9 +669,17 @@ var METE = [
       { numero: 2, mesi: 10, livello: "L", note: "" },
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "raccomandato per corsi in francese" },
+        { lingua: "Inglese", livello: "B2", condizione: "raccomandato per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno o anno intero)", periodo: "entro 30 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 settembre" },
+        { cosa: "Application (autunno)", periodo: "entro 31 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -677,9 +695,18 @@ var METE = [
       { numero: 2, mesi: 10, livello: "L", note: "" },
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per Bachelor" },
+        { lingua: "Francese", livello: "B1", condizione: "per Master" },
+        { lingua: "Inglese", livello: "B1", condizione: "per Master e International Master MIV-TTT" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno o anno intero)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 16 settembre" },
+        { cosa: "Application (autunno o anno intero)", periodo: "entro 26 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 27 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -695,10 +722,16 @@ var METE = [
       { numero: 2, mesi: 10, livello: "L", note: "" },
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "richiesto per studenti incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 31 maggio 2025" },
+        { cosa: "Application (autunno)", periodo: "entro 10 giugno 2025" },
+        { cosa: "Application (primavera)", periodo: "entro 20 ottobre 2025" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Scadenze: basate su 2025/26"
   },
   {
     id: "sap-archi-marseille",

@@ -1,0 +1,27 @@
+{
+  "SAP-ARCHI-NANTES-ARCHI": {
+    "requisitoLingua": "https://www.nantes.archi.fr/en/international-mobility/in-coming/",
+    "scadenzeOspitante": "https://www.nantes.archi.fr/en/international-mobility/in-coming/",
+    "linkSito": "https://www.nantes.archi.fr/en/international-mobility/in-coming/"
+  },
+  "SAP-ARCHI-GRENOBLE-B": {
+    "requisitoLingua": "https://www.grenoble.archi.fr/venir-a-grenoble/",
+    "scadenzeOspitante": "https://www.grenoble.archi.fr/venir-a-grenoble/",
+    "linkSito": "https://www.grenoble.archi.fr/venir-a-grenoble/"
+  },
+  "SAP-ARCHI-SORBONNE": {
+    "requisitoLingua": "https://www.upf.edu/documents/d/estudiarfora/sorbonne-universite-25-26",
+    "scadenzeOspitante": "https://www.upf.edu/documents/d/estudiarfora/sorbonne-universite-25-26",
+    "linkSito": "https://www.sorbonne-universite.fr/en/education/study-sorbonne-university/exchange-students"
+  },
+  "SAP-ARCHI-VERSAILLES-PAYSAGE": {
+    "requisitoLingua": "https://collab.dvb.bayern/download/attachments/137376655/2026-27_FACT%20SHEET_ENSA%20VERSAILLES.pdf?api=v2&modificationDate=1772118108720&version=1",
+    "scadenzeOspitante": "https://collab.dvb.bayern/download/attachments/137376655/2026-27_FACT%20SHEET_ENSA%20VERSAILLES.pdf?api=v2&modificationDate=1772118108720&version=1",
+    "linkSito": "https://www.versailles.archi.fr/"
+  },
+  "SAP-ARCHI-TOULOUSE": {
+    "requisitoLingua": "https://www.toulouse.archi.fr/en/international/exchange-programmes",
+    "scadenzeOspitante": "https://www.toulouse.archi.fr/en/international/exchange-programmes",
+    "linkSito": "https://www.toulouse.archi.fr/en/international/exchange-programmes"
+  }
+}
