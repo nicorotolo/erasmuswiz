@@ -1,0 +1,25 @@
+{
+  "SAP-IUS-OLSZTYN": {
+    "linkSito": "https://bwm.uwm.edu.pl/en/erasmus/how-apply"
+  },
+  "SAP-IUS-ASE-BUCURESTI": {
+    "requisitoLingua": "https://international.ase.ro/21/wp-content/uploads/2026/04/Incoming-student-guide.pdf",
+    "scadenzeOspitante": "https://international.ase.ro/21/erasmus-incoming-students/",
+    "linkSito": "https://international.ase.ro/21/erasmus-incoming-students/"
+  },
+  "SAP-IUS-PANEUROPSKA": {
+    "requisitoLingua": "https://www.paneurouni.com/en/wp-content/uploads/2026/05/info-sheet-2026-27_c.pdf",
+    "scadenzeOspitante": "https://www.paneurouni.com/en/wp-content/uploads/2026/05/info-sheet-2026-27_c.pdf",
+    "linkSito": "https://www.paneurouni.com/en/international-cooperation/erasmus/"
+  },
+  "SAP-IUS-SANJORGE": {
+    "requisitoLingua": "https://www.usj.es/sites/default/files/content/USJ_Internacional_Fact%20Sheet_EN_Ed%20social_0.pdf",
+    "scadenzeOspitante": "https://www.usj.es/sites/default/files/content/USJ_Internacional_Fact%20Sheet_EN_Ed%20social_0.pdf",
+    "linkSito": "https://www.usj.es/internacional/movilidad/incoming/en"
+  },
+  "SAP-IUS-AVILA": {
+    "requisitoLingua": "https://www.ucavila.es/estudiantes-internacionales/oferta-academica-erasmus/",
+    "scadenzeOspitante": "https://www.ucavila.es/images/files/rrii/erasmus/incoming/BROCHURE_INCOMING_ERASMUS_STUDENTS_2026-27.pdf",
+    "linkSito": "https://www.ucavila.es/estudiantes-internacionales/oferta-academica-erasmus/"
+  }
+}

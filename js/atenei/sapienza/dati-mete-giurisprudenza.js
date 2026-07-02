@@ -1041,9 +1041,19 @@ var METE = [
       { numero: 3, mesi: 9, livello: "L", note: "" },
       { numero: 3, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "livello minimo per corsi in inglese; B2 raccomandato" },
+        { lingua: "Francese", livello: "B1", condizione: "livello minimo per corsi in francese; B2 raccomandato" },
+        { lingua: "Tedesco", livello: "B1", condizione: "livello minimo per corsi in tedesco; B2 raccomandato" },
+        { lingua: "Romeno", livello: "B1", condizione: "livello minimo per corsi in romeno; B2 raccomandato" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "entro 15 luglio" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 30 luglio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 dicembre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 dicembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -1059,9 +1069,16 @@ var METE = [
       { numero: 3, mesi: 9, livello: "L", note: "" },
       { numero: 3, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese; esentati gli studenti con buona padronanza di slovacco o ceco" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -1077,9 +1094,17 @@ var METE = [
       { numero: 2, mesi: 10, livello: "L", note: "" },
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "livello raccomandato per corsi in spagnolo" },
+        { lingua: "Inglese", livello: "B1", condizione: "livello raccomandato per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "entro 15 maggio" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 dicembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -1095,9 +1120,16 @@ var METE = [
       { numero: 3, mesi: 9, livello: "L", note: "" },
       { numero: 3, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "livello raccomandato per corsi in spagnolo" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
+        { cosa: "Documentazione (autunno)", periodo: "entro 15 luglio" },
+        { cosa: "Application (primavera)", periodo: "entro 31 ottobre" },
+        { cosa: "Documentazione (primavera)", periodo: "entro 15 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
