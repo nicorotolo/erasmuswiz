@@ -1,0 +1,24 @@
+{
+  "SAP-ARCHI-UCLM-CIUDADREAL": {
+    "scadenzeOspitante": "https://www.uclm.es/en/misiones/internacional/movilidad/movilidad_entrante/estudiantes/estudiantes-de-intercambio",
+    "linkSito": "https://www.uclm.es/en/misiones/internacional/movilidad/movilidad_entrante/estudiantes/estudiantes-de-intercambio"
+  },
+  "SAP-ARCHI-UAX-MADRID": {
+    "requisitoLingua": "https://www.uax.com/download/10316/file/UPDATED-FACTSHEET.pdf",
+    "scadenzeOspitante": "https://www.uax.com/download/10316/file/UPDATED-FACTSHEET.pdf",
+    "linkSito": "https://www.uax.com/ori"
+  },
+  "SAP-ARCHI-VIC-A": {
+    "scadenzeOspitante": "https://www.uvic.cat/en/international/exchange-programmes/application",
+    "linkSito": "https://www.uvic.cat/en/international/exchange-programmes/application"
+  },
+  "SAP-ARCHI-VIC-B": {
+    "scadenzeOspitante": "https://www.uvic.cat/en/international/exchange-programmes/application",
+    "linkSito": "https://www.uvic.cat/en/international/exchange-programmes/application"
+  },
+  "SAP-ARCHI-VAXJO": {
+    "requisitoLingua": "https://www.lnu.se/en/education/exchange-studies/",
+    "scadenzeOspitante": "https://www.lnu.se/en/education/exchange-studies/",
+    "linkSito": "https://www.lnu.se/en/education/exchange-studies/"
+  }
+}

@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza)",
-  "runCompletati": 166,
+  "runCompletati": 167,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "architettura-batch-20",
-      "priorita": 5,
-      "dipartimento": "Architettura (Sapienza)",
-      "descrizione": "Architettura (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "SAP-ARCHI-UCLM-CIUDADREAL",
-        "SAP-ARCHI-UAX-MADRID",
-        "SAP-ARCHI-VIC-A",
-        "SAP-ARCHI-VIC-B",
-        "SAP-ARCHI-VAXJO"
-      ]
-    },
     {
       "id": "architettura-batch-21",
       "priorita": 5,
@@ -261,6 +247,18 @@
         "SAP-ARCHI-ZARAGOZA",
         "SAP-ARCHI-MALAGA"
       ]
+    },
+    {
+      "id": "architettura (sapienza)-batch-followup-15",
+      "priorita": 6,
+      "dipartimento": "Architettura (Sapienza)",
+      "descrizione": "Architettura (Sapienza) - follow-up pending",
+      "tipo": "lingua",
+      "mete": [
+        "SAP-ARCHI-UCLM-CIUDADREAL",
+        "SAP-ARCHI-VIC-A",
+        "SAP-ARCHI-VIC-B"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -482,7 +480,7 @@
       "fileJs": "js/atenei/sapienza/dati-mete-architettura.js",
       "stato": "in_corso",
       "totale": 113,
-      "completate": 68,
+      "completate": 70,
       "pendingScadenze": [
         "SAP-ARCHI-GUSTAVE-EIFFEL",
         "SAP-ARCHI-EAVT-MARNE",
@@ -492,11 +490,6 @@
         "SAP-ARCHI-EVORA",
         "SAP-ARCHI-UCJC-MADRID",
         "SAP-ARCHI-MALAGA",
-        "SAP-ARCHI-UCLM-CIUDADREAL",
-        "SAP-ARCHI-UAX-MADRID",
-        "SAP-ARCHI-VIC-A",
-        "SAP-ARCHI-VIC-B",
-        "SAP-ARCHI-VAXJO",
         "SAP-ARCHI-UMEA",
         "SAP-ARCHI-HESSO",
         "SAP-ARCHI-OZYEGIN-ISTANBUL",
@@ -537,10 +530,8 @@
         "SAP-ARCHI-GIRONA",
         "SAP-ARCHI-ZARAGOZA",
         "SAP-ARCHI-UCLM-CIUDADREAL",
-        "SAP-ARCHI-UAX-MADRID",
         "SAP-ARCHI-VIC-A",
         "SAP-ARCHI-VIC-B",
-        "SAP-ARCHI-VAXJO",
         "SAP-ARCHI-UMEA",
         "SAP-ARCHI-HESSO",
         "SAP-ARCHI-OZYEGIN-ISTANBUL",
@@ -579,7 +570,10 @@
         "SAP-ARCHI-STU-BRATISLAVA-B": 1,
         "SAP-ARCHI-UCJC-MADRID": 1,
         "SAP-ARCHI-GIRONA": 1,
-        "SAP-ARCHI-ZARAGOZA": 1
+        "SAP-ARCHI-ZARAGOZA": 1,
+        "SAP-ARCHI-UCLM-CIUDADREAL": 1,
+        "SAP-ARCHI-VIC-A": 1,
+        "SAP-ARCHI-VIC-B": 1
       },
       "linguaNonTrovabile": [],
       "ateneo": "Sapienza Roma"
@@ -1607,6 +1601,12 @@
       "data": "2026-07-02",
       "mete": 5,
       "note": "Architettura (Sapienza) architettura-batch-19: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 167,
+      "data": "2026-07-02",
+      "mete": 5,
+      "note": "Architettura (Sapienza) architettura-batch-20: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

@@ -2310,8 +2310,11 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-archi-uax-madrid",
@@ -2325,9 +2328,17 @@ var METE = [
     posti: [
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B2", condizione: "lingua di insegnamento 1" },
+        { lingua: "Inglese", livello: "B2", condizione: "lingua di insegnamento 2, soggetta a disponibilita" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "dal 1 aprile al 30 aprile" },
+        { cosa: "Application (autunno)", periodo: "dal 1 maggio al 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "dal 18 settembre al 30 settembre" },
+        { cosa: "Application (primavera)", periodo: "dal 1 ottobre al 31 ottobre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2. Solo livello Magistrale."
   },
   {
@@ -2344,8 +2355,13 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale. Ulteriore accordo distinto con lo stesso ateneo (promotore Angela Giambattista)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 28 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 25 ottobre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale. Ulteriore accordo distinto con lo stesso ateneo (promotore Angela Giambattista). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-archi-vic-b",
@@ -2362,8 +2378,13 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Angela Giambattista)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 28 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 25 ottobre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Angela Giambattista). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-archi-vaxjo",
@@ -2378,9 +2399,16 @@ var METE = [
       { numero: 1, mesi: 5, livello: "L", note: "" },
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per studenti exchange non madrelingua inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 1 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
