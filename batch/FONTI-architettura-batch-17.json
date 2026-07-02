@@ -1,0 +1,25 @@
+{
+  "SAP-ARCHI-UCAM-MURCIA": {
+    "requisitoLingua": "https://www.ucam.edu/sites/default/files/public/Oficina-relaciones-internacionales/Incoming-Students/Erasmus-Students-Exchange-at-UCAM/ucam-factsheet.pdf",
+    "scadenzeOspitante": "https://www.ucam.edu/sites/default/files/public/Oficina-relaciones-internacionales/Incoming-Students/Erasmus-Students-Exchange-at-UCAM/ucam-factsheet.pdf",
+    "linkSito": "https://www.ucam.edu/sites/default/files/public/Oficina-relaciones-internacionales/Incoming-Students/Erasmus-Students-Exchange-at-UCAM/ucam-factsheet.pdf"
+  },
+  "SAP-ARCHI-UC-VALENCIA": {
+    "requisitoLingua": "https://www.ucv.es/eng/international-office/mobilities/incoming-students",
+    "scadenzeOspitante": "https://www.ucv.es/eng/international-office/mobilities/incoming-students",
+    "linkSito": "https://www.ucv.es/eng/international-office/mobilities/incoming-students"
+  },
+  "SAP-ARCHI-UCJC-MADRID": {
+    "linkSito": "https://www.ucjc.edu/en/incoming-students/"
+  },
+  "SAP-ARCHI-UPV-VALENCIA-A": {
+    "requisitoLingua": "https://www.etsie.upv.es/en/international/incoming-erasmus-exchange-students/",
+    "scadenzeOspitante": "https://www.etsie.upv.es/en/international/incoming-erasmus-exchange-students/",
+    "linkSito": "https://www.etsie.upv.es/en/international/incoming-erasmus-exchange-students/"
+  },
+  "SAP-ARCHI-UPV-VALENCIA-B": {
+    "requisitoLingua": "https://www.etsie.upv.es/en/international/incoming-erasmus-exchange-students/",
+    "scadenzeOspitante": "https://www.etsie.upv.es/en/international/incoming-erasmus-exchange-students/",
+    "linkSito": "https://www.etsie.upv.es/en/international/incoming-erasmus-exchange-students/"
+  }
+}

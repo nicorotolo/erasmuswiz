@@ -1944,9 +1944,14 @@ var METE = [
       { numero: 4, mesi: 10, livello: "L", note: "" },
       { numero: 4, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "A2", condizione: "raccomandato per corsi teorici, corsi principalmente in spagnolo" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 12 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 10 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli)."
   },
   {
@@ -1962,9 +1967,17 @@ var METE = [
       { numero: 1, mesi: 10, livello: "L", note: "" },
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "per corsi in spagnolo" },
+        { lingua: "Inglese", livello: "B1", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "1 aprile-15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "15 settembre-31 ottobre" },
+        { cosa: "Application (autunno)", periodo: "entro 1 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -1982,7 +1995,7 @@ var METE = [
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 1. Solo livello triennale."
+    notePratiche: "Posti totali dell'accordo: 1. Solo livello triennale. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-archi-upv-valencia-a",
@@ -1996,9 +2009,17 @@ var METE = [
     posti: [
       { numero: 3, mesi: 10, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "per corsi della laurea in Technical Architecture" },
+        { lingua: "Spagnolo", livello: "B2", condizione: "per corsi dei master in Building Constructions e Building Rehabilitation and Sustainability" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 settembre" },
+        { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 3. Solo livello triennale. Ulteriore accordo distinto con lo stesso ateneo (promotore Federica Dal Falco)."
   },
   {
@@ -2013,9 +2034,17 @@ var METE = [
     posti: [
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "per corsi della laurea in Technical Architecture" },
+        { lingua: "Spagnolo", livello: "B2", condizione: "per corsi dei master in Building Constructions e Building Rehabilitation and Sustainability" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 settembre" },
+        { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2. Solo livello Magistrale. Disponibile anche per PhD/Specializzandi. Ulteriore accordo distinto con lo stesso ateneo (promotore Federica Dal Falco)."
   },
   {
