@@ -1,0 +1,14 @@
+{
+  "SAP-ARCHI-KASSEL-B": {
+    "linkSito": "https://www.uni-kassel.de/uni/en/study/before-the-application/study-guide-for-international-students/exchange-studies-at-the-university-of-kassel.html",
+    "notePratiche": "https://www.uni-kassel.de/uni/en/study/before-the-application/study-guide-for-international-students/exchange-studies-at-the-university-of-kassel.html"
+  },
+  "SAP-ARCHI-HFT-STUTTGART-A": {
+    "requisitoLingua": "https://wiki.hft-stuttgart.de/spaces/HFTInt/pages/138189090/Fact+Sheet+Winter+Semester+2026+27+HFT+Stuttgart",
+    "linkSito": "https://www.hft-stuttgart.com/studies/international/incoming"
+  },
+  "SAP-ARCHI-FREISING": {
+    "scadenzeOspitante": "https://www.hswt.de/en/international/ways-to-the-hswt/exchange-students",
+    "linkSito": "https://www.hswt.de/en/international/ways-to-the-hswt/exchange-students"
+  }
+}

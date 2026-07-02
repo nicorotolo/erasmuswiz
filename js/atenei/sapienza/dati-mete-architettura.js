@@ -1056,7 +1056,7 @@ var METE = [
         { cosa: "Nomination e application (autunno)", periodo: "entro 31 maggio" },
         { cosa: "Nomination e application (primavera)", periodo: "entro 30 novembre" }
       ],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. Ulteriore accordo distinto con lo stesso ateneo (promotore Federica Dal Falco). || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. Ulteriore accordo distinto con lo stesso ateneo (promotore Federica Dal Falco). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-archi-hft-stuttgart-a",
@@ -1070,7 +1070,9 @@ var METE = [
     posti: [
       { numero: 2, mesi: 10, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "A1", condizione: "per corsi nei programmi di Architecture, Interior Architecture e General Management; frequenza di un corso di tedesco richiesta" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Nomination (autunno)", periodo: "entro 1 aprile" },
@@ -1118,7 +1120,10 @@ var METE = [
         { lingua: "Lingua di insegnamento", livello: "B1", condizione: "per la lingua dei corsi scelti" }
       ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "15 maggio - 15 giugno per il semestre invernale" },
+        { cosa: "Application (primavera)", periodo: "1 novembre - 1 dicembre per il semestre estivo" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2. Solo livello Magistrale."
   },
   {
