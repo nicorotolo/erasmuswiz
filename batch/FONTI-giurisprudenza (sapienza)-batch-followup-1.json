@@ -1,21 +1,14 @@
 {
-  "SAP-IUS-STETIENNE": {
-    "linkSito": "https://www.univ-st-etienne.fr/en/studies/exchange-programs.html"
+  "SAP-IUS-UCLM": {
+    "linkSito": "https://www.uclm.es/en/misiones/internacional/movilidad/movilidad_entrante/estudiantes/estudiantes-de-intercambio",
+    "notePraticheAppend": "https://www.uclm.es/en/misiones/internacional/movilidad/movilidad_entrante/estudiantes/estudiantes-de-intercambio"
   },
-  "SAP-IUS-UPHF": {
-    "requisitoLingua": "https://www.ajk.elte.hu/sites/default/files/%C3%81JK/documents/2025-11/%C3%81JK.FACT%20SHEET%20UPHF-INSA%20HdF%202023-24.pdf",
-    "scadenzeOspitante": "https://www.ajk.elte.hu/sites/default/files/%C3%81JK/documents/2025-11/%C3%81JK.FACT%20SHEET%20UPHF-INSA%20HdF%202023-24.pdf",
-    "linkSito": "https://www.uphf.fr/en/training/applications-registrations/international-students-international-exchange"
+  "SAP-IUS-ZARAGOZA": {
+    "linkSito": "https://derecho.unizar.es/en/incoming-students",
+    "notePraticheAppend": "https://derecho.unizar.es/en/incoming-students"
   },
-  "SAP-IUS-LEHAVRE": {
-    "requisitoLingua": "https://www.ul.ie/media/43447/download?inline=",
-    "linkSito": "https://www.univ-lehavre.fr/"
-  },
-  "SAP-IUS-TOURS": {
-    "requisitoLingua": "https://international.univ-tours.fr/english-version/admission-process-for-exchange-students/5-choose-courses-course-catalogue-international-relations-politics-courses-supervised-projects",
-    "linkSito": "https://international.univ-tours.fr/english-version/admission-process-for-exchange-students"
-  },
-  "SAP-IUS-LYON3": {
-    "linkSito": "https://www.univ-lyon3.fr/exchange-students"
+  "SAP-IUS-MALAGA": {
+    "linkSito": "https://www.uma.es/relaciones-internacionales/cms/menu/incoming-students/nomination/?set_language=en",
+    "scadenzeOspitante": "https://u.uma.es/hEB/factsheet-uma-EN/"
   }
 }

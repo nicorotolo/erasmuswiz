@@ -1182,7 +1182,7 @@ var METE = [
         { cosa: "Nomination (autunno)", periodo: "entro 30 maggio" },
         { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" }
       ],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-ius-upna",
@@ -1231,7 +1231,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 16 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 7 novembre" }
       ],
-    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26"
+    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26 || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-ius-valladolid",
@@ -1275,7 +1275,10 @@ var METE = [
         { lingua: "Spagnolo", livello: "B1", condizione: "livello minimo indicato per iniziare gli studi" }
       ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno / anno intero)", periodo: "da metà aprile a metà giugno" },
+        { cosa: "Nomination (primavera)", periodo: "da metà aprile a fine ottobre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 3. Solo livello triennale."
   },
   {

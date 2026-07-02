@@ -4,25 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza)",
-  "runCompletati": 170,
+  "runCompletati": 171,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "giurisprudenza (sapienza)-batch-followup-1",
-      "priorita": 6,
-      "dipartimento": "Giurisprudenza (Sapienza)",
-      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "SAP-IUS-UCLM",
-        "SAP-IUS-ZARAGOZA",
-        "SAP-IUS-MALAGA"
-      ]
-    },
     {
       "id": "medicina e psicologia - area medica e professioni sanitarie (sapienza)-batch-followup-1",
       "priorita": 6,
@@ -429,22 +417,19 @@
     },
     "Giurisprudenza (Sapienza)": {
       "fileJs": "js/atenei/sapienza/dati-mete-giurisprudenza.js",
-      "stato": "in_corso",
+      "stato": "completo",
       "totale": 55,
-      "completate": 52,
-      "pendingScadenze": [
-        "SAP-IUS-MALAGA"
-      ],
-      "pendingLingua": [
-        "SAP-IUS-UCLM",
-        "SAP-IUS-ZARAGOZA"
-      ],
+      "completate": 53,
+      "pendingScadenze": [],
+      "pendingLingua": [],
       "tentativiLingua": {
-        "SAP-IUS-UCLM": 1,
-        "SAP-IUS-ZARAGOZA": 1
+        "SAP-IUS-UCLM": 2,
+        "SAP-IUS-ZARAGOZA": 2
       },
       "linguaNonTrovabile": [
-        "SAP-IUS-BUCURESTI"
+        "SAP-IUS-BUCURESTI",
+        "SAP-IUS-UCLM",
+        "SAP-IUS-ZARAGOZA"
       ],
       "ateneo": "Sapienza Roma"
     },
@@ -1611,6 +1596,12 @@
       "data": "2026-07-02",
       "mete": 3,
       "note": "Architettura (Sapienza) architettura-batch-23: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 171,
+      "data": "2026-07-02",
+      "mete": 3,
+      "note": "Giurisprudenza (Sapienza) giurisprudenza (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
