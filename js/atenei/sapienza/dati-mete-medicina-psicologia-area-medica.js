@@ -206,7 +206,7 @@ var METE = [
         { cosa: "Nomination (autunno)", periodo: "entro 1 giugno per studenti Erasmus" },
         { cosa: "Nomination (primavera)", periodo: "entro 1 novembre per studenti Erasmus" }
       ],
-    notePratiche: "Posti totali dell'accordo: 1. Solo livello triennale. Secondo accordo distinto con lo stesso ateneo (promotore Maria Chiara Vulpiani, vedi anche sap-medic2-comillas-b con promotore Flavia Pantaleo). || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 1. Solo livello triennale. Secondo accordo distinto con lo stesso ateneo (promotore Maria Chiara Vulpiani, vedi anche sap-medic2-comillas-b con promotore Flavia Pantaleo). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-medic2-salamanca",
