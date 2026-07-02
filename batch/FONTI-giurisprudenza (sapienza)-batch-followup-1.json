@@ -1,7 +1,26 @@
 {
-  "SAP-IUS-BUCURESTI": {
-    "requisitoLingua": "https://unibuc.ro/international/mobilitati-studenti/studenti-de-schimb-exchange/?lang=en",
-    "scadenzeOspitante": "https://unibuc.ro/international/mobilitati-studenti/studenti-de-schimb-exchange/?lang=en",
-    "linkSito": "https://unibuc.ro/international/programul-erasmus/studenti-erasmus/?lang=en"
+  "SAP-IUS-STETIENNE": {
+    "requisitoLingua": "https://www.univ-st-etienne.fr/en/studies/exchange-programs.html",
+    "scadenzeOspitante": "https://www.univ-st-etienne.fr/en/studies/exchange-programs.html",
+    "linkSito": "https://www.univ-st-etienne.fr/en/studies/exchange-programs.html"
+  },
+  "SAP-IUS-UPHF": {
+    "linkSito": "https://www.uphf.fr/en/training/applications-registrations/international-students-international-exchange",
+    "notePraticheAppend": "https://www.uphf.fr/en/training/applications-registrations/international-students-international-exchange"
+  },
+  "SAP-IUS-LEHAVRE": {
+    "scadenzeOspitante": "https://www.univ-lehavre.fr/en/international/going-international/student-mobility/",
+    "linkSito": "https://www.univ-lehavre.fr/en/international/going-international/student-mobility/",
+    "notePraticheAppend": "https://www.univ-lehavre.fr/en/international/going-international/student-mobility/"
+  },
+  "SAP-IUS-TOURS": {
+    "scadenzeOspitante": "https://international.univ-tours.fr/medias/fichier/university-of-tours-guidelines-for-partners-2025-2026_1751534735935-pdf?ID_FICHE=406122&INLINE=FALSE",
+    "linkSito": "https://international.univ-tours.fr/english-version/admission-process-for-exchange-students",
+    "notePraticheAppend": "https://international.univ-tours.fr/english-version/admission-process-for-exchange-students"
+  },
+  "SAP-IUS-LYON3": {
+    "requisitoLingua": "https://www.jura.fu-berlin.de/international/studierendenaustausch/outgoings/partnerunis/lyon/Fact-Sheet_Universite-Jean-Moulin-Lyon-3-_26-27_ENG.pdf",
+    "scadenzeOspitante": "https://www.jura.fu-berlin.de/international/studierendenaustausch/outgoings/partnerunis/lyon/Fact-Sheet_Universite-Jean-Moulin-Lyon-3-_26-27_ENG.pdf",
+    "linkSito": "https://www.univ-lyon3.fr/exchange-students"
   }
 }

@@ -1,30 +1,16 @@
 {
   "versione": "2.0",
-  "aggiornato": "2026-07-01",
+  "aggiornato": "2026-07-02",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Giurisprudenza (Sapienza)",
-  "runCompletati": 137,
+  "runCompletati": 138,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "giurisprudenza (sapienza)-batch-followup-1",
-      "priorita": 6,
-      "dipartimento": "Giurisprudenza (Sapienza)",
-      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "SAP-IUS-STETIENNE",
-        "SAP-IUS-UPHF",
-        "SAP-IUS-LEHAVRE",
-        "SAP-IUS-TOURS",
-        "SAP-IUS-LYON3"
-      ]
-    },
     {
       "id": "giurisprudenza (sapienza)-batch-followup-2",
       "priorita": 6,
@@ -149,6 +135,18 @@
         "SAP-MEDIC2-CORUNA",
         "SAP-MEDIC2-BARCELONA",
         "SAP-MEDIC2-COMILLAS-B"
+      ]
+    },
+    {
+      "id": "giurisprudenza (sapienza)-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Giurisprudenza (Sapienza)",
+      "descrizione": "Giurisprudenza (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SAP-IUS-UPHF",
+        "SAP-IUS-LEHAVRE",
+        "SAP-IUS-TOURS"
       ]
     }
   ],
@@ -327,13 +325,9 @@
       "fileJs": "js/atenei/sapienza/dati-mete-giurisprudenza.js",
       "stato": "in_corso",
       "totale": 55,
-      "completate": 20,
+      "completate": 22,
       "pendingScadenze": [
-        "SAP-IUS-STETIENNE",
         "SAP-IUS-UPHF",
-        "SAP-IUS-LEHAVRE",
-        "SAP-IUS-TOURS",
-        "SAP-IUS-LYON3",
         "SAP-IUS-ROUEN",
         "SAP-IUS-LILLE",
         "SAP-IUS-GREIFSWALD",
@@ -366,11 +360,9 @@
         "SAP-IUS-CADIZ"
       ],
       "pendingLingua": [
-        "SAP-IUS-STETIENNE",
         "SAP-IUS-UPHF",
         "SAP-IUS-LEHAVRE",
         "SAP-IUS-TOURS",
-        "SAP-IUS-LYON3",
         "SAP-IUS-ROUEN",
         "SAP-IUS-LILLE",
         "SAP-IUS-GREIFSWALD",
@@ -402,7 +394,11 @@
         "SAP-IUS-LASPALMAS",
         "SAP-IUS-CADIZ"
       ],
-      "tentativiLingua": {},
+      "tentativiLingua": {
+        "SAP-IUS-UPHF": 1,
+        "SAP-IUS-LEHAVRE": 1,
+        "SAP-IUS-TOURS": 1
+      },
       "linguaNonTrovabile": [
         "SAP-IUS-BUCURESTI"
       ],
@@ -1294,6 +1290,12 @@
       "data": "2026-07-01",
       "mete": 15,
       "note": "Avvio manuale Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza): creato js/atenei/sapienza/dati-mete-medicina-psicologia-area-medica.js con 15 mete (ambito=MEDIC2, 2 pagine DB); accodati 3 sotto-batch iniziali dopo i 7 di Giurisprudenza, cosi' l'automazione prosegue senza fermarsi."
+    },
+    {
+      "batch": 138,
+      "data": "2026-07-02",
+      "mete": 5,
+      "note": "Giurisprudenza (Sapienza) giurisprudenza (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

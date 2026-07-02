@@ -542,9 +542,14 @@ var METE = [
       { numero: 4, mesi: 9, livello: "L", note: "" },
       { numero: 4, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "livello minimo richiesto per la maggior parte dei corsi; C1 per alcuni programmi specifici" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno e primavera)", periodo: "entro 20 maggio" },
+        { cosa: "Application / registrazione MoveOn (autunno e primavera)", periodo: "entro 15 giugno" }
+      ],
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -563,7 +568,7 @@ var METE = [
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-ius-lehavre",
@@ -580,8 +585,11 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Application (autunno / anno accademico)", periodo: "entro 15 gennaio 2026" },
+        { cosa: "Application (primavera)", periodo: "entro 15 settembre 2026" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-ius-tours",
@@ -598,8 +606,13 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno / anno accademico)", periodo: "24 marzo 2025 - 30 maggio 2025" },
+        { cosa: "Nomination (primavera)", periodo: "6 ottobre 2025 - 14 novembre 2025" },
+        { cosa: "Application / pre-registrazione (autunno / anno accademico)", periodo: "31 marzo 2025 - 6 giugno 2025" },
+        { cosa: "Application / pre-registrazione (primavera)", periodo: "6 ottobre 2025 - 21 novembre 2025" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26"
   },
   {
     id: "sap-ius-lyon3",
@@ -614,9 +627,17 @@ var METE = [
       { numero: 3, mesi: 9, livello: "L", note: "" },
       { numero: 3, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "per Law nel programma DEUF" },
+        { lingua: "Inglese", livello: "B2", condizione: "per SELF / corsi in inglese, equivalente TOEFL iBT 80 o IELTS 6.5" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 13 novembre" },
+        { cosa: "Application (autunno)", periodo: "entro 17 luglio" },
+        { cosa: "Application (primavera)", periodo: "entro 18 dicembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
