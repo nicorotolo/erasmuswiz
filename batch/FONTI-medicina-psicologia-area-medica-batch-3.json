@@ -1,0 +1,24 @@
+{
+  "SAP-MEDIC2-VALENCIA": {
+    "requisitoLingua": "https://www.ucv.es/eng-2026/international-office/mobilities/incoming-students",
+    "scadenzeOspitante": "https://www.ucv.es/international/exchange-student-at-ucv/application-for-exchange-program-acceptance",
+    "linkSito": "https://www.ucv.es/eng-2026/international-office/mobilities/incoming-students"
+  },
+  "SAP-MEDIC2-ALFONSOX": {
+    "scadenzeOspitante": "https://www.uax.com/download/76078/file/Factsheet27.pdf",
+    "linkSito": "https://www.uax.com/en/how-to-study-at-uax"
+  },
+  "SAP-MEDIC2-CORUNA": {
+    "scadenzeOspitante": "https://www.udc.gal/export/sites/udc/ori/formularios/INSTITUTIONALFACTSHEET-UDC-EN.pdf_2063069299.pdf",
+    "linkSito": "https://www.udc.es/en/ori/entrantes/"
+  },
+  "SAP-MEDIC2-BARCELONA": {
+    "requisitoLingua": "https://www.ub.edu/ori-bio/exchange-students/languages",
+    "scadenzeOspitante": "https://www.ub.edu/mobilitat-internacional/en/incoming-students/information-students-other-universities/online-acceptance-application-data-registration-procedures-and-documents/erasmus-icm/calls",
+    "linkSito": "https://www.ub.edu/mobilitat-internacional/en/incoming-students/information-students-temporary-stay-2026-2027"
+  },
+  "SAP-MEDIC2-COMILLAS-B": {
+    "scadenzeOspitante": "https://www.mcgill.ca/mcgillabroad/files/mcgillabroad/comillas_fact_sheet_2026-2027.pdf",
+    "linkSito": "https://www.comillas.edu/en/estudiantes-recibidos-incoming/"
+  }
+}

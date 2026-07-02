@@ -269,9 +269,18 @@ var METE = [
     posti: [
       { numero: 2, mesi: 6, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "per corsi in spagnolo" },
+        { lingua: "Spagnolo", livello: "B2", condizione: "per tirocini in Medicina, Infermieristica, Nutrizione, Fisioterapia e Podologia" },
+        { lingua: "Inglese", livello: "B1", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "1 aprile - 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "15 settembre - 31 ottobre" },
+        { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 31 dicembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale."
   },
   {
@@ -288,8 +297,13 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 4. Solo livello triennale."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "1 marzo - 31 marzo" },
+        { cosa: "Application (autunno)", periodo: "1 aprile - 30 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "18 settembre - 30 settembre" },
+        { cosa: "Application (primavera)", periodo: "1 ottobre - 31 ottobre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 4. Solo livello triennale. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-medic2-coruna",
@@ -305,8 +319,12 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 3. Solo livello triennale."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 1 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
+        { cosa: "Application (autunno)", periodo: "1 aprile - 31 maggio" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 3. Solo livello triennale. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-medic2-barcelona",
@@ -320,9 +338,13 @@ var METE = [
     posti: [
       { numero: 4, mesi: 3, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Catalano, Spagnolo o Inglese", livello: "B1", condizione: "in base alla lingua di insegnamento degli insegnamenti scelti" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "dal 6 marzo al 28 aprile 2026" }
+      ],
     notePratiche: "Posti totali dell'accordo: 4. Solo livello triennale."
   },
   {
@@ -339,7 +361,12 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale. Secondo accordo distinto con lo stesso ateneo (promotore Flavia Pantaleo, vedi anche sap-medic2-comillas-a con promotore Maria Chiara Vulpiani)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 1 giugno 2026 per studenti Erasmus" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 novembre 2026 per studenti Erasmus" },
+        { cosa: "Application (autunno)", periodo: "entro 1 giugno 2026 per studenti Erasmus" },
+        { cosa: "Application (primavera)", periodo: "entro 1 novembre 2026 per studenti Erasmus" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale. Secondo accordo distinto con lo stesso ateneo (promotore Flavia Pantaleo, vedi anche sap-medic2-comillas-a con promotore Maria Chiara Vulpiani). || Lingua: CEFR non pubblicato ufficialmente"
   }
 ];
