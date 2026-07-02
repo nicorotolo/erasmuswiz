@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza)",
-  "runCompletati": 144,
+  "runCompletati": 145,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "medicina-psicologia-area-medica-batch-1",
-      "priorita": 5,
-      "dipartimento": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza)",
-      "descrizione": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "SAP-MEDIC2-INNSBRUCK",
-        "SAP-MEDIC2-LUEBECK",
-        "SAP-MEDIC2-BOCHUM",
-        "SAP-MEDIC2-MALTA",
-        "SAP-MEDIC2-LISBOA"
-      ]
-    },
     {
       "id": "medicina-psicologia-area-medica-batch-2",
       "priorita": 5,
@@ -384,6 +370,16 @@
         "SAP-IUS-ZARAGOZA",
         "SAP-IUS-MALAGA"
       ]
+    },
+    {
+      "id": "medicina e psicologia - area medica e professioni sanitarie (sapienza)-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza)",
+      "descrizione": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza) - follow-up pending",
+      "tipo": "lingua",
+      "mete": [
+        "SAP-MEDIC2-INNSBRUCK"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -582,13 +578,8 @@
       "fileJs": "js/atenei/sapienza/dati-mete-medicina-psicologia-area-medica.js",
       "stato": "in_corso",
       "totale": 15,
-      "completate": 0,
+      "completate": 4,
       "pendingScadenze": [
-        "SAP-MEDIC2-INNSBRUCK",
-        "SAP-MEDIC2-LUEBECK",
-        "SAP-MEDIC2-BOCHUM",
-        "SAP-MEDIC2-MALTA",
-        "SAP-MEDIC2-LISBOA",
         "SAP-MEDIC2-SANPABLOCEU-A",
         "SAP-MEDIC2-ALICANTE",
         "SAP-MEDIC2-COMILLAS-A",
@@ -602,10 +593,6 @@
       ],
       "pendingLingua": [
         "SAP-MEDIC2-INNSBRUCK",
-        "SAP-MEDIC2-LUEBECK",
-        "SAP-MEDIC2-BOCHUM",
-        "SAP-MEDIC2-MALTA",
-        "SAP-MEDIC2-LISBOA",
         "SAP-MEDIC2-SANPABLOCEU-A",
         "SAP-MEDIC2-ALICANTE",
         "SAP-MEDIC2-COMILLAS-A",
@@ -617,7 +604,9 @@
         "SAP-MEDIC2-BARCELONA",
         "SAP-MEDIC2-COMILLAS-B"
       ],
-      "tentativiLingua": {},
+      "tentativiLingua": {
+        "SAP-MEDIC2-INNSBRUCK": 1
+      },
       "linguaNonTrovabile": [],
       "ateneo": "Sapienza Roma"
     },
@@ -1751,6 +1740,12 @@
       "data": "2026-07-02",
       "mete": 5,
       "note": "Giurisprudenza (Sapienza) giurisprudenza (sapienza)-batch-followup-7: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 145,
+      "data": "2026-07-02",
+      "mete": 5,
+      "note": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza) medicina-psicologia-area-medica-batch-1: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
