@@ -1,0 +1,26 @@
+{
+  "SAP-MEDIC2-INNSBRUCK": {
+    "scadenzeOspitante": "https://www.i-med.ac.at/de/international/incoming_erasmus/incomingstudentmobility/",
+    "linkSito": "https://www.i-med.ac.at/de/international/incoming_erasmus/incomingstudentmobility/"
+  },
+  "SAP-MEDIC2-LUEBECK": {
+    "requisitoLingua": "https://www.uni-luebeck.de/en/university-education/international/international-students/degree-programmes/language-proficiency.html",
+    "scadenzeOspitante": "https://www.uni-luebeck.de/en/university-education/international/international-students/exchange-students.html",
+    "linkSito": "https://www.uni-luebeck.de/en/university-education/international/international-students/exchange-students.html"
+  },
+  "SAP-MEDIC2-BOCHUM": {
+    "requisitoLingua": "https://international.ruhr-uni-bochum.de/sites/international.ruhr-uni-bochum.de/files/2023-10/Required%20language%20proficiency.pdf",
+    "scadenzeOspitante": "https://international.ruhr-uni-bochum.de/sites/international.ruhr-uni-bochum.de/files/2025-11/Fact%20Sheet_RUB_English_2026_27.pdf",
+    "linkSito": "https://international.ruhr-uni-bochum.de/en/erasmus-rub"
+  },
+  "SAP-MEDIC2-MALTA": {
+    "requisitoLingua": "https://www.um.edu.mt/studentlife/internationalopportunities/erasmus/incoming/",
+    "scadenzeOspitante": "https://www.um.edu.mt/international/incomingvisiting/",
+    "linkSito": "https://www.um.edu.mt/studentlife/internationalopportunities/erasmus/incoming/"
+  },
+  "SAP-MEDIC2-LISBOA": {
+    "requisitoLingua": "https://www.nms.unl.pt/Portals/0/adam/NMS%20Generic%20Content/AH9oM7mX7UKbkRYisjP70A/Content/NMS%20Factsheet%202026-2027.pdf",
+    "scadenzeOspitante": "https://www.nms.unl.pt/Portals/0/adam/NMS%20Generic%20Content/AH9oM7mX7UKbkRYisjP70A/Content/NMS%20Factsheet%202026-2027.pdf",
+    "linkSito": "https://www.nms.unl.pt/pt-pt/ensino/programa-mobilidade"
+  }
+}

@@ -39,8 +39,11 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 3. Solo livello Magistrale."
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 29 maggio 2026" },
+        { cosa: "Application (primavera)", periodo: "entro 27 novembre 2026" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 3. Solo livello Magistrale. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-medic2-luebeck",
@@ -54,9 +57,14 @@ var METE = [
     posti: [
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per programmi/corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2. Solo livello Magistrale."
   },
   {
@@ -71,9 +79,17 @@ var METE = [
     posti: [
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B1/B2", condizione: "per Medicina" },
+        { lingua: "Tedesco", livello: "B2", condizione: "per clinical traineeship in Medicina" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 1 giugno" },
+        { cosa: "Application/pre-registration (autunno)", periodo: "entro 1 luglio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 dicembre" },
+        { cosa: "Application/pre-registration (primavera)", periodo: "entro 1 gennaio" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2. Solo livello Magistrale."
   },
   {
@@ -88,9 +104,14 @@ var METE = [
     posti: [
       { numero: 3, mesi: 3, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "OLS per studenti Erasmus; C1 per corsi del Department of English" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 1 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 1 ottobre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 3. Solo livello triennale."
   },
   {
@@ -105,9 +126,15 @@ var METE = [
     posti: [
       { numero: 3, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Portoghese", livello: "B1", condizione: "per Studies Mobility" },
+        { lingua: "Portoghese", livello: "B2", condizione: "per Traineeship Mobility" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno e primavera)", periodo: "entro 15 maggio" },
+        { cosa: "Application (autunno e primavera)", periodo: "entro 15 giugno" }
+      ],
     notePratiche: "Posti totali dell'accordo: 3. Solo livello Magistrale."
   },
   {
