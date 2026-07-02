@@ -2191,8 +2191,13 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre 2026" },
+        { cosa: "Application (autunno)", periodo: "entro 1 giugno 2026" },
+        { cosa: "Application (primavera)", periodo: "entro 1 novembre 2026" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-archi-zaragoza",
@@ -2209,8 +2214,13 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 29 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro 23 ottobre 2026" },
+        { cosa: "Application (autunno)", periodo: "16 febbraio - 19 giugno 2026" },
+        { cosa: "Application (primavera)", periodo: "1 settembre - 6 novembre 2026" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-archi-valladolid",
@@ -2225,9 +2235,18 @@ var METE = [
       { numero: 5, mesi: 9, livello: "L", note: "" },
       { numero: 5, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "se la lingua di insegnamento scelta non e' lingua madre" },
+        { lingua: "Inglese", livello: "B1", condizione: "se la lingua di insegnamento scelta non e' lingua madre" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi inclusi negli International Semester Programmes" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" },
+        { cosa: "Application (autunno)", periodo: "entro 30 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 5 (condivisi tra i livelli)."
   },
   {
@@ -2243,9 +2262,17 @@ var METE = [
       { numero: 1, mesi: 10, livello: "L", note: "" },
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B2", condizione: "per seguire insegnamenti in spagnolo; richiesta per non madrelingua" },
+        { lingua: "Inglese", livello: "B2", condizione: "per seguire insegnamenti in inglese; richiesta per non madrelingua" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "16 marzo - 20 aprile 2026" },
+        { cosa: "Nomination (primavera)", periodo: "1 giugno - 15 luglio 2026" },
+        { cosa: "Application (autunno)", periodo: "documentazione entro 15 maggio 2026" },
+        { cosa: "Application (primavera)", periodo: "documentazione entro 1 settembre 2026" }
+      ],
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -2261,7 +2288,9 @@ var METE = [
       { numero: 3, mesi: 10, livello: "L", note: "" },
       { numero: 3, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "livello consigliato, necessario per seguire le lezioni" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."

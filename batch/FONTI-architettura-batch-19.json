@@ -1,0 +1,26 @@
+{
+  "SAP-ARCHI-GIRONA": {
+    "scadenzeOspitante": "https://eurep.auth.gr/sites/default/files/fact_sheets/E%20GIRONA02_%20factsheet%202026_2027.pdf",
+    "linkSito": "https://www.udg.edu/en/internacional/mobility-programs-participant/all-steps-at-a-glance/applying-to-the-udg",
+    "notePraticheAppend": "https://eurep.auth.gr/sites/default/files/fact_sheets/E%20GIRONA02_%20factsheet%202026_2027.pdf"
+  },
+  "SAP-ARCHI-ZARAGOZA": {
+    "scadenzeOspitante": "https://academico.unizar.es/en/mobility/caler",
+    "linkSito": "https://internacional.unizar.es/erasmus-incoming-students-academic-year-26-27",
+    "notePraticheAppend": "https://internacional.unizar.es/erasmus-incoming-students-academic-year-26-27"
+  },
+  "SAP-ARCHI-VALLADOLID": {
+    "requisitoLingua": "https://relint.uva.es/inicio/internacional/english/welcome-guide-english/",
+    "scadenzeOspitante": "https://relint.uva.es/inicio/internacional/english/students/erasmus-plus-ka103-en/",
+    "linkSito": "https://relint.uva.es/inicio/internacional/english/students/erasmus-plus-ka103-en/"
+  },
+  "SAP-ARCHI-NEBRIJA-MADRID": {
+    "requisitoLingua": "https://www.nebrija.com/pdf/programas-internacionales/Fact-Sheet-26-27-EN.pdf",
+    "scadenzeOspitante": "https://www.nebrija.com/pdf/programas-internacionales/Fact-Sheet-26-27-EN.pdf",
+    "linkSito": "https://www.nebrija.com/pdf/programas-internacionales/Fact-Sheet-26-27-EN.pdf"
+  },
+  "SAP-ARCHI-MALAGA": {
+    "requisitoLingua": "https://www.uma.es/relaciones-internacionales/cms/menu/erasmus/incoming-students/",
+    "linkSito": "https://www.uma.es/relaciones-internacionales/cms/menu/erasmus/incoming-students/"
+  }
+}
