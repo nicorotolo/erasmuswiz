@@ -1,0 +1,27 @@
+{
+  "SAP-ARCHI-MARSEILLE": {
+    "requisitoLingua": "https://erasmus.yildiz.edu.tr/media/files/FACTSHEET-ensa%E2%80%A2marseille-2026_27.pdf",
+    "scadenzeOspitante": "https://erasmus.yildiz.edu.tr/media/files/FACTSHEET-ensa%E2%80%A2marseille-2026_27.pdf",
+    "linkSito": "https://erasmus.yildiz.edu.tr/media/files/FACTSHEET-ensa%E2%80%A2marseille-2026_27.pdf"
+  },
+  "SAP-ARCHI-VERSAILLES-ARCHI": {
+    "requisitoLingua": "https://relint.uva.es/wp-content/uploads/2026/03/FS-26-27-F-VERSAIL05.pdf",
+    "scadenzeOspitante": "https://relint.uva.es/wp-content/uploads/2026/03/FS-26-27-F-VERSAIL05.pdf",
+    "linkSito": "https://relint.uva.es/wp-content/uploads/2026/03/FS-26-27-F-VERSAIL05.pdf"
+  },
+  "SAP-ARCHI-BORDEAUX-PAYSAGE": {
+    "requisitoLingua": "https://collab.dvb.bayern/download/attachments/137376655/FBORDEAU16_ENSAP%20BORDEAUX_FACT%20SHEET%2026-27.pdf?api=v2&modificationDate=1771858673257&version=1",
+    "scadenzeOspitante": "https://collab.dvb.bayern/download/attachments/137376655/FBORDEAU16_ENSAP%20BORDEAUX_FACT%20SHEET%2026-27.pdf?api=v2&modificationDate=1771858673257&version=1",
+    "linkSito": "https://collab.dvb.bayern/download/attachments/137376655/FBORDEAU16_ENSAP%20BORDEAUX_FACT%20SHEET%2026-27.pdf?api=v2&modificationDate=1771858673257&version=1"
+  },
+  "SAP-ARCHI-UNI-STUTTGART": {
+    "requisitoLingua": "https://www.uni-stuttgart.de/en/study/application/international-non-degree/erasmus/",
+    "scadenzeOspitante": "https://www.uni-stuttgart.de/en/study/application/international-non-degree/erasmus/",
+    "linkSito": "https://www.uni-stuttgart.de/en/study/application/international-non-degree/erasmus/"
+  },
+  "SAP-ARCHI-AACHEN": {
+    "requisitoLingua": "https://www.rwth-aachen.de/cms/root/studium/im-studium/internationales/exchange-incomings/~kwgb/bewerbung/?lidx=1",
+    "scadenzeOspitante": "https://www.rwth-aachen.de/cms/root/studium/im-studium/internationales/exchange-incomings/~eugv/informationen-fuer-partnerhochschulen/?lidx=1",
+    "linkSito": "https://www.rwth-aachen.de/cms/root/studium/im-studium/internationales/~bqtq/exchange-incomings/?lidx=1"
+  }
+}

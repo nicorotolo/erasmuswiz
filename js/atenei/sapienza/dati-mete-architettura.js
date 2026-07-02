@@ -746,9 +746,17 @@ var METE = [
       { numero: 5, mesi: 10, livello: "L", note: "" },
       { numero: 5, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per corsi BA" },
+        { lingua: "Francese", livello: "B2", condizione: "per corsi MA" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 13 aprile 2026" },
+        { cosa: "Application (autunno)", periodo: "entro 1 giugno 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro 16 novembre 2026" },
+        { cosa: "Application (primavera)", periodo: "entro 7 dicembre 2026" }
+      ],
     notePratiche: "Posti totali dell'accordo: 5 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -764,9 +772,18 @@ var METE = [
       { numero: 5, mesi: 10, livello: "L", note: "" },
       { numero: 5, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per Bachelor" },
+        { lingua: "Francese", livello: "B1", condizione: "per Master" },
+        { lingua: "Inglese", livello: "B1", condizione: "per Master e International master MIV-TTT" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 26 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 16 settembre" },
+        { cosa: "Application (primavera)", periodo: "entro 27 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 5 (condivisi tra i livelli)."
   },
   {
@@ -782,9 +799,16 @@ var METE = [
       { numero: 2, mesi: 10, livello: "L", note: "" },
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "tutti i corsi sono in francese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 settembre" },
+        { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -800,9 +824,21 @@ var METE = [
       { numero: 4, mesi: 6, livello: "L", note: "" },
       { numero: 4, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "C1", condizione: "per corsi solo in tedesco" },
+        { lingua: "Tedesco", livello: "B1", condizione: "per corsi solo in tedesco; B1 o B2 accettati" },
+        { lingua: "Tedesco", livello: "B2", condizione: "per corsi solo in tedesco; B1 o B2 accettati" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi solo in inglese o tesi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 1 aprile" },
+        { cosa: "Application/registrazione Mobility-Online (autunno)", periodo: "entro 1 maggio" },
+        { cosa: "Application C@MPUS (autunno)", periodo: "entro 1 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre" },
+        { cosa: "Application/registrazione Mobility-Online (primavera)", periodo: "entro 1 novembre" },
+        { cosa: "Application C@MPUS (primavera)", periodo: "entro 1 dicembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli)."
   },
   {
@@ -818,9 +854,19 @@ var METE = [
       { numero: 3, mesi: 12, livello: "L", note: "" },
       { numero: 3, mesi: 12, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B1.1", condizione: "in base alla scelta di corsi e facolta" },
+        { lingua: "Tedesco", livello: "B2.1", condizione: "in base alla scelta di corsi e facolta" },
+        { lingua: "Inglese", livello: "B1.1", condizione: "in base alla scelta di corsi e facolta" },
+        { lingua: "Inglese", livello: "B2.1", condizione: "in base alla scelta di corsi e facolta" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 31 marzo" },
+        { cosa: "Application (autunno)", periodo: "dal 1 aprile al 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
+        { cosa: "Application (primavera)", periodo: "dal 1 novembre al 31 dicembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {

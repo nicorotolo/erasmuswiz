@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Medicina e Psicologia - Area medica e professioni sanitarie (Sapienza)",
-  "runCompletati": 153,
+  "runCompletati": 154,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "architettura-batch-7",
-      "priorita": 5,
-      "dipartimento": "Architettura (Sapienza)",
-      "descrizione": "Architettura (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "SAP-ARCHI-MARSEILLE",
-        "SAP-ARCHI-VERSAILLES-ARCHI",
-        "SAP-ARCHI-BORDEAUX-PAYSAGE",
-        "SAP-ARCHI-UNI-STUTTGART",
-        "SAP-ARCHI-AACHEN"
-      ]
-    },
     {
       "id": "architettura-batch-8",
       "priorita": 5,
@@ -553,15 +539,10 @@
       "fileJs": "js/atenei/sapienza/dati-mete-architettura.js",
       "stato": "in_corso",
       "totale": 113,
-      "completate": 24,
+      "completate": 29,
       "pendingScadenze": [
         "SAP-ARCHI-GUSTAVE-EIFFEL",
         "SAP-ARCHI-EAVT-MARNE",
-        "SAP-ARCHI-MARSEILLE",
-        "SAP-ARCHI-VERSAILLES-ARCHI",
-        "SAP-ARCHI-BORDEAUX-PAYSAGE",
-        "SAP-ARCHI-UNI-STUTTGART",
-        "SAP-ARCHI-AACHEN",
         "SAP-ARCHI-KOLN-A",
         "SAP-ARCHI-WEIMAR",
         "SAP-ARCHI-HS-DARMSTADT",
@@ -647,11 +628,6 @@
         "SAP-ARCHI-LILLE",
         "SAP-ARCHI-NANTES-DESIGN",
         "SAP-ARCHI-GUSTAVE-EIFFEL",
-        "SAP-ARCHI-MARSEILLE",
-        "SAP-ARCHI-VERSAILLES-ARCHI",
-        "SAP-ARCHI-BORDEAUX-PAYSAGE",
-        "SAP-ARCHI-UNI-STUTTGART",
-        "SAP-ARCHI-AACHEN",
         "SAP-ARCHI-KOLN-A",
         "SAP-ARCHI-WEIMAR",
         "SAP-ARCHI-HS-DARMSTADT",
@@ -1686,6 +1662,12 @@
       "data": "2026-07-02",
       "mete": 5,
       "note": "Architettura (Sapienza) architettura-batch-6: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 154,
+      "data": "2026-07-02",
+      "mete": 5,
+      "note": "Architettura (Sapienza) architettura-batch-7: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
