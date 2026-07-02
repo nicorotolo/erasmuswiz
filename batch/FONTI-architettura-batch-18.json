@@ -1,0 +1,27 @@
+{
+  "SAP-ARCHI-UFV-MADRID": {
+    "requisitoLingua": "https://cdn-omnicanal-prod.ufv.es/UFV_FACTSHEET_2026_ENGLISH_97e1a81196.pdf",
+    "scadenzeOspitante": "https://cdn-omnicanal-prod.ufv.es/UFV_FACTSHEET_2026_ENGLISH_97e1a81196.pdf",
+    "linkSito": "https://www.ufv.es/en/incoming-international-mobility/incoming-erasmus/"
+  },
+  "SAP-ARCHI-UNAV-PAMPLONA": {
+    "requisitoLingua": "https://en.unav.edu/web/school-of-architecture/students/intercambios/incoming-students",
+    "scadenzeOspitante": "https://en.unav.edu/web/school-of-architecture/students/intercambios/incoming-students",
+    "linkSito": "https://en.unav.edu/web/school-of-architecture/students/intercambios/incoming-students"
+  },
+  "SAP-ARCHI-UPCT-CARTAGENA": {
+    "requisitoLingua": "https://eurep.auth.gr/sites/default/files/fact_sheets/E%20MURCIA04_Factsheet_2026-2027.pdf",
+    "scadenzeOspitante": "https://eurep.auth.gr/sites/default/files/fact_sheets/E%20MURCIA04_Factsheet_2026-2027.pdf",
+    "linkSito": "https://international.upct.es/"
+  },
+  "SAP-ARCHI-CORUNA": {
+    "requisitoLingua": "https://novas.udc.gal/export/sites/udc/ori/_galeria_down/infestudantesextranxeiros/convenios_bilaterais/UDC-Student-Guide_eng.pdf_2063069299.pdf",
+    "scadenzeOspitante": "https://www.udc.es/en/ori/infestudantesextranxeiros/FormulariosExtranxeiros/",
+    "linkSito": "https://www.udc.es/en/ori/entrantes/"
+  },
+  "SAP-ARCHI-UPV-VALENCIA-C": {
+    "requisitoLingua": "https://erasmus.yildiz.edu.tr/media/files/FACT%20SHEET-FBBAA_UPV%202026-27%20ENG.pdf",
+    "scadenzeOspitante": "https://erasmus.yildiz.edu.tr/media/files/FACT%20SHEET-FBBAA_UPV%202026-27%20ENG.pdf",
+    "linkSito": "https://www.upv.es/entidades/OPII/infoweb/pi/info/818854normali.html"
+  }
+}
