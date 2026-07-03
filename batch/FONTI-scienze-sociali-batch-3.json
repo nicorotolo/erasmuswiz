@@ -1,0 +1,26 @@
+{
+  "F  PARIS057": {
+    "requisitoLingua": "https://www.u-tokyo.ac.jp/content/400285463.pdf",
+    "scadenzeOspitante": "https://www.u-tokyo.ac.jp/content/400285463.pdf",
+    "linkSito": "https://www.ehess.fr/jcms/ehess_50222/en/venir-dans-le-cadre-d-un-programme-d-echange-etudiant"
+  },
+  "F  BORDEAU58": {
+    "scadenzeOspitante": "https://www.u-bordeaux.fr/en/international/come-to-bordeaux/international-students/exchange-programmes",
+    "linkSito": "https://www.u-bordeaux.fr/en/international/come-to-bordeaux/international-students/exchange-programmes"
+  },
+  "F  PARIS003": {
+    "requisitoLingua": "https://eurep.auth.gr/sites/default/files/fact_sheets/F%20PARIS003_Factsheet_2026-2027.pdf",
+    "scadenzeOspitante": "https://eurep.auth.gr/sites/default/files/fact_sheets/F%20PARIS003_Factsheet_2026-2027.pdf",
+    "linkSito": "https://www.sorbonne-nouvelle.fr/application-as-an-exchange-student-73618.kjsp?RH=1248098578154"
+  },
+  "F  CHAMBER01": {
+    "requisitoLingua": "https://www.univ-smb.fr/wp-content/uploads/2026/02/information-sheet-for-academic-year-202627_students.pdf",
+    "scadenzeOspitante": "https://www.univ-smb.fr/wp-content/uploads/2026/02/information-sheet-for-academic-year-202627_students.pdf",
+    "linkSito": "https://www.univ-smb.fr/en/international/venir-a-luniversite/en-programme-dechange/"
+  },
+  "F  MARSEIL84": {
+    "requisitoLingua": "https://www.univ-amu.fr/en/international-students/international-students-exchange",
+    "scadenzeOspitante": "https://www-2024.erasmus.lettere.uniroma2.it/wp-content/uploads/2025/01/Aix-Marseille-Universite-F-MARSEIL84.pdf",
+    "linkSito": "https://www.univ-amu.fr/en/international-students/international-students-exchange"
+  }
+}

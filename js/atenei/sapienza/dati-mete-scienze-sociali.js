@@ -319,9 +319,16 @@ var METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1/B2", condizione: "obbligatorio per studenti magistrali; B1 raccomandato per dottorandi" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno)", periodo: "entro 10 maggio" },
+        { cosa: "Application (autunno/anno)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 10 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -339,8 +346,11 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 1 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-socio-paris-3",
@@ -355,9 +365,15 @@ var METE = [
       { numero: 2, mesi: 10, livello: "L", note: "" },
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "per seguire corsi e completare gli elaborati; C1 puo essere richiesto da alcuni dipartimenti magistrali" },
+        { lingua: "Inglese", livello: "B2", condizione: "per studenti che seguono solo corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination e application (autunno/anno)", periodo: "dal 15 marzo al 1 maggio" },
+        { cosa: "Nomination e application (primavera)", periodo: "dal 15 settembre al 1 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -396,9 +412,17 @@ var METE = [
       { numero: 4, mesi: 10, livello: "L", note: "" },
       { numero: 4, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "raccomandato per corsi in francese" },
+        { lingua: "Inglese", livello: "B2", condizione: "richiesto per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno)", periodo: "entro fine marzo" },
+        { cosa: "Application (autunno/anno)", periodo: "da meta marzo a fine aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro fine ottobre" },
+        { cosa: "Application (primavera)", periodo: "da meta ottobre a meta novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli)."
   },
   {
@@ -413,9 +437,17 @@ var METE = [
     posti: [
       { numero: 2, mesi: 4, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "minimo per corsi in francese; B2 richiesto in alcune facolta" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese; C1 richiesto in alcune componenti" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno)", periodo: "entro 13 aprile 2026" },
+        { cosa: "Application (autunno/anno)", periodo: "entro 4 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro 12 ottobre 2026" },
+        { cosa: "Application (primavera)", periodo: "entro 2 novembre 2026" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -431,9 +463,17 @@ var METE = [
       { numero: 2, mesi: 4, livello: "L", note: "" },
       { numero: 2, mesi: 4, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "minimo per corsi in francese; B2 richiesto in alcune facolta" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese; C1 richiesto in alcune componenti" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno)", periodo: "entro 13 aprile 2026" },
+        { cosa: "Application (autunno/anno)", periodo: "entro 4 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro 12 ottobre 2026" },
+        { cosa: "Application (primavera)", periodo: "entro 2 novembre 2026" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
