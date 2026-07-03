@@ -1,0 +1,26 @@
+{
+  "BG VARNA02": {
+    "scadenzeOspitante": "https://docs.univr.it/documenti/ProgrammaMobilita/all/all680332.pdf",
+    "linkSito": "https://fs.tu-varna.bg/erasmus/"
+  },
+  "HR OSIJEK01": {
+    "requisitoLingua": "https://svcs-egress.dreamapply.com/eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJkcmVhbS1hcHBseSIsInBsZCI6eyJwYXRoIjoiZHJlYW0tYXBwbHk6c2hhcmQxNDI0L2luc3RpdHV0aW9uX21lZGlhcy8xNjIiLCJtaW1lIjoiYXBwbGljYXRpb24vcGRmIiwiY2FjaGUiOiJtYXgtYWdlPTc3NzYwMDAsIHB1YmxpYyIsImF0dGFjaCI6IkhSIE9TSUpFSzAxXzIwMjNfMTBfRSsgS2V5IERhdGEgSFIgT1NJSkVLMDEgdXBkYXRlIDA5IDIzLnBkZiIsInNka192ZXJzaW9uIjoiMS4wIn19.CueUJHLLlLHt2y-WRoaE9a_q1qcKQ0DgJFUwu2NstqFWHvSk9tLPEDjv9QcSbc8Cm4fH5MYXgeIzFweKosyj4oCcu9TtV038NL_mK0aUmDDSmGHka16wxyj1idtdwlwZyE3X1XB93Gmb1kbKKP3PUcQVKA",
+    "scadenzeOspitante": "https://www.unios.hr/en/cooperation/international-cooperation/erasmus/application-procedure/",
+    "linkSito": "https://www.unios.hr/en/cooperation/international-cooperation/erasmus/application-procedure/"
+  },
+  "F  BORDEAU58": {
+    "requisitoLingua": "https://www.u-bordeaux.fr/en/international/come-to-bordeaux/international-students/exchange-programmes",
+    "scadenzeOspitante": "https://www.u-bordeaux.fr/en/international/come-to-bordeaux/international-students/exchange-programmes",
+    "linkSito": "https://www.u-bordeaux.fr/en/international/come-to-bordeaux/international-students/exchange-programmes"
+  },
+  "F  LYON02": {
+    "requisitoLingua": "https://welcome.univ-lyon2.fr/study/courses/exchange-programs/attend-as-an-exchange-student",
+    "scadenzeOspitante": "https://welcome.univ-lyon2.fr/study/courses/exchange-programs/apply-for-an-exchange-program-at-universite-lumiere-lyon-2",
+    "linkSito": "https://welcome.univ-lyon2.fr/study/courses/exchange-programs/attend-as-an-exchange-student"
+  },
+  "F  PARIS482": {
+    "requisitoLingua": "https://shs.u-paris.fr/en/incoming-exchange-students/",
+    "scadenzeOspitante": "https://u-paris.fr/societes-humanites/en/nominations-for-incoming-exchange-students/",
+    "linkSito": "https://u-paris.fr/societes-humanites/en/incoming-international-students/"
+  }
+}
