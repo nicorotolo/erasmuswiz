@@ -1430,17 +1430,15 @@ function initOnboarding() {
 function popolaAreeV2() {
   const sel = document.getElementById("area-v2");
   if (!sel) return;
-  const viste = {};
+  const visti = [];
   (METE || []).forEach(m => {
-    m.areeDisciplinari.forEach(a => {
-      if (!viste[a.codice]) {
-        viste[a.codice] = true;
-        const opt = document.createElement("option");
-        opt.value       = a.codice;
-        opt.textContent = `${a.codice} — ${a.nome}`;
-        sel.appendChild(opt);
-      }
-    });
+    if (m.dipartimentoCf && !visti.includes(m.dipartimentoCf)) visti.push(m.dipartimentoCf);
+  });
+  visti.forEach(dip => {
+    const opt = document.createElement("option");
+    opt.value       = dip;
+    opt.textContent = dip;
+    sel.appendChild(opt);
   });
 }
 
@@ -1451,7 +1449,14 @@ function precompilaFormV2() {
   if (nomeInput && p.nome) nomeInput.value = p.nome;
   const area    = document.getElementById("area-v2");
   const livello = document.getElementById("livello-v2");
-  if (area)    area.value    = p.area;
+  if (area) {
+    let dip = p.dipartimento;
+    if (!dip) {
+      const meta = (METE || []).find(m => m.dipartimentoCf && m.areeDisciplinari.some(a => a.codice === p.area));
+      dip = meta ? meta.dipartimentoCf : "";
+    }
+    area.value = dip || "";
+  }
   if (livello) livello.value = p.livello;
   const righe = document.querySelectorAll(".riga-lingua");
   (p.lingue || []).forEach((l, i) => {
@@ -1481,11 +1486,13 @@ function initProfilo() {
         certificata: riga.querySelector(".lingua-certificata").checked,
       });
     });
-    const nomeDigitato = (document.getElementById("nome-v2")?.value || "").trim();
+    const nomeDigitato   = (document.getElementById("nome-v2")?.value || "").trim();
+    const dipartimento   = document.getElementById("area-v2").value;
     ZAINO.profilo = {
-      nome:    nomeDigitato || undefined,
-      area:    document.getElementById("area-v2").value,
-      livello: document.getElementById("livello-v2").value,
+      nome:         nomeDigitato || undefined,
+      area:         areaDominanteDipartimento(dipartimento),
+      dipartimento: dipartimento,
+      livello:      document.getElementById("livello-v2").value,
       lingue,
     };
     salvaZaino(ZAINO);

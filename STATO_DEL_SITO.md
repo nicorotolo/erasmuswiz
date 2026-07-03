@@ -4,7 +4,31 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-03 — sessione 12 (**BLOCCO D ristrutturazione UX —
+**Ultimo aggiornamento:** 2026-07-03 — sessione 13 (**Form profilo: da codici SSD a
+dipartimenti (livello 1, solo UX).** Lo studente nel form "Compila profilo" sceglieva
+l'area disciplinare da un menu di codici grezzi (es. "IUS/01"), poco comprensibile.
+Ora funziona come l'onboarding: sceglie il DIPARTIMENTO (stesso elenco già usato da
+`popolaPassoDipartimento()`) e il codice area viene ricavato dietro le quinte con la
+funzione già esistente `areaDominanteDipartimento()` — nessun nuovo file dati, nessuna
+mappatura corso-di-laurea. In `index.html`: etichetta del campo cambiata in "Cosa studi
+(dipartimento)", stesso `<select id="area-v2">` (id invariato per non rompere il resto
+del codice). In `js/app.js`: `popolaAreeV2()` ora popola il select con i dipartimenti
+distinti (`m.dipartimentoCf`) invece dei codici area; il submit di `initProfilo()`
+legge il dipartimento scelto e salva in `ZAINO.profilo` sia `area` (derivata con
+`areaDominanteDipartimento(dipartimento)`, retrocompatibile col matching mete esistente
+`m.areeDisciplinari.some(a => a.codice === profilo.area)`, NON toccato) sia
+`dipartimento` (nuovo campo, solo per la precompilazione); `precompilaFormV2()` mostra
+il dipartimento salvato se presente, altrimenti lo ricava a ritroso dall'area salvata
+cercando la prima meta con quell'area che abbia un `dipartimentoCf` (fallback per
+profili vecchi salvati prima di questa modifica). Le mete senza `dipartimentoCf`
+vengono semplicemente ignorate nella lista (stesso pattern già usato da
+`popolaPassoDipartimento()`), nessun crash. Validato in preview locale (porta 8001):
+select mostra 8 dipartimenti (non codici); selezionato "Management" e salvato →
+`ZAINO.profilo` conteneva `area:"0410"` + `dipartimento:"Management"`; dopo reload il
+campo precompilato mostra di nuovo "Management"; nessun errore console. Onboarding non
+toccato, continua a usare `areaDominanteDipartimento()` come prima.)
+
+**Aggiornamento precedente:** 2026-07-03 — sessione 12 (**BLOCCO D ristrutturazione UX —
 gerarchia della home (P2 di DISEGNO_UX.md: una schermata = una domanda = una azione).**
 Deciso con Nicola di saltare il blocco C (= UX5 contenuti Sapienza): resta esplicitamente
 "lavoro di Nicola, non di Codex" per `DISEGNO_UX.md` §4 — richiede il testo del bando
@@ -478,6 +502,22 @@ python -m http.server 8000
 poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
+
+**🔮 BACKLOG FUTURO (non urgente) — Selezione profilo per corso di laurea:**
+Oggi il form profilo fa scegliere l'AREA DISCIPLINARE per codice SSD grezzo
+(poco comprensibile). Migliorìa a due livelli:
+- **Livello 1 (facile, prioritario quando si tocca il profilo)**: nel form
+  profilo riusare lo schema dell'onboarding → lo studente sceglie il
+  DIPARTIMENTO e il codice area si ricava con `areaDominanteDipartimento()`.
+  Nessun nuovo file dati. Retrocompatibile (`profilo.area` resta il codice).
+- **Livello 2 (importante, futuro)**: `areaDominanteDipartimento()` sceglie UNA
+  sola area dominante per dipartimento → se un dipartimento contiene corsi di
+  laurea con aree molto diverse, lo studente vede solo l'area dominante e perde
+  mete valide. Soluzione futura: introdurre un layer "corso di laurea" con una
+  mappatura `corsoLaurea → [codici area]` (nuovo file dati da costruire e
+  mantenere). Da valutare quando si estende oltre le facoltà attuali.
+- Livello 3 (materie per area in UI): scartato per ora — informativo, non
+  entra nel matching, raddoppia la manutenzione dati.
 
 **Aggiornamento 2026-07-03 — sessione 11 (blocco B motore consapevole del tempo):**
 0. **⬆️ Da pubblicare**: `git fetch` + `git rebase origin/main` + commit + push.
