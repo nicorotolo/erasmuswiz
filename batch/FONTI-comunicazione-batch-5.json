@@ -1,0 +1,22 @@
+{
+  "P  COIMBRA01": {
+    "scadenzeOspitante": "https://www.ubu.es/sites/default/files/portal_page/files/P%20%20COIMBRA01_2026-27_FactSheet.pdf",
+    "linkSito": "https://www.uc.pt/en/iru/study-abroad/incoming-students-study-at-the-university-of-coimbra/"
+  },
+  "P  LISBOA52": {
+    "requisitoLingua": "https://www.ulusofona.pt/en/mobility/incoming",
+    "scadenzeOspitante": "https://www.ulusofona.pt/en/mobility/incoming",
+    "linkSito": "https://www.ulusofona.pt/en/mobility/incoming"
+  },
+  "P  MAIA01": {
+    "linkSito": "https://www.ipmaia.pt/pt/info-para/incoming-students"
+  },
+  "CZ PRAHA07": {
+    "requisitoLingua": "https://cuni.cz/UKEN-362.html",
+    "scadenzeOspitante": "https://cuni.cz/UKEN-362.html",
+    "linkSito": "https://cuni.cz/UKEN-362.html"
+  },
+  "RO BUCURES09": {
+    "linkSito": "https://unibuc.ro/international/programul-erasmus/studenti-erasmus/?lang=en"
+  }
+}

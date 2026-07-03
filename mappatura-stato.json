@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 208,
+  "runCompletati": 209,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "comunicazione-batch-5",
-      "priorita": 6,
-      "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
-      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - scadenze+lingua",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "P  COIMBRA01",
-        "P  LISBOA52",
-        "P  MAIA01",
-        "CZ PRAHA07",
-        "RO BUCURES09"
-      ]
-    },
     {
       "id": "comunicazione-batch-6",
       "priorita": 6,
@@ -620,6 +606,18 @@
       "mete": [
         "P  PORTO02"
       ]
+    },
+    {
+      "id": "comunicazione e ricerca sociale (sapienza)-batch-followup-4",
+      "priorita": 6,
+      "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
+      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "P  COIMBRA01",
+        "P  MAIA01",
+        "RO BUCURES09"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -949,12 +947,9 @@
       "fileJs": "js/atenei/sapienza/dati-mete-comunicazione.js",
       "stato": "in_corso",
       "totale": 59,
-      "completate": 20,
+      "completate": 25,
       "pendingScadenze": [
-        "P  COIMBRA01",
-        "P  LISBOA52",
         "P  MAIA01",
-        "CZ PRAHA07",
         "RO BUCURES09",
         "E  VALLADO03",
         "E  BILBAO01",
@@ -984,9 +979,7 @@
         "N  OSLO58",
         "P  PORTO02",
         "P  COIMBRA01",
-        "P  LISBOA52",
         "P  MAIA01",
-        "CZ PRAHA07",
         "RO BUCURES09",
         "E  VALLADO03",
         "E  BILBAO01",
@@ -1014,7 +1007,10 @@
         "A  WIEN01": 1,
         "F  PARIS008": 1,
         "N  OSLO58": 1,
-        "P  PORTO02": 1
+        "P  PORTO02": 1,
+        "P  COIMBRA01": 1,
+        "P  MAIA01": 1,
+        "RO BUCURES09": 1
       },
       "linguaNonTrovabile": []
     },
@@ -2597,6 +2593,12 @@
       "data": "2026-07-03",
       "mete": 5,
       "note": "Comunicazione e Ricerca Sociale (Sapienza) comunicazione-batch-4: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 209,
+      "data": "2026-07-03",
+      "mete": 5,
+      "note": "Comunicazione e Ricerca Sociale (Sapienza) comunicazione-batch-5: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
