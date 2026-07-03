@@ -1,26 +1,16 @@
 {
   "versione": "2.0",
-  "aggiornato": "2026-07-02",
+  "aggiornato": "2026-07-03",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 180,
+  "runCompletati": 181,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "architettura (sapienza)-batch-followup-7",
-      "priorita": 6,
-      "dipartimento": "Architettura (Sapienza)",
-      "descrizione": "Architettura (Sapienza) - follow-up pending",
-      "tipo": "lingua",
-      "mete": [
-        "SAP-ARCHI-HILDESHEIM"
-      ]
-    },
     {
       "id": "architettura (sapienza)-batch-followup-8",
       "priorita": 6,
@@ -370,7 +360,6 @@
         "SAP-ARCHI-HESSO"
       ],
       "pendingLingua": [
-        "SAP-ARCHI-HILDESHEIM",
         "SAP-ARCHI-HFT-STUTTGART-B",
         "SAP-ARCHI-BRAUNSCHWEIG",
         "SAP-ARCHI-HVANNEYRI",
@@ -402,7 +391,7 @@
         "SAP-ARCHI-EKA-TALLINN": 2,
         "SAP-ARCHI-LILLE": 2,
         "SAP-ARCHI-KASSEL-B": 2,
-        "SAP-ARCHI-HILDESHEIM": 1,
+        "SAP-ARCHI-HILDESHEIM": 2,
         "SAP-ARCHI-HFT-STUTTGART-B": 1,
         "SAP-ARCHI-BRAUNSCHWEIG": 1,
         "SAP-ARCHI-HVANNEYRI": 1,
@@ -433,7 +422,8 @@
       "linguaNonTrovabile": [
         "SAP-ARCHI-EKA-TALLINN",
         "SAP-ARCHI-LILLE",
-        "SAP-ARCHI-KASSEL-B"
+        "SAP-ARCHI-KASSEL-B",
+        "SAP-ARCHI-HILDESHEIM"
       ],
       "ateneo": "Sapienza Roma"
     }
@@ -1544,6 +1534,12 @@
       "data": "2026-07-02",
       "mete": 3,
       "note": "Architettura (Sapienza) architettura (sapienza)-batch-followup-6: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 181,
+      "data": "2026-07-03",
+      "mete": 1,
+      "note": "Architettura (Sapienza) architettura (sapienza)-batch-followup-7: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
