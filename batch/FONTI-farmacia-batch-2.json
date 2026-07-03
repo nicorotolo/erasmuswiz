@@ -1,0 +1,25 @@
+{
+  "BG SOFIA11": {
+    "scadenzeOspitante": "https://mu-sofia.bg/en/erasmus/",
+    "linkSito": "https://mu-sofia.bg/en/erasmus/"
+  },
+  "BG VARNA03": {
+    "requisitoLingua": "https://student.sum.edu.pl/wp-content/uploads/Erasmus/FactSheets/Fact-Sheet-Medical-University-in-Varna.pdf",
+    "scadenzeOspitante": "https://www.mu-varna.bg/EN/InternationalActivity/Pages/application-process.aspx",
+    "linkSito": "https://www.mu-varna.bg/EN/InternationalActivity/Pages/application-process.aspx"
+  },
+  "HR ZAGREB01": {
+    "requisitoLingua": "https://www.unizg.hr/homepage/international-exchange/exchange-students/how-to-apply/",
+    "scadenzeOspitante": "https://www.unizg.hr/homepage/international-exchange/exchange-students/how-to-apply/",
+    "linkSito": "https://www.unizg.hr/homepage/international-exchange/exchange-students/how-to-apply/"
+  },
+  "HR OSIJEK01": {
+    "requisitoLingua": "https://www.unios.hr/incoming-mobility",
+    "scadenzeOspitante": "https://www.unios.hr/incoming-mobility",
+    "linkSito": "https://www.unios.hr/incoming-mobility"
+  },
+  "HR RIJEKA01": {
+    "scadenzeOspitante": "https://uniri.hr/en/about-university/international-relations-and-erasmus/incoming-erasmus-students/",
+    "linkSito": "https://uniri.hr/en/about-university/international-relations-and-erasmus/incoming-erasmus-students/"
+  }
+}
