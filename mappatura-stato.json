@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 198,
+  "runCompletati": 199,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "farmacia-batch-6",
-      "priorita": 6,
-      "dipartimento": "Farmacia (Sapienza)",
-      "descrizione": "Farmacia (Sapienza) - scadenze+lingua",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "G  PATRA01",
-        "G  ATHINE01",
-        "PL WROCLAW05",
-        "PL WARSZAW06",
-        "P  BRAGANC01"
-      ]
-    },
     {
       "id": "farmacia-batch-7",
       "priorita": 6,
@@ -671,6 +657,19 @@
       "mete": [
         "F  CERGY-P11"
       ]
+    },
+    {
+      "id": "farmacia (sapienza)-batch-followup-5",
+      "priorita": 6,
+      "dipartimento": "Farmacia (Sapienza)",
+      "descrizione": "Farmacia (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "G  PATRA01",
+        "PL WROCLAW05",
+        "PL WARSZAW06",
+        "P  BRAGANC01"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -941,16 +940,12 @@
       "fileJs": "js/atenei/sapienza/dati-mete-farmacia.js",
       "stato": "in_corso",
       "totale": 62,
-      "completate": 19,
+      "completate": 20,
       "pendingScadenze": [
         "F  COMPIEG05",
         "F  MONTPEL54",
         "F  BESANCO01",
         "G  PATRA01",
-        "G  ATHINE01",
-        "PL WROCLAW05",
-        "PL WARSZAW06",
-        "P  BRAGANC01",
         "P  LISBOA109",
         "P  COIMBRA01",
         "P  COVILHA01",
@@ -986,7 +981,6 @@
         "F  RENNES09",
         "F  CERGY-P11",
         "G  PATRA01",
-        "G  ATHINE01",
         "PL WROCLAW05",
         "PL WARSZAW06",
         "P  BRAGANC01",
@@ -1023,7 +1017,11 @@
         "F  BESANCO01": 1,
         "F  LILLE11": 1,
         "F  RENNES09": 1,
-        "F  CERGY-P11": 1
+        "F  CERGY-P11": 1,
+        "G  PATRA01": 1,
+        "PL WROCLAW05": 1,
+        "PL WARSZAW06": 1,
+        "P  BRAGANC01": 1
       },
       "linguaNonTrovabile": []
     },
@@ -2650,6 +2648,12 @@
       "data": "2026-07-03",
       "mete": 5,
       "note": "Farmacia (Sapienza) farmacia-batch-5: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 199,
+      "data": "2026-07-03",
+      "mete": 5,
+      "note": "Farmacia (Sapienza) farmacia-batch-6: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

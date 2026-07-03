@@ -1,0 +1,26 @@
+{
+  "G  PATRA01": {
+    "linkSito": "https://www.upatras.gr/en/international/erasmus/programma-erasmus/mobility-for-studies/",
+    "notePratiche": "https://www.upatras.gr/en/international/erasmus/programma-erasmus/mobility-for-studies/"
+  },
+  "G  ATHINE01": {
+    "requisitoLingua": "https://en.interel.uoa.gr/erasmus_student_mobility/language_of_course",
+    "scadenzeOspitante": "https://en.interel.uoa.gr/erasmus_student_mobility/application_procedure",
+    "linkSito": "https://en.interel.uoa.gr/erasmus_student_mobility"
+  },
+  "PL WROCLAW05": {
+    "scadenzeOspitante": "https://en.umw.edu.pl/erasmus/",
+    "linkSito": "https://en.umw.edu.pl/erasmus/",
+    "notePratiche": "https://en.umw.edu.pl/erasmus/"
+  },
+  "PL WARSZAW06": {
+    "scadenzeOspitante": "https://zagranica.wum.edu.pl/sites/zagranica.wum.edu.pl/files/pliki/information-for-incoming-students_pl-warszaw06-2025-26.pdf",
+    "linkSito": "https://zagranica.wum.edu.pl/faculty-medicine-content",
+    "notePratiche": "https://zagranica.wum.edu.pl/sites/zagranica.wum.edu.pl/files/pliki/information-for-incoming-students_pl-warszaw06-2025-26.pdf"
+  },
+  "P  BRAGANC01": {
+    "scadenzeOspitante": "https://relint.uva.es/wp-content/uploads/2025/05/FS-25-26-P-BRAGANC01.pdf",
+    "linkSito": "https://portalold.ipb.pt/index.php/en/gri/erasmus-programme/student-mobility",
+    "notePratiche": "https://relint.uva.es/wp-content/uploads/2025/05/FS-25-26-P-BRAGANC01.pdf"
+  }
+}
