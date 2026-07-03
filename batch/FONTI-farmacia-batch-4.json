@@ -1,0 +1,25 @@
+{
+  "F  AMIENS01": {
+    "requisitoLingua": "https://corpus-test.u-picardie.fr/sites/default/files/media/2026-02/fact_sheet_upjv_2026-27_0.pdf",
+    "scadenzeOspitante": "https://corpus-test.u-picardie.fr/sites/default/files/media/2026-02/fact_sheet_upjv_2026-27_0.pdf",
+    "linkSito": "https://www.u-picardie.fr/en/international/come-upjv"
+  },
+  "F  POITIER01": {
+    "requisitoLingua": "https://www.univ-poitiers.fr/wp-content/uploads/sites/10/2025/03/Modele-Fact-Sheet-25-26-1.pdf",
+    "scadenzeOspitante": "https://ll.univ-poitiers.fr/international-2/incoming-students/",
+    "linkSito": "https://www.univ-poitiers.fr/en/application-procedure-for-incoming-exchange-students/"
+  },
+  "F  LYON01": {
+    "requisitoLingua": "https://aybu.edu.tr/GetFile?id=Upload%2Fdd8156a5-8f11-4127-9314-233d09e5fcbf.pdf",
+    "scadenzeOspitante": "https://aybu.edu.tr/GetFile?id=Upload%2Fdd8156a5-8f11-4127-9314-233d09e5fcbf.pdf",
+    "linkSito": "https://www.univ-lyon1.fr/en/foreign-student"
+  },
+  "F  LILLE11": {
+    "scadenzeOspitante": "https://www.univ-catholille.fr/wp-content/uploads/Fact-Sheet-2026-27_digital.pdf",
+    "linkSito": "https://www.univ-catholille.fr/en/exchange-programs-academic-calendars/"
+  },
+  "F  RENNES09": {
+    "scadenzeOspitante": "https://www.ensc-rennes.fr/en/foreign-students/",
+    "linkSito": "https://www.ensc-rennes.fr/en/foreign-students/"
+  }
+}
