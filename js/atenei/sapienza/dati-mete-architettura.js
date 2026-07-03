@@ -1261,7 +1261,9 @@ var METE = [
     posti: [
       { numero: 2, mesi: 10, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "A1", condizione: "per corsi nei programmi di Architecture, Interior Architecture e General Management; frequenza di un corso di tedesco richiesta" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Nomination (autunno)", periodo: "entro 1 aprile" },
@@ -1361,7 +1363,10 @@ var METE = [
       { numero: 2, mesi: 5, livello: "L", note: "" },
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B2", condizione: "raccomandato per studenti visiting in Architettura; B1 accettato con indicazione nel motivation letter del percorso verso B2" },
+        { lingua: "Inglese", livello: "B2", condizione: "raccomandato per studenti visiting in Architettura; B1 accettato con indicazione nel motivation letter del percorso verso B2" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Nomination (autunno)", periodo: "entro 30 aprile" },
