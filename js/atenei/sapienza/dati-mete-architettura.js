@@ -1770,7 +1770,7 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "entro 31 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
-    notePratiche: "Posti totali dell'accordo: 2. Solo livello Magistrale. || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 2. Solo livello Magistrale. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-archi-timisoara-a",
