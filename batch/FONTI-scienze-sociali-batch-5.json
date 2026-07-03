@@ -1,0 +1,27 @@
+{
+  "D  JENA01": {
+    "requisitoLingua": "https://www.uni-jena.de/unijenamedia/23895/factsheetstudentexchange.pdf",
+    "scadenzeOspitante": "https://www.uni-jena.de/unijenamedia/23895/factsheetstudentexchange.pdf",
+    "linkSito": "https://www.uni-jena.de/unijenamedia/23895/factsheetstudentexchange.pdf"
+  },
+  "D  LUNEBUR01": {
+    "requisitoLingua": "https://www.leuphana.de/fileadmin/user_upload/ZentraleEinrichtungen/international-center/Homepage/Dateien_homepage/Leuphana_Fact_Sheet_2026-27.pdf",
+    "scadenzeOspitante": "https://www.leuphana.de/fileadmin/user_upload/ZentraleEinrichtungen/international-center/Homepage/Dateien_homepage/Leuphana_Fact_Sheet_2026-27.pdf",
+    "linkSito": "https://www.leuphana.de/en/institutions/international-center/coming-to-leuphana/studying-at-leuphana/exchange.html"
+  },
+  "D  BERLIN06": {
+    "requisitoLingua": "https://www.hwr-berlin.de/fileadmin/portal/Dokumente/Fachbereiche-Institute/FB2/Allgemein/Fact-Sheet-Exchange.pdf",
+    "scadenzeOspitante": "https://www.hwr-berlin.de/fileadmin/portal/Dokumente/Fachbereiche-Institute/FB2/Allgemein/Fact-Sheet-Exchange.pdf",
+    "linkSito": "https://www.hwr-berlin.de/en/study/international-study/exchange-students-at-the-hwr-berlin"
+  },
+  "D  TUBINGE01": {
+    "requisitoLingua": "https://uni-tuebingen.de/securedl/sdl-eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3ODMwNjU2MTYsImV4cCI6MTc4MzE1NTYxNiwidXNlciI6MCwiZ3JvdXBzIjpbMCwtMV0sImZpbGUiOiJmaWxlYWRtaW4vVW5pX1R1ZWJpbmdlbi9JbnRlcm5hdGlvbmFsL1N0dWRpZXJlbmRlX2F1c19kZW1fQXVzbGFuZC9FcmFzbXVzL0luY29taW5nLVRlYW0vMDNfRmFjdF9TaGVldC9Vbml2ZXJzaXR5X29mX1R1ZWJpbmdlbl9GYWN0LVNoZWV0XzI2LTI3LnBkZiIsInBhZ2UiOjkwNzgxfQ.739eiUSTuM4E2nX5bHBgSFQQQ-rNDMVkjgycpVuOYzg/University_of_Tuebingen_Fact-Sheet_26-27.pdf",
+    "scadenzeOspitante": "https://uni-tuebingen.de/en/international/study-in-tuebingen/erasmus-and-exchange-to-tuebingen/application-and-preparation/",
+    "linkSito": "https://uni-tuebingen.de/en/international/study-in-tuebingen/erasmus-and-exchange-to-tuebingen/"
+  },
+  "G  KALLITH02": {
+    "requisitoLingua": "https://erasmus.panteion.gr/en/application",
+    "scadenzeOspitante": "https://erasmus.panteion.gr/en/nomination",
+    "linkSito": "https://erasmus.panteion.gr/en/application"
+  }
+}
