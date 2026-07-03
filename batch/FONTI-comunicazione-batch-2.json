@@ -1,0 +1,27 @@
+{
+  "F  LYON02": {
+    "requisitoLingua": "https://welcome.univ-lyon2.fr/study/courses/exchange-programs/attend-as-an-exchange-student",
+    "scadenzeOspitante": "https://welcome.univ-lyon2.fr/study/courses/exchange-programs/apply-for-an-exchange-program-at-universite-lumiere-lyon-2",
+    "linkSito": "https://welcome.univ-lyon2.fr/study/courses/exchange-programs/attend-as-an-exchange-student"
+  },
+  "F  RENNES02": {
+    "requisitoLingua": "https://international.univ-rennes2.fr/studying/exchange-students",
+    "scadenzeOspitante": "https://international.univ-rennes2.fr/studying/exchange-students",
+    "linkSito": "https://international.univ-rennes2.fr/studying/exchange-students"
+  },
+  "F  MARSEIL84": {
+    "requisitoLingua": "https://www-2024.erasmus.lettere.uniroma2.it/wp-content/uploads/2025/01/Aix-Marseille-Universite-F-MARSEIL84.pdf",
+    "scadenzeOspitante": "https://www-2024.erasmus.lettere.uniroma2.it/wp-content/uploads/2025/01/Aix-Marseille-Universite-F-MARSEIL84.pdf",
+    "linkSito": "https://www.univ-amu.fr/en/public/exchange-programs"
+  },
+  "D  AUGSBUR01": {
+    "requisitoLingua": "https://www.uni-augsburg.de/en/portal/internationals/erasmus/language/",
+    "scadenzeOspitante": "https://www.uni-augsburg.de/en/portal/internationals/erasmus/nominierung/",
+    "linkSito": "https://www.uni-augsburg.de/en/portal/internationals/erasmus/"
+  },
+  "D  TUBINGE01": {
+    "requisitoLingua": "https://uni-tuebingen.de/en/international/study-in-tuebingen/erasmus-and-exchange-to-tuebingen/application-and-preparation/",
+    "scadenzeOspitante": "https://uni-tuebingen.de/en/international/study-in-tuebingen/erasmus-and-exchange-to-tuebingen/academic-calendar/",
+    "linkSito": "https://uni-tuebingen.de/en/international/study-in-tuebingen/erasmus-and-exchange-to-tuebingen/"
+  }
+}

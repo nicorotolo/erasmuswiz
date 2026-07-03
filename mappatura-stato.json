@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 205,
+  "runCompletati": 206,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "comunicazione-batch-2",
-      "priorita": 6,
-      "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
-      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - scadenze+lingua",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "F  LYON02",
-        "F  RENNES02",
-        "F  MARSEIL84",
-        "D  AUGSBUR01",
-        "D  TUBINGE01"
-      ]
-    },
     {
       "id": "comunicazione-batch-3",
       "priorita": 6,
@@ -971,13 +957,8 @@
       "fileJs": "js/atenei/sapienza/dati-mete-comunicazione.js",
       "stato": "in_corso",
       "totale": 59,
-      "completate": 3,
+      "completate": 9,
       "pendingScadenze": [
-        "F  LYON02",
-        "F  RENNES02",
-        "F  MARSEIL84",
-        "D  AUGSBUR01",
-        "D  TUBINGE01",
         "D  MUNCHEN01",
         "G  ATHINE01",
         "LV RIGA02",
@@ -1018,11 +999,6 @@
       "pendingLingua": [
         "A  WIEN01",
         "F  PARIS008",
-        "F  LYON02",
-        "F  RENNES02",
-        "F  MARSEIL84",
-        "D  AUGSBUR01",
-        "D  TUBINGE01",
         "D  MUNCHEN01",
         "G  ATHINE01",
         "LV RIGA02",
@@ -2627,6 +2603,12 @@
       "data": "2026-07-03",
       "mete": 5,
       "note": "Comunicazione e Ricerca Sociale (Sapienza) comunicazione-batch-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 206,
+      "data": "2026-07-03",
+      "mete": 5,
+      "note": "Comunicazione e Ricerca Sociale (Sapienza) comunicazione-batch-2: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
