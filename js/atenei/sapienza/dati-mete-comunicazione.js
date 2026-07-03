@@ -26,8 +26,11 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 1 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-comm-salzbur",
@@ -42,9 +45,17 @@ var METE = [
       { numero: 1, mesi: 8, livello: "L", note: "" },
       { numero: 1, mesi: 8, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B2", condizione: "per corsi in tedesco" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
+        { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -60,9 +71,17 @@ var METE = [
       { numero: 4, mesi: 5, livello: "L", note: "" },
       { numero: 4, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per corsi in francese in Economics, social, political sciences and communication / altri campi" },
+        { lingua: "Inglese", livello: "B1", condizione: "per corsi in inglese in Economics, social, political sciences and communication / altri campi" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "15 marzo - 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "1 settembre - 31 ottobre" },
+        { cosa: "Application (autunno)", periodo: "entro 31 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli)."
   },
   {
@@ -77,9 +96,16 @@ var METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per studenti non madrelingua inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro fine marzo" },
+        { cosa: "Nomination (primavera)", periodo: "entro meta ottobre" },
+        { cosa: "Application (autunno)", periodo: "15 marzo - 15 aprile" },
+        { cosa: "Application (primavera)", periodo: "1 ottobre - 1 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -97,8 +123,13 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
+        { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-comm-lyon",

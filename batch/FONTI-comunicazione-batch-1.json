@@ -1,0 +1,25 @@
+{
+  "A  WIEN01": {
+    "scadenzeOspitante": "https://international.univie.ac.at/en/information-for-incoming-exchange-students/exchange-semester-at-the-university-of-vienna",
+    "linkSito": "https://international.univie.ac.at/en/information-for-incoming-exchange-students/exchange-semester-at-the-university-of-vienna"
+  },
+  "A  SALZBUR01": {
+    "requisitoLingua": "https://www.plus.ac.at/international-relations-department/international-relations-office/faq/incoming-exchange-students-erasmus/?lang=en",
+    "scadenzeOspitante": "https://www.plus.ac.at/international-relations-department/international-relations-office/service-for-students/in-salzburg/study-placements/exchange-students/?lang=en",
+    "linkSito": "https://www.plus.ac.at/international-relations-department/international-relations-office/service-for-students/in-salzburg/study-placements/exchange-students/?lang=en"
+  },
+  "B  LOUVAIN01": {
+    "requisitoLingua": "https://www.uclouvain.be/en/system/files?file=uclouvain_assetmanager%2Fgroups%2Fcms-editors-st-louis%2Fslb-%2F-sitecampus%2Fsrib%2FFactsheet+26-27+AN.pdf",
+    "scadenzeOspitante": "https://www.uclouvain.be/en/system/files?file=uclouvain_assetmanager%2Fgroups%2Fcms-editors-st-louis%2Fslb-%2F-sitecampus%2Fsrib%2FFactsheet+26-27+AN.pdf",
+    "linkSito": "https://www.uclouvain.be/en/system/files?file=uclouvain_assetmanager%2Fgroups%2Fcms-editors-st-louis%2Fslb-%2F-sitecampus%2Fsrib%2FFactsheet+26-27+AN.pdf"
+  },
+  "EE TARTU02": {
+    "requisitoLingua": "https://ut.ee/en/exchange-students",
+    "scadenzeOspitante": "https://ut.ee/en/exchange-students",
+    "linkSito": "https://ut.ee/en/exchange-students"
+  },
+  "F  PARIS008": {
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254605",
+    "linkSito": "https://www.univ-paris8.fr/en/-international-exchanges-"
+  }
+}

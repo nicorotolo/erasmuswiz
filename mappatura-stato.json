@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 204,
+  "runCompletati": 205,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "comunicazione-batch-1",
-      "priorita": 6,
-      "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
-      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - scadenze+lingua",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "A  WIEN01",
-        "A  SALZBUR01",
-        "B  LOUVAIN01",
-        "EE TARTU02",
-        "F  PARIS008"
-      ]
-    },
     {
       "id": "comunicazione-batch-2",
       "priorita": 6,
@@ -645,6 +631,17 @@
       "mete": [
         "TR VAN01"
       ]
+    },
+    {
+      "id": "comunicazione e ricerca sociale (sapienza)-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
+      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - follow-up pending",
+      "tipo": "lingua",
+      "mete": [
+        "A  WIEN01",
+        "F  PARIS008"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -974,13 +971,8 @@
       "fileJs": "js/atenei/sapienza/dati-mete-comunicazione.js",
       "stato": "in_corso",
       "totale": 59,
-      "completate": 0,
+      "completate": 3,
       "pendingScadenze": [
-        "A  WIEN01",
-        "A  SALZBUR01",
-        "B  LOUVAIN01",
-        "EE TARTU02",
-        "F  PARIS008",
         "F  LYON02",
         "F  RENNES02",
         "F  MARSEIL84",
@@ -1025,9 +1017,6 @@
       ],
       "pendingLingua": [
         "A  WIEN01",
-        "A  SALZBUR01",
-        "B  LOUVAIN01",
-        "EE TARTU02",
         "F  PARIS008",
         "F  LYON02",
         "F  RENNES02",
@@ -1071,7 +1060,10 @@
         "TR ISTANBU21",
         "TR ISTANBU17"
       ],
-      "tentativiLingua": {},
+      "tentativiLingua": {
+        "A  WIEN01": 1,
+        "F  PARIS008": 1
+      },
       "linguaNonTrovabile": []
     },
     "Scienze Sociali ed Economiche (Sapienza)": {
@@ -2629,6 +2621,12 @@
       "data": "2026-07-03",
       "mete": 2,
       "note": "Farmacia (Sapienza) farmacia-batch-11: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 205,
+      "data": "2026-07-03",
+      "mete": 5,
+      "note": "Comunicazione e Ricerca Sociale (Sapienza) comunicazione-batch-1: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
