@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 232,
+  "runCompletati": 233,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "psicologia-batch-7",
-      "priorita": 6,
-      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
-      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "D  BERLIN10",
-        "D  HILDESH01",
-        "D  BERLIN20",
-        "D  HAMBURG01",
-        "D  POTSDAM01"
-      ]
-    },
     {
       "id": "psicologia-batch-8",
       "priorita": 6,
@@ -464,6 +450,17 @@
       "mete": [
         "D  TRIER01"
       ]
+    },
+    {
+      "id": "psicologia e servizio sociale (sapienza)-batch-followup-5",
+      "priorita": 6,
+      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D  POTSDAM01",
+        "D  BERLIN20"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -879,13 +876,9 @@
       "fileJs": "js/atenei/sapienza/dati-mete-psicologia.js",
       "stato": "in_corso",
       "totale": 97,
-      "completate": 31,
+      "completate": 35,
       "pendingScadenze": [
-        "D  BERLIN10",
-        "D  HILDESH01",
         "D  BERLIN20",
-        "D  HAMBURG01",
-        "D  POTSDAM01",
         "D  KOLN01",
         "G  ATHINE01",
         "LT VILNIUS06",
@@ -938,10 +931,6 @@
         "BG VARNA02",
         "F  LYON10",
         "D  TRIER01",
-        "D  BERLIN10",
-        "D  HILDESH01",
-        "D  BERLIN20",
-        "D  HAMBURG01",
         "D  POTSDAM01",
         "D  KOLN01",
         "G  ATHINE01",
@@ -994,7 +983,8 @@
         "A  KLAGENF01": 1,
         "BG VARNA02": 1,
         "F  LYON10": 1,
-        "D  TRIER01": 1
+        "D  TRIER01": 1,
+        "D  POTSDAM01": 1
       },
       "linguaNonTrovabile": []
     }
@@ -2423,6 +2413,12 @@
       "data": "2026-07-03",
       "mete": 5,
       "note": "Psicologia e Servizio Sociale (Sapienza) psicologia-batch-6: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 233,
+      "data": "2026-07-03",
+      "mete": 5,
+      "note": "Psicologia e Servizio Sociale (Sapienza) psicologia-batch-7: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

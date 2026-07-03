@@ -1,0 +1,25 @@
+{
+  "D  BERLIN10": {
+    "requisitoLingua": "https://www.eh-berlin.de/en/international-affairs/incoming-students",
+    "scadenzeOspitante": "https://www.eh-berlin.de/en/international-affairs/incoming-students",
+    "linkSito": "https://www.eh-berlin.de/en/international-affairs/incoming-students"
+  },
+  "D  HILDESH01": {
+    "requisitoLingua": "https://www.uni-hildesheim.de/media/aaa/PDF/IOINCOMINGS/Factsheet_Nomination_Information_UHildesheim_2026_01.pdf",
+    "scadenzeOspitante": "https://www.uni-hildesheim.de/media/aaa/PDF/IOINCOMINGS/Factsheet_Nomination_Information_UHildesheim_2026_01.pdf",
+    "linkSito": "https://www.uni-hildesheim.de/en/international/studying-at-our-university/international-exchange-students/"
+  },
+  "D  BERLIN20": {
+    "requisitoLingua": "https://www.khsb-berlin.de/en/study/before-studying/studium-international/incomings.html",
+    "linkSito": "https://www.khsb-berlin.de/en/study/before-studying/studium-international/incomings.html"
+  },
+  "D  HAMBURG01": {
+    "requisitoLingua": "https://www.uni-hamburg.de/en/internationales/studierende/incoming/austausch-gaststudium/erasmus-incoming/erasmus-incomings-europa.html",
+    "scadenzeOspitante": "https://ssu.elearning.unipd.it/pluginfile.php/498400/mod_folder/content/0/Germania/D%20HAMBURG01_Humanities_2026-27.pdf?forcedownload=1",
+    "linkSito": "https://www.uni-hamburg.de/en/internationales/studierende/incoming/austausch-gaststudium/erasmus-incoming/erasmus-incomings-europa.html"
+  },
+  "D  POTSDAM01": {
+    "scadenzeOspitante": "https://www.uni-potsdam.de/en/international/incoming/international-students/exchange/partner",
+    "linkSito": "https://www.uni-potsdam.de/en/international/incoming/international-students/exchange"
+  }
+}
