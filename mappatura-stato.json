@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 226,
+  "runCompletati": 227,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "psicologia-batch-1",
-      "priorita": 6,
-      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
-      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "A  SALZBUR01",
-        "A  KLAGENF01",
-        "A  ST-POLT03",
-        "B  BRUXEL04",
-        "B  LIEGE01"
-      ]
-    },
     {
       "id": "psicologia-batch-2",
       "priorita": 6,
@@ -508,6 +494,16 @@
       "mete": [
         "TR ISTANBU32"
       ]
+    },
+    {
+      "id": "psicologia e servizio sociale (sapienza)-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - follow-up pending",
+      "tipo": "lingua",
+      "mete": [
+        "A  KLAGENF01"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -923,13 +919,8 @@
       "fileJs": "js/atenei/sapienza/dati-mete-psicologia.js",
       "stato": "in_corso",
       "totale": 97,
-      "completate": 0,
+      "completate": 6,
       "pendingScadenze": [
-        "A  SALZBUR01",
-        "A  KLAGENF01",
-        "A  ST-POLT03",
-        "B  BRUXEL04",
-        "B  LIEGE01",
         "BG VARNA02",
         "HR OSIJEK01",
         "F  BORDEAU58",
@@ -1008,11 +999,7 @@
         "TR ISTANBU21"
       ],
       "pendingLingua": [
-        "A  SALZBUR01",
         "A  KLAGENF01",
-        "A  ST-POLT03",
-        "B  BRUXEL04",
-        "B  LIEGE01",
         "BG VARNA02",
         "HR OSIJEK01",
         "F  BORDEAU58",
@@ -1090,7 +1077,9 @@
         "TR ISTANBU60",
         "TR ISTANBU21"
       ],
-      "tentativiLingua": {},
+      "tentativiLingua": {
+        "A  KLAGENF01": 1
+      },
       "linguaNonTrovabile": []
     }
   },
@@ -2482,6 +2471,12 @@
       "data": "2026-07-03",
       "mete": 1,
       "note": "Scienze Sociali ed Economiche (Sapienza) scienze-sociali-batch-12: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 227,
+      "data": "2026-07-03",
+      "mete": 5,
+      "note": "Psicologia e Servizio Sociale (Sapienza) psicologia-batch-1: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

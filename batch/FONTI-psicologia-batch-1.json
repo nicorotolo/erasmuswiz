@@ -1,0 +1,26 @@
+{
+  "A  SALZBUR01": {
+    "requisitoLingua": "https://www.plus.ac.at/international-relations-department/international-relations-office/service-for-students/in-salzburg/study-placements/exchange-students/?lang=en",
+    "scadenzeOspitante": "https://www.plus.ac.at/international-relations-department/international-relations-office/service-for-students/in-salzburg/study-placements/exchange-students/?lang=en",
+    "linkSito": "https://www.plus.ac.at/international-relations-department/international-relations-office/service-for-students/in-salzburg/study-placements/exchange-students/?lang=en"
+  },
+  "A  KLAGENF01": {
+    "scadenzeOspitante": "https://www.aau.at/en/international/studying-in-klagenfurt/students-in-mobility-programmes/",
+    "linkSito": "https://www.aau.at/en/international/studying-in-klagenfurt/students-in-mobility-programmes/"
+  },
+  "A  ST-POLT03": {
+    "requisitoLingua": "https://www.ustp.at/en/international/incoming-exchange-erasmus-students/application",
+    "scadenzeOspitante": "https://www.ustp.at/en/international/incoming-exchange-erasmus-students/application",
+    "linkSito": "https://www.ustp.at/en/international/incoming-exchange-erasmus-students/application"
+  },
+  "B  BRUXEL04": {
+    "requisitoLingua": "https://www.ulb.be/medias/fichier/factsheet-eu-26-27_1771598204643-pdf",
+    "scadenzeOspitante": "https://www.ulb.be/medias/fichier/factsheet-eu-26-27_1771598204643-pdf",
+    "linkSito": "https://www.ulb.be/medias/fichier/factsheet-eu-26-27_1771598204643-pdf"
+  },
+  "B  LIEGE01": {
+    "requisitoLingua": "https://www.international.uliege.be/cms/c_9116292/en/language-requirements-/incoming-exchange-students",
+    "scadenzeOspitante": "https://www.international.uliege.be/cms/c_9116184/en/international-application-form-/-incoming-exchange-student",
+    "linkSito": "https://www.international.uliege.be/cms/c_18643738/en/international-exchange-student"
+  }
+}
