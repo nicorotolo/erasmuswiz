@@ -1869,7 +1869,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 luglio" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-archi-stu-bratislava-a",
@@ -1892,7 +1892,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "1 aprile - 30 giugno" },
         { cosa: "Application (primavera)", periodo: "1 settembre - 10 novembre" }
       ],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Alessandra Capanna). || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Alessandra Capanna). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-archi-stu-bratislava-b",
@@ -1915,7 +1915,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "1 aprile - 30 giugno" },
         { cosa: "Application (primavera)", periodo: "1 settembre - 10 novembre" }
       ],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. Ulteriore accordo distinto con lo stesso ateneo (promotore Carmela Mariano). || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. Ulteriore accordo distinto con lo stesso ateneo (promotore Carmela Mariano). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-archi-ljubljana",

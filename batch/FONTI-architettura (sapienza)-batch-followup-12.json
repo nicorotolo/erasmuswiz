@@ -1,0 +1,14 @@
+{
+  "SAP-ARCHI-CLUJ-NAPOCA": {
+    "linkSito": "https://bri.utcluj.ro/en/erasmus_plus_incoming_students.php",
+    "notePraticheAppend": "https://bri.utcluj.ro/en/erasmus_plus_incoming_students.php"
+  },
+  "SAP-ARCHI-STU-BRATISLAVA-A": {
+    "linkSito": "https://www.fad.stuba.sk/english/incoming-students/erasmus.html?page_id=13289",
+    "notePraticheAppend": "https://www.fad.stuba.sk/english/incoming-students/erasmus.html?page_id=13289"
+  },
+  "SAP-ARCHI-STU-BRATISLAVA-B": {
+    "linkSito": "https://www.fad.stuba.sk/english/incoming-students/erasmus.html?page_id=13289",
+    "notePraticheAppend": "https://www.fad.stuba.sk/english/incoming-students/erasmus.html?page_id=13289"
+  }
+}
