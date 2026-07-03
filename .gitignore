@@ -23,5 +23,31 @@ node_modules/
 _backup-*/
 
 # Artefatti da comandi rotti (log di errore o file dal nome anomalo)
+# NOTA: "!" e "[" sono caratteri speciali per git anche dentro .gitignore,
+# quindi qui vanno sempre scritti preceduti da "\" per essere presi alla lettera.
 nuldel
 {,-
+{,+
+{,
+{
+({
+5)
+main
+new
+Stato
+utente
+\!(ZAINO.checklist
+\!ZAINO.checklist\[v.id\]
+`${a.nome}
+b.comp.ordine
+m.requisitoLingua.length
+togglePreferita(meta.id))
+
+# Difesa generica: qualunque file che inizia con un carattere di sintassi
+# shell (segno tipico dei residui di comandi rotti degli agenti AI)
+\!*
+`*
+{*
+(*
+\[*
+$*

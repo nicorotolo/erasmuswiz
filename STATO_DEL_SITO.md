@@ -4,7 +4,18 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-03 — sessione 13 (**Form profilo: da codici SSD a
+**Ultimo aggiornamento:** 2026-07-03 — sessione 14 (**Manutenzione: risolta la causa
+dei "file spazzatura" ricorrenti (`!(ZAINO.checklist`, `` `${a.nome}` ``, `{,+`, `main`,
+`Stato`...).** Non era corruzione OneDrive: erano residui di comandi shell rotti che
+`PUBBLICA.bat` (via `git add -A`) inglobava nei commit, e `PULISCI-SPAZZATURA.bat`
+cancellava solo dal disco (non da git), quindi tornavano ad ogni pull. Fix: `PUBBLICA.bat`
+ora esclude in automatico dal commit qualsiasi file vuoto senza estensione o con nome
+contenente caratteri shell (`$ \` ! { } [ ]`), prima che arrivi online; `PULISCI-SPAZZATURA.bat`
+ora fa anche `git rm`, non solo `del`; `.gitignore` aggiornato. **Azione richiesta a
+Nicola**: lanciare `PULISCI-SPAZZATURA.bat` poi `PUBBLICA.bat` su Windows per completare
+e pubblicare la pulizia — vedi sezione 8, punto 0. Dettagli in sezione 8.)
+
+**Aggiornamento precedente:** 2026-07-03 — sessione 13 (**Form profilo: da codici SSD a
 dipartimenti (livello 1, solo UX).** Lo studente nel form "Compila profilo" sceglieva
 l'area disciplinare da un menu di codici grezzi (es. "IUS/01"), poco comprensibile.
 Ora funziona come l'onboarding: sceglie il DIPARTIMENTO (stesso elenco già usato da
@@ -502,6 +513,30 @@ python -m http.server 8000
 poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
+
+**Aggiornamento 2026-07-03 — sessione 14 (fix "file spazzatura" nel repo, manutenzione, non contenuti):**
+0. **⚠️ Azione richiesta da Nicola su Windows, in ordine**: lanciare
+   `PULISCI-SPAZZATURA.bat` (toglie i file-fantasma anche dalla storia di git,
+   non solo dal disco) e subito dopo `PUBBLICA.bat` per registrare e pubblicare
+   la pulizia. Vedi anche il messaggio "rm 'nomefile'" che compare: è normale,
+   conferma che il file è stato tolto anche da GitHub.
+1. **Causa risolta**: i file vuoti con nomi assurdi (`!(ZAINO.checklist`,
+   `` `${a.nome}` ``, `{,+`, `main`, `Stato`, ecc.) che Nicola segnalava come
+   "corruzione ricorrente" erano residui di comandi shell rotti (probabilmente
+   di un'automazione AI) che `git add -A` in `PUBBLICA.bat` inglobava nei
+   commit senza distinguerli dal lavoro vero. `PULISCI-SPAZZATURA.bat`
+   cancellava solo dal disco, non da git: per questo tornavano ad ogni
+   `SCARICA.bat` (pull), dando l'impressione di un problema irrisolvibile.
+2. **Fix applicato**: `PUBBLICA.bat` ora riconosce ed esclude in automatico,
+   PRIMA di ogni commit, qualsiasi file vuoto senza estensione o con nome
+   contenente caratteri tipici della shell (`$ \` ! { } [ ]`) — quindi anche
+   file-fantasma futuri con nomi mai visti prima non potranno più finire su
+   GitHub. `.gitignore` e `PULISCI-SPAZZATURA.bat` aggiornati con l'elenco
+   completo dei nomi già noti (inclusi `git rm`, non solo `del`).
+3. **Nota per sessioni future**: se ricompaiono file-fantasma nuovi, non è
+   "corruzione OneDrive" — è lo stesso bug a monte (comando shell rotto in
+   qualche automazione) che li rigenera; la rete di sicurezza in
+   `PUBBLICA.bat` li blocca comunque prima che arrivino online.
 
 **🔮 BACKLOG FUTURO (non urgente) — Selezione profilo per corso di laurea:**
 Oggi il form profilo fa scegliere l'AREA DISCIPLINARE per codice SSD grezzo

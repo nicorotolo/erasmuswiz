@@ -15,473 +15,686 @@
       "id": "farmacia-batch-1",
       "priorita": 6,
       "dipartimento": "Farmacia (Sapienza)",
-      "descrizione": "Farmacia - scadenze+lingua",
+      "descrizione": "Farmacia (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-farm-leuven","sap-farm-liege","sap-farm-brussel","sap-farm-bruxel","sap-farm-antwerp"]
+      "mete": [
+        "B  LEUVEN01",
+        "B  LIEGE01",
+        "B  BRUSSEL01",
+        "B  BRUXEL04",
+        "B  ANTWERP01"
+      ]
     },
     {
       "id": "farmacia-batch-2",
       "priorita": 6,
       "dipartimento": "Farmacia (Sapienza)",
-      "descrizione": "Farmacia - scadenze+lingua",
+      "descrizione": "Farmacia (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-farm-sofia","sap-farm-varna","sap-farm-zagreb","sap-farm-osijek","sap-farm-rijeka"]
+      "mete": [
+        "BG SOFIA11",
+        "BG VARNA03",
+        "HR ZAGREB01",
+        "HR OSIJEK01",
+        "HR RIJEKA01"
+      ]
     },
     {
       "id": "farmacia-batch-3",
       "priorita": 6,
       "dipartimento": "Farmacia (Sapienza)",
-      "descrizione": "Farmacia - scadenze+lingua",
+      "descrizione": "Farmacia (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-farm-osijek-2","sap-farm-nancy","sap-farm-compieg","sap-farm-grenobl","sap-farm-montpel"]
+      "mete": [
+        "F  NANCY43",
+        "F  COMPIEG05",
+        "F  GRENOBL55",
+        "F  MONTPEL54",
+        "F  BESANCO01"
+      ]
     },
     {
       "id": "farmacia-batch-4",
       "priorita": 6,
       "dipartimento": "Farmacia (Sapienza)",
-      "descrizione": "Farmacia - scadenze+lingua",
+      "descrizione": "Farmacia (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-farm-besanco","sap-farm-amiens","sap-farm-poitier","sap-farm-lyon","sap-farm-compieg-2"]
+      "mete": [
+        "F  AMIENS01",
+        "F  POITIER01",
+        "F  LYON01",
+        "F  LILLE11",
+        "F  RENNES09"
+      ]
     },
     {
       "id": "farmacia-batch-5",
       "priorita": 6,
       "dipartimento": "Farmacia (Sapienza)",
-      "descrizione": "Farmacia - scadenze+lingua",
+      "descrizione": "Farmacia (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-farm-lille","sap-farm-lille-2","sap-farm-rennes","sap-farm-marseil","sap-farm-lyon-2"]
+      "mete": [
+        "F  MARSEIL84",
+        "F  CERGY-P11",
+        "F  ANGERS01",
+        "D  SAARBRU01",
+        "D  BERLIN02"
+      ]
     },
     {
       "id": "farmacia-batch-6",
       "priorita": 6,
       "dipartimento": "Farmacia (Sapienza)",
-      "descrizione": "Farmacia - scadenze+lingua",
+      "descrizione": "Farmacia (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-farm-cy","sap-farm-angers","sap-farm-lyon-3","sap-farm-marseil-2","sap-farm-cy-2"]
+      "mete": [
+        "G  PATRA01",
+        "G  ATHINE01",
+        "PL WROCLAW05",
+        "PL WARSZAW06",
+        "P  BRAGANC01"
+      ]
     },
     {
       "id": "farmacia-batch-7",
       "priorita": 6,
       "dipartimento": "Farmacia (Sapienza)",
-      "descrizione": "Farmacia - scadenze+lingua",
+      "descrizione": "Farmacia (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-farm-saarbru","sap-farm-berlin","sap-farm-patra","sap-farm-athine","sap-farm-patra-2"]
+      "mete": [
+        "P  LISBOA109",
+        "P  COIMBRA01",
+        "P  COVILHA01",
+        "UK LONDON017",
+        "RO BUCURES09"
+      ]
     },
     {
       "id": "farmacia-batch-8",
       "priorita": 6,
       "dipartimento": "Farmacia (Sapienza)",
-      "descrizione": "Farmacia - scadenze+lingua",
+      "descrizione": "Farmacia (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-farm-wroclaw","sap-farm-warszaw","sap-farm-braganc","sap-farm-lisboa","sap-farm-coimbra"]
+      "mete": [
+        "RO CLUJNAP01",
+        "RS  BELGRAD02",
+        "SI LJUBLJA01",
+        "E  MADRID21",
+        "E  GRANADA01"
+      ]
     },
     {
       "id": "farmacia-batch-9",
       "priorita": 6,
       "dipartimento": "Farmacia (Sapienza)",
-      "descrizione": "Farmacia - scadenze+lingua",
+      "descrizione": "Farmacia (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-farm-covilha","sap-farm-london","sap-farm-bucures","sap-farm-clujnap","sap-farm-belgrad"]
+      "mete": [
+        "E  SANTIAG01",
+        "E  SALAMAN02",
+        "E  MADRID03",
+        "E  BARCELO01",
+        "E  ZARAGOZ07"
+      ]
     },
     {
       "id": "farmacia-batch-10",
       "priorita": 6,
       "dipartimento": "Farmacia (Sapienza)",
-      "descrizione": "Farmacia - scadenze+lingua",
+      "descrizione": "Farmacia (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-farm-ljublja","sap-farm-madrid","sap-farm-granada","sap-farm-santiag","sap-farm-salaman"]
+      "mete": [
+        "E  BURGOS01",
+        "E  CORDOBA23",
+        "E  PALMA01",
+        "TR ISTANBU19",
+        "TR KAYSERI01"
+      ]
     },
     {
       "id": "farmacia-batch-11",
       "priorita": 6,
       "dipartimento": "Farmacia (Sapienza)",
-      "descrizione": "Farmacia - scadenze+lingua",
+      "descrizione": "Farmacia (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-farm-madrid-2","sap-farm-barcelo","sap-farm-zaragoz","sap-farm-santiag-2","sap-farm-burgos"]
+      "mete": [
+        "TR VAN01",
+        "HU BUDAPES08"
+      ]
     },
     {
-      "id": "farmacia-batch-12",
-      "priorita": 6,
-      "dipartimento": "Farmacia (Sapienza)",
-      "descrizione": "Farmacia - scadenze+lingua",
-      "tipo": "scadenze+lingua",
-      "mete": ["sap-farm-cordoba","sap-farm-palma","sap-farm-madrid-3","sap-farm-istanbu","sap-farm-kayseri"]
-    },
-    {
-      "id": "farmacia-batch-13",
-      "priorita": 6,
-      "dipartimento": "Farmacia (Sapienza)",
-      "descrizione": "Farmacia - scadenze+lingua",
-      "tipo": "scadenze+lingua",
-      "mete": ["sap-farm-van","sap-farm-budapes"]
-    },
-    {
-      "id": "comunicazione-e-ricerca-sociale-batch-1",
+      "id": "comunicazione-batch-1",
       "priorita": 6,
       "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
-      "descrizione": "Comunicazione e Ricerca Sociale - scadenze+lingua",
+      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-comm-wien","sap-comm-salzbur","sap-comm-louvain","sap-comm-tartu","sap-comm-paris"]
+      "mete": [
+        "A  WIEN01",
+        "A  SALZBUR01",
+        "B  LOUVAIN01",
+        "EE TARTU02",
+        "F  PARIS008"
+      ]
     },
     {
-      "id": "comunicazione-e-ricerca-sociale-batch-2",
+      "id": "comunicazione-batch-2",
       "priorita": 6,
       "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
-      "descrizione": "Comunicazione e Ricerca Sociale - scadenze+lingua",
+      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-comm-lyon","sap-comm-rennes","sap-comm-lyon-2","sap-comm-marseil","sap-comm-augsbur"]
+      "mete": [
+        "F  LYON02",
+        "F  RENNES02",
+        "F  MARSEIL84",
+        "D  AUGSBUR01",
+        "D  TUBINGE01"
+      ]
     },
     {
-      "id": "comunicazione-e-ricerca-sociale-batch-3",
+      "id": "comunicazione-batch-3",
       "priorita": 6,
       "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
-      "descrizione": "Comunicazione e Ricerca Sociale - scadenze+lingua",
+      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-comm-tubinge","sap-comm-munchen","sap-comm-athine","sap-comm-riga","sap-comm-vilnius"]
+      "mete": [
+        "D  MUNCHEN01",
+        "G  ATHINE01",
+        "LV RIGA02",
+        "LT VILNIUS01",
+        "N  OSLO58"
+      ]
     },
     {
-      "id": "comunicazione-e-ricerca-sociale-batch-4",
+      "id": "comunicazione-batch-4",
       "priorita": 6,
       "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
-      "descrizione": "Comunicazione e Ricerca Sociale - scadenze+lingua",
+      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-comm-vilnius-2","sap-comm-oslo","sap-comm-krakow","sap-comm-warszaw","sap-comm-lisboa"]
+      "mete": [
+        "PL KRAKOW01",
+        "PL WARSZAW01",
+        "P  LISBOA11",
+        "P  COVILHA01",
+        "P  PORTO02"
+      ]
     },
     {
-      "id": "comunicazione-e-ricerca-sociale-batch-5",
+      "id": "comunicazione-batch-5",
       "priorita": 6,
       "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
-      "descrizione": "Comunicazione e Ricerca Sociale - scadenze+lingua",
+      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-comm-covilha","sap-comm-porto","sap-comm-coimbra","sap-comm-lisboa-2","sap-comm-lisboa-3"]
+      "mete": [
+        "P  COIMBRA01",
+        "P  LISBOA52",
+        "P  MAIA01",
+        "CZ PRAHA07",
+        "RO BUCURES09"
+      ]
     },
     {
-      "id": "comunicazione-e-ricerca-sociale-batch-6",
+      "id": "comunicazione-batch-6",
       "priorita": 6,
       "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
-      "descrizione": "Comunicazione e Ricerca Sociale - scadenze+lingua",
+      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-comm-covilha-2","sap-comm-lisboa-4","sap-comm-covilha-3","sap-comm-maia","sap-comm-lisboa-5"]
+      "mete": [
+        "E  VALLADO03",
+        "E  BILBAO01",
+        "E  MURCIA01",
+        "E  CIUDA-R01",
+        "E  MADRID238"
+      ]
     },
     {
-      "id": "comunicazione-e-ricerca-sociale-batch-7",
+      "id": "comunicazione-batch-7",
       "priorita": 6,
       "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
-      "descrizione": "Comunicazione e Ricerca Sociale - scadenze+lingua",
+      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-comm-praha","sap-comm-bucures","sap-comm-bucures-2","sap-comm-vallado","sap-comm-bilbao"]
+      "mete": [
+        "E  VIGO01",
+        "E  MADRID26",
+        "E  SALAMAN01",
+        "E  BARCELO01",
+        "E  SANTIAG01"
+      ]
     },
     {
-      "id": "comunicazione-e-ricerca-sociale-batch-8",
+      "id": "comunicazione-batch-8",
       "priorita": 6,
       "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
-      "descrizione": "Comunicazione e Ricerca Sociale - scadenze+lingua",
+      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-comm-murcia","sap-comm-universidad","sap-comm-madrid","sap-comm-vigo","sap-comm-madrid-2"]
+      "mete": [
+        "E  LA-CORU01",
+        "E  MADRID17",
+        "E  MADRID03",
+        "E  SEVILLA01",
+        "CH LUGANO01"
+      ]
     },
     {
-      "id": "comunicazione-e-ricerca-sociale-batch-9",
+      "id": "comunicazione-batch-9",
       "priorita": 6,
       "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
-      "descrizione": "Comunicazione e Ricerca Sociale - scadenze+lingua",
+      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-comm-salaman","sap-comm-madrid-3","sap-comm-barcelo","sap-comm-santiag","sap-comm-universidad-2"]
+      "mete": [
+        "CH FRIBOUR01",
+        "CH BERN01",
+        "TR ISTANBU03",
+        "TR ANKARA03",
+        "TR ISTANBU21"
+      ]
     },
     {
-      "id": "comunicazione-e-ricerca-sociale-batch-10",
+      "id": "comunicazione-batch-10",
       "priorita": 6,
       "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
-      "descrizione": "Comunicazione e Ricerca Sociale - scadenze+lingua",
+      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-comm-vallado-2","sap-comm-madrid-4","sap-comm-madrid-5","sap-comm-madrid-6","sap-comm-madrid-7"]
+      "mete": [
+        "TR ISTANBU17"
+      ]
     },
     {
-      "id": "comunicazione-e-ricerca-sociale-batch-11",
-      "priorita": 6,
-      "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
-      "descrizione": "Comunicazione e Ricerca Sociale - scadenze+lingua",
-      "tipo": "scadenze+lingua",
-      "mete": ["sap-comm-sevilla","sap-comm-lugano","sap-comm-fribour","sap-comm-bern","sap-comm-istanbu"]
-    },
-    {
-      "id": "comunicazione-e-ricerca-sociale-batch-12",
-      "priorita": 6,
-      "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
-      "descrizione": "Comunicazione e Ricerca Sociale - scadenze+lingua",
-      "tipo": "scadenze+lingua",
-      "mete": ["sap-comm-ankara","sap-comm-ankara-2","sap-comm-istanbu-2","sap-comm-istanbu-3"]
-    },
-    {
-      "id": "scienze-sociali-ed-economiche-batch-1",
+      "id": "scienze-sociali-batch-1",
       "priorita": 6,
       "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
-      "descrizione": "Scienze Sociali ed Economiche - scadenze+lingua",
+      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-socio-salzbur","sap-socio-salzbur-2","sap-socio-louvain","sap-socio-leuven","sap-socio-bruxel"]
+      "mete": [
+        "A  SALZBUR01",
+        "B  LOUVAIN01",
+        "B  LEUVEN01",
+        "B  BRUXEL04",
+        "F  LILLE103"
+      ]
     },
     {
-      "id": "scienze-sociali-ed-economiche-batch-2",
+      "id": "scienze-sociali-batch-2",
       "priorita": 6,
       "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
-      "descrizione": "Scienze Sociali ed Economiche - scadenze+lingua",
+      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-socio-bruxel-2","sap-socio-lille","sap-socio-versail","sap-socio-lyon","sap-socio-paris"]
+      "mete": [
+        "F  VERSAIL11",
+        "F  LYON02",
+        "F  PARIS482",
+        "F  POITIER01",
+        "F  LE-HAVR11"
+      ]
     },
     {
-      "id": "scienze-sociali-ed-economiche-batch-3",
+      "id": "scienze-sociali-batch-3",
       "priorita": 6,
       "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
-      "descrizione": "Scienze Sociali ed Economiche - scadenze+lingua",
+      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-socio-poitier","sap-socio-universite","sap-socio-paris-2","sap-socio-bordeau","sap-socio-paris-3"]
+      "mete": [
+        "F  PARIS057",
+        "F  BORDEAU58",
+        "F  PARIS003",
+        "F  CHAMBER01",
+        "F  MARSEIL84"
+      ]
     },
     {
-      "id": "scienze-sociali-ed-economiche-batch-4",
+      "id": "scienze-sociali-batch-4",
       "priorita": 6,
       "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
-      "descrizione": "Scienze Sociali ed Economiche - scadenze+lingua",
+      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-socio-lille-2","sap-socio-chamber","sap-socio-marseil","sap-socio-marseil-2","sap-socio-munchen"]
+      "mete": [
+        "D  MUNCHEN01",
+        "D  BERLIN02",
+        "D  FREIBUR01",
+        "D  BAMBERG01",
+        "D  AACHEN01"
+      ]
     },
     {
-      "id": "scienze-sociali-ed-economiche-batch-5",
+      "id": "scienze-sociali-batch-5",
       "priorita": 6,
       "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
-      "descrizione": "Scienze Sociali ed Economiche - scadenze+lingua",
+      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-socio-berlin","sap-socio-freibur","sap-socio-bamberg","sap-socio-aachen","sap-socio-jena"]
+      "mete": [
+        "D  JENA01",
+        "D  LUNEBUR01",
+        "D  BERLIN06",
+        "D  TUBINGE01",
+        "G  KALLITH02"
+      ]
     },
     {
-      "id": "scienze-sociali-ed-economiche-batch-6",
+      "id": "scienze-sociali-batch-6",
       "priorita": 6,
       "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
-      "descrizione": "Scienze Sociali ed Economiche - scadenze+lingua",
+      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-socio-lunebur","sap-socio-freibur-2","sap-socio-berlin-2","sap-socio-tubinge","sap-socio-kallith"]
+      "mete": [
+        "G  ATHINE01",
+        "PL KRAKOW01",
+        "PL KRAKOW02",
+        "P  LISBOA07",
+        "P  LISBOA11"
+      ]
     },
     {
-      "id": "scienze-sociali-ed-economiche-batch-7",
+      "id": "scienze-sociali-batch-7",
       "priorita": 6,
       "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
-      "descrizione": "Scienze Sociali ed Economiche - scadenze+lingua",
+      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-socio-athine","sap-socio-krakow","sap-socio-krakow-2","sap-socio-lisboa","sap-socio-lisboa-2"]
+      "mete": [
+        "P  PORTO11",
+        "UK SOUTHAM01",
+        "CZ OLOMOUC01",
+        "RO BUCURES09",
+        "E  CADIZ01"
+      ]
     },
     {
-      "id": "scienze-sociali-ed-economiche-batch-8",
+      "id": "scienze-sociali-batch-8",
       "priorita": 6,
       "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
-      "descrizione": "Scienze Sociali ed Economiche - scadenze+lingua",
+      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-socio-porto","sap-socio-southam","sap-socio-olomouc","sap-socio-bucures","sap-socio-bucures-2"]
+      "mete": [
+        "E  VALLADO01",
+        "E  ZARAGOZ01",
+        "E  BILBAO01",
+        "E  MURCIA01",
+        "E  MADRID03"
+      ]
     },
     {
-      "id": "scienze-sociali-ed-economiche-batch-9",
+      "id": "scienze-sociali-batch-9",
       "priorita": 6,
       "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
-      "descrizione": "Scienze Sociali ed Economiche - scadenze+lingua",
+      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-socio-bucures-3","sap-socio-cadiz","sap-socio-vallado","sap-socio-zaragoz","sap-socio-bilbao"]
+      "mete": [
+        "E  TENERIF01",
+        "E  GRANADA01",
+        "E  VALENCI01",
+        "E  LAS-PAL01",
+        "E  LA-CORU01"
+      ]
     },
     {
-      "id": "scienze-sociali-ed-economiche-batch-10",
+      "id": "scienze-sociali-batch-10",
       "priorita": 6,
       "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
-      "descrizione": "Scienze Sociali ed Economiche - scadenze+lingua",
+      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-socio-bilbao-2","sap-socio-murcia","sap-socio-madrid","sap-socio-tenerif","sap-socio-granada"]
+      "mete": [
+        "E  HUELVA01",
+        "E  BARCELO02",
+        "E  BADAJOZ01",
+        "E  SEVILLA03",
+        "E  PAMPLON02"
+      ]
     },
     {
-      "id": "scienze-sociali-ed-economiche-batch-11",
+      "id": "scienze-sociali-batch-11",
       "priorita": 6,
       "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
-      "descrizione": "Scienze Sociali ed Economiche - scadenze+lingua",
+      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-socio-valenci","sap-socio-valenci-2","sap-socio-universidad","sap-socio-universidad-2","sap-socio-huelva"]
+      "mete": [
+        "E  BILBAO02",
+        "E  ALICANT01",
+        "E  MADRID04",
+        "S  STOCKHO01",
+        "TR ANKARA03"
+      ]
     },
     {
-      "id": "scienze-sociali-ed-economiche-batch-12",
+      "id": "scienze-sociali-batch-12",
       "priorita": 6,
       "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
-      "descrizione": "Scienze Sociali ed Economiche - scadenze+lingua",
+      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-socio-huelva-2","sap-socio-vallado-2","sap-socio-barcelo","sap-socio-badajoz","sap-socio-sevilla"]
+      "mete": [
+        "TR ISTANBU32"
+      ]
     },
     {
-      "id": "scienze-sociali-ed-economiche-batch-13",
-      "priorita": 6,
-      "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
-      "descrizione": "Scienze Sociali ed Economiche - scadenze+lingua",
-      "tipo": "scadenze+lingua",
-      "mete": ["sap-socio-pamplon","sap-socio-bilbao-3","sap-socio-alicant","sap-socio-madrid-2","sap-socio-stockho"]
-    },
-    {
-      "id": "scienze-sociali-ed-economiche-batch-14",
-      "priorita": 6,
-      "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
-      "descrizione": "Scienze Sociali ed Economiche - scadenze+lingua",
-      "tipo": "scadenze+lingua",
-      "mete": ["sap-socio-stockho-2","sap-socio-ankara","sap-socio-istanbu"]
-    },
-    {
-      "id": "psicologia-e-servizio-sociale-batch-1",
+      "id": "psicologia-batch-1",
       "priorita": 6,
       "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
-      "descrizione": "Psicologia, pedagogia e servizio sociale - scadenze+lingua",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-psico1-salzbur","sap-psico1-salzbur-2","sap-psico1-klagenf","sap-psico1-ustp","sap-psico1-bruxel"]
+      "mete": [
+        "A  SALZBUR01",
+        "A  KLAGENF01",
+        "A  ST-POLT03",
+        "B  BRUXEL04",
+        "B  LIEGE01"
+      ]
     },
     {
-      "id": "psicologia-e-servizio-sociale-batch-2",
+      "id": "psicologia-batch-2",
       "priorita": 6,
       "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
-      "descrizione": "Psicologia, pedagogia e servizio sociale - scadenze+lingua",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-psico1-bruxel-2","sap-psico1-liege","sap-psico1-varna","sap-psico1-osijek","sap-psico1-bordeau"]
+      "mete": [
+        "BG VARNA02",
+        "HR OSIJEK01",
+        "F  BORDEAU58",
+        "F  LYON02",
+        "F  PARIS482"
+      ]
     },
     {
-      "id": "psicologia-e-servizio-sociale-batch-3",
+      "id": "psicologia-batch-3",
       "priorita": 6,
       "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
-      "descrizione": "Psicologia, pedagogia e servizio sociale - scadenze+lingua",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-psico1-lyon","sap-psico1-paris","sap-psico1-brest","sap-psico1-marseil","sap-psico1-marseil-2"]
+      "mete": [
+        "F  BREST01",
+        "F  MARSEIL84",
+        "F  PARIS008",
+        "F  LYON10",
+        "F  LILLE103"
+      ]
     },
     {
-      "id": "psicologia-e-servizio-sociale-batch-4",
+      "id": "psicologia-batch-4",
       "priorita": 6,
       "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
-      "descrizione": "Psicologia, pedagogia e servizio sociale - scadenze+lingua",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-psico1-paris-2","sap-psico1-lyon-2","sap-psico1-lille","sap-psico1-nice","sap-psico1-lille-2"]
+      "mete": [
+        "F  NICE42",
+        "F  PARIS087",
+        "D  LUDWIGB06",
+        "D  DARMSTA02",
+        "D  TUBINGE01"
+      ]
     },
     {
-      "id": "psicologia-e-servizio-sociale-batch-5",
+      "id": "psicologia-batch-5",
       "priorita": 6,
       "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
-      "descrizione": "Psicologia, pedagogia e servizio sociale - scadenze+lingua",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-psico1-paris-3","sap-psico1-ludwigb","sap-psico1-darmsta","sap-psico1-tubinge","sap-psico1-konstan"]
+      "mete": [
+        "D  KONSTAN01",
+        "D  FREIBUR01",
+        "D  WITTEN02",
+        "D  JENA01",
+        "D  WURZBUR01"
+      ]
     },
     {
-      "id": "psicologia-e-servizio-sociale-batch-6",
+      "id": "psicologia-batch-6",
       "priorita": 6,
       "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
-      "descrizione": "Psicologia, pedagogia e servizio sociale - scadenze+lingua",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-psico1-freibur","sap-psico1-tubinge-2","sap-psico1-witten","sap-psico1-jena","sap-psico1-wurzbur"]
+      "mete": [
+        "D  BOCHUM01",
+        "D  TRIER01",
+        "D  EICHSTA01",
+        "D  BIELEFE01",
+        "D  GOTTING01"
+      ]
     },
     {
-      "id": "psicologia-e-servizio-sociale-batch-7",
+      "id": "psicologia-batch-7",
       "priorita": 6,
       "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
-      "descrizione": "Psicologia, pedagogia e servizio sociale - scadenze+lingua",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-psico1-bochum","sap-psico1-trier","sap-psico1-eichsta","sap-psico1-bielefe","sap-psico1-gotting"]
+      "mete": [
+        "D  BERLIN10",
+        "D  HILDESH01",
+        "D  BERLIN20",
+        "D  HAMBURG01",
+        "D  POTSDAM01"
+      ]
     },
     {
-      "id": "psicologia-e-servizio-sociale-batch-8",
+      "id": "psicologia-batch-8",
       "priorita": 6,
       "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
-      "descrizione": "Psicologia, pedagogia e servizio sociale - scadenze+lingua",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-psico1-berlin","sap-psico1-hildesh","sap-psico1-berlin-2","sap-psico1-berlin-3","sap-psico1-hamburg"]
+      "mete": [
+        "D  KOLN01",
+        "G  ATHINE01",
+        "LT VILNIUS06",
+        "MT MALTA01",
+        "NL NIJMEGE01"
+      ]
     },
     {
-      "id": "psicologia-e-servizio-sociale-batch-9",
+      "id": "psicologia-batch-9",
       "priorita": 6,
       "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
-      "descrizione": "Psicologia, pedagogia e servizio sociale - scadenze+lingua",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-psico1-potsdam","sap-psico1-koln","sap-psico1-athine","sap-psico1-athine-2","sap-psico1-athine-3"]
+      "mete": [
+        "PL LUBLIN02",
+        "PL KIELCE02",
+        "PL BYDGOSZ01",
+        "PL WROCLAW13",
+        "PL POZNAN01"
+      ]
     },
     {
-      "id": "psicologia-e-servizio-sociale-batch-10",
+      "id": "psicologia-batch-10",
       "priorita": 6,
       "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
-      "descrizione": "Psicologia, pedagogia e servizio sociale - scadenze+lingua",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-psico1-vilnius","sap-psico1-malta","sap-psico1-nijmege","sap-psico1-lublin","sap-psico1-kielce"]
+      "mete": [
+        "P  COVILHA01",
+        "P  LISBOA17",
+        "P  LISBOA01",
+        "P  LISBOA104",
+        "P  LISBOA109"
+      ]
     },
     {
-      "id": "psicologia-e-servizio-sociale-batch-11",
+      "id": "psicologia-batch-11",
       "priorita": 6,
       "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
-      "descrizione": "Psicologia, pedagogia e servizio sociale - scadenze+lingua",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-psico1-bydgosz","sap-psico1-wroclaw","sap-psico1-poznan","sap-psico1-covilha","sap-psico1-lisboa"]
+      "mete": [
+        "P  FUNCHAL03",
+        "P  BRAGA01",
+        "RO IASI02",
+        "RO BUCURES09",
+        "RO BUCURES43"
+      ]
     },
     {
-      "id": "psicologia-e-servizio-sociale-batch-12",
+      "id": "psicologia-batch-12",
       "priorita": 6,
       "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
-      "descrizione": "Psicologia, pedagogia e servizio sociale - scadenze+lingua",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-psico1-lisboa-2","sap-psico1-lisboa-3","sap-psico1-lisboa-4","sap-psico1-funchal","sap-psico1-braga"]
+      "mete": [
+        "SK BRATISL08",
+        "E  CIUDA-R01",
+        "E  LA-CORU01",
+        "E  MADRID21",
+        "E  ZARAGOZ01"
+      ]
     },
     {
-      "id": "psicologia-e-servizio-sociale-batch-13",
+      "id": "psicologia-batch-13",
       "priorita": 6,
       "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
-      "descrizione": "Psicologia, pedagogia e servizio sociale - scadenze+lingua",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-psico1-iasi","sap-psico1-bucures","sap-psico1-bucures-2","sap-psico1-bucures-3","sap-psico1-bratisl"]
+      "mete": [
+        "E  MALAGA01",
+        "E  SANTIAG01",
+        "E  OVIEDO01",
+        "E  CADIZ01",
+        "E  BARCELO01"
+      ]
     },
     {
-      "id": "psicologia-e-servizio-sociale-batch-14",
+      "id": "psicologia-batch-14",
       "priorita": 6,
       "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
-      "descrizione": "Psicologia, pedagogia e servizio sociale - scadenze+lingua",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-psico1-universidad","sap-psico1-universidad-2","sap-psico1-madrid","sap-psico1-zaragoz","sap-psico1-malaga"]
+      "mete": [
+        "E  SEVILLA01",
+        "E  MURCIA05",
+        "E  CASTELL01",
+        "E  MADRID01",
+        "E  AVILA01"
+      ]
     },
     {
-      "id": "psicologia-e-servizio-sociale-batch-15",
+      "id": "psicologia-batch-15",
       "priorita": 6,
       "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
-      "descrizione": "Psicologia, pedagogia e servizio sociale - scadenze+lingua",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-psico1-santiag","sap-psico1-oviedo","sap-psico1-cadiz","sap-psico1-oviedo-2","sap-psico1-barcelo"]
+      "mete": [
+        "E  GRANADA01",
+        "S  STOCKHO01",
+        "CH GENEVE01",
+        "CH BRUGG02",
+        "CH ZURICH01"
+      ]
     },
     {
-      "id": "psicologia-e-servizio-sociale-batch-16",
+      "id": "psicologia-batch-16",
       "priorita": 6,
       "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
-      "descrizione": "Psicologia, pedagogia e servizio sociale - scadenze+lingua",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-psico1-sevilla","sap-psico1-murcia","sap-psico1-castell","sap-psico1-castell-2","sap-psico1-madrid-2"]
+      "mete": [
+        "CH LAUSANN01",
+        "TR ANKARA06",
+        "TR IZMIR02",
+        "TR IZMIR01",
+        "TR ISTANBU60"
+      ]
     },
     {
-      "id": "psicologia-e-servizio-sociale-batch-17",
+      "id": "psicologia-batch-17",
       "priorita": 6,
       "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
-      "descrizione": "Psicologia, pedagogia e servizio sociale - scadenze+lingua",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
-      "mete": ["sap-psico1-avila","sap-psico1-zaragoz-2","sap-psico1-granada","sap-psico1-granada-2","sap-psico1-malaga-2"]
-    },
-    {
-      "id": "psicologia-e-servizio-sociale-batch-18",
-      "priorita": 6,
-      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
-      "descrizione": "Psicologia, pedagogia e servizio sociale - scadenze+lingua",
-      "tipo": "scadenze+lingua",
-      "mete": ["sap-psico1-stockho","sap-psico1-stockho-2","sap-psico1-geneve","sap-psico1-brugg","sap-psico1-zurich"]
-    },
-    {
-      "id": "psicologia-e-servizio-sociale-batch-19",
-      "priorita": 6,
-      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
-      "descrizione": "Psicologia, pedagogia e servizio sociale - scadenze+lingua",
-      "tipo": "scadenze+lingua",
-      "mete": ["sap-psico1-lausann","sap-psico1-ankara","sap-psico1-izmir","sap-psico1-izmir-2","sap-psico1-istanbu"]
-    },
-    {
-      "id": "psicologia-e-servizio-sociale-batch-20",
-      "priorita": 6,
-      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
-      "descrizione": "Psicologia, pedagogia e servizio sociale - scadenze+lingua",
-      "tipo": "scadenze+lingua",
-      "mete": ["sap-psico1-izmir-3","sap-psico1-istanbu-2"]
+      "mete": [
+        "TR ISTANBU21"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -753,44 +966,518 @@
       "stato": "in_corso",
       "totale": 62,
       "completate": 0,
-      "pendingScadenze": ["sap-farm-leuven","sap-farm-liege","sap-farm-brussel","sap-farm-bruxel","sap-farm-antwerp","sap-farm-sofia","sap-farm-varna","sap-farm-zagreb","sap-farm-osijek","sap-farm-rijeka","sap-farm-osijek-2","sap-farm-nancy","sap-farm-compieg","sap-farm-grenobl","sap-farm-montpel","sap-farm-besanco","sap-farm-amiens","sap-farm-poitier","sap-farm-lyon","sap-farm-compieg-2","sap-farm-lille","sap-farm-lille-2","sap-farm-rennes","sap-farm-marseil","sap-farm-lyon-2","sap-farm-cy","sap-farm-angers","sap-farm-lyon-3","sap-farm-marseil-2","sap-farm-cy-2","sap-farm-saarbru","sap-farm-berlin","sap-farm-patra","sap-farm-athine","sap-farm-patra-2","sap-farm-wroclaw","sap-farm-warszaw","sap-farm-braganc","sap-farm-lisboa","sap-farm-coimbra","sap-farm-covilha","sap-farm-london","sap-farm-bucures","sap-farm-clujnap","sap-farm-belgrad","sap-farm-ljublja","sap-farm-madrid","sap-farm-granada","sap-farm-santiag","sap-farm-salaman","sap-farm-madrid-2","sap-farm-barcelo","sap-farm-zaragoz","sap-farm-santiag-2","sap-farm-burgos","sap-farm-cordoba","sap-farm-palma","sap-farm-madrid-3","sap-farm-istanbu","sap-farm-kayseri","sap-farm-van","sap-farm-budapes"],
-      "pendingLingua": ["sap-farm-leuven","sap-farm-liege","sap-farm-brussel","sap-farm-bruxel","sap-farm-antwerp","sap-farm-sofia","sap-farm-varna","sap-farm-zagreb","sap-farm-osijek","sap-farm-rijeka","sap-farm-osijek-2","sap-farm-nancy","sap-farm-compieg","sap-farm-grenobl","sap-farm-montpel","sap-farm-besanco","sap-farm-amiens","sap-farm-poitier","sap-farm-lyon","sap-farm-compieg-2","sap-farm-lille","sap-farm-lille-2","sap-farm-rennes","sap-farm-marseil","sap-farm-lyon-2","sap-farm-cy","sap-farm-angers","sap-farm-lyon-3","sap-farm-marseil-2","sap-farm-cy-2","sap-farm-saarbru","sap-farm-berlin","sap-farm-patra","sap-farm-athine","sap-farm-patra-2","sap-farm-wroclaw","sap-farm-warszaw","sap-farm-braganc","sap-farm-lisboa","sap-farm-coimbra","sap-farm-covilha","sap-farm-london","sap-farm-bucures","sap-farm-clujnap","sap-farm-belgrad","sap-farm-ljublja","sap-farm-madrid","sap-farm-granada","sap-farm-santiag","sap-farm-salaman","sap-farm-madrid-2","sap-farm-barcelo","sap-farm-zaragoz","sap-farm-santiag-2","sap-farm-burgos","sap-farm-cordoba","sap-farm-palma","sap-farm-madrid-3","sap-farm-istanbu","sap-farm-kayseri","sap-farm-van","sap-farm-budapes"],
+      "pendingScadenze": [
+        "B  LEUVEN01",
+        "B  LIEGE01",
+        "B  BRUSSEL01",
+        "B  BRUXEL04",
+        "B  ANTWERP01",
+        "BG SOFIA11",
+        "BG VARNA03",
+        "HR ZAGREB01",
+        "HR OSIJEK01",
+        "HR RIJEKA01",
+        "F  NANCY43",
+        "F  COMPIEG05",
+        "F  GRENOBL55",
+        "F  MONTPEL54",
+        "F  BESANCO01",
+        "F  AMIENS01",
+        "F  POITIER01",
+        "F  LYON01",
+        "F  LILLE11",
+        "F  RENNES09",
+        "F  MARSEIL84",
+        "F  CERGY-P11",
+        "F  ANGERS01",
+        "D  SAARBRU01",
+        "D  BERLIN02",
+        "G  PATRA01",
+        "G  ATHINE01",
+        "PL WROCLAW05",
+        "PL WARSZAW06",
+        "P  BRAGANC01",
+        "P  LISBOA109",
+        "P  COIMBRA01",
+        "P  COVILHA01",
+        "UK LONDON017",
+        "RO BUCURES09",
+        "RO CLUJNAP01",
+        "RS  BELGRAD02",
+        "SI LJUBLJA01",
+        "E  MADRID21",
+        "E  GRANADA01",
+        "E  SANTIAG01",
+        "E  SALAMAN02",
+        "E  MADRID03",
+        "E  BARCELO01",
+        "E  ZARAGOZ07",
+        "E  BURGOS01",
+        "E  CORDOBA23",
+        "E  PALMA01",
+        "TR ISTANBU19",
+        "TR KAYSERI01",
+        "TR VAN01",
+        "HU BUDAPES08"
+      ],
+      "pendingLingua": [
+        "B  LEUVEN01",
+        "B  LIEGE01",
+        "B  BRUSSEL01",
+        "B  BRUXEL04",
+        "B  ANTWERP01",
+        "BG SOFIA11",
+        "BG VARNA03",
+        "HR ZAGREB01",
+        "HR OSIJEK01",
+        "HR RIJEKA01",
+        "F  NANCY43",
+        "F  COMPIEG05",
+        "F  GRENOBL55",
+        "F  MONTPEL54",
+        "F  BESANCO01",
+        "F  AMIENS01",
+        "F  POITIER01",
+        "F  LYON01",
+        "F  LILLE11",
+        "F  RENNES09",
+        "F  MARSEIL84",
+        "F  CERGY-P11",
+        "F  ANGERS01",
+        "D  SAARBRU01",
+        "D  BERLIN02",
+        "G  PATRA01",
+        "G  ATHINE01",
+        "PL WROCLAW05",
+        "PL WARSZAW06",
+        "P  BRAGANC01",
+        "P  LISBOA109",
+        "P  COIMBRA01",
+        "P  COVILHA01",
+        "UK LONDON017",
+        "RO BUCURES09",
+        "RO CLUJNAP01",
+        "RS  BELGRAD02",
+        "SI LJUBLJA01",
+        "E  MADRID21",
+        "E  GRANADA01",
+        "E  SANTIAG01",
+        "E  SALAMAN02",
+        "E  MADRID03",
+        "E  BARCELO01",
+        "E  ZARAGOZ07",
+        "E  BURGOS01",
+        "E  CORDOBA23",
+        "E  PALMA01",
+        "TR ISTANBU19",
+        "TR KAYSERI01",
+        "TR VAN01",
+        "HU BUDAPES08"
+      ],
       "tentativiLingua": {},
-      "linguaNonTrovabile": [],
-      "ateneo": "Sapienza Roma"
+      "linguaNonTrovabile": []
     },
     "Comunicazione e Ricerca Sociale (Sapienza)": {
       "fileJs": "js/atenei/sapienza/dati-mete-comunicazione.js",
       "stato": "in_corso",
       "totale": 59,
       "completate": 0,
-      "pendingScadenze": ["sap-comm-wien","sap-comm-salzbur","sap-comm-louvain","sap-comm-tartu","sap-comm-paris","sap-comm-lyon","sap-comm-rennes","sap-comm-lyon-2","sap-comm-marseil","sap-comm-augsbur","sap-comm-tubinge","sap-comm-munchen","sap-comm-athine","sap-comm-riga","sap-comm-vilnius","sap-comm-vilnius-2","sap-comm-oslo","sap-comm-krakow","sap-comm-warszaw","sap-comm-lisboa","sap-comm-covilha","sap-comm-porto","sap-comm-coimbra","sap-comm-lisboa-2","sap-comm-lisboa-3","sap-comm-covilha-2","sap-comm-lisboa-4","sap-comm-covilha-3","sap-comm-maia","sap-comm-lisboa-5","sap-comm-praha","sap-comm-bucures","sap-comm-bucures-2","sap-comm-vallado","sap-comm-bilbao","sap-comm-murcia","sap-comm-universidad","sap-comm-madrid","sap-comm-vigo","sap-comm-madrid-2","sap-comm-salaman","sap-comm-madrid-3","sap-comm-barcelo","sap-comm-santiag","sap-comm-universidad-2","sap-comm-vallado-2","sap-comm-madrid-4","sap-comm-madrid-5","sap-comm-madrid-6","sap-comm-madrid-7","sap-comm-sevilla","sap-comm-lugano","sap-comm-fribour","sap-comm-bern","sap-comm-istanbu","sap-comm-ankara","sap-comm-ankara-2","sap-comm-istanbu-2","sap-comm-istanbu-3"],
-      "pendingLingua": ["sap-comm-wien","sap-comm-salzbur","sap-comm-louvain","sap-comm-tartu","sap-comm-paris","sap-comm-lyon","sap-comm-rennes","sap-comm-lyon-2","sap-comm-marseil","sap-comm-augsbur","sap-comm-tubinge","sap-comm-munchen","sap-comm-athine","sap-comm-riga","sap-comm-vilnius","sap-comm-vilnius-2","sap-comm-oslo","sap-comm-krakow","sap-comm-warszaw","sap-comm-lisboa","sap-comm-covilha","sap-comm-porto","sap-comm-coimbra","sap-comm-lisboa-2","sap-comm-lisboa-3","sap-comm-covilha-2","sap-comm-lisboa-4","sap-comm-covilha-3","sap-comm-maia","sap-comm-lisboa-5","sap-comm-praha","sap-comm-bucures","sap-comm-bucures-2","sap-comm-vallado","sap-comm-bilbao","sap-comm-murcia","sap-comm-universidad","sap-comm-madrid","sap-comm-vigo","sap-comm-madrid-2","sap-comm-salaman","sap-comm-madrid-3","sap-comm-barcelo","sap-comm-santiag","sap-comm-universidad-2","sap-comm-vallado-2","sap-comm-madrid-4","sap-comm-madrid-5","sap-comm-madrid-6","sap-comm-madrid-7","sap-comm-sevilla","sap-comm-lugano","sap-comm-fribour","sap-comm-bern","sap-comm-istanbu","sap-comm-ankara","sap-comm-ankara-2","sap-comm-istanbu-2","sap-comm-istanbu-3"],
+      "pendingScadenze": [
+        "A  WIEN01",
+        "A  SALZBUR01",
+        "B  LOUVAIN01",
+        "EE TARTU02",
+        "F  PARIS008",
+        "F  LYON02",
+        "F  RENNES02",
+        "F  MARSEIL84",
+        "D  AUGSBUR01",
+        "D  TUBINGE01",
+        "D  MUNCHEN01",
+        "G  ATHINE01",
+        "LV RIGA02",
+        "LT VILNIUS01",
+        "N  OSLO58",
+        "PL KRAKOW01",
+        "PL WARSZAW01",
+        "P  LISBOA11",
+        "P  COVILHA01",
+        "P  PORTO02",
+        "P  COIMBRA01",
+        "P  LISBOA52",
+        "P  MAIA01",
+        "CZ PRAHA07",
+        "RO BUCURES09",
+        "E  VALLADO03",
+        "E  BILBAO01",
+        "E  MURCIA01",
+        "E  CIUDA-R01",
+        "E  MADRID238",
+        "E  VIGO01",
+        "E  MADRID26",
+        "E  SALAMAN01",
+        "E  BARCELO01",
+        "E  SANTIAG01",
+        "E  LA-CORU01",
+        "E  MADRID17",
+        "E  MADRID03",
+        "E  SEVILLA01",
+        "CH LUGANO01",
+        "CH FRIBOUR01",
+        "CH BERN01",
+        "TR ISTANBU03",
+        "TR ANKARA03",
+        "TR ISTANBU21",
+        "TR ISTANBU17"
+      ],
+      "pendingLingua": [
+        "A  WIEN01",
+        "A  SALZBUR01",
+        "B  LOUVAIN01",
+        "EE TARTU02",
+        "F  PARIS008",
+        "F  LYON02",
+        "F  RENNES02",
+        "F  MARSEIL84",
+        "D  AUGSBUR01",
+        "D  TUBINGE01",
+        "D  MUNCHEN01",
+        "G  ATHINE01",
+        "LV RIGA02",
+        "LT VILNIUS01",
+        "N  OSLO58",
+        "PL KRAKOW01",
+        "PL WARSZAW01",
+        "P  LISBOA11",
+        "P  COVILHA01",
+        "P  PORTO02",
+        "P  COIMBRA01",
+        "P  LISBOA52",
+        "P  MAIA01",
+        "CZ PRAHA07",
+        "RO BUCURES09",
+        "E  VALLADO03",
+        "E  BILBAO01",
+        "E  MURCIA01",
+        "E  CIUDA-R01",
+        "E  MADRID238",
+        "E  VIGO01",
+        "E  MADRID26",
+        "E  SALAMAN01",
+        "E  BARCELO01",
+        "E  SANTIAG01",
+        "E  LA-CORU01",
+        "E  MADRID17",
+        "E  MADRID03",
+        "E  SEVILLA01",
+        "CH LUGANO01",
+        "CH FRIBOUR01",
+        "CH BERN01",
+        "TR ISTANBU03",
+        "TR ANKARA03",
+        "TR ISTANBU21",
+        "TR ISTANBU17"
+      ],
       "tentativiLingua": {},
-      "linguaNonTrovabile": [],
-      "ateneo": "Sapienza Roma"
+      "linguaNonTrovabile": []
     },
     "Scienze Sociali ed Economiche (Sapienza)": {
       "fileJs": "js/atenei/sapienza/dati-mete-scienze-sociali.js",
       "stato": "in_corso",
       "totale": 68,
       "completate": 0,
-      "pendingScadenze": ["sap-socio-salzbur","sap-socio-salzbur-2","sap-socio-louvain","sap-socio-leuven","sap-socio-bruxel","sap-socio-bruxel-2","sap-socio-lille","sap-socio-versail","sap-socio-lyon","sap-socio-paris","sap-socio-poitier","sap-socio-universite","sap-socio-paris-2","sap-socio-bordeau","sap-socio-paris-3","sap-socio-lille-2","sap-socio-chamber","sap-socio-marseil","sap-socio-marseil-2","sap-socio-munchen","sap-socio-berlin","sap-socio-freibur","sap-socio-bamberg","sap-socio-aachen","sap-socio-jena","sap-socio-lunebur","sap-socio-freibur-2","sap-socio-berlin-2","sap-socio-tubinge","sap-socio-kallith","sap-socio-athine","sap-socio-krakow","sap-socio-krakow-2","sap-socio-lisboa","sap-socio-lisboa-2","sap-socio-porto","sap-socio-southam","sap-socio-olomouc","sap-socio-bucures","sap-socio-bucures-2","sap-socio-bucures-3","sap-socio-cadiz","sap-socio-vallado","sap-socio-zaragoz","sap-socio-bilbao","sap-socio-bilbao-2","sap-socio-murcia","sap-socio-madrid","sap-socio-tenerif","sap-socio-granada","sap-socio-valenci","sap-socio-valenci-2","sap-socio-universidad","sap-socio-universidad-2","sap-socio-huelva","sap-socio-huelva-2","sap-socio-vallado-2","sap-socio-barcelo","sap-socio-badajoz","sap-socio-sevilla","sap-socio-pamplon","sap-socio-bilbao-3","sap-socio-alicant","sap-socio-madrid-2","sap-socio-stockho","sap-socio-stockho-2","sap-socio-ankara","sap-socio-istanbu"],
-      "pendingLingua": ["sap-socio-salzbur","sap-socio-salzbur-2","sap-socio-louvain","sap-socio-leuven","sap-socio-bruxel","sap-socio-bruxel-2","sap-socio-lille","sap-socio-versail","sap-socio-lyon","sap-socio-paris","sap-socio-poitier","sap-socio-universite","sap-socio-paris-2","sap-socio-bordeau","sap-socio-paris-3","sap-socio-lille-2","sap-socio-chamber","sap-socio-marseil","sap-socio-marseil-2","sap-socio-munchen","sap-socio-berlin","sap-socio-freibur","sap-socio-bamberg","sap-socio-aachen","sap-socio-jena","sap-socio-lunebur","sap-socio-freibur-2","sap-socio-berlin-2","sap-socio-tubinge","sap-socio-kallith","sap-socio-athine","sap-socio-krakow","sap-socio-krakow-2","sap-socio-lisboa","sap-socio-lisboa-2","sap-socio-porto","sap-socio-southam","sap-socio-olomouc","sap-socio-bucures","sap-socio-bucures-2","sap-socio-bucures-3","sap-socio-cadiz","sap-socio-vallado","sap-socio-zaragoz","sap-socio-bilbao","sap-socio-bilbao-2","sap-socio-murcia","sap-socio-madrid","sap-socio-tenerif","sap-socio-granada","sap-socio-valenci","sap-socio-valenci-2","sap-socio-universidad","sap-socio-universidad-2","sap-socio-huelva","sap-socio-huelva-2","sap-socio-vallado-2","sap-socio-barcelo","sap-socio-badajoz","sap-socio-sevilla","sap-socio-pamplon","sap-socio-bilbao-3","sap-socio-alicant","sap-socio-madrid-2","sap-socio-stockho","sap-socio-stockho-2","sap-socio-ankara","sap-socio-istanbu"],
+      "pendingScadenze": [
+        "A  SALZBUR01",
+        "B  LOUVAIN01",
+        "B  LEUVEN01",
+        "B  BRUXEL04",
+        "F  LILLE103",
+        "F  VERSAIL11",
+        "F  LYON02",
+        "F  PARIS482",
+        "F  POITIER01",
+        "F  LE-HAVR11",
+        "F  PARIS057",
+        "F  BORDEAU58",
+        "F  PARIS003",
+        "F  CHAMBER01",
+        "F  MARSEIL84",
+        "D  MUNCHEN01",
+        "D  BERLIN02",
+        "D  FREIBUR01",
+        "D  BAMBERG01",
+        "D  AACHEN01",
+        "D  JENA01",
+        "D  LUNEBUR01",
+        "D  BERLIN06",
+        "D  TUBINGE01",
+        "G  KALLITH02",
+        "G  ATHINE01",
+        "PL KRAKOW01",
+        "PL KRAKOW02",
+        "P  LISBOA07",
+        "P  LISBOA11",
+        "P  PORTO11",
+        "UK SOUTHAM01",
+        "CZ OLOMOUC01",
+        "RO BUCURES09",
+        "E  CADIZ01",
+        "E  VALLADO01",
+        "E  ZARAGOZ01",
+        "E  BILBAO01",
+        "E  MURCIA01",
+        "E  MADRID03",
+        "E  TENERIF01",
+        "E  GRANADA01",
+        "E  VALENCI01",
+        "E  LAS-PAL01",
+        "E  LA-CORU01",
+        "E  HUELVA01",
+        "E  BARCELO02",
+        "E  BADAJOZ01",
+        "E  SEVILLA03",
+        "E  PAMPLON02",
+        "E  BILBAO02",
+        "E  ALICANT01",
+        "E  MADRID04",
+        "S  STOCKHO01",
+        "TR ANKARA03",
+        "TR ISTANBU32"
+      ],
+      "pendingLingua": [
+        "A  SALZBUR01",
+        "B  LOUVAIN01",
+        "B  LEUVEN01",
+        "B  BRUXEL04",
+        "F  LILLE103",
+        "F  VERSAIL11",
+        "F  LYON02",
+        "F  PARIS482",
+        "F  POITIER01",
+        "F  LE-HAVR11",
+        "F  PARIS057",
+        "F  BORDEAU58",
+        "F  PARIS003",
+        "F  CHAMBER01",
+        "F  MARSEIL84",
+        "D  MUNCHEN01",
+        "D  BERLIN02",
+        "D  FREIBUR01",
+        "D  BAMBERG01",
+        "D  AACHEN01",
+        "D  JENA01",
+        "D  LUNEBUR01",
+        "D  BERLIN06",
+        "D  TUBINGE01",
+        "G  KALLITH02",
+        "G  ATHINE01",
+        "PL KRAKOW01",
+        "PL KRAKOW02",
+        "P  LISBOA07",
+        "P  LISBOA11",
+        "P  PORTO11",
+        "UK SOUTHAM01",
+        "CZ OLOMOUC01",
+        "RO BUCURES09",
+        "E  CADIZ01",
+        "E  VALLADO01",
+        "E  ZARAGOZ01",
+        "E  BILBAO01",
+        "E  MURCIA01",
+        "E  MADRID03",
+        "E  TENERIF01",
+        "E  GRANADA01",
+        "E  VALENCI01",
+        "E  LAS-PAL01",
+        "E  LA-CORU01",
+        "E  HUELVA01",
+        "E  BARCELO02",
+        "E  BADAJOZ01",
+        "E  SEVILLA03",
+        "E  PAMPLON02",
+        "E  BILBAO02",
+        "E  ALICANT01",
+        "E  MADRID04",
+        "S  STOCKHO01",
+        "TR ANKARA03",
+        "TR ISTANBU32"
+      ],
       "tentativiLingua": {},
-      "linguaNonTrovabile": [],
-      "ateneo": "Sapienza Roma"
+      "linguaNonTrovabile": []
     },
     "Psicologia e Servizio Sociale (Sapienza)": {
       "fileJs": "js/atenei/sapienza/dati-mete-psicologia.js",
       "stato": "in_corso",
       "totale": 97,
       "completate": 0,
-      "pendingScadenze": ["sap-psico1-salzbur","sap-psico1-salzbur-2","sap-psico1-klagenf","sap-psico1-ustp","sap-psico1-bruxel","sap-psico1-bruxel-2","sap-psico1-liege","sap-psico1-varna","sap-psico1-osijek","sap-psico1-bordeau","sap-psico1-lyon","sap-psico1-paris","sap-psico1-brest","sap-psico1-marseil","sap-psico1-marseil-2","sap-psico1-paris-2","sap-psico1-lyon-2","sap-psico1-lille","sap-psico1-nice","sap-psico1-lille-2","sap-psico1-paris-3","sap-psico1-ludwigb","sap-psico1-darmsta","sap-psico1-tubinge","sap-psico1-konstan","sap-psico1-freibur","sap-psico1-tubinge-2","sap-psico1-witten","sap-psico1-jena","sap-psico1-wurzbur","sap-psico1-bochum","sap-psico1-trier","sap-psico1-eichsta","sap-psico1-bielefe","sap-psico1-gotting","sap-psico1-berlin","sap-psico1-hildesh","sap-psico1-berlin-2","sap-psico1-berlin-3","sap-psico1-hamburg","sap-psico1-potsdam","sap-psico1-koln","sap-psico1-athine","sap-psico1-athine-2","sap-psico1-athine-3","sap-psico1-vilnius","sap-psico1-malta","sap-psico1-nijmege","sap-psico1-lublin","sap-psico1-kielce","sap-psico1-bydgosz","sap-psico1-wroclaw","sap-psico1-poznan","sap-psico1-covilha","sap-psico1-lisboa","sap-psico1-lisboa-2","sap-psico1-lisboa-3","sap-psico1-lisboa-4","sap-psico1-funchal","sap-psico1-braga","sap-psico1-iasi","sap-psico1-bucures","sap-psico1-bucures-2","sap-psico1-bucures-3","sap-psico1-bratisl","sap-psico1-universidad","sap-psico1-universidad-2","sap-psico1-madrid","sap-psico1-zaragoz","sap-psico1-malaga","sap-psico1-santiag","sap-psico1-oviedo","sap-psico1-cadiz","sap-psico1-oviedo-2","sap-psico1-barcelo","sap-psico1-sevilla","sap-psico1-murcia","sap-psico1-castell","sap-psico1-castell-2","sap-psico1-madrid-2","sap-psico1-avila","sap-psico1-zaragoz-2","sap-psico1-granada","sap-psico1-granada-2","sap-psico1-malaga-2","sap-psico1-stockho","sap-psico1-stockho-2","sap-psico1-geneve","sap-psico1-brugg","sap-psico1-zurich","sap-psico1-lausann","sap-psico1-ankara","sap-psico1-izmir","sap-psico1-izmir-2","sap-psico1-istanbu","sap-psico1-izmir-3","sap-psico1-istanbu-2"],
-      "pendingLingua": ["sap-psico1-salzbur","sap-psico1-salzbur-2","sap-psico1-klagenf","sap-psico1-ustp","sap-psico1-bruxel","sap-psico1-bruxel-2","sap-psico1-liege","sap-psico1-varna","sap-psico1-osijek","sap-psico1-bordeau","sap-psico1-lyon","sap-psico1-paris","sap-psico1-brest","sap-psico1-marseil","sap-psico1-marseil-2","sap-psico1-paris-2","sap-psico1-lyon-2","sap-psico1-lille","sap-psico1-nice","sap-psico1-lille-2","sap-psico1-paris-3","sap-psico1-ludwigb","sap-psico1-darmsta","sap-psico1-tubinge","sap-psico1-konstan","sap-psico1-freibur","sap-psico1-tubinge-2","sap-psico1-witten","sap-psico1-jena","sap-psico1-wurzbur","sap-psico1-bochum","sap-psico1-trier","sap-psico1-eichsta","sap-psico1-bielefe","sap-psico1-gotting","sap-psico1-berlin","sap-psico1-hildesh","sap-psico1-berlin-2","sap-psico1-berlin-3","sap-psico1-hamburg","sap-psico1-potsdam","sap-psico1-koln","sap-psico1-athine","sap-psico1-athine-2","sap-psico1-athine-3","sap-psico1-vilnius","sap-psico1-malta","sap-psico1-nijmege","sap-psico1-lublin","sap-psico1-kielce","sap-psico1-bydgosz","sap-psico1-wroclaw","sap-psico1-poznan","sap-psico1-covilha","sap-psico1-lisboa","sap-psico1-lisboa-2","sap-psico1-lisboa-3","sap-psico1-lisboa-4","sap-psico1-funchal","sap-psico1-braga","sap-psico1-iasi","sap-psico1-bucures","sap-psico1-bucures-2","sap-psico1-bucures-3","sap-psico1-bratisl","sap-psico1-universidad","sap-psico1-universidad-2","sap-psico1-madrid","sap-psico1-zaragoz","sap-psico1-malaga","sap-psico1-santiag","sap-psico1-oviedo","sap-psico1-cadiz","sap-psico1-oviedo-2","sap-psico1-barcelo","sap-psico1-sevilla","sap-psico1-murcia","sap-psico1-castell","sap-psico1-castell-2","sap-psico1-madrid-2","sap-psico1-avila","sap-psico1-zaragoz-2","sap-psico1-granada","sap-psico1-granada-2","sap-psico1-malaga-2","sap-psico1-stockho","sap-psico1-stockho-2","sap-psico1-geneve","sap-psico1-brugg","sap-psico1-zurich","sap-psico1-lausann","sap-psico1-ankara","sap-psico1-izmir","sap-psico1-izmir-2","sap-psico1-istanbu","sap-psico1-izmir-3","sap-psico1-istanbu-2"],
+      "pendingScadenze": [
+        "A  SALZBUR01",
+        "A  KLAGENF01",
+        "A  ST-POLT03",
+        "B  BRUXEL04",
+        "B  LIEGE01",
+        "BG VARNA02",
+        "HR OSIJEK01",
+        "F  BORDEAU58",
+        "F  LYON02",
+        "F  PARIS482",
+        "F  BREST01",
+        "F  MARSEIL84",
+        "F  PARIS008",
+        "F  LYON10",
+        "F  LILLE103",
+        "F  NICE42",
+        "F  PARIS087",
+        "D  LUDWIGB06",
+        "D  DARMSTA02",
+        "D  TUBINGE01",
+        "D  KONSTAN01",
+        "D  FREIBUR01",
+        "D  WITTEN02",
+        "D  JENA01",
+        "D  WURZBUR01",
+        "D  BOCHUM01",
+        "D  TRIER01",
+        "D  EICHSTA01",
+        "D  BIELEFE01",
+        "D  GOTTING01",
+        "D  BERLIN10",
+        "D  HILDESH01",
+        "D  BERLIN20",
+        "D  HAMBURG01",
+        "D  POTSDAM01",
+        "D  KOLN01",
+        "G  ATHINE01",
+        "LT VILNIUS06",
+        "MT MALTA01",
+        "NL NIJMEGE01",
+        "PL LUBLIN02",
+        "PL KIELCE02",
+        "PL BYDGOSZ01",
+        "PL WROCLAW13",
+        "PL POZNAN01",
+        "P  COVILHA01",
+        "P  LISBOA17",
+        "P  LISBOA01",
+        "P  LISBOA104",
+        "P  LISBOA109",
+        "P  FUNCHAL03",
+        "P  BRAGA01",
+        "RO IASI02",
+        "RO BUCURES09",
+        "RO BUCURES43",
+        "SK BRATISL08",
+        "E  CIUDA-R01",
+        "E  LA-CORU01",
+        "E  MADRID21",
+        "E  ZARAGOZ01",
+        "E  MALAGA01",
+        "E  SANTIAG01",
+        "E  OVIEDO01",
+        "E  CADIZ01",
+        "E  BARCELO01",
+        "E  SEVILLA01",
+        "E  MURCIA05",
+        "E  CASTELL01",
+        "E  MADRID01",
+        "E  AVILA01",
+        "E  GRANADA01",
+        "S  STOCKHO01",
+        "CH GENEVE01",
+        "CH BRUGG02",
+        "CH ZURICH01",
+        "CH LAUSANN01",
+        "TR ANKARA06",
+        "TR IZMIR02",
+        "TR IZMIR01",
+        "TR ISTANBU60",
+        "TR ISTANBU21"
+      ],
+      "pendingLingua": [
+        "A  SALZBUR01",
+        "A  KLAGENF01",
+        "A  ST-POLT03",
+        "B  BRUXEL04",
+        "B  LIEGE01",
+        "BG VARNA02",
+        "HR OSIJEK01",
+        "F  BORDEAU58",
+        "F  LYON02",
+        "F  PARIS482",
+        "F  BREST01",
+        "F  MARSEIL84",
+        "F  PARIS008",
+        "F  LYON10",
+        "F  LILLE103",
+        "F  NICE42",
+        "F  PARIS087",
+        "D  LUDWIGB06",
+        "D  DARMSTA02",
+        "D  TUBINGE01",
+        "D  KONSTAN01",
+        "D  FREIBUR01",
+        "D  WITTEN02",
+        "D  JENA01",
+        "D  WURZBUR01",
+        "D  BOCHUM01",
+        "D  TRIER01",
+        "D  EICHSTA01",
+        "D  BIELEFE01",
+        "D  GOTTING01",
+        "D  BERLIN10",
+        "D  HILDESH01",
+        "D  BERLIN20",
+        "D  HAMBURG01",
+        "D  POTSDAM01",
+        "D  KOLN01",
+        "G  ATHINE01",
+        "LT VILNIUS06",
+        "MT MALTA01",
+        "NL NIJMEGE01",
+        "PL LUBLIN02",
+        "PL KIELCE02",
+        "PL BYDGOSZ01",
+        "PL WROCLAW13",
+        "PL POZNAN01",
+        "P  COVILHA01",
+        "P  LISBOA17",
+        "P  LISBOA01",
+        "P  LISBOA104",
+        "P  LISBOA109",
+        "P  FUNCHAL03",
+        "P  BRAGA01",
+        "RO IASI02",
+        "RO BUCURES09",
+        "RO BUCURES43",
+        "SK BRATISL08",
+        "E  CIUDA-R01",
+        "E  LA-CORU01",
+        "E  MADRID21",
+        "E  ZARAGOZ01",
+        "E  MALAGA01",
+        "E  SANTIAG01",
+        "E  OVIEDO01",
+        "E  CADIZ01",
+        "E  BARCELO01",
+        "E  SEVILLA01",
+        "E  MURCIA05",
+        "E  CASTELL01",
+        "E  MADRID01",
+        "E  AVILA01",
+        "E  GRANADA01",
+        "S  STOCKHO01",
+        "CH GENEVE01",
+        "CH BRUGG02",
+        "CH ZURICH01",
+        "CH LAUSANN01",
+        "TR ANKARA06",
+        "TR IZMIR02",
+        "TR IZMIR01",
+        "TR ISTANBU60",
+        "TR ISTANBU21"
+      ],
       "tentativiLingua": {},
-      "linguaNonTrovabile": [],
-      "ateneo": "Sapienza Roma"
+      "linguaNonTrovabile": []
     }
   },
   "regoleProgressione": {
@@ -1977,6 +2664,12 @@
       "data": "2026-07-03",
       "mete": 2,
       "note": "Architettura (Sapienza) architettura (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 193,
+      "data": "2026-07-03",
+      "mete": 0,
+      "note": "Riparazione: pendingScadenze/pendingLingua/prossimiBatch di Farmacia, Comunicazione, Scienze Sociali, Psicologia (Sapienza) usavano il campo 'id' delle mete invece di 'codiceErasmus', causando 'Meta non trovata' in prepara-batch.mjs. Rigenerati da zero con la stessa logica di setup-dipartimento.mjs (nessuna meta di questi 4 dipartimenti era mai stata completata)."
     }
   ],
   "storicoBatch": [
