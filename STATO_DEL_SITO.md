@@ -4,7 +4,32 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-02 — sessione 6 (**UX4 IMPLEMENTATA — traduttore a 3
+**Ultimo aggiornamento:** 2026-07-02 — sessione 7 (**FIX DEFINITIVO: sito online non
+corrispondeva al locale — causa trovata e risolta, UX4 finalmente PUBBLICATA.**
+Sintomo riportato da Nicola: "pubblico ma il sito online non cambia mai". Diagnosi:
+NON era un bug del workflow Pages (l'errore "Deployment cancelled" su run #190 era
+solo rumore — un run superato da un push successivo, comportamento normale). La causa
+vera: `origin/main` avanza in automatico ogni pochi minuti grazie al workflow
+`.github/workflows/auto-merge.yml` (fonde i lotti `mappatura/**` su main), mentre le
+modifiche vere del sito — tutto il lavoro di UX4 della sessione 6 (`index.html`,
+`css/style.css`, `js/app.js`, dati bando/checklist/scadenze Ca' Foscari e Sapienza) —
+erano rimaste **committate mai / solo locali** per un'intera sessione. Ogni deploy di
+Pages quindi pubblicava sempre e solo l'ultimo commit del bot, mai il lavoro di
+Nicola. Soluzione applicata: `git fetch` + rebase di main locale su `origin/main`
+(nessun conflitto: il bot tocca solo `js/dati-mete*.js`, mai i file del sito), commit
+delle modifiche pendenti, push su `origin/main` (commit `1ba5853`) → **UX4 è ora
+davvero online**, non solo pronta in locale. Rimossi anche i 4 file spazzatura non
+tracciati nella root (`0`, `listaVoci.appendChild(creaVoceChecklist(voce`, `s.id)`,
+`{,+` — residuo di un comando shell andato male in una sessione precedente, confermato
+innocuo e cancellato). **Nuova regola di lavoro per evitare la ricaduta:** non
+lasciare modifiche locali "in sospeso" da una sessione all'altra — il bot di
+mappatura avanza `main` in background indipendentemente da Nicola/Claude Code; prima
+di pubblicare fare sempre `git fetch` + `git rebase origin/main` (sicuro, il bot non
+tocca i file del sito) poi `git add`/`commit`/`push` nella stessa sessione in cui si
+lavora, non rimandare "a fine giornata". Nessun codice del sito toccato in questa
+sessione, solo git/pubblicazione.)
+
+**Ultimo aggiornamento precedente:** 2026-07-02 — sessione 6 (**UX4 IMPLEMENTATA — traduttore a 3
 registri (UI) + banner "dati in verifica".** Tab Idoneità (`renderIdoneita()` in
 `js/app.js`): ogni card requisito mostra ora 3 registri — 1) "in chiaro" sempre
 visibile (`req.spiegazione || req.descrizione` + riga "→ azione" se `req.azione` è
@@ -323,20 +348,34 @@ poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
 
-**Aggiornamento 2026-07-02 — sessione 6 (UX4 traduttore 3 registri + banner "in verifica"):**
-0. **⬆️ PUBBLICA.bat ancora da lanciare** (include anche UX4 di questa sessione).
-1. **Prossima sessione = UX5** (contenuti veri del traduttore, Nicola + Claude
+**Aggiornamento 2026-07-02 — sessione 7 (fix sync online↔locale, UX4 pubblicata):**
+0. **✅ Pubblicato** (commit `1ba5853` su `origin/main`) — UX4 e tutte le modifiche
+   pendenti sono finalmente online, non solo in locale. File spazzatura rimossi.
+1. Verificare a video https://nicorotolo.github.io/erasmuswiz/ dopo il prossimo
+   deploy di Pages (Actions → "pages build and deployment") per confermare che UX4
+   sia visibile online su entrambi gli atenei.
+2. **Prossima sessione = UX5** (contenuti veri del traduttore, Nicola + Claude
    in chat, non Claude Code): scrivere `spiegazione`/`azione`/`citazione`/
    `fonte` per ogni voce di `REQUISITI_BANDO` di ENTRAMBI gli atenei (la UI di
    UX4 li mostra già appena compaiono nei dati — nessun altro codice da
    toccare). Ogni citazione con riferimento all'articolo del bando.
-2. Poi UX6 (test con il fratello di Nicola, Sapienza Giurisprudenza).
-3. Non toccare onboarding (UX1), stepper 4 fasi (UX2), vista cronologica
+3. Poi UX6 (test con il fratello di Nicola, Sapienza Giurisprudenza).
+4. Non toccare onboarding (UX1), stepper 4 fasi (UX2), vista cronologica
    Candidatura/export .ics (UX3) né la UI del traduttore/auto-verifica (UX4),
    già testati.
-4. **Da chiarire con Nicola:** 2 file spazzatura non tracciati nella root
-   (nomi anomali, frammenti di codice) — probabile residuo di un comando di
-   shell andato male; non toccati, da verificare prima di cancellarli.
+5. **Regola per non ripetere il problema di sync:** in ogni sessione futura,
+   se si modificano file del sito, fare `git fetch` + `git rebase origin/main`
+   e `git push` PRIMA di chiudere la sessione — non lasciare modifiche committate
+   solo in locale da una sessione all'altra (il bot di mappatura avanza `main`
+   in continuazione e "nasconde" il problema finché non lo si nota).
+
+**Aggiornamento 2026-07-02 — sessione 6 (UX4 traduttore 3 registri + banner "in verifica"):**
+0. **⬆️ PUBBLICA.bat ancora da lanciare** (include anche UX4 di questa sessione) — **FATTO in sessione 7**.
+1. Poi UX6 (test con il fratello di Nicola, Sapienza Giurisprudenza).
+2. Non toccare onboarding (UX1), stepper 4 fasi (UX2), vista cronologica
+   Candidatura/export .ics (UX3) né la UI del traduttore/auto-verifica (UX4),
+   già testati.
+3. ~~Da chiarire con Nicola: file spazzatura non tracciati nella root~~ — **rimossi in sessione 7**.
 
 **Aggiornamento 2026-07-02 — sessione 5 (UX3 fusione Scadenze+Checklist):**
 0. **⬆️ PUBBLICA.bat ancora da lanciare** (include anche UX3 di questa sessione).
