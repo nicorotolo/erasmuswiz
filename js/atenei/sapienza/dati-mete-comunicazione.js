@@ -1,0 +1,1064 @@
+// ==========================================================
+// METE ERASMUS - SAPIENZA - Facolta di SCIENZE POLITICHE, SOCIOLOGIA, COMUNICAZIONE - Dip. Comunicazione e Ricerca Sociale
+// ----------------------------------------------------------
+// Fonte: database ufficiale Go Erasmus+ Sapienza (ambito=COMM).
+// Export ufficiale /goerasmus/export. Bando Erasmus+ 2026/27.
+// Seed automatico (2026-07-03): 59 destinazioni con posti L/LM.
+// Righe riservate SOLO a Phd/Specializzandi escluse (il sito gestisce L e LM).
+// codiceErasmus = codice Erasmus UFFICIALE dall export.
+// citta = derivata dal token del codice Erasmus (da rifinire in futuro).
+// Campi DA ARRICCHIRE col bot: requisitoLingua, scadenzeOspitante (vuoti).
+// ==========================================================
+
+var METE = [
+  {
+    id: "sap-comm-wien",
+    universita: "UNIVERSITÄT WIEN",
+    citta: "Wien",
+    paese: "Austria",
+    codiceErasmus: "A  WIEN01",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0320", nome: "Journalism and information, not further defined" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 2, mesi: 5, livello: "L", note: "" },
+      { numero: 2, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-salzbur",
+    universita: "PARIS LODRON UNIVERSITÄT SALZBURG",
+    citta: "Salzbur",
+    paese: "Austria",
+    codiceErasmus: "A  SALZBUR01",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0321", nome: "Journalism and reporting" }],
+    coordinatoreCf: "Federico Goddi",
+    posti: [
+      { numero: 1, mesi: 8, livello: "L", note: "" },
+      { numero: 1, mesi: 8, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-louvain",
+    universita: "UNIVERSITE CATHOLIQUE DE LOUVAIN",
+    citta: "Louvain",
+    paese: "Belgio",
+    codiceErasmus: "B  LOUVAIN01",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0320", nome: "Journalism and information, not further defined" }],
+    coordinatoreCf: "Gaia Peruzzi",
+    posti: [
+      { numero: 4, mesi: 5, livello: "L", note: "" },
+      { numero: 4, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-tartu",
+    universita: "TARTU ULIKOOL",
+    citta: "Tartu",
+    paese: "Estonia",
+    codiceErasmus: "EE TARTU02",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0312", nome: "Political sciences and civics" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 2, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-paris",
+    universita: "UNIVERSITE DE VINCENNES - SAINT DENIS (PARIS VIII)",
+    citta: "Paris",
+    paese: "Francia",
+    codiceErasmus: "F  PARIS008",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0320", nome: "Journalism and information, not further defined" }],
+    coordinatoreCf: "Isabella Pezzini",
+    posti: [
+      { numero: 2, mesi: 5, livello: "L", note: "" },
+      { numero: 2, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-lyon",
+    universita: "UNIVERSITE LUMIERE LYON II",
+    citta: "Lyon",
+    paese: "Francia",
+    codiceErasmus: "F  LYON02",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0320", nome: "Journalism and information, not further defined" }],
+    coordinatoreCf: "Gaia Peruzzi",
+    posti: [
+      { numero: 4, mesi: 5, livello: "L", note: "" },
+      { numero: 4, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-rennes",
+    universita: "UNIVERSITE RENNES 2",
+    citta: "Rennes",
+    paese: "Francia",
+    codiceErasmus: "F  RENNES02",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0410", nome: "Business and administration, not further defined" }],
+    coordinatoreCf: "Gaia Peruzzi",
+    posti: [
+      { numero: 2, mesi: 5, livello: "L", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-lyon-2",
+    universita: "UNIVERSITE LUMIERE LYON II",
+    citta: "Lyon",
+    paese: "Francia",
+    codiceErasmus: "F  LYON02",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0310", nome: "Social and behavioural sciences, not further defined" }],
+    coordinatoreCf: "Gaia Peruzzi",
+    posti: [
+      { numero: 2, mesi: 5, livello: "L", note: "" },
+      { numero: 2, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-marseil",
+    universita: "AIX-MARSEILLE UNIVERSITY (AMU)",
+    citta: "Marseil",
+    paese: "Francia",
+    codiceErasmus: "F  MARSEIL84",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0320", nome: "Journalism and information, not further defined" }],
+    coordinatoreCf: "Federico Goddi",
+    posti: [
+      { numero: 1, mesi: 9, livello: "L", note: "" },
+      { numero: 1, mesi: 9, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-augsbur",
+    universita: "UNIVERSITÄT AUGSBURG",
+    citta: "Augsbur",
+    paese: "Germania",
+    codiceErasmus: "D  AUGSBUR01",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0320", nome: "Journalism and information, not further defined" }],
+    coordinatoreCf: "Francesca Ieracitano",
+    posti: [
+      { numero: 2, mesi: 5, livello: "L", note: "" },
+      { numero: 2, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-tubinge",
+    universita: "EBERHARD-KARLS-UNIVERSITÄT TÜBINGEN",
+    citta: "Tubinge",
+    paese: "Germania",
+    codiceErasmus: "D  TUBINGE01",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0211", nome: "Audio-visual techniques and media production" }],
+    coordinatoreCf: "Federico Goddi",
+    posti: [
+      { numero: 1, mesi: 8, livello: "L", note: "" },
+      { numero: 1, mesi: 8, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-munchen",
+    universita: "LUDWIG-MAXIMILIANS-UNIVERSITÄT MÜNCHEN",
+    citta: "Munchen",
+    paese: "Germania",
+    codiceErasmus: "D  MUNCHEN01",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0320", nome: "Journalism and information, not further defined" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 6, mesi: 5, livello: "L", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 6 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-athine",
+    universita: "ETHNIKÒ KAI KAPODISTRIAKÒ PANEPISTIMIO ATHINÒN -National and Kapodistrian University of Athens -NKUA",
+    citta: "Athine",
+    paese: "Grecia",
+    codiceErasmus: "G  ATHINE01",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0320", nome: "Journalism and information, not further defined" }],
+    coordinatoreCf: "Federico Goddi",
+    posti: [
+      { numero: 1, mesi: 10, livello: "L", note: "" },
+      { numero: 1, mesi: 10, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-riga",
+    universita: "RIGAS TEHNISKA UNIVERSITATE",
+    citta: "Riga",
+    paese: "Lettonia",
+    codiceErasmus: "LV RIGA02",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0410", nome: "Business and administration, not further defined" }],
+    coordinatoreCf: "Fulvio Pellegrini",
+    posti: [
+      { numero: 3, mesi: 5, livello: "L", note: "" },
+      { numero: 3, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-vilnius",
+    universita: "VILNIUS UNIVERSITY",
+    citta: "Vilnius",
+    paese: "Lituania",
+    codiceErasmus: "LT VILNIUS01",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0320", nome: "Journalism and information, not further defined" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 2, mesi: 5, livello: "L", note: "" },
+      { numero: 2, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-vilnius-2",
+    universita: "VILNIUS UNIVERSITY",
+    citta: "Vilnius",
+    paese: "Lituania",
+    codiceErasmus: "LT VILNIUS01",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0312", nome: "Political sciences and civics" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 1, mesi: 5, livello: "L", note: "" },
+      { numero: 1, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-oslo",
+    universita: "HOYSKOLEN KRISTIANIA - ERNST G. MORTENSENS STIFTELSE",
+    citta: "Oslo",
+    paese: "Norvegia",
+    codiceErasmus: "N  OSLO58",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0410", nome: "Business and administration, not further defined" }],
+    coordinatoreCf: "Francesca Ieracitano",
+    posti: [
+      { numero: 2, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-krakow",
+    universita: "UNIWERSYTET JAGIELLONSKI",
+    citta: "Krakow",
+    paese: "Polonia",
+    codiceErasmus: "PL KRAKOW01",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0320", nome: "Journalism and information, not further defined" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 2, mesi: 5, livello: "L", note: "" },
+      { numero: 2, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-warszaw",
+    universita: "UNIVERSITY OF WARSAW",
+    citta: "Warszaw",
+    paese: "Polonia",
+    codiceErasmus: "PL WARSZAW01",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0320", nome: "Journalism and information, not further defined" }],
+    coordinatoreCf: "Carmelo Lombardo",
+    posti: [
+      { numero: 3, mesi: 5, livello: "L", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-lisboa",
+    universita: "UNIVERSIDADE AUTONOMA DE LISBOA",
+    citta: "Lisboa",
+    paese: "Portogallo",
+    codiceErasmus: "P  LISBOA11",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0320", nome: "Journalism and information, not further defined" }],
+    coordinatoreCf: "Laura Ferrarotti",
+    posti: [
+      { numero: 1, mesi: 5, livello: "L", note: "" },
+      { numero: 1, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-covilha",
+    universita: "UNIVERSIDADE DA BEIRA INTERIOR",
+    citta: "Covilha",
+    paese: "Portogallo",
+    codiceErasmus: "P  COVILHA01",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0321", nome: "Journalism and reporting" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 2, mesi: 5, livello: "L", note: "" },
+      { numero: 2, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-porto",
+    universita: "UNIVERSIDADE DO PORTO",
+    citta: "Porto",
+    paese: "Portogallo",
+    codiceErasmus: "P  PORTO02",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0321", nome: "Journalism and reporting" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 3, mesi: 5, livello: "L", note: "" },
+      { numero: 3, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-coimbra",
+    universita: "UNIVERSIDADE DE COIMBRA",
+    citta: "Coimbra",
+    paese: "Portogallo",
+    codiceErasmus: "P  COIMBRA01",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0321", nome: "Journalism and reporting" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 2, mesi: 5, livello: "L", note: "" },
+      { numero: 2, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-lisboa-2",
+    universita: "Lusofona University",
+    citta: "Lisboa",
+    paese: "Portogallo",
+    codiceErasmus: "P  LISBOA52",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0312", nome: "Political sciences and civics" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 3, mesi: 5, livello: "L", note: "" },
+      { numero: 3, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-lisboa-3",
+    universita: "Lusofona University",
+    citta: "Lisboa",
+    paese: "Portogallo",
+    codiceErasmus: "P  LISBOA52",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0321", nome: "Journalism and reporting" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 2, mesi: 5, livello: "L", note: "" },
+      { numero: 2, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-covilha-2",
+    universita: "UNIVERSIDADE DA BEIRA INTERIOR",
+    citta: "Covilha",
+    paese: "Portogallo",
+    codiceErasmus: "P  COVILHA01",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0414", nome: "Marketing and advertising" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 3, mesi: 5, livello: "L", note: "" },
+      { numero: 3, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-lisboa-4",
+    universita: "Lusofona University",
+    citta: "Lisboa",
+    paese: "Portogallo",
+    codiceErasmus: "P  LISBOA52",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0413", nome: "Management and administration" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 3, mesi: 5, livello: "L", note: "" },
+      { numero: 3, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-covilha-3",
+    universita: "UNIVERSIDADE DA BEIRA INTERIOR",
+    citta: "Covilha",
+    paese: "Portogallo",
+    codiceErasmus: "P  COVILHA01",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0310", nome: "Social and behavioural sciences, not further defined" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 3, mesi: 5, livello: "L", note: "" },
+      { numero: 3, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-maia",
+    universita: "MAIEUTICA COOPERATIVA DE ENSINO SUPERIOR CRL",
+    citta: "Maia",
+    paese: "Portogallo",
+    codiceErasmus: "P  MAIA01",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0320", nome: "Journalism and information, not further defined" }],
+    coordinatoreCf: "Francesca Ieracitano",
+    posti: [
+      { numero: 2, mesi: 5, livello: "L", note: "" },
+      { numero: 2, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-lisboa-5",
+    universita: "Lusofona University",
+    citta: "Lisboa",
+    paese: "Portogallo",
+    codiceErasmus: "P  LISBOA52",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0211", nome: "Audio-visual techniques and media production" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 2, mesi: 5, livello: "L", note: "" },
+      { numero: 2, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-praha",
+    universita: "UNIVERZITA KARLOVA -CHARLES UNIVERSITY",
+    citta: "Praha",
+    paese: "Repubblica Ceca",
+    codiceErasmus: "CZ PRAHA07",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0310", nome: "Social and behavioural sciences, not further defined" }],
+    coordinatoreCf: "Carmelo Lombardo",
+    posti: [
+      { numero: 1, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-bucures",
+    universita: "UNIVERSITATEA DIN BUCURESTI",
+    citta: "Bucures",
+    paese: "Romania",
+    codiceErasmus: "RO BUCURES09",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0320", nome: "Journalism and information, not further defined" }],
+    coordinatoreCf: "Federico Goddi",
+    posti: [
+      { numero: 2, mesi: 9, livello: "L", note: "" },
+      { numero: 2, mesi: 9, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-bucures-2",
+    universita: "UNIVERSITATEA DIN BUCURESTI",
+    citta: "Bucures",
+    paese: "Romania",
+    codiceErasmus: "RO BUCURES09",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0320", nome: "Journalism and information, not further defined" }],
+    coordinatoreCf: "Federico Goddi",
+    posti: [
+      { numero: 2, mesi: 9, livello: "L", note: "" },
+      { numero: 2, mesi: 9, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-vallado",
+    universita: "UNIVERSIDAD EUROPEA MIGUEL DE CERVANTES (U.E.M.C.)",
+    citta: "Vallado",
+    paese: "Spagna",
+    codiceErasmus: "E  VALLADO03",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0321", nome: "Journalism and reporting" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 2, mesi: 5, livello: "L", note: "" },
+      { numero: 2, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-bilbao",
+    universita: "UNIVERSIDAD DEL PAÍS VASCO",
+    citta: "Bilbao",
+    paese: "Spagna",
+    codiceErasmus: "E  BILBAO01",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0321", nome: "Journalism and reporting" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 3, mesi: 5, livello: "L", note: "" },
+      { numero: 3, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-murcia",
+    universita: "UNIVERSIDAD DE MURCIA",
+    citta: "Murcia",
+    paese: "Spagna",
+    codiceErasmus: "E  MURCIA01",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0321", nome: "Journalism and reporting" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 1, mesi: 5, livello: "L", note: "" },
+      { numero: 1, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-universidad",
+    universita: "UNIVERSIDAD DE CASTILLA-LA MANCHA",
+    citta: "Universidad",
+    paese: "Spagna",
+    codiceErasmus: "E  CIUDA-R01",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0320", nome: "Journalism and information, not further defined" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 1, mesi: 5, livello: "L", note: "" },
+      { numero: 1, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-madrid",
+    universita: "UNIVERSIDAD UNIE S.L.",
+    citta: "Madrid",
+    paese: "Spagna",
+    codiceErasmus: "E  MADRID238",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0320", nome: "Journalism and information, not further defined" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 1, mesi: 5, livello: "L", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-vigo",
+    universita: "UNIVERSIDAD DE VIGO",
+    citta: "Vigo",
+    paese: "Spagna",
+    codiceErasmus: "E  VIGO01",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0320", nome: "Journalism and information, not further defined" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 2, mesi: 5, livello: "L", note: "" },
+      { numero: 2, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-madrid-2",
+    universita: "UNIVERSIDAD REY JUAN CARLOS",
+    citta: "Madrid",
+    paese: "Spagna",
+    codiceErasmus: "E  MADRID26",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0321", nome: "Journalism and reporting" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 2, mesi: 5, livello: "L", note: "" },
+      { numero: 2, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-salaman",
+    universita: "UNIVERSIDAD PONTIFICIA DE SALAMANCA",
+    citta: "Salaman",
+    paese: "Spagna",
+    codiceErasmus: "E  SALAMAN01",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0320", nome: "Journalism and information, not further defined" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 2, mesi: 5, livello: "L", note: "" },
+      { numero: 2, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-madrid-3",
+    universita: "UNIVERSIDAD UNIE S.L.",
+    citta: "Madrid",
+    paese: "Spagna",
+    codiceErasmus: "E  MADRID238",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0410", nome: "Business and administration, not further defined" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 1, mesi: 5, livello: "L", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-barcelo",
+    universita: "UNIVERSIDAD DE BARCELONA",
+    citta: "Barcelo",
+    paese: "Spagna",
+    codiceErasmus: "E  BARCELO01",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0414", nome: "Marketing and advertising" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 1, mesi: 5, livello: "L", note: "" },
+      { numero: 1, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-santiag",
+    universita: "UNIVERSIDAD DE SANTIAGO DE COMPOSTELA",
+    citta: "Santiag",
+    paese: "Spagna",
+    codiceErasmus: "E  SANTIAG01",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0320", nome: "Journalism and information, not further defined" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 2, mesi: 5, livello: "L", note: "" },
+      { numero: 2, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-universidad-2",
+    universita: "UNIVERSIDAD DE LA CORUÑA",
+    citta: "Universidad",
+    paese: "Spagna",
+    codiceErasmus: "E  LA-CORU01",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0320", nome: "Journalism and information, not further defined" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 4, mesi: 5, livello: "L", note: "" },
+      { numero: 4, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-vallado-2",
+    universita: "UNIVERSIDAD EUROPEA MIGUEL DE CERVANTES (U.E.M.C.)",
+    citta: "Vallado",
+    paese: "Spagna",
+    codiceErasmus: "E  VALLADO03",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0410", nome: "Business and administration, not further defined" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 2, mesi: 5, livello: "L", note: "" },
+      { numero: 2, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-madrid-4",
+    universita: "UNIVERSIDAD ALFONSO X EL SABIO",
+    citta: "Madrid",
+    paese: "Spagna",
+    codiceErasmus: "E  MADRID17",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0312", nome: "Political sciences and civics" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 2, mesi: 5, livello: "L", note: "" },
+      { numero: 2, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-madrid-5",
+    universita: "UNIVERSIDAD COMPLUTENSE DE MADRID",
+    citta: "Madrid",
+    paese: "Spagna",
+    codiceErasmus: "E  MADRID03",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0319", nome: "Social and behavioural sciences, not elsewhere classified" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 3, mesi: 6, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-madrid-6",
+    universita: "UNIVERSIDAD UNIE S.L.",
+    citta: "Madrid",
+    paese: "Spagna",
+    codiceErasmus: "E  MADRID238",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0310", nome: "Social and behavioural sciences, not further defined" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 1, mesi: 5, livello: "L", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-madrid-7",
+    universita: "UNIVERSIDAD ALFONSO X EL SABIO",
+    citta: "Madrid",
+    paese: "Spagna",
+    codiceErasmus: "E  MADRID17",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0310", nome: "Social and behavioural sciences, not further defined" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 2, mesi: 5, livello: "L", note: "" },
+      { numero: 2, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-sevilla",
+    universita: "UNIVERSIDAD DE SEVILLA",
+    citta: "Sevilla",
+    paese: "Spagna",
+    codiceErasmus: "E  SEVILLA01",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0321", nome: "Journalism and reporting" }],
+    coordinatoreCf: "Paola Panarese",
+    posti: [
+      { numero: 1, mesi: 5, livello: "L", note: "" },
+      { numero: 1, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-lugano",
+    universita: "UNIVERSITA DELLA SVIZZERA ITALIANA (USI)",
+    citta: "Lugano",
+    paese: "Svizzera",
+    codiceErasmus: "CH LUGANO01",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0320", nome: "Journalism and information, not further defined" }],
+    coordinatoreCf: "Giovanna Gianturco",
+    posti: [
+      { numero: 2, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-fribour",
+    universita: "UNIVERSITE' DE FRIBOURG",
+    citta: "Fribour",
+    paese: "Svizzera",
+    codiceErasmus: "CH FRIBOUR01",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0320", nome: "Journalism and information, not further defined" }],
+    coordinatoreCf: "Gaia Peruzzi",
+    posti: [
+      { numero: 2, mesi: 5, livello: "L", note: "" },
+      { numero: 2, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-bern",
+    universita: "UNIVERSITY OF BERN",
+    citta: "Bern",
+    paese: "Svizzera",
+    codiceErasmus: "CH BERN01",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0520", nome: "Environment, not further defined" }],
+    coordinatoreCf: "Giuseppe Anzera",
+    posti: [
+      { numero: 1, mesi: 12, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-istanbu",
+    universita: "ISTANBUL UNIVERSITESI",
+    citta: "Istanbu",
+    paese: "Turchia",
+    codiceErasmus: "TR ISTANBU03",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0312", nome: "Political sciences and civics" }],
+    coordinatoreCf: "Laura Ferrarotti",
+    posti: [
+      { numero: 1, mesi: 5, livello: "L", note: "" },
+      { numero: 1, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-ankara",
+    universita: "HACETTEPE ÜNIVERSITESI",
+    citta: "Ankara",
+    paese: "Turchia",
+    codiceErasmus: "TR ANKARA03",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0312", nome: "Political sciences and civics" }],
+    coordinatoreCf: "Laura Ferrarotti",
+    posti: [
+      { numero: 3, mesi: 5, livello: "L", note: "" },
+      { numero: 3, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-ankara-2",
+    universita: "HACETTEPE ÜNIVERSITESI",
+    citta: "Ankara",
+    paese: "Turchia",
+    codiceErasmus: "TR ANKARA03",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0320", nome: "Journalism and information, not further defined" }],
+    coordinatoreCf: "Laura Ferrarotti",
+    posti: [
+      { numero: 2, mesi: 5, livello: "L", note: "" },
+      { numero: 2, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-istanbu-2",
+    universita: "YEDITEPE UNIVERSITESI",
+    citta: "Istanbu",
+    paese: "Turchia",
+    codiceErasmus: "TR ISTANBU21",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0321", nome: "Journalism and reporting" }],
+    coordinatoreCf: "Laura Ferrarotti",
+    posti: [
+      { numero: 2, mesi: 5, livello: "L", note: "" },
+      { numero: 2, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+  },
+  {
+    id: "sap-comm-istanbu-3",
+    universita: "KOC UNIVERSITESI",
+    citta: "Istanbu",
+    paese: "Turchia",
+    codiceErasmus: "TR ISTANBU17",
+    dipartimentoCf: "Comunicazione e Ricerca Sociale",
+    areeDisciplinari: [{ codice: "0310", nome: "Social and behavioural sciences, not further defined" }],
+    coordinatoreCf: "Giuseppe Anzera",
+    posti: [
+      { numero: 1, mesi: 5, livello: "L", note: "" },
+      { numero: 1, mesi: 5, livello: "LM", note: "" }
+    ],
+    requisitoLingua: [],
+    prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
+    scadenzeOspitante: [],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+  }
+];

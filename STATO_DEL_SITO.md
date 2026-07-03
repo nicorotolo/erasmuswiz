@@ -4,7 +4,62 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-02 — sessione 7 (**FIX DEFINITIVO: sito online non
+**Ultimo aggiornamento:** 2026-07-03 — sessione 9 (**BLOCCO A ristrutturazione UX —
+riparazione meccanica layout desktop + onestà temporale visiva.** Diagnosi con Nicola
+sugli screenshot del sito: l'impianto a 4 fasi regge, ma (1) il sito è "cieco al
+tempo" — missione che cita una scadenza passata da 127 giorni, scadenze scadute in
+VERDE (colore-successo) col bottone calendario ancora attivo, countdown al secondo
+con urgenza finta; (2) i contenuti non tradotti (= UX5, in corso in parallelo);
+(3) desktop rotto — colonna stepper 220px con testo una-parola-per-riga, mascotte
+in absolute SOPRA il testo della missione. Deciso piano in 4 blocchi: **A riparazione
+meccanica ✅ (questa sessione) → B motore consapevole del tempo → C = UX5 contenuti →
+D gerarchia della home**; UX6 (test fratello) dopo A–D. Implementato il blocco A —
+in `css/style.css`: griglia desktop `#tab-oggi` 220px/1fr/360px → **300px/1fr/340px**;
+`.fase-cta` a capo su riga propria nella colonna stretta (`flex-wrap` su `.fase-card`,
+solo desktop); `.missione-card` con `padding-right:170px` sul desktop → il Wiz non
+copre più il testo; Wiz dell'header nascosto sul desktop (doppione di quello nella
+card missione); scadenze passate da verde a **grigio neutro** su timeline
+(`.tappa-v2.passata`) e candidatura (`.cand-capitolo.passata`); input di testo del
+form profilo stilizzato come le select (anche dark mode). In `js/app.js`:
+`countdownInParole()` senza secondi ("Mancano 11 giorni"); pill countdown senza
+secondi e senza "· niente proroghe" (era hardcoded e compariva anche su eventi non
+prorogabili tipo inizio mobilità); intervalli 1s → 30s; bottone "🗓 Aggiungi al
+calendario" NON più generato per scadenze già passate. Validato: `node --check` OK su
+`app.js` e sui dati; test end-to-end in preview locale (porta 8001, viewport 1440px,
+service worker disattivato per il test): griglia 300/504/340, pill "11 giorni" +
+"15 lug, ore 00:00", 4 capitoli candidatura scaduti grigi senza bottone ICS, 6 tappe
+timeline passate grigie + "Inizio mobilità" con "Mancano 11 giorni", input nome
+stilizzato, nessuna sovrapposizione Wiz/testo (verificata via bounding box), nessun
+errore console. **Verificata anche la convivenza con UX5 della sessione 8 parallela**
+(le sue modifiche a dati-bando/dati-checklist/app.js sono arrivate via OneDrive a
+metà sessione): il traduttore sulle voci di checklist è visibile in preview
+("Prima di tutto: controlla di essere idoneo…"), zero conflitti. **NON toccati:**
+logica missione (il difetto "missione su scadenza passata" è il blocco B), contenuti
+Sapienza (resto di UX5), ridondanza home (blocco D). **NON ANCORA PUBBLICATO:** nel
+working tree ci sono insieme blocco A + UX5 sessione 8 + file bot mappatura — fare
+`git fetch` + rebase + commit + push in giornata, come da regola della sessione 7.)
+
+**Ultimo aggiornamento precedente:** 2026-07-03 — sessione 8 (**UX5 avviata — contenuti del
+traduttore Ca' Foscari + completato il gap UI della checklist.** Scritti i 4 campi del
+traduttore (`spiegazione`/`azione`/`citazione`/`fonte`) con **citazioni LETTERALI** estratte
+dal PDF ufficiale del bando (`fonti/Bando_Erasmus…2026_2027.pdf`, via `pdftotext`) per
+**tutti gli 8 requisiti** (`js/atenei/cafoscari/dati-bando.js`) e **tutte le 9 voci di
+checklist** (`js/atenei/cafoscari/dati-checklist.js`), ognuna con riferimento ad articolo/comma
+(Art. 2/5/6/7/8). **Scoperta importante:** UX4 aveva implementato il traduttore a 3 registri
+SOLO per i requisiti (`renderIdoneita`); la checklist mostrava solo `voce.testo` — i campi
+tradotti sarebbero stati invisibili. Deciso con Nicola di chiudere il gap: estesa
+`creaVoceChecklist()` in `js/app.js` (specchio del rendering requisiti: spiegazione+azione
+visibili, "Cosa dice il bando ▸" espandibile con citazione/fonte, blocco FUORI dal `<label>`
+così il click non spunta la checkbox; retrocompatibile: senza i campi la voce è identica a
+prima) + 3 righe CSS (`.voce-checklist-wrap`, `.voce-checklist-trad`). Validazione: `node
+--check` OK su copie fresche (il mount OneDrive risultava di nuovo STALE/troncato per bash —
+problema ambientale noto — quindi verifica fatta ricopiando il contenuto vero in outputs).
+**Restano per chiudere UX5:** requisiti + checklist Sapienza (marcati `inVerifica`), da fare con
+il bando Sapienza sotto mano. NON ANCORA PUBBLICATO: testare a video su localhost (Ca' Foscari,
+tab Candidatura → ogni voce deve mostrare spiegazione/azione e l'espandibile "Cosa dice il
+bando") poi `PUBBLICA.bat`.)
+
+**Ultimo aggiornamento precedente:** 2026-07-02 — sessione 7 (**FIX DEFINITIVO: sito online non
 corrispondeva al locale — causa trovata e risolta, UX4 finalmente PUBBLICATA.**
 Sintomo riportato da Nicola: "pubblico ma il sito online non cambia mai". Diagnosi:
 NON era un bug del workflow Pages (l'errore "Deployment cancelled" su run #190 era
@@ -347,6 +402,42 @@ python -m http.server 8000
 poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
+
+**Aggiornamento 2026-07-03 — sessione 9 (blocco A ristrutturazione UX):**
+0. **⬆️ Da pubblicare in giornata**: `git fetch` + `git rebase origin/main` +
+   commit + push. Il working tree contiene blocco A (questa sessione) + UX5
+   Ca' Foscari (sessione 8) + file bot mappatura: pubblicarli insieme va bene,
+   sono già verificati insieme in preview.
+1. **Prossima sessione di codice = blocco B "motore consapevole del tempo"**
+   (`js/app.js`): `calcolaMissione()` deve saltare le voci di checklist la cui
+   scadenza (`scadenzaId`) è passata; se l'intero ciclo del bando è scaduto la
+   home lo dice onestamente e propone il bivio (selezionato → fase 4 / non
+   selezionato → "il prossimo bando esce a gennaio"); la pill countdown punta
+   solo a eventi su cui lo studente può ancora agire. Test dei 10 secondi come
+   criterio: chi atterra oggi capisce subito a che punto del ciclo siamo e qual
+   è la SUA prossima azione possibile.
+2. Poi **blocco C = chiudere UX5** (Sapienza, vedi punti sessione 8 sotto) +
+   mappa codici ISCED → etichette italiane (mai un codice tipo "0421" in UI
+   senza etichetta umana — oggi compare nel form profilo e nella strip Mete).
+3. Poi **blocco D gerarchia home**: card "Preparazione" solo barra di progresso
+   (senza ripetere i testi dei passi); il passo attivo oggi compare 3 volte
+   nella stessa schermata (missione, riassunto stepper, card Preparazione).
+4. UX6 (test col fratello) DOPO i blocchi B–D, con 3 compiti secchi: "puoi
+   ancora fare domanda quest'anno?", "dove potresti andare?", "qual è la prima
+   cosa da fare?".
+
+**Aggiornamento 2026-07-03 — sessione 8 (UX5 Ca' Foscari + gap UI checklist chiuso):**
+1. **Testare a video su localhost** (Ca' Foscari attiva): tab Candidatura → ogni voce
+   di checklist ora mostra spiegazione + "→ azione" e l'espandibile "Cosa dice il bando ▸"
+   con citazione/fonte; tab/fase "Posso partire?" → stessi 3 registri sui requisiti.
+   Verificare anche una voce SENZA campi (es. Sapienza) → deve restare identica a prima.
+2. `PUBBLICA.bat` (ricordare: `git fetch` + rebase su `origin/main` PRIMA, il bot avanza
+   main in background — vedi lezione sessione 7).
+3. **Chiudere UX5 = fare Sapienza**: `spiegazione`/`azione`/`citazione`/`fonte` per
+   requisiti + checklist Sapienza, con il bando Sapienza ufficiale sotto mano (i dati
+   Sapienza sono ancora `inVerifica`). Priorità suggerita: prima Giurisprudenza, così si
+   sblocca UX6 (test col fratello) senza aspettare tutto il resto.
+4. Poi UX6 (test con il fratello di Nicola, Sapienza Giurisprudenza).
 
 **Aggiornamento 2026-07-02 — sessione 7 (fix sync online↔locale, UX4 pubblicata):**
 0. **✅ Pubblicato** (commit `1ba5853` su `origin/main`) — UX4 e tutte le modifiche

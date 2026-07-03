@@ -60,7 +60,10 @@ function countdownInParole(c) {
       ? `Scaduta da ${c.giorni} ${c.giorni === 1 ? "giorno" : "giorni"}`
       : "Scaduta oggi";
   }
-  return `Mancano ${c.giorni}g ${c.ore}h ${c.minuti}m ${c.secondi}s`;
+  if (c.giorni >= 2)  return `Mancano ${c.giorni} giorni`;
+  if (c.giorni === 1) return `Manca 1 giorno`;
+  if (c.ore >= 1)     return `Mancano ${c.ore} ${c.ore === 1 ? "ora" : "ore"} e ${c.minuti} min`;
+  return `Mancano ${c.minuti} minuti`;
 }
 
 function livelloInParole(codice) {
@@ -262,7 +265,7 @@ function initCountdownPill() {
     const d = new Date(prossima.data);
     const dataFmt = d.toLocaleDateString("it-IT", { day: "numeric", month: "short" });
     const oraFmt  = d.toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" });
-    subEl.textContent = `${dataFmt}, ${oraFmt} · niente proroghe`;
+    subEl.textContent = `${dataFmt}, ore ${oraFmt}`;
   }
 
   function aggiorna() {
@@ -271,12 +274,14 @@ function initCountdownPill() {
     const g = Math.floor(diff / 86400000);
     const h = Math.floor((diff % 86400000) / 3600000);
     const m = Math.floor((diff % 3600000) / 60000);
-    const s = Math.floor((diff % 60000) / 1000);
-    timerEl.textContent = `${g}g ${h}h ${m}m ${s}s`;
+    if (g >= 2)       timerEl.textContent = `${g} giorni`;
+    else if (g === 1) timerEl.textContent = `1g ${h}h`;
+    else if (h >= 1)  timerEl.textContent = `${h}h ${m}m`;
+    else              timerEl.textContent = `${m} min`;
   }
 
   aggiorna();
-  setInterval(aggiorna, 1000);
+  setInterval(aggiorna, 30000);
 }
 
 // ============================================================
@@ -504,6 +509,30 @@ function creaVoceChecklist(voce, prossimaVoceId) {
 
   label.appendChild(cb);
   label.appendChild(crea("span", null, voce.testo));
+
+  // Traduttore a 3 registri (DISEGNO_UX.md §6): mostrato solo se la voce ha
+  // i campi nuovi (spiegazione/azione/citazione/fonte). Senza di essi la voce
+  // resta identica a prima (retrocompatibile). Il blocco sta FUORI dal <label>
+  // così cliccare "Cosa dice il bando" non spunta la checkbox.
+  if (voce.spiegazione || voce.azione || voce.citazione || voce.fonte) {
+    const wrap = crea("div", "voce-checklist-wrap");
+    wrap.appendChild(label);
+    const trad = crea("div", "voce-checklist-trad");
+    if (voce.spiegazione) trad.appendChild(crea("div", "requisito-v2-desc", voce.spiegazione));
+    if (voce.azione)      trad.appendChild(crea("div", "requisito-v2-azione", `→ ${voce.azione}`));
+    if (voce.citazione || voce.fonte) {
+      const dettagli = document.createElement("details");
+      dettagli.className = "requisito-v2-bando";
+      const sommario = document.createElement("summary");
+      sommario.textContent = "Cosa dice il bando ▸";
+      dettagli.appendChild(sommario);
+      if (voce.citazione) dettagli.appendChild(crea("blockquote", "requisito-v2-citazione", voce.citazione));
+      if (voce.fonte)     dettagli.appendChild(crea("div", "requisito-v2-fonte", voce.fonte));
+      trad.appendChild(dettagli);
+    }
+    wrap.appendChild(trad);
+    return wrap;
+  }
   return label;
 }
 
@@ -579,10 +608,13 @@ function renderChecklist() {
     card.appendChild(crea("div", "cand-scadenza-data", formattaData(scad.data)));
     card.appendChild(crea("div", "cand-scadenza-countdown", countdownInParole(c)));
 
-    const btnIcs = crea("button", "cand-btn-ics", "🗓 Aggiungi al calendario");
-    btnIcs.type = "button";
-    btnIcs.addEventListener("click", () => scaricaICSScadenza(scad));
-    card.appendChild(btnIcs);
+    // Niente export calendario per una scadenza già passata
+    if (!c.passata) {
+      const btnIcs = crea("button", "cand-btn-ics", "🗓 Aggiungi al calendario");
+      btnIcs.type = "button";
+      btnIcs.addEventListener("click", () => scaricaICSScadenza(scad));
+      card.appendChild(btnIcs);
+    }
 
     capitolo.appendChild(card);
 
@@ -1435,7 +1467,7 @@ function init() {
   aggiornaNavCandidatura();
   renderMissione();
   initOnboarding();
-  setInterval(aggiornaCountdownV2, 1000);
+  setInterval(aggiornaCountdownV2, 30000); // i countdown non mostrano più i secondi
 }
 
 document.addEventListener("DOMContentLoaded", init);

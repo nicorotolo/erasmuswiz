@@ -98,10 +98,17 @@ codice irrobustito. ~6 sessioni.
     i dati provvisori (Sapienza). `DISEGNO_UX.md` §4 e §8.
   - Test: requisito con campi nuovi → 3 registri; senza → identico a oggi;
     banner visibile solo con Sapienza attiva.
-- [ ] **UX5. Contenuti del traduttore** (Nicola + Claude in chat, 2 sessioni)
+- [~] **UX5. Contenuti del traduttore** (Nicola + Claude in chat, 2 sessioni)
   - Scrivere `spiegazione`/`azione`/`citazione`/`fonte` per i requisiti e le
     checklist di Ca' Foscari e Sapienza. Lavoro di contenuto, non di Codex.
     Ogni citazione col riferimento all'articolo del bando.
+  - ✅ 2026-07-03 (sessione 8): **Ca' Foscari fatta** — 8 requisiti
+    (`dati-bando.js`) + 9 voci checklist (`dati-checklist.js`), citazioni
+    letterali dal PDF ufficiale, riferimenti Art. 2/5/6/7/8. In più chiuso il
+    gap UI: `creaVoceChecklist()` (app.js) ora rende i 3 registri anche sulle
+    voci di checklist (UX4 li faceva solo sui requisiti) + 3 righe CSS.
+  - [ ] **Resta: Sapienza** (requisiti + checklist, dati ancora `inVerifica`).
+    Priorità Giurisprudenza per sbloccare UX6.
 - [ ] **UX6. Test con utente reale** (Nicola, 1 sessione)
   - Il fratello (Sapienza, Giurisprudenza) usa la versione nuova senza
     spiegazioni. Osservare: primi 60 secondi, capisce cosa fare dopo?, parole
