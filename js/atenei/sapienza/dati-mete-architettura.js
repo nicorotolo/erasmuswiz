@@ -1389,9 +1389,14 @@ var METE = [
       { numero: 2, mesi: 10, livello: "L", note: "" },
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Islandese", livello: "B1", condizione: "per corsi non erogati in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Application (autunno)", periodo: "1 marzo - 1 maggio" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
