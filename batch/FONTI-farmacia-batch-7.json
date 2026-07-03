@@ -1,0 +1,27 @@
+{
+  "P  LISBOA109": {
+    "scadenzeOspitante": "https://www.tu-chemnitz.de/international/outgoing/erasmus/partnerschaften/factsheets/04909_P_LISBOA109.pdf",
+    "linkSito": "https://www.tu-chemnitz.de/international/outgoing/erasmus/partnerschaften/factsheets/04909_P_LISBOA109.pdf",
+    "notePraticheAppend": "https://www.tu-chemnitz.de/international/outgoing/erasmus/partnerschaften/factsheets/04909_P_LISBOA109.pdf"
+  },
+  "P  COIMBRA01": {
+    "requisitoLingua": "https://www.uc.pt/en/iru/study-abroad/incoming-students-study-at-the-university-of-coimbra/",
+    "scadenzeOspitante": "https://www.uc.pt/en/iru/study-abroad/incoming-students-study-at-the-university-of-coimbra/",
+    "linkSito": "https://www.uc.pt/en/iru/study-abroad/incoming-students-study-at-the-university-of-coimbra/"
+  },
+  "P  COVILHA01": {
+    "scadenzeOspitante": "https://apps.global.itu.edu.tr/anlasmalar/belgeler/erasmuska131/P%20COVILHA01/InfoSheet.pdf",
+    "linkSito": "https://apps.global.itu.edu.tr/anlasmalar/belgeler/erasmuska131/P%20COVILHA01/InfoSheet.pdf",
+    "notePraticheAppend": "https://www.ubi.pt/en/page/erasmus"
+  },
+  "UK LONDON017": {
+    "requisitoLingua": "https://www.kcl.ac.uk/abroad/applying/entry-requirements",
+    "scadenzeOspitante": "https://www.kcl.ac.uk/abroad/applying/dates-and-deadlines",
+    "linkSito": "https://www.kcl.ac.uk/abroad/applying"
+  },
+  "RO BUCURES09": {
+    "scadenzeOspitante": "https://unibuc.ro/international/programul-erasmus/studenti-erasmus/?lang=en",
+    "linkSito": "https://unibuc.ro/international/programul-erasmus/studenti-erasmus/?lang=en",
+    "notePraticheAppend": "https://unibuc.ro/international/programul-erasmus/studenti-erasmus/?lang=en"
+  }
+}
