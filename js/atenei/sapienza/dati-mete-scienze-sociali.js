@@ -1065,9 +1065,18 @@ var METE = [
       { numero: 2, mesi: 6, livello: "L", note: "" },
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato per corsi in spagnolo; A2 ammesso con corso intensivo UVa" },
+        { lingua: "Inglese", livello: "B1", condizione: "raccomandato per corsi in inglese" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi degli International Semester Programmes" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "entro 30 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 30 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1083,9 +1092,16 @@ var METE = [
       { numero: 3, mesi: 10, livello: "L", note: "" },
       { numero: 3, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "obbligatorio per seguire corsi in inglese presso la Faculty of Economics and Business" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "entro 29 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro 23 ottobre 2026" },
+        { cosa: "Application (autunno/anno intero)", periodo: "16 febbraio - 19 giugno 2026" },
+        { cosa: "Application (primavera)", periodo: "1 settembre - 6 novembre 2026" }
+      ],
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -1100,9 +1116,17 @@ var METE = [
     posti: [
       { numero: 1, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato per corsi in spagnolo presso la Faculty of Economics and Business" },
+        { lingua: "Inglese", livello: "B2", condizione: "certificato minimo necessario per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "1 aprile - 30 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "1 ottobre - 31 ottobre" },
+        { cosa: "Application (autunno/anno intero)", periodo: "1 maggio - 31 maggio" },
+        { cosa: "Application (primavera)", periodo: "1 novembre - 30 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1118,9 +1142,17 @@ var METE = [
       { numero: 2, mesi: 9, livello: "L", note: "" },
       { numero: 2, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato per corsi in spagnolo presso la Faculty of Economics and Business" },
+        { lingua: "Inglese", livello: "B2", condizione: "certificato minimo necessario per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "1 aprile - 30 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "1 ottobre - 31 ottobre" },
+        { cosa: "Application (autunno/anno intero)", periodo: "1 maggio - 31 maggio" },
+        { cosa: "Application (primavera)", periodo: "1 novembre - 30 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1136,9 +1168,16 @@ var METE = [
       { numero: 2, mesi: 10, livello: "L", note: "" },
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B2", condizione: "raccomandato per corsi ordinari in spagnolo" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "entro 17 aprile 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro 29 ottobre 2026" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 29 maggio 2026" },
+        { cosa: "Application (primavera)", periodo: "entro 29 ottobre 2026" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1154,9 +1193,16 @@ var METE = [
       { numero: 2, mesi: 10, livello: "L", note: "" },
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "livello minimo generale; requisiti specifici possono variare per facolta/centro" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "15 marzo - 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "1 settembre - 15 novembre" },
+        { cosa: "Application (autunno/anno intero)", periodo: "1 aprile - 31 maggio" },
+        { cosa: "Application (primavera)", periodo: "15 settembre - 20 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1312,9 +1358,18 @@ var METE = [
     posti: [
       { numero: 2, mesi: 9, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato per corsi in spagnolo; A2 ammesso con corso intensivo UVa" },
+        { lingua: "Inglese", livello: "B1", condizione: "raccomandato per corsi in inglese" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi degli International Semester Programmes" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "entro 30 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 30 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
