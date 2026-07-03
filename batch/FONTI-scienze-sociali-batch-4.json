@@ -1,0 +1,27 @@
+{
+  "D  MUNCHEN01": {
+    "requisitoLingua": "https://www.lmu.de/en/study/all-degrees-and-programs/programs-for-international-visiting-students/erasmus-and-lmuexchange/how-to-apply/",
+    "scadenzeOspitante": "https://www.lmu.de/en/study/all-degrees-and-programs/programs-for-international-visiting-students/erasmus-and-lmuexchange/timeline-for-exchange-students.html",
+    "linkSito": "https://www.lmu.de/en/study/all-degrees-and-programs/programs-for-international-visiting-students/erasmus-and-lmuexchange/how-to-apply/"
+  },
+  "D  BERLIN02": {
+    "requisitoLingua": "https://www.tu.berlin/en/international/students-1/international-students/exchange-studies-at-tu-berlin/exchange-application/application-erasmus-europe",
+    "scadenzeOspitante": "https://www.tu.berlin/en/international/students-1/international-students/exchange-studies-at-tu-berlin/exchange-application/dates-and-deadlines",
+    "linkSito": "https://www.tu.berlin/en/international/students-1/international-students/exchange-studies-at-tu-berlin/exchange-application/application-erasmus-europe"
+  },
+  "D  FREIBUR01": {
+    "requisitoLingua": "https://www.upf.edu/documents/105229234/121071315/Albert-Ludwigs-Universit%C3%A4t%2BFreiburg%2BIm%2BBreisgau.pdf/1e0ab57d-c007-e615-38b3-69af7db93064",
+    "scadenzeOspitante": "https://www.upf.edu/documents/105229234/121071315/Albert-Ludwigs-Universit%C3%A4t%2BFreiburg%2BIm%2BBreisgau.pdf/1e0ab57d-c007-e615-38b3-69af7db93064",
+    "linkSito": "https://uni-freiburg.de/en/"
+  },
+  "D  BAMBERG01": {
+    "requisitoLingua": "https://www.uni-bamberg.de/en/studies/exchange-students-eg-erasmus/how-do-i-apply/faqs-application/",
+    "scadenzeOspitante": "https://www.uni-bamberg.de/en/studies/exchange-students-eg-erasmus/how-do-i-apply/",
+    "linkSito": "https://www.uni-bamberg.de/en/studies/exchange-students-eg-erasmus/"
+  },
+  "D  AACHEN01": {
+    "requisitoLingua": "https://www.rwth-aachen.de/cms/root/studium/im-studium/internationales/exchange-incomings/~kwgb/bewerbung/?lidx=1",
+    "scadenzeOspitante": "https://www.rwth-aachen.de/cms/root/studium/im-studium/internationales/exchange-incomings/~eugv/informationen-fuer-partnerhochschulen/?lidx=1",
+    "linkSito": "https://www.rwth-aachen.de/cms/root/studium/im-studium/internationales/exchange-incomings/~bqtq/exchange-incomings/?lidx=1"
+  }
+}
