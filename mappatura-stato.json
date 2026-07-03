@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 219,
+  "runCompletati": 220,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "scienze-sociali-batch-6",
-      "priorita": 6,
-      "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
-      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - scadenze+lingua",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "G  ATHINE01",
-        "PL KRAKOW01",
-        "PL KRAKOW02",
-        "P  LISBOA07",
-        "P  LISBOA11"
-      ]
-    },
     {
       "id": "scienze-sociali-batch-7",
       "priorita": 6,
@@ -932,13 +918,8 @@
       "fileJs": "js/atenei/sapienza/dati-mete-scienze-sociali.js",
       "stato": "in_corso",
       "totale": 68,
-      "completate": 28,
+      "completate": 33,
       "pendingScadenze": [
-        "G  ATHINE01",
-        "PL KRAKOW01",
-        "PL KRAKOW02",
-        "P  LISBOA07",
-        "P  LISBOA11",
         "P  PORTO11",
         "UK SOUTHAM01",
         "CZ OLOMOUC01",
@@ -969,11 +950,6 @@
       "pendingLingua": [
         "B  LOUVAIN01",
         "F  BORDEAU58",
-        "G  ATHINE01",
-        "PL KRAKOW01",
-        "PL KRAKOW02",
-        "P  LISBOA07",
-        "P  LISBOA11",
         "P  PORTO11",
         "UK SOUTHAM01",
         "CZ OLOMOUC01",
@@ -2528,6 +2504,12 @@
       "data": "2026-07-03",
       "mete": 5,
       "note": "Scienze Sociali ed Economiche (Sapienza) scienze-sociali-batch-5: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 220,
+      "data": "2026-07-03",
+      "mete": 5,
+      "note": "Scienze Sociali ed Economiche (Sapienza) scienze-sociali-batch-6: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

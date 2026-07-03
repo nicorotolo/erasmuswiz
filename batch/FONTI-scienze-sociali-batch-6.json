@@ -1,0 +1,27 @@
+{
+  "G  ATHINE01": {
+    "requisitoLingua": "https://en.interel.uoa.gr/fileadmin/depts/interel.uoa.gr/www/uploads/erasmus_en/2026-2027/incoming_1312026-2027/NKUA__G_ATHINE01__EXTENDED_FACT_SHEET_2026-2027.pdf",
+    "scadenzeOspitante": "https://en.interel.uoa.gr/fileadmin/depts/interel.uoa.gr/www/uploads/erasmus_en/2026-2027/incoming_1312026-2027/NKUA__G_ATHINE01__EXTENDED_FACT_SHEET_2026-2027.pdf",
+    "linkSito": "https://en.interel.uoa.gr/erasmus"
+  },
+  "PL KRAKOW01": {
+    "requisitoLingua": "https://cwm.uj.edu.pl/documents/1333512/157256874/JU%2BFACT%2BSHEET%2B2026-2027.pdf/f1e871cc-9c12-4502-b853-8f41501ce35d",
+    "scadenzeOspitante": "https://cwm.uj.edu.pl/documents/1333512/157256874/JU%2BFACT%2BSHEET%2B2026-2027.pdf/f1e871cc-9c12-4502-b853-8f41501ce35d",
+    "linkSito": "https://erasmus.uj.edu.pl/en_GB/incoming/studies"
+  },
+  "PL KRAKOW02": {
+    "requisitoLingua": "https://exchange.usos.agh.edu.pl/en-gb/offer/LATO_2025_2026/programme/AGH_ERASMUS_PLUS_STUD/",
+    "scadenzeOspitante": "https://exchange.usos.agh.edu.pl/en-gb/offer/LATO_2025_2026/programme/AGH_ERASMUS_PLUS_STUD/",
+    "linkSito": "https://exchange.usos.agh.edu.pl/en-gb/offer/LATO_2025_2026/programme/AGH_ERASMUS_PLUS_STUD/"
+  },
+  "P  LISBOA07": {
+    "requisitoLingua": "https://www.iscte-iul.pt/assets/files/resources/178054",
+    "scadenzeOspitante": "https://www.iscte-iul.pt/assets/files/resources/178054",
+    "linkSito": "https://www.iscte-iul.pt/international/exchange/nomination-and-registration/nomination-and-registration"
+  },
+  "P  LISBOA11": {
+    "requisitoLingua": "https://etsag.ugr.es/sites/centros/etsag/public/inline-files/Info%20Sheet.pdf",
+    "scadenzeOspitante": "https://autonoma.pt/en/program-erasmus/",
+    "linkSito": "https://autonoma.pt/en/program-erasmus/"
+  }
+}
