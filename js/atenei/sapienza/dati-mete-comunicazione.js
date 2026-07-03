@@ -1047,9 +1047,16 @@ var METE = [
       { numero: 4, mesi: 5, livello: "L", note: "" },
       { numero: 4, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo/Galiziano", livello: "B1", condizione: "raccomandato per mobilita per studio" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (autunno)", periodo: "1 aprile - 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
+        { cosa: "Application (primavera)", periodo: "1 ottobre - 15 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli)."
   },
   {
@@ -1086,9 +1093,17 @@ var METE = [
       { numero: 2, mesi: 5, livello: "L", note: "" },
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B2", condizione: "lingua di insegnamento 1" },
+        { lingua: "Inglese", livello: "B2", condizione: "lingua di insegnamento 2, soggetta a disponibilita" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "1 aprile - 30 aprile" },
+        { cosa: "Application (autunno)", periodo: "1 maggio - 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "18 settembre - 30 settembre" },
+        { cosa: "Application (primavera)", periodo: "1 ottobre - 31 ottobre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1103,9 +1118,16 @@ var METE = [
     posti: [
       { numero: 3, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B2", condizione: "per corsi di grado della Facultad de Ciencias de la Informacion" },
+        { lingua: "Spagnolo", livello: "B2/C1", condizione: "per corsi di master della Facultad de Ciencias de la Informacion" },
+        { lingua: "Inglese", livello: "B2", condizione: "per eventuali corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "1 aprile - 31 maggio" },
+        { cosa: "Application (primavera)", periodo: "15 ottobre - 30 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -1145,9 +1167,17 @@ var METE = [
       { numero: 2, mesi: 5, livello: "L", note: "" },
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B2", condizione: "lingua di insegnamento 1" },
+        { lingua: "Inglese", livello: "B2", condizione: "lingua di insegnamento 2, soggetta a disponibilita" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "1 aprile - 30 aprile" },
+        { cosa: "Application (autunno)", periodo: "1 maggio - 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "18 settembre - 30 settembre" },
+        { cosa: "Application (primavera)", periodo: "1 ottobre - 31 ottobre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1165,8 +1195,11 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Nomination/Application (autunno)", periodo: "2 marzo - 30 giugno 2026" },
+        { cosa: "Nomination/Application (primavera)", periodo: "15 settembre - 29 novembre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26"
   },
   {
     id: "sap-comm-lugano",
@@ -1180,9 +1213,17 @@ var METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Italiano", livello: "B2", condizione: "per corsi in italiano" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 1 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {

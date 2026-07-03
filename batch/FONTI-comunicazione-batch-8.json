@@ -1,0 +1,26 @@
+{
+  "E  LA-CORU01": {
+    "requisitoLingua": "https://udc.gal/export/sites/udc/ori/_galeria_down/formularios/impresosdisponibles/estudantesestranxeiros/Institutional-sheet_Erasmus-_E-LA-CORU01.pdf_2063069299.pdf",
+    "scadenzeOspitante": "https://udc.gal/en/ori/infestudantesextranxeiros/FormulariosExtranxeiros/",
+    "linkSito": "https://udc.gal/en/ori/entrantes/"
+  },
+  "E  MADRID17": {
+    "requisitoLingua": "https://www.uax.com/download/13095/file/UAX-Factsheet.pdf",
+    "scadenzeOspitante": "https://www.uax.com/download/13095/file/UAX-Factsheet.pdf",
+    "linkSito": "https://www.uax.com/internacional"
+  },
+  "E  MADRID03": {
+    "requisitoLingua": "https://www.ucm.es/ccinf",
+    "scadenzeOspitante": "https://www.ucm.es/english/the-application",
+    "linkSito": "https://www.ucm.es/english/incoming-mobility-1"
+  },
+  "E  SEVILLA01": {
+    "scadenzeOspitante": "https://www.us.es/sites/default/files/inline-files/Instructions%20to%20Nominate%20Incoming%20Students%202026-27%20first%20%20semester%20and%20full%20year%20University%20of%20Seville%20.pdf",
+    "linkSito": "https://www.us.es/internacional/oficina-welcome"
+  },
+  "CH LUGANO01": {
+    "requisitoLingua": "https://www.usi.ch/en/university/info/relint/specific-information/incoming-exchange-students",
+    "scadenzeOspitante": "https://www.usi.ch/en/university/info/relint/specific-information/incoming-exchange-students",
+    "linkSito": "https://www.usi.ch/en/university/info/relint/specific-information/incoming-exchange-students"
+  }
+}
