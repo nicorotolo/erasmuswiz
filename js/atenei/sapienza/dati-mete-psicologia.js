@@ -1447,7 +1447,7 @@ var METE = [
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-psico1-braga",
@@ -1462,9 +1462,17 @@ var METE = [
       { numero: 3, mesi: 5, livello: "L", note: "" },
       { numero: 3, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Portoghese", livello: "B1", condizione: "livello minimo raccomandato" },
+        { lingua: "Inglese", livello: "B2", condizione: "livello minimo raccomandato" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "dal 1 marzo al 30 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "dal 1 settembre al 30 settembre" },
+        { cosa: "Application (autunno/anno intero)", periodo: "dal 1 marzo al 15 maggio" },
+        { cosa: "Application (primavera)", periodo: "dal 1 settembre al 15 ottobre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -1482,8 +1490,13 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "entro 15 luglio" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 1 agosto" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 1 dicembre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-psico1-bucures",
@@ -1501,7 +1514,7 @@ var METE = [
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-psico1-bucures-2",
@@ -1519,7 +1532,7 @@ var METE = [
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-psico1-bucures-3",
@@ -1534,9 +1547,19 @@ var METE = [
       { numero: 1, mesi: 6, livello: "L", note: "" },
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "per mobilita di studio" },
+        { lingua: "Francese", livello: "B1", condizione: "per mobilita di studio" },
+        { lingua: "Tedesco", livello: "B1", condizione: "per mobilita di studio" },
+        { lingua: "Rumeno", livello: "B1", condizione: "per mobilita di studio" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 30 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {

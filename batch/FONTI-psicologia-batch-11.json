@@ -1,0 +1,22 @@
+{
+  "P  FUNCHAL03": {
+    "linkSito": "https://gpc.uma.pt/index.php?Itemid=129&id=241&lang=en&option=com_content&view=article"
+  },
+  "P  BRAGA01": {
+    "requisitoLingua": "https://alunos.uminho.pt/EN/incomingstudents/Pages/RequisitosL.aspx",
+    "scadenzeOspitante": "https://alunos.uminho.pt/EN/incomingstudents/Pages/ProcedimentosCandidaturas.aspx",
+    "linkSito": "https://alunos.uminho.pt/EN/incomingstudents/Pages/ProcedimentosCandidaturas.aspx"
+  },
+  "RO IASI02": {
+    "scadenzeOspitante": "https://www.uaic.ro/en/international/erasmus-programme/erasmus-incoming-students/",
+    "linkSito": "https://www.uaic.ro/en/international/erasmus-programme/erasmus-incoming-students/"
+  },
+  "RO BUCURES09": {
+    "linkSito": "https://unibuc.ro/international/programul-erasmus/studenti-erasmus/?lang=en"
+  },
+  "RO BUCURES43": {
+    "requisitoLingua": "https://apps.global.itu.edu.tr/anlasmalar/belgeler/erasmuska131/RO%20BUCURES43/InfoSheet.pdf",
+    "scadenzeOspitante": "https://upb.ro/en/erasmus/study-mobility/",
+    "linkSito": "https://upb.ro/en/erasmus/study-mobility/"
+  }
+}
