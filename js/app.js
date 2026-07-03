@@ -66,6 +66,53 @@ function countdownInParole(c) {
   return `Mancano ${c.minuti} minuti`;
 }
 
+// ---- Consapevolezza del tempo (blocco B) ----
+// Il motore distingue tra scadenze passate/future e tra eventi
+// azionabili (lo studente può fare qualcosa) e solo informativi.
+// I flag `azionabile` e `chiusuraCandidature` vivono nei dati
+// (dati-scadenze.js), mai nel codice.
+function scadenzaPerId(id) {
+  return (SCADENZE_CAFOSCARI || []).find(s => s.id === id) || null;
+}
+
+function scadenzaPassata(s) {
+  return new Date(s.data) <= new Date();
+}
+
+// La prossima scadenza futura su cui si può ancora agire (o null).
+function prossimaScadenzaAzionabile() {
+  const ora = new Date();
+  return (SCADENZE_CAFOSCARI || [])
+    .filter(s => s.azionabile && new Date(s.data) > ora)
+    .sort((a, b) => new Date(a.data) - new Date(b.data))[0] || null;
+}
+
+// true quando TUTTE le finestre di candidatura del bando sono chiuse.
+function candidatureChiuse() {
+  const chiusure = (SCADENZE_CAFOSCARI || []).filter(s => s.chiusuraCandidature);
+  return chiusure.length > 0 && chiusure.every(scadenzaPassata);
+}
+
+// Data (formattata) dell'ultima chiusura candidature, per il messaggio onesto.
+function dataChiusuraCandidature() {
+  const chiusure = (SCADENZE_CAFOSCARI || [])
+    .filter(s => s.chiusuraCandidature)
+    .sort((a, b) => new Date(b.data) - new Date(a.data));
+  return chiusure[0] ? new Date(chiusure[0].data).toLocaleDateString("it-IT", { day: "numeric", month: "long" }) : "";
+}
+
+// Una voce di checklist è "morta" se la sua scadenza è già passata:
+// non ha senso proporla come missione.
+function voceScaduta(voce) {
+  if (!voce.scadenzaId) return false;
+  const s = scadenzaPerId(voce.scadenzaId);
+  return !!s && scadenzaPassata(s);
+}
+
+function giorniA(dataTecnica) {
+  return Math.ceil((new Date(dataTecnica) - new Date()) / 86400000);
+}
+
 function livelloInParole(codice) {
   return codice === "L" ? "triennale" : codice === "LM" ? "magistrale" : codice;
 }
@@ -248,17 +295,19 @@ function aggiornaNavCandidatura() {
 // COUNTDOWN PILL
 // ============================================================
 function initCountdownPill() {
-  const ora    = new Date();
-  const future = (SCADENZE_CAFOSCARI || [])
-    .filter(s => new Date(s.data) > ora)
-    .sort((a, b) => new Date(a.data) - new Date(b.data));
-  const prossima = future[0];
+  // Solo il prossimo evento su cui si può AGIRE: niente countdown
+  // verso eventi informativi o già passati (urgenza finta).
+  const prossima = prossimaScadenzaAzionabile();
 
+  const pillEl   = document.getElementById("countdown-pill");
   const titoloEl = document.getElementById("countdown-titolo");
   const subEl    = document.getElementById("countdown-sub");
   const timerEl  = document.getElementById("countdown-timer");
 
-  if (!prossima || !timerEl) return;
+  if (!prossima || !timerEl) {
+    if (pillEl) pillEl.style.display = "none";
+    return;
+  }
 
   if (titoloEl) titoloEl.textContent = prossima.cosa;
   if (subEl) {
@@ -305,9 +354,11 @@ function renderPreparazione() {
   const done   = (CHECKLIST || []).filter(v => ZAINO.checklist && ZAINO.checklist[v.id]);
   const undone = (CHECKLIST || []).filter(v => !(ZAINO.checklist && ZAINO.checklist[v.id]));
 
+  // "Attivo" solo un passo su cui si può ancora agire (scadenza non passata).
+  const attivoId = undone.find(v => !voceScaduta(v))?.id;
   const toShow = [
     ...done.slice(-2).map(v => ({ voce: v, tipo: "fatto" })),
-    ...undone.slice(0, 3).map((v, i) => ({ voce: v, tipo: i === 0 ? "attivo" : "todo" })),
+    ...undone.slice(0, 3).map(v => ({ voce: v, tipo: v.id === attivoId ? "attivo" : "todo" })),
   ];
 
   if (toShow.length === 0) {
@@ -331,20 +382,34 @@ function renderPreparazione() {
 // "MISSIONE DI OGGI"
 // ============================================================
 function calcolaMissione() {
-  const ora    = new Date();
-  const future = (SCADENZE_CAFOSCARI || [])
-    .filter(s => new Date(s.data) > ora)
-    .sort((a, b) => new Date(a.data) - new Date(b.data));
-  const prossima   = future[0] || null;
-  const giorniAlla = prossima
-    ? Math.ceil((new Date(prossima.data) - ora) / 86400000)
-    : Infinity;
+  // Solo scadenze future e AZIONABILI guidano la missione.
+  const prossima   = prossimaScadenzaAzionabile();
+  const giorniAlla = prossima ? giorniA(prossima.data) : Infinity;
 
-  const checklist   = CHECKLIST || [];
-  const totale      = checklist.length;
-  const fatti       = checklist.filter(v => ZAINO.checklist && ZAINO.checklist[v.id]).length;
-  const prossimaVoce = checklist.find(v => !(ZAINO.checklist && ZAINO.checklist[v.id]));
-  const haProfilo   = !!ZAINO.profilo;
+  const checklist = CHECKLIST || [];
+  const totale    = checklist.length;
+  const fatti     = checklist.filter(v => ZAINO.checklist && ZAINO.checklist[v.id]).length;
+  const haProfilo = !!ZAINO.profilo;
+
+  // Studente selezionato: la missione viene dalla checklist di partenza.
+  if (ZAINO.fase === "selezionato") {
+    const post     = CHECKLIST_POST || [];
+    const vocePost = post.find(v => !(ZAINO.checklistPost && ZAINO.checklistPost[v.id]));
+    const ora      = new Date();
+    const evento   = (SCADENZE_CAFOSCARI || [])
+      .filter(s => new Date(s.data) > ora)
+      .sort((a, b) => new Date(a.data) - new Date(b.data))[0] || null;
+    if (vocePost) return { tipo: "partenza", voce: vocePost, prossima: evento, giorni: evento ? giorniA(evento.data) : Infinity, fatti, totale };
+    return { tipo: "completo", fatti, totale };
+  }
+
+  // Bando chiuso e non selezionato: il sito lo dice, onestamente,
+  // e propone il bivio (selezionato → partenza / no → prossimo bando).
+  if (candidatureChiuse()) return { tipo: "bando-chiuso", fatti, totale };
+
+  // Le voci la cui scadenza è già passata non possono essere la missione.
+  const prossimaVoce = checklist.find(v =>
+    !(ZAINO.checklist && ZAINO.checklist[v.id]) && !voceScaduta(v));
 
   if (giorniAlla <= 7 && prossima)  return { tipo: "urgente",   prossima, giorni: giorniAlla, fatti, totale };
   if (!haProfilo)                    return { tipo: "profilo",   fatti, totale };
@@ -367,7 +432,7 @@ function renderMissione() {
 
   if (scad) {
     if (m.prossima && m.giorni !== Infinity) {
-      scad.textContent  = `scade tra ${m.giorni}g`;
+      scad.textContent  = m.tipo === "partenza" ? `tra ${m.giorni}g` : `scade tra ${m.giorni}g`;
       scad.style.display = "";
     } else {
       scad.style.display = "none";
@@ -381,6 +446,34 @@ function renderMissione() {
   }
 
   switch (m.tipo) {
+    case "bando-chiuso": {
+      const quando = dataChiusuraCandidature();
+      const anno   = (window.BANDO_INFO && BANDO_INFO.annoAccademico) || "";
+      if (titolo) titolo.textContent = `Il bando ${anno} è chiuso`;
+      if (dett)   dett.textContent   =
+        `Le candidature si sono chiuse${quando ? ` il ${quando}` : ""}. ` +
+        "Sei stato selezionato? Preparati alla partenza. " +
+        "Non hai fatto domanda? Il prossimo bando esce in genere tra dicembre e gennaio: intanto puoi esplorare le mete e verificare i requisiti.";
+      if (btnFatto) {
+        btnFatto.textContent = "Sono stato selezionato 🎒";
+        btnFatto.onclick = e => {
+          e.preventDefault();
+          // Riusa la logica del toggle di fase esistente.
+          document.getElementById("fase-selezionato")?.click();
+          renderMissione();
+        };
+      }
+      setBtn(btnCome, "Vedi le date del ciclo", "timeline");
+      break;
+    }
+    case "partenza":
+      if (titolo) titolo.textContent = m.voce.testo;
+      if (dett)   dett.textContent   = m.prossima
+        ? `Preparazione alla partenza — ${m.prossima.cosa} tra ${m.giorni} ${m.giorni === 1 ? "giorno" : "giorni"}.`
+        : "Preparazione alla partenza: spunta i passi man mano che li completi.";
+      setBtn(btnFatto, "Fatto 🎒",           "checklist");
+      setBtn(btnCome,  "Vedi tutti i passi", "checklist");
+      break;
     case "urgente":
       card.classList.add("missione-urgente");
       if (titolo) titolo.textContent = `⚠️ Scadenza tra ${m.giorni} ${m.giorni === 1 ? "giorno" : "giorni"}!`;
@@ -593,7 +686,10 @@ function renderChecklist() {
   const scadenze  = (SCADENZE_CAFOSCARI || []).slice().sort((a, b) => new Date(a.data) - new Date(b.data));
   const idScadenzeNote = scadenze.map(s => s.id);
 
-  const prossimaVoceId = checklist.find(v => !ZAINO.checklist[v.id])?.id;
+  // La voce "attiva" (evidenziata) è la prima non spuntata la cui
+  // scadenza NON è già passata: mai indicare come prossimo passo
+  // qualcosa su cui non si può più agire.
+  const prossimaVoceId = checklist.find(v => !ZAINO.checklist[v.id] && !voceScaduta(v))?.id;
 
   scadenze.forEach(scad => {
     const vociCollegate = checklist.filter(v => v.scadenzaId === scad.id);
@@ -1239,11 +1335,8 @@ function areaDominanteDipartimento(dipartimento) {
 }
 
 function prossimaScadenzaInfo() {
-  const ora    = new Date();
-  const future = (SCADENZE_CAFOSCARI || [])
-    .filter(s => new Date(s.data) > ora)
-    .sort((a, b) => new Date(a.data) - new Date(b.data));
-  return future[0] || null;
+  // Nell'onboarding annunciamo solo scadenze su cui si può agire.
+  return prossimaScadenzaAzionabile();
 }
 
 function mostraPassoOnboarding(id) {
@@ -1315,6 +1408,9 @@ function completaOnboarding(livello) {
     if (prossima) {
       const giorni = Math.ceil((new Date(prossima.data) - new Date()) / 86400000);
       dett.textContent = `La prossima scadenza è ${prossima.cosa}, tra ${giorni} ${giorni === 1 ? "giorno" : "giorni"}.`;
+    } else if (candidatureChiuse()) {
+      const anno = (window.BANDO_INFO && BANDO_INFO.annoAccademico) || "";
+      dett.textContent = `Il bando ${anno} è chiuso: il prossimo esce in genere tra dicembre e gennaio. Intanto puoi esplorare le mete con calma.`;
     } else {
       dett.textContent = "";
     }

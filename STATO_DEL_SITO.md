@@ -4,7 +4,37 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-03 — sessione 10 (**Coda mappatura per il weekend.**
+**Ultimo aggiornamento:** 2026-07-03 — sessione 11 (**BLOCCO B ristrutturazione UX —
+motore consapevole del tempo.** Il sito ora sa che il bando 26/27 è chiuso. Nei DATI
+(`js/atenei/{cafoscari,sapienza}/dati-scadenze.js`) due nuovi flag per scadenza, letti
+dal motore ma dichiarati nei dati (regola d'oro rispettata): `azionabile` (true se lo
+studente può/deve fare qualcosa per quella data; false per eventi solo informativi come
+pubblicazione graduatoria e inizio mobilità) e `chiusuraCandidature` (true sulla/e
+scadenza/e che chiudono le candidature — Sapienza ne ha 2, il bando è "chiuso" quando
+sono passate TUTTE). In `js/app.js`: nuovi helper temporali (`scadenzaPerId`,
+`scadenzaPassata`, `prossimaScadenzaAzionabile`, `candidatureChiuse`,
+`dataChiusuraCandidature`, `voceScaduta`, `giorniA`); `calcolaMissione()` riscritta —
+salta le voci di checklist con scadenza passata, considera solo scadenze future
+AZIONABILI, e ha due stati nuovi: **"bando-chiuso"** (non selezionato + candidature
+chiuse → titolo "Il bando 2026/2027 è chiuso", messaggio onesto col bivio: bottone
+"Sono stato selezionato 🎒" che imposta la fase e passa alla preparazione partenza,
+oppure "il prossimo bando esce in genere tra dicembre e gennaio") e **"partenza"**
+(selezionato → la missione è la prima voce di `CHECKLIST_POST` non spuntata, pill
+"tra Ng" verso il prossimo evento); la pill countdown della home mostra SOLO la
+prossima scadenza azionabile e si NASCONDE se non ce n'è (niente urgenza finta verso
+eventi su cui non si può agire); la voce "attiva" evidenziata (checklist e card
+Preparazione) è la prima non spuntata la cui scadenza NON è passata; onboarding: la
+landing dice "Il bando 2026/2027 è chiuso: il prossimo esce in genere tra dicembre e
+gennaio" invece di annunciare scadenze morte. Testato end-to-end in preview locale
+(porta 8001, 3 luglio 2026): home = "Il bando 2026/2027 è chiuso" col bivio, pill
+countdown nascosta, click "Sono stato selezionato" → fase salvata nello zaino, nav
+"🎒 Partenza", missione = primo passo post-selezione con pill "tra 12g" (inizio
+mobilità 15/07); onboarding da zero → landing onesta; nessun errore console.
+**Restano:** blocco D (gerarchia home) e i titoli brevi imperativi per le voci di
+checklist (aggiunta al piano C). **NON ANCORA PUBBLICATO:** `git fetch` + rebase +
+commit + push come da regola sessione 7.)
+
+**Aggiornamento precedente:** 2026-07-03 — sessione 10 (**Coda mappatura per il weekend.**
 Codex aveva svuotato `prossimiBatch` (Architettura Sapienza finita, `runCompletati` 193)
 e si era fermato. Accodate **4 nuove Facoltà Sapienza** con dati REALI presi dall'export
 ufficiale Go Erasmus+ (`/goerasmus/export?ambito=…`), righe solo-Phd escluse:
@@ -421,6 +451,17 @@ python -m http.server 8000
 poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
+
+**Aggiornamento 2026-07-03 — sessione 11 (blocco B motore consapevole del tempo):**
+0. **⬆️ Da pubblicare**: `git fetch` + `git rebase origin/main` + commit + push.
+   Il working tree contiene blocco A + blocco B + UX5 Ca' Foscari + file mappatura.
+1. **Prossima sessione di codice = blocco D gerarchia home**: card "Preparazione"
+   solo barra di progresso (senza ripetere i testi grezzi dei passi); il riassunto
+   dello stepper non deve duplicare la missione; una schermata = un messaggio.
+2. **Blocco C = chiudere UX5** (Sapienza) + titoli brevi imperativi per le voci di
+   checklist (titolo max ~8 parole + dettaglio) + mappa codici ISCED → etichette
+   italiane (mai "0421" in UI senza etichetta umana).
+3. UX6 (test col fratello) DOPO i blocchi C–D, con i 3 compiti secchi.
 
 **Aggiornamento 2026-07-03 — sessione 9 (blocco A ristrutturazione UX):**
 0. **⬆️ Da pubblicare in giornata**: `git fetch` + `git rebase origin/main` +
