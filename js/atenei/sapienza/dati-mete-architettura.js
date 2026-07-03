@@ -2491,9 +2491,19 @@ var METE = [
       { numero: 2, mesi: 10, livello: "L", note: "" },
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "C1", condizione: "per la sede principale HES-SO e i moduli selezionati in francese" },
+        { lingua: "Tedesco", livello: "C1", condizione: "per la sede principale BFH e i moduli selezionati in tedesco" },
+        { lingua: "Inglese", livello: "C1", condizione: "per i moduli selezionati in inglese" },
+        { lingua: "Francese/Tedesco/Inglese", livello: "B1", condizione: "per almeno una seconda lingua tra le tre lingue di insegnamento" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "dal 1 dicembre al 31 maggio" },
+        { cosa: "Application (autunno, candidati con visto)", periodo: "dal 1 dicembre al 15 febbraio" },
+        { cosa: "Application (primavera)", periodo: "dal 1 settembre al 31 ottobre" },
+        { cosa: "Application (primavera, candidati con visto)", periodo: "dal 1 settembre al 30 settembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -2509,7 +2519,9 @@ var METE = [
       { numero: 1, mesi: 10, livello: "L", note: "" },
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per studenti exchange non madrelingua inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Nomination (autunno)", periodo: "entro 15 giorni prima della deadline application" },

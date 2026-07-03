@@ -1,0 +1,11 @@
+{
+  "SAP-ARCHI-HESSO": {
+    "requisitoLingua": "https://www.hes-so.ch/en/master/hes-so-master/programmes/architecture",
+    "scadenzeOspitante": "https://www.hes-so.ch/en/master/hes-so-master/programmes/architecture",
+    "linkSito": "https://www.hes-so.ch/en/master/hes-so-master/programmes/architecture"
+  },
+  "SAP-ARCHI-OZYEGIN-ISTANBUL": {
+    "requisitoLingua": "https://www.ozyegin.edu.tr/en/international-exchange-and-partnership-programs/erasmus-study-mobility/incoming-students",
+    "linkSito": "https://www.ozyegin.edu.tr/en/international-exchange-and-partnership-programs/erasmus-study-mobility/incoming-students"
+  }
+}
