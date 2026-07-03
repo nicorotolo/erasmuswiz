@@ -1,0 +1,27 @@
+{
+  "F  NICE42": {
+    "requisitoLingua": "https://www.uc3m.es/secretaria-virtual/media/secretaria-virtual/doc/archivo/doc_e_fs_f_nice42_2526/f-nice42_fr_universite-cote-d-azur_25-26.pdf",
+    "scadenzeOspitante": "https://www.uc3m.es/secretaria-virtual/media/secretaria-virtual/doc/archivo/doc_e_fs_f_nice42_2526/f-nice42_fr_universite-cote-d-azur_25-26.pdf",
+    "linkSito": "https://univ-cotedazur.eu/"
+  },
+  "F  PARIS087": {
+    "requisitoLingua": "https://eurep.auth.gr/sites/default/files/fact_sheets/F%20PARIS087_Factsheet_2026-2027.pdf",
+    "scadenzeOspitante": "https://eurep.auth.gr/sites/default/files/fact_sheets/F%20PARIS087_Factsheet_2026-2027.pdf",
+    "linkSito": "https://www.ens.psl.eu/en"
+  },
+  "D  LUDWIGB06": {
+    "requisitoLingua": "https://www.eh-ludwigsburg.de/en/international/international-students/incoming-students",
+    "scadenzeOspitante": "https://www.eh-ludwigsburg.de/en/international/international-students/incoming-students",
+    "linkSito": "https://www.eh-ludwigsburg.de/en/international/international-students/incoming-students"
+  },
+  "D  DARMSTA02": {
+    "requisitoLingua": "https://international.h-da.de/en/1/your-stay-at-h-da/students/international-exchange-students/application-admission",
+    "scadenzeOspitante": "https://international.h-da.de/en/1/your-stay-at-h-da/students/international-exchange-students/application-admission",
+    "linkSito": "https://international.h-da.de/en/1/your-stay-at-h-da/students/international-exchange-students/application-admission"
+  },
+  "D  TUBINGE01": {
+    "requisitoLingua": "https://uni-tuebingen.de/en/international/study-in-tuebingen/erasmus-and-exchange-to-tuebingen/application-and-preparation/",
+    "scadenzeOspitante": "https://uni-tuebingen.de/en/international/study-in-tuebingen/erasmus-and-exchange-to-tuebingen/application-and-preparation/",
+    "linkSito": "https://uni-tuebingen.de/en/international/study-in-tuebingen/erasmus-and-exchange-to-tuebingen/application-and-preparation/"
+  }
+}
