@@ -1,0 +1,26 @@
+{
+  "E  HUELVA01": {
+    "requisitoLingua": "https://docs.univr.it/documenti/ProgrammaMobilita/all/all451855.pdf",
+    "scadenzeOspitante": "https://docs.univr.it/documenti/ProgrammaMobilita/all/all451855.pdf",
+    "linkSito": "https://www.uhu.es/english/"
+  },
+  "E  BARCELO02": {
+    "scadenzeOspitante": "https://www.uab.cat/doc/uabfactsheet_2026_27",
+    "linkSito": "https://www.uab.cat/"
+  },
+  "E  BADAJOZ01": {
+    "requisitoLingua": "https://sri.unex.es/convocatorias-vigentes-1/movilidad-entrante/estudiantes-entrantes-international-students/erasmus-in/general-information/info-8-curso-de-espanol-para-extranjeros/",
+    "scadenzeOspitante": "https://sri.unex.es/convocatorias-vigentes-1/movilidad-entrante/estudiantes-entrantes-international-students/erasmus-in/nominationuex/",
+    "linkSito": "https://sri.unex.es/convocatorias-vigentes-1/movilidad-entrante/estudiantes-entrantes-international-students/erasmus-in/"
+  },
+  "E  SEVILLA03": {
+    "requisitoLingua": "https://www.upo.es/cms1/export/sites/upo/aric/area/DATA-SHEET-UPO-25-26-final.pdf",
+    "scadenzeOspitante": "https://www.upo.es/cms1/export/sites/upo/aric/area/DATA-SHEET-UPO-25-26-final.pdf",
+    "linkSito": "https://www.upo.es/aric/foreign-students/"
+  },
+  "E  PAMPLON02": {
+    "requisitoLingua": "https://media.screensteps.com/attachment_assets/assets/010/058/413/original/Fact%20sheet%20UPNA%202026-2027.pdf",
+    "scadenzeOspitante": "https://media.screensteps.com/attachment_assets/assets/010/058/413/original/Fact%20sheet%20UPNA%202026-2027.pdf",
+    "linkSito": "https://www.unavarra.es/relacionesinternacionales"
+  }
+}

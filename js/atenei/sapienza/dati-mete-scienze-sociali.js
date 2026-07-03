@@ -1358,10 +1358,18 @@ var METE = [
     posti: [
       { numero: 1, mesi: 6, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B2", condizione: "raccomandato per successo accademico" },
+        { lingua: "Inglese", livello: "B2", condizione: "raccomandato per successo accademico" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 giugno" },
+        { cosa: "Application (autunno)", periodo: "entro 1 luglio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Scadenze: basate su 2025/26"
   },
   {
     id: "sap-socio-huelva-2",
@@ -1375,10 +1383,18 @@ var METE = [
     posti: [
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B2", condizione: "raccomandato per successo accademico" },
+        { lingua: "Inglese", livello: "B2", condizione: "raccomandato per successo accademico" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 giugno" },
+        { cosa: "Application (autunno)", periodo: "entro 1 luglio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Scadenze: basate su 2025/26"
   },
   {
     id: "sap-socio-vallado-2",
@@ -1420,8 +1436,13 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "15 febbraio - 1 maggio" },
+        { cosa: "Application (autunno)", periodo: "15 febbraio - 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "15 settembre - 1 novembre" },
+        { cosa: "Application (primavera)", periodo: "15 settembre - 15 novembre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-socio-badajoz",
@@ -1436,9 +1457,16 @@ var METE = [
       { numero: 3, mesi: 6, livello: "L", note: "" },
       { numero: 3, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato per la maggior parte degli insegnamenti" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "7 aprile - 22 giugno 2026" },
+        { cosa: "Application (autunno)", periodo: "1 maggio - 30 giugno 2026" },
+        { cosa: "Nomination (primavera)", periodo: "1 ottobre - 31 ottobre 2026" },
+        { cosa: "Application (primavera)", periodo: "1 novembre - 30 novembre 2026" }
+      ],
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -1453,10 +1481,17 @@ var METE = [
     posti: [
       { numero: 2, mesi: 6, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato per corsi principalmente in spagnolo" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 30 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 aprile" },
+        { cosa: "Application (primavera)", periodo: "entro 30 maggio" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Scadenze: basate su 2025/26"
   },
   {
     id: "sap-socio-pamplon",
@@ -1471,9 +1506,17 @@ var METE = [
       { numero: 3, mesi: 6, livello: "L", note: "" },
       { numero: 3, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "certificato o attestazione richiesti per corsi in inglese" },
+        { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato per corsi in spagnolo" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 24 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 14 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
