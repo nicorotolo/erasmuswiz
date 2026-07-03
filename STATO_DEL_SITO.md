@@ -4,7 +4,26 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-03 — sessione 9 (**BLOCCO A ristrutturazione UX —
+**Ultimo aggiornamento:** 2026-07-03 — sessione 10 (**Coda mappatura per il weekend.**
+Codex aveva svuotato `prossimiBatch` (Architettura Sapienza finita, `runCompletati` 193)
+e si era fermato. Accodate **4 nuove Facoltà Sapienza** con dati REALI presi dall'export
+ufficiale Go Erasmus+ (`/goerasmus/export?ambito=…`), righe solo-Phd escluse:
+**Farmacia (62), Comunicazione e Ricerca Sociale (59), Scienze Sociali ed Economiche (68),
+Psicologia/pedagogia/servizio sociale (97) = 286 mete**. Creati 4 file
+`js/atenei/sapienza/dati-mete-{farmacia,comunicazione,scienze-sociali,psicologia}.js`
+(schema standard; `codiceErasmus` = codice Erasmus UFFICIALE dall'export;
+`requisitoLingua`/`scadenzeOspitante` vuoti, da arricchire col bot), agganciati in
+`index.html` alla catena `_meteAllSap`. In `mappatura-stato.json`: 4 voci in
+`statoDipartimenti` (stato `in_corso`, pending pieni) + **59 batch da 5** in `prossimiBatch`
+(`scadenze+lingua`). Tutto validato (`node --check` sui JS; parse JSON delle strutture
+inserite; 286 id senza duplicati). **Limite noto:** il campo `citta` è derivato dal token
+del codice Erasmus (l'export non popola Città) → da rifinire in una passata futura.
+**⬆️ Nicola deve lanciare `PUBBLICA.bat`** per pubblicare i nuovi file + la coda; poi
+Codex lavora in automatico per il weekend (~286 mete ≈ 2-3 giorni al ritmo osservato).
+Nota di metodo: il file `mappatura-stato.json` visto da bash risultava di nuovo troncato/
+stale (mount OneDrive) → modificato SOLO con gli strumenti Read/Edit sul file reale.
+
+**Aggiornamento precedente:** 2026-07-03 — sessione 9 (**BLOCCO A ristrutturazione UX —
 riparazione meccanica layout desktop + onestà temporale visiva.** Diagnosi con Nicola
 sugli screenshot del sito: l'impianto a 4 fasi regge, ma (1) il sito è "cieco al
 tempo" — missione che cita una scadenza passata da 127 giorni, scadenze scadute in
