@@ -1249,9 +1249,15 @@ var METE = [
     posti: [
       { numero: 3, mesi: 10, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "livello minimo raccomandato per la maggior parte dei corsi in spagnolo" },
+        { lingua: "Inglese", livello: "B2", condizione: "raccomandato per corsi impartiti in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 30 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 30 ottobre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -1267,9 +1273,17 @@ var METE = [
       { numero: 3, mesi: 6, livello: "L", note: "" },
       { numero: 3, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "obbligatorio se lo studente segue corsi in inglese" },
+        { lingua: "Spagnolo", livello: "B1", condizione: "obbligatorio se lo studente segue corsi in spagnolo; alcuni corsi possono richiedere B2-C1" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/annuale)", periodo: "15 febbraio - 15 maggio" },
+        { cosa: "Application (autunno/annuale)", periodo: "1 marzo - 1 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "15 settembre - 15 novembre" },
+        { cosa: "Application (primavera)", periodo: "1 ottobre - 30 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -1287,8 +1301,13 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/annuale)", periodo: "entro 30 aprile 2026" },
+        { cosa: "Application (autunno/annuale)", periodo: "entro 30 giugno 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 settembre 2026" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre 2026" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-farm-madrid-3",
@@ -1327,9 +1346,15 @@ var METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "per corsi in inglese" },
+        { lingua: "Turco", livello: "B1", condizione: "per corsi in turco" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno/annuale)", periodo: "entro 20 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1345,10 +1370,17 @@ var METE = [
       { numero: 4, mesi: 5, livello: "L", note: "" },
       { numero: 4, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "per studenti Erasmus incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/annuale)", periodo: "entro 1 giugno" },
+        { cosa: "Application (autunno/annuale)", periodo: "entro 1 luglio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 1 dicembre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). || Scadenze: basate su 2022/23"
   },
   {
     id: "sap-farm-van",

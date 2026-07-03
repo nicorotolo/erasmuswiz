@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 202,
+  "runCompletati": 203,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "farmacia-batch-10",
-      "priorita": 6,
-      "dipartimento": "Farmacia (Sapienza)",
-      "descrizione": "Farmacia (Sapienza) - scadenze+lingua",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "E  BURGOS01",
-        "E  CORDOBA23",
-        "E  PALMA01",
-        "TR ISTANBU19",
-        "TR KAYSERI01"
-      ]
-    },
     {
       "id": "farmacia-batch-11",
       "priorita": 6,
@@ -650,6 +636,16 @@
       "mete": [
         "E  SANTIAG01"
       ]
+    },
+    {
+      "id": "farmacia (sapienza)-batch-followup-8",
+      "priorita": 6,
+      "dipartimento": "Farmacia (Sapienza)",
+      "descrizione": "Farmacia (Sapienza) - follow-up pending",
+      "tipo": "lingua",
+      "mete": [
+        "E  PALMA01"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -920,18 +916,13 @@
       "fileJs": "js/atenei/sapienza/dati-mete-farmacia.js",
       "stato": "in_corso",
       "totale": 62,
-      "completate": 32,
+      "completate": 36,
       "pendingScadenze": [
         "F  COMPIEG05",
         "F  MONTPEL54",
         "F  BESANCO01",
         "G  PATRA01",
         "E  SANTIAG01",
-        "E  BURGOS01",
-        "E  CORDOBA23",
-        "E  PALMA01",
-        "TR ISTANBU19",
-        "TR KAYSERI01",
         "TR VAN01",
         "HU BUDAPES08"
       ],
@@ -954,11 +945,7 @@
         "P  COVILHA01",
         "RO BUCURES09",
         "E  SANTIAG01",
-        "E  BURGOS01",
-        "E  CORDOBA23",
         "E  PALMA01",
-        "TR ISTANBU19",
-        "TR KAYSERI01",
         "TR VAN01",
         "HU BUDAPES08"
       ],
@@ -980,7 +967,8 @@
         "P  LISBOA109": 1,
         "P  COVILHA01": 1,
         "RO BUCURES09": 1,
-        "E  SANTIAG01": 1
+        "E  SANTIAG01": 1,
+        "E  PALMA01": 1
       },
       "linguaNonTrovabile": []
     },
@@ -2631,6 +2619,12 @@
       "data": "2026-07-03",
       "mete": 5,
       "note": "Farmacia (Sapienza) farmacia-batch-9: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 203,
+      "data": "2026-07-03",
+      "mete": 5,
+      "note": "Farmacia (Sapienza) farmacia-batch-10: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

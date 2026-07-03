@@ -1,0 +1,26 @@
+{
+  "E  BURGOS01": {
+    "requisitoLingua": "https://www.ubu.es/sites/default/files/portal_page/files/FACT-SHEET%202026-2027_ES_2.pdf",
+    "scadenzeOspitante": "https://www.ubu.es/english-version/international-students/erasmus-and-other-international-exchange-students/nomination-admission-and-enrolment/registration-and-admission/application-form",
+    "linkSito": "https://www.ubu.es/english-version/international-students/erasmus-and-other-international-exchange-students/nomination-admission-and-enrolment"
+  },
+  "E  CORDOBA23": {
+    "requisitoLingua": "https://becas.usal.es/listados/Coordinadores%20Sicue%20Universidades/Loyola%20Andalucia.pdf",
+    "scadenzeOspitante": "https://becas.usal.es/listados/Coordinadores%20Sicue%20Universidades/Loyola%20Andalucia.pdf",
+    "linkSito": "https://www.uloyola.es/servicios/vicerrectorado-docencia-internacionalizacion/oficina-internacional/incoming-students"
+  },
+  "E  PALMA01": {
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254521",
+    "linkSito": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254521"
+  },
+  "TR ISTANBU19": {
+    "requisitoLingua": "https://uib.iku.edu.tr/en/exchange-programs/student-mobility-outgoing/incoming",
+    "scadenzeOspitante": "https://uib.iku.edu.tr/en/exchange-programs/student-mobility-outgoing/incoming",
+    "linkSito": "https://uib.iku.edu.tr/en/exchange-programs/student-mobility-outgoing/incoming"
+  },
+  "TR KAYSERI01": {
+    "requisitoLingua": "https://erasmus.erciyes.edu.tr/images/ddosya/20220905161630_0.pdf",
+    "scadenzeOspitante": "https://erasmus.erciyes.edu.tr/images/ddosya/20220905161630_0.pdf",
+    "linkSito": "https://erasmus.erciyes.edu.tr/en/incoming-students"
+  }
+}
