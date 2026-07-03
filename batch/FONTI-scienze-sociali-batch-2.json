@@ -1,0 +1,27 @@
+{
+  "F  VERSAIL11": {
+    "requisitoLingua": "https://www.uvsq.fr/exchange-programs",
+    "scadenzeOspitante": "https://www.uvsq.fr/exchange-programs",
+    "linkSito": "https://www.uvsq.fr/exchange-programs"
+  },
+  "F  LYON02": {
+    "requisitoLingua": "https://welcome.univ-lyon2.fr/study/courses/exchange-programs/attend-as-an-exchange-student",
+    "scadenzeOspitante": "https://welcome.univ-lyon2.fr/study/courses/exchange-programs/apply-for-an-exchange-program-at-universite-lumiere-lyon-2",
+    "linkSito": "https://welcome.univ-lyon2.fr/study/courses/exchange-programs/attend-as-an-exchange-student"
+  },
+  "F  PARIS482": {
+    "requisitoLingua": "https://u-paris.fr/societes-humanites/en/incoming-international-students/",
+    "scadenzeOspitante": "https://u-paris.fr/societes-humanites/en/nominations-for-incoming-exchange-students/",
+    "linkSito": "https://u-paris.fr/societes-humanites/en/incoming-international-students/"
+  },
+  "F  POITIER01": {
+    "requisitoLingua": "https://fceye.us.es/sites/economicas/files/contenido/movilidad/guia-alumnos-espanoles/1%20Factsheet.pdf",
+    "scadenzeOspitante": "https://sceco.univ-poitiers.fr/relations-internationales/incoming-students/",
+    "linkSito": "https://sceco.univ-poitiers.fr/relations-internationales/incoming-students/"
+  },
+  "F  LE-HAVR11": {
+    "requisitoLingua": "https://www.ul.ie/media/43447/download?inline=",
+    "scadenzeOspitante": "https://www.ul.ie/media/43447/download?inline=",
+    "linkSito": "https://www.univ-lehavre.fr/en/international/coming-to-le-havre/international-students/"
+  }
+}

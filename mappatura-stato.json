@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 215,
+  "runCompletati": 216,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "scienze-sociali-batch-2",
-      "priorita": 6,
-      "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
-      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - scadenze+lingua",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "F  VERSAIL11",
-        "F  LYON02",
-        "F  PARIS482",
-        "F  POITIER01",
-        "F  LE-HAVR11"
-      ]
-    },
     {
       "id": "scienze-sociali-batch-3",
       "priorita": 6,
@@ -978,13 +964,8 @@
       "fileJs": "js/atenei/sapienza/dati-mete-scienze-sociali.js",
       "stato": "in_corso",
       "totale": 68,
-      "completate": 7,
+      "completate": 12,
       "pendingScadenze": [
-        "F  VERSAIL11",
-        "F  LYON02",
-        "F  PARIS482",
-        "F  POITIER01",
-        "F  LE-HAVR11",
         "F  PARIS057",
         "F  BORDEAU58",
         "F  PARIS003",
@@ -1034,11 +1015,6 @@
       ],
       "pendingLingua": [
         "B  LOUVAIN01",
-        "F  VERSAIL11",
-        "F  LYON02",
-        "F  PARIS482",
-        "F  POITIER01",
-        "F  LE-HAVR11",
         "F  PARIS057",
         "F  BORDEAU58",
         "F  PARIS003",
@@ -2588,6 +2564,12 @@
       "data": "2026-07-03",
       "mete": 5,
       "note": "Scienze Sociali ed Economiche (Sapienza) scienze-sociali-batch-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 216,
+      "data": "2026-07-03",
+      "mete": 5,
+      "note": "Scienze Sociali ed Economiche (Sapienza) scienze-sociali-batch-2: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
