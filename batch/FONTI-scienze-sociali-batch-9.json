@@ -1,0 +1,27 @@
+{
+  "E  TENERIF01": {
+    "linkSito": "https://www.ull.es/internacional/erasmus/en/incoming-erasmus-estudios/",
+    "requisitoLingua": "https://www.ull.es/internacional/erasmus/en/incoming-erasmus-estudios/",
+    "scadenzeOspitante": "https://www.ull.es/internacional/erasmus/en/incoming-erasmus-estudios/"
+  },
+  "E  GRANADA01": {
+    "linkSito": "https://polisocio.ugr.es/internacionalizacion/movilidad-internacional/movilidad-entrante",
+    "scadenzeOspitante": "https://polisocio.ugr.es/internacionalizacion/movilidad-internacional/movilidad-entrante",
+    "notePraticheAppend": "https://sl.ugr.es/0egf"
+  },
+  "E  VALENCI01": {
+    "linkSito": "https://www.uv.es/uvinternational/en/erasmus/studies/incoming/general-information.html",
+    "requisitoLingua": "https://www.uv.es/uvweb/undergraduate-degree-audiovisual-communication/en/what-can-study-/uv-internacional-i-class-fa-fa-external-link-/i-/incoming-students-other-universities/list-subjects-1286005287110.html",
+    "scadenzeOspitante": "https://www.uv.es/uvinternational/en/erasmus/studies/incoming/general-information.html"
+  },
+  "E  LAS-PAL01": {
+    "linkSito": "https://internacional.ulpgc.es/en/movilidad-incoming/estudiantes-incoming/study-at-the-ulpgc-incoming/exchange-students/",
+    "scadenzeOspitante": "https://internacional.ulpgc.es/en/movilidad-incoming/universities/partner-universities/",
+    "notePraticheAppend": "https://internacional.ulpgc.es/en/movilidad-incoming/universities/partner-universities/"
+  },
+  "E  LA-CORU01": {
+    "linkSito": "https://www.udc.es/en/ori/infestudantesextranxeiros/FormulariosExtranxeiros/",
+    "scadenzeOspitante": "https://www.udc.es/en/ori/infestudantesextranxeiros/FormulariosExtranxeiros/",
+    "notePraticheAppend": "https://www.udc.es/en/ori/infestudantesextranxeiros/FormulariosExtranxeiros/"
+  }
+}
