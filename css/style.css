@@ -371,18 +371,6 @@ body {
 .preparazione-count { font-family: var(--font-mono); font-size: 12.5px; font-weight: 700; color: var(--text-dark); }
 .prep-barra { margin-top: 9px; height: 8px; background: #e9eefb; border-radius: var(--radius-pill); overflow: hidden; }
 .prep-barra-fill { height: 100%; background: #ffb627; border-radius: var(--radius-pill); transition: width .4s ease; }
-.prep-steps { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
-.prep-step { display: flex; align-items: center; gap: 9px; font-size: 13px; }
-.prep-step-check {
-  width: 16px; height: 16px; flex: 0 0 16px; border-radius: 50%;
-  border: 2px solid #ffb627; background: #fff4dd;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 10px; font-weight: 800; color: var(--gold-dark);
-}
-.prep-step-check.todo { border-radius: var(--radius-sm); border-color: var(--border); background: transparent; }
-.prep-step.attivo { color: var(--text-dark); font-weight: 700; }
-.prep-step.todo   { color: var(--text-muted); }
-.prep-step.fatto  { color: var(--text-hint); text-decoration: line-through; }
 
 /* ================================================================
    HEADER SEZIONI

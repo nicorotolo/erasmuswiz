@@ -4,7 +4,34 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-03 — sessione 11 (**BLOCCO B ristrutturazione UX —
+**Ultimo aggiornamento:** 2026-07-03 — sessione 12 (**BLOCCO D ristrutturazione UX —
+gerarchia della home (P2 di DISEGNO_UX.md: una schermata = una domanda = una azione).**
+Deciso con Nicola di saltare il blocco C (= UX5 contenuti Sapienza): resta esplicitamente
+"lavoro di Nicola, non di Codex" per `DISEGNO_UX.md` §4 — richiede il testo del bando
+Sapienza sotto mano per non rischiare interpretazioni normative inventate. Individuata
+l'unica vera ridondanza rimasta: la card "Preparazione candidatura" ripeteva in una
+lista (`#prep-steps`) gli stessi testi delle voci di checklist già visibili nella
+missione e nel tab Candidatura — tre volte la stessa informazione nella stessa
+schermata. Lo stepper (`fase-riassunto`) e la dimensione tipografica (missione 
+grande, stepper 13.5px) erano già corretti, non toccati. In `js/app.js`:
+`renderPreparazione()` semplificata — mostra solo conteggio (`N/M`) e barra di
+progresso, rimossa la generazione della lista `.prep-step`. In `index.html`: rimosso
+il contenitore `<div class="prep-steps" id="prep-steps">` non più usato. In
+`css/style.css`: rimosse le regole morte `.prep-steps`/`.prep-step`/`.prep-step-check`
+(9 righe). **Nota ambientale:** un'altra sessione aveva già un server sulla porta 8001
+(`.claude/launch.json` puntava a `python -m http.server 8001` fisso) → reso il
+launch config `autoPort`-friendly (`cmd /c "python -m http.server %PORT%"`) così le
+sessioni parallele non si bloccano più a vicenda. Validato: `node --check js/app.js`
+OK; test end-to-end in preview locale (porta assegnata dinamicamente, onboarding da
+zero → Ca' Foscari/Economia/Triennale → home): card "Preparazione candidatura" mostra
+solo "0/9" + barra, nessun elenco di passi ripetuto; stepper, missione "Il bando
+2026/2027 è chiuso" e barra coesistono senza sovrapposizioni; nessun errore console.
+**Restano:** blocco C (contenuti Sapienza, di Nicola) + titoli brevi imperativi per
+la checklist (già annotati come "aggiunta al piano C"); poi UX6 (test col fratello).
+**NON ANCORA PUBBLICATO:** `git fetch` + rebase + commit + push come da regola sessione 7,
+insieme al blocco B della sessione 11 ancora in sospeso.)
+
+**Aggiornamento precedente:** 2026-07-03 — sessione 11 (**BLOCCO B ristrutturazione UX —
 motore consapevole del tempo.** Il sito ora sa che il bando 26/27 è chiuso. Nei DATI
 (`js/atenei/{cafoscari,sapienza}/dati-scadenze.js`) due nuovi flag per scadenza, letti
 dal motore ma dichiarati nei dati (regola d'oro rispettata): `azionabile` (true se lo

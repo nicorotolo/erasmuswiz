@@ -337,45 +337,18 @@ function initCountdownPill() {
 // CARD PREPARAZIONE
 // ============================================================
 function renderPreparazione() {
+  // Solo la barra di progresso: i singoli passi sono già visibili nella
+  // missione e nella checklist, ripeterli qui era ridondanza senza
+  // gerarchia (DISEGNO_UX.md §2.1, blocco D).
   const tot   = (CHECKLIST || []).length;
   const fatti = (CHECKLIST || []).filter(v => ZAINO.checklist && ZAINO.checklist[v.id]).length;
   const perc  = tot === 0 ? 0 : Math.round((fatti / tot) * 100);
 
   const countEl = document.getElementById("prep-count");
   const fillEl  = document.getElementById("prep-fill");
-  const stepsEl = document.getElementById("prep-steps");
 
   if (countEl) countEl.textContent = `${fatti}/${tot}`;
   if (fillEl)  fillEl.style.width  = perc + "%";
-  if (!stepsEl) return;
-
-  stepsEl.innerHTML = "";
-
-  const done   = (CHECKLIST || []).filter(v => ZAINO.checklist && ZAINO.checklist[v.id]);
-  const undone = (CHECKLIST || []).filter(v => !(ZAINO.checklist && ZAINO.checklist[v.id]));
-
-  // "Attivo" solo un passo su cui si può ancora agire (scadenza non passata).
-  const attivoId = undone.find(v => !voceScaduta(v))?.id;
-  const toShow = [
-    ...done.slice(-2).map(v => ({ voce: v, tipo: "fatto" })),
-    ...undone.slice(0, 3).map(v => ({ voce: v, tipo: v.id === attivoId ? "attivo" : "todo" })),
-  ];
-
-  if (toShow.length === 0) {
-    const p = crea("p", "prep-step attivo");
-    p.textContent = "🎉 Checklist completata!";
-    stepsEl.appendChild(p);
-    return;
-  }
-
-  toShow.forEach(({ voce, tipo }) => {
-    const step  = crea("div", `prep-step ${tipo}`);
-    const check = crea("span", `prep-step-check${tipo === "todo" ? " todo" : ""}`);
-    if (tipo === "fatto") check.textContent = "✓";
-    step.appendChild(check);
-    step.appendChild(document.createTextNode(voce.testo));
-    stepsEl.appendChild(step);
-  });
 }
 
 // ============================================================
