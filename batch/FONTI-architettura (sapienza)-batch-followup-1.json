@@ -1,6 +1,12 @@
 {
-  "SAP-ARCHI-INNSBRUCK": {
-    "requisitoLingua": "https://www.uibk.ac.at/en/international-relations-office/student-mobility/incoming/studying-uibk/",
-    "linkSito": "https://www.uibk.ac.at/en/international-relations-office/student-mobility/incoming/mobility-programmes/erasmus-studmob/"
+  "SAP-ARCHI-MADEIRA": {
+    "requisitoLingua": "https://eurep.auth.gr/en/printpdf/agreementContractView?ap=e21f6d543",
+    "scadenzeOspitante": "https://eurep.auth.gr/en/printpdf/agreementContractView?ap=e21f6d543",
+    "linkSito": "https://gpc.uma.pt/index.php?option=com_content&view=article&id=241&Itemid=129&lang=en"
+  },
+  "SAP-ARCHI-EVORA": {
+    "scadenzeOspitante": "https://www.ubu.es/sites/default/files/portal_page/files/p_evora01_2023-24_factsheet.pdf",
+    "linkSito": "https://www.uevora.pt/en/study/Mobility/Mobility-In/Student-Mobility/Mobility-Application",
+    "notePraticheAppend": "https://www.uevora.pt/en/study/Mobility/Mobility-In/Student-Mobility/Mobility-Application"
   }
 }
