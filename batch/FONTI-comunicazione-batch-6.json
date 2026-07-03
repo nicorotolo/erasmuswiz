@@ -1,0 +1,27 @@
+{
+  "E  VALLADO03": {
+    "scadenzeOspitante": "https://internacional.uemc.es/p/erasmus-incoming",
+    "linkSito": "https://internacional.uemc.es/p/erasmus-incoming",
+    "notePraticheAppend": "https://internacional.uemc.es/p/erasmus-incoming"
+  },
+  "E  BILBAO01": {
+    "scadenzeOspitante": "https://www.ehu.eus/en/web/gizarte-komunikazio-zientzien-fakultatea/procedure",
+    "linkSito": "https://www.ehu.eus/en/web/gizarte-komunikazio-zientzien-fakultatea/procedure",
+    "notePraticheAppend": "https://www.ehu.eus/en/web/gizarte-komunikazio-zientzien-fakultatea/1st-semester-fall-semester"
+  },
+  "E  MURCIA01": {
+    "scadenzeOspitante": "https://erasmus.um.es/erasmus/ControlAlexErasmus?idioma=I001&opcion=informacion&seccion=ALEX&validado=S",
+    "linkSito": "https://erasmus.um.es/erasmus/ControlAlexErasmus?idioma=I001&opcion=informacion&seccion=ALEX&validado=S",
+    "notePraticheAppend": "https://erasmus.um.es/erasmus/ControlAlexErasmus?idioma=I001&opcion=informacion&seccion=ALEX&validado=S"
+  },
+  "E  CIUDA-R01": {
+    "scadenzeOspitante": "https://www.uclm.es/en/misiones/internacional/movilidad/movilidad_entrante/estudiantes/estudiantes-de-intercambio",
+    "linkSito": "https://www.uclm.es/en/misiones/internacional/movilidad/movilidad_entrante/estudiantes/estudiantes-de-intercambio",
+    "notePraticheAppend": "https://www.uclm.es/en/misiones/internacional/movilidad/movilidad_entrante/estudiantes/estudiantes-de-intercambio"
+  },
+  "E  MADRID238": {
+    "requisitoLingua": "https://www.universidadunie.com/en/unie-community/erasmus",
+    "scadenzeOspitante": "https://www.universidadunie.com/en/unie-community/erasmus",
+    "linkSito": "https://www.universidadunie.com/en/unie-community/erasmus"
+  }
+}
