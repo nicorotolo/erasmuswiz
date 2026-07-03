@@ -1,0 +1,27 @@
+{
+  "D  MUNCHEN01": {
+    "requisitoLingua": "https://www.lmu.de/en/study/all-degrees-and-programs/programs-for-international-visiting-students/erasmus-and-lmuexchange/how-to-apply/",
+    "scadenzeOspitante": "https://www.lmu.de/en/study/all-degrees-and-programs/programs-for-international-visiting-students/erasmus-and-lmuexchange/timeline-for-exchange-students.html",
+    "linkSito": "https://www.lmu.de/en/study/all-degrees-and-programs/programs-for-international-visiting-students/erasmus-and-lmuexchange/how-to-apply/"
+  },
+  "G  ATHINE01": {
+    "requisitoLingua": "https://en.interel.uoa.gr/erasmus_student_mobility/nomination_procedure",
+    "scadenzeOspitante": "https://en.interel.uoa.gr/erasmus_student_mobility/application_procedure",
+    "linkSito": "https://en.interel.uoa.gr/erasmus_student_mobility/application_procedure"
+  },
+  "LV RIGA02": {
+    "requisitoLingua": "https://www.rtu.lv/en/internationalization/incoming-exchange/erasmus-europe-students",
+    "scadenzeOspitante": "https://www.rtu.lv/en/internationalization/incoming-exchange/erasmus-europe-students",
+    "linkSito": "https://www.rtu.lv/en/internationalization/incoming-exchange/erasmus-europe-students"
+  },
+  "LT VILNIUS01": {
+    "requisitoLingua": "https://www.fhs.unizg.hr/images/50042976/Vilnius%20Univeristy%20Fact%20sheet%202026_2027_new.pdf",
+    "scadenzeOspitante": "https://www.fhs.unizg.hr/images/50042976/Vilnius%20Univeristy%20Fact%20sheet%202026_2027_new.pdf",
+    "linkSito": "https://www.old.vu.lt/en/studies/exchange-students"
+  },
+  "N  OSLO58": {
+    "scadenzeOspitante": "https://www.kristiania.no/en/study-at-kristiania/exchange-student/",
+    "linkSito": "https://www.kristiania.no/en/study-at-kristiania/exchange-student/",
+    "notePraticheAppend": "https://www.kristiania.no/en/study-at-kristiania/exchange-student/courses-for-incoming-students/"
+  }
+}
