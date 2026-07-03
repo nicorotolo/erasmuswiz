@@ -1,0 +1,26 @@
+{
+  "F  BREST01": {
+    "requisitoLingua": "https://relint.uva.es/wp-content/uploads/2026/03/FS-26-27-F-BREST01.pdf",
+    "scadenzeOspitante": "https://relint.uva.es/wp-content/uploads/2026/03/FS-26-27-F-BREST01.pdf",
+    "linkSito": "https://www.univ-brest.fr/en/page/international-exchange-students"
+  },
+  "F  MARSEIL84": {
+    "requisitoLingua": "https://www-2024.erasmus.lettere.uniroma2.it/wp-content/uploads/2025/01/Aix-Marseille-Universite-F-MARSEIL84.pdf",
+    "scadenzeOspitante": "https://www-2024.erasmus.lettere.uniroma2.it/wp-content/uploads/2025/01/Aix-Marseille-Universite-F-MARSEIL84.pdf",
+    "linkSito": "https://allsh.univ-amu.fr/international/venir-etudier-faculte-allsh"
+  },
+  "F  PARIS008": {
+    "requisitoLingua": "https://www.univ-paris8.fr/en/-international-exchanges-",
+    "scadenzeOspitante": "https://www.univ-paris8.fr/en/-international-exchanges-",
+    "linkSito": "https://www.univ-paris8.fr/en/-international-exchanges-"
+  },
+  "F  LYON10": {
+    "scadenzeOspitante": "https://www.ucly.fr/en/incoming-students/",
+    "linkSito": "https://www.ucly.fr/en/incoming-students/"
+  },
+  "F  LILLE103": {
+    "requisitoLingua": "https://relint.uva.es/wp-content/uploads/2026/04/FS-26-27-F-LILLE103.pdf",
+    "scadenzeOspitante": "https://relint.uva.es/wp-content/uploads/2026/04/FS-26-27-F-LILLE103.pdf",
+    "linkSito": "https://droit.univ-lille.fr/relations-internationales/i-am-an-international-student-1"
+  }
+}
