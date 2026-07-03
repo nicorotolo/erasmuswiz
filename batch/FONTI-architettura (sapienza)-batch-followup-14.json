@@ -1,0 +1,14 @@
+{
+  "SAP-ARCHI-GIRONA": {
+    "linkSito": "https://eurep.auth.gr/sites/default/files/fact_sheets/E%20GIRONA02_%20factsheet%202026_2027.pdf",
+    "notePraticheAppend": "https://eurep.auth.gr/sites/default/files/fact_sheets/E%20GIRONA02_%20factsheet%202026_2027.pdf"
+  },
+  "SAP-ARCHI-ZARAGOZA": {
+    "linkSito": "https://internacional.unizar.es/erasmus-incoming-students-academic-year-24-25",
+    "notePraticheAppend": "https://internacional.unizar.es/erasmus-incoming-students-academic-year-24-25"
+  },
+  "SAP-ARCHI-MALAGA": {
+    "linkSito": "https://www.uma.es/relaciones-internacionales/cms/menu/erasmus/incoming-students/",
+    "scadenzeOspitante": "https://www.uma.es/relaciones-internacionales/cms/menu/incoming-students/nomination/?set_language=en"
+  }
+}

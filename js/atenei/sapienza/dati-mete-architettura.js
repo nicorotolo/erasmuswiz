@@ -2235,7 +2235,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 1 giugno 2026" },
         { cosa: "Application (primavera)", periodo: "entro 1 novembre 2026" }
       ],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-archi-zaragoza",
@@ -2258,7 +2258,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "16 febbraio - 19 giugno 2026" },
         { cosa: "Application (primavera)", periodo: "1 settembre - 6 novembre 2026" }
       ],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-archi-valladolid",
@@ -2330,7 +2330,11 @@ var METE = [
         { lingua: "Spagnolo", livello: "B1", condizione: "livello consigliato, necessario per seguire le lezioni" }
       ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "da meta aprile a meta giugno" },
+        { cosa: "Nomination (anno intero)", periodo: "da meta aprile a meta giugno" },
+        { cosa: "Nomination (primavera)", periodo: "da meta aprile a fine ottobre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
