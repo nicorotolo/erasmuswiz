@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 210,
+  "runCompletati": 211,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "comunicazione-batch-7",
-      "priorita": 6,
-      "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
-      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - scadenze+lingua",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "E  VIGO01",
-        "E  MADRID26",
-        "E  SALAMAN01",
-        "E  BARCELO01",
-        "E  SANTIAG01"
-      ]
-    },
     {
       "id": "comunicazione-batch-8",
       "priorita": 6,
@@ -617,6 +603,18 @@
         "E  MURCIA01",
         "E  CIUDA-R01"
       ]
+    },
+    {
+      "id": "comunicazione e ricerca sociale (sapienza)-batch-followup-6",
+      "priorita": 6,
+      "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
+      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E  VIGO01",
+        "E  SALAMAN01",
+        "E  SANTIAG01"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -946,15 +944,11 @@
       "fileJs": "js/atenei/sapienza/dati-mete-comunicazione.js",
       "stato": "in_corso",
       "totale": 59,
-      "completate": 28,
+      "completate": 30,
       "pendingScadenze": [
         "P  MAIA01",
         "RO BUCURES09",
-        "E  VIGO01",
-        "E  MADRID26",
         "E  SALAMAN01",
-        "E  BARCELO01",
-        "E  SANTIAG01",
         "E  LA-CORU01",
         "E  MADRID17",
         "E  MADRID03",
@@ -980,9 +974,7 @@
         "E  MURCIA01",
         "E  CIUDA-R01",
         "E  VIGO01",
-        "E  MADRID26",
         "E  SALAMAN01",
-        "E  BARCELO01",
         "E  SANTIAG01",
         "E  LA-CORU01",
         "E  MADRID17",
@@ -1007,7 +999,10 @@
         "E  VALLADO03": 1,
         "E  BILBAO01": 1,
         "E  MURCIA01": 1,
-        "E  CIUDA-R01": 1
+        "E  CIUDA-R01": 1,
+        "E  VIGO01": 1,
+        "E  SALAMAN01": 1,
+        "E  SANTIAG01": 1
       },
       "linguaNonTrovabile": []
     },
@@ -2602,6 +2597,12 @@
       "data": "2026-07-03",
       "mete": 5,
       "note": "Comunicazione e Ricerca Sociale (Sapienza) comunicazione-batch-6: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 211,
+      "data": "2026-07-03",
+      "mete": 5,
+      "note": "Comunicazione e Ricerca Sociale (Sapienza) comunicazione-batch-7: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

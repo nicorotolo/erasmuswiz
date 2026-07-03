@@ -1,0 +1,23 @@
+{
+  "E  VIGO01": {
+    "scadenzeOspitante": "https://www.uvigo.gal/en/study/mobility/international-incoming-students",
+    "linkSito": "https://www.uvigo.gal/en/study/mobility/international-incoming-students"
+  },
+  "E  MADRID26": {
+    "requisitoLingua": "https://www.urjc.es/images/Internacional/erasmus%20y%20movilidad/erasmus%20plus/incoming/Handbook%20Eng%20.pdf",
+    "scadenzeOspitante": "https://www.urjc.es/images/Internacional/erasmus%20y%20movilidad/erasmus%20plus/incoming/00_ENG_FACTSHEET_00_2026_2027.pdf",
+    "linkSito": "https://en.urjc.es/internacional/erasmus-y-movilidad/252-erasmus"
+  },
+  "E  SALAMAN01": {
+    "linkSito": "https://www.upsa.es/internacional/movilidad-internacional"
+  },
+  "E  BARCELO01": {
+    "requisitoLingua": "https://web.ub.edu/documents/15503412/36368577/application25_english.pdf/01b7c990-f31b-6c81-d2dc-3cf701e727f8?t=1746543498885",
+    "scadenzeOspitante": "https://web.ub.edu/documents/15503412/36368577/application25_english.pdf/01b7c990-f31b-6c81-d2dc-3cf701e727f8?t=1746543498885",
+    "linkSito": "https://www.ub.edu/mobilitat-internacional/en/incoming-students"
+  },
+  "E  SANTIAG01": {
+    "scadenzeOspitante": "https://www.uni-osnabrueck.de/fileadmin/fb10/erasmus/Fact_Sheets/FactSheet_E_SANTIAG01.pdf",
+    "linkSito": "https://www.uni-osnabrueck.de/fileadmin/fb10/erasmus/Fact_Sheets/FactSheet_E_SANTIAG01.pdf"
+  }
+}

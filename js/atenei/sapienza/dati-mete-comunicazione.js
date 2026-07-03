@@ -912,8 +912,11 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Application (autunno/anno intero)", periodo: "dal 15 marzo al 31 maggio" },
+        { cosa: "Application (primavera)", periodo: "dal 1 settembre al 31 ottobre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-comm-madrid-2",
@@ -928,9 +931,17 @@ var METE = [
       { numero: 2, mesi: 5, livello: "L", note: "" },
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "per corsi in spagnolo" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "dal 22 aprile al 22 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 16 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "dal 23 settembre al 23 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 16 dicembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -949,7 +960,7 @@ var METE = [
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-comm-madrid-3",
@@ -988,9 +999,16 @@ var METE = [
       { numero: 1, mesi: 5, livello: "L", note: "" },
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" },
+        { lingua: "Spagnolo", livello: "B1", condizione: "per corsi in spagnolo" },
+        { lingua: "Catalano", livello: "B1", condizione: "per corsi in catalano" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 1 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1008,8 +1026,13 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "entro 30 maggio" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-comm-universidad-2",
