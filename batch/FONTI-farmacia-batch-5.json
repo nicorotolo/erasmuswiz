@@ -1,0 +1,27 @@
+{
+  "F  MARSEIL84": {
+    "requisitoLingua": "https://advise.science.ust.hk/sites/default/files/Aix-Marseille-University_Factsheet_AY2026-27%20-%20For%20students.pdf",
+    "scadenzeOspitante": "https://advise.science.ust.hk/sites/default/files/Aix-Marseille-University_Factsheet_AY2026-27%20-%20For%20students.pdf",
+    "linkSito": "https://pharmacie.univ-amu.fr/en/international-relations/studying-pharma-amu"
+  },
+  "F  CERGY-P11": {
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/28255424",
+    "linkSito": "https://www.cyu.fr/en/international/mobilite-etudiante/venir-mobilite-internationale/mobilite-echange",
+    "notePraticheAppend": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/28255424"
+  },
+  "F  ANGERS01": {
+    "requisitoLingua": "https://www.univ-angers.fr/en/you-are/exchange-student/admissions.html",
+    "scadenzeOspitante": "https://www.univ-angers.fr/en/you-are/exchange-student/admissions.html",
+    "linkSito": "https://www.univ-angers.fr/en/you-are/exchange-student/admissions.html"
+  },
+  "D  SAARBRU01": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/24672667",
+    "scadenzeOspitante": "https://www.uni-saarland.de/en/global/welcome-center/exchange-freemover/erasmus-programme.html",
+    "linkSito": "https://www.uni-saarland.de/en/global/welcome-center/exchange-freemover/erasmus-programme.html"
+  },
+  "D  BERLIN02": {
+    "requisitoLingua": "https://www.static.tu.berlin/fileadmin/www/10004219/INT_SB/Dokumente/Incomings/Austausch_allgemein/ERASMUS/TUB_Fact_Sheet_Incoming_2026-27.pdf",
+    "scadenzeOspitante": "https://www.static.tu.berlin/fileadmin/www/10004219/INT_SB/Dokumente/Incomings/Austausch_allgemein/ERASMUS/TUB_Fact_Sheet_Incoming_2026-27.pdf",
+    "linkSito": "https://www.tu.berlin/en/international/students-1/international-students/exchange-studies-at-tu-berlin"
+  }
+}
