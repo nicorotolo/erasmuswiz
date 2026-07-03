@@ -2719,7 +2719,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "1 settembre - 30 novembre" },
         { cosa: "Application (primavera)", periodo: "1 settembre - 30 novembre" }
       ],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-archi-pecs",
