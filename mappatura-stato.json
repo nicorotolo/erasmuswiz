@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 234,
+  "runCompletati": 235,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "psicologia-batch-9",
-      "priorita": 6,
-      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
-      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "PL LUBLIN02",
-        "PL KIELCE02",
-        "PL BYDGOSZ01",
-        "PL WROCLAW13",
-        "PL POZNAN01"
-      ]
-    },
     {
       "id": "psicologia-batch-10",
       "priorita": 6,
@@ -447,6 +433,17 @@
         "D  POTSDAM01",
         "D  BERLIN20"
       ]
+    },
+    {
+      "id": "psicologia e servizio sociale (sapienza)-batch-followup-6",
+      "priorita": 6,
+      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - follow-up pending",
+      "tipo": "lingua",
+      "mete": [
+        "PL KIELCE02",
+        "PL WROCLAW13"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -862,14 +859,9 @@
       "fileJs": "js/atenei/sapienza/dati-mete-psicologia.js",
       "stato": "in_corso",
       "totale": 97,
-      "completate": 42,
+      "completate": 45,
       "pendingScadenze": [
         "D  BERLIN20",
-        "PL LUBLIN02",
-        "PL KIELCE02",
-        "PL BYDGOSZ01",
-        "PL WROCLAW13",
-        "PL POZNAN01",
         "P  COVILHA01",
         "P  LISBOA17",
         "P  LISBOA01",
@@ -913,11 +905,8 @@
         "F  LYON10",
         "D  TRIER01",
         "D  POTSDAM01",
-        "PL LUBLIN02",
         "PL KIELCE02",
-        "PL BYDGOSZ01",
         "PL WROCLAW13",
-        "PL POZNAN01",
         "P  COVILHA01",
         "P  LISBOA17",
         "P  LISBOA01",
@@ -960,7 +949,9 @@
         "BG VARNA02": 1,
         "F  LYON10": 1,
         "D  TRIER01": 1,
-        "D  POTSDAM01": 1
+        "D  POTSDAM01": 1,
+        "PL KIELCE02": 1,
+        "PL WROCLAW13": 1
       },
       "linguaNonTrovabile": []
     }
@@ -2401,6 +2392,12 @@
       "data": "2026-07-03",
       "mete": 5,
       "note": "Psicologia e Servizio Sociale (Sapienza) psicologia-batch-8: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 235,
+      "data": "2026-07-03",
+      "mete": 5,
+      "note": "Psicologia e Servizio Sociale (Sapienza) psicologia-batch-9: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

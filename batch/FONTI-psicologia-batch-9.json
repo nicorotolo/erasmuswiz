@@ -1,0 +1,25 @@
+{
+  "PL LUBLIN02": {
+    "requisitoLingua": "https://www.kul.pl/how-to-apply%2Cart_824.html",
+    "scadenzeOspitante": "https://www.kul.pl/how-to-apply%2Cart_824.html",
+    "linkSito": "https://www.kul.pl/how-to-apply%2Cart_824.html"
+  },
+  "PL KIELCE02": {
+    "scadenzeOspitante": "https://erasmus.ujk.edu.pl/info-for-incoming-students/how-to-apply/",
+    "linkSito": "https://erasmus.ujk.edu.pl/info-for-incoming-students/how-to-apply/"
+  },
+  "PL BYDGOSZ01": {
+    "requisitoLingua": "https://www.ukw.edu.pl/jednostka/study-at-ukw/exchange_students_",
+    "scadenzeOspitante": "https://www.ukw.edu.pl/jednostka/study-at-ukw/exchange_students_",
+    "linkSito": "https://www.ukw.edu.pl/jednostka/study-at-ukw/exchange_students_"
+  },
+  "PL WROCLAW13": {
+    "scadenzeOspitante": "https://wab.edu.pl/en/for-student/erasmus/erasmus-for-student/incoming-students/",
+    "linkSito": "https://wab.edu.pl/en/for-student/erasmus/erasmus-for-student/incoming-students/"
+  },
+  "PL POZNAN01": {
+    "requisitoLingua": "https://erasmus.amu.edu.pl/en/incoming-students2/how-to-apply",
+    "scadenzeOspitante": "https://erasmus.amu.edu.pl/en/incoming-students2/how-to-apply",
+    "linkSito": "https://erasmus.amu.edu.pl/en/incoming-students2/how-to-apply"
+  }
+}
