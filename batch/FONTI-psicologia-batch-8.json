@@ -1,0 +1,27 @@
+{
+  "D  KOLN01": {
+    "requisitoLingua": "https://uni-koeln.de/sites/international/aaa/92/92pdf/Betreuung/Exchange/92pdf_SG3_FactSheet_Partner_26_27.pdf",
+    "scadenzeOspitante": "https://uni-koeln.de/sites/international/aaa/92/92pdf/Betreuung/Exchange/92pdf_SG3_FactSheet_Partner_26_27.pdf",
+    "linkSito": "https://uni-koeln.de/en/studying-teaching/international/study-in-cologne/international-applications/exchange-students-from-partner-universities"
+  },
+  "G  ATHINE01": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/23263255",
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/23263255",
+    "linkSito": "https://en.interel.uoa.gr/erasmus"
+  },
+  "LT VILNIUS06": {
+    "requisitoLingua": "https://www.mruni.eu/en/university/internationalization/erasmus-and-exchange-studies-incoming/",
+    "scadenzeOspitante": "https://www.mruni.eu/wp-content/uploads/2026/04/Exchange-to-MRU-26-27_Bilateral-Partners.pdf",
+    "linkSito": "https://www.mruni.eu/en/university/internationalization/erasmus-and-exchange-studies-incoming/"
+  },
+  "MT MALTA01": {
+    "requisitoLingua": "https://www.um.edu.mt/studentlife/internationalopportunities/erasmus/incoming/",
+    "scadenzeOspitante": "https://www.um.edu.mt/studentlife/internationalopportunities/erasmus/incoming/",
+    "linkSito": "https://www.um.edu.mt/studentlife/internationalopportunities/erasmus/incoming/"
+  },
+  "NL NIJMEGE01": {
+    "requisitoLingua": "https://www.ru.nl/sites/default/files/2026-03/radboud_university_student_datasheet_26_27.pdf",
+    "scadenzeOspitante": "https://www.ru.nl/sites/default/files/2026-03/radboud_university_student_datasheet_26_27.pdf",
+    "linkSito": "https://www.ru.nl/en/education/application-and-admission/application-procedure-for-exchange-students"
+  }
+}
