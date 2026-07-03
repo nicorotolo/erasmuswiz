@@ -1,0 +1,24 @@
+{
+  "F  NANCY43": {
+    "scadenzeOspitante": "https://www.univ-lorraine.fr/welcome/en/applying-for-an-exchange-program/",
+    "linkSito": "https://www.univ-lorraine.fr/welcome/en/applying-for-an-exchange-program/",
+    "notePraticheAppend": "https://www.univ-lorraine.fr/welcome/en/applying-for-an-exchange-program/"
+  },
+  "F  COMPIEG05": {
+    "linkSito": "https://www.escom.fr/mobilite-internationale/",
+    "notePraticheAppend": "https://www.escom.fr/mobilite-internationale/"
+  },
+  "F  GRENOBL55": {
+    "scadenzeOspitante": "https://international.univ-grenoble-alpes.fr/resources/resources-for-international-partners/fact-sheet-uga-809951.kjsp",
+    "linkSito": "https://international.univ-grenoble-alpes.fr/resources/resources-for-international-partners/fact-sheet-uga-809951.kjsp",
+    "notePraticheAppend": "https://international.univ-grenoble-alpes.fr/resources/resources-for-international-partners/fact-sheet-uga-809951.kjsp"
+  },
+  "F  MONTPEL54": {
+    "linkSito": "https://www.umontpellier.fr/international/etudier-a-letranger/venir-etudier-a-luniversite-de-montpellier",
+    "notePraticheAppend": "https://www.umontpellier.fr/international/etudier-a-letranger/venir-etudier-a-luniversite-de-montpellier"
+  },
+  "F  BESANCO01": {
+    "linkSito": "https://www.umlp.fr/venir-etudier-luniversite-marie-et-louis-pasteur",
+    "notePraticheAppend": "https://www.umlp.fr/venir-etudier-luniversite-marie-et-louis-pasteur"
+  }
+}

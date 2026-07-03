@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 195,
+  "runCompletati": 196,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "farmacia-batch-3",
-      "priorita": 6,
-      "dipartimento": "Farmacia (Sapienza)",
-      "descrizione": "Farmacia (Sapienza) - scadenze+lingua",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "F  NANCY43",
-        "F  COMPIEG05",
-        "F  GRENOBL55",
-        "F  MONTPEL54",
-        "F  BESANCO01"
-      ]
-    },
     {
       "id": "farmacia-batch-4",
       "priorita": 6,
@@ -678,6 +664,20 @@
         "BG SOFIA11",
         "HR RIJEKA01"
       ]
+    },
+    {
+      "id": "farmacia (sapienza)-batch-followup-2",
+      "priorita": 6,
+      "dipartimento": "Farmacia (Sapienza)",
+      "descrizione": "Farmacia (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F  NANCY43",
+        "F  COMPIEG05",
+        "F  GRENOBL55",
+        "F  MONTPEL54",
+        "F  BESANCO01"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -950,9 +950,7 @@
       "totale": 62,
       "completate": 9,
       "pendingScadenze": [
-        "F  NANCY43",
         "F  COMPIEG05",
-        "F  GRENOBL55",
         "F  MONTPEL54",
         "F  BESANCO01",
         "F  AMIENS01",
@@ -1041,7 +1039,12 @@
       ],
       "tentativiLingua": {
         "BG SOFIA11": 1,
-        "HR RIJEKA01": 1
+        "HR RIJEKA01": 1,
+        "F  NANCY43": 1,
+        "F  COMPIEG05": 1,
+        "F  GRENOBL55": 1,
+        "F  MONTPEL54": 1,
+        "F  BESANCO01": 1
       },
       "linguaNonTrovabile": []
     },
@@ -2650,6 +2653,12 @@
       "data": "2026-07-03",
       "mete": 5,
       "note": "Farmacia (Sapienza) farmacia-batch-2: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 196,
+      "data": "2026-07-03",
+      "mete": 5,
+      "note": "Farmacia (Sapienza) farmacia-batch-3: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
