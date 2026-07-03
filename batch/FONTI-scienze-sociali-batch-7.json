@@ -1,0 +1,26 @@
+{
+  "P  PORTO11": {
+    "requisitoLingua": "https://isois.muni.cz/cs/downloadFile/?fileName=fa5545dcbefbc23e7a651b299a0d9f00.pdf",
+    "scadenzeOspitante": "https://isois.muni.cz/cs/downloadFile/?fileName=fa5545dcbefbc23e7a651b299a0d9f00.pdf",
+    "linkSito": "https://isois.muni.cz/cs/downloadFile/?fileName=fa5545dcbefbc23e7a651b299a0d9f00.pdf"
+  },
+  "UK SOUTHAM01": {
+    "requisitoLingua": "https://factsheets.rennes-sb.com/UK/University%20of%20Southampton/UoS%20Fact%20Sheet%202026-27.pdf",
+    "scadenzeOspitante": "https://factsheets.rennes-sb.com/UK/University%20of%20Southampton/UoS%20Fact%20Sheet%202026-27.pdf",
+    "linkSito": "https://www.southampton.ac.uk/courses/exchanges/come-to-southampton.page"
+  },
+  "CZ OLOMOUC01": {
+    "requisitoLingua": "https://international.upol.cz/en/exchange-programmes/im-an-exchange-student/general-information/",
+    "scadenzeOspitante": "https://international.upol.cz/en/exchange-programmes/im-an-exchange-student/study/erasmus-europe/",
+    "linkSito": "https://international.upol.cz/en/exchange-programmes/im-an-exchange-student/study/erasmus-europe/"
+  },
+  "RO BUCURES09": {
+    "scadenzeOspitante": "https://unibuc.ro/international/programul-erasmus/studenti-erasmus/?lang=en",
+    "linkSito": "https://unibuc.ro/international/programul-erasmus/studenti-erasmus/?lang=en"
+  },
+  "E  CADIZ01": {
+    "requisitoLingua": "https://internacional.uca.es/incoming-mobilities/students/erasmus-ka103-incoming/?lang=en",
+    "scadenzeOspitante": "https://internacional.uca.es/incoming-mobilities/students/erasmus-ka103-incoming/?lang=en",
+    "linkSito": "https://internacional.uca.es/incoming-mobilities/students/erasmus-ka103-incoming/?lang=en"
+  }
+}
