@@ -1,0 +1,16 @@
+{
+  "CH FRIBOUR01": {
+    "requisitoLingua": "https://oic.nccu.edu.tw/Upload/FileManager/bdf12a31-8974-40a8-a8e1-9d997bd360e1.pdf",
+    "scadenzeOspitante": "https://oic.nccu.edu.tw/Upload/FileManager/bdf12a31-8974-40a8-a8e1-9d997bd360e1.pdf",
+    "linkSito": "https://www.unifr.ch/studies/en/mobility/"
+  },
+  "CH BERN01": {
+    "requisitoLingua": "https://www.unibe.ch/e1006/e811173/e811753/e811754/e1020797/e1022124/e1773465/UniBEFactSheetSEMP2026-27_eng.pdf",
+    "scadenzeOspitante": "https://www.unibe.ch/e1006/e811173/e811753/e811754/e1020797/e1022124/e1773465/UniBEFactSheetSEMP2026-27_eng.pdf",
+    "linkSito": "https://www.unibe.ch/studies/mobility/incoming/semp/index_eng.html"
+  },
+  "TR ISTANBU21": {
+    "scadenzeOspitante": "https://international.yeditepe.edu.tr/sites/international.yeditepe.edu.tr/files/2023-11/fact_sheet_new.pdf",
+    "linkSito": "https://international.yeditepe.edu.tr/en/international/erasmus-incoming-students"
+  }
+}

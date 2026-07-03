@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 212,
+  "runCompletati": 213,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "comunicazione-batch-9",
-      "priorita": 6,
-      "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
-      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - scadenze+lingua",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "CH FRIBOUR01",
-        "CH BERN01",
-        "TR ISTANBU03",
-        "TR ANKARA03",
-        "TR ISTANBU21"
-      ]
-    },
     {
       "id": "comunicazione-batch-10",
       "priorita": 6,
@@ -611,6 +597,18 @@
       "mete": [
         "E  SEVILLA01"
       ]
+    },
+    {
+      "id": "comunicazione e ricerca sociale (sapienza)-batch-followup-8",
+      "priorita": 6,
+      "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
+      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "TR ISTANBU03",
+        "TR ANKARA03",
+        "TR ISTANBU21"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -940,16 +938,13 @@
       "fileJs": "js/atenei/sapienza/dati-mete-comunicazione.js",
       "stato": "in_corso",
       "totale": 59,
-      "completate": 35,
+      "completate": 37,
       "pendingScadenze": [
         "P  MAIA01",
         "RO BUCURES09",
         "E  SALAMAN01",
-        "CH FRIBOUR01",
-        "CH BERN01",
         "TR ISTANBU03",
         "TR ANKARA03",
-        "TR ISTANBU21",
         "TR ISTANBU17"
       ],
       "pendingLingua": [
@@ -968,8 +963,6 @@
         "E  SALAMAN01",
         "E  SANTIAG01",
         "E  SEVILLA01",
-        "CH FRIBOUR01",
-        "CH BERN01",
         "TR ISTANBU03",
         "TR ANKARA03",
         "TR ISTANBU21",
@@ -990,7 +983,10 @@
         "E  VIGO01": 1,
         "E  SALAMAN01": 1,
         "E  SANTIAG01": 1,
-        "E  SEVILLA01": 1
+        "E  SEVILLA01": 1,
+        "TR ISTANBU03": 1,
+        "TR ANKARA03": 1,
+        "TR ISTANBU21": 1
       },
       "linguaNonTrovabile": []
     },
@@ -2597,6 +2593,12 @@
       "data": "2026-07-03",
       "mete": 5,
       "note": "Comunicazione e Ricerca Sociale (Sapienza) comunicazione-batch-8: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 213,
+      "data": "2026-07-03",
+      "mete": 5,
+      "note": "Comunicazione e Ricerca Sociale (Sapienza) comunicazione-batch-9: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

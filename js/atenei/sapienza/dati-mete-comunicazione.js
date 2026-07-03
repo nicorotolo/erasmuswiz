@@ -1239,9 +1239,18 @@ var METE = [
       { numero: 2, mesi: 5, livello: "L", note: "" },
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "raccomandato per la lingua dei corsi nel Learning Agreement; prova B2 richiesta per il visto se lingua di istruzione" },
+        { lingua: "Tedesco", livello: "B2", condizione: "raccomandato per la lingua dei corsi nel Learning Agreement; prova B2 richiesta per il visto se lingua di istruzione" },
+        { lingua: "Inglese", livello: "B2", condizione: "raccomandato per corsi in inglese; prova B2 richiesta per il visto se lingua di istruzione" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno accademico)", periodo: "entro 15 marzo" },
+        { cosa: "Application (autunno/anno accademico)", periodo: "entro 31 marzo" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 settembre" },
+        { cosa: "Application (primavera)", periodo: "entro 30 settembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1256,9 +1265,17 @@ var METE = [
     posti: [
       { numero: 1, mesi: 12, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B2", condizione: "per seguire corsi e sostenere esami in tedesco" },
+        { lingua: "Inglese", livello: "B2", condizione: "per seguire corsi e sostenere esami in inglese; C1 per corsi dell'English Department" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 30 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 settembre" },
+        { cosa: "Application (primavera)", periodo: "entro 30 settembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1330,8 +1347,13 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "15 marzo - 15 luglio" },
+        { cosa: "Application (autunno)", periodo: "entro 30 luglio" },
+        { cosa: "Nomination (primavera)", periodo: "1 settembre - 15 dicembre" },
+        { cosa: "Application (primavera)", periodo: "entro 1 gennaio" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2023/24"
   },
   {
     id: "sap-comm-istanbu-3",
