@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 193,
+  "runCompletati": 194,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "farmacia-batch-1",
-      "priorita": 6,
-      "dipartimento": "Farmacia (Sapienza)",
-      "descrizione": "Farmacia (Sapienza) - scadenze+lingua",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "B  LEUVEN01",
-        "B  LIEGE01",
-        "B  BRUSSEL01",
-        "B  BRUXEL04",
-        "B  ANTWERP01"
-      ]
-    },
     {
       "id": "farmacia-batch-2",
       "priorita": 6,
@@ -965,13 +951,8 @@
       "fileJs": "js/atenei/sapienza/dati-mete-farmacia.js",
       "stato": "in_corso",
       "totale": 62,
-      "completate": 0,
+      "completate": 5,
       "pendingScadenze": [
-        "B  LEUVEN01",
-        "B  LIEGE01",
-        "B  BRUSSEL01",
-        "B  BRUXEL04",
-        "B  ANTWERP01",
         "BG SOFIA11",
         "BG VARNA03",
         "HR ZAGREB01",
@@ -1021,11 +1002,6 @@
         "HU BUDAPES08"
       ],
       "pendingLingua": [
-        "B  LEUVEN01",
-        "B  LIEGE01",
-        "B  BRUSSEL01",
-        "B  BRUXEL04",
-        "B  ANTWERP01",
         "BG SOFIA11",
         "BG VARNA03",
         "HR ZAGREB01",
@@ -2670,6 +2646,12 @@
       "data": "2026-07-03",
       "mete": 0,
       "note": "Riparazione: pendingScadenze/pendingLingua/prossimiBatch di Farmacia, Comunicazione, Scienze Sociali, Psicologia (Sapienza) usavano il campo 'id' delle mete invece di 'codiceErasmus', causando 'Meta non trovata' in prepara-batch.mjs. Rigenerati da zero con la stessa logica di setup-dipartimento.mjs (nessuna meta di questi 4 dipartimenti era mai stata completata)."
+    },
+    {
+      "batch": 194,
+      "data": "2026-07-03",
+      "mete": 5,
+      "note": "Farmacia (Sapienza) farmacia-batch-1: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

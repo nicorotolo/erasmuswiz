@@ -1,0 +1,27 @@
+{
+  "B  LEUVEN01": {
+    "requisitoLingua": "https://pharm.kuleuven.be/international/programs",
+    "scadenzeOspitante": "https://www.kuleuven.be/english/apply/application-instructions/instructions-exchange",
+    "linkSito": "https://www.kuleuven.be/english/apply/application-instructions/instructions-exchange"
+  },
+  "B  LIEGE01": {
+    "requisitoLingua": "https://www.international.uliege.be/cms/c_9116292/en/language-requirements-/incoming-exchange-students",
+    "scadenzeOspitante": "https://www.international.uliege.be/cms/c_9116184/en/international-application-form-/-incoming-exchange-student",
+    "linkSito": "https://www.international.uliege.be/cms/c_18643738/en/international-exchange-student"
+  },
+  "B  BRUSSEL01": {
+    "requisitoLingua": "https://www.vub.be/en/studying-vub/apply-and-enrol-vub/admission-requirements-and-deadlines/academic-and-language-requirements",
+    "scadenzeOspitante": "https://www.vub.be/en/internationalisation-vub/international-relations-what-we-do-how-you-can-reach-us/exchange-erasmus-projects/come-vub-exchange",
+    "linkSito": "https://www.vub.be/en/internationalisation-vub/international-relations-what-we-do-how-you-can-reach-us/exchange-erasmus-projects/come-vub-exchange"
+  },
+  "B  BRUXEL04": {
+    "requisitoLingua": "https://www.upf.edu/documents/d/estudiarfora/universite-libre-de-bruxelles-diverses-25-26",
+    "scadenzeOspitante": "https://www.ulb.be/medias/fichier/factsheet-eu-26-27_1771598204643-pdf",
+    "linkSito": "https://www.ulb.be/en/incoming-mobility/incoming-erasmus-students"
+  },
+  "B  ANTWERP01": {
+    "requisitoLingua": "https://www.uantwerpen.be/en/about-uantwerp/faculties/faculty-medicine-health-sciences/education/international-experience/exchange-students/medicine/",
+    "scadenzeOspitante": "https://www.uantwerpen.be/en/about-uantwerp/faculties/faculty-medicine-health-sciences/education/international-experience/exchange-students/medicine/",
+    "linkSito": "https://www.uantwerpen.be/en/study/erasmus-and-exchange-students/how-to-apply/study-exchange/"
+  }
+}
