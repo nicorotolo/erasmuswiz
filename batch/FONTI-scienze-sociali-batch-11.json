@@ -1,0 +1,26 @@
+{
+  "E  BILBAO02": {
+    "linkSito": "https://www.deusto.es/en/home/international/incoming-mobility",
+    "requisitoLingua": "https://www.wiwi.uni-wuerzburg.de/fileadmin/1200-squiwi/2023/Ausland/Fact_Sheet_2026__eng_.pdf",
+    "scadenzeOspitante": "https://www.wiwi.uni-wuerzburg.de/fileadmin/1200-squiwi/2023/Ausland/Fact_Sheet_2026__eng_.pdf"
+  },
+  "E  ALICANT01": {
+    "linkSito": "https://sri.ua.es/en/movilidad/incoming-students.html",
+    "requisitoLingua": "https://sri.ua.es/en/movilidad/incoming-students/fact-sheet.html",
+    "scadenzeOspitante": "https://sri.ua.es/en/movilidad/incoming-students/exchange/application-procedure.html"
+  },
+  "E  MADRID04": {
+    "linkSito": "https://www.uam.es/economicas/internacional/movilidad-estudiantes-entrantes",
+    "requisitoLingua": "https://www.uam.es/economicas/media/doc/1607035014411/fact-sheet-e-madrid04---economics-fact-sheet-2026-27.pdf",
+    "scadenzeOspitante": "https://www.uam.es/economicas/media/doc/1607035014411/fact-sheet-e-madrid04---economics-fact-sheet-2026-27.pdf"
+  },
+  "S  STOCKHO01": {
+    "linkSito": "https://www.su.se/english/education/exchange-students/how-to-apply-as-an-exchange-student",
+    "scadenzeOspitante": "https://www.su.se/english/education/exchange-students/how-to-apply-as-an-exchange-student",
+    "notePraticheAppend": "https://www.polver.uni-konstanz.de/securedl/sdl-eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3ODI0NzE0NzEsImV4cCI6MTc4MzE2MjY3MSwidXNlciI6MCwiZ3JvdXBzIjpbMCwtMV0sImZpbGUiOiJmaWxlYWRtaW4vcG9sdmVyL2ZhY2hiZXJlaWNoLzAxX0ZvdG9zX1BvcnRyYWl0c19PYmpla3RlLzAxM19QYXJ0bmVydW5pcy9GYWN0X3NoZWV0XzIwMjYtMjAyN19TdG9ja2hvbG0ucGRmIiwicGFnZSI6MTIxMDc5fQ.-sRVkYb8WJ94XcFWzk-72TYO4s0plGisVn6jl7u1l9c/Fact_sheet_2026-2027_Stockholm.pdf"
+  },
+  "TR ANKARA03": {
+    "linkSito": "https://abofisi.hacettepe.edu.tr/en/ka_103_study_at_abroad_incoming_students_before_ar-85",
+    "requisitoLingua": "https://int.hacettepe.edu.tr/en/visiting_international_students-84"
+  }
+}

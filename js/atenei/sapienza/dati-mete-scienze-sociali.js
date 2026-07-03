@@ -1531,9 +1531,17 @@ var METE = [
     posti: [
       { numero: 3, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B2", condizione: "fortemente raccomandato per corsi undergraduate in spagnolo" },
+        { lingua: "Inglese", livello: "B2", condizione: "fortemente raccomandato per corsi undergraduate in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "11 febbraio - 15 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "15 settembre - 15 ottobre" },
+        { cosa: "Application (autunno)", periodo: "4 - 15 maggio" },
+        { cosa: "Application (primavera)", periodo: "2 - 13 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -1548,9 +1556,17 @@ var METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato per seguire insegnamenti in spagnolo" },
+        { lingua: "Inglese", livello: "B2", condizione: "raccomandato per seguire insegnamenti in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 1 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
+        { cosa: "Application (autunno)", periodo: "entro 15 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1565,9 +1581,17 @@ var METE = [
     posti: [
       { numero: 1, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B2", condizione: "raccomandato per corsi della Facultad de Ciencias Economicas y Empresariales" },
+        { lingua: "Inglese", livello: "B2", condizione: "raccomandato per corsi della Facultad de Ciencias Economicas y Empresariales" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "1 - 30 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "1 - 30 settembre" },
+        { cosa: "Application (autunno)", periodo: "1 - 31 maggio" },
+        { cosa: "Application (primavera)", periodo: "1 - 31 ottobre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1585,8 +1609,13 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 1 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 20 settembre" },
+        { cosa: "Application (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Application (primavera)", periodo: "entro 1 ottobre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-socio-stockho-2",
@@ -1602,8 +1631,13 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 1 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 20 settembre" },
+        { cosa: "Application (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Application (primavera)", periodo: "entro 1 ottobre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-socio-ankara",
@@ -1617,7 +1651,10 @@ var METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Turco", livello: "B1", condizione: "per dipartimenti con insegnamento in turco" },
+        { lingua: "Inglese", livello: "B1", condizione: "per dipartimenti con insegnamento in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."

@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 224,
+  "runCompletati": 225,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "scienze-sociali-batch-11",
-      "priorita": 6,
-      "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
-      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - scadenze+lingua",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "E  BILBAO02",
-        "E  ALICANT01",
-        "E  MADRID04",
-        "S  STOCKHO01",
-        "TR ANKARA03"
-      ]
-    },
     {
       "id": "scienze-sociali-batch-12",
       "priorita": 6,
@@ -511,6 +497,17 @@
       "mete": [
         "E  BARCELO02"
       ]
+    },
+    {
+      "id": "scienze sociali ed economiche (sapienza)-batch-followup-6",
+      "priorita": 6,
+      "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
+      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "S  STOCKHO01",
+        "TR ANKARA03"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -894,12 +891,8 @@
       "fileJs": "js/atenei/sapienza/dati-mete-scienze-sociali.js",
       "stato": "in_corso",
       "totale": 68,
-      "completate": 52,
+      "completate": 55,
       "pendingScadenze": [
-        "E  BILBAO02",
-        "E  ALICANT01",
-        "E  MADRID04",
-        "S  STOCKHO01",
         "TR ANKARA03",
         "TR ISTANBU32"
       ],
@@ -911,11 +904,7 @@
         "E  LAS-PAL01",
         "E  LA-CORU01",
         "E  BARCELO02",
-        "E  BILBAO02",
-        "E  ALICANT01",
-        "E  MADRID04",
         "S  STOCKHO01",
-        "TR ANKARA03",
         "TR ISTANBU32"
       ],
       "tentativiLingua": {
@@ -925,7 +914,8 @@
         "E  GRANADA01": 1,
         "E  LAS-PAL01": 1,
         "E  LA-CORU01": 1,
-        "E  BARCELO02": 1
+        "E  BARCELO02": 1,
+        "S  STOCKHO01": 1
       },
       "linguaNonTrovabile": []
     },
@@ -2480,6 +2470,12 @@
       "data": "2026-07-03",
       "mete": 5,
       "note": "Scienze Sociali ed Economiche (Sapienza) scienze-sociali-batch-10: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 225,
+      "data": "2026-07-03",
+      "mete": 5,
+      "note": "Scienze Sociali ed Economiche (Sapienza) scienze-sociali-batch-11: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
