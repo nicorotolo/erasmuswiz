@@ -1,0 +1,22 @@
+{
+  "SAP-ARCHI-GAZI-ANKARA": {
+    "linkSito": "https://erasmus.gazi.edu.tr/view/page/103344",
+    "notePraticheAppend": "https://erasmus.gazi.edu.tr/view/page/103344"
+  },
+  "SAP-ARCHI-MSGSU-ISTANBUL-A": {
+    "requisitoLingua": "https://www.msgsu.edu.tr/Assets/UserFiles/12292017/erasmus/erasmuskurumlararasi_anlasmalar_listesi_yeni1.xlsx",
+    "linkSito": "https://msgsu.edu.tr/wp-content/uploads/2024/03/Incoming-Students-Info-Sheet3.pdf"
+  },
+  "SAP-ARCHI-ITU-ISTANBUL": {
+    "requisitoLingua": "https://erasmus.itu.edu.tr/incoming-student-staff/ka131-program-countries/student-mobility-for-students/application-procedure",
+    "linkSito": "https://erasmus.itu.edu.tr/incoming-student-staff/ka131-program-countries/student-mobility-for-students/application-procedure"
+  },
+  "SAP-ARCHI-MSGSU-ISTANBUL-B": {
+    "requisitoLingua": "https://www.msgsu.edu.tr/Assets/UserFiles/12292017/erasmus/erasmuskurumlararasi_anlasmalar_listesi_yeni1.xlsx",
+    "linkSito": "https://msgsu.edu.tr/wp-content/uploads/2024/03/Incoming-Students-Info-Sheet3.pdf"
+  },
+  "SAP-ARCHI-IZMIR-EKONOMI": {
+    "linkSito": "https://www.ieu.edu.tr/international/en/gelen-uluslararasi-degisim-ogrencileri",
+    "notePraticheAppend": "https://www.ieu.edu.tr/international/en/gelen-uluslararasi-degisim-ogrencileri"
+  }
+}
