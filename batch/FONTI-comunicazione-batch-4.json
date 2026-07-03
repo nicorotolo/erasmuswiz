@@ -1,0 +1,26 @@
+{
+  "PL KRAKOW01": {
+    "requisitoLingua": "https://erasmus.uj.edu.pl/en_GB/incoming/studies",
+    "scadenzeOspitante": "https://erasmus.uj.edu.pl/en_GB/incoming/studies",
+    "linkSito": "https://erasmus.uj.edu.pl/en_GB/incoming/studies"
+  },
+  "PL WARSZAW01": {
+    "requisitoLingua": "https://bwz.uw.edu.pl/en/frequently-asked-questions/",
+    "scadenzeOspitante": "https://bwz.uw.edu.pl/en/frequently-asked-questions/",
+    "linkSito": "https://bwz.uw.edu.pl/en/frequently-asked-questions/"
+  },
+  "P  LISBOA11": {
+    "requisitoLingua": "https://autonoma.pt/en/a_autonomous/erasmus-incoming-students/",
+    "scadenzeOspitante": "https://autonoma.pt/en/a_autonomous/erasmus-incoming-students/",
+    "linkSito": "https://autonoma.pt/en/a_autonomous/erasmus-incoming-students/"
+  },
+  "P  COVILHA01": {
+    "requisitoLingua": "https://www.ubi.pt/Entidade/incoming_erasmus_studies",
+    "scadenzeOspitante": "https://www.ubi.pt/Entidade/incoming_erasmus_studies",
+    "linkSito": "https://www.ubi.pt/Entidade/incoming_erasmus_studies"
+  },
+  "P  PORTO02": {
+    "scadenzeOspitante": "https://international.up.pt/public_files/Application_Procedures_2026-2027.pdf",
+    "linkSito": "https://international.up.pt/public_files/Application_Procedures_2026-2027.pdf"
+  }
+}
