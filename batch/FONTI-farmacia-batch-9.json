@@ -1,0 +1,26 @@
+{
+  "E  SANTIAG01": {
+    "linkSito": "https://www.usc.gal/en",
+    "notePraticheAppend": "https://www.uni-osnabrueck.de/fileadmin/fb10/erasmus/Fact_Sheets/FactSheet_E_SANTIAG01.pdf"
+  },
+  "E  SALAMAN02": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254525",
+    "scadenzeOspitante": "https://www.med.uni-wuerzburg.de/fileadmin/03000000/user_upload/dateien_studiendekanat/Internationales/Dateien/Factsheets/Info_USAL_26-27_MEDICINE_EN.pdf",
+    "linkSito": "https://internacional.usal.es/programas/erasmus-ka131/estudios/in/"
+  },
+  "E  MADRID03": {
+    "requisitoLingua": "https://www.ucm.es/english/language-requirements",
+    "scadenzeOspitante": "https://www.ucm.es/english/deadlines",
+    "linkSito": "https://www.ucm.es/english/incoming-mobility-1"
+  },
+  "E  BARCELO01": {
+    "requisitoLingua": "https://www.ub.edu/ori-bio/exchange-students/languages",
+    "scadenzeOspitante": "https://www.ub.edu/mobilitat-internacional/en/incoming-students/information-students-other-universities/deadlines-and-calendar",
+    "linkSito": "https://www.ub.edu/mobilitat-internacional/en/incoming-students/information-students-temporary-stay-2026-2027"
+  },
+  "E  ZARAGOZ07": {
+    "requisitoLingua": "https://www.usj.es/sites/default/files/content/USJ_Internacional_Fact%20Sheet_EN_Ed%20social_0.pdf",
+    "scadenzeOspitante": "https://www.usj.es/internacional/movilidad/incoming/en/application-procedure",
+    "linkSito": "https://www.usj.es/internacional/movilidad/incoming/en"
+  }
+}
