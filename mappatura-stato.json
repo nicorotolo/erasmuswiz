@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 200,
+  "runCompletati": 201,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "farmacia-batch-8",
-      "priorita": 6,
-      "dipartimento": "Farmacia (Sapienza)",
-      "descrizione": "Farmacia (Sapienza) - scadenze+lingua",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "RO CLUJNAP01",
-        "RS  BELGRAD02",
-        "SI LJUBLJA01",
-        "E  MADRID21",
-        "E  GRANADA01"
-      ]
-    },
     {
       "id": "farmacia-batch-9",
       "priorita": 6,
@@ -938,17 +924,12 @@
       "fileJs": "js/atenei/sapienza/dati-mete-farmacia.js",
       "stato": "in_corso",
       "totale": 62,
-      "completate": 22,
+      "completate": 27,
       "pendingScadenze": [
         "F  COMPIEG05",
         "F  MONTPEL54",
         "F  BESANCO01",
         "G  PATRA01",
-        "RO CLUJNAP01",
-        "RS  BELGRAD02",
-        "SI LJUBLJA01",
-        "E  MADRID21",
-        "E  GRANADA01",
         "E  SANTIAG01",
         "E  SALAMAN02",
         "E  MADRID03",
@@ -980,11 +961,6 @@
         "P  LISBOA109",
         "P  COVILHA01",
         "RO BUCURES09",
-        "RO CLUJNAP01",
-        "RS  BELGRAD02",
-        "SI LJUBLJA01",
-        "E  MADRID21",
-        "E  GRANADA01",
         "E  SANTIAG01",
         "E  SALAMAN02",
         "E  MADRID03",
@@ -2654,6 +2630,12 @@
       "data": "2026-07-03",
       "mete": 5,
       "note": "Farmacia (Sapienza) farmacia-batch-7: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 201,
+      "data": "2026-07-03",
+      "mete": 5,
+      "note": "Farmacia (Sapienza) farmacia-batch-8: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

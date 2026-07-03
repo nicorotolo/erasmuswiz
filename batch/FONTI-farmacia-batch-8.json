@@ -1,0 +1,27 @@
+{
+  "RO CLUJNAP01": {
+    "requisitoLingua": "https://cci.ubbcluj.ro/incoming-exchanges/incoming-exchanges-students/",
+    "scadenzeOspitante": "https://cci.ubbcluj.ro/incoming-exchanges/incoming-exchanges-students/",
+    "linkSito": "https://cci.ubbcluj.ro/erasmus/incoming-students/mobilityinformation/"
+  },
+  "RS  BELGRAD02": {
+    "requisitoLingua": "https://www.etsit.upm.es/fileadmin/documentos/servicios/internacionales/alumnosETSIT/universidades/Serbia/Belgrade-fact-sheet_2024.pdf",
+    "scadenzeOspitante": "https://www.etsit.upm.es/fileadmin/documentos/servicios/internacionales/alumnosETSIT/universidades/Serbia/Belgrade-fact-sheet_2024.pdf",
+    "linkSito": "https://www.bg.ac.rs/study-in-belgrade/"
+  },
+  "SI LJUBLJA01": {
+    "requisitoLingua": "https://www.uni-lj.si/en/study/exchanges/tuji-studenti",
+    "scadenzeOspitante": "https://www.uni-lj.si/en/study/exchanges/tuji-studenti",
+    "linkSito": "https://www.uni-lj.si/en/study/exchanges/tuji-studenti"
+  },
+  "E  MADRID21": {
+    "requisitoLingua": "https://www.uspceu.com/en/international/study-abroad/incoming-mobility",
+    "scadenzeOspitante": "https://ing.uniroma2.it/wp-content/uploads/2026/04/Fact-Sheet-English-CEU-San-Pablo.pdf",
+    "linkSito": "https://www.uspceu.com/en/international/study-abroad/incoming-mobility"
+  },
+  "E  GRANADA01": {
+    "requisitoLingua": "https://polisocio.ugr.es/internacionalizacion/movilidad-internacional/movilidad-entrante",
+    "scadenzeOspitante": "https://internacional.ugr.es/en/students/incoming-mobility/undergraduate",
+    "linkSito": "https://internacional.ugr.es/en/students/incoming-mobility/undergraduate"
+  }
+}

@@ -992,9 +992,14 @@ var METE = [
       { numero: 2, mesi: 6, livello: "L", note: "" },
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1-B2", condizione: "per corsi in inglese o nella lingua di studio" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 1 luglio" },
+        { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1010,10 +1015,18 @@ var METE = [
       { numero: 2, mesi: 6, livello: "L", note: "" },
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Serbo", livello: "B1-B2", condizione: "secondo il programma di studio" },
+        { lingua: "Inglese", livello: "B1-B2", condizione: "secondo il programma di studio" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 25 novembre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Scadenze: basate su 2024/25"
   },
   {
     id: "sap-farm-ljublja",
@@ -1028,9 +1041,15 @@ var METE = [
       { numero: 2, mesi: 6, livello: "L", note: "" },
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Sloveno", livello: "B2", condizione: "per studiare in sloveno" },
+        { lingua: "Inglese", livello: "B2", condizione: "per studiare in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1046,9 +1065,17 @@ var METE = [
       { numero: 2, mesi: 6, livello: "L", note: "" },
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B2", condizione: "per lezioni in spagnolo" },
+        { lingua: "Inglese", livello: "B2", condizione: "per lezioni in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 aprile 2026" },
+        { cosa: "Application (autunno)", periodo: "entro 15 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 settembre 2026" },
+        { cosa: "Application (primavera)", periodo: "entro 15 ottobre 2026" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1063,9 +1090,16 @@ var METE = [
     posti: [
       { numero: 2, mesi: 9, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "per seguire le lezioni e vivere a Granada" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 aprile" },
+        { cosa: "Application (autunno)", periodo: "dal 1 aprile al 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (primavera)", periodo: "dal 1 al 31 ottobre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
