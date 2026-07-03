@@ -1,0 +1,26 @@
+{
+  "D  BOCHUM01": {
+    "requisitoLingua": "https://international.ruhr-uni-bochum.de/sites/international.ruhr-uni-bochum.de/files/2025-11/Fact%20Sheet_RUB_English_2026_27.pdf",
+    "scadenzeOspitante": "https://international.ruhr-uni-bochum.de/sites/international.ruhr-uni-bochum.de/files/2025-11/Fact%20Sheet_RUB_English_2026_27.pdf",
+    "linkSito": "https://international.ruhr-uni-bochum.de/en/erasmus-rub"
+  },
+  "D  TRIER01": {
+    "scadenzeOspitante": "https://www.uni-trier.de/en/international/coming-to-trier/exchange-students",
+    "linkSito": "https://www.uni-trier.de/en/international/coming-to-trier/exchange-students"
+  },
+  "D  EICHSTA01": {
+    "requisitoLingua": "https://www.ku.de/en/international/international-students/exchange-students-freemover/application",
+    "scadenzeOspitante": "https://www.ku.de/en/international/international-students/exchange-students-freemover/application",
+    "linkSito": "https://www.ku.de/en/international/international-students/exchange-students-freemover/application"
+  },
+  "D  BIELEFE01": {
+    "requisitoLingua": "https://eurep.auth.gr/sites/default/files/fact_sheets/D%20BIELEFE01_FACTSHEET_2026-2027.pdf",
+    "scadenzeOspitante": "https://eurep.auth.gr/sites/default/files/fact_sheets/D%20BIELEFE01_FACTSHEET_2026-2027.pdf",
+    "linkSito": "https://www.uni-bielefeld.de/international/come-in/studium/kooperationsprogramme/"
+  },
+  "D  GOTTING01": {
+    "requisitoLingua": "https://www2.uni-goettingen.de/en/627580.html",
+    "scadenzeOspitante": "https://uni-goettingen.de/en/646821.html",
+    "linkSito": "https://www.uni-goettingen.de/en/48649.html"
+  }
+}
