@@ -2356,7 +2356,7 @@ var METE = [
         { cosa: "Nomination (autunno)", periodo: "entro 30 maggio" },
         { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" }
       ],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-archi-uax-madrid",
@@ -2403,7 +2403,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 25 ottobre" }
       ],
-    notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale. Ulteriore accordo distinto con lo stesso ateneo (promotore Angela Giambattista). || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale. Ulteriore accordo distinto con lo stesso ateneo (promotore Angela Giambattista). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-archi-vic-b",
@@ -2426,7 +2426,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 25 ottobre" }
       ],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Angela Giambattista). || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Angela Giambattista). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-archi-vaxjo",

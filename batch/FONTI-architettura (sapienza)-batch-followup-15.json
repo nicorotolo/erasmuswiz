@@ -1,0 +1,14 @@
+{
+  "SAP-ARCHI-UCLM-CIUDADREAL": {
+    "linkSito": "https://www.uclm.es/en/misiones/internacional/movilidad/movilidad_entrante/estudiantes/estudiantes-de-intercambio",
+    "notePraticheAppend": "https://www.uclm.es/en/misiones/internacional/movilidad/movilidad_entrante/estudiantes/estudiantes-de-intercambio"
+  },
+  "SAP-ARCHI-VIC-A": {
+    "linkSito": "https://www.uvic.cat/en/international/exchange_students",
+    "notePraticheAppend": "https://www.uvic.cat/en/international/exchange-students-UVic_languages"
+  },
+  "SAP-ARCHI-VIC-B": {
+    "linkSito": "https://www.uvic.cat/en/international/exchange_students",
+    "notePraticheAppend": "https://www.uvic.cat/en/international/exchange-students-UVic_languages"
+  }
+}
