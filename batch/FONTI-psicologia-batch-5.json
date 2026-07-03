@@ -1,0 +1,27 @@
+{
+  "D  KONSTAN01": {
+    "requisitoLingua": "https://www.uni-konstanz.de/en/international-office/study-in-konstanz/exchange-studies/application/",
+    "scadenzeOspitante": "https://www.uni-konstanz.de/en/international-office/study-in-konstanz/exchange-studies/application/",
+    "linkSito": "https://www.uni-konstanz.de/en/international-office/study-in-konstanz/exchange-studies/application/"
+  },
+  "D  FREIBUR01": {
+    "requisitoLingua": "https://www-2024.erasmus.lettere.uniroma2.it/wp-content/uploads/2025/01/Albert-Ludwigs-Universitat-Freiburg-D-FREIBURG01.pdf",
+    "scadenzeOspitante": "https://www.upf.edu/documents/105229234/121071315/Albert-Ludwigs-Universit%C3%A4t%2BFreiburg%2BIm%2BBreisgau.pdf/1e0ab57d-c007-e615-38b3-69af7db93064",
+    "linkSito": "https://uni-freiburg.de/en/"
+  },
+  "D  WITTEN02": {
+    "requisitoLingua": "https://www.uni-wh.de/en/studies/international/exchange-students",
+    "scadenzeOspitante": "https://www.uni-wh.de/en/studies/international/exchange-students",
+    "linkSito": "https://www.uni-wh.de/en/studies/international/exchange-students"
+  },
+  "D  JENA01": {
+    "requisitoLingua": "https://www.uni-jena.de/unijenamedia/23895/factsheetstudentexchange.pdf",
+    "scadenzeOspitante": "https://www.uni-jena.de/unijenamedia/23895/factsheetstudentexchange.pdf",
+    "linkSito": "https://www.uni-jena.de/en/gueststudies-programmes"
+  },
+  "D  WURZBUR01": {
+    "requisitoLingua": "https://www.uni-wuerzburg.de/en/international/studying-in-wuerzburg/exchange-students/before-arrival-exchange-students/language-proficiency-german-language-courses/",
+    "scadenzeOspitante": "https://www.uni-wuerzburg.de/en/international/studying-in-wuerzburg/exchange-students/application-and-admission-for-programme-students/",
+    "linkSito": "https://www.uni-wuerzburg.de/en/international/studying-in-wuerzburg/exchange-students/application-and-admission-for-programme-students/"
+  }
+}
