@@ -1,0 +1,26 @@
+{
+  "A  SALZBUR01": {
+    "requisitoLingua": "https://www.plus.ac.at/international-relations-department/international-relations-office/faq/incoming-exchange-students-erasmus/?lang=en",
+    "scadenzeOspitante": "https://www.plus.ac.at/international-relations-department/international-relations-office/service-for-students/in-salzburg/study-placements/exchange-students/?lang=en",
+    "linkSito": "https://www.plus.ac.at/international-relations-department/international-relations-office/service-for-students/in-salzburg/study-placements/exchange-students/?lang=en"
+  },
+  "B  LOUVAIN01": {
+    "scadenzeOspitante": "https://www.mcgill.ca/mcgillabroad/files/mcgillabroad/sc-uclouvain_exchange_information_2026-27_0.pdf",
+    "linkSito": "https://www.uclouvain.be/en/faculties/espo/esl/admission-procedure"
+  },
+  "B  LEUVEN01": {
+    "requisitoLingua": "https://feb.kuleuven.be/eng/international/docs/factsheet-exchange-ku-leuven-2026-2027defin.pdf",
+    "scadenzeOspitante": "https://www.kuleuven.be/english/apply/application-instructions/instructions-exchange",
+    "linkSito": "https://www.kuleuven.be/english/apply/application-instructions/instructions-exchange"
+  },
+  "B  BRUXEL04": {
+    "requisitoLingua": "https://www.upf.edu/documents/d/estudiarfora/universite-libre-de-bruxelles-diverses-25-26",
+    "scadenzeOspitante": "https://www.upf.edu/documents/d/estudiarfora/universite-libre-de-bruxelles-diverses-25-26",
+    "linkSito": "https://www.ulb.be/en/incoming-mobility/incoming-erasmus-students"
+  },
+  "F  LILLE103": {
+    "requisitoLingua": "https://international.univ-lille.fr/en/come-to-the-university-of-lille/i-am-a-student/to-learn-french",
+    "scadenzeOspitante": "https://fasest.univ-lille.fr/en/coming-from-abroad-1/exchange-student",
+    "linkSito": "https://fasest.univ-lille.fr/en/coming-from-abroad-1/exchange-student"
+  }
+}

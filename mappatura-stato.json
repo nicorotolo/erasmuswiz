@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 214,
+  "runCompletati": 215,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "scienze-sociali-batch-1",
-      "priorita": 6,
-      "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
-      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - scadenze+lingua",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "A  SALZBUR01",
-        "B  LOUVAIN01",
-        "B  LEUVEN01",
-        "B  BRUXEL04",
-        "F  LILLE103"
-      ]
-    },
     {
       "id": "scienze-sociali-batch-2",
       "priorita": 6,
@@ -599,6 +585,16 @@
         "TR ANKARA03",
         "TR ISTANBU21"
       ]
+    },
+    {
+      "id": "scienze sociali ed economiche (sapienza)-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
+      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - follow-up pending",
+      "tipo": "lingua",
+      "mete": [
+        "B  LOUVAIN01"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -982,13 +978,8 @@
       "fileJs": "js/atenei/sapienza/dati-mete-scienze-sociali.js",
       "stato": "in_corso",
       "totale": 68,
-      "completate": 0,
+      "completate": 7,
       "pendingScadenze": [
-        "A  SALZBUR01",
-        "B  LOUVAIN01",
-        "B  LEUVEN01",
-        "B  BRUXEL04",
-        "F  LILLE103",
         "F  VERSAIL11",
         "F  LYON02",
         "F  PARIS482",
@@ -1042,11 +1033,7 @@
         "TR ISTANBU32"
       ],
       "pendingLingua": [
-        "A  SALZBUR01",
         "B  LOUVAIN01",
-        "B  LEUVEN01",
-        "B  BRUXEL04",
-        "F  LILLE103",
         "F  VERSAIL11",
         "F  LYON02",
         "F  PARIS482",
@@ -1099,7 +1086,9 @@
         "TR ANKARA03",
         "TR ISTANBU32"
       ],
-      "tentativiLingua": {},
+      "tentativiLingua": {
+        "B  LOUVAIN01": 1
+      },
       "linguaNonTrovabile": []
     },
     "Psicologia e Servizio Sociale (Sapienza)": {
@@ -2593,6 +2582,12 @@
       "data": "2026-07-03",
       "mete": 1,
       "note": "Comunicazione e Ricerca Sociale (Sapienza) comunicazione-batch-10: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 215,
+      "data": "2026-07-03",
+      "mete": 5,
+      "note": "Scienze Sociali ed Economiche (Sapienza) scienze-sociali-batch-1: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

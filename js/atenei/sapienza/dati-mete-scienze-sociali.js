@@ -24,9 +24,16 @@ var METE = [
       { numero: 2, mesi: 4, livello: "L", note: "" },
       { numero: 2, mesi: 4, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco/Inglese", livello: "B2", condizione: "per partecipare ai corsi" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
+        { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -42,9 +49,16 @@ var METE = [
       { numero: 2, mesi: 4, livello: "L", note: "" },
       { numero: 2, mesi: 4, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco/Inglese", livello: "B2", condizione: "per partecipare ai corsi" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
+        { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -62,8 +76,13 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 settembre" },
+        { cosa: "Application (autunno)", periodo: "entro 31 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-socio-leuven",
@@ -78,9 +97,17 @@ var METE = [
       { numero: 4, mesi: 5, livello: "L", note: "" },
       { numero: 4, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per bachelor/undergraduate presso Faculty of Economics and Business" },
+        { lingua: "Inglese", livello: "C1", condizione: "per master/graduate presso Faculty of Economics and Business" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 aprile 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 settembre 2026" },
+        { cosa: "Application (autunno)", periodo: "entro 30 aprile 2026" },
+        { cosa: "Application (primavera)", periodo: "entro 1 ottobre 2026" }
+      ],
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli)."
   },
   {
@@ -96,9 +123,16 @@ var METE = [
       { numero: 2, mesi: 5, livello: "L", note: "" },
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese/Inglese", livello: "B2", condizione: "raccomandato per exchange students ULB" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (autunno)", periodo: "entro 1 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -114,9 +148,16 @@ var METE = [
       { numero: 2, mesi: 5, livello: "L", note: "" },
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese/Inglese", livello: "B2", condizione: "raccomandato per exchange students ULB" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (autunno)", periodo: "entro 1 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -132,9 +173,14 @@ var METE = [
       { numero: 2, mesi: 10, livello: "L", note: "" },
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "richiesto per studiare all'Universita di Lille" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -293,9 +339,14 @@ var METE = [
       { numero: 3, mesi: 10, livello: "L", note: "" },
       { numero: 3, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "richiesto per studiare all'Universita di Lille" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
