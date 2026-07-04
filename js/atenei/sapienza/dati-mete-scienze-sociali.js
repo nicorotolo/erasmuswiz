@@ -74,7 +74,10 @@ var METE = [
       { numero: 2, mesi: 6, livello: "L", note: "" },
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "per corsi Bachelor in francese" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi Master in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Nomination (autunno)", periodo: "entro 30 aprile" },
