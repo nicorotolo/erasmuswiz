@@ -3,24 +3,14 @@
   "aggiornato": "2026-07-04",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
-  "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 266,
+  "dipartimentoCorrente": "Psicologia e Servizio Sociale (Sapienza)",
+  "runCompletati": 267,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "scienze sociali ed economiche (sapienza)-batch-followup-7",
-      "priorita": 6,
-      "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
-      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - follow-up pending",
-      "tipo": "lingua",
-      "mete": [
-        "TR ISTANBU32"
-      ]
-    },
     {
       "id": "psicologia e servizio sociale (sapienza)-batch-followup-1",
       "priorita": 6,
@@ -561,18 +551,15 @@
     },
     "Scienze Sociali ed Economiche (Sapienza)": {
       "fileJs": "js/atenei/sapienza/dati-mete-scienze-sociali.js",
-      "stato": "in_corso",
+      "stato": "completo",
       "totale": 68,
-      "completate": 61,
+      "completate": 62,
       "pendingScadenze": [],
-      "pendingLingua": [
-        "TR ISTANBU32"
-      ],
+      "pendingLingua": [],
       "tentativiLingua": {
         "RO BUCURES09": 2,
         "E  LAS-PAL01": 2,
-        "S  STOCKHO01": 2,
-        "TR ISTANBU32": 1
+        "S  STOCKHO01": 2
       },
       "linguaNonTrovabile": [
         "RO BUCURES09",
@@ -2266,6 +2253,12 @@
       "data": "2026-07-04",
       "mete": 2,
       "note": "Scienze Sociali ed Economiche (Sapienza) scienze sociali ed economiche (sapienza)-batch-followup-6: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 267,
+      "data": "2026-07-04",
+      "mete": 1,
+      "note": "Scienze Sociali ed Economiche (Sapienza) scienze sociali ed economiche (sapienza)-batch-followup-7: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
