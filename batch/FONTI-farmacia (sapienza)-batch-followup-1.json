@@ -1,10 +1,10 @@
 {
   "F  COMPIEG05": {
-    "requisitoLingua": "https://www.escom.fr/mobilite-internationale/study-in-france/",
-    "linkSito": "https://www.escom.fr/mobilite-internationale/study-in-france/"
+    "linkSito": "https://www.escom.fr/mobilite-internationale/support-for-international/"
   },
   "F  BESANCO01": {
-    "linkSito": "https://www.univ-fcomte.fr/venir-etudier-luniversite-marie-et-louis-pasteur",
-    "notePraticheAppend": "https://www.univ-fcomte.fr/venir-etudier-luniversite-marie-et-louis-pasteur"
+    "requisitoLingua": "https://www.unitn.it/sites/default/files/2025-01/DL_UFC_Factsheet_2024%2025.pdf",
+    "scadenzeOspitante": "https://www.unitn.it/sites/default/files/2025-01/DL_UFC_Factsheet_2024%2025.pdf",
+    "linkSito": "https://mobility.univ-fcomte.fr/mobility/BewerbungServlet?aust_prog=SMS&identifier=BESANCO01&kz_bew_art=IN&kz_bew_pers=S&sprache=en"
   }
 }

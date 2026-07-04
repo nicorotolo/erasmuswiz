@@ -4,24 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Psicologia e Servizio Sociale (Sapienza)",
-  "runCompletati": 289,
+  "runCompletati": 290,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "farmacia (sapienza)-batch-followup-1",
-      "priorita": 6,
-      "dipartimento": "Farmacia (Sapienza)",
-      "descrizione": "Farmacia (Sapienza) - follow-up pending",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "F  COMPIEG05",
-        "F  BESANCO01"
-      ]
-    },
     {
       "id": "farmacia (sapienza)-batch-followup-2",
       "priorita": 6,
@@ -71,6 +60,16 @@
       "mete": [
         "TR ANKARA06",
         "TR ISTANBU60"
+      ]
+    },
+    {
+      "id": "farmacia (sapienza)-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Farmacia (Sapienza)",
+      "descrizione": "Farmacia (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F  COMPIEG05"
       ]
     }
   ],
@@ -342,10 +341,9 @@
       "fileJs": "js/atenei/sapienza/dati-mete-farmacia.js",
       "stato": "in_corso",
       "totale": 62,
-      "completate": 42,
+      "completate": 43,
       "pendingScadenze": [
         "F  COMPIEG05",
-        "F  BESANCO01",
         "TR VAN01"
       ],
       "pendingLingua": [],
@@ -353,7 +351,6 @@
         "BG SOFIA11": 2,
         "HR RIJEKA01": 2,
         "F  GRENOBL55": 2,
-        "F  BESANCO01": 3,
         "F  LILLE11": 2,
         "F  RENNES09": 2,
         "F  CERGY-P11": 2,
@@ -2243,6 +2240,12 @@
       "data": "2026-07-04",
       "mete": 2,
       "note": "Psicologia e Servizio Sociale (Sapienza) psicologia e servizio sociale (sapienza)-batch-followup-4: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 290,
+      "data": "2026-07-04",
+      "mete": 2,
+      "note": "Farmacia (Sapienza) farmacia (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

@@ -382,10 +382,18 @@ var METE = [
       { numero: 2, mesi: 6, livello: "L", note: "" },
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "test di conoscenza del francese B2 o C1 a seconda del programma" },
+        { lingua: "Francese", livello: "C1", condizione: "test di conoscenza del francese B2 o C1 a seconda del programma" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (autunno)", periodo: "entro 1 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita || Scadenze: basate su 2024/25"
   },
   {
     id: "sap-farm-amiens",
