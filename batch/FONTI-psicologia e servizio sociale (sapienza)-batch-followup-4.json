@@ -1,6 +1,9 @@
 {
-  "D  TRIER01": {
-    "linkSito": "https://www.uni-trier.de/en/international/coming-to-trier/exchange-students",
-    "notePraticheAppend": "https://www.uni-trier.de/fileadmin/international/international/2_Incomings/2_Austauschstudierende/Trier_University_-_Fact_Sheet_26.pdf"
+  "TR ANKARA06": {
+    "linkSito": "https://uik.baskent.edu.tr/kw/menu_icerik.php?birim=161&menu_id=37",
+    "notePraticheAppend": "https://uik.baskent.edu.tr/kw/menu_icerik.php?birim=161&menu_id=37"
+  },
+  "TR ISTANBU60": {
+    "linkSito": "https://sbu.edu.tr/FileFolder/Dosyalar/BD4756KI/2018_6/application-procedure-for-erasmus-incoming-students-e0bb19c1.docx"
   }
 }
