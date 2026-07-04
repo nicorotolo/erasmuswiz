@@ -4,23 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Psicologia e Servizio Sociale (Sapienza)",
-  "runCompletati": 284,
+  "runCompletati": 285,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "comunicazione e ricerca sociale (sapienza)-batch-followup-3",
-      "priorita": 6,
-      "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
-      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - follow-up pending",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "TR ANKARA03"
-      ]
-    },
     {
       "id": "psicologia e servizio sociale (sapienza)-batch-followup-1",
       "priorita": 6,
@@ -408,10 +398,9 @@
       "fileJs": "js/atenei/sapienza/dati-mete-comunicazione.js",
       "stato": "in_corso",
       "totale": 59,
-      "completate": 45,
+      "completate": 47,
       "pendingScadenze": [
-        "E  SALAMAN01",
-        "TR ANKARA03"
+        "E  SALAMAN01"
       ],
       "pendingLingua": [],
       "tentativiLingua": {
@@ -424,7 +413,6 @@
         "E  SANTIAG01": 2,
         "E  SEVILLA01": 2,
         "TR ISTANBU03": 2,
-        "TR ANKARA03": 2,
         "TR ISTANBU21": 2
       },
       "linguaNonTrovabile": [
@@ -2239,6 +2227,12 @@
       "data": "2026-07-04",
       "mete": 1,
       "note": "Comunicazione e Ricerca Sociale (Sapienza) comunicazione e ricerca sociale (sapienza)-batch-followup-2: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 285,
+      "data": "2026-07-04",
+      "mete": 1,
+      "note": "Comunicazione e Ricerca Sociale (Sapienza) comunicazione e ricerca sociale (sapienza)-batch-followup-3: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
