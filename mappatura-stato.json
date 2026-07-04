@@ -4,23 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 242,
+  "runCompletati": 243,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "psicologia-batch-17",
-      "priorita": 6,
-      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
-      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "TR ISTANBU21"
-      ]
-    },
     {
       "id": "farmacia (sapienza)-batch-followup-1",
       "priorita": 6,
@@ -411,6 +401,16 @@
         "TR ANKARA06",
         "TR IZMIR02",
         "TR ISTANBU60"
+      ]
+    },
+    {
+      "id": "psicologia e servizio sociale (sapienza)-batch-followup-13",
+      "priorita": 6,
+      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - follow-up pending",
+      "tipo": "lingua",
+      "mete": [
+        "TR ISTANBU21"
       ]
     }
   ],
@@ -836,8 +836,7 @@
         "E  MALAGA01",
         "E  MURCIA05",
         "TR ANKARA06",
-        "TR ISTANBU60",
-        "TR ISTANBU21"
+        "TR ISTANBU60"
       ],
       "pendingLingua": [
         "A  KLAGENF01",
@@ -876,7 +875,8 @@
         "E  SANTIAG01": 1,
         "TR ANKARA06": 1,
         "TR IZMIR02": 1,
-        "TR ISTANBU60": 1
+        "TR ISTANBU60": 1,
+        "TR ISTANBU21": 1
       },
       "linguaNonTrovabile": []
     }
@@ -2365,6 +2365,12 @@
       "data": "2026-07-04",
       "mete": 5,
       "note": "Psicologia e Servizio Sociale (Sapienza) psicologia-batch-16: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 243,
+      "data": "2026-07-04",
+      "mete": 1,
+      "note": "Psicologia e Servizio Sociale (Sapienza) psicologia-batch-17: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
