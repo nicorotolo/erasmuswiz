@@ -1628,7 +1628,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 aprile" },
         { cosa: "Application (primavera)", periodo: "entro 1 ottobre" }
       ],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-socio-stockho-2",
@@ -1650,7 +1650,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 aprile" },
         { cosa: "Application (primavera)", periodo: "entro 1 ottobre" }
       ],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-socio-ankara",
@@ -1669,7 +1669,10 @@ var METE = [
         { lingua: "Inglese", livello: "B1", condizione: "per dipartimenti con insegnamento in inglese" }
       ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 15 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 15 dicembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
