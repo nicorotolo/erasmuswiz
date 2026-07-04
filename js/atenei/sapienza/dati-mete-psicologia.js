@@ -1880,7 +1880,10 @@ var METE = [
         { lingua: "Inglese", livello: "B2", condizione: "richiesto per Business Administration in inglese" }
       ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno/anno)", periodo: "entro 12 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 10 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
