@@ -4,23 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 251,
+  "runCompletati": 252,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "farmacia (sapienza)-batch-followup-9",
-      "priorita": 6,
-      "dipartimento": "Farmacia (Sapienza)",
-      "descrizione": "Farmacia (Sapienza) - follow-up pending",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "TR VAN01"
-      ]
-    },
     {
       "id": "comunicazione e ricerca sociale (sapienza)-batch-followup-1",
       "priorita": 6,
@@ -332,6 +322,16 @@
         "F  COMPIEG05",
         "F  BESANCO01"
       ]
+    },
+    {
+      "id": "farmacia (sapienza)-batch-followup-2",
+      "priorita": 6,
+      "dipartimento": "Farmacia (Sapienza)",
+      "descrizione": "Farmacia (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "TR VAN01"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -608,9 +608,7 @@
         "F  BESANCO01",
         "TR VAN01"
       ],
-      "pendingLingua": [
-        "TR VAN01"
-      ],
+      "pendingLingua": [],
       "tentativiLingua": {
         "BG SOFIA11": 2,
         "HR RIJEKA01": 2,
@@ -626,7 +624,7 @@
         "RO BUCURES09": 2,
         "E  SANTIAG01": 2,
         "E  PALMA01": 2,
-        "TR VAN01": 1
+        "TR VAN01": 2
       },
       "linguaNonTrovabile": [
         "BG SOFIA11",
@@ -642,7 +640,8 @@
         "P  BRAGANC01",
         "RO BUCURES09",
         "E  SANTIAG01",
-        "E  PALMA01"
+        "E  PALMA01",
+        "TR VAN01"
       ]
     },
     "Comunicazione e Ricerca Sociale (Sapienza)": {
@@ -2327,6 +2326,12 @@
       "data": "2026-07-04",
       "mete": 1,
       "note": "Farmacia (Sapienza) farmacia (sapienza)-batch-followup-8: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 252,
+      "data": "2026-07-04",
+      "mete": 1,
+      "note": "Farmacia (Sapienza) farmacia (sapienza)-batch-followup-9: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
