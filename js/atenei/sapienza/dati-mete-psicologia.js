@@ -1709,7 +1709,12 @@ var METE = [
         { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato per seguire le lezioni" }
       ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "da meta aprile a meta giugno" },
+        { cosa: "Nomination (primavera)", periodo: "da meta aprile a fine ottobre" },
+        { cosa: "Selezione insegnamenti (autunno/anno intero)", periodo: "da meta luglio a meta settembre" },
+        { cosa: "Selezione insegnamenti (primavera/anno intero)", periodo: "da meta dicembre a meta febbraio" }
+      ],
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1724,7 +1729,9 @@ var METE = [
     posti: [
       { numero: 1, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "certificato di spagnolo obbligatorio per studenti Erasmus incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Nomination (autunno/anno intero)", periodo: "entro 30 maggio" },
@@ -2061,7 +2068,12 @@ var METE = [
         { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato per seguire le lezioni" }
       ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "da meta aprile a meta giugno" },
+        { cosa: "Nomination (primavera)", periodo: "da meta aprile a fine ottobre" },
+        { cosa: "Selezione insegnamenti (autunno/anno intero)", periodo: "da meta luglio a meta settembre" },
+        { cosa: "Selezione insegnamenti (primavera/anno intero)", periodo: "da meta dicembre a meta febbraio" }
+      ],
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
