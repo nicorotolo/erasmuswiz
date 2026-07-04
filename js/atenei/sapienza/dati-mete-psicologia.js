@@ -1693,7 +1693,9 @@ var METE = [
     posti: [
       { numero: 1, mesi: 9, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato per seguire le lezioni" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
@@ -1712,8 +1714,13 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "entro 30 maggio" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Scadenze: basate su 2025/26 || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-psico1-oviedo",
@@ -1728,9 +1735,14 @@ var METE = [
       { numero: 3, mesi: 6, livello: "L", note: "" },
       { numero: 3, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B2", condizione: "raccomandato per studenti Erasmus undergraduate" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 30 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -1746,9 +1758,16 @@ var METE = [
       { numero: 1, mesi: 9, livello: "L", note: "" },
       { numero: 1, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "per studenti Erasmus+ KA131; B2 per Medicina" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "entro 25 maggio" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 25 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1764,9 +1783,14 @@ var METE = [
       { numero: 2, mesi: 10, livello: "L", note: "" },
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B2", condizione: "raccomandato per studenti Erasmus undergraduate" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 30 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1782,9 +1806,18 @@ var METE = [
       { numero: 1, mesi: 6, livello: "L", note: "" },
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Catalano", livello: "B1", condizione: "in base alla lingua di insegnamento degli esami scelti" },
+        { lingua: "Spagnolo", livello: "B1", condizione: "in base alla lingua di insegnamento degli esami scelti" },
+        { lingua: "Inglese", livello: "B1", condizione: "in base alla lingua di insegnamento degli esami scelti" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero, Psicologia)", periodo: "entro 18 maggio 2026" },
+        { cosa: "Application (autunno/anno intero, Psicologia)", periodo: "entro 1 giugno 2026" },
+        { cosa: "Nomination (primavera, Psicologia)", periodo: "entro 16 ottobre 2026" },
+        { cosa: "Application (primavera, Psicologia)", periodo: "entro 30 ottobre 2026" }
+      ],
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1963,7 +1996,9 @@ var METE = [
     posti: [
       { numero: 3, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato per seguire le lezioni" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."

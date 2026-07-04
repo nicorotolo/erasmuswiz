@@ -1,0 +1,25 @@
+{
+  "E  MALAGA01": {
+    "requisitoLingua": "https://www.uma.es/relaciones-internacionales/cms/menu/erasmus/incoming-students/?set_language=en",
+    "linkSito": "https://www.uma.es/relaciones-internacionales/cms/menu/erasmus/incoming-students/?set_language=en"
+  },
+  "E  SANTIAG01": {
+    "scadenzeOspitante": "https://www.uni-osnabrueck.de/fileadmin/fb10/erasmus/Fact_Sheets/FactSheet_E_SANTIAG01.pdf",
+    "linkSito": "https://www.usc.gal/en"
+  },
+  "E  OVIEDO01": {
+    "requisitoLingua": "https://www.uniovi.es/documents/39158/45439/Contact%2Bdetails%2Band%2Binformation%2Babout%2Bapplication%2Bprocedures..pdf/a11d9e1f-19d2-a25e-93fd-91b89d8c2882?t=1681979503222",
+    "scadenzeOspitante": "https://www.uniovi.es/en/estudia/grados/sobrelosgrados/admision/estudiosextranjeros/erasmus",
+    "linkSito": "https://www.uniovi.es/en/estudia/grados/sobrelosgrados/admision/estudiosextranjeros/erasmus"
+  },
+  "E  CADIZ01": {
+    "requisitoLingua": "https://internacional.uca.es/incoming-mobilities/students/erasmus-ka103-incoming/?lang=en",
+    "scadenzeOspitante": "https://internacional.uca.es/incoming-mobilities/students/erasmus-ka103-incoming/?lang=en",
+    "linkSito": "https://internacional.uca.es/incoming-mobilities/students/erasmus-ka103-incoming/?lang=en"
+  },
+  "E  BARCELO01": {
+    "requisitoLingua": "https://www.ub.edu/mobilitat-internacional/en/incoming-students/information-students-temporary-stay-2026-2027/acceptance-application-data-registration-procedures-and-documents",
+    "scadenzeOspitante": "https://www.ub.edu/mobilitat-internacional/en/node/309/deadlines-and-calendar",
+    "linkSito": "https://www.ub.edu/mobilitat-internacional/en/incoming-students/information-students-temporary-stay-2026-2027"
+  }
+}
