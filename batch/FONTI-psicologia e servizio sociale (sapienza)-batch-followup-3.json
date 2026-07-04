@@ -1,12 +1,11 @@
 {
-  "P  FUNCHAL03": {
-    "scadenzeOspitante": "https://mobisis.auth.gr/factsheets/ec-view/P%20%20FUNCHAL03",
-    "linkSito": "https://mobisis.auth.gr/factsheets/ec-view/P%20%20FUNCHAL03",
-    "notePraticheAppend": "https://mobisis.auth.gr/factsheets/ec-view/P%20%20FUNCHAL03"
+  "TR ANKARA06": {
+    "scadenzeOspitante": "https://eurep.auth.gr/el/agreementContractView?ap=1C76F51E8C",
+    "linkSito": "https://uik.baskent.edu.tr/kw/menu_icerik.php?birim=161&menu_id=37",
+    "notePraticheAppend": "https://uik.baskent.edu.tr/kw/menu_icerik.php?birim=161&menu_id=37"
   },
-  "RO BUCURES09": {
-    "scadenzeOspitante": "https://mobisis.auth.gr/factsheets/ec-view/RO%20BUCURES09",
-    "linkSito": "https://unibuc.ro/international/programul-erasmus/studenti-erasmus/?lang=en",
-    "notePraticheAppend": "https://unibuc.ro/international/programul-erasmus/studenti-erasmus/?lang=en"
+  "TR ISTANBU60": {
+    "scadenzeOspitante": "https://www.uhs.edu.tr/how-to-apply/student-exchange-programs/memorandum-of-understanding",
+    "linkSito": "https://aday.sbu.edu.tr/degisim-programlari/erasmus/gelen-ogrenci/"
   }
 }

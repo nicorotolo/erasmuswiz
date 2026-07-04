@@ -2261,7 +2261,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application/informazioni su studenti nominati (autunno)", periodo: "entro 30 giugno" },
+        { cosa: "Application/informazioni su studenti nominati (primavera)", periodo: "entro 30 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -2330,7 +2333,10 @@ var METE = [
         { lingua: "Inglese", livello: "B2", condizione: "per studiare presso l'universita" }
       ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
