@@ -4,26 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 247,
+  "runCompletati": 248,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "farmacia (sapienza)-batch-followup-5",
-      "priorita": 6,
-      "dipartimento": "Farmacia (Sapienza)",
-      "descrizione": "Farmacia (Sapienza) - follow-up pending",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "G  PATRA01",
-        "PL WROCLAW05",
-        "PL WARSZAW06",
-        "P  BRAGANC01"
-      ]
-    },
     {
       "id": "farmacia (sapienza)-batch-followup-6",
       "priorita": 6,
@@ -647,19 +634,14 @@
       "fileJs": "js/atenei/sapienza/dati-mete-farmacia.js",
       "stato": "in_corso",
       "totale": 62,
-      "completate": 39,
+      "completate": 40,
       "pendingScadenze": [
         "F  COMPIEG05",
         "F  BESANCO01",
-        "G  PATRA01",
         "E  SANTIAG01",
         "TR VAN01"
       ],
       "pendingLingua": [
-        "G  PATRA01",
-        "PL WROCLAW05",
-        "PL WARSZAW06",
-        "P  BRAGANC01",
         "P  LISBOA109",
         "P  COVILHA01",
         "RO BUCURES09",
@@ -676,10 +658,9 @@
         "F  LILLE11": 2,
         "F  RENNES09": 2,
         "F  CERGY-P11": 2,
-        "G  PATRA01": 1,
-        "PL WROCLAW05": 1,
-        "PL WARSZAW06": 1,
-        "P  BRAGANC01": 1,
+        "G  PATRA01": 2,
+        "PL WROCLAW05": 2,
+        "P  BRAGANC01": 2,
         "P  LISBOA109": 1,
         "P  COVILHA01": 1,
         "RO BUCURES09": 1,
@@ -695,7 +676,10 @@
         "F  BESANCO01",
         "F  LILLE11",
         "F  RENNES09",
-        "F  CERGY-P11"
+        "F  CERGY-P11",
+        "G  PATRA01",
+        "PL WROCLAW05",
+        "P  BRAGANC01"
       ]
     },
     "Comunicazione e Ricerca Sociale (Sapienza)": {
@@ -2356,6 +2340,12 @@
       "data": "2026-07-04",
       "mete": 1,
       "note": "Farmacia (Sapienza) farmacia (sapienza)-batch-followup-4: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 248,
+      "data": "2026-07-04",
+      "mete": 4,
+      "note": "Farmacia (Sapienza) farmacia (sapienza)-batch-followup-5: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

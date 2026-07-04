@@ -764,8 +764,13 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno)", periodo: "entro 20 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 settembre" },
+        { cosa: "Application (autunno/anno)", periodo: "entro 20 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-farm-athine",
@@ -808,8 +813,13 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno)", periodo: "entro 20 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 settembre" },
+        { cosa: "Application (autunno/anno)", periodo: "entro 20 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-farm-wroclaw",
@@ -830,7 +840,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 31 maggio 2025" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre 2025" }
       ],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26"
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26 || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-farm-warszaw",
@@ -844,7 +854,10 @@ var METE = [
     posti: [
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" },
+        { lingua: "Polacco", livello: "B1", condizione: "per corsi in polacco" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
@@ -874,7 +887,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 1 luglio" },
         { cosa: "Application (primavera)", periodo: "entro 1 dicembre" }
       ],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26"
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26 || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-farm-lisboa",
