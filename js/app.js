@@ -197,6 +197,18 @@ function renderHome() {
   }
   const nomeEl = document.getElementById("home-nome");
   if (nomeEl) nomeEl.textContent = ZAINO.profilo?.nome || "Studente";
+
+  // Badge "Bando AAAA/AA aperto" — onesto: sparisce se il bando è chiuso o
+  // se lo studente è già stato selezionato (non è più la notizia rilevante).
+  const badge = document.getElementById("badge-bando");
+  if (badge) {
+    const anno = (window.BANDO_INFO && BANDO_INFO.annoAccademico) || "";
+    const parti = anno.split("/");
+    const annoBreve = parti.length === 2 ? `${parti[0]}/${parti[1].slice(-2)}` : anno;
+    const mostraBadge = annoBreve && ZAINO.fase !== "selezionato" && !candidatureChiuse();
+    badge.style.display = mostraBadge ? "" : "none";
+    if (mostraBadge) badge.textContent = `Bando ${annoBreve} aperto`;
+  }
 }
 
 // ============================================================

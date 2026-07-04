@@ -4,7 +4,215 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-04 — sessione 16, in chat con Claude (**Definita
+**Ultimo aggiornamento:** 2026-07-04 — sessione 20, in chat con Claude (**MAPPATURA
+SAPIENZA COMPLETATA (seeding) + pipeline Codex efficientata.** (1) **Seeding finito**:
+generate via script (da export CSV ufficiale `goerasmus/export`, niente scraping) le
+ULTIME 10 Facoltà Sapienza — Scienze Politiche 24, DIET 26, Polo di Latina 33, Scienze
+Statistiche 38, Informatica 50, DIAG 58, Medicina e Odontoiatria 91, Ingegneria Civile
+128, Scienze MFN 254, Lettere e Filosofia 424 = **1.126 mete** in 10 nuovi file
+`js/atenei/sapienza/dati-mete-*.js`, agganciati a `_meteAllSap` in `index.html`. I CSV
+grandi li ha scaricati Nicola in `fonti/goerasmus-*.csv` (il mount bash risultava di
+nuovo stale/troncato su vari file: contenuto vero verificato col Read tool, 2 download
+errati del browser individuati via md5 e rifatti). (2) **Pipeline efficientata** (scelta
+di Nicola: riuso + batch da 8): `setup-dipartimento.mjs` ora fa il **RIUSO** — pre-compila
+lingua/scadenze dei nuovi dipartimenti copiandole dalle mete già mappate con lo stesso
+codice Erasmus (spazi normalizzati, vale anche tra atenei) ed eredita i CEFR "non
+trovabili"; `applica-batch.mjs` fa la **PROPAGAZIONE** — ogni dato trovato da Codex viene
+copiato negli altri dipartimenti con lo stesso partner (solo campi vuoti); sotto-batch e
+follow-up passano **da 5 a 8 mete**; `prepara-batch.mjs` emette `fileGiaCreato` e
+istruzioni "solo setup" quando il seed Sapienza esiste già (Codex non tenta mai il
+self-seed). Tutto testato end-to-end in scratch (mini-repo): simulazione dei 10 setup →
+**~530 mete su 1.126 (47%) complete col solo riuso**, restano ~408 codici in 57 batch;
+propagazione verificata cross-ateneo (E SEVILLA01 → 2 file Ca' Foscari); `valida-stato`
+sempre "Stato coerente". (3) In `mappatura-stato.json`: accodati 10 batch
+`nuovo_dipartimento` (dopo i 6 follow-up residui), ordine piccole→grandi. (4) Nuovo
+documento `PIANO_MAPPATURA_SAPIENZA.md` (piano completo + azioni manuali).
+**⬆️ Azioni per Nicola: `PUBBLICA.bat` e RE-INCOLLARE il prompt aggiornato
+`automazioni/PROMPT_CODEX_mappatura.md` nella piattaforma Codex** — senza questi due
+passi Codex non vede né coda né nuove regole.)
+
+**Aggiornamento precedente:** 2026-07-04 — sessione 19, Claude Code (**BR2 Home e
+identità IMPLEMENTATA — hero blu notte, stepper e nav ribrandizzati.** Letti
+in ordine `CLAUDE.md`, `STATO_DEL_SITO.md`, `ROADMAP.md`, `DISEGNO_BRAND.md`,
+`design/readme.md`. Eseguito SOLO il blocco BR2 di `DISEGNO_BRAND.md` §3.
+**Mascotte (§2-bis)**: scritto uno script Python (Pillow + scipy, non un
+servizio online) che rimuove lo sfondo bianco delle 7 pose in
+`design/assets/mascotte/*.png` per flood-fill dai bordi (solo i pixel
+"quasi bianchi" CONNESSI al bordo diventano trasparenti, con una lieve
+sfumatura anti-aliasing sul contorno — non un taglio netto, e senza
+intaccare il bianco che fa parte del personaggio, es. i dettagli del
+vestito), ritaglia al bounding box e converte in webp; risultato in
+`img/mascotte/*.webp`, tutte sotto i 100 KB richiesti (36-67 KB), verificato
+visivamente componendo su una scacchiera di controllo. **Hero**: `.home-header`
+(in `index.html`/`css/style.css`) trasformato da semplice riga di saluto a
+pannello blu notte (`--night-bg`→`--night-bg-2`, stelline dorate via
+radial-gradient, bordo raggi 0/0/28/28px flush in cima su mobile, card
+interamente arrotondata su desktop) con: eyebrow (data), nuovo badge dorato
+"Bando AAAA/AA aperto" (`#badge-bando`), saluto invariato (`#home-data`/
+`#home-nome`, stessi id, nessuna rottura di `renderHome()`), nuova riga claim
+"Entri confuso, esci con un piano." (testo fisso da `design/readme.md`, non
+dati), Wiz in posa `wiz-saluto` (nuovo asset, sostituisce `wiz-hero.png` SOLO
+nell'hero e nel Wiz della card missione — stessa posa in entrambi per
+rispettare la regola "una posa per schermata" di BR §2-bis — dato che sono
+nella stessa schermata "Oggi"; onboarding/celebrazione NON toccati, restano
+`wiz-hero.png`: la loro vestizione è BR3/fuori scope di questa sessione).
+**Badge onesto, non hardcoded**: nuova funzione in `renderHome()` (`js/app.js`)
+che mostra il badge SOLO se il bando non è chiuso (riusa `candidatureChiuse()`
+già esistente da UX3, nessuna logica nuova) e lo studente non è già
+`selezionato` — altrimenti il badge resta nascosto, mai una scritta "aperto"
+quando non è vero (regola di onestà di `design/readme.md`). Formato anno
+`"2026/2027"` → `"2026/27"` per il testo del badge. **Stepper 4 fasi**:
+`.fase-stato-icona` da semplice emoji a badge circolare 28px con sfondo per
+stato (verde tenue se fatto, oro pieno se attivo, grigio se futuro);
+`.fase-cta` da riquadro a pillola (radius-pill) coerente col resto dei
+bottoni. Nessuna modifica alla logica di `calcolaFasi()`/`renderFaseStepper()`.
+**Nav**: aggiunta la stessa pillola dorata di sfondo sull'item attivo anche
+su mobile (prima era solo desktop), rimosso un colore oro non allineato ai
+token rimasto da prima di BR0 (`rgba(255,215,102,…)` → ora eredita lo stesso
+stile della classe base, allineato a `--gold`). **Non toccati**: markup/logica
+di onboarding, celebrazione, schedina (BR3/BR4), meta description/OG (BR7).
+Validato: `node --check js/app.js` OK. **Verifica a video** (preview locale
+porta 8001, zaino di test precompilato in localStorage): mobile ~390px e
+desktop 1280px, tema chiaro E notte, ENTRAMBI gli atenei (Ca' Foscari,
+Sapienza) — hero leggibile in tutte le combinazioni; in tema notte a
+desktop l'hero rischiava di sparire nel fondo pagina (stesso `--night-bg` di
+`--bg-app` in dark mode) → aggiunto un bordo sottile (`--night-border`) su
+tutti i lati per ridargli un contorno visibile, fix minimo non estetico;
+badge testato in entrambi gli stati (forzando `candidatureChiuse()` a
+`false` da console): compare in oro "Bando 2026/27 aperto", altrimenti
+resta nascosto come nel dato reale (bando chiuso al 4/7/2026); nessun
+errore console, nessuna richiesta di rete fallita. **Confronto col
+prototipo** (`design/riferimenti/ErasmusWiz Prototipo (standalone).html`):
+il file è un bundle React che in locale/offline dà `[bundle] error` a
+schermo e non renderizza uno stato "hero" separato dalla home (mostra
+saluto+itinerario in un'unica vista chiara, senza superficie blu notte) —
+la sezione hero blu notte descritta in `DISEGNO_BRAND.md` §3 non è quindi
+osservabile 1:1 nel prototipo così com'è; realizzata seguendo la
+descrizione testuale della spec e i token di `design/tokens/`, non un
+confronto pixel. **Nota ambientale**: durante il test iniziale il server di
+preview ha servito per un po' una versione cache di `js/app.js` dopo un
+reload semplice (niente header di cache da `python -m http.server`) — non
+un difetto del codice, verificato rifetchando i file con `cache: 'no-store'`
+e a server riavviato la versione corretta viene servita al primo colpo.
+Roadmap: BR2 spuntato.)
+
+**Aggiornamento precedente:** 2026-07-04 — sessione 18, Claude Code (**BR1 Componenti
+base IMPLEMENTATA — rifiniture di interazione (solo CSS) in `css/style.css`.**
+Letti in ordine `CLAUDE.md`, `STATO_DEL_SITO.md`, `ROADMAP.md`, `DISEGNO_BRAND.md`,
+`design/readme.md`. Eseguito SOLO il blocco BR1 di `DISEGNO_BRAND.md` §3 ("Componenti
+base — solo CSS"). Nessun componente nuovo di design system esisteva già nel repo
+(`design/components/` non è stato copiato, solo `design/tokens/` e `design/assets/`),
+quindi il lavoro è stato applicare le regole d'interazione previste da BR1 e da
+`design/readme.md` §VISUAL FOUNDATIONS agli elementi già esistenti in `css/style.css`,
+senza toccare markup (`index.html`) né logica (`js/app.js`). Aggiunti in `:root`:
+token di movimento `--ease-out`/`--ease-bounce`/`--dur-fast` (120ms)/`--dur-base`
+(200ms)/`--dur-slow` (360ms) e token di stato `--primary-hover` (`#2a63ec`, =
+`--blue-600` di `design/tokens/colors.css`), `--primary-active` (`#214ec4`, =
+`--blue-700`), `--ring`/`--shadow-focus` (anello focus blu 4px, stessa formula
+35% di `--ring` in `design/tokens/colors.css`), `--shadow-card`/`--shadow-card-hover`
+(coerenti con `--shadow-sm`/`--shadow-lg` di `design/tokens/spacing.css`, tinta blu,
+mai nero). **Bottoni**: corretto un disallineamento dal design system — l'hover
+usava `filter: brightness(1.08)` (schiarisce) invece di "tinta più scura" richiesto
+da BR1/readme; ora tutti i bottoni primari (`.btn-primary`, `.btn-primario`,
+`.link-scheda-v2`, `.celebrazione-btn`) passano a `--primary-hover`/`--gold-dark`
+in hover + ombra più grande, e tutti i bottoni (`.btn-primary`, `.btn-secondary`,
+`.btn-primario`, `.link-scheda-v2`, `.cand-btn-ics`, `.toggle-fase-btn`,
+`.btn-preferita`, `.fase-cta`, `.celebrazione-btn`, `.meta-modal-chiudi`) hanno ora
+il press `translateY(1px) scale(.985)` su `:active`, come da spec. **Badge/chip
+pill**: verificato che i chip esistenti (`.missione-scadenza`, `.tappa-v2-countdown`,
+`.cand-scadenza-countdown`, `.toggle-fase-btn`, `.btn-preferita`,
+`.ateneo-selettore`) usano già `--radius-pill` da BR0 — nessuna modifica necessaria.
+**Card**: `.card-cliccabile` (card meta cliccabili) allineata esattamente al token
+readme "lift al hover" — `translateY(-3px)` (era -2px) + `--shadow-card-hover`
+(era un'ombra ad hoc `rgba(31,45,82,...)`, ora tinta blu coerente col design
+system). **Campi form**: `.campo-form select/input`, `.riga-lingua select`,
+`#cerca-mete` — aggiunto `box-shadow: var(--shadow-focus)` (anello blu 4px) al
+focus, in aggiunta al cambio bordo già esistente. **Checklist animata**: nuova
+regola `.voce-checklist-v2 input:checked` con `animation: check-pop` (keyframe
+scale 1→1.3→1, easing `--ease-bounce`, durata 360ms) — un "pop" alla spunta, non
+un loop continuo. **Progress bar**: `.barra-riempimento`/`.prep-barra-fill`
+armonizzate sul token `--dur-slow`/`--ease-out` invece di durate/easing ad hoc.
+**`prefers-reduced-motion`**: nuova regola globale a fine file che azzera durate
+di animazioni/transizioni per chi lo richiede (standard, copre tutte le regole
+sopra senza doverle duplicare una per una). **Nessun file JS toccato** — solo
+`css/style.css` — quindi nessun `node --check` necessario. **Verifica a video**
+(preview locale porta 8001, localStorage precompilato con chiave corretta
+`erasmuswiz-zaino` per bypassare l'onboarding): mobile ~390px e desktop 1280px,
+tema chiaro E notte, ENTRAMBI gli atenei (Ca' Foscari Economia, Sapienza
+Giurisprudenza) — home/percorso, tab Mete (card + link "Scheda ufficiale"), tab
+Candidatura (checkbox con animazione pop testata via click, progress bar
+aggiornata 0/9→1/9), tab Idoneità, form Profilo (focus ring blu 4px verificato
+via `preview_inspect`, valore esatto `rgba(61,125,255,.35) 0 0 0 4px`): tutto
+leggibile, nessun testo illeggibile in nessuna combinazione, nessun errore
+console, nessuna richiesta di rete fallita. Sapienza in questa sessione mostrava
+0 mete in tab Mete con lo zaino di test sintetico (area `IUS/01` non presente nei
+dati reali) — comportamento atteso dei dati di prova, non un difetto introdotto
+da BR1 (nessun file dati toccato). **Non toccati:** `index.html`, `js/app.js`,
+tutti i file dati, `design/`. Roadmap: BR1 spuntato.)
+
+**Aggiornamento precedente:** 2026-07-04 — sessione 17, Claude Code (**BR0 Fondamenta
+IMPLEMENTATA — token del design system allineati in `css/style.css`.** Letti in
+ordine `CLAUDE.md`, `STATO_DEL_SITO.md`, `ROADMAP.md`, `DISEGNO_BRAND.md`,
+`design/readme.md`. Eseguito SOLO il blocco BR0 di `DISEGNO_BRAND.md` §3, come da
+istruzione. Nel blocco `:root` di `css/style.css` i valori (non i nomi) delle
+variabili sono stati rimappati sui token ufficiali di `design/tokens/*.css`:
+blu notte `--night-bg` `#101b3f`→`#1b377b` (+ `--night-bg-2` `#16265c`→`#16306f`),
+oro `--gold` `#ffd766`→`#ffb627` (+ `--gold-dark/--gold-bg/--gold-border` sui
+token `--gold-600/--gold-50/--gold-200`), testo/bordi (`--text-dark/--text-muted/
+--text-hint/--border/--border-strong`) sui token ink-900/500/400/100/200, sfondo
+pagina `--bg-app` `#eef3fb`→`#f3f6fc`, semaforo compatibilità (`--green/--amber/
+--red` + varianti bg/border) sui token ok/warn/lock; **`--primary` (`#3d7dff`) e
+`--red-bg` (`#fdecec`) erano già identici ai token** — confermato: BR0 è un
+riallineamento, non un rifacimento. Raggi: `--radius-xl/lg/md/sm` 22/16/12/8px →
+28/20/14/10px (pill invariato). Ripulite anche le poche istanze di colore
+"inventato" fuori dal `:root` non ancora legate a variabile: i due gradienti blu
+notte (celebrazione/onboarding overlay) ora usano `var(--night-bg/--night-bg-2)`;
+le due ombre nere pure (`rgba(0,0,0,…)` su Wiz celebrazione e modale mete,
+vietate da DISEGNO_BRAND §1 "ombre sempre a tinta blu, mai nero") sostituite con
+`rgba(27,55,123,…)`; le stelline del tema notte da `#ffd766` a `var(--gold)`;
+i banner `.idoneita-esito` e `.banner-in-verifica` (colori ad hoc `#e6f7ee`/
+`#fff4e0` ecc.) ora usano `var(--green/--green-bg)` e `var(--gold/--gold-bg/
+--gold-dark)`. **Logo nell'header + favicon**: copiati `logo-mark.svg`,
+`icon-star.svg`, `icon-sparkle.svg` da `design/assets/` in `img/` (le pose
+mascotte in `design/assets/mascotte/` restano lì: la rimozione sfondo/conversione
+webp è compito di BR2, non toccata). L'header desktop mostrava il wordmark
+"ErasmusWiz" solo come testo generato via CSS (`::before` su `.nav-bottom`,
+niente logo vero); sostituito con un vero markup in `index.html` — nuovo
+`<div class="nav-brand">` (logo SVG + wordmark, non cliccabile, `aria-hidden`)
+inserito come primo figlio di `.nav-bottom`, nascosto su mobile e mostrato solo
+da 768px in su (stessa soglia di prima), senza toccare `.nav-item[data-tab]` né
+la logica di navigazione in `app.js` (verificato: `app.js` seleziona solo
+`.nav-item[data-tab]`, il nuovo div ha classe diversa quindi zero rischio di
+interferenza). Favicon: `<link rel="icon">` ora punta a `img/logo-mark.svg`
+(SVG, "favicon dal logo-mark" come da specifica) con `img/icon-192.png` come
+`rel="alternate icon"` di fallback per i browser che non supportano favicon SVG;
+`apple-touch-icon` invariato. `theme-color` in `index.html` e `background_color`/
+`theme_color` in `manifest.json` allineati agli stessi nuovi valori
+(`#f3f6fc`/`#1b377b`). **Nessun file JS toccato** (solo CSS/HTML/JSON) — quindi
+nessun `node --check` necessario; verificato comunque che `manifest.json` resti
+JSON valido dopo la modifica. **Verifica a video** (preview locale porta 8001,
+via `preview_start`/localStorage precompilato per bypassare l'onboarding dove
+serviva): mobile ~390px e desktop 1280px, tema chiaro E notte, ENTRAMBI gli
+atenei (Ca' Foscari Economia, Sapienza Giurisprudenza) — home/percorso a 4 fasi,
+missione del giorno, nav (bottom mobile / top desktop col nuovo logo+wordmark
+visibile), footer con branding ateneo corretto, tab Mete (badge rossi "non
+accessibile"), tab Idoneità (banner oro "in verifica" + valori requisito in
+gold-dark): tutto leggibile, nessun testo illeggibile in nessuna combinazione,
+nessun errore console, nessuna richiesta di rete fallita. **Confronto di
+fedeltà**: i valori hex del prototipo di riferimento
+(`design/riferimenti/ErasmusWiz Prototipo (standalone).html`) per bg-page/
+bg-night/ok/warn/lock sono risultati IDENTICI a quelli ora in uso — nessuna
+divergenza da motivare. **Nota:** durante il test è emerso che il tool di
+preview automatico (`preview_click`) non attiva sempre gli handler `click` reali
+del sito (onboarding, cambio tab, toggle tema) — bypassato con `element.click()`
+via `preview_eval`; NON è un difetto introdotto da questa sessione (nessun JS
+toccato, verificato che gli handler funzionano correttamente quando invocati
+programmaticamente) — da tenere presente per le prossime sessioni BR se si
+riusa lo stesso strumento di preview. **Non toccati:** `js/app.js`, tutti i file
+dati, `v2/` (copia storica non collegata al sito, fuori scope), le pose mascotte
+webp (BR2). Roadmap: BR0 spuntato.)
+
+**Aggiornamento precedente:** 2026-07-04 — sessione 16, in chat con Claude (**Definita
 l'ONDATA BRAND: design system, assessment del sito, mascotte definitiva.** Nessun
 codice toccato: sessione di design e pianificazione. (1) **Design system**: Nicola ha
 portato da Claude Design il sistema (token, tono di voce, font Bricolage/Jakarta/
@@ -446,7 +654,7 @@ Roadmap: UX1 spuntata. Prossima sessione: UX2 (home-percorso + nav a 3 tab).)
 **Ultimo aggiornamento precedente:** 2026-06-26 (Fase 3 ROADMAP: mete preferite. `caricaZaino()` ora include `metePreferite: []` con fallback per zaini vecchi. Aggiunto `<div id="sezione-preferite">` in `#tab-mete`. Nuove funzioni: `renderPreferite()` (sezione riepilogo con contatore N/5 e rimozione ✕) e `togglePreferita(id)` (aggiunge/rimuove con limite morbido a 5). Bottone ⭐ su ogni card in `renderMete()`: mostra "⭐ Preferita" se già salvata, "☆ Aggiungi ai preferiti" altrimenti. CSS in `style.css` con sfondo oro e dark-mode override. `node --check` OK.)
 
 **Ultimo aggiornamento precedente:** 2026-06-25 (MERGE GitHub→locale: i dati mappati da Codex su GitHub (che la copia locale non aveva) sono stati portati nel working tree mantenendo il design v2. Catalogo passato da 134 a **249 mete su 5 dipartimenti**: Economia 58, Management 76, Lingue 24, Scienze 25, Filosofia 66. I 3 nuovi file dati (`dati-mete-lingue.js`, `dati-mete-scienze.js`, `dati-mete-filosofia.js`) collegati in `index.html` con la catena di concat `_meteAll`; tutti i 5 file mete convertiti a `var METE`. ATTENZIONE: il merge NON è stato fatto via git (working tree su branch `feature/pipeline-imbuto` con modifiche non committate + lock OneDrive su `.git`); i file dati sono stati estratti con `git show origin/main:...`. Backup pre-merge in `_backup-20260625-*/`.)
-**Fase raggiunta:** Fase 5 / 5 + Ondata A completa + ROADMAP Fase 1 ✅ + ROADMAP Fase 2 ✅ + ROADMAP Fase 3 ✅ + ROADMAP Fase 4 ✅ (post-selezione) + ROADMAP Fase 5 ✅ (condivisibilità) + ROADMAP Fase 7 ✅ (PWA, no notifiche) + ROADMAP Fase 8 ✅ (evento analytics checklist) + **ONDATA UX: UX1 ✅ (onboarding 3 domande, 2026-07-02) + UX2 ✅ (home-percorso 4 fasi + nav 3 tab, 2026-07-02) + UX3 ✅ (fusione Scadenze+Checklist + export .ics, 2026-07-02) + UX4 ✅ (traduttore 3 registri + banner "in verifica", 2026-07-02)** — SITO PUBBLICATO con design v2, ora multi-dipartimento (8), **392 mete totali** Ca' Foscari + 3 Facoltà Sapienza (183 mete)
+**Fase raggiunta:** Fase 5 / 5 + Ondata A completa + ROADMAP Fase 1 ✅ + ROADMAP Fase 2 ✅ + ROADMAP Fase 3 ✅ + ROADMAP Fase 4 ✅ (post-selezione) + ROADMAP Fase 5 ✅ (condivisibilità) + ROADMAP Fase 7 ✅ (PWA, no notifiche) + ROADMAP Fase 8 ✅ (evento analytics checklist) + **ONDATA UX: UX1 ✅ (onboarding 3 domande, 2026-07-02) + UX2 ✅ (home-percorso 4 fasi + nav 3 tab, 2026-07-02) + UX3 ✅ (fusione Scadenze+Checklist + export .ics, 2026-07-02) + UX4 ✅ (traduttore 3 registri + banner "in verifica", 2026-07-02)** + **ONDATA BRAND: BR0 ✅ (fondamenta — token/raggi/logo/favicon riallineati, 2026-07-04)** — SITO PUBBLICATO con design v2, ora multi-dipartimento (8), **392 mete totali** Ca' Foscari + 3 Facoltà Sapienza (183 mete)
 **Cosa funziona:** tutto, validato (node --check su tutti i JS); mete REALI su 8 dipartimenti Ca' Foscari; bando, scadenze e checklist VALIDATI sul PDF ufficiale. Completezza lingua per dipartimento:
 Economia 52/58; Management 71/76; Lingue 23/24; Scienze 23/25; Filosofia 56/66;
 Scienze Molecolari 8/8; Studi Linguistici 104/114; Studi Umanistici 18/21.
@@ -492,7 +700,8 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | `index.html` | codice | Struttura v2 (tab OGGI/METE/TIMELINE/CHECKLIST + Idoneità/Profilo nascosti) |
 | `css/style.css` | codice | Design system v2: dark mode, font Bricolage/Jakarta/SpaceMono, responsive |
 | `js/app.js` | codice | Logica v2: missione del giorno, percorso, countdown, mete, checklist, profilo |
-| `img/wiz-hero.png` | asset | Mascotte Wiz (illustrazione) |
+| `img/wiz-hero.png` | asset | Mascotte Wiz (illustrazione, in sostituzione in BR2 con le pose di `design/assets/mascotte/`) |
+| `img/logo-mark.svg` · `img/icon-star.svg` · `img/icon-sparkle.svg` | asset | Copiati da `design/assets/` in BR0; logo-mark usato nell'header desktop (`.nav-brand`) e come favicon |
 | `js/atenei/` | **dati** | Dati per ateneo (multi-ateneo). Sottocartelle `cafoscari/` e `sapienza/`; vedi `js/atenei/README.md` |
 | `js/atenei/cafoscari/dati-bando.js` | **dati** | Requisiti del bando Ca' Foscari (Idoneità) — `var BANDO_INFO`, `var REQUISITI_BANDO` |
 | `js/atenei/cafoscari/dati-mete.js` | **dati** | Mete — Economia (58, `var METE`) |
@@ -509,6 +718,8 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | `js/atenei/sapienza/dati-mete-giurisprudenza.js` | **dati** | Mete Giurisprudenza Sapienza (55/56 destinazioni reali; 20 arricchite lingua+scadenze da Codex, 35 in coda) |
 | `js/atenei/sapienza/dati-mete-medicina-psicologia-area-medica.js` | **dati** | Mete Medicina e Psicologia - Area medica Sapienza (15 destinazioni reali, seed grezzo da arricchire) |
 | `js/atenei/sapienza/dati-mete-architettura.js` | **dati** | Mete Architettura Sapienza (113/118 destinazioni reali, 5 righe PhD-only escluse; seed grezzo da arricchire) |
+| `js/atenei/sapienza/dati-mete-{farmacia,comunicazione,scienze-sociali,psicologia}.js` | **dati** | Mete Farmacia (62), Comunicazione (59), Scienze Sociali (68), Psicologia (97) — in arricchimento Codex |
+| `js/atenei/sapienza/dati-mete-{scienze-politiche,inge-elettronica,polo-latina,scienze-statistiche,informatica,inge-informatica-gestionale,medicina-odontoiatria,ingegneria-civile,scienze-mfn,lettere-filosofia}.js` | **dati** | Le ULTIME 10 Facoltà Sapienza (1.126 mete, seed 04/07): in coda per setup+arricchimento Codex |
 | `js/atenei/sapienza/dati-scadenze.js` | **dati** | Scadenze bando Sapienza 26/27 (REALI) |
 | `js/atenei/sapienza/dati-bando.js` · `dati-checklist.js` · `dati-postselezione.js` | **dati** | Idoneità/checklist/post-selezione Sapienza (**PROVVISORI**, da validare sul bando) |
 | `js/atenei/sapienza/dati-mete.js` | **dati** | Deprecato (vuoto; sostituito dai file per Facoltà) |
@@ -518,7 +729,9 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | `automazioni/PROMPT_CODEX_mappatura.md` | automazione | Prompt dell'automazione Codex (ogni 15 min): unica fonte della mappatura mete. (Action Claude `mappatura-mete.yml` RIMOSSA) |
 | `scripts/lib-mete.mjs` | automazione | Utilità condivise: scanner JS (rispetta stringhe/parentesi) + serializzazione |
 | `scripts/prepara-batch.mjs` | automazione | Imbuto in ingresso: estrae il prossimo batch in `batch/INPUT.json` (pochi KB) |
-| `scripts/applica-batch.mjs` | automazione | Imbuto in uscita: fonde `batch/OUTPUT.json` nel fileJs, `node --check`, aggiorna lo stato |
+| `scripts/applica-batch.mjs` | automazione | Imbuto in uscita: fonde `batch/OUTPUT.json` nel fileJs + **PROPAGAZIONE** agli altri dipartimenti (04/07), `node --check`, aggiorna lo stato, follow-up da 8 |
+| `scripts/setup-dipartimento.mjs` | automazione | Bootstrap nuovo dipartimento + **RIUSO** da dipartimenti già mappati (04/07), sotto-batch da 8 |
+| `PIANO_MAPPATURA_SAPIENZA.md` | guida | **Piano completo mappatura Sapienza** (04/07): coda, meccanismo riuso/propagazione, azioni manuali |
 | `fonti/` | **fonti ufficiali** | PDF/ODS del bando 2026/27 Ca' Foscari (lista destinazioni, legenda, EUTOPIA) — base del database mete |
 | `README.md` | guida | Spiegazione file + come aggiungere una meta + come testare |
 | `STATO_DEL_SITO.md` | guida | Questo file: stato aggiornato |
@@ -553,6 +766,8 @@ Il CODICE è pronto. Le mete ora sono **REALI** (dalla lista ufficiale del bando
 | **114 mete Studi Linguistici** (`dati-mete-linguistici.js`) | **REALI** 2026/27; **104/114 lingua**, **114/114 scadenze** | 10 lingue in linguaNonTrovabile |
 | **21 mete Studi Umanistici** (`dati-mete-umanistici.js`) | **REALI** 2026/27; **18/21 lingua**, **21/21 scadenze** | 3 lingue in linguaNonTrovabile |
 | **⚠️ EUTOPIA (46 accordi)** | non mappati | Cross-dipartimentali, richiede logica filtro speciale; task futura |
+| **Sapienza — 7 Facoltà avviate** (Giurisprudenza 55 ✅, Medicina-Psico area medica 15 ✅, Architettura 113 ✅, Farmacia 62, Comunicazione 59, Scienze Sociali 68 ✅, Psicologia 97) | REALI da Go Erasmus+; arricchimento Codex quasi completo (6 batch follow-up residui) | Codex chiude i follow-up |
+| **Sapienza — ULTIME 10 Facoltà** (1.126 mete, seed 04/07) | REALI dall'export ufficiale; lingua/scadenze vuote nel repo, ma al setup Codex il RIUSO ne pre-compila ~metà | Codex: 10 setup + ~57 batch di ricerca |
 | → posti/livello/area/coordinatore/codice Erasmus | reali, dalla lista | ok |
 | → requisito di **lingua** | Economia: **52/58 righe complete** con CEFR e scadenze, 6 senza CEFR ufficiale classificate non trovabili. Management: **19/76 righe complete**; 2 mete del primo lotto hanno scadenze ma non CEFR generale ufficiale | continuare i batch Management |
 | → scadenze ospitante / linkPdf | Economia: **58/58 con link scheda PDF** e **58/58 con scadenze** nomination/application. Management: **76/76 con link scheda PDF** e **21/76 con scadenze** | continuare i batch Management |
@@ -579,6 +794,33 @@ python -m http.server 8000
 poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
+
+**Aggiornamento 2026-07-04 — sessione 20 (mappatura Sapienza completata + pipeline efficientata):**
+1. **⚠️ Nicola, subito, in ordine**: (a) `PUBBLICA.bat` — pubblica 10 file mete,
+   coda in `mappatura-stato.json`, script aggiornati, `index.html`,
+   `PIANO_MAPPATURA_SAPIENZA.md`, prompt; (b) **re-incollare**
+   `automazioni/PROMPT_CODEX_mappatura.md` nell'editor dell'automazione sulla
+   piattaforma Codex (cambiata la sezione Sapienza + riuso/propagazione).
+   Senza (a)+(b) Codex resta fermo o segue regole vecchie.
+2. Poi Codex fa tutto da solo: 6 follow-up → 10 setup (riuso, ~47% mete
+   auto-complete) → ~57 batch di ricerca. Dettagli in `PIANO_MAPPATURA_SAPIENZA.md`.
+3. Il seeding Sapienza è FINITO: niente più sessioni di estrazione mete; le
+   prossime sessioni tornano su BRAND (BR3) e UX5-contenuti Sapienza.
+4. Rifinitura futura (bassa priorità): campo `citta` abbreviato nei seed
+   (derivato dal codice Erasmus), vedi PIANO §5.
+
+**Aggiornamento 2026-07-04 — sessione 17 (BR0 Fondamenta fatta):**
+1. **Prossima sessione di codice = BR1 Componenti base** (solo CSS, leggere
+   `DISEGNO_BRAND.md` §3 BR1): bottoni (press/hover), badge/chip pill, card con
+   lift al hover, campi form con focus ring 4px, checklist con check animato,
+   progress bar; rispettare `prefers-reduced-motion`. I token sono già pronti
+   (BR0), quindi BR1 è "solo" applicarli ai componenti.
+2. **In parallelo (Nicola + Claude in chat)**: continua UX5-Sapienza
+   (spiegazione/azione/citazione/fonte, priorità Giurisprudenza) — invariato.
+3. Nota per BR2: la rimozione sfondo + conversione webp delle 6 pose mascotte
+   (già salvate in `design/assets/mascotte/*.png`) resta da fare lì, non in BR1.
+4. `PUBBLICA.bat` per questa sessione lo lancia Nicola (non fatto da Claude Code
+   su richiesta esplicita).
 
 **Aggiornamento 2026-07-04 — sessione 16 (ondata BRAND definita):**
 1. **Nicola, subito**: salvare le 7 immagini della mascotte in

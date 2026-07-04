@@ -124,14 +124,18 @@ codice irrobustito. ~6 sessioni.
 > Una sessione = un blocco. Il sito v2 usa GIÀ i font del brand e una palette
 > vicina: BR0 è un riallineamento dei token, non un rifacimento.
 
-- [ ] **BR0. Fondamenta** — riallineare i token di `css/style.css` a
+- [x] **BR0. Fondamenta** ✅ 2026-07-04 — riallineati i token di `css/style.css` a
   `design/tokens/` (notte `#101b3f`→`#1b377b`, oro `#ffd766`→`#ffb627`,
-  raggi/ombre), logo+wordmark SVG nell'header, favicon dal logo-mark.
-  Dark mode: adattamento minimo.
-- [ ] **BR1. Componenti base** (solo CSS) — bottoni/card/badge/chip/form/
-  checklist/progress secondo il design system; `prefers-reduced-motion`.
-- [ ] **BR2. Home e identità** — hero blu notte con Wiz e claim, stepper e
-  nav ribrandizzati.
+  raggi/ombre), logo+wordmark SVG nell'header desktop, favicon dal logo-mark.
+  Dark mode: adattamento minimo, verificato.
+- [x] **BR1. Componenti base** (solo CSS) ✅ 2026-07-04 — bottoni (hover tinta
+  più scura + ombra, press translateY(1px) scale(.985)), card cliccabili (lift
+  -3px + ombra blu), campi form (focus ring 4px), checklist con check animato
+  (`--ease-bounce`), progress bar armonizzate, `prefers-reduced-motion` globale.
+  Badge/chip già pill da BR0, nessuna modifica necessaria.
+- [x] **BR2. Home e identità** ✅ 2026-07-04 — hero blu notte con Wiz, claim e
+  badge "Bando aperto", stepper (icona di stato circolare) e nav ribrandizzati.
+  Mascotte convertita in webp trasparente.
 - [ ] **BR3. Onboarding + Fase 1** — vestizione 2b e semaforo 3b. **In più
   (fix da assessment): coerenza fase 1** — lo stepper marca la fase 1 ✅
   quando TUTTE le auto-verifiche sono spuntate (`ZAINO.autoverifica`), non

@@ -143,28 +143,45 @@ la creazione delle mete dipende dall'ateneo: NON e' la stessa procedura per tutt
    le mete, stessa struttura di `js/atenei/cafoscari/dati-mete.js` (campi
    immutabili reali; `requisitoLingua` e `scadenzeOspitante` = `[]`).
 3. Esegui: `node scripts/setup-dipartimento.mjs`
-   (crea `statoDipartimenti[dip]` e accoda i sotto-batch da 5 in modo
-   deterministico; NON modificare lo stato a mano).
+   (RIUSA in automatico lingua/scadenze dei dipartimenti gia' mappati che
+   condividono lo stesso codice Erasmus, crea `statoDipartimenti[dip]` e accoda
+   i sotto-batch da 8 in modo deterministico; NON modificare lo stato a mano).
 4. Esegui `node scripts/valida-stato.mjs` (deve dire "Stato coerente").
 5. Commit + push del branch `mappatura/...` come gli altri lotti (STEP 6-7).
 
 NON eseguire `applica-batch.mjs` per questo batch: non c'e' OUTPUT da fondere.
 
-### Sapienza Roma (NON self-seed)
+### Sapienza Roma (NON self-seed: il file lo crea un umano)
 Le destinazioni Sapienza vivono solo nel database `goerasmus.web.uniroma1.it`,
 renderizzato lato JavaScript: NON e' affidabilmente leggibile da ricerca web o
 `web_fetch` semplice. Quindi NON creare tu i file Sapienza e NON tentare di
 scrapare quel DB.
 
-Il file mete di ogni Facolta' Sapienza (es. `js/atenei/sapienza/dati-mete-economia.js`)
-lo crea SEMPRE un umano, prima che tu veda il batch. Se `prepara-batch.mjs` ti
-presenta un `"nuovo_dipartimento"` per una Facolta' Sapienza con `fileJs`
-mancante sul disco: TERMINA e segnala il problema. Non inventare le mete, non
-creare il file, non improvvisare una struttura.
+Il file mete di ogni Facolta' Sapienza (es. `js/atenei/sapienza/dati-mete-informatica.js`)
+lo crea SEMPRE un umano, prima che tu veda il batch. Due casi quando INPUT.json
+ha `"tipo":"nuovo_dipartimento"` per una Facolta' Sapienza:
 
-Una volta che il file esiste (creato da un umano) e' gia' registrato in
-`statoDipartimenti` con i suoi batch in coda: da quel momento in poi lo tratti
-come qualsiasi altro dipartimento, con la pipeline normale (STEP 0-7).
+- `"fileGiaCreato": true` (il fileJs ESISTE sul disco): il seed umano e' pronto.
+  NON creare, NON modificare e NON rigenerare il file dati; NON aprire `fonte`.
+  Esegui solo: `node scripts/setup-dipartimento.mjs` (fa anche il RIUSO dai
+  dipartimenti gia' mappati), poi `node scripts/valida-stato.mjs` (deve dire
+  "Stato coerente"), poi commit+push come gli altri lotti (STEP 6-7).
+- `"fileGiaCreato": false` (fileJs MANCANTE sul disco): TERMINA e segnala il
+  problema. Non inventare le mete, non creare il file, non improvvisare una
+  struttura.
+
+Dopo il setup, i batch dati della Facolta' seguono la pipeline normale
+(STEP 0-7) come qualsiasi altro dipartimento.
+
+### Nota sul RIUSO e la PROPAGAZIONE (novita' 2026-07-04)
+Gli script fanno due ottimizzazioni deterministiche, trasparenti per te:
+- `setup-dipartimento.mjs` pre-compila i campi vuoti di un nuovo dipartimento
+  copiandoli dalle mete gia' mappate con lo stesso codice Erasmus (spazi
+  normalizzati) ed eredita i CEFR "non trovabili" gia' accertati.
+- `applica-batch.mjs` propaga i dati che TU trovi anche agli altri dipartimenti
+  che condividono lo stesso ateneo partner (solo su campi ancora vuoti).
+Per questo un run puo' toccare piu' file sotto `js/atenei/`: e' normale, il
+comando `git add js/atenei/ ...` dello STEP 6 li copre gia' tutti.
 
 ## NOTA chiavi dipartimento (multi-ateneo)
 Le chiavi di `statoDipartimenti` devono essere UNICHE tra atenei. Una Facolta'

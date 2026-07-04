@@ -1,9 +1,11 @@
 // applica-batch.mjs — IMBUTO IN USCITA.
 // Fonde batch/OUTPUT.json (prodotto dall'LLM: solo campi trovati) nel fileJs con
 // sostituzione SURGICALE campo-per-campo su TUTTI i blocchi di ogni codice
-// (codiceErasmus non è univoco). Poi RICALCOLA lo stato leggendo il file
-// (stessa logica del validatore), gestisce tentativi lingua / linguaNonTrovabile,
-// avanzamento dipartimento e crea batch di follow-up per le mete pending rimaste.
+// (codiceErasmus non è univoco). Poi PROPAGA i dati trovati agli altri
+// dipartimenti che condividono lo stesso ateneo partner (stesso codice Erasmus,
+// spazi normalizzati), RICALCOLA lo stato leggendo i file (stessa logica del
+// validatore), gestisce tentativi lingua / linguaNonTrovabile, avanzamento
+// dipartimento e crea batch di follow-up per le mete pending rimaste.
 //
 // Uso:  node scripts/applica-batch.mjs
 
@@ -15,6 +17,8 @@ import {
 } from "./lib-mete.mjs";
 
 const vuoto = (a) => !Array.isArray(a) || a.length === 0;
+const DIM_BATCH = 8; // mete per batch di follow-up (era 5)
+const norm = (c) => String(c).replace(/\s+/g, " ").trim().toUpperCase();
 
 const stato = leggiStato();
 const batch = (stato.prossimiBatch || [])[0];
@@ -28,19 +32,21 @@ const tipo = batch.tipo || "scadenze+lingua";
 let text = fs.readFileSync(fileJs, "utf8");
 
 // --- Patch di un singolo blocco (testo) con i campi trovati ---
-function applicaPatchBlocco(blocco, patch) {
+// soloVuoti=true (propagazione): non sovrascrive MAI un campo già pieno.
+function applicaPatchBlocco(blocco, patch, soloVuoti = false) {
   const aggiunti = [];
   for (const campo of CAMPI_RIEMPIBILI) {
     if (!(campo in patch)) continue;
     const raw = valoreCampo(blocco, campo);
     if (raw == null) continue;
+    if (soloVuoti && !(raw.trim() === "[]" || raw.trim() === '""' || raw.trim() === "''" || /^"?da verificare/i.test(raw.trim()))) continue;
     const re = new RegExp(`((?:^|[\\s,{])${campo}\\s*:\\s*)`, "m");
     const m = re.exec(blocco);
     const from = m.index + m[0].length;
     blocco = blocco.slice(0, from) + serializza(patch[campo]) + blocco.slice(from + raw.length);
     aggiunti.push(campo);
   }
-  if (patch.notePraticheAppend) {
+  if (patch.notePraticheAppend && (!soloVuoti || aggiunti.length)) {
     blocco = appendNota(blocco, patch.notePraticheAppend);
     aggiunti.push("notePratiche");
   }
@@ -71,6 +77,27 @@ function perOgniBlocco(codice, fn) {
     text = text.slice(0, start) + nuovo.blocco + text.slice(end);
   }
   return risultati.flat();
+}
+
+// Ricalcolo pending/completate di un dipartimento dal testo del suo file.
+function ricalcolaDip(info, testo) {
+  const meteD = caricaMete(testo);
+  const byCod = new Map();
+  for (const m of meteD) {
+    if (!byCod.has(m.codiceErasmus)) byCod.set(m.codiceErasmus, []);
+    byCod.get(m.codiceErasmus).push(m);
+  }
+  const eLingua = new Set(), eScad = new Set();
+  for (const [cod, bl] of byCod) {
+    if (bl.some((b) => vuoto(b.requisitoLingua))) eLingua.add(cod);
+    if (bl.some((b) => vuoto(b.scadenzeOspitante))) eScad.add(cod);
+  }
+  const nonTrov = new Set(info.linguaNonTrovabile || []);
+  info.pendingLingua = [...eLingua].filter((c) => !nonTrov.has(c));
+  info.pendingScadenze = [...eScad];
+  info.completate = meteD.filter((m) => !vuoto(m.requisitoLingua) && !vuoto(m.scadenzeOspitante)).length;
+  info.totale = meteD.length;
+  return { emptyLingua: eLingua, emptyScad: eScad };
 }
 
 // --- 1) Applica i dati trovati ---
@@ -120,23 +147,53 @@ try {
   process.exit(1);
 }
 
+// --- 3-bis) PROPAGAZIONE: riusa i dati trovati negli altri dipartimenti ---
+// Stesso codice Erasmus (spazi normalizzati) = stesso ateneo partner: le
+// scadenze incoming e la lingua valgono anche per le mete degli altri
+// dipartimenti/atenei ancora vuote. Mai sovrascrivere dati esistenti.
+const patchPerNorm = new Map();
+for (const [cod, patch] of Object.entries(out)) patchPerNorm.set(norm(cod), patch);
+
+const testoOriginale = text; // già scritto: da qui si lavora sugli ALTRI file
+let propagati = 0;
+for (const [altroDip, info] of Object.entries(stato.statoDipartimenti)) {
+  if (altroDip === dip || !info.fileJs) continue;
+  let altroText;
+  try { altroText = fs.readFileSync(info.fileJs, "utf8"); } catch { continue; }
+  let meteAltre;
+  try { meteAltre = caricaMete(altroText); } catch { continue; }
+  const codiciDaPatchare = [...new Set(meteAltre.map((m) => m.codiceErasmus))]
+    .filter((c) => patchPerNorm.has(norm(c)));
+  if (!codiciDaPatchare.length) continue;
+
+  let cambiato = false;
+  for (const codice of codiciDaPatchare) {
+    const patch = patchPerNorm.get(norm(codice));
+    const spans = spanTutteMete(altroText, codice).sort((a, b) => b.start - a.start);
+    for (const { start, end } of spans) {
+      const r = applicaPatchBlocco(altroText.slice(start, end), patch, true);
+      if (r.aggiunti.length) {
+        altroText = altroText.slice(0, start) + r.blocco + altroText.slice(end);
+        cambiato = true; propagati++;
+      }
+    }
+  }
+  if (!cambiato) continue;
+
+  fs.writeFileSync(info.fileJs, altroText);
+  try { execSync(`node --check "${info.fileJs}"`, { stdio: "pipe" }); }
+  catch (e) {
+    console.error(`ERRORE: ${info.fileJs} non valido dopo la propagazione. Niente commit.`);
+    console.error(e.stderr?.toString() || e.message);
+    process.exit(1);
+  }
+  ricalcolaDip(info, altroText);
+  riepilogo.push(`propagazione -> ${altroDip}`);
+}
+text = testoOriginale;
+
 // --- 4) Ricalcolo stato dal file (autorevole, come il validatore) ---
-const mete = caricaMete(text);
-const byCodice = new Map();
-for (const m of mete) {
-  if (!byCodice.has(m.codiceErasmus)) byCodice.set(m.codiceErasmus, []);
-  byCodice.get(m.codiceErasmus).push(m);
-}
-const emptyLingua = new Set(), emptyScad = new Set();
-for (const [cod, bl] of byCodice) {
-  if (bl.some((b) => vuoto(b.requisitoLingua))) emptyLingua.add(cod);
-  if (bl.some((b) => vuoto(b.scadenzeOspitante))) emptyScad.add(cod);
-}
-const nonTrov = new Set(sd.linguaNonTrovabile);
-sd.pendingLingua = [...emptyLingua].filter((c) => !nonTrov.has(c));
-sd.pendingScadenze = [...emptyScad];
-sd.completate = mete.filter((m) => !vuoto(m.requisitoLingua) && !vuoto(m.scadenzeOspitante)).length;
-sd.totale = mete.length;
+ricalcolaDip(sd, text);
 
 // --- 5) Avanzamento batch e stato ---
 stato.prossimiBatch.shift();
@@ -159,17 +216,17 @@ const scoperte = [...new Set([...sd.pendingLingua, ...sd.pendingScadenze])].filt
 if (scoperte.length && sd.stato !== "completo") {
   const esistenti = new Set(stato.prossimiBatch.map((b) => b.id));
   let n = 1;
-  for (let i = 0; i < scoperte.length; i += 5) {
+  for (let i = 0; i < scoperte.length; i += DIM_BATCH) {
     let id;
     do { id = `${dip.toLowerCase()}-batch-followup-${n++}`; } while (esistenti.has(id));
     esistenti.add(id);
-    const mete5 = scoperte.slice(i, i + 5);
-    const conScad = mete5.some((c) => sd.pendingScadenze.includes(c));
+    const meteB = scoperte.slice(i, i + DIM_BATCH);
+    const conScad = meteB.some((c) => sd.pendingScadenze.includes(c));
     stato.prossimiBatch.push({
       id, priorita: 6, dipartimento: dip,
       descrizione: `${dip} - follow-up pending`,
       tipo: conScad ? "scadenze+lingua" : "lingua",
-      mete: mete5,
+      mete: meteB,
     });
   }
 }
@@ -180,7 +237,7 @@ stato.runCompletati = (stato.runCompletati || 0) + 1;
 stato.aggiornato = oggi;
 (stato.storico ||= []).push({
   batch: stato.runCompletati, data: oggi, mete: [...new Set(batch.mete)].length,
-  note: `${dip} ${batch.id}: merge automatico via applica-batch.mjs.`,
+  note: `${dip} ${batch.id}: merge automatico via applica-batch.mjs${propagati ? ` (+${propagati} blocchi propagati ad altri dipartimenti)` : ""}.`,
 });
 
 fs.writeFileSync("mappatura-stato.json", JSON.stringify(stato, null, 2) + "\n");
@@ -191,5 +248,6 @@ fs.writeFileSync(`batch/FONTI-${batch.id}.json`, JSON.stringify(fonti, null, 2) 
 
 console.log(`Merge applicato (${fileJs}). node --check OK.`);
 riepilogo.forEach((r) => console.log("  - " + r));
+if (propagati) console.log(`Propagazione: ${propagati} blocchi riempiti in altri dipartimenti.`);
 console.log(`Dipartimento ${dip}: ${sd.completate}/${sd.totale} complete, stato=${sd.stato}.`);
 console.log(`Batch rimanenti: ${stato.prossimiBatch.length}.`);

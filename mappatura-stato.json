@@ -4,13 +4,34 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Psicologia e Servizio Sociale (Sapienza)",
-  "runCompletati": 305,
+  "runCompletati": 293,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
+    {
+      "id": "psicologia e servizio sociale (sapienza)-batch-followup-2",
+      "priorita": 6,
+      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "P  LISBOA104"
+      ]
+    },
+    {
+      "id": "psicologia e servizio sociale (sapienza)-batch-followup-3",
+      "priorita": 6,
+      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "TR ANKARA06",
+        "TR ISTANBU60"
+      ]
+    },
     {
       "id": "farmacia (sapienza)-batch-followup-1",
       "priorita": 6,
@@ -52,14 +73,104 @@
       ]
     },
     {
-      "id": "psicologia e servizio sociale (sapienza)-batch-followup-2",
-      "priorita": 6,
-      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
-      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - follow-up pending",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "P  LISBOA104"
-      ]
+      "id": "setup-scienze-politiche",
+      "priorita": 7,
+      "tipo": "nuovo_dipartimento",
+      "dipartimento": "Scienze Politiche (Sapienza)",
+      "ateneo": "Sapienza Roma",
+      "fileJs": "js/atenei/sapienza/dati-mete-scienze-politiche.js",
+      "descrizione": "Setup Scienze Politiche (Sapienza) - seed umano da export ambito=POLIT",
+      "fonte": "https://accordi-didattica.web.uniroma1.it/goerasmus/export?ambito=POLIT"
+    },
+    {
+      "id": "setup-inge-elettronica",
+      "priorita": 7,
+      "tipo": "nuovo_dipartimento",
+      "dipartimento": "Ingegneria elettronica e comunicazioni - DIET (Sapienza)",
+      "ateneo": "Sapienza Roma",
+      "fileJs": "js/atenei/sapienza/dati-mete-inge-elettronica.js",
+      "descrizione": "Setup DIET (Sapienza) - seed umano da export ambito=IIIS",
+      "fonte": "https://accordi-didattica.web.uniroma1.it/goerasmus/export?ambito=IIIS"
+    },
+    {
+      "id": "setup-polo-latina",
+      "priorita": 7,
+      "tipo": "nuovo_dipartimento",
+      "dipartimento": "Polo di Latina (Sapienza)",
+      "ateneo": "Sapienza Roma",
+      "fileJs": "js/atenei/sapienza/dati-mete-polo-latina.js",
+      "descrizione": "Setup Polo di Latina (Sapienza) - seed umano da export ambito=POLAT",
+      "fonte": "https://accordi-didattica.web.uniroma1.it/goerasmus/export?ambito=POLAT"
+    },
+    {
+      "id": "setup-scienze-statistiche",
+      "priorita": 7,
+      "tipo": "nuovo_dipartimento",
+      "dipartimento": "Scienze Statistiche (Sapienza)",
+      "ateneo": "Sapienza Roma",
+      "fileJs": "js/atenei/sapienza/dati-mete-scienze-statistiche.js",
+      "descrizione": "Setup Scienze Statistiche (Sapienza) - seed umano da export ambito=STATIS",
+      "fonte": "https://accordi-didattica.web.uniroma1.it/goerasmus/export?ambito=STATIS"
+    },
+    {
+      "id": "setup-informatica",
+      "priorita": 7,
+      "tipo": "nuovo_dipartimento",
+      "dipartimento": "Informatica (Sapienza)",
+      "ateneo": "Sapienza Roma",
+      "fileJs": "js/atenei/sapienza/dati-mete-informatica.js",
+      "descrizione": "Setup Informatica (Sapienza) - seed umano da export ambito=IIIS2",
+      "fonte": "https://accordi-didattica.web.uniroma1.it/goerasmus/export?ambito=IIIS2"
+    },
+    {
+      "id": "setup-inge-informatica-gestionale",
+      "priorita": 7,
+      "tipo": "nuovo_dipartimento",
+      "dipartimento": "Ingegneria informatica e gestionale - DIAG (Sapienza)",
+      "ateneo": "Sapienza Roma",
+      "fileJs": "js/atenei/sapienza/dati-mete-inge-informatica-gestionale.js",
+      "descrizione": "Setup DIAG (Sapienza) - seed umano da export ambito=IIIS1",
+      "fonte": "https://accordi-didattica.web.uniroma1.it/goerasmus/export?ambito=IIIS1"
+    },
+    {
+      "id": "setup-medicina-odontoiatria",
+      "priorita": 7,
+      "tipo": "nuovo_dipartimento",
+      "dipartimento": "Medicina e Odontoiatria - Area medica (Sapienza)",
+      "ateneo": "Sapienza Roma",
+      "fileJs": "js/atenei/sapienza/dati-mete-medicina-odontoiatria.js",
+      "descrizione": "Setup Medicina e Odontoiatria (Sapienza) - seed umano da export ambito=MEDPROFSANIT",
+      "fonte": "https://accordi-didattica.web.uniroma1.it/goerasmus/export?ambito=MEDPROFSANIT"
+    },
+    {
+      "id": "setup-ingegneria-civile",
+      "priorita": 7,
+      "tipo": "nuovo_dipartimento",
+      "dipartimento": "Ingegneria Civile e Industriale (Sapienza)",
+      "ateneo": "Sapienza Roma",
+      "fileJs": "js/atenei/sapienza/dati-mete-ingegneria-civile.js",
+      "descrizione": "Setup Ingegneria Civile e Industriale (Sapienza) - seed umano da export ambito=INGE",
+      "fonte": "https://accordi-didattica.web.uniroma1.it/goerasmus/export?ambito=INGE"
+    },
+    {
+      "id": "setup-scienze-mfn",
+      "priorita": 7,
+      "tipo": "nuovo_dipartimento",
+      "dipartimento": "Scienze Matematiche Fisiche e Naturali (Sapienza)",
+      "ateneo": "Sapienza Roma",
+      "fileJs": "js/atenei/sapienza/dati-mete-scienze-mfn.js",
+      "descrizione": "Setup Scienze MFN (Sapienza) - seed umano da export ambito=MATEM",
+      "fonte": "https://accordi-didattica.web.uniroma1.it/goerasmus/export?ambito=MATEM"
+    },
+    {
+      "id": "setup-lettere-filosofia",
+      "priorita": 7,
+      "tipo": "nuovo_dipartimento",
+      "dipartimento": "Lettere e Filosofia (Sapienza)",
+      "ateneo": "Sapienza Roma",
+      "fileJs": "js/atenei/sapienza/dati-mete-lettere-filosofia.js",
+      "descrizione": "Setup Lettere e Filosofia (Sapienza) - seed umano da export ambito=LETFIL",
+      "fonte": "https://accordi-didattica.web.uniroma1.it/goerasmus/export?ambito=LETFIL"
     }
   ],
   "statoDipartimenti": {
@@ -349,7 +460,7 @@
         "RO BUCURES09": 2,
         "E  SANTIAG01": 2,
         "E  PALMA01": 2,
-        "TR VAN01": 6
+        "TR VAN01": 4
       },
       "linguaNonTrovabile": [
         "BG SOFIA11",
@@ -426,10 +537,12 @@
       "fileJs": "js/atenei/sapienza/dati-mete-psicologia.js",
       "stato": "in_corso",
       "totale": 97,
-      "completate": 82,
+      "completate": 81,
       "pendingScadenze": [
         "D  BERLIN20",
-        "P  LISBOA104"
+        "P  LISBOA104",
+        "TR ANKARA06",
+        "TR ISTANBU60"
       ],
       "pendingLingua": [],
       "tentativiLingua": {
@@ -441,7 +554,7 @@
         "P  FUNCHAL03": 3,
         "RO BUCURES09": 3,
         "E  CIUDA-R01": 2,
-        "TR ANKARA06": 4,
+        "TR ANKARA06": 3,
         "TR IZMIR02": 2,
         "TR ISTANBU21": 2
       },
@@ -2251,78 +2364,6 @@
       "data": "2026-07-04",
       "mete": 1,
       "note": "Psicologia e Servizio Sociale (Sapienza) psicologia e servizio sociale (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
-    },
-    {
-      "batch": 294,
-      "data": "2026-07-04",
-      "mete": 1,
-      "note": "Psicologia e Servizio Sociale (Sapienza) psicologia e servizio sociale (sapienza)-batch-followup-2: merge automatico via applica-batch.mjs."
-    },
-    {
-      "batch": 295,
-      "data": "2026-07-04",
-      "mete": 2,
-      "note": "Psicologia e Servizio Sociale (Sapienza) psicologia e servizio sociale (sapienza)-batch-followup-3: merge automatico via applica-batch.mjs."
-    },
-    {
-      "batch": 296,
-      "data": "2026-07-04",
-      "mete": 1,
-      "note": "Farmacia (Sapienza) farmacia (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
-    },
-    {
-      "batch": 297,
-      "data": "2026-07-04",
-      "mete": 1,
-      "note": "Farmacia (Sapienza) farmacia (sapienza)-batch-followup-2: merge automatico via applica-batch.mjs."
-    },
-    {
-      "batch": 298,
-      "data": "2026-07-04",
-      "mete": 1,
-      "note": "Comunicazione e Ricerca Sociale (Sapienza) comunicazione e ricerca sociale (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
-    },
-    {
-      "batch": 299,
-      "data": "2026-07-04",
-      "mete": 1,
-      "note": "Psicologia e Servizio Sociale (Sapienza) psicologia e servizio sociale (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
-    },
-    {
-      "batch": 300,
-      "data": "2026-07-04",
-      "mete": 1,
-      "note": "Psicologia e Servizio Sociale (Sapienza) psicologia e servizio sociale (sapienza)-batch-followup-2: merge automatico via applica-batch.mjs."
-    },
-    {
-      "batch": 301,
-      "data": "2026-07-04",
-      "mete": 1,
-      "note": "Farmacia (Sapienza) farmacia (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
-    },
-    {
-      "batch": 302,
-      "data": "2026-07-04",
-      "mete": 1,
-      "note": "Farmacia (Sapienza) farmacia (sapienza)-batch-followup-2: merge automatico via applica-batch.mjs."
-    },
-    {
-      "batch": 303,
-      "data": "2026-07-04",
-      "mete": 1,
-      "note": "Comunicazione e Ricerca Sociale (Sapienza) comunicazione e ricerca sociale (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
-    },
-    {
-      "batch": 304,
-      "data": "2026-07-04",
-      "mete": 1,
-      "note": "Psicologia e Servizio Sociale (Sapienza) psicologia e servizio sociale (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
-    },
-    {
-      "batch": 305,
-      "data": "2026-07-04",
-      "mete": 1,
-      "note": "Psicologia e Servizio Sociale (Sapienza) psicologia e servizio sociale (sapienza)-batch-followup-2: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

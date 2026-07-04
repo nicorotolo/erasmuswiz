@@ -21,8 +21,9 @@
   <link rel="stylesheet" href="css/style.css">
   <!-- PWA: aggiungi a schermata Home (senza notifiche) -->
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#101b3f">
-  <link rel="icon" href="img/icon-192.png">
+  <meta name="theme-color" content="#1b377b">
+  <link rel="icon" type="image/svg+xml" href="img/logo-mark.svg">
+  <link rel="alternate icon" href="img/icon-192.png">
   <link rel="apple-touch-icon" href="img/icon-192.png">
   <script data-goatcounter="https://erasmuswiz.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
@@ -37,13 +38,19 @@
     ==================================================== -->
     <section id="tab-oggi" class="tab-pane attivo">
 
-      <!-- Saluto + Wiz -->
+      <!-- Hero blu notte: saluto, claim, badge bando, Wiz -->
       <div class="home-header">
-        <div class="home-header-text">
+        <div class="home-hero-top">
           <p class="home-data" id="home-data"></p>
-          <h1 class="home-saluto">Ciao, <span id="home-nome">Studente</span></h1>
+          <span class="home-hero-badge" id="badge-bando" style="display:none"></span>
         </div>
-        <img src="img/wiz-hero.png" alt="Wiz" class="wiz-mascot flip" style="height:72px">
+        <div class="home-hero-row">
+          <div class="home-header-text">
+            <h1 class="home-saluto">Ciao, <span id="home-nome">Studente</span></h1>
+            <p class="home-hero-claim">Entri confuso, esci con un piano.</p>
+          </div>
+          <img src="img/mascotte/wiz-saluto.webp" alt="Wiz" class="wiz-mascot flip">
+        </div>
       </div>
 
       <!-- Percorso a 4 fasi (DISEGNO_UX.md §2.1) -->
@@ -70,7 +77,7 @@
           <button class="btn-primary" id="btn-fatto" type="button">Fatto ✨</button>
           <button class="btn-secondary" id="btn-come" type="button">Come si fa?</button>
         </div>
-        <img src="img/wiz-hero.png" alt="Wiz" class="wiz-mascot missione-wiz-desktop">
+        <img src="img/mascotte/wiz-saluto.webp" alt="Wiz" class="wiz-mascot missione-wiz-desktop">
       </div>
 
       <!-- Pill countdown — sempre blu notte -->
@@ -250,6 +257,10 @@
 
   <!-- Navigazione principale — in basso su mobile, in alto su desktop -->
   <nav class="nav-bottom" aria-label="Navigazione principale">
+    <div class="nav-brand" aria-hidden="true">
+      <img src="img/logo-mark.svg" alt="" class="nav-logo">
+      <span class="nav-wordmark">ErasmusWiz</span>
+    </div>
     <a href="#" class="nav-item attivo" data-tab="oggi">
       <span class="nav-icon">🧭</span>
       <span class="nav-label">Percorso</span>
@@ -373,6 +384,26 @@
   <script src="js/atenei/sapienza/dati-mete-scienze-sociali.js"></script>
   <script>_meteAllSap = _meteAllSap.concat(METE);</script>
   <script src="js/atenei/sapienza/dati-mete-psicologia.js"></script>
+  <script>_meteAllSap = _meteAllSap.concat(METE);</script>
+  <script src="js/atenei/sapienza/dati-mete-scienze-politiche.js"></script>
+  <script>_meteAllSap = _meteAllSap.concat(METE);</script>
+  <script src="js/atenei/sapienza/dati-mete-inge-elettronica.js"></script>
+  <script>_meteAllSap = _meteAllSap.concat(METE);</script>
+  <script src="js/atenei/sapienza/dati-mete-polo-latina.js"></script>
+  <script>_meteAllSap = _meteAllSap.concat(METE);</script>
+  <script src="js/atenei/sapienza/dati-mete-scienze-statistiche.js"></script>
+  <script>_meteAllSap = _meteAllSap.concat(METE);</script>
+  <script src="js/atenei/sapienza/dati-mete-informatica.js"></script>
+  <script>_meteAllSap = _meteAllSap.concat(METE);</script>
+  <script src="js/atenei/sapienza/dati-mete-inge-informatica-gestionale.js"></script>
+  <script>_meteAllSap = _meteAllSap.concat(METE);</script>
+  <script src="js/atenei/sapienza/dati-mete-medicina-odontoiatria.js"></script>
+  <script>_meteAllSap = _meteAllSap.concat(METE);</script>
+  <script src="js/atenei/sapienza/dati-mete-ingegneria-civile.js"></script>
+  <script>_meteAllSap = _meteAllSap.concat(METE);</script>
+  <script src="js/atenei/sapienza/dati-mete-scienze-mfn.js"></script>
+  <script>_meteAllSap = _meteAllSap.concat(METE);</script>
+  <script src="js/atenei/sapienza/dati-mete-lettere-filosofia.js"></script>
   <script>_meteAllSap = _meteAllSap.concat(METE);</script>
   <!-- (future: altre Facoltà Sapienza si concatenano qui, come a Ca' Foscari) -->
   <script src="js/atenei/sapienza/dati-scadenze.js"></script>

@@ -27,25 +27,34 @@ if (!batch) {
 // scripts/setup-dipartimento.mjs (bootstrap deterministico dello stato).
 if (batch.tipo === "nuovo_dipartimento") {
   const fileJsNuovo = batch.fileJs || stato.statoDipartimenti?.[batch.dipartimento]?.fileJs;
+  const fileEsiste = !!fileJsNuovo && fs.existsSync(fileJsNuovo);
   const input = {
     batchId: batch.id,
     dipartimento: batch.dipartimento,
     tipo: "nuovo_dipartimento",
     fileJs: fileJsNuovo,
+    fileGiaCreato: fileEsiste,
     fonte: batch.fonte || "https://www.unive.it/data/11679",
-    istruzioni:
-      "NUOVO DIPARTIMENTO. 1) Apri 'fonte' ed estrai TUTTE le destinazioni del " +
-      "dipartimento. 2) Crea 'fileJs' con tutte le mete, stessa struttura di " +
-      "js/dati-mete.js (campi immutabili reali; requisitoLingua e " +
-      "scadenzeOspitante = []). 3) Esegui: node scripts/setup-dipartimento.mjs " +
-      "(crea lo stato e accoda i sotto-batch da 5, deterministico). " +
-      "4) Esegui node scripts/valida-stato.mjs, poi commit+push come gli altri lotti.",
+    istruzioni: fileEsiste
+      ? "NUOVO DIPARTIMENTO, FILE DATI GIA' CREATO (seed umano, es. Sapienza). " +
+        "NON creare, NON modificare e NON rigenerare 'fileJs'. NON aprire 'fonte'. " +
+        "1) Esegui: node scripts/setup-dipartimento.mjs (deterministico: riusa i " +
+        "dati dei dipartimenti gia' mappati, crea lo stato e accoda i sotto-batch). " +
+        "2) Esegui node scripts/valida-stato.mjs, poi commit+push come gli altri lotti."
+      : "NUOVO DIPARTIMENTO. 1) Apri 'fonte' ed estrai TUTTE le destinazioni del " +
+        "dipartimento. 2) Crea 'fileJs' con tutte le mete, stessa struttura di " +
+        "js/dati-mete.js (campi immutabili reali; requisitoLingua e " +
+        "scadenzeOspitante = []). 3) Esegui: node scripts/setup-dipartimento.mjs " +
+        "(crea lo stato e accoda i sotto-batch, deterministico). " +
+        "4) Esegui node scripts/valida-stato.mjs, poi commit+push come gli altri lotti.",
   };
   fs.mkdirSync("batch", { recursive: true });
   fs.writeFileSync("batch/INPUT.json", JSON.stringify(input, null, 2) + "\n");
-  console.log(`Nuovo dipartimento da creare: ${batch.dipartimento} -> ${fileJsNuovo}`);
+  console.log(fileEsiste
+    ? `Nuovo dipartimento con seed gia' pronto: ${batch.dipartimento} -> ${fileJsNuovo} (solo setup)`
+    : `Nuovo dipartimento da creare: ${batch.dipartimento} -> ${fileJsNuovo}`);
   console.log(`Fonte: ${input.fonte}`);
-  console.log("Dopo aver creato il file: node scripts/setup-dipartimento.mjs");
+  console.log("Prossimo passo: node scripts/setup-dipartimento.mjs");
   process.exit(0);
 }
 
