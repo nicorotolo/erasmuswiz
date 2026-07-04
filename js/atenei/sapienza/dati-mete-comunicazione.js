@@ -1230,7 +1230,7 @@ var METE = [
         { cosa: "Nomination/Application (autunno)", periodo: "2 marzo - 30 giugno 2026" },
         { cosa: "Nomination/Application (primavera)", periodo: "15 settembre - 29 novembre" }
       ],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26"
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26 || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-comm-lugano",
