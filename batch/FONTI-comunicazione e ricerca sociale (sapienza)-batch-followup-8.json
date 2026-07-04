@@ -1,0 +1,15 @@
+{
+  "TR ISTANBU03": {
+    "linkSito": "https://erasmus.istanbul.edu.tr/en",
+    "scadenzeOspitante": "https://erasmusport.istanbul.edu.tr/en/factsheet",
+    "notePraticheAppend": "https://erasmusport.istanbul.edu.tr/en/factsheet"
+  },
+  "TR ANKARA03": {
+    "linkSito": "https://abofisi.hacettepe.edu.tr/en/ka_107_study_at_abroad_incoming_students_before_ar-89",
+    "notePraticheAppend": "https://abofisi.hacettepe.edu.tr/en/ka_107_study_at_abroad_incoming_students_before_ar-89"
+  },
+  "TR ISTANBU21": {
+    "linkSito": "https://international.yeditepe.edu.tr/en/international/erasmus-incoming-students",
+    "notePraticheAppend": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/16635981"
+  }
+}
