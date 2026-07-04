@@ -4,24 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 245,
+  "runCompletati": 246,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "farmacia (sapienza)-batch-followup-3",
-      "priorita": 6,
-      "dipartimento": "Farmacia (Sapienza)",
-      "descrizione": "Farmacia (Sapienza) - follow-up pending",
-      "tipo": "lingua",
-      "mete": [
-        "F  LILLE11",
-        "F  RENNES09"
-      ]
-    },
     {
       "id": "farmacia (sapienza)-batch-followup-4",
       "priorita": 6,
@@ -677,8 +666,6 @@
         "TR VAN01"
       ],
       "pendingLingua": [
-        "F  LILLE11",
-        "F  RENNES09",
         "F  CERGY-P11",
         "G  PATRA01",
         "PL WROCLAW05",
@@ -697,8 +684,8 @@
         "F  COMPIEG05": 2,
         "F  GRENOBL55": 2,
         "F  BESANCO01": 2,
-        "F  LILLE11": 1,
-        "F  RENNES09": 1,
+        "F  LILLE11": 2,
+        "F  RENNES09": 2,
         "F  CERGY-P11": 1,
         "G  PATRA01": 1,
         "PL WROCLAW05": 1,
@@ -716,7 +703,9 @@
         "HR RIJEKA01",
         "F  COMPIEG05",
         "F  GRENOBL55",
-        "F  BESANCO01"
+        "F  BESANCO01",
+        "F  LILLE11",
+        "F  RENNES09"
       ]
     },
     "Comunicazione e Ricerca Sociale (Sapienza)": {
@@ -2365,6 +2354,12 @@
       "data": "2026-07-04",
       "mete": 5,
       "note": "Farmacia (Sapienza) farmacia (sapienza)-batch-followup-2: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 246,
+      "data": "2026-07-04",
+      "mete": 2,
+      "note": "Farmacia (Sapienza) farmacia (sapienza)-batch-followup-3: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

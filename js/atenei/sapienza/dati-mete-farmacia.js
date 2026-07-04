@@ -496,7 +496,7 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "entro 15 aprile" },
         { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
       ],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-farm-lille-2",
@@ -518,7 +518,7 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "entro 15 aprile" },
         { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
       ],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-farm-rennes",
@@ -537,7 +537,7 @@ var METE = [
     scadenzeOspitante: [
         { cosa: "Application (autunno)", periodo: "entro 30 maggio" }
       ],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-farm-marseil",
