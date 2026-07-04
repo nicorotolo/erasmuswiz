@@ -1,0 +1,15 @@
+{
+  "P  COIMBRA01": {
+    "linkSito": "https://www.uc.pt/site/assets/files/1492152/eninfosheet_1.pdf",
+    "notePraticheAppend": "https://www.uc.pt/en/fmuc/grii/incoming/"
+  },
+  "P  MAIA01": {
+    "linkSito": "https://www.umaia.pt/pt/info-para/incoming-students/summer-courses",
+    "notePraticheAppend": "https://eurep.auth.gr/sites/default/files/fact_sheets/P%20MAIA01_Factsheet_2022-2023.pdf"
+  },
+  "RO BUCURES09": {
+    "requisitoLingua": "https://www.plus.ac.at/wp-content/uploads/2023/08/UB-CIVIS-Mobility-Unit-Conditions-for-incoming.pdf",
+    "scadenzeOspitante": "https://www.plus.ac.at/wp-content/uploads/2023/08/UB-CIVIS-Mobility-Unit-Conditions-for-incoming.pdf",
+    "linkSito": "https://unibuc.ro/international/programul-erasmus/studenti-erasmus/?lang=en"
+  }
+}

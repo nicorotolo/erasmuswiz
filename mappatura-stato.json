@@ -4,25 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 255,
+  "runCompletati": 256,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "comunicazione e ricerca sociale (sapienza)-batch-followup-4",
-      "priorita": 6,
-      "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
-      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - follow-up pending",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "P  COIMBRA01",
-        "P  MAIA01",
-        "RO BUCURES09"
-      ]
-    },
     {
       "id": "comunicazione e ricerca sociale (sapienza)-batch-followup-5",
       "priorita": 6,
@@ -300,6 +288,16 @@
       "tipo": "scadenze+lingua",
       "mete": [
         "TR VAN01"
+      ]
+    },
+    {
+      "id": "comunicazione e ricerca sociale (sapienza)-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
+      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "P  MAIA01"
       ]
     }
   ],
@@ -617,18 +615,14 @@
       "fileJs": "js/atenei/sapienza/dati-mete-comunicazione.js",
       "stato": "in_corso",
       "totale": 59,
-      "completate": 40,
+      "completate": 42,
       "pendingScadenze": [
         "P  MAIA01",
-        "RO BUCURES09",
         "E  SALAMAN01",
         "TR ISTANBU03",
         "TR ANKARA03"
       ],
       "pendingLingua": [
-        "P  COIMBRA01",
-        "P  MAIA01",
-        "RO BUCURES09",
         "E  VALLADO03",
         "E  BILBAO01",
         "E  MURCIA01",
@@ -644,9 +638,8 @@
       "tentativiLingua": {
         "A  WIEN01": 2,
         "P  PORTO02": 2,
-        "P  COIMBRA01": 1,
-        "P  MAIA01": 1,
-        "RO BUCURES09": 1,
+        "P  COIMBRA01": 2,
+        "P  MAIA01": 2,
         "E  VALLADO03": 1,
         "E  BILBAO01": 1,
         "E  MURCIA01": 1,
@@ -661,7 +654,9 @@
       },
       "linguaNonTrovabile": [
         "A  WIEN01",
-        "P  PORTO02"
+        "P  PORTO02",
+        "P  COIMBRA01",
+        "P  MAIA01"
       ]
     },
     "Scienze Sociali ed Economiche (Sapienza)": {
@@ -2316,6 +2311,12 @@
       "data": "2026-07-04",
       "mete": 1,
       "note": "Comunicazione e Ricerca Sociale (Sapienza) comunicazione e ricerca sociale (sapienza)-batch-followup-3: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 256,
+      "data": "2026-07-04",
+      "mete": 3,
+      "note": "Comunicazione e Ricerca Sociale (Sapienza) comunicazione e ricerca sociale (sapienza)-batch-followup-4: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
