@@ -4,23 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Psicologia e Servizio Sociale (Sapienza)",
-  "runCompletati": 290,
+  "runCompletati": 291,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "farmacia (sapienza)-batch-followup-2",
-      "priorita": 6,
-      "dipartimento": "Farmacia (Sapienza)",
-      "descrizione": "Farmacia (Sapienza) - follow-up pending",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "TR VAN01"
-      ]
-    },
     {
       "id": "comunicazione e ricerca sociale (sapienza)-batch-followup-1",
       "priorita": 6,
@@ -70,6 +60,16 @@
       "tipo": "scadenze+lingua",
       "mete": [
         "F  COMPIEG05"
+      ]
+    },
+    {
+      "id": "farmacia (sapienza)-batch-followup-2",
+      "priorita": 6,
+      "dipartimento": "Farmacia (Sapienza)",
+      "descrizione": "Farmacia (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "TR VAN01"
       ]
     }
   ],
@@ -360,7 +360,7 @@
         "RO BUCURES09": 2,
         "E  SANTIAG01": 2,
         "E  PALMA01": 2,
-        "TR VAN01": 3
+        "TR VAN01": 4
       },
       "linguaNonTrovabile": [
         "BG SOFIA11",
@@ -2246,6 +2246,12 @@
       "data": "2026-07-04",
       "mete": 2,
       "note": "Farmacia (Sapienza) farmacia (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 291,
+      "data": "2026-07-04",
+      "mete": 1,
+      "note": "Farmacia (Sapienza) farmacia (sapienza)-batch-followup-2: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
