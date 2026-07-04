@@ -1,0 +1,26 @@
+{
+  "E  SEVILLA01": {
+    "requisitoLingua": "https://fceye.us.es/sites/economicas/files/contenido/movilidad/guia-alumnos-extranjeros/FACT%20SHEET%20FCEYE.pdf",
+    "scadenzeOspitante": "https://www.us.es/sites/default/files/internacional/factsheet-US.pdf",
+    "linkSito": "https://internacional.us.es/en/estudiar-en-la-universidad-de-sevilla"
+  },
+  "E  MURCIA05": {
+    "requisitoLingua": "https://www.ucam.edu/sites/default/files/public/Oficina-relaciones-internacionales/Incoming-Students/Erasmus-Students-Exchange-at-UCAM/ucam-factsheet.pdf",
+    "linkSito": "https://international.ucam.edu/services/ori/incoming-students"
+  },
+  "E  CASTELL01": {
+    "requisitoLingua": "https://novaims.unl.pt/media/adgjjwcn/uji-site.pdf",
+    "scadenzeOspitante": "https://novaims.unl.pt/media/adgjjwcn/uji-site.pdf",
+    "linkSito": "https://www.uji.es/serveis/ori/base/incoming/orientacio/"
+  },
+  "E  MADRID01": {
+    "requisitoLingua": "https://cdn.docs.univr.it/documenti/ProgrammaMobilita/all/all656158.pdf",
+    "scadenzeOspitante": "https://cdn.docs.univr.it/documenti/ProgrammaMobilita/all/all656158.pdf",
+    "linkSito": "https://cdn.docs.univr.it/documenti/ProgrammaMobilita/all/all656158.pdf"
+  },
+  "E  AVILA01": {
+    "requisitoLingua": "https://www.ucavila.es/images/files/rrii/erasmus/incoming/BROCHURE_INCOMING_ERASMUS_STUDENTS_2026-27.pdf",
+    "scadenzeOspitante": "https://www.ucavila.es/images/files/rrii/erasmus/incoming/BROCHURE_INCOMING_ERASMUS_STUDENTS_2026-27.pdf",
+    "linkSito": "https://www.ucavila.es/estudiantes-internacionales/oferta-academica-erasmus/"
+  }
+}

@@ -1832,10 +1832,15 @@ var METE = [
     posti: [
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "minimo richiesto; B2 raccomandato per corsi in spagnolo" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Nomination/Application (autunno)", periodo: "dal 2 marzo al 30 giugno 2026" },
+        { cosa: "Nomination/Application (primavera)", periodo: "dal 15 settembre al 29 novembre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Scadenze: basate su 2025/26"
   },
   {
     id: "sap-psico1-murcia",
@@ -1850,7 +1855,11 @@ var METE = [
       { numero: 3, mesi: 10, livello: "L", note: "" },
       { numero: 3, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "A2", condizione: "raccomandato per corsi prevalentemente in spagnolo" },
+        { lingua: "Spagnolo", livello: "B1", condizione: "puo' essere richiesto per tirocini pratici in area sanitaria" },
+        { lingua: "Inglese", livello: "B2", condizione: "richiesto per Business Administration in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
@@ -1867,9 +1876,15 @@ var METE = [
     posti: [
       { numero: 2, mesi: 9, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "A2", condizione: "livello ammesso per studenti incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
+        { cosa: "Application", periodo: "entro due settimane dalla nomination" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1884,9 +1899,15 @@ var METE = [
     posti: [
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "A2", condizione: "livello ammesso per studenti incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
+        { cosa: "Application", periodo: "entro due settimane dalla nomination" }
+      ],
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1902,9 +1923,14 @@ var METE = [
       { numero: 1, mesi: 6, livello: "L", note: "" },
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato o secondo accordo bilaterale" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1920,9 +1946,16 @@ var METE = [
       { numero: 1, mesi: 6, livello: "L", note: "" },
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "certificato richiesto per studenti Erasmus incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 31 ottobre" },
+        { cosa: "Documentazione (autunno)", periodo: "entro 15 luglio" },
+        { cosa: "Documentazione (primavera)", periodo: "entro 15 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
