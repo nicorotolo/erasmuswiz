@@ -1,0 +1,15 @@
+{
+  "TR ANKARA06": {
+    "linkSito": "https://uik.baskent.edu.tr/kw/menu_icerik.php?birim=161&menu_id=37",
+    "notePraticheAppend": "https://uik.baskent.edu.tr/kw/menu_icerik.php?birim=161&menu_id=37"
+  },
+  "TR IZMIR02": {
+    "scadenzeOspitante": "https://international.ege.edu.tr/eng-23784/.html",
+    "linkSito": "https://international.ege.edu.tr/eng-23784/.html",
+    "notePraticheAppend": "https://international.ege.edu.tr/eng-23785/.html"
+  },
+  "TR ISTANBU60": {
+    "requisitoLingua": "https://sbu.edu.tr/FileFolder/Dosyalar/XkzlJFi2/2021_9/directiveforintstudentandstaffadmission-4f87d4ca.pdf",
+    "linkSito": "https://sbu.edu.tr/FileFolder/Dosyalar/XkzlJFi2/2021_9/directiveforintstudentandstaffadmission-4f87d4ca.pdf"
+  }
+}
