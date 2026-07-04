@@ -4,25 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 248,
+  "runCompletati": 249,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "farmacia (sapienza)-batch-followup-6",
-      "priorita": 6,
-      "dipartimento": "Farmacia (Sapienza)",
-      "descrizione": "Farmacia (Sapienza) - follow-up pending",
-      "tipo": "lingua",
-      "mete": [
-        "P  LISBOA109",
-        "P  COVILHA01",
-        "RO BUCURES09"
-      ]
-    },
     {
       "id": "farmacia (sapienza)-batch-followup-7",
       "priorita": 6,
@@ -634,7 +622,7 @@
       "fileJs": "js/atenei/sapienza/dati-mete-farmacia.js",
       "stato": "in_corso",
       "totale": 62,
-      "completate": 40,
+      "completate": 42,
       "pendingScadenze": [
         "F  COMPIEG05",
         "F  BESANCO01",
@@ -642,9 +630,6 @@
         "TR VAN01"
       ],
       "pendingLingua": [
-        "P  LISBOA109",
-        "P  COVILHA01",
-        "RO BUCURES09",
         "E  SANTIAG01",
         "E  PALMA01",
         "TR VAN01"
@@ -661,9 +646,7 @@
         "G  PATRA01": 2,
         "PL WROCLAW05": 2,
         "P  BRAGANC01": 2,
-        "P  LISBOA109": 1,
-        "P  COVILHA01": 1,
-        "RO BUCURES09": 1,
+        "RO BUCURES09": 2,
         "E  SANTIAG01": 1,
         "E  PALMA01": 1,
         "TR VAN01": 1
@@ -679,7 +662,8 @@
         "F  CERGY-P11",
         "G  PATRA01",
         "PL WROCLAW05",
-        "P  BRAGANC01"
+        "P  BRAGANC01",
+        "RO BUCURES09"
       ]
     },
     "Comunicazione e Ricerca Sociale (Sapienza)": {
@@ -2346,6 +2330,12 @@
       "data": "2026-07-04",
       "mete": 4,
       "note": "Farmacia (Sapienza) farmacia (sapienza)-batch-followup-5: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 249,
+      "data": "2026-07-04",
+      "mete": 3,
+      "note": "Farmacia (Sapienza) farmacia (sapienza)-batch-followup-6: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
