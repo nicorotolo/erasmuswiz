@@ -1,10 +1,7 @@
 {
-  "A  WIEN01": {
-    "linkSito": "https://international.univie.ac.at/en/information-for-incoming-exchange-students/exchange-semester-at-the-university-of-vienna",
-    "notePraticheAppend": "https://international.univie.ac.at/en/information-for-incoming-exchange-students/exchange-semester-at-the-university-of-vienna"
-  },
-  "F  PARIS008": {
-    "requisitoLingua": "https://www.univ-paris8.fr/en/-international-exchanges-",
-    "linkSito": "https://www.univ-paris8.fr/en/-international-exchanges-"
+  "P  MAIA01": {
+    "scadenzeOspitante": "https://www.ubu.es/sites/default/files/portal_page/files/p_maia01_2023-2024_factsheet.pdf",
+    "linkSito": "https://www.umaia.pt/pt/info-para/incoming-students",
+    "notePraticheAppend": "https://www.ubu.es/sites/default/files/portal_page/files/p_maia01_2023-2024_factsheet.pdf"
   }
 }

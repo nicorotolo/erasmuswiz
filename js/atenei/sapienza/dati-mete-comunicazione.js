@@ -702,8 +702,11 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 30 luglio" },
+        { cosa: "Application (primavera)", periodo: "entro 31 dicembre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2023/24"
   },
   {
     id: "sap-comm-lisboa-5",
