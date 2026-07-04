@@ -1,20 +1,6 @@
 {
-  "F  NANCY43": {
-    "requisitoLingua": "https://ensic.univ-lorraine.fr/sites/default/files/users/pdf/international/Factsheet%2026-27%20ENSIC%20v2.pdf",
-    "linkSito": "https://ensic.univ-lorraine.fr/sites/default/files/users/pdf/international/Factsheet%2026-27%20ENSIC%20v2.pdf"
-  },
-  "F  COMPIEG05": {
-    "linkSito": "https://ressources.campusfrance.org/pratique/accueil/en/ing_escom_ac_en.pdf"
-  },
-  "F  GRENOBL55": {
-    "linkSito": "https://international.univ-grenoble-alpes.fr/resources/resources-for-international-partners/fact-sheet-uga-809951.kjsp"
-  },
-  "F  MONTPEL54": {
-    "requisitoLingua": "https://pharmacie.edu.umontpellier.fr/files/2026/03/Institutional-Factsheet-UNIVERSITE-DE-MONTPELLIER.pdf",
-    "scadenzeOspitante": "https://pharmacie.edu.umontpellier.fr/files/2026/03/Institutional-Factsheet-UNIVERSITE-DE-MONTPELLIER.pdf",
-    "linkSito": "https://pharmacie.edu.umontpellier.fr/files/2026/03/Institutional-Factsheet-UNIVERSITE-DE-MONTPELLIER.pdf"
-  },
-  "F  BESANCO01": {
-    "linkSito": "https://mobility.univ-fcomte.fr/mobility/BewerbungServlet?aust_prog=SMS&identifier=BESANCO01&kz_bew_art=IN&kz_bew_pers=S&sprache=en"
+  "TR VAN01": {
+    "linkSito": "https://www.yyu.edu.tr/Birimler/67",
+    "notePraticheAppend": "https://www.yyu.edu.tr/Birimler/67"
   }
 }
