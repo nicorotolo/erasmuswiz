@@ -1,0 +1,14 @@
+{
+  "E  VIGO01": {
+    "requisitoLingua": "https://eurep.auth.gr/sites/default/files/fact_sheets/E%20VIGO01_Factsheet_2021.pdf",
+    "linkSito": "https://www.uvigo.gal/en/study/mobility"
+  },
+  "E  SALAMAN01": {
+    "requisitoLingua": "https://docs.univr.it/documenti/Documento/allegati/allegati992736.pdf",
+    "linkSito": "https://www.upsa.es/en"
+  },
+  "E  SANTIAG01": {
+    "linkSito": "https://www.usc.gal/en/international/mobility/incoming-students",
+    "requisitoLingua": "https://www.uni-osnabrueck.de/fileadmin/fb10/erasmus/Fact_Sheets/FactSheet_E_SANTIAG01.pdf"
+  }
+}
