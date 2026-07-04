@@ -1,0 +1,27 @@
+{
+  "E  GRANADA01": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254489",
+    "scadenzeOspitante": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254489",
+    "linkSito": "https://internacional.ugr.es/en/students/incoming-mobility/undergraduate"
+  },
+  "S  STOCKHO01": {
+    "requisitoLingua": "https://www.su.se/english/divisions/department-of-culture-and-aesthetics/education/incoming-exchange-students",
+    "scadenzeOspitante": "https://www.su.se/english/divisions/department-of-culture-and-aesthetics/education/incoming-exchange-students",
+    "linkSito": "https://www.su.se/english/divisions/department-of-culture-and-aesthetics/education/incoming-exchange-students"
+  },
+  "CH GENEVE01": {
+    "requisitoLingua": "https://www.unige.ch/exchange/download_file/view/458/409",
+    "scadenzeOspitante": "https://www.unige.ch/exchange/download_file/view/458/409",
+    "linkSito": "https://www.unige.ch/exchange/en/incoming/why-geneva/students/"
+  },
+  "CH BRUGG02": {
+    "requisitoLingua": "https://www.fhnw.ch/en/business/degree-programmes/international/exchange-semester/fact-sheet_-fhnw_school-of-business-undergraduates_2026.pdf/@@display-file/file",
+    "scadenzeOspitante": "https://www.fhnw.ch/en/business/degree-programmes/international/exchange-semester/fact-sheet_-fhnw_school-of-business-undergraduates_2026.pdf/@@display-file/file",
+    "linkSito": "https://www.fhnw.ch/en/business/degree-programmes/international/exchange-semester"
+  },
+  "CH ZURICH01": {
+    "requisitoLingua": "https://www.int.uzh.ch/en/in/program/erasmus/application.html",
+    "scadenzeOspitante": "https://www.int.uzh.ch/dam/jcr:fdb1f136-516b-4c35-8e81-f957f9b4244e/UZH_SEMP_Factsheet_26_27.pdf",
+    "linkSito": "https://www.int.uzh.ch/en/in/program/erasmus/application.html"
+  }
+}
