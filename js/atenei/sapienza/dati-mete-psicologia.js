@@ -1575,10 +1575,15 @@ var METE = [
       { numero: 1, mesi: 6, livello: "L", note: "" },
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per studenti Erasmus incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 15 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 15 dicembre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Scadenze: basate su 2024/25"
   },
   {
     id: "sap-psico1-universidad",
@@ -1595,8 +1600,11 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-psico1-universidad-2",
@@ -1611,9 +1619,16 @@ var METE = [
       { numero: 2, mesi: 6, livello: "L", note: "" },
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato per studenti di scambio" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (autunno)", periodo: "dal 1 aprile al 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
+        { cosa: "Application (primavera)", periodo: "dal 1 ottobre al 15 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1629,10 +1644,18 @@ var METE = [
       { numero: 1, mesi: 5, livello: "L", note: "" },
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B2", condizione: "per corsi in spagnolo" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 settembre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Scadenze: basate su 2025/26"
   },
   {
     id: "sap-psico1-zaragoz",
@@ -1646,9 +1669,16 @@ var METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato per seguire le lezioni" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 29 maggio 2026" },
+        { cosa: "Application (autunno)", periodo: "dal 16 febbraio al 19 giugno 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro 23 ottobre 2026" },
+        { cosa: "Application (primavera)", periodo: "dal 1 settembre al 6 novembre 2026" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1874,9 +1904,16 @@ var METE = [
     posti: [
       { numero: 4, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato per seguire le lezioni" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 29 maggio 2026" },
+        { cosa: "Application (autunno)", periodo: "dal 16 febbraio al 19 giugno 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro 23 ottobre 2026" },
+        { cosa: "Application (primavera)", periodo: "dal 1 settembre al 6 novembre 2026" }
+      ],
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli)."
   },
   {

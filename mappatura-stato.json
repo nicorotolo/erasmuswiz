@@ -1,30 +1,16 @@
 {
   "versione": "2.0",
-  "aggiornato": "2026-07-03",
+  "aggiornato": "2026-07-04",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 237,
+  "runCompletati": 238,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "psicologia-batch-12",
-      "priorita": 6,
-      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
-      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "SK BRATISL08",
-        "E  CIUDA-R01",
-        "E  LA-CORU01",
-        "E  MADRID21",
-        "E  ZARAGOZ01"
-      ]
-    },
     {
       "id": "psicologia-batch-13",
       "priorita": 6,
@@ -438,6 +424,16 @@
         "P  FUNCHAL03",
         "RO IASI02",
         "RO BUCURES09"
+      ]
+    },
+    {
+      "id": "psicologia e servizio sociale (sapienza)-batch-followup-9",
+      "priorita": 6,
+      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - follow-up pending",
+      "tipo": "lingua",
+      "mete": [
+        "E  CIUDA-R01"
       ]
     }
   ],
@@ -854,17 +850,12 @@
       "fileJs": "js/atenei/sapienza/dati-mete-psicologia.js",
       "stato": "in_corso",
       "totale": 97,
-      "completate": 50,
+      "completate": 55,
       "pendingScadenze": [
         "D  BERLIN20",
         "P  LISBOA104",
         "P  FUNCHAL03",
         "RO BUCURES09",
-        "SK BRATISL08",
-        "E  CIUDA-R01",
-        "E  LA-CORU01",
-        "E  MADRID21",
-        "E  ZARAGOZ01",
         "E  MALAGA01",
         "E  SANTIAG01",
         "E  OVIEDO01",
@@ -900,11 +891,7 @@
         "P  FUNCHAL03",
         "RO IASI02",
         "RO BUCURES09",
-        "SK BRATISL08",
         "E  CIUDA-R01",
-        "E  LA-CORU01",
-        "E  MADRID21",
-        "E  ZARAGOZ01",
         "E  MALAGA01",
         "E  SANTIAG01",
         "E  OVIEDO01",
@@ -939,7 +926,8 @@
         "P  LISBOA109": 1,
         "P  FUNCHAL03": 1,
         "RO IASI02": 1,
-        "RO BUCURES09": 1
+        "RO BUCURES09": 1,
+        "E  CIUDA-R01": 1
       },
       "linguaNonTrovabile": []
     }
@@ -2398,6 +2386,12 @@
       "data": "2026-07-03",
       "mete": 5,
       "note": "Psicologia e Servizio Sociale (Sapienza) psicologia-batch-11: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 238,
+      "data": "2026-07-04",
+      "mete": 5,
+      "note": "Psicologia e Servizio Sociale (Sapienza) psicologia-batch-12: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

@@ -1,0 +1,26 @@
+{
+  "SK BRATISL08": {
+    "requisitoLingua": "https://www.paneurouni.com/en/wp-content/uploads/2023/10/info_sheet_20222023_1.pdf",
+    "scadenzeOspitante": "https://www.peuni-international.eu/incoming-students/",
+    "linkSito": "https://www.peuni-international.eu/incoming-students/"
+  },
+  "E  CIUDA-R01": {
+    "scadenzeOspitante": "https://www.uclm.es/en/misiones/internacional/movilidad/movilidad_entrante/estudiantes/estudiantes-de-intercambio",
+    "linkSito": "https://www.uclm.es/en/misiones/internacional/movilidad/movilidad_entrante/estudiantes/estudiantes-de-intercambio"
+  },
+  "E  LA-CORU01": {
+    "requisitoLingua": "https://www.udc.es/en/ori/infestudantesextranxeiros/Admision/12y56_LanguageProficiency/",
+    "scadenzeOspitante": "https://www.udc.gal/en/ori/infestudantesextranxeiros/FormulariosExtranxeiros/",
+    "linkSito": "https://www.udc.gal/en/ori/entrantes/"
+  },
+  "E  MADRID21": {
+    "requisitoLingua": "https://www.uspceu.com/en/international/study-abroad/incoming-mobility",
+    "scadenzeOspitante": "https://www.old.unina.it/documents/11958/67409787/E%2B%2BMADRID2_25_26.pdf",
+    "linkSito": "https://www.uspceu.com/en/international/study-abroad/incoming-mobility"
+  },
+  "E  ZARAGOZ01": {
+    "requisitoLingua": "https://fecem.unizar.es/sites/fecem/files/users/movilidad/englishguide_incoming_updated_2025_26.pdf",
+    "scadenzeOspitante": "https://academico.unizar.es/en/mobility/caler",
+    "linkSito": "https://internacional.unizar.es/erasmus-incoming-students-academic-year-26-27"
+  }
+}
