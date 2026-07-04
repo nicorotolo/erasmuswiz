@@ -4,27 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 244,
+  "runCompletati": 245,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "farmacia (sapienza)-batch-followup-2",
-      "priorita": 6,
-      "dipartimento": "Farmacia (Sapienza)",
-      "descrizione": "Farmacia (Sapienza) - follow-up pending",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "F  NANCY43",
-        "F  COMPIEG05",
-        "F  GRENOBL55",
-        "F  MONTPEL54",
-        "F  BESANCO01"
-      ]
-    },
     {
       "id": "farmacia (sapienza)-batch-followup-3",
       "priorita": 6,
@@ -401,6 +387,17 @@
       "mete": [
         "TR ISTANBU21"
       ]
+    },
+    {
+      "id": "farmacia (sapienza)-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Farmacia (Sapienza)",
+      "descrizione": "Farmacia (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F  COMPIEG05",
+        "F  BESANCO01"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -671,21 +668,15 @@
       "fileJs": "js/atenei/sapienza/dati-mete-farmacia.js",
       "stato": "in_corso",
       "totale": 62,
-      "completate": 37,
+      "completate": 39,
       "pendingScadenze": [
         "F  COMPIEG05",
-        "F  MONTPEL54",
         "F  BESANCO01",
         "G  PATRA01",
         "E  SANTIAG01",
         "TR VAN01"
       ],
       "pendingLingua": [
-        "F  NANCY43",
-        "F  COMPIEG05",
-        "F  GRENOBL55",
-        "F  MONTPEL54",
-        "F  BESANCO01",
         "F  LILLE11",
         "F  RENNES09",
         "F  CERGY-P11",
@@ -703,11 +694,9 @@
       "tentativiLingua": {
         "BG SOFIA11": 2,
         "HR RIJEKA01": 2,
-        "F  NANCY43": 1,
-        "F  COMPIEG05": 1,
-        "F  GRENOBL55": 1,
-        "F  MONTPEL54": 1,
-        "F  BESANCO01": 1,
+        "F  COMPIEG05": 2,
+        "F  GRENOBL55": 2,
+        "F  BESANCO01": 2,
         "F  LILLE11": 1,
         "F  RENNES09": 1,
         "F  CERGY-P11": 1,
@@ -724,7 +713,10 @@
       },
       "linguaNonTrovabile": [
         "BG SOFIA11",
-        "HR RIJEKA01"
+        "HR RIJEKA01",
+        "F  COMPIEG05",
+        "F  GRENOBL55",
+        "F  BESANCO01"
       ]
     },
     "Comunicazione e Ricerca Sociale (Sapienza)": {
@@ -2367,6 +2359,12 @@
       "data": "2026-07-04",
       "mete": 2,
       "note": "Farmacia (Sapienza) farmacia (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 245,
+      "data": "2026-07-04",
+      "mete": 5,
+      "note": "Farmacia (Sapienza) farmacia (sapienza)-batch-followup-2: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

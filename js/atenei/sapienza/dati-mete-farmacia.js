@@ -288,7 +288,10 @@ var METE = [
       { numero: 2, mesi: 6, livello: "L", note: "" },
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1/B2", condizione: "la maggior parte dei corsi e' in francese; livello richiesto secondo i corsi scelti" },
+        { lingua: "Inglese", livello: "B1/B2", condizione: "per il semestre/corsi in inglese; livello richiesto secondo i corsi scelti" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
@@ -314,7 +317,7 @@ var METE = [
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-farm-grenobl",
@@ -337,7 +340,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "dal 15 marzo al 30 maggio" },
         { cosa: "Application (primavera)", periodo: "dal 30 agosto al 18 ottobre" }
       ],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-farm-montpel",
@@ -352,9 +355,16 @@ var METE = [
       { numero: 1, mesi: 10, livello: "L", note: "" },
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "livello minimo raccomandato per la Facolta' di Farmacia" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "dal 1 marzo al 15 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "dal 1 settembre al 30 novembre" },
+        { cosa: "Application (autunno/anno intero)", periodo: "dal 1 aprile al 30 giugno" },
+        { cosa: "Application (primavera)", periodo: "da ottobre al 10 dicembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -373,7 +383,7 @@ var METE = [
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-farm-amiens",
@@ -464,7 +474,7 @@ var METE = [
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-farm-lille",
