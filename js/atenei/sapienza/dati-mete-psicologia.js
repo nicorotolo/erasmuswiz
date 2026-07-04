@@ -418,7 +418,11 @@ var METE = [
     posti: [
       { numero: 2, mesi: 10, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "per corsi in francese" },
+        { lingua: "Francese", livello: "C1", condizione: "per corsi di Modern Literature and Education" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Nomination (autunno)", periodo: "entro 3 giugno" },
