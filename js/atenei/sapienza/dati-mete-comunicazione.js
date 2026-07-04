@@ -536,7 +536,7 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "entro 21 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
       ],
-    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-comm-coimbra",
