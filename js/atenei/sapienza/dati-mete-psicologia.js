@@ -1248,7 +1248,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 gennaio" },
         { cosa: "Application (primavera)", periodo: "entro 30 gennaio" }
       ],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-psico1-bydgosz",
@@ -1294,7 +1294,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
         { cosa: "Application (primavera)", periodo: "entro 15 dicembre" }
       ],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-psico1-poznan",
