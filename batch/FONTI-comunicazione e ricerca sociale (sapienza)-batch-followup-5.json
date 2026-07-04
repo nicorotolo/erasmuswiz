@@ -1,0 +1,18 @@
+{
+  "E  VALLADO03": {
+    "linkSito": "https://international.uemc.es/p/erasmus-incoming-2",
+    "notePraticheAppend": "https://international.uemc.es/p/erasmus-incoming-2"
+  },
+  "E  BILBAO01": {
+    "linkSito": "https://www.ehu.eus/en/web/nazioarteko-harremanak/en-erasmus-students",
+    "notePraticheAppend": "https://www.ehu.eus/en/web/nazioarteko-harremanak/en-language-requirements"
+  },
+  "E  MURCIA01": {
+    "requisitoLingua": "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254517",
+    "linkSito": "https://erasmus.um.es/erasmus/ControlAlexErasmus?ayuda=&idioma=I001&opcion=informacion&seccion=ALEX&validado=S"
+  },
+  "E  CIUDA-R01": {
+    "requisitoLingua": "https://www.uclm.es/-/media/Files/A01-Asistencia-Direccion/A01-101-Vicerrectorado-Internacionalizacion/Web-Vicerrectorado/Oferta-Internacional/Bilateralinterinstitutionalagreement20212027-web.ashx?la=es",
+    "linkSito": "https://www.uclm.es/en/misiones/internacional/movilidad/movilidad_entrante/estudiantes/estudiantes-de-intercambio"
+  }
+}
