@@ -1,0 +1,14 @@
+{
+  "E  GRANADA01": {
+    "requisitoLingua": "https://internacional.ugr.es/en/students/incoming-mobility/undergraduate/erasmus-eu",
+    "linkSito": "https://internacional.ugr.es/en/students/incoming-mobility/undergraduate/erasmus-eu"
+  },
+  "E  LAS-PAL01": {
+    "linkSito": "https://internacional.ulpgc.es/en/movilidad-incoming/estudiantes-incoming/study-at-the-ulpgc-incoming/exchange-students/",
+    "notePraticheAppend": "https://internacional.ulpgc.es/en/movilidad-incoming/universities/partner-universities/"
+  },
+  "E  LA-CORU01": {
+    "requisitoLingua": "https://www.udc.es/en/ori/infestudantesextranxeiros/Admision/12y56_LanguageProficiency/",
+    "linkSito": "https://www.udc.es/en/ori/entrantes/"
+  }
+}

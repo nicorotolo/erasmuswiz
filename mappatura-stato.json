@@ -4,25 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 263,
+  "runCompletati": 264,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "scienze sociali ed economiche (sapienza)-batch-followup-4",
-      "priorita": 6,
-      "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
-      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - follow-up pending",
-      "tipo": "lingua",
-      "mete": [
-        "E  GRANADA01",
-        "E  LAS-PAL01",
-        "E  LA-CORU01"
-      ]
-    },
     {
       "id": "scienze sociali ed economiche (sapienza)-batch-followup-5",
       "priorita": 6,
@@ -596,29 +584,25 @@
       "fileJs": "js/atenei/sapienza/dati-mete-scienze-sociali.js",
       "stato": "in_corso",
       "totale": 68,
-      "completate": 57,
+      "completate": 59,
       "pendingScadenze": [
         "TR ANKARA03"
       ],
       "pendingLingua": [
-        "E  GRANADA01",
-        "E  LAS-PAL01",
-        "E  LA-CORU01",
         "E  BARCELO02",
         "S  STOCKHO01",
         "TR ISTANBU32"
       ],
       "tentativiLingua": {
         "RO BUCURES09": 2,
-        "E  GRANADA01": 1,
-        "E  LAS-PAL01": 1,
-        "E  LA-CORU01": 1,
+        "E  LAS-PAL01": 2,
         "E  BARCELO02": 1,
         "S  STOCKHO01": 1,
         "TR ISTANBU32": 1
       },
       "linguaNonTrovabile": [
-        "RO BUCURES09"
+        "RO BUCURES09",
+        "E  LAS-PAL01"
       ]
     },
     "Psicologia e Servizio Sociale (Sapienza)": {
@@ -2289,6 +2273,12 @@
       "data": "2026-07-04",
       "mete": 1,
       "note": "Scienze Sociali ed Economiche (Sapienza) scienze sociali ed economiche (sapienza)-batch-followup-3: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 264,
+      "data": "2026-07-04",
+      "mete": 3,
+      "note": "Scienze Sociali ed Economiche (Sapienza) scienze sociali ed economiche (sapienza)-batch-followup-4: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
