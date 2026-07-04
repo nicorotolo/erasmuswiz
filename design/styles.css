@@ -1,0 +1,11 @@
+/* ============================================================
+   ErasmusWiz — Design System
+   Punto d'ingresso unico dei CSS. Solo @import: i consumatori
+   linkano questo file e ottengono token, font e base.
+   ============================================================ */
+
+@import url('./tokens/fonts.css');
+@import url('./tokens/colors.css');
+@import url('./tokens/typography.css');
+@import url('./tokens/spacing.css');
+@import url('./tokens/base.css');

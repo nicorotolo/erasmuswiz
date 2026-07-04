@@ -4,7 +4,71 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-03 — sessione 14 (**Manutenzione: risolta la causa
+**Ultimo aggiornamento:** 2026-07-04 — sessione 16, in chat con Claude (**Definita
+l'ONDATA BRAND: design system, assessment del sito, mascotte definitiva.** Nessun
+codice toccato: sessione di design e pianificazione. (1) **Design system**: Nicola ha
+portato da Claude Design il sistema (token, tono di voce, font Bricolage/Jakarta/
+Space Mono, blu #3d7dff + oro #ffb627 + notte #1b377b), un prototipo React standalone
+e il PDF "Redesign — Esplorazioni"; tutto copiato in `design/` (tokens, asset SVG,
+riferimenti). Regola fissata: **niente React** — il prototipo è solo riferimento
+visivo, si resta vanilla. (2) **Brief `DISEGNO_BRAND.md`** (nuovo documento-specifica,
+vincolante come DISEGNO_UX.md): sessioni **BR0–BR7** (fondamenta token → componenti →
+home/identità → onboarding+fase1 → mete+schedina → "prossimi 3 passi" → zaino+desktop
+→ QA). Varianti scelte dal PDF: 1a/2b/3b/4a+4b/5b/6a/7a; scartati quiz 3a, chat 2a,
+home 1b. Schedina = 5 slot ordinabili (`ZAINO.schedina`); nav desktop nell'header
+≥1024px; breakpoint canonici 768/1024. (3) **Assessment sul codice** (fatto file alla
+mano): struttura UX al ~70% della visione; 4 difetti trovati e inseriti nel brief —
+banner lingue fase 2 MAI implementato (era in DISEGNO_UX §3/§5) → BR4; stepper marca
+fase 1 ✅ col solo profiloOk ignorando `ZAINO.autoverifica` → fix in BR3; meta
+description/OG di index.html obsoleta ("Ca' Foscari, 249 mete") → BR7; pagina Timeline
+nascosta ridondante → decidere in BR7/UX6. ROADMAP aggiornata: nuova sezione ONDATA
+BRAND tra UX e B; UX6 marcato "dopo BR7" (primo passaggio informale col fratello già
+fatto: direzione confermata). (4) **Mascotte**: approvati i render 3D del maghetto-
+tartaruga (stesso personaggio Wiz, forma definitiva — la bozza `mascot-wiz.svg` è
+superata); set di 6 pose semantiche + 1 scena marketing, tabella d'uso in
+DISEGNO_BRAND §2-bis; cartella `design/assets/mascotte/` creata. **Azioni per
+Nicola**: salvare le 7 immagini in `design/assets/mascotte/` coi nomi della tabella;
+committare tutto con `PUBBLICA.bat`; poi lanciare Claude Code su BR0 col prompt
+concordato in chat. Ordine: UX5-Sapienza (in chat) e BR0–BR7 in parallelo → UX6.)
+
+**Aggiornamento precedente:** 2026-07-03 — sessione 15 (**Sbloccata l'automazione Codex:
+bug in `mappatura-stato.json` impediva l'avanzamento a Farmacia/Comunicazione/Scienze
+Sociali/Psicologia (Sapienza).** Nicola segnalava che, pur avendo già programmato
+l'espansione ai 4 dipartimenti Sapienza rimanenti, ogni lancio di Codex non procedeva.
+Due cause distinte, in sequenza: **(a) worktree locale sporca** — il guardrail
+`scripts/inizia-batch.mjs` (`git status --porcelain --untracked-files=no` non vuoto →
+exit 1, run interrotto SENZA log leggibile per l'utente) blocca ogni run prima ancora
+di guardare la coda batch. Causa: gli stessi file-spazzatura tracciati di sessione 14
+(l'azione richiesta lì non era ancora stata eseguita) più 2 file con sole differenze
+di fine riga. Risolti su Windows con commit mirati (`8d5ef99` rimozione
+`m.dipartimentoCf`, poi `2105223` rimozione di altri 4 file-fantasma
+`!(ZAINO.checklist`, `` `${a.nome}` ``, `{,+` ecc. — stesso pattern di sessione 14, la
+cui azione richiesta è quindi **completata ora**, manualmente via git invece che coi
+file `.bat`). **(b) bug più serio, sui dati** — a worktree pulita, Codex si bloccava
+dentro `prepara-batch.mjs` con `Error: Meta non trovata: sap-farm-leuven`. Causa: le
+voci `statoDipartimenti` di Farmacia/Comunicazione/Scienze Sociali/Psicologia
+(Sapienza) in `mappatura-stato.json` erano state scritte A MANO (mai passate da
+`scripts/setup-dipartimento.mjs`, violando la regola esplicita del prompt automazione
+"NON modificare lo stato a mano") usando il campo `id` della meta (es.
+`sap-farm-leuven`) al posto di `codiceErasmus` (es. `"B  LEUVEN01"`) dentro
+`pendingScadenze`/`pendingLingua`/`prossimiBatch[].mete` — ma `prepara-batch.mjs`
+cerca le mete sempre per `codiceErasmus`. Verificato prima di correggere:
+`completate = 0` su tutti e 4 i dipartimenti, quindi nessun lavoro reale da perdere.
+Fix: le 4 sezioni sono state rigenerate da zero con la STESSA logica di
+`setup-dipartimento.mjs` (chiavi = codiceErasmus, deduplica per le mete che
+condividono lo stesso codice — più accordi con lo stesso partner — sotto-batch da 5),
+incluso nel commit di pulizia sopra. Verificato due volte DOPO il push, sul commit
+pubblicato: `node scripts/valida-stato.mjs` → "Stato coerente"; `node
+scripts/prepara-batch.mjs` → batch `farmacia-batch-1` valido con 5 codici Erasmus
+reali (`B  LEUVEN01`, `B  LIEGE01`, `B  BRUSSEL01`, `B  BRUXEL04`, `B  ANTWERP01`).
+Codex è pronto a ripartire da solo dal batch di Farmacia. **Nota per sessioni
+future**: qualsiasi nuovo dipartimento in `mappatura-stato.json` va SEMPRE registrato
+via `node scripts/setup-dipartimento.mjs`, mai scrivendo lo stato a mano — è la causa
+esatta di questo blocco. **Azione residua per Nicola**: cancellare da Windows due
+file di lavoro non tracciati e innocui rimasti sul disco — `_ripara_tmp.mjs` e
+`batch/INPUT.json` (`del _ripara_tmp.mjs` e `del batch\INPUT.json`).)
+
+**Aggiornamento precedente:** 2026-07-03 — sessione 14 (**Manutenzione: risolta la causa
 dei "file spazzatura" ricorrenti (`!(ZAINO.checklist`, `` `${a.nome}` ``, `{,+`, `main`,
 `Stato`...).** Non era corruzione OneDrive: erano residui di comandi shell rotti che
 `PUBBLICA.bat` (via `git add -A`) inglobava nei commit, e `PULISCI-SPAZZATURA.bat`
@@ -459,6 +523,8 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | `README.md` | guida | Spiegazione file + come aggiungere una meta + come testare |
 | `STATO_DEL_SITO.md` | guida | Questo file: stato aggiornato |
 | `DISEGNO_UX.md` | guida | **Specifica vincolante del ridisegno UX v3** (02/07) — da leggere nelle sessioni UX1–UX6 |
+| `DISEGNO_BRAND.md` | guida | **Specifica vincolante dell'ondata BRAND** (04/07) — da leggere nelle sessioni BR0–BR7 |
+| `design/` | design | Design system da Claude Design: `readme.md` (brand+tono), `tokens/*.css` (fonte dei valori), `assets/` (logo, SVG), `assets/mascotte/` (pose Wiz 3D, le salva Nicola), `riferimenti/` (prototipo + PDF esplorazioni) |
 | `PROGETTO_ERASMUS.md` | guida | Bussola strategica (idea, confini, rischi) |
 | `BRIEF_claude_code_fase1.md` | guida | Brief iniziale Fase 1 (storico) |
 | `DISEGNO_DATI_erasmus.md` | guida | Struttura dati validata + logica compatibilità |
@@ -513,6 +579,34 @@ python -m http.server 8000
 poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
+
+**Aggiornamento 2026-07-04 — sessione 16 (ondata BRAND definita):**
+1. **Nicola, subito**: salvare le 7 immagini della mascotte in
+   `design/assets/mascotte/` (nomi: `wiz-saluto`, `wiz-pensieroso`,
+   `wiz-spiega`, `wiz-esulta`, `wiz-zaino`, `wiz-clessidra`,
+   `scena-scrivania-marketing`), poi `PUBBLICA.bat` per committare
+   design/ + DISEGNO_BRAND.md + ROADMAP + questo file.
+2. **Poi**: lanciare Claude Code sulla sessione **BR0** (prompt concordato:
+   leggere CLAUDE.md, STATO, ROADMAP, DISEGNO_BRAND.md, design/readme.md;
+   solo BR0; niente commit). Avanti così BR1→BR7, un blocco per sessione,
+   `PUBBLICA.bat` tra una e l'altra.
+3. **In parallelo (Nicola + Claude in chat)**: UX5-Sapienza — scrivere
+   spiegazione/azione/citazione/fonte per bando e checklist Sapienza
+   (priorità Giurisprudenza). È il gap più urgente per il test.
+4. **Dopo BR7**: UX6, test approfondito col fratello su mobile.
+
+**Aggiornamento 2026-07-03 — sessione 15:**
+- **Punto 0 di sessione 14 (qui sotto) COMPLETATO**: i file-fantasma sono stati
+  rimossi e pushati manualmente via git (commit `8d5ef99` e `2105223`), non tramite
+  `PULISCI-SPAZZATURA.bat`/`PUBBLICA.bat`. La rete di sicurezza aggiunta a quei due
+  `.bat` in sessione 14 resta comunque attiva per eventuali file-fantasma futuri.
+- **Sbloccata anche l'automazione Codex** (bug `id` vs `codiceErasmus` in
+  `mappatura-stato.json` per Farmacia/Comunicazione/Scienze Sociali/Psicologia
+  Sapienza — dettagli in cima al documento). Prossimo passo: rilanciare/attendere il
+  normale giro di Codex e verificare che proceda oltre `farmacia-batch-1` senza
+  errori.
+- Da cancellare su Windows (residui innocui, non tracciati): `_ripara_tmp.mjs`,
+  `batch/INPUT.json`.
 
 **Aggiornamento 2026-07-03 — sessione 14 (fix "file spazzatura" nel repo, manutenzione, non contenuti):**
 0. **⚠️ Azione richiesta da Nicola su Windows, in ordine**: lanciare
@@ -733,45 +827,4 @@ root sostituito con il design v2 (tab OGGI/METE/TIMELINE/CHECKLIST, missione del
 giorno, percorso a tappe, countdown pill, mascotte Wiz, dark mode). `css/style.css`
 e `js/app.js` aggiornati, `img/wiz-hero.png` copiato, `const METE` → `var METE`
 in entrambi i file dati, concat Economia+Management inline in `index.html`.
-GoatCounter (A3) già integrato nella v2: account `erasmuswiz.goatcounter.com`.
-
-Fatto in sessione (2026-06-25): **MERGE GitHub→locale.** Il lavoro di Codex
-(che merge solo su GitHub) è stato portato nel working tree locale. Scoperta la
-divergenza incrociata: GitHub aveva i dati nuovi ma il design v1; il locale aveva
-il v2 ma i dati vecchi. Merge selettivo: presi i file `js/dati-*.js` +
-`mappatura-stato.json` da `origin/main` con `git show`, tenuto il codice v2
-(`index.html`, `css/style.css`, `js/app.js`, `img/`). Aggiunti 3 dipartimenti
-(Lingue, Scienze, Filosofia) → **249 mete totali**. Convertiti i 5 file mete a
-`var METE` e collegati in `index.html` con catena `_meteAll`. Validato: `node
---check` su tutti i JS OK, simulazione concat = 249 mete / 249 ID unici / 0
-problemi strutturali. Backup pre-merge in `_backup-20260625-*/`. **Push su GitHub
-FATTO** (commit `8bc3206` su main, via `pubblica-v2-su-github.bat`): il sito
-pubblico ora serve il v2 con 249 mete. `node_modules/` (jsdom usato per i test)
-aggiunto a `.gitignore`, da cancellare a mano.
-
-0. **⬆️ PUSH locale → GitHub:** i 3 nuovi file (`dati-mete-molecolari.js`,
-   `dati-mete-linguistici.js`, `dati-mete-umanistici.js`) e l'`index.html`
-   aggiornato sono solo in locale (branch `feature/pipeline-imbuto`). Vanno pushati
-   su `origin/main` con il metodo bat già usato (`pubblica-v2-su-github.bat` o
-   equivalente) per aggiornare il sito pubblico.
-1. **Mappatura Codex automatica:** l'automazione è ATTIVA (ogni ~9 min, GPT-5.5 Basso).
-   8 dipartimenti tutti "completo" — Codex può fermarsi o essere puntato su EUTOPIA.
-2. **EUTOPIA (task futura):** 46 accordi cross-dipartimentali (presenti in
-   `fonti/Lista_destinazioni_Erasmus__per_studio_europa_a.a._2026-2027.ods`, riga
-   "EUTOPIA"). Richiedono logica filtro speciale (non legati a un singolo
-   dipartimentoCf). Da pianificare in sessione dedicata.
-3. **Testare in locale** (`python -m http.server 8000`) e verificare che 392 mete
-   si carichino correttamente (tutti e 8 i file nella catena `_meteAll`).
-4. **Test utenti reali:** far usare il cruscotto a 2-3 studenti Ca' Foscari.
-
-### Idee future (solo con trazione provata — vedi PROGETTO_ERASMUS.md)
-- Fase post-selezione (checklist che cambia dopo l'assegnazione).
-- PWA ("aggiungi a schermata home" + notifiche scadenze).
-- Più dipartimenti, poi altre università.
-- Account/login (lo "zaino" è già pronto per il passaggio).
-
----
-
-## COME AGGIORNARE QUESTO FILE
-Dopo ogni avanzamento: cambia la data in alto, aggiorna la tabella delle fasi
-(sezione 2), lo stato contenuti (sezione 6) e i prossimi passi (sezione 8).
+GoatCounter (A3) già integrato n

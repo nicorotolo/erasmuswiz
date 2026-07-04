@@ -1,0 +1,52 @@
+<svg width="220" height="280" viewBox="0 0 220 280" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Wiz, la mascotte di ErasmusWiz">
+  <defs>
+    <linearGradient id="mzHat" x1="60" y1="12" x2="150" y2="96" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5e8eff"></stop><stop offset="1" stop-color="#214ec4"></stop>
+    </linearGradient>
+    <linearGradient id="mzRobe" x1="60" y1="160" x2="150" y2="272" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3d7dff"></stop><stop offset="1" stop-color="#1d409c"></stop>
+    </linearGradient>
+  </defs>
+
+  
+  <line x1="138" y1="206" x2="182" y2="74" stroke="#1f2840" stroke-width="6" stroke-linecap="round"></line>
+  <path d="M182 56 l5.5 11.2 12.3 1.8 -8.9 8.7 2.1 12.3 -11-5.8 -11 5.8 2.1-12.3 -8.9-8.7 12.3-1.8 Z" fill="#ffb627"></path>
+  <path d="M158 48 l2 5 5 2 -5 2 -2 5 -2-5 -5-2 5-2 Z" fill="#ffcb4d"></path>
+  <circle cx="200" cy="98" r="2.6" fill="#ffcb4d"></circle>
+
+  
+  <path d="M74 158 C90 168 130 168 146 158 L168 264 C168 270 163 274 157 274 L63 274 C57 274 52 270 52 264 Z" fill="url(#mzRobe)"></path>
+  
+  <path d="M74 162 C58 178 48 200 50 224 C58 226 66 222 70 214 C74 196 80 178 90 168 Z" fill="#2a63ec"></path>
+  <path d="M146 162 C160 176 150 196 138 206 C132 200 130 192 132 184 C134 176 138 168 138 168 Z" fill="#2a63ec"></path>
+  
+  <circle cx="138" cy="206" r="9" fill="#ffd9b8"></circle>
+  
+  <path d="M92 160 L110 176 L128 160 Z" fill="#ffb627"></path>
+  <path d="M96 214 l2.6 5.3 5.8 0.8 -4.2 4.1 1 5.8 -5.2-2.7 -5.2 2.7 1-5.8 -4.2-4.1 5.8-0.8 Z" fill="#ffcb4d"></path>
+  <circle cx="120" cy="236" r="3" fill="#ffcb4d"></circle>
+
+  
+  <circle cx="110" cy="128" r="35" fill="#ffd9b8"></circle>
+  
+  <circle cx="76" cy="130" r="7" fill="#ffd9b8"></circle>
+  <circle cx="144" cy="130" r="7" fill="#ffd9b8"></circle>
+  
+  <circle cx="89" cy="138" r="7" fill="#ff9eb0" opacity="0.65"></circle>
+  <circle cx="131" cy="138" r="7" fill="#ff9eb0" opacity="0.65"></circle>
+  
+  <circle cx="98" cy="126" r="5" fill="#1f2840"></circle>
+  <circle cx="122" cy="126" r="5" fill="#1f2840"></circle>
+  <circle cx="99.6" cy="124" r="1.6" fill="#fff"></circle>
+  <circle cx="123.6" cy="124" r="1.6" fill="#fff"></circle>
+  
+  <path d="M97 142 Q110 153 123 142" stroke="#1f2840" stroke-width="3.4" stroke-linecap="round" fill="none"></path>
+
+  
+  <ellipse cx="110" cy="96" rx="56" ry="14" fill="#1b377b"></ellipse>
+  <ellipse cx="110" cy="92" rx="56" ry="14" fill="#3d7dff"></ellipse>
+  <path d="M100 92 C74 88 60 85 54 83 C62 50 82 26 112 11 C123 5 132 13 126 25 C118 44 113 68 124 90 C115 92 110 92 100 92 Z" fill="url(#mzHat)"></path>
+  <path d="M60 70 C82 77 116 77 134 69 C132 76 131 81 130 86 C110 92 88 92 58 84 C58 79 59 74 60 70 Z" fill="#ffb627"></path>
+  <path d="M93 64 l4.4 9 9.9 1.4 -7.1 7 1.7 9.8 -8.9-4.6 -8.8 4.6 1.7-9.8 -7.2-7 9.9-1.4 Z" fill="#fff8e8"></path>
+  <path d="M150 36 l2.2 5.5 5.5 2.2 -5.5 2.2 -2.2 5.5 -2.2-5.5 -5.5-2.2 5.5-2.2 Z" fill="#ffcb4d"></path>
+</svg>

@@ -109,10 +109,49 @@ codice irrobustito. ~6 sessioni.
     voci di checklist (UX4 li faceva solo sui requisiti) + 3 righe CSS.
   - [ ] **Resta: Sapienza** (requisiti + checklist, dati ancora `inVerifica`).
     Priorità Giurisprudenza per sbloccare UX6.
-- [ ] **UX6. Test con utente reale** (Nicola, 1 sessione)
+- [ ] **UX6. Test con utente reale** (Nicola, 1 sessione) — **dopo BR7**
   - Il fratello (Sapienza, Giurisprudenza) usa la versione nuova senza
     spiegazioni. Osservare: primi 60 secondi, capisce cosa fare dopo?, parole
     non capite. Annotare in `FEEDBACK_UTENTI.md`. Poi sessione correzioni.
+  - Primo passaggio informale già fatto (inizio luglio): direzione confermata,
+    nessuna nota puntuale. Questo è il test approfondito.
+
+### ONDATA BRAND — Identità visiva + rifiniture (luglio 2026)
+
+> Decisione 04/07/2026, aggiornata dopo l'assessment dello stesso giorno.
+> **Specifica vincolante: `DISEGNO_BRAND.md`** (+ design system in `design/`).
+> Sessioni BR0–BR7 (rinominate da B0–B7 per non confonderle con l'ONDATA B).
+> Una sessione = un blocco. Il sito v2 usa GIÀ i font del brand e una palette
+> vicina: BR0 è un riallineamento dei token, non un rifacimento.
+
+- [ ] **BR0. Fondamenta** — riallineare i token di `css/style.css` a
+  `design/tokens/` (notte `#101b3f`→`#1b377b`, oro `#ffd766`→`#ffb627`,
+  raggi/ombre), logo+wordmark SVG nell'header, favicon dal logo-mark.
+  Dark mode: adattamento minimo.
+- [ ] **BR1. Componenti base** (solo CSS) — bottoni/card/badge/chip/form/
+  checklist/progress secondo il design system; `prefers-reduced-motion`.
+- [ ] **BR2. Home e identità** — hero blu notte con Wiz e claim, stepper e
+  nav ribrandizzati.
+- [ ] **BR3. Onboarding + Fase 1** — vestizione 2b e semaforo 3b. **In più
+  (fix da assessment): coerenza fase 1** — lo stepper marca la fase 1 ✅
+  quando TUTTE le auto-verifiche sono spuntate (`ZAINO.autoverifica`), non
+  col solo `profiloOk`; fallback per zaini con profilo ma senza spunte.
+- [ ] **BR4. Mete + Schedina** — card compatte + chip (4a); nuova vista
+  "Le tue 5 scelte" con slot ordinabili ▲▼ (`ZAINO.schedina`, fallback da
+  `metePreferite`). **In più (fix da assessment): banner lingue contestuale**
+  in fase 2 ("Aggiungi le tue lingue per vedere le mete compatibili") — era
+  in `DISEGNO_UX.md` §3/§5 ma NON è mai stato implementato.
+- [ ] **BR5. Candidatura "prossimi 3 passi"** (5b) — blocco "Ora tocca a te"
+  sopra i capitoli, capitoli non imminenti ripiegati.
+- [ ] **BR6. Zaino (6a) + Desktop (7a)** — fase 4 come zaino prima/durante/
+  dopo; layout desktop 2 colonne (≥1024px), mobile invariato.
+- [ ] **BR7. QA e chiusura** — regressione completa (2 atenei, zaini vecchi,
+  chiaro/scuro, mobile/desktop, .ics, schedina). **In più (fix da
+  assessment):** aggiornare meta description/OG di `index.html` (dice
+  ancora "per studenti Ca' Foscari, 249 mete" — il sito è multi-ateneo e
+  le mete sono molte di più); decidere la sorte della pagina Timeline
+  nascosta (tenerla come archivio o rimuovere il link "Vedi tutte le
+  scadenze" se il test dice che confonde).
 
 ### ONDATA B — Post-selezione: gli utenti di oggi (luglio–settembre 2026)
 

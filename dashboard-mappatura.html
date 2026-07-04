@@ -105,7 +105,7 @@ const STATO = {
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Architettura (Sapienza)",
-  "runCompletati": 191,
+  "runCompletati": 193,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
@@ -113,24 +113,688 @@ const STATO = {
   },
   "prossimiBatch": [
     {
-      "id": "architettura (sapienza)-batch-followup-18",
+      "id": "farmacia-batch-1",
       "priorita": 6,
-      "dipartimento": "Architettura (Sapienza)",
-      "descrizione": "Architettura (Sapienza) - follow-up pending",
-      "tipo": "lingua",
+      "dipartimento": "Farmacia (Sapienza)",
+      "descrizione": "Farmacia (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
       "mete": [
-        "SAP-ARCHI-BURSA"
+        "B  LEUVEN01",
+        "B  LIEGE01",
+        "B  BRUSSEL01",
+        "B  BRUXEL04",
+        "B  ANTWERP01"
       ]
     },
     {
-      "id": "architettura (sapienza)-batch-followup-1",
+      "id": "farmacia-batch-2",
       "priorita": 6,
-      "dipartimento": "Architettura (Sapienza)",
-      "descrizione": "Architettura (Sapienza) - follow-up pending",
+      "dipartimento": "Farmacia (Sapienza)",
+      "descrizione": "Farmacia (Sapienza) - scadenze+lingua",
       "tipo": "scadenze+lingua",
       "mete": [
-        "SAP-ARCHI-MADEIRA",
-        "SAP-ARCHI-EVORA"
+        "BG SOFIA11",
+        "BG VARNA03",
+        "HR ZAGREB01",
+        "HR OSIJEK01",
+        "HR RIJEKA01"
+      ]
+    },
+    {
+      "id": "farmacia-batch-3",
+      "priorita": 6,
+      "dipartimento": "Farmacia (Sapienza)",
+      "descrizione": "Farmacia (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F  NANCY43",
+        "F  COMPIEG05",
+        "F  GRENOBL55",
+        "F  MONTPEL54",
+        "F  BESANCO01"
+      ]
+    },
+    {
+      "id": "farmacia-batch-4",
+      "priorita": 6,
+      "dipartimento": "Farmacia (Sapienza)",
+      "descrizione": "Farmacia (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F  AMIENS01",
+        "F  POITIER01",
+        "F  LYON01",
+        "F  LILLE11",
+        "F  RENNES09"
+      ]
+    },
+    {
+      "id": "farmacia-batch-5",
+      "priorita": 6,
+      "dipartimento": "Farmacia (Sapienza)",
+      "descrizione": "Farmacia (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F  MARSEIL84",
+        "F  CERGY-P11",
+        "F  ANGERS01",
+        "D  SAARBRU01",
+        "D  BERLIN02"
+      ]
+    },
+    {
+      "id": "farmacia-batch-6",
+      "priorita": 6,
+      "dipartimento": "Farmacia (Sapienza)",
+      "descrizione": "Farmacia (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "G  PATRA01",
+        "G  ATHINE01",
+        "PL WROCLAW05",
+        "PL WARSZAW06",
+        "P  BRAGANC01"
+      ]
+    },
+    {
+      "id": "farmacia-batch-7",
+      "priorita": 6,
+      "dipartimento": "Farmacia (Sapienza)",
+      "descrizione": "Farmacia (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "P  LISBOA109",
+        "P  COIMBRA01",
+        "P  COVILHA01",
+        "UK LONDON017",
+        "RO BUCURES09"
+      ]
+    },
+    {
+      "id": "farmacia-batch-8",
+      "priorita": 6,
+      "dipartimento": "Farmacia (Sapienza)",
+      "descrizione": "Farmacia (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "RO CLUJNAP01",
+        "RS  BELGRAD02",
+        "SI LJUBLJA01",
+        "E  MADRID21",
+        "E  GRANADA01"
+      ]
+    },
+    {
+      "id": "farmacia-batch-9",
+      "priorita": 6,
+      "dipartimento": "Farmacia (Sapienza)",
+      "descrizione": "Farmacia (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E  SANTIAG01",
+        "E  SALAMAN02",
+        "E  MADRID03",
+        "E  BARCELO01",
+        "E  ZARAGOZ07"
+      ]
+    },
+    {
+      "id": "farmacia-batch-10",
+      "priorita": 6,
+      "dipartimento": "Farmacia (Sapienza)",
+      "descrizione": "Farmacia (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E  BURGOS01",
+        "E  CORDOBA23",
+        "E  PALMA01",
+        "TR ISTANBU19",
+        "TR KAYSERI01"
+      ]
+    },
+    {
+      "id": "farmacia-batch-11",
+      "priorita": 6,
+      "dipartimento": "Farmacia (Sapienza)",
+      "descrizione": "Farmacia (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "TR VAN01",
+        "HU BUDAPES08"
+      ]
+    },
+    {
+      "id": "comunicazione-batch-1",
+      "priorita": 6,
+      "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
+      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "A  WIEN01",
+        "A  SALZBUR01",
+        "B  LOUVAIN01",
+        "EE TARTU02",
+        "F  PARIS008"
+      ]
+    },
+    {
+      "id": "comunicazione-batch-2",
+      "priorita": 6,
+      "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
+      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F  LYON02",
+        "F  RENNES02",
+        "F  MARSEIL84",
+        "D  AUGSBUR01",
+        "D  TUBINGE01"
+      ]
+    },
+    {
+      "id": "comunicazione-batch-3",
+      "priorita": 6,
+      "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
+      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D  MUNCHEN01",
+        "G  ATHINE01",
+        "LV RIGA02",
+        "LT VILNIUS01",
+        "N  OSLO58"
+      ]
+    },
+    {
+      "id": "comunicazione-batch-4",
+      "priorita": 6,
+      "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
+      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "PL KRAKOW01",
+        "PL WARSZAW01",
+        "P  LISBOA11",
+        "P  COVILHA01",
+        "P  PORTO02"
+      ]
+    },
+    {
+      "id": "comunicazione-batch-5",
+      "priorita": 6,
+      "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
+      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "P  COIMBRA01",
+        "P  LISBOA52",
+        "P  MAIA01",
+        "CZ PRAHA07",
+        "RO BUCURES09"
+      ]
+    },
+    {
+      "id": "comunicazione-batch-6",
+      "priorita": 6,
+      "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
+      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E  VALLADO03",
+        "E  BILBAO01",
+        "E  MURCIA01",
+        "E  CIUDA-R01",
+        "E  MADRID238"
+      ]
+    },
+    {
+      "id": "comunicazione-batch-7",
+      "priorita": 6,
+      "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
+      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E  VIGO01",
+        "E  MADRID26",
+        "E  SALAMAN01",
+        "E  BARCELO01",
+        "E  SANTIAG01"
+      ]
+    },
+    {
+      "id": "comunicazione-batch-8",
+      "priorita": 6,
+      "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
+      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E  LA-CORU01",
+        "E  MADRID17",
+        "E  MADRID03",
+        "E  SEVILLA01",
+        "CH LUGANO01"
+      ]
+    },
+    {
+      "id": "comunicazione-batch-9",
+      "priorita": 6,
+      "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
+      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "CH FRIBOUR01",
+        "CH BERN01",
+        "TR ISTANBU03",
+        "TR ANKARA03",
+        "TR ISTANBU21"
+      ]
+    },
+    {
+      "id": "comunicazione-batch-10",
+      "priorita": 6,
+      "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
+      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "TR ISTANBU17"
+      ]
+    },
+    {
+      "id": "scienze-sociali-batch-1",
+      "priorita": 6,
+      "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
+      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "A  SALZBUR01",
+        "B  LOUVAIN01",
+        "B  LEUVEN01",
+        "B  BRUXEL04",
+        "F  LILLE103"
+      ]
+    },
+    {
+      "id": "scienze-sociali-batch-2",
+      "priorita": 6,
+      "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
+      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F  VERSAIL11",
+        "F  LYON02",
+        "F  PARIS482",
+        "F  POITIER01",
+        "F  LE-HAVR11"
+      ]
+    },
+    {
+      "id": "scienze-sociali-batch-3",
+      "priorita": 6,
+      "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
+      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F  PARIS057",
+        "F  BORDEAU58",
+        "F  PARIS003",
+        "F  CHAMBER01",
+        "F  MARSEIL84"
+      ]
+    },
+    {
+      "id": "scienze-sociali-batch-4",
+      "priorita": 6,
+      "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
+      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D  MUNCHEN01",
+        "D  BERLIN02",
+        "D  FREIBUR01",
+        "D  BAMBERG01",
+        "D  AACHEN01"
+      ]
+    },
+    {
+      "id": "scienze-sociali-batch-5",
+      "priorita": 6,
+      "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
+      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D  JENA01",
+        "D  LUNEBUR01",
+        "D  BERLIN06",
+        "D  TUBINGE01",
+        "G  KALLITH02"
+      ]
+    },
+    {
+      "id": "scienze-sociali-batch-6",
+      "priorita": 6,
+      "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
+      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "G  ATHINE01",
+        "PL KRAKOW01",
+        "PL KRAKOW02",
+        "P  LISBOA07",
+        "P  LISBOA11"
+      ]
+    },
+    {
+      "id": "scienze-sociali-batch-7",
+      "priorita": 6,
+      "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
+      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "P  PORTO11",
+        "UK SOUTHAM01",
+        "CZ OLOMOUC01",
+        "RO BUCURES09",
+        "E  CADIZ01"
+      ]
+    },
+    {
+      "id": "scienze-sociali-batch-8",
+      "priorita": 6,
+      "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
+      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E  VALLADO01",
+        "E  ZARAGOZ01",
+        "E  BILBAO01",
+        "E  MURCIA01",
+        "E  MADRID03"
+      ]
+    },
+    {
+      "id": "scienze-sociali-batch-9",
+      "priorita": 6,
+      "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
+      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E  TENERIF01",
+        "E  GRANADA01",
+        "E  VALENCI01",
+        "E  LAS-PAL01",
+        "E  LA-CORU01"
+      ]
+    },
+    {
+      "id": "scienze-sociali-batch-10",
+      "priorita": 6,
+      "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
+      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E  HUELVA01",
+        "E  BARCELO02",
+        "E  BADAJOZ01",
+        "E  SEVILLA03",
+        "E  PAMPLON02"
+      ]
+    },
+    {
+      "id": "scienze-sociali-batch-11",
+      "priorita": 6,
+      "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
+      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E  BILBAO02",
+        "E  ALICANT01",
+        "E  MADRID04",
+        "S  STOCKHO01",
+        "TR ANKARA03"
+      ]
+    },
+    {
+      "id": "scienze-sociali-batch-12",
+      "priorita": 6,
+      "dipartimento": "Scienze Sociali ed Economiche (Sapienza)",
+      "descrizione": "Scienze Sociali ed Economiche (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "TR ISTANBU32"
+      ]
+    },
+    {
+      "id": "psicologia-batch-1",
+      "priorita": 6,
+      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "A  SALZBUR01",
+        "A  KLAGENF01",
+        "A  ST-POLT03",
+        "B  BRUXEL04",
+        "B  LIEGE01"
+      ]
+    },
+    {
+      "id": "psicologia-batch-2",
+      "priorita": 6,
+      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "BG VARNA02",
+        "HR OSIJEK01",
+        "F  BORDEAU58",
+        "F  LYON02",
+        "F  PARIS482"
+      ]
+    },
+    {
+      "id": "psicologia-batch-3",
+      "priorita": 6,
+      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F  BREST01",
+        "F  MARSEIL84",
+        "F  PARIS008",
+        "F  LYON10",
+        "F  LILLE103"
+      ]
+    },
+    {
+      "id": "psicologia-batch-4",
+      "priorita": 6,
+      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F  NICE42",
+        "F  PARIS087",
+        "D  LUDWIGB06",
+        "D  DARMSTA02",
+        "D  TUBINGE01"
+      ]
+    },
+    {
+      "id": "psicologia-batch-5",
+      "priorita": 6,
+      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D  KONSTAN01",
+        "D  FREIBUR01",
+        "D  WITTEN02",
+        "D  JENA01",
+        "D  WURZBUR01"
+      ]
+    },
+    {
+      "id": "psicologia-batch-6",
+      "priorita": 6,
+      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D  BOCHUM01",
+        "D  TRIER01",
+        "D  EICHSTA01",
+        "D  BIELEFE01",
+        "D  GOTTING01"
+      ]
+    },
+    {
+      "id": "psicologia-batch-7",
+      "priorita": 6,
+      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D  BERLIN10",
+        "D  HILDESH01",
+        "D  BERLIN20",
+        "D  HAMBURG01",
+        "D  POTSDAM01"
+      ]
+    },
+    {
+      "id": "psicologia-batch-8",
+      "priorita": 6,
+      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D  KOLN01",
+        "G  ATHINE01",
+        "LT VILNIUS06",
+        "MT MALTA01",
+        "NL NIJMEGE01"
+      ]
+    },
+    {
+      "id": "psicologia-batch-9",
+      "priorita": 6,
+      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "PL LUBLIN02",
+        "PL KIELCE02",
+        "PL BYDGOSZ01",
+        "PL WROCLAW13",
+        "PL POZNAN01"
+      ]
+    },
+    {
+      "id": "psicologia-batch-10",
+      "priorita": 6,
+      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "P  COVILHA01",
+        "P  LISBOA17",
+        "P  LISBOA01",
+        "P  LISBOA104",
+        "P  LISBOA109"
+      ]
+    },
+    {
+      "id": "psicologia-batch-11",
+      "priorita": 6,
+      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "P  FUNCHAL03",
+        "P  BRAGA01",
+        "RO IASI02",
+        "RO BUCURES09",
+        "RO BUCURES43"
+      ]
+    },
+    {
+      "id": "psicologia-batch-12",
+      "priorita": 6,
+      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SK BRATISL08",
+        "E  CIUDA-R01",
+        "E  LA-CORU01",
+        "E  MADRID21",
+        "E  ZARAGOZ01"
+      ]
+    },
+    {
+      "id": "psicologia-batch-13",
+      "priorita": 6,
+      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E  MALAGA01",
+        "E  SANTIAG01",
+        "E  OVIEDO01",
+        "E  CADIZ01",
+        "E  BARCELO01"
+      ]
+    },
+    {
+      "id": "psicologia-batch-14",
+      "priorita": 6,
+      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E  SEVILLA01",
+        "E  MURCIA05",
+        "E  CASTELL01",
+        "E  MADRID01",
+        "E  AVILA01"
+      ]
+    },
+    {
+      "id": "psicologia-batch-15",
+      "priorita": 6,
+      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E  GRANADA01",
+        "S  STOCKHO01",
+        "CH GENEVE01",
+        "CH BRUGG02",
+        "CH ZURICH01"
+      ]
+    },
+    {
+      "id": "psicologia-batch-16",
+      "priorita": 6,
+      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "CH LAUSANN01",
+        "TR ANKARA06",
+        "TR IZMIR02",
+        "TR IZMIR01",
+        "TR ISTANBU60"
+      ]
+    },
+    {
+      "id": "psicologia-batch-17",
+      "priorita": 6,
+      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
+      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - scadenze+lingua",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "TR ISTANBU21"
       ]
     }
   ],
@@ -344,25 +1008,19 @@ const STATO = {
     },
     "Architettura (Sapienza)": {
       "fileJs": "js/atenei/sapienza/dati-mete-architettura.js",
-      "stato": "in_corso",
+      "stato": "completo",
       "totale": 113,
-      "completate": 91,
-      "pendingScadenze": [
-        "SAP-ARCHI-MADEIRA",
-        "SAP-ARCHI-EVORA"
-      ],
-      "pendingLingua": [
-        "SAP-ARCHI-BURSA"
-      ],
+      "completate": 92,
+      "pendingScadenze": [],
+      "pendingLingua": [],
       "tentativiLingua": {
         "SAP-ARCHI-EKA-TALLINN": 2,
         "SAP-ARCHI-LILLE": 2,
         "SAP-ARCHI-KASSEL-B": 2,
         "SAP-ARCHI-HILDESHEIM": 2,
         "SAP-ARCHI-VIANA-CASTELO": 2,
-        "SAP-ARCHI-MADEIRA": 2,
         "SAP-ARCHI-PORTO-A": 2,
-        "SAP-ARCHI-EVORA": 2,
+        "SAP-ARCHI-EVORA": 3,
         "SAP-ARCHI-PORTO-B": 2,
         "SAP-ARCHI-AVEIRO": 2,
         "SAP-ARCHI-CLUJ-NAPOCA": 2,
@@ -376,7 +1034,7 @@ const STATO = {
         "SAP-ARCHI-VIC-B": 2,
         "SAP-ARCHI-GAZI-ANKARA": 2,
         "SAP-ARCHI-IZMIR-EKONOMI": 2,
-        "SAP-ARCHI-BURSA": 1
+        "SAP-ARCHI-BURSA": 2
       },
       "linguaNonTrovabile": [
         "SAP-ARCHI-EKA-TALLINN",
@@ -399,9 +1057,528 @@ const STATO = {
         "SAP-ARCHI-VIC-A",
         "SAP-ARCHI-VIC-B",
         "SAP-ARCHI-GAZI-ANKARA",
-        "SAP-ARCHI-IZMIR-EKONOMI"
+        "SAP-ARCHI-IZMIR-EKONOMI",
+        "SAP-ARCHI-BURSA"
       ],
       "ateneo": "Sapienza Roma"
+    },
+    "Farmacia (Sapienza)": {
+      "fileJs": "js/atenei/sapienza/dati-mete-farmacia.js",
+      "stato": "in_corso",
+      "totale": 62,
+      "completate": 0,
+      "pendingScadenze": [
+        "B  LEUVEN01",
+        "B  LIEGE01",
+        "B  BRUSSEL01",
+        "B  BRUXEL04",
+        "B  ANTWERP01",
+        "BG SOFIA11",
+        "BG VARNA03",
+        "HR ZAGREB01",
+        "HR OSIJEK01",
+        "HR RIJEKA01",
+        "F  NANCY43",
+        "F  COMPIEG05",
+        "F  GRENOBL55",
+        "F  MONTPEL54",
+        "F  BESANCO01",
+        "F  AMIENS01",
+        "F  POITIER01",
+        "F  LYON01",
+        "F  LILLE11",
+        "F  RENNES09",
+        "F  MARSEIL84",
+        "F  CERGY-P11",
+        "F  ANGERS01",
+        "D  SAARBRU01",
+        "D  BERLIN02",
+        "G  PATRA01",
+        "G  ATHINE01",
+        "PL WROCLAW05",
+        "PL WARSZAW06",
+        "P  BRAGANC01",
+        "P  LISBOA109",
+        "P  COIMBRA01",
+        "P  COVILHA01",
+        "UK LONDON017",
+        "RO BUCURES09",
+        "RO CLUJNAP01",
+        "RS  BELGRAD02",
+        "SI LJUBLJA01",
+        "E  MADRID21",
+        "E  GRANADA01",
+        "E  SANTIAG01",
+        "E  SALAMAN02",
+        "E  MADRID03",
+        "E  BARCELO01",
+        "E  ZARAGOZ07",
+        "E  BURGOS01",
+        "E  CORDOBA23",
+        "E  PALMA01",
+        "TR ISTANBU19",
+        "TR KAYSERI01",
+        "TR VAN01",
+        "HU BUDAPES08"
+      ],
+      "pendingLingua": [
+        "B  LEUVEN01",
+        "B  LIEGE01",
+        "B  BRUSSEL01",
+        "B  BRUXEL04",
+        "B  ANTWERP01",
+        "BG SOFIA11",
+        "BG VARNA03",
+        "HR ZAGREB01",
+        "HR OSIJEK01",
+        "HR RIJEKA01",
+        "F  NANCY43",
+        "F  COMPIEG05",
+        "F  GRENOBL55",
+        "F  MONTPEL54",
+        "F  BESANCO01",
+        "F  AMIENS01",
+        "F  POITIER01",
+        "F  LYON01",
+        "F  LILLE11",
+        "F  RENNES09",
+        "F  MARSEIL84",
+        "F  CERGY-P11",
+        "F  ANGERS01",
+        "D  SAARBRU01",
+        "D  BERLIN02",
+        "G  PATRA01",
+        "G  ATHINE01",
+        "PL WROCLAW05",
+        "PL WARSZAW06",
+        "P  BRAGANC01",
+        "P  LISBOA109",
+        "P  COIMBRA01",
+        "P  COVILHA01",
+        "UK LONDON017",
+        "RO BUCURES09",
+        "RO CLUJNAP01",
+        "RS  BELGRAD02",
+        "SI LJUBLJA01",
+        "E  MADRID21",
+        "E  GRANADA01",
+        "E  SANTIAG01",
+        "E  SALAMAN02",
+        "E  MADRID03",
+        "E  BARCELO01",
+        "E  ZARAGOZ07",
+        "E  BURGOS01",
+        "E  CORDOBA23",
+        "E  PALMA01",
+        "TR ISTANBU19",
+        "TR KAYSERI01",
+        "TR VAN01",
+        "HU BUDAPES08"
+      ],
+      "tentativiLingua": {},
+      "linguaNonTrovabile": []
+    },
+    "Comunicazione e Ricerca Sociale (Sapienza)": {
+      "fileJs": "js/atenei/sapienza/dati-mete-comunicazione.js",
+      "stato": "in_corso",
+      "totale": 59,
+      "completate": 0,
+      "pendingScadenze": [
+        "A  WIEN01",
+        "A  SALZBUR01",
+        "B  LOUVAIN01",
+        "EE TARTU02",
+        "F  PARIS008",
+        "F  LYON02",
+        "F  RENNES02",
+        "F  MARSEIL84",
+        "D  AUGSBUR01",
+        "D  TUBINGE01",
+        "D  MUNCHEN01",
+        "G  ATHINE01",
+        "LV RIGA02",
+        "LT VILNIUS01",
+        "N  OSLO58",
+        "PL KRAKOW01",
+        "PL WARSZAW01",
+        "P  LISBOA11",
+        "P  COVILHA01",
+        "P  PORTO02",
+        "P  COIMBRA01",
+        "P  LISBOA52",
+        "P  MAIA01",
+        "CZ PRAHA07",
+        "RO BUCURES09",
+        "E  VALLADO03",
+        "E  BILBAO01",
+        "E  MURCIA01",
+        "E  CIUDA-R01",
+        "E  MADRID238",
+        "E  VIGO01",
+        "E  MADRID26",
+        "E  SALAMAN01",
+        "E  BARCELO01",
+        "E  SANTIAG01",
+        "E  LA-CORU01",
+        "E  MADRID17",
+        "E  MADRID03",
+        "E  SEVILLA01",
+        "CH LUGANO01",
+        "CH FRIBOUR01",
+        "CH BERN01",
+        "TR ISTANBU03",
+        "TR ANKARA03",
+        "TR ISTANBU21",
+        "TR ISTANBU17"
+      ],
+      "pendingLingua": [
+        "A  WIEN01",
+        "A  SALZBUR01",
+        "B  LOUVAIN01",
+        "EE TARTU02",
+        "F  PARIS008",
+        "F  LYON02",
+        "F  RENNES02",
+        "F  MARSEIL84",
+        "D  AUGSBUR01",
+        "D  TUBINGE01",
+        "D  MUNCHEN01",
+        "G  ATHINE01",
+        "LV RIGA02",
+        "LT VILNIUS01",
+        "N  OSLO58",
+        "PL KRAKOW01",
+        "PL WARSZAW01",
+        "P  LISBOA11",
+        "P  COVILHA01",
+        "P  PORTO02",
+        "P  COIMBRA01",
+        "P  LISBOA52",
+        "P  MAIA01",
+        "CZ PRAHA07",
+        "RO BUCURES09",
+        "E  VALLADO03",
+        "E  BILBAO01",
+        "E  MURCIA01",
+        "E  CIUDA-R01",
+        "E  MADRID238",
+        "E  VIGO01",
+        "E  MADRID26",
+        "E  SALAMAN01",
+        "E  BARCELO01",
+        "E  SANTIAG01",
+        "E  LA-CORU01",
+        "E  MADRID17",
+        "E  MADRID03",
+        "E  SEVILLA01",
+        "CH LUGANO01",
+        "CH FRIBOUR01",
+        "CH BERN01",
+        "TR ISTANBU03",
+        "TR ANKARA03",
+        "TR ISTANBU21",
+        "TR ISTANBU17"
+      ],
+      "tentativiLingua": {},
+      "linguaNonTrovabile": []
+    },
+    "Scienze Sociali ed Economiche (Sapienza)": {
+      "fileJs": "js/atenei/sapienza/dati-mete-scienze-sociali.js",
+      "stato": "in_corso",
+      "totale": 68,
+      "completate": 0,
+      "pendingScadenze": [
+        "A  SALZBUR01",
+        "B  LOUVAIN01",
+        "B  LEUVEN01",
+        "B  BRUXEL04",
+        "F  LILLE103",
+        "F  VERSAIL11",
+        "F  LYON02",
+        "F  PARIS482",
+        "F  POITIER01",
+        "F  LE-HAVR11",
+        "F  PARIS057",
+        "F  BORDEAU58",
+        "F  PARIS003",
+        "F  CHAMBER01",
+        "F  MARSEIL84",
+        "D  MUNCHEN01",
+        "D  BERLIN02",
+        "D  FREIBUR01",
+        "D  BAMBERG01",
+        "D  AACHEN01",
+        "D  JENA01",
+        "D  LUNEBUR01",
+        "D  BERLIN06",
+        "D  TUBINGE01",
+        "G  KALLITH02",
+        "G  ATHINE01",
+        "PL KRAKOW01",
+        "PL KRAKOW02",
+        "P  LISBOA07",
+        "P  LISBOA11",
+        "P  PORTO11",
+        "UK SOUTHAM01",
+        "CZ OLOMOUC01",
+        "RO BUCURES09",
+        "E  CADIZ01",
+        "E  VALLADO01",
+        "E  ZARAGOZ01",
+        "E  BILBAO01",
+        "E  MURCIA01",
+        "E  MADRID03",
+        "E  TENERIF01",
+        "E  GRANADA01",
+        "E  VALENCI01",
+        "E  LAS-PAL01",
+        "E  LA-CORU01",
+        "E  HUELVA01",
+        "E  BARCELO02",
+        "E  BADAJOZ01",
+        "E  SEVILLA03",
+        "E  PAMPLON02",
+        "E  BILBAO02",
+        "E  ALICANT01",
+        "E  MADRID04",
+        "S  STOCKHO01",
+        "TR ANKARA03",
+        "TR ISTANBU32"
+      ],
+      "pendingLingua": [
+        "A  SALZBUR01",
+        "B  LOUVAIN01",
+        "B  LEUVEN01",
+        "B  BRUXEL04",
+        "F  LILLE103",
+        "F  VERSAIL11",
+        "F  LYON02",
+        "F  PARIS482",
+        "F  POITIER01",
+        "F  LE-HAVR11",
+        "F  PARIS057",
+        "F  BORDEAU58",
+        "F  PARIS003",
+        "F  CHAMBER01",
+        "F  MARSEIL84",
+        "D  MUNCHEN01",
+        "D  BERLIN02",
+        "D  FREIBUR01",
+        "D  BAMBERG01",
+        "D  AACHEN01",
+        "D  JENA01",
+        "D  LUNEBUR01",
+        "D  BERLIN06",
+        "D  TUBINGE01",
+        "G  KALLITH02",
+        "G  ATHINE01",
+        "PL KRAKOW01",
+        "PL KRAKOW02",
+        "P  LISBOA07",
+        "P  LISBOA11",
+        "P  PORTO11",
+        "UK SOUTHAM01",
+        "CZ OLOMOUC01",
+        "RO BUCURES09",
+        "E  CADIZ01",
+        "E  VALLADO01",
+        "E  ZARAGOZ01",
+        "E  BILBAO01",
+        "E  MURCIA01",
+        "E  MADRID03",
+        "E  TENERIF01",
+        "E  GRANADA01",
+        "E  VALENCI01",
+        "E  LAS-PAL01",
+        "E  LA-CORU01",
+        "E  HUELVA01",
+        "E  BARCELO02",
+        "E  BADAJOZ01",
+        "E  SEVILLA03",
+        "E  PAMPLON02",
+        "E  BILBAO02",
+        "E  ALICANT01",
+        "E  MADRID04",
+        "S  STOCKHO01",
+        "TR ANKARA03",
+        "TR ISTANBU32"
+      ],
+      "tentativiLingua": {},
+      "linguaNonTrovabile": []
+    },
+    "Psicologia e Servizio Sociale (Sapienza)": {
+      "fileJs": "js/atenei/sapienza/dati-mete-psicologia.js",
+      "stato": "in_corso",
+      "totale": 97,
+      "completate": 0,
+      "pendingScadenze": [
+        "A  SALZBUR01",
+        "A  KLAGENF01",
+        "A  ST-POLT03",
+        "B  BRUXEL04",
+        "B  LIEGE01",
+        "BG VARNA02",
+        "HR OSIJEK01",
+        "F  BORDEAU58",
+        "F  LYON02",
+        "F  PARIS482",
+        "F  BREST01",
+        "F  MARSEIL84",
+        "F  PARIS008",
+        "F  LYON10",
+        "F  LILLE103",
+        "F  NICE42",
+        "F  PARIS087",
+        "D  LUDWIGB06",
+        "D  DARMSTA02",
+        "D  TUBINGE01",
+        "D  KONSTAN01",
+        "D  FREIBUR01",
+        "D  WITTEN02",
+        "D  JENA01",
+        "D  WURZBUR01",
+        "D  BOCHUM01",
+        "D  TRIER01",
+        "D  EICHSTA01",
+        "D  BIELEFE01",
+        "D  GOTTING01",
+        "D  BERLIN10",
+        "D  HILDESH01",
+        "D  BERLIN20",
+        "D  HAMBURG01",
+        "D  POTSDAM01",
+        "D  KOLN01",
+        "G  ATHINE01",
+        "LT VILNIUS06",
+        "MT MALTA01",
+        "NL NIJMEGE01",
+        "PL LUBLIN02",
+        "PL KIELCE02",
+        "PL BYDGOSZ01",
+        "PL WROCLAW13",
+        "PL POZNAN01",
+        "P  COVILHA01",
+        "P  LISBOA17",
+        "P  LISBOA01",
+        "P  LISBOA104",
+        "P  LISBOA109",
+        "P  FUNCHAL03",
+        "P  BRAGA01",
+        "RO IASI02",
+        "RO BUCURES09",
+        "RO BUCURES43",
+        "SK BRATISL08",
+        "E  CIUDA-R01",
+        "E  LA-CORU01",
+        "E  MADRID21",
+        "E  ZARAGOZ01",
+        "E  MALAGA01",
+        "E  SANTIAG01",
+        "E  OVIEDO01",
+        "E  CADIZ01",
+        "E  BARCELO01",
+        "E  SEVILLA01",
+        "E  MURCIA05",
+        "E  CASTELL01",
+        "E  MADRID01",
+        "E  AVILA01",
+        "E  GRANADA01",
+        "S  STOCKHO01",
+        "CH GENEVE01",
+        "CH BRUGG02",
+        "CH ZURICH01",
+        "CH LAUSANN01",
+        "TR ANKARA06",
+        "TR IZMIR02",
+        "TR IZMIR01",
+        "TR ISTANBU60",
+        "TR ISTANBU21"
+      ],
+      "pendingLingua": [
+        "A  SALZBUR01",
+        "A  KLAGENF01",
+        "A  ST-POLT03",
+        "B  BRUXEL04",
+        "B  LIEGE01",
+        "BG VARNA02",
+        "HR OSIJEK01",
+        "F  BORDEAU58",
+        "F  LYON02",
+        "F  PARIS482",
+        "F  BREST01",
+        "F  MARSEIL84",
+        "F  PARIS008",
+        "F  LYON10",
+        "F  LILLE103",
+        "F  NICE42",
+        "F  PARIS087",
+        "D  LUDWIGB06",
+        "D  DARMSTA02",
+        "D  TUBINGE01",
+        "D  KONSTAN01",
+        "D  FREIBUR01",
+        "D  WITTEN02",
+        "D  JENA01",
+        "D  WURZBUR01",
+        "D  BOCHUM01",
+        "D  TRIER01",
+        "D  EICHSTA01",
+        "D  BIELEFE01",
+        "D  GOTTING01",
+        "D  BERLIN10",
+        "D  HILDESH01",
+        "D  BERLIN20",
+        "D  HAMBURG01",
+        "D  POTSDAM01",
+        "D  KOLN01",
+        "G  ATHINE01",
+        "LT VILNIUS06",
+        "MT MALTA01",
+        "NL NIJMEGE01",
+        "PL LUBLIN02",
+        "PL KIELCE02",
+        "PL BYDGOSZ01",
+        "PL WROCLAW13",
+        "PL POZNAN01",
+        "P  COVILHA01",
+        "P  LISBOA17",
+        "P  LISBOA01",
+        "P  LISBOA104",
+        "P  LISBOA109",
+        "P  FUNCHAL03",
+        "P  BRAGA01",
+        "RO IASI02",
+        "RO BUCURES09",
+        "RO BUCURES43",
+        "SK BRATISL08",
+        "E  CIUDA-R01",
+        "E  LA-CORU01",
+        "E  MADRID21",
+        "E  ZARAGOZ01",
+        "E  MALAGA01",
+        "E  SANTIAG01",
+        "E  OVIEDO01",
+        "E  CADIZ01",
+        "E  BARCELO01",
+        "E  SEVILLA01",
+        "E  MURCIA05",
+        "E  CASTELL01",
+        "E  MADRID01",
+        "E  AVILA01",
+        "E  GRANADA01",
+        "S  STOCKHO01",
+        "CH GENEVE01",
+        "CH BRUGG02",
+        "CH ZURICH01",
+        "CH LAUSANN01",
+        "TR ANKARA06",
+        "TR IZMIR02",
+        "TR IZMIR01",
+        "TR ISTANBU60",
+        "TR ISTANBU21"
+      ],
+      "tentativiLingua": {},
+      "linguaNonTrovabile": []
     }
   },
   "regoleProgressione": {
@@ -1576,6 +2753,24 @@ const STATO = {
       "data": "2026-07-03",
       "mete": 5,
       "note": "Architettura (Sapienza) architettura (sapienza)-batch-followup-17: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 192,
+      "data": "2026-07-03",
+      "mete": 1,
+      "note": "Architettura (Sapienza) architettura (sapienza)-batch-followup-18: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 193,
+      "data": "2026-07-03",
+      "mete": 2,
+      "note": "Architettura (Sapienza) architettura (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 193,
+      "data": "2026-07-03",
+      "mete": 0,
+      "note": "Riparazione: pendingScadenze/pendingLingua/prossimiBatch di Farmacia, Comunicazione, Scienze Sociali, Psicologia (Sapienza) usavano il campo 'id' delle mete invece di 'codiceErasmus', causando 'Meta non trovata' in prepara-batch.mjs. Rigenerati da zero con la stessa logica di setup-dipartimento.mjs (nessuna meta di questi 4 dipartimenti era mai stata completata)."
     }
   ],
   "storicoBatch": [
@@ -1844,6 +3039,7 @@ storicoInv.forEach(function(s) {
 </script>
 </body>
 </html>
+
 
 
 

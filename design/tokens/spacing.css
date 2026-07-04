@@ -1,0 +1,58 @@
+/* ============================================================
+   ErasmusWiz — SPAZIATURA, RAGGI, OMBRE, MOVIMENTO
+   Scala 4px. Raggi generosi e amichevoli. Ombre morbide a tinta
+   blu (mai nero puro): aria, leggerezza.
+   ============================================================ */
+
+:root {
+  /* ---- SPAZIATURA (scala 4px) ---- */
+  --space-0:  0;
+  --space-1:  0.25rem; /* 4  */
+  --space-2:  0.5rem;  /* 8  */
+  --space-3:  0.75rem; /* 12 */
+  --space-4:  1rem;    /* 16 */
+  --space-5:  1.25rem; /* 20 */
+  --space-6:  1.5rem;  /* 24 */
+  --space-8:  2rem;    /* 32 */
+  --space-10: 2.5rem;  /* 40 */
+  --space-12: 3rem;    /* 48 */
+  --space-16: 4rem;    /* 64 */
+  --space-20: 5rem;    /* 80 */
+
+  /* ---- RAGGI (morbidi, giovanili) ---- */
+  --radius-xs:   6px;
+  --radius-sm:   10px;
+  --radius-md:   14px;  /* bottoni, campi */
+  --radius-lg:   20px;  /* card */
+  --radius-xl:   28px;  /* superfici grandi / hero */
+  --radius-pill: 999px; /* chip, countdown, badge */
+
+  /* ---- OMBRE (tinta blu, morbide) ---- */
+  --shadow-xs: 0 1px 2px rgba(27, 55, 123, 0.06);
+  --shadow-sm: 0 2px 6px rgba(27, 55, 123, 0.07);
+  --shadow-md: 0 6px 18px rgba(27, 55, 123, 0.10);
+  --shadow-lg: 0 14px 34px rgba(27, 55, 123, 0.14);
+  --shadow-xl: 0 24px 60px rgba(27, 55, 123, 0.18);
+  /* evidenza dorata per elementi "magici" / in primo piano */
+  --shadow-gold: 0 8px 24px rgba(245, 158, 11, 0.28);
+  --shadow-focus: 0 0 0 4px var(--ring);
+
+  /* ---- LARGHEZZE CONTENITORE ---- */
+  --container-sm: 640px;  /* @kind spacing */
+  --container-md: 820px;  /* @kind spacing */
+  --container-lg: 1120px; /* @kind spacing */
+
+  /* ---- MOVIMENTO (gentile, mai brusco) ---- */
+  --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);    /* @kind other */
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);    /* @kind other */
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1); /* @kind other */
+  --dur-fast:   120ms; /* @kind other */
+  --dur-base:   200ms; /* @kind other */
+  --dur-slow:   360ms; /* @kind other */
+
+  /* ---- LIVELLI Z ---- */
+  --z-base: 1;      /* @kind other */
+  --z-sticky: 100;  /* @kind other */
+  --z-overlay: 500; /* @kind other */
+  --z-toast: 800;   /* @kind other */
+}
