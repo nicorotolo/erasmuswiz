@@ -4,23 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Psicologia e Servizio Sociale (Sapienza)",
-  "runCompletati": 279,
+  "runCompletati": 280,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "psicologia e servizio sociale (sapienza)-batch-followup-13",
-      "priorita": 6,
-      "dipartimento": "Psicologia e Servizio Sociale (Sapienza)",
-      "descrizione": "Psicologia e Servizio Sociale (Sapienza) - follow-up pending",
-      "tipo": "lingua",
-      "mete": [
-        "TR ISTANBU21"
-      ]
-    },
     {
       "id": "farmacia (sapienza)-batch-followup-1",
       "priorita": 6,
@@ -494,9 +484,7 @@
         "TR ANKARA06",
         "TR ISTANBU60"
       ],
-      "pendingLingua": [
-        "TR ISTANBU21"
-      ],
+      "pendingLingua": [],
       "tentativiLingua": {
         "A  KLAGENF01": 2,
         "BG VARNA02": 2,
@@ -509,7 +497,7 @@
         "E  CIUDA-R01": 2,
         "TR ANKARA06": 2,
         "TR IZMIR02": 2,
-        "TR ISTANBU21": 1
+        "TR ISTANBU21": 2
       },
       "linguaNonTrovabile": [
         "A  KLAGENF01",
@@ -522,7 +510,8 @@
         "RO BUCURES09",
         "E  CIUDA-R01",
         "TR ANKARA06",
-        "TR IZMIR02"
+        "TR IZMIR02",
+        "TR ISTANBU21"
       ]
     }
   },
@@ -2232,6 +2221,12 @@
       "data": "2026-07-04",
       "mete": 3,
       "note": "Psicologia e Servizio Sociale (Sapienza) psicologia e servizio sociale (sapienza)-batch-followup-12: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 280,
+      "data": "2026-07-04",
+      "mete": 1,
+      "note": "Psicologia e Servizio Sociale (Sapienza) psicologia e servizio sociale (sapienza)-batch-followup-13: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

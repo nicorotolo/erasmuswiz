@@ -2358,6 +2358,6 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "15 settembre - 15 dicembre" },
         { cosa: "Application (primavera)", periodo: "entro 30 dicembre" }
       ],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26"
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26 || Lingua: CEFR non trovato dopo ricerca approfondita"
   }
 ];
