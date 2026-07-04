@@ -1616,7 +1616,7 @@ var METE = [
         { cosa: "Nomination (autunno)", periodo: "entro 30 maggio" },
         { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" }
       ],
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-psico1-universidad-2",
