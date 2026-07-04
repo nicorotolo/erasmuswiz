@@ -606,7 +606,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "dal 1 aprile al 31 maggio 2026" },
         { cosa: "Application (primavera)", periodo: "dal 1 ottobre al 31 ottobre 2026" }
       ],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-farm-angers",
@@ -700,7 +700,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "dal 1 aprile al 31 maggio 2026" },
         { cosa: "Application (primavera)", periodo: "dal 1 ottobre al 31 ottobre 2026" }
       ],
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-farm-saarbru",
