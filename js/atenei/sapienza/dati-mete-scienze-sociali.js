@@ -1444,7 +1444,10 @@ var METE = [
     posti: [
       { numero: 1, mesi: 10, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese presso la Faculty of Political Science and Sociology" },
+        { lingua: "Spagnolo", livello: "B2", condizione: "per corsi in spagnolo presso la Faculty of Political Science and Sociology" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Nomination (autunno)", periodo: "15 febbraio - 1 maggio" },
