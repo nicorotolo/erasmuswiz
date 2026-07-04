@@ -1,0 +1,25 @@
+{
+  "CH LAUSANN01": {
+    "requisitoLingua": "https://www.upf.edu/documents/105229234/121178987/Universit%C3%A9%2Bde%2BLausanne.pdf/8617d27f-be9a-0254-23ba-37b5f8fb625b?t=1681380181667",
+    "scadenzeOspitante": "https://www.upf.edu/documents/105229234/121178987/Universit%C3%A9%2Bde%2BLausanne.pdf/8617d27f-be9a-0254-23ba-37b5f8fb625b?t=1681380181667",
+    "linkSito": "https://www.unil.ch/international/en/home/menuinst/etudiant%c2%b7e%c2%b7s-incoming/incoming-exchange-students.html"
+  },
+  "TR ANKARA06": {
+    "linkSito": "https://uik.baskent.edu.tr/kw/menu_icerik.php?birim=161&menu_id=37",
+    "notePraticheAppend": "https://uik.baskent.edu.tr/kw/menu_icerik.php?birim=161&menu_id=37"
+  },
+  "TR IZMIR02": {
+    "scadenzeOspitante": "https://international.ege.edu.tr/eng-23784/.html",
+    "linkSito": "https://international.ege.edu.tr/eng-23784/.html",
+    "notePraticheAppend": "https://international.ege.edu.tr/eng-23785/.html"
+  },
+  "TR IZMIR01": {
+    "requisitoLingua": "https://international.deu.edu.tr/en/erasmus-k131-2/",
+    "scadenzeOspitante": "https://international.deu.edu.tr/en/erasmus-k131-2/",
+    "linkSito": "https://international.deu.edu.tr/en/erasmus-k131-2/"
+  },
+  "TR ISTANBU60": {
+    "linkSito": "https://sbu.edu.tr/FileFolder/Dosyalar/BD4756KI/2018_6/application-procedure-for-erasmus-incoming-students-e0bb19c1.docx",
+    "notePraticheAppend": "https://sbu.edu.tr/FileFolder/Dosyalar/BD4756KI/2018_6/application-procedure-for-erasmus-incoming-students-e0bb19c1.docx"
+  }
+}
