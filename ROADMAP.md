@@ -153,8 +153,11 @@ codice irrobustito. ~6 sessioni.
 - [x] **BR5. Candidatura "prossimi 3 passi"** (5b) ✅ 2026-07-05 — blocco
   "Ora tocca a te" sopra i capitoli con le prime 3 voci non spuntate in
   ordine cronologico; capitoli non imminenti ripiegati in `<details>`.
-- [ ] **BR6. Zaino (6a) + Desktop (7a)** — fase 4 come zaino prima/durante/
-  dopo; layout desktop 2 colonne (≥1024px), mobile invariato.
+- [x] **BR6. Zaino (6a) + Desktop (7a)** ✅ 2026-07-05 — fase 4 presentata come
+  "Lo zaino" con 3 capitoli Prima/Durante/Dopo (`gruppoZaino`, fallback
+  "Prima"); celebrazione blu notte all'ingresso in fase 4 (una sola volta).
+  Layout desktop 2 colonne per il tab Candidatura/Zaino (≥1024px), mobile
+  invariato; breakpoint 700px→768px consolidati.
 - [ ] **BR7. QA e chiusura** — regressione completa (2 atenei, zaini vecchi,
   chiaro/scuro, mobile/desktop, .ics, schedina). **In più (fix da
   assessment):** aggiornare meta description/OG di `index.html` (dice

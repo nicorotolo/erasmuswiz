@@ -4,7 +4,74 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-05 — sessione 23, Claude Code (**BR5 Candidatura
+**Ultimo aggiornamento:** 2026-07-05 — sessione 24, Claude Code (**BR6 Zaino
+(6a) + Desktop (7a) IMPLEMENTATA — fase 4 come "Lo zaino" a 3 capitoli,
+celebrazione blu notte, layout desktop 2 colonne per la Candidatura.** Letti
+in ordine `CLAUDE.md`, `STATO_DEL_SITO.md`, `ROADMAP.md`, `DISEGNO_BRAND.md`,
+`design/readme.md`. Eseguito SOLO il blocco BR6 di `DISEGNO_BRAND.md` §3.
+**6a — Lo zaino**: la checklist post-selezione (fase 4, `renderChecklistPost()`
+in `js/app.js`) ora si presenta in 3 capitoli cronologici "Prima" / "Durante" /
+"Dopo" (nuovo `<h2 class="zaino-capitolo-titolo">`), ognuno con le stesse
+sotto-intestazioni per `fase` di prima (nessun dato perso, solo un livello di
+raggruppamento in più). Mappatura via nuovo campo dati `gruppoZaino` su
+ciascuna voce di `js/atenei/cafoscari/dati-postselezione.js` (Accettazione +
+Learning Agreement + Documenti pre-partenza → Prima, Arrivo → Durante,
+Rientro → Dopo); **fallback verificato su dati reali**: il file Sapienza
+(ancora provvisorio, `inVerifica`) NON ha il campo — lasciato apposta senza,
+per testare che il codice ricada su "Prima" per tutte le sue 5 voci senza
+inventare una mappatura Prima/Durante/Dopo non validata. Titolo/sottotitolo
+del tab (`#checklist-titolo`/`#checklist-sottotitolo`, nuovi id) e l'etichetta
+di nav (`aggiornaNavCandidatura()`) cambiano in "🎒 Lo zaino"/"Zaino" solo in
+fase "selezionato" (`aggiornaIntestazioneZaino()`, nuova funzione). **Fix
+minore chiuso in corso di sessione**: `renderChecklistPost()` non svuotava
+mai `#prossimi-passi-v2` (blocco BR5 "Ora tocca a te", specifico della fase
+"domanda") — passando a "selezionato" restava visibile con contenuto vecchio;
+ora viene nascosto esplicitamente all'ingresso nello zaino. **Celebrazione
+ingresso in fase 4**: riusato l'overlay blu notte `#celebrazione-overlay` di
+`index.html` — era markup MORTO (nessun JS lo pilotava dai tempi della v1,
+usava ancora `img/wiz-hero.png`); ora `mostraCelebrazioneZaino()`/
+`initCelebrazioneZaino()` lo mostrano una sola volta al primo click su "🎉 Sono
+stato selezionato" (nuovo flag `ZAINO.zainoCelebrato`, fallback per zaini
+vecchi: già `selezionato` → considerato già celebrato, per non sorprendere chi
+è già in quella fase), con Wiz in posa `wiz-esulta.webp` (tabella pose
+DISEGNO_BRAND §2-bis) e testo "Sei stato selezionato! 🎉 Ora prepara lo zaino:
+prima, durante e dopo la partenza." **7a — Desktop 2 colonne**: `#tab-checklist`
+diventa una griglia CSS 2 colonne (`1fr 320px`) da 1024px in su — stessa
+tecnica già in uso per `#tab-oggi` (assegnazione di `grid-column` ai figli
+esistenti via CSS, nessun markup nuovo): colonna sinistra = header/banner/
+lista o capitoli; colonna destra (azione) = cambio fase, barra di progresso,
+banner Wiz e "Ora tocca a te". Mobile INVARIATO (`display:block` sotto i
+1024px, verificato). **Consolidamento breakpoint**: le due regole a
+`min-width:700px` (griglia mete e griglia requisiti) portate a `768px` come
+da regola BR §3 ("usare 768 e 1024 come soglie canoniche"); lasciato invariato
+il blocco `max-width:480px` (rifinitura telefono piccolo, non un confine
+mobile/tablet/desktop) e il breakpoint 768px già esistente per la nav in
+header (era già conforme, nessuna modifica necessaria). **`node --check`**:
+OK su `js/app.js` e su entrambi i `dati-postselezione.js` toccati. **Verifica
+a video** (preview locale porta 8001; **nota ambientale ricorrente**: il
+processo del server ha servito per un po' una copia stale di
+`dati-postselezione.js` dal mount OneDrive anche dopo un riavvio del server —
+stesso problema già documentato nelle sessioni 8/9/15/19; risolto forzando un
+fetch `cache:'no-store'` e confermando poi che il file su disco e il
+contenuto servito coincidevano, nessun file toccato per il test): mobile
+~390px e desktop 1280px, tema chiaro E notte, ENTRAMBI gli atenei (Ca'
+Foscari fase domanda E selezionato, Sapienza selezionato) — capitoli Prima/
+Durante/Dopo corretti via bounding-box e screenshot; spunta di una voce dello
+zaino salva in `ZAINO.checklistPost` e persiste; celebrazione mostrata al
+primo passaggio a "selezionato" e MAI più ai passaggi successivi (verificato
+il flag anche dentro il localStorage); griglia desktop del tab Candidatura
+verificata via `getBoundingClientRect()` (colonna lista 837px + colonna
+azione 320px, gap 28px) oltre che a video; "Ora tocca a te" verificato anche
+con contenuto reale forzando temporaneamente (solo lato test, nessun file
+toccato) la data di sistema a prima delle scadenze, come nelle sessioni BR2/
+BR5 — compare correttamente nella colonna azione desktop; tab Percorso e
+Mete verificati senza regressioni dopo le modifiche; nessun errore console,
+nessuna richiesta di rete fallita. **Non toccati:** dati di checklist/
+scadenze/mete, motore di compatibilità, onboarding, Idoneità, Mete/Schedina
+(BR4), Candidatura "Ora tocca a te" (BR5, solo riposizionata via CSS su
+desktop). Roadmap: BR6 spuntato.)
+
+**Aggiornamento precedente:** 2026-07-05 — sessione 23, Claude Code (**BR5 Candidatura
 "Ora tocca a te" IMPLEMENTATA — prossimi 3 passi + capitoli ripiegabili.** Letti in
 ordine `CLAUDE.md`, `STATO_DEL_SITO.md`, `ROADMAP.md`, `DISEGNO_BRAND.md`,
 `design/readme.md`. Eseguito SOLO il blocco BR5 (5b) di `DISEGNO_BRAND.md` §3, nessun

@@ -578,8 +578,17 @@ body {
 }
 
 /* ================================================================
-   CHECKLIST POST-SELEZIONE — gruppi per fase
+   CHECKLIST POST-SELEZIONE — "Lo zaino" (BR6): capitoli Prima/
+   Durante/Dopo, ognuno con le sue sotto-intestazioni per fase.
 ================================================================ */
+.zaino-capitolo { margin-bottom: 26px; }
+.zaino-capitolo:last-child { margin-bottom: 0; }
+.zaino-capitolo-titolo {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: 1.05rem; color: var(--text-dark);
+  padding-bottom: 8px; margin-bottom: 4px;
+  border-bottom: 2px solid var(--gold);
+}
 .gruppo-post { margin-bottom: 8px; }
 .gruppo-post-titolo {
   font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
@@ -595,7 +604,7 @@ body {
 #cerca-mete:focus-visible { outline: none; border-color: var(--primary); box-shadow: var(--shadow-focus); }
 #conta-mete { color: var(--text-muted); font-size: 0.85rem; white-space: nowrap; }
 .griglia-mete-v2 { display: grid; grid-template-columns: 1fr; gap: 14px; padding: 0 20px; }
-@media (min-width: 700px) { .griglia-mete-v2 { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); } }
+@media (min-width: 768px) { .griglia-mete-v2 { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); } }
 .card-meta-v2 { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px 18px; }
 .card-meta-v2 h3 { color: var(--text-dark); font-size: 1rem; margin-bottom: 2px; font-weight: 700; }
 .card-luogo-v2 { color: var(--text-muted); font-size: 0.87rem; margin-bottom: 10px; }
@@ -674,7 +683,7 @@ body {
    IDONEITÀ v2
 ================================================================ */
 .griglia-requisiti-v2 { display: grid; grid-template-columns: 1fr; gap: 12px; padding: 0 20px; }
-@media (min-width: 700px) { .griglia-requisiti-v2 { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); } }
+@media (min-width: 768px) { .griglia-requisiti-v2 { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); } }
 .requisito-v2 { background: var(--bg-card); border: 1px solid var(--border); border-top: 3px solid var(--gold); border-radius: var(--radius-sm); padding: 14px 16px; transition: border-color var(--dur-base) var(--ease-out); }
 .requisito-v2--ok { border-top-color: var(--green); }
 .requisito-v2-testa { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
@@ -956,6 +965,27 @@ body.tema-notte .campo-form select, body.tema-notte .campo-form input, body.tema
      così la domanda-guida non si spezza una parola per riga */
   .fase-card { flex-wrap: wrap; }
   .fase-cta  { flex: 1 1 100%; margin-left: 25px; text-align: left; }
+
+  /* Candidatura/Zaino (BR6, 7a): 2 colonne — contenuto a sinistra
+     (header, banner, capitoli/lista), colonna azione compatta a destra
+     (cambio fase, progresso, "Ora tocca a te"). Stesso markup del
+     mobile: solo riassegnazione di colonna via CSS, nessun elemento
+     nuovo. Mobile resta invariato (colonna singola sotto i 1024px). */
+  #tab-checklist {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 0 28px;
+    align-items: start;
+  }
+  #tab-checklist.nascosto { display: none; }
+  #tab-checklist .sezione-header,
+  #tab-checklist .link-torna-tab,
+  #tab-checklist #banner-verifica-checklist,
+  #tab-checklist #lista-checklist-v2 { grid-column: 1; }
+  #tab-checklist .toggle-fase-wrap,
+  #tab-checklist .barra-wrap,
+  #tab-checklist #banner-wiz,
+  #tab-checklist #prossimi-passi-v2 { grid-column: 2; margin-left: 0; margin-right: 0; }
 }
 @media (max-width: 1023px) { .missione-wiz-desktop { display: none; } }
 

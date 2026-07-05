@@ -141,8 +141,8 @@
     ==================================================== -->
     <section id="tab-checklist" class="tab-pane nascosto">
       <div class="sezione-header">
-        <h2 class="sezione-titolo">📋 La tua checklist</h2>
-        <p class="sezione-sottotitolo">Spunta i passi man mano che li completi. Restano salvati sul tuo dispositivo.</p>
+        <h2 class="sezione-titolo" id="checklist-titolo">📋 La tua checklist</h2>
+        <p class="sezione-sottotitolo" id="checklist-sottotitolo">Spunta i passi man mano che li completi. Restano salvati sul tuo dispositivo.</p>
       </div>
       <a href="#" class="link-torna-tab" data-goto="timeline">Vedi tutte le scadenze ⏳</a>
       <div id="banner-verifica-checklist" class="banner-in-verifica" style="display:none;"></div>
@@ -279,12 +279,12 @@
     <button class="toggle-tema" id="toggle-tema" aria-label="Passa al tema notte">🌙</button>
   </nav>
 
-  <!-- Overlay celebrazione (mostrato da JS) -->
-  <div class="celebrazione-overlay" id="celebrazione-overlay" style="display:none">
-    <img src="img/wiz-hero.png" alt="Wiz festeggia" class="celebrazione-wiz">
-    <div class="celebrazione-titolo" id="celebrazione-titolo">Missione completata! 🎉</div>
-    <div class="celebrazione-sub" id="celebrazione-sub">Continua così!</div>
-    <button class="celebrazione-btn" id="celebrazione-btn">Avanti →</button>
+  <!-- Overlay celebrazione (mostrato da JS: ingresso in fase 4 "Lo zaino", BR6) -->
+  <div class="celebrazione-overlay" id="celebrazione-overlay" style="display:none" role="dialog" aria-modal="true" aria-label="Sei stato selezionato">
+    <img src="img/mascotte/wiz-esulta.webp" alt="Wiz festeggia" class="celebrazione-wiz">
+    <div class="celebrazione-titolo" id="celebrazione-titolo">Sei stato selezionato! 🎉</div>
+    <div class="celebrazione-sub" id="celebrazione-sub">Ora prepara lo zaino: prima, durante e dopo la partenza.</div>
+    <button class="celebrazione-btn" id="celebrazione-btn">Apri lo zaino →</button>
   </div>
 
   <!-- Overlay onboarding (riempito da app.js: initOnboarding) -->

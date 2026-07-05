@@ -16,9 +16,12 @@ function caricaZaino() {
     if (!z.checklistPost || typeof z.checklistPost !== "object") z.checklistPost = {};
     if (typeof z.onboardingFatto !== "boolean") z.onboardingFatto = !!z.profilo;
     if (!z.autoverifica || typeof z.autoverifica !== "object") z.autoverifica = {};
+    // "Lo zaino" (BR6): celebrazione all'ingresso in fase 4, una sola volta.
+    // Zaino vecchio senza il campo → non ancora celebrato.
+    if (typeof z.zainoCelebrato !== "boolean") z.zainoCelebrato = (z.fase === "selezionato");
     return z;
   } catch (e) {
-    return { profilo: null, checklist: {}, metePreferite: [], schedina: [], fase: "domanda", checklistPost: {}, onboardingFatto: false, autoverifica: {} };
+    return { profilo: null, checklist: {}, metePreferite: [], schedina: [], fase: "domanda", checklistPost: {}, onboardingFatto: false, autoverifica: {}, zainoCelebrato: false };
   }
 }
 
@@ -307,7 +310,19 @@ function aggiornaNavCandidatura() {
   if (!icona || !label) return;
   const selezionato = ZAINO.fase === "selezionato";
   icona.textContent = selezionato ? "🎒" : "📋";
-  label.textContent = selezionato ? "Partenza" : "Candidatura";
+  label.textContent = selezionato ? "Zaino" : "Candidatura";
+}
+
+// Titolo/sottotitolo del tab Candidatura: "Lo zaino" (BR6) in fase 4.
+function aggiornaIntestazioneZaino() {
+  const titolo     = document.getElementById("checklist-titolo");
+  const sottotitolo = document.getElementById("checklist-sottotitolo");
+  if (!titolo || !sottotitolo) return;
+  const selezionato = ZAINO.fase === "selezionato";
+  titolo.textContent = selezionato ? "🎒 Lo zaino" : "📋 La tua checklist";
+  sottotitolo.textContent = selezionato
+    ? "Prima, durante e dopo la partenza: spunta i passi man mano che li completi."
+    : "Spunta i passi man mano che li completi. Restano salvati sul tuo dispositivo.";
 }
 
 // ============================================================
@@ -1262,49 +1277,73 @@ function initDettaglioMeta() {
 }
 
 // ============================================================
-// CHECKLIST POST-SELEZIONE
+// CHECKLIST POST-SELEZIONE — "Lo zaino" (BR6)
+// Tre capitoli Prima/Durante/Dopo la partenza, mappati dalla fase
+// esistente via il campo dati `gruppoZaino` (fallback "Prima" per le
+// voci che non lo hanno ancora, es. Sapienza provvisoria). Dentro
+// ogni capitolo restano le sotto-intestazioni per `fase` di prima
+// (nessun dato perso, solo un livello di raggruppamento in più).
 // ============================================================
+const CAPITOLI_ZAINO = ["Prima", "Durante", "Dopo"];
+
 function renderChecklistPost() {
   const cont = document.getElementById("lista-checklist-v2");
   if (!cont) return;
   cont.innerHTML = "";
   if (!ZAINO.checklistPost) ZAINO.checklistPost = {};
 
+  // "Ora tocca a te" (BR5) appartiene alla vista candidatura (fase "domanda"):
+  // qui si nasconde per non lasciare contenuto vecchio quando si passa allo
+  // zaino (renderChecklistPost non lo ripopola mai, a differenza di
+  // renderChecklist).
+  const prossimiPassi = document.getElementById("prossimi-passi-v2");
+  if (prossimiPassi) prossimiPassi.style.display = "none";
+
   const lista  = CHECKLIST_POST || [];
   const spunte = ZAINO.checklistPost;
 
-  const fasi = [];
-  lista.forEach(voce => {
-    if (!fasi.includes(voce.fase)) fasi.push(voce.fase);
-  });
+  function creaVocePost(voce) {
+    const spuntato = !!spunte[voce.id];
+    const label = document.createElement("label");
+    label.className = ["voce-checklist-v2", spuntato ? "fatta" : ""].join(" ").trim();
 
-  fasi.forEach(fase => {
-    const voci = lista.filter(v => v.fase === fase);
-    const gruppo = crea("div", "gruppo-post");
-    gruppo.appendChild(crea("h3", "gruppo-post-titolo", fase));
-
-    voci.forEach(voce => {
-      const spuntato = !!spunte[voce.id];
-      const label = document.createElement("label");
-      label.className = ["voce-checklist-v2", spuntato ? "fatta" : ""].join(" ").trim();
-
-      const cb = document.createElement("input");
-      cb.type    = "checkbox";
-      cb.checked = spuntato;
-      cb.addEventListener("change", () => {
-        if (cb.checked) { mostraBannerWiz(); segnalaChecklistUsata(); }
-        ZAINO.checklistPost[voce.id] = cb.checked;
-        salvaZaino(ZAINO);
-        renderChecklistPost();
-        aggiornaProgressoV2(lista, spunte);
-      });
-
-      label.appendChild(cb);
-      label.appendChild(crea("span", null, voce.testo));
-      gruppo.appendChild(label);
+    const cb = document.createElement("input");
+    cb.type    = "checkbox";
+    cb.checked = spuntato;
+    cb.addEventListener("change", () => {
+      if (cb.checked) { mostraBannerWiz(); segnalaChecklistUsata(); }
+      ZAINO.checklistPost[voce.id] = cb.checked;
+      salvaZaino(ZAINO);
+      renderChecklistPost();
+      aggiornaProgressoV2(lista, spunte);
     });
 
-    cont.appendChild(gruppo);
+    label.appendChild(cb);
+    label.appendChild(crea("span", null, voce.testo));
+    return label;
+  }
+
+  CAPITOLI_ZAINO.forEach(capitolo => {
+    const vociCapitolo = lista.filter(v => (v.gruppoZaino || "Prima") === capitolo);
+    if (vociCapitolo.length === 0) return; // niente contenuti per questo capitolo: si nasconde
+
+    const capitoloEl = crea("div", "zaino-capitolo");
+    capitoloEl.appendChild(crea("h2", "zaino-capitolo-titolo", capitolo));
+
+    const fasi = [];
+    vociCapitolo.forEach(voce => {
+      if (!fasi.includes(voce.fase)) fasi.push(voce.fase);
+    });
+
+    fasi.forEach(fase => {
+      const voci = vociCapitolo.filter(v => v.fase === fase);
+      const gruppo = crea("div", "gruppo-post");
+      gruppo.appendChild(crea("h3", "gruppo-post-titolo", fase));
+      voci.forEach(voce => gruppo.appendChild(creaVocePost(voce)));
+      capitoloEl.appendChild(gruppo);
+    });
+
+    cont.appendChild(capitoloEl);
   });
 
   aggiornaProgressoV2(lista, spunte);
@@ -1335,19 +1374,49 @@ function initToggleFase() {
     aggiornaBottoniFase();
     renderChecklistAttiva();
     aggiornaNavCandidatura();
+    aggiornaIntestazioneZaino();
     renderFaseStepper();
   });
 
   btnSelezionato.addEventListener("click", () => {
+    const primaVolta = !ZAINO.zainoCelebrato;
     ZAINO.fase = "selezionato";
+    if (primaVolta) ZAINO.zainoCelebrato = true;
     salvaZaino(ZAINO);
     aggiornaBottoniFase();
     renderChecklistAttiva();
     aggiornaNavCandidatura();
+    aggiornaIntestazioneZaino();
     renderFaseStepper();
+    if (primaVolta) mostraCelebrazioneZaino();
   });
 
   aggiornaBottoniFase();
+}
+
+// ============================================================
+// CELEBRAZIONE INGRESSO IN FASE 4 — "Lo zaino" (BR6)
+// Riusa l'overlay blu notte già presente in index.html (era markup
+// morto: nessun JS lo pilotava). Mostrato una sola volta per zaino
+// (ZAINO.zainoCelebrato), non ad ogni visita del tab.
+// ============================================================
+function mostraCelebrazioneZaino() {
+  const overlay = document.getElementById("celebrazione-overlay");
+  if (!overlay) return;
+  overlay.style.display = "flex";
+  document.body.classList.add("no-scroll");
+}
+
+function chiudiCelebrazioneZaino() {
+  const overlay = document.getElementById("celebrazione-overlay");
+  if (!overlay) return;
+  overlay.style.display = "none";
+  document.body.classList.remove("no-scroll");
+}
+
+function initCelebrazioneZaino() {
+  const btn = document.getElementById("celebrazione-btn");
+  if (btn) btn.addEventListener("click", chiudiCelebrazioneZaino);
 }
 
 // ============================================================
@@ -1718,6 +1787,8 @@ function init() {
   initProfilo();
   initCountdownPill();
   aggiornaNavCandidatura();
+  aggiornaIntestazioneZaino();
+  initCelebrazioneZaino();
   renderMissione();
   initOnboarding();
   setInterval(aggiornaCountdownV2, 30000); // i countdown non mostrano più i secondi
