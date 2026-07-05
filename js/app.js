@@ -661,12 +661,37 @@ function scaricaICSScadenza(scad) {
   URL.revokeObjectURL(url);
 }
 
+// ---- "Ora tocca a te" (BR5, 5b): le prime 3 voci non spuntate in
+// ordine cronologico, grandi e spuntabili direttamente. Nessun dato
+// nuovo: è una presentazione derivata dallo stesso ordine dei capitoli
+// sotto (scadenze in ordine, poi "Quando puoi"). ----
+function renderProssimiPassi(vociInOrdine, prossimaVoceId) {
+  const cont = document.getElementById("prossimi-passi-v2");
+  if (!cont) return;
+  cont.innerHTML = "";
+
+  const daFare = vociInOrdine
+    .filter(v => !ZAINO.checklist[v.id] && !voceScaduta(v))
+    .slice(0, 3);
+
+  if (!daFare.length) { cont.style.display = "none"; return; }
+
+  cont.style.display = "";
+  cont.appendChild(crea("div", "prossimi-passi-titolo", "✨ Ora tocca a te"));
+  const lista = crea("div", "prossimi-passi-lista");
+  daFare.forEach(voce => lista.appendChild(creaVoceChecklist(voce, prossimaVoceId)));
+  cont.appendChild(lista);
+}
+
 // ============================================================
 // CANDIDATURA — vista cronologica fusa Scadenze+Checklist (UX3)
 // Ogni scadenza è un "capitolo": card con data/countdown/export
 // calendario, sotto le voci di checklist collegate (scadenzaId).
 // Le voci senza scadenzaId (o con uno sconosciuto) finiscono nel
 // capitolo finale "Quando puoi". DISEGNO_UX.md §6.
+// BR5 (5b): sopra i capitoli, il blocco "Ora tocca a te"; i capitoli
+// non imminenti (che non contengono il prossimo passo attivo) partono
+// ripiegati in <details>.
 // ============================================================
 function renderChecklist() {
   const cont = document.getElementById("lista-checklist-v2");
@@ -683,11 +708,19 @@ function renderChecklist() {
   // qualcosa su cui non si può più agire.
   const prossimaVoceId = checklist.find(v => !ZAINO.checklist[v.id] && !voceScaduta(v))?.id;
 
+  const vociSenzaScadenza = checklist.filter(v => !v.scadenzaId || !idScadenzeNote.includes(v.scadenzaId));
+
+  const vociInOrdine = [];
+  scadenze.forEach(scad => vociInOrdine.push(...checklist.filter(v => v.scadenzaId === scad.id)));
+  vociInOrdine.push(...vociSenzaScadenza);
+  renderProssimiPassi(vociInOrdine, prossimaVoceId);
+
   scadenze.forEach(scad => {
     const vociCollegate = checklist.filter(v => v.scadenzaId === scad.id);
     if (!vociCollegate.length) return; // niente da fare per questa scadenza: capitolo saltato
 
     const c = calcolaCountdown(scad.data);
+    const imminente = vociCollegate.some(v => v.id === prossimaVoceId);
     const capitolo = crea("div", `cand-capitolo${c.passata ? " passata" : ""}`);
 
     const card = crea("div", "cand-scadenza-card");
@@ -706,20 +739,40 @@ function renderChecklist() {
 
     capitolo.appendChild(card);
 
+    const dettagli = document.createElement("details");
+    dettagli.className = "cand-checklist-dettagli";
+    dettagli.open = imminente;
+    const sommario = document.createElement("summary");
+    sommario.className = "cand-checklist-toggle";
+    sommario.textContent = imminente ? "I tuoi passi ▾" : "Mostra i passi ▸";
+    dettagli.appendChild(sommario);
+
     const listaVoci = crea("div", "cand-checklist-sotto");
     vociCollegate.forEach(voce => listaVoci.appendChild(creaVoceChecklist(voce, prossimaVoceId)));
-    capitolo.appendChild(listaVoci);
+    dettagli.appendChild(listaVoci);
+    capitolo.appendChild(dettagli);
 
     cont.appendChild(capitolo);
   });
 
-  const vociSenzaScadenza = checklist.filter(v => !v.scadenzaId || !idScadenzeNote.includes(v.scadenzaId));
   if (vociSenzaScadenza.length) {
+    const imminenteQuandoPuoi = vociSenzaScadenza.some(v => v.id === prossimaVoceId);
     const capitolo = crea("div", "cand-capitolo cand-capitolo-quando-puoi");
     capitolo.appendChild(crea("div", "cand-capitolo-titolo", "Quando puoi"));
+
+    const dettagli = document.createElement("details");
+    dettagli.className = "cand-checklist-dettagli";
+    dettagli.open = imminenteQuandoPuoi;
+    const sommario = document.createElement("summary");
+    sommario.className = "cand-checklist-toggle";
+    sommario.textContent = imminenteQuandoPuoi ? "I tuoi passi ▾" : "Mostra i passi ▸";
+    dettagli.appendChild(sommario);
+
     const listaVoci = crea("div", "cand-checklist-sotto");
     vociSenzaScadenza.forEach(voce => listaVoci.appendChild(creaVoceChecklist(voce, prossimaVoceId)));
-    capitolo.appendChild(listaVoci);
+    dettagli.appendChild(listaVoci);
+    capitolo.appendChild(dettagli);
+
     cont.appendChild(capitolo);
   }
 

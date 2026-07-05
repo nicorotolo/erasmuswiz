@@ -515,9 +515,33 @@ body {
 }
 
 /* ================================================================
+   "ORA TOCCA A TE" — prossimi 3 passi (BR5)
+================================================================ */
+.prossimi-passi-v2 {
+  margin: 0 20px 22px; padding: 16px;
+  background: var(--bg-card); border: 1.5px solid var(--primary);
+  border-radius: var(--radius-lg); box-shadow: var(--shadow-card);
+}
+.prossimi-passi-titolo {
+  font-family: var(--font-display); font-weight: 800; font-size: 1.05rem;
+  color: var(--text-dark); margin-bottom: 12px;
+}
+.prossimi-passi-lista { display: flex; flex-direction: column; gap: 10px; }
+.prossimi-passi-lista .voce-checklist-v2 { padding: 16px 18px; }
+.prossimi-passi-lista .voce-checklist-v2 span { font-size: 1rem; font-weight: 600; }
+
+/* ================================================================
    CANDIDATURA — vista cronologica fusa Scadenze+Checklist (UX3)
 ================================================================ */
 .cand-capitolo { margin-bottom: 22px; }
+.cand-checklist-dettagli { }
+.cand-checklist-toggle {
+  cursor: pointer; list-style: none;
+  font-size: 0.82rem; font-weight: 700; color: var(--primary);
+  margin: 0 0 10px; padding: 0; user-select: none;
+}
+.cand-checklist-toggle::-webkit-details-marker { display: none; }
+.cand-checklist-toggle:hover { color: var(--primary-hover); }
 .cand-capitolo.passata .cand-scadenza-card { opacity: 0.7; }
 .cand-scadenza-card {
   background: var(--bg-card); border: 1px solid var(--border);

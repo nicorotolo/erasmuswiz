@@ -150,8 +150,9 @@ codice irrobustito. ~6 sessioni.
   lingue contestuale** in fase 2 ("Aggiungi le tue lingue per vedere le mete
   compatibili") — era in `DISEGNO_UX.md` §3/§5 e non era mai stato
   implementato, ora chiuso.
-- [ ] **BR5. Candidatura "prossimi 3 passi"** (5b) — blocco "Ora tocca a te"
-  sopra i capitoli, capitoli non imminenti ripiegati.
+- [x] **BR5. Candidatura "prossimi 3 passi"** (5b) ✅ 2026-07-05 — blocco
+  "Ora tocca a te" sopra i capitoli con le prime 3 voci non spuntate in
+  ordine cronologico; capitoli non imminenti ripiegati in `<details>`.
 - [ ] **BR6. Zaino (6a) + Desktop (7a)** — fase 4 come zaino prima/durante/
   dopo; layout desktop 2 colonne (≥1024px), mobile invariato.
 - [ ] **BR7. QA e chiusura** — regressione completa (2 atenei, zaini vecchi,

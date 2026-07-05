@@ -4,7 +4,57 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-05 — sessione 22, Claude Code (**BR4 Mete + Schedina
+**Ultimo aggiornamento:** 2026-07-05 — sessione 23, Claude Code (**BR5 Candidatura
+"Ora tocca a te" IMPLEMENTATA — prossimi 3 passi + capitoli ripiegabili.** Letti in
+ordine `CLAUDE.md`, `STATO_DEL_SITO.md`, `ROADMAP.md`, `DISEGNO_BRAND.md`,
+`design/readme.md`. Eseguito SOLO il blocco BR5 (5b) di `DISEGNO_BRAND.md` §3, nessun
+dato nuovo — solo presentazione derivata da ciò che UX3 (`renderChecklist()` in
+`js/app.js`) già calcola. **Nuovo blocco "Ora tocca a te"** (`renderProssimiPassi()`,
+nuovo `#prossimi-passi-v2` in `index.html`, subito sopra `#lista-checklist-v2`): le
+prime 3 voci di checklist non spuntate in ordine cronologico (stesso ordine con cui i
+capitoli le presentano sotto — voci per scadenza in ordine di data, poi quelle di
+"Quando puoi"), escluse quelle scadute (`voceScaduta()`, invariata) — coerente con la
+regola "mai proporre come prossimo passo qualcosa su cui non si può più agire" già
+in uso altrove. Riusa `creaVoceChecklist()` così checkbox, salvataggio zaino,
+traduttore a 3 registri e animazione di spunta restano IDENTICI a quelli sotto (nessuna
+logica duplicata); nuove classi CSS solo per il taglio più grande richiesto dalla
+spec ("grandi e spuntabili direttamente"). Se non ci sono voci attuabili (bando
+chiuso, o tutto spuntato) il blocco si nasconde (`display:none`) invece di restare
+vuoto. **Capitoli ripiegabili**: ogni capitolo (per-scadenza e "Quando puoi") ora
+racchiude le sue voci di checklist in un `<details class="cand-checklist-dettagli">`
+con `<summary>` — aperto di default SOLO per il capitolo "imminente" (quello che
+contiene la voce attualmente attiva, stessa logica di `prossimaVoceId`), tutti gli
+altri partono chiusi con etichetta "Mostra i passi ▸"; l'header della scadenza
+(card data/countdown/bottone .ics) resta SEMPRE visibile fuori dal `<details>`, quindi
+il bottone "Aggiungi al calendario" non rischia di far scattare/richiudere il
+riquadro per errore (nessun bottone dentro un `<summary>`). Nessuna modifica ai dati
+(`dati-checklist.js`/`dati-scadenze.js`) né al motore (`prossimaScadenzaAzionabile`,
+`voceScaduta`, countdown): solo presentazione. **`node --check js/app.js`**: OK.
+**Verifica a video** (preview locale porta 8001): mobile ~390px e desktop 1280px,
+tema chiaro E notte, ENTRAMBI gli atenei (Ca' Foscari, Sapienza) — dato che la data
+di sistema (5/7/2026) è successiva a TUTTE le scadenze del bando 2026/27 di entrambi
+gli atenei (bando chiuso, coerente con la nota già in Roadmap "stagionalità"), il
+blocco "Ora tocca a te" con dati reali risultava vuoto/nascosto quando le uniche voci
+non spuntate erano tutte scadute — comportamento CORRETTO, non un difetto; per
+verificare il caso con voci attuabili ho temporaneamente forzato la data di sistema
+nel browser (solo lato test, nessun file toccato) a un giorno precedente le scadenze:
+confermato che il blocco mostra le prime 3 voci, che spuntarne una dal blocco
+aggiorna lo zaino e fa comparire subito la voce successiva, e che il capitolo
+"imminente" parte aperto mentre gli altri restano chiusi ("Mostra i passi ▸",
+verificato anche il click reale di apertura/chiusura). Zaino vecchio testato
+(Sapienza, senza `schedina`/`autoverifica`/`checklistPost`): nessun errore, fallback
+invariato. Dark mode: pannello e toggle leggibili (bordo/testo su `--primary`, stesso
+pattern già usato altrove in tema notte, nessun colore nuovo). Nessun errore console,
+nessuna richiesta di rete fallita. **Confronto col prototipo**
+(`design/riferimenti/ErasmusWiz Prototipo (standalone).html`): stesso limite già
+documentato in BR2 — il bundle React dà `[bundle] error` offline e non arriva a
+renderizzare la schermata Candidatura, quindi nessun confronto pixel possibile;
+realizzato seguendo la descrizione testuale di `DISEGNO_BRAND.md` §3 (BR5) e i token
+di `design/tokens/` (bordo/ombra `--primary`/`--shadow-card`, raggio `--radius-lg`,
+titolo in `--font-display`). **Non toccati:** dati di checklist/scadenze, motore
+temporale, Mete/Schedina (BR4), Zaino/Desktop (BR6). Roadmap: BR5 spuntato.)
+
+**Aggiornamento precedente:** 2026-07-05 — sessione 22, Claude Code (**BR4 Mete + Schedina
 IMPLEMENTATA — card compatte, filtri a chip, schedina "Le tue 5 scelte", banner lingue.**
 Letti in ordine `CLAUDE.md`, `STATO_DEL_SITO.md`, `ROADMAP.md`, `DISEGNO_BRAND.md`,
 `design/readme.md`. Eseguito SOLO il blocco BR4 di `DISEGNO_BRAND.md` §3 (l'unico
