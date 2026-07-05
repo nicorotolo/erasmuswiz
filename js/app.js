@@ -11,13 +11,14 @@ function caricaZaino() {
     const g = localStorage.getItem(CHIAVE_ZAINO);
     const z = g ? JSON.parse(g) : { profilo: null, checklist: {}, metePreferite: [], fase: "domanda", checklistPost: {} };
     if (!Array.isArray(z.metePreferite)) z.metePreferite = [];
+    if (!Array.isArray(z.schedina)) z.schedina = [];
     if (!z.fase) z.fase = "domanda";
     if (!z.checklistPost || typeof z.checklistPost !== "object") z.checklistPost = {};
     if (typeof z.onboardingFatto !== "boolean") z.onboardingFatto = !!z.profilo;
     if (!z.autoverifica || typeof z.autoverifica !== "object") z.autoverifica = {};
     return z;
   } catch (e) {
-    return { profilo: null, checklist: {}, metePreferite: [], fase: "domanda", checklistPost: {}, onboardingFatto: false, autoverifica: {} };
+    return { profilo: null, checklist: {}, metePreferite: [], schedina: [], fase: "domanda", checklistPost: {}, onboardingFatto: false, autoverifica: {} };
   }
 }
 
@@ -26,6 +27,7 @@ function salvaZaino(zaino) {
 }
 
 let ZAINO = caricaZaino();
+let filtroMeteAttivo = "tutte"; // "tutte" | "ok" | "medio" | "basso" — stato UI, non salvato nello zaino
 
 // ---- Utilità DOM ----
 function crea(tag, cls, txt) {
@@ -800,6 +802,25 @@ function calcolaCompatibilita(meta, profilo) {
   return { totale, ordine: totale, icona: "🔒", stato: "Non accessibile ora", dettaglio: motivoMancanza(meta, profilo, pLing, pLiv) };
 }
 
+// Categoria sintetica per badge e filtri a chip (BR4): stessa soglia di calcolaCompatibilita.
+function categoriaCompat(comp) {
+  if (comp.totale === null) return comp.ordine >= 60 ? "medio" : "basso";
+  if (comp.totale >= 80) return "ok";
+  if (comp.totale >= 40) return "medio";
+  return "basso";
+}
+
+function postiSintesi(meta) {
+  const tot = (meta.posti || []).reduce((s, p) => s + (p.numero || 0), 0);
+  return `${tot} ${tot === 1 ? "posto" : "posti"}`;
+}
+
+function linguaSintesi(meta) {
+  if (!meta.requisitoLingua || !meta.requisitoLingua.length) return "Lingua da verificare";
+  const [prima, ...altre] = meta.requisitoLingua;
+  return `${prima.lingua} ${prima.livello}` + (altre.length ? ` +${altre.length}` : "");
+}
+
 // ============================================================
 // METE v2
 // ============================================================
@@ -830,6 +851,21 @@ function renderMete() {
       strip.appendChild(lnk);
     }
   }
+
+  const bannerLingue = document.getElementById("banner-lingue-mete");
+  if (bannerLingue) {
+    bannerLingue.innerHTML = "";
+    if (profilo && (!profilo.lingue || profilo.lingue.length === 0)) {
+      const banner = crea("p", "banner-in-verifica",
+        "Aggiungi le tue lingue per vedere quali mete sono davvero compatibili. ");
+      const lnk = crea("a", "profilo-strip-link", "Vai al profilo →");
+      lnk.href = "#";
+      lnk.addEventListener("click", e => { e.preventDefault(); mostraTab("profilo"); });
+      banner.appendChild(lnk);
+      bannerLingue.appendChild(banner);
+    }
+  }
+
   let elenco;
 
   if (profilo) {
@@ -843,6 +879,30 @@ function renderMete() {
   } else {
     elenco = (METE || []).map(m => ({ meta: m, comp: null }));
     if (intro) intro.textContent = "Compila il profilo per vedere le mete ordinate per compatibilità.";
+  }
+
+  const filtriChip = document.getElementById("filtri-mete-chip");
+  if (filtriChip) {
+    filtriChip.innerHTML = "";
+    if (profilo) {
+      if (!["tutte", "ok", "medio", "basso"].includes(filtroMeteAttivo)) filtroMeteAttivo = "tutte";
+      [
+        { valore: "tutte", testo: "Tutte" },
+        { valore: "ok",    testo: "✅ Compatibili" },
+        { valore: "medio", testo: "⚠️ Con riserve" },
+        { valore: "basso", testo: "🔒 Non accessibili" },
+      ].forEach(opz => {
+        const chip = crea("button", "chip-filtro" + (filtroMeteAttivo === opz.valore ? " attivo" : ""), opz.testo);
+        chip.type = "button";
+        chip.addEventListener("click", () => { filtroMeteAttivo = opz.valore; renderMete(); });
+        filtriChip.appendChild(chip);
+      });
+    } else {
+      filtroMeteAttivo = "tutte";
+    }
+  }
+  if (profilo && filtroMeteAttivo !== "tutte") {
+    elenco = elenco.filter(({ comp }) => categoriaCompat(comp) === filtroMeteAttivo);
   }
 
   const testo = (document.getElementById("cerca-mete")?.value || "").trim().toLowerCase();
@@ -861,52 +921,33 @@ function renderMete() {
     cont.appendChild(crea("p", "stato-vuoto-v2", `Nessuna meta trovata per «${testo}».`));
     return;
   }
+  if (elenco.length === 0 && profilo && filtroMeteAttivo !== "tutte") {
+    cont.appendChild(crea("p", "stato-vuoto-v2", "Nessuna meta con questo filtro. Prova un'altra categoria."));
+    return;
+  }
 
   elenco.forEach(({ meta, comp }) => {
     const card = crea("article", "card-meta-v2");
 
     if (comp) {
-      let cls = "badge-v2 badge-basso-v2";
-      if (comp.totale === null) { if (comp.ordine >= 60) cls = "badge-v2 badge-medio-v2"; }
-      else if (comp.totale >= 80) cls = "badge-v2 badge-ok-v2";
-      else if (comp.totale >= 40) cls = "badge-v2 badge-medio-v2";
+      const categoria = categoriaCompat(comp);
+      const classeMono = categoria === "ok" ? "verde" : categoria === "medio" ? "amber" : "locked";
 
-      const etichetta = comp.totale === null
-        ? `${comp.icona} ${comp.stato}`
-        : `${comp.icona} ${comp.totale}% — ${comp.stato}`;
-
-      const badge = crea("div", cls);
-      badge.appendChild(crea("span", "badge-v2-label",  etichetta));
-      badge.appendChild(crea("span", "badge-v2-detail", comp.dettaglio));
-      card.appendChild(badge);
+      const riga = crea("div", "card-meta-v2-punteggio");
+      riga.appendChild(crea("span", "meta-punteggio " + classeMono,
+        comp.totale !== null ? `${comp.totale}%` : comp.icona));
+      riga.appendChild(crea("span", "card-meta-v2-stato", `${comp.icona} ${comp.stato}`));
+      card.appendChild(riga);
     }
 
     card.appendChild(crea("h3", null, meta.universita));
     card.appendChild(crea("div", "card-luogo-v2",
       meta.citta ? `${meta.citta} (${meta.paese})` : meta.paese));
 
-    function campoV2(etichetta, contenuto) {
-      const d = crea("div", "campo-v2");
-      d.appendChild(crea("span", "campo-v2-label", etichetta));
-      if (typeof contenuto === "string") d.appendChild(document.createTextNode(contenuto));
-      else d.appendChild(contenuto);
-      return d;
-    }
-
-    const listaPosti = document.createElement("ul");
-    meta.posti.forEach(p => listaPosti.appendChild(crea("li", null, postiInParole(p))));
-
-    const listaLingue = document.createElement("ul");
-    if (meta.requisitoLingua && meta.requisitoLingua.length) {
-      meta.requisitoLingua.forEach(l =>
-        listaLingue.appendChild(crea("li", null, `${l.lingua} ${l.livello} — ${l.condizione}`)));
-    } else {
-      listaLingue.appendChild(crea("li", null, "Da verificare — non indicata nella lista ufficiale."));
-    }
-
-    card.appendChild(campoV2("Dipartimento / Facoltà", meta.dipartimentoCf));
-    card.appendChild(campoV2("Posti disponibili",         listaPosti));
-    card.appendChild(campoV2("Requisiti linguistici",     listaLingue));
+    const chipRiga = crea("div", "chip-meta-riga");
+    chipRiga.appendChild(crea("span", "chip-meta", postiSintesi(meta)));
+    chipRiga.appendChild(crea("span", "chip-meta", linguaSintesi(meta)));
+    card.appendChild(chipRiga);
 
     const link = crea("a", "link-scheda-v2",
       meta.linkPdf ? "Scheda ufficiale (PDF)" : `Portale ${window.ATENEO_LABEL || "Ca' Foscari"}`);
@@ -940,38 +981,80 @@ function renderMete() {
 }
 
 // ============================================================
-// METE PREFERITE
+// SCHEDINA — "Le tue 5 scelte" (BR4)
 // ============================================================
+// Ordine persistito in ZAINO.schedina; le preferite restano il meccanismo di
+// raccolta (togglePreferita) — questa funzione sincronizza le due liste:
+// mantiene l'ordine salvato per le mete ancora preferite, aggiunge in coda
+// le preferite non ancora ordinate, scarta chi non è più tra le preferite.
+function schedinaIds() {
+  const preferite = ZAINO.metePreferite || [];
+  const salvata    = Array.isArray(ZAINO.schedina) ? ZAINO.schedina : [];
+  const esistenti  = salvata.filter(id => preferite.includes(id));
+  const nuove      = preferite.filter(id => !esistenti.includes(id));
+  ZAINO.schedina = [...esistenti, ...nuove];
+  return ZAINO.schedina;
+}
+
 function renderPreferite(msg) {
   const cont = document.getElementById("sezione-preferite");
   if (!cont) return;
   cont.innerHTML = "";
 
-  const n = ZAINO.metePreferite.length;
-  if (n === 0 && !msg) return;
+  const ids = schedinaIds();
+  salvaZaino(ZAINO);
 
   const header = crea("div", "preferite-header");
-  header.appendChild(crea("span", "preferite-label", `Le tue mete preferite (${n}/5)`));
+  header.appendChild(crea("span", "preferite-label", `Le tue 5 scelte (${ids.length}/5)`));
   cont.appendChild(header);
 
   if (msg) cont.appendChild(crea("p", "msg-preferite", msg));
 
-  if (n > 0) {
-    const lista = crea("div", "preferite-lista");
-    ZAINO.metePreferite.forEach(id => {
-      const meta = (METE || []).find(m => m.id === id);
-      if (!meta) return;
-      const item = crea("div", "preferita-item");
-      item.appendChild(crea("span", "preferita-nome", meta.universita));
-      const btnRim = crea("button", "preferita-rimuovi", "✕");
-      btnRim.type = "button";
-      btnRim.title = "Rimuovi dai preferiti";
-      btnRim.addEventListener("click", () => togglePreferita(id));
-      item.appendChild(btnRim);
-      lista.appendChild(item);
-    });
-    cont.appendChild(lista);
+  const lista = crea("div", "schedina-lista");
+  for (let i = 0; i < 5; i++) {
+    const id   = ids[i];
+    const meta = id ? (METE || []).find(m => m.id === id) : null;
+    const slot = crea("div", "schedina-slot" + (meta ? "" : " schedina-slot--vuoto"));
+    slot.appendChild(crea("span", "schedina-numero", String(i + 1)));
+
+    if (meta) {
+      const corpo = crea("div", "schedina-corpo");
+      corpo.appendChild(crea("span", "schedina-nome", meta.universita));
+      if (ZAINO.profilo) {
+        const comp = calcolaCompatibilita(meta, ZAINO.profilo);
+        corpo.appendChild(crea("span", "schedina-stato",
+          `${comp.icona} ${comp.totale !== null ? comp.totale + "%" : comp.stato}`));
+      }
+      slot.appendChild(corpo);
+
+      const azioni = crea("div", "schedina-azioni");
+      const su = crea("button", "schedina-freccia", "▲");
+      su.type = "button"; su.title = "Sposta su"; su.disabled = i === 0;
+      su.addEventListener("click", () => spostaSchedina(i, -1));
+      const giu = crea("button", "schedina-freccia", "▼");
+      giu.type = "button"; giu.title = "Sposta giù"; giu.disabled = i === ids.length - 1;
+      giu.addEventListener("click", () => spostaSchedina(i, 1));
+      const rimuovi = crea("button", "schedina-rimuovi", "✕");
+      rimuovi.type = "button"; rimuovi.title = "Rimuovi dalla schedina";
+      rimuovi.addEventListener("click", () => togglePreferita(id));
+      azioni.appendChild(su); azioni.appendChild(giu); azioni.appendChild(rimuovi);
+      slot.appendChild(azioni);
+    } else {
+      slot.appendChild(crea("span", "schedina-invito", "Aggiungi dalla lista qui sotto"));
+    }
+
+    lista.appendChild(slot);
   }
+  cont.appendChild(lista);
+}
+
+function spostaSchedina(indice, direzione) {
+  const ids   = ZAINO.schedina;
+  const nuovo = indice + direzione;
+  if (nuovo < 0 || nuovo >= ids.length) return;
+  [ids[indice], ids[nuovo]] = [ids[nuovo], ids[indice]];
+  salvaZaino(ZAINO);
+  renderPreferite();
 }
 
 function togglePreferita(id) {

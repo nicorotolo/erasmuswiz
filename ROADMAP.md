@@ -143,11 +143,13 @@ codice irrobustito. ~6 sessioni.
   le auto-verifiche sono spuntate (`ZAINO.autoverifica`), non col solo
   `profiloOk`; fallback verificato (profilo compilato, nessuna spunta →
   fase "▶ attiva").
-- [ ] **BR4. Mete + Schedina** — card compatte + chip (4a); nuova vista
-  "Le tue 5 scelte" con slot ordinabili ▲▼ (`ZAINO.schedina`, fallback da
-  `metePreferite`). **In più (fix da assessment): banner lingue contestuale**
-  in fase 2 ("Aggiungi le tue lingue per vedere le mete compatibili") — era
-  in `DISEGNO_UX.md` §3/§5 ma NON è mai stato implementato.
+- [x] **BR4. Mete + Schedina** ✅ 2026-07-05 — card compatte con punteggio mono
+  + chip (4a), filtri a chip pill per compatibilità; nuova vista "Le tue 5
+  scelte" con slot ordinabili ▲▼ (`ZAINO.schedina`, fallback da
+  `metePreferite`, verificato su zaini vecchi). **Fix da assessment: banner
+  lingue contestuale** in fase 2 ("Aggiungi le tue lingue per vedere le mete
+  compatibili") — era in `DISEGNO_UX.md` §3/§5 e non era mai stato
+  implementato, ora chiuso.
 - [ ] **BR5. Candidatura "prossimi 3 passi"** (5b) — blocco "Ora tocca a te"
   sopra i capitoli, capitoli non imminenti ripiegati.
 - [ ] **BR6. Zaino (6a) + Desktop (7a)** — fase 4 come zaino prima/durante/

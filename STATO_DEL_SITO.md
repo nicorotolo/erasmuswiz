@@ -4,7 +4,64 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-05 — sessione 21, Claude Code (**BR3 Onboarding +
+**Ultimo aggiornamento:** 2026-07-05 — sessione 22, Claude Code (**BR4 Mete + Schedina
+IMPLEMENTATA — card compatte, filtri a chip, schedina "Le tue 5 scelte", banner lingue.**
+Letti in ordine `CLAUDE.md`, `STATO_DEL_SITO.md`, `ROADMAP.md`, `DISEGNO_BRAND.md`,
+`design/readme.md`. Eseguito SOLO il blocco BR4 di `DISEGNO_BRAND.md` §3 (l'unico
+blocco BR con logica nuova). **4a — card mete compatte** (`renderMete()` in
+`js/app.js`): rimossi dalla card in griglia gli elenchi completi di posti/lingue
+(restano SOLO nel pannello di dettaglio esistente, `apriDettaglioMeta()`, non
+toccato); al loro posto un punteggio compatto in Space Mono (classe `.meta-punteggio`,
+già definita in CSS da sessioni precedenti ma MAI usata in `renderMete()` — bug
+minore chiuso) + stato testuale, e due chip sintetiche ("N posti", "Lingua Livello"
+tramite nuove `postiSintesi()`/`linguaSintesi()`). **Filtri a chip pill** (nuovo
+`#filtri-mete-chip`): Tutte/✅ Compatibili/⚠️ Con riserve/🔒 Non accessibili, visibili
+solo con profilo compilato, stato in variabile di modulo `filtroMeteAttivo` (UI, non
+salvato nello zaino); nuovo helper `categoriaCompat(comp)` condiviso tra badge e
+filtro (stessa soglia di `calcolaCompatibilita`, nessuna doppia fonte di verità).
+**4b — Schedina "Le tue 5 scelte"** (sostituisce la vecchia lista semplice
+`renderPreferite()`, stesso contenitore `#sezione-preferite`): 5 slot numerati sempre
+visibili, riempiti dalle mete preferite ⭐ (meccanismo di raccolta invariato), frecce
+▲▼ per riordinare + ✕ per rimuovere, slot vuoti come invito ("Aggiungi dalla lista qui
+sotto"), stato ✅/⚠️/🔒 ereditato dalla meta se il profilo è compilato. Nuovo campo
+`ZAINO.schedina: [idMeta,...]`; nuova funzione `schedinaIds()` sincronizza ad ogni
+render l'ordine salvato con le preferite correnti (mantiene l'ordine per chi è ancora
+preferita, aggiunge in coda le nuove, scarta chi non lo è più) — **fallback zaini
+vecchi verificato**: zaino senza `schedina` (solo `metePreferite`) ricostruisce
+correttamente lo slot 1/5 al primo render, nessun errore anche con un id-meta non
+più esistente nei dati (slot trattato come vuoto, nessun crash). **Fix da assessment
+04/07 — banner lingue contestuale** (mai implementato da UX3/UX5, ora chiuso):
+nuovo `#banner-lingue-mete` in `renderMete()`, visibile SOLO se il profilo esiste e
+`profilo.lingue` è vuoto — riusa lo stile esistente `.banner-in-verifica` (oro, già
+usato da BR3 per "dati in verifica"), nessun colore nuovo. **Pulizia CSS**: rimosse le
+regole ormai morte per l'evoluzione di questa sessione — `.badge-v2*`/`.campo-v2*`
+(vecchia card estesa) e `.preferita-item`/`.preferita-nome`/`.preferita-rimuovi`/
+`.preferite-lista` + relativi override `.tema-notte` (vecchia lista preferiti
+sostituita dalla schedina). **Bug di leggibilità in tema notte trovato e corretto
+in corso di sessione** (non pre-esistente nel codice pubblicato, introdotto e
+richiuso nella stessa sessione): il riquadro della schedina (`#sezione-preferite`)
+resta color crema (`--gold-bg`) in ENTRAMBI i temi per scelta preesistente (mai
+sovrascritto per il tema notte, come gli altri banner oro del sito); il primo
+tentativo di stile per lo slot usava però `var(--text-dark)`/`var(--text-muted)`,
+che in tema notte diventano bianco/chiaro e sparivano sullo sfondo crema — corretto
+usando colori fissi (`var(--night-bg)` per il nome, blu trasparente per lo stato),
+stesso pattern già in uso per `.preferite-label`/`.msg-preferite` nello stesso
+riquadro. Token: nessun valore nuovo, solo variabili già mappate da BR0
+(`--gold`, `--gold-dark`, `--gold-border`, `--primary`, `--radius-pill`,
+`--radius-sm`, `--font-mono`). **`node --check js/app.js`**: OK. **Verifica a video**
+(preview locale porta 8001): mobile ~390px e desktop 1280px, tema chiaro E notte,
+ENTRAMBI gli atenei (Ca' Foscari area 0413, Sapienza area 0731) — card compatte
+leggibili in tutte le combinazioni, punteggio mono ben visibile, chip filtro
+funzionanti (conteggio aggiornato, messaggio "Nessuna meta con questo filtro"
+quando 0 risultati), schedina: aggiunta/rimozione/riordino ▲▼ testati dal vivo
+(click reali, non solo `element.click()` di bypass), persistenza dopo reload
+verificata; banner lingue compare/sparisce correttamente compilando il campo
+lingue; nessun errore console, nessuna richiesta di rete fallita. **Non toccati:**
+motore di compatibilità (pesi 50/30/20), pannello di dettaglio meta, onboarding,
+fase 1/idoneità, checklist/candidatura (BR5), zaino/desktop (BR6). Roadmap:
+BR4 spuntato.)
+
+**Aggiornamento precedente:** 2026-07-05 — sessione 21, Claude Code (**BR3 Onboarding +
 Fase 1 IMPLEMENTATA — vestizione onboarding e semaforo requisiti.** Letti in ordine
 `CLAUDE.md`, `STATO_DEL_SITO.md`, `ROADMAP.md`, `DISEGNO_BRAND.md`, `design/readme.md`.
 Eseguito SOLO il blocco BR3 di `DISEGNO_BRAND.md` §3, incluso il fix da assessment
