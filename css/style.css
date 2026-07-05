@@ -47,8 +47,8 @@
   --primary-shadow: rgba(61,125,255,0.30);
   --ring:           rgba(61,125,255,0.35);
   --shadow-focus:   0 0 0 4px var(--ring);
-  --shadow-card:    0 2px 6px rgba(27,55,123,0.07);
-  --shadow-card-hover: 0 14px 32px rgba(27,55,123,0.16);
+  --shadow-card:    0 1px 2px rgba(27,55,123,0.05), 0 6px 16px rgba(27,55,123,0.06);
+  --shadow-card-hover: 0 2px 6px rgba(27,55,123,0.08), 0 14px 32px rgba(27,55,123,0.14);
 
   /* ── Movimento (BR1: gentile, mai brusco) ── */
   --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
@@ -91,11 +91,14 @@ html { scroll-behavior: smooth; }
 }
 body {
   font-family: var(--font-body);
-  background: var(--bg-app);
+  background: linear-gradient(180deg, #f7f9fd 0%, var(--bg-app) 240px);
+  background-color: var(--bg-app);
   color: var(--text-dark);
   min-height: 100vh;
   line-height: 1.5;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 /* ================================================================
@@ -121,6 +124,7 @@ body {
   display: flex;
   align-items: center;
   padding: 10px 12px env(safe-area-inset-bottom, 16px);
+  box-shadow: 0 -8px 24px rgba(16, 27, 63, 0.14);
 }
 .nav-item {
   flex: 1;
@@ -156,7 +160,9 @@ body {
   cursor: pointer;
   padding: 4px 8px;
   opacity: 0.7;
-  display: none;
+  display: block;
+  flex: 0 0 auto;
+  color: var(--night-muted);
 }
 
 @media (min-width: 768px) {
@@ -168,6 +174,7 @@ body {
     height: 64px;
     justify-content: flex-end;
     gap: 4px;
+    box-shadow: 0 8px 24px rgba(16, 27, 63, 0.18);
   }
   .nav-brand { display: flex; }
   .nav-item {
@@ -203,8 +210,12 @@ body {
 }
 
 .tab-pane         { display: none; }
-.tab-pane.attivo  { display: block; }
+.tab-pane.attivo  { display: block; animation: tab-in var(--dur-base) var(--ease-out); }
 .tab-pane.nascosto { display: none; }
+@keyframes tab-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
 
 /* ================================================================
    HOME HEADER — hero blu notte (BR2)
@@ -277,12 +288,14 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 12px 16px 10px;
+  box-shadow: var(--shadow-card);
 }
 .percorso-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
 .percorso-label { font-size: 11px; font-weight: 800; color: var(--text-hint); letter-spacing: .06em; text-transform: uppercase; }
 .fase-stepper { display: flex; flex-direction: column; gap: 8px; }
 .fase-card {
   display: flex; align-items: center; gap: 10px;
+  flex-wrap: wrap;
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   padding: 10px 12px;
@@ -307,7 +320,10 @@ body {
 .fase-domanda { font-size: 13.5px; font-weight: 800; color: var(--text-dark); }
 .fase-riassunto { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
 .fase-cta {
-  flex: 0 0 auto;
+  flex: 1 1 100%;
+  margin-left: 38px;
+  text-align: left;
+  align-self: stretch;
   border: 1.5px solid var(--border-strong);
   background: var(--bg-card);
   border-radius: var(--radius-pill);
@@ -351,7 +367,7 @@ body {
 .missione-bottoni { display: flex; gap: 10px; margin-top: 14px; }
 .btn-primary {
   flex: 1; background: var(--primary); color: #fff; border: none;
-  border-radius: var(--radius-md); padding: 13px;
+  border-radius: var(--radius-pill); padding: 13px 18px;
   font-family: var(--font-body); font-size: 14.5px; font-weight: 700;
   box-shadow: 0 8px 18px var(--primary-shadow); cursor: pointer;
   transition: background var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
@@ -360,7 +376,7 @@ body {
 .btn-primary:active { transform: translateY(1px) scale(.985); }
 .btn-secondary {
   flex: 1; background: #f3f6fc; border: 1.5px solid var(--border); color: var(--text-dark);
-  border-radius: var(--radius-md); padding: 13px;
+  border-radius: var(--radius-pill); padding: 13px 18px;
   font-family: var(--font-body); font-size: 14.5px; font-weight: 700;
   cursor: pointer; transition: background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
 }
@@ -407,6 +423,7 @@ body {
 .preparazione-card {
   margin: 12px 20px 0; background: var(--bg-card);
   border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px 16px;
+  box-shadow: var(--shadow-card);
 }
 .preparazione-header { display: flex; justify-content: space-between; align-items: center; }
 .preparazione-label { font-size: 11px; font-weight: 800; color: var(--text-hint); letter-spacing: .06em; text-transform: uppercase; }
@@ -547,6 +564,7 @@ body {
   background: var(--bg-card); border: 1px solid var(--border);
   border-left: 3px solid #ffb627; border-radius: var(--radius-md);
   padding: 14px 16px; margin-bottom: 10px;
+  box-shadow: var(--shadow-card);
 }
 .cand-capitolo.passata .cand-scadenza-card { border-left-color: var(--border-strong); }
 .cand-scadenza-titolo { font-weight: 700; color: var(--text-dark); margin-bottom: 3px; }
@@ -604,8 +622,8 @@ body {
 #cerca-mete:focus-visible { outline: none; border-color: var(--primary); box-shadow: var(--shadow-focus); }
 #conta-mete { color: var(--text-muted); font-size: 0.85rem; white-space: nowrap; }
 .griglia-mete-v2 { display: grid; grid-template-columns: 1fr; gap: 14px; padding: 0 20px; }
-@media (min-width: 768px) { .griglia-mete-v2 { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); } }
-.card-meta-v2 { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px 18px; }
+@media (min-width: 768px) { .griglia-mete-v2 { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; } }
+.card-meta-v2 { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px 18px; box-shadow: var(--shadow-card); }
 .card-meta-v2 h3 { color: var(--text-dark); font-size: 1rem; margin-bottom: 2px; font-weight: 700; }
 .card-luogo-v2 { color: var(--text-muted); font-size: 0.87rem; margin-bottom: 10px; }
 .meta-punteggio { font-family: var(--font-mono); font-size: 21px; font-weight: 700; }
@@ -615,7 +633,7 @@ body {
 .link-scheda-v2 {
   display: inline-block; margin-top: 10px;
   background: var(--primary); color: #fff; text-decoration: none;
-  padding: 7px 15px; border-radius: var(--radius-sm);
+  padding: 7px 16px; border-radius: var(--radius-pill);
   font-size: 0.83rem; font-weight: 700;
   transition: background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
 }
@@ -684,7 +702,7 @@ body {
 ================================================================ */
 .griglia-requisiti-v2 { display: grid; grid-template-columns: 1fr; gap: 12px; padding: 0 20px; }
 @media (min-width: 768px) { .griglia-requisiti-v2 { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); } }
-.requisito-v2 { background: var(--bg-card); border: 1px solid var(--border); border-top: 3px solid var(--gold); border-radius: var(--radius-sm); padding: 14px 16px; transition: border-color var(--dur-base) var(--ease-out); }
+.requisito-v2 { background: var(--bg-card); border: 1px solid var(--border); border-top: 3px solid var(--gold); border-radius: var(--radius-md); padding: 14px 16px; box-shadow: var(--shadow-card); transition: border-color var(--dur-base) var(--ease-out); }
 .requisito-v2--ok { border-top-color: var(--green); }
 .requisito-v2-testa { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
 .requisito-v2-semaforo { font-size: 1rem; line-height: 1; flex-shrink: 0; }
@@ -727,7 +745,7 @@ body {
 .checkbox-lingua { font-size: 0.83rem; color: var(--text-muted); display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
 .checkbox-lingua input { accent-color: var(--primary); }
 .btn-primario {
-  background: var(--primary); color: #fff; border: none; border-radius: var(--radius-sm);
+  background: var(--primary); color: #fff; border: none; border-radius: var(--radius-pill);
   padding: 12px 24px; font-family: var(--font-body); font-size: 0.95rem; font-weight: 700;
   cursor: pointer; box-shadow: 0 6px 14px var(--primary-shadow);
   transition: background var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
@@ -780,7 +798,12 @@ body {
 ================================================================ */
 .footer-v2 {
   background: var(--night-bg); border-top: 1px solid var(--night-border);
-  padding: 22px 20px; text-align: center; position: relative; z-index: 1; margin-top: 24px;
+  padding: 22px 20px; text-align: center; position: relative; z-index: 1; margin-top: 32px;
+}
+/* Su mobile la nav in basso è fissa: il footer si dà da solo lo spazio
+   per non finirci sotto (l'ultima riga era coperta dalla barra). */
+@media (max-width: 767px) {
+  .footer-v2 { padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
 }
 .footer-inner { max-width: 680px; margin: 0 auto; }
 .footer-v2 p { color: var(--night-muted); font-size: 0.8rem; margin: 4px 0; }
@@ -809,7 +832,7 @@ body {
 .celebrazione-sub { font-size: 15px; color: #c8d6f5; }
 .celebrazione-btn {
   margin-top: 28px; width: 100%; max-width: 320px;
-  background: var(--gold); color: var(--night-bg); border: none; border-radius: var(--radius-md); padding: 16px;
+  background: var(--gold); color: var(--night-bg); border: none; border-radius: var(--radius-pill); padding: 16px;
   font-family: var(--font-body); font-size: 16px; font-weight: 800;
   box-shadow: 0 10px 26px rgba(255,182,39,.35); cursor: pointer;
   transition: background var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
@@ -940,31 +963,47 @@ body.tema-notte::before {
 body.tema-notte .btn-secondary { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15); color: #fff; }
 body.tema-notte .btn-secondary:hover { background: rgba(255,255,255,0.13); }
 body.tema-notte .campo-form select, body.tema-notte .campo-form input, body.tema-notte .riga-lingua select { background: rgba(255,255,255,0.06); color: #fff; border-color: rgba(255,255,255,0.15); }
+/* Le scritte blu --primary sul fondo blu notte restano poco leggibili:
+   in tema notte i link/CTA testuali passano a un azzurro più chiaro. */
+body.tema-notte .fase-cta,
+body.tema-notte .link-torna-tab,
+body.tema-notte .cand-checklist-toggle,
+body.tema-notte .card-dettagli-hint,
+body.tema-notte .profilo-strip-link { color: #a7c3ff; }
 
 /* ================================================================
    DESKTOP ≥1024px
 ================================================================ */
 @media (min-width: 1024px) {
-  .main-content { max-width: 1280px; padding: 80px 40px 40px; }
+  .main-content { max-width: 1140px; padding: 104px 40px 48px; }
+  /* Home a 2 colonne bilanciate: contenuto principale largo a sinistra
+     (hero, missione, countdown, preparazione), percorso come sidebar destra.
+     Sostituisce la vecchia griglia a 3 colonne che comprimeva l'hero a
+     ~500px e lasciava la colonna destra quasi vuota. */
   #tab-oggi {
     display: grid;
-    grid-template-columns: 300px 1fr 340px;
+    grid-template-columns: minmax(0, 1fr) 360px;
     grid-template-rows: auto;
-    gap: 0 28px;
+    gap: 0 32px;
     align-items: start;
   }
   #tab-oggi.nascosto { display: none; }
-  .home-header    { grid-column: 2; grid-row: 1; border-radius: var(--radius-xl); border-top: 1px solid var(--night-border); }
+  .home-header {
+    grid-column: 1; grid-row: 1;
+    border-radius: var(--radius-xl); border-top: 1px solid var(--night-border);
+    padding: 30px 34px 34px;
+  }
   .home-header .wiz-mascot { display: none; } /* sul desktop c'è già il Wiz nella card missione */
-  .percorso-wrap  { grid-column: 1; grid-row: 1 / 5; margin: 0; align-self: start; }
-  .missione-card  { grid-column: 2; grid-row: 2; margin: 12px 0 0; padding-right: 170px; }
-  .countdown-pill    { grid-column: 3; grid-row: 1 / 3; margin: 0; align-self: start; }
-  .preparazione-card { grid-column: 3; grid-row: 3; margin: 12px 0 0; }
+  .home-saluto { font-size: 34px; }
+  .home-hero-claim { font-size: 14.5px; max-width: 44ch; }
+  .home-data { font-size: 14px; }
+  .percorso-wrap  { grid-column: 2; grid-row: 1 / 6; margin: 0; align-self: start; padding: 16px 18px 14px; }
+  .missione-card  { grid-column: 1; grid-row: 2; margin: 20px 0 0; padding: 24px; padding-right: 190px; }
+  .countdown-pill    { grid-column: 1; grid-row: 3; margin: 20px 0 0; }
+  .preparazione-card { grid-column: 1; grid-row: 4; margin: 20px 0 0; }
   .missione-wiz-desktop { display: block; }
-  /* Nella colonna stretta il bottone della fase va a capo, sotto il testo:
-     così la domanda-guida non si spezza una parola per riga */
-  .fase-card { flex-wrap: wrap; }
-  .fase-cta  { flex: 1 1 100%; margin-left: 25px; text-align: left; }
+  .sezione-titolo { font-size: 1.6rem; }
+  .sezione-header { margin-top: 28px; }
 
   /* Candidatura/Zaino (BR6, 7a): 2 colonne — contenuto a sinistra
      (header, banner, capitoli/lista), colonna azione compatta a destra

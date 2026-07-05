@@ -4,7 +4,36 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-05 — sessione 26, Cowork (**Script di utilità: RUN-SITO.bat creato.** Nuovo file batch `RUN-SITO.bat` nel repo per lanciare il sito localmente con un singolo comando. Opzioni: (1) doppio-click senza sincronizzazione → avvia il server sulla porta 8001 istantaneamente; (2) doppio-click + rispondi `s` → scarica dati fresh da GitHub e poi avvia. Coerente nello stile con i file `.bat` esistenti (`SCARICA.bat`, `PUBBLICA.bat`), con UTF-8 e gestione lock di git inclusi. Nessun file modificato, nessun codice del sito toccato. Aggiornato il file presente.)
+**Ultimo aggiornamento:** 2026-07-05 — sessione 27, Claude Code (**Rifinitura UI/UX
+"sito da professionisti" — SOLO `css/style.css`, zero logica toccata.** Richiesta di
+Nicola: eliminare l'aria "da developer", sistemare mobile e desktop. Interventi:
+(1) **Desktop home ristrutturata**: la vecchia griglia a 3 colonne comprimeva
+hero+missione a ~500px con la colonna destra quasi vuota; ora 2 colonne bilanciate
+(`minmax(0,1fr) 360px`) — hero largo 668px con padding e saluto 34px, missione/
+countdown/preparazione sotto, percorso come sidebar destra; `main-content` a
+1140px con più aria sopra (104px). (2) **Fase-card mobile**: il CTA schiacciava il
+testo su 4 righe; ora `flex-wrap` di base con CTA a tutta larghezza sotto il testo
+(regola prima solo desktop, unificata). (3) **Toggle tema su mobile**: il bottone
+`#toggle-tema` era `display:none` sotto i 768px (nota aperta da BR7) — ora sempre
+visibile nella nav in basso; testato il cambio tema dal telefono. (4) **Footer
+mobile**: l'ultima riga finiva sotto la nav fissa — aggiunto padding-bottom
+dedicato sotto i 768px, verificato via bounding box. (5) **Modernizzazione
+diffusa**: ombre morbide a due livelli (`--shadow-card` rivisto) su percorso/
+preparazione/card mete/requisiti/scadenze; bottoni primari/secondari/link-scheda/
+celebrazione a pillola (`--radius-pill`); micro-transizione `tab-in` al cambio
+tab; sfondo body con gradiente leggero in testa; ombra alla nav; gap 16px nella
+griglia mete desktop; titoli sezione 1.6rem su desktop. (6) **Leggibilità tema
+notte**: link/CTA testuali blu `--primary` poco leggibili sul fondo blu notte
+portati a `#a7c3ff` (fase-cta, link-torna-tab, cand-checklist-toggle,
+card-dettagli-hint, profilo-strip-link). **Verifica a video** (preview porta
+8001, mobile 375px e desktop 1280px, tema chiaro e notte, Sapienza area 0421 con
+60 mete): home/percorso, Mete (card, chip, schedina), Candidatura ("Ora tocca a
+te" + capitoli), footer; griglie desktop confermate via `getBoundingClientRect()`
+(hero 668px + sidebar 360px; checklist 712px + colonna azione 320px); nessun
+errore console. Nessun file JS/HTML/dati toccato: unico file modificato
+`css/style.css` (più questa nota).)
+
+**Aggiornamento precedente:** 2026-07-05 — sessione 26, Cowork (**Script di utilità: RUN-SITO.bat creato.** Nuovo file batch `RUN-SITO.bat` nel repo per lanciare il sito localmente con un singolo comando. Opzioni: (1) doppio-click senza sincronizzazione → avvia il server sulla porta 8001 istantaneamente; (2) doppio-click + rispondi `s` → scarica dati fresh da GitHub e poi avvia. Coerente nello stile con i file `.bat` esistenti (`SCARICA.bat`, `PUBBLICA.bat`), con UTF-8 e gestione lock di git inclusi. Nessun file modificato, nessun codice del sito toccato. Aggiornato il file presente.)
 
 **Aggiornamento precedente:** 2026-07-05 — sessione 25, Claude Code (**BR7 QA e
 chiusura ondata BRAND — regressione completa + due fix da assessment.**
