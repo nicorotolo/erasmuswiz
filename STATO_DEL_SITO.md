@@ -4,7 +4,9 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-05 — sessione 25, Claude Code (**BR7 QA e
+**Ultimo aggiornamento:** 2026-07-05 — sessione 26, Cowork (**Script di utilità: RUN-SITO.bat creato.** Nuovo file batch `RUN-SITO.bat` nel repo per lanciare il sito localmente con un singolo comando. Opzioni: (1) doppio-click senza sincronizzazione → avvia il server sulla porta 8001 istantaneamente; (2) doppio-click + rispondi `s` → scarica dati fresh da GitHub e poi avvia. Coerente nello stile con i file `.bat` esistenti (`SCARICA.bat`, `PUBBLICA.bat`), con UTF-8 e gestione lock di git inclusi. Nessun file modificato, nessun codice del sito toccato. Aggiornato il file presente.)
+
+**Aggiornamento precedente:** 2026-07-05 — sessione 25, Claude Code (**BR7 QA e
 chiusura ondata BRAND — regressione completa + due fix da assessment.**
 Letti in ordine `CLAUDE.md`, `STATO_DEL_SITO.md`, `ROADMAP.md`,
 `DISEGNO_BRAND.md`, `design/readme.md`. Eseguito SOLO il blocco BR7 di
