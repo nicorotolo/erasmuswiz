@@ -136,10 +136,13 @@ codice irrobustito. ~6 sessioni.
 - [x] **BR2. Home e identità** ✅ 2026-07-04 — hero blu notte con Wiz, claim e
   badge "Bando aperto", stepper (icona di stato circolare) e nav ribrandizzati.
   Mascotte convertita in webp trasparente.
-- [ ] **BR3. Onboarding + Fase 1** — vestizione 2b e semaforo 3b. **In più
-  (fix da assessment): coerenza fase 1** — lo stepper marca la fase 1 ✅
-  quando TUTTE le auto-verifiche sono spuntate (`ZAINO.autoverifica`), non
-  col solo `profiloOk`; fallback per zaini con profilo ma senza spunte.
+- [x] **BR3. Onboarding + Fase 1** ✅ 2026-07-05 — onboarding vestito (Wiz
+  pensieroso/saluto, opzioni pill grandi, 3 puntini di progresso discreti);
+  fase 1 (idoneità) diventata semaforo — ogni requisito mostra 🟡/✅.
+  **Fix coerenza fase 1**: lo stepper marca la fase 1 ✅ solo quando TUTTE
+  le auto-verifiche sono spuntate (`ZAINO.autoverifica`), non col solo
+  `profiloOk`; fallback verificato (profilo compilato, nessuna spunta →
+  fase "▶ attiva").
 - [ ] **BR4. Mete + Schedina** — card compatte + chip (4a); nuova vista
   "Le tue 5 scelte" con slot ordinabili ▲▼ (`ZAINO.schedina`, fallback da
   `metePreferite`). **In più (fix da assessment): banner lingue contestuale**

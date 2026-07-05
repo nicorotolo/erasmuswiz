@@ -216,6 +216,11 @@ function renderHome() {
 // ============================================================
 function calcolaFasi() {
   const profiloOk    = !!ZAINO.profilo;
+  const requisiti     = REQUISITI_BANDO || [];
+  // Fase 1 è "fatta" quando TUTTE le auto-verifiche sono spuntate, non col
+  // solo profilo compilato (fix da assessment 04/07, DISEGNO_BRAND.md BR3).
+  const requisitiOk   = profiloOk && requisiti.length > 0 &&
+    requisiti.every(r => ZAINO.autoverifica && ZAINO.autoverifica[r.id]);
   const nPreferite    = (ZAINO.metePreferite || []).length;
   const meteOk        = nPreferite >= 1;
   const checklistTot   = (CHECKLIST || []).length;
@@ -225,11 +230,11 @@ function calcolaFasi() {
 
   const fasi = [
     {
-      id: 1, tab: "idoneita", domanda: "Posso partire?", fatto: profiloOk,
-      riassunto: profiloOk
-        ? "Profilo compilato — rivedi i requisiti quando vuoi."
+      id: 1, tab: "idoneita", domanda: "Posso partire?", fatto: requisitiOk,
+      riassunto: requisitiOk
+        ? "Profilo compilato — hai verificato tutti i requisiti."
         : "Verifica i requisiti del bando prima di iniziare.",
-      cta: profiloOk ? "Rivedi i requisiti" : "Controlla se sei idoneo",
+      cta: requisitiOk ? "Rivedi i requisiti" : "Controlla se sei idoneo",
     },
     {
       id: 2, tab: "mete", domanda: "Dove posso andare?", fatto: meteOk,
@@ -1258,8 +1263,14 @@ function renderIdoneita() {
   }
 
   requisiti.forEach(req => {
-    const card = crea("div", "requisito-v2");
-    card.appendChild(crea("div", "requisito-v2-titolo", req.titolo));
+    const verificato = !!ZAINO.autoverifica[req.id];
+    const card = crea("div", `requisito-v2 ${verificato ? "requisito-v2--ok" : "requisito-v2--daverificare"}`);
+
+    const testa = crea("div", "requisito-v2-testa");
+    testa.appendChild(crea("div", "requisito-v2-titolo", req.titolo));
+    testa.appendChild(crea("span", "requisito-v2-semaforo", verificato ? "✅" : "🟡"));
+    card.appendChild(testa);
+
     card.appendChild(crea("div", "requisito-v2-valore", req.valore));
 
     // Registro 1 — "in chiaro": spiegazione umana (fallback: descrizione attuale)
@@ -1291,6 +1302,7 @@ function renderIdoneita() {
         ZAINO.autoverifica[req.id] = cb.checked;
         salvaZaino(ZAINO);
         renderIdoneita();
+        renderFaseStepper();
       });
       label.appendChild(cb);
       label.appendChild(document.createTextNode(" Lo rispetto"));
@@ -1330,6 +1342,23 @@ function mostraPassoOnboarding(id) {
       const el = document.getElementById(pid);
       if (el) el.style.display = pid === id ? "" : "none";
     });
+
+  // Wiz cambia posa: pensieroso durante le domande, saluto all'arrivo
+  // (design/tokens/mascotte, tabella in DISEGNO_BRAND.md §2-bis).
+  const wiz = document.getElementById("onboarding-wiz-img");
+  if (wiz) wiz.src = id === "onboarding-passo-landing"
+    ? "img/mascotte/wiz-saluto.webp"
+    : "img/mascotte/wiz-pensieroso.webp";
+
+  // Progresso discreto: 3 puntini, nascosti sullo schermo finale.
+  const progresso = document.getElementById("onboarding-progresso");
+  if (progresso) {
+    const numeroPasso = { "onboarding-passo-1": 1, "onboarding-passo-2": 2, "onboarding-passo-3": 3 }[id];
+    progresso.style.display = numeroPasso ? "" : "none";
+    progresso.querySelectorAll(".onboarding-dot").forEach(dot => {
+      dot.classList.toggle("attivo", Number(dot.dataset.dot) === numeroPasso);
+    });
+  }
 }
 
 function popolaPassoAteneo() {

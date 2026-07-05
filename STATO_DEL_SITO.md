@@ -4,7 +4,59 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-04 — sessione 20, in chat con Claude (**MAPPATURA
+**Ultimo aggiornamento:** 2026-07-05 — sessione 21, Claude Code (**BR3 Onboarding +
+Fase 1 IMPLEMENTATA — vestizione onboarding e semaforo requisiti.** Letti in ordine
+`CLAUDE.md`, `STATO_DEL_SITO.md`, `ROADMAP.md`, `DISEGNO_BRAND.md`, `design/readme.md`.
+Eseguito SOLO il blocco BR3 di `DISEGNO_BRAND.md` §3, incluso il fix da assessment
+04/07 sulla coerenza fase 1. **Fix coerenza fase 1** (`js/app.js`, `calcolaFasi()`):
+la fase 1 dello stepper diventava ✅ col solo `profiloOk`, ignorando le
+auto-verifiche introdotte da UX4 — bug reale, verificabile: bastava compilare il
+profilo (senza spuntare nulla in Idoneità) per vedere la fase 1 già "fatta". Ora
+`fatto` dipende da `requisitiOk` (tutte le voci di `REQUISITI_BANDO` presenti in
+`ZAINO.autoverifica`); fallback verificato a video: profilo compilato + zero
+spunte → fase 1 resta "▶ attiva" con CTA "Controlla se sei idoneo", esattamente
+come richiesto dalla spec. **Onboarding (2b), vestito** (`index.html`/`css/style.css`/
+`js/app.js`, nessun cambio alla logica dei 3 passi già esistente da UX1): Wiz cambia
+posa in base allo schermo — `wiz-pensieroso.webp` (mano al mento) durante le 3
+domande, `wiz-saluto.webp` nello schermo finale "Fatto ✨" (tabella pose di
+DISEGNO_BRAND.md §2-bis, sostituendo il vecchio `wiz-hero.png` SOLO nell'overlay
+onboarding); nuovo codice in `mostraPassoOnboarding()` gestisce anche l'`src`
+dell'unico `<img id="onboarding-wiz-img">`. Aggiunti 3 puntini di progresso
+discreti (`#onboarding-progresso`, oro sul passo attivo, nascosti nello schermo
+finale) sotto Wiz, sopra l'eyebrow testuale già esistente ("1 di 3" ecc., non
+toccato). Le opzioni (`.onboarding-opzione`) da rettangoli a "card pill grandi" —
+`border-radius: var(--radius-pill)`, padding più generoso, testo centrato, più il
+press `translateY(1px) scale(.985)` di BR1 (mancava). **Fase 1 (3b), semaforo**
+(`renderIdoneita()` in `js/app.js` + CSS): ogni card requisito mostra ora
+esplicitamente lo stato in testa — 🟡 "da verificare" o ✅ quando la checkbox "Lo
+rispetto" è spuntata (nuove classi `.requisito-v2--daverificare`/`--ok`, bordo
+superiore oro→verde); il traduttore a scomparsa "Cosa dice il bando" (UX4/UX5) non
+è stato toccato. La checkbox ora richiama anche `renderFaseStepper()` oltre a
+`renderIdoneita()`, così lo stepper si aggiorna live mentre si spunta. **Nessun
+flag ⚠️/🔒 nei dati dei requisiti**: la scala del bando è binaria (verificato/da
+verificare), quindi il semaforo usa solo 🟡/✅ — coerente coi dati reali, non
+inventato. **Validato:** `node --check js/app.js` OK. **Verifica a video** (preview
+locale porta 8001, localStorage pulito per il flusso onboarding completo):
+mobile ~390px e desktop 1280px, tema chiaro E notte, ENTRAMBI gli atenei (Ca'
+Foscari, Sapienza) — onboarding completo passo 1→2→3→landing con Wiz e puntini
+corretti anche per dipartimenti Sapienza con nomi lunghi (le pill vanno a capo su
+due righe, nessuna rottura); tab Idoneità: semaforo 🟡 su tutti i requisiti appena
+arrivati, ✅ + bordo verde dopo spunta, banner "Sembri idoneo" invariato, banner
+"in verifica" Sapienza invariato; stepper "Percorso" verificato nei due stati
+(profilo senza spunte → fase 1 attiva; tutte le spunte → fase 1 fatta); dark mode
+leggibile (bordo verde `--green` su sfondo card scuro, contrasto sufficiente,
+stesso token già usato altrove in dark mode prima di questa sessione); nessun
+errore console, nessuna richiesta di rete fallita. **Nota ambientale (non un
+bug del sito):** lo strumento di screenshot del preview a 1280px mostrava
+visivamente solo una porzione della larghezza reale — verificato via
+`getBoundingClientRect()` che l'overlay onboarding e i suoi contenuti occupano
+davvero l'intera larghezza (1280px, contenuto centrato a x 450–830), quindi è un
+artefatto dello strumento di cattura, non un difetto di layout (coerente con
+analoghe note di sessioni precedenti sul tool di preview). **Non toccati:** Mete/
+Schedina (BR4), Candidatura (BR5), Zaino/Desktop (BR6), meta description/OG (BR7).
+Roadmap: BR3 spuntato.)
+
+**Aggiornamento precedente:** 2026-07-04 — sessione 20, in chat con Claude (**MAPPATURA
 SAPIENZA COMPLETATA (seeding) + pipeline Codex efficientata.** (1) **Seeding finito**:
 generate via script (da export CSV ufficiale `goerasmus/export`, niente scraping) le
 ULTIME 10 Facoltà Sapienza — Scienze Politiche 24, DIET 26, Polo di Latina 33, Scienze
