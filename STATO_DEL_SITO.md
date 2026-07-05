@@ -4,7 +4,81 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-05 — sessione 24, Claude Code (**BR6 Zaino
+**Ultimo aggiornamento:** 2026-07-05 — sessione 25, Claude Code (**BR7 QA e
+chiusura ondata BRAND — regressione completa + due fix da assessment.**
+Letti in ordine `CLAUDE.md`, `STATO_DEL_SITO.md`, `ROADMAP.md`,
+`DISEGNO_BRAND.md`, `design/readme.md`. Eseguito SOLO il blocco BR7 di
+`DISEGNO_BRAND.md` §3 — ultima sessione dell'ondata BRAND (BR0-BR7 tutte
+fatte). **Fix 1 — meta description/OG/Twitter** (`index.html`, head):
+sostituiti i tre blocchi che dicevano ancora "per studenti Ca' Foscari …
+249 mete" (risalenti a prima del multi-ateneo) con testo neutro rispetto
+all'ateneo e un numero tondo per difetto — "Oltre 1.900 mete" (contate le
+occorrenze di `id:` nei 23 file `js/atenei/**/dati-mete-*.js`: 1.929 mete
+reali a oggi tra i due atenei, quindi "oltre 1.900" resta onesto anche
+dopo i prossimi batch Codex che ne aggiungono). Nessun cambio HTML/JS di
+logica, solo testo nei tag `<meta>` — **nessun `node --check` necessario**
+(zero file `.js` toccati in questa sessione). **Fix 2 — decisione sulla
+pagina Timeline nascosta**: verificata a video (Ca' Foscari e Sapienza,
+sottotitolo `scadenze-sottotitolo` corretto per ateneo grazie a
+`window.ATENEO_LABEL`, dati `SCADENZE_CAFOSCARI` — nome storico ma
+riassegnato per ateneo in `index.html`, non un bug) — la pagina FUNZIONA
+correttamente e non ha difetti, ma resta una lista piatta delle stesse
+scadenze già presenti (in forma più ricca, coi passi di checklist
+collegati) nella vista Candidatura da BR5/UX3: la duplicazione sospettata
+nell'assessment 04/07 è confermata. **Decisione**: non rimuovere ora — la
+spec (`DISEGNO_BRAND.md` §3 BR7) assegna la rimozione effettiva a
+"UX6/correzioni", cioè dopo il test con l'utente reale (il fratello di
+Nicola), per verificare sul campo se la pagina confonde davvero prima di
+tagliarla; BR7 si limita a registrare la decisione. Nessun file toccato
+per questo punto. **Regressione completa** (preview locale porta 8001 —
+porta 8000 già occupata sull'ambiente, stessa nota ambientale di sessioni
+precedenti; `localhost:8001` usato senza differenze): (1) **onboarding da
+localStorage pulito**, Ca' Foscari → Economia → Triennale: 3 passi, puntini
+di progresso, pose Wiz corrette, landing con conteggio mete reale (39),
+badge "Bando 2026/27 aperto" quando la data di sistema è forzata (solo
+lato test, nessun file toccato) a prima della chiusura bando — spento
+correttamente quando il bando è chiuso (dato reale, 5/7/2026); (2)
+**Sapienza** (onboarding pulito → Giurisprudenza → Magistrale): 60 mete,
+banner oro "dati in verifica" su Idoneità, footer con ateneo corretto,
+Timeline con sottotitolo e scadenze Sapienza (non quelle di Ca' Foscari);
+(3) **zaino vecchio simulato** (oggetto minimo `{profilo, checklist:{},
+metePreferite:[], fase:"selezionato"}`, senza `schedina`/`checklistPost`/
+`zainoCelebrato`/`gruppoZaino` sui dati Sapienza ancora `inVerifica`): zero
+errori, zaino "Lo zaino" mostra tutte le voci nel capitolo "Prima"
+(fallback corretto, nessun campo `gruppoZaino` sui dati Sapienza),
+nessuna celebrazione ri-mostrata (fase già "selezionato" trattata come già
+festeggiata); (4) **chiaro/notte** su entrambe le viste "Oggi"/Mete/Zaino,
+mobile e desktop: leggibile ovunque, schedina resta color crema in
+entrambi i temi (invariato, scelta di BR4); (5) **mobile ~390px e desktop
+1280px**: layout 2 colonne desktop confermato via
+`getBoundingClientRect()` (container 1185px), nav in header con
+logo+wordmark e voci Percorso/Mete/Zaino, mobile invariato a 1 colonna;
+(6) **export .ics**: forzata la data di sistema (solo lato test) a prima
+delle scadenze, bottone "🗓 Aggiungi al calendario" presente solo sulle
+scadenze future (corretto, non un difetto) e produce un blob `.ics`
+valido; (7) **riordino schedina**: aggiunta di 2 mete preferite, frecce
+▲▼ testate (click reale), ordine si scambia correttamente e persiste dopo
+reload; (8) **`prefers-reduced-motion`**: verificata la presenza della
+regola globale in `css/style.css` (introdotta in BR1, invariata); (9)
+**breakpoint**: confermato nessun residuo `700px` in `css/style.css` (già
+consolidati su 768/1024 in BR6). Nessun errore in console, nessuna
+richiesta di rete fallita in nessuno scenario. **Nota emersa in QA, NON
+corretta in questa sessione** (fuori dai due fix esplicitamente assegnati
+a BR7, per non anticipare correzioni non richieste): il bottone
+`#toggle-tema` (cambio tema chiaro/notte) ha `display:none` sotto i
+768px (`css/style.css`) — su mobile lo studente non ha un modo per
+cambiare tema dall'interfaccia (la modalità notte segue solo l'ultima
+preferenza salvata o va forzata da chi testa). Non risulta introdotto da
+nessuna sessione BR (il CSS non è stato toccato per questo in BR0-BR6):
+segnalato per una futura sessione di correzioni, non essendo uno dei due
+fix esplicitamente assegnati a BR7. **Non toccati**: `js/app.js` (zero
+modifiche, quindi zero `node --check` da eseguire), tutti i file dati,
+motore di compatibilità, markup/logica di onboarding/schedina/zaino/
+candidatura. **Ondata BRAND (BR0-BR7) COMPLETATA.** Roadmap: BR7
+spuntato, ondata BRAND chiusa. Prossimo passo: **UX6** — test con
+l'utente reale (il fratello di Nicola, Sapienza Giurisprudenza).)
+
+**Aggiornamento precedente:** 2026-07-05 — sessione 24, Claude Code (**BR6 Zaino
 (6a) + Desktop (7a) IMPLEMENTATA — fase 4 come "Lo zaino" a 3 capitoli,
 celebrazione blu notte, layout desktop 2 colonne per la Candidatura.** Letti
 in ordine `CLAUDE.md`, `STATO_DEL_SITO.md`, `ROADMAP.md`, `DISEGNO_BRAND.md`,
@@ -1020,6 +1094,25 @@ python -m http.server 8000
 poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
+
+**Aggiornamento 2026-07-05 — sessione 25 (BR7 fatta, ondata BRAND chiusa):**
+1. **Ondata BRAND (BR0-BR7) COMPLETATA.** Prossima sessione di codice sul
+   sito = **UX6**: test con l'utente reale (il fratello di Nicola, Sapienza
+   Giurisprudenza) sulla versione ribrandizzata, senza spiegazioni —
+   osservare i primi 60 secondi, se capisce cosa fare dopo, le parole non
+   capite; annotare in `FEEDBACK_UTENTI.md`. Vedi `ROADMAP.md` UX6.
+2. **Decisione presa in BR7, azione rimandata a UX6/correzioni**: la
+   pagina Timeline nascosta (`#tab-timeline`, link "Vedi tutte le
+   scadenze ⏳") duplica la vista Candidatura ed è candidata alla rimozione
+   — ma si decide DOPO aver visto se il test utente la trova confusa,
+   come da `DISEGNO_BRAND.md` §3 BR7.
+3. **Nota minore da valutare in una futura sessione di correzioni** (non
+   un blocco per UX6): `#toggle-tema` è nascosto sotto i 768px — su
+   mobile non c'è un modo per cambiare tema dall'interfaccia. Dettagli
+   nel blocco di sessione qui sopra.
+4. In parallelo (Nicola + Claude in chat): UX5-Sapienza resta aperta
+   (contenuti traduttore requisiti/checklist Sapienza, priorità
+   Giurisprudenza) — invariato, può procedere insieme a UX6.
 
 **Aggiornamento 2026-07-04 — sessione 20 (mappatura Sapienza completata + pipeline efficientata):**
 1. **⚠️ Nicola, subito, in ordine**: (a) `PUBBLICA.bat` — pubblica 10 file mete,

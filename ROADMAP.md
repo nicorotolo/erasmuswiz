@@ -109,7 +109,7 @@ codice irrobustito. ~6 sessioni.
     voci di checklist (UX4 li faceva solo sui requisiti) + 3 righe CSS.
   - [ ] **Resta: Sapienza** (requisiti + checklist, dati ancora `inVerifica`).
     Priorità Giurisprudenza per sbloccare UX6.
-- [ ] **UX6. Test con utente reale** (Nicola, 1 sessione) — **dopo BR7**
+- [ ] **UX6. Test con utente reale** (Nicola, 1 sessione) — **sbloccata: BR7 fatta il 2026-07-05**
   - Il fratello (Sapienza, Giurisprudenza) usa la versione nuova senza
     spiegazioni. Osservare: primi 60 secondi, capisce cosa fare dopo?, parole
     non capite. Annotare in `FEEDBACK_UTENTI.md`. Poi sessione correzioni.
@@ -158,13 +158,16 @@ codice irrobustito. ~6 sessioni.
   "Prima"); celebrazione blu notte all'ingresso in fase 4 (una sola volta).
   Layout desktop 2 colonne per il tab Candidatura/Zaino (≥1024px), mobile
   invariato; breakpoint 700px→768px consolidati.
-- [ ] **BR7. QA e chiusura** — regressione completa (2 atenei, zaini vecchi,
-  chiaro/scuro, mobile/desktop, .ics, schedina). **In più (fix da
-  assessment):** aggiornare meta description/OG di `index.html` (dice
-  ancora "per studenti Ca' Foscari, 249 mete" — il sito è multi-ateneo e
-  le mete sono molte di più); decidere la sorte della pagina Timeline
-  nascosta (tenerla come archivio o rimuovere il link "Vedi tutte le
-  scadenze" se il test dice che confonde).
+- [x] **BR7. QA e chiusura** ✅ 2026-07-05 — regressione completa (2 atenei,
+  zaino vecchio simulato, chiaro/scuro, mobile 390px/desktop 1280px,
+  export .ics, riordino schedina, `prefers-reduced-motion`, breakpoint
+  consolidati): nessun errore console, nessuna richiesta fallita. Meta
+  description/OG/Twitter di `index.html` aggiornate (testo neutro
+  rispetto all'ateneo, "Oltre 1.900 mete" invece di "Ca' Foscari, 249
+  mete"). Pagina Timeline nascosta: confermata ridondante rispetto alla
+  Candidatura ma funzionante (non un bug) — rimozione rimandata a
+  UX6/correzioni come da spec, non eseguita ora. **Ondata BRAND (BR0-BR7)
+  COMPLETATA.**
 
 ### ONDATA B — Post-selezione: gli utenti di oggi (luglio–settembre 2026)
 
