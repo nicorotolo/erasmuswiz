@@ -1,11 +1,9 @@
 {
   "TR ANKARA06": {
-    "scadenzeOspitante": "https://eurep.auth.gr/el/agreementContractView?ap=1C76F51E8C",
-    "linkSito": "https://uik.baskent.edu.tr/kw/menu_icerik.php?birim=161&menu_id=37",
-    "notePraticheAppend": "https://uik.baskent.edu.tr/kw/menu_icerik.php?birim=161&menu_id=37"
+    "requisitoLingua": "https://uik.baskent.edu.tr/kw/menu_icerik.php?birim=161&menu_id=133",
+    "linkSito": "https://uik.baskent.edu.tr/kw/menu_icerik.php?birim=161&menu_id=37"
   },
   "TR ISTANBU60": {
-    "scadenzeOspitante": "https://www.uhs.edu.tr/how-to-apply/student-exchange-programs/memorandum-of-understanding",
     "linkSito": "https://aday.sbu.edu.tr/degisim-programlari/erasmus/gelen-ogrenci/"
   }
 }
