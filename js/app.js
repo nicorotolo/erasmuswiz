@@ -164,7 +164,7 @@ function initNav() {
   });
 
   const hash = location.hash.replace("#", "");
-  const TAB_VALIDI = ["oggi", "timeline", "checklist", "mete", "idoneita", "profilo"];
+  const TAB_VALIDI = ["oggi", "checklist", "mete", "idoneita", "profilo"];
   if (TAB_VALIDI.includes(hash)) mostraTab(hash);
 }
 
@@ -470,7 +470,7 @@ function renderMissione() {
           renderMissione();
         };
       }
-      setBtn(btnCome, "Vedi le date del ciclo", "timeline");
+      setBtn(btnCome, "Vedi le date del ciclo", "checklist");
       break;
     }
     case "partenza":
@@ -485,7 +485,7 @@ function renderMissione() {
       card.classList.add("missione-urgente");
       if (titolo) titolo.textContent = `⚠️ Scadenza tra ${m.giorni} ${m.giorni === 1 ? "giorno" : "giorni"}!`;
       if (dett)   dett.textContent   = `${m.prossima.cosa} — ${formattaData(m.prossima.data)}. ${m.prossima.descrizione}`;
-      setBtn(btnFatto, "Vedi scadenze ⏳", "timeline");
+      setBtn(btnFatto, "Vedi scadenze ⏳", "checklist");
       setBtn(btnCome,  "Cosa devo fare?", "checklist");
       break;
     case "profilo":
@@ -505,61 +505,32 @@ function renderMissione() {
     case "attendi":
       if (titolo) titolo.textContent = m.prossima.cosa;
       if (dett)   dett.textContent   = `Prossima scadenza tra ${m.giorni} giorni. ${m.prossima.descrizione}`;
-      setBtn(btnFatto, "Vedi scadenze ✨", "timeline");
+      setBtn(btnFatto, "Vedi scadenze ✨", "checklist");
       setBtn(btnCome,  "Esplora mete",     "mete");
       break;
     default:
       if (titolo) titolo.textContent = "Sei in ottima posizione! 🎉";
       if (dett)   dett.textContent   = "Checklist completata e nessuna scadenza imminente. Tieni d'occhio le mete disponibili.";
       setBtn(btnFatto, "Esplora le mete ✨", "mete");
-      setBtn(btnCome,  "La tua timeline",    "timeline");
+      setBtn(btnCome,  "La tua candidatura", "checklist");
   }
 
   renderPreparazione();
   renderFaseStepper();
 }
 
-// ============================================================
-// TIMELINE v2
-// ============================================================
-function renderTimeline() {
-  const cont = document.getElementById("timeline-v2");
-  if (!cont) return;
-
-  const sorted = (SCADENZE_CAFOSCARI || [])
-    .slice()
-    .sort((a, b) => new Date(a.data) - new Date(b.data));
-
-  sorted.forEach((scad, i) => {
-    const c   = calcolaCountdown(scad.data);
-    const div = crea("div", `tappa-v2${c.passata ? " passata" : ""}`);
-    div.setAttribute("data-scadenza", scad.data);
-
-    const pallino   = crea("div", "tappa-v2-pallino", String(i + 1));
-    const contenuto = crea("div", "tappa-v2-contenuto");
-    contenuto.appendChild(crea("div", "tappa-v2-titolo",      scad.cosa));
-    contenuto.appendChild(crea("div", "tappa-v2-data",        formattaData(scad.data)));
-    contenuto.appendChild(crea("div", "tappa-v2-descrizione", scad.descrizione));
-    contenuto.appendChild(crea("div", "tappa-v2-countdown",   countdownInParole(c)));
-
-    div.appendChild(pallino);
-    div.appendChild(contenuto);
-    cont.appendChild(div);
-  });
-}
-
 function aggiornaCountdownV2() {
-  document.querySelectorAll(".tappa-v2").forEach(el => {
-    const c  = calcolaCountdown(el.getAttribute("data-scadenza"));
-    const cd = el.querySelector(".tappa-v2-countdown");
-    if (cd) cd.textContent = countdownInParole(c);
-    if (c.passata) el.classList.add("passata");
-  });
   document.querySelectorAll(".cand-scadenza-card").forEach(el => {
     const c  = calcolaCountdown(el.getAttribute("data-scadenza"));
     const cd = el.querySelector(".cand-scadenza-countdown");
     if (cd) cd.textContent = countdownInParole(c);
     if (c.passata) el.closest(".cand-capitolo")?.classList.add("passata");
+  });
+  document.querySelectorAll(".prossimo-passo-scadenza[data-scadenza-id]").forEach(el => {
+    const scad = scadenzaPerId(el.getAttribute("data-scadenza-id"));
+    if (!scad) return;
+    const c = calcolaCountdown(scad.data);
+    el.textContent = `📅 ${scad.cosa} — ${countdownInParole(c)}`;
   });
 }
 
@@ -694,7 +665,18 @@ function renderProssimiPassi(vociInOrdine, prossimaVoceId) {
   cont.style.display = "";
   cont.appendChild(crea("div", "prossimi-passi-titolo", "✨ Ora tocca a te"));
   const lista = crea("div", "prossimi-passi-lista");
-  daFare.forEach(voce => lista.appendChild(creaVoceChecklist(voce, prossimaVoceId)));
+  daFare.forEach(voce => {
+    const item = crea("div", "prossimo-passo-item");
+    item.appendChild(creaVoceChecklist(voce, prossimaVoceId));
+    const scad = voce.scadenzaId ? scadenzaPerId(voce.scadenzaId) : null;
+    if (scad) {
+      const c = calcolaCountdown(scad.data);
+      const badge = crea("div", "prossimo-passo-scadenza", `📅 ${scad.cosa} — ${countdownInParole(c)}`);
+      badge.setAttribute("data-scadenza-id", scad.id);
+      item.appendChild(badge);
+    }
+    lista.appendChild(item);
+  });
   cont.appendChild(lista);
 }
 
@@ -889,6 +871,20 @@ function linguaSintesi(meta) {
   return `${prima.lingua} ${prima.livello}` + (altre.length ? ` +${altre.length}` : "");
 }
 
+// Stima borsa per gruppo-paese (OP4): mappa meta.paese al gruppo dell'ateneo
+// attivo (BORSE_INFO, in js/atenei/<ateneo>/dati-borse.js). Nessuna soglia
+// hardcoded qui: il dato vive nel file dati, il codice legge soltanto.
+function trovaGruppoBorsa(meta) {
+  if (!meta.paese || !BORSE_INFO || !Array.isArray(BORSE_INFO.gruppiPaese)) return null;
+  return BORSE_INFO.gruppiPaese.find(g => g.paesi.includes(meta.paese)) || null;
+}
+
+// Chip compatta per la card (bussola §3: "stima", mai una promessa).
+function borsaSintesi(meta) {
+  const gruppo = trovaGruppoBorsa(meta);
+  return gruppo ? `💶 ~€${gruppo.importoMensile}/mese` : null;
+}
+
 // ============================================================
 // METE v2
 // ============================================================
@@ -953,23 +949,45 @@ function renderMete() {
   if (filtriChip) {
     filtriChip.innerHTML = "";
     if (profilo) {
-      if (!["tutte", "ok", "medio", "basso"].includes(filtroMeteAttivo)) filtroMeteAttivo = "tutte";
+      const lingueMancanti = !profilo.lingue || profilo.lingue.length === 0;
+      if (!["tutte", "ok", "medio", "basso", "lingua"].includes(filtroMeteAttivo)) filtroMeteAttivo = "tutte";
+      // Se le lingue sono state svuotate dal profilo mentre il filtro "lingua"
+      // era attivo, non restare su un filtro che non può più funzionare.
+      if (filtroMeteAttivo === "lingua" && lingueMancanti) filtroMeteAttivo = "tutte";
       [
         { valore: "tutte", testo: "Tutte" },
         { valore: "ok",    testo: "✅ Compatibili" },
         { valore: "medio", testo: "⚠️ Con riserve" },
         { valore: "basso", testo: "🔒 Non accessibili" },
+        { valore: "lingua", testo: "🗣️ Per la mia lingua" },
       ].forEach(opz => {
         const chip = crea("button", "chip-filtro" + (filtroMeteAttivo === opz.valore ? " attivo" : ""), opz.testo);
         chip.type = "button";
-        chip.addEventListener("click", () => { filtroMeteAttivo = opz.valore; renderMete(); });
+        chip.addEventListener("click", () => {
+          // Use case riunione d'asta (dossier §1-ter A): senza lingue in
+          // profilo il filtro non ha nulla da confrontare — non un filtro
+          // che finge di funzionare, si porta l'utente a compilarle.
+          if (opz.valore === "lingua" && lingueMancanti) { mostraTab("profilo"); return; }
+          filtroMeteAttivo = opz.valore;
+          renderMete();
+        });
         filtriChip.appendChild(chip);
       });
     } else {
       filtroMeteAttivo = "tutte";
     }
   }
-  if (profilo && filtroMeteAttivo !== "tutte") {
+  if (profilo && filtroMeteAttivo === "lingua") {
+    // Riusa punteggioLingua (motore di compatibilità, NON duplicato): 50 =
+    // lingua richiesta coperta dal profilo E certificata. Le mete con
+    // requisito lingua non verificabile restano visibili (mai nascoste in
+    // silenzio), la card le marca già "Lingua da verificare" (linguaSintesi).
+    elenco = elenco.filter(({ meta }) => {
+      if (!meta.requisitoLingua || !meta.requisitoLingua.length) return true;
+      return punteggioLingua(meta, profilo) === 50;
+    });
+    if (intro) intro.textContent = "Preparati alla riunione di assegnazione: queste sono le mete che le tue lingue coprono davvero.";
+  } else if (profilo && filtroMeteAttivo !== "tutte") {
     elenco = elenco.filter(({ comp }) => categoriaCompat(comp) === filtroMeteAttivo);
   }
 
@@ -997,6 +1015,19 @@ function renderMete() {
   elenco.forEach(({ meta, comp }) => {
     const card = crea("article", "card-meta-v2");
 
+    // Stellina preferiti: in alto a destra della card (feedback UX6 — prima
+    // era in fondo, poco visibile). Icona sola + aria-label, posizionata
+    // via CSS (position:absolute su .btn-preferita).
+    const ePreferita = ZAINO.metePreferite.includes(meta.id);
+    const btnPref = crea("button",
+      "btn-preferita" + (ePreferita ? " preferita" : ""),
+      ePreferita ? "⭐" : "☆");
+    btnPref.type = "button";
+    btnPref.title = ePreferita ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti";
+    btnPref.setAttribute("aria-label", btnPref.title);
+    btnPref.addEventListener("click", e => { e.stopPropagation(); togglePreferita(meta.id); });
+    card.appendChild(btnPref);
+
     if (comp) {
       const categoria = categoriaCompat(comp);
       const classeMono = categoria === "ok" ? "verde" : categoria === "medio" ? "amber" : "locked";
@@ -1015,24 +1046,19 @@ function renderMete() {
     const chipRiga = crea("div", "chip-meta-riga");
     chipRiga.appendChild(crea("span", "chip-meta", postiSintesi(meta)));
     chipRiga.appendChild(crea("span", "chip-meta", linguaSintesi(meta)));
+    const borsaChip = borsaSintesi(meta);
+    if (borsaChip) chipRiga.appendChild(crea("span", "chip-meta", borsaChip));
     card.appendChild(chipRiga);
 
+    // Link al portale/scheda ufficiale: de-enfatizzato (feedback UX6 — prima
+    // sembrava la CTA principale della card; siamo la guida, non il portale).
     const link = crea("a", "link-scheda-v2",
-      meta.linkPdf ? "Scheda ufficiale (PDF)" : `Portale ${window.ATENEO_LABEL || "Ca' Foscari"}`);
+      meta.linkPdf ? "Scheda ufficiale (PDF) ↗" : `Portale ${window.ATENEO_LABEL || "Ca' Foscari"} ↗`);
     link.href   = meta.linkPdf || window.ATENEO_PORTALE_URL || "https://www.unive.it/data/11631/";
     link.target = "_blank";
     link.rel    = "noopener";
     link.addEventListener("click", e => e.stopPropagation());
     card.appendChild(link);
-
-    const ePreferita = ZAINO.metePreferite.includes(meta.id);
-    const btnPref = crea("button",
-      "btn-preferita" + (ePreferita ? " preferita" : ""),
-      ePreferita ? "⭐ Preferita" : "☆ Aggiungi ai preferiti");
-    btnPref.type  = "button";
-    btnPref.title = ePreferita ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti";
-    btnPref.addEventListener("click", e => { e.stopPropagation(); togglePreferita(meta.id); });
-    card.appendChild(btnPref);
 
     // Tutta la card è cliccabile: apre il pannello di dettaglio.
     card.classList.add("card-cliccabile");
@@ -1075,6 +1101,16 @@ function renderPreferite(msg) {
   const header = crea("div", "preferite-header");
   header.appendChild(crea("span", "preferite-label", `Le tue 5 scelte (${ids.length}/5)`));
   cont.appendChild(header);
+
+  // Microcopy proattivo sul limite (feedback UX6): prima l'utente scopriva il
+  // massimo di 5 solo sbattendoci contro; ora lo sa da subito, prima di
+  // riempire gli slot. Nascosto a schedina piena per non affollare lo spazio
+  // proprio quando arriva il messaggio d'errore vero (se prova ad aggiungerne
+  // una sesta).
+  if (ids.length < 5) {
+    cont.appendChild(crea("p", "preferite-hint",
+      "Puoi sceglierne al massimo 5: l'ordine conta, sono le mete che porterai alla riunione di assegnazione."));
+  }
 
   if (msg) cont.appendChild(crea("p", "msg-preferite", msg));
 
@@ -1218,6 +1254,24 @@ function apriDettaglioMeta(meta) {
     ulL.appendChild(crea("li", "dett-vuoto", "Non indicato nella lista ufficiale: controlla la scheda PDF."));
   }
   corpo.appendChild(rigaDettaglio("Requisiti linguistici", ulL));
+
+  // --- Borsa Erasmus stimata per gruppo-paese (OP4) ---
+  const gruppoBorsa = trovaGruppoBorsa(meta);
+  if (gruppoBorsa && BORSE_INFO) {
+    const box = crea("div", null);
+    box.appendChild(crea("div", null,
+      `Borsa UE stimata: ~€${gruppoBorsa.importoMensile}/mese (${gruppoBorsa.nome}).`));
+    if (BORSE_INFO.integrazioneMinoriOpportunita) {
+      const integ = BORSE_INFO.integrazioneMinoriOpportunita;
+      const testoInteg = integ.tipo === "isee_a_fasce"
+        ? `${integ.etichetta}: da €${integ.fasce[integ.fasce.length - 1].importoMensile} a €${integ.fasce[0].importoMensile}/mese in base all'ISEE.`
+        : `${integ.etichetta}: +€${integ.importoMensile}/mese per chi rientra nelle categorie del bando.`;
+      box.appendChild(crea("div", null, testoInteg));
+    }
+    box.appendChild(crea("span", "dett-compat-detail",
+      `Stima, non una promessa — verifica sempre sul bando ufficiale. Fonte: ${BORSE_INFO.fonte} (dati aggiornati al ${BORSE_INFO.aggiornatoAl}).`));
+    corpo.appendChild(rigaDettaglio("Borsa Erasmus", box));
+  }
 
   // --- Scadenze università ospitante (dato reale, prima invisibile) ---
   if (meta.scadenzeOspitante && meta.scadenzeOspitante.length) {
@@ -1770,7 +1824,6 @@ function init() {
   initTema();
   applicaBrandingAteneo();
   renderHome();
-  renderTimeline();
   initToggleFase();
   if (ZAINO.fase === "selezionato") {
     renderChecklistPost();

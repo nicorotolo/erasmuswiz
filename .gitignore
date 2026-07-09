@@ -5,9 +5,10 @@ fonti/
 .claude/
 *.txt
 
-# Pipeline mappatura: file effimeri (INPUT/OUTPUT). Le FONTI-*.json si committano.
+# Pipeline mappatura: file effimeri (INPUT/OUTPUT/bozza Gemini). Le FONTI-*.json si committano.
 batch/INPUT.json
 batch/OUTPUT.json
+batch/SGROSSATURA.json
 
 # Artefatti accidentali da run AI (nomi anomali tipo b.comp.ordine, m.requisitoLingua.length)
 *.ordine

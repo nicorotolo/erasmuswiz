@@ -438,12 +438,6 @@ body {
 .sezione-titolo { font-family: var(--font-display); font-size: 1.35rem; font-weight: 800; color: var(--text-dark); margin-bottom: 5px; }
 .sezione-sottotitolo { color: var(--text-muted); font-size: 0.88rem; }
 
-.link-torna-tab {
-  display: inline-block; margin: 0 20px 14px; font-size: 12.5px;
-  font-weight: 700; color: var(--primary); text-decoration: none;
-}
-.link-torna-tab:hover { text-decoration: underline; }
-
 /* ================================================================
    BARRA PROGRESSO CHECKLIST
 ================================================================ */
@@ -451,39 +445,6 @@ body {
 .barra-progresso { flex: 1; height: 10px; background: #e9eefb; border-radius: var(--radius-pill); overflow: hidden; }
 .barra-riempimento { height: 100%; background: #ffb627; border-radius: var(--radius-pill); width: 0%; transition: width var(--dur-slow) var(--ease-out); }
 .barra-label { color: var(--text-muted); font-size: 0.82rem; white-space: nowrap; }
-
-/* ================================================================
-   TIMELINE v2
-================================================================ */
-#timeline-v2 { padding: 0 20px; }
-.tappa-v2 { position: relative; display: flex; gap: 16px; padding-bottom: 24px; }
-.tappa-v2:not(:last-child)::before {
-  content: ""; position: absolute; left: 17px; top: 36px; bottom: 0;
-  width: 2px; background: var(--border);
-}
-.tappa-v2-pallino {
-  flex: 0 0 36px; width: 36px; height: 36px; border-radius: 50%;
-  background: #ffb627; color: var(--night-bg);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-mono); font-weight: 700; font-size: 0.9rem;
-  z-index: 1; box-shadow: 0 0 14px rgba(255,182,39,.4);
-}
-.tappa-v2.passata .tappa-v2-pallino { background: var(--border-strong); color: var(--text-muted); box-shadow: none; }
-.tappa-v2-contenuto {
-  flex: 1; background: var(--bg-card); border: 1px solid var(--border);
-  border-left: 3px solid #ffb627; border-radius: var(--radius-md); padding: 14px 16px;
-}
-.tappa-v2.passata .tappa-v2-contenuto { border-left-color: var(--border-strong); opacity: 0.7; }
-.tappa-v2-titolo     { font-weight: 700; color: var(--text-dark); margin-bottom: 3px; }
-.tappa-v2-data       { font-family: var(--font-mono); color: var(--primary); font-size: 0.85rem; font-weight: 600; margin-bottom: 4px; }
-.tappa-v2.passata .tappa-v2-data { color: var(--text-muted); }
-.tappa-v2-descrizione { color: var(--text-muted); font-size: 0.88rem; }
-.tappa-v2-countdown {
-  display: inline-block; margin-top: 8px;
-  font-family: var(--font-mono); font-size: 0.82rem; font-weight: 700;
-  color: var(--red); background: var(--red-bg); padding: 3px 10px; border-radius: var(--radius-pill);
-}
-.tappa-v2.passata .tappa-v2-countdown { color: var(--text-muted); background: var(--bg-card-hover); }
 
 /* ================================================================
    CHECKLIST v2
@@ -544,8 +505,20 @@ body {
   color: var(--text-dark); margin-bottom: 12px;
 }
 .prossimi-passi-lista { display: flex; flex-direction: column; gap: 10px; }
+.prossimo-passo-item { display: flex; flex-direction: column; }
 .prossimi-passi-lista .voce-checklist-v2 { padding: 16px 18px; }
 .prossimi-passi-lista .voce-checklist-v2 span { font-size: 1rem; font-weight: 600; }
+/* Scadenza collegata al passo (OP2): il prossimo passo si vede sempre
+   insieme a QUANDO va fatto, senza dover aprire il capitolo sotto.
+   Pillola con sfondo proprio (stesso pattern di .cand-scadenza-countdown):
+   garantisce contrasto sufficiente anche in tema notte, dove lo sfondo
+   della card è quasi trasparente. */
+.prossimo-passo-scadenza {
+  display: inline-block; margin: 4px 0 0 46px;
+  font-family: var(--font-mono); font-size: 0.78rem; font-weight: 700;
+  color: var(--red); background: var(--red-bg);
+  padding: 2px 9px; border-radius: var(--radius-pill);
+}
 
 /* ================================================================
    CANDIDATURA — vista cronologica fusa Scadenze+Checklist (UX3)
@@ -560,14 +533,20 @@ body {
 .cand-checklist-toggle::-webkit-details-marker { display: none; }
 .cand-checklist-toggle:hover { color: var(--primary-hover); }
 .cand-capitolo.passata .cand-scadenza-card { opacity: 0.7; }
+/* Il blocco-scadenza deve leggersi come UN capitolo distinto (OP2: "una
+   scadenza = un blocco visivamente distinto"): più peso di ogni voce
+   sotto, mai la stessa cornice. */
 .cand-scadenza-card {
   background: var(--bg-card); border: 1px solid var(--border);
-  border-left: 3px solid #ffb627; border-radius: var(--radius-md);
-  padding: 14px 16px; margin-bottom: 10px;
+  border-left: 4px solid #ffb627; border-radius: var(--radius-lg);
+  padding: 16px 18px; margin-bottom: 10px;
   box-shadow: var(--shadow-card);
 }
 .cand-capitolo.passata .cand-scadenza-card { border-left-color: var(--border-strong); }
-.cand-scadenza-titolo { font-weight: 700; color: var(--text-dark); margin-bottom: 3px; }
+.cand-scadenza-titolo {
+  font-family: var(--font-display); font-weight: 800; font-size: 1.05rem;
+  color: var(--text-dark); margin-bottom: 4px;
+}
 .cand-scadenza-data    { font-family: var(--font-mono); color: var(--primary); font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; }
 .cand-scadenza-countdown {
   display: inline-block; margin-bottom: 10px;
@@ -585,10 +564,19 @@ body {
 .cand-btn-ics:hover { border-color: var(--primary); color: var(--primary); }
 .cand-btn-ics:active { transform: translateY(1px) scale(.985); }
 .cand-checklist-sotto {
-  display: flex; flex-direction: column; gap: 8px;
+  display: flex; flex-direction: column; gap: 6px;
   padding-left: 16px; border-left: 2px dashed var(--border);
 }
 .cand-capitolo-quando-puoi .cand-checklist-sotto { padding-left: 0; border-left: none; }
+/* Voci subordinate alla scadenza: peso ridotto rispetto al blocco sopra
+   (niente cornice/ombra propria), solo indentazione + separatore leggero. */
+.cand-checklist-sotto .voce-checklist-v2:not(.attiva) {
+  background: transparent; border-color: transparent;
+  padding: 9px 10px; border-radius: var(--radius-sm);
+}
+.cand-checklist-sotto .voce-checklist-v2:not(.attiva):hover { background: var(--bg-card-hover); }
+.cand-checklist-sotto .voce-checklist-v2.fatta { background: var(--green-bg); }
+.cand-checklist-sotto .voce-checklist-v2 span { font-size: 0.88rem; }
 .cand-capitolo-titolo {
   font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
   letter-spacing: 0.06em; color: var(--text-muted);
@@ -623,22 +611,23 @@ body {
 #conta-mete { color: var(--text-muted); font-size: 0.85rem; white-space: nowrap; }
 .griglia-mete-v2 { display: grid; grid-template-columns: 1fr; gap: 14px; padding: 0 20px; }
 @media (min-width: 768px) { .griglia-mete-v2 { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; } }
-.card-meta-v2 { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px 18px; box-shadow: var(--shadow-card); }
-.card-meta-v2 h3 { color: var(--text-dark); font-size: 1rem; margin-bottom: 2px; font-weight: 700; }
+.card-meta-v2 { position: relative; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px 44px 16px 18px; box-shadow: var(--shadow-card); }
+.card-meta-v2 h3 { color: var(--text-dark); font-size: 1rem; margin-bottom: 2px; font-weight: 700; padding-right: 6px; }
 .card-luogo-v2 { color: var(--text-muted); font-size: 0.87rem; margin-bottom: 10px; }
 .meta-punteggio { font-family: var(--font-mono); font-size: 21px; font-weight: 700; }
 .meta-punteggio.verde  { color: var(--green); }
 .meta-punteggio.amber  { color: var(--amber); }
 .meta-punteggio.locked { color: var(--text-hint); }
+/* Link al portale/scheda ufficiale: de-enfatizzato (feedback UX6) — link di
+   testo secondario, non più un bottone pieno che sembrava la CTA principale
+   della card (quella resta "Tocca per i dettagli"). */
 .link-scheda-v2 {
-  display: inline-block; margin-top: 10px;
-  background: var(--primary); color: #fff; text-decoration: none;
-  padding: 7px 16px; border-radius: var(--radius-pill);
-  font-size: 0.83rem; font-weight: 700;
-  transition: background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+  display: inline-block; margin-top: 8px;
+  color: var(--primary); text-decoration: underline; text-underline-offset: 2px;
+  font-size: 0.83rem; font-weight: 600; background: none; padding: 0;
+  border-radius: 0;
 }
-.link-scheda-v2:hover { background: var(--primary-hover); text-decoration: none; }
-.link-scheda-v2:active { transform: translateY(1px) scale(.985); }
+.link-scheda-v2:hover { color: var(--primary-hover); }
 
 /* Filtri a chip — tab Mete (BR4, 4a) */
 .filtri-mete-chip { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 20px 10px; }
@@ -966,9 +955,9 @@ body.tema-notte .campo-form select, body.tema-notte .campo-form input, body.tema
 /* Le scritte blu --primary sul fondo blu notte restano poco leggibili:
    in tema notte i link/CTA testuali passano a un azzurro più chiaro. */
 body.tema-notte .fase-cta,
-body.tema-notte .link-torna-tab,
 body.tema-notte .cand-checklist-toggle,
 body.tema-notte .card-dettagli-hint,
+body.tema-notte .link-scheda-v2,
 body.tema-notte .profilo-strip-link { color: #a7c3ff; }
 
 /* ================================================================
@@ -1018,7 +1007,6 @@ body.tema-notte .profilo-strip-link { color: #a7c3ff; }
   }
   #tab-checklist.nascosto { display: none; }
   #tab-checklist .sezione-header,
-  #tab-checklist .link-torna-tab,
   #tab-checklist #banner-verifica-checklist,
   #tab-checklist #lista-checklist-v2 { grid-column: 1; }
   #tab-checklist .toggle-fase-wrap,
@@ -1048,22 +1036,37 @@ body.tema-notte .profilo-strip-link { color: #a7c3ff; }
   font-size: 14px;
   color: var(--gold-dark);
 }
+.preferite-hint {
+  font-size: 12.5px;
+  color: rgba(27,55,123,.75);
+  margin: 0 0 10px;
+}
 .msg-preferite {
   font-size: 13px;
   color: var(--red);
   margin-top: 4px;
 }
+/* Stellina preferiti: in alto a destra della card (feedback UX6 — prima era
+   un bottone a piena larghezza in fondo, poco visibile). Icona sola, area di
+   tocco 44px anche se il segno visivo è più piccolo (accessibilità mobile). */
 .btn-preferita {
-  display: block;
-  width: 100%;
-  margin-top: 10px;
-  padding: 6px 12px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  margin: 0;
   background: none;
   border: 1px solid var(--border);
-  border-radius: var(--radius-pill);
+  border-radius: 50%;
   color: var(--text-muted);
   cursor: pointer;
-  font-size: 13px;
+  font-size: 19px;
+  line-height: 1;
   font-family: var(--font-body);
   transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
 }
@@ -1082,7 +1085,7 @@ body.tema-notte .profilo-strip-link { color: #a7c3ff; }
   .home-header { padding: 14px 14px 18px; }
   .percorso-wrap, .missione-card, .countdown-pill, .preparazione-card { margin-left: 14px; margin-right: 14px; }
   .sezione-header { margin-left: 14px; margin-right: 14px; }
-  .lista-checklist-v2, .griglia-mete-v2, .griglia-requisiti-v2, #timeline-v2 { padding-left: 14px; padding-right: 14px; }
+  .lista-checklist-v2, .griglia-mete-v2, .griglia-requisiti-v2 { padding-left: 14px; padding-right: 14px; }
   .barra-wrap { margin-left: 14px; margin-right: 14px; }
   .form-profilo-v2 { margin-left: 14px; margin-right: 14px; }
   .profilo-salvato { margin-left: 14px; margin-right: 14px; }
@@ -1098,4 +1101,30 @@ body.tema-notte .profilo-strip-link { color: #a7c3ff; }
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* ================================================================
+   GUIDE SEO (OP5) — pagine statiche indicizzabili in guide/*.html
+   Stesso design system del sito (font/colori/radius), niente app JS.
+================================================================ */
+.guida-body { background: var(--bg-app); color: var(--text-dark); font-family: var(--font-body); line-height: 1.6; margin: 0; }
+.guida-nav { display: flex; align-items: center; gap: 8px; padding: 16px 20px; background: var(--night-bg); color: #fff; }
+.guida-nav img { width: 28px; height: 28px; }
+.guida-nav a { color: #fff; text-decoration: none; font-family: var(--font-display); font-weight: 800; }
+.guida-wrap { max-width: 720px; margin: 0 auto; padding: 32px 20px 64px; }
+.guida-meta { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; }
+.guida-wrap h1 { font-family: var(--font-display); font-weight: 800; font-size: 1.9rem; line-height: 1.15; color: var(--text-dark); margin: 0 0 12px; }
+.guida-lead { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 24px; }
+.guida-wrap h2 { font-family: var(--font-display); font-weight: 800; font-size: 1.25rem; color: var(--text-dark); margin: 32px 0 12px; }
+.guida-wrap p, .guida-wrap li { font-size: 0.98rem; color: var(--text-dark); }
+.guida-wrap ul, .guida-wrap ol { padding-left: 22px; }
+.guida-wrap a { color: var(--primary); }
+.guida-wrap a.btn-primary { color: #fff; }
+.guida-disclaimer { background: var(--gold-bg); border: 1px solid var(--gold-border); border-radius: var(--radius-md); padding: 14px 16px; font-size: 0.85rem; color: var(--text-dark); margin: 24px 0; }
+.guida-cta { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); padding: 20px; margin: 28px 0; text-align: center; }
+.guida-cta a.btn-primary { display: inline-block; text-decoration: none; margin-top: 8px; }
+.guida-faq dt { font-family: var(--font-display); font-weight: 700; margin-top: 16px; }
+.guida-faq dd { margin: 6px 0 0; color: var(--text-muted); }
+.guida-footer { max-width: 720px; margin: 0 auto; padding: 0 20px 48px; font-size: 0.8rem; color: var(--text-muted); }
+.guida-footer a { color: var(--text-muted); }
 }

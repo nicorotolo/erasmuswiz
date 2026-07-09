@@ -1,264 +1,212 @@
-# ROADMAP OPERATIVA — ErasmusWiz
+# ROADMAP OPERATIVA v2 — ErasmusWiz
 
-> Documento di riferimento per Nicola e Claude Code. Da leggere a inizio
-> sessione insieme a `PROGETTO_ERASMUS.md` (strategia) e `STATO_DEL_SITO.md`
-> (stato). Quando un blocco è completato, spuntarlo qui e aggiornare
-> STATO_DEL_SITO.md.
+> Documento di riferimento per Nicola, Bruno e i modelli Claude (Opus/Sonnet,
+> chat o Claude Code). Da leggere a inizio sessione DOPO `CLAUDE.md`,
+> `PROGETTO_ERASMUS.md` (bussola v2) e `STATO_DEL_SITO.md`. Quando un blocco
+> è completato: spuntarlo qui E aggiornare `STATO_DEL_SITO.md`.
 >
-> **Creato:** 2026-06-10 · **Obiettivo dichiarato:** validare un modello
-> replicabile su più università (business potenziale), 3-5 h/settimana.
+> **v2 — riscritta il 2026-07-07** (sessione 29) per allinearla alla bussola
+> v2 del 06/07: gerarchia LA > scadenze > lingua > mete, LA Generator killer
+> feature, PWA push, SEO subito, pilota L3 con go/no-go, product freeze a
+> gennaio 2027, team Nicola+Bruno. La v1 (creata 10/06) è superata; il suo
+> storico è compattato in fondo (§STORICO).
+>
+> **Specifica vincolante delle sessioni OP**: `DISEGNO_OPERATIONS.md` —
+> contiene il dettaglio eseguibile di ogni blocco (file, vincoli, test).
+> Questa roadmap dice COSA e QUANDO; il disegno dice COME.
 
 ---
 
-## IL VINCOLO STRATEGICO: LA STAGIONALITÀ
+## IL VINCOLO STRATEGICO: LA STAGIONALITÀ (invariato)
 
-Il bando 2026/27 di Ca' Foscari si è CHIUSO il 25/02/2026. I prossimi
-candidati arrivano a **gennaio-febbraio 2027**. Conseguenze:
+I bandi 2027/28 escono a **gennaio-febbraio 2027**. Il pubblico di massa
+arriva allora; fino ad allora si costruisce. Data di lancio target:
+**7 gennaio 2027** (PRODUCT FREEZE: da lì solo promozione e dati).
+Regola di fase (bussola §7): da gennaio il lavoro si sposta da prodotto a
+promozione. Un'eccezione al "nessuno ci guarda fino a gennaio": il **SEO
+va online entro l'autunno** — Google impiega mesi a posizionare.
 
-1. Non c'è fretta di pubblicare il cruscotto "domanda": il pubblico torna a
-   gennaio. C'è invece una **finestra di 6 mesi** per fare contenuti,
-   post-selezione e preparazione Sapienza con calma.
-2. Gli studenti di ADESSO (selezionati 2026/27) sono in fase
-   **post-selezione**: learning agreement, alloggio, documenti. Se vogliamo
-   utenti veri prima di gennaio, è lì che bisogna costruire.
-3. **Data di lancio target: 7 gennaio 2027** (prima dell'apertura
-   candidature ~2 febbraio 2027), con dati del bando 2027/28 appena escono.
+## LE ONDATE (luglio 2026 → maggio 2027)
 
----
+### ONDATA GATE — Ground truth e verifiche (luglio 2026) ⬅ PRIORITÀ ATTUALE
 
-## LE 5 ONDATE (giugno 2026 → marzo 2027)
+> Costa pochissimo e sblocca tutto il resto. Owner: Bruno (materiali e mail),
+> Nicola (dossier e coordinamento). Nessun codice.
 
-### ONDATA A — Consolidamento e fondamenta (giugno–luglio 2026)
+- [ ] **G1. Mail all'ufficio Erasmus** (Bruno, 10 minuti) — DECLASSATA da
+  bloccante a CONFERMA: il corpus mail (dossier §1-ter B) documenta la
+  prassi reale — prospetto libero via mail, giudicato nel merito →
+  scenario A di OP8 confermato. La mail resta utile per ufficializzare
+  (la prassi osservata è una facoltà, un anno). Non blocca più nulla.
+- [~] **G2. Consegna materiali caso-Bruno** (Bruno) — QUASI COMPLETA al
+  07/07: **LA ✅, Change Form ✅, corpus mail ✅** (scoperte nel dossier
+  §1-bis e §1-ter: 6 corsi su 8 saltati per NON disponibilità; riunione
+  d'asta documentata; flusso prospetto con 2 rimbalzi reali; scadenze
+  vissute; D7 risolta, D4 quasi). Restano: ToR + convalida + piano di
+  studi (dopo il rientro del 12/07), Word del prospetto se ritrovato,
+  risposte D2/D3/D5/D6/A2. OP6 fase 1 e OP8 sono sbloccate.
+- [x] **G3. Dossier caso-Bruno** ✅ 2026-07-07 — `DOSSIER_CASO_BRUNO.md`
+  creato con l'inventario dei materiali già presenti, la timeline da
+  completare e le regole d'uso. Va aggiornato man mano che G2 consegna.
+- [ ] **G5. Pipeline dati — lavori una-tantum** (1 sessione Codex/Claude
+  Code + script) — eseguire §6 di **`DISEGNO_PIPELINE_DATI.md`** (nuovo
+  documento definitivo della pipeline, 07/07): sanare i codici Erasmus
+  sintetici (il riuso non li riconosce), aggiungere allo schema
+  `linkCatalogo` + `notaDisponibilita`, creare `verifica-link.mjs`,
+  riscrivere il prompt Codex come VERIFICATORE (la ricerca passa alla
+  sgrossatura gratuita su Gemini, flusso T1→T2). Da qui in poi la
+  mappatura segue SOLO quel documento (calendario in §7).
+- [ ] **G4. UX5-Sapienza** (Nicola + Claude in chat, 1 sessione) — residuo
+  della vecchia ondata UX: scrivere spiegazione/azione/citazione/fonte per
+  requisiti e checklist Sapienza (oggi `inVerifica`), partendo da
+  INFORMAZIONI_GENERALI_25_26.pdf, dal bando E dal corpus mail (scadenze
+  vissute in dossier §1-ter C: accettazione entro 7 giorni, prospetto al
+  30/05, LA in piattaforma al 10/07-10/12, cert. frequenza inviato
+  dall'host). In più: validare i requisiti lingua delle mete
+  Giurisprudenza contro la tabella ufficiale del 28/03/2025 (dossier
+  §1-ter A). Validazione finale di Bruno.
 
-Obiettivo: sito pubblicato in "soft launch", misurabile, legalmente coperto,
-codice irrobustito. ~6 sessioni.
+### ONDATA MERCATO-1 — Fix, lingua, borsa, SEO, pilota (luglio–settembre 2026)
 
-- [x] **A1. Igiene del codice** (Claude Code, 1 sessione) ✅ 2026-06-10
-  - Sostituire le interpolazioni `innerHTML` con `textContent`/`createElement`
-    dove entrano dati (prevenzione XSS, prerequisito per dati multi-ateneo).
-  - Aggiungere campo `annoAccademico` a `dati-scadenze.js` e `dati-bando.js`;
-    banner automatico "Dati del bando AAAA/AA" in pagina.
-  - Test: pagina identica a prima, banner visibile.
-- [x] **A2. Disclaimer e identità** (Nicola + Claude Code, 1 sessione) ✅ 2026-06-10
-  - Footer: "Sito non ufficiale, non affiliato a Ca' Foscari. Fa sempre fede
-    il bando ufficiale" + link al bando + data ultimo aggiornamento dati.
-  - Pagina/sezione "Chi siamo e perché" (3 righe, costruisce fiducia).
-- [~] **A3. Pubblicazione soft + analytics** (parziale: pubblicato ✅ 2026-06-10
-  su GitHub Pages — https://nicorotolo.github.io/erasmuswiz/ ; manca analytics)
-  - ~~Netlify Drop~~ → GitHub Pages (repo nicorotolo/erasmuswiz); valutare
-    dominio (~12€/anno) — consigliato: serve per credibilità coi contatti
-    istituzionali.
-  - GoatCounter o Plausible (script 1 riga, niente cookie banner): senza
-    numeri non esiste "trazione dimostrata".
-- [x] **A4. Contenuti — lotto 1 lingue** ✅ 2026-06-11 (15 mete top per
-  posti×mesi: lingua dalle schede ufficiali dove indicano un livello CEFR,
-  scadenze ospitante, link PDF; schede in `fonti/schede/`; 5 mete restano
-  "da verificare" con nota e fonte)
-  - NON tutte e 57: le **15 mete più richieste** (chiedere ai contatti
-    Ca' Foscari quali sono, o usare posti×durata come proxy).
-  - Metodo a lotti: scheda apps.unive.it → compilare `requisitoLingua`,
-    `scadenzeOspitante`, `linkPdf` → spuntare su un foglio di lavoro.
-  - Regola: ogni dato ha la sua fonte (link PDF). Mai "a memoria".
-- [x] **A5. Validare bando e checklist** ✅ 2026-06-10 (validati sul PDF del bando, rif. articoli nei file dati)
-  - `dati-bando.js` e `dati-checklist.js` sono ancora ESEMPI: verificarli
-    riga per riga sul PDF del bando in `/fonti`.
+> Sessioni OP1–OP7, dettagliate in `DISEGNO_OPERATIONS.md` §OP1-OP7.
+> Una sessione = un blocco. A settembre: **go/no-go del pilota L3**.
 
-### ONDATA UX — Ridisegno del percorso (luglio–agosto 2026) ⬅ PRIORITÀ ATTUALE
+- [x] **OP1. Fix UI dal feedback UX6** ✅ 2026-07-08 — stellina preferiti in
+  alto a destra, de-enfatizzare "Portale Sapienza", comunicare il limite 5
+  scelte PRIMA del limite; punto "Informazioni importanti" non trovato nel
+  codice attuale (segnalato, vedi `STATO_DEL_SITO.md`); 2/55 mete
+  Giurisprudenza già correttamente marcate "non trovato dopo ricerca
+  approfondita" (nessuna modifica dati necessaria).
+- [x] **OP2. Candidatura riformattata da zero** ✅ 2026-07-08 — pagina
+  Timeline rimossa (decisione BR7, ridondante); "Ora tocca a te" mostra ora
+  la scadenza collegata a ogni passo; gerarchia visiva scadenza/voci
+  rinforzata. Logica dati invariata.
+- [x] **OP3. Filtro lingua nelle mete** ✅ 2026-07-08 — chip "🗣️ Per la mia
+  lingua" tra i filtri esistenti, riusa `punteggioLingua()` del motore di
+  compatibilità (nessuna soglia CEFR duplicata); mete non verificabili
+  restano visibili con "Lingua da verificare"; senza lingue in profilo il
+  chip porta al profilo invece di filtrare a vuoto.
+- [x] **OP4. Stima borsa per gruppo-paese** ✅ 2026-07-08 — nuovo
+  `dati-borse.js` per ateneo (Sapienza: INFORMAZIONI GENERALI pp. 3-4;
+  Ca' Foscari: bando 2026/27 + Allegato 1 INDIRE, entrambi già in `fonti/`,
+  nessun dato mancante da chiedere a Nicola); badge nella card meta + blocco
+  esteso nel dettaglio con disclaimer datato e fonte.
+- [~] **OP5. SEO di base ONLINE** (Nicola + Claude, 2-3 sessioni) — PARZIALE
+  2026-07-08: online 2/3 pagine ("come si fa il Learning Agreement
+  Sapienza", "requisiti di lingua Erasmus") in `guide/`, + `sitemap.xml` +
+  `robots.txt` + link footer; analytics GoatCounter già attivo (esteso alle
+  guide). Manca: il racconto caso-Bruno (bloccato, serve il suo ok sul
+  testo anonimizzato), Lighthouse SEO ≥90 (da verificare manualmente),
+  registrazione Google Search Console (azione umana di Nicola, istruzioni
+  in `STATO_DEL_SITO.md`). È SOPRA il social nelle priorità (bussola §7).
+- [ ] **OP6. Pilota matching L3 — Giurisprudenza** (Nicola + Claude in chat,
+  parallelo, time-boxed) — esperimento su 55 mete con la ground truth di
+  Bruno (LA+CF ✅; ToR/convalida in arrivo). La disponibilità dei corsi è
+  la dimensione primaria (lezione del Change Form, dossier §1-bis).
+  **Go/no-go a SETTEMBRE**: se non convince, si chiude senza rimpianti e
+  L1+L2 restano il prodotto. Mai prerequisito dell'MVP.
+- [ ] **OP7. Debug 2/55 mete Giurisprudenza non mappate** (Claude Code,
+  ½ sessione — accorpabile a OP1).
 
-> Decisione 02/07/2026: la UX attuale (4 tab per feature, profilo prima del
-> valore, traduzione invisibile) non funziona. Si ridisegna PRIMA del test
-> utente; il fratello di Nicola (studente Sapienza Giurisprudenza, reduce dal
-> processo Erasmus) testerà la versione NUOVA.
-> **Specifica vincolante: `DISEGNO_UX.md`** — Claude Code deve leggerla a
-> inizio sessione insieme ai soliti tre documenti. Una sessione = un blocco.
+### ONDATA MERCATO-2 — LA Generator e PWA (ottobre–dicembre 2026)
 
-- [x] **UX1. Onboarding 3 domande + valore immediato** ✅ 2026-07-02 (Claude Code, 1 sessione)
-  - Al primo accesso: 3 passi a selezione (ateneo → dipartimento/facoltà →
-    livello), niente campi di testo; poi atterraggio con "N mete per te +
-    prossima scadenza". Lingue NON chieste qui. `ZAINO.onboardingFatto` con
-    fallback zaini vecchi. Dettagli in `DISEGNO_UX.md` §3.
-  - Test: primo accesso (localStorage pulito) → onboarding → home con numeri
-    giusti per entrambi gli atenei; accesso con zaino esistente → NESSUN onboarding.
-- [x] **UX2. Home-percorso + nav a 3 tab** ✅ 2026-07-02 (Claude Code, 1 sessione)
-  - La home diventa lo stepper delle 4 fasi (stato, domanda-guida, una CTA);
-    nav inferiore: Percorso · Mete · Candidatura (→ Partenza se selezionato);
-    tab Idoneità e Profilo fuori dalla nav. `DISEGNO_UX.md` §2.
-  - Test: le 4 fasi avanzano correttamente (profilo → preferita → checklist →
-    selezionato); "Modifica profilo" raggiungibile; nessuna regressione mete.
-- [x] **UX3. Fusione Scadenze+Checklist + export calendario** ✅ 2026-07-02 (Claude Code, 1 sessione)
-  - Vista "Candidatura" cronologica: card-scadenza con dentro le voci di
-    checklist collegate (`scadenzaId` nei dati); bottone "Aggiungi al
-    calendario" (.ics generato client-side). `DISEGNO_UX.md` §6.
-  - Test: spunte salvate come prima (stesse chiavi zaino); .ics scaricato si
-    apre in Google Calendar; voci senza scadenzaId nel capitolo "Quando puoi".
-- [x] **UX4. Traduttore a 3 registri (UI) + banner "dati in verifica"** ✅ 2026-07-02 (Claude Code, 1 sessione)
-  - Card requisito/checklist: spiegazione+azione visibili, "Cosa dice il
-    bando" espandibile con citazione e fonte; se i campi nuovi mancano, la UI
-    mostra il testo attuale (retrocompatibile). Banner `inVerifica:true` per
-    i dati provvisori (Sapienza). `DISEGNO_UX.md` §4 e §8.
-  - Test: requisito con campi nuovi → 3 registri; senza → identico a oggi;
-    banner visibile solo con Sapienza attiva.
-- [~] **UX5. Contenuti del traduttore** (Nicola + Claude in chat, 2 sessioni)
-  - Scrivere `spiegazione`/`azione`/`citazione`/`fonte` per i requisiti e le
-    checklist di Ca' Foscari e Sapienza. Lavoro di contenuto, non di Codex.
-    Ogni citazione col riferimento all'articolo del bando.
-  - ✅ 2026-07-03 (sessione 8): **Ca' Foscari fatta** — 8 requisiti
-    (`dati-bando.js`) + 9 voci checklist (`dati-checklist.js`), citazioni
-    letterali dal PDF ufficiale, riferimenti Art. 2/5/6/7/8. In più chiuso il
-    gap UI: `creaVoceChecklist()` (app.js) ora rende i 3 registri anche sulle
-    voci di checklist (UX4 li faceva solo sui requisiti) + 3 righe CSS.
-  - [ ] **Resta: Sapienza** (requisiti + checklist, dati ancora `inVerifica`).
-    Priorità Giurisprudenza per sbloccare UX6.
-- [ ] **UX6. Test con utente reale** (Nicola, 1 sessione) — **sbloccata: BR7 fatta il 2026-07-05**
-  - Il fratello (Sapienza, Giurisprudenza) usa la versione nuova senza
-    spiegazioni. Osservare: primi 60 secondi, capisce cosa fare dopo?, parole
-    non capite. Annotare in `FEEDBACK_UTENTI.md`. Poi sessione correzioni.
-  - Primo passaggio informale già fatto (inizio luglio): direzione confermata,
-    nessuna nota puntuale. Questo è il test approfondito.
+> Sessioni OP8–OP12, dettagliate in `DISEGNO_OPERATIONS.md` §OP8-OP12.
+> Il cuore della v2-mercato. Richiede l'esito di G1/G2.
 
-### ONDATA BRAND — Identità visiva + rifiniture (luglio 2026)
+- [ ] **OP8. LA Generator L1** (Claude Code, 2-3 sessioni) — carichi piano di
+  studi → spunti esami → incolli link corsi host → esce Word/PDF pulito con
+  disclaimer datato. Forma decisa dall'esito di G1 (generatore vs
+  compilatore del template Sapienza). Test sul caso reale Lisbona.
+- [ ] **OP9. LA Generator L2 — link cataloghi host** (pipeline dati + Code,
+  1-2 sessioni) — per ogni meta il link diretto al catalogo corsi
+  dell'ospitante (campo dati nuovo, riempito via pipeline Codex).
+- [ ] **OP10. PWA installabile — audit e completamento** (Claude Code,
+  1 sessione) — `manifest.json` e `sw.js` (network-first, senza push)
+  esistono GIÀ: verificarli, completare icone/installabilità, test su
+  telefono reale. SENZA push (separato apposta: rilascio piccolo e
+  testabile).
+- [ ] **OP11. Notifiche push scadenze** (Claude Code, 2 sessioni) — il motore
+  di retention. Framing OBBLIGATORIO fino al microcopy: "Verifica su Relint:
+  si avvicina X" — promemoria di controllo, MAI oracolo (bussola §4).
+- [ ] **OP12. Pipeline dati bando 27/28** (Nicola + Codex, da novembre) — la
+  finestra critica: aggiornamento scadenze/mete sui bandi nuovi appena
+  escono. La pipeline deve reggere DA SOLA mentre si sviluppa OP8-11
+  (rischio n.4 della bussola). Metodo, livelli e calendario:
+  **`DISEGNO_PIPELINE_DATI.md`** (§7 fase G per il refresh); documentare
+  il processo annuale in `PROCESSO_AGGIORNAMENTO_ANNUALE.md`.
+- [ ] **OP13. Warm-up social** (Bruno, da dicembre) — contenuti leggeri
+  ("cosa avrei voluto sapere", errori comuni, scadenze). Owner con nome e
+  cognome: Bruno. Dettagli nel `PLAYBOOK_TEAM.md`.
 
-> Decisione 04/07/2026, aggiornata dopo l'assessment dello stesso giorno.
-> **Specifica vincolante: `DISEGNO_BRAND.md`** (+ design system in `design/`).
-> Sessioni BR0–BR7 (rinominate da B0–B7 per non confonderle con l'ONDATA B).
-> Una sessione = un blocco. Il sito v2 usa GIÀ i font del brand e una palette
-> vicina: BR0 è un riallineamento dei token, non un rifacimento.
+### ONDATA LANCIO — Product freeze e promozione (gennaio 2027)
 
-- [x] **BR0. Fondamenta** ✅ 2026-07-04 — riallineati i token di `css/style.css` a
-  `design/tokens/` (notte `#101b3f`→`#1b377b`, oro `#ffd766`→`#ffb627`,
-  raggi/ombre), logo+wordmark SVG nell'header desktop, favicon dal logo-mark.
-  Dark mode: adattamento minimo, verificato.
-- [x] **BR1. Componenti base** (solo CSS) ✅ 2026-07-04 — bottoni (hover tinta
-  più scura + ombra, press translateY(1px) scale(.985)), card cliccabili (lift
-  -3px + ombra blu), campi form (focus ring 4px), checklist con check animato
-  (`--ease-bounce`), progress bar armonizzate, `prefers-reduced-motion` globale.
-  Badge/chip già pill da BR0, nessuna modifica necessaria.
-- [x] **BR2. Home e identità** ✅ 2026-07-04 — hero blu notte con Wiz, claim e
-  badge "Bando aperto", stepper (icona di stato circolare) e nav ribrandizzati.
-  Mascotte convertita in webp trasparente.
-- [x] **BR3. Onboarding + Fase 1** ✅ 2026-07-05 — onboarding vestito (Wiz
-  pensieroso/saluto, opzioni pill grandi, 3 puntini di progresso discreti);
-  fase 1 (idoneità) diventata semaforo — ogni requisito mostra 🟡/✅.
-  **Fix coerenza fase 1**: lo stepper marca la fase 1 ✅ solo quando TUTTE
-  le auto-verifiche sono spuntate (`ZAINO.autoverifica`), non col solo
-  `profiloOk`; fallback verificato (profilo compilato, nessuna spunta →
-  fase "▶ attiva").
-- [x] **BR4. Mete + Schedina** ✅ 2026-07-05 — card compatte con punteggio mono
-  + chip (4a), filtri a chip pill per compatibilità; nuova vista "Le tue 5
-  scelte" con slot ordinabili ▲▼ (`ZAINO.schedina`, fallback da
-  `metePreferite`, verificato su zaini vecchi). **Fix da assessment: banner
-  lingue contestuale** in fase 2 ("Aggiungi le tue lingue per vedere le mete
-  compatibili") — era in `DISEGNO_UX.md` §3/§5 e non era mai stato
-  implementato, ora chiuso.
-- [x] **BR5. Candidatura "prossimi 3 passi"** (5b) ✅ 2026-07-05 — blocco
-  "Ora tocca a te" sopra i capitoli con le prime 3 voci non spuntate in
-  ordine cronologico; capitoli non imminenti ripiegati in `<details>`.
-- [x] **BR6. Zaino (6a) + Desktop (7a)** ✅ 2026-07-05 — fase 4 presentata come
-  "Lo zaino" con 3 capitoli Prima/Durante/Dopo (`gruppoZaino`, fallback
-  "Prima"); celebrazione blu notte all'ingresso in fase 4 (una sola volta).
-  Layout desktop 2 colonne per il tab Candidatura/Zaino (≥1024px), mobile
-  invariato; breakpoint 700px→768px consolidati.
-- [x] **BR7. QA e chiusura** ✅ 2026-07-05 — regressione completa (2 atenei,
-  zaino vecchio simulato, chiaro/scuro, mobile 390px/desktop 1280px,
-  export .ics, riordino schedina, `prefers-reduced-motion`, breakpoint
-  consolidati): nessun errore console, nessuna richiesta fallita. Meta
-  description/OG/Twitter di `index.html` aggiornate (testo neutro
-  rispetto all'ateneo, "Oltre 1.900 mete" invece di "Ca' Foscari, 249
-  mete"). Pagina Timeline nascosta: confermata ridondante rispetto alla
-  Candidatura ma funzionante (non un bug) — rimozione rimandata a
-  UX6/correzioni come da spec, non eseguita ora. **Ondata BRAND (BR0-BR7)
-  COMPLETATA.**
+- [ ] **L1. PRODUCT FREEZE (7 gennaio)** — da qui nessuna feature nuova.
+  Solo: correzione bug, dati, promozione.
+- [ ] **L2. Verifica finale dati** (Nicola + Bruno) — scadenze e mete 27/28
+  contro i bandi pubblicati; validazione Bruno su Giurisprudenza.
+- [ ] **L3. Seeding canali** (Bruno: Sapienza; Nicola: Ca' Foscari) — gruppi
+  WhatsApp/Telegram di corso e canali Erasmus; il messaggio lo scrive uno
+  studente, non "l'azienda". Social a pieno regime.
 
-### ONDATA B — Post-selezione: gli utenti di oggi (luglio–settembre 2026)
+### ONDATA BANDO — Misura (febbraio–aprile 2027)
 
-> Aggiornamento 02/07/2026: B2 è FATTA (checklist post-selezione implementata
-> il 26/06). B1 e B3 sono assorbite da UX5/UX6 (validazione contenuti e test
-> utente sulla versione ridisegnata). B4 resta come sessione correzioni post-UX6.
+- [ ] **M1. Presidio in stagione** (~1h/giorno tra i due) — analytics,
+  segnalazioni errori, risposte nei gruppi.
+- [ ] **M2. KPI della bussola §9** — utenti unici per ateneo, % ritorno,
+  LA generati, iscrizioni push, condivisioni spontanee.
 
-Obiettivo: la checklist post-selezione, unica feature che ha pubblico ADESSO.
-È anche il test del prodotto con utenti reali fuori stagione. ~6 sessioni.
+### BILANCIO — Revisione onesta (maggio 2027)
 
-- [ ] **B1. Disegno dati post-selezione** (Nicola + Claude in chat, 1 sessione)
-  - Intervistare 1-2 studenti selezionati 2026/27 (contatti Ca' Foscari):
-    quali passi, quali scadenze, dove si perdono. PRIMA di scrivere codice.
-  - Output: `dati-postselezione.js` (passi con fasi: accettazione → learning
-    agreement → prima della partenza → all'arrivo).
-- [ ] **B2. Implementazione** (Claude Code, 2 sessioni)
-  - Lo zaino acquisisce `fase: "domanda" | "selezionato"`; toggle in pagina
-    ("Sei stato selezionato?"); la checklist e la timeline cambiano di
-    conseguenza. Stessa architettura, nessun nuovo sistema.
-- [ ] **B3. Test con utenti veri** (Nicola, 2 sessioni)
-  - 2-3 studenti selezionati usano la sezione post-selezione davanti a te
-    (o in call con schermo condiviso). Guardare, non spiegare.
-  - Annotare in `FEEDBACK_UTENTI.md`: cosa non capiscono, cosa cercano e
-    non trovano.
-- [ ] **B4. Correzioni dal feedback** (Claude Code, 1 sessione)
-
-### ONDATA C — Sapienza: il test di replicabilità (settembre–novembre 2026)
-
-Obiettivo: il passaggio da "sito di un dipartimento" a "modello". È QUESTO
-che valida il business, non le feature. ~8 sessioni.
-
-- [ ] **C1. Raccolta fonti Sapienza** (Nicola, 2 sessioni)
-  - Tramite il contatto Sapienza: bando, lista destinazioni, scadenze di UN
-    dipartimento/facoltà (uno solo, come per Ca' Foscari).
-- [ ] **C2. Refactoring multi-ateneo** (Claude Code, 2 sessioni)
-  - Struttura: `js/atenei/cafoscari/dati-*.js` e `js/atenei/sapienza/dati-*.js`
-    con lo STESSO schema; selettore ateneo salvato nello zaino.
-  - Questo è il test vero della Regola d'oro n.1: se servono modifiche
-    pesanti ad `app.js`, lo schema dati va corretto ORA, non alla terza
-    università.
-  - Misurare e annotare: **quante ore costa aggiungere un ateneo**. È il
-    numero che decide se il business sta in piedi.
-- [ ] **C3. Dati Sapienza nel formato** (Nicola, 3 sessioni)
-- [ ] **C4. Validazione col contatto Sapienza** (Nicola, 1 sessione)
-
-### ONDATA D — Lancio (dicembre 2026–febbraio 2027)
-
-Obiettivo: arrivare all'apertura candidature 2027/28 con dati freschi e un
-canale di distribuzione attivo. ~6 sessioni.
-
-- [ ] **D1. Aggiornamento dati bando 2027/28** (Nicola, 2 sessioni)
-  - Appena escono i bandi (di solito gennaio): nuove scadenze, nuova lista
-    mete, diff con l'anno prima. Documentare il processo in
-    `PROCESSO_AGGIORNAMENTO_ANNUALE.md` — sarà la procedura standard.
-- [ ] **D2. Distribuzione** (Nicola, 2 sessioni) — un sito senza canale non
-  esiste. In ordine di resa:
-  1. Gruppi WhatsApp/Telegram/Facebook degli studenti Erasmus dei due atenei
-     (chiedere ai contatti studenti di condividere — il messaggio deve
-     scriverlo uno studente, non noi).
-  2. Rappresentanti degli studenti e associazioni (ESN Venezia/Roma).
-  3. SOLO dopo trazione: proporre all'ufficio relazioni internazionali di
-     linkarlo (serve il disclaimer A2 e numeri da mostrare).
-- [ ] **D3. Presidio in stagione** (Nicola, gen-feb, ~1h/settimana extra)
-  - Monitorare analytics, correggere dati segnalati, rispondere ai feedback.
-    Aggiungere in pagina un link "Segnala un errore" (mailto o modulo
-    Tally/Google Form gratuito).
-
-### ONDATA E — Bilancio e decisione (marzo 2027)
-
-- [ ] **E1. Verifica trazione** contro soglie decise ORA (per non barare poi):
-  - ≥500 visitatori unici nella finestra gen-feb 2027;
-  - ≥50 zaini con checklist usata (misurabile con 1 evento analytics);
-  - ≥5 feedback spontanei.
-- [ ] **E2. Decisione:** sopra le soglie → terza università + esplorare il
-  terzo pagante. Sotto → capire perché (canale? prodotto? stagione?) prima
-  di costruire altro. NON aggiungere feature per compensare la mancanza di
-  utenti.
+- [ ] **B1. Confronto con le soglie** (bussola §9: ≥500 unici, ≥30% ritorno,
+  ≥50 LA, ≥5 condivisioni spontanee). Sopra → si scala. Sotto → revisione
+  del progetto, senza insistenza per inerzia. L'asset dati resta
+  valorizzabile in ogni caso (bussola §3-bis).
 
 ---
 
-## REGOLE DI INGAGGIO PER CLAUDE CODE (ogni sessione)
+## REGOLE DI INGAGGIO PER I MODELLI (ogni sessione)
 
-1. Leggere `PROGETTO_ERASMUS.md`, `STATO_DEL_SITO.md` e questa roadmap.
-   Per le sessioni UX1–UX6 leggere anche `DISEGNO_UX.md` (specifica vincolante).
-2. Lavorare su UN solo blocco per sessione; non anticipare ondate future.
-3. Rispettare le due regole d'oro (codice/dati separati; zaino unico).
-4. Niente framework, build step, backend, account: restano fuori scope.
-5. A fine sessione: aggiornare `STATO_DEL_SITO.md` e spuntare il blocco qui.
-6. Ogni nuovo dato inserito deve avere fonte verificabile (link/PDF in `/fonti`).
+1. Leggere in ordine: `CLAUDE.md` → `PROGETTO_ERASMUS.md` (bussola v2) →
+   `STATO_DEL_SITO.md` → questa roadmap → il disegno dell'ondata in corso
+   (`DISEGNO_OPERATIONS.md` per le sessioni OP).
+2. UNA sessione = UN blocco. Non anticipare ondate future, non "già che ci
+   sono" — le correzioni non richieste si segnalano, non si eseguono.
+3. Regole d'oro (bussola §6): codice separato dai dati; zaino unico
+   account-ready; AI mai nel runtime. Unica eccezione architetturale
+   ammessa: la PWA (manifest + service worker).
+4. Niente framework, build step, backend, account, login.
+5. Ogni dato nuovo ha fonte verificabile e disclaimer datato ("Dati
+   aggiornati al … — verifica sulla fonte ufficiale").
+6. I dati personali di Bruno restano in `fonti/caso-bruno/` (MAI su GitHub);
+   nel sito e nei contenuti SEO entra solo materiale anonimizzato.
+7. `node --check` su ogni .js toccato; verifica a video (mobile ~390px +
+   desktop 1280px, tema chiaro e notte, ENTRAMBI gli atenei).
+8. NON eseguire comandi git da bash sul repo (mount OneDrive corrompe
+   `.git`): per pubblicare si usano i `.bat` su Windows (`PUBBLICA.bat`).
+9. A fine sessione: aggiornare `STATO_DEL_SITO.md` e spuntare il blocco qui.
 
-## COSA RESTA FUORI (confermato, non riaprire senza trazione)
+## COSA RESTA FUORI (bussola §5 — non riaprire senza trazione)
 
-Account/login, server/database, app native, PWA con notifiche, più di 2
-atenei, monetizzazione. Motivazioni in `PROGETTO_ERASMUS.md` §4.
+Mappa interattiva ("il dessert"), estensione Chrome guida-Relint, garanzia
+depositi, partnership università, account/login/backend, app native,
+monetizzazione. NOTA: "PWA con notifiche" era fuori scope nella v1 — la
+bussola v2 l'ha portata DENTRO (unica aggiunta architetturale).
+
+---
+
+## STORICO — ondate completate (v1, compattato)
+
+- **ONDATA A — Consolidamento** (giu 2026) ✅ — igiene codice (XSS,
+  `annoAccademico`), disclaimer e identità, pubblicazione GitHub Pages
+  (https://nicorotolo.github.io/erasmuswiz/), lotto 1 lingue (15 mete),
+  validazione bando/checklist Ca' Foscari. Residuo: analytics mai attivato —
+  RIENTRA in OP5/M1 (senza numeri non esiste trazione dimostrata).
+- **ONDATA UX — Ridisegno** (lug 2026) ✅ UX1-UX5(CF) — onboarding 3 domande,
+  home-percorso, fusione scadenze+checklist+.ics, traduttore 3 registri,
+  contenuti Ca' Foscari. UX5-Sapienza → G4. UX6 (test con Bruno) ✅ 05/07 —
+  esiti nella bussola v2 e in `FEEDBACK_UTENTI.md`; le correzioni → OP1/OP2.
+- **ONDATA BRAND** (lug 2026) ✅ BR0-BR7 — token, componenti, hero, onboarding
+  vestito, mete+schedina, "Ora tocca a te", zaino 3 capitoli, QA completo.
+- **ONDATA B/C (v1)** — assorbite: post-selezione implementata (26/06),
+  multi-ateneo fatto (Sapienza 12 Facoltà, 1.126+ mete via pipeline Codex),
+  contenuti → G4, test utente → fatto con Bruno (UX6).

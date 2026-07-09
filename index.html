@@ -125,26 +125,15 @@
     </section>
 
     <!-- ====================================================
-         TAB: TIMELINE / SCADENZE
-    ==================================================== -->
-    <section id="tab-timeline" class="tab-pane nascosto">
-      <div class="sezione-header">
-        <h2 class="sezione-titolo">⏳ Scadenze</h2>
-        <p id="scadenze-sottotitolo" class="sezione-sottotitolo">Le tappe della candidatura Ca' Foscari, con conto alla rovescia dal vivo.</p>
-      </div>
-      <a href="#" class="link-torna-tab" data-goto="checklist">← Torna alla candidatura</a>
-      <div id="timeline-v2"></div>
-    </section>
-
-    <!-- ====================================================
-         TAB: CHECKLIST
+         TAB: CANDIDATURA (fusione Scadenze+Checklist, OP2)
+         La ex-pagina Timeline è stata rimossa (BR7): duplicava le
+         stesse scadenze già presenti qui, in forma più povera.
     ==================================================== -->
     <section id="tab-checklist" class="tab-pane nascosto">
       <div class="sezione-header">
         <h2 class="sezione-titolo" id="checklist-titolo">📋 La tua checklist</h2>
         <p class="sezione-sottotitolo" id="checklist-sottotitolo">Spunta i passi man mano che li completi. Restano salvati sul tuo dispositivo.</p>
       </div>
-      <a href="#" class="link-torna-tab" data-goto="timeline">Vedi tutte le scadenze ⏳</a>
       <div id="banner-verifica-checklist" class="banner-in-verifica" style="display:none;"></div>
       <div class="toggle-fase-wrap">
         <button class="toggle-fase-btn fase-attiva" id="fase-domanda" type="button">📝 Sto preparando la candidatura</button>
@@ -255,6 +244,8 @@
         Fa sempre fede il <a id="footer-link-bando" href="https://www.unive.it/erasmus-studio" target="_blank" rel="noopener">bando ufficiale</a>.</p>
       <p>Bando a.a. 2026/2027 —
         <a href="https://github.com/nicorotolo/erasmuswiz/issues" target="_blank" rel="noopener">Segnala un errore</a></p>
+      <p><a href="guide/come-fare-learning-agreement-sapienza.html">Guida: come si fa il Learning Agreement alla Sapienza</a> ·
+        <a href="guide/requisiti-lingua-erasmus.html">Guida: requisiti di lingua per l'Erasmus</a></p>
     </div>
   </footer>
 
@@ -340,6 +331,7 @@
 
   <!-- ---------- Ca' Foscari Venezia ---------- -->
   <script src="js/atenei/cafoscari/dati-bando.js"></script>
+  <script src="js/atenei/cafoscari/dati-borse.js"></script>
   <!-- Mete: ogni file dipartimento dichiara `var METE`; le accumuliamo in _meteAll -->
   <script src="js/atenei/cafoscari/dati-mete.js"></script>
   <script>var _meteAll = METE;</script>
@@ -368,6 +360,7 @@
       mete: _meteAll,
       requisiti: REQUISITI_BANDO,
       bandoInfo: BANDO_INFO,
+      borse: BORSE_INFO,
       scadenze: SCADENZE_CAFOSCARI,
       scadenzeInfo: SCADENZE_INFO,
       checklist: CHECKLIST,
@@ -379,6 +372,7 @@
 
   <!-- ---------- Sapienza Roma ---------- -->
   <script src="js/atenei/sapienza/dati-bando.js"></script>
+  <script src="js/atenei/sapienza/dati-borse.js"></script>
   <script src="js/atenei/sapienza/dati-mete-giurisprudenza.js"></script>
   <script>var _meteAllSap = METE;</script>
   <script src="js/atenei/sapienza/dati-mete-medicina-psicologia-area-medica.js"></script>
@@ -425,6 +419,7 @@
       mete: _meteAllSap,
       requisiti: REQUISITI_BANDO,
       bandoInfo: BANDO_INFO,
+      borse: BORSE_INFO,
       scadenze: SCADENZE_CAFOSCARI,
       scadenzeInfo: SCADENZE_INFO,
       checklist: CHECKLIST,
@@ -446,6 +441,7 @@
       METE               = A.mete            || [];
       REQUISITI_BANDO    = A.requisiti       || [];
       BANDO_INFO         = A.bandoInfo       || {};
+      BORSE_INFO         = A.borse           || {};
       SCADENZE_CAFOSCARI = A.scadenze        || [];
       SCADENZE_INFO      = A.scadenzeInfo    || {};
       CHECKLIST          = A.checklist       || [];

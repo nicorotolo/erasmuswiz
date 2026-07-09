@@ -4,7 +4,466 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-05 — sessione 27, Claude Code (**Rifinitura UI/UX
+**Ultimo aggiornamento:** 2026-07-08 — sessione 37, Claude Code (**OP5 SEO di
+base ONLINE — PARZIALE (2/3 pagine + sitemap/robots), analytics già attivo.**
+Letti in ordine `CLAUDE.md`, `PROGETTO_ERASMUS.md`, `STATO_DEL_SITO.md`,
+`ROADMAP.md`, `DISEGNO_OPERATIONS.md`. Eseguito SOLO il blocco OP5, nella
+parte sbloccata dalle dipendenze (il 3° articolo, il racconto caso-Bruno,
+resta bloccato: serve l'ok esplicito di Bruno sul testo anonimizzato — non
+richiedibile in questa sessione). **Nuova cartella `guide/`** con due pagine
+HTML statiche autonome, indicizzabili, che riusano `css/style.css` (stesso
+design system, nessun JS applicativo): (1)
+`come-fare-learning-agreement-sapienza.html` — le due fasi del LA (bozza
+libera via mail + compilazione ufficiale su piattaforma OLA/EWP), i due
+errori più comuni (link rotti, ECTS non corrispondenti — genericizzati dai
+due rimbalzi reali documentati nel dossier, MAI attribuiti a una persona
+riconoscibile), cosa non serve ancora (i codici corso); (2)
+`requisiti-lingua-erasmus.html` — perché il requisito lingua è la prima
+causa di esclusione, differenza tra livello dichiarato e certificato,
+checklist di verifica (il caso Madrid/Amsterdam del dossier è stato reso
+generico: "destinazioni molto richieste possono chiedere C1 o certificazioni
+specifiche", NESSUN dettaglio personale di Bruno, coerente con la regola
+privacy di `ROADMAP.md` §Regole di ingaggio p.6). Ogni pagina: title/
+description/OG/Twitter dedicati, `rel=canonical`, JSON-LD FAQPage, H1 unico,
+data di pubblicazione visibile, disclaimer datato con fonte, CTA verso
+`index.html`. **Analytics**: GoatCounter risultava GIÀ attivo in
+`index.html` da una sessione precedente (script `data-goatcounter`) — non
+era il residuo da riattivare che temeva la roadmap; aggiunto lo stesso
+script anche alle due pagine guida per coprire tutto il sito (spec OP5:
+"su TUTTE le pagine"). **`sitemap.xml` + `robots.txt`** nuovi in root, con
+le 3 URL (home + 2 guide) e riferimento incrociato. **`index.html` footer**:
+aggiunta una riga con i link alle 2 guide (unico punto toccato del file,
+come da vincolo "Non toccare" del blocco). **CSS**: nuovo blocco
+`.guida-*` in fondo a `css/style.css` (namespace dedicato, riuso delle
+variabili esistenti — nessun nuovo colore/font introdotto) per rendere
+leggibili le pagine-articolo, che non avevano un equivalente nel design
+system pensato per l'app. **Bug auto-introdotto e corretto in sessione**:
+la prima versione di `.guida-wrap a { color: var(--primary) }` sovrascriveva
+(stessa specificità, dichiarata dopo) il colore bianco di `.btn-primary`
+usato nel CTA — risultato testo blu su sfondo blu, invisibile; corretto con
+`.guida-wrap a.btn-primary { color: #fff }`, verificato via
+`getComputedStyle` che il contrasto torna corretto. **Nessun file `.js`
+toccato in questa sessione → nessun `node --check` necessario.** **Verifica
+a video** (preview locale porta 8001, mobile 375px e desktop nativo, tema
+chiaro E notte, ENTRAMBI gli atenei — Sapienza e Ca' Foscari, cambiati via
+localStorage): home e footer di `index.html` corretti su entrambi gli
+atenei con i 2 nuovi link guida presenti e cliccabili; in tema notte i link
+del footer ereditano `.footer-v2 a { color: var(--gold) }`, leggibili senza
+CSS nuovo; le 2 pagine guida verificate su mobile e desktop (H1/FAQ/CTA
+presenti, nessun errore console, CTA con testo bianco leggibile dopo il
+fix); nessuna regressione sull'app (percorso, missione del giorno, nav).
+**Cosa resta di OP5 (non chiuso, dipendenze non soddisfatte o azioni umane)**:
+(a) 3° articolo "racconto caso-Bruno" — bloccato in attesa del suo ok sul
+testo anonimizzato (bussola: mai un fatto raccontato senza consenso); (b)
+Lighthouse SEO ≥90 — non eseguibile in questo ambiente (nessun tool
+Lighthouse disponibile), da controllare manualmente da Nicola con Chrome
+DevTools; (c) **registrazione su Google Search Console — azione umana di
+Nicola**: (1) andare su search.google.com/search-console, (2) aggiungere
+la proprietà `https://nicorotolo.github.io/erasmuswiz/` (tipo "prefisso
+URL"), (3) verificare la proprietà (metodo file HTML o tag meta — GitHub
+Pages supporta l'upload di un file di verifica in root), (4) inviare
+`sitemap.xml` da Search Console → Sitemap. Roadmap: OP5 marcato parziale
+`[~]`, non spuntato del tutto. Prossimo passo: chiudere OP5 (3° articolo,
+quando Bruno dà l'ok) oppure passare a OP6/OP3-OP4 già fatti → valutare
+OP8 quando arrivano ToR/convalida di Bruno.)
+
+**Aggiornamento precedente:** 2026-07-08 — sessione 36, Claude Code (**OP4 Stima
+borsa per gruppo-paese IMPLEMENTATA — nuovo `dati-borse.js` per ateneo,
+badge nella card meta + blocco nel dettaglio.** Letti in ordine `CLAUDE.md`,
+`PROGETTO_ERASMUS.md`, `STATO_DEL_SITO.md`, `ROADMAP.md`,
+`DISEGNO_OPERATIONS.md`. Eseguito SOLO il blocco OP4. **Fonti, nessuna
+mancante da chiedere a Nicola** (la spec OP4 prevedeva di chiedere l'
+equivalente Ca' Foscari se assente in `fonti/`, ma era già lì): Sapienza da
+`fonti/caso-bruno/638864454957146686_INFORMAZIONI_GENERALI_25_26.pdf`
+pp. 3-4 (Gruppo 1 costo vita alto 350€/mese, Gruppo 2 medio 300€/mese +
+tabella CISM a fasce ISEE 200-500€/mese); Ca' Foscari da
+`fonti/Bando_Erasmus__per_studio__Europa__2026_2027.pdf` (Art. 6) +
+`fonti/Allegato_1.pdf` (tabella INDIRE ufficiale, non ancora letta nelle
+sessioni precedenti): 3 gruppi 400/350/350€ al mese + top-up flat 250€/mese
+per minori opportunità (diverso dalla tabella ISEE a fasce di Sapienza:
+schemi finanziari realmente distinti tra i due atenei, non un'incoerenza).
+**Nuovo file dati per ateneo** (`js/atenei/{cafoscari,sapienza}/dati-borse.js`,
+`var BORSE_INFO`): schema comune con campi opzionali per assorbire le due
+architetture di contributo (`gruppiPaese` uguale in entrambi;
+`integrazioneMinoriOpportunita` a `tipo: "isee_a_fasce"` per Sapienza o
+`tipo: "flat"` per Ca' Foscari) — un solo schema, non due. **"Olanda"
+incluso come alias di "Paesi Bassi"** in entrambi i gruppi 1: verificato con
+uno script Node che estrae tutti i valori `paese` distinti dai file mete
+reali — le mete usano "Olanda" più spesso del nome ufficiale del gruppo, un
+mapping che ignorasse l'alias avrebbe fatto sparire il badge su mete vere
+(es. Groninga, Tilburg) senza errore visibile. **Integrazione**
+(`index.html`): nuovo script tag per ciascun ateneo, campo `borse: BORSE_INFO`
+nell'oggetto `ATENEI[key]`, esposizione globale `BORSE_INFO = A.borse` nel
+blocco "ateneo attivo" (stesso pattern di `BANDO_INFO`). **Nuove funzioni**
+(`js/app.js`): `trovaGruppoBorsa(meta)` mappa `meta.paese` al gruppo
+dell'ateneo attivo (nessuna soglia hardcoded, legge solo `BORSE_INFO`);
+`borsaSintesi(meta)` per la chip compatta. **UI**: chip "💶 ~€XXX/mese"
+aggiunta alla riga chip esistente della card (`renderMete()`, stesso
+componente `.chip-meta`, nessun CSS nuovo — verificato che il flex-wrap
+esistente assorbe la chip in più anche a 375px senza rotture); nel pannello
+dettaglio (`apriDettaglioMeta()`) nuovo blocco "Borsa Erasmus" con stima,
+riga di integrazione (ISEE o top-up a seconda dell'ateneo) e disclaimer
+datato con fonte (riusa la classe esistente `.dett-compat-detail`, nessun
+CSS nuovo). Formulazione "stima", mai "spetta" (bussola §3). **`node --check
+js/app.js` + entrambi i `dati-borse.js`**: OK. **Verifica a video** (preview
+locale porta 8001, profilo impostato via localStorage, mobile 375px e
+desktop nativo, tema chiaro E notte, ENTRAMBI gli atenei): Ca' Foscari
+Economia triennale — meta francese (Bordeaux) → €400/mese, meta olandese
+(Groninga, "Olanda") → €400/mese (alias risolto), dettaglio con top-up
+250€/mese e fonte Allegato 1; Sapienza Giurisprudenza magistrale — meta
+belga (Bruxelles) → €350/mese, dettaglio con range CISM "da €200 a
+€500/mese in base all'ISEE" e fonte INFORMAZIONI GENERALI; verificato via
+script che NESSUNA meta di nessuno dei due atenei risulta senza gruppo
+riconosciuto (0 "undefined" nel DOM); chip leggibile in tema notte
+(`getComputedStyle`: sfondo blu scuro, testo chiaro, stesso pattern degli
+altri chip); nessun errore console in nessuno scenario. **File toccati**:
+NUOVI `js/atenei/cafoscari/dati-borse.js`, `js/atenei/sapienza/dati-borse.js`;
+modificati `index.html` (2 script tag, 2 campi `borse:`, 1 riga di
+esposizione globale), `js/app.js` (`trovaGruppoBorsa`, `borsaSintesi`,
+chip in `renderMete()`, blocco in `apriDettaglioMeta()`). **Non toccati**:
+`css/style.css` (riuso di classi esistenti), schema esistente delle mete
+(si aggiunge un file dati, non campi), motore di compatibilità, dati
+bando/scadenze/checklist. Roadmap: OP4 spuntato. Prossimo passo: OP5 — SEO
+di base online.)
+
+**Aggiornamento precedente:** 2026-07-08 — sessione 35, Claude Code (**OP3 Filtro
+lingua nelle mete IMPLEMENTATA — nuovo chip "🗣️ Per la mia lingua".** Letti
+in ordine `CLAUDE.md`, `PROGETTO_ERASMUS.md`, `STATO_DEL_SITO.md`,
+`ROADMAP.md`, `DISEGNO_OPERATIONS.md`. Eseguito SOLO il blocco OP3.
+**Nuovo chip filtro** (`renderMete()` in `js/app.js`, area `#filtri-mete-chip`
+già esistente per i chip di compatibilità BR4): "🗣️ Per la mia lingua"
+aggiunto in coda a Tutte/✅/⚠️/🔒, stesso componente/classe `.chip-filtro`
+(nessun CSS nuovo). **Nessuna soglia CEFR duplicata**: il filtro riusa
+`punteggioLingua()`/`punteggioLinguaSingola()` del motore di compatibilità
+già esistenti (BR4) — una meta è "coperta" quando il punteggio è 50 (livello
+richiesto raggiunto E certificato: la certificazione mancante è esattamente
+il motivo reale di esclusione documentato nella bussola, caso Madrid/
+Amsterdam di Bruno). Le mete con `requisitoLingua` multiplo (alternative
+lingua bachelor/master o corsi in lingue diverse) restano incluse se ALMENO
+UNA alternativa è coperta (`Math.max` già nel motore, comportamento
+preesistente riusato, non nuovo). **Mete non verificabili MAI nascoste in
+silenzio**: `requisitoLingua` vuoto → restano nell'elenco filtrato, la card
+le marca già "Lingua da verificare" (comportamento esistente `linguaSintesi`,
+invariato). **Profilo senza lingue**: il click sul chip non filtra a vuoto —
+richiama `mostraTab("profilo")` come già fa il link dello strip profilo,
+verificato che il filtro si auto-resetta a "tutte" se le lingue vengono
+svuotate mentre il chip è attivo (nuovo controllo in cima a `renderMete()`).
+**Microcopy della riunione d'asta** (dossier §1-ter A, richiesto dalla
+spec): quando il filtro è attivo l'intro sopra la griglia diventa "Preparati
+alla riunione di assegnazione: queste sono le mete che le tue lingue
+coprono davvero." **`node --check js/app.js`**: OK. **Verifica a video**
+(preview locale porta 8001, profilo impostato via localStorage per
+velocità — zaino con lingue Inglese B2 certificata — poi verificato anche
+il caso senza lingue; mobile 375px e desktop nativo, tema chiaro E notte,
+ENTRAMBI gli atenei): Ca' Foscari Economia triennale — 85 mete totali, 78
+col filtro attivo (7 esplicitamente escluse per requisito lingua non
+coperto, verificato via `punteggioLingua()` in console, es. Copenhagen
+Business School C1 inglese; le 6 "da verificare" restano visibili);
+Sapienza Giurisprudenza magistrale — 60 mete totali, 43 col filtro; chip
+attivo leggibile in tema notte (`getComputedStyle`: sfondo blu `#3d7dff`,
+testo bianco, stesso pattern degli altri chip); su mobile 375px il chip
+resta nel flusso orizzontale dei filtri esistente, nessuna rottura di
+layout; nessun errore console in nessuno scenario. **File toccati**:
+`js/app.js` (`renderMete()`, solo l'area filtri e il blocco di filtraggio
+elenco — nessuna funzione nuova, riuso di `punteggioLingua`). **Non
+toccati**: `js/app.js` pesi del motore (50/30/20 invariati), `css/style.css`
+(nessuna modifica: `.chip-filtro` già copriva il caso), dati mete di
+nessun ateneo. Roadmap: OP3 spuntato. Prossimo passo: OP4 — Stima borsa
+per gruppo-paese.)
+
+**Aggiornamento precedente:** 2026-07-08 — sessione 34, Claude Code (**OP2
+Candidatura riformattata IMPLEMENTATA — Timeline rimossa, "Ora tocca a te"
+con scadenza collegata, gerarchia visiva rinforzata.** Letti in ordine
+`CLAUDE.md`, `PROGETTO_ERASMUS.md`, `STATO_DEL_SITO.md`, `ROADMAP.md`,
+`DISEGNO_OPERATIONS.md` (+ `FEEDBACK_UTENTI.md` e `DISEGNO_UX.md` §6 come
+richiesto dalla specifica OP2 prima di scrivere codice). Eseguito SOLO il
+blocco OP2. **Rimossa la pagina Timeline nascosta** (decisione BR7, ora
+eseguita): sezione `#tab-timeline` in `index.html`, funzione `renderTimeline()`
+e relativo blocco CSS (`#timeline-v2`, `.tappa-v2*`) in `js/app.js`/
+`css/style.css`, voce `"timeline"` da `TAB_VALIDI`, entrambi i link
+`.link-torna-tab` (ormai orfani, classe CSS rimossa anche dagli override
+tema-notte/desktop) — i 4 pulsanti di missione che puntavano al tab
+"timeline" (bando-chiuso/urgente/attendi/default) ora puntano a "checklist",
+dove le stesse scadenze sono già presenti nei capitoli fusi (nessun dato
+perso, solo un tab in meno). **"Ora tocca a te" (BR5) arricchito**: ogni
+passo mostrato ora porta con sé, senza dover aprire il capitolo sotto, la
+scadenza collegata e il countdown (nuovo `.prossimo-passo-scadenza`,
+pillola con sfondo proprio come `.cand-scadenza-countdown` — necessario:
+il primo tentativo usava solo colore di testo rosso su sfondo trasparente,
+illeggibile in tema notte dove la card è quasi trasparente sul blu scuro;
+corretto con sfondo dedicato `--red-bg`, indipendente dal tema, stesso
+pattern già in uso altrove). **Gerarchia visiva rinforzata** (richiesta
+esplicita OP2: "una scadenza = un blocco distinto, le voci sono
+subordinate"): `.cand-scadenza-card` con titolo in `--font-display` 800
+1.05rem, bordo sinistro e raggio più marcati; voci in `.cand-checklist-sotto`
+attenuate (sfondo/bordo trasparenti, font più piccolo) — **bug
+auto-introdotto e richiuso in sessione**: l'attenuazione cancellava anche
+il bordo blu della voce "attiva" (stessa specificità CSS della regola
+`.attiva` preesistente, scritta dopo in cascata); corretto escludendo
+`:not(.attiva)` dalla regola, verificato via `getComputedStyle` che il
+bordo/ombra evidenziati tornano visibili. **`node --check js/app.js`**: OK.
+**Verifica a video** (preview locale porta 8001, mobile 390px e desktop
+1280px, tema chiaro E notte, ENTRAMBI gli atenei — Ca' Foscari Economia e
+Sapienza Giurisprudenza, data di sistema forzata solo lato test a prima
+delle scadenze reali per vedere capitoli non scaduti, nessun file toccato
+per il test): capitoli per-scadenza e "Quando puoi" corretti, dettagli
+ripiegabili invariati, badge scadenza visibile su ogni passo di "Ora tocca
+a te" con contrasto verificato in entrambi i temi, griglia desktop 2
+colonne invariata (712px/320px, "Ora tocca a te" in colonna azione),
+checkbox testata via `dispatchEvent` (progresso 0/5→1/5, l'elenco si
+riempie col passo successivo), banner "dati in verifica" Sapienza ancora
+presente, nessun errore console, nessun residuo `timeline`/`tappa-v2`/
+`link-torna-tab` nei file di root (grep mirato). **Nota**: esiste una
+cartella `v2/` con una vecchia istantanea del sito (committata a parte,
+non citata nei documenti-bussola) che contiene ancora riferimenti a
+"timeline" — non è stata toccata, fuori dallo scope del blocco OP2 e non
+il sito live. **File toccati**: `index.html` (rimossa sezione Timeline e i
+2 link `.link-torna-tab`), `js/app.js` (rimossi `renderTimeline()` e la
+sua chiamata, aggiornati 4 target di bottone, `renderProssimiPassi()`
+arricchita, `aggiornaCountdownV2()` aggiornata per il nuovo badge),
+`css/style.css` (rimosso blocco TIMELINE v2 e `.link-torna-tab`, rinforzata
+`.cand-scadenza-card`/`.cand-checklist-sotto`, nuovo `.prossimo-passo-scadenza`).
+**Non toccati**: dati checklist/scadenze (`dati-checklist.js`,
+`dati-scadenze.js` di entrambi gli atenei), motore temporale
+(`scadenzaPerId`, `voceScaduta`, `prossimaScadenzaAzionabile`), export
+`.ics`, onboarding, motore di compatibilità. Roadmap: OP2 spuntato.
+Prossimo passo: OP3 — Filtro lingua nelle mete.)
+
+**Aggiornamento precedente:** 2026-07-08 — sessione 33, Claude Code (**OP1 Fix UI
+dal feedback UX6 IMPLEMENTATA — stellina, link portale, microcopy limite 5.**
+Letti in ordine `CLAUDE.md`, `PROGETTO_ERASMUS.md`, `STATO_DEL_SITO.md`,
+`ROADMAP.md`, `DISEGNO_OPERATIONS.md`. Eseguito SOLO il blocco OP1. **Punto 1
+— "Informazioni importanti"**: la stringa/sezione non esiste nel codice
+attuale (né in `index.html` né in `js/app.js`) — probabilmente già rinominata
+o superata da sessioni BRAND precedenti (es. "La tua missione di oggi").
+`FEEDBACK_UTENTI.md` è un template mai compilato, quindi non fornisce il
+riferimento esatto: **nessuna modifica fatta per non indovinare** — segnalato
+a Nicola, da chiarire con Bruno cosa intendesse esattamente. **Punto 2 —
+stellina preferiti** (`js/app.js` `renderMete()`, `css/style.css`): spostata
+in cima alla card (prima era un bottone a piena larghezza in fondo), ora
+icona sola (⭐/☆) in un cerchio 40×40px posizionato in alto a destra
+(`.btn-preferita` con `position:absolute`), con `aria-label`. **Punto 3 —
+link "Portale Sapienza/Ca' Foscari"**: de-enfatizzato da bottone pieno
+(`background:var(--primary)`) a link di testo sottolineato — la CTA
+principale della card resta "Tocca per i dettagli →"; aggiunto override
+tema notte (`#a7c3ff`, stesso pattern di `.card-dettagli-hint`). **Punto 4 —
+limite 5 scelte**: la schedina (`renderPreferite()`) mostrava il limite solo
+come errore reattivo dopo il tentativo di aggiungere una sesta meta; ora un
+microcopy proattivo ("Puoi sceglierne al massimo 5: l'ordine conta, sono le
+mete che porterai alla riunione di assegnazione" — riusa il use case della
+riunione d'asta documentato nel dossier di Bruno §1-ter A) è sempre visibile
+finché la schedina non è piena; il numero resta 5 hardcoded (uguale per
+entrambi gli atenei nei dati raccolti finora, nessun campo per-ateneo
+introdotto senza necessità). **Punto 5 — debug 2/55 mete Giurisprudenza**:
+trovate via grep (`requisitoLingua: []`) — Universidad de Castilla-La Mancha
+e Universidad de Zaragoza. Verificato che ENTRAMBE hanno già in
+`notePratiche` la nota "Lingua: CEFR non pubblicato ufficialmente" +
+"CEFR non trovato dopo ricerca approfondita": soddisfano già la definizione
+di "completo" della pipeline dati (`DISEGNO_PIPELINE_DATI.md`: fonte+data
+OPPURE marcato non trovabile con fonte tentata). **Nessuna modifica ai dati
+mete** — inventare un CEFR non verificato avrebbe violato la regola
+"mai un'affermazione senza fonte" della bussola §3. L'app le mostra
+correttamente con chip "Lingua da verificare" (comportamento esistente, non
+un bug). **`node --check js/app.js`**: OK. **Verifica a video** (preview
+locale porta 8001, mobile 390px e desktop 1280px, tema chiaro E notte,
+ENTRAMBI gli atenei — Sapienza Giurisprudenza e Ca' Foscari Economia):
+stellina in alto a destra funzionante (click reale, aggiunta/rimozione,
+schedina 1/5→persistenza), link "Portale"/"Scheda ufficiale" leggibile in
+entrambi i temi (contrasto verificato via `getComputedStyle`: `#a7c3ff` in
+notte), microcopy limite visibile finché schedina < 5 e nascosto a schedina
+piena, nessun errore console, nessuna regressione su filtri/ricerca/
+compatibilità. **File toccati**: `js/app.js` (`renderMete()`,
+`renderPreferite()`), `css/style.css` (`.card-meta-v2`, `.btn-preferita`,
+`.link-scheda-v2`, `.preferite-hint`, override tema notte). **Non toccati**:
+motore di compatibilità, onboarding, dati mete (nessuna riga modificata).
+Roadmap: OP1 spuntato. Prossimo passo: OP2 — Candidatura riformattata da
+zero (include rimozione pagina Timeline, decisione BR7).)
+
+**Aggiornamento precedente:** 2026-07-07 — sessione 32, Cowork (**PIPELINE DATI
+CHIUSA: nuovo documento definitivo `DISEGNO_PIPELINE_DATI.md`.** Nessun
+codice toccato. Decisioni prese con Nicola: budget ZERO oltre gli
+abbonamenti (ChatGPT Plus/Codex, Claude), operatore unico Nicola,
+obiettivo copertura completa per feb 2027 — con "completo" definito come
+"dato con fonte+data OPPURE marcato non trovabile con fonte tentata", mai
+riempito per completismo. **Architettura a 4 livelli**: T0 script
+(riuso/propagazione/validazioni + NUOVO link-checker HTTP), T1 sgrossatura
+GRATIS su Gemini AI Studio (prompt pronto nel documento, protocollo
+evidence-based: ogni dato con URL+citazione o "nonTrovato"), T2 Codex come
+VERIFICATORE (verificare è 3-5× più veloce che cercare → la capacità Plus
+si moltiplica), T3 campionamento umano (Nicola 10% + Bruno su
+Giurisprudenza). **Claude escluso dalla mappatura di massa** (token = la
+risorsa più scarsa, solo sessioni OP). Numeri misurati sul repo: 1.987
+mete ma ~856 codici partner UNICI → l'unità di lavoro è il partner, non
+la meta. ⚠️ Scoperto difetto dati: alcuni seed hanno codici Erasmus
+SINTETICI (es. `SAP-IUS-SALZBURG` vs il reale `A SALZBUR01`) che rendono
+ciechi riuso/propagazione — sanarli è il passo 0 dei lavori una-tantum
+(§6 del documento: fix codici, schema +`linkCatalogo`+`notaDisponibilita`,
+`verifica-link.mjs`, prompt Codex riscritto da ricercatore a verificatore
+— da RE-INCOLLARE in piattaforma). Calendario §7: follow-up residui →
+una-tantum → Giurisprudenza (validata con la tabella 28/03 del caso-Bruno)
+→ Ca' Foscari residui → 10 Facoltà nuove (~408 codici, ~13 serate di
+sgrossatura) → backfill catalogo → refresh bando 27/28. Checkpoint onesto:
+misurare il ritmo reale dopo 2 settimane; se è la metà del previsto si
+taglia la COPERTURA (fallback: beachhead completo + resto best-effort),
+mai la qualità. Il legame col LA Generator è esplicito (§10): la stessa
+passata che completa le mete raccoglie il dato L2 (cataloghi+
+disponibilità), con la pagina INCOMING preferita al catalogo generale
+(lezione del Change Form di Bruno). `ROADMAP.md` aggiornata: nuovo G5
+(lavori una-tantum) e OP12 rimandato al documento pipeline.)
+
+**Aggiornamento precedente:** 2026-07-07 — sessione 31, Cowork (**CORPUS MAIL
+DI BRUNO ANALIZZATO (feb 2025 → lug 2026) — tre scoperte strategiche.**
+Nessun codice toccato. Il file `scambi mail bruno.md` (secondo tentativo,
+questa volta corretto — il mount bash mostrava ancora la versione stale,
+contenuto vero verificato col Read tool) contiene: domanda di candidatura
+completa 18/02/2025, graduatoria, riunione di assegnazione, nomination,
+iterazioni del prospetto LA, promemoria contratto/partenza/chiusura.
+**Scoperta 1 — la "riunione d'asta" è letterale** (dossier §1-ter A): a
+Giurisprudenza l'assegnazione avviene in una riunione telematica
+obbligatoria (28/03/2025, 194 candidati, assenza=rinuncia) con la tabella
+mete+requisiti lingua inviata 18 MINUTI prima; chi scende in graduatoria
+sceglie un'alternativa al volo "in base ai propri requisiti di lingua" →
+la schedina 5 scelte + filtro lingua (OP3) è lo strumento di preparazione
+alla riunione: killer use case documentato della fase domanda, recepito
+nel microcopy di OP3. La tabella stessa (~70 mete con CEFR) è una fonte
+ufficiale per validare i dati lingua Giurisprudenza → aggiunta a G4.
+**Scoperta 2 — D7 risolta, scenario OP8 deciso**: il "prospetto" LA si
+manda come allegato libero a erasmuslaw@ (scadenza Vademecum 30/05),
+l'ufficio lo itera nel merito — a Bruno DUE rimbalzi documentati: "link
+non funzionanti" (03/06) e "ECTS non corrispondenti ai link" (04/06) —
+poi approvazione RAM (06/06) e solo dopo compilazione in piattaforma →
+**scenario A confermato dalla prassi**; G1 declassata da bloccante a
+conferma; i due rimbalzi diventano le validazioni obbligatorie del
+Generator (link verificati + ECTS coerenti), scritte in OP8.
+**Scoperta 3 — D4 quasi risolta**: Amsterdam chiedeva TOEFL 100/IELTS 7/C1
+e Madrid C3 ES B2+EN B2, Bruno aveva EN B2 → non "certificato dimenticato"
+ma "requisito host più alto del previsto": cambia il taglio dell'articolo
+SEO sui requisiti lingua. **Altre pepite**: accettazione mobilità entro 7
+giorni o si perde (16/04); LA in piattaforma entro 10/07 o 10/12; dati
+bancari visibili solo dopo contratto controfirmato; cert. frequenza deve
+inviarlo l'HOST; la candidatura chiede già corsi+esami a febbraio
+("mini-LA" 10 mesi prima); tre uffici diversi scrivono allo studente
+(smout/erasmuslaw/RAEF-RAM). ⚠️ Il corpus contiene dati di TERZI (~200
+indirizzi studenti): mai estrarre contenuti non anonimizzati.
+**Aggiornati**: `DOSSIER_CASO_BRUNO.md` (nuova §1-ter con riunione d'asta,
+flusso prospetto, tabella scadenze vissute, candidatura, burocratese;
+timeline §4 ora quasi completa con 20+ date documentate),
+`LISTA_MATERIALI_BRUNO.md` (B1 ✅, D7 ✅ risolta, D4 riformulata; restano
+ToR/convalida/piano studi post-rientro + D2/D3/D5/D6/A2),
+`DISEGNO_OPERATIONS.md` (OP8 scenario A + validazioni; OP3 use case
+riunione + fonte tabella lingue; grafo aggiornato), `ROADMAP.md` (G1
+declassata, G2 quasi completa, G4 arricchito). Restano da Bruno: ToR,
+convalida, piano di studi, Word del prospetto se ritrovato, racconti
+D2/D3/D5/D6/A2.)
+
+**Aggiornamento precedente:** 2026-07-07 — sessione 30, Cowork (**GROUND TRUTH
+ARRIVATA: LA + Change Form di Bruno analizzati, documenti operativi
+aggiornati.** Nessun codice toccato. Nuovi file in `fonti/caso-bruno/`:
+`LearningAgreement (3).pdf` e `ChangeForm (1).pdf` (⚠️ terzo file
+`scambi mail bruno.md` ERRATO: copia identica di `pagina processo
+domanda.md`, le mail vanno ri-esportate da Bruno). **Scoperte chiave**
+(dettaglio in `DOSSIER_CASO_BRUNO.md` §1-bis): (1) il Change Form
+(19/02/2026) cancella **6 corsi su 8** del LA originale con motivazione
+ufficiale "componente NON disponibile presso l'ospitante" e ne aggiunge 10
+— il 75% del piano è saltato per DISPONIBILITÀ, non per scelta: la
+dimensione "corso davvero offerto agli incoming + semestre" diventa
+primaria (alza il valore di L2/OP9, vincola lo schema del pilota L3/OP6);
+(2) il LA ufficiale è **digitale end-to-end** (approvato online da Bruno +
+RAM Scarchillo lo stesso istante, 11/09/2025 — 2 giorni prima della
+partenza; Católica via **EWP** il 05/11/2025, a mobilità iniziata da 2
+mesi): conferma il posizionamento "preparazione, mai modulo"; (3) i codici
+corso host nel LA erano tutti "000" → il LA Generator non deve chiederli;
+(4) mapping molti-a-molti coi totali (8 corsi/44 ECTS ↔ 6 esami/45 CFU,
+poi 12/53 ↔ 8/57); (5) discrepanza lingua OLS "Portoghese" vs corsi in
+inglese B2 → trappola da checklist. **Aggiornati**: `DOSSIER_CASO_BRUNO.md`
+(nuova §1-bis con le due tabelle e le implicazioni, timeline con date reali
+11/09-05/11-19/02, inventario, stato consegne), `LISTA_MATERIALI_BRUNO.md`
+(A1/A3 spuntati, B1 da rifare, nuove domande D5-D7: come ha scoperto i
+corsi non disponibili, discrepanza OLS, ruolo della "bozza Word"),
+`DISEGNO_OPERATIONS.md` (OP6 sbloccato in fase 1 con disponibilità come
+dimensione primaria; OP8 con vincoli dalla ground truth; OP9 con link
+catalogo Católica verificato e nota disponibilità; grafo dipendenze),
+`ROADMAP.md` (G2 parziale, G1+D7). **Azioni per Nicola/Bruno**: rifare
+l'export delle mail (B1), inviare la mail G1, rispondere a D5-D7;
+ToR/convalida/piano di studi dopo il rientro (12/07).)
+
+**Aggiornamento precedente:** 2026-07-07 — sessione 29, Cowork (**SESSIONE STRATEGICA:
+operations rimodulate sulla bussola v2 + dossier caso-Bruno avviato.** Nessun
+file di codice/dati del sito toccato — solo documenti operativi, scritti per
+essere eseguiti in autonomia da qualsiasi modello Claude (Opus/Sonnet).
+(1) **`ROADMAP.md` RISCRITTA (v2)**: ondate nuove allineate alla bussola —
+GATE (luglio: mail ufficio Erasmus G1, materiali Bruno G2, dossier G3 ✅,
+UX5-Sapienza G4) → MERCATO-1 (lug-set: OP1-OP7) → MERCATO-2 (ott-dic:
+OP8-OP13) → LANCIO (gennaio, freeze) → BANDO (feb-apr, KPI) → BILANCIO
+(maggio); storico v1 compattato in fondo; regole d'ingaggio estese ai
+modelli (ordine di lettura, no git da bash, privacy caso-Bruno). Scoperta
+in sessione: `manifest.json`+`sw.js` PWA esistono GIÀ (network-first, senza
+push) → OP10 è un audit, non una creazione. (2) **NUOVO
+`DISEGNO_OPERATIONS.md`**: specifica vincolante eseguibile delle sessioni
+OP1-OP13 stile DISEGNO_BRAND (obiettivo/dipendenze/file/specifica/test/non
+toccare per ogni blocco), con grafo delle dipendenze e priorità di taglio
+(OP6 pilota L3 si taglia per primo, SEO non si rimanda). OP8 (LA Generator)
+scritto a DUE scenari in attesa dell'esito G1. (3) **NUOVO
+`PLAYBOOK_TEAM.md`**: divisione Nicola/Bruno (tabelle B-1…B-7, N-1…N-8),
+4 prompt pronti da incollare per le sessioni Claude di Bruno (validazione
+contenuti, rilettura articolo SEO, social, preparazione contatti ufficio),
+regole di seeding gennaio (messaggio da studente, `?src=` per canale) e
+guida handoff ai modelli. (4) **Cartella `fonti/caso-bruno/` analizzata**
+(10 file: pagina personale Relint in MD+video, INFORMAZIONI GENERALI 25/26
+— la guida ufficiale dell'intero processo outgoing, certificati arrivo/
+frequenza, polizze, OLS, Charter): creati **`DOSSIER_CASO_BRUNO.md`**
+(profilo del caso: Giurisprudenza→Católica Lisbona 10 mesi €300/mese,
+inventario, timeline da completare, regole d'uso per i modelli; nota-anomalia
+dichiarazione di arrivo 01/01/2026 vs partenza 13/09/2025 da chiarire) e
+**`LISTA_MATERIALI_BRUNO.md`** (checklist A1-D4 di cosa deve consegnare
+Bruno — mancano LA/Change Form/ToR/mail, la vera ground truth — + BOZZA
+PRONTA della mail all'ufficio Erasmus §E, il gate che decide la forma del
+LA Generator). Verificato: `fonti/` è già in `.gitignore` → caso-bruno mai
+su GitHub. **Azioni immediate per Nicola**: girare a Bruno
+`LISTA_MATERIALI_BRUNO.md` (mail G1 = 10 minuti, blocca OP8) e recuperare
+le tabelle borse Ca' Foscari (N-7, serve a OP4). Prossima sessione di
+codice: OP1 (fix UI dal feedback UX6) via `DISEGNO_OPERATIONS.md`.)
+
+**Aggiornamento precedente:** 2026-07-06 — sessione 28, Cowork (**SESSIONE STRATEGICA:
+bussola riscritta come v2 dopo la validazione UX6 col fratello (05/07).**
+Nessun file di codice/dati toccato — solo strategia. `PROGETTO_ERASMUS.md`
+riscritto integralmente (v1 conservata in appendice come storico). Decisioni
+chiave: (1) **pivot di gerarchia** — il test ha confermato la tesi della v1
+("il dolore è il processo, non la scelta mete"): nuova gerarchia LA >
+scadenze > requisiti lingua > scelta mete; (2) **killer feature = LA
+Generator a livelli** — L1 documento pulito da upload piano studi + L2 link
+cataloghi host nell'MVP; L3 matching esami SOLO come esperimento pilota su
+Giurisprudenza (go/no-go a settembre), mai prerequisito; (3) **notifiche =
+PWA** con service worker (decisione architetturale presa, unica aggiunta
+all'architettura statica); (4) **posizionamento "guida all'asta"** —
+strumento di appoggio, no partnership università in questa fase, disclaimer
+datati ovunque; (5) **distribuzione** (sezione nuova, il rischio più
+sottovalutato): beachhead doppio Sapienza Giurisprudenza (fratello insider)
++ Ca' Foscari (contatti Nicola/Pisa Network), canali in gerarchia —
+WhatsApp/Telegram primario a gennaio-febbraio, SEO di base SUBITO (lag di
+indicizzazione), social warm-up da dicembre; (6) **calendario a ritroso** dal
+bando di febbraio 2027 con PRODUCT FREEZE a gennaio (da lì solo promozione);
+(7) **team**: fratello nel progetto in pianta stabile come owner validazione
+contenuti Giurisprudenza + canale Sapienza; vincolo 3-5 h/settimana della v1
+rimosso. KPI 2027 = traffico ricorrente (utenti unici nel bando, % ritorno
+post-selezione, LA generati, iscrizioni push), NON revenue. Idea garanzia
+depositi = parcheggiata (altro business). **Assessment critico finale (stessa
+sessione), limature accettate da Nicola e integrate in bussola**: §3-bis
+natura del progetto (churn strutturale 100%/coorte, volumi piccoli, valore
+vero = ASSET dati, uscita più plausibile = partnership/acquisizione, non
+banner); SEO sopra il social (unico canale che si accumula tra coorti);
+verifica ufficio Erasmus a luglio PRIMA del codice (LA generato accettato
+come bozza? rapporto con OLA/EWP?) tramite Bruno; framing notifiche
+"promemoria di controllo, non oracolo" fino al microcopy; rischi nuovi §10:
+OLA/EWP e ChatGPT come sostituto; SOGLIE di successo con revisione onesta a
+maggio 2027 (≥500 utenti unici, ≥30% ritorno, ≥50 LA generati, ≥5
+condivisioni spontanee). Il fratello si chiama **Bruno** (aggiornato ovunque).
+Da fare da Nicola: salvare i documenti del percorso Erasmus di Bruno in
+`fonti/caso-bruno/` (aggiungere la cartella a `.gitignore` — dati personali,
+MAI su GitHub); è la ground truth di LA Generator e pilota L3. Prossimi passi
+operativi in §8. Prossima sessione strategica: roadmap operativa delle fasi.)
+
+**Aggiornamento precedente:** 2026-07-05 — sessione 27, Claude Code (**Rifinitura UI/UX
 "sito da professionisti" — SOLO `css/style.css`, zero logica toccata.** Richiesta di
 Nicola: eliminare l'aria "da developer", sistemare mobile e desktop. Interventi:
 (1) **Desktop home ristrutturata**: la vecchia griglia a 3 colonne comprimeva
@@ -1010,9 +1469,12 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | 3 — Mete filtrabili + compatibilità | Profilo studente, filtro per area, punteggio pesato, icone oneste | ✅ Fatta e testata |
 | 4 — Blocco Idoneità | Requisiti del bando in chiaro | ✅ Fatta e testata |
 | 5 — Checklist con spunte salvate | Passi spuntabili + barra progresso, salvati su dispositivo | ✅ Fatta e testata |
-| v2 — Redesign UI | Tab OGGI/METE/TIMELINE/CHECKLIST, missione del giorno, percorso a tappe, countdown pill, mascotte Wiz, dark mode, GoatCounter | ✅ Promossa a main (2026-06-23) |
+| v2 — Redesign UI | Tab OGGI/METE/CANDIDATURA, missione del giorno, percorso a tappe, countdown pill, mascotte Wiz, dark mode, GoatCounter | ✅ Promossa a main (2026-06-23) |
+| OP2 — Candidatura riformattata | Pagina Timeline rimossa (era ridondante, BR7); "Ora tocca a te" mostra la scadenza collegata a ogni passo; gerarchia visiva scadenza/voci rinforzata | ✅ Fatta e testata (2026-07-08) |
+| OP3 — Filtro lingua nelle mete | Chip "🗣️ Per la mia lingua" tra i filtri, riusa il motore di compatibilità esistente | ✅ Fatta e testata (2026-07-08) |
+| OP4 — Stima borsa per gruppo-paese | Nuovo `dati-borse.js` per ateneo, badge nella card + blocco nel dettaglio con disclaimer datato | ✅ Fatta e testata (2026-07-08) |
 
-**Tab visibili nella pagina (navigazione inferiore):** Oggi (missione) → Mete → Scadenze → Checklist.
+**Tab visibili nella pagina (navigazione inferiore):** Oggi (missione) → Mete → Candidatura (scadenze+checklist fuse).
 **Tab nascosti (accessibili da JS):** Idoneità · Profilo.
 
 ## 3. ARCHITETTURA (le 2 regole d'oro, rispettate)
@@ -1028,13 +1490,14 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 
 | File | Tipo | A cosa serve |
 |------|------|--------------|
-| `index.html` | codice | Struttura v2 (tab OGGI/METE/TIMELINE/CHECKLIST + Idoneità/Profilo nascosti) |
+| `index.html` | codice | Struttura v2 (tab OGGI/METE/CANDIDATURA + Idoneità/Profilo nascosti; Timeline rimossa in OP2) |
 | `css/style.css` | codice | Design system v2: dark mode, font Bricolage/Jakarta/SpaceMono, responsive |
 | `js/app.js` | codice | Logica v2: missione del giorno, percorso, countdown, mete, checklist, profilo |
 | `img/wiz-hero.png` | asset | Mascotte Wiz (illustrazione, in sostituzione in BR2 con le pose di `design/assets/mascotte/`) |
 | `img/logo-mark.svg` · `img/icon-star.svg` · `img/icon-sparkle.svg` | asset | Copiati da `design/assets/` in BR0; logo-mark usato nell'header desktop (`.nav-brand`) e come favicon |
 | `js/atenei/` | **dati** | Dati per ateneo (multi-ateneo). Sottocartelle `cafoscari/` e `sapienza/`; vedi `js/atenei/README.md` |
 | `js/atenei/cafoscari/dati-bando.js` | **dati** | Requisiti del bando Ca' Foscari (Idoneità) — `var BANDO_INFO`, `var REQUISITI_BANDO` |
+| `js/atenei/cafoscari/dati-borse.js` · `js/atenei/sapienza/dati-borse.js` | **dati** | OP4 (08/07): stima borsa UE per gruppo-paese + integrazione minori opportunità (ISEE a fasce per Sapienza, top-up flat per Ca' Foscari) — `var BORSE_INFO` |
 | `js/atenei/cafoscari/dati-mete.js` | **dati** | Mete — Economia (58, `var METE`) |
 | `js/atenei/cafoscari/dati-mete-management.js` | **dati** | Mete — Management (76) |
 | `js/atenei/cafoscari/dati-mete-lingue.js` | **dati** | Mete — Lingue e culture orientali (24) |
@@ -1069,7 +1532,12 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | `DISEGNO_UX.md` | guida | **Specifica vincolante del ridisegno UX v3** (02/07) — da leggere nelle sessioni UX1–UX6 |
 | `DISEGNO_BRAND.md` | guida | **Specifica vincolante dell'ondata BRAND** (04/07) — da leggere nelle sessioni BR0–BR7 |
 | `design/` | design | Design system da Claude Design: `readme.md` (brand+tono), `tokens/*.css` (fonte dei valori), `assets/` (logo, SVG), `assets/mascotte/` (pose Wiz 3D, le salva Nicola), `riferimenti/` (prototipo + PDF esplorazioni) |
-| `PROGETTO_ERASMUS.md` | guida | Bussola strategica (idea, confini, rischi) |
+| `PROGETTO_ERASMUS.md` | guida | **Bussola strategica v2** (06/07: gerarchia validata, LA Generator, distribuzione, calendario a ritroso; v1 in appendice) |
+| `ROADMAP.md` | guida | **Roadmap operativa v2** (07/07: ondate GATE/MERCATO-1/MERCATO-2/LANCIO/BANDO/BILANCIO allineate alla bussola v2; storico v1 in fondo) |
+| `DISEGNO_OPERATIONS.md` | guida | **Specifica vincolante delle sessioni OP1–OP13** (07/07) — da leggere nelle sessioni OP, stile DISEGNO_BRAND |
+| `PLAYBOOK_TEAM.md` | guida | Divisione compiti Nicola/Bruno + prompt pronti per le sessioni Claude di Bruno + guida handoff modelli (07/07) |
+| `DISEGNO_PIPELINE_DATI.md` | guida | **Pipeline dati definitiva** (07/07): livelli T0-T3 (script/Gemini free/Codex verificatore/campione umano), prompt sgrossatura, lavori una-tantum §6, calendario §7 — la mappatura segue SOLO questo documento |
+| `fonti/caso-bruno/` | **fonti (PRIVATE, mai su GitHub)** | Percorso Erasmus reale di Bruno: `DOSSIER_CASO_BRUNO.md` (ground truth strutturata), `LISTA_MATERIALI_BRUNO.md` (materiali da consegnare + mail ufficio Erasmus), pagina Relint (MD+video), INFORMAZIONI GENERALI 25/26, certificati e polizze |
 | `BRIEF_claude_code_fase1.md` | guida | Brief iniziale Fase 1 (storico) |
 | `DISEGNO_DATI_erasmus.md` | guida | Struttura dati validata + logica compatibilità |
 
@@ -1125,6 +1593,125 @@ python -m http.server 8000
 poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
+
+**Aggiornamento 2026-07-08 — sessione 36 (OP4 chiusa):**
+1. **Prossima sessione: OP5** — SEO di base online (`DISEGNO_OPERATIONS.md`):
+   3 pagine statiche indicizzabili entro l'autunno + attivazione analytics
+   (residuo Ondata A). L'articolo caso-Bruno resta subordinato al suo ok sul
+   testo anonimizzato; gli altri due articoli partono subito.
+2. OP6 (pilota matching L3 Giurisprudenza) e OP7 (già accorpato in OP1)
+   restano paralleli/indipendenti, nessuna dipendenza da OP4.
+3. Resta aperto il chiarimento con Nicola/Bruno su "Informazioni
+   importanti" (segnalato in sessione 33, non modificato per non
+   indovinare).
+4. Restano validi i punti di G5/pipeline dati delle sessioni precedenti
+   (invariati, nessun codice del sito li tocca).
+
+**Aggiornamento 2026-07-08 — sessione 33 (OP1 chiusa):**
+1. **Prossima sessione di codice: OP2** — Candidatura riformattata da zero
+   (`DISEGNO_OPERATIONS.md`), include la rimozione della pagina Timeline
+   decisa in BR7. Dipendenza: OP1 (fatta) per non lavorare due volte sugli
+   stessi blocchi.
+2. **Chiarire con Nicola/Bruno** cosa intendeva il feedback UX6 per
+   "Informazioni importanti": la stringa non esiste nel codice attuale, non
+   modificato per non indovinare (dettaglio nella nota di sessione sopra).
+3. Restano validi i punti di G5/pipeline dati della sessione 32 (invariati,
+   nessun codice del sito li tocca).
+
+**Aggiornamento 2026-07-07 — sessione 32 (pipeline dati chiusa):**
+1. **La mappatura mete segue da oggi SOLO `DISEGNO_PIPELINE_DATI.md`**
+   (livelli T0-T3, prompt sgrossatura pronto, calendario §7, regole §9).
+2. **Prima azione: G5** (lavori una-tantum §6) — in particolare il fix dei
+   codici Erasmus sintetici, che può completare mete GRATIS via riuso.
+3. **Cadenza Nicola** (§8 del documento): 2-3 serate di sgrossatura
+   Gemini + 1 lancio Codex/giorno + campionamento weekend. Dopo 2
+   settimane: misurare il ritmo e decidere se confermare "tutto completo"
+   o ripiegare su beachhead+best-effort.
+4. Restano validi i punti delle sessioni 29-31 (OP1 prossima sessione di
+   codice; mail G1 come conferma; materiali post-rientro da Bruno).
+
+**Aggiornamento 2026-07-07 — sessione 31 (corpus mail analizzato):**
+1. **OP8 è sbloccato**: scenario A (generatore) confermato dalla prassi
+   documentata nelle mail; G1 resta come conferma non bloccante. Le
+   validazioni obbligatorie del Generator sono i due rimbalzi reali di
+   Bruno (link verificati, ECTS coerenti coi link).
+2. **Nuovo use case per OP3** (filtro lingua): preparazione alla riunione
+   d'asta di assegnazione — documentata con orari e numeri nel dossier
+   §1-ter A. La tabella mete+lingue del 28/03/2025 va usata in G4 per
+   validare i dati Giurisprudenza.
+3. **Da Bruno restano solo**: ToR + convalida + piano di studi (dopo il
+   12/07), il Word del prospetto se lo ritrova, e i racconti D2/D3/D5/D6/A2
+   (bastano vocali).
+4. **OP5 ha la storia completa**: candidatura → asta → prospetto (con
+   rimbalzi) → partenza col LA approvato 2 giorni prima → 6 corsi su 8
+   non disponibili → Change Form. Attenzione all'anonimizzazione: il
+   corpus contiene dati di terzi.
+5. Restano validi i punti delle sessioni 29-30 (OP1 prossima sessione di
+   codice; SEO entro autunno; tabelle borse Ca' Foscari per OP4).
+
+**Aggiornamento 2026-07-07 — sessione 30 (LA + Change Form analizzati):**
+1. **⚠️ Bruno**: (a) ri-esportare le MAIL (il file consegnato era una copia
+   della pagina Relint — B1 della lista); (b) inviare la mail G1
+   all'ufficio Erasmus; (c) rispondere alle domande D5-D7 (come ha
+   scoperto i 6 corsi non disponibili; discrepanza lingua OLS; ruolo della
+   "bozza Word"); (d) dopo il rientro (12/07): ToR, convalida, piano di
+   studi.
+2. **La tesi di prodotto si è raffinata**: disponibilità corsi > matching
+   semantico (il 75% del LA di Bruno è saltato per NON disponibilità).
+   Recepita in OP6 (schema pilota), OP8 (vincoli generator) e OP9 (link
+   cataloghi con nota disponibilità — valore alzato).
+3. **OP6 fase 1 SBLOCCATA** (LA+CF bastano per il confronto retrospettivo);
+   OP5 (articolo caso-Bruno) ha già la storia principale.
+4. Restano validi i punti della sessione 29 (OP1 prossima sessione di
+   codice; SEO entro autunno; tabelle borse Ca' Foscari per OP4).
+
+**Aggiornamento 2026-07-07 — sessione 29 (operations rimodulate, handoff pronto):**
+1. **Documenti di riferimento da oggi**: `ROADMAP.md` v2 (cosa e quando) +
+   `DISEGNO_OPERATIONS.md` (come, sessione per sessione) + `PLAYBOOK_TEAM.md`
+   (chi). Ordine di lettura a inizio sessione: `CLAUDE.md` →
+   `PROGETTO_ERASMUS.md` → questo file → `ROADMAP.md` → disegno dell'ondata.
+2. **⚠️ Azioni umane SUBITO (bloccanti)**: (a) Nicola gira a Bruno
+   `fonti/caso-bruno/LISTA_MATERIALI_BRUNO.md`; (b) Bruno invia la mail
+   all'ufficio Erasmus (bozza §E — decide la forma del LA Generator, OP8);
+   (c) Bruno consegna i materiali §A-§D (sbloccano pilota L3 e articolo
+   SEO); (d) Nicola recupera le tabelle borse Ca' Foscari (per OP4).
+3. **Prossima sessione di codice: OP1** (fix UI dal feedback UX6, include il
+   debug 2/55 mete) via `DISEGNO_OPERATIONS.md`; poi OP2 (Candidatura
+   riformattata, include la rimozione della pagina Timeline decisa in BR7).
+4. **In parallelo (chat)**: G4 UX5-Sapienza (contenuti traduttore, base:
+   INFORMAZIONI GENERALI nel dossier) e OP5 (SEO — il tempo di
+   indicizzazione non si recupera: online entro l'autunno).
+5. Aggiornare `DOSSIER_CASO_BRUNO.md` a ogni consegna di Bruno (timeline §4
+   e inventario §2-§3); chiarire con lui la nota-anomalia della
+   dichiarazione di arrivo (01/01/2026 vs partenza 13/09/2025).
+
+**Aggiornamento 2026-07-06 — sessione 28 (bussola v2 scritta, ondata MERCATO definita):**
+1. **Leggere la nuova `PROGETTO_ERASMUS.md` v2** a inizio di ogni sessione:
+   contiene gerarchia problemi validata, confini v2-mercato, distribuzione,
+   team, KPI e calendario a ritroso dal bando di febbraio 2027.
+1-bis. **Primi task di luglio (prima del codice nuovo)**: (a) Bruno chiede
+   all'ufficio Erasmus se un LA generato da noi è accettato come bozza e
+   qual è il rapporto col sistema OLA ufficiale — l'esito determina la
+   forma del LA Generator (generatore vs compilatore del loro template);
+   (b) Nicola salva i documenti del percorso di Bruno in `fonti/caso-bruno/`
+   (+ `.gitignore`); (c) definite in bussola le soglie di successo — la
+   revisione onesta è fissata a maggio 2027.
+2. **Ondata luglio–settembre** (in ordine): (a) fix UI dal feedback UX6 —
+   rinomina "Informazioni importanti", stellina preferiti in alto a destra,
+   de-enfasi "Portale Sapienza", comunicare limite 5 scelte; (b)
+   **riformattazione completa sezione Candidatura** (confusa su mobile);
+   (c) filtro lingua + stima borsa nelle schede mete; (d) SEO di base
+   online (pagine indicizzabili prima dell'autunno); (e) avviare il pilota
+   matching esami L3 su Giurisprudenza col caso Lisbona come ground truth
+   (go/no-go a settembre).
+3. **Ondata ottobre–dicembre**: LA Generator L1+L2, PWA + notifiche push,
+   debug 2/55 mete Giurisprudenza; da novembre pipeline dati su bando 27/28;
+   da dicembre warm-up social.
+4. **Gennaio 2027 = PRODUCT FREEZE**: solo promozione e verifica dati.
+5. La nota BR7 sulla pagina Timeline duplicata e il resto del feedback UX6
+   confluiscono nel punto 2 (le correzioni post-test sono ora l'ondata
+   corrente). UX5-Sapienza (contenuti traduttore Giurisprudenza) resta
+   aperta e prioritaria: serve al LA Generator e al test di febbraio.
 
 **Aggiornamento 2026-07-05 — sessione 25 (BR7 fatta, ondata BRAND chiusa):**
 1. **Ondata BRAND (BR0-BR7) COMPLETATA.** Prossima sessione di codice sul
