@@ -993,7 +993,10 @@ var METE = [
         { lingua: "Spagnolo", livello: "B1", condizione: "per mobilita Erasmus" }
       ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "almeno 3 mesi prima dell'arrivo a Salamanca" },
+        { cosa: "Application (primavera)", periodo: "almeno 3 mesi prima dell'arrivo a Salamanca" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {

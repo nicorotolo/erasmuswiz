@@ -1,26 +1,16 @@
 {
   "versione": "2.0",
-  "aggiornato": "2026-07-06",
+  "aggiornato": "2026-07-10",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Psicologia e Servizio Sociale (Sapienza)",
-  "runCompletati": 297,
+  "runCompletati": 298,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "comunicazione e ricerca sociale (sapienza)-batch-followup-1",
-      "priorita": 6,
-      "dipartimento": "Comunicazione e Ricerca Sociale (Sapienza)",
-      "descrizione": "Comunicazione e Ricerca Sociale (Sapienza) - follow-up pending",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "E  SALAMAN01"
-      ]
-    },
     {
       "id": "psicologia e servizio sociale (sapienza)-batch-followup-1",
       "priorita": 6,
@@ -461,12 +451,10 @@
     },
     "Comunicazione e Ricerca Sociale (Sapienza)": {
       "fileJs": "js/atenei/sapienza/dati-mete-comunicazione.js",
-      "stato": "in_corso",
+      "stato": "completo",
       "totale": 59,
-      "completate": 47,
-      "pendingScadenze": [
-        "E  SALAMAN01"
-      ],
+      "completate": 48,
+      "pendingScadenze": [],
       "pendingLingua": [],
       "tentativiLingua": {
         "A  WIEN01": 2,
@@ -2363,6 +2351,12 @@
       "data": "2026-07-06",
       "mete": 1,
       "note": "Farmacia (Sapienza) farmacia (sapienza)-batch-followup-2: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 298,
+      "data": "2026-07-10",
+      "mete": 1,
+      "note": "Comunicazione e Ricerca Sociale (Sapienza) comunicazione e ricerca sociale (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
