@@ -4,7 +4,16 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-14 — sessione 68, Codex (**TIMEOUT ESTERNO
+**Ultimo aggiornamento:** 2026-07-14 — sessione 69, Codex (**RETRY COMPLETO,
+GEMINI ANCORA SATURO.** La correzione del timeout è stata pubblicata su `main`
+tramite PR #37 (`a6699f9`) e il lotto `TR VAN01` è stato rilanciato una sola
+volta. L'orchestratore ha lasciato concludere tutti e 3 i tentativi, confermando
+la correzione; Gemini ha risposto `503 UNAVAILABLE` per alta domanda a ogni
+tentativo. Stop corretto prima di Codex, merge e pubblicazione dati; zero token
+Codex consumati e batch invariato in testa alla coda. Non rilanciare ancora
+nella stessa finestra di alta domanda.)
+
+**Ultimo aggiornamento precedente:** 2026-07-14 — sessione 68, Codex (**TIMEOUT ESTERNO
 GEMINI ALLINEATO AI RETRY.** Diagnosticato che il limite di 5 minuti imposto
 dall'orchestratore interrompeva il secondo tentativo, prima che i 3 retry da
 180 secondi con backoff potessero concludersi. Portato il limite esterno a 12
@@ -2139,7 +2148,7 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | MERCATO-UI Fase C5 — Guide + fiducia + OG | OG dedicata 64 KB (P2.14 chiuso), pagina fiducia `guide/come-funziona.html` (gate privacy ok), sw.js senza PNG 408 KB, sitemap 4 URL, 30 file spazzatura eliminati (cartelle legacy: attendono conferma Nicola) | ✅ Fatta e testata (2026-07-14) |
 | MERCATO-UI Fasi C6, D — Demo LA + QA | Assorbite dall'ondata PERCORSO: la demo LA Generator diventa stazione del viaggio (P5), il QA finale diventa P7 | 🔁 Superate (2026-07-14) |
 | **PERCORSO — redesign a viaggio** | `PLAN.md` riscritto (grill 10 decisioni + Codex APPROVED al R5): due mondi ingresso/dashboard, linea di viaggio = nav, itinerario a stazioni, palette riaperta (2 direzioni: Notte cartografica vs Orizzonte chiaro), fasi P0 mockup → P7 QA, deadline settembre 2026 | 📋 Pianificata — prossima: P0 (2 mockup) |
-| **Pipeline dati T0→T3 — Gemini + Codex** | Primo batch ESCOM pubblicato; verificatore T2 su `gpt-5.6-luna`/low; retry Gemini fino a 3 tentativi e timeout esterno corretto a 12 minuti; test 7/7 | ⚠️ Eseguire un solo batch comparativo e misurare qualità/token prima della pianificazione |
+| **Pipeline dati T0→T3 — Gemini + Codex** | Timeout esterno corretto e pubblicato; tutti i 3 retry ora completano, ma l'ultimo rilancio ha ricevuto 3× `503 UNAVAILABLE`; nessun dato parziale | ⏸️ Attendere che cali la domanda Gemini, poi eseguire un solo batch comparativo |
 
 **Tab visibili nella pagina (navigazione inferiore):** Oggi (missione) → Mete → Candidatura (scadenze+checklist fuse).
 **Tab nascosti (accessibili da JS):** Idoneità · Profilo.
@@ -2257,7 +2266,7 @@ Il CODICE è pronto. Le mete ora sono **REALI** (dalla lista ufficiale del bando
 | Requisiti bando (`dati-bando.js`) | **REALI** ✅ validati art. per art. sul PDF (8 requisiti, con rif. agli articoli) | Riverificare sul bando 2027/28 |
 | Scadenze (`dati-scadenze.js`) | **REALI** ✅ 7 tappe dal bando (candidature, laureandi, graduatoria, accettazione, ISEE, mobilità) | Riverificare ogni anno |
 | Checklist (`dati-checklist.js`) | **REALI** ✅ 9 passi validati sul bando | Riverificare ogni anno |
-| **Automazione dati Gemini+Codex** | Primo T1→T3 riuscito; T2 ottimizzato con Luna/low; retry Gemini fino a 3 tentativi con limite esterno portato da 5 a 12 minuti; test 7/7 | Eseguire un batch standard comparativo, campionare la qualità e confrontare i token; mantenere ferma la vecchia automazione |
+| **Automazione dati Gemini+Codex** | Timeout esterno da 12 minuti pubblicato e verificato: tutti i 3 tentativi vengono eseguiti; ultimo test fermato da 3× `503` Gemini; nessun consumo Codex | Attendere una finestra senza alta domanda, poi riprovare una sola volta; mantenere ferma la vecchia automazione |
 
 **Nota motore di compatibilità:** `app.js` ora gestisce la lingua mancante in modo
 onesto. Per le mete senza lingua mostra 🟡 "Idoneo — verifica la lingua" (se hai
@@ -2275,6 +2284,12 @@ python -m http.server 8000
 poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
+
+**Aggiornamento 2026-07-14 — sessione 69 (retry completo, Gemini saturo):**
+1. Non rilanciare ancora nella stessa finestra: Gemini ha restituito 3× `503`.
+2. Riprovare una sola volta più tardi sullo stesso batch `TR VAN01`.
+3. Se Gemini completa, misurare Luna/low e confrontarla con 37.484 token.
+4. Mantenere ferma la vecchia automazione multi-ateneo.
 
 **Aggiornamento 2026-07-14 — sessione 68 (timeout orchestratore corretto):**
 1. Rilanciare una sola volta `node scripts/esegui-lotto-automatico.mjs` su `TR VAN01`.
