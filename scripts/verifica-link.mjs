@@ -14,7 +14,7 @@ import fs from "node:fs";
 
 const TIMEOUT_MS = 10000;
 
-async function linkVivo(url) {
+async function statoLink(url) {
   const controller = new AbortController();
   const t = setTimeout(() => controller.abort(), TIMEOUT_MS);
   try {
@@ -23,9 +23,11 @@ async function linkVivo(url) {
       // Alcuni siti universitari rifiutano HEAD: riprova con GET.
       res = await fetch(url, { method: "GET", redirect: "follow", signal: controller.signal });
     }
-    return res.ok;
+    if (res.ok) return "vivo";
+    if (res.status === 404 || res.status === 410) return "morto";
+    return "inconcludente";
   } catch {
-    return false;
+    return "inconcludente";
   } finally {
     clearTimeout(t);
   }
@@ -40,18 +42,23 @@ const contenitore = JSON.parse(fs.readFileSync(path, "utf8"));
 const output = contenitore.dati || {};
 let controllati = 0;
 let rimossi = 0;
+let inconcludenti = 0;
 
 for (const [codice, patch] of Object.entries(output)) {
   const fonti = patch.fonti || {};
-  for (const [campo, url] of Object.entries(fonti)) {
+  for (const [campo, evidenza] of Object.entries(fonti)) {
+    const url = typeof evidenza === "string" ? evidenza : evidenza?.url;
     if (!url || typeof url !== "string" || !/^https?:\/\//.test(url)) continue;
     controllati++;
-    const ok = await linkVivo(url);
-    if (!ok) {
+    const stato = await statoLink(url);
+    if (stato === "morto") {
       console.log(`  ${codice}.${campo}: fonte non raggiungibile (${url}) -> campo rimosso`);
       delete patch[campo];
       delete fonti[campo];
       rimossi++;
+    } else if (stato === "inconcludente") {
+      console.log(`  ${codice}.${campo}: controllo HTTP inconcludente (${url}) -> resta per la verifica Codex`);
+      inconcludenti++;
     }
   }
   const campiRimasti = Object.keys(patch).filter((k) => k !== "fonti" && k !== "notePraticheAppend");
@@ -60,5 +67,5 @@ for (const [codice, patch] of Object.entries(output)) {
 
 contenitore.dati = output;
 fs.writeFileSync(path, JSON.stringify(contenitore, null, 2) + "\n");
-console.log(`Verifica link completata: ${controllati} URL controllati, ${rimossi} campi rimossi per fonte non raggiungibile.`);
+console.log(`Verifica link completata: ${controllati} URL controllati, ${rimossi} campi rimossi, ${inconcludenti} controlli inconcludenti lasciati a Codex.`);
 console.log("Bozza pronta per Codex (T2) in batch/SGROSSATURA.json.");

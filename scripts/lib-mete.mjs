@@ -6,7 +6,13 @@
 import fs from "node:fs";
 
 // Campi che l'LLM puo completare. Tutto il resto e immutabile.
-export const CAMPI_RIEMPIBILI = ["requisitoLingua", "scadenzeOspitante", "linkSito"];
+export const CAMPI_RIEMPIBILI = [
+  "requisitoLingua",
+  "scadenzeOspitante",
+  "linkSito",
+  "linkCatalogo",
+  "notaDisponibilita",
+];
 // Campi-contesto utili alla ricerca (gli unici che mandiamo all'LLM).
 export const CAMPI_CONTESTO = [
   "codiceErasmus", "universita", "citta", "paese", "linkPdf", "linkSito",
@@ -94,6 +100,43 @@ export function campoVuoto(raw) {
   if (raw == null) return true;
   const v = raw.trim();
   return v === "[]" || v === '""' || v === "''" || /^"?da verificare/i.test(v);
+}
+
+// Imposta un campo esistente oppure, per i campi introdotti dopo la creazione
+// dei seed, lo inserisce subito prima di notePratiche. Questo permette di
+// estendere lo schema senza riscrivere in massa tutti i file mete esistenti.
+export function impostaCampo(blocco, campo, valore, { soloSeVuoto = false } = {}) {
+  const raw = valoreCampo(blocco, campo);
+  if (raw != null) {
+    if (soloSeVuoto && !campoVuoto(raw)) return { blocco, modificato: false };
+    const re = new RegExp(`((?:^|[\\s,{])${campo}\\s*:\\s*)`, "m");
+    const m = re.exec(blocco);
+    if (!m) return { blocco, modificato: false };
+    const from = m.index + m[0].length;
+    return {
+      blocco: blocco.slice(0, from) + serializza(valore) + blocco.slice(from + raw.length),
+      modificato: true,
+    };
+  }
+
+  const nota = /^(\s*)notePratiche\s*:/m.exec(blocco);
+  if (nota) {
+    const inserimento = `${nota[1]}${campo}: ${serializza(valore)},\n`;
+    return {
+      blocco: blocco.slice(0, nota.index) + inserimento + blocco.slice(nota.index),
+      modificato: true,
+    };
+  }
+
+  const fine = blocco.lastIndexOf("}");
+  if (fine === -1) return { blocco, modificato: false };
+  const indent = /\n(\s*)[^\s}][^\n]*$/.exec(blocco.slice(0, fine))?.[1] || "    ";
+  const prima = blocco.slice(0, fine).trimEnd();
+  const separatore = prima.endsWith("{") || prima.endsWith(",") ? "" : ",";
+  return {
+    blocco: `${prima}${separatore}\n${indent}${campo}: ${serializza(valore)}\n${blocco.slice(fine)}`,
+    modificato: true,
+  };
 }
 
 // Serializza un valore JS in stile-file (chiavi non quotate).

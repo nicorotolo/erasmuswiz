@@ -4,7 +4,99 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-14 — sessione 48, Claude Code (**NUOVA ONDATA
+**Ultimo aggiornamento:** 2026-07-14 — sessione 56, Codex (**GH INSTALLATA MA
+PATH NON ANCORA VISIBILE NEL TERMINALE.** La nuova finestra PowerShell continua
+a ereditare un PATH precedente e non risolve il comando `gh`; l'eseguibile è
+comunque installato e già verificato in
+`%LOCALAPPDATA%\Programs\GitHubCLI\bin\gh.exe`. Prossimo passo: avviare
+`gh auth login` tramite percorso assoluto, senza reinstallazione. Nessun branch,
+commit, push, PR o dato creato.)
+
+**Ultimo aggiornamento precedente:** 2026-07-14 — sessione 55, Codex (**GITHUB CLI
+PORTABILE INSTALLATA.** Rimossa la cartella accidentale `%LOCALAPPDATA%` creata
+nel repository usando sintassi cmd dentro PowerShell. Scaricato lo ZIP ufficiale
+GitHub CLI 2.96.0 con il workaround Windows `--ssl-no-revoke`, estratto in
+`%LOCALAPPDATA%\Programs\GitHubCLI\bin` e aggiunto correttamente al PATH utente;
+`gh --version` verificato. Resta solo l'autenticazione interattiva `gh auth
+login`. Nessun branch, commit, push, PR o dato creato.)
+
+**Ultimo aggiornamento precedente:** 2026-07-14 — sessione 54, Codex (**INSTALLAZIONE GH
+SENZA ADMIN DEFINITA.** L'installazione MSI di GitHub CLI 2.96.0 tramite winget
+è stata annullata con exit code 1602 perché Nicola non dispone di privilegi
+amministrativi. Scelta la distribuzione ZIP portabile ufficiale da installare
+nel profilo utente (`%LOCALAPPDATA%\Programs\GitHubCLI`) e aggiungere al PATH
+utente. Nessun branch, commit, push, PR o dato creato; dopo installazione e
+`gh auth login` riprendere la pubblicazione della Fase 1.)
+
+**Ultimo aggiornamento precedente:** 2026-07-14 — sessione 53, Codex (**PUBBLICAZIONE FASE 1
+FERMATA PRIMA DEL COMMIT.** Verificato che tutte le modifiche presenti nella
+worktree appartengono alla nuova automazione Gemini+Codex; remoto GitHub
+configurato correttamente su `nicorotolo/erasmuswiz`. La procedura di
+pubblicazione non è partita perché GitHub CLI (`gh`) non è installato sul PC,
+prerequisito necessario per completare in sicurezza branch, push e pull request.
+Nessun branch, commit, push, PR o dato creato. Prossimo passo: installare GitHub
+CLI, autenticarsi e riprendere la pubblicazione della Fase 1.)
+
+**Ultimo aggiornamento precedente:** 2026-07-14 — sessione 52, Codex (**AZZERAMENTO CODEX
+VERIFICATO.** Dopo l'azzeramento effettuato da Nicola, eseguito il preflight
+completo con `--online --codex-smoke`: sintassi dei 9 script OK, repository e
+stato coerenti, Codex CLI 0.144.4 autenticato, chiamata reale `codex exec`
+riuscita, chiave Gemini presente e modello Gemini 3.5 Flash disponibile.
+Risultato finale `PREFLIGHT OK`; il precedente blocco fino al 20/07 non è più
+attuale. Nessun batch, dato o branch modificato dal test. Prossimo gate:
+pubblicare il codice della Fase 1 su un branch dedicato, fermare la vecchia
+automazione multi-ateneo e solo dopo eseguire un lotto reale controllato.)
+
+**Ultimo aggiornamento precedente:** 2026-07-14 — sessione 51, Codex (**FASE 1
+GEMINI+CODEX IMPLEMENTATA E VERIFICATA LOCALMENTE.** Completati schema esteso
+(`linkCatalogo`, `notaDisponibilita`), contratto OUTPUT con fonti strutturate
+(URL, citazione, data), validazione stretta anti-output residuo, ramo automatico
+`nuovo_dipartimento`, lock locale, staging limitato ai file previsti, log
+persistente e wrapper per Task Scheduler. Aggiunti test isolati e report di
+copertura: 7/7 test passati, sintassi script e PowerShell valida,
+`valida-stato.mjs` coerente e preflight online OK. Codex CLI aggiornato a 0.144.4;
+il test reale Codex è fermo esclusivamente dal limite d'uso dell'account fino al
+20/07/2026 ore 11:16. Nessun batch reale, dato, branch remoto o attività Windows
+creati. Prima dell'avvio completo restano: confermare la chiave Gemini persistente
+nel nuovo terminale, pubblicare queste modifiche, sospendere l'automazione
+multi-ateneo precedente e ripetere il test Codex quando il credito torna
+disponibile.)
+
+**Ultimo aggiornamento precedente:** 2026-07-14 — sessione 50, Codex (**CHECKLIST DI
+AVVIO GEMINI+CODEX DEFINITA.** Confermato l'ordine operativo: (1) hardening
+degli script e gestione automatica dei 10 setup Sapienza già seedati; (2)
+allineamento dello schema alla pipeline definitiva; (3) configurazione chiave
+Gemini sul PC dedicato e pausa delle automazioni Codex precedenti; (4) test
+manuale setup, poi test manuale di un batch Gemini+Codex con controllo umano;
+(5) solo dopo esito positivo, registrazione in Task Scheduler una volta al
+giorno, istanza singola e log persistente. Nessuna automazione avviata e nessun
+file dati modificato in questa sessione.)
+
+**Ultimo aggiornamento precedente:** 2026-07-14 — sessione 49, Codex (**AUDIT NUOVA
+AUTOMAZIONE GEMINI + CODEX — analisi completata, attivazione non ancora
+eseguita.** Verificati `AUTOMAZIONE_GEMINI.md`, `DISEGNO_PIPELINE_DATI.md`,
+gli script T0-T2 e lo stato reale locale. Node 24.17 e Codex CLI 0.143 sono
+installati; login Codex via ChatGPT attivo; la chiave Gemini presente nella
+sessione risponde correttamente e `gemini-3.5-flash` supporta
+`generateContent`; sintassi dei tre nuovi script valida; `valida-stato.mjs`
+riporta "Stato coerente"; nessun branch remoto `mappatura/*`. **Blocco
+principale:** la coda inizia con 10 batch `nuovo_dipartimento` Sapienza e tutti
+i relativi seed esistono, ma `esegui-lotto-automatico.mjs` oggi termina senza
+eseguire `setup-dipartimento.mjs`: pianificato così resterebbe fermo sul primo
+setup. **Gap rispetto alla pipeline definitiva:** `linkCatalogo`,
+`notaDisponibilita`, citazioni testuali e data fonte non sono ancora propagati
+dallo schema/script; manca inoltre una protezione robusta da `OUTPUT.json`
+residuo e da due istanze locali avviate insieme. La chiave è presente solo
+nell'ambiente della sessione verificata, non come variabile Machine; nessuna
+attività Windows per Gemini/Codex risulta registrata. Automazioni Codex: legacy
+`mappatura-mete-erasmus` PAUSED; `mappatura-mete-erasmus-multiateneo` ancora
+marcata ACTIVE ma senza thread/run propri trovati, quindi va messa in pausa
+prima del nuovo scheduler per eliminare ogni rischio di concorrenza. **Ordine
+approvabile:** correggere i guardrail e il ramo setup → completare i lavori
+schema della pipeline definitiva → test manuale di un solo lotto con controllo
+fonti/costi → solo dopo registrare Task Scheduler con una sola istanza e log.**)
+
+**Ultimo aggiornamento precedente:** 2026-07-14 — sessione 48, Claude Code (**NUOVA ONDATA
 "PERCORSO" PIANIFICATA E APPROVATA — nessun file del sito toccato.** Sessione
 /grill-me-codex sul verdetto di Nicola dopo C1–C5: "troppo bambinesco, manca
 il percorso, non c'è trasporto". **Atto 1 — grill, 10 decisioni di Nicola**:
@@ -1929,6 +2021,7 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | MERCATO-UI Fase C5 — Guide + fiducia + OG | OG dedicata 64 KB (P2.14 chiuso), pagina fiducia `guide/come-funziona.html` (gate privacy ok), sw.js senza PNG 408 KB, sitemap 4 URL, 30 file spazzatura eliminati (cartelle legacy: attendono conferma Nicola) | ✅ Fatta e testata (2026-07-14) |
 | MERCATO-UI Fasi C6, D — Demo LA + QA | Assorbite dall'ondata PERCORSO: la demo LA Generator diventa stazione del viaggio (P5), il QA finale diventa P7 | 🔁 Superate (2026-07-14) |
 | **PERCORSO — redesign a viaggio** | `PLAN.md` riscritto (grill 10 decisioni + Codex APPROVED al R5): due mondi ingresso/dashboard, linea di viaggio = nav, itinerario a stazioni, palette riaperta (2 direzioni: Notte cartografica vs Orizzonte chiaro), fasi P0 mockup → P7 QA, deadline settembre 2026 | 📋 Pianificata — prossima: P0 (2 mockup) |
+| **Pipeline dati T0→T3 — Gemini + Codex** | Fase 1 pronta: schema/evidenze, setup automatico, lock, pulizia output, staging ristretto, log, test e preflight completo Gemini+Codex verificati | ⚠️ Prima del lotto reale: pubblicare il codice su branch dedicato e fermare la vecchia automazione multi-ateneo |
 
 **Tab visibili nella pagina (navigazione inferiore):** Oggi (missione) → Mete → Candidatura (scadenze+checklist fuse).
 **Tab nascosti (accessibili da JS):** Idoneità · Profilo.
@@ -1982,8 +2075,16 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | `js/dati-coordinate.js` | **dati** | Lookup città→coordinate per la mappa (508 chiavi = 99,6% mete; x/y precalcolate; `fuori:true` per le città fuori inquadratura). La pipeline G5 lo estende | 
 | `design/PLAN-FASE-B.md` | piano | Fase B dettagliata (mappa-hero, 3 direzioni, gate mobile) — locked via grill + Codex APPROVED (10/07) |
 | `design/proposte-2026-07/` | mockup | 3 proposte di direzione visiva + comparatore `index.html` + `_assets/` (mappa SVG, dati demo, Wiz webp). NON è il sito: noindex + disclaimer |
-| `automazioni/PROMPT_CODEX_mappatura.md` | automazione | Prompt dell'automazione Codex (ogni 15 min): unica fonte della mappatura mete. (Action Claude `mappatura-mete.yml` RIMOSSA) |
-| `scripts/lib-mete.mjs` | automazione | Utilità condivise: scanner JS (rispetta stringhe/parentesi) + serializzazione |
+| `automazioni/PROMPT_CODEX_mappatura.md` | automazione | Prompt storico del flusso Codex che faceva ricerca+merge; non va riattivato insieme alla nuova pipeline Gemini+Codex |
+| `automazioni/PROMPT_CODEX_verifica.md` | automazione | Prompt T2 letto da disco da `codex exec`: verifica la bozza Gemini e scrive `batch/OUTPUT.json` |
+| `AUTOMAZIONE_GEMINI.md` | guida | Setup sicuro della chiave, preflight e avvio del processo Gemini T1 → Codex T2 → merge/pubblicazione; procedura Task Scheduler con istanza singola e log |
+| `scripts/esegui-lotto-automatico.mjs` | automazione | Orchestratore indurito: preflight, lock atomico, pulizia output, setup seed esistenti, validazione, staging ristretto, push e verifica pubblicazione |
+| `scripts/esegui-lotto-pianificato.ps1` | automazione | Wrapper per Task Scheduler; esegue un lotto e salva i log fuori dal repository in `%LOCALAPPDATA%\ErasmusWiz\logs` |
+| `scripts/gemini-sgrossatura.mjs` · `scripts/verifica-link.mjs` | automazione | Sgrossatura T1 via Gemini API con Google Search + controllo HTTP preliminare delle fonti |
+| `scripts/lib-mete.mjs` | automazione | Utilità condivise: scanner/serializzazione + inserimento sicuro dei nuovi campi mappabili |
+| `scripts/lib-output-batch.mjs` · `scripts/valida-output-batch.mjs` | automazione | Contratto e validatore dell'OUTPUT: batch corretto, soli campi richiesti, formato dati e prove ufficiali obbligatorie |
+| `scripts/test-pipeline-gemini.mjs` | test | Suite isolata della pipeline: inserimento campi, anti-output residuo, evidenze, setup/riuso e merge |
+| `scripts/report-copertura-mappatura.mjs` | automazione | Report di sola lettura sulla copertura di lingua, scadenze, sito, catalogo e disponibilità |
 | `scripts/prepara-batch.mjs` | automazione | Imbuto in ingresso: estrae il prossimo batch in `batch/INPUT.json` (pochi KB) |
 | `scripts/applica-batch.mjs` | automazione | Imbuto in uscita: fonde `batch/OUTPUT.json` nel fileJs + **PROPAGAZIONE** agli altri dipartimenti (04/07), `node --check`, aggiorna lo stato, follow-up da 8 |
 | `scripts/setup-dipartimento.mjs` | automazione | Bootstrap nuovo dipartimento + **RIUSO** da dipartimenti già mappati (04/07), sotto-batch da 8 |
@@ -2038,6 +2139,7 @@ Il CODICE è pronto. Le mete ora sono **REALI** (dalla lista ufficiale del bando
 | Requisiti bando (`dati-bando.js`) | **REALI** ✅ validati art. per art. sul PDF (8 requisiti, con rif. agli articoli) | Riverificare sul bando 2027/28 |
 | Scadenze (`dati-scadenze.js`) | **REALI** ✅ 7 tappe dal bando (candidature, laureandi, graduatoria, accettazione, ISEE, mobilità) | Riverificare ogni anno |
 | Checklist (`dati-checklist.js`) | **REALI** ✅ 9 passi validati sul bando | Riverificare ogni anno |
+| **Automazione dati Gemini+Codex** | Fase 1 pronta e testata: 7/7 test e preflight completo Gemini+Codex OK; 13 batch in coda; copertura iniziale su 1.987 mete: lingua 38%, scadenze 43%, sito 72%, catalogo/disponibilità 0% | Pubblicare la Fase 1, fermare la vecchia automazione e poi testare un lotto reale con controllo umano |
 
 **Nota motore di compatibilità:** `app.js` ora gestisce la lingua mancante in modo
 onesto. Per le mete senza lingua mostra 🟡 "Idoneo — verifica la lingua" (se hai
@@ -2055,6 +2157,74 @@ python -m http.server 8000
 poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
+
+**Aggiornamento 2026-07-14 — sessione 55 (GitHub CLI installata):**
+1. Chiudere e riaprire PowerShell, eseguire `gh auth login` e completare
+   l'accesso GitHub via browser.
+2. Riprendere branch, commit, push e PR della Fase 1.
+
+**Aggiornamento 2026-07-14 — sessione 54 (GitHub CLI senza admin):**
+1. Installare lo ZIP portabile ufficiale di GitHub CLI nel profilo utente.
+2. Aggiungere la cartella `bin` al PATH utente, riaprire il terminale e fare
+   `gh auth login`.
+3. Riprendere branch, commit, push e PR della Fase 1.
+
+**Aggiornamento 2026-07-14 — sessione 53 (blocco pubblicazione):**
+1. Installare GitHub CLI (`gh`) e autenticare l'account GitHub.
+2. Riprendere la pubblicazione: branch dedicato, commit intenzionale, push e PR.
+3. Solo dopo proseguire con pausa della vecchia automazione e lotto reale.
+
+**Aggiornamento 2026-07-14 — sessione 52 (azzeramento Codex riuscito):**
+1. Pubblicare le modifiche della Fase 1 su un branch dedicato.
+2. Mettere in pausa `mappatura-mete-erasmus-multiateneo`.
+3. Eseguire un solo lotto reale manuale e controllare fonti, diff, consumo e
+   verifica pubblicazione.
+4. Solo dopo il lotto riuscito creare l'attività Windows giornaliera con
+   `scripts/esegui-lotto-pianificato.ps1` e istanza singola.
+
+**Aggiornamento 2026-07-14 — sessione 51 (Fase 1 Gemini+Codex pronta):**
+1. Aprire un nuovo Prompt dei comandi e verificare che `GEMINI_API_KEY` sia
+   presente; non incollare mai la chiave in chat o nel repository.
+2. Rivedere e pubblicare le modifiche della Fase 1 su un branch dedicato prima
+   di eseguire l'orchestratore sui dati reali.
+3. Mettere in pausa `mappatura-mete-erasmus-multiateneo`, così una sola
+   automazione potrà scrivere e pubblicare dati.
+4. Dal 20/07/2026 dopo le 11:16 ripetere il preflight con smoke Codex; poi
+   eseguire prima un setup reale e quindi un solo lotto Gemini+Codex, controllando
+   fonti, diff, consumo e verifica pubblicazione.
+5. Creare l'attività giornaliera Windows solo dopo il lotto end-to-end riuscito,
+   usando `scripts/esegui-lotto-pianificato.ps1` e l'opzione istanza singola.
+
+**Aggiornamento 2026-07-14 — sessione 50 (checklist di avvio):**
+1. Far implementare a Codex il blocco repository dell'audit della sessione 49.
+2. Configurare la chiave Gemini persistente sul PC dedicato senza inserirla nel
+   repo; verificare Node, Codex CLI e login ChatGPT.
+3. Mettere in pausa entrambe le vecchie automazioni Codex prima di qualsiasi
+   prova del nuovo orchestratore.
+4. Eseguire manualmente i setup Sapienza già seedati; poi un singolo lotto T1→T2
+   e verificarne fonti, diff, validazione e pubblicazione.
+5. Solo dopo il test riuscito creare l'attività Windows giornaliera con istanza
+   singola, directory del repo e log persistente.
+
+**Aggiornamento 2026-07-14 — sessione 49 (audit automazione Gemini+Codex):**
+1. **Non creare ancora l'attività pianificata.** Prima correggere
+   `scripts/esegui-lotto-automatico.mjs`: se `tipo=nuovo_dipartimento` e
+   `fileGiaCreato=true`, eseguire setup+validazione+pubblicazione; se il file
+   manca, stop umano. Eliminare/invalidare `batch/OUTPUT.json` prima di Codex,
+   aggiungere lock locale atomico e verifica stretta dei file staged.
+2. Completare i lavori una-tantum di `DISEGNO_PIPELINE_DATI.md` §6: schema e
+   propagazione di `linkCatalogo` e `notaDisponibilita`, evidenza con URL,
+   citazione e data; report copertura. Allineare prompt Gemini/Codex e formato
+   JSON alla stessa definizione di "completo".
+3. Sul PC dedicato: salvare `GEMINI_API_KEY` per l'account che eseguirà il task,
+   verificare Node/Codex/login, mettere in pausa anche l'automazione Codex
+   multi-ateneo, poi eseguire **un solo lotto manuale**. Controllare 2-3 fonti,
+   diff, validazione, branch e `verifica-pubblicazione.mjs`; misurare consumo e
+   costi reali Gemini/Codex.
+4. Solo dopo il test riuscito creare Task Scheduler con percorso assoluto di
+   Node, cartella di lavoro del repo dedicato, log su file e opzione "non
+   avviare una nuova istanza". Avviare inizialmente una volta al giorno e
+   rivedere i primi run prima di aumentare la frequenza.
 
 **Aggiornamento 2026-07-14 — sessione 48 (ondata PERCORSO pianificata):**
 1. **Prossima sessione: Fase P0 — i 2 mockup completi** in

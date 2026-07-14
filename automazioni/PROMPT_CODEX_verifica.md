@@ -24,7 +24,7 @@ trovare CEFR/scadenze/link) e' gia' stato fatto da un modello piu' debole
 
 - `batch/INPUT.json`: il batch corrente (contesto + campiDaRiempire per meta).
 - `batch/SGROSSATURA.json`: bozza di Gemini, formato
-  `{ "batchId": "...", "dati": { "<codiceErasmus>": { requisitoLingua, scadenzeOspitante, linkSito, notePraticheAppend, fonti } } }`.
+  `{ "batchId": "...", "dati": { "<codiceErasmus>": { requisitoLingua, scadenzeOspitante, linkSito, linkCatalogo, notaDisponibilita, notePraticheAppend, fonti } } }`.
   E' gia' passata da un controllo automatico dei link (le fonti morte sono
   gia' state tolte): se un campo ha ancora una "fonte", il link risponde.
 
@@ -39,11 +39,12 @@ formato fonti in ordine, stesse regole CEFR/scadenze). Poi vai a STEP 2.
 ## STEP 1 — Verifica (caso normale: bozza presente e allineata)
 
 Per ogni meta in `SGROSSATURA.json.dati`:
-1. Apri l'URL in "fonti" per ciascun campo trovato.
+1. Apri `fonti.<campo>.url` per ciascun campo trovato.
 2. Controlla che il dato scritto (CEFR, scadenza, URL) corrisponda davvero a
    quello che leggi sulla pagina, per studenti ERASMUS/EXCHANGE incoming (non
    degree students).
-3. Se corrisponde: tienilo cosi'.
+3. Controlla anche che `fonti.<campo>.citazione` sia davvero presente nella
+   pagina e dimostri quel dato. Se corrisponde: tienilo cosi'.
 4. Se e' sbagliato o ambiguo: correggilo se trovi il dato giusto sulla stessa
    pagina, altrimenti OMETTI il campo (mai lasciare un dato che non hai
    verificato).
@@ -56,10 +57,30 @@ Mai inventare, mai dedurre. Nessuna fonte = nessun dato.
 
 ## STEP 2 — Scrivi batch/OUTPUT.json
 
-Stesso formato SEMPRE usato dalla pipeline (vedi
-`automazioni/PROMPT_CODEX_mappatura.md` STEP 2 per l'esempio esatto): una
-chiave per codiceErasmus, solo i campi verificati/corretti, `fonti` come
-mappa campo -> URL, `notePraticheAppend` se serve.
+Scrivi SEMPRE il contenitore seguente:
+
+```json
+{
+  "batchId": "lo stesso batchId di INPUT.json",
+  "dati": {
+    "CODICE ERASMUS": {
+      "linkCatalogo": "https://pagina-ufficiale.example/catalogo",
+      "fonti": {
+        "linkCatalogo": {
+          "url": "https://pagina-ufficiale.example/catalogo",
+          "citazione": "Frase testuale presente nella pagina che dimostra il dato",
+          "verificataIl": "AAAA-MM-GG"
+        }
+      }
+    }
+  }
+}
+```
+
+Per ogni codice inserisci solo i campi verificati/corretti richiesti in
+`campiDaRiempire`. Ogni campo deve avere la propria evidenza in `fonti` con
+URL ufficiale esatto, citazione testuale e data odierna. `notePraticheAppend`
+e' ammesso se serve. Se nessun dato supera la verifica, usa `"dati": {}`.
 
 Dopo aver scritto `batch/OUTPUT.json`, il tuo compito finisce qui: NON
 eseguire `applica-batch.mjs`, NON fare commit, NON fare push. Se ne occupa lo

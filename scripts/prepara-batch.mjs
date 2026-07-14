@@ -99,9 +99,11 @@ const input = {
   fileJs,
   istruzioni:
     "Per ogni meta cerca SOLO i campi in campiDaRiempire su fonti ufficiali. " +
-    "Restituisci batch/OUTPUT.json: per ogni codiceErasmus un oggetto con i " +
-    "campi trovati (requisitoLingua/scadenzeOspitante/linkSito), opzionale " +
-    "notePraticheAppend (testo da aggiungere dopo ' || '), e fonti{campo:url}. " +
+    "Restituisci batch/OUTPUT.json nel formato {batchId,dati}. Per ogni " +
+    "codiceErasmus inserisci solo i campi richiesti e trovati " +
+    "(requisitoLingua/scadenzeOspitante/linkSito/linkCatalogo/notaDisponibilita), " +
+    "opzionale notePraticheAppend, e fonti{campo:{url,citazione,verificataIl}}. " +
+    "Ogni campo deve avere URL ufficiale, citazione testuale e data AAAA-MM-GG. " +
     "Mai inventare: se un dato non si trova, ometti il campo.",
   mete,
 };

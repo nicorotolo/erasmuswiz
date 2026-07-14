@@ -27,7 +27,8 @@ if (!API_KEY) {
 }
 
 const MODEL = process.env.GEMINI_MODEL || "gemini-3.5-flash";
-const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`;
+const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
+const OGGI = new Date().toISOString().slice(0, 10);
 
 const input = JSON.parse(fs.readFileSync("batch/INPUT.json", "utf8"));
 
@@ -51,10 +52,14 @@ suo "campiDaRiempire":
   (autunno e primavera se distinte), formato
   [{ "cosa": "Nomination (autunno)", "periodo": "entro 1 aprile" }].
 - "linkSito": URL della pagina ufficiale incoming/exchange dell'ateneo partner.
+- "linkCatalogo": URL del catalogo corsi per studenti Erasmus/exchange incoming.
+- "notaDisponibilita": eventuali facolta', corsi o livelli aperti/esclusi per
+  studenti Erasmus/exchange incoming.
 
 REGOLE FERREE:
-- Ogni dato deve avere una fonte: metti l'URL ESATTO della pagina (non la
-  home) dentro la chiave "fonti" (mappa campo -> URL).
+- Ogni dato deve avere una fonte dentro "fonti", nel formato
+  campo -> { "url": URL esatto, "citazione": frase testuale presente nella
+  pagina, "verificataIl": "${OGGI}" }. La citazione deve dimostrare il dato.
 - Se non trovi un dato con una fonte precisa, OMETTI il campo. NON dedurre,
   NON stimare, NON usare la tua memoria: solo cio' che leggi ora su una pagina
   raggiungibile.
@@ -67,7 +72,10 @@ REGOLE FERREE:
   markdown), con una chiave per ogni "codiceErasmus" che ha almeno un dato
   trovato. Ometti le mete senza nessun dato. Formato per ogni meta:
   { "requisitoLingua": [...], "scadenzeOspitante": [...], "linkSito": "...",
-    "notePraticheAppend": "...", "fonti": { "requisitoLingua": "https://..." } }
+    "linkCatalogo": "...", "notaDisponibilita": "...",
+    "notePraticheAppend": "...", "fonti": {
+      "requisitoLingua": { "url": "https://...", "citazione": "...", "verificataIl": "${OGGI}" }
+    } }
 
 Ecco l'elenco delle mete (usa SOLO "campiDaRiempire" di ciascuna per capire
 cosa cercare):
@@ -75,14 +83,22 @@ cosa cercare):
 ${JSON.stringify(input.mete, null, 2)}`;
 
 async function chiamaGemini(prompt, tentativo = 1) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 120000);
   const res = await fetch(ENDPOINT, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "x-goog-api-key": API_KEY,
+    },
+    signal: controller.signal,
     body: JSON.stringify({
       contents: [{ parts: [{ text: prompt }] }],
       tools: [{ google_search: {} }],
+      generationConfig: { responseMimeType: "application/json" },
     }),
   });
+  clearTimeout(timeout);
 
   if (res.status === 429 && tentativo <= 5) {
     const attesaMs = 15000 * tentativo; // backoff: 15s, 30s, 45s, 60s, 75s

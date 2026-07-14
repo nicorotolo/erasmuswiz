@@ -12,9 +12,10 @@
 import fs from "node:fs";
 import { execSync } from "node:child_process";
 import {
-  leggiStato, spanTutteMete, valoreCampo, serializza, caricaMete,
-  CAMPI_RIEMPIBILI,
+  leggiStato, spanTutteMete, valoreCampo, caricaMete,
+  CAMPI_RIEMPIBILI, impostaCampo,
 } from "./lib-mete.mjs";
+import { leggiEValidaOutput } from "./lib-output-batch.mjs";
 
 const vuoto = (a) => !Array.isArray(a) || a.length === 0;
 const DIM_BATCH = 8; // mete per batch di follow-up (era 5)
@@ -24,7 +25,13 @@ const stato = leggiStato();
 const batch = (stato.prossimiBatch || [])[0];
 if (!batch) { console.error("Nessun batch da applicare."); process.exit(2); }
 
-const out = JSON.parse(fs.readFileSync("batch/OUTPUT.json", "utf8"));
+let outputValidato;
+try { outputValidato = leggiEValidaOutput(); }
+catch (errore) {
+  console.error(`OUTPUT NON valido: ${errore.message}`);
+  process.exit(1);
+}
+const out = outputValidato.dati;
 const dip = batch.dipartimento;
 const sd = stato.statoDipartimenti[dip];
 const fileJs = sd.fileJs;
@@ -38,13 +45,10 @@ function applicaPatchBlocco(blocco, patch, soloVuoti = false) {
   for (const campo of CAMPI_RIEMPIBILI) {
     if (!(campo in patch)) continue;
     const raw = valoreCampo(blocco, campo);
-    if (raw == null) continue;
-    if (soloVuoti && !(raw.trim() === "[]" || raw.trim() === '""' || raw.trim() === "''" || /^"?da verificare/i.test(raw.trim()))) continue;
-    const re = new RegExp(`((?:^|[\\s,{])${campo}\\s*:\\s*)`, "m");
-    const m = re.exec(blocco);
-    const from = m.index + m[0].length;
-    blocco = blocco.slice(0, from) + serializza(patch[campo]) + blocco.slice(from + raw.length);
-    aggiunti.push(campo);
+    if (soloVuoti && raw != null && !(raw.trim() === "[]" || raw.trim() === '""' || raw.trim() === "''" || /^"?da verificare/i.test(raw.trim()))) continue;
+    const risultato = impostaCampo(blocco, campo, patch[campo], { soloSeVuoto: soloVuoti });
+    blocco = risultato.blocco;
+    if (risultato.modificato) aggiunti.push(campo);
   }
   if (patch.notePraticheAppend && (!soloVuoti || aggiunti.length)) {
     blocco = appendNota(blocco, patch.notePraticheAppend);

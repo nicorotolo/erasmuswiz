@@ -141,26 +141,28 @@ ferma, il batch riprende dopo: nessun danno.
 
 ## 6. LAVORI UNA-TANTUM PRIMA DI RIPRENDERE I BATCH (in ordine)
 
-0. **Sanare i codici Erasmus sintetici** (1 sessione Codex/Claude Code):
+0. ✅ **Codici Erasmus sintetici sanati/verificati (14/07/2026)**: il controllo
+   corrente sui file Sapienza non trova piu' codici `SAP-*`.
+   Metodo originale:
    censire i `codiceErasmus` non conformi al formato reale (es.
    `SAP-IUS-*`), recuperare i codici veri (sono nell'export goerasmus in
    `fonti/` e nella tabella 28/03 del caso-Bruno per Giurisprudenza),
    sostituirli, rilanciare il riuso: partner già mappati verranno
    riconosciuti gratis. Misurare quante mete si completano solo con
    questo.
-1. **Estendere lo schema**: campi `linkCatalogo` e `notaDisponibilita`
-   (entrambi con `fonte`/`aggiornatoAl`) in `lib-mete.mjs`,
+1. ✅ **Schema esteso (14/07/2026)**: campi `linkCatalogo` e
+   `notaDisponibilita`, con evidenza `{url,citazione,verificataIl}`, in `lib-mete.mjs`,
    `prepara-batch.mjs`, `applica-batch.mjs`, `setup-dipartimento.mjs`
    (riuso e propagazione anche sui campi nuovi).
-2. **Nuovo script `verifica-link.mjs`**: prende un file batch, fa una
+2. ✅ **Script `verifica-link.mjs` pronto**: prende un file batch, fa una
    richiesta HTTP a ogni URL, marca 200/redirect/errore. (Gli script
    girano sul computer di Nicola: nessun vincolo di sandbox.)
-3. **Aggiornare `automazioni/PROMPT_CODEX_mappatura.md`**: il compito di
+3. ✅ **Prompt T2 pronto in `automazioni/PROMPT_CODEX_verifica.md`**: il compito di
    Codex diventa VERIFICA della sgrossatura (aprire i link, confrontare
    le citazioni, correggere, completare i buchi facili) e non più ricerca
-   da zero; ricerca da zero solo se `SGROSSATURA.json` manca. ⚠️ Come
-   sempre: il prompt aggiornato va RE-INCOLLATO nella piattaforma Codex.
-4. **Report copertura** (`valida-stato` o script nuovo): una riga per
+   da zero; ricerca da zero solo se `SGROSSATURA.json` manca. Il prompt viene
+   letto dal disco a ogni run e non va incollato nell'app Codex.
+4. ✅ **Report copertura** (`scripts/report-copertura-mappatura.mjs`): una riga per
    Facoltà — % lingua, % scadenze, % catalogo, % nonTrovabile — per
    sapere sempre a che punto siamo senza contare a mano.
 

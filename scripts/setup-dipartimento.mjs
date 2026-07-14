@@ -15,7 +15,8 @@
 import fs from "node:fs";
 import { execSync } from "node:child_process";
 import {
-  leggiStato, caricaMete, spanTutteMete, valoreCampo, campoVuoto, serializza,
+  leggiStato, caricaMete, spanTutteMete, valoreCampo, campoVuoto,
+  impostaCampo,
 } from "./lib-mete.mjs";
 
 const vuoto = (a) => !Array.isArray(a) || a.length === 0;
@@ -64,7 +65,7 @@ for (const m of mete) {
 // Sapienza "E  GRANADA01": stesso ateneo partner).
 const norm = (c) => String(c).replace(/\s+/g, " ").trim().toUpperCase();
 
-const kb = new Map(); // norm(codice) -> { requisitoLingua, scadenzeOspitante, note:Set, nonTrovabile }
+const kb = new Map(); // norm(codice) -> dati riusabili + note + nonTrovabile
 for (const [, info] of Object.entries(stato.statoDipartimenti || {})) {
   if (!info.fileJs || info.fileJs === fileJs) continue;
   let altre;
@@ -75,6 +76,9 @@ for (const [, info] of Object.entries(stato.statoDipartimenti || {})) {
     const e = kb.get(k) || { note: new Set() };
     if (!e.requisitoLingua && !vuoto(m.requisitoLingua)) e.requisitoLingua = m.requisitoLingua;
     if (!e.scadenzeOspitante && !vuoto(m.scadenzeOspitante)) e.scadenzeOspitante = m.scadenzeOspitante;
+    if (!e.linkSito && typeof m.linkSito === "string" && m.linkSito.trim()) e.linkSito = m.linkSito;
+    if (!e.linkCatalogo && typeof m.linkCatalogo === "string" && m.linkCatalogo.trim()) e.linkCatalogo = m.linkCatalogo;
+    if (!e.notaDisponibilita && typeof m.notaDisponibilita === "string" && m.notaDisponibilita.trim()) e.notaDisponibilita = m.notaDisponibilita;
     if (typeof m.notePratiche === "string") {
       for (const seg of m.notePratiche.split(" || ").slice(1)) {
         if (/^(Scadenze|Lingua):/i.test(seg) && !/CEFR non trovato/i.test(seg)) e.note.add(seg.trim());
@@ -87,12 +91,7 @@ for (const [, info] of Object.entries(stato.statoDipartimenti || {})) {
 
 // -- helpers di patch testuale (stessa tecnica chirurgica di applica-batch) --
 function patchCampo(blocco, campo, valore) {
-  const raw = valoreCampo(blocco, campo);
-  if (raw == null || !campoVuoto(raw)) return blocco;
-  const re = new RegExp(`((?:^|[\\s,{])${campo}\\s*:\\s*)`, "m");
-  const m = re.exec(blocco);
-  const from = m.index + m[0].length;
-  return blocco.slice(0, from) + serializza(valore) + blocco.slice(from + raw.length);
+  return impostaCampo(blocco, campo, valore, { soloSeVuoto: true }).blocco;
 }
 function appendNota(blocco, testo) {
   const raw = valoreCampo(blocco, "notePratiche");
@@ -114,7 +113,7 @@ function perOgniBlocco(codice, fn) {
 
 // -- applica il riuso --
 const codiciFile = [...new Set(mete.map((m) => m.codiceErasmus))];
-let riusoLingua = 0, riusoScad = 0;
+let riusoLingua = 0, riusoScad = 0, riusoSito = 0, riusoCatalogo = 0, riusoDisponibilita = 0;
 const ereditaNonTrovabile = [];
 for (const codice of codiciFile) {
   const e = kb.get(norm(codice));
@@ -130,6 +129,21 @@ for (const codice of codiciFile) {
       const prima = nb;
       nb = patchCampo(nb, "scadenzeOspitante", e.scadenzeOspitante);
       if (nb !== prima) riusoScad++;
+    }
+    if (e.linkSito && campoVuoto(valoreCampo(nb, "linkSito"))) {
+      const prima = nb;
+      nb = patchCampo(nb, "linkSito", e.linkSito);
+      if (nb !== prima) riusoSito++;
+    }
+    if (e.linkCatalogo && campoVuoto(valoreCampo(nb, "linkCatalogo"))) {
+      const prima = nb;
+      nb = patchCampo(nb, "linkCatalogo", e.linkCatalogo);
+      if (nb !== prima) riusoCatalogo++;
+    }
+    if (e.notaDisponibilita && campoVuoto(valoreCampo(nb, "notaDisponibilita"))) {
+      const prima = nb;
+      nb = patchCampo(nb, "notaDisponibilita", e.notaDisponibilita);
+      if (nb !== prima) riusoDisponibilita++;
     }
     if (nb !== b) for (const nota of e.note) nb = appendNota(nb, nota);
     return nb;
@@ -150,7 +164,7 @@ for (const codice of codiciFile) {
   }
 }
 
-if (riusoLingua || riusoScad || ereditaNonTrovabile.length) {
+if (riusoLingua || riusoScad || riusoSito || riusoCatalogo || riusoDisponibilita || ereditaNonTrovabile.length) {
   fs.writeFileSync(fileJs, text);
   try { execSync(`node --check "${fileJs}"`, { stdio: "pipe" }); }
   catch (e) {
@@ -182,7 +196,7 @@ for (const c of ereditaNonTrovabile) tentativi[c] = stato.config.maxTentativiLin
 // 4) Entry statoDipartimenti (stessa forma usata dal validatore e da applica-batch)
 stato.statoDipartimenti[dip] = {
   fileJs,
-  stato: "in_corso",
+  stato: emptyScadSet.size === 0 && [...emptyLinguaSet].every((c) => nonTrovSet.has(c)) ? "completo" : "in_corso",
   totale: mete.length,
   completate,
   pendingScadenze: [...emptyScadSet],
@@ -229,9 +243,9 @@ stato.runCompletati = (stato.runCompletati || 0) + 1;
 stato.aggiornato = oggi;
 (stato.storico ||= []).push({
   batch: stato.runCompletati, data: oggi, mete: mete.length,
-  note: `Avvio ${dip}: ${fileJs}, ${mete.length} mete; riuso ${riusoLingua} lingue/${riusoScad} scadenze; ereditati ${ereditaNonTrovabile.length} CEFR non trovabili; ${nuovi} sotto-batch da ${DIM_BATCH}.`,
+  note: `Avvio ${dip}: ${fileJs}, ${mete.length} mete; riuso ${riusoLingua} lingue/${riusoScad} scadenze/${riusoSito} siti/${riusoCatalogo} cataloghi/${riusoDisponibilita} disponibilita; ereditati ${ereditaNonTrovabile.length} CEFR non trovabili; ${nuovi} sotto-batch da ${DIM_BATCH}.`,
 });
 
 fs.writeFileSync("mappatura-stato.json", JSON.stringify(stato, null, 2) + "\n");
-console.log(`Dipartimento "${dip}" avviato: ${mete.length} mete, completate ${completate} (riuso: ${riusoLingua} blocchi lingua, ${riusoScad} blocchi scadenze; non-trovabili ereditati: ${ereditaNonTrovabile.length}), ${nuovi} sotto-batch da ${DIM_BATCH} (slug '${slug}').`);
+console.log(`Dipartimento "${dip}" avviato: ${mete.length} mete, completate ${completate} (riuso: ${riusoLingua} lingua, ${riusoScad} scadenze, ${riusoSito} siti, ${riusoCatalogo} cataloghi, ${riusoDisponibilita} disponibilita; non-trovabili ereditati: ${ereditaNonTrovabile.length}), ${nuovi} sotto-batch da ${DIM_BATCH} (slug '${slug}').`);
 console.log("Ora esegui: node scripts/valida-stato.mjs");

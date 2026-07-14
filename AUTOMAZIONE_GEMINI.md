@@ -14,7 +14,7 @@ Un solo comando (`node scripts/esegui-lotto-automatico.mjs`) tratta UN batch
 da cima a fondo, senza intervento umano, Gemini E Codex incatenati:
 
 1. `inizia-batch.mjs` — sync, lock, prepara `batch/INPUT.json` (già esistente).
-2. `gemini-sgrossatura.mjs` — **nuovo**, T1. Chiama l'API Gemini (gratis, con
+2. `gemini-sgrossatura.mjs` — **nuovo**, T1. Chiama l'API Gemini (con
    ricerca Google integrata) al posto tuo: niente più copia-incolla in AI
    Studio. Scrive una BOZZA in `batch/SGROSSATURA.json`.
 3. `verifica-link.mjs` — **nuovo**. Controlla via HTTP che ogni fonte citata
@@ -26,7 +26,9 @@ da cima a fondo, senza intervento umano, Gemini E Codex incatenati:
    bozza, controlla che il dato corrisponda davvero, corregge se serve, e
    scrive il vero `batch/OUTPUT.json`. Se la bozza manca o è vecchia, Codex fa
    ricerca da zero come faceva prima (fallback di sicurezza).
-5. `applica-batch.mjs` + `valida-stato.mjs` — già esistenti, invariati.
+5. `valida-output-batch.mjs` rifiuta output vecchi, campi fuori scope e dati
+   privi di URL ufficiale, citazione o data; poi `applica-batch.mjs` e
+   `valida-stato.mjs` eseguono merge e controlli deterministici.
 6. Commit + push del branch `mappatura/lotto-...` + `verifica-pubblicazione.mjs`.
 
 **La vecchia automazione "app Codex ogni 9 minuti" va disattivata** (Codex
@@ -38,7 +40,7 @@ come riferimento storico (descrive il vecchio ruolo "Codex fa tutto").
 ## Perché così
 
 Verificare è 3-5 volte più leggero che cercare da zero (principio già scritto
-in `DISEGNO_PIPELINE_DATI.md`): spostando la ricerca su Gemini gratis e
+in `DISEGNO_PIPELINE_DATI.md`): spostando la ricerca su Gemini e
 lasciando a Codex solo la verifica, il consumo di credito Codex/ChatGPT Plus
 per batch dovrebbe scendere molto — è esattamente questo che deve risolvere
 il "finisco i token". Non è comunque garantito al 100% (l'uso di `codex exec`
@@ -49,17 +51,17 @@ a uno cercato da zero, per avere un numero vero invece di una stima.
 ## Fase 0 — Setup una tantum (lo fai tu, non posso farlo per te)
 
 1. Vai su [Google AI Studio](https://aistudio.google.com), sezione API keys.
-2. Crea un progetto Google Cloud (o usane uno esistente) e **attiva la
-   fatturazione** (serve una carta). Sotto 5.000 richieste di ricerca al
-   mese resti a €0 — ma tecnicamente il progetto deve essere "a pagamento
-   abilitato" per usare la ricerca Google via API (diverso dalla chat AI
-   Studio, che non la chiede).
+2. Crea un progetto Google Cloud (o usane uno esistente), attiva la
+   fatturazione e configura avvisi/limiti di spesa. Quote e prezzi cambiano:
+   controlla sempre il pannello Usage di AI Studio invece di assumere costo zero.
 3. Genera una API key.
-4. Sul **PC dedicato**, imposta la variabile d'ambiente (permanente, non solo
-   per la sessione corrente):
-   - PowerShell (come amministratore, una tantum):
-     `[System.Environment]::SetEnvironmentVariable('GEMINI_API_KEY','LA-TUA-CHIAVE','Machine')`
-   - Verifica dopo aver riaperto il terminale: `echo $env:GEMINI_API_KEY`
+4. Sul **PC dedicato**, salva la variabile per lo stesso utente Windows che
+   eseguira' il task (non serve amministratore):
+   - Prompt dei comandi (`cmd`): `setx GEMINI_API_KEY "LA-TUA-CHIAVE"`
+   - PowerShell, su una riga:
+     `[Environment]::SetEnvironmentVariable('GEMINI_API_KEY','LA-TUA-CHIAVE','User')`
+   - Chiudi e riapri il terminale. In `cmd` verifica senza mostrare la chiave:
+     `if defined GEMINI_API_KEY (echo Chiave presente) else (echo Chiave assente)`
 5. **Mai** mettere la chiave in un file dentro il repo (verrebbe pubblicata su
    GitHub). Vive solo come variabile d'ambiente sul PC dedicato.
 6. Conferma che Node.js sia installato sul PC dedicato (quasi certo, essendo
@@ -68,9 +70,7 @@ a uno cercato da zero, per avere un numero vero invece di una stima.
    grafica, anche se stesso prodotto OpenAI): sul PC dedicato, installa/
    verifica la CLI (`codex --version`) e fai login col TUO account ChatGPT
    Plus (non con una API key separata: vuoi che consumi il credito già
-   incluso nel piano, non un pagamento a parte). Prova a mano una volta:
-   `codex exec --sandbox workspace-write "di' solo: ok"` — deve rispondere
-   senza chiederti conferme interattive.
+   incluso nel piano, non un pagamento a parte).
 8. **Disattiva la vecchia automazione Codex a orario** (app Codex →
    Automations → quella che gira ogni ~9 minuti su questo repo): da qui in
    avanti Codex viene invocato solo dallo script, non più da solo.
@@ -78,6 +78,12 @@ a uno cercato da zero, per avere un numero vero invece di una stima.
 ## Fase 1 — Test manuale (prima di pianificare qualsiasi cosa)
 
 Sul PC dedicato, dalla cartella del repo:
+
+```
+node scripts/esegui-lotto-automatico.mjs --preflight --online
+```
+
+Deve terminare con `PREFLIGHT OK`. Solo dopo:
 
 ```
 node scripts/esegui-lotto-automatico.mjs
@@ -97,11 +103,13 @@ Solo dopo un test manuale riuscito:
 1. Apri "Utilità di pianificazione" (Task Scheduler) sul PC dedicato.
 2. Nuova attività, trigger giornaliero (orario a scelta, es. 21:00).
 3. Azione: avvia programma
-   - Programma: `node`
-   - Argomenti: `scripts/esegui-lotto-automatico.mjs`
+   - Programma: `powershell.exe`
+   - Argomenti: `-NoProfile -ExecutionPolicy Bypass -File "<REPO>\scripts\esegui-lotto-pianificato.ps1"`
    - Percorso di partenza: la cartella del repo su quel PC.
 4. "Esegui anche se l'utente non ha effettuato l'accesso" se vuoi che giri col
    PC bloccato (serve comunque acceso).
+5. In "Se l'attivita' e' gia' in esecuzione" scegli **Non avviare una nuova
+   istanza**. I log finiscono in `%LOCALAPPDATA%\ErasmusWiz\logs`.
 
 Se un run non trova batch pendenti o un altro run è in corso, lo script esce
 pulito senza fare danni (exit code 0): pianificarlo ogni giorno anche "a
@@ -109,11 +117,11 @@ vuoto" non è un problema.
 
 ## Cosa NON cambia
 
-- `mappatura-stato.json`, `applica-batch.mjs`, `valida-stato.mjs`,
-  `verifica-pubblicazione.mjs`: identici a prima.
-- Il caso `nuovo_dipartimento` (nuova Facoltà): questo script lo salta apposta
-  (stampa un messaggio e termina senza fare nulla) — resta un lavoro per
-  Codex o per te, come oggi.
+- `mappatura-stato.json`, `valida-stato.mjs` e
+  `verifica-pubblicazione.mjs` restano i gate autorevoli.
+- Il caso `nuovo_dipartimento`: se il seed umano esiste, lo script esegue
+  automaticamente setup, validazione e pubblicazione; se manca, termina senza
+  inventare o creare destinazioni.
 - Il campionamento umano T3 resta tuo (nessuno script lo sostituisce, ed è
   giusto così: è il controllo di qualità finale sul dato che può costare un
   anno a uno studente).
