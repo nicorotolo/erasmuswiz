@@ -3,24 +3,14 @@
   "aggiornato": "2026-07-14",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
-  "dipartimentoCorrente": "Ingegneria informatica e gestionale - DIAG (Sapienza)",
-  "runCompletati": 305,
+  "dipartimentoCorrente": "Medicina e Odontoiatria - Area medica (Sapienza)",
+  "runCompletati": 306,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "setup-medicina-odontoiatria",
-      "priorita": 7,
-      "tipo": "nuovo_dipartimento",
-      "dipartimento": "Medicina e Odontoiatria - Area medica (Sapienza)",
-      "ateneo": "Sapienza Roma",
-      "fileJs": "js/atenei/sapienza/dati-mete-medicina-odontoiatria.js",
-      "descrizione": "Setup Medicina e Odontoiatria (Sapienza) - seed umano da export ambito=MEDPROFSANIT",
-      "fonte": "https://accordi-didattica.web.uniroma1.it/goerasmus/export?ambito=MEDPROFSANIT"
-    },
     {
       "id": "setup-ingegneria-civile",
       "priorita": 7,
@@ -303,6 +293,69 @@
         "S  OREBRO01",
         "TR KOCAELI02",
         "TR CANAKKA01"
+      ]
+    },
+    {
+      "id": "medicina-odontoiatria-batch-1",
+      "priorita": 5,
+      "dipartimento": "Medicina e Odontoiatria - Area medica (Sapienza)",
+      "descrizione": "Medicina e Odontoiatria - Area medica (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "B  BRUXEL87",
+        "BG PLOVDIV02",
+        "SF OULU11",
+        "F  LISIEUX01",
+        "F  SARCELL01",
+        "F  PARIS481",
+        "D  MARBURG01",
+        "D  BONN01"
+      ]
+    },
+    {
+      "id": "medicina-odontoiatria-batch-2",
+      "priorita": 5,
+      "dipartimento": "Medicina e Odontoiatria - Area medica (Sapienza)",
+      "descrizione": "Medicina e Odontoiatria - Area medica (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "LV JURMALA03",
+        "PL SZCZECI05",
+        "PL LUBLIN08",
+        "PL POZNAN05",
+        "P  MONTE-D02",
+        "P  LEIRIA01",
+        "UK NOTTING01",
+        "MK SKOPJE01"
+      ]
+    },
+    {
+      "id": "medicina-odontoiatria-batch-3",
+      "priorita": 5,
+      "dipartimento": "Medicina e Odontoiatria - Area medica (Sapienza)",
+      "descrizione": "Medicina e Odontoiatria - Area medica (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "RO BUCURES16",
+        "SI MEDVOD01",
+        "SI CELJE08",
+        "E  BARCELO24",
+        "E  LAS-PAL43",
+        "E  MADRID28",
+        "E  ALMERIA01",
+        "E  BILBAO26"
+      ]
+    },
+    {
+      "id": "medicina-odontoiatria-batch-4",
+      "priorita": 5,
+      "dipartimento": "Medicina e Odontoiatria - Area medica (Sapienza)",
+      "descrizione": "Medicina e Odontoiatria - Area medica (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "CH LUGANO02",
+        "TR ANKARA02",
+        "HU PECS01"
       ]
     }
   ],
@@ -987,6 +1040,81 @@
       },
       "linguaNonTrovabile": [
         "E  VALLADO03"
+      ],
+      "ateneo": "Sapienza Roma"
+    },
+    "Medicina e Odontoiatria - Area medica (Sapienza)": {
+      "fileJs": "js/atenei/sapienza/dati-mete-medicina-odontoiatria.js",
+      "stato": "in_corso",
+      "totale": 91,
+      "completate": 47,
+      "pendingScadenze": [
+        "B  BRUXEL87",
+        "BG PLOVDIV02",
+        "SF OULU11",
+        "F  LISIEUX01",
+        "F  SARCELL01",
+        "F  PARIS481",
+        "D  MARBURG01",
+        "D  BONN01",
+        "LV JURMALA03",
+        "PL SZCZECI05",
+        "PL LUBLIN08",
+        "PL POZNAN05",
+        "P  MONTE-D02",
+        "P  LEIRIA01",
+        "UK NOTTING01",
+        "MK SKOPJE01",
+        "RO BUCURES16",
+        "SI MEDVOD01",
+        "SI CELJE08",
+        "E  BARCELO24",
+        "E  LAS-PAL43",
+        "E  MADRID28",
+        "E  ALMERIA01",
+        "E  BILBAO26",
+        "CH LUGANO02",
+        "TR ANKARA02",
+        "HU PECS01"
+      ],
+      "pendingLingua": [
+        "B  BRUXEL87",
+        "BG PLOVDIV02",
+        "SF OULU11",
+        "F  LISIEUX01",
+        "F  SARCELL01",
+        "F  PARIS481",
+        "D  MARBURG01",
+        "D  BONN01",
+        "LV JURMALA03",
+        "PL SZCZECI05",
+        "PL LUBLIN08",
+        "PL POZNAN05",
+        "P  MONTE-D02",
+        "P  LEIRIA01",
+        "UK NOTTING01",
+        "MK SKOPJE01",
+        "RO BUCURES16",
+        "SI MEDVOD01",
+        "SI CELJE08",
+        "E  BARCELO24",
+        "E  LAS-PAL43",
+        "E  MADRID28",
+        "E  ALMERIA01",
+        "E  BILBAO26",
+        "CH LUGANO02",
+        "TR ANKARA02",
+        "HU PECS01"
+      ],
+      "tentativiLingua": {
+        "BG SOFIA11": 2,
+        "E  CORDOBA01": 2,
+        "TR IZMIR02": 2
+      },
+      "linguaNonTrovabile": [
+        "BG SOFIA11",
+        "E  CORDOBA01",
+        "TR IZMIR02"
       ],
       "ateneo": "Sapienza Roma"
     }
@@ -2853,6 +2981,12 @@
       "data": "2026-07-14",
       "mete": 58,
       "note": "Avvio Ingegneria informatica e gestionale - DIAG (Sapienza): js/atenei/sapienza/dati-mete-inge-informatica-gestionale.js, 58 mete; riuso 21 lingue/23 scadenze/0 siti/0 cataloghi/0 disponibilita; ereditati 1 CEFR non trovabili; 4 sotto-batch da 8."
+    },
+    {
+      "batch": 306,
+      "data": "2026-07-14",
+      "mete": 91,
+      "note": "Avvio Medicina e Odontoiatria - Area medica (Sapienza): js/atenei/sapienza/dati-mete-medicina-odontoiatria.js, 91 mete; riuso 47 lingue/50 scadenze/0 siti/0 cataloghi/0 disponibilita; ereditati 3 CEFR non trovabili; 4 sotto-batch da 8."
     }
   ],
   "storicoBatch": [
