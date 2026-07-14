@@ -3,24 +3,14 @@
   "aggiornato": "2026-07-14",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
-  "dipartimentoCorrente": "Ingegneria elettronica e comunicazioni - DIET (Sapienza)",
-  "runCompletati": 301,
+  "dipartimentoCorrente": "Polo di Latina (Sapienza)",
+  "runCompletati": 302,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "setup-polo-latina",
-      "priorita": 7,
-      "tipo": "nuovo_dipartimento",
-      "dipartimento": "Polo di Latina (Sapienza)",
-      "ateneo": "Sapienza Roma",
-      "fileJs": "js/atenei/sapienza/dati-mete-polo-latina.js",
-      "descrizione": "Setup Polo di Latina (Sapienza) - seed umano da export ambito=POLAT",
-      "fonte": "https://accordi-didattica.web.uniroma1.it/goerasmus/export?ambito=POLAT"
-    },
     {
       "id": "setup-scienze-statistiche",
       "priorita": 7,
@@ -167,6 +157,40 @@
         "PL CZESTOC01",
         "CH LUGANO02",
         "TR ISTANBU63"
+      ]
+    },
+    {
+      "id": "polo-latina-batch-1",
+      "priorita": 5,
+      "dipartimento": "Polo di Latina (Sapienza)",
+      "descrizione": "Polo di Latina (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F  BREST29",
+        "D  NURNBER02",
+        "D  CLAUSTH01",
+        "PL WARSZAW41",
+        "PL KATOWIC02",
+        "PL WROCLAW03",
+        "P  PORTO05",
+        "MK SKOPJE15"
+      ]
+    },
+    {
+      "id": "polo-latina-batch-2",
+      "priorita": 5,
+      "dipartimento": "Polo di Latina (Sapienza)",
+      "descrizione": "Polo di Latina (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "CZ HRADEC01",
+        "RO BUCURES18",
+        "RO CRAIOVA01",
+        "RO BRASOV01",
+        "SK BRATISL02",
+        "E  MURCIA04",
+        "TR CANAKKA01",
+        "TR ERZURUM01"
       ]
     }
   ],
@@ -627,6 +651,51 @@
         "PL CZESTOC01",
         "CH LUGANO02",
         "TR ISTANBU63"
+      ],
+      "tentativiLingua": {},
+      "linguaNonTrovabile": [],
+      "ateneo": "Sapienza Roma"
+    },
+    "Polo di Latina (Sapienza)": {
+      "fileJs": "js/atenei/sapienza/dati-mete-polo-latina.js",
+      "stato": "in_corso",
+      "totale": 33,
+      "completate": 12,
+      "pendingScadenze": [
+        "F  BREST29",
+        "D  NURNBER02",
+        "D  CLAUSTH01",
+        "PL WARSZAW41",
+        "PL KATOWIC02",
+        "PL WROCLAW03",
+        "P  PORTO05",
+        "MK SKOPJE15",
+        "CZ HRADEC01",
+        "RO BUCURES18",
+        "RO CRAIOVA01",
+        "RO BRASOV01",
+        "SK BRATISL02",
+        "E  MURCIA04",
+        "TR CANAKKA01",
+        "TR ERZURUM01"
+      ],
+      "pendingLingua": [
+        "F  BREST29",
+        "D  NURNBER02",
+        "D  CLAUSTH01",
+        "PL WARSZAW41",
+        "PL KATOWIC02",
+        "PL WROCLAW03",
+        "P  PORTO05",
+        "MK SKOPJE15",
+        "CZ HRADEC01",
+        "RO BUCURES18",
+        "RO CRAIOVA01",
+        "RO BRASOV01",
+        "SK BRATISL02",
+        "E  MURCIA04",
+        "TR CANAKKA01",
+        "TR ERZURUM01"
       ],
       "tentativiLingua": {},
       "linguaNonTrovabile": [],
@@ -2471,6 +2540,12 @@
       "data": "2026-07-14",
       "mete": 26,
       "note": "Avvio Ingegneria elettronica e comunicazioni - DIET (Sapienza): js/atenei/sapienza/dati-mete-inge-elettronica.js, 26 mete; riuso 17 lingue/17 scadenze/0 siti/0 cataloghi/0 disponibilita; ereditati 0 CEFR non trovabili; 1 sotto-batch da 8."
+    },
+    {
+      "batch": 302,
+      "data": "2026-07-14",
+      "mete": 33,
+      "note": "Avvio Polo di Latina (Sapienza): js/atenei/sapienza/dati-mete-polo-latina.js, 33 mete; riuso 12 lingue/12 scadenze/0 siti/0 cataloghi/0 disponibilita; ereditati 0 CEFR non trovabili; 2 sotto-batch da 8."
     }
   ],
   "storicoBatch": [
