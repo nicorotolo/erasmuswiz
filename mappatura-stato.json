@@ -3,24 +3,14 @@
   "aggiornato": "2026-07-14",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
-  "dipartimentoCorrente": "Medicina e Odontoiatria - Area medica (Sapienza)",
-  "runCompletati": 306,
+  "dipartimentoCorrente": "Ingegneria Civile e Industriale (Sapienza)",
+  "runCompletati": 307,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "setup-ingegneria-civile",
-      "priorita": 7,
-      "tipo": "nuovo_dipartimento",
-      "dipartimento": "Ingegneria Civile e Industriale (Sapienza)",
-      "ateneo": "Sapienza Roma",
-      "fileJs": "js/atenei/sapienza/dati-mete-ingegneria-civile.js",
-      "descrizione": "Setup Ingegneria Civile e Industriale (Sapienza) - seed umano da export ambito=INGE",
-      "fonte": "https://accordi-didattica.web.uniroma1.it/goerasmus/export?ambito=INGE"
-    },
     {
       "id": "setup-scienze-mfn",
       "priorita": 7,
@@ -356,6 +346,108 @@
         "CH LUGANO02",
         "TR ANKARA02",
         "HU PECS01"
+      ]
+    },
+    {
+      "id": "ingegneria-civile-batch-1",
+      "priorita": 5,
+      "dipartimento": "Ingegneria Civile e Industriale (Sapienza)",
+      "descrizione": "Ingegneria Civile e Industriale (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "A  WIEN03",
+        "A  SALZBUR08",
+        "BG VARNA05",
+        "CY LIMASSO02",
+        "EE TALLINN04",
+        "F  PARIS013",
+        "F  ALES02",
+        "F  LIMOGES01"
+      ]
+    },
+    {
+      "id": "ingegneria-civile-batch-2",
+      "priorita": 5,
+      "dipartimento": "Ingegneria Civile e Industriale (Sapienza)",
+      "descrizione": "Ingegneria Civile e Industriale (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F  GRENOBL22",
+        "F  MARSEIL11",
+        "F  TOULOUS16",
+        "F  TARBES03",
+        "F  NANTES07",
+        "F  TOULOUS18",
+        "F  PARIS086",
+        "D  HANNOVE01"
+      ]
+    },
+    {
+      "id": "ingegneria-civile-batch-3",
+      "priorita": 5,
+      "dipartimento": "Ingegneria Civile e Industriale (Sapienza)",
+      "descrizione": "Ingegneria Civile e Industriale (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D  RAVENSB01",
+        "D  MUNCHEN02",
+        "D  BAYREUT01",
+        "D  FREISIN01",
+        "D  CLAUSTH01",
+        "G  KRITIS09",
+        "LV RIGA31",
+        "LT VILNIUS02"
+      ]
+    },
+    {
+      "id": "ingegneria-civile-batch-4",
+      "priorita": 5,
+      "dipartimento": "Ingegneria Civile e Industriale (Sapienza)",
+      "descrizione": "Ingegneria Civile e Industriale (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "NL EINDHOV17",
+        "NL DELFT01",
+        "NL ENSCHED01",
+        "PL OPOLE02",
+        "PL GLIWICE01",
+        "PL POZNAN02",
+        "PL WARSZAW02",
+        "PL WROCLAW02"
+      ]
+    },
+    {
+      "id": "ingegneria-civile-batch-5",
+      "priorita": 5,
+      "dipartimento": "Ingegneria Civile e Industriale (Sapienza)",
+      "descrizione": "Ingegneria Civile e Industriale (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "PL KRAKOW03",
+        "P  LISBOA05",
+        "P  COIMBRA02",
+        "P  PORTO05",
+        "RO TIMISOA04",
+        "SK ZILINA01",
+        "E  BARCELO03",
+        "E  MADRID05"
+      ]
+    },
+    {
+      "id": "ingegneria-civile-batch-6",
+      "priorita": 5,
+      "dipartimento": "Ingegneria Civile e Industriale (Sapienza)",
+      "descrizione": "Ingegneria Civile e Industriale (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E  VALENCI02",
+        "E  SANTAND01",
+        "E  MADRID02",
+        "S  TROLLHA01",
+        "CH LAUSANN06",
+        "TR ISTANBU49",
+        "TR ISTANBU04",
+        "HU GODOLLO01"
       ]
     }
   ],
@@ -1115,6 +1207,123 @@
         "BG SOFIA11",
         "E  CORDOBA01",
         "TR IZMIR02"
+      ],
+      "ateneo": "Sapienza Roma"
+    },
+    "Ingegneria Civile e Industriale (Sapienza)": {
+      "fileJs": "js/atenei/sapienza/dati-mete-ingegneria-civile.js",
+      "stato": "in_corso",
+      "totale": 128,
+      "completate": 65,
+      "pendingScadenze": [
+        "A  WIEN03",
+        "A  SALZBUR08",
+        "BG VARNA05",
+        "CY LIMASSO02",
+        "EE TALLINN04",
+        "F  PARIS013",
+        "F  ALES02",
+        "F  LIMOGES01",
+        "F  GRENOBL22",
+        "F  MARSEIL11",
+        "F  TOULOUS16",
+        "F  TARBES03",
+        "F  NANTES07",
+        "F  TOULOUS18",
+        "F  PARIS086",
+        "D  HANNOVE01",
+        "D  RAVENSB01",
+        "D  MUNCHEN02",
+        "D  BAYREUT01",
+        "D  FREISIN01",
+        "D  CLAUSTH01",
+        "G  KRITIS09",
+        "LV RIGA31",
+        "LT VILNIUS02",
+        "NL EINDHOV17",
+        "NL DELFT01",
+        "NL ENSCHED01",
+        "PL OPOLE02",
+        "PL GLIWICE01",
+        "PL POZNAN02",
+        "PL WARSZAW02",
+        "PL WROCLAW02",
+        "PL KRAKOW03",
+        "P  LISBOA05",
+        "P  COIMBRA02",
+        "P  PORTO05",
+        "RO TIMISOA04",
+        "SK ZILINA01",
+        "E  BARCELO03",
+        "E  MADRID05",
+        "E  VALENCI02",
+        "E  SANTAND01",
+        "E  MADRID02",
+        "S  TROLLHA01",
+        "CH LAUSANN06",
+        "TR ISTANBU49",
+        "TR ISTANBU04",
+        "HU GODOLLO01"
+      ],
+      "pendingLingua": [
+        "A  WIEN03",
+        "A  SALZBUR08",
+        "BG VARNA05",
+        "CY LIMASSO02",
+        "EE TALLINN04",
+        "F  PARIS013",
+        "F  ALES02",
+        "F  LIMOGES01",
+        "F  GRENOBL22",
+        "F  MARSEIL11",
+        "F  TOULOUS16",
+        "F  TARBES03",
+        "F  NANTES07",
+        "F  TOULOUS18",
+        "F  PARIS086",
+        "D  HANNOVE01",
+        "D  RAVENSB01",
+        "D  MUNCHEN02",
+        "D  BAYREUT01",
+        "D  FREISIN01",
+        "D  CLAUSTH01",
+        "G  KRITIS09",
+        "LV RIGA31",
+        "LT VILNIUS02",
+        "NL EINDHOV17",
+        "NL DELFT01",
+        "NL ENSCHED01",
+        "PL OPOLE02",
+        "PL GLIWICE01",
+        "PL POZNAN02",
+        "PL WARSZAW02",
+        "PL WROCLAW02",
+        "PL KRAKOW03",
+        "P  LISBOA05",
+        "P  COIMBRA02",
+        "P  PORTO05",
+        "RO TIMISOA04",
+        "SK ZILINA01",
+        "E  BARCELO03",
+        "E  MADRID05",
+        "E  VALENCI02",
+        "E  SANTAND01",
+        "E  MADRID02",
+        "S  TROLLHA01",
+        "CH LAUSANN06",
+        "TR ISTANBU49",
+        "TR ISTANBU04",
+        "HU GODOLLO01"
+      ],
+      "tentativiLingua": {
+        "G  PATRA01": 2,
+        "TR IZMIR02": 2,
+        "TR ANKARA07": 2
+      },
+      "linguaNonTrovabile": [
+        "G  PATRA01",
+        "TR IZMIR02",
+        "TR ANKARA07"
       ],
       "ateneo": "Sapienza Roma"
     }
@@ -2987,6 +3196,12 @@
       "data": "2026-07-14",
       "mete": 91,
       "note": "Avvio Medicina e Odontoiatria - Area medica (Sapienza): js/atenei/sapienza/dati-mete-medicina-odontoiatria.js, 91 mete; riuso 47 lingue/50 scadenze/0 siti/0 cataloghi/0 disponibilita; ereditati 3 CEFR non trovabili; 4 sotto-batch da 8."
+    },
+    {
+      "batch": 307,
+      "data": "2026-07-14",
+      "mete": 128,
+      "note": "Avvio Ingegneria Civile e Industriale (Sapienza): js/atenei/sapienza/dati-mete-ingegneria-civile.js, 128 mete; riuso 65 lingue/69 scadenze/0 siti/0 cataloghi/0 disponibilita; ereditati 3 CEFR non trovabili; 6 sotto-batch da 8."
     }
   ],
   "storicoBatch": [
