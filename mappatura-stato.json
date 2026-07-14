@@ -3,24 +3,14 @@
   "aggiornato": "2026-07-14",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
-  "dipartimentoCorrente": "Informatica (Sapienza)",
-  "runCompletati": 304,
+  "dipartimentoCorrente": "Ingegneria informatica e gestionale - DIAG (Sapienza)",
+  "runCompletati": 305,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "setup-inge-informatica-gestionale",
-      "priorita": 7,
-      "tipo": "nuovo_dipartimento",
-      "dipartimento": "Ingegneria informatica e gestionale - DIAG (Sapienza)",
-      "ateneo": "Sapienza Roma",
-      "fileJs": "js/atenei/sapienza/dati-mete-inge-informatica-gestionale.js",
-      "descrizione": "Setup DIAG (Sapienza) - seed umano da export ambito=IIIS1",
-      "fonte": "https://accordi-didattica.web.uniroma1.it/goerasmus/export?ambito=IIIS1"
-    },
     {
       "id": "setup-medicina-odontoiatria",
       "priorita": 7,
@@ -250,6 +240,69 @@
         "PL POZNAN02",
         "RO TIMISOA07",
         "E  VITORIA26"
+      ]
+    },
+    {
+      "id": "inge-informatica-gestionale-batch-1",
+      "priorita": 5,
+      "dipartimento": "Ingegneria informatica e gestionale - DIAG (Sapienza)",
+      "descrizione": "Ingegneria informatica e gestionale - DIAG (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "B  NAMUR01",
+        "BG VARNA04",
+        "F  CERGY01",
+        "F  NOISY02",
+        "F  TOULOUS16",
+        "F  ANTONY03",
+        "F  GRENOBL22",
+        "F  RENNES32"
+      ]
+    },
+    {
+      "id": "inge-informatica-gestionale-batch-2",
+      "priorita": 5,
+      "dipartimento": "Ingegneria informatica e gestionale - DIAG (Sapienza)",
+      "descrizione": "Ingegneria informatica e gestionale - DIAG (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F  PARIS083",
+        "F  NANTES07",
+        "D  LUBECK01",
+        "D  ST-AUGU02",
+        "D  KARLSRU01",
+        "D  KOLN04",
+        "D  DORTMUN01",
+        "D  PADERBO01"
+      ]
+    },
+    {
+      "id": "inge-informatica-gestionale-batch-3",
+      "priorita": 5,
+      "dipartimento": "Ingegneria informatica e gestionale - DIAG (Sapienza)",
+      "descrizione": "Ingegneria informatica e gestionale - DIAG (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D  WILDAU01",
+        "G  IOANNIN01",
+        "NL ENSCHED01",
+        "RO TARGU02",
+        "RO CRAIOVA01",
+        "RO BUCURES18",
+        "RO BUCURES04",
+        "SK BRATISL02"
+      ]
+    },
+    {
+      "id": "inge-informatica-gestionale-batch-4",
+      "priorita": 5,
+      "dipartimento": "Ingegneria informatica e gestionale - DIAG (Sapienza)",
+      "descrizione": "Ingegneria informatica e gestionale - DIAG (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "S  OREBRO01",
+        "TR KOCAELI02",
+        "TR CANAKKA01"
       ]
     }
   ],
@@ -863,6 +916,77 @@
       "linguaNonTrovabile": [
         "G  PATRA01",
         "E  PALMA01"
+      ],
+      "ateneo": "Sapienza Roma"
+    },
+    "Ingegneria informatica e gestionale - DIAG (Sapienza)": {
+      "fileJs": "js/atenei/sapienza/dati-mete-inge-informatica-gestionale.js",
+      "stato": "in_corso",
+      "totale": 58,
+      "completate": 21,
+      "pendingScadenze": [
+        "B  NAMUR01",
+        "BG VARNA04",
+        "F  CERGY01",
+        "F  NOISY02",
+        "F  TOULOUS16",
+        "F  ANTONY03",
+        "F  GRENOBL22",
+        "F  RENNES32",
+        "F  PARIS083",
+        "F  NANTES07",
+        "D  LUBECK01",
+        "D  ST-AUGU02",
+        "D  KARLSRU01",
+        "D  KOLN04",
+        "D  DORTMUN01",
+        "D  PADERBO01",
+        "D  WILDAU01",
+        "G  IOANNIN01",
+        "NL ENSCHED01",
+        "RO TARGU02",
+        "RO CRAIOVA01",
+        "RO BUCURES18",
+        "RO BUCURES04",
+        "SK BRATISL02",
+        "S  OREBRO01",
+        "TR KOCAELI02",
+        "TR CANAKKA01"
+      ],
+      "pendingLingua": [
+        "B  NAMUR01",
+        "BG VARNA04",
+        "F  CERGY01",
+        "F  NOISY02",
+        "F  TOULOUS16",
+        "F  ANTONY03",
+        "F  GRENOBL22",
+        "F  RENNES32",
+        "F  PARIS083",
+        "F  NANTES07",
+        "D  LUBECK01",
+        "D  ST-AUGU02",
+        "D  KARLSRU01",
+        "D  KOLN04",
+        "D  DORTMUN01",
+        "D  PADERBO01",
+        "D  WILDAU01",
+        "G  IOANNIN01",
+        "NL ENSCHED01",
+        "RO TARGU02",
+        "RO CRAIOVA01",
+        "RO BUCURES18",
+        "RO BUCURES04",
+        "SK BRATISL02",
+        "S  OREBRO01",
+        "TR KOCAELI02",
+        "TR CANAKKA01"
+      ],
+      "tentativiLingua": {
+        "E  VALLADO03": 2
+      },
+      "linguaNonTrovabile": [
+        "E  VALLADO03"
       ],
       "ateneo": "Sapienza Roma"
     }
@@ -2723,6 +2847,12 @@
       "data": "2026-07-14",
       "mete": 50,
       "note": "Avvio Informatica (Sapienza): js/atenei/sapienza/dati-mete-informatica.js, 50 mete; riuso 27 lingue/29 scadenze/0 siti/0 cataloghi/0 disponibilita; ereditati 2 CEFR non trovabili; 3 sotto-batch da 8."
+    },
+    {
+      "batch": 305,
+      "data": "2026-07-14",
+      "mete": 58,
+      "note": "Avvio Ingegneria informatica e gestionale - DIAG (Sapienza): js/atenei/sapienza/dati-mete-inge-informatica-gestionale.js, 58 mete; riuso 21 lingue/23 scadenze/0 siti/0 cataloghi/0 disponibilita; ereditati 1 CEFR non trovabili; 4 sotto-batch da 8."
     }
   ],
   "storicoBatch": [
