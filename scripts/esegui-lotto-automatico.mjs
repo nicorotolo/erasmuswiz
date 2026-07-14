@@ -195,8 +195,9 @@ function percorsiModificati() {
   const record = raw.split("\0").filter(Boolean);
   const percorsi = [];
   for (let i = 0; i < record.length; i++) {
-    const stato = record[i].slice(0, 2);
-    let file = record[i].slice(3);
+    const separatore = record[i][2] === " " ? 3 : 2;
+    const stato = record[i].slice(0, separatore - 1);
+    let file = record[i].slice(separatore);
     if (stato.includes("R") || stato.includes("C")) file = record[++i] || file;
     percorsi.push(file.replace(/\\/g, "/"));
   }
