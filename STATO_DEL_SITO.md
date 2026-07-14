@@ -4,7 +4,19 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-14 — sessione 63, Nicola + Codex
+**Ultimo aggiornamento:** 2026-07-14 — sessione 64, Nicola + Codex
+(**PRIMO BATCH T1→T3 GEMINI+CODEX PUBBLICATO, QUALITÀ OK MA TOKEN DA
+OTTIMIZZARE.** Il lotto `farmacia (sapienza)-batch-followup-1` su ESCOM è
+passato attraverso Gemini, controllo automatico di 3 URL, verifica Codex,
+validazione, merge e pubblicazione. Applicati `linkSito`, `linkCatalogo` e
+`notaDisponibilita`; Farmacia Sapienza a 43/62 complete. Commit dati `e2808dd`,
+auto-unione `446ac91`. Campionamento umano: la pagina ufficiale ESCOM risponde
+HTTP 200 e contiene le tre citazioni pubblicate; `linkCatalogo` resta però un
+collegamento alla pagina generale con l'elenco corsi, non a un catalogo
+dedicato. Codex ha usato 37.484 token per una sola meta: pipeline corretta ma
+non ancora abbastanza efficiente per la pianificazione giornaliera.)
+
+**Ultimo aggiornamento precedente:** 2026-07-14 — sessione 63, Nicola + Codex
 (**ORCHESTRATORE: SETUP INFORMATICA E DIAG PUBBLICATI.** Due ulteriori run
 unattended hanno completato gate, setup, validazione, commit, push e verifica.
 Informatica Sapienza: 50 mete, 27 completate per riuso, 29 scadenze riusate, 2
@@ -2091,7 +2103,7 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | MERCATO-UI Fase C5 — Guide + fiducia + OG | OG dedicata 64 KB (P2.14 chiuso), pagina fiducia `guide/come-funziona.html` (gate privacy ok), sw.js senza PNG 408 KB, sitemap 4 URL, 30 file spazzatura eliminati (cartelle legacy: attendono conferma Nicola) | ✅ Fatta e testata (2026-07-14) |
 | MERCATO-UI Fasi C6, D — Demo LA + QA | Assorbite dall'ondata PERCORSO: la demo LA Generator diventa stazione del viaggio (P5), il QA finale diventa P7 | 🔁 Superate (2026-07-14) |
 | **PERCORSO — redesign a viaggio** | `PLAN.md` riscritto (grill 10 decisioni + Codex APPROVED al R5): due mondi ingresso/dashboard, linea di viaggio = nav, itinerario a stazioni, palette riaperta (2 direzioni: Notte cartografica vs Orizzonte chiaro), fasi P0 mockup → P7 QA, deadline settembre 2026 | 📋 Pianificata — prossima: P0 (2 mockup) |
-| **Pipeline dati T0→T3 — Gemini + Codex** | Orchestratore automatico verificato end-to-end sui setup Scienze Statistiche, Informatica e DIAG; Informatica 27/50 e DIAG 21/58 completate per riuso | ⚠️ Prossimo gate: primo batch standard con chiamata Gemini e verifica Codex, poi campionamento umano |
+| **Pipeline dati T0→T3 — Gemini + Codex** | Primo batch standard ESCOM pubblicato e campionato: 3 campi verificati su fonte ufficiale, qualità sostanzialmente OK | ⚠️ 37.484 token per una meta: ottimizzare il verificatore Codex e ripetere un campione prima della pianificazione |
 
 **Tab visibili nella pagina (navigazione inferiore):** Oggi (missione) → Mete → Candidatura (scadenze+checklist fuse).
 **Tab nascosti (accessibili da JS):** Idoneità · Profilo.
@@ -2209,7 +2221,7 @@ Il CODICE è pronto. Le mete ora sono **REALI** (dalla lista ufficiale del bando
 | Requisiti bando (`dati-bando.js`) | **REALI** ✅ validati art. per art. sul PDF (8 requisiti, con rif. agli articoli) | Riverificare sul bando 2027/28 |
 | Scadenze (`dati-scadenze.js`) | **REALI** ✅ 7 tappe dal bando (candidature, laureandi, graduatoria, accettazione, ISEE, mobilità) | Riverificare ogni anno |
 | Checklist (`dati-checklist.js`) | **REALI** ✅ 9 passi validati sul bando | Riverificare ogni anno |
-| **Automazione dati Gemini+Codex** | Orchestratore automatico riuscito end-to-end su Scienze Statistiche, Informatica e DIAG; nessuna chiamata modello ancora eseguita | Eseguire il primo batch standard Gemini+Codex, campionare 2-3 fonti e misurare il consumo; mantenere ferma la vecchia automazione |
+| **Automazione dati Gemini+Codex** | Primo T1→T3 standard riuscito e pubblicato; fonte ESCOM verificata manualmente; consumo Codex 37.484 token per una meta | Non pianificare ancora: ridurre prompt/output/tool chatter del verificatore, ripetere un batch standard e confrontare il consumo; mantenere ferma la vecchia automazione |
 
 **Nota motore di compatibilità:** `app.js` ora gestisce la lingua mancante in modo
 onesto. Per le mete senza lingua mostra 🟡 "Idoneo — verifica la lingua" (se hai
@@ -2227,6 +2239,15 @@ python -m http.server 8000
 poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
+
+**Aggiornamento 2026-07-14 — sessione 64 (primo T1→T3 standard riuscito):**
+1. Non creare ancora l'attività Windows giornaliera: 37.484 token per una meta
+   non soddisfano il gate di efficienza.
+2. Ridurre il lavoro del verificatore Codex: prompt più corto, nessun diff/status
+   finale e verifica limitata agli URL già forniti da Gemini.
+3. Eseguire un secondo batch standard, ricampionare 2-3 evidenze e confrontare
+   consumo e qualità; pianificare Windows solo dopo un calo sostanziale.
+4. Mantenere ferma la vecchia automazione multi-ateneo.
 
 **Aggiornamento 2026-07-14 — sessione 63 (setup Informatica e DIAG riusciti):**
 1. Mantenere ferma la vecchia automazione multi-ateneo.
