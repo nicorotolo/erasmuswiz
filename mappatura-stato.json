@@ -3,24 +3,14 @@
   "aggiornato": "2026-07-14",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
-  "dipartimentoCorrente": "Polo di Latina (Sapienza)",
-  "runCompletati": 302,
+  "dipartimentoCorrente": "Scienze Statistiche (Sapienza)",
+  "runCompletati": 303,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "setup-scienze-statistiche",
-      "priorita": 7,
-      "tipo": "nuovo_dipartimento",
-      "dipartimento": "Scienze Statistiche (Sapienza)",
-      "ateneo": "Sapienza Roma",
-      "fileJs": "js/atenei/sapienza/dati-mete-scienze-statistiche.js",
-      "descrizione": "Setup Scienze Statistiche (Sapienza) - seed umano da export ambito=STATIS",
-      "fonte": "https://accordi-didattica.web.uniroma1.it/goerasmus/export?ambito=STATIS"
-    },
     {
       "id": "setup-informatica",
       "priorita": 7,
@@ -191,6 +181,38 @@
         "E  MURCIA04",
         "TR CANAKKA01",
         "TR ERZURUM01"
+      ]
+    },
+    {
+      "id": "scienze-statistiche-batch-1",
+      "priorita": 5,
+      "dipartimento": "Scienze Statistiche (Sapienza)",
+      "descrizione": "Scienze Statistiche (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "BG SOFIA03",
+        "CY LIMASSO02",
+        "F  PARIS487",
+        "F  ANTONY03",
+        "F  VAULX-V02",
+        "F  RENNES32",
+        "D  DORTMUN01",
+        "D  ESSEN04"
+      ]
+    },
+    {
+      "id": "scienze-statistiche-batch-2",
+      "priorita": 5,
+      "dipartimento": "Scienze Statistiche (Sapienza)",
+      "descrizione": "Scienze Statistiche (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D  ERFURT05",
+        "D  SIEGEN01",
+        "PL OPOLE01",
+        "TR ISTANBU10",
+        "TR ISTANBU06",
+        "TR ISTANBU04"
       ]
     }
   ],
@@ -699,6 +721,53 @@
       ],
       "tentativiLingua": {},
       "linguaNonTrovabile": [],
+      "ateneo": "Sapienza Roma"
+    },
+    "Scienze Statistiche (Sapienza)": {
+      "fileJs": "js/atenei/sapienza/dati-mete-scienze-statistiche.js",
+      "stato": "in_corso",
+      "totale": 38,
+      "completate": 16,
+      "pendingScadenze": [
+        "BG SOFIA03",
+        "CY LIMASSO02",
+        "F  PARIS487",
+        "F  ANTONY03",
+        "F  VAULX-V02",
+        "F  RENNES32",
+        "D  DORTMUN01",
+        "D  ESSEN04",
+        "D  ERFURT05",
+        "D  SIEGEN01",
+        "PL OPOLE01",
+        "TR ISTANBU10",
+        "TR ISTANBU06",
+        "TR ISTANBU04"
+      ],
+      "pendingLingua": [
+        "BG SOFIA03",
+        "CY LIMASSO02",
+        "F  PARIS487",
+        "F  ANTONY03",
+        "F  VAULX-V02",
+        "F  RENNES32",
+        "D  DORTMUN01",
+        "D  ESSEN04",
+        "D  ERFURT05",
+        "D  SIEGEN01",
+        "PL OPOLE01",
+        "TR ISTANBU10",
+        "TR ISTANBU06",
+        "TR ISTANBU04"
+      ],
+      "tentativiLingua": {
+        "A  KLAGENF01": 2,
+        "D  TRIER01": 2
+      },
+      "linguaNonTrovabile": [
+        "A  KLAGENF01",
+        "D  TRIER01"
+      ],
       "ateneo": "Sapienza Roma"
     }
   },
@@ -2546,6 +2615,12 @@
       "data": "2026-07-14",
       "mete": 33,
       "note": "Avvio Polo di Latina (Sapienza): js/atenei/sapienza/dati-mete-polo-latina.js, 33 mete; riuso 12 lingue/12 scadenze/0 siti/0 cataloghi/0 disponibilita; ereditati 0 CEFR non trovabili; 2 sotto-batch da 8."
+    },
+    {
+      "batch": 303,
+      "data": "2026-07-14",
+      "mete": 38,
+      "note": "Avvio Scienze Statistiche (Sapienza): js/atenei/sapienza/dati-mete-scienze-statistiche.js, 38 mete; riuso 16 lingue/18 scadenze/0 siti/0 cataloghi/0 disponibilita; ereditati 2 CEFR non trovabili; 2 sotto-batch da 8."
     }
   ],
   "storicoBatch": [
