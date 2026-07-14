@@ -1,26 +1,16 @@
 {
   "versione": "2.0",
-  "aggiornato": "2026-07-10",
+  "aggiornato": "2026-07-14",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
-  "dipartimentoCorrente": "Psicologia e Servizio Sociale (Sapienza)",
-  "runCompletati": 299,
+  "dipartimentoCorrente": "Scienze Politiche (Sapienza)",
+  "runCompletati": 300,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "setup-scienze-politiche",
-      "priorita": 7,
-      "tipo": "nuovo_dipartimento",
-      "dipartimento": "Scienze Politiche (Sapienza)",
-      "ateneo": "Sapienza Roma",
-      "fileJs": "js/atenei/sapienza/dati-mete-scienze-politiche.js",
-      "descrizione": "Setup Scienze Politiche (Sapienza) - seed umano da export ambito=POLIT",
-      "fonte": "https://accordi-didattica.web.uniroma1.it/goerasmus/export?ambito=POLIT"
-    },
     {
       "id": "setup-inge-elettronica",
       "priorita": 7,
@@ -139,6 +129,37 @@
       "tipo": "scadenze+lingua",
       "mete": [
         "D  BERLIN20"
+      ]
+    },
+    {
+      "id": "scienze-politiche-batch-1",
+      "priorita": 5,
+      "dipartimento": "Scienze Politiche (Sapienza)",
+      "descrizione": "Scienze Politiche (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F  PARIS054",
+        "F  MARSEIL55",
+        "F  NANTES01",
+        "D  CHEMNIT01",
+        "D  BAYREUT01",
+        "D  WURZBUR03",
+        "D  FRANKFU08",
+        "PL WARSZAW68"
+      ]
+    },
+    {
+      "id": "scienze-politiche-batch-2",
+      "priorita": 5,
+      "dipartimento": "Scienze Politiche (Sapienza)",
+      "descrizione": "Scienze Politiche (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "PL KATOWIC01",
+        "PL KRAKOW05",
+        "RO TARGU02",
+        "HU GYOR01",
+        "HU PECS01"
       ]
     }
   ],
@@ -535,6 +556,45 @@
         "TR IZMIR02",
         "TR ISTANBU21"
       ]
+    },
+    "Scienze Politiche (Sapienza)": {
+      "fileJs": "js/atenei/sapienza/dati-mete-scienze-politiche.js",
+      "stato": "in_corso",
+      "totale": 24,
+      "completate": 11,
+      "pendingScadenze": [
+        "F  PARIS054",
+        "F  MARSEIL55",
+        "F  NANTES01",
+        "D  CHEMNIT01",
+        "D  BAYREUT01",
+        "D  WURZBUR03",
+        "D  FRANKFU08",
+        "PL WARSZAW68",
+        "PL KATOWIC01",
+        "PL KRAKOW05",
+        "RO TARGU02",
+        "HU GYOR01",
+        "HU PECS01"
+      ],
+      "pendingLingua": [
+        "F  PARIS054",
+        "F  MARSEIL55",
+        "F  NANTES01",
+        "D  CHEMNIT01",
+        "D  BAYREUT01",
+        "D  WURZBUR03",
+        "D  FRANKFU08",
+        "PL WARSZAW68",
+        "PL KATOWIC01",
+        "PL KRAKOW05",
+        "RO TARGU02",
+        "HU GYOR01",
+        "HU PECS01"
+      ],
+      "tentativiLingua": {},
+      "linguaNonTrovabile": [],
+      "ateneo": "Sapienza Roma"
     }
   },
   "regoleProgressione": {
@@ -2363,6 +2423,12 @@
       "data": "2026-07-10",
       "mete": 1,
       "note": "Psicologia e Servizio Sociale (Sapienza) psicologia e servizio sociale (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 300,
+      "data": "2026-07-14",
+      "mete": 24,
+      "note": "Avvio Scienze Politiche (Sapienza): js/atenei/sapienza/dati-mete-scienze-politiche.js, 24 mete; riuso 11 lingue/11 scadenze/0 siti/0 cataloghi/0 disponibilita; ereditati 0 CEFR non trovabili; 2 sotto-batch da 8."
     }
   ],
   "storicoBatch": [
