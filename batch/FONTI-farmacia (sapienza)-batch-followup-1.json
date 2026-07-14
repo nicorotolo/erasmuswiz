@@ -1,5 +1,19 @@
 {
   "F  COMPIEG05": {
-    "linkSito": "https://www.escom.fr/mobilite-internationale/support-for-international/"
+    "linkSito": {
+      "url": "https://www.escom.fr/mobilite-internationale/study-in-france/",
+      "citazione": "To apply for an exchange – one or two semesters – you have to check first that your university has a partnership agreement with ESCOM Chimie.",
+      "verificataIl": "2026-07-14"
+    },
+    "linkCatalogo": {
+      "url": "https://www.escom.fr/mobilite-internationale/study-in-france/",
+      "citazione": "You will find here the list of courses offered for each year :",
+      "verificataIl": "2026-07-14"
+    },
+    "notaDisponibilita": {
+      "url": "https://www.escom.fr/mobilite-internationale/study-in-france/",
+      "citazione": "Important : our programme in chemistry and chemical engineering is fully taught in French and requires a B1 level in French. Please note that it’s not possible to mix courses from different years and there are few elective modules. You generally have to follow the programme in place with fixed modules.",
+      "verificataIl": "2026-07-14"
+    }
   }
 }

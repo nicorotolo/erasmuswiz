@@ -4,23 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 309,
+  "runCompletati": 310,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "farmacia (sapienza)-batch-followup-1",
-      "priorita": 6,
-      "dipartimento": "Farmacia (Sapienza)",
-      "descrizione": "Farmacia (Sapienza) - follow-up pending",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "F  COMPIEG05"
-      ]
-    },
     {
       "id": "farmacia (sapienza)-batch-followup-2",
       "priorita": 6,
@@ -728,6 +718,16 @@
       "mete": [
         "HU DEBRECE01",
         "HU MISKOLC01"
+      ]
+    },
+    {
+      "id": "farmacia (sapienza)-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Farmacia (Sapienza)",
+      "descrizione": "Farmacia (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F  COMPIEG05"
       ]
     }
   ],
@@ -3824,6 +3824,12 @@
       "data": "2026-07-14",
       "mete": 424,
       "note": "Avvio Lettere e Filosofia (Sapienza): js/atenei/sapienza/dati-mete-lettere-filosofia.js, 424 mete; riuso 303 lingue/314 scadenze/0 siti/0 cataloghi/0 disponibilita; ereditati 8 CEFR non trovabili; 11 sotto-batch da 8."
+    },
+    {
+      "batch": 310,
+      "data": "2026-07-14",
+      "mete": 1,
+      "note": "Farmacia (Sapienza) farmacia (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

@@ -319,6 +319,12 @@ var METE = [
       ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
+    linkSito: "https://www.escom.fr/mobilite-internationale/study-in-france/",
+
+    linkCatalogo: "https://www.escom.fr/mobilite-internationale/study-in-france/",
+
+    notaDisponibilita: "Il programma in chimica e ingegneria chimica è interamente insegnato in francese. Non è possibile combinare corsi di anni differenti e vi sono pochi moduli opzionali; in genere gli studenti devono seguire il programma fisso dell'anno scelto.",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -486,6 +492,12 @@ var METE = [
       ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
+    linkSito: "https://www.escom.fr/mobilite-internationale/study-in-france/",
+
+    linkCatalogo: "https://www.escom.fr/mobilite-internationale/study-in-france/",
+
+    notaDisponibilita: "Il programma in chimica e ingegneria chimica è interamente insegnato in francese. Non è possibile combinare corsi di anni differenti e vi sono pochi moduli opzionali; in genere gli studenti devono seguire il programma fisso dell'anno scelto.",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
