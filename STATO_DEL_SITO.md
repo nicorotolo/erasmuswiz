@@ -4,7 +4,16 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-14 — sessione 57, Codex (**FASE 1
+**Ultimo aggiornamento:** 2026-07-14 — sessione 58, Codex (**FASE 1
+GEMINI+CODEX UNITA A `main`.** Revisionata la pull request **#36**: diff pulito,
+sintassi degli script valida, 7/7 test superati e `valida-stato.mjs` coerente
+senza avvisi. I due commit della Fase 1 (`b82a2c8` e `3d4c479`) sono stati
+pubblicati con fast-forward su `main`; `origin/main` punta a `3d4c479`. Nessun
+batch reale eseguito e nessun file dati modificato. Prossimo gate: verificare e
+fermare la vecchia automazione multi-ateneo, poi eseguire un solo lotto reale
+controllato.)
+
+**Ultimo aggiornamento precedente:** 2026-07-14 — sessione 57, Codex (**FASE 1
 GEMINI+CODEX PUBBLICATA IN PULL REQUEST.** Autenticazione GitHub verificata;
 creato e pubblicato il branch `codex/fase1-gemini-codex`, commit principale
 `b82a2c8` (`Rendi pronta la pipeline Gemini e Codex`) e pull request in bozza
@@ -2030,7 +2039,7 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | MERCATO-UI Fase C5 — Guide + fiducia + OG | OG dedicata 64 KB (P2.14 chiuso), pagina fiducia `guide/come-funziona.html` (gate privacy ok), sw.js senza PNG 408 KB, sitemap 4 URL, 30 file spazzatura eliminati (cartelle legacy: attendono conferma Nicola) | ✅ Fatta e testata (2026-07-14) |
 | MERCATO-UI Fasi C6, D — Demo LA + QA | Assorbite dall'ondata PERCORSO: la demo LA Generator diventa stazione del viaggio (P5), il QA finale diventa P7 | 🔁 Superate (2026-07-14) |
 | **PERCORSO — redesign a viaggio** | `PLAN.md` riscritto (grill 10 decisioni + Codex APPROVED al R5): due mondi ingresso/dashboard, linea di viaggio = nav, itinerario a stazioni, palette riaperta (2 direzioni: Notte cartografica vs Orizzonte chiaro), fasi P0 mockup → P7 QA, deadline settembre 2026 | 📋 Pianificata — prossima: P0 (2 mockup) |
-| **Pipeline dati T0→T3 — Gemini + Codex** | Fase 1 pronta: schema/evidenze, setup automatico, lock, pulizia output, staging ristretto, log, test e preflight completo Gemini+Codex verificati | ⚠️ Prima del lotto reale: pubblicare il codice su branch dedicato e fermare la vecchia automazione multi-ateneo |
+| **Pipeline dati T0→T3 — Gemini + Codex** | Fase 1 unita a `main` tramite PR #36: schema/evidenze, setup automatico, lock, pulizia output, staging ristretto, log, test e preflight completo Gemini+Codex verificati | ⚠️ Prima del lotto reale: fermare la vecchia automazione multi-ateneo |
 
 **Tab visibili nella pagina (navigazione inferiore):** Oggi (missione) → Mete → Candidatura (scadenze+checklist fuse).
 **Tab nascosti (accessibili da JS):** Idoneità · Profilo.
@@ -2148,7 +2157,7 @@ Il CODICE è pronto. Le mete ora sono **REALI** (dalla lista ufficiale del bando
 | Requisiti bando (`dati-bando.js`) | **REALI** ✅ validati art. per art. sul PDF (8 requisiti, con rif. agli articoli) | Riverificare sul bando 2027/28 |
 | Scadenze (`dati-scadenze.js`) | **REALI** ✅ 7 tappe dal bando (candidature, laureandi, graduatoria, accettazione, ISEE, mobilità) | Riverificare ogni anno |
 | Checklist (`dati-checklist.js`) | **REALI** ✅ 9 passi validati sul bando | Riverificare ogni anno |
-| **Automazione dati Gemini+Codex** | Fase 1 pronta e testata: 7/7 test e preflight completo Gemini+Codex OK; 13 batch in coda; copertura iniziale su 1.987 mete: lingua 38%, scadenze 43%, sito 72%, catalogo/disponibilità 0% | Pubblicare la Fase 1, fermare la vecchia automazione e poi testare un lotto reale con controllo umano |
+| **Automazione dati Gemini+Codex** | Fase 1 pubblicata su `main` con PR #36; 7/7 test e preflight completo Gemini+Codex OK; 13 batch in coda; copertura iniziale su 1.987 mete: lingua 38%, scadenze 43%, sito 72%, catalogo/disponibilità 0% | Fermare la vecchia automazione e poi testare un lotto reale con controllo umano |
 
 **Nota motore di compatibilità:** `app.js` ora gestisce la lingua mancante in modo
 onesto. Per le mete senza lingua mostra 🟡 "Idoneo — verifica la lingua" (se hai
@@ -2166,6 +2175,14 @@ python -m http.server 8000
 poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
+
+**Aggiornamento 2026-07-14 — sessione 58 (Fase 1 unita a main):**
+1. Verificare lo stato effettivo e mettere in pausa
+   `mappatura-mete-erasmus-multiateneo`, evitando due processi concorrenti.
+2. Aggiornare il checkout locale su `main` e verificare nuovamente il preflight
+   senza modificare dati.
+3. Eseguire un solo lotto reale manuale e controllare fonti, diff, consumo e
+   verifica pubblicazione prima di creare l'attività Windows giornaliera.
 
 **Aggiornamento 2026-07-14 — sessione 57 (Fase 1 pubblicata):**
 1. Rivedere e unire la pull request in bozza #36.
