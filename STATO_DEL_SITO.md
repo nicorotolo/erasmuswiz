@@ -4,7 +4,18 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-14 — sessione 61, Codex (**SETUP POLO DI
+**Ultimo aggiornamento:** 2026-07-14 — sessione 62, Nicola + Codex
+(**ORCHESTRATORE AUTOMATICO VERIFICATO SU SETUP SCIENZE STATISTICHE.** Nicola
+ha eseguito `node scripts/esegui-lotto-automatico.mjs`: l'intero flusso
+unattended ha completato gate, setup deterministico, validazione, commit, push
+e verifica della pubblicazione. Scienze Statistiche Sapienza: 38 mete, 16
+completate per riuso, 18 scadenze riusate, 2 CEFR non-trovabili ereditati e 2
+sotto-batch da 8. Commit dati `3ba5330`, auto-unione verificata su
+`origin/main` (`25561c2`). Gemini e Codex non sono stati chiamati perché era
+ancora un setup: il consumo token T1→T3 resta da misurare sul primo batch
+standard.)
+
+**Ultimo aggiornamento precedente:** 2026-07-14 — sessione 61, Codex (**SETUP POLO DI
 LATINA PUBBLICATO E VERIFICATO.** Eseguito un solo gate manuale: selezionato
 `setup-polo-latina`, batch speciale con seed umano già pronto e senza ricerca
 web. Il setup deterministico ha elaborato 33 mete: 12 completate per riuso di
@@ -2069,7 +2080,7 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | MERCATO-UI Fase C5 — Guide + fiducia + OG | OG dedicata 64 KB (P2.14 chiuso), pagina fiducia `guide/come-funziona.html` (gate privacy ok), sw.js senza PNG 408 KB, sitemap 4 URL, 30 file spazzatura eliminati (cartelle legacy: attendono conferma Nicola) | ✅ Fatta e testata (2026-07-14) |
 | MERCATO-UI Fasi C6, D — Demo LA + QA | Assorbite dall'ondata PERCORSO: la demo LA Generator diventa stazione del viaggio (P5), il QA finale diventa P7 | 🔁 Superate (2026-07-14) |
 | **PERCORSO — redesign a viaggio** | `PLAN.md` riscritto (grill 10 decisioni + Codex APPROVED al R5): due mondi ingresso/dashboard, linea di viaggio = nav, itinerario a stazioni, palette riaperta (2 direzioni: Notte cartografica vs Orizzonte chiaro), fasi P0 mockup → P7 QA, deadline settembre 2026 | 📋 Pianificata — prossima: P0 (2 mockup) |
-| **Pipeline dati T0→T3 — Gemini + Codex** | Fase 1 unita a `main`; setup Scienze Politiche, DIET e Polo di Latina pubblicati e verificati; Polo di Latina: 33 mete, 12 completate per riuso, 2 sotto-batch da 8 | ⚠️ Prossimo gate: un solo batch effettivo di ricerca Gemini+Codex con controllo umano |
+| **Pipeline dati T0→T3 — Gemini + Codex** | Orchestratore automatico verificato end-to-end sul setup Scienze Statistiche; 38 mete, 16 completate per riuso, 2 sotto-batch da 8 | ⚠️ Prossimo gate: primo batch standard con chiamata Gemini e verifica Codex, poi campionamento umano |
 
 **Tab visibili nella pagina (navigazione inferiore):** Oggi (missione) → Mete → Candidatura (scadenze+checklist fuse).
 **Tab nascosti (accessibili da JS):** Idoneità · Profilo.
@@ -2176,8 +2187,8 @@ Il CODICE è pronto. Le mete ora sono **REALI** (dalla lista ufficiale del bando
 | **114 mete Studi Linguistici** (`dati-mete-linguistici.js`) | **REALI** 2026/27; **104/114 lingua**, **114/114 scadenze** | 10 lingue in linguaNonTrovabile |
 | **21 mete Studi Umanistici** (`dati-mete-umanistici.js`) | **REALI** 2026/27; **18/21 lingua**, **21/21 scadenze** | 3 lingue in linguaNonTrovabile |
 | **⚠️ EUTOPIA (46 accordi)** | non mappati | Cross-dipartimentali, richiede logica filtro speciale; task futura |
-| **Sapienza — 10 Facoltà avviate** (Giurisprudenza 55 ✅, Medicina-Psico area medica 15 ✅, Architettura 113 ✅, Farmacia 62, Comunicazione 59, Scienze Sociali 68 ✅, Psicologia 97, Scienze Politiche 24, DIET 26, Polo di Latina 33) | REALI da Go Erasmus+; Scienze Politiche: 11/24 completate per riuso; DIET: 17/26; Polo di Latina: 12/33, con 2 sotto-batch da 8 | Codex chiude i follow-up |
-| **Sapienza — ULTIME 7 Facoltà** | REALI dall'export ufficiale; lingua/scadenze vuote nel repo, ma al setup Codex il RIUSO ne pre-compila ~metà | Codex: 7 setup + batch di ricerca |
+| **Sapienza — 11 Facoltà avviate** (Giurisprudenza 55 ✅, Medicina-Psico area medica 15 ✅, Architettura 113 ✅, Farmacia 62, Comunicazione 59, Scienze Sociali 68 ✅, Psicologia 97, Scienze Politiche 24, DIET 26, Polo di Latina 33, Scienze Statistiche 38) | REALI da Go Erasmus+; Scienze Statistiche: 16/38 completate per riuso, 18 scadenze riusate, 2 CEFR non-trovabili ereditati, 2 sotto-batch da 8 | Codex chiude i follow-up |
+| **Sapienza — ULTIME 6 Facoltà** | REALI dall'export ufficiale; lingua/scadenze vuote nel repo, ma al setup Codex il RIUSO ne pre-compila ~metà | Codex: 6 setup + batch di ricerca |
 | → posti/livello/area/coordinatore/codice Erasmus | reali, dalla lista | ok |
 | → requisito di **lingua** | Economia: **52/58 righe complete** con CEFR e scadenze, 6 senza CEFR ufficiale classificate non trovabili. Management: **19/76 righe complete**; 2 mete del primo lotto hanno scadenze ma non CEFR generale ufficiale | continuare i batch Management |
 | → scadenze ospitante / linkPdf | Economia: **58/58 con link scheda PDF** e **58/58 con scadenze** nomination/application. Management: **76/76 con link scheda PDF** e **21/76 con scadenze** | continuare i batch Management |
@@ -2187,7 +2198,7 @@ Il CODICE è pronto. Le mete ora sono **REALI** (dalla lista ufficiale del bando
 | Requisiti bando (`dati-bando.js`) | **REALI** ✅ validati art. per art. sul PDF (8 requisiti, con rif. agli articoli) | Riverificare sul bando 2027/28 |
 | Scadenze (`dati-scadenze.js`) | **REALI** ✅ 7 tappe dal bando (candidature, laureandi, graduatoria, accettazione, ISEE, mobilità) | Riverificare ogni anno |
 | Checklist (`dati-checklist.js`) | **REALI** ✅ 9 passi validati sul bando | Riverificare ogni anno |
-| **Automazione dati Gemini+Codex** | Fase 1 pubblicata; preflight completo OK; setup Scienze Politiche, DIET e Polo di Latina pubblicati e verificati | Eseguire un solo batch effettivo di ricerca Gemini+Codex con controllo umano; mantenere ferma la vecchia automazione |
+| **Automazione dati Gemini+Codex** | Orchestratore automatico riuscito end-to-end sul setup Scienze Statistiche; nessuna chiamata modello ancora eseguita | Eseguire il primo batch standard Gemini+Codex, campionare 2-3 fonti e misurare il consumo; mantenere ferma la vecchia automazione |
 
 **Nota motore di compatibilità:** `app.js` ora gestisce la lingua mancante in modo
 onesto. Per le mete senza lingua mostra 🟡 "Idoneo — verifica la lingua" (se hai
@@ -2205,6 +2216,14 @@ python -m http.server 8000
 poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
+
+**Aggiornamento 2026-07-14 — sessione 62 (orchestratore automatico riuscito):**
+1. Mantenere ferma la vecchia automazione multi-ateneo.
+2. Eseguire nuovamente `node scripts/esegui-lotto-automatico.mjs` fino al primo
+   batch standard che chiama realmente Gemini e Codex.
+3. Sul primo batch standard riuscito, aprire manualmente 2-3 fonti, confrontare
+   i dati pubblicati e annotare il consumo Codex; solo dopo creare l'attività
+   Windows giornaliera con istanza singola e log persistente.
 
 **Aggiornamento 2026-07-14 — sessione 61 (setup Polo di Latina riuscito):**
 1. Mantenere ferma la vecchia automazione multi-ateneo.
