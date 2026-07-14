@@ -4,7 +4,18 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-14 — sessione 58, Codex (**FASE 1
+**Ultimo aggiornamento:** 2026-07-14 — sessione 59, Codex (**PRIMO LOTTO REALE
+CONTROLLATO RIUSCITO.** Dopo la pausa comunicata della vecchia automazione,
+preflight completo online superato (9 script, stato, Codex smoke e Gemini). Il
+primo tentativo ha individuato un bug nel parser dei percorsi `git status` e si è
+fermato prima del commit; corretto e pubblicato su `main` con commit `71d25ba`.
+Ripetuto esclusivamente lo stesso lotto `setup-scienze-politiche`: 24 mete
+Sapienza, 11 completate per riuso di lingua e scadenze, 13 pending e 2
+sotto-batch creati. Commit dati `a143991`, auto-merge `10e101b`; pubblicazione
+verificata su `origin/main`. Nessun batch di ricerca Gemini+Codex ancora
+eseguito. Coda attuale: 14 batch.)
+
+**Ultimo aggiornamento precedente:** 2026-07-14 — sessione 58, Codex (**FASE 1
 GEMINI+CODEX UNITA A `main`.** Revisionata la pull request **#36**: diff pulito,
 sintassi degli script valida, 7/7 test superati e `valida-stato.mjs` coerente
 senza avvisi. I due commit della Fase 1 (`b82a2c8` e `3d4c479`) sono stati
@@ -2039,7 +2050,7 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | MERCATO-UI Fase C5 — Guide + fiducia + OG | OG dedicata 64 KB (P2.14 chiuso), pagina fiducia `guide/come-funziona.html` (gate privacy ok), sw.js senza PNG 408 KB, sitemap 4 URL, 30 file spazzatura eliminati (cartelle legacy: attendono conferma Nicola) | ✅ Fatta e testata (2026-07-14) |
 | MERCATO-UI Fasi C6, D — Demo LA + QA | Assorbite dall'ondata PERCORSO: la demo LA Generator diventa stazione del viaggio (P5), il QA finale diventa P7 | 🔁 Superate (2026-07-14) |
 | **PERCORSO — redesign a viaggio** | `PLAN.md` riscritto (grill 10 decisioni + Codex APPROVED al R5): due mondi ingresso/dashboard, linea di viaggio = nav, itinerario a stazioni, palette riaperta (2 direzioni: Notte cartografica vs Orizzonte chiaro), fasi P0 mockup → P7 QA, deadline settembre 2026 | 📋 Pianificata — prossima: P0 (2 mockup) |
-| **Pipeline dati T0→T3 — Gemini + Codex** | Fase 1 unita a `main` tramite PR #36: schema/evidenze, setup automatico, lock, pulizia output, staging ristretto, log, test e preflight completo Gemini+Codex verificati | ⚠️ Prima del lotto reale: fermare la vecchia automazione multi-ateneo |
+| **Pipeline dati T0→T3 — Gemini + Codex** | Fase 1 unita a `main`; primo setup reale Scienze Politiche pubblicato e verificato dopo correzione del parser percorsi | ⚠️ Prossimo gate: un solo batch reale di ricerca Gemini+Codex con controllo umano |
 
 **Tab visibili nella pagina (navigazione inferiore):** Oggi (missione) → Mete → Candidatura (scadenze+checklist fuse).
 **Tab nascosti (accessibili da JS):** Idoneità · Profilo.
@@ -2146,8 +2157,8 @@ Il CODICE è pronto. Le mete ora sono **REALI** (dalla lista ufficiale del bando
 | **114 mete Studi Linguistici** (`dati-mete-linguistici.js`) | **REALI** 2026/27; **104/114 lingua**, **114/114 scadenze** | 10 lingue in linguaNonTrovabile |
 | **21 mete Studi Umanistici** (`dati-mete-umanistici.js`) | **REALI** 2026/27; **18/21 lingua**, **21/21 scadenze** | 3 lingue in linguaNonTrovabile |
 | **⚠️ EUTOPIA (46 accordi)** | non mappati | Cross-dipartimentali, richiede logica filtro speciale; task futura |
-| **Sapienza — 7 Facoltà avviate** (Giurisprudenza 55 ✅, Medicina-Psico area medica 15 ✅, Architettura 113 ✅, Farmacia 62, Comunicazione 59, Scienze Sociali 68 ✅, Psicologia 97) | REALI da Go Erasmus+; arricchimento Codex quasi completo (6 batch follow-up residui) | Codex chiude i follow-up |
-| **Sapienza — ULTIME 10 Facoltà** (1.126 mete, seed 04/07) | REALI dall'export ufficiale; lingua/scadenze vuote nel repo, ma al setup Codex il RIUSO ne pre-compila ~metà | Codex: 10 setup + ~57 batch di ricerca |
+| **Sapienza — 8 Facoltà avviate** (Giurisprudenza 55 ✅, Medicina-Psico area medica 15 ✅, Architettura 113 ✅, Farmacia 62, Comunicazione 59, Scienze Sociali 68 ✅, Psicologia 97, Scienze Politiche 24) | REALI da Go Erasmus+; Scienze Politiche: 11/24 completate per riuso, 13 pending | Codex chiude i follow-up |
+| **Sapienza — ULTIME 9 Facoltà** (1.102 mete, seed 04/07) | REALI dall'export ufficiale; lingua/scadenze vuote nel repo, ma al setup Codex il RIUSO ne pre-compila ~metà | Codex: 9 setup + batch di ricerca |
 | → posti/livello/area/coordinatore/codice Erasmus | reali, dalla lista | ok |
 | → requisito di **lingua** | Economia: **52/58 righe complete** con CEFR e scadenze, 6 senza CEFR ufficiale classificate non trovabili. Management: **19/76 righe complete**; 2 mete del primo lotto hanno scadenze ma non CEFR generale ufficiale | continuare i batch Management |
 | → scadenze ospitante / linkPdf | Economia: **58/58 con link scheda PDF** e **58/58 con scadenze** nomination/application. Management: **76/76 con link scheda PDF** e **21/76 con scadenze** | continuare i batch Management |
@@ -2157,7 +2168,7 @@ Il CODICE è pronto. Le mete ora sono **REALI** (dalla lista ufficiale del bando
 | Requisiti bando (`dati-bando.js`) | **REALI** ✅ validati art. per art. sul PDF (8 requisiti, con rif. agli articoli) | Riverificare sul bando 2027/28 |
 | Scadenze (`dati-scadenze.js`) | **REALI** ✅ 7 tappe dal bando (candidature, laureandi, graduatoria, accettazione, ISEE, mobilità) | Riverificare ogni anno |
 | Checklist (`dati-checklist.js`) | **REALI** ✅ 9 passi validati sul bando | Riverificare ogni anno |
-| **Automazione dati Gemini+Codex** | Fase 1 pubblicata su `main` con PR #36; 7/7 test e preflight completo Gemini+Codex OK; 13 batch in coda; copertura iniziale su 1.987 mete: lingua 38%, scadenze 43%, sito 72%, catalogo/disponibilità 0% | Fermare la vecchia automazione e poi testare un lotto reale con controllo umano |
+| **Automazione dati Gemini+Codex** | Fase 1 pubblicata; preflight completo OK; primo setup reale pubblicato e verificato; 14 batch in coda | Eseguire un solo batch reale di ricerca Gemini+Codex con controllo umano |
 
 **Nota motore di compatibilità:** `app.js` ora gestisce la lingua mancante in modo
 onesto. Per le mete senza lingua mostra 🟡 "Idoneo — verifica la lingua" (se hai
@@ -2175,6 +2186,14 @@ python -m http.server 8000
 poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
+
+**Aggiornamento 2026-07-14 — sessione 59 (primo setup reale riuscito):**
+1. Controllare il commit auto-unito `10e101b` e mantenere ferma la vecchia
+   automazione multi-ateneo.
+2. Eseguire manualmente un solo batch reale di ricerca Gemini+Codex e verificare
+   fonti, diff, consumo, validazione e pubblicazione.
+3. Solo dopo un batch T1→T3 riuscito creare l'attività Windows giornaliera con
+   istanza singola e log persistente.
 
 **Aggiornamento 2026-07-14 — sessione 58 (Fase 1 unita a main):**
 1. Verificare lo stato effettivo e mettere in pausa
