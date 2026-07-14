@@ -3,24 +3,14 @@
   "aggiornato": "2026-07-14",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
-  "dipartimentoCorrente": "Scienze Politiche (Sapienza)",
-  "runCompletati": 300,
+  "dipartimentoCorrente": "Ingegneria elettronica e comunicazioni - DIET (Sapienza)",
+  "runCompletati": 301,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "setup-inge-elettronica",
-      "priorita": 7,
-      "tipo": "nuovo_dipartimento",
-      "dipartimento": "Ingegneria elettronica e comunicazioni - DIET (Sapienza)",
-      "ateneo": "Sapienza Roma",
-      "fileJs": "js/atenei/sapienza/dati-mete-inge-elettronica.js",
-      "descrizione": "Setup DIET (Sapienza) - seed umano da export ambito=IIIS",
-      "fonte": "https://accordi-didattica.web.uniroma1.it/goerasmus/export?ambito=IIIS"
-    },
     {
       "id": "setup-polo-latina",
       "priorita": 7,
@@ -160,6 +150,23 @@
         "RO TARGU02",
         "HU GYOR01",
         "HU PECS01"
+      ]
+    },
+    {
+      "id": "inge-elettronica-batch-1",
+      "priorita": 5,
+      "dipartimento": "Ingegneria elettronica e comunicazioni - DIET (Sapienza)",
+      "descrizione": "Ingegneria elettronica e comunicazioni - DIET (Sapienza) - lotto iniziale",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F  LILLE91",
+        "F  PARIS013",
+        "D  HANNOVE01",
+        "D  LANDSHU01",
+        "G  PIREAS01",
+        "PL CZESTOC01",
+        "CH LUGANO02",
+        "TR ISTANBU63"
       ]
     }
   ],
@@ -591,6 +598,35 @@
         "RO TARGU02",
         "HU GYOR01",
         "HU PECS01"
+      ],
+      "tentativiLingua": {},
+      "linguaNonTrovabile": [],
+      "ateneo": "Sapienza Roma"
+    },
+    "Ingegneria elettronica e comunicazioni - DIET (Sapienza)": {
+      "fileJs": "js/atenei/sapienza/dati-mete-inge-elettronica.js",
+      "stato": "in_corso",
+      "totale": 26,
+      "completate": 17,
+      "pendingScadenze": [
+        "F  LILLE91",
+        "F  PARIS013",
+        "D  HANNOVE01",
+        "D  LANDSHU01",
+        "G  PIREAS01",
+        "PL CZESTOC01",
+        "CH LUGANO02",
+        "TR ISTANBU63"
+      ],
+      "pendingLingua": [
+        "F  LILLE91",
+        "F  PARIS013",
+        "D  HANNOVE01",
+        "D  LANDSHU01",
+        "G  PIREAS01",
+        "PL CZESTOC01",
+        "CH LUGANO02",
+        "TR ISTANBU63"
       ],
       "tentativiLingua": {},
       "linguaNonTrovabile": [],
@@ -2429,6 +2465,12 @@
       "data": "2026-07-14",
       "mete": 24,
       "note": "Avvio Scienze Politiche (Sapienza): js/atenei/sapienza/dati-mete-scienze-politiche.js, 24 mete; riuso 11 lingue/11 scadenze/0 siti/0 cataloghi/0 disponibilita; ereditati 0 CEFR non trovabili; 2 sotto-batch da 8."
+    },
+    {
+      "batch": 301,
+      "data": "2026-07-14",
+      "mete": 26,
+      "note": "Avvio Ingegneria elettronica e comunicazioni - DIET (Sapienza): js/atenei/sapienza/dati-mete-inge-elettronica.js, 26 mete; riuso 17 lingue/17 scadenze/0 siti/0 cataloghi/0 disponibilita; ereditati 0 CEFR non trovabili; 1 sotto-batch da 8."
     }
   ],
   "storicoBatch": [
