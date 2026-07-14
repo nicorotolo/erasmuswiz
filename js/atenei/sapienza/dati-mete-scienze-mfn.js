@@ -25,9 +25,17 @@ var METE = [
       { numero: 1, mesi: 10, livello: "L", note: "" },
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B1", condizione: "per corsi in tedesco" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 dicembre" }
+      ],
     linkSito: "https://srv03.ai.tuwien.ac.at/international/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70673."
   },
@@ -44,9 +52,17 @@ var METE = [
       { numero: 1, mesi: 10, livello: "L", note: "" },
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B2", condizione: "raccomandato per seguire pienamente la mobilita" },
+        { lingua: "Inglese", livello: "B2", condizione: "per studenti che seguono solo corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (autunno/anno)", periodo: "entro 1 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
+      ],
     linkSito: "https://INTERNATIONAL.UNI-GRAZ.AT/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70668."
   },
@@ -63,9 +79,17 @@ var METE = [
       { numero: 1, mesi: 8, livello: "L", note: "" },
       { numero: 1, mesi: 8, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B2", condizione: "per corsi in tedesco" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
+        { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+      ],
     linkSito: "https://www.uni-salzburg.at",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70155."
   },
@@ -82,9 +106,17 @@ var METE = [
       { numero: 1, mesi: 8, livello: "L", note: "" },
       { numero: 1, mesi: 8, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B2", condizione: "per corsi in tedesco" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
+        { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+      ],
     linkSito: "https://www.uni-salzburg.at",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70157."
   },
@@ -101,9 +133,17 @@ var METE = [
       { numero: 1, mesi: 8, livello: "L", note: "" },
       { numero: 1, mesi: 8, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B2", condizione: "per corsi in tedesco" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
+        { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+      ],
     linkSito: "https://www.uni-salzburg.at",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70156."
   },
@@ -120,11 +160,16 @@ var METE = [
       { numero: 1, mesi: 6, livello: "L", note: "" },
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B2", condizione: "atteso per tutti i campi di studio salvo German Philology; se ci sono abbastanza corsi in inglese, livello richiesto B2 anche per l'inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (sem. invernale)", periodo: "entro 1 maggio" },
+        { cosa: "Nomination (sem. estivo)", periodo: "entro 1 novembre" }
+      ],
     linkSito: "https://www.univie.ac.at/",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70672."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70672. || Lingua: l'Universita di Vienna si aspetta tedesco CEFR B2 per gli incoming; se nel campo di studio ci sono abbastanza corsi in inglese, anche il requisito per l'inglese corrisponde a B2. Di norma non serve caricare un certificato, ma l'universita di provenienza conferma le competenze in nomination. [Fonti: scheda destinazione; University of Vienna International Office] || Scadenze: nomination ufficiale entro 1 maggio/1 novembre; application inviata via email dopo la nomination || Lingua: CEFR non pubblicato ufficialmente; l'ateneo richiede conferma delle competenze linguistiche nella nomination"
   },
   {
     id: "sap-mfn-linz",
@@ -174,11 +219,18 @@ var METE = [
     posti: [
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "richiesto per studenti exchange in contesto accademico; certificato con speaking, writing, listening e reading" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (1 semestre)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (2 semestre)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (1 semestre)", periodo: "entro 15 maggio" },
+        { cosa: "Application (2 semestre)", periodo: "entro 15 novembre" }
+      ],
     linkSito: "https://www.ugent.be/en/exchange",
-    notePratiche: "Posti dell'accordo: 1. Accordo ERA70674."
+    notePratiche: "Posti dell'accordo: 1. Accordo ERA70674. || Lingua: UGent richiede per gli exchange buona conoscenza dell'inglese, livello CEF/CEFR B2 o superiore, per comunicare e lavorare in contesto accademico. [Fonti: scheda destinazione; UGent Language Requirements for Exchange Students]"
   },
   {
     id: "sap-mfn-bruxel",
@@ -193,11 +245,18 @@ var METE = [
       { numero: 2, mesi: 9, livello: "L", note: "" },
       { numero: 2, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per corsi in francese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 2 settimane dallo Starter Pack" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 2 settimane dallo Starter Pack" }
+      ],
     linkSito: "https://www.ulb.be/",
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70165."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70165. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
     id: "sap-mfn-bruxel-2",
@@ -211,11 +270,18 @@ var METE = [
     posti: [
       { numero: 1, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per corsi in francese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 2 settimane dallo Starter Pack" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 2 settimane dallo Starter Pack" }
+      ],
     linkSito: "https://www.ulb.be/",
-    notePratiche: "Posti dell'accordo: 1. Accordo ERA70159."
+    notePratiche: "Posti dell'accordo: 1. Accordo ERA70159. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
     id: "sap-mfn-bruxel-3",
@@ -229,11 +295,18 @@ var METE = [
     posti: [
       { numero: 1, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per corsi in francese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 2 settimane dallo Starter Pack" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 2 settimane dallo Starter Pack" }
+      ],
     linkSito: "https://www.ulb.be/",
-    notePratiche: "Posti dell'accordo: 1. Accordo ERA70161."
+    notePratiche: "Posti dell'accordo: 1. Accordo ERA70161. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
     id: "sap-mfn-bruxel-4",
@@ -248,11 +321,18 @@ var METE = [
       { numero: 2, mesi: 9, livello: "L", note: "" },
       { numero: 2, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per corsi in francese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 2 settimane dallo Starter Pack" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 2 settimane dallo Starter Pack" }
+      ],
     linkSito: "https://www.ulb.be/",
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70162."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70162. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
     id: "sap-mfn-bruxel-5",
@@ -267,11 +347,18 @@ var METE = [
       { numero: 2, mesi: 9, livello: "L", note: "" },
       { numero: 2, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per corsi in francese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 2 settimane dallo Starter Pack" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 2 settimane dallo Starter Pack" }
+      ],
     linkSito: "https://www.ulb.be/",
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70163."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70163. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
     id: "sap-mfn-bruxel-6",
@@ -286,11 +373,18 @@ var METE = [
       { numero: 1, mesi: 9, livello: "L", note: "" },
       { numero: 1, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per corsi in francese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 2 settimane dallo Starter Pack" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 2 settimane dallo Starter Pack" }
+      ],
     linkSito: "https://www.ulb.be/",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70164."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70164. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
     id: "sap-mfn-bruxel-7",
@@ -305,11 +399,18 @@ var METE = [
       { numero: 2, mesi: 9, livello: "L", note: "" },
       { numero: 2, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per corsi in francese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 2 settimane dallo Starter Pack" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 2 settimane dallo Starter Pack" }
+      ],
     linkSito: "https://www.ulb.be/",
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70166."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70166. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
     id: "sap-mfn-bruxel-8",
@@ -324,11 +425,18 @@ var METE = [
       { numero: 2, mesi: 9, livello: "L", note: "" },
       { numero: 2, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per corsi in francese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 2 settimane dallo Starter Pack" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 2 settimane dallo Starter Pack" }
+      ],
     linkSito: "https://www.ulb.be/",
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70158."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70158. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
     id: "sap-mfn-bruxel-9",
@@ -342,11 +450,18 @@ var METE = [
     posti: [
       { numero: 2, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per corsi in francese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 2 settimane dallo Starter Pack" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 2 settimane dallo Starter Pack" }
+      ],
     linkSito: "https://www.ulb.be/",
-    notePratiche: "Posti dell'accordo: 2. Accordo ERA70160."
+    notePratiche: "Posti dell'accordo: 2. Accordo ERA70160. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
     id: "sap-mfn-gent-2",
@@ -361,11 +476,18 @@ var METE = [
       { numero: 1, mesi: 6, livello: "L", note: "" },
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "richiesto per studenti exchange in contesto accademico; certificato con speaking, writing, listening e reading" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (1 semestre)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (2 semestre)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (1 semestre)", periodo: "entro 15 maggio" },
+        { cosa: "Application (2 semestre)", periodo: "entro 15 novembre" }
+      ],
     linkSito: "https://www.ugent.be/en/exchange",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70675."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70675. || Lingua: UGent richiede per gli exchange buona conoscenza dell'inglese, livello CEF/CEFR B2 o superiore, per comunicare e lavorare in contesto accademico. [Fonti: scheda destinazione; UGent Language Requirements for Exchange Students]"
   },
   {
     id: "sap-mfn-gent-3",
@@ -379,11 +501,18 @@ var METE = [
     posti: [
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "richiesto per studenti exchange in contesto accademico; certificato con speaking, writing, listening e reading" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (1 semestre)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (2 semestre)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (1 semestre)", periodo: "entro 15 maggio" },
+        { cosa: "Application (2 semestre)", periodo: "entro 15 novembre" }
+      ],
     linkSito: "https://www.ugent.be/en/exchange",
-    notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70677."
+    notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70677. || Lingua: UGent richiede per gli exchange buona conoscenza dell'inglese, livello CEF/CEFR B2 o superiore, per comunicare e lavorare in contesto accademico. [Fonti: scheda destinazione; UGent Language Requirements for Exchange Students]"
   },
   {
     id: "sap-mfn-gent-4",
@@ -397,11 +526,18 @@ var METE = [
     posti: [
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "richiesto per studenti exchange in contesto accademico; certificato con speaking, writing, listening e reading" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (1 semestre)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (2 semestre)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (1 semestre)", periodo: "entro 15 maggio" },
+        { cosa: "Application (2 semestre)", periodo: "entro 15 novembre" }
+      ],
     linkSito: "https://www.ugent.be/en/exchange",
-    notePratiche: "Posti dell'accordo: 1. Accordo ERA70676."
+    notePratiche: "Posti dell'accordo: 1. Accordo ERA70676. || Lingua: UGent richiede per gli exchange buona conoscenza dell'inglese, livello CEF/CEFR B2 o superiore, per comunicare e lavorare in contesto accademico. [Fonti: scheda destinazione; UGent Language Requirements for Exchange Students]"
   },
   {
     id: "sap-mfn-plovdiv",
@@ -510,11 +646,19 @@ var METE = [
       { numero: 1, mesi: 5, livello: "L", note: "" },
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "Language Requirement Form firmato (TOEFL/IELTS non richiesti)" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination autunno (UE/SEE)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination primavera (UE/SEE)", periodo: "entro 15 ottobre" },
+        { cosa: "Application autunno (UE/SEE)", periodo: "entro 1 maggio" },
+        { cosa: "Application primavera (UE/SEE)", periodo: "entro 1 novembre" },
+        { cosa: "Alloggio garantito se richiesto", periodo: "entro 1 maggio / 1 novembre" }
+      ],
     linkSito: "http://www.sdu.dk",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70732."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70732. || Scadenze: SDU exchange application, nomination 1/5 e 1/11, application 15/5 e 15/11 || Lingua: inglese equivalente almeno al Danish B2 standard"
   },
   {
     id: "sap-mfn-jyvasky",
@@ -548,11 +692,19 @@ var METE = [
       { numero: 2, mesi: 10, livello: "L", note: "" },
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "B2 nella lingua dei corsi; certificato o lettera di un docente di lingua" },
+        { lingua: "Inglese", livello: "B2", condizione: "alcuni corsi in inglese/spagnolo a seconda di ciclo e area" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "entro 15 aprile 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre 2026" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 4 maggio 2026" },
+        { cosa: "Application (primavera)", periodo: "entro 15 ottobre 2026" }
+      ],
     linkSito: "http:/www.univ-paris1.fr",
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70813."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70813. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-nancy",
@@ -567,11 +719,19 @@ var METE = [
       { numero: 2, mesi: 12, livello: "L", note: "" },
       { numero: 2, mesi: 12, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1/B2", condizione: "la maggior parte dei corsi e' in francese; livello richiesto secondo i corsi scelti" },
+        { lingua: "Inglese", livello: "B1/B2", condizione: "per il semestre/corsi in inglese; livello richiesto secondo i corsi scelti" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
+      ],
     linkSito: "https://www.univ-lorraine.fr/en/univ-lorraine/",
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70811."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70811. || Scadenze: Universit� de Lorraine Student Mobility Fact Sheet 2025/2026 || Lingua: CEFR non pubblicato ufficialmente nella scheda IAE Metz; corsi offerti in inglese"
   },
   {
     id: "sap-mfn-paris-2",
@@ -586,9 +746,17 @@ var METE = [
       { numero: 1, mesi: 9, livello: "L", note: "" },
       { numero: 1, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "per corsi in francese" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 30 ottobre" }
+      ],
     linkSito: "http://www.univ-paris5.fr",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70828."
   },
@@ -642,9 +810,17 @@ var METE = [
     posti: [
       { numero: 3, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "per corsi in francese" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 30 ottobre" }
+      ],
     linkSito: "http://www.univ-paris5.fr",
     notePratiche: "Posti dell'accordo: 3. Accordo ERA70827."
   },
@@ -679,9 +855,17 @@ var METE = [
     posti: [
       { numero: 4, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per i corsi in francese" },
+        { lingua: "Inglese", livello: "B2", condizione: "per i corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "1 marzo - 1 aprile" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "1 settembre - 1 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
+      ],
     linkSito: "https://www.univ-amu.fr/",
     notePratiche: "Posti dell'accordo: 4. Accordo ERA70178."
   },
@@ -697,9 +881,17 @@ var METE = [
     posti: [
       { numero: 2, mesi: 9, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per i corsi in francese" },
+        { lingua: "Inglese", livello: "B2", condizione: "per i corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "1 marzo - 1 aprile" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "1 settembre - 1 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
+      ],
     linkSito: "https://www.univ-amu.fr/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70172."
   },
@@ -716,9 +908,17 @@ var METE = [
       { numero: 4, mesi: 9, livello: "L", note: "" },
       { numero: 4, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per i corsi in francese" },
+        { lingua: "Inglese", livello: "B2", condizione: "per i corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "1 marzo - 1 aprile" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "1 settembre - 1 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
+      ],
     linkSito: "https://www.univ-amu.fr/",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Accordo ERA70173."
   },
@@ -734,9 +934,17 @@ var METE = [
     posti: [
       { numero: 3, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per i corsi in francese" },
+        { lingua: "Inglese", livello: "B2", condizione: "per i corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "1 marzo - 1 aprile" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "1 settembre - 1 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
+      ],
     linkSito: "https://www.univ-amu.fr/",
     notePratiche: "Posti dell'accordo: 3. Accordo ERA70174."
   },
@@ -753,9 +961,17 @@ var METE = [
       { numero: 4, mesi: 9, livello: "L", note: "" },
       { numero: 4, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per i corsi in francese" },
+        { lingua: "Inglese", livello: "B2", condizione: "per i corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "1 marzo - 1 aprile" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "1 settembre - 1 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
+      ],
     linkSito: "https://www.univ-amu.fr/",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Accordo ERA70179."
   },
@@ -772,9 +988,17 @@ var METE = [
       { numero: 4, mesi: 9, livello: "L", note: "" },
       { numero: 4, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per i corsi in francese" },
+        { lingua: "Inglese", livello: "B2", condizione: "per i corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "1 marzo - 1 aprile" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "1 settembre - 1 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
+      ],
     linkSito: "https://www.univ-amu.fr/",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Accordo ERA70181."
   },
@@ -790,9 +1014,17 @@ var METE = [
     posti: [
       { numero: 1, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per i corsi in francese" },
+        { lingua: "Inglese", livello: "B2", condizione: "per i corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "1 marzo - 1 aprile" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "1 settembre - 1 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
+      ],
     linkSito: "https://www.univ-amu.fr/",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA70167."
   },
@@ -809,9 +1041,17 @@ var METE = [
       { numero: 4, mesi: 9, livello: "L", note: "" },
       { numero: 4, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per i corsi in francese" },
+        { lingua: "Inglese", livello: "B2", condizione: "per i corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "1 marzo - 1 aprile" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "1 settembre - 1 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
+      ],
     linkSito: "https://www.univ-amu.fr/",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Accordo ERA70177."
   },
@@ -865,9 +1105,17 @@ var METE = [
       { numero: 1, mesi: 5, livello: "L", note: "" },
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "per corsi in francese" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 30 ottobre" }
+      ],
     linkSito: "http://www.univ-paris5.fr",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70829."
   },
@@ -884,11 +1132,18 @@ var METE = [
       { numero: 1, mesi: 10, livello: "L", note: "" },
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1/B2", condizione: "per mobilita di scambio presso UFR Arts et Sciences Humaines" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno)", periodo: "dal 15 marzo al 30 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "dal 30 agosto al 30 settembre" },
+        { cosa: "Application (autunno/anno)", periodo: "dal 15 marzo al 30 maggio" },
+        { cosa: "Application (primavera)", periodo: "dal 30 agosto al 18 ottobre" }
+      ],
     linkSito: "http://www.univ-grenoble-alpes.fr/",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70804."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70804. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-cergyp",
@@ -905,9 +1160,12 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "dal 1 aprile al 31 maggio 2026" },
+        { cosa: "Application (primavera)", periodo: "dal 1 ottobre al 31 ottobre 2026" }
+      ],
     linkSito: "http://www.u-cergy.fr",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70797."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70797. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato in mappature precedenti"
   },
   {
     id: "sap-mfn-caen",
@@ -961,9 +1219,11 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 30 maggio" }
+      ],
     linkSito: "http://www.ensc-rennes.fr/",
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70831."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70831. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato in mappature precedenti"
   },
   {
     id: "sap-mfn-grenobl-3",
@@ -978,11 +1238,18 @@ var METE = [
       { numero: 2, mesi: 10, livello: "L", note: "" },
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1/B2", condizione: "per mobilita di scambio presso UFR Arts et Sciences Humaines" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno)", periodo: "dal 15 marzo al 30 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "dal 30 agosto al 30 settembre" },
+        { cosa: "Application (autunno/anno)", periodo: "dal 15 marzo al 30 maggio" },
+        { cosa: "Application (primavera)", periodo: "dal 30 agosto al 18 ottobre" }
+      ],
     linkSito: "http://www.univ-grenoble-alpes.fr/",
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70802."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70802. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-paris-6",
@@ -1072,11 +1339,20 @@ var METE = [
       { numero: 2, mesi: 10, livello: "L", note: "" },
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "minimo B2 in francese E/O in inglese (test ufficiale o dichiarazione dell'universita di provenienza)" },
+        { lingua: "Inglese", livello: "B2", condizione: "minimo B2 in francese E/O in inglese (test ufficiale o dichiarazione dell'universita di provenienza)" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (sem. autunnale)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (sem. primaverile)", periodo: "entro 30 settembre" },
+        { cosa: "Application (sem. autunnale)", periodo: "entro 15 giugno" },
+        { cosa: "Application (sem. primaverile)", periodo: "entro 31 ottobre" },
+        { cosa: "Richiesta alloggio CROUS", periodo: "15 gennaio - 15 maggio (solo online)" }
+      ],
     linkSito: "https://univ-cotedazur.fr/",
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA71708."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA71708. || Scadenze: basate su 2025/26"
   },
   {
     id: "sap-mfn-paris-7",
@@ -1091,9 +1367,16 @@ var METE = [
       { numero: 2, mesi: 10, livello: "L", note: "" },
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "per i corsi della Facolta di Lettere; C1 raccomandato per Storia dell'arte" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Application/registrazione (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 settembre" },
+        { cosa: "Application (primavera)", periodo: "entro 13 ottobre" }
+      ],
     linkSito: "http://sciences.sorbonne-universite.fr/fr/international/vos_contacts.html",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70818."
   },
@@ -1129,11 +1412,19 @@ var METE = [
       { numero: 2, mesi: 5, livello: "L", note: "" },
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese (Economia/Management)" },
+        { lingua: "Francese", livello: "B2", condizione: "se il learning agreement ha almeno un corso in francese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 1 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
+      ],
     linkSito: "https://www.u-bordeaux.fr/en",
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70795."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70795. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-paris-9",
@@ -1148,9 +1439,16 @@ var METE = [
       { numero: 2, mesi: 6, livello: "L", note: "" },
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "per i corsi della Facolta di Lettere; C1 raccomandato per Storia dell'arte" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Application/registrazione (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 settembre" },
+        { cosa: "Application (primavera)", periodo: "entro 13 ottobre" }
+      ],
     linkSito: "http://sciences.sorbonne-universite.fr/fr/international/vos_contacts.html",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70822."
   },
@@ -1167,11 +1465,19 @@ var METE = [
       { numero: 1, mesi: 10, livello: "L", note: "" },
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "B2 nella lingua dei corsi; certificato o lettera di un docente di lingua" },
+        { lingua: "Inglese", livello: "B2", condizione: "alcuni corsi in inglese/spagnolo a seconda di ciclo e area" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "entro 15 aprile 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre 2026" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 4 maggio 2026" },
+        { cosa: "Application (primavera)", periodo: "entro 15 ottobre 2026" }
+      ],
     linkSito: "http:/www.univ-paris1.fr",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70814."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70814. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-toulous",
@@ -1186,11 +1492,19 @@ var METE = [
       { numero: 1, mesi: 10, livello: "L", note: "" },
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" },
+        { lingua: "Francese", livello: "B2", condizione: "per corsi in francese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 30 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
     linkSito: "http://www.ups-tlse.fr/",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70833."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70833. || Scadenze: Universite Toulouse III Erasmus incoming || Lingua: B2 indicato per inglese/francese da lista partner; verificare con IUT prima della candidatura"
   },
   {
     id: "sap-mfn-toulous-2",
@@ -1242,11 +1556,17 @@ var METE = [
       { numero: 1, mesi: 8, livello: "L", note: "" },
       { numero: 1, mesi: 8, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "per corsi in francese" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno/anno)", periodo: "entro 10 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
+      ],
     linkSito: "https://www.univ-lille.fr/",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70806."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70806. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-grenobl-6",
@@ -1261,11 +1581,18 @@ var METE = [
       { numero: 2, mesi: 10, livello: "L", note: "" },
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1/B2", condizione: "per mobilita di scambio presso UFR Arts et Sciences Humaines" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno)", periodo: "dal 15 marzo al 30 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "dal 30 agosto al 30 settembre" },
+        { cosa: "Application (autunno/anno)", periodo: "dal 15 marzo al 30 maggio" },
+        { cosa: "Application (primavera)", periodo: "dal 30 agosto al 18 ottobre" }
+      ],
     linkSito: "http://www.univ-grenoble-alpes.fr/",
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70801."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70801. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-lille-2",
@@ -1280,11 +1607,17 @@ var METE = [
       { numero: 1, mesi: 6, livello: "L", note: "" },
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "per corsi in francese" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno/anno)", periodo: "entro 10 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
+      ],
     linkSito: "https://www.univ-lille.fr/",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70805."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70805. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-marseil-9",
@@ -1298,9 +1631,17 @@ var METE = [
     posti: [
       { numero: 1, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per i corsi in francese" },
+        { lingua: "Inglese", livello: "B2", condizione: "per i corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "1 marzo - 1 aprile" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "1 settembre - 1 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
+      ],
     linkSito: "https://www.univ-amu.fr/",
     notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70168."
   },
@@ -1317,11 +1658,19 @@ var METE = [
       { numero: 1, mesi: 5, livello: "L", note: "" },
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese (Economia/Management)" },
+        { lingua: "Francese", livello: "B2", condizione: "se il learning agreement ha almeno un corso in francese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 1 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
+      ],
     linkSito: "https://www.u-bordeaux.fr/en",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70794."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70794. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-rennes-2",
@@ -1338,9 +1687,11 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 30 maggio" }
+      ],
     linkSito: "http://www.ensc-rennes.fr/",
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70830."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70830. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato in mappature precedenti"
   },
   {
     id: "sap-mfn-strasbo",
@@ -1354,11 +1705,19 @@ var METE = [
     posti: [
       { numero: 2, mesi: 12, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" },
+        { lingua: "Francese", livello: "B2", condizione: "per corsi in francese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 30 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
+      ],
     linkSito: "https://www.unistra.fr/fr",
-    notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70832."
+    notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70832. || Scadenze: EM Strasbourg fact sheet 2025/26 || Lingua: B2 nella lingua di insegnamento fortemente raccomandato; certificato non richiesto || Scadenze: basate su 2024/25"
   },
   {
     id: "sap-mfn-bremen",
@@ -1373,9 +1732,16 @@ var METE = [
       { numero: 1, mesi: 6, livello: "L", note: "" },
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco/Inglese", livello: "B2", condizione: "raccomandato per la lingua di insegnamento" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 31 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 31 dicembre" }
+      ],
     linkSito: "https://www.uni-bremen.de/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70696."
   },
@@ -1392,9 +1758,16 @@ var METE = [
       { numero: 1, mesi: 6, livello: "L", note: "" },
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco/Inglese", livello: "B2", condizione: "raccomandato per la lingua di insegnamento" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 31 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 31 dicembre" }
+      ],
     linkSito: "https://www.uni-bremen.de/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70697."
   },
@@ -1410,9 +1783,15 @@ var METE = [
     posti: [
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B1", condizione: "per corsi in tedesco" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 1 luglio" },
+        { cosa: "Application (primavera)", periodo: "entro 1 gennaio" }
+      ],
     linkSito: "http://www.uni-osnabrueck.de/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70722."
   },
@@ -1429,9 +1808,18 @@ var METE = [
       { numero: 2, mesi: 5, livello: "L", note: "" },
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B1", condizione: "per corsi in tedesco" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" },
+        { lingua: "Tedesco", livello: "A2", condizione: "per corsi di lingua tedesca del Language Center" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno accademico)", periodo: "entro 15 maggio" },
+        { cosa: "Application (autunno/anno accademico)", periodo: "entro 1 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 1 dicembre" }
+      ],
     linkSito: "https://www.ku.de/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70701."
   },
@@ -1448,9 +1836,15 @@ var METE = [
       { numero: 1, mesi: 10, livello: "L", note: "" },
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B2", condizione: "per corsi in tedesco" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 aprile" },
+        { cosa: "Application (autunno)", periodo: "15 aprile - 31 maggio" },
+        { cosa: "Application (primavera)", periodo: "15 ottobre - 30 novembre" }
+      ],
     linkSito: "https://www.hu-berlin.de/de",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70693."
   },
@@ -1467,9 +1861,17 @@ var METE = [
       { numero: 1, mesi: 10, livello: "L", note: "" },
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B2", condizione: "per corsi in tedesco" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "1 aprile - 15 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "1 ottobre - 15 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+      ],
     linkSito: "http://www.uni-augsburg.de",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70690."
   },
@@ -1486,9 +1888,17 @@ var METE = [
       { numero: 3, mesi: 6, livello: "L", note: "" },
       { numero: 3, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B1", condizione: "per corsi in tedesco; ammesso A2 alla candidatura con B1 da presentare successivamente" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi master in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 aprile 2026" },
+        { cosa: "Application (autunno)", periodo: "entro 1 giugno 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre 2026" },
+        { cosa: "Application (primavera)", periodo: "entro 1 dicembre 2026" }
+      ],
     linkSito: "http://www.tu-berlin.de",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70691."
   },
@@ -1543,9 +1953,17 @@ var METE = [
       { numero: 2, mesi: 6, livello: "L", note: "" },
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B1", condizione: "per corsi in tedesco" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 dicembre" }
+      ],
     linkSito: "http://www.eu.uni-heidelberg.de",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70708."
   },
@@ -1562,11 +1980,19 @@ var METE = [
       { numero: 2, mesi: 6, livello: "L", note: "" },
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B1/B2", condizione: "raccomandato; i requisiti variano in base a facolta o corso" },
+        { lingua: "Inglese", livello: "B1/B2", condizione: "in alcuni casi; i requisiti variano in base a facolta o corso" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 1 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 1 dicembre" }
+      ],
     linkSito: "http://www.uni-goettingen.de",
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70705."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70705. || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26"
   },
   {
     id: "sap-mfn-potsdam",
@@ -1581,11 +2007,16 @@ var METE = [
       { numero: 1, mesi: 6, livello: "L", note: "" },
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B1", condizione: "requisito usuale negli accordi Erasmus+" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" }
+      ],
     linkSito: "https://www.uni-potsdam.de/de/",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70726."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70726. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-tubinge",
@@ -1600,9 +2031,16 @@ var METE = [
       { numero: 1, mesi: 8, livello: "L", note: "" },
       { numero: 1, mesi: 8, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco o Inglese", livello: "B2", condizione: "raccomandato nella lingua di insegnamento dei corsi" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "1 aprile - 15 maggio 2026" },
+        { cosa: "Application (autunno)", periodo: "1 aprile - 31 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "1 ottobre - 15 novembre 2025" },
+        { cosa: "Application (primavera)", periodo: "1 ottobre - 30 novembre 2025" }
+      ],
     linkSito: "https://uni-tuebingen.de/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70183."
   },
@@ -1619,9 +2057,16 @@ var METE = [
       { numero: 1, mesi: 8, livello: "L", note: "" },
       { numero: 1, mesi: 8, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco o Inglese", livello: "B2", condizione: "raccomandato nella lingua di insegnamento dei corsi" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "1 aprile - 15 maggio 2026" },
+        { cosa: "Application (autunno)", periodo: "1 aprile - 31 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "1 ottobre - 15 novembre 2025" },
+        { cosa: "Application (primavera)", periodo: "1 ottobre - 30 novembre 2025" }
+      ],
     linkSito: "https://uni-tuebingen.de/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70185."
   },
@@ -1637,9 +2082,16 @@ var METE = [
     posti: [
       { numero: 1, mesi: 8, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco o Inglese", livello: "B2", condizione: "raccomandato nella lingua di insegnamento dei corsi" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "1 aprile - 15 maggio 2026" },
+        { cosa: "Application (autunno)", periodo: "1 aprile - 31 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "1 ottobre - 15 novembre 2025" },
+        { cosa: "Application (primavera)", periodo: "1 ottobre - 30 novembre 2025" }
+      ],
     linkSito: "https://uni-tuebingen.de/",
     notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70186."
   },
@@ -1656,11 +2108,19 @@ var METE = [
       { numero: 1, mesi: 6, livello: "L", note: "" },
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B2", condizione: "richiesto all'inizio degli studi per corsi in tedesco" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
     linkSito: "http://www.lmu.de/international",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70716."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70716. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-tubinge-4",
@@ -1675,9 +2135,16 @@ var METE = [
       { numero: 3, mesi: 8, livello: "L", note: "" },
       { numero: 3, mesi: 8, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco o Inglese", livello: "B2", condizione: "raccomandato nella lingua di insegnamento dei corsi" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "1 aprile - 15 maggio 2026" },
+        { cosa: "Application (autunno)", periodo: "1 aprile - 31 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "1 ottobre - 15 novembre 2025" },
+        { cosa: "Application (primavera)", periodo: "1 ottobre - 30 novembre 2025" }
+      ],
     linkSito: "https://uni-tuebingen.de/",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70187."
   },
@@ -1694,9 +2161,16 @@ var METE = [
       { numero: 1, mesi: 8, livello: "L", note: "" },
       { numero: 1, mesi: 8, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco o Inglese", livello: "B2", condizione: "raccomandato nella lingua di insegnamento dei corsi" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "1 aprile - 15 maggio 2026" },
+        { cosa: "Application (autunno)", periodo: "1 aprile - 31 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "1 ottobre - 15 novembre 2025" },
+        { cosa: "Application (primavera)", periodo: "1 ottobre - 30 novembre 2025" }
+      ],
     linkSito: "https://uni-tuebingen.de/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70184."
   },
@@ -1713,9 +2187,16 @@ var METE = [
       { numero: 1, mesi: 8, livello: "L", note: "" },
       { numero: 1, mesi: 8, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco o Inglese", livello: "B2", condizione: "raccomandato nella lingua di insegnamento dei corsi" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "1 aprile - 15 maggio 2026" },
+        { cosa: "Application (autunno)", periodo: "1 aprile - 31 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "1 ottobre - 15 novembre 2025" },
+        { cosa: "Application (primavera)", periodo: "1 ottobre - 30 novembre 2025" }
+      ],
     linkSito: "https://uni-tuebingen.de/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70188."
   },
@@ -1732,9 +2213,16 @@ var METE = [
       { numero: 1, mesi: 4, livello: "L", note: "" },
       { numero: 1, mesi: 4, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco o Inglese", livello: "B2", condizione: "raccomandato nella lingua di insegnamento dei corsi" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "1 aprile - 15 maggio 2026" },
+        { cosa: "Application (autunno)", periodo: "1 aprile - 31 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "1 ottobre - 15 novembre 2025" },
+        { cosa: "Application (primavera)", periodo: "1 ottobre - 30 novembre 2025" }
+      ],
     linkSito: "https://uni-tuebingen.de/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70191."
   },
@@ -1789,11 +2277,17 @@ var METE = [
       { numero: 4, mesi: 5, livello: "L", note: "" },
       { numero: 4, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B1", condizione: "minimo per corsi in tedesco; alcune facolta, es. German Philology, possono avere requisiti superiori" },
+        { lingua: "Inglese", livello: "B2", condizione: "minimo per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 1 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 1 dicembre" }
+      ],
     linkSito: "http://www.uni-muenster.de/",
-    notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70721."
+    notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70721. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-essen",
@@ -1826,9 +2320,15 @@ var METE = [
       { numero: 2, mesi: 10, livello: "L", note: "" },
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B2", condizione: "per corsi in tedesco" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 aprile" },
+        { cosa: "Application (autunno)", periodo: "15 aprile - 31 maggio" },
+        { cosa: "Application (primavera)", periodo: "15 ottobre - 30 novembre" }
+      ],
     linkSito: "https://www.hu-berlin.de/de",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70694."
   },
@@ -1845,11 +2345,19 @@ var METE = [
       { numero: 1, mesi: 10, livello: "L", note: "" },
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B2", condizione: "richiesto all'inizio degli studi per corsi in tedesco" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
     linkSito: "http://www.lmu.de/international",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70717."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70717. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-siegen",
@@ -1902,9 +2410,15 @@ var METE = [
       { numero: 2, mesi: 6, livello: "L", note: "" },
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B2", condizione: "per corsi in tedesco" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 aprile" },
+        { cosa: "Application (autunno)", periodo: "15 aprile - 31 maggio" },
+        { cosa: "Application (primavera)", periodo: "15 ottobre - 30 novembre" }
+      ],
     linkSito: "https://www.hu-berlin.de/de",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70692."
   },
@@ -1920,9 +2434,15 @@ var METE = [
     posti: [
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B1", condizione: "buona conoscenza del tedesco (almeno B1)" },
+        { lingua: "Inglese", livello: "B2", condizione: "B1/B2 - solo se i corsi scelti sono in inglese (soprattutto magistrali)" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (sem. invernale)", periodo: "entro 15 giugno" },
+        { cosa: "Application (sem. estivo)", periodo: "entro 15 gennaio" }
+      ],
     linkSito: "http://www.tu-dresden.de",
     notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70700."
   },
@@ -1958,9 +2478,17 @@ var METE = [
       { numero: 2, mesi: 6, livello: "L", note: "" },
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B1.1", condizione: "in base alla scelta dei corsi e alla facolta" },
+        { lingua: "Inglese", livello: "B2.1", condizione: "in base alla scelta dei corsi e alla facolta" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 31 marzo" },
+        { cosa: "Application (autunno)", periodo: "entro 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 31 dicembre" }
+      ],
     linkSito: "http://www.rwth-aachen.de",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70689."
   },
@@ -1977,11 +2505,16 @@ var METE = [
       { numero: 1, mesi: 6, livello: "L", note: "" },
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B1", condizione: "requisito usuale negli accordi Erasmus+" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" }
+      ],
     linkSito: "https://www.uni-potsdam.de/de/",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70723."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70723. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-gotting-2",
@@ -1996,11 +2529,19 @@ var METE = [
       { numero: 1, mesi: 6, livello: "L", note: "" },
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B1/B2", condizione: "raccomandato; i requisiti variano in base a facolta o corso" },
+        { lingua: "Inglese", livello: "B1/B2", condizione: "in alcuni casi; i requisiti variano in base a facolta o corso" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 1 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 1 dicembre" }
+      ],
     linkSito: "http://www.uni-goettingen.de",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70703."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70703. || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26"
   },
   {
     id: "sap-mfn-gotting-3",
@@ -2015,11 +2556,19 @@ var METE = [
       { numero: 1, mesi: 6, livello: "L", note: "" },
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B1/B2", condizione: "raccomandato; i requisiti variano in base a facolta o corso" },
+        { lingua: "Inglese", livello: "B1/B2", condizione: "in alcuni casi; i requisiti variano in base a facolta o corso" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 1 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 1 dicembre" }
+      ],
     linkSito: "http://www.uni-goettingen.de",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70704."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70704. || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26"
   },
   {
     id: "sap-mfn-potsdam-3",
@@ -2034,11 +2583,16 @@ var METE = [
       { numero: 1, mesi: 6, livello: "L", note: "" },
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B1", condizione: "requisito usuale negli accordi Erasmus+" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" }
+      ],
     linkSito: "https://www.uni-potsdam.de/de/",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70725."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70725. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-ulm",
@@ -2091,9 +2645,17 @@ var METE = [
       { numero: 1, mesi: 10, livello: "L", note: "" },
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B1", condizione: "per corsi in tedesco" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 dicembre" }
+      ],
     linkSito: "http://www.eu.uni-heidelberg.de",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70707."
   },
@@ -2110,9 +2672,17 @@ var METE = [
       { numero: 1, mesi: 5, livello: "L", note: "" },
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B2", condizione: "per corsi in tedesco; B1 minimo solo se approvato individualmente" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese; B1 minimo solo se approvato individualmente" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno)", periodo: "dal 15 aprile al 15 maggio" },
+        { cosa: "Application (autunno/anno)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "dal 15 ottobre al 15 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 1 dicembre" }
+      ],
     linkSito: "http://www.uni-leipzig.de",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70711."
   },
@@ -2129,9 +2699,16 @@ var METE = [
       { numero: 2, mesi: 6, livello: "L", note: "" },
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco/Inglese", livello: "B2", condizione: "raccomandato per la lingua di insegnamento" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 31 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 31 dicembre" }
+      ],
     linkSito: "https://www.uni-bremen.de/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70698."
   },
@@ -2166,9 +2743,16 @@ var METE = [
     posti: [
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco/Inglese", livello: "B2", condizione: "raccomandato per la lingua di insegnamento" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 31 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 31 dicembre" }
+      ],
     linkSito: "https://www.uni-bremen.de/",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA70699."
   },
@@ -2185,11 +2769,19 @@ var METE = [
       { numero: 2, mesi: 10, livello: "L", note: "" },
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" },
+        { lingua: "Tedesco", livello: "B1", condizione: "per corsi in tedesco" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 15 luglio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 gennaio" }
+      ],
     linkSito: "http://www.leuphana.de/en/services/io.html",
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70712."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70712. || Scadenze: Leuphana Fact Sheet 2025/26, nomination 15/5 e 15/11, application 15/7 e 15/1 || Lingua: B2 inglese per corsi in inglese, B1 tedesco per corsi in tedesco"
   },
   {
     id: "sap-mfn-konstan",
@@ -2204,9 +2796,17 @@ var METE = [
       { numero: 2, mesi: 5, livello: "L", note: "" },
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B2", condizione: "per corsi in tedesco" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "15 marzo - 1 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "15 settembre - 1 novembre" },
+        { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
     linkSito: "http://www.uni-konstanz.de/international",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70710."
   },
@@ -2261,9 +2861,17 @@ var METE = [
       { numero: 4, mesi: 10, livello: "L", note: "" },
       { numero: 4, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Greco", livello: "B2", condizione: "requisito minimo in greco o inglese definito negli accordi bilaterali" },
+        { lingua: "Inglese", livello: "B2", condizione: "requisito minimo in greco o inglese definito negli accordi bilaterali" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre 2026" },
+        { cosa: "Application (autunno)", periodo: "15 aprile-15 giugno 2026" },
+        { cosa: "Application (primavera)", periodo: "15 settembre-15 novembre 2026" }
+      ],
     linkSito: "http://www.uoa.gr/socrates-erasmus",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70193."
   },
@@ -2280,9 +2888,17 @@ var METE = [
       { numero: 4, mesi: 10, livello: "L", note: "" },
       { numero: 4, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Greco", livello: "B2", condizione: "requisito minimo in greco o inglese definito negli accordi bilaterali" },
+        { lingua: "Inglese", livello: "B2", condizione: "requisito minimo in greco o inglese definito negli accordi bilaterali" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre 2026" },
+        { cosa: "Application (autunno)", periodo: "15 aprile-15 giugno 2026" },
+        { cosa: "Application (primavera)", periodo: "15 settembre-15 novembre 2026" }
+      ],
     linkSito: "http://www.uoa.gr/socrates-erasmus",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70195."
   },
@@ -2299,9 +2915,17 @@ var METE = [
       { numero: 8, mesi: 10, livello: "L", note: "" },
       { numero: 8, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Greco", livello: "B2", condizione: "requisito minimo in greco o inglese definito negli accordi bilaterali" },
+        { lingua: "Inglese", livello: "B2", condizione: "requisito minimo in greco o inglese definito negli accordi bilaterali" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre 2026" },
+        { cosa: "Application (autunno)", periodo: "15 aprile-15 giugno 2026" },
+        { cosa: "Application (primavera)", periodo: "15 settembre-15 novembre 2026" }
+      ],
     linkSito: "http://www.uoa.gr/socrates-erasmus",
     notePratiche: "Posti totali dell'accordo: 8 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70194."
   },
@@ -2318,9 +2942,17 @@ var METE = [
       { numero: 4, mesi: 10, livello: "L", note: "" },
       { numero: 4, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Greco", livello: "B2", condizione: "requisito minimo in greco o inglese definito negli accordi bilaterali" },
+        { lingua: "Inglese", livello: "B2", condizione: "requisito minimo in greco o inglese definito negli accordi bilaterali" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre 2026" },
+        { cosa: "Application (autunno)", periodo: "15 aprile-15 giugno 2026" },
+        { cosa: "Application (primavera)", periodo: "15 settembre-15 novembre 2026" }
+      ],
     linkSito: "http://www.uoa.gr/socrates-erasmus",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70196."
   },
@@ -2337,9 +2969,17 @@ var METE = [
       { numero: 8, mesi: 10, livello: "L", note: "" },
       { numero: 8, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Greco", livello: "B2", condizione: "requisito minimo in greco o inglese definito negli accordi bilaterali" },
+        { lingua: "Inglese", livello: "B2", condizione: "requisito minimo in greco o inglese definito negli accordi bilaterali" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre 2026" },
+        { cosa: "Application (autunno)", periodo: "15 aprile-15 giugno 2026" },
+        { cosa: "Application (primavera)", periodo: "15 settembre-15 novembre 2026" }
+      ],
     linkSito: "http://www.uoa.gr/socrates-erasmus",
     notePratiche: "Posti totali dell'accordo: 8 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70197."
   },
@@ -2358,9 +2998,14 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno)", periodo: "entro 20 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 settembre" },
+        { cosa: "Application (autunno/anno)", periodo: "entro 20 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
+      ],
     linkSito: "http://www.upatras.gr/",
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70837."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70837. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato in mappature precedenti"
   },
   {
     id: "sap-mfn-kritis",
@@ -2450,11 +3095,18 @@ var METE = [
       { numero: 2, mesi: 6, livello: "L", note: "" },
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
     linkSito: "http://www.vu.lt/en/international/",
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70842."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70842. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-kaunas",
@@ -2524,9 +3176,16 @@ var METE = [
     posti: [
       { numero: 1, mesi: 6, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "minimo B2 (preferibilmente C1); nessun certificato richiesto per gli exchange (la nomination dell'ateneo di provenienza e sufficiente)" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (sem. autunnale, UE/SEE)", periodo: "entro 15 aprile" },
+        { cosa: "Application (sem. autunnale, UE/SEE)", periodo: "entro 1 maggio" },
+        { cosa: "Nomination (sem. primaverile)", periodo: "entro 15 settembre" },
+        { cosa: "Application (sem. primaverile)", periodo: "entro 1 ottobre" }
+      ],
     linkSito: "http://www.ntnu.no",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA70846."
   },
@@ -2542,9 +3201,16 @@ var METE = [
     posti: [
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "minimo B2 (preferibilmente C1); nessun certificato richiesto per gli exchange (la nomination dell'ateneo di provenienza e sufficiente)" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (sem. autunnale, UE/SEE)", periodo: "entro 15 aprile" },
+        { cosa: "Application (sem. autunnale, UE/SEE)", periodo: "entro 1 maggio" },
+        { cosa: "Nomination (sem. primaverile)", periodo: "entro 15 settembre" },
+        { cosa: "Application (sem. primaverile)", periodo: "entro 1 ottobre" }
+      ],
     linkSito: "http://www.ntnu.no",
     notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70851."
   },
@@ -2560,9 +3226,16 @@ var METE = [
     posti: [
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "minimo B2 (preferibilmente C1); nessun certificato richiesto per gli exchange (la nomination dell'ateneo di provenienza e sufficiente)" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (sem. autunnale, UE/SEE)", periodo: "entro 15 aprile" },
+        { cosa: "Application (sem. autunnale, UE/SEE)", periodo: "entro 1 maggio" },
+        { cosa: "Nomination (sem. primaverile)", periodo: "entro 15 settembre" },
+        { cosa: "Application (sem. primaverile)", periodo: "entro 1 ottobre" }
+      ],
     linkSito: "http://www.ntnu.no",
     notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70848."
   },
@@ -2578,9 +3251,16 @@ var METE = [
     posti: [
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "minimo B2 (preferibilmente C1); nessun certificato richiesto per gli exchange (la nomination dell'ateneo di provenienza e sufficiente)" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (sem. autunnale, UE/SEE)", periodo: "entro 15 aprile" },
+        { cosa: "Application (sem. autunnale, UE/SEE)", periodo: "entro 1 maggio" },
+        { cosa: "Nomination (sem. primaverile)", periodo: "entro 15 settembre" },
+        { cosa: "Application (sem. primaverile)", periodo: "entro 1 ottobre" }
+      ],
     linkSito: "http://www.ntnu.no",
     notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70849."
   },
@@ -2615,9 +3295,16 @@ var METE = [
       { numero: 1, mesi: 10, livello: "L", note: "" },
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "test obbligatorio: TOEFL iBT 92 (min 22/sezione) / IELTS 6.5 (min 6.0/sezione) / Cambridge 180" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (1 semestre)", periodo: "entro 15 aprile 2026" },
+        { cosa: "Nomination (2 semestre)", periodo: "entro 1 ottobre 2026" },
+        { cosa: "Application (1 semestre)", periodo: "entro 22 aprile 2026" },
+        { cosa: "Application (2 semestre)", periodo: "entro 8 ottobre 2026" }
+      ],
     linkSito: "http://www.uva.nl/english/index.html",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70852."
   },
@@ -2766,9 +3453,16 @@ var METE = [
       { numero: 7, mesi: 6, livello: "L", note: "" },
       { numero: 7, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "entro 31 maggio" },
+        { cosa: "Application (autunno/anno intero)", periodo: "1 aprile - 30 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 novembre" },
+        { cosa: "Application (primavera)", periodo: "15 ottobre - 15 dicembre" }
+      ],
     linkSito: "http://www.amu.edu.pl",
     notePratiche: "Posti totali dell'accordo: 7 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70877."
   },
@@ -2823,9 +3517,16 @@ var METE = [
       { numero: 1, mesi: 6, livello: "L", note: "" },
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "requisito generale per studiare alla Jagiellonian University" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno)", periodo: "entro 15 aprile" },
+        { cosa: "Application (autunno/anno)", periodo: "1 maggio - 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (primavera)", periodo: "1 novembre - 30 novembre" }
+      ],
     linkSito: "https://www.uj.edu.pl/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70874."
   },
@@ -2861,11 +3562,19 @@ var METE = [
       { numero: 1, mesi: 6, livello: "L", note: "" },
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" },
+        { lingua: "Portoghese", livello: "B2", condizione: "per corsi in portoghese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 marzo" },
+        { cosa: "Application (autunno)", periodo: "dal 1 aprile al 21 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 31 agosto" },
+        { cosa: "Application (primavera)", periodo: "dal 1 settembre al 15 ottobre" }
+      ],
     linkSito: "http://www.up.pt",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70869."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70869. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-porto-2",
@@ -2880,11 +3589,19 @@ var METE = [
       { numero: 1, mesi: 6, livello: "L", note: "" },
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" },
+        { lingua: "Portoghese", livello: "B2", condizione: "per corsi in portoghese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 marzo" },
+        { cosa: "Application (autunno)", periodo: "dal 1 aprile al 21 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 31 agosto" },
+        { cosa: "Application (primavera)", periodo: "dal 1 settembre al 15 ottobre" }
+      ],
     linkSito: "http://www.up.pt",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70870."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70870. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-evora",
@@ -2917,11 +3634,19 @@ var METE = [
     posti: [
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" },
+        { lingua: "Portoghese", livello: "B2", condizione: "per corsi in portoghese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 marzo" },
+        { cosa: "Application (autunno)", periodo: "dal 1 aprile al 21 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 31 agosto" },
+        { cosa: "Application (primavera)", periodo: "dal 1 settembre al 15 ottobre" }
+      ],
     linkSito: "http://www.up.pt",
-    notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70872."
+    notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70872. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-evora-2",
@@ -2973,11 +3698,18 @@ var METE = [
       { numero: 1, mesi: 6, livello: "L", note: "" },
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "dal 1 al 30 aprile" },
+        { cosa: "Application (autunno)", periodo: "dal 1 al 30 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "dal 1 al 30 settembre" },
+        { cosa: "Application (primavera)", periodo: "dal 1 al 30 settembre" }
+      ],
     linkSito: "https://www.ulisboa.pt/",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70867."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70867. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-evora-4",
@@ -3104,11 +3836,16 @@ var METE = [
       { numero: 2, mesi: 10, livello: "L", note: "" },
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "Faculty of Arts: conferma del livello B2 o superiore" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination/application (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination/application (primavera)", periodo: "entro 15 settembre" }
+      ],
     linkSito: "http://www.cuni.cz/cuni/ruk/zahran/",
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70688."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70688. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-ostrava",
@@ -3123,9 +3860,16 @@ var METE = [
       { numero: 2, mesi: 6, livello: "L", note: "" },
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "la scheda indica livello B1-B2 di inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (sem. invernale/anno)", periodo: "entro 30 aprile" },
+        { cosa: "Nomination (sem. estivo)", periodo: "entro 15 novembre" },
+        { cosa: "Application (sem. invernale/anno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (sem. estivo)", periodo: "entro 30 novembre" }
+      ],
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70687."
   },
   {
@@ -3141,11 +3885,17 @@ var METE = [
       { numero: 1, mesi: 9, livello: "L", note: "" },
       { numero: 1, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per programmi della Faculty of Journalism and Communication Science e della Faculty of Sociology and Social Work" },
+        { lingua: "Francese", livello: "B2", condizione: "per il programma Medias, Developpement, Societe" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application/registration (autunno/anno)", periodo: "entro 30 giugno" },
+        { cosa: "Application/registration (primavera)", periodo: "entro 30 ottobre" }
+      ],
     linkSito: "http://www.unibuc.ro",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70202."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70202. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-bucures-2",
@@ -3160,11 +3910,17 @@ var METE = [
       { numero: 1, mesi: 9, livello: "L", note: "" },
       { numero: 1, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per programmi della Faculty of Journalism and Communication Science e della Faculty of Sociology and Social Work" },
+        { lingua: "Francese", livello: "B2", condizione: "per il programma Medias, Developpement, Societe" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application/registration (autunno/anno)", periodo: "entro 30 giugno" },
+        { cosa: "Application/registration (primavera)", periodo: "entro 30 ottobre" }
+      ],
     linkSito: "http://www.unibuc.ro",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70203."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70203. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-bucures-3",
@@ -3179,11 +3935,17 @@ var METE = [
       { numero: 1, mesi: 9, livello: "L", note: "" },
       { numero: 1, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per programmi della Faculty of Journalism and Communication Science e della Faculty of Sociology and Social Work" },
+        { lingua: "Francese", livello: "B2", condizione: "per il programma Medias, Developpement, Societe" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application/registration (autunno/anno)", periodo: "entro 30 giugno" },
+        { cosa: "Application/registration (primavera)", periodo: "entro 30 ottobre" }
+      ],
     linkSito: "http://www.unibuc.ro",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70204."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70204. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-bucures-4",
@@ -3198,11 +3960,17 @@ var METE = [
       { numero: 1, mesi: 9, livello: "L", note: "" },
       { numero: 1, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per programmi della Faculty of Journalism and Communication Science e della Faculty of Sociology and Social Work" },
+        { lingua: "Francese", livello: "B2", condizione: "per il programma Medias, Developpement, Societe" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application/registration (autunno/anno)", periodo: "entro 30 giugno" },
+        { cosa: "Application/registration (primavera)", periodo: "entro 30 ottobre" }
+      ],
     linkSito: "http://www.unibuc.ro",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70198."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70198. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-bucures-5",
@@ -3216,11 +3984,17 @@ var METE = [
     posti: [
       { numero: 1, mesi: 9, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per programmi della Faculty of Journalism and Communication Science e della Faculty of Sociology and Social Work" },
+        { lingua: "Francese", livello: "B2", condizione: "per il programma Medias, Developpement, Societe" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application/registration (autunno/anno)", periodo: "entro 30 giugno" },
+        { cosa: "Application/registration (primavera)", periodo: "entro 30 ottobre" }
+      ],
     linkSito: "http://www.unibuc.ro",
-    notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70199."
+    notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70199. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-bucures-6",
@@ -3273,9 +4047,15 @@ var METE = [
       { numero: 2, mesi: 6, livello: "L", note: "" },
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Sloveno", livello: "B2", condizione: "per studiare in sloveno" },
+        { lingua: "Inglese", livello: "B2", condizione: "per studiare in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
     linkSito: "http://www.uni-lj.si",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70885."
   },
@@ -3291,11 +4071,19 @@ var METE = [
     posti: [
       { numero: 2, mesi: 9, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "per corsi in spagnolo" },
+        { lingua: "Inglese", livello: "B1", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "1 aprile - 30 aprile" },
+        { cosa: "Application (autunno)", periodo: "1 aprile - 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "1 ottobre - 31 ottobre" },
+        { cosa: "Application (primavera)", periodo: "1 ottobre - 31 ottobre" }
+      ],
     linkSito: "https://www.ugr.es/",
-    notePratiche: "Posti dell'accordo: 2. Accordo ERA70752."
+    notePratiche: "Posti dell'accordo: 2. Accordo ERA70752. || Scadenze: UGR Faculty of Economics and Business fact sheet 2026/27, nomination 1/4-30/4 e 1/10-31/10, application 1/4-15/5 e 1/10-31/10 || Lingua: spagnolo B1 per corsi in spagnolo; inglese B1 per corsi in inglese || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2024/25"
   },
   {
     id: "sap-mfn-oviedo",
@@ -3310,11 +4098,18 @@ var METE = [
       { numero: 1, mesi: 10, livello: "L", note: "" },
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B2", condizione: "fortemente raccomandato per studenti Erasmus incoming undergraduate" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno)", periodo: "entro 30 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 novembre" },
+        { cosa: "Documentazione/application (autunno/anno)", periodo: "entro 30 giugno" },
+        { cosa: "Documentazione/application (primavera)", periodo: "entro 15 dicembre" }
+      ],
     linkSito: "http://WWW.UNIOVI.ES/",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70766."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70766. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-pamplon",
@@ -3346,11 +4141,17 @@ var METE = [
     posti: [
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B2", condizione: "raccomandato per corsi regolari in spagnolo" },
+        { lingua: "Inglese", livello: "B2", condizione: "raccomandato per corsi regolari in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno/anno)", periodo: "1 aprile - 15 giugno" },
+        { cosa: "Application (primavera)", periodo: "1 ottobre - 30 novembre" }
+      ],
     linkSito: "http://www.um.es/internacionales",
-    notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70765."
+    notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70765. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-granada-2",
@@ -3364,11 +4165,19 @@ var METE = [
     posti: [
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "per corsi in spagnolo" },
+        { lingua: "Inglese", livello: "B1", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "1 aprile - 30 aprile" },
+        { cosa: "Application (autunno)", periodo: "1 aprile - 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "1 ottobre - 31 ottobre" },
+        { cosa: "Application (primavera)", periodo: "1 ottobre - 31 ottobre" }
+      ],
     linkSito: "https://www.ugr.es/",
-    notePratiche: "Posti dell'accordo: 2. Accordo ERA70754."
+    notePratiche: "Posti dell'accordo: 2. Accordo ERA70754. || Scadenze: UGR Faculty of Economics and Business fact sheet 2026/27, nomination 1/4-30/4 e 1/10-31/10, application 1/4-15/5 e 1/10-31/10 || Lingua: spagnolo B1 per corsi in spagnolo; inglese B1 per corsi in inglese || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2024/25"
   },
   {
     id: "sap-mfn-santiag",
@@ -3382,11 +4191,18 @@ var METE = [
     posti: [
       { numero: 2, mesi: 9, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "certificato di spagnolo obbligatorio per studenti Erasmus incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
     linkSito: "http://www.usc.es",
-    notePratiche: "Posti dell'accordo: 2. Accordo ERA70778."
+    notePratiche: "Posti dell'accordo: 2. Accordo ERA70778. || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26"
   },
   {
     id: "sap-mfn-santiag-2",
@@ -3400,11 +4216,18 @@ var METE = [
     posti: [
       { numero: 1, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "certificato di spagnolo obbligatorio per studenti Erasmus incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
     linkSito: "http://www.usc.es",
-    notePratiche: "Posti dell'accordo: 1. Accordo ERA70772."
+    notePratiche: "Posti dell'accordo: 1. Accordo ERA70772. || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26"
   },
   {
     id: "sap-mfn-santiag-3",
@@ -3418,11 +4241,18 @@ var METE = [
     posti: [
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "certificato di spagnolo obbligatorio per studenti Erasmus incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
     linkSito: "http://www.usc.es",
-    notePratiche: "Posti dell'accordo: 1. Accordo ERA70773."
+    notePratiche: "Posti dell'accordo: 1. Accordo ERA70773. || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26"
   },
   {
     id: "sap-mfn-madrid",
@@ -3456,11 +4286,18 @@ var METE = [
       { numero: 1, mesi: 9, livello: "L", note: "" },
       { numero: 1, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese/Spagnolo/Catalano", livello: "B2", condizione: "richiesto dalla Faculty of Economics and Business nella lingua di insegnamento dei corsi scelti" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (1 sem./anno intero)", periodo: "15 febbraio - 1 maggio" },
+        { cosa: "Nomination (2 semestre)", periodo: "15 settembre - 1 novembre" },
+        { cosa: "Application (1 sem./anno intero)", periodo: "15 febbraio - 15 maggio" },
+        { cosa: "Application (2 semestre)", periodo: "15 settembre - 15 novembre" }
+      ],
     linkSito: "http://www.uab.es/",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70739."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70739. || Lingua: la Faculty of Economics and Business UAB richiede CEFR B2 nella lingua di insegnamento dei corsi scelti (inglese, spagnolo o catalano); nessun certificato richiesto per lingue in cui non si scelgono corsi. [Fonti: factsheet UAB 2026/27; UAB Faculty of Economics and Business] || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-cadiz",
@@ -3475,9 +4312,16 @@ var METE = [
       { numero: 3, mesi: 6, livello: "L", note: "" },
       { numero: 3, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "per studenti Erasmus incoming; B2 per studenti della Faculty of Medicine" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno)", periodo: "entro 25 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 25 ottobre" },
+        { cosa: "Application (autunno/anno)", periodo: "entro 25 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro 25 ottobre" }
+      ],
     linkSito: "HTTP://WWW.UCA.ES",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70746."
   },
@@ -3493,11 +4337,19 @@ var METE = [
     posti: [
       { numero: 5, mesi: 10, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B2", condizione: "obbligatorio per Faculty of Economics and Business" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "1 aprile - 30 aprile" },
+        { cosa: "Application (autunno)", periodo: "1 maggio - 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "1 settembre - 30 settembre" },
+        { cosa: "Application (primavera)", periodo: "1 ottobre - 31 ottobre" }
+      ],
     linkSito: "https://www.uam.es/uam/inicio",
-    notePratiche: "Posti dell'accordo: 5. Accordo ERA71548."
+    notePratiche: "Posti dell'accordo: 5. Accordo ERA71548. || Scadenze: UAM fact sheet 2026/27, nomination 1/4-30/4 e 1/9-30/9, application 1/5-31/5 e 1/10-31/10 || Lingua: spagnolo B2 obbligatorio per Faculty of Economics and Business; inglese B2 per corsi in inglese || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-madrid-3",
@@ -3511,11 +4363,19 @@ var METE = [
     posti: [
       { numero: 1, mesi: 10, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B2", condizione: "obbligatorio per Faculty of Economics and Business" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "1 aprile - 30 aprile" },
+        { cosa: "Application (autunno)", periodo: "1 maggio - 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "1 settembre - 30 settembre" },
+        { cosa: "Application (primavera)", periodo: "1 ottobre - 31 ottobre" }
+      ],
     linkSito: "https://www.uam.es/uam/inicio",
-    notePratiche: "Posti dell'accordo: 1. Accordo ERA71541."
+    notePratiche: "Posti dell'accordo: 1. Accordo ERA71541. || Scadenze: UAM fact sheet 2026/27, nomination 1/4-30/4 e 1/9-30/9, application 1/5-31/5 e 1/10-31/10 || Lingua: spagnolo B2 obbligatorio per Faculty of Economics and Business; inglese B2 per corsi in inglese || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-madrid-4",
@@ -3529,11 +4389,19 @@ var METE = [
     posti: [
       { numero: 2, mesi: 10, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B2", condizione: "obbligatorio per Faculty of Economics and Business" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "1 aprile - 30 aprile" },
+        { cosa: "Application (autunno)", periodo: "1 maggio - 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "1 settembre - 30 settembre" },
+        { cosa: "Application (primavera)", periodo: "1 ottobre - 31 ottobre" }
+      ],
     linkSito: "https://www.uam.es/uam/inicio",
-    notePratiche: "Posti dell'accordo: 2. Accordo ERA71544."
+    notePratiche: "Posti dell'accordo: 2. Accordo ERA71544. || Scadenze: UAM fact sheet 2026/27, nomination 1/4-30/4 e 1/9-30/9, application 1/5-31/5 e 1/10-31/10 || Lingua: spagnolo B2 obbligatorio per Faculty of Economics and Business; inglese B2 per corsi in inglese || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-valenci",
@@ -3547,11 +4415,18 @@ var METE = [
     posti: [
       { numero: 1, mesi: 10, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato; certificato ufficiale non richiesto" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 31 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 30 giorni dalla email di accettazione" },
+        { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 30 giorni dalla email di accettazione" }
+      ],
     linkSito: "http://www.uv.es/relint/",
-    notePratiche: "Posti dell'accordo: 1. Accordo ERA70784."
+    notePratiche: "Posti dell'accordo: 1. Accordo ERA70784. || Scadenze: UV incoming Erasmus, nomination 1/3-31/5 per autunno e 1/9-31/10 per primavera; application entro 30 giorni dalla email || Lingua: certificato non richiesto, spagnolo B1 raccomandato"
   },
   {
     id: "sap-mfn-cordoba",
@@ -3567,9 +4442,13 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno)", periodo: "entro 31 maggio 2026" },
+        { cosa: "Application (autunno/anno)", periodo: "dal 1 aprile al 30 giugno 2026" },
+        { cosa: "Application (primavera)", periodo: "dal 1 ottobre al 30 novembre 2026" }
+      ],
     linkSito: "http://www.uco.es/",
-    notePratiche: "Posti dell'accordo: 1. Accordo ERA70749."
+    notePratiche: "Posti dell'accordo: 1. Accordo ERA70749. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato in mappature precedenti"
   },
   {
     id: "sap-mfn-granada-3",
@@ -3583,11 +4462,19 @@ var METE = [
     posti: [
       { numero: 2, mesi: 6, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "per corsi in spagnolo" },
+        { lingua: "Inglese", livello: "B1", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "1 aprile - 30 aprile" },
+        { cosa: "Application (autunno)", periodo: "1 aprile - 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "1 ottobre - 31 ottobre" },
+        { cosa: "Application (primavera)", periodo: "1 ottobre - 31 ottobre" }
+      ],
     linkSito: "https://www.ugr.es/",
-    notePratiche: "Posti dell'accordo: 2. Accordo ERA70751."
+    notePratiche: "Posti dell'accordo: 2. Accordo ERA70751. || Scadenze: UGR Faculty of Economics and Business fact sheet 2026/27, nomination 1/4-30/4 e 1/10-31/10, application 1/4-15/5 e 1/10-31/10 || Lingua: spagnolo B1 per corsi in spagnolo; inglese B1 per corsi in inglese || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2024/25"
   },
   {
     id: "sap-mfn-madrid-5",
@@ -3601,11 +4488,19 @@ var METE = [
     posti: [
       { numero: 4, mesi: 10, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B2", condizione: "obbligatorio per Faculty of Economics and Business" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "1 aprile - 30 aprile" },
+        { cosa: "Application (autunno)", periodo: "1 maggio - 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "1 settembre - 30 settembre" },
+        { cosa: "Application (primavera)", periodo: "1 ottobre - 31 ottobre" }
+      ],
     linkSito: "https://www.uam.es/uam/inicio",
-    notePratiche: "Posti dell'accordo: 4. Accordo ERA71542."
+    notePratiche: "Posti dell'accordo: 4. Accordo ERA71542. || Scadenze: UAM fact sheet 2026/27, nomination 1/4-30/4 e 1/9-30/9, application 1/5-31/5 e 1/10-31/10 || Lingua: spagnolo B2 obbligatorio per Faculty of Economics and Business; inglese B2 per corsi in inglese || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-madrid-6",
@@ -3619,11 +4514,19 @@ var METE = [
     posti: [
       { numero: 2, mesi: 10, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B2", condizione: "obbligatorio per Faculty of Economics and Business" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "1 aprile - 30 aprile" },
+        { cosa: "Application (autunno)", periodo: "1 maggio - 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "1 settembre - 30 settembre" },
+        { cosa: "Application (primavera)", periodo: "1 ottobre - 31 ottobre" }
+      ],
     linkSito: "https://www.uam.es/uam/inicio",
-    notePratiche: "Posti dell'accordo: 2. Accordo ERA71547."
+    notePratiche: "Posti dell'accordo: 2. Accordo ERA71547. || Scadenze: UAM fact sheet 2026/27, nomination 1/4-30/4 e 1/9-30/9, application 1/5-31/5 e 1/10-31/10 || Lingua: spagnolo B2 obbligatorio per Faculty of Economics and Business; inglese B2 per corsi in inglese || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-barcelo-2",
@@ -3657,11 +4560,18 @@ var METE = [
       { numero: 5, mesi: 10, livello: "L", note: "" },
       { numero: 5, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B2", condizione: "fortemente raccomandato per studenti Erasmus incoming undergraduate" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno)", periodo: "entro 30 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 novembre" },
+        { cosa: "Documentazione/application (autunno/anno)", periodo: "entro 30 giugno" },
+        { cosa: "Documentazione/application (primavera)", periodo: "entro 15 dicembre" }
+      ],
     linkSito: "http://WWW.UNIOVI.ES/",
-    notePratiche: "Posti totali dell'accordo: 5 (condivisi tra i livelli). Accordo ERA70768."
+    notePratiche: "Posti totali dell'accordo: 5 (condivisi tra i livelli). Accordo ERA70768. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-granada-4",
@@ -3675,11 +4585,19 @@ var METE = [
     posti: [
       { numero: 2, mesi: 10, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "per corsi in spagnolo" },
+        { lingua: "Inglese", livello: "B1", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "1 aprile - 30 aprile" },
+        { cosa: "Application (autunno)", periodo: "1 aprile - 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "1 ottobre - 31 ottobre" },
+        { cosa: "Application (primavera)", periodo: "1 ottobre - 31 ottobre" }
+      ],
     linkSito: "https://www.ugr.es/",
-    notePratiche: "Posti dell'accordo: 2. Accordo ERA70755."
+    notePratiche: "Posti dell'accordo: 2. Accordo ERA70755. || Scadenze: UGR Faculty of Economics and Business fact sheet 2026/27, nomination 1/4-30/4 e 1/10-31/10, application 1/4-15/5 e 1/10-31/10 || Lingua: spagnolo B1 per corsi in spagnolo; inglese B1 per corsi in inglese || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2024/25"
   },
   {
     id: "sap-mfn-almeria",
@@ -3711,11 +4629,18 @@ var METE = [
     posti: [
       { numero: 2, mesi: 9, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "certificato di spagnolo obbligatorio per studenti Erasmus incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
     linkSito: "http://www.usc.es",
-    notePratiche: "Posti dell'accordo: 2. Accordo ERA70776."
+    notePratiche: "Posti dell'accordo: 2. Accordo ERA70776. || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26"
   },
   {
     id: "sap-mfn-santiag-5",
@@ -3729,11 +4654,18 @@ var METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "certificato di spagnolo obbligatorio per studenti Erasmus incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
     linkSito: "http://www.usc.es",
-    notePratiche: "Posti dell'accordo: 2. Accordo ERA70777."
+    notePratiche: "Posti dell'accordo: 2. Accordo ERA70777. || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26"
   },
   {
     id: "sap-mfn-valenci-2",
@@ -3747,11 +4679,18 @@ var METE = [
     posti: [
       { numero: 2, mesi: 10, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato; certificato ufficiale non richiesto" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 31 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 30 giorni dalla email di accettazione" },
+        { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 30 giorni dalla email di accettazione" }
+      ],
     linkSito: "http://www.uv.es/relint/",
-    notePratiche: "Posti dell'accordo: 2. Accordo ERA70788."
+    notePratiche: "Posti dell'accordo: 2. Accordo ERA70788. || Scadenze: UV incoming Erasmus, nomination 1/3-31/5 per autunno e 1/9-31/10 per primavera; application entro 30 giorni dalla email || Lingua: certificato non richiesto, spagnolo B1 raccomandato"
   },
   {
     id: "sap-mfn-santiag-6",
@@ -3765,11 +4704,18 @@ var METE = [
     posti: [
       { numero: 1, mesi: 9, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "certificato di spagnolo obbligatorio per studenti Erasmus incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
     linkSito: "http://www.usc.es",
-    notePratiche: "Posti dell'accordo: 1. Accordo ERA70774."
+    notePratiche: "Posti dell'accordo: 1. Accordo ERA70774. || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26"
   },
   {
     id: "sap-mfn-santiag-7",
@@ -3783,11 +4729,18 @@ var METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "certificato di spagnolo obbligatorio per studenti Erasmus incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
     linkSito: "http://www.usc.es",
-    notePratiche: "Posti dell'accordo: 2. Accordo ERA70775."
+    notePratiche: "Posti dell'accordo: 2. Accordo ERA70775. || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26"
   },
   {
     id: "sap-mfn-valenci-3",
@@ -3801,11 +4754,18 @@ var METE = [
     posti: [
       { numero: 1, mesi: 6, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato; certificato ufficiale non richiesto" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 31 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 30 giorni dalla email di accettazione" },
+        { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 30 giorni dalla email di accettazione" }
+      ],
     linkSito: "http://www.uv.es/relint/",
-    notePratiche: "Posti dell'accordo: 1. Accordo ERA70786."
+    notePratiche: "Posti dell'accordo: 1. Accordo ERA70786. || Scadenze: UV incoming Erasmus, nomination 1/3-31/5 per autunno e 1/9-31/10 per primavera; application entro 30 giorni dalla email || Lingua: certificato non richiesto, spagnolo B1 raccomandato"
   },
   {
     id: "sap-mfn-madrid-7",
@@ -3820,9 +4780,16 @@ var METE = [
       { numero: 4, mesi: 5, livello: "L", note: "" },
       { numero: 4, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "per corsi di laurea" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "dal 15 marzo al 15 maggio" },
+        { cosa: "Application (autunno/anno intero)", periodo: "dal 1 aprile al 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "dal 1 settembre al 15 novembre" },
+        { cosa: "Application (primavera)", periodo: "dal 15 settembre al 20 novembre" }
+      ],
     linkSito: "HTTP://WWW.UCM.ES",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Accordo ERA70757."
   },
@@ -3857,11 +4824,18 @@ var METE = [
     posti: [
       { numero: 2, mesi: 6, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato per seguire i corsi; certificato non richiesto" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "da meta aprile a meta giugno" },
+        { cosa: "Application (autunno)", periodo: "selezione insegnamenti da meta luglio a meta settembre" },
+        { cosa: "Nomination (primavera)", periodo: "da meta aprile a fine ottobre" },
+        { cosa: "Application (primavera)", periodo: "selezione insegnamenti da meta dicembre a meta febbraio" }
+      ],
     linkSito: "http://www.uma.es",
-    notePratiche: "Posti dell'accordo: 2. Accordo ERA70763."
+    notePratiche: "Posti dell'accordo: 2. Accordo ERA70763. || Scadenze: UMA fact sheet 2025/26, nomination via Algoria; application operativa tramite selezione insegnamenti in Algoria || Lingua: spagnolo B1 raccomandato, certificato non richiesto || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-valenci-4",
@@ -3875,11 +4849,18 @@ var METE = [
     posti: [
       { numero: 5, mesi: 10, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato; certificato ufficiale non richiesto" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 31 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 30 giorni dalla email di accettazione" },
+        { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 30 giorni dalla email di accettazione" }
+      ],
     linkSito: "http://www.uv.es/relint/",
-    notePratiche: "Posti dell'accordo: 5. Accordo ERA70785."
+    notePratiche: "Posti dell'accordo: 5. Accordo ERA70785. || Scadenze: UV incoming Erasmus, nomination 1/3-31/5 per autunno e 1/9-31/10 per primavera; application entro 30 giorni dalla email || Lingua: certificato non richiesto, spagnolo B1 raccomandato"
   },
   {
     id: "sap-mfn-zaragoz",
@@ -3893,11 +4874,18 @@ var METE = [
     posti: [
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "livello minimo consigliato/richiesto per seguire le lezioni alla Facolta di Economia e Impresa" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 16 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 20 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 7 novembre" }
+      ],
     linkSito: "HTTP://WWW.UNIZAR.ES",
-    notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70792."
+    notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70792. || Scadenze: UNIZAR Erasmus incoming 2025/26, nomination 30/5 e 20/10, application 16/6 e 7/11 || Lingua: Facolta di Economia e Impresa indica spagnolo non inferiore a B1 CEFR"
   },
   {
     id: "sap-mfn-barcelo-3",
@@ -3912,11 +4900,18 @@ var METE = [
       { numero: 2, mesi: 6, livello: "L", note: "" },
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese/Spagnolo/Catalano", livello: "B2", condizione: "richiesto dalla Faculty of Economics and Business nella lingua di insegnamento dei corsi scelti" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (1 sem./anno intero)", periodo: "15 febbraio - 1 maggio" },
+        { cosa: "Nomination (2 semestre)", periodo: "15 settembre - 1 novembre" },
+        { cosa: "Application (1 sem./anno intero)", periodo: "15 febbraio - 15 maggio" },
+        { cosa: "Application (2 semestre)", periodo: "15 settembre - 15 novembre" }
+      ],
     linkSito: "http://www.uab.es/",
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70741."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70741. || Lingua: la Faculty of Economics and Business UAB richiede CEFR B2 nella lingua di insegnamento dei corsi scelti (inglese, spagnolo o catalano); nessun certificato richiesto per lingue in cui non si scelgono corsi. [Fonti: factsheet UAB 2026/27; UAB Faculty of Economics and Business] || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-bilbao",
@@ -3931,11 +4926,19 @@ var METE = [
       { numero: 1, mesi: 6, livello: "L", note: "" },
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato per corsi in spagnolo presso la Faculty of Economics and Business" },
+        { lingua: "Inglese", livello: "B2", condizione: "certificato minimo necessario per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 1 giugno" },
+        { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+      ],
     linkSito: "https://www.ehu.eus/en/en-home",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70744."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70744. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-oviedo-3",
@@ -3950,11 +4953,18 @@ var METE = [
       { numero: 5, mesi: 10, livello: "L", note: "" },
       { numero: 5, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B2", condizione: "fortemente raccomandato per studenti Erasmus incoming undergraduate" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno)", periodo: "entro 30 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 novembre" },
+        { cosa: "Documentazione/application (autunno/anno)", periodo: "entro 30 giugno" },
+        { cosa: "Documentazione/application (primavera)", periodo: "entro 15 dicembre" }
+      ],
     linkSito: "http://WWW.UNIOVI.ES/",
-    notePratiche: "Posti totali dell'accordo: 5 (condivisi tra i livelli). Accordo ERA70767."
+    notePratiche: "Posti totali dell'accordo: 5 (condivisi tra i livelli). Accordo ERA70767. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-valenci-5",
@@ -3988,11 +4998,18 @@ var METE = [
       { numero: 1, mesi: 5, livello: "L", note: "" },
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese/Spagnolo/Catalano", livello: "B2", condizione: "richiesto dalla Faculty of Economics and Business nella lingua di insegnamento dei corsi scelti" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (1 sem./anno intero)", periodo: "15 febbraio - 1 maggio" },
+        { cosa: "Nomination (2 semestre)", periodo: "15 settembre - 1 novembre" },
+        { cosa: "Application (1 sem./anno intero)", periodo: "15 febbraio - 15 maggio" },
+        { cosa: "Application (2 semestre)", periodo: "15 settembre - 15 novembre" }
+      ],
     linkSito: "http://www.uab.es/",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70740."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70740. || Lingua: la Faculty of Economics and Business UAB richiede CEFR B2 nella lingua di insegnamento dei corsi scelti (inglese, spagnolo o catalano); nessun certificato richiesto per lingue in cui non si scelgono corsi. [Fonti: factsheet UAB 2026/27; UAB Faculty of Economics and Business] || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-barcelo-5",
@@ -4007,11 +5024,19 @@ var METE = [
       { numero: 3, mesi: 10, livello: "L", note: "" },
       { numero: 3, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese; certificato ufficiale o attestazione dell'universita di provenienza" },
+        { lingua: "Spagnolo", livello: "B2", condizione: "per corsi in spagnolo; certificato ufficiale o attestazione dell'universita di provenienza" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro il 15 maggio 2026" },
+        { cosa: "Application (autunno)", periodo: "entro il 31 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro il 15 ottobre 2026" },
+        { cosa: "Application (primavera)", periodo: "entro il 31 ottobre 2026" }
+      ],
     linkSito: "http://www.ub.es",
-    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Accordo ERA70738."
+    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Accordo ERA70738. || Scadenze: basate su 2025/26"
   },
   {
     id: "sap-mfn-tenerif",
@@ -4025,9 +5050,16 @@ var METE = [
     posti: [
       { numero: 1, mesi: 6, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "livello minimo richiesto per studenti Erasmus+ incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "entro 31 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre 2026" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 30 giugno 2026" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre 2026" }
+      ],
     linkSito: "HTTP://WWW.ULL.ES",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA70780."
   },
@@ -4044,11 +5076,18 @@ var METE = [
       { numero: 1, mesi: 10, livello: "L", note: "" },
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato per seguire i corsi; certificato non richiesto" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "da meta aprile a meta giugno" },
+        { cosa: "Application (autunno)", periodo: "selezione insegnamenti da meta luglio a meta settembre" },
+        { cosa: "Nomination (primavera)", periodo: "da meta aprile a fine ottobre" },
+        { cosa: "Application (primavera)", periodo: "selezione insegnamenti da meta dicembre a meta febbraio" }
+      ],
     linkSito: "http://www.uma.es",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70764."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70764. || Scadenze: UMA fact sheet 2025/26, nomination via Algoria; application operativa tramite selezione insegnamenti in Algoria || Lingua: spagnolo B1 raccomandato, certificato non richiesto || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-valenci-6",
@@ -4062,11 +5101,18 @@ var METE = [
     posti: [
       { numero: 1, mesi: 10, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato; certificato ufficiale non richiesto" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 31 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 30 giorni dalla email di accettazione" },
+        { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 30 giorni dalla email di accettazione" }
+      ],
     linkSito: "http://www.uv.es/relint/",
-    notePratiche: "Posti dell'accordo: 1. Accordo ERA70783."
+    notePratiche: "Posti dell'accordo: 1. Accordo ERA70783. || Scadenze: UV incoming Erasmus, nomination 1/3-31/5 per autunno e 1/9-31/10 per primavera; application entro 30 giorni dalla email || Lingua: certificato non richiesto, spagnolo B1 raccomandato"
   },
   {
     id: "sap-mfn-valenci-7",
@@ -4080,11 +5126,18 @@ var METE = [
     posti: [
       { numero: 1, mesi: 10, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "raccomandato; certificato ufficiale non richiesto" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 31 maggio" },
+        { cosa: "Application (autunno)", periodo: "entro 30 giorni dalla email di accettazione" },
+        { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 30 giorni dalla email di accettazione" }
+      ],
     linkSito: "http://www.uv.es/relint/",
-    notePratiche: "Posti dell'accordo: 1. Accordo ERA70782."
+    notePratiche: "Posti dell'accordo: 1. Accordo ERA70782. || Scadenze: UV incoming Erasmus, nomination 1/3-31/5 per autunno e 1/9-31/10 per primavera; application entro 30 giorni dalla email || Lingua: certificato non richiesto, spagnolo B1 raccomandato"
   },
   {
     id: "sap-mfn-pamplon-3",
@@ -4118,9 +5171,16 @@ var METE = [
       { numero: 1, mesi: 6, livello: "L", note: "" },
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "per corsi di laurea" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "dal 15 marzo al 15 maggio" },
+        { cosa: "Application (autunno/anno intero)", periodo: "dal 1 aprile al 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "dal 1 settembre al 15 novembre" },
+        { cosa: "Application (primavera)", periodo: "dal 15 settembre al 20 novembre" }
+      ],
     linkSito: "HTTP://WWW.UCM.ES",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70756."
   },
@@ -4137,11 +5197,19 @@ var METE = [
       { numero: 1, mesi: 6, livello: "L", note: "" },
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese; certificato ufficiale o attestazione dell'universita di provenienza" },
+        { lingua: "Spagnolo", livello: "B2", condizione: "per corsi in spagnolo; certificato ufficiale o attestazione dell'universita di provenienza" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro il 15 maggio 2026" },
+        { cosa: "Application (autunno)", periodo: "entro il 31 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro il 15 ottobre 2026" },
+        { cosa: "Application (primavera)", periodo: "entro il 31 ottobre 2026" }
+      ],
     linkSito: "http://www.ub.es",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70736."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70736. || Scadenze: basate su 2025/26"
   },
   {
     id: "sap-mfn-tenerif-2",
@@ -4155,9 +5223,16 @@ var METE = [
     posti: [
       { numero: 1, mesi: 10, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "livello minimo richiesto per studenti Erasmus+ incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "entro 31 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre 2026" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 30 giugno 2026" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre 2026" }
+      ],
     linkSito: "HTTP://WWW.ULL.ES",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA70781."
   },
@@ -4209,9 +5284,15 @@ var METE = [
     posti: [
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "A2", condizione: "livello ammesso per studenti incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
+        { cosa: "Application", periodo: "entro due settimane dalla nomination" }
+      ],
     linkSito: "http://ujiapps.uji.es/",
     notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70747."
   },
@@ -4228,11 +5309,19 @@ var METE = [
       { numero: 4, mesi: 5, livello: "L", note: "" },
       { numero: 4, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese; certificato ufficiale o attestazione dell'universita di provenienza" },
+        { lingua: "Spagnolo", livello: "B2", condizione: "per corsi in spagnolo; certificato ufficiale o attestazione dell'universita di provenienza" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro il 15 maggio 2026" },
+        { cosa: "Application (autunno)", periodo: "entro il 31 maggio 2026" },
+        { cosa: "Nomination (primavera)", periodo: "entro il 15 ottobre 2026" },
+        { cosa: "Application (primavera)", periodo: "entro il 31 ottobre 2026" }
+      ],
     linkSito: "http://www.ub.es",
-    notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Accordo ERA70737."
+    notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Accordo ERA70737. || Scadenze: basate su 2025/26"
   },
   {
     id: "sap-mfn-vic-2",
@@ -4264,11 +5353,18 @@ var METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per studenti Erasmus incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 10 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 10 ottobre" }
+      ],
     linkSito: "http://www.su.se/english/",
-    notePratiche: "Posti dell'accordo: 2. Accordo ERA70216."
+    notePratiche: "Posti dell'accordo: 2. Accordo ERA70216. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-stockho-2",
@@ -4283,11 +5379,18 @@ var METE = [
       { numero: 1, mesi: 5, livello: "L", note: "" },
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per studenti Erasmus incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 10 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 10 ottobre" }
+      ],
     linkSito: "http://www.su.se/english/",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70220."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70220. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-stockho-3",
@@ -4302,11 +5405,18 @@ var METE = [
       { numero: 1, mesi: 5, livello: "L", note: "" },
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per studenti Erasmus incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 10 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 10 ottobre" }
+      ],
     linkSito: "http://www.su.se/english/",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70219."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70219. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-stockho-4",
@@ -4321,11 +5431,18 @@ var METE = [
       { numero: 3, mesi: 5, livello: "L", note: "" },
       { numero: 3, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per studenti Erasmus incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 10 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 10 ottobre" }
+      ],
     linkSito: "http://www.su.se/english/",
-    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Accordo ERA70223."
+    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Accordo ERA70223. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-stockho-5",
@@ -4340,11 +5457,18 @@ var METE = [
       { numero: 4, mesi: 5, livello: "L", note: "" },
       { numero: 4, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per studenti Erasmus incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 10 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 10 ottobre" }
+      ],
     linkSito: "http://www.su.se/english/",
-    notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Accordo ERA70224."
+    notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Accordo ERA70224. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-stockho-6",
@@ -4359,11 +5483,18 @@ var METE = [
       { numero: 5, mesi: 5, livello: "L", note: "" },
       { numero: 5, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per studenti Erasmus incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 10 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 10 ottobre" }
+      ],
     linkSito: "http://www.su.se/english/",
-    notePratiche: "Posti totali dell'accordo: 5 (condivisi tra i livelli). Accordo ERA70225."
+    notePratiche: "Posti totali dell'accordo: 5 (condivisi tra i livelli). Accordo ERA70225. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-stockho-7",
@@ -4378,11 +5509,18 @@ var METE = [
       { numero: 4, mesi: 5, livello: "L", note: "" },
       { numero: 4, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per studenti Erasmus incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 10 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 10 ottobre" }
+      ],
     linkSito: "http://www.su.se/english/",
-    notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Accordo ERA70226."
+    notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Accordo ERA70226. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-stockho-8",
@@ -4396,11 +5534,18 @@ var METE = [
     posti: [
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per studenti Erasmus incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 10 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 10 ottobre" }
+      ],
     linkSito: "http://www.su.se/english/",
-    notePratiche: "Posti dell'accordo: 1. Accordo ERA70227."
+    notePratiche: "Posti dell'accordo: 1. Accordo ERA70227. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-stockho-9",
@@ -4415,11 +5560,18 @@ var METE = [
       { numero: 1, mesi: 5, livello: "L", note: "" },
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per studenti Erasmus incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 10 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro 10 ottobre" }
+      ],
     linkSito: "http://www.su.se/english/",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70230."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70230. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-lausann",
@@ -4433,9 +5585,17 @@ var METE = [
     posti: [
       { numero: 1, mesi: 10, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "in base alla lingua di insegnamento del corso frequentato" },
+        { lingua: "Inglese", livello: "B2", condizione: "in base alla lingua di insegnamento del corso frequentato" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination SEMP (autunno)", periodo: "entro 30 aprile 2026" },
+        { cosa: "Application SEMP (autunno)", periodo: "entro 15 maggio 2026" },
+        { cosa: "Nomination SEMP (primavera)", periodo: "entro 15 ottobre 2026" },
+        { cosa: "Application SEMP (primavera)", periodo: "entro 31 ottobre 2026" }
+      ],
     linkSito: "http://www.unil.ch/ri/",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA70214."
   },
@@ -4452,9 +5612,17 @@ var METE = [
       { numero: 1, mesi: 10, livello: "L", note: "" },
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "in base alla lingua di insegnamento del corso frequentato" },
+        { lingua: "Inglese", livello: "B2", condizione: "in base alla lingua di insegnamento del corso frequentato" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination SEMP (autunno)", periodo: "entro 30 aprile 2026" },
+        { cosa: "Application SEMP (autunno)", periodo: "entro 15 maggio 2026" },
+        { cosa: "Nomination SEMP (primavera)", periodo: "entro 15 ottobre 2026" },
+        { cosa: "Application SEMP (primavera)", periodo: "entro 31 ottobre 2026" }
+      ],
     linkSito: "http://www.unil.ch/ri/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70215."
   },
@@ -4471,9 +5639,17 @@ var METE = [
       { numero: 2, mesi: 10, livello: "L", note: "" },
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B2", condizione: "raccomandato per corsi in tedesco; C1 per German Literature and Linguistics" },
+        { lingua: "Inglese", livello: "B2", condizione: "raccomandato per corsi in inglese; C1 per English Literature and Linguistics" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "entro 15 aprile" },
+        { cosa: "Application (autunno/anno intero)", periodo: "entro 30 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 settembre" },
+        { cosa: "Application (primavera)", periodo: "entro 30 settembre" }
+      ],
     linkSito: "https://www.uzh.ch/de.html",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70684."
   },
@@ -4509,9 +5685,15 @@ var METE = [
       { numero: 2, mesi: 5, livello: "L", note: "" },
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "per corsi in francese" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application/registrazione (autunno)", periodo: "entro 10 aprile" },
+        { cosa: "Application/registrazione (primavera)", periodo: "entro 10 settembre" }
+      ],
     linkSito: "https://www.unige.ch/international/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70682."
   },
@@ -4528,9 +5710,16 @@ var METE = [
       { numero: 3, mesi: 6, livello: "L", note: "" },
       { numero: 3, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "per seguire corsi a METU" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 giugno" },
+        { cosa: "Application (autunno)", periodo: "entro 31 luglio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 31 dicembre" }
+      ],
     linkSito: "https://www.metu.edu.tr/tr",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70888."
   },
@@ -4547,11 +5736,19 @@ var METE = [
       { numero: 2, mesi: 6, livello: "L", note: "" },
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "per mobilita studenti; indicato come B1/2 nel documento" },
+        { lingua: "Turco", livello: "B2", condizione: "per mobilita studenti; indicato come B2/C1 nel documento" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 luglio" },
+        { cosa: "Application (autunno)", periodo: "entro 15 agosto" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 15 dicembre" }
+      ],
     linkSito: "http://akts.hacettepe.edu.tr/",
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70887."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70887. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-istanbu",
@@ -4602,11 +5799,17 @@ var METE = [
     posti: [
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Turco", livello: "B1", condizione: "per la maggior parte dei corsi" },
+        { lingua: "Inglese", livello: "B1/B2", condizione: "per programmi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno)", periodo: "entro 30 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 30 settembre" }
+      ],
     linkSito: "http://www.international.itu.edu.tr",
-    notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70894."
+    notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70894. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
     id: "sap-mfn-izmir",
