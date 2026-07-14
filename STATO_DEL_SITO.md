@@ -4,7 +4,17 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-14 — sessione 64, Nicola + Codex
+**Ultimo aggiornamento:** 2026-07-14 — sessione 65, Codex (**VERIFICATORE T2
+OTTIMIZZATO PER TOKEN.** Configurato `gpt-5.6-luna` con reasoning `low`, modello
+indicato dalla documentazione Codex per compiti chiari, ripetibili e ad alto
+volume. Il processo ignora la configurazione globale non necessaria, mantiene
+la ricerca web ma limita Codex esclusivamente agli URL proposti da Gemini; il
+prompt T2 è stato ridotto e vieta ricerche nuove, diff e controlli Git finali.
+Test pipeline 7/7, sintassi dei 9 script, login Codex, stato e preflight tutti
+OK. Prossimo gate: un solo batch standard comparativo; obiettivo riduzione
+sostanziale rispetto ai 37.484 token del campione Sol.)
+
+**Ultimo aggiornamento precedente:** 2026-07-14 — sessione 64, Nicola + Codex
 (**PRIMO BATCH T1→T3 GEMINI+CODEX PUBBLICATO, QUALITÀ OK MA TOKEN DA
 OTTIMIZZARE.** Il lotto `farmacia (sapienza)-batch-followup-1` su ESCOM è
 passato attraverso Gemini, controllo automatico di 3 URL, verifica Codex,
@@ -2103,7 +2113,7 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | MERCATO-UI Fase C5 — Guide + fiducia + OG | OG dedicata 64 KB (P2.14 chiuso), pagina fiducia `guide/come-funziona.html` (gate privacy ok), sw.js senza PNG 408 KB, sitemap 4 URL, 30 file spazzatura eliminati (cartelle legacy: attendono conferma Nicola) | ✅ Fatta e testata (2026-07-14) |
 | MERCATO-UI Fasi C6, D — Demo LA + QA | Assorbite dall'ondata PERCORSO: la demo LA Generator diventa stazione del viaggio (P5), il QA finale diventa P7 | 🔁 Superate (2026-07-14) |
 | **PERCORSO — redesign a viaggio** | `PLAN.md` riscritto (grill 10 decisioni + Codex APPROVED al R5): due mondi ingresso/dashboard, linea di viaggio = nav, itinerario a stazioni, palette riaperta (2 direzioni: Notte cartografica vs Orizzonte chiaro), fasi P0 mockup → P7 QA, deadline settembre 2026 | 📋 Pianificata — prossima: P0 (2 mockup) |
-| **Pipeline dati T0→T3 — Gemini + Codex** | Primo batch standard ESCOM pubblicato e campionato: 3 campi verificati su fonte ufficiale, qualità sostanzialmente OK | ⚠️ 37.484 token per una meta: ottimizzare il verificatore Codex e ripetere un campione prima della pianificazione |
+| **Pipeline dati T0→T3 — Gemini + Codex** | Primo batch ESCOM pubblicato; verificatore T2 ora su `gpt-5.6-luna`/low con prompt ridotto e configurazione isolata | ⚠️ Eseguire un solo batch comparativo e misurare qualità/token prima della pianificazione |
 
 **Tab visibili nella pagina (navigazione inferiore):** Oggi (missione) → Mete → Candidatura (scadenze+checklist fuse).
 **Tab nascosti (accessibili da JS):** Idoneità · Profilo.
@@ -2221,7 +2231,7 @@ Il CODICE è pronto. Le mete ora sono **REALI** (dalla lista ufficiale del bando
 | Requisiti bando (`dati-bando.js`) | **REALI** ✅ validati art. per art. sul PDF (8 requisiti, con rif. agli articoli) | Riverificare sul bando 2027/28 |
 | Scadenze (`dati-scadenze.js`) | **REALI** ✅ 7 tappe dal bando (candidature, laureandi, graduatoria, accettazione, ISEE, mobilità) | Riverificare ogni anno |
 | Checklist (`dati-checklist.js`) | **REALI** ✅ 9 passi validati sul bando | Riverificare ogni anno |
-| **Automazione dati Gemini+Codex** | Primo T1→T3 standard riuscito e pubblicato; fonte ESCOM verificata manualmente; consumo Codex 37.484 token per una meta | Non pianificare ancora: ridurre prompt/output/tool chatter del verificatore, ripetere un batch standard e confrontare il consumo; mantenere ferma la vecchia automazione |
+| **Automazione dati Gemini+Codex** | Primo T1→T3 riuscito; T2 ottimizzato con Luna/low, prompt breve, nessuna ricerca aggiuntiva e niente diff/status finale; test 7/7 e preflight OK | Eseguire un batch standard comparativo, campionare la qualità e confrontare i token; mantenere ferma la vecchia automazione |
 
 **Nota motore di compatibilità:** `app.js` ora gestisce la lingua mancante in modo
 onesto. Per le mete senza lingua mostra 🟡 "Idoneo — verifica la lingua" (se hai
@@ -2239,6 +2249,12 @@ python -m http.server 8000
 poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
+
+**Aggiornamento 2026-07-14 — sessione 65 (T2 ottimizzato con Luna):**
+1. Pubblicare l'ottimizzazione e lanciare un solo batch standard comparativo.
+2. Confrontare token e qualità con il campione Sol da 37.484 token/una meta.
+3. Pianificare Windows solo se il consumo cala sostanzialmente senza perdere
+   evidenze ufficiali; mantenere ferma la vecchia automazione multi-ateneo.
 
 **Aggiornamento 2026-07-14 — sessione 64 (primo T1→T3 standard riuscito):**
 1. Non creare ancora l'attività Windows giornaliera: 37.484 token per una meta

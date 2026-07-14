@@ -16,72 +16,19 @@
 # flusso (girerebbero due processi sullo stesso repo).
 # ---------------------------------------------------------------------------
 
-Sei un VERIFICATORE, non un ricercatore. Il lavoro di ricerca (aprire siti,
-trovare CEFR/scadenze/link) e' gia' stato fatto da un modello piu' debole
-(Gemini). Il tuo compito e' controllare quel lavoro, non rifarlo da zero.
+Sei un verificatore di dati, non un ricercatore autonomo.
 
-## Input che ricevi
-
-- `batch/INPUT.json`: il batch corrente (contesto + campiDaRiempire per meta).
-- `batch/SGROSSATURA.json`: bozza di Gemini, formato
-  `{ "batchId": "...", "dati": { "<codiceErasmus>": { requisitoLingua, scadenzeOspitante, linkSito, linkCatalogo, notaDisponibilita, notePraticheAppend, fonti } } }`.
-  E' gia' passata da un controllo automatico dei link (le fonti morte sono
-  gia' state tolte): se un campo ha ancora una "fonte", il link risponde.
-
-## STEP 0 — Controllo di corrispondenza (obbligatorio, prima di tutto)
-
-Se `batch/SGROSSATURA.json` NON esiste, oppure il suo `batchId` NON coincide
-con quello di `batch/INPUT.json`: la bozza e' assente o vecchia. In questo
-caso NON puoi verificare nulla — fai tu la ricerca da zero seguendo le
-istruzioni di `automazioni/PROMPT_CODEX_mappatura.md` sezione STEP 1 (stesso
-formato fonti in ordine, stesse regole CEFR/scadenze). Poi vai a STEP 2.
-
-## STEP 1 — Verifica (caso normale: bozza presente e allineata)
-
-Per ogni meta in `SGROSSATURA.json.dati`:
-1. Apri `fonti.<campo>.url` per ciascun campo trovato.
-2. Controlla che il dato scritto (CEFR, scadenza, URL) corrisponda davvero a
-   quello che leggi sulla pagina, per studenti ERASMUS/EXCHANGE incoming (non
-   degree students).
-3. Controlla anche che `fonti.<campo>.citazione` sia davvero presente nella
-   pagina e dimostri quel dato. Se corrisponde: tienilo cosi'.
-4. Se e' sbagliato o ambiguo: correggilo se trovi il dato giusto sulla stessa
-   pagina, altrimenti OMETTI il campo (mai lasciare un dato che non hai
-   verificato).
-5. Se in `campiDaRiempire` c'e' un campo che Gemini ha saltato e tu, aprendo
-   comunque quelle fonti, lo trovi facilmente: aggiungilo con la sua fonte.
-   Non e' obbligatorio andare a cercare fonti nuove da zero per i campi
-   mancanti: se non e' immediato, ometti (la mappatura ha altri batch dopo).
-
-Mai inventare, mai dedurre. Nessuna fonte = nessun dato.
-
-## STEP 2 — Scrivi batch/OUTPUT.json
-
-Scrivi SEMPRE il contenitore seguente:
-
-```json
-{
-  "batchId": "lo stesso batchId di INPUT.json",
-  "dati": {
-    "CODICE ERASMUS": {
-      "linkCatalogo": "https://pagina-ufficiale.example/catalogo",
-      "fonti": {
-        "linkCatalogo": {
-          "url": "https://pagina-ufficiale.example/catalogo",
-          "citazione": "Frase testuale presente nella pagina che dimostra il dato",
-          "verificataIl": "AAAA-MM-GG"
-        }
-      }
-    }
-  }
-}
-```
-
-Per ogni codice inserisci solo i campi verificati/corretti richiesti in
-`campiDaRiempire`. Ogni campo deve avere la propria evidenza in `fonti` con
-URL ufficiale esatto, citazione testuale e data odierna. `notePraticheAppend`
-e' ammesso se serve. Se nessun dato supera la verifica, usa `"dati": {}`.
-
-Dopo aver scritto `batch/OUTPUT.json`, il tuo compito finisce qui: NON
-eseguire `applica-batch.mjs`, NON fare commit, NON fare push. Se ne occupa lo
-script che ti ha chiamato.
+1. Leggi soltanto `batch/INPUT.json` e `batch/SGROSSATURA.json`.
+2. I `batchId` devono coincidere; altrimenti termina senza creare file.
+3. Per ogni campo proposto apri esclusivamente il relativo `fonti.<campo>.url`.
+   Non cercare altre fonti. Conserva il campo solo se la pagina e' ufficiale,
+   riguarda studenti Erasmus/exchange incoming e la citazione dimostra il dato.
+   Correggi dalla stessa pagina oppure ometti se ambiguo. Mai dedurre.
+4. Scrivi soltanto `batch/OUTPUT.json` nel formato
+   `{ "batchId": "...", "dati": { "CODICE": { "campo": valore,
+   "fonti": { "campo": { "url": "...", "citazione": "...",
+   "verificataIl": "AAAA-MM-GG" } } } } }`.
+   Sono ammessi solo i campi richiesti in `campiDaRiempire`; se nulla supera la
+   verifica usa `"dati": {}`.
+5. Dopo la scrittura non eseguire controlli Git, non mostrare file o diff, non
+   fare merge/commit/push. Rispondi soltanto `OUTPUT_OK`.

@@ -14,6 +14,7 @@ const PREFLIGHT = process.argv.includes("--preflight");
 const PREFLIGHT_ONLINE = process.argv.includes("--online");
 const PREFLIGHT_CODEX = process.argv.includes("--codex-smoke");
 const MODEL = process.env.GEMINI_MODEL || "gemini-3.5-flash";
+const CODEX_MODEL = process.env.CODEX_VERIFY_MODEL || "gpt-5.6-luna";
 const LOCK_PATH = path.join(
   os.tmpdir(),
   `erasmuswiz-mappatura-${crypto.createHash("sha256").update(ROOT.toLowerCase()).digest("hex").slice(0, 16)}.lock`,
@@ -275,9 +276,12 @@ async function main() {
   ].join("\n");
   eseguiCodex([
     "--search", "exec",
+    "--ignore-user-config",
+    "--model", CODEX_MODEL,
     "--sandbox", "workspace-write",
     "--ephemeral",
     "-c", 'approval_policy="never"',
+    "-c", 'model_reasoning_effort="low"',
     "-c", "sandbox_workspace_write.network_access=true",
     "-",
   ], { input: istruzione, timeout: 30 * 60_000 });
