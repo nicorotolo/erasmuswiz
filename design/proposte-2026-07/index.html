@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Direzioni visive 2026-07 · Mockup ErasmusWiz</title>
+<style>
+:root{
+  --bg:#F8FAFC; --surface:#FFFFFF; --ink:#0F172A; --ink-soft:#475569; --ink-faint:#64748B;
+  --bordo:#E2E8F0; --primary:#1D4ED8;
+  --a:#EA580C; --b:#1E40AF; --c:#4F46E5;
+}
+@media (prefers-color-scheme: dark){
+  :root{--bg:#0B1220;--surface:#111C30;--ink:#E2E8F0;--ink-soft:#B4C2D6;--ink-faint:#7E8FA8;--bordo:#243449;--primary:#7DA6FA;
+    --a:#FB923C;--b:#93C5FD;--c:#A5B4FC}
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI",system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);
+  line-height:1.6;padding:32px 16px 60px;max-width:860px;margin:0 auto}
+h1{font-size:1.6rem;font-weight:800;letter-spacing:-.02em}
+.sotto{color:var(--ink-soft);margin:6px 0 4px}
+.avviso{font-size:.8rem;color:var(--ink-faint);margin-bottom:24px}
+.istruzioni{background:var(--surface);border:1px solid var(--bordo);border-radius:14px;padding:18px 20px;margin-bottom:24px}
+.istruzioni h2{font-size:.95rem;font-weight:800;margin-bottom:8px}
+.istruzioni ol{padding-left:20px;font-size:.9rem;color:var(--ink-soft)}
+.istruzioni li{margin-bottom:6px}
+.istruzioni .gate{margin-top:10px;font-size:.82rem;color:var(--ink-faint);border-top:1px dashed var(--bordo);padding-top:10px}
+.griglia{display:grid;gap:14px}
+a.card{display:block;background:var(--surface);border:1px solid var(--bordo);border-left:6px solid var(--acc,#888);
+  border-radius:14px;padding:18px 20px;text-decoration:none;color:inherit;transition:transform .15s ease,box-shadow .15s ease}
+a.card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.12)}
+a.card:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
+a.card h3{font-size:1.1rem;font-weight:800}
+a.card p{font-size:.87rem;color:var(--ink-soft);margin-top:4px}
+a.card .apri{display:inline-block;margin-top:10px;font-size:.82rem;font-weight:700;color:var(--primary)}
+.card-a{--acc:var(--a)} .card-b{--acc:var(--b)} .card-c{--acc:var(--c)}
+footer{margin-top:36px;font-size:.75rem;color:var(--ink-faint)}
+</style>
+</head>
+<body>
+<h1>ErasmusWiz — Direzioni visive (Fase B)</h1>
+<p class="sotto">Tre proposte per la nuova identità del sito. Stessa struttura — la mappa-hero interattiva — tre caratteri diversi.</p>
+<p class="avviso">Mockup di design, luglio 2026 — non è il sito operativo. Dati reali dai bandi 2026/27 (Giurisprudenza Sapienza + Economia Ca' Foscari), coordinate indicative.</p>
+
+<div class="istruzioni">
+  <h2>Come guardarli (nell'ordine giusto)</h2>
+  <ol>
+    <li><strong>Prima da telefono</strong> (o restringi la finestra a ~375px): è lì che si decide la mappa.</li>
+    <li>In ogni proposta prova le <strong>3 viste</strong> (barra in alto): Primo contatto → Home profilata → Mete.</li>
+    <li>Prova <strong>entrambi i temi</strong> col bottone sole/luna: il tema notte è disegnato, non derivato.</li>
+    <li>Sulla mappa: scegli l'ateneo, poi la facoltà, poi <strong>passa il mouse / tocca i puntini</strong>. Prova anche un cluster (numero) e l'elenco testuale.</li>
+  </ol>
+  <p class="gate"><strong>Gate del piano (PLAN-FASE-B):</strong> la mappa entra nel sito vero solo se a 375px resta leggibile E, nella home profilata, missione + countdown stanno nel primo schermo senza scroll. Giudica su questo, non sull'effetto "wow" desktop.</p>
+</div>
+
+<div class="griglia">
+  <a class="card card-a" href="proposta-a-giocosa.html">
+    <h3>A — Giocosa premium</h3>
+    <p>Wiz protagonista: ti accoglie, commenta i passi, esulta con te. Superfici morbide, colori caldi, micro-animazioni. Il carattere: un compagno di viaggio.</p>
+    <span class="apri">Apri la proposta A →</span>
+  </a>
+  <a class="card card-b" href="proposta-b-professionale.html">
+    <h3>B — Professionale / sobria</h3>
+    <p>Niente mascotte: cartografia elegante, blu istituzionale, tipografia autorevole, dati in primo piano. Il carattere: uno strumento di cui fidarsi.</p>
+    <span class="apri">Apri la proposta B →</span>
+  </a>
+  <a class="card card-c" href="proposta-c-ibrida.html">
+    <h3>C — Ibrida</h3>
+    <p>Impianto ordinato e affidabile, ma con calore: indigo + ambra, e Wiz presente solo come guida nei momenti chiave. Il carattere: serio, ma umano.</p>
+    <span class="apri">Apri la proposta C →</span>
+  </a>
+</div>
+
+<footer>La proposta scelta sostituirà formalmente le decisioni BRAND BR0–BR7 e diventerà il binario della Fase C (PLAN.md dell'ondata MERCATO-UI).</footer>
+</body>
+</html>

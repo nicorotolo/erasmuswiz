@@ -4,7 +4,454 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-08 — sessione 37, Claude Code (**OP5 SEO di
+**Ultimo aggiornamento:** 2026-07-14 — sessione 48, Claude Code (**NUOVA ONDATA
+"PERCORSO" PIANIFICATA E APPROVATA — nessun file del sito toccato.** Sessione
+/grill-me-codex sul verdetto di Nicola dopo C1–C5: "troppo bambinesco, manca
+il percorso, non c'è trasporto". **Atto 1 — grill, 10 decisioni di Nicola**:
+(1) il percorso diventa la SPINA DORSALE dell'app; (2) Wiz ridotto a segno
+grafico lineare (via render 3D e stelline dall'UI, tono di voce invariato);
+(3) mappa d'ingresso con ARCHI DI VOLO animati (movimento gentile,
+prefers-reduced-motion rispettato); (4) primo accesso = mappa-scena con
+l'onboarding ambientato sul viaggio; (5) modello a DUE MONDI: ingresso
+emozionale → DASHBOARD operativa "cabina di pilotaggio" per il profilato
+(linea di viaggio in testa + moduli operativi; la mappa lì è solo il widget
+"Le tue rotte"); (6) la linea di viaggio SOSTITUISCE la nav a tab; (7) la
+nuova ondata assorbe C6+D (la demo LA Generator nasce come stazione del
+viaggio, vincoli OP8 invariati), deadline settembre 2026, dati/motore/URL/SEO
+intoccabili; (8) PALETTE RIAPERTA — la direzione C decade, costo del terzo
+riallineamento accettato consapevolmente; (9) metodo mockup-first: 2 mockup
+completi (ingresso+dashboard+itinerario candidatura, chiaro E notte, dati
+veri) scelti DA TELEFONO, scelta vincolante; (10) direzioni a confronto:
+"Notte cartografica" vs "Orizzonte chiaro". Mete = mappa sincronizzata +
+schedina ribattezzata "Le tue rotte"; Candidatura = ITINERARIO A STAZIONI
+(dati scadenze e .ics invariati). **Atto 2 — revisione avversariale Codex
+(gpt-5.6-terra, codex-cli 0.144.1, sandbox read-only): APPROVED al Round 5;
+16 rilievi in 4 round di REVISE, TUTTI accolti**, tra cui: contratto di
+navigazione tappa→hash (`#parti` nuovo hash canonico dello zaino; alias
+`#checklist` dipendente dallo stato — selezionato→zaino, altrimenti
+candidatura; `#parti` pre-selezione = tappa bloccata ma informativa, senza
+toggle "selezionato" raggiungibile); **difetto REALE scovato nel codice:
+zaino unico `erasmuswiz-zaino` senza campo ateneo** → migrazione
+OBBLIGATORIA in P3 a contenitore per-ateneo (archivio al cambio ateneo, mai
+applicato al nuovo; migrazione legacy automatica SOLO con corrispondenza
+univoca dipartimento+area, altrimenti domanda esplicita allo studente);
+criteri prestazioni misurabili in P4 (nessun long task >50 ms, aggiornamento
+lista+mappa ≤250 ms post-debounce, 375px CPU 4x, dataset completo);
+invarianti SEO sul DOM STATICO COMPLETO della home (l'onboarding è già
+nell'HTML, nascosto via CSS — non solo-JS); regola accessibilità mappa
+(skip-link, elenco controparte completa, aria-live sul conteggio, focus
+espliciti); shell offline PWA definita in P6 e testata in P7 (upgrade cache,
+primo avvio offline); fonte colori operativa unica = `css/style.css`
+(`design/tokens/colors.css` è documentazione, con controllo di coerenza).
+**Deliverable: `PLAN.md` RISCRITTO** (ondata PERCORSO, fasi P0 mockup → P7
+QA, supersede i residui MERCATO-UI) + log integrale del confronto in coda a
+`PLAN-REVIEW-LOG.md`. **Nicola ha scelto di fermarsi al piano approvato:
+nessuna implementazione in questa sessione.** **Prossimo passo: Fase P0 —
+2 mockup completi in `design/proposte-percorso-2026-07/` (Notte cartografica
+vs Orizzonte chiaro), poi scelta di Nicola DA TELEFONO (vincolante).**)
+
+**Ultimo aggiornamento precedente:** 2026-07-14 — sessione 47, Claude Code (**FASE C5
+IMPLEMENTATA: OG image dedicata (chiude P2.14) + pagina fiducia + guide
+allineate + igiene root (30 file spazzatura eliminati).** Eseguito il blocco
+C5 di `PLAN.md`. **(1) OG IMAGE DEDICATA — P2.14 CHIUSO**: nuova
+`img/og-erasmuswiz.png` (1200×630, 64 KB — budget ≤100 KB rispettato)
+generata offline con PIL nello stile notte della direzione C (fondo indigo
+`#232046` con gradiente, stelline oro/lavanda tenute FUORI dalla zona testo,
+wordmark + tagline "Il tuo cruscotto per l'Erasmus", pillola oro onesta
+"Gratuito · Senza account · Dati con fonte", Wiz `wiz-saluto` a destra; font
+Segoe UI Bold — Bricolage non è installato sul PC, per una bitmap OG è un
+grottesco equivalente); og:image + twitter:image aggiornate su home ed
+ENTRAMBE le guide (+ og:image:width/height in home); il vecchio
+`wiz-hero.png` (408 KB) ora NON è più referenziato da NESSUN file del sito —
+si può eliminare nel blocco igiene con conferma di Nicola. **(2) sw.js
+allineato**: la precache non scarica più il PNG da 408 KB a ogni install
+(`wiz-esulta.webp` 68 KB al suo posto), cache bump `erasmuswiz-v2`. **(3)
+PAGINA FIDUCIA (raccomandata dall'audit)**: nuova `guide/come-funziona.html`
+— "Come funziona ErasmusWiz (e chi c'è dietro)": cos'è/cosa non è (strumento
+di appoggio, mai canale ufficiale), da dove vengono i dati (fonte+data,
+"stima mai promessa", dati in verifica dichiarati), dove finiscono i dati
+dello studente (SOLO localStorage, niente account/server, GoatCounter senza
+dati personali), chi c'è dietro (progetto indipendente di Nicola Rotolo,
+nato da una candidatura reale, codice pubblico su GitHub), quanto costa
+(niente, senza pubblicità). Stesso impianto delle guide OP5: canonical,
+OG/Twitter con la nuova immagine, JSON-LD FAQPage (3 domande, validato),
+GoatCounter, disclaimer datato, riuso `.guida-*`. **GATE PRIVACY
+RISPETTATO**: nessun dato personale, nessun racconto caso-Bruno, nessuna
+matricola/data personale; il testo "chi c'è dietro" nomina solo Nicola
+(già pubblico via GitHub) — **Nicola: rileggi quella sezione prima del
+deploy**. **(4) COLLEGAMENTI**: link alla pagina fiducia nel footer di
+`index.html` e delle 2 guide (footer incrociati); `sitemap.xml` +1 URL
+(4 totali, lastmod 2026-07-14). **(5) CSS**: rimossa graffa orfana a fine
+file (residuo OP5, dopo `.guida-footer a`) — token app verificati intatti
+dopo la rimozione. **(6) IGIENE ROOT (parte file, da PLAN punto 12)**:
+inventario dry-run → eliminati i **30 file a 0 byte** con nomi-frammento di
+shell (la lista P3.17 dell'audit + successivi: `Il`, `Una`, `0`, `1`, `s`,
+`t`, `{`, `x.codice`, `benvScegliAteneo(k))`…) — erano gli UNICI file a
+0 byte in root, nessun altro file toccato; `_smoke.js` (ha contenuto) e le
+cartelle legacy `_backup-*`, `v2/`, `chatgpt-project/` NON toccate (il
+piano richiede conferma esplicita di Nicola + procedura .bat). **Verifica a
+video** (preview di sessione 8001, 375 e desktop; le pagine guida non hanno
+tema notte per scelta — statiche): pagina fiducia con token direzione C
+(nav `#232046`, CTA `#4F46E5` testo bianco, Bricolage sull'H1), FAQPage
+JSON-LD parsato valido, niente scroll orizzontale a 375px; home con OG
+nuova + link fiducia (doppio controllo con fetch no-store: il primo giro
+leggeva la cache del pannello), guide con OG nuova/link/canonical INVARIATI,
+zero errori console; `node --check` su `sw.js` e `js/app.js` OK. **Checklist
+SEO**: URL e canonical delle pagine esistenti INVARIATI, GoatCounter su
+TUTTE le pagine (fiducia inclusa), sitemap coerente (4 URL), nessun evento
+con dati personali. **File nuovi**: `img/og-erasmuswiz.png`,
+`guide/come-funziona.html`. **Modificati**: `index.html` (meta OG + 1 link
+footer), 2 guide (meta OG + 1 link footer), `sitemap.xml`, `sw.js`,
+`css/style.css` (solo graffa orfana). **Eliminati**: 30 file spazzatura a
+0 byte in root. **Non toccati**: dati, motore, `js/app.js`, manifest.
+**Prossimo passo: Fase C6 — LA Generator UI demo** (vincoli OP8: read-only,
+NESSUNA scrittura zaino, mapping molti-a-molti con totali ECTS/CFU, niente
+campi codici corso host, placeholder onesto dove manca `linkCatalogo`).)
+
+**Ultimo aggiornamento precedente:** 2026-07-14 — sessione 46, Claude Code (**FASE C4
+IMPLEMENTATA: Candidatura + Partenza/zaino nella direzione C — restyle
+coerente, impianto OP2 validato NON toccato (verdetto audit "TENERE con
+rifinitura").** Eseguito il blocco C4 di `PLAN.md`. **(1) Lo zaino parla la
+lingua dei capitoli della candidatura**: ogni capitolo Prima/Durante/Dopo ora
+ha una testa-card distinta (bordo sinistro ambra 4px, raggio 16, ombra card —
+stesso linguaggio di `.cand-scadenza-card`) con il CONTEGGIO del capitolo
+("N di M", pillola mono ambra — al posto del countdown: qui non c'è urgenza)
+che si aggiorna a ogni spunta; le voci sotto sono subordinate come in
+candidatura (niente cornice propria, indentazione con bordo tratteggiato,
+verde solo a voce fatta) — prima erano h2 piatti con sottolineatura oro e
+voci-card a piena cornice, più pesanti dei capitoli-scadenza. **(2) Banner
+Wiz post-spunta (P2.14, parte in-tab)**: `mostraBannerWiz` ora usa
+`img/mascotte/wiz-esulta.webp` (68 KB) al posto di `img/wiz-hero.png`
+(408 KB) — il PNG resta SOLO come immagine OG in `index.html` (riallineamento
+OG in C5/D, fuori da questo blocco). **(3) Overlay celebrazione accessibile
+(P2.16 per questo componente)**: all'apertura il focus va sul bottone "Apri
+lo zaino", Escape chiude, alla chiusura il focus torna al toggle "Sono stato
+selezionato" (stesso pattern del meta-modal). **(4) Bonifica residui blu
+`#1b377b`**: eliminate le 6 occorrenze `rgba(27,55,123,…)` sopravvissute alla
+C1 (drop-shadow logo/mascotte, ombra bottone, scrim e ombra del meta-modal,
+ombra Wiz celebrazione) → ink direzione C `rgba(30,27,46,…)`. **Impianto NON
+toccato**: capitoli-scadenza, "Ora tocca a te", export .ics, toggle fase,
+motore temporale, dati checklist/postselezione. **Verifica a video** (preview
+di sessione porta 8001, 375×812 e 1280×800, giorno E notte — la voce fatta in
+notte dava il verde del giorno: era di nuovo la TRANSITION congelata dal
+throttling del pannello, rimisurata con transizioni disattivate:
+`rgba(74,222,128,.12)` corretto —, ENTRAMBI gli atenei; gli screenshot del
+pannello vanno ancora in timeout, verifica via DOM/computed styles come
+C1–C3): Sapienza zaino "Prima 0 di 5"→"1 di 5" alla spunta con banner webp,
+candidatura con capitolo-scadenza e "Ora tocca a te" invariati, celebrazione
+focus→Escape→focus verificata; Ca' Foscari 3 capitoli ("Prima 2 di 15",
+"Durante 0 di 2", "Dopo 0 di 3"), 4 capitoli-scadenza in candidatura;
+griglia desktop 712px/320px intatta, niente scroll orizzontale a 375px,
+zero errori console. **Checklist SEO**: URL/canonical/sitemap/GoatCounter
+NON toccati (`index.html` non toccato). `node --check js/app.js` OK. **File
+toccati**: `js/app.js` (renderChecklistPost testa+conteggio+corpo,
+mostraBannerWiz webp, celebrazione focus/Escape), `css/style.css` (blocco
+ZAINO riscritto, 6 residui blu → ink C). **Non toccati**: dati, motore
+compatibilità, index.html, guide. **Prossimo passo: Fase C5 — guide SEO
+ristilizzate + eventuale pagina fiducia (gate privacy), accorpabile con
+l'igiene repo; poi C6 LA Generator UI demo.**)
+
+**Ultimo aggiornamento precedente:** 2026-07-13 — sessione 45, Claude Code (**FASE C3
+IMPLEMENTATA: tab Mete nella direzione C — card/schedina/dettaglio; chiusi
+P1.4, P1.6, P1.7, P1.8 + P0.2 + P1.5-strip + debounce P2.15.** Eseguito il
+blocco C3 di `PLAN.md`. **(1) Schedina compatta (P1.4)**: a schedina VUOTA
+niente più 5 slot a piena larghezza (~1,5 schermate mobile prima delle mete)
+ma una riga di invito ("☆ Tocca la stellina… massimo 5, l'ordine conta") —
+misurato: il riquadro passa a ~122px; a schedina parziale si mostrano SOLO
+gli slot pieni + una riga "puoi aggiungerne altre N"; frecce/rimozione/
+riordino invariati. **(2) Icona di stato unica (P1.6)**: il numero-punteggio
+resta solo numero, l'icona vive nel nuovo badge-pillola di stato colorato
+per categoria (`stato-ok/medio/basso`, semaforo a token esistente, leggibile
+in entrambi i temi) — prima le card senza punteggio mostravano 🟡 due volte.
+**(3) Nomi normalizzati in presentazione (P1.7)**: nuova `nomeUniversita()` —
+title-case SOLO delle parole tutte-maiuscole ("PARIS LODRON UNIVERSITÄT
+SALZBURG"→"Paris Lodron Universität Salzburg", "UNIVERSIDAD DE ZARAGOZA"→
+"Universidad de Zaragoza"), sigle ≤3 lettere e sigle tra parentesi intatte
+("KU Leuven", "(TISEM)", "(AMU)"), preposizioni in minuscolo, nomi già
+scritti bene NON toccati; i dati restano intatti (typo alla pipeline) e la
+ricerca continua a lavorare sui dati grezzi. Applicata a card, schedina,
+titolo dettaglio, tooltip/cluster/aria-label della mappa. **(4) Niente testi
+ripetuti (P1.8)**: rimossi da OGNI card "Portale … ↗" e "Tocca per i
+dettagli →" (60 ripetizioni); l'affordance ora è del design — cursor
+pointer, hover-lift con bordo indigo, freccia "→" in basso a destra che si
+accende all'hover; `aria-label` "«nome» — apri il dettaglio" su ogni card;
+il link ufficiale vive nel dettaglio (già presente). **(5) P0.2 CHIUSO**: i
+codici Erasmus SINTETICI della pipeline (pattern `SAP-`/`CF-`) non compaiono
+più nel dettaglio (verificato su entrambi gli atenei); i codici reali
+passeranno quando la pipeline li sana. **(6) Strip profilo (P1.5, parte tab
+Mete)**: via "Area: 0421" → nuova `nomeAreaProfilo()` mostra la facoltà
+("Giurisprudenza · magistrale · Inglese B2"); l'onboarding ora SALVA
+`profilo.dipartimento` (campo aggiuntivo, zaini vecchi ok col fallback sul
+nome area dai dati). **(7) Debounce ricerca 150ms (P2.15 parziale)**:
+verificato 527→7 card dopo il timer, ripristino ok; il cap/"mostra altre"
+per il caso senza profilo resta aperto. **Verifica a video** (preview di
+sessione, 375×812 e desktop, giorno E notte con reflow forzato — gli
+screenshot del pannello vanno ancora in timeout, verifica via DOM/computed
+styles come C1/C2 —, ENTRAMBI gli atenei): Sapienza Giurisprudenza 60 card
+(pill verde `#e6f6ec`, notte `rgba(74,222,128,.12)` su card solida), stella
+→ schedina 2/5 con hint "altre 3", dettaglio Bruxelles senza codice
+sintetico e con "Scheda ufficiale (PDF) ↗", Ca' Foscari Economia 39 card
+griglia desktop 3 colonne, onboarding simulato salva la facoltà e la strip
+la mostra, niente scroll orizzontale a 375px nei due temi, filtri/ricerca/
+compatibilità invariati, zero errori console. **Checklist SEO**: URL/
+canonical invariati, `index.html`/sitemap/GoatCounter NON toccati.
+`node --check js/app.js` OK. **File toccati**: `js/app.js` (nomeUniversita,
+nomeAreaProfilo, renderMete card, renderPreferite riscritta compatta,
+apriDettaglioMeta P0.2, completaOnboarding +dipartimento, debounce, 3 punti
+mappa), `css/style.css` (blocco METE v2: card hover/freccia/badge stato,
+schedina a token semantici — leggibile anche in notte dove `--gold-bg` è
+traslucido —, rimosse regole morte `.link-scheda-v2`/`.card-dettagli-hint`/
+slot vuoti). **Non toccati**: dati mete/bando/scadenze, motore
+compatibilità, index.html, guide. **Prossimo passo: Fase C4 — Candidatura +
+Partenza/zaino (restyle coerente, impianto OP2 validato resta).**)
+
+**Ultimo aggiornamento precedente:** 2026-07-13 — sessione 44, Codex (**VERIFICA API PUBBLICA Erasmus+ App.**) L’app espone una API documentata: i soli dati pubblici utili al progetto sono anagrafiche di atenei/città, servizi pratici dichiarati dall’ateneo (es. housing/visa/assicurazione) e un vocabolario comune (livelli CEFR, livelli di studio, termini/step generici). Verificato: Sapienza e Ca’ Foscari hanno schede pubbliche. Dati decisivi per ErasmusWiz — accordi specifici, cataloghi esami, CEFR ufficiale delle mete e scadenze host — NON sono disponibili in questa API; requisiti d’application, eventi/offerte e informazioni per ateneo richiedono autorizzazione. Decisione proposta: usarla SOLO nella pipeline offline come controllo/arricchimento secondario, mai come dipendenza runtime e mai come fonte unica; non estrarre né copiare contenuti protetti o testi. Nessun file del sito o dato studente modificato.
+
+**Ultimo aggiornamento:** 2026-07-13 — sessione 43, Codex (**RICOGNIZIONE COMPETITIVA: Erasmus+ App ufficiale UE analizzata.**) Non è un prodotto da imitare né un colpo mortale: è il canale istituzionale europeo per il percorso amministrativo, mentre ErasmusWiz resta lo strumento locale di PREPARAZIONE (mete del proprio ateneo, lingua, scadenze con fonti e bozza del Learning Agreement). È una sovrapposizione parziale: rafforza il confine già scelto “strumento di appoggio, non sostituto”. Rischio da monitorare: una futura integrazione molto profonda dell’ateneo nell’app ufficiale; azione prioritaria invariata: verificare con l’ufficio Erasmus Sapienza la forma ammessa della bozza LA e il flusso OLA. Nessun file del sito o dato studente modificato.
+
+**Ultimo aggiornamento:** 2026-07-10 — sessione 42, Claude Code (**FASE C2
+IMPLEMENTATA: home con MAPPA-HERO nel sito vero + bug P0.1 CHIUSO + gerarchia
+mobile della home rifatta (P1.10 parziale).** Eseguito il blocco C2 di
+`PLAN.md` col disegno di `design/PLAN-FASE-B.md`. **(1) NUOVI DATI CONDIVISI**:
+`js/dati-coordinate.js` (45 KB) — lookup città→coordinate GENERATO OFFLINE da
+gazetteer manuale con schema del piano (`lat/lon/x/y/precisione`, x/y
+PRECALCOLATE, proiezione equirettangolare parallelo 48° con parametri salvati):
+**508/511 chiavi risolte = 99,6% delle 1.985 mete** di entrambi gli atenei; i
+nomi-città TRONCATI a 7 caratteri del seed (es. "Marseil", "Salzbur" — il
+"typo" dell'audit è troncamento sistematico) risolti per prefisso sul nome
+locale (precisione "citta-prefisso"); 23 città con coordinate vere ma FUORI
+inquadratura (Canarie, Madeira, Islanda, Turchia est, Bodø/Tromsø, Tahiti/
+Mayotte) marcate `fuori:true`; le 3 chiavi-spazzatura del seed ("Universidad",
+"Universite", "Ustp") restano "senza posizione" per la pipeline. +
+`js/dati-mappa-europa.js` (25 KB, 43 paesi, riuso Fase B). **(2) ONBOARDING
+SULLA MAPPA (bug P0.1 CHIUSO)**: l'overlay onboarding è stato RIMOSSO
+(markup+CSS+JS) e sostituito da `#home-benvenuto` IN PAGINA — stesso flusso a
+3 domande (ateneo sui 2 pin di Roma/Venezia o bottoni ridondanti → facoltà da
+lista → livello), con le mete della facoltà che si ACCENDONO sulla mappa al
+passo 3 e landing con nMete+prossima scadenza; niente più overlay centrato che
+tagliava le opzioni: **verificato a 375px che le 17 facoltà Sapienza sono
+tutte raggiungibili e cliccabili, Giurisprudenza compresa**. Cambio ateneo:
+salva+ricarica con ripresa al passo 2 (meccanismo preesistente, verificato).
+**(3) MOTORE MAPPA in `js/app.js`** (regole PLAN-FASE-B): pin = `<button>`
+44px in overlay HTML sopra l'SVG con aria-label, cluster per città identica E
+per distanza (soglia scalata sulla larghezza, ri-cluster al resize via rAF),
+tooltip anteprima solo desktop-hover (università, lingua, stima borsa via
+`trovaGruppoBorsa`), tap/click su pin singolo → **il VERO
+`apriDettaglioMeta`**, su cluster → elenco nel meta-modal esistente (stessa
+chiusura/Escape), nota di copertura onesta sotto la mappa ("N mete non sono
+sulla mappa: … le trovi nell'elenco"), rendering dati solo
+textContent/createElement. **(4) MAPPA COMPATTA nella home profilata**
+(`#card-mappa-home`): SOTTO missione/countdown/preparazione, mete dell'area
+del profilo con le preferite stellate (si aggiornano da `renderPreferite`),
+link "Elenco completo →" al tab Mete. **(5) GERARCHIA MOBILE HOME RIFATTA**:
+il gate 375×667 falliva NON per la mappa ma per il percorso a 4 fasi tra hero
+e missione (difetto P1.10) → riordinato il DOM (missione+countdown PRIMA del
+percorso; il desktop non cambia: la griglia usa posizioni esplicite,
+verificato) → **gate PASSA: missione a 413px nel primo viewport** (countdown
+pill legittimamente nascosta a bando chiuso). **Verifica a video** (preview
+8001, 375×812/375×667/1280×800, giorno E notte con reflow forzato per il
+throttling del pannello — stesso falso-allarme della C1 —, ENTRAMBI gli
+atenei): flusso completo nuovo visitatore Sapienza→Giurisprudenza (55 mete,
+17 pin/12 cluster a 375px, nota "1 fuori inquadratura"), pin→dettaglio
+Olomouc, cluster→"7 mete vicino a Salisburgo"→dettaglio→Escape, landing "60
+mete a Giurisprudenza" col messaggio bando-chiuso onesto, home profilata con
+mappa compatta (17 pin) e stelle, flusso Ca' Foscari→Economia (58 mete, 31
+pin), tema notte con terra #242741/casa indigo e contrasti 14-15:1, griglia
+desktop intatta, zero errori console, niente scroll orizzontale.
+**Checklist SEO**: URL/canonical invariati, GoatCounter presente, sitemap non
+toccata. `node --check js/app.js` OK. Peso: +70 KB di dati mappa (~3% della
+pagina; il loader per-ateneo resta P2.13, non di questo blocco). **File
+toccati**: NUOVI `js/dati-coordinate.js`, `js/dati-mappa-europa.js`;
+`index.html` (sezione benvenuto, card mappa home, riordino
+missione/countdown/percorso, overlay onboarding rimosso, 2 script tag);
+`js/app.js` (motore mappa ~230 righe, blocco onboarding riscritto come
+benvenuto, hook in renderHome/renderPreferite/init); `css/style.css` (blocco
+MAPPA+BENVENUTO al posto del blocco overlay onboarding, regola
+`modo-benvenuto`). **Non toccati**: dati mete/bando/scadenze, motore
+compatibilità, tab Mete/Candidatura, guide. **Prossimo passo: Fase C3 — tab
+Mete nella direzione C** (card ridisegnate: difetti P1.4/6/7/8 — schedina
+compatta, icona di stato unica, nomi normalizzati, niente testi ripetuti).)
+
+**Ultimo aggiornamento precedente:** 2026-07-10 — sessione 41, Claude Code (**DIREZIONE C
+SCELTA DA NICOLA + FASE C1 (FONDAMENTA) IMPLEMENTATA sul sito live.**
+**Nicola ha scelto la Proposta C "Ibrida"** tra i 3 mockup di Fase B: la
+scelta SOSTITUISCE formalmente BR0–BR7 (nota di supersessione in testa a
+`DISEGNO_BRAND.md`; restano valide le sue regole non visive: BR1 movimento
+gentile, budget asset §2-bis, tono di voce). **Fase C1 eseguita** secondo
+`PLAN.md`: (1) **`css/style.css` :root ritarato** alla direzione C — primario
+indigo `#4F46E5` (hover/active `#4338CA`/`#3730A3`), ambra `#FBBF24` con
+`--gold-dark #B45309` leggibile su chiaro, sfondo pagina avorio `#FAFAF7`,
+neutri caldi (`#1E1B2E`/`#4B4560`/`#686180`), bordi lilla, nav/countdown da
+blu `#1b377b` a indigo profondo `#232046`, raggi 20/16/12/9, ombre
+ink-indigo, nuovo token `--bg-track` per i binari delle barre; font
+CONFERMATI (Bricolage/Jakarta/SpaceMono). (2) **NUOVI token
+`--primary-fill`/`--primary-fill-hover`**: i fill con testo bianco (btn
+primari, chip attivi, toggle fase, .dett-link.primario, .btn-primario)
+restano indigo saturi in ENTRAMBI i temi, mentre `--primary` in notte si
+schiarisce per testi/link — evita il classico bug "lavanda su bianco". (3)
+**Tema notte di PRIMA CLASSE** (chiude P1.11 dell'audit): non più blu-nav
+con card traslucide ma palette dedicata — fondo `#12141F`, card SOLIDE
+`#1B1E30`, hover `#252840`, testi `#EDEBF7/#BEB9D6/#A29CC4`, bordi propri,
+primario notturno `#818CF8/#A5B4FC`, semaforo ricalibrato per il buio
+(testi chiari + tinte trasparenti), ambra che si accende (`--gold-dark`→
+`#FBBF24`), stelline ridotte a opacità .5 e virate indigo. (4) Hardcoded
+residui portati a token (fase-attiva, missione-card ring, barre progresso,
+bordo capitoli, testi celebrazione/onboarding su fondo scuro). (5)
+**`design/tokens/colors.css` RISCRITTO** come fonte di verità della
+direzione C (scale indigo/ambra/ink caldi + sezione notte + alias
+semantici). (6) `theme-color` in `index.html` e `manifest.json`
+`#1b377b`→`#232046`, `background_color`→`#FAFAF7`. **Verifica a video**
+(preview 8001, profilo demo via localStorage, mobile 375 e desktop 1280,
+tema giorno E notte, ENTRAMBI gli atenei — Sapienza Giurisprudenza LM,
+Ca' Foscari Economia L): token applicati ovunque via `getComputedStyle`
+(nav `#232046`, btn `#4F46E5` r999, card r20, countdown ambra, track
+lilla), notte con card solide e contrasti misurati (hero 18,3:1, card
+13,9:1, muted 8,7:1, btn 6,3:1; il falso allarme fase-cta 1,99:1 era la
+TRANSITION congelata dal throttling del pannello browser — rimisurato con
+reflow forzato: `#1B1E30`, ~7,7:1 ✓), motore compatibilità intatto su
+entrambi gli atenei (Bordeaux 100%, chip borsa €400), niente scroll
+orizzontale a 375px, console pulita. **Checklist SEO di blocco**: URL e
+canonical INVARIATI, GoatCounter presente, `sitemap.xml` non toccata; le
+2 guide ereditano i nuovi token via `css/style.css` (CTA indigo 6,3:1).
+Nessun `.js` toccato (niente `node --check` necessario). NOTA ambiente: gli
+screenshot del pannello browser vanno in timeout (renderer throttled) — la
+verifica è via DOM/computed styles; Nicola può guardare il sito in locale
+per il colpo d'occhio. File toccati: `css/style.css`,
+`design/tokens/colors.css` (riscritto), `index.html` (solo theme-color),
+`manifest.json` (2 valori), `DISEGNO_BRAND.md` (nota supersessione).
+**Prossimo passo: Fase C2 — home/percorso + onboarding nella direzione C
+(include la mappa-hero: serve il lookup coordinate dalla pipeline, schema
+in `design/PLAN-FASE-B.md` §Approach 2, e il fix del bug P0.1
+dell'onboarding mobile).**)
+
+**Ultimo aggiornamento precedente:** 2026-07-10 — sessione 40, Claude Code (**FASE B
+ESEGUITA: 3 MOCKUP DI DIREZIONE VISIVA CON MAPPA-HERO INTERATTIVA, pronti per
+la scelta di Nicola. Nessun file del sito live toccato.** Sessione in due
+tempi. **Tempo 1 — /grill-me-codex sul caveat di Nicola** ("home molto
+interattiva: mappa del mondo, scegli l'università, vedi le mete, hover =
+anteprima"): 4 decisioni al grill — (1) la mappa d'Europa è l'HERO della home
+(scelta esplicita dopo avvocato del diavolo che opponeva la gerarchia della
+bussola LA>scadenze>lingua>mete: la mappa vale come asset di ACQUISIZIONE/
+condivisione WhatsApp, non come strumento decisionale); (2) strutturale in
+TUTTI i mockup, si sceglie l'identità a parità di struttura; (3) due
+condizioni vincolanti: mobile = tap+scheda con clustering (mai hover), utente
+profilato = mappa compattata sotto missione/countdown, con GATE oggettivo
+"missione+countdown interi nel primo viewport 375×667"; (4) tre direzioni,
+non due. Piano bloccato in **NUOVO `design/PLAN-FASE-B.md`**; revisione
+avversariale Codex (gpt-5.5, codex-cli 0.144.1 via npx — il binario locale
+non c'era più): Round 1 REVISE con 16 rilievi (14 accolti — tra cui demo con
+TUTTE le 55 mete non un sottoinsieme, + Economia Ca' Foscari per il secondo
+pin, schema coordinate `coord{lat,lon,x,y,fonte,precisione}` definito ORA con
+proiezione precalcolata offline, clustering anche per città identica,
+accessibilità pin=<button> in overlay HTML sopra l'SVG con tastiera e lista
+testuale equivalente, regola anti-XSS textContent-only, budget misurabili,
+noindex — 2 respinti con motivo a log), Round 2 **APPROVED** + 6 rilievi
+residui non bloccanti comunque integrati. Log in coda a `PLAN-REVIEW-LOG.md`.
+**Tempo 2 — costruzione (skill ui-ux-pro-max)**: NUOVA cartella
+`design/proposte-2026-07/` con `index.html` (comparatore con istruzioni e
+gate), `proposta-a-giocosa.html` (claymorphism caldo arancio, Wiz protagonista
+con fumetti e pose, pin oro su notte viola), `proposta-b-professionale.html`
+(fintech sobrio blu, niente mascotte, etichette testuali), `proposta-c-ibrida.html`
+(indigo+ambra, Wiz solo come guida) e `_assets/` condivisi: `europa-svg.js`
+(25 KB, 43 paesi, generato offline da GeoJSON con proiezione equirettangolare
+parallelo 48°), `dati-demo.js` (85 KB: 55 mete Giurisprudenza + 58 Economia
+REALI con coordinate precalcolate, borsa risolta marcata solo-demo, 2 mete
+Canarie senza coord per dimostrare il fallback lista), 3 webp Wiz (≤68 KB,
+riusati da img/mascotte). Ogni mockup: 3 viste (primo contatto / home
+profilata con stato bando chiuso datato e con fonte / tab Mete con card che
+risolvono P1.4-6-7-8), tema chiaro+notte disegnati entrambi, flusso mappa
+funzionante sui dati veri (ateneo→facoltà→55 pin), cluster per città identica
+e distanza con ricluster al resize, tooltip desktop / scheda mobile, Escape
+che restituisce il focus, elenco testuale accessibile. **Fix in corso di
+verifica**: gate 375×667 inizialmente fallito di 95px → barra-mockup e testa
+della home profilata compattate su mobile, ora passa su tutte e tre (countdown
+a ~580px); sizing circolare `fit-content`+`min(100%,…)` che collassava l'SVG
+a 300px su desktop → larghezze definite (620px hero desktop, 351px compatta),
+allineamento pin verificato a scarto 0px; contrasti misurati via
+getComputedStyle e corretti (`--ink-faint` A chiaro 3,26→5,08, C
+chiaro/notte →≥4,5); plurale "1 meta"; microcopy "tocca" su touch. **Verifica
+a video completa**: 375×812, 375×667, 667×375 landscape (no scroll
+orizzontale, stato coerente al cambio tema con scheda aperta), 1280×800,
+chiaro e notte, nessun errore console. Budget: ~290 KB/pagina (limite 600),
+SVG 25/80, Wiz 68/100. Sapienza posti condivisi tra livelli contati una volta
+sola (1+1=1), Ca' Foscari sommati (3L+6LM=9). **Prossimo passo: Nicola apre
+`design/proposte-2026-07/index.html` — PRIMA DA TELEFONO — e sceglie la
+direzione; la scelta sostituisce BR0–BR7 e sblocca la Fase C.** File nuovi:
+`design/PLAN-FASE-B.md`, `design/proposte-2026-07/{index,proposta-a-giocosa,
+proposta-b-professionale,proposta-c-ibrida}.html`, `design/proposte-2026-07/_assets/{europa-svg.js,dati-demo.js,wiz-saluto.webp,wiz-esulta.webp,wiz-spiega.webp}`;
+aggiornato `PLAN-REVIEW-LOG.md` (log Fase B in coda).)
+
+**Ultimo aggiornamento precedente:** 2026-07-10 — sessione 39, Claude Code (**NUOVA ONDATA
+"MERCATO-UI" PIANIFICATA E APPROVATA + FASE A (AUDIT) ESEGUITA. Nessun file di
+codice/dati del sito toccato.** Sessione /grill-me-codex su richiesta di Nicola
+("revisione completa e ristrutturazione del sito, pronto per il mercato").
+**Atto 1 — grill, 6 decisioni di Nicola**: (1) metodo audit-first (si rifà solo
+ciò che l'audit condanna; dati e motore compatibilità INTOCCABILI); (2)
+traguardo = sito a qualità professionale + UI del LA Generator come demo
+navigabile read-only (logica in MERCATO-2/OP8); (3) **brand in discussione** —
+2-3 direzioni visive come mockup HTML in `design/proposte-2026-07/`, sceglie
+Nicola, la scelta SOSTITUISCE formalmente BR0-BR7; (4) stack vanilla confermato,
+nessun build step; (5) lancio gratuito agli studenti, zero monetizzazione; (6)
+ondata chiusa entro settembre 2026, MERCATO-2 resta a ott-dic, sopravvivono in
+parallelo OP5-residuo/G4/G5/OP6. **Atto 2 — revisione avversariale Codex
+(gpt-5.5, codex-cli 0.142.5, sandbox read-only)**: Round 1 REVISE con 12
+rilievi (10 accolti — tra cui demo LA senza scritture zaino coi vincoli OP8,
+gate privacy, checklist SEO per blocco, igiene repo con dry-run, mini-QA per
+blocco, chiusura a due stati implementata/validata — 2 respinti con motivo a
+log perché decisioni esplicite del grill); Round 2 **APPROVED**. Deliverable:
+**NUOVI `PLAN.md`** (il piano vincolante dell'ondata: Fasi A audit → B
+direzioni visive → C1-C6 ristrutturazione+igiene → D QA) e
+**`PLAN-REVIEW-LOG.md`** (trascrizione integrale del confronto). **Fase A
+eseguita nella stessa sessione → NUOVO `design/AUDIT_SITO.md`**: 20 difetti
+priorizzati P0-P3 + verdetti TENERE/RIFARE per area. **I tre P0**: (1) bug
+CONFERMATO onboarding mobile — con le 17 facoltà Sapienza l'overlay centrato
+taglia le prime opzioni e "Giurisprudenza" (il beachhead!) è irraggiungibile
+da telefono 375px; (2) codici Erasmus SINTETICI (SAP-IUS-*) mostrati nel
+dettaglio meta come dato ufficiale — da nascondere finché la pipeline non li
+sana; (3) form profilo limitato a 4 lingue hardcoded → chi sa il portoghese
+(caso Lisbona!) vede falsi 🔒 — la lista deve derivare dai dati. Misurato
+anche: 2,45 MB alla prima visita (2,16 MB dati JS, SEMPRE entrambi gli
+atenei), wiz-hero.png 408 KB come OG, dark mode con sole 11 regole override,
+schedina vuota che occupa 1,5 schermate prima delle mete, "Area: 0421" grezzo
+nello strip, 19 file spazzatura in root. Cosa funziona (da non rompere):
+onestà sistematica banner/disclaimer/stime, fusione candidatura OP2, .ics,
+filtri OP3/OP4, guide SEO, token CSS ordinati. **Prossimo passo: Fase B —
+2-3 mockup HTML delle direzioni visive (include tema notte di prima classe e
+stato "bando chiuso"), poi scelta di Nicola.** Verifica a video eseguita su
+preview 8001, mobile 375 e desktop 1280, chiaro+notte, Sapienza Giurisprudenza
+LM e Ca' Foscari Economia L, onboarding da localStorage pulito; nessun errore
+console (solo warn GoatCounter su localhost, atteso). File nuovi: `PLAN.md`,
+`PLAN-REVIEW-LOG.md`, `design/AUDIT_SITO.md`.)
+
+**Ultimo aggiornamento precedente:** 2026-07-09 — sessione 38, Claude (Cowork) — **NON
+tocca il sito/contenuti: sessione di infrastruttura per l'automazione dati**
+(vedi [[AUTOMAZIONE_GEMINI.md]]). Riassunto: (1) indicazioni per completare la
+Fase 0 lato Gemini (API key + fatturazione Google Cloud + variabile
+d'ambiente `GEMINI_API_KEY` sul PC dedicato); (2) primo tentativo di
+`node scripts/esegui-lotto-automatico.mjs` sul PC dedicato bloccato da
+`inizia-batch.mjs` con errore git "bad object refs/codex/snapshots/...";
+diagnosi: **110+ segnalibri interni di Codex (`refs/codex/snapshots/*`)
+corrotti**, causa quasi certa OneDrive che sincronizza `.git` mentre Codex
+scrive continuamente — non un problema di Gemini o dello script. (3)
+**Il repo sul PC dedicato è stato spostato fuori da OneDrive**, in
+`C:\repos\erasmuswiz` (clone pulito da GitHub, verificato `git status`
+clean e i 235 file `batch/FONTI-*.json` presenti): da qui in avanti
+**l'automazione (Gemini+Codex, script della pipeline dati) gira SOLO lì**,
+mai più nella cartella OneDrive. La cartella OneDrive resta per il lavoro
+manuale di Nicola (documenti, pianificazione) e per le sessioni Claude/
+Cowork su questi file — ma ha ereditato gli stessi segnalibri corrotti
+(stessa cartella sincronizzata): pulizia consigliata ma non urgente, quando
+comodo, con gli stessi comandi usati sul PC dedicato (vedi memoria
+`erasmuswiz-automazione-gemini`). **Confermato durante il controllo:** Claude
+non deve più eseguire comandi git (nemmeno di sola lettura) sulla cartella
+OneDrive da questa sandbox — il mount stesso può introdurre falsi "file
+modificati" per differenze di fine riga (CRLF/LF), rumore non pericoloso ma
+da evitare. **Fase 1 (test reale con l'API Gemini) non ancora eseguita**:
+va rilanciata dal PC dedicato, ora da `C:\repos\erasmuswiz`, dopo `npm
+install` e verifica che `GEMINI_API_KEY` sia ancora impostata (variabile di
+macchina, dovrebbe sopravvivere al trasloco).
+
+**Ultimo aggiornamento precedente:** 2026-07-08 — sessione 37, Claude Code (**OP5 SEO di
 base ONLINE — PARZIALE (2/3 pagine + sitemap/robots), analytics già attivo.**
 Letti in ordine `CLAUDE.md`, `PROGETTO_ERASMUS.md`, `STATO_DEL_SITO.md`,
 `ROADMAP.md`, `DISEGNO_OPERATIONS.md`. Eseguito SOLO il blocco OP5, nella
@@ -1473,6 +1920,15 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | OP2 — Candidatura riformattata | Pagina Timeline rimossa (era ridondante, BR7); "Ora tocca a te" mostra la scadenza collegata a ogni passo; gerarchia visiva scadenza/voci rinforzata | ✅ Fatta e testata (2026-07-08) |
 | OP3 — Filtro lingua nelle mete | Chip "🗣️ Per la mia lingua" tra i filtri, riusa il motore di compatibilità esistente | ✅ Fatta e testata (2026-07-08) |
 | OP4 — Stima borsa per gruppo-paese | Nuovo `dati-borse.js` per ateneo, badge nella card + blocco nel dettaglio con disclaimer datato | ✅ Fatta e testata (2026-07-08) |
+| MERCATO-UI Fase A — Audit | `design/AUDIT_SITO.md`: 20 difetti P0-P3 + verdetti per area | ✅ Fatta (2026-07-10) |
+| MERCATO-UI Fase B — Direzioni visive | 3 mockup con mappa-hero interattiva in `design/proposte-2026-07/` (piano: `design/PLAN-FASE-B.md`, review Codex APPROVED) | ✅ Chiusa: **Nicola ha scelto la C "Ibrida"** (2026-07-10) — sostituisce BR0–BR7 |
+| MERCATO-UI Fase C1 — Fondamenta | Token direzione C in `css/style.css` + `design/tokens/colors.css`, `--primary-fill`, tema notte di prima classe (card solide, palette dedicata), theme-color/manifest | ✅ Fatta e testata (2026-07-10) |
+| MERCATO-UI Fase C2 — Home con mappa-hero | Onboarding IN PAGINA sulla mappa (bug P0.1 chiuso), motore mappa in app.js, `dati-coordinate.js` (99,6% mete) + `dati-mappa-europa.js`, mappa compatta in home, gerarchia mobile rifatta (gate 375×667 ✅) | ✅ Fatta e testata (2026-07-10) |
+| MERCATO-UI Fase C3 — Tab Mete | Card ridisegnate (badge stato unico, nomi normalizzati, niente testi ripetuti), schedina compatta, codici sintetici nascosti nel dettaglio, strip con nome facoltà, debounce ricerca | ✅ Fatta e testata (2026-07-13) |
+| MERCATO-UI Fase C4 — Candidatura + Zaino | Zaino coi capitoli-card della candidatura (testa ambra + conteggio "N di M"), banner Wiz in webp (408→68 KB), celebrazione con focus/Escape, bonifica 6 residui blu pre-C1 | ✅ Fatta e testata (2026-07-14) |
+| MERCATO-UI Fase C5 — Guide + fiducia + OG | OG dedicata 64 KB (P2.14 chiuso), pagina fiducia `guide/come-funziona.html` (gate privacy ok), sw.js senza PNG 408 KB, sitemap 4 URL, 30 file spazzatura eliminati (cartelle legacy: attendono conferma Nicola) | ✅ Fatta e testata (2026-07-14) |
+| MERCATO-UI Fasi C6, D — Demo LA + QA | Assorbite dall'ondata PERCORSO: la demo LA Generator diventa stazione del viaggio (P5), il QA finale diventa P7 | 🔁 Superate (2026-07-14) |
+| **PERCORSO — redesign a viaggio** | `PLAN.md` riscritto (grill 10 decisioni + Codex APPROVED al R5): due mondi ingresso/dashboard, linea di viaggio = nav, itinerario a stazioni, palette riaperta (2 direzioni: Notte cartografica vs Orizzonte chiaro), fasi P0 mockup → P7 QA, deadline settembre 2026 | 📋 Pianificata — prossima: P0 (2 mockup) |
 
 **Tab visibili nella pagina (navigazione inferiore):** Oggi (missione) → Mete → Candidatura (scadenze+checklist fuse).
 **Tab nascosti (accessibili da JS):** Idoneità · Profilo.
@@ -1493,7 +1949,9 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | `index.html` | codice | Struttura v2 (tab OGGI/METE/CANDIDATURA + Idoneità/Profilo nascosti; Timeline rimossa in OP2) |
 | `css/style.css` | codice | Design system v2: dark mode, font Bricolage/Jakarta/SpaceMono, responsive |
 | `js/app.js` | codice | Logica v2: missione del giorno, percorso, countdown, mete, checklist, profilo |
-| `img/wiz-hero.png` | asset | Mascotte Wiz (illustrazione, in sostituzione in BR2 con le pose di `design/assets/mascotte/`) |
+| `img/wiz-hero.png` | asset | **NON più referenziato da nessun file** (C5: sostituito da webp + OG dedicata) — eliminabile nel blocco igiene con conferma di Nicola |
+| `img/og-erasmuswiz.png` | asset | **OG image dedicata** (C5): 1200×630, 64 KB, stile notte direzione C — usata da home e guide per og:image/twitter:image |
+| `guide/` | codice | Pagine statiche indicizzabili: 2 guide SEO (OP5) + `come-funziona.html` (pagina fiducia, C5). URL con canonical, JSON-LD FAQPage, GoatCounter |
 | `img/logo-mark.svg` · `img/icon-star.svg` · `img/icon-sparkle.svg` | asset | Copiati da `design/assets/` in BR0; logo-mark usato nell'header desktop (`.nav-brand`) e come favicon |
 | `js/atenei/` | **dati** | Dati per ateneo (multi-ateneo). Sottocartelle `cafoscari/` e `sapienza/`; vedi `js/atenei/README.md` |
 | `js/atenei/cafoscari/dati-bando.js` | **dati** | Requisiti del bando Ca' Foscari (Idoneità) — `var BANDO_INFO`, `var REQUISITI_BANDO` |
@@ -1520,6 +1978,10 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | `js/atenei/README.md` | guida | Come è collegato il multi-ateneo + come aggiungere un ateneo |
 | `GROUNDWORK-sapienza.md` | guida | Ricognizione fonti/modello dati Sapienza (26/06) |
 | `v2/` | storico | Design v2 originale (sottocartella, non più il sito principale) |
+| `js/dati-mappa-europa.js` | **dati** | Geometria SVG dell'Europa (43 paesi, generata offline da GeoJSON, proiezione equirettangolare parallelo 48°) — Fase C2 |
+| `js/dati-coordinate.js` | **dati** | Lookup città→coordinate per la mappa (508 chiavi = 99,6% mete; x/y precalcolate; `fuori:true` per le città fuori inquadratura). La pipeline G5 lo estende | 
+| `design/PLAN-FASE-B.md` | piano | Fase B dettagliata (mappa-hero, 3 direzioni, gate mobile) — locked via grill + Codex APPROVED (10/07) |
+| `design/proposte-2026-07/` | mockup | 3 proposte di direzione visiva + comparatore `index.html` + `_assets/` (mappa SVG, dati demo, Wiz webp). NON è il sito: noindex + disclaimer |
 | `automazioni/PROMPT_CODEX_mappatura.md` | automazione | Prompt dell'automazione Codex (ogni 15 min): unica fonte della mappatura mete. (Action Claude `mappatura-mete.yml` RIMOSSA) |
 | `scripts/lib-mete.mjs` | automazione | Utilità condivise: scanner JS (rispetta stringhe/parentesi) + serializzazione |
 | `scripts/prepara-batch.mjs` | automazione | Imbuto in ingresso: estrae il prossimo batch in `batch/INPUT.json` (pochi KB) |
@@ -1593,6 +2055,150 @@ python -m http.server 8000
 poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
+
+**Aggiornamento 2026-07-14 — sessione 48 (ondata PERCORSO pianificata):**
+1. **Prossima sessione: Fase P0 — i 2 mockup completi** in
+   `design/proposte-percorso-2026-07/` ("Notte cartografica" vs "Orizzonte
+   chiaro"), ciascuno con 3 schermate collegate: ingresso con mappa ad archi
+   di volo animati + onboarding sul viaggio, dashboard profilata con linea
+   di viaggio e moduli PLANNER (piano "Questa settimana" auto-generato,
+   indicatore "Sei in linea?", calendario scadenze, card check-in — vedi
+   addendum sessione 48 e `PLAN.md` §P0 2-ter), candidatura come
+   itinerario a stazioni. Tema chiaro
+   E notte, dati veri riusati da `design/proposte-2026-07/_assets/`,
+   `prefers-reduced-motion`, gate mobile 375×667, noindex, ≤600 KB/pagina.
+   Poi **Nicola sceglie DA TELEFONO** — la scelta è vincolante e sblocca
+   P1–P7 (vedi `PLAN.md`, ondata PERCORSO). **Brief visivo aggiunto da
+   Nicola a fine sessione 48** (4 riferimenti dashboard/app scolastiche,
+   distillati in `PLAN.md` §P0 punto 2-bis): fondi chiari e ariosi, card
+   morbide, un colore profondo come accento, dashboard modulare "quadro
+   d'insieme", mobile a colonna singola con hero card "oggi" e bottom nav
+   a pillola; in "Notte cartografica" il buio vive nell'ingresso/mappa e
+   nelle card-copertina, la dashboard resta chiara in entrambe le direzioni.
+   **Addendum PLANNER (stessa sessione 48, secondo grill + review Codex
+   APPROVED al R4, 14 rilievi tutti accolti)**: la dashboard è un PLANNER —
+   piano settimanale AUTO-GENERATO da scadenze bando × checklist aperte
+   (niente task manuali, niente streak), indicatore "Sei in linea?" con
+   semantica onesta (in ritardo SOLO oltre la propria scadenza, mai
+   valutazione di performance), calendario mensile scadenze, check-in
+   settimanale in-app (campo `YYYY-Www` nello zaino per-ateneo). Requisiti
+   emersi dalla review: estensione ADDITIVA dei metadati scadenze/bando
+   (`fonte` {etichetta, url HTTPS ufficiale — MAI percorsi fonti/},
+   `verificataIl`, `pubblicato`, `ciclo` + stato formale del bando a 4
+   valori), fuso canonico Europe/Rome con UNICA funzione di parsing
+   (vietato new Date(stringa) nei moduli), ramo "selezionato" separato e
+   presentato come auto-dichiarato, degradazione onesta senza ciclo
+   pubblicato (piano/calendario nascosti, semaforo "non disponibile",
+   check-in non salvato), casi di prova ripetibili in P7.
+2. La Fase C6 (demo LA Generator) NON si fa più sul design attuale: nasce
+   come stazione del viaggio in P5, vincoli OP8 invariati.
+3. Le azioni di Nicola della sessione 47 restano valide (rilettura pagina
+   fiducia, decisione cartelle legacy via .bat, sitemap su Search Console).
+
+**Aggiornamento 2026-07-14 — sessione 47 (C5 fatta):**
+1. **Prossima sessione: Fase C6 — LA Generator, SOLO UI dimostrativa.**
+   Vincoli espliciti dal piano (OP8): (a) NESSUNA scrittura nello zaino —
+   niente `ZAINO.laGenerator`; (b) flusso scenario A navigabile (seleziona
+   esami da convalidare → incolla link corsi host → anteprima documento) con
+   stato onesto "in arrivo" dove la logica non c'è; (c) mapping
+   molti-a-molti corsi↔esami con totali ECTS/CFU, NIENTE campi per codici
+   corso host, campo semestre/disponibilità; (d) placeholder onesto dove
+   manca `linkCatalogo` (arriva dalla pipeline G5, non è un prerequisito).
+2. **Azioni di Nicola**: (a) rileggere la sezione "Chi c'è dietro" di
+   `guide/come-funziona.html` prima del deploy; (b) decidere sulle cartelle
+   legacy `_backup-*`, `v2/` (ancora deployata su Pages!) e
+   `chatgpt-project/` — si eliminano SOLO via .bat con la sua conferma;
+   con l'occasione si può eliminare anche `img/wiz-hero.png` (408 KB, non
+   più referenziato) e valutare `_smoke.js`; (c) dopo il deploy, inviare
+   la sitemap aggiornata da Google Search Console (azione OP5 residua).
+3. Code NON bloccanti invariate: cap render Mete senza profilo (P2.15
+   metà), focus-trap completo dei modali (QA), loader per-ateneo (P2.13),
+   canale feedback a zero attrito (P1.12), 3° articolo caso-Bruno (serve
+   l'ok di Bruno).
+
+**Aggiornamento 2026-07-14 — sessione 46 (C4 fatta):**
+1. **Prossima sessione: Fase C5 — guide SEO ristilizzate + eventuale pagina
+   fiducia** ("Come funziona / chi c'è dietro", raccomandata dall'audit).
+   Vincoli dal piano: gate privacy su ogni pagina nuova o toccata (nessun
+   dato personale, consenso di Bruno per racconti reali), URL delle guide
+   INVARIATI, checklist SEO di blocco. È il blocco che include il
+   riallineamento asset della direzione C: **l'immagine OG è ancora
+   `wiz-hero.png` (408 KB)** — serve un'OG dedicata ≤100 KB (P2.14, parte
+   restante). C5 è accorpabile con l'igiene repo (P3.17/18: dry-run +
+   conferma esplicita di Nicola + solo procedura .bat).
+2. Code NON bloccanti che restano aperte: cap di rendering / "mostra altre"
+   per il tab Mete senza profilo (P2.15 seconda metà); focus-trap COMPLETO
+   dei modali (C4 ha sistemato focus/Escape della celebrazione; il trap del
+   tab dentro il meta-modal resta per il blocco QA); loader per-ateneo
+   (P2.13); feedback a zero attrito al posto di GitHub Issues (P1.12).
+3. Dopo C5: C6 demo LA Generator (vincoli OP8: read-only, niente scritture
+   zaino), poi Fase D QA e chiusura.
+
+**Aggiornamento 2026-07-13 — sessione 45 (C3 fatta):**
+1. **Prossima sessione: Fase C4 — Candidatura + Partenza/zaino** nella
+   direzione C. Dall'audit l'impianto OP2 è "TENERE con rifinitura": solo
+   restyle coerente (capitoli scadenza, "Ora tocca a te", zaino), nessuna
+   riprogettazione della logica validata.
+2. Code NON bloccanti lasciate aperte da C3: il cap di rendering / "mostra
+   altre" per il tab Mete senza profilo (P2.15 seconda metà — oggi si
+   renderizzano tutte le card dell'ateneo, il debounce mitiga); focus-trap
+   dei modali e target 44px delle frecce schedina (P2.16, pensati per il
+   blocco QA); il loader per-ateneo resta P2.13.
+3. Nota dati per la pipeline: nomi con case sporco nei dati restano tali
+   (es. "School of economics and management" minuscolo nel seed Ca'
+   Foscari) — la presentazione normalizza solo le parole tutte-maiuscole.
+
+**Aggiornamento 2026-07-13 — sessione 44 (API Erasmus+ App):** non implementare nulla nel sito ora. Se si affronta l’arricchimento post-selezione, fare prima un piccolo test offline di 10 mete: API pubblica solo per normalizzare il nome/paese dell’ateneo e verificare eventuali servizi host; conservare URL e data di controllo. Promuovere il campo dati solo se le informazioni sono presenti, attuali e utili. Nessuna chiamata dell’app utente direttamente all’API.
+
+**Aggiornamento 2026-07-13 — sessione 43 (ricognizione Erasmus+ App):** prima di implementare il LA Generator, inviare la verifica all’ufficio Erasmus Sapienza: quale bozza accettano, quale modello vogliono, e come si raccorda al loro OLA ufficiale. Nel prodotto, mantenere sempre il collegamento all’app/OLA ufficiale e presentare ErasmusWiz come preparazione locale, non come alternativa al canale istituzionale.
+
+**Aggiornamento 2026-07-10 — sessione 42 (C2 fatta):**
+1. **Prossima sessione: Fase C3 — tab Mete nella direzione C.** Difetti
+   dall'audit: P1.4 schedina vuota compatta (1 riga, non 5 slot), P1.6 icona
+   di stato unica per card, P1.7 nomi università normalizzati in
+   presentazione (title-case; i typo/troncamenti del seed restano compito
+   della pipeline), P1.8 niente testi ripetuti 60 volte (link portale solo
+   nel dettaglio). P2.15 (debounce ricerca + cap render) se la sessione
+   regge.
+2. Per la mappa restano due code NON bloccanti: le 3 chiavi-spazzatura del
+   seed ("Universidad|Spagna" ecc.) da sanare in pipeline; il ri-check del
+   clustering sulla facoltà più numerosa (Studi Linguistici Ca' Foscari,
+   114 mete) è già coperto dal ri-cluster dinamico ma va guardato a video
+   quando quella facoltà avrà dati arricchiti.
+3. Restano vivi in parallelo: residuo OP5, G4, G5/pipeline (che ora ha
+   anche il compito di ESTENDERE `js/dati-coordinate.js` per le città
+   nuove), go/no-go OP6.
+
+**Aggiornamento 2026-07-10 — sessione 41 (direzione C scelta, C1 fatta):**
+1. **Prossima sessione: Fase C2** — home/percorso + onboarding nella
+   direzione C. Include: la mappa-hero del mockup C portata nel sito vero
+   (serve il **lookup città→coordinate** dalla pipeline — schema già
+   definito in `design/PLAN-FASE-B.md` §Approach 2 e già usato da
+   `design/proposte-2026-07/_assets/dati-demo.js`; il gate mobile 375×667
+   resta vincolante), il **fix del bug P0.1** (onboarding mobile con 17
+   facoltà tagliate) e il ridimensionamento della mappa per l'utente
+   profilato (missione/countdown padroni).
+2. Poi C3 (Mete: card/schedina — difetti P1.4/6/7/8), C4, C5, C6, igiene
+   repo, Fase D QA — un blocco per sessione come da `PLAN.md`.
+3. Restano vivi in parallelo: residuo OP5 (3° articolo con ok di Bruno,
+   Google Search Console), G4, G5/pipeline dal PC dedicato, go/no-go OP6.
+
+**Aggiornamento 2026-07-10 — sessione 40 (Fase B costruita):**
+1. **Azione di Nicola (sblocca tutto): scegliere la direzione visiva.**
+   Aprire `design/proposte-2026-07/index.html` (in locale con doppio click, o
+   su preview) — **prima da telefono/finestra stretta ~375px**, poi desktop;
+   provare le 3 viste e i 2 temi in ciascuna proposta. Il gate è scritto nel
+   comparatore: la mappa entra in Fase C solo se a 375px è leggibile e non
+   ritarda missione/countdown.
+2. Comunicata la scelta → **Fase C1** (token + fondamenta nella direzione
+   scelta; la scelta sostituisce formalmente BR0–BR7, si aggiorna
+   DISEGNO_BRAND). Per la mappa nel sito vero servirà il lookup
+   città→coordinate dalla pipeline (schema già definito in
+   `design/PLAN-FASE-B.md` §Approach 2) + ri-verifica clustering sulla
+   facoltà più numerosa (check registrato per C2).
+3. Restano vivi in parallelo (non sepolti dall'ondata): residuo OP5
+   (3° articolo con ok di Bruno, Google Search Console), G4 (tabella 28/03),
+   G5/pipeline dati dal PC dedicato, go/no-go OP6 a settembre.
 
 **Aggiornamento 2026-07-08 — sessione 36 (OP4 chiusa):**
 1. **Prossima sessione: OP5** — SEO di base online (`DISEGNO_OPERATIONS.md`):

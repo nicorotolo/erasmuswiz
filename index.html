@@ -10,18 +10,20 @@
   <meta property="og:url"         content="https://nicorotolo.github.io/erasmuswiz/">
   <meta property="og:title"       content="ErasmusWiz — Il tuo cruscotto Erasmus">
   <meta property="og:description" content="Oltre 1.900 mete, requisiti del bando, scadenze e checklist per la domanda Erasmus. Gratuito, nessun account.">
-  <meta property="og:image"       content="https://nicorotolo.github.io/erasmuswiz/img/wiz-hero.png">
+  <meta property="og:image"       content="https://nicorotolo.github.io/erasmuswiz/img/og-erasmuswiz.png">
+  <meta property="og:image:width"  content="1200">
+  <meta property="og:image:height" content="630">
   <!-- Twitter / X -->
   <meta name="twitter:card"        content="summary_large_image">
   <meta name="twitter:title"       content="ErasmusWiz — Il tuo cruscotto Erasmus">
   <meta name="twitter:description" content="Oltre 1.900 mete, requisiti del bando, scadenze e checklist per la domanda Erasmus.">
-  <meta name="twitter:image"       content="https://nicorotolo.github.io/erasmuswiz/img/wiz-hero.png">
+  <meta name="twitter:image"       content="https://nicorotolo.github.io/erasmuswiz/img/og-erasmuswiz.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <!-- PWA: aggiungi a schermata Home (senza notifiche) -->
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#1b377b">
+  <meta name="theme-color" content="#232046">
   <link rel="icon" type="image/svg+xml" href="img/logo-mark.svg">
   <link rel="alternate icon" href="img/icon-192.png">
   <link rel="apple-touch-icon" href="img/icon-192.png">
@@ -38,7 +40,34 @@
     ==================================================== -->
     <section id="tab-oggi" class="tab-pane attivo">
 
-      <!-- Hero blu notte: saluto, claim, badge bando, Wiz -->
+      <!-- ================================================
+           BENVENUTO (primo contatto) — mappa-hero (Fase C2)
+           Sostituisce l'overlay onboarding (bug P0.1): stesso
+           flusso a 3 domande, ma in pagina, sulla mappa.
+      ================================================ -->
+      <div class="benvenuto" id="home-benvenuto" style="display:none">
+        <div class="benvenuto-testa">
+          <div class="benvenuto-testi">
+            <h1 class="benvenuto-titolo">Scopri <em>dove può portarti</em> il tuo Erasmus.</h1>
+            <p class="benvenuto-claim">Scegli ateneo e facoltà: la mappa si accende con le destinazioni del tuo bando — lingua richiesta, posti e borsa già in anteprima.</p>
+            <p class="benvenuto-fumetto" id="benvenuto-fumetto">Ciao! Sono Wiz. Dove studi?</p>
+          </div>
+          <img src="img/mascotte/wiz-saluto.webp" alt="Wiz" class="wiz-mascot benvenuto-wiz" id="benvenuto-wiz">
+        </div>
+        <div class="benvenuto-passi" id="benvenuto-passi" aria-hidden="true">
+          <span class="benvenuto-passo" data-passo="1"><span class="n">1</span>Ateneo</span>
+          <span class="benvenuto-passo" data-passo="2"><span class="n">2</span>Cosa studi</span>
+          <span class="benvenuto-passo" data-passo="3"><span class="n">3</span>A che punto sei</span>
+        </div>
+        <div class="mappa-wrap">
+          <div class="mappa" id="mappa-benvenuto"></div>
+          <div class="mappa-tooltip" id="mappa-tooltip" hidden></div>
+        </div>
+        <div class="benvenuto-scelte" id="benvenuto-scelte" aria-live="polite"></div>
+        <p class="mappa-nota" id="mappa-nota-benvenuto" hidden></p>
+      </div>
+
+      <!-- Hero indigo: saluto, claim, badge bando, Wiz -->
       <div class="home-header">
         <div class="home-hero-top">
           <p class="home-data" id="home-data"></p>
@@ -53,16 +82,9 @@
         </div>
       </div>
 
-      <!-- Percorso a 4 fasi (DISEGNO_UX.md §2.1) -->
-      <div class="percorso-wrap">
-        <div class="percorso-header">
-          <span class="percorso-label">Il tuo percorso</span>
-          <a href="#" class="percorso-modifica-profilo" data-goto="profilo">Modifica profilo</a>
-        </div>
-        <div class="fase-stepper" id="fase-stepper"></div>
-      </div>
-
-      <!-- Card Missione di oggi -->
+      <!-- Card Missione di oggi (Fase C2: PRIMA del percorso su mobile —
+           il valore del giorno nel primo schermo; sul desktop la griglia
+           posiziona per riga/colonna, l'ordine DOM non cambia nulla) -->
       <div class="missione-card" id="missione-card">
         <div class="missione-top">
           <div class="missione-tag">
@@ -80,7 +102,7 @@
         <img src="img/mascotte/wiz-saluto.webp" alt="Wiz" class="wiz-mascot missione-wiz-desktop">
       </div>
 
-      <!-- Pill countdown — sempre blu notte -->
+      <!-- Pill countdown — sempre indigo profondo -->
       <div class="countdown-pill" id="countdown-pill">
         <div class="countdown-sinistra">
           <span class="countdown-dot"></span>
@@ -92,6 +114,15 @@
         <div class="countdown-timer" id="countdown-timer">—</div>
       </div>
 
+      <!-- Percorso a 4 fasi (DISEGNO_UX.md §2.1) — dopo missione+countdown -->
+      <div class="percorso-wrap">
+        <div class="percorso-header">
+          <span class="percorso-label">Il tuo percorso</span>
+          <a href="#" class="percorso-modifica-profilo" data-goto="profilo">Modifica profilo</a>
+        </div>
+        <div class="fase-stepper" id="fase-stepper"></div>
+      </div>
+
       <!-- Card Preparazione -->
       <div class="preparazione-card" id="preparazione-card">
         <div class="preparazione-header">
@@ -101,6 +132,18 @@
         <div class="prep-barra">
           <div class="prep-barra-fill" id="prep-fill" style="width:0%"></div>
         </div>
+      </div>
+
+      <!-- Mappa compatta (Fase C2): SOTTO missione/countdown — la mappa
+           non deve mai ritardare il valore quotidiano (gate PLAN-FASE-B) -->
+      <div class="card-mappa-home" id="card-mappa-home" style="display:none">
+        <div class="preparazione-header">
+          <span class="preparazione-label">Le tue mete sulla mappa</span>
+          <a href="#" class="mappa-vai-elenco" id="mappa-vai-elenco">Elenco completo →</a>
+        </div>
+        <div class="mappa mappa-compatta" id="mappa-home"></div>
+        <p class="mappa-nota" id="mappa-nota-home" hidden></p>
+        <div class="mappa-legenda"><span><i class="pin-dot"></i>Mete della tua facoltà</span><span><i class="pin-dot stella"></i>Le tue preferite</span></div>
       </div>
 
     </section>
@@ -245,7 +288,8 @@
       <p>Bando a.a. 2026/2027 —
         <a href="https://github.com/nicorotolo/erasmuswiz/issues" target="_blank" rel="noopener">Segnala un errore</a></p>
       <p><a href="guide/come-fare-learning-agreement-sapienza.html">Guida: come si fa il Learning Agreement alla Sapienza</a> ·
-        <a href="guide/requisiti-lingua-erasmus.html">Guida: requisiti di lingua per l'Erasmus</a></p>
+        <a href="guide/requisiti-lingua-erasmus.html">Guida: requisiti di lingua per l'Erasmus</a> ·
+        <a href="guide/come-funziona.html">Come funziona ErasmusWiz (e chi c'è dietro)</a></p>
     </div>
   </footer>
 
@@ -278,39 +322,9 @@
     <button class="celebrazione-btn" id="celebrazione-btn">Apri lo zaino →</button>
   </div>
 
-  <!-- Overlay onboarding (riempito da app.js: initOnboarding) -->
-  <div class="onboarding-overlay" id="onboarding-overlay" style="display:none" role="dialog" aria-modal="true" aria-label="Benvenuto">
-    <img src="img/mascotte/wiz-pensieroso.webp" alt="Wiz" class="wiz-mascot onboarding-wiz" id="onboarding-wiz-img">
-    <div class="onboarding-progresso" id="onboarding-progresso" aria-hidden="true">
-      <span class="onboarding-dot" data-dot="1"></span>
-      <span class="onboarding-dot" data-dot="2"></span>
-      <span class="onboarding-dot" data-dot="3"></span>
-    </div>
-    <div class="onboarding-passo" id="onboarding-passo-1">
-      <p class="onboarding-eyebrow">1 di 3</p>
-      <h2 class="onboarding-domanda">Dove studi?</h2>
-      <div class="onboarding-opzioni" id="onboarding-opzioni-ateneo"></div>
-    </div>
-    <div class="onboarding-passo" id="onboarding-passo-2" style="display:none">
-      <p class="onboarding-eyebrow">2 di 3</p>
-      <h2 class="onboarding-domanda">Cosa studi?</h2>
-      <div class="onboarding-opzioni" id="onboarding-opzioni-dipartimento"></div>
-    </div>
-    <div class="onboarding-passo" id="onboarding-passo-3" style="display:none">
-      <p class="onboarding-eyebrow">3 di 3</p>
-      <h2 class="onboarding-domanda">A che punto sei?</h2>
-      <div class="onboarding-opzioni" id="onboarding-opzioni-livello">
-        <button type="button" class="onboarding-opzione" data-livello="L">Triennale</button>
-        <button type="button" class="onboarding-opzione" data-livello="LM">Magistrale</button>
-      </div>
-    </div>
-    <div class="onboarding-passo" id="onboarding-passo-landing" style="display:none">
-      <p class="onboarding-eyebrow">Fatto ✨</p>
-      <h2 class="onboarding-domanda" id="onboarding-landing-titolo">Ecco cosa c'è per te</h2>
-      <p class="onboarding-landing-dettaglio" id="onboarding-landing-dettaglio"></p>
-      <button type="button" class="btn-primary" id="onboarding-btn-inizia">Inizia il percorso →</button>
-    </div>
-  </div>
+  <!-- L'overlay onboarding è stato SOSTITUITO dal benvenuto in pagina
+       (#home-benvenuto, Fase C2): stesso flusso a 3 domande, sulla mappa.
+       Con l'overlay sparisce il bug P0.1 (opzioni tagliate su mobile). -->
 
   <!-- Overlay dettaglio meta (riempito da app.js: apriDettaglioMeta) -->
   <div class="meta-overlay" id="meta-overlay" style="display:none" role="dialog" aria-modal="true" aria-label="Dettaglio meta">
@@ -451,6 +465,12 @@
       window.ATENEO_PORTALE_URL = A.portaleUrl || "https://www.unive.it/data/11631/";
     })();
   </script>
+
+  <!-- Mappa (Fase C2): geometria Europa + lookup coordinate città.
+       Condivisi tra gli atenei; le città non ancora geocodificate
+       restano "senza posizione" (mai nascoste in silenzio). -->
+  <script src="js/dati-mappa-europa.js"></script>
+  <script src="js/dati-coordinate.js"></script>
 
   <script src="js/app.js"></script>
 

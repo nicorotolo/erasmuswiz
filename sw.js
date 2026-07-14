@@ -1,13 +1,13 @@
 // Service worker minimo: cache di base dei file statici, niente notifiche/offline completo.
 // Strategia "network-first": prova sempre la rete per primo, cosi' un nuovo deploy
 // si vede subito. La cache serve solo come fallback se sei offline.
-const CACHE_NOME = "erasmuswiz-v1";
+const CACHE_NOME = "erasmuswiz-v2";
 const FILE_DA_CACHE = [
   "./",
   "./index.html",
   "./css/style.css",
   "./js/app.js",
-  "./img/wiz-hero.png",
+  "./img/mascotte/wiz-esulta.webp",
   "./manifest.json"
 ];
 

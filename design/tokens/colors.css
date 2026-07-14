@@ -1,97 +1,100 @@
 /* ============================================================
-   ErasmusWiz — COLORI
-   "Blu chiarino" amichevole + accento oro (la magia: stelle e
-   scintille). Neutri leggermente freddi. Semantici onesti per
-   le fasce di compatibilità (ok / con riserve / bloccata).
+   ErasmusWiz — COLORI · Direzione C "Ibrida" (Fase C1)
+   Scelta di Nicola 2026-07-10 tra le 3 proposte di
+   design/proposte-2026-07/ — SOSTITUISCE la palette BR0 del
+   04/07 ("blu chiarino + oro").
+   Carattere: impianto ordinato e affidabile + calore nei
+   momenti chiave. Indigo primario (fiducia), ambra come
+   accento (la magia: stelle, evidenze, Wiz), neutri CALDI
+   con un soffio di viola. Semantici onesti invariati.
+   I valori applicati vivono in css/style.css (:root e
+   body.tema-notte) con i nomi storici delle variabili.
    ============================================================ */
 
 :root {
-  /* ---- BLU PRIMARIO (azzurro, non istituzionale) ---- */
-  --blue-50:  #eef4ff;
-  --blue-100: #dce8ff;
-  --blue-200: #bcd2ff;
-  --blue-300: #92b4ff;
-  --blue-400: #5e8eff;
-  --blue-500: #3d7dff; /* brand primario */
-  --blue-600: #2a63ec;
-  --blue-700: #214ec4;
-  --blue-800: #1d409c;
-  --blue-900: #1b377b;
+  /* ---- INDIGO PRIMARIO (fiducia, senza freddezza istituzionale) ---- */
+  --indigo-50:  #EEF2FF;
+  --indigo-100: #E0E7FF;
+  --indigo-200: #C7D2FE;
+  --indigo-300: #A5B4FC;
+  --indigo-400: #818CF8;
+  --indigo-500: #6366F1;
+  --indigo-600: #4F46E5; /* brand primario (fill bottoni, chip attivi) */
+  --indigo-700: #4338CA; /* hover */
+  --indigo-800: #3730A3; /* active */
+  --indigo-900: #232046; /* superfici profonde (nav, countdown, hero) */
+  --indigo-950: #12141F; /* fondo del tema notte */
 
-  /* ---- ORO / AMBRA (la "magia": stelle, scintille, evidenze) ---- */
-  --gold-50:  #fff8e8;
-  --gold-100: #ffeec2;
-  --gold-200: #ffdd87;
-  --gold-300: #ffcb4d;
-  --gold-400: #ffb627; /* accento magico */
-  --gold-500: #f59e0b;
-  --gold-600: #d97f06;
+  /* ---- AMBRA (la "magia": stelle, scintille, momenti chiave) ---- */
+  --amber-50:  #FFFBEB;
+  --amber-100: #FEF3C7; /* sfondi evidenza (giorno) */
+  --amber-200: #FDE68A; /* bordi evidenza (giorno) */
+  --amber-300: #FCD34D;
+  --amber-400: #FBBF24; /* accento grafico (stelle, barre, fasi attive) */
+  --amber-500: #F59E0B;
+  --amber-600: #B45309; /* ambra LEGGIBILE come testo su chiaro */
 
-  /* ---- NEUTRI (slate con un soffio di blu) ---- */
-  --ink-900: #121829; /* testo forte, quasi nero */
-  --ink-800: #1f2840;
-  --ink-700: #36415c;
-  --ink-600: #4a566f;
-  --ink-500: #65718c; /* testo tenue */
-  --ink-400: #8b95ac;
-  --ink-300: #aeb6c8;
-  --ink-200: #d6dceb;
-  --ink-100: #e7ecf6;
-  --ink-50:  #f3f6fc;
+  /* ---- NEUTRI CALDI (ink con un soffio di viola) ---- */
+  --ink-900: #1E1B2E; /* testo forte */
+  --ink-700: #4B4560; /* testo tenue */
+  --ink-500: #686180; /* hint (≥4.5:1 su carta e avorio) */
+  --ink-300: #A9A3BF;
+  --ink-200: #D6D1EA; /* bordo forte */
+  --ink-100: #E5E2F0; /* bordo sottile */
+  --ink-75:  #ECEAF5; /* binari barre/progressi */
+  --ink-50:  #F3F1FA; /* superficie soffice / hover */
   --white:   #ffffff;
 
-  /* ---- SFONDI ---- */
-  --paper:        #ffffff;          /* card */
-  --bg-page:      #f3f6fc;          /* pagina, tinta blu chiara */
-  --bg-sunken:    #eaf1fe;          /* pannello incassato / barra */
-  --bg-night:     #1b377b;          /* superfici "magiche" scure (hero) */
-  --bg-night-2:   #16306f;
+  /* ---- SFONDI (giorno) ---- */
+  --paper:      #ffffff;  /* card */
+  --bg-page:    #FAFAF7;  /* pagina: avorio caldo, non grigio-blu */
+  --bg-sunken:  #F3F1FA;  /* pannello incassato / barra */
+  --bg-deep:    #232046;  /* superfici "notte del giorno": nav, countdown */
+  --bg-deep-2:  #1C1A38;
 
-  /* ---- SEMANTICI: COMPATIBILITÀ (onestà) ---- */
-  /* ✅ Compatibile (>=80) */
-  --ok-600:  #15924a;
-  --ok-500:  #1aa657;
-  --ok-bg:   #e6f6ec;
-  --ok-text: #0f7a3a;
-  --ok-line: #bce6cb;
+  /* ---- NOTTE (tema di prima classe, non derivato) ---- */
+  --night-page:    #12141F; /* fondo pagina */
+  --night-card:    #1B1E30; /* card SOLIDE (mai bianco traslucido) */
+  --night-card-2:  #252840; /* hover / superfici rialzate */
+  --night-track:   #2A2D48;
+  --night-ink:     #EDEBF7; /* testo forte */
+  --night-ink-2:   #BEB9D6; /* testo tenue */
+  --night-ink-3:   #A29CC4; /* hint */
+  --night-border:  #2E3150;
+  --night-border-2:#3A3D63;
+  /* primario in notte: tinte CHIARE per testi/link (818CF8/A5B4FC),
+     fill saturo (4F46E5) per bottoni con testo bianco */
 
-  /* ⚠️ Possibile con riserve (40-79) */
-  --warn-600: #c2700a;
-  --warn-500: #e08808;
-  --warn-bg:  #fff3df;
-  --warn-text:#9a5b08;
-  --warn-line:#ffe0a6;
-
-  /* 🔒 Non accessibile ora (<40) / bloccato */
-  --lock-600: #d23f48;
-  --lock-500: #e0545c;
-  --lock-bg:  #fdecec;
-  --lock-text:#b42318;
-  --lock-line:#f6cdcd;
+  /* ---- SEMANTICI: COMPATIBILITÀ (onestà — invariati di giorno) ---- */
+  --ok-text: #0f7a3a;  --ok-bg:   #e6f6ec;  --ok-line:  #bce6cb;
+  --warn-text:#9a5b08; --warn-bg: #fff3df;  --warn-line:#ffe0a6;
+  --lock-text:#b42318; --lock-bg: #fdecec;  --lock-line:#f6cdcd;
+  /* in notte: testo chiaro + tinta trasparente dello stesso colore
+     (v. body.tema-notte in css/style.css) */
 
   /* ---- ALIAS SEMANTICI (usa questi nei componenti) ---- */
-  --color-primary:        var(--blue-500);
-  --color-primary-hover:  var(--blue-600);
-  --color-primary-active: var(--blue-700);
-  --color-primary-soft:   var(--blue-50);
-  --color-accent:         var(--gold-400);
-  --color-accent-strong:  var(--gold-500);
+  --color-primary:        var(--indigo-600);
+  --color-primary-hover:  var(--indigo-700);
+  --color-primary-active: var(--indigo-800);
+  --color-primary-soft:   var(--indigo-50);
+  --color-accent:         var(--amber-400);
+  --color-accent-text:    var(--amber-600);
 
   --text-strong:   var(--ink-900);
   --text-body:     var(--ink-700);
-  --text-muted:    var(--ink-500);
-  --text-faint:    var(--ink-400);
+  --text-muted:    var(--ink-700);
+  --text-faint:    var(--ink-500);
   --text-on-primary: #ffffff;
-  --text-link:     var(--blue-600);
+  --text-link:     var(--indigo-600);
 
   --surface-page:   var(--bg-page);
   --surface-card:   var(--paper);
   --surface-sunken: var(--bg-sunken);
-  --surface-soft:   var(--blue-50);
+  --surface-soft:   var(--ink-50);
 
   --border-subtle: var(--ink-100);
   --border-strong: var(--ink-200);
-  --border-focus:  var(--blue-400);
+  --border-focus:  var(--indigo-400);
 
-  --ring: color-mix(in srgb, var(--blue-500) 35%, transparent);
+  --ring: color-mix(in srgb, var(--indigo-600) 35%, transparent);
 }

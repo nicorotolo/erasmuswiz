@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Proposta A — Giocosa premium · Mockup ErasmusWiz</title>
+<style>
+/* ============================================================
+   PROPOSTA A — "GIOCOSA PREMIUM" · Wiz protagonista
+   Claymorphism caldo: superfici morbide, raggi ampi, ombre a
+   strati, micro-animazioni. Tema notte di prima classe.
+   ============================================================ */
+:root{
+  --bg:#FFF7ED; --bg-hero:linear-gradient(160deg,#FFF3E0 0%,#FFE8D6 45%,#FDE8F4 100%);
+  --surface:#FFFFFF; --surface-2:#FFF1E2;
+  --ink:#33261D; --ink-soft:#6B5546; --ink-faint:#7A6350;
+  --primary:#C2410C; --primary-bg:linear-gradient(135deg,#F97316,#EA580C);
+  --primary-ink:#FFFFFF; --accent:#2563EB; --accent-soft:#DBEAFE;
+  --gold:#B45309; --ok:#15803D; --warn:#B45309; --lock:#9A3412;
+  --mare:transparent; --terra:#FFE1C4; --terra-bordo:#F5C9A0; --terra-casa:#FDBA74;
+  --pin:#EA580C; --pin-ring:#FFFFFF; --pin-testo:#FFFFFF;
+  --card-shadow:0 10px 30px rgba(194,65,12,.10),0 2px 6px rgba(194,65,12,.08);
+  --card-shadow-hi:0 16px 40px rgba(194,65,12,.16),0 3px 8px rgba(194,65,12,.10);
+  --chip-bg:#FFF1E2; --chip-bordo:#F5C9A0;
+  --r-xl:28px; --r-lg:22px; --r-md:16px; --r-sm:10px;
+  --font:"Segoe UI Variable Display","Segoe UI",system-ui,-apple-system,"Helvetica Neue",sans-serif;
+}
+[data-theme="dark"]{
+  --bg:#1A1033; --bg-hero:linear-gradient(160deg,#221345 0%,#1A1033 55%,#2A1145 100%);
+  --surface:#271747; --surface-2:#301D52;
+  --ink:#F3EDFF; --ink-soft:#C9B8E8; --ink-faint:#9A87C2;
+  --primary:#FDBA74; --primary-bg:linear-gradient(135deg,#F97316,#D97706);
+  --primary-ink:#2A1205; --accent:#93C5FD; --accent-soft:#1E3A8A;
+  --gold:#FBBF24; --ok:#4ADE80; --warn:#FBBF24; --lock:#FDA4AF;
+  --terra:#31205E; --terra-bordo:#4A3580; --terra-casa:#553C8B;
+  --pin:#FBBF24; --pin-ring:#1A1033; --pin-testo:#2A1205;
+  --card-shadow:0 10px 30px rgba(0,0,0,.35),0 2px 6px rgba(0,0,0,.3);
+  --card-shadow-hi:0 16px 44px rgba(0,0,0,.5),0 0 0 1px rgba(251,191,36,.15);
+  --chip-bg:#301D52; --chip-bordo:#4A3580;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.55;
+  -webkit-font-smoothing:antialiased;min-height:100dvh}
+img{max-width:100%;display:block}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;font-size:1rem}
+button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:8px}
+a{color:var(--primary)}
+
+/* ---------- barra mockup ---------- */
+.mock-bar{position:sticky;top:0;z-index:100;display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+  padding:8px 14px;background:var(--surface);box-shadow:var(--card-shadow);font-size:.8rem}
+.mock-bar .tag{font-weight:800;letter-spacing:.03em;color:var(--primary)}
+.mock-bar .disc{color:var(--ink-faint);flex:1;min-width:140px}
+.viste{display:flex;gap:4px;background:var(--surface-2);border-radius:999px;padding:4px}
+.viste button{padding:8px 14px;border-radius:999px;font-size:.8rem;font-weight:700;color:var(--ink-soft);min-height:36px}
+.viste button[aria-pressed="true"]{background:var(--primary-bg);color:var(--primary-ink);box-shadow:0 2px 8px rgba(194,65,12,.3)}
+.tema-btn{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--surface-2)}
+.tema-btn svg{width:20px;height:20px;fill:none;stroke:var(--ink-soft);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+[data-theme="dark"] .icona-sole{display:block}[data-theme="dark"] .icona-luna{display:none}
+.icona-sole{display:none}.icona-luna{display:block}
+
+main{max-width:1180px;margin:0 auto;padding:0 16px 80px}
+section[hidden]{display:none}
+
+/* ---------- header brand ---------- */
+.brand{display:flex;align-items:center;gap:14px;padding:26px 4px 10px}
+.brand .logo{font-size:1.7rem;font-weight:800;letter-spacing:-.02em}
+.brand .logo em{font-style:normal;background:var(--primary-bg);-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand .tag-line{font-size:.9rem;color:var(--ink-soft)}
+
+/* ---------- hero mappa ---------- */
+.hero{background:var(--bg-hero);border-radius:var(--r-xl);box-shadow:var(--card-shadow);
+  padding:22px 18px 26px;position:relative;overflow:hidden}
+.hero h1{font-size:clamp(1.5rem,4.5vw,2.3rem);font-weight:800;letter-spacing:-.02em;line-height:1.15}
+.hero h1 .evid{background:var(--primary-bg);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .sotto{color:var(--ink-soft);margin-top:6px;max-width:52ch}
+.hero-testa{display:flex;gap:16px;align-items:flex-start}
+.hero-testa .testi{flex:1}
+.wiz-hero{width:92px;flex:none;filter:drop-shadow(0 10px 16px rgba(194,65,12,.25));animation:galleggia 4s ease-in-out infinite}
+@keyframes galleggia{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-8px) rotate(2deg)}}
+.fumetto{position:relative;background:var(--surface);border-radius:var(--r-md);padding:10px 14px;font-weight:700;
+  font-size:.9rem;box-shadow:var(--card-shadow);display:inline-block;margin-top:10px}
+.fumetto::before{content:"";position:absolute;left:-8px;top:16px;border:8px solid transparent;border-right-color:var(--surface);border-left:0}
+
+.passi{display:flex;gap:8px;margin:18px 0 10px;flex-wrap:wrap}
+.passo{display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:var(--surface);
+  box-shadow:var(--card-shadow);font-size:.85rem;font-weight:700;color:var(--ink-faint)}
+.passo .n{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--chip-bg);font-size:.75rem}
+.passo[data-attivo="true"]{color:var(--ink)}
+.passo[data-attivo="true"] .n{background:var(--primary-bg);color:var(--primary-ink)}
+.passo[data-fatto="true"] .n{background:var(--ok);color:#fff}
+
+/* mappa */
+.mappa-wrap{position:relative;margin-top:6px}
+.mappa{position:relative;border-radius:var(--r-lg);overflow:hidden}
+.mappa svg{display:block;width:100%;height:auto}
+.mappa .terra{fill:var(--terra);stroke:var(--terra-bordo);stroke-width:1;stroke-linejoin:round}
+.mappa .terra-casa{fill:var(--terra-casa)}
+.pin-layer{position:absolute;inset:0}
+.pin{position:absolute;width:44px;height:44px;transform:translate(-50%,-50%);display:grid;place-items:center;border-radius:50%}
+.pin .punto{width:15px;height:15px;border-radius:50%;background:var(--pin);border:2.5px solid var(--pin-ring);
+  box-shadow:0 2px 8px rgba(0,0,0,.35);transition:transform .18s ease}
+.pin:hover .punto,.pin:focus-visible .punto{transform:scale(1.5)}
+.pin.evidenzia .punto{animation:pin-pop .45s cubic-bezier(.34,1.56,.64,1) backwards}
+@keyframes pin-pop{from{transform:scale(0)}to{transform:scale(1)}}
+.pin-cluster .punto{width:30px;height:30px;display:grid;place-items:center;font-size:.72rem;font-weight:800;color:var(--pin-testo)}
+.pin-ateneo{width:56px;height:56px}
+.pin-ateneo .punto{width:26px;height:26px;background:var(--accent);display:grid;place-items:center}
+.pin-ateneo .punto::after{content:"";width:8px;height:8px;border-radius:50%;background:#fff}
+.pin-ateneo .anello{position:absolute;inset:6px;border-radius:50%;border:2px dashed var(--accent);animation:ruota 14s linear infinite;opacity:.7}
+@keyframes ruota{to{transform:rotate(360deg)}}
+.pin-etichetta{position:absolute;top:100%;left:50%;transform:translateX(-50%);white-space:nowrap;font-size:.72rem;
+  font-weight:800;background:var(--surface);color:var(--ink);padding:2px 9px;border-radius:999px;box-shadow:var(--card-shadow)}
+.pin-stella .punto{background:var(--gold)}
+.pin-stella::after{content:"★";position:absolute;top:-4px;right:-2px;font-size:.8rem;color:var(--gold);text-shadow:0 1px 2px rgba(0,0,0,.3)}
+
+/* tooltip desktop */
+.tooltip{position:absolute;z-index:30;max-width:290px;min-width:220px;background:var(--surface);border-radius:var(--r-md);
+  box-shadow:var(--card-shadow-hi);padding:12px 14px;pointer-events:none;transform:translate(-50%,calc(-100% - 14px))}
+.tooltip.sotto{transform:translate(-50%,16px)}
+.tooltip h3{font-size:.92rem;font-weight:800;line-height:1.25}
+.tooltip .dove{font-size:.78rem;color:var(--ink-faint);margin:2px 0 8px}
+.tooltip[hidden]{display:none}
+
+/* scheda (sheet) */
+.scheda{position:fixed;z-index:120;left:12px;right:12px;bottom:12px;background:var(--surface);border-radius:var(--r-lg);
+  box-shadow:0 -8px 40px rgba(0,0,0,.25);padding:16px;max-height:62dvh;overflow:auto}
+.scheda[hidden]{display:none}
+@media(min-width:760px){.scheda{left:auto;right:28px;bottom:28px;width:380px}}
+.scheda .chiudi{position:absolute;top:8px;right:8px;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--surface-2);font-weight:800}
+.scheda h3{font-size:1.05rem;font-weight:800;line-height:1.25;padding-right:44px}
+.scheda .dove{color:var(--ink-faint);font-size:.85rem;margin:2px 0 10px}
+.scheda .fonte{margin-top:12px;font-size:.72rem;color:var(--ink-faint);border-top:1px dashed var(--chip-bordo);padding-top:8px}
+.scheda ul{list-style:none;margin-top:8px}
+.scheda ul button{width:100%;text-align:left;padding:12px;border-radius:var(--r-sm);font-weight:700;min-height:44px}
+.scheda ul button:hover{background:var(--surface-2)}
+.scheda .indietro{font-size:.8rem;font-weight:800;color:var(--primary);min-height:44px;padding:0 6px}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-flex;align-items:center;gap:5px;background:var(--chip-bg);border:1px solid var(--chip-bordo);
+  border-radius:999px;padding:4px 11px;font-size:.76rem;font-weight:700;color:var(--ink-soft)}
+.chip .ic{width:13px;height:13px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* scelte ateneo / facoltà */
+.scelte{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.scelta{background:var(--surface);border-radius:var(--r-md);box-shadow:var(--card-shadow);padding:12px 18px;
+  font-weight:800;min-height:52px;display:flex;align-items:center;gap:10px;transition:transform .15s ease,box-shadow .15s ease}
+.scelta:hover{transform:translateY(-2px);box-shadow:var(--card-shadow-hi)}
+.scelta:active{transform:scale(.96)}
+.scelta .sub{display:block;font-size:.72rem;font-weight:600;color:var(--ink-faint)}
+.scelta[disabled]{opacity:.5;cursor:not-allowed;transform:none}
+.scelta[aria-pressed="true"]{outline:3px solid var(--primary);outline-offset:-1px}
+.demo-nota{font-size:.75rem;color:var(--ink-faint);margin-top:8px}
+
+.contatore{display:flex;align-items:center;gap:14px;margin-top:16px;flex-wrap:wrap}
+.contatore .num{font-size:2rem;font-weight:800;background:var(--primary-bg);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cta{display:inline-flex;align-items:center;gap:10px;background:var(--primary-bg);color:var(--primary-ink);
+  font-weight:800;font-size:1.02rem;padding:15px 26px;border-radius:999px;box-shadow:0 10px 24px rgba(234,88,12,.35);
+  transition:transform .15s ease,box-shadow .15s ease;min-height:52px}
+.cta:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(234,88,12,.45)}
+.cta:active{transform:scale(.95)}
+.wiz-mini{width:58px;flex:none;filter:drop-shadow(0 6px 10px rgba(194,65,12,.3))}
+
+/* elenco testuale */
+.elenco-testo{margin-top:16px;background:var(--surface);border-radius:var(--r-md);box-shadow:var(--card-shadow)}
+.elenco-testo summary{padding:14px 18px;font-weight:800;font-size:.9rem;cursor:pointer;min-height:44px;list-style-position:inside}
+.elenco-testo ul{list-style:none;padding:0 10px 12px;columns:1}
+@media(min-width:760px){.elenco-testo ul{columns:2}}
+.elenco-testo li button{width:100%;text-align:left;padding:9px 10px;border-radius:8px;font-size:.85rem;min-height:44px}
+.elenco-testo li button:hover{background:var(--surface-2)}
+.elenco-testo .fuori{padding:6px 18px 14px;font-size:.8rem;color:var(--ink-faint)}
+
+/* ---------- vista profilato ---------- */
+.saluto{display:flex;align-items:center;gap:12px;padding:20px 4px 12px}
+.saluto img{width:56px}
+.saluto h1{font-size:1.35rem;font-weight:800}
+.saluto p{font-size:.85rem;color:var(--ink-soft)}
+.banner-chiuso{display:flex;gap:12px;align-items:flex-start;background:var(--surface-2);border:1.5px dashed var(--chip-bordo);
+  border-radius:var(--r-md);padding:12px 16px;margin-bottom:14px;font-size:.86rem}
+.banner-chiuso .ic{width:20px;height:20px;flex:none;margin-top:2px;fill:none;stroke:var(--warn);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.banner-chiuso small{display:block;color:var(--ink-faint);margin-top:3px;font-size:.72rem}
+.griglia-prof{display:grid;gap:14px}
+@media(min-width:900px){.griglia-prof{grid-template-columns:1fr 1fr}}
+.card{background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--card-shadow);padding:18px}
+.card h2{font-size:1rem;font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.card h2 .ic{width:18px;height:18px;fill:none;stroke:var(--primary);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.missione .compito{display:flex;gap:12px;align-items:center;background:var(--surface-2);border-radius:var(--r-md);padding:12px 14px;margin-top:6px}
+.missione .compito input{width:22px;height:22px;accent-color:#EA580C}
+.missione .compito label{font-weight:700;font-size:.92rem}
+.missione .compito small{display:block;font-weight:600;color:var(--ink-faint);font-size:.75rem}
+.countdown{display:flex;gap:10px;margin-top:6px}
+.countdown .box{flex:1;text-align:center;background:var(--surface-2);border-radius:var(--r-md);padding:10px 6px}
+.countdown .box b{display:block;font-size:1.5rem;font-weight:800;color:var(--primary)}
+.countdown .box span{font-size:.7rem;font-weight:700;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.06em}
+.mappa-compatta{grid-column:1/-1}
+.mappa-compatta .mappa{width:fit-content;max-width:100%;margin:0 auto}
+.mappa-compatta .mappa svg{width:min(88vw,351px);height:auto}
+.legenda{display:flex;gap:14px;font-size:.75rem;color:var(--ink-faint);margin-top:8px;flex-wrap:wrap}
+.legenda i{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--pin);margin-right:5px}
+.legenda i.st{background:var(--gold)}
+
+/* ---------- vista mete ---------- */
+.mete-testa{padding:20px 4px 12px}
+.mete-testa h1{font-size:1.35rem;font-weight:800}
+.filtri{display:flex;gap:8px;overflow-x:auto;padding:4px;margin-bottom:10px}
+.filtri .chip-filtro{flex:none;padding:9px 16px;border-radius:999px;background:var(--surface);box-shadow:var(--card-shadow);
+  font-size:.82rem;font-weight:700;color:var(--ink-soft);min-height:44px}
+.filtri .chip-filtro[aria-pressed="true"]{background:var(--primary-bg);color:var(--primary-ink)}
+.schedina-mini{display:flex;align-items:center;gap:10px;background:var(--surface);border-radius:999px;box-shadow:var(--card-shadow);
+  padding:10px 18px;margin-bottom:16px;font-size:.85rem;font-weight:700}
+.schedina-mini .ic{width:18px;height:18px;flex:none;fill:none;stroke:var(--gold);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.schedina-mini .conta{color:var(--ink-faint);font-weight:600}
+.griglia-mete{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(270px,1fr))}
+.card-meta{position:relative;background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--card-shadow);padding:16px;
+  transition:transform .15s ease,box-shadow .15s ease;cursor:pointer}
+.card-meta:hover{transform:translateY(-3px);box-shadow:var(--card-shadow-hi)}
+.card-meta .stato{font-size:.72rem;font-weight:800;display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:3px 10px;margin-bottom:8px}
+.card-meta .stato.ok{background:rgba(21,128,61,.12);color:var(--ok)}
+.card-meta .stato.warn{background:rgba(180,83,9,.12);color:var(--warn)}
+.card-meta h3{font-size:.97rem;font-weight:800;line-height:1.3;padding-right:40px}
+.card-meta .dove{font-size:.8rem;color:var(--ink-faint);margin:2px 0 10px}
+.card-meta .stella{position:absolute;top:10px;right:10px;width:44px;height:44px;display:grid;place-items:center;border-radius:50%}
+.card-meta .stella svg{width:22px;height:22px;fill:none;stroke:var(--gold);stroke-width:2;stroke-linejoin:round}
+.card-meta .stella[aria-pressed="true"] svg{fill:var(--gold)}
+.card-meta .freccia{position:absolute;bottom:14px;right:14px;color:var(--ink-faint)}
+.altre{margin-top:16px;text-align:center;color:var(--ink-faint);font-size:.85rem}
+
+footer{margin-top:40px;text-align:center;font-size:.75rem;color:var(--ink-faint)}
+
+@media(min-width:900px){
+  .mappa-wrap{width:fit-content;max-width:100%;margin:6px auto 0}
+  .mappa-wrap .mappa svg{width:620px;height:auto}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+@media(max-width:759px){
+  .tooltip{display:none!important}
+  .wiz-hero{width:70px}
+  /* compattazione mobile: la home profilata deve tenere missione+countdown nel primo viewport (gate PLAN-FASE-B) */
+  .mock-bar{padding:5px 10px;gap:4px 8px}
+  .mock-bar .tag{font-size:.7rem}
+  .mock-bar .disc{font-size:.66rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+  .viste button{padding:6px 10px;font-size:.74rem;min-height:32px}
+  .saluto{padding:10px 4px 6px}
+  .saluto img{width:44px}
+  .banner-chiuso{padding:9px 12px;font-size:.79rem;margin-bottom:10px}
+  .griglia-prof{gap:10px}
+  .card{padding:13px}
+  .countdown .box{padding:7px 4px}
+  .countdown .box b{font-size:1.25rem}
+  .missione .compito{padding:9px 11px}
+}
+</style>
+</head>
+<body>
+
+<div class="mock-bar">
+  <span class="tag">PROPOSTA A · Giocosa premium</span>
+  <span class="disc">Mockup di design — non è il sito operativo</span>
+  <nav class="viste" aria-label="Viste del mockup">
+    <button type="button" data-vista="primo" aria-pressed="true">Primo contatto</button>
+    <button type="button" data-vista="profilato" aria-pressed="false">Home profilata</button>
+    <button type="button" data-vista="mete" aria-pressed="false">Mete</button>
+  </nav>
+  <button type="button" class="tema-btn" id="tema-btn" aria-label="Cambia tema chiaro/notte">
+    <svg class="icona-luna" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
+    <svg class="icona-sole" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+  </button>
+</div>
+
+<main>
+
+<!-- ================= VISTA 1 · PRIMO CONTATTO ================= -->
+<section id="vista-primo" aria-label="Home — primo contatto">
+  <div class="brand">
+    <div>
+      <div class="logo">Erasmus<em>Wiz</em></div>
+      <div class="tag-line">Il tuo compagno di viaggio per l'Erasmus, dalla scelta alla partenza.</div>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-testa">
+      <div class="testi">
+        <h1>La tua avventura parte da <span class="evid">una mappa</span>.</h1>
+        <p class="sotto">Scegli la tua università e guarda accendersi le mete che ti aspettano in Europa. Dati reali dai bandi ufficiali.</p>
+        <div class="fumetto" id="wiz-fumetto">Ciao! Io sono Wiz. Dove studi?</div>
+      </div>
+      <img class="wiz-hero" id="wiz-img" src="_assets/wiz-saluto.webp" alt="Wiz, la mascotte di ErasmusWiz, saluta" width="92" height="92">
+    </div>
+
+    <div class="passi" aria-hidden="true">
+      <span class="passo" data-passo="1" data-attivo="true"><span class="n">1</span>La tua università</span>
+      <span class="passo" data-passo="2"><span class="n">2</span>Cosa studi</span>
+      <span class="passo" data-passo="3"><span class="n">3</span>Le tue mete</span>
+    </div>
+
+    <div class="mappa-wrap">
+      <div class="mappa" id="mappa-hero"></div>
+      <div class="tooltip" id="tooltip" hidden></div>
+    </div>
+
+    <div id="zona-scelte" aria-live="polite">
+      <!-- popolato da JS: scelta ateneo → facoltà → contatore + CTA -->
+    </div>
+
+    <details class="elenco-testo" id="elenco-testo" hidden>
+      <summary>Elenco testuale delle mete accese</summary>
+      <ul id="elenco-ul"></ul>
+      <p class="fuori" id="elenco-fuori" hidden></p>
+    </details>
+  </div>
+</section>
+
+<!-- ================= VISTA 2 · HOME PROFILATA ================= -->
+<section id="vista-profilato" aria-label="Home — utente profilato" hidden>
+  <div class="saluto">
+    <img src="_assets/wiz-spiega.webp" alt="" width="56" height="56">
+    <div>
+      <h1>Bentornato! 👋</h1>
+      <p>Sapienza · Giurisprudenza · Magistrale — profilo demo</p>
+    </div>
+  </div>
+
+  <div class="banner-chiuso">
+    <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+    <div>
+      <strong>Il bando Erasmus+ 2026/27 è chiuso.</strong> Il prossimo è atteso a <strong>febbraio 2027</strong>: è il momento perfetto per prepararsi (lingue, ISEE, documenti).
+      <small>Fonte: bando ufficiale Sapienza 2026/27 — dato dimostrativo del mockup, aggiornato al 10/07/2026.</small>
+    </div>
+  </div>
+
+  <div class="griglia-prof">
+    <div class="card missione">
+      <h2><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.6.6-5 4.5 1.5 6.6L12 16.7 6 20l1.5-6.6-5-4.5 6.6-.6z"/></svg>La tua missione di oggi</h2>
+      <div class="compito">
+        <input type="checkbox" id="miss-1">
+        <label for="miss-1">Controlla il livello di lingua richiesto dalle tue 3 preferite
+          <small>2 minuti · ti evita l'errore più comune dell'assegnazione</small>
+        </label>
+      </div>
+    </div>
+    <div class="card">
+      <h2><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Prossimo bando stimato</h2>
+      <div class="countdown">
+        <div class="box"><b>7</b><span>mesi</span></div>
+        <div class="box"><b>12</b><span>giorni</span></div>
+        <div class="box"><b>3/5</b><span>preparazione</span></div>
+      </div>
+    </div>
+    <div class="card mappa-compatta">
+      <h2><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 20l-6-2V4l6 2m0 14l6-2m-6 2V6m6 12l6 2V6l-6-2m0 14V4M9 6l6-2"/></svg>Le tue mete — Giurisprudenza</h2>
+      <div class="mappa" id="mappa-compatta"></div>
+      <div class="legenda"><span><i></i>Mete della tua facoltà</span><span><i class="st"></i>Le tue 3 preferite</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= VISTA 3 · TAB METE ================= -->
+<section id="vista-mete" aria-label="Tab Mete" hidden>
+  <div class="mete-testa">
+    <h1>Le tue mete possibili</h1>
+    <p style="color:var(--ink-soft);font-size:.88rem">Giurisprudenza · Sapienza — 55 destinazioni dal bando ufficiale</p>
+  </div>
+
+  <div class="filtri" role="group" aria-label="Filtri mete">
+    <button type="button" class="chip-filtro" aria-pressed="true">Tutte</button>
+    <button type="button" class="chip-filtro" aria-pressed="false">Alla tua portata</button>
+    <button type="button" class="chip-filtro" aria-pressed="false">Quasi</button>
+    <button type="button" class="chip-filtro" aria-pressed="false">Per la mia lingua</button>
+  </div>
+
+  <div class="schedina-mini">
+    <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.6.6-5 4.5 1.5 6.6L12 16.7 6 20l1.5-6.6-5-4.5 6.6-.6z"/></svg>
+    La tua schedina <span class="conta">· 0 di 5 — tocca la stella su una meta per iniziare</span>
+  </div>
+
+  <div class="griglia-mete" id="griglia-mete"></div>
+  <p class="altre">…e altre 49 mete. Nel sito reale: ricerca, filtri e ordinamento per compatibilità.</p>
+</section>
+
+</main>
+
+<footer>Proposta A · Giocosa premium — mockup Fase B (2026-07) · dati reali dai bandi 2026/27, coordinate indicative</footer>
+
+<!-- scheda dettaglio (sheet) -->
+<div class="scheda" id="scheda" role="dialog" aria-label="Anteprima meta" hidden></div>
+
+<script src="_assets/europa-svg.js"></script>
+<script src="_assets/dati-demo.js"></script>
+<script>
+/* ============================================================
+   Motore condiviso dei mockup Fase B (identico nei tre file,
+   cambiano solo i dettagli di identità via CONFIG).
+   Regola PLAN-FASE-B: dati nel DOM SOLO via textContent/createElement.
+   ============================================================ */
+var CONFIG = { wiz: true, stagger: true };
+
+(function(){
+  'use strict';
+  var P = EUROPA_MAPPA.proiezione;
+  var $ = function(s){ return document.querySelector(s); };
+  var stato = { ateneo: null, mete: [], apertoDa: null };
+  var PREFERITE = ['sap-ius-salzburg', 'sap-ius-assas-p2', 'sap-ius-complutense'];
+
+  /* ---------- tema ---------- */
+  var temaIniziale = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', temaIniziale);
+  $('#tema-btn').addEventListener('click', function(){
+    var h = document.documentElement;
+    h.setAttribute('data-theme', h.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+
+  /* ---------- switcher viste ---------- */
+  document.querySelectorAll('.viste button').forEach(function(b){
+    b.addEventListener('click', function(){ mostraVista(b.dataset.vista); });
+  });
+  function mostraVista(v){
+    ['primo','profilato','mete'].forEach(function(k){
+      $('#vista-' + k).hidden = (k !== v);
+      document.querySelector('.viste button[data-vista="' + k + '"]').setAttribute('aria-pressed', String(k === v));
+    });
+    chiudiScheda();
+    window.scrollTo(0, 0);
+  }
+
+  /* ---------- costruzione mappa ---------- */
+  function costruisciMappa(cont){
+    var NS = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('viewBox', EUROPA_MAPPA.viewBox);
+    svg.setAttribute('role', 'img');
+    svg.setAttribute('aria-label', 'Mappa d’Europa con le destinazioni Erasmus');
+    EUROPA_MAPPA.paesi.forEach(function(p){
+      var path = document.createElementNS(NS, 'path');
+      path.setAttribute('d', p.d);
+      path.setAttribute('class', p.iso === 'ITA' ? 'terra terra-casa' : 'terra');
+      svg.appendChild(path);
+    });
+    cont.appendChild(svg);
+    var layer = document.createElement('div');
+    layer.className = 'pin-layer';
+    cont.appendChild(layer);
+    return layer;
+  }
+
+  /* ---------- clustering (PLAN-FASE-B §Approach 4) ---------- */
+  function clusterizza(mete, cont){
+    // 1) raggruppa per citta+paese identica (coordinate uguali: caso obbligato)
+    var perCitta = new Map();
+    mete.forEach(function(m){
+      if (!m.coord) return;
+      var k = m.citta + '|' + m.paese;
+      if (!perCitta.has(k)) perCitta.set(k, { x: m.coord.x, y: m.coord.y, citta: m.citta, paese: m.paese, items: [] });
+      perCitta.get(k).items.push(m);
+    });
+    // 2) fonde i gruppi sotto soglia di distanza (unità viewBox, scalate sulla larghezza resa)
+    var soglia = 30 * (P.viewBoxW / Math.max(cont.clientWidth, 280));
+    var gruppi = Array.from(perCitta.values());
+    var out = [];
+    gruppi.forEach(function(g){
+      var vicino = out.find(function(o){
+        return Math.hypot(o.x - g.x, o.y - g.y) < soglia;
+      });
+      if (vicino) {
+        vicino.items = vicino.items.concat(g.items);
+        vicino.multi = true;
+      } else {
+        out.push({ x: g.x, y: g.y, citta: g.citta, paese: g.paese, items: g.items.slice(), multi: g.items.length > 1 });
+      }
+    });
+    return out;
+  }
+
+  /* ---------- pin ---------- */
+  function creaPin(cl, idx, opts){
+    var b = document.createElement('button');
+    b.type = 'button';
+    var n = cl.items.length;
+    b.className = 'pin' + (n > 1 ? ' pin-cluster' : '') +
+      (opts.evidenzia ? ' evidenzia' : '') +
+      (opts.stellate && n === 1 && opts.stellate.indexOf(cl.items[0].id) !== -1 ? ' pin-stella' : '');
+    b.style.left = (cl.x / P.viewBoxW * 100) + '%';
+    b.style.top = (cl.y / P.viewBoxH * 100) + '%';
+    var dot = document.createElement('span');
+    dot.className = 'punto';
+    if (n > 1) dot.textContent = String(n);
+    if (CONFIG.stagger && opts.evidenzia) dot.style.animationDelay = (Math.min(idx, 25) * 30) + 'ms';
+    b.appendChild(dot);
+    b.setAttribute('aria-label', n === 1
+      ? cl.items[0].universita + ', ' + cl.citta + ' (' + cl.paese + ') — apri anteprima'
+      : n + ' mete vicino a ' + cl.citta + ' — apri elenco');
+    // hover/focus → tooltip (solo desktop, CSS lo nasconde su mobile)
+    b.addEventListener('mouseenter', function(){ mostraTooltip(cl, b); });
+    b.addEventListener('mouseleave', nascondiTooltip);
+    b.addEventListener('focus', function(){ mostraTooltip(cl, b); });
+    b.addEventListener('blur', nascondiTooltip);
+    b.addEventListener('click', function(){
+      nascondiTooltip();
+      if (n === 1) apriSchedaMeta(cl.items[0], b);
+      else apriSchedaCluster(cl, b);
+    });
+    return b;
+  }
+
+  function renderPins(layer, mete, opts){
+    layer.replaceChildren();
+    var cont = layer.parentElement;
+    clusterizza(mete, cont).forEach(function(cl, i){
+      layer.appendChild(creaPin(cl, i, opts));
+    });
+  }
+
+  /* ---------- tooltip (desktop) ---------- */
+  var tooltip = $('#tooltip');
+  function chipEl(testo){
+    var c = document.createElement('span');
+    c.className = 'chip';
+    c.textContent = testo;
+    return c;
+  }
+  function chipsMeta(m){
+    var wrap = document.createElement('div');
+    wrap.className = 'chips';
+    if (m.requisitoLingua.length) {
+      wrap.appendChild(chipEl('🗣 ' + m.requisitoLingua.map(function(r){ return r.lingua + ' ' + r.livello; }).join(' / ')));
+    } else {
+      wrap.appendChild(chipEl('🗣 Lingua da verificare'));
+    }
+    if (m.posti) wrap.appendChild(chipEl('🎓 ' + m.posti + (m.posti === 1 ? ' posto' : ' posti') + (m.mesi ? ' · ' + m.mesi + ' mesi' : '')));
+    if (m.borsaStimata) wrap.appendChild(chipEl('💶 ~€' + m.borsaStimata.importoMensile + '/mese · stima'));
+    return wrap;
+  }
+  function mostraTooltip(cl, pin){
+    if (!tooltip || !window.matchMedia('(hover: hover) and (min-width: 760px)').matches) return;
+    tooltip.replaceChildren();
+    var h = document.createElement('h3');
+    var dove = document.createElement('p');
+    dove.className = 'dove';
+    if (cl.items.length === 1) {
+      var m = cl.items[0];
+      h.textContent = m.universita;
+      dove.textContent = m.citta + ' · ' + m.paese;
+      tooltip.appendChild(h); tooltip.appendChild(dove);
+      tooltip.appendChild(chipsMeta(m));
+    } else {
+      h.textContent = cl.items.length + ' mete vicino a ' + cl.citta;
+      dove.textContent = 'Clicca per vederle tutte';
+      tooltip.appendChild(h); tooltip.appendChild(dove);
+    }
+    var lx = parseFloat(pin.style.left), ty = parseFloat(pin.style.top);
+    tooltip.style.left = Math.min(Math.max(lx, 16), 84) + '%';
+    tooltip.style.top = ty + '%';
+    tooltip.classList.toggle('sotto', ty < 28);
+    tooltip.hidden = false;
+  }
+  function nascondiTooltip(){ if (tooltip) tooltip.hidden = true; }
+
+  /* ---------- scheda (sheet) ---------- */
+  var scheda = $('#scheda');
+  function apriScheda(apertore){
+    stato.apertoDa = apertore || null;
+    scheda.hidden = false;
+  }
+  function chiudiScheda(){
+    if (scheda.hidden) return;
+    scheda.hidden = true;
+    if (stato.apertoDa && document.contains(stato.apertoDa)) stato.apertoDa.focus();
+    stato.apertoDa = null;
+  }
+  function bottoneChiudi(){
+    var x = document.createElement('button');
+    x.type = 'button'; x.className = 'chiudi';
+    x.setAttribute('aria-label', 'Chiudi anteprima');
+    x.textContent = '✕';
+    x.addEventListener('click', chiudiScheda);
+    return x;
+  }
+  function apriSchedaMeta(m, apertore, listaCluster){
+    scheda.replaceChildren();
+    scheda.appendChild(bottoneChiudi());
+    if (listaCluster) {
+      var back = document.createElement('button');
+      back.type = 'button'; back.className = 'indietro';
+      back.textContent = '← Torna all’elenco';
+      back.addEventListener('click', function(){ apriSchedaCluster(listaCluster, stato.apertoDa); });
+      scheda.appendChild(back);
+    }
+    var h = document.createElement('h3'); h.textContent = m.universita;
+    var dove = document.createElement('p'); dove.className = 'dove';
+    dove.textContent = m.citta + ' · ' + m.paese + ' — ' + m.facolta + (m.livelli ? ' (' + m.livelli + ')' : '');
+    scheda.appendChild(h); scheda.appendChild(dove);
+    scheda.appendChild(chipsMeta(m));
+    var fonte = document.createElement('p'); fonte.className = 'fonte';
+    fonte.textContent = m.borsaStimata
+      ? 'Borsa: stima per gruppo-paese, non una promessa. ' + m.borsaStimata.fonte + ' (aggiornato al ' + m.borsaStimata.aggiornatoAl + ').'
+      : 'Dati dal bando ufficiale 2026/27.';
+    scheda.appendChild(fonte);
+    apriScheda(apertore || stato.apertoDa);
+  }
+  function apriSchedaCluster(cl, apertore){
+    scheda.replaceChildren();
+    scheda.appendChild(bottoneChiudi());
+    var h = document.createElement('h3');
+    h.textContent = cl.items.length + ' mete vicino a ' + cl.citta + ' (' + cl.paese + ')';
+    scheda.appendChild(h);
+    var ul = document.createElement('ul');
+    cl.items.forEach(function(m){
+      var li = document.createElement('li');
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = m.universita + ' — ' + m.citta;
+      b.addEventListener('click', function(){ apriSchedaMeta(m, stato.apertoDa, cl); });
+      li.appendChild(b); ul.appendChild(li);
+    });
+    scheda.appendChild(ul);
+    apriScheda(apertore || stato.apertoDa);
+  }
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') { chiudiScheda(); nascondiTooltip(); }
+  });
+
+  /* ---------- flusso primo contatto ---------- */
+  var layerHero = costruisciMappa($('#mappa-hero'));
+  var zona = $('#zona-scelte');
+
+  function setPasso(n){
+    document.querySelectorAll('.passo').forEach(function(p){
+      var k = parseInt(p.dataset.passo, 10);
+      p.dataset.attivo = String(k === n);
+      p.dataset.fatto = String(k < n);
+    });
+  }
+
+  function passoAteneo(){
+    setPasso(1);
+    stato.ateneo = null;
+    if (CONFIG.wiz) { $('#wiz-fumetto').textContent = 'Ciao! Io sono Wiz. Dove studi?'; $('#wiz-img').src = '_assets/wiz-saluto.webp'; }
+    $('#elenco-testo').hidden = true;
+    // pin atenei sulla mappa
+    layerHero.replaceChildren();
+    DEMO.atenei.forEach(function(a){
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'pin pin-ateneo';
+      b.style.left = (a.coord.x / P.viewBoxW * 100) + '%';
+      b.style.top = (a.coord.y / P.viewBoxH * 100) + '%';
+      b.setAttribute('aria-label', a.nome + ' (' + a.citta + ') — scegli');
+      var anello = document.createElement('span'); anello.className = 'anello';
+      var dot = document.createElement('span'); dot.className = 'punto';
+      var lab = document.createElement('span'); lab.className = 'pin-etichetta'; lab.textContent = a.citta;
+      b.appendChild(anello); b.appendChild(dot); b.appendChild(lab);
+      b.addEventListener('click', function(){ passoFacolta(a); });
+      layerHero.appendChild(b);
+    });
+    // scelte ridondanti sotto la mappa (accessibilità)
+    zona.replaceChildren();
+    var wrap = document.createElement('div'); wrap.className = 'scelte';
+    DEMO.atenei.forEach(function(a){
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'scelta';
+      var t = document.createElement('span'); t.textContent = a.nome;
+      var s = document.createElement('span'); s.className = 'sub'; s.textContent = a.citta;
+      t.appendChild(s); b.appendChild(t);
+      b.addEventListener('click', function(){ passoFacolta(a); });
+      wrap.appendChild(b);
+    });
+    zona.replaceChildren(wrap);
+  }
+
+  function passoFacolta(a){
+    setPasso(2);
+    stato.ateneo = a;
+    if (CONFIG.wiz) { $('#wiz-fumetto').textContent = 'Bella scelta! E cosa studi a ' + a.citta + '?'; $('#wiz-img').src = '_assets/wiz-spiega.webp'; }
+    zona.replaceChildren();
+    var wrap = document.createElement('div'); wrap.className = 'scelte';
+    var demoF = a.facolta;
+    var esempi = a.key === 'sapienza'
+      ? [demoF, 'Economia', 'Ingegneria', 'Lettere e Filosofia', 'Medicina']
+      : [demoF, 'Lingue', 'Management', 'Scienze'];
+    esempi.forEach(function(f){
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'scelta';
+      b.textContent = f;
+      if (f !== demoF) {
+        b.disabled = true;
+        var s = document.createElement('span'); s.className = 'sub'; s.textContent = 'demo';
+        b.appendChild(s);
+      }
+      b.addEventListener('click', function(){ passoMete(a, f); });
+      wrap.appendChild(b);
+    });
+    var nota = document.createElement('p'); nota.className = 'demo-nota';
+    nota.textContent = 'Nel sito reale: tutte le ' + a.nFacoltaReali + ' facoltà/aree di ' + a.breve + '. In questo mockup è attiva solo ' + demoF + '.';
+    zona.replaceChildren(wrap, nota);
+  }
+
+  function passoMete(a, facolta){
+    setPasso(3);
+    var mete = DEMO.mete.filter(function(m){ return m.ateneo === a.key; });
+    stato.mete = mete;
+    if (CONFIG.wiz) { $('#wiz-fumetto').textContent = 'WOW — ' + mete.length + ' mete ti aspettano!'; $('#wiz-img').src = '_assets/wiz-esulta.webp'; }
+    renderPins(layerHero, mete, { evidenzia: true });
+    // contatore + CTA
+    zona.replaceChildren();
+    var c = document.createElement('div'); c.className = 'contatore';
+    var num = document.createElement('span'); num.className = 'num'; num.textContent = String(mete.length);
+    var lab = document.createElement('span');
+    lab.textContent = 'mete possibili per ' + facolta + ' · ' +
+      (window.matchMedia('(hover: none)').matches ? 'tocca un puntino' : 'passa sopra un puntino') + ' per l’anteprima';
+    var cta = document.createElement('button');
+    cta.type = 'button'; cta.className = 'cta';
+    cta.textContent = 'Inizia il percorso →';
+    cta.addEventListener('click', function(){ mostraVista('profilato'); });
+    c.appendChild(num); c.appendChild(lab); c.appendChild(cta);
+    zona.replaceChildren(c);
+    // elenco testuale + fuori mappa
+    var det = $('#elenco-testo');
+    det.hidden = false;
+    det.querySelector('summary').textContent = 'Elenco testuale delle ' + mete.length + ' mete';
+    var ul = $('#elenco-ul');
+    ul.replaceChildren();
+    mete.forEach(function(m){
+      var li = document.createElement('li');
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = m.universita + ' — ' + m.citta + (m.coord ? '' : ' (fuori mappa)');
+      b.addEventListener('click', function(){ apriSchedaMeta(m, b); });
+      li.appendChild(b); ul.appendChild(li);
+    });
+    var fuori = mete.filter(function(m){ return !m.coord; });
+    var pf = $('#elenco-fuori');
+    if (fuori.length) {
+      pf.hidden = false;
+      pf.textContent = (fuori.length === 1 ? '1 meta è fuori' : fuori.length + ' mete sono fuori') +
+        ' dall’inquadratura della mappa (' +
+        fuori.map(function(m){ return m.citta; }).join(', ') + '): la trovi nell’elenco qui sopra.';
+    } else { pf.hidden = true; }
+  }
+
+  /* ---------- vista profilata: mappa compatta ---------- */
+  var layerComp = costruisciMappa($('#mappa-compatta'));
+  function renderCompatta(){
+    var mete = DEMO.mete.filter(function(m){ return m.ateneo === 'sapienza'; });
+    renderPins(layerComp, mete, { evidenzia: false, stellate: PREFERITE });
+  }
+
+  /* ---------- vista mete: card demo ---------- */
+  function iconaStella(){
+    var NS = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24'); svg.setAttribute('aria-hidden', 'true');
+    var p = document.createElementNS(NS, 'path');
+    p.setAttribute('d', 'M12 2l2.9 6.3 6.6.6-5 4.5 1.5 6.6L12 16.7 6 20l1.5-6.6-5-4.5 6.6-.6z');
+    svg.appendChild(p);
+    return svg;
+  }
+  function renderCards(){
+    var griglia = $('#griglia-mete');
+    var demo = DEMO.mete.filter(function(m){ return m.ateneo === 'sapienza'; }).slice(0, 6);
+    demo.forEach(function(m, i){
+      var card = document.createElement('article');
+      card.className = 'card-meta';
+      card.tabIndex = 0;
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-label', m.universita + ' — apri dettaglio');
+      var stato_ = document.createElement('span');
+      var ok = m.requisitoLingua.length > 0;
+      stato_.className = 'stato ' + (ok ? 'ok' : 'warn');
+      stato_.textContent = ok ? 'Alla tua portata' : 'Lingua da verificare';
+      var h = document.createElement('h3'); h.textContent = m.universita;
+      var dove = document.createElement('p'); dove.className = 'dove';
+      dove.textContent = m.citta + ' · ' + m.paese;
+      var stella = document.createElement('button');
+      stella.type = 'button'; stella.className = 'stella';
+      stella.setAttribute('aria-pressed', String(i < 2));
+      stella.setAttribute('aria-label', 'Aggiungi alla schedina: ' + m.universita);
+      stella.appendChild(iconaStella());
+      stella.addEventListener('click', function(e){
+        e.stopPropagation();
+        stella.setAttribute('aria-pressed', String(stella.getAttribute('aria-pressed') !== 'true'));
+      });
+      var freccia = document.createElement('span');
+      freccia.className = 'freccia'; freccia.setAttribute('aria-hidden', 'true'); freccia.textContent = '→';
+      card.appendChild(stato_); card.appendChild(h); card.appendChild(dove);
+      card.appendChild(chipsMeta(m));
+      card.appendChild(stella); card.appendChild(freccia);
+      var apri = function(){ apriSchedaMeta(m, card); };
+      card.addEventListener('click', apri);
+      card.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); apri(); } });
+      griglia.appendChild(card);
+    });
+  }
+
+  /* ---------- resize → ricluster (rAF debounce) ---------- */
+  var rafId = null;
+  window.addEventListener('resize', function(){
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(function(){
+      if (stato.mete.length) renderPins(layerHero, stato.mete, { evidenzia: false });
+      renderCompatta();
+    });
+  });
+
+  /* ---------- avvio ---------- */
+  passoAteneo();
+  renderCompatta();
+  renderCards();
+})();
+</script>
+</body>
+</html>

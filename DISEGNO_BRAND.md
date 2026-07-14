@@ -1,5 +1,18 @@
 # DISEGNO BRAND — Ondata BRAND — sessioni BR0–BR7 (restyling + rifiniture strutturali)
 
+> ⚠️ **SUPERSEDED (2026-07-10, ondata MERCATO-UI Fase B/C1).** Nicola ha
+> scelto la **Direzione C "Ibrida"** tra le 3 proposte di
+> `design/proposte-2026-07/` (piano: `design/PLAN-FASE-B.md`): questa
+> scelta SOSTITUISCE formalmente le decisioni BR0–BR7 come previsto da
+> `PLAN.md` dell'ondata. La nuova identità: indigo primario + ambra come
+> accento, neutri caldi, tema notte di prima classe (palette dedicata,
+> superfici solide), raggi 20/16/12/9, Wiz come GUIDA nei momenti chiave
+> (non protagonista, non rimosso). Fonte di verità aggiornata:
+> `design/tokens/colors.css` + `:root` di `css/style.css` (Fase C1).
+> Le regole non visive di questo documento (BR1 movimento gentile,
+> §2-bis budget asset ≤100 KB, tono di voce) restano valide.
+> Il resto del documento è STORICO.
+
 > Specifica decisa il 04/07/2026 con Nicola. È il documento di riferimento
 > per le sessioni BR0–BR7. Claude Code deve leggerlo PRIMA di toccare il
 > codice in quelle sessioni, insieme a `design/readme.md` (il design system).

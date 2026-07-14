@@ -1,66 +1,74 @@
 /* ============================================================
-   ERASMUSWIZ v2 — Design system "La missione di oggi"
-   Tema GIORNO (default): sfondo chiaro, card bianche
-   Tema NOTTE: attivabile con .tema-notte su <body>
-   Nav e countdown restano SEMPRE blu notte (#1b377b)
-   Valori rimappati su design/tokens/*.css (BR0, 2026-07-04):
-   stessi nomi di variabile, valori allineati al design system.
+   ERASMUSWIZ — Design system "Direzione C · Ibrida" (Fase C1)
+   Scelta di Nicola 2026-07-10 (design/proposte-2026-07/proposta-c),
+   SOSTITUISCE i valori BRAND BR0 del 04/07.
+   Carattere: impianto ordinato e affidabile + calore nei momenti
+   chiave — indigo primario, ambra come accento, neutri caldi.
+   Tema GIORNO (default): sfondo avorio, card bianche.
+   Tema NOTTE: .tema-notte su <body> — PRIMA CLASSE: palette
+   dedicata, superfici solide (mai card traslucide sul fondo).
+   Fonte di verità dei valori: design/tokens/colors.css.
    ============================================================ */
 
 :root {
-  /* ── Font ── */
+  /* ── Font (confermati dalla direzione C: già "seri ma umani") ── */
   --font-display: 'Bricolage Grotesque', Georgia, serif;
   --font-body:    'Plus Jakarta Sans', system-ui, sans-serif;
   --font-mono:    'Space Mono', 'Courier New', monospace;
 
   /* ── Sfondo app (tema giorno) ── */
-  --bg-app:         #f3f6fc;
+  --bg-app:         #FAFAF7;
   --bg-card:        #ffffff;
-  --bg-card-hover:  #eef4ff;
+  --bg-card-hover:  #F3F1FA;
+  --bg-track:       #ECEAF5;   /* binari di progressi/barre */
 
   /* ── Testo (tema giorno) ── */
-  --text-dark:      #121829;
-  --text-muted:     #65718c;
-  --text-hint:      #8b95ac;
+  --text-dark:      #1E1B2E;
+  --text-muted:     #4B4560;
+  --text-hint:      #686180;
 
   /* ── Bordi (tema giorno) ── */
-  --border:         #e7ecf6;
-  --border-strong:  #d6dceb;
+  --border:         #E5E2F0;
+  --border-strong:  #D6D1EA;
 
-  /* ── Blu notte — solo per nav + countdown ── */
-  --night-bg:       #1b377b;
-  --night-bg-2:     #16306f;
+  /* ── Indigo profondo — nav + countdown + superfici "notte" del giorno ── */
+  --night-bg:       #232046;
+  --night-bg-2:     #1C1A38;
   --night-text:     #ffffff;
-  --night-muted:    #92b4ff;
+  --night-muted:    #A5B4FC;
   --night-border:   rgba(255,255,255,0.10);
 
-  /* ── Oro (accent magico) ── */
-  --gold:           #ffb627;
-  --gold-dark:      #d97f06;
-  --gold-bg:        #fff8e8;
-  --gold-border:    #ffdd87;
+  /* ── Ambra (accent caldo: stelle, evidenze, momenti chiave) ── */
+  --gold:           #FBBF24;
+  --gold-dark:      #B45309;
+  --gold-bg:        #FEF3C7;
+  --gold-border:    #FDE68A;
 
-  /* ── Primario (bottoni, link, percorso) ── */
-  --primary:        #3d7dff;
-  --primary-hover:  #2a63ec;
-  --primary-active: #214ec4;
-  --primary-shadow: rgba(61,125,255,0.30);
-  --ring:           rgba(61,125,255,0.35);
+  /* ── Primario indigo (bottoni, link, percorso) ── */
+  --primary:        #4F46E5;
+  --primary-hover:  #4338CA;
+  --primary-active: #3730A3;
+  /* fill = sfondi pieni con testo bianco (bottoni, chip attivi):
+     in notte NON si schiarisce come --primary, resta saturo */
+  --primary-fill:       #4F46E5;
+  --primary-fill-hover: #4338CA;
+  --primary-shadow: rgba(79,70,229,0.30);
+  --ring:           rgba(79,70,229,0.35);
   --shadow-focus:   0 0 0 4px var(--ring);
-  --shadow-card:    0 1px 2px rgba(27,55,123,0.05), 0 6px 16px rgba(27,55,123,0.06);
-  --shadow-card-hover: 0 2px 6px rgba(27,55,123,0.08), 0 14px 32px rgba(27,55,123,0.14);
+  --shadow-card:    0 1px 3px rgba(30,27,46,0.06), 0 4px 14px rgba(30,27,46,0.05);
+  --shadow-card-hover: 0 2px 6px rgba(30,27,46,0.08), 0 8px 24px rgba(67,56,202,0.14);
 
-  /* ── Movimento (BR1: gentile, mai brusco) ── */
+  /* ── Movimento (BR1: gentile, mai brusco — regola confermata) ── */
   --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
   --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
   --dur-fast: 120ms;
   --dur-base: 200ms;
   --dur-slow: 360ms;
 
-  /* ── Missione attiva (contorno oro) ── */
-  --mission-glow:   rgba(255,182,39,0.35);
+  /* ── Missione attiva (contorno ambra) ── */
+  --mission-glow:   rgba(251,191,36,0.35);
 
-  /* ── Semaforo compatibilità ── */
+  /* ── Semaforo compatibilità (invariato: già onesto e accessibile) ── */
   --green:          #0f7a3a;
   --green-bg:       #e6f6ec;
   --green-border:   #bce6cb;
@@ -71,11 +79,11 @@
   --red-bg:         #fdecec;
   --red-border:     #f6cdcd;
 
-  /* ── Raggio ── */
-  --radius-xl:   28px;
-  --radius-lg:   20px;
-  --radius-md:   14px;
-  --radius-sm:   10px;
+  /* ── Raggio (direzione C: più asciutto del claymorphism) ── */
+  --radius-xl:   20px;
+  --radius-lg:   16px;
+  --radius-md:   12px;
+  --radius-sm:   9px;
   --radius-pill: 999px;
 }
 
@@ -91,7 +99,7 @@ html { scroll-behavior: smooth; }
 }
 body {
   font-family: var(--font-body);
-  background: linear-gradient(180deg, #f7f9fd 0%, var(--bg-app) 240px);
+  background: linear-gradient(180deg, #FDFDFB 0%, var(--bg-app) 240px);
   background-color: var(--bg-app);
   color: var(--text-dark);
   min-height: 100vh;
@@ -108,7 +116,7 @@ body {
   height: 72px;
   width: auto;
   display: block;
-  filter: drop-shadow(0 6px 14px rgba(27,55,123,.22));
+  filter: drop-shadow(0 6px 14px rgba(30,27,46,.22));
 }
 .wiz-mascot.flip { transform: scaleX(-1); }
 
@@ -231,7 +239,7 @@ body {
   border-radius: 0 0 var(--radius-xl) var(--radius-xl);
   border: 1px solid var(--night-border);
   border-top: none;
-  box-shadow: 0 8px 20px rgba(27,55,123,.18);
+  box-shadow: 0 8px 20px rgba(30,27,46,.18);
 }
 .home-hero-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
 .home-hero-badge {
@@ -302,8 +310,8 @@ body {
   background: var(--bg-card);
 }
 .fase-card.fase-attivo {
-  border: 2px solid #ffb627;
-  box-shadow: 0 4px 10px rgba(255,182,39,.2);
+  border: 2px solid var(--gold);
+  box-shadow: 0 4px 10px var(--mission-glow);
 }
 .fase-card.fase-fatto { opacity: .75; }
 .fase-card.fase-futuro { opacity: .6; }
@@ -343,7 +351,7 @@ body {
   background: var(--bg-card);
   border-radius: var(--radius-xl);
   padding: 18px;
-  box-shadow: 0 0 0 1.5px #ffb627, 0 12px 32px rgba(27,55,123,.12);
+  box-shadow: 0 0 0 1.5px var(--gold), 0 12px 32px rgba(30,27,46,.12);
   position: relative;
   overflow: hidden;
 }
@@ -366,16 +374,16 @@ body {
 .missione-dettaglio { font-size: 13px; line-height: 1.45; color: var(--text-muted); }
 .missione-bottoni { display: flex; gap: 10px; margin-top: 14px; }
 .btn-primary {
-  flex: 1; background: var(--primary); color: #fff; border: none;
+  flex: 1; background: var(--primary-fill); color: #fff; border: none;
   border-radius: var(--radius-pill); padding: 13px 18px;
   font-family: var(--font-body); font-size: 14.5px; font-weight: 700;
   box-shadow: 0 8px 18px var(--primary-shadow); cursor: pointer;
   transition: background var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
 }
-.btn-primary:hover { background: var(--primary-hover); box-shadow: 0 10px 24px var(--primary-shadow); }
+.btn-primary:hover { background: var(--primary-fill-hover); box-shadow: 0 10px 24px var(--primary-shadow); }
 .btn-primary:active { transform: translateY(1px) scale(.985); }
 .btn-secondary {
-  flex: 1; background: #f3f6fc; border: 1.5px solid var(--border); color: var(--text-dark);
+  flex: 1; background: var(--bg-card-hover); border: 1.5px solid var(--border); color: var(--text-dark);
   border-radius: var(--radius-pill); padding: 13px 18px;
   font-family: var(--font-body); font-size: 14.5px; font-weight: 700;
   cursor: pointer; transition: background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
@@ -388,7 +396,7 @@ body {
 .missione-wiz-desktop {
   position: absolute; right: 22px; bottom: 0;
   height: 160px; width: auto; transform: scaleX(-1);
-  filter: drop-shadow(0 10px 22px rgba(27,55,123,.22)); pointer-events: none;
+  filter: drop-shadow(0 10px 22px rgba(30,27,46,.22)); pointer-events: none;
 }
 
 /* ================================================================
@@ -428,8 +436,8 @@ body {
 .preparazione-header { display: flex; justify-content: space-between; align-items: center; }
 .preparazione-label { font-size: 11px; font-weight: 800; color: var(--text-hint); letter-spacing: .06em; text-transform: uppercase; }
 .preparazione-count { font-family: var(--font-mono); font-size: 12.5px; font-weight: 700; color: var(--text-dark); }
-.prep-barra { margin-top: 9px; height: 8px; background: #e9eefb; border-radius: var(--radius-pill); overflow: hidden; }
-.prep-barra-fill { height: 100%; background: #ffb627; border-radius: var(--radius-pill); transition: width var(--dur-slow) var(--ease-out); }
+.prep-barra { margin-top: 9px; height: 8px; background: var(--bg-track); border-radius: var(--radius-pill); overflow: hidden; }
+.prep-barra-fill { height: 100%; background: var(--gold); border-radius: var(--radius-pill); transition: width var(--dur-slow) var(--ease-out); }
 
 /* ================================================================
    HEADER SEZIONI
@@ -442,8 +450,8 @@ body {
    BARRA PROGRESSO CHECKLIST
 ================================================================ */
 .barra-wrap { display: flex; align-items: center; gap: 14px; margin: 0 20px 16px; }
-.barra-progresso { flex: 1; height: 10px; background: #e9eefb; border-radius: var(--radius-pill); overflow: hidden; }
-.barra-riempimento { height: 100%; background: #ffb627; border-radius: var(--radius-pill); width: 0%; transition: width var(--dur-slow) var(--ease-out); }
+.barra-progresso { flex: 1; height: 10px; background: var(--bg-track); border-radius: var(--radius-pill); overflow: hidden; }
+.barra-riempimento { height: 100%; background: var(--gold); border-radius: var(--radius-pill); width: 0%; transition: width var(--dur-slow) var(--ease-out); }
 .barra-label { color: var(--text-muted); font-size: 0.82rem; white-space: nowrap; }
 
 /* ================================================================
@@ -488,7 +496,7 @@ body {
 .toggle-fase-btn:hover { border-color: var(--border-strong); color: var(--text-dark); }
 .toggle-fase-btn:active { transform: translateY(1px) scale(.985); }
 .toggle-fase-btn.fase-attiva {
-  background: var(--primary); border-color: var(--primary);
+  background: var(--primary-fill); border-color: var(--primary-fill);
   color: #fff;
 }
 
@@ -538,7 +546,7 @@ body {
    sotto, mai la stessa cornice. */
 .cand-scadenza-card {
   background: var(--bg-card); border: 1px solid var(--border);
-  border-left: 4px solid #ffb627; border-radius: var(--radius-lg);
+  border-left: 4px solid var(--gold); border-radius: var(--radius-lg);
   padding: 16px 18px; margin-bottom: 10px;
   box-shadow: var(--shadow-card);
 }
@@ -584,16 +592,31 @@ body {
 }
 
 /* ================================================================
-   CHECKLIST POST-SELEZIONE — "Lo zaino" (BR6): capitoli Prima/
-   Durante/Dopo, ognuno con le sue sotto-intestazioni per fase.
+   CHECKLIST POST-SELEZIONE — "Lo zaino" (BR6, restyle Fase C4):
+   capitoli Prima/Durante/Dopo col linguaggio dei capitoli-scadenza
+   della candidatura — testa-card distinta (bordo ambra) + conteggio
+   del capitolo, voci subordinate indentate senza cornice propria.
 ================================================================ */
-.zaino-capitolo { margin-bottom: 26px; }
+.zaino-capitolo { margin-bottom: 22px; }
 .zaino-capitolo:last-child { margin-bottom: 0; }
+.zaino-capitolo-testa {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-left: 4px solid var(--gold); border-radius: var(--radius-lg);
+  padding: 14px 18px; margin-bottom: 10px;
+  box-shadow: var(--shadow-card);
+}
 .zaino-capitolo-titolo {
   font-family: var(--font-display); font-weight: 800;
-  font-size: 1.05rem; color: var(--text-dark);
-  padding-bottom: 8px; margin-bottom: 4px;
-  border-bottom: 2px solid var(--gold);
+  font-size: 1.05rem; color: var(--text-dark); margin: 0;
+}
+.zaino-capitolo-count {
+  font-family: var(--font-mono); font-size: 0.78rem; font-weight: 700;
+  color: var(--gold-dark); background: var(--gold-bg);
+  padding: 3px 10px; border-radius: var(--radius-pill); white-space: nowrap;
+}
+.zaino-capitolo-corpo {
+  padding-left: 16px; border-left: 2px dashed var(--border);
 }
 .gruppo-post { margin-bottom: 8px; }
 .gruppo-post-titolo {
@@ -601,6 +624,15 @@ body {
   letter-spacing: 0.06em; color: var(--text-muted);
   margin: 14px 0 6px; padding: 0;
 }
+/* Voci subordinate alla testa-capitolo: stesso peso ridotto delle voci
+   sotto una scadenza in candidatura (niente cornice/ombra propria). */
+.gruppo-post .voce-checklist-v2 {
+  background: transparent; border-color: transparent;
+  padding: 9px 10px; border-radius: var(--radius-sm);
+}
+.gruppo-post .voce-checklist-v2:hover { background: var(--bg-card-hover); }
+.gruppo-post .voce-checklist-v2.fatta { background: var(--green-bg); }
+.gruppo-post .voce-checklist-v2 span { font-size: 0.88rem; }
 
 /* ================================================================
    METE v2
@@ -611,23 +643,27 @@ body {
 #conta-mete { color: var(--text-muted); font-size: 0.85rem; white-space: nowrap; }
 .griglia-mete-v2 { display: grid; grid-template-columns: 1fr; gap: 14px; padding: 0 20px; }
 @media (min-width: 768px) { .griglia-mete-v2 { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; } }
-.card-meta-v2 { position: relative; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px 44px 16px 18px; box-shadow: var(--shadow-card); }
-.card-meta-v2 h3 { color: var(--text-dark); font-size: 1rem; margin-bottom: 2px; font-weight: 700; padding-right: 6px; }
+/* Card meta — direzione C (Fase C3): l'affordance di tap la dà il DESIGN
+   (hover-lift, cursore, freccia), non una label ripetuta su ogni card (P1.8). */
+.card-meta-v2 {
+  position: relative; background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 16px 18px 30px; box-shadow: var(--shadow-card);
+  transition: border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+}
+.card-meta-v2.card-cliccabile { cursor: pointer; }
+.card-meta-v2.card-cliccabile:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: var(--shadow-card-hover); }
+.card-meta-v2 h3 { color: var(--text-dark); font-size: 1rem; margin-bottom: 2px; font-weight: 700; padding-right: 44px; }
 .card-luogo-v2 { color: var(--text-muted); font-size: 0.87rem; margin-bottom: 10px; }
 .meta-punteggio { font-family: var(--font-mono); font-size: 21px; font-weight: 700; }
 .meta-punteggio.verde  { color: var(--green); }
 .meta-punteggio.amber  { color: var(--amber); }
 .meta-punteggio.locked { color: var(--text-hint); }
-/* Link al portale/scheda ufficiale: de-enfatizzato (feedback UX6) — link di
-   testo secondario, non più un bottone pieno che sembrava la CTA principale
-   della card (quella resta "Tocca per i dettagli"). */
-.link-scheda-v2 {
-  display: inline-block; margin-top: 8px;
-  color: var(--primary); text-decoration: underline; text-underline-offset: 2px;
-  font-size: 0.83rem; font-weight: 600; background: none; padding: 0;
-  border-radius: 0;
+.card-freccia {
+  position: absolute; bottom: 10px; right: 14px;
+  color: var(--text-hint); font-weight: 700; font-size: 0.95rem;
+  transition: color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
 }
-.link-scheda-v2:hover { color: var(--primary-hover); }
+.card-meta-v2.card-cliccabile:hover .card-freccia { color: var(--primary); transform: translateX(3px); }
 
 /* Filtri a chip — tab Mete (BR4, 4a) */
 .filtri-mete-chip { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 20px 10px; }
@@ -640,47 +676,53 @@ body {
 }
 .chip-filtro:hover { border-color: var(--border-strong); }
 .chip-filtro:active { transform: translateY(1px) scale(.985); }
-.chip-filtro.attivo { background: var(--primary); border-color: var(--primary); color: #fff; }
+.chip-filtro.attivo { background: var(--primary-fill); border-color: var(--primary-fill); color: #fff; }
 
-/* Card meta compatta (BR4, 4a) */
-.card-meta-v2-punteggio { display: flex; align-items: baseline; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
-.card-meta-v2-stato { font-size: 0.83rem; font-weight: 700; color: var(--text-muted); }
+/* Card meta compatta (BR4, 4a) — badge di stato a pillola (direzione C):
+   un'icona SOLA per card (P1.6), colore semantico dal semaforo esistente. */
+.card-meta-v2-punteggio { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
+.card-meta-v2-stato {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 0.76rem; font-weight: 800;
+  border-radius: var(--radius-pill); padding: 3px 10px;
+}
+.card-meta-v2-stato.stato-ok    { background: var(--green-bg); color: var(--green); }
+.card-meta-v2-stato.stato-medio { background: var(--amber-bg); color: var(--amber); }
+.card-meta-v2-stato.stato-basso { background: var(--bg-app); border: 1px solid var(--border); color: var(--text-muted); }
 .chip-meta-riga { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 4px; }
 .chip-meta {
   display: inline-block; background: var(--bg-app); border: 1px solid var(--border);
   border-radius: var(--radius-pill); padding: 3px 11px; font-size: 0.76rem; color: var(--text-muted);
 }
 
-/* Schedina — "Le tue 5 scelte" (BR4, 4b)
-   Il riquadro #sezione-preferite resta color crema (--gold-bg) in ENTRAMBI i
-   temi (scelta preesistente, non di questa sessione): i colori qui sotto sono
-   quindi fissi (non legati a --text-dark/--text-muted, che si invertono in
-   tema notte) per restare leggibili sulla stessa superficie chiara. */
+/* Schedina — "Le tue 5 scelte" (BR4, 4b — Fase C3: schedina compatta, P1.4)
+   Vuota = una riga di invito; parziale = solo gli slot pieni + riga compatta.
+   Colori a token semantici, leggibili anche in tema notte (dove --gold-bg
+   diventa ambra traslucida sulla card scura). */
+.schedina-invito-vuota { font-size: 0.85rem; color: var(--text-muted); margin: 0; }
 .schedina-lista { display: flex; flex-direction: column; gap: 8px; }
 .schedina-slot {
   display: flex; align-items: center; gap: 10px;
-  background: rgba(255,255,255,.6); border-radius: var(--radius-sm); padding: 8px 10px;
+  background: var(--bg-card); border: 1px solid var(--gold-border);
+  border-radius: var(--radius-sm); padding: 8px 10px;
 }
-.schedina-slot--vuoto { background: transparent; border: 1.5px dashed var(--gold-border); }
 .schedina-numero {
   flex-shrink: 0; width: 26px; height: 26px; border-radius: var(--radius-pill);
-  background: var(--gold); color: var(--night-bg); font-family: var(--font-mono); font-weight: 700;
+  background: var(--gold); color: #232046; font-family: var(--font-mono); font-weight: 700;
   font-size: 0.8rem; display: flex; align-items: center; justify-content: center;
 }
-.schedina-slot--vuoto .schedina-numero { background: transparent; border: 1.5px solid var(--gold-border); color: var(--gold-dark); }
 .schedina-corpo { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
-.schedina-nome { font-size: 0.87rem; font-weight: 700; color: var(--night-bg); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.schedina-stato { font-size: 0.76rem; color: rgba(27,55,123,.7); }
-.schedina-invito { font-size: 0.83rem; color: var(--gold-dark); font-style: italic; }
+.schedina-nome { font-size: 0.87rem; font-weight: 700; color: var(--text-dark); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.schedina-stato { font-size: 0.76rem; color: var(--text-muted); }
 .schedina-azioni { display: flex; gap: 4px; flex-shrink: 0; }
 .schedina-freccia, .schedina-rimuovi {
   min-width: 40px; min-height: 40px; display: flex; align-items: center; justify-content: center;
   background: none; border: 1px solid var(--gold-border); border-radius: var(--radius-sm);
-  cursor: pointer; color: var(--night-bg); font-size: 0.85rem;
+  cursor: pointer; color: var(--text-dark); font-size: 0.85rem;
   transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
 }
 .schedina-freccia:disabled { opacity: .35; cursor: default; }
-.schedina-freccia:hover:not(:disabled), .schedina-rimuovi:hover { background: rgba(255,255,255,.5); }
+.schedina-freccia:hover:not(:disabled), .schedina-rimuovi:hover { background: var(--bg-card-hover); }
 @media (max-width: 480px) {
   .schedina-slot { flex-wrap: wrap; }
   .schedina-azioni { width: 100%; justify-content: flex-end; margin-top: 4px; }
@@ -734,12 +776,12 @@ body {
 .checkbox-lingua { font-size: 0.83rem; color: var(--text-muted); display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
 .checkbox-lingua input { accent-color: var(--primary); }
 .btn-primario {
-  background: var(--primary); color: #fff; border: none; border-radius: var(--radius-pill);
+  background: var(--primary-fill); color: #fff; border: none; border-radius: var(--radius-pill);
   padding: 12px 24px; font-family: var(--font-body); font-size: 0.95rem; font-weight: 700;
   cursor: pointer; box-shadow: 0 6px 14px var(--primary-shadow);
   transition: background var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
 }
-.btn-primario:hover { background: var(--primary-hover); box-shadow: 0 8px 20px var(--primary-shadow); }
+.btn-primario:hover { background: var(--primary-fill-hover); box-shadow: 0 8px 20px var(--primary-shadow); }
 .btn-primario:active { transform: translateY(1px) scale(.985); }
 .profilo-salvato {
   margin: 14px 20px 0; background: var(--green-bg); border: 1px solid var(--green-border);
@@ -813,12 +855,12 @@ body {
   from { opacity: 0; transform: scale(.96); }
   to   { opacity: 1; transform: scale(1);   }
 }
-.celebrazione-wiz { height: 230px; width: auto; transform: rotate(-6deg); filter: drop-shadow(0 16px 36px rgba(27,55,123,.5)); }
+.celebrazione-wiz { height: 230px; width: auto; transform: rotate(-6deg); filter: drop-shadow(0 16px 36px rgba(18,20,31,.55)); }
 .celebrazione-titolo {
   font-family: var(--font-display); font-weight: 800;
   font-size: clamp(28px, 7vw, 34px); letter-spacing: -.02em; color: #fff; margin: 26px 0 8px;
 }
-.celebrazione-sub { font-size: 15px; color: #c8d6f5; }
+.celebrazione-sub { font-size: 15px; color: #C9C5E4; }
 .celebrazione-btn {
   margin-top: 28px; width: 100%; max-width: 320px;
   background: var(--gold); color: var(--night-bg); border: none; border-radius: var(--radius-pill); padding: 16px;
@@ -830,37 +872,160 @@ body {
 .celebrazione-btn:active { transform: translateY(1px) scale(.985); }
 
 /* ================================================================
-   ONBOARDING OVERLAY (3 domande)
+   MAPPA D'EUROPA (Fase C2) — benvenuto + mappa compatta in home.
+   Pin = <button> in overlay HTML sopra l'SVG (accessibili, ≥44px).
 ================================================================ */
-.onboarding-overlay {
-  position: fixed; inset: 0; z-index: 700;
-  background: linear-gradient(180deg, var(--night-bg) 0%, var(--night-bg-2) 100%);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  padding: 32px; text-align: center; animation: fadeInScale .3s ease;
-  overflow-y: auto;
+.mappa-wrap { position: relative; margin-top: 6px; }
+.mappa { position: relative; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border); background: var(--bg-card); }
+.mappa svg { display: block; width: 100%; height: auto; }
+.mappa-terra { fill: var(--bg-card-hover); stroke: var(--border-strong); stroke-width: .8; stroke-linejoin: round; }
+.mappa-terra-casa { fill: #C7D2FE; }
+body.tema-notte .mappa-terra { fill: #242741; stroke: #363A5C; }
+body.tema-notte .mappa-terra-casa { fill: #3B4290; }
+.mappa-pin-layer { position: absolute; inset: 0; }
+.mappa-pin {
+  position: absolute; width: 44px; height: 44px; transform: translate(-50%,-50%);
+  display: grid; place-items: center; border-radius: 50%;
+  background: none; border: none; padding: 0; cursor: pointer;
 }
-.onboarding-wiz { height: 96px; width: auto; margin-bottom: 8px; }
-.onboarding-progresso { display: flex; gap: 7px; margin-bottom: 18px; }
-.onboarding-dot { width: 7px; height: 7px; border-radius: var(--radius-pill); background: rgba(255,255,255,.25); transition: background var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out); }
-.onboarding-dot.attivo { background: var(--gold); transform: scale(1.3); }
-.onboarding-passo { width: 100%; max-width: 380px; }
-.onboarding-eyebrow { font-size: .78rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--gold); margin: 0 0 6px; }
-.onboarding-domanda {
+.mappa-pin .punto {
+  width: 13px; height: 13px; border-radius: 50%; background: var(--primary-fill);
+  border: 2.5px solid var(--bg-card); box-shadow: 0 2px 6px rgba(0,0,0,.3);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+body.tema-notte .mappa-pin .punto { background: #A5B4FC; border-color: var(--bg-app); }
+.mappa-pin:hover .punto, .mappa-pin:focus-visible .punto { transform: scale(1.5); }
+.mappa-pin.evidenzia .punto { animation: mappa-pin-pop .35s var(--ease-bounce) backwards; }
+@keyframes mappa-pin-pop { from { transform: scale(0); } to { transform: scale(1); } }
+.mappa-pin-cluster .punto {
+  width: 28px; height: 28px; display: grid; place-items: center;
+  font-size: .7rem; font-weight: 800; color: #fff; font-family: var(--font-body);
+}
+body.tema-notte .mappa-pin-cluster .punto { color: #12141F; }
+.mappa-pin-stella .punto { background: var(--gold); }
+.mappa-pin-stella::after { content: "★"; position: absolute; top: 0; right: 2px; font-size: .78rem; color: var(--gold); text-shadow: 0 1px 2px rgba(0,0,0,.3); }
+.mappa-pin-ateneo { width: 56px; height: 56px; }
+.mappa-pin-ateneo .punto { width: 24px; height: 24px; background: var(--primary-fill); display: grid; place-items: center; }
+.mappa-pin-ateneo .punto::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #fff; }
+.mappa-pin-ateneo .anello { position: absolute; inset: 7px; border-radius: 50%; border: 2px dashed var(--primary); opacity: .55; animation: mappa-ruota 16s linear infinite; }
+@keyframes mappa-ruota { to { transform: rotate(360deg); } }
+.mappa-pin-etichetta {
+  position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+  white-space: nowrap; font-size: .71rem; font-weight: 800;
+  background: var(--bg-card); color: var(--text-dark);
+  padding: 2px 9px; border-radius: var(--radius-pill); border: 1px solid var(--border);
+}
+.mappa-tooltip {
+  position: absolute; z-index: 30; max-width: 295px; min-width: 220px;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card-hover); padding: 12px 14px; pointer-events: none;
+  transform: translate(-50%, calc(-100% - 13px)); text-align: left;
+}
+.mappa-tooltip.sotto { transform: translate(-50%, 15px); }
+.mappa-tooltip[hidden] { display: none; }
+.mappa-tooltip-titolo { font-weight: 800; font-size: .9rem; line-height: 1.3; color: var(--text-dark); }
+.mappa-tooltip-dove { font-size: .77rem; color: var(--text-hint); margin: 2px 0 6px; }
+.mappa-tooltip-chips { font-size: .78rem; font-weight: 600; color: var(--text-muted); }
+.mappa-nota { font-size: .78rem; color: var(--text-hint); margin-top: 8px; }
+.mappa-cluster-lista { list-style: none; margin-top: 12px; padding: 0; }
+.mappa-cluster-voce {
+  width: 100%; text-align: left; padding: 12px; min-height: 44px;
+  background: none; border: none; border-radius: var(--radius-sm);
+  cursor: pointer; font-family: var(--font-body); color: var(--text-dark);
+}
+.mappa-cluster-voce:hover { background: var(--bg-card-hover); }
+.mappa-cluster-nome { display: block; font-weight: 700; font-size: .92rem; }
+.mappa-cluster-dove { display: block; font-size: .78rem; color: var(--text-hint); }
+
+/* Mappa compatta nella home profilata */
+.card-mappa-home {
+  margin: 20px 20px 0; background: var(--bg-card); border-radius: var(--radius-lg);
+  padding: 14px 16px 16px; box-shadow: var(--shadow-card);
+}
+.card-mappa-home .mappa-compatta { width: fit-content; max-width: 100%; margin: 4px auto 0; }
+.card-mappa-home .mappa-compatta svg { width: min(88vw, 400px); height: auto; }
+.mappa-vai-elenco { font-size: .8rem; font-weight: 700; color: var(--primary); text-decoration: none; }
+.mappa-vai-elenco:hover { text-decoration: underline; }
+.mappa-legenda { display: flex; gap: 14px; font-size: .75rem; color: var(--text-hint); margin-top: 8px; flex-wrap: wrap; }
+.mappa-legenda .pin-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--primary-fill); margin-right: 5px; }
+.mappa-legenda .pin-dot.stella { background: var(--gold); }
+
+/* ================================================================
+   BENVENUTO (primo contatto, Fase C2) — sostituisce l'overlay
+   onboarding: stesso flusso a 3 domande, in pagina, sulla mappa.
+   Con l'overlay sparisce il bug P0.1 (centratura + overflow).
+================================================================ */
+#tab-oggi.modo-benvenuto > *:not(#home-benvenuto) { display: none; }
+.benvenuto {
+  margin: 12px 20px 0; padding: 22px 18px 24px;
+  background: linear-gradient(175deg, var(--bg-card) 0%, var(--bg-card-hover) 100%);
+  border: 1px solid var(--border); border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+}
+.benvenuto-testa { display: flex; gap: 16px; align-items: flex-start; }
+.benvenuto-testi { flex: 1; min-width: 0; }
+.benvenuto-titolo {
   font-family: var(--font-display); font-weight: 800;
-  font-size: clamp(24px, 6vw, 30px); letter-spacing: -.02em; color: #fff; margin: 0 0 20px;
+  font-size: clamp(1.45rem, 5vw, 2.1rem); letter-spacing: -.02em; line-height: 1.18;
+  color: var(--text-dark); max-width: 24ch;
 }
-.onboarding-opzioni { display: flex; flex-direction: column; gap: 10px; }
-.onboarding-opzione {
-  width: 100%; padding: 16px 24px; text-align: center;
-  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); border-radius: var(--radius-pill);
-  color: #fff; font-family: var(--font-body); font-size: 16px; font-weight: 700; cursor: pointer;
-  transition: background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+.benvenuto-titolo em { font-style: normal; color: var(--primary); }
+.benvenuto-claim { color: var(--text-muted); margin-top: 8px; font-size: .93rem; max-width: 56ch; }
+.benvenuto-wiz { height: 84px; width: auto; flex: none; }
+.benvenuto-fumetto {
+  position: relative; display: inline-block; margin-top: 12px;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md);
+  padding: 9px 13px; font-weight: 700; font-size: .87rem; color: var(--text-dark);
+  box-shadow: var(--shadow-card);
 }
-.onboarding-opzione:hover { background: rgba(255,255,255,.16); }
-.onboarding-opzione:active { transform: translateY(1px) scale(.985); }
-.onboarding-landing-dettaglio { font-size: 15px; line-height: 1.5; color: #c8d6f5; margin: 0 0 24px; }
-#onboarding-btn-inizia { width: 100%; max-width: 320px; padding: 16px; font-size: 16px; }
+.benvenuto-passi { display: flex; gap: 8px; margin: 16px 0 10px; flex-wrap: wrap; }
+.benvenuto-passo {
+  display: inline-flex; align-items: center; gap: 7px; padding: 7px 13px;
+  border-radius: var(--radius-pill); background: var(--bg-card); border: 1px solid var(--border);
+  font-size: .8rem; font-weight: 700; color: var(--text-hint);
+}
+.benvenuto-passo .n {
+  width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--bg-card-hover); font-size: .7rem; font-weight: 800;
+}
+.benvenuto-passo[data-attivo="true"] { color: var(--text-dark); border-color: var(--primary); }
+.benvenuto-passo[data-attivo="true"] .n { background: var(--primary-fill); color: #fff; }
+.benvenuto-passo[data-fatto="true"] .n { background: var(--green); color: #fff; }
+.benvenuto-scelte { margin-top: 14px; }
+.benvenuto-scelte-riga { display: flex; flex-wrap: wrap; gap: 10px; }
+.benvenuto-scelta {
+  display: inline-flex; align-items: center; margin: 0 10px 10px 0;
+  padding: 12px 18px; min-height: 50px;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md);
+  font-family: var(--font-body); font-size: .95rem; font-weight: 700; color: var(--text-dark);
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+}
+.benvenuto-scelte-riga .benvenuto-scelta { margin: 0; }
+.benvenuto-scelta:hover { border-color: var(--primary); transform: translateY(-1px); box-shadow: var(--shadow-card-hover); }
+.benvenuto-scelta:active { transform: scale(.97); }
+.benvenuto-sotto-domanda { font-weight: 700; font-size: .92rem; color: var(--text-muted); margin-bottom: 10px; }
+.benvenuto-landing-titolo {
+  font-family: var(--font-display); font-weight: 800; font-size: 1.3rem;
+  letter-spacing: -.01em; color: var(--text-dark); margin-bottom: 6px;
+}
+.benvenuto-landing-dettaglio { font-size: .92rem; color: var(--text-muted); margin-bottom: 14px; }
+.benvenuto-btn-inizia { width: 100%; max-width: 320px; padding: 16px; font-size: 16px; }
+@media (min-width: 900px) {
+  /* desktop: mappa centrata e contenuta, non un poster a tutta pagina */
+  .benvenuto .mappa-wrap { width: fit-content; max-width: 100%; margin: 6px auto 0; }
+  .benvenuto .mappa svg { width: 600px; height: auto; }
+}
+@media (min-width: 1024px) {
+  /* nel benvenuto la griglia home a 2 colonne non ha senso */
+  #tab-oggi.modo-benvenuto { display: block; }
+  .benvenuto { max-width: 900px; margin-left: auto; margin-right: auto; }
+}
+@media (max-width: 759px) {
+  .mappa-tooltip { display: none !important; }
+  .benvenuto { margin: 12px 12px 0; }
+  .benvenuto-wiz { height: 64px; }
+}
 
 /* ================================================================
    CARD CLICCABILE + DETTAGLIO META
@@ -868,11 +1033,10 @@ body {
 .card-cliccabile { cursor: pointer; position: relative; box-shadow: var(--shadow-card); transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out); }
 .card-cliccabile:hover { border-color: var(--border-strong); box-shadow: var(--shadow-card-hover); transform: translateY(-3px); }
 .card-cliccabile:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
-.card-dettagli-hint { display: block; margin-top: 10px; font-size: .8rem; font-weight: 700; color: var(--primary); }
 
 .meta-overlay {
   position: fixed; inset: 0; z-index: 600;
-  background: rgba(27,55,123,.55);
+  background: rgba(30,27,46,.55);
   display: flex; align-items: flex-end; justify-content: center;
   animation: fadeIn .2s ease;
 }
@@ -884,7 +1048,7 @@ body {
   max-height: 92vh; overflow-y: auto;
   border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   padding: 26px 20px 32px;
-  box-shadow: 0 -10px 40px rgba(27,55,123,.25);
+  box-shadow: 0 -10px 40px rgba(30,27,46,.25);
   animation: slideUp .25s ease;
 }
 @keyframes slideUp { from { transform: translateY(24px); } to { transform: translateY(0); } }
@@ -914,7 +1078,7 @@ body {
 
 .dett-link-wrap { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
 .dett-link { flex: 1 1 auto; padding: 12px 14px; text-align: center; text-decoration: none; font-weight: 700; font-size: .9rem; border: 1px solid var(--border-strong); border-radius: var(--radius-md); color: var(--text-dark); }
-.dett-link.primario { background: var(--primary); border-color: var(--primary); color: #fff; }
+.dett-link.primario { background: var(--primary-fill); border-color: var(--primary-fill); color: #fff; }
 .dett-link:hover { opacity: .92; }
 .dett-nota { margin-top: 16px; font-size: .78rem; line-height: 1.5; color: var(--text-hint); }
 
@@ -929,36 +1093,61 @@ body.no-scroll { overflow: hidden; }
    TEMA NOTTE
 ================================================================ */
 body.tema-notte {
-  --bg-app:        #1b377b;
-  --bg-card:       rgba(255,255,255,0.07);
-  --bg-card-hover: rgba(255,255,255,0.12);
-  --text-dark:     #ffffff;
-  --text-muted:    #c8d6f5;
-  --text-hint:     #92b4ff;
-  --border:        rgba(255,255,255,0.10);
-  --border-strong: rgba(255,255,255,0.20);
+  /* Direzione C (Fase C1): notte di PRIMA CLASSE — palette dedicata,
+     non più il blu della nav con card traslucide (difetto P1.11):
+     fondo indigo-nero, superfici SOLIDE ed elevate, primario schiarito
+     per il buio, ambra che si accende. */
+  --bg-app:        #12141F;
+  --bg-card:       #1B1E30;
+  --bg-card-hover: #252840;
+  --bg-track:      #2A2D48;
+  --text-dark:     #EDEBF7;
+  --text-muted:    #BEB9D6;
+  --text-hint:     #A29CC4;
+  --border:        #2E3150;
+  --border-strong: #3A3D63;
+  /* nav e superfici indigo: in notte si staccano appena dal fondo */
+  --night-bg:      #1B1E30;
+  --night-bg-2:    #12141F;
+  --night-border:  rgba(255,255,255,0.08);
+  /* primario ritarato per fondi scuri (tinte chiare, non inversione) */
+  --primary:        #818CF8;
+  --primary-hover:  #A5B4FC;
+  --primary-active: #6366F1;
+  --primary-fill:       #4F46E5;
+  --primary-fill-hover: #6366F1;
+  --primary-shadow: rgba(99,102,241,0.45);
+  --ring:           rgba(129,140,248,0.45);
+  --shadow-card:    0 1px 3px rgba(0,0,0,0.40);
+  --shadow-card-hover: 0 8px 28px rgba(0,0,0,0.50), 0 0 0 1px rgba(165,180,252,0.12);
+  /* semaforo e ambra: varianti leggibili sul buio */
+  --green:        #4ADE80; --green-bg:  rgba(74,222,128,0.12); --green-border: rgba(74,222,128,0.35);
+  --amber:        #FBBF24; --amber-bg:  rgba(251,191,36,0.12); --amber-border: rgba(251,191,36,0.35);
+  --red:          #F87171; --red-bg:    rgba(248,113,113,0.14); --red-border:   rgba(248,113,113,0.35);
+  --gold-bg:      rgba(251,191,36,0.12);
+  --gold-border:  rgba(251,191,36,0.40);
+  --gold-dark:    #FBBF24;
+  background: var(--bg-app);
 }
 body.tema-notte::before {
   content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
   background-image:
     radial-gradient(2px 2px at 10%  15%, var(--gold) 50%, transparent 51%),
     radial-gradient(1.5px 1.5px at 80% 10%, var(--gold) 50%, transparent 51%),
-    radial-gradient(2px 2px at 60%  25%, #92b4ff 50%, transparent 51%),
+    radial-gradient(2px 2px at 60%  25%, #A5B4FC 50%, transparent 51%),
     radial-gradient(1.5px 1.5px at 20% 35%, var(--gold) 50%, transparent 51%),
     radial-gradient(2px 2px at 90%  45%, var(--gold) 50%, transparent 51%),
-    radial-gradient(1.5px 1.5px at 45%  8%, #92b4ff 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 45%  8%, #A5B4FC 50%, transparent 51%),
     radial-gradient(2px 2px at 72%  38%, var(--gold) 50%, transparent 51%);
+  opacity: .5;
 }
-body.tema-notte .btn-secondary { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15); color: #fff; }
-body.tema-notte .btn-secondary:hover { background: rgba(255,255,255,0.13); }
-body.tema-notte .campo-form select, body.tema-notte .campo-form input, body.tema-notte .riga-lingua select { background: rgba(255,255,255,0.06); color: #fff; border-color: rgba(255,255,255,0.15); }
-/* Le scritte blu --primary sul fondo blu notte restano poco leggibili:
-   in tema notte i link/CTA testuali passano a un azzurro più chiaro. */
+body.tema-notte .btn-secondary { background: var(--bg-card-hover); border-color: var(--border-strong); color: var(--text-dark); }
+body.tema-notte .btn-secondary:hover { background: #2E3150; }
+body.tema-notte .campo-form select, body.tema-notte .campo-form input, body.tema-notte .riga-lingua select { background: var(--bg-card-hover); color: var(--text-dark); border-color: var(--border-strong); }
+/* Link/CTA testuali con colore proprio in cascata: lavanda del tema. */
 body.tema-notte .fase-cta,
 body.tema-notte .cand-checklist-toggle,
-body.tema-notte .card-dettagli-hint,
-body.tema-notte .link-scheda-v2,
-body.tema-notte .profilo-strip-link { color: #a7c3ff; }
+body.tema-notte .profilo-strip-link { color: #A5B4FC; }
 
 /* ================================================================
    DESKTOP ≥1024px
@@ -1038,8 +1227,8 @@ body.tema-notte .profilo-strip-link { color: #a7c3ff; }
 }
 .preferite-hint {
   font-size: 12.5px;
-  color: rgba(27,55,123,.75);
-  margin: 0 0 10px;
+  color: var(--text-muted);
+  margin: 10px 0 0;
 }
 .msg-preferite {
   font-size: 13px;
@@ -1127,4 +1316,3 @@ body.tema-notte .profilo-strip-link { color: #a7c3ff; }
 .guida-faq dd { margin: 6px 0 0; color: var(--text-muted); }
 .guida-footer { max-width: 720px; margin: 0 auto; padding: 0 20px 48px; font-size: 0.8rem; color: var(--text-muted); }
 .guida-footer a { color: var(--text-muted); }
-}

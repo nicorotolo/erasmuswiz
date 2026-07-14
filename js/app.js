@@ -193,6 +193,16 @@ function initTema() {
 // HOME — saluto + data
 // ============================================================
 function renderHome() {
+  // Fase C2: primo contatto = benvenuto con mappa-hero al posto della home;
+  // dopo l'onboarding la home normale torna padrona (mappa compattata sotto).
+  const benv = document.getElementById("home-benvenuto");
+  const tabOggi = document.getElementById("tab-oggi");
+  if (benv && tabOggi) {
+    const primoContatto = !ZAINO.onboardingFatto;
+    benv.style.display = primoContatto ? "" : "none";
+    tabOggi.classList.toggle("modo-benvenuto", primoContatto);
+  }
+
   const dataEl = document.getElementById("home-data");
   if (dataEl) {
     const oggi = new Date();
@@ -540,7 +550,7 @@ function aggiornaCountdownV2() {
 function mostraBannerWiz() {
   const banner = document.getElementById("banner-wiz");
   if (!banner) return;
-  banner.innerHTML = '<img src="img/wiz-hero.png" alt="Wiz"><span class="banner-testo">Ottimo lavoro! Un passo in meno 🎉</span>';
+  banner.innerHTML = '<img src="img/mascotte/wiz-esulta.webp" alt="Wiz"><span class="banner-testo">Ottimo lavoro! Un passo in meno 🎉</span>';
   banner.style.display = "flex";
   clearTimeout(banner._t);
   banner._t = setTimeout(() => { banner.style.display = "none"; }, 3500);
@@ -865,6 +875,55 @@ function postiSintesi(meta) {
   return `${tot} ${tot === 1 ? "posto" : "posti"}`;
 }
 
+// Presentazione dei nomi università (P1.7): i dati grezzi arrivano a volte
+// tutti in maiuscolo ("PARIS LODRON UNIVERSITÄT SALZBURG"). Qui si normalizza
+// SOLO la presentazione — i dati non si toccano (i typo restano segnalati
+// alla pipeline) e i nomi già scritti bene passano invariati: si trasforma
+// una parola solo se è TUTTA maiuscola. Le sigle corte (KU, UCL, III) restano
+// com'erano; le preposizioni/articoli vanno in minuscolo se non iniziali.
+const PAROLE_MINORI_NOME = new Set([
+  "di", "de", "del", "della", "delle", "dei", "degli", "da", "d",
+  "la", "le", "li", "lo", "el", "les", "los", "las", "do", "dos", "das",
+  "der", "den", "des", "du", "dem", "van", "von", "und", "zu", "zur", "im",
+  "and", "of", "the", "for", "für", "in", "a", "à", "y", "e", "i",
+  "aan", "op", "het", "ten", "ter", "på", "ved",
+]);
+function nomeUniversita(nome) {
+  if (!nome) return "";
+  let primaParola = true;
+  return String(nome).split(" ").map(parola => {
+    const trasformata = parola.split(/([-'’])/).map(pezzo => {
+      if (!/\p{L}/u.test(pezzo)) return pezzo;
+      if (pezzo !== pezzo.toUpperCase()) return pezzo;         // già mixed-case
+      // La punteggiatura intorno (es. "(AMU)") non fa parte della parola.
+      const [, prima, core, dopo] = pezzo.match(/^(\P{L}*)(.*?)(\P{L}*)$/u);
+      const minuscolo = core.toLowerCase();
+      if (PAROLE_MINORI_NOME.has(minuscolo)) return prima + minuscolo + dopo;
+      if (core.length <= 3) return pezzo;                      // sigla, si lascia
+      if (prima.includes("(") || dopo.includes(")")) return pezzo; // "(TISEM)": sigla tra parentesi
+      return prima + core.charAt(0) + minuscolo.slice(1) + dopo;
+    }).join("");
+    // La prima parola del nome resta sempre maiuscola, anche se "minore".
+    if (primaParola && /\p{L}/u.test(trasformata)) {
+      primaParola = false;
+      return trasformata.charAt(0).toUpperCase() + trasformata.slice(1);
+    }
+    return trasformata;
+  }).join(" ");
+}
+
+// Nome leggibile dell'area per lo strip profilo (P1.5): mai il codice ISCED
+// grezzo in faccia all'utente. Preferisce la facoltà/dipartimento scelta;
+// in mancanza (zaini vecchi) risale al nome dell'area dai dati mete.
+function nomeAreaProfilo(profilo) {
+  if (profilo.dipartimento) return profilo.dipartimento;
+  for (const m of (METE || [])) {
+    const a = (m.areeDisciplinari || []).find(x => x.codice === profilo.area);
+    if (a && a.nome) return a.nome;
+  }
+  return "Area " + profilo.area;
+}
+
 function linguaSintesi(meta) {
   if (!meta.requisitoLingua || !meta.requisitoLingua.length) return "Lingua da verificare";
   const [prima, ...altre] = meta.requisitoLingua;
@@ -903,7 +962,7 @@ function renderMete() {
       const lingua1 = (profilo.lingue || [])[0];
       const linguaTesto = lingua1 ? ` · ${lingua1.lingua} ${lingua1.livello}` : "";
       strip.appendChild(crea("span", "profilo-strip-testo",
-        `Area: ${profilo.area} · ${livelloInParole(profilo.livello)}${linguaTesto}  `));
+        `${nomeAreaProfilo(profilo)} · ${livelloInParole(profilo.livello)}${linguaTesto}  `));
       const lnk = crea("a", "profilo-strip-link", "Modifica profilo →");
       lnk.href = "#";
       lnk.addEventListener("click", e => { e.preventDefault(); mostraTab("profilo"); });
@@ -1032,14 +1091,19 @@ function renderMete() {
       const categoria = categoriaCompat(comp);
       const classeMono = categoria === "ok" ? "verde" : categoria === "medio" ? "amber" : "locked";
 
+      // Un'icona di stato sola (P1.6): il punteggio è solo il numero, l'icona
+      // vive nel badge di stato — prima, senza punteggio, l'emoji compariva
+      // due volte sulla stessa card.
       const riga = crea("div", "card-meta-v2-punteggio");
-      riga.appendChild(crea("span", "meta-punteggio " + classeMono,
-        comp.totale !== null ? `${comp.totale}%` : comp.icona));
-      riga.appendChild(crea("span", "card-meta-v2-stato", `${comp.icona} ${comp.stato}`));
+      if (comp.totale !== null) {
+        riga.appendChild(crea("span", "meta-punteggio " + classeMono, `${comp.totale}%`));
+      }
+      riga.appendChild(crea("span", "card-meta-v2-stato stato-" + categoria,
+        `${comp.icona} ${comp.stato}`));
       card.appendChild(riga);
     }
 
-    card.appendChild(crea("h3", null, meta.universita));
+    card.appendChild(crea("h3", null, nomeUniversita(meta.universita)));
     card.appendChild(crea("div", "card-luogo-v2",
       meta.citta ? `${meta.citta} (${meta.paese})` : meta.paese));
 
@@ -1050,21 +1114,16 @@ function renderMete() {
     if (borsaChip) chipRiga.appendChild(crea("span", "chip-meta", borsaChip));
     card.appendChild(chipRiga);
 
-    // Link al portale/scheda ufficiale: de-enfatizzato (feedback UX6 — prima
-    // sembrava la CTA principale della card; siamo la guida, non il portale).
-    const link = crea("a", "link-scheda-v2",
-      meta.linkPdf ? "Scheda ufficiale (PDF) ↗" : `Portale ${window.ATENEO_LABEL || "Ca' Foscari"} ↗`);
-    link.href   = meta.linkPdf || window.ATENEO_PORTALE_URL || "https://www.unive.it/data/11631/";
-    link.target = "_blank";
-    link.rel    = "noopener";
-    link.addEventListener("click", e => e.stopPropagation());
-    card.appendChild(link);
-
-    // Tutta la card è cliccabile: apre il pannello di dettaglio.
+    // Niente testi ripetuti su ogni card (P1.8): il link al portale vive nel
+    // pannello di dettaglio, e l'affordance di tap la dà il design della card
+    // (hover-lift + freccia), non una label ripetuta 60 volte.
     card.classList.add("card-cliccabile");
     card.setAttribute("role", "button");
     card.setAttribute("tabindex", "0");
-    card.appendChild(crea("span", "card-dettagli-hint", "Tocca per i dettagli →"));
+    card.setAttribute("aria-label", nomeUniversita(meta.universita) + " — apri il dettaglio");
+    const freccia = crea("span", "card-freccia", "→");
+    freccia.setAttribute("aria-hidden", "true");
+    card.appendChild(freccia);
     card.addEventListener("click", () => apriDettaglioMeta(meta));
     card.addEventListener("keydown", e => {
       if (e.key === "Enter" || e.key === " ") { e.preventDefault(); apriDettaglioMeta(meta); }
@@ -1098,58 +1157,65 @@ function renderPreferite(msg) {
   const ids = schedinaIds();
   salvaZaino(ZAINO);
 
+  // Fase C2: le stelle sulla mappa compatta seguono la schedina.
+  if (typeof renderMappaHome === "function") renderMappaHome();
+
   const header = crea("div", "preferite-header");
   header.appendChild(crea("span", "preferite-label", `Le tue 5 scelte (${ids.length}/5)`));
   cont.appendChild(header);
 
-  // Microcopy proattivo sul limite (feedback UX6): prima l'utente scopriva il
-  // massimo di 5 solo sbattendoci contro; ora lo sa da subito, prima di
-  // riempire gli slot. Nascosto a schedina piena per non affollare lo spazio
-  // proprio quando arriva il messaggio d'errore vero (se prova ad aggiungerne
-  // una sesta).
-  if (ids.length < 5) {
-    cont.appendChild(crea("p", "preferite-hint",
-      "Puoi sceglierne al massimo 5: l'ordine conta, sono le mete che porterai alla riunione di assegnazione."));
-  }
-
   if (msg) cont.appendChild(crea("p", "msg-preferite", msg));
 
+  // Schedina vuota = invito compatto di UNA riga (P1.4): prima 5 slot vuoti
+  // a piena larghezza occupavano ~1,5 schermate mobile PRIMA della lista mete.
+  if (ids.length === 0) {
+    cont.appendChild(crea("p", "schedina-invito-vuota",
+      "☆ Tocca la stellina su una meta per aggiungerla. Massimo 5: l'ordine conta, sono le mete che porterai alla riunione di assegnazione."));
+    return;
+  }
+
+  // Si mostrano solo gli slot pieni; i posti rimanenti diventano una riga
+  // compatta sotto, non slot vuoti a scaffale.
   const lista = crea("div", "schedina-lista");
-  for (let i = 0; i < 5; i++) {
-    const id   = ids[i];
-    const meta = id ? (METE || []).find(m => m.id === id) : null;
-    const slot = crea("div", "schedina-slot" + (meta ? "" : " schedina-slot--vuoto"));
+  ids.forEach((id, i) => {
+    const meta = (METE || []).find(m => m.id === id);
+    if (!meta) return;
+    const slot = crea("div", "schedina-slot");
     slot.appendChild(crea("span", "schedina-numero", String(i + 1)));
 
-    if (meta) {
-      const corpo = crea("div", "schedina-corpo");
-      corpo.appendChild(crea("span", "schedina-nome", meta.universita));
-      if (ZAINO.profilo) {
-        const comp = calcolaCompatibilita(meta, ZAINO.profilo);
-        corpo.appendChild(crea("span", "schedina-stato",
-          `${comp.icona} ${comp.totale !== null ? comp.totale + "%" : comp.stato}`));
-      }
-      slot.appendChild(corpo);
-
-      const azioni = crea("div", "schedina-azioni");
-      const su = crea("button", "schedina-freccia", "▲");
-      su.type = "button"; su.title = "Sposta su"; su.disabled = i === 0;
-      su.addEventListener("click", () => spostaSchedina(i, -1));
-      const giu = crea("button", "schedina-freccia", "▼");
-      giu.type = "button"; giu.title = "Sposta giù"; giu.disabled = i === ids.length - 1;
-      giu.addEventListener("click", () => spostaSchedina(i, 1));
-      const rimuovi = crea("button", "schedina-rimuovi", "✕");
-      rimuovi.type = "button"; rimuovi.title = "Rimuovi dalla schedina";
-      rimuovi.addEventListener("click", () => togglePreferita(id));
-      azioni.appendChild(su); azioni.appendChild(giu); azioni.appendChild(rimuovi);
-      slot.appendChild(azioni);
-    } else {
-      slot.appendChild(crea("span", "schedina-invito", "Aggiungi dalla lista qui sotto"));
+    const corpo = crea("div", "schedina-corpo");
+    corpo.appendChild(crea("span", "schedina-nome", nomeUniversita(meta.universita)));
+    if (ZAINO.profilo) {
+      const comp = calcolaCompatibilita(meta, ZAINO.profilo);
+      corpo.appendChild(crea("span", "schedina-stato",
+        `${comp.icona} ${comp.totale !== null ? comp.totale + "%" : comp.stato}`));
     }
+    slot.appendChild(corpo);
+
+    const azioni = crea("div", "schedina-azioni");
+    const su = crea("button", "schedina-freccia", "▲");
+    su.type = "button"; su.title = "Sposta su"; su.disabled = i === 0;
+    su.addEventListener("click", () => spostaSchedina(i, -1));
+    const giu = crea("button", "schedina-freccia", "▼");
+    giu.type = "button"; giu.title = "Sposta giù"; giu.disabled = i === ids.length - 1;
+    giu.addEventListener("click", () => spostaSchedina(i, 1));
+    const rimuovi = crea("button", "schedina-rimuovi", "✕");
+    rimuovi.type = "button"; rimuovi.title = "Rimuovi dalla schedina";
+    rimuovi.addEventListener("click", () => togglePreferita(id));
+    azioni.appendChild(su); azioni.appendChild(giu); azioni.appendChild(rimuovi);
+    slot.appendChild(azioni);
 
     lista.appendChild(slot);
-  }
+  });
   cont.appendChild(lista);
+
+  if (ids.length < 5) {
+    const restanti = 5 - ids.length;
+    cont.appendChild(crea("p", "preferite-hint",
+      restanti === 1
+        ? "Puoi aggiungerne ancora una dalla lista qui sotto — l'ordine conta per la riunione di assegnazione."
+        : `Puoi aggiungerne altre ${restanti} dalla lista qui sotto — l'ordine conta per la riunione di assegnazione.`));
+  }
 }
 
 function spostaSchedina(indice, direzione) {
@@ -1215,7 +1281,7 @@ function apriDettaglioMeta(meta) {
   corpo.innerHTML = "";
 
   // --- Intestazione: università, luogo, codice ---
-  corpo.appendChild(crea("h2", "dett-titolo", meta.universita));
+  corpo.appendChild(crea("h2", "dett-titolo", nomeUniversita(meta.universita)));
   corpo.appendChild(crea("p", "dett-luogo",
     meta.citta ? `${meta.citta} (${meta.paese})` : (meta.paese || "")));
 
@@ -1236,7 +1302,12 @@ function apriDettaglioMeta(meta) {
   if (aree) corpo.appendChild(rigaDettaglio("Area disciplinare", aree));
   if (meta.dipartimentoCf) corpo.appendChild(rigaDettaglio("Dipartimento / Facoltà", meta.dipartimentoCf));
   if (valoreReale(meta.coordinatoreCf)) corpo.appendChild(rigaDettaglio("Coordinatore / Docente referente", meta.coordinatoreCf));
-  if (meta.codiceErasmus) corpo.appendChild(rigaDettaglio("Codice Erasmus", meta.codiceErasmus));
+  // P0.2: i codici SINTETICI della pipeline (SAP-*/CF-*) non sono i veri
+  // codici Erasmus — mostrarli come dato ufficiale mina la fiducia. Nascosti
+  // finché la pipeline non li sana; i codici reali (es. "E ZARAGOZ01") passano.
+  if (meta.codiceErasmus && !/^(SAP|CF)-/i.test(meta.codiceErasmus)) {
+    corpo.appendChild(rigaDettaglio("Codice Erasmus", meta.codiceErasmus));
+  }
 
   // --- Posti ---
   if (meta.posti && meta.posti.length) {
@@ -1382,20 +1453,29 @@ function renderChecklistPost() {
     if (vociCapitolo.length === 0) return; // niente contenuti per questo capitolo: si nasconde
 
     const capitoloEl = crea("div", "zaino-capitolo");
-    capitoloEl.appendChild(crea("h2", "zaino-capitolo-titolo", capitolo));
+    // Testa-capitolo come blocco distinto (Fase C4): stesso linguaggio dei
+    // capitoli-scadenza della candidatura, con il conteggio del capitolo al
+    // posto del countdown (qui non c'è urgenza: è un percorso, non una corsa).
+    const testa = crea("div", "zaino-capitolo-testa");
+    testa.appendChild(crea("h2", "zaino-capitolo-titolo", capitolo));
+    const fattiCapitolo = vociCapitolo.filter(v => spunte[v.id]).length;
+    testa.appendChild(crea("span", "zaino-capitolo-count", `${fattiCapitolo} di ${vociCapitolo.length}`));
+    capitoloEl.appendChild(testa);
 
     const fasi = [];
     vociCapitolo.forEach(voce => {
       if (!fasi.includes(voce.fase)) fasi.push(voce.fase);
     });
 
+    const corpo = crea("div", "zaino-capitolo-corpo");
     fasi.forEach(fase => {
       const voci = vociCapitolo.filter(v => v.fase === fase);
       const gruppo = crea("div", "gruppo-post");
       gruppo.appendChild(crea("h3", "gruppo-post-titolo", fase));
       voci.forEach(voce => gruppo.appendChild(creaVocePost(voce)));
-      capitoloEl.appendChild(gruppo);
+      corpo.appendChild(gruppo);
     });
+    capitoloEl.appendChild(corpo);
 
     cont.appendChild(capitoloEl);
   });
@@ -1459,6 +1539,9 @@ function mostraCelebrazioneZaino() {
   if (!overlay) return;
   overlay.style.display = "flex";
   document.body.classList.add("no-scroll");
+  // Focus sull'unica azione del dialog (P2.16): da tastiera/screen reader
+  // l'overlay non era raggiungibile, il focus restava sul toggle sotto.
+  document.getElementById("celebrazione-btn")?.focus();
 }
 
 function chiudiCelebrazioneZaino() {
@@ -1466,11 +1549,19 @@ function chiudiCelebrazioneZaino() {
   if (!overlay) return;
   overlay.style.display = "none";
   document.body.classList.remove("no-scroll");
+  // Il focus torna a chi ha aperto il dialog (il toggle "Sono stato
+  // selezionato"), come già fa il meta-modal con la card di partenza.
+  document.getElementById("fase-selezionato")?.focus();
 }
 
 function initCelebrazioneZaino() {
   const btn = document.getElementById("celebrazione-btn");
   if (btn) btn.addEventListener("click", chiudiCelebrazioneZaino);
+  document.addEventListener("keydown", e => {
+    if (e.key !== "Escape") return;
+    const overlay = document.getElementById("celebrazione-overlay");
+    if (overlay && overlay.style.display !== "none") chiudiCelebrazioneZaino();
+  });
 }
 
 // ============================================================
@@ -1595,133 +1686,387 @@ function prossimaScadenzaInfo() {
   return prossimaScadenzaAzionabile();
 }
 
-function mostraPassoOnboarding(id) {
-  ["onboarding-passo-1", "onboarding-passo-2", "onboarding-passo-3", "onboarding-passo-landing"]
-    .forEach(pid => {
-      const el = document.getElementById(pid);
-      if (el) el.style.display = pid === id ? "" : "none";
-    });
-
-  // Wiz cambia posa: pensieroso durante le domande, saluto all'arrivo
-  // (design/tokens/mascotte, tabella in DISEGNO_BRAND.md §2-bis).
-  const wiz = document.getElementById("onboarding-wiz-img");
-  if (wiz) wiz.src = id === "onboarding-passo-landing"
-    ? "img/mascotte/wiz-saluto.webp"
-    : "img/mascotte/wiz-pensieroso.webp";
-
-  // Progresso discreto: 3 puntini, nascosti sullo schermo finale.
-  const progresso = document.getElementById("onboarding-progresso");
-  if (progresso) {
-    const numeroPasso = { "onboarding-passo-1": 1, "onboarding-passo-2": 2, "onboarding-passo-3": 3 }[id];
-    progresso.style.display = numeroPasso ? "" : "none";
-    progresso.querySelectorAll(".onboarding-dot").forEach(dot => {
-      dot.classList.toggle("attivo", Number(dot.dataset.dot) === numeroPasso);
-    });
-  }
+// ============================================================
+// MAPPA D'EUROPA (Fase C2) — motore condiviso benvenuto + home
+// Geometria in js/dati-mappa-europa.js (EUROPA_MAPPA), coordinate
+// PRECALCOLATE in js/dati-coordinate.js (COORDINATE_CITTA).
+// Regole (PLAN-FASE-B): pin = <button> in overlay HTML sopra l'SVG,
+// cluster per città identica E per distanza, hover solo desktop,
+// niente dato nascosto in silenzio (nota copertura + elenco mete).
+// ============================================================
+function coordDiMeta(m) {
+  if (!window.COORDINATE_CITTA) return null;
+  return COORDINATE_CITTA.citta[(m.citta || "") + "|" + (m.paese || "")] || null;
 }
 
-function popolaPassoAteneo() {
-  const cont = document.getElementById("onboarding-opzioni-ateneo");
-  if (!cont) return;
+// Solo per i 2 pin ateneo (le mete usano x/y precalcolate nei dati).
+function proiettaXY(lat, lon) {
+  const P = COORDINATE_CITTA.PROIEZIONE;
+  const cos0 = Math.cos(P.parallelo0 * Math.PI / 180);
+  const sx = P.viewBoxW / ((P.lonMax - P.lonMin) * cos0);
+  return [(lon - P.lonMin) * cos0 * sx, (P.latMax - lat) * sx];
+}
+const CITTA_ATENEO = {
+  cafoscari: { citta: "Venezia", lat: 45.44, lon: 12.33 },
+  sapienza:  { citta: "Roma",    lat: 41.90, lon: 12.50 },
+};
+
+function mappaCostruisci(cont) {
+  if (!cont || !window.EUROPA_MAPPA) return null;
   cont.innerHTML = "";
-  Object.keys(ATENEI).forEach(k => {
-    const a = ATENEI[k];
-    if (!a.disponibile) return;
-    const btn = crea("button", "onboarding-opzione", a.label);
-    btn.type = "button";
-    btn.addEventListener("click", () => {
-      if (k !== window.ATENEO_ATTIVO) {
-        try {
-          localStorage.setItem("erasmuswiz_ateneo", k);
-          sessionStorage.setItem(CHIAVE_ONBOARDING_STEP, "2");
-        } catch (e) {}
-        location.reload();
-        return;
-      }
-      popolaPassoDipartimento();
-      mostraPassoOnboarding("onboarding-passo-2");
+  const NS = "http://www.w3.org/2000/svg";
+  const svg = document.createElementNS(NS, "svg");
+  svg.setAttribute("viewBox", EUROPA_MAPPA.viewBox);
+  svg.setAttribute("role", "img");
+  svg.setAttribute("aria-label", "Mappa d'Europa con le destinazioni Erasmus");
+  EUROPA_MAPPA.paesi.forEach(p => {
+    const path = document.createElementNS(NS, "path");
+    path.setAttribute("d", p.d);
+    path.setAttribute("class", p.iso === "ITA" ? "mappa-terra mappa-terra-casa" : "mappa-terra");
+    svg.appendChild(path);
+  });
+  cont.appendChild(svg);
+  const layer = crea("div", "mappa-pin-layer");
+  cont.appendChild(layer);
+  return layer;
+}
+
+function mappaClusterizza(mete, cont) {
+  // 1) stessa coppia città+paese = coordinate identiche → un gruppo
+  const perCitta = new Map();
+  mete.forEach(m => {
+    const c = coordDiMeta(m);
+    if (!c || c.fuori || c.x === undefined) return;
+    const k = m.citta + "|" + m.paese;
+    if (!perCitta.has(k)) perCitta.set(k, { x: c.x, y: c.y, citta: m.citta, paese: m.paese, items: [] });
+    perCitta.get(k).items.push(m);
+  });
+  // 2) fusione dei gruppi sotto soglia di distanza (unità viewBox,
+  //    scalate sulla larghezza resa: su schermi stretti si fonde di più)
+  const P = COORDINATE_CITTA.PROIEZIONE;
+  const soglia = 30 * (P.viewBoxW / Math.max(cont.clientWidth || 320, 280));
+  const out = [];
+  perCitta.forEach(g => {
+    const vicino = out.find(o => Math.hypot(o.x - g.x, o.y - g.y) < soglia);
+    if (vicino) vicino.items = vicino.items.concat(g.items);
+    else out.push({ x: g.x, y: g.y, citta: g.citta, paese: g.paese, items: g.items.slice() });
+  });
+  return out;
+}
+
+function mappaTooltip() { return document.getElementById("mappa-tooltip"); }
+function mappaMostraTooltip(cl, pin) {
+  const t = mappaTooltip();
+  // Solo desktop con mouse: su touch il tap apre direttamente il dettaglio.
+  if (!t || !window.matchMedia("(hover: hover) and (min-width: 760px)").matches) return;
+  // Il tooltip vive nel benvenuto: per i pin di altre mappe non si mostra.
+  if (!t.parentElement.contains(pin)) return;
+  t.innerHTML = "";
+  const h = crea("p", "mappa-tooltip-titolo");
+  const dove = crea("p", "mappa-tooltip-dove");
+  if (cl.items.length === 1) {
+    const m = cl.items[0];
+    h.textContent = nomeUniversita(m.universita);
+    dove.textContent = `${m.citta} · ${m.paese}`;
+    t.appendChild(h); t.appendChild(dove);
+    const chips = crea("p", "mappa-tooltip-chips");
+    const pezzi = [];
+    if (m.requisitoLingua && m.requisitoLingua.length) {
+      pezzi.push(m.requisitoLingua.map(r => `${r.lingua} ${r.livello}`).join(" / "));
+    } else pezzi.push("Lingua da verificare");
+    const gruppo = (typeof trovaGruppoBorsa === "function") ? trovaGruppoBorsa(m) : null;
+    if (gruppo) pezzi.push(`~€${gruppo.importoMensile}/mese (stima)`);
+    chips.textContent = pezzi.join(" · ");
+    t.appendChild(chips);
+  } else {
+    h.textContent = `${cl.items.length} mete vicino a ${cl.citta}`;
+    dove.textContent = "Clicca per vederle tutte";
+    t.appendChild(h); t.appendChild(dove);
+  }
+  const lx = parseFloat(pin.style.left), ty = parseFloat(pin.style.top);
+  t.style.left = Math.min(Math.max(lx, 18), 82) + "%";
+  t.style.top = ty + "%";
+  t.classList.toggle("sotto", ty < 30);
+  t.hidden = false;
+}
+function mappaNascondiTooltip() { const t = mappaTooltip(); if (t) t.hidden = true; }
+
+// Cluster → elenco nel modal dettaglio già esistente (stessa chiusura/Escape).
+function apriListaCluster(cl) {
+  const overlay = document.getElementById("meta-overlay");
+  const corpo   = document.getElementById("meta-modal-corpo");
+  if (!overlay || !corpo) return;
+  corpo.innerHTML = "";
+  corpo.appendChild(crea("h2", "dett-titolo", `${cl.items.length} mete vicino a ${cl.citta} (${cl.paese})`));
+  const ul = crea("ul", "mappa-cluster-lista");
+  cl.items.forEach(m => {
+    const li = crea("li");
+    const b = crea("button", "mappa-cluster-voce");
+    b.type = "button";
+    const nome = crea("span", "mappa-cluster-nome", nomeUniversita(m.universita));
+    const dove = crea("span", "mappa-cluster-dove", `${m.citta} · ${m.paese}`);
+    b.appendChild(nome); b.appendChild(dove);
+    b.addEventListener("click", () => apriDettaglioMeta(m));
+    li.appendChild(b); ul.appendChild(li);
+  });
+  corpo.appendChild(ul);
+  overlay.style.display = "flex";
+  document.body.classList.add("no-scroll");
+}
+
+function mappaRenderPins(layer, mete, opts) {
+  if (!layer) return;
+  opts = opts || {};
+  layer.innerHTML = "";
+  const P = COORDINATE_CITTA.PROIEZIONE;
+  const cont = layer.parentElement;
+  mappaClusterizza(mete, cont).forEach((cl, i) => {
+    const n = cl.items.length;
+    const b = crea("button",
+      "mappa-pin" + (n > 1 ? " mappa-pin-cluster" : "") +
+      (opts.evidenzia ? " evidenzia" : "") +
+      (opts.stellate && n === 1 && opts.stellate.includes(cl.items[0].id) ? " mappa-pin-stella" : ""));
+    b.type = "button";
+    b.style.left = (cl.x / P.viewBoxW * 100) + "%";
+    b.style.top  = (cl.y / P.viewBoxH * 100) + "%";
+    const dot = crea("span", "punto");
+    if (n > 1) dot.textContent = String(n);
+    if (opts.evidenzia) dot.style.animationDelay = Math.min(i, 25) * 30 + "ms";
+    b.appendChild(dot);
+    b.setAttribute("aria-label", n === 1
+      ? `${nomeUniversita(cl.items[0].universita)}, ${cl.citta} (${cl.paese}) — apri il dettaglio`
+      : `${n} mete vicino a ${cl.citta} — apri l'elenco`);
+    b.addEventListener("mouseenter", () => mappaMostraTooltip(cl, b));
+    b.addEventListener("mouseleave", mappaNascondiTooltip);
+    b.addEventListener("focus", () => mappaMostraTooltip(cl, b));
+    b.addEventListener("blur", mappaNascondiTooltip);
+    b.addEventListener("click", () => {
+      mappaNascondiTooltip();
+      if (n === 1) apriDettaglioMeta(cl.items[0]);
+      else apriListaCluster(cl);
     });
-    cont.appendChild(btn);
+    layer.appendChild(b);
   });
 }
 
-function popolaPassoDipartimento() {
-  const cont = document.getElementById("onboarding-opzioni-dipartimento");
-  if (!cont) return;
-  cont.innerHTML = "";
+// Onestà: quante mete NON sono sulla mappa (fuori inquadratura o senza
+// coordinate). Mai nascoste in silenzio: il riferimento è l'elenco mete.
+function mappaNotaCopertura(el, mete) {
+  if (!el) return;
+  let fuori = 0, senza = 0;
+  mete.forEach(m => {
+    const c = coordDiMeta(m);
+    if (!c) senza++;
+    else if (c.fuori) fuori++;
+  });
+  const tot = fuori + senza;
+  if (!tot) { el.hidden = true; return; }
+  const pezzi = [];
+  if (fuori) pezzi.push(`${fuori} fuori dall'inquadratura (es. Canarie)`);
+  if (senza) pezzi.push(`${senza} senza posizione`);
+  el.textContent = `${tot} ${tot === 1 ? "meta non è" : "mete non sono"} sulla mappa — ${pezzi.join(", ")}: le trovi tutte nell'elenco delle mete.`;
+  el.hidden = false;
+}
+
+// Stato per il ri-cluster al resize (la soglia dipende dalla larghezza resa).
+let _mappaBenv = null, _mappaHome = null;
+let _mappaResizeRaf = null;
+window.addEventListener("resize", () => {
+  if (_mappaResizeRaf) cancelAnimationFrame(_mappaResizeRaf);
+  _mappaResizeRaf = requestAnimationFrame(() => {
+    if (_mappaBenv && _mappaBenv.mete) mappaRenderPins(_mappaBenv.layer, _mappaBenv.mete, _mappaBenv.opts);
+    if (_mappaHome && _mappaHome.mete) mappaRenderPins(_mappaHome.layer, _mappaHome.mete, _mappaHome.opts);
+  });
+});
+
+// Mappa compatta nella home profilata — SOTTO missione/countdown.
+function renderMappaHome() {
+  const card = document.getElementById("card-mappa-home");
+  if (!card) return;
+  if (!ZAINO.onboardingFatto || !ZAINO.profilo || !window.EUROPA_MAPPA || !window.COORDINATE_CITTA) {
+    card.style.display = "none";
+    return;
+  }
+  card.style.display = "";
+  const mete = (METE || []).filter(m => m.areeDisciplinari.some(a => a.codice === ZAINO.profilo.area));
+  if (!_mappaHome) {
+    const layer = mappaCostruisci(document.getElementById("mappa-home"));
+    if (!layer) { card.style.display = "none"; return; }
+    _mappaHome = { layer };
+    const vai = document.getElementById("mappa-vai-elenco");
+    if (vai) vai.addEventListener("click", e => { e.preventDefault(); mostraTab("mete"); });
+  }
+  _mappaHome.mete = mete;
+  _mappaHome.opts = { stellate: ZAINO.metePreferite || [] };
+  mappaRenderPins(_mappaHome.layer, mete, _mappaHome.opts);
+  mappaNotaCopertura(document.getElementById("mappa-nota-home"), mete);
+}
+
+// ============================================================
+// BENVENUTO (primo contatto) — il flusso a 3 domande, sulla mappa.
+// Sostituisce l'overlay onboarding (bug P0.1: su mobile le prime
+// opzioni erano irraggiungibili). Stesse domande, stessa uscita.
+// ============================================================
+function benvSetPasso(n) {
+  document.querySelectorAll(".benvenuto-passo").forEach(p => {
+    const k = Number(p.dataset.passo);
+    p.dataset.attivo = String(k === n);
+    p.dataset.fatto = String(k < n);
+  });
+}
+function benvFumetto(testo, posa) {
+  const f = document.getElementById("benvenuto-fumetto");
+  if (f) f.textContent = testo;
+  const wiz = document.getElementById("benvenuto-wiz");
+  if (wiz && posa) wiz.src = `img/mascotte/wiz-${posa}.webp`;
+}
+
+function benvPassoAteneo() {
+  benvSetPasso(1);
+  benvFumetto("Ciao! Sono Wiz. Dove studi?", "saluto");
+  const layer = _mappaBenv && _mappaBenv.layer;
+  if (layer) {
+    layer.innerHTML = "";
+    const P = COORDINATE_CITTA.PROIEZIONE;
+    Object.keys(ATENEI).forEach(k => {
+      const a = ATENEI[k];
+      if (!a.disponibile || !CITTA_ATENEO[k]) return;
+      const c = CITTA_ATENEO[k];
+      const [x, y] = proiettaXY(c.lat, c.lon);
+      const b = crea("button", "mappa-pin mappa-pin-ateneo");
+      b.type = "button";
+      b.style.left = (x / P.viewBoxW * 100) + "%";
+      b.style.top  = (y / P.viewBoxH * 100) + "%";
+      b.setAttribute("aria-label", `${a.label} (${c.citta}) — scegli`);
+      b.appendChild(crea("span", "anello"));
+      b.appendChild(crea("span", "punto"));
+      b.appendChild(crea("span", "mappa-pin-etichetta", c.citta));
+      b.addEventListener("click", () => benvScegliAteneo(k));
+      layer.appendChild(b);
+    });
+  }
+  _mappaBenv.mete = null; // niente ri-cluster al resize in questo passo
+  // Scelte ridondanti sotto la mappa (accessibilità e chiarezza)
+  const zona = document.getElementById("benvenuto-scelte");
+  zona.innerHTML = "";
+  Object.keys(ATENEI).forEach(k => {
+    const a = ATENEI[k];
+    if (!a.disponibile) return;
+    const btn = crea("button", "benvenuto-scelta", a.label);
+    btn.type = "button";
+    btn.addEventListener("click", () => benvScegliAteneo(k));
+    zona.appendChild(btn);
+  });
+}
+
+function benvScegliAteneo(k) {
+  if (k !== window.ATENEO_ATTIVO) {
+    // I dati sono per-ateneo: si salva la scelta e si ricarica al passo 2.
+    try {
+      localStorage.setItem("erasmuswiz_ateneo", k);
+      sessionStorage.setItem(CHIAVE_ONBOARDING_STEP, "2");
+    } catch (e) {}
+    location.reload();
+    return;
+  }
+  benvPassoFacolta();
+}
+
+function benvPassoFacolta() {
+  benvSetPasso(2);
+  benvFumetto("Bene! E cosa studi?", "pensieroso");
+  const zona = document.getElementById("benvenuto-scelte");
+  zona.innerHTML = "";
   const visti = [];
   (METE || []).forEach(m => {
     if (m.dipartimentoCf && !visti.includes(m.dipartimentoCf)) visti.push(m.dipartimentoCf);
   });
   visti.forEach(dip => {
-    const btn = crea("button", "onboarding-opzione", dip);
+    const btn = crea("button", "benvenuto-scelta", dip);
     btn.type = "button";
     btn.addEventListener("click", () => {
       window._onboardingDipartimento = dip;
       window._onboardingArea = areaDominanteDipartimento(dip);
-      mostraPassoOnboarding("onboarding-passo-3");
+      benvPassoLivello(dip);
     });
-    cont.appendChild(btn);
+    zona.appendChild(btn);
   });
+}
+
+function benvPassoLivello(dip) {
+  benvSetPasso(3);
+  // Le mete della facoltà si ACCENDONO sulla mappa (il momento-firma).
+  const mete = (METE || []).filter(m => m.dipartimentoCf === dip);
+  benvFumetto(`${mete.length} mete ti aspettano. Guarda la mappa!`, "esulta");
+  if (_mappaBenv && _mappaBenv.layer) {
+    _mappaBenv.mete = mete;
+    _mappaBenv.opts = { evidenzia: true };
+    mappaRenderPins(_mappaBenv.layer, mete, _mappaBenv.opts);
+  }
+  mappaNotaCopertura(document.getElementById("mappa-nota-benvenuto"), mete);
+  const zona = document.getElementById("benvenuto-scelte");
+  zona.innerHTML = "";
+  zona.appendChild(crea("p", "benvenuto-sotto-domanda",
+    "Tocca un puntino per l'anteprima. Ultima domanda: a che punto sei?"));
+  const wrap = crea("div", "benvenuto-scelte-riga");
+  [["L", "Triennale"], ["LM", "Magistrale"]].forEach(([liv, label]) => {
+    const btn = crea("button", "benvenuto-scelta", label);
+    btn.type = "button";
+    btn.addEventListener("click", () => completaOnboarding(liv));
+    wrap.appendChild(btn);
+  });
+  zona.appendChild(wrap);
 }
 
 function completaOnboarding(livello) {
   const area = window._onboardingArea;
   const dip  = window._onboardingDipartimento;
-  ZAINO.profilo = { area, livello, lingue: [] };
+  // La facoltà scelta si salva nel profilo (P1.5): lo strip del tab Mete la
+  // mostra al posto del codice ISCED grezzo. Zaini vecchi senza questo campo
+  // hanno il fallback sul nome dell'area (nomeAreaProfilo).
+  ZAINO.profilo = { area, dipartimento: dip, livello, lingue: [] };
   ZAINO.onboardingFatto = true;
   salvaZaino(ZAINO);
 
   const nMete = (METE || []).filter(m => m.areeDisciplinari.some(a => a.codice === area)).length;
   const prossima = prossimaScadenzaInfo();
-  const titolo = document.getElementById("onboarding-landing-titolo");
-  const dett   = document.getElementById("onboarding-landing-dettaglio");
-  if (titolo) titolo.textContent = `Per te ci sono ${nMete} ${nMete === 1 ? "meta" : "mete"} a ${dip}`;
-  if (dett) {
-    if (prossima) {
-      const giorni = Math.ceil((new Date(prossima.data) - new Date()) / 86400000);
-      dett.textContent = `La prossima scadenza è ${prossima.cosa}, tra ${giorni} ${giorni === 1 ? "giorno" : "giorni"}.`;
-    } else if (candidatureChiuse()) {
-      const anno = (window.BANDO_INFO && BANDO_INFO.annoAccademico) || "";
-      dett.textContent = `Il bando ${anno} è chiuso: il prossimo esce in genere tra dicembre e gennaio. Intanto puoi esplorare le mete con calma.`;
-    } else {
-      dett.textContent = "";
-    }
+  benvFumetto("Fatto! Il tuo percorso è pronto.", "saluto");
+  const zona = document.getElementById("benvenuto-scelte");
+  zona.innerHTML = "";
+  zona.appendChild(crea("h2", "benvenuto-landing-titolo",
+    `Per te ci sono ${nMete} ${nMete === 1 ? "meta" : "mete"} a ${dip}`));
+  let dett = "";
+  if (prossima) {
+    const giorni = Math.ceil((new Date(prossima.data) - new Date()) / 86400000);
+    dett = `La prossima scadenza è ${prossima.cosa}, tra ${giorni} ${giorni === 1 ? "giorno" : "giorni"}.`;
+  } else if (candidatureChiuse()) {
+    const anno = (window.BANDO_INFO && BANDO_INFO.annoAccademico) || "";
+    dett = `Il bando ${anno} è chiuso: il prossimo esce in genere tra dicembre e gennaio. Intanto puoi esplorare le mete con calma.`;
   }
-  mostraPassoOnboarding("onboarding-passo-landing");
+  if (dett) zona.appendChild(crea("p", "benvenuto-landing-dettaglio", dett));
+  const btn = crea("button", "btn-primary benvenuto-btn-inizia", "Inizia il percorso →");
+  btn.type = "button";
+  btn.addEventListener("click", () => {
+    renderHome();
+    renderMete();
+    renderMissione();
+    renderMappaHome();
+    window.scrollTo(0, 0);
+  });
+  zona.appendChild(btn);
 }
 
 function initOnboarding() {
-  const overlay = document.getElementById("onboarding-overlay");
-  if (!overlay) return;
-  if (ZAINO.onboardingFatto) { overlay.style.display = "none"; return; }
-
-  overlay.style.display = "flex";
+  const benv = document.getElementById("home-benvenuto");
+  if (!benv || ZAINO.onboardingFatto) return;
+  const layer = mappaCostruisci(document.getElementById("mappa-benvenuto"));
+  if (!layer) return; // dati mappa assenti: restano le scelte testuali
+  _mappaBenv = { layer };
 
   let stepRipresa = null;
   try { stepRipresa = sessionStorage.getItem(CHIAVE_ONBOARDING_STEP); sessionStorage.removeItem(CHIAVE_ONBOARDING_STEP); } catch (e) {}
-
-  popolaPassoAteneo();
-  if (stepRipresa === "2") {
-    popolaPassoDipartimento();
-    mostraPassoOnboarding("onboarding-passo-2");
-  } else {
-    mostraPassoOnboarding("onboarding-passo-1");
-  }
-
-  document.querySelectorAll("#onboarding-opzioni-livello .onboarding-opzione").forEach(btn => {
-    btn.addEventListener("click", () => completaOnboarding(btn.dataset.livello));
-  });
-
-  const btnInizia = document.getElementById("onboarding-btn-inizia");
-  if (btnInizia) {
-    btnInizia.addEventListener("click", () => {
-      overlay.style.display = "none";
-      renderHome();
-      renderMete();
-      renderMissione();
-    });
-  }
+  if (stepRipresa === "2") benvPassoFacolta();
+  else benvPassoAteneo();
 }
 
 // ============================================================
@@ -1833,8 +2178,16 @@ function init() {
   renderPreferite();
   renderMete();
   initDettaglioMeta();
+  // Debounce ~150ms sulla ricerca (P2.15): ogni keystroke rifaceva l'intera
+  // griglia — con centinaia di card Sapienza la digitazione scattava.
   const inputCerca = document.getElementById("cerca-mete");
-  if (inputCerca) inputCerca.addEventListener("input", renderMete);
+  if (inputCerca) {
+    let cercaTimer = null;
+    inputCerca.addEventListener("input", () => {
+      clearTimeout(cercaTimer);
+      cercaTimer = setTimeout(renderMete, 150);
+    });
+  }
   renderIdoneita();
   renderBannerVerifica();
   initProfilo();
@@ -1844,6 +2197,7 @@ function init() {
   initCelebrazioneZaino();
   renderMissione();
   initOnboarding();
+  renderMappaHome();
   setInterval(aggiornaCountdownV2, 30000); // i countdown non mostrano più i secondi
 }
 
