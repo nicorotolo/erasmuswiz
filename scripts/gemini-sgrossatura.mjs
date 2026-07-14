@@ -114,9 +114,10 @@ async function chiamaGemini(prompt, tentativo = 1) {
     clearTimeout(timeout);
   }
 
-  if (res.status === 429 && tentativo < MAX_TENTATIVI) {
+  const erroreTemporaneo = res.status === 429 || res.status === 502 || res.status === 503 || res.status === 504;
+  if (erroreTemporaneo && tentativo < MAX_TENTATIVI) {
     const attesaMs = 15000 * tentativo; // backoff: 15s, poi 30s
-    console.log(`Rate limit (429). Riprovo tra ${attesaMs / 1000}s (tentativo ${tentativo}/${MAX_TENTATIVI})...`);
+    console.log(`Gemini HTTP ${res.status} temporaneo. Riprovo tra ${attesaMs / 1000}s (tentativo ${tentativo}/${MAX_TENTATIVI})...`);
     await new Promise((r) => setTimeout(r, attesaMs));
     return chiamaGemini(prompt, tentativo + 1);
   }

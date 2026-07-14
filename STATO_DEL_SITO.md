@@ -4,7 +4,16 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-14 — sessione 66, Codex (**RETRY GEMINI
+**Ultimo aggiornamento:** 2026-07-14 — sessione 67, Codex (**CONFRONTO LUNA
+RINVIATO PER ALTA DOMANDA GEMINI.** Il retry ha gestito correttamente il primo
+`AbortError` dopo 180 secondi; il secondo tentativo ha ricevuto `503
+UNAVAILABLE` con messaggio di alta domanda prima dell'invocazione Codex. Nessun
+merge, branch o dato pubblicato e zero token Codex consumati. Esteso il backoff
+ai codici temporanei 429, 502, 503 e 504, oltre a timeout/errori di rete. Il
+batch `TR VAN01` resta invariato in testa alla coda. Nessun ulteriore rilancio
+in questa sessione; il confronto Luna/low resta il prossimo gate.)
+
+**Ultimo aggiornamento precedente:** 2026-07-14 — sessione 66, Codex (**RETRY GEMINI
 IRROBUSTITO PRIMA DEL CONFRONTO LUNA.** Il primo tentativo comparativo sul
 follow-up Farmacia `TR VAN01` si è fermato correttamente prima di Codex, merge
 e pubblicazione perché Gemini ha superato il timeout di 120 secondi. Aggiunti
@@ -2258,6 +2267,12 @@ python -m http.server 8000
 poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
+
+**Aggiornamento 2026-07-14 — sessione 67 (alta domanda Gemini):**
+1. Non rilanciare ripetutamente oggi; riprovare una sola volta più tardi.
+2. Il retry ora copre timeout, rete, 429 e 502/503/504 fino a 3 tentativi.
+3. Solo se Gemini completa, misurare Luna/low e confrontarla con 37.484 token.
+4. Mantenere ferma la vecchia automazione multi-ateneo.
 
 **Aggiornamento 2026-07-14 — sessione 66 (retry Gemini irrobustito):**
 1. Pubblicare il retry e ripetere una sola volta il batch standard `TR VAN01`.
