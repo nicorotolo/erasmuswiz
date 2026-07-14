@@ -261,7 +261,7 @@ async function main() {
     return;
   }
 
-  esegui(process.execPath, ["scripts/gemini-sgrossatura.mjs"], { timeout: 5 * 60_000 });
+  esegui(process.execPath, ["scripts/gemini-sgrossatura.mjs"], { timeout: 12 * 60_000 });
   esegui(process.execPath, ["scripts/verifica-link.mjs"], { timeout: 5 * 60_000 });
   eliminaSeEsiste("batch/OUTPUT.json");
 
