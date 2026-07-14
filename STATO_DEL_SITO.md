@@ -4,7 +4,16 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-14 — sessione 56, Codex (**GH INSTALLATA MA
+**Ultimo aggiornamento:** 2026-07-14 — sessione 57, Codex (**FASE 1
+GEMINI+CODEX PUBBLICATA IN PULL REQUEST.** Autenticazione GitHub verificata;
+creato e pubblicato il branch `codex/fase1-gemini-codex`, commit principale
+`b82a2c8` (`Rendi pronta la pipeline Gemini e Codex`) e pull request in bozza
+**#36**. Prima del commit sono passati 7/7 test, `valida-stato.mjs`, controllo
+diff e preflight completo online con chiamate reali Gemini e Codex. Nessun batch
+reale o file dati modificato. Prossimo gate: revisione/merge della PR #36,
+pausa della vecchia automazione multi-ateneo e un solo lotto reale controllato.)
+
+**Ultimo aggiornamento precedente:** 2026-07-14 — sessione 56, Codex (**GH INSTALLATA MA
 PATH NON ANCORA VISIBILE NEL TERMINALE.** La nuova finestra PowerShell continua
 a ereditare un PATH precedente e non risolve il comando `gh`; l'eseguibile è
 comunque installato e già verificato in
@@ -2157,6 +2166,13 @@ python -m http.server 8000
 poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
+
+**Aggiornamento 2026-07-14 — sessione 57 (Fase 1 pubblicata):**
+1. Rivedere e unire la pull request in bozza #36.
+2. Tornare su `main`, aggiornare il repository e mettere in pausa
+   `mappatura-mete-erasmus-multiateneo`.
+3. Eseguire un solo lotto reale manuale e controllare fonti, diff, consumo e
+   verifica pubblicazione prima di creare l'attività Windows giornaliera.
 
 **Aggiornamento 2026-07-14 — sessione 55 (GitHub CLI installata):**
 1. Chiudere e riaprire PowerShell, eseguire `gh auth login` e completare
