@@ -29,6 +29,8 @@ if (!API_KEY) {
 const MODEL = process.env.GEMINI_MODEL || "gemini-3.5-flash";
 const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 const OGGI = new Date().toISOString().slice(0, 10);
+const TIMEOUT_MS = Number(process.env.GEMINI_TIMEOUT_MS || 180000);
+const MAX_TENTATIVI = 3;
 
 const input = JSON.parse(fs.readFileSync("batch/INPUT.json", "utf8"));
 
@@ -84,25 +86,37 @@ ${JSON.stringify(input.mete, null, 2)}`;
 
 async function chiamaGemini(prompt, tentativo = 1) {
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 120000);
-  const res = await fetch(ENDPOINT, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "x-goog-api-key": API_KEY,
-    },
-    signal: controller.signal,
-    body: JSON.stringify({
-      contents: [{ parts: [{ text: prompt }] }],
-      tools: [{ google_search: {} }],
-      generationConfig: { responseMimeType: "application/json" },
-    }),
-  });
-  clearTimeout(timeout);
+  const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS);
+  let res;
+  try {
+    res = await fetch(ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-goog-api-key": API_KEY,
+      },
+      signal: controller.signal,
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        tools: [{ google_search: {} }],
+        generationConfig: { responseMimeType: "application/json" },
+      }),
+    });
+  } catch (errore) {
+    if (tentativo < MAX_TENTATIVI && (errore?.name === "AbortError" || errore instanceof TypeError)) {
+      const attesaMs = 15000 * tentativo;
+      console.log(`Gemini non ha risposto (${errore.name}). Riprovo tra ${attesaMs / 1000}s (tentativo ${tentativo}/${MAX_TENTATIVI})...`);
+      await new Promise((r) => setTimeout(r, attesaMs));
+      return chiamaGemini(prompt, tentativo + 1);
+    }
+    throw errore;
+  } finally {
+    clearTimeout(timeout);
+  }
 
-  if (res.status === 429 && tentativo <= 5) {
-    const attesaMs = 15000 * tentativo; // backoff: 15s, 30s, 45s, 60s, 75s
-    console.log(`Rate limit (429). Riprovo tra ${attesaMs / 1000}s (tentativo ${tentativo}/5)...`);
+  if (res.status === 429 && tentativo < MAX_TENTATIVI) {
+    const attesaMs = 15000 * tentativo; // backoff: 15s, poi 30s
+    console.log(`Rate limit (429). Riprovo tra ${attesaMs / 1000}s (tentativo ${tentativo}/${MAX_TENTATIVI})...`);
     await new Promise((r) => setTimeout(r, attesaMs));
     return chiamaGemini(prompt, tentativo + 1);
   }

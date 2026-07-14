@@ -4,7 +4,16 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-14 — sessione 65, Codex (**VERIFICATORE T2
+**Ultimo aggiornamento:** 2026-07-14 — sessione 66, Codex (**RETRY GEMINI
+IRROBUSTITO PRIMA DEL CONFRONTO LUNA.** Il primo tentativo comparativo sul
+follow-up Farmacia `TR VAN01` si è fermato correttamente prima di Codex, merge
+e pubblicazione perché Gemini ha superato il timeout di 120 secondi. Aggiunti
+timeout predefinito di 180 secondi e fino a 3 tentativi con backoff anche per
+`AbortError` ed errori di rete, oltre ai 429. Sintassi e test pipeline 7/7 OK.
+Nessun dato parziale pubblicato e nessun token Codex consumato dal tentativo
+fallito. Prossimo gate: ripetere una volta lo stesso batch comparativo Luna.)
+
+**Ultimo aggiornamento precedente:** 2026-07-14 — sessione 65, Codex (**VERIFICATORE T2
 OTTIMIZZATO PER TOKEN.** Configurato `gpt-5.6-luna` con reasoning `low`, modello
 indicato dalla documentazione Codex per compiti chiari, ripetibili e ad alto
 volume. Il processo ignora la configurazione globale non necessaria, mantiene
@@ -2249,6 +2258,12 @@ python -m http.server 8000
 poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
+
+**Aggiornamento 2026-07-14 — sessione 66 (retry Gemini irrobustito):**
+1. Pubblicare il retry e ripetere una sola volta il batch standard `TR VAN01`.
+2. Se arriva a Luna, confrontare token e qualità con il campione Sol; se Gemini
+   fallisce dopo 3 tentativi, fermarsi senza rilanci manuali ripetuti.
+3. Mantenere ferma la vecchia automazione multi-ateneo.
 
 **Aggiornamento 2026-07-14 — sessione 65 (T2 ottimizzato con Luna):**
 1. Pubblicare l'ottimizzazione e lanciare un solo batch standard comparativo.
