@@ -19,9 +19,122 @@
 
 ---
 
-### Cantiere SITO — sessioni 49→55
+### Cantiere SITO — sessioni 49→56
 
-**Ultimo aggiornamento:** 2026-07-15 — sessione 55, Claude Code (Opus 4.8)
+**Ultimo aggiornamento:** 2026-07-15 — sessione 56, Claude Code (Opus 4.8)
+(**DUE ESITI, e il primo non era in programma: il sito non si pubblicava da 12
+giorni. Poi R1.5 IMPLEMENTATA: 7 secondi → 3.**
+
+**(A) IL SITO ONLINE ERA FERMO AL 3 LUGLIO.** Nicola ha notato che la versione
+in rete non aveva la mappa. Verificato: GitHub Pages serviva il commit
+`3094617` del **3 luglio 11:13**, mentre `main` era avanti di **171 commit (125
+dei quali toccavano il sito)**, tutti regolarmente pushati e con working tree
+pulito. **Non erano online: la mappa di C2, le card di C3, lo zaino di C4 e
+R1.1, R1.2, R1.3, R1.4.** I file aggiunti dopo il 3/7 rispondevano 404.
+**Causa:** la *Source* di Pages era passata a "GitHub Actions" mentre nel repo
+esisteva solo `auto-merge.yml` e **nessun workflow di deploy**. I deploy non
+fallivano: non partivano. Il vecchio build automatico da branch si era spento e
+nulla ne aveva preso il posto. Escluse tutte le altre piste con prove: repo di
+1,4 MiB, niente `node_modules` tracciato, nessun file che rompesse Jekyll, e il
+commit servito era un antenato regolare di `main`.
+**Perché nessuno se n'è accorto per 12 giorni:** `PUBBLICA.bat` stampa
+"PUBBLICATO. Online e locale coincidono." subito dopo il push **senza verificare
+nulla**. La frase è stata falsa 171 volte di fila. Il guasto era tecnico; a
+renderlo invisibile è stata quella rassicurazione senza prove. (Attività a parte
+aperta per rendere vera quella riga.)
+**Fix (scelta di Nicola fra due opzioni):** nuovo
+`.github/workflows/deploy-pages.yml` — pubblica il repo così com'è, **senza
+Jekyll** (che avrebbe scartato in silenzio tutto ciò che inizia con `_`, cioè i
+mockup in `design/proposte-*/_assets/`), con guardia `node --check` su tutti i
+js prima di pubblicare. Scartato il ritorno a "Deploy from a branch" proprio per
+l'esclusione dei `_assets`. La regola di pubblicazione ora sta **nel repo**,
+versionata e visibile, non in un'impostazione nascosta. Prima di attivarlo,
+verificato che `fonti/` non sia tracciato: il workflow pubblica tutto il repo e
+i materiali personali di Bruno non devono uscire (regola 6). **Esito: run verde
+in 47s, e verificato per hash che l'`index.html` in rete è byte-identico a
+`origin/main`** — non "il workflow dice verde".
+
+**(B) LA MISURA DEL GATE R1 ERA FALSA.** I 3 secondi misurati la mattina erano
+presi sul sito del 3 luglio: **1.171 KB di JS, metà del vero, e senza motore
+mappa**. Rifatta la misura sul sito vero: **7 secondi** (Galaxy S21, 4G, scheda
+in incognito). Senza la scoperta (A), R1.5 sarebbe stata ottimizzata contro un
+numero che descriveva un sito inesistente.
+
+**(C) R1.5 IMPLEMENTATA — caricamento progressivo per ATENEO.** Quinto blocco di
+R1. Prima `index.html` elencava a mano i file dei DUE atenei e li caricava
+sempre tutti: 2.263 KB e ~2.100 mete prima di sapere quale servisse.
+**(1) Registro dichiarato**: nuovo `js/atenei/registro.js` (dati: label, URL,
+disponibilità, elenco file) + `js/carica-atenei.js` (codice: decide e emette i
+tag). Le due regole d'oro restano separate; `index.html` perde **123 righe** e
+non elenca più i file: aggiungere una Facoltà ora si fa **solo nel registro**.
+**(2) `disponibile` dichiarato invece che dedotto**: prima era
+`_meteAllSap.length > 0`, cioè il sito scaricava 1,8 MB per scoprire che la
+Sapienza esisteva nella tendina.
+**(3) `document.write`, e non per pigrizia**: `app.js` legge i dati come globali
+già pronti a tempo di parsing (`let CONTENITORE = caricaContenitore()`). I tag
+scritti durante il parsing mantengono ESATTAMENTE quella semantica sincrona
+senza toccare `app.js`; uno script creato con `createElement` girerebbe DOPO
+`app.js`, cioè a dati vuoti. L'intervento di Chrome contro `document.write`
+colpisce solo gli script di terze parti: questi sono same-origin.
+**(4) IL RISCHIO VERO ERA R1.5 CONTRO R1.3**, ed è la parte più delicata:
+`migraZainoLegacy` attribuisce ogni chiave leggendo gli id delle mete di TUTTI
+gli atenei. Con un ateneo solo in memoria le stelline dell'altro sarebbero
+sparite in silenzio — la perdita esatta che R1.3 esiste per impedire. Protetto
+su due livelli: il caricatore riconosce che c'è una migrazione (o un `pendente`)
+e carica tutto **una volta sola**; e `app.js` si **rifiuta** di migrare con mezzi
+dati (`rinviaMigrazioneERicarica`), riavviando invece di indovinare. Durante
+l'attesa del riavvio lo zaino su disco NON si tocca (`CARICO_INCOMPLETO` blocca
+`salvaContenitore`): `location.reload()` non ferma l'esecuzione all'istante, e
+un salvataggio nel frattempo avrebbe sovrascritto il vecchio zaino con uno vuoto.
+**(5) Onboarding e scelta-percorso leggono dal REGISTRO**, non da `ATENEI`: lì si
+sceglie DOVE si studia, e con un ateneo solo caricato sarebbe comparso un pin
+solo — cioè nessuna scelta.
+**(6) DIVISIONE PER DIPARTIMENTO SCARTATA, con prove.** Sulla carta era il
+guadagno grosso per la Sapienza (Giurisprudenza: 63 KB invece di 1.840). Ma
+misurato: **42 aree disciplinari su 101 vivono in più file** (una in 7) e il tab
+Mete filtra per AREA — caricare il solo file del dipartimento avrebbe nascosto
+in silenzio mete spettanti. Serve un indice area→file o un rilayout dei dati per
+area: decisione di `DISEGNO_PIPELINE_DATI.md`, non modifica all'app.
+
+**(D) QA — verificato nel browser, non a impressione.** Ca' Foscari: 0 file
+Sapienza scaricati, 903 KB, 527 mete (identiche a prima). Sapienza: 0 file
+Ca' Foscari, 1.565 KB, 1.595 mete (identiche). Zaino legacy contaminato
+(profilo CF + stellina Sapienza): entrambi gli atenei caricati, spaccatura senza
+perdite, nessun dialogo inutile; **l'avvio successivo torna a un ateneo solo**.
+Caso ambiguo (due atenei, nessun profilo): dialogo con due risposte e focus
+corretto. **Punto cieco del caricatore simulato** (zaino di formato ignoto
+`v:99`): la rete di sicurezza ha sparato, `navigation.type === "reload"`, e dopo
+il riavvio la migrazione è avvenuta con i dati completi — zero perdite. Console
+muta su entrambi gli atenei, `node --check` OK su 41 file, nessuno scroll
+orizzontale a 375/768/1280.
+
+**(E) MISURE FINALI DI NICOLA (S21, 4G, incognito, sul sito PUBBLICATO):**
+
+| | Prima | Dopo | |
+|---|---|---|---|
+| Ca' Foscari | 7 s | **3 s** | −57% (payload −60%) |
+| Sapienza | 7 s | **5 s** | −29% (payload −31%) |
+
+Il tempo scende quasi linearmente col payload su ENTRAMBI gli atenei: conferma
+che il carico dati era il collo di bottiglia, non un sospetto. Nota di
+prospettiva: 3 secondi sono gli stessi del sito del 3 luglio, che però non aveva
+mappa, C3, C4 né R1.1-R1.4 — oggi il sito fa molto di più nello stesso tempo.
+
+**Gate R1:** cambio ateneo sicuro ✅, regressione dati ✅, **primo avvio misurato
+✅ (era l'ultimo blocco tecnico)**. Resta aperta solo "navigazione stabile", che
+si chiude con R3 per decisione di Nicola (sessione 52). Il checkpoint del 14/08
+chiedeva "R1 chiusa o con blocchi dichiarati": il blocco è dichiarato ed è una
+scelta, non un intoppo.
+File toccati: `index.html` (−123 righe), `js/app.js`, `PLAN.md`,
+`STATO_DEL_SITO.md`. Creati: `js/atenei/registro.js`, `js/carica-atenei.js`,
+`.github/workflows/deploy-pages.yml`. Nessun dato toccato.
+**⚠️ Trappola nota, di nuovo:** un mio grep ha ricreato in radice un file spurio
+da 0 byte (`Pages`) — verificato vuoto ed eliminato prima del commit, come nelle
+sessioni 54 e 55.
+**Prossimo passo: R1.6 — regola deterministica della tappa corrente**, l'ultimo
+punto di R1 che non dipende da prove esterne.)
+
+**Ultimo aggiornamento precedente:** 2026-07-15 — sessione 55, Claude Code (Opus 4.8)
 (**R1.4 IMPLEMENTATA: `vaiA()` è l'unica porta di navigazione e l'URL non può
 più mentire.** Quarto blocco dell'ondata PERCORSO. **(1) Il contratto è
 dichiarato, non sepolto**: `TAB_VALIDI`, `TAB_PREDEFINITO` e `ALIAS_HASH` stanno
@@ -2477,7 +2590,9 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **PERCORSO — R1.2: drawer** | Drawer da destra (Profilo, Cambia ateneo, Guide, Come funziona) aperto da "☰ Altro", 4ª voce della nav; Escape/velo/✕, focus trappolato e ritorno al controllo di apertura; fix target 42→45px. **Decisione Nicola 15/07: la nav a 3 voci NON è qui, slitta a fine R1 con R3** | ✅ Fatta e testata (2026-07-15, sessione 53) — ⚠️ animazione d'ingresso non verificabile a video in questo ambiente |
 | **PERCORSO — R1.3: zaino per-ateneo** | Contenitore `{ v:2, zaini:{…} }` in `erasmuswiz-zaino`; ateneo attivo lasciato in `erasmuswiz_ateneo` (una sola fonte di verità). **Decisione Nicola 15/07: lo zaino legacy si SPACCA per evidenza** — id mete, dipartimenti e prefissi checklist non si sovrappongono fra atenei (misurato: zero collisioni), quindi anche uno zaino contaminato si ricompone senza perdite. Si chiede allo studente solo con profilo non attribuibile + contenuto di due atenei + qualcosa da collocare | ✅ Fatta e testata (2026-07-15, sessione 54) — 32 asserzioni su dati veri + QA browser. ⚠️ Cambiando ateneo ora parte l'onboarding (zaino nuovo = nessun profilo): è voluto |
 | **PERCORSO — R1.4: contratto hash + navigazione unica** | `vaiA()` unica porta di navigazione; contratto dichiarato (`TAB_VALIDI`, `TAB_PREDEFINITO`, `ALIAS_HASH`), non più sepolto in `initNav()`; `mostraTab()` rimossa e `onclick` inline convertito → nessun bypass. Sanato il bug per cui **6 punti su 10 cambiavano tab senza toccare l'hash**. **Decisioni Nicola 15/07: (a)** Indietro torna al tab precedente (`pushState`), ma solo se il tab cambia davvero; **(b)** unico alias `#timeline`→`#checklist`, l'unico con prova reale (OP2). In più: `aria-current` ora annunciato anche al primo avvio | ✅ Fatta e testata (2026-07-15, sessione 55) — 28 asserzioni + console pulita sui due atenei. ⚠️ Dopo 5 tab servono 5 Indietro per uscire: è voluto |
-| PERCORSO — R1.5/R1.6 | Caricamento dati progressivo (oggi si scaricano TUTTE le mete dei DUE atenei al primo avvio) · regola deterministica della tappa corrente | ⬜ **PROSSIMA (R1.5)** — richiede primo avvio MISURATO su telefono (gate R1), azione umana di Nicola |
+| **PERCORSO — R1.5: caricamento progressivo** | Si carica SOLO l'ateneo attivo: `js/atenei/registro.js` (dati dichiarati) + `js/carica-atenei.js` (decide ed emette i tag), `index.html` −123 righe. Migrazione R1.3 protetta su due livelli (carico completo quando serve + rifiuto di migrare con mezzi dati). **7s → 3s Ca' Foscari, 5s Sapienza** su S21 in 4G; payload 2.263 → 903 KB (−60%) / 1.565 KB (−31%). Divisione per dipartimento scartata con prove (42 aree su 101 attraversano i file) | ✅ Fatta, testata e **pubblicata** (2026-07-15, sessione 56) |
+| PERCORSO — R1.6 | Regola deterministica della tappa corrente | ⬜ **PROSSIMA** — non dipende da prove esterne |
+| **Pubblicazione — guasto Pages** | Source su "GitHub Actions" senza workflow di deploy: sito fermo al commit del 3/7, **171 commit (125 sul sito) invisibili per 12 giorni** (C2, C3, C4, R1.1-R1.4). Risolto con `.github/workflows/deploy-pages.yml` (Static HTML, niente Jekyll, guardia `node --check`); online verificato per hash contro `origin/main` | ✅ Chiuso (2026-07-15, sessione 56) — resta da rendere vera la riga "Online e locale coincidono" di `PUBBLICA.bat` |
 | **Pipeline dati T0→T3 — Gemini + Codex** | Timeout esterno corretto e pubblicato; tutti i 3 retry ora completano, ma l'ultimo rilancio ha ricevuto 3× `503 UNAVAILABLE`; nessun dato parziale | ⏸️ Attendere che cali la domanda Gemini, poi eseguire un solo batch comparativo |
 
 **Tab visibili nella pagina (navigazione inferiore):** Oggi (missione) → Mete →
@@ -2499,6 +2614,20 @@ richiede la schermata unificata a stazioni, che nasce in R3.
 
 - **Codice separato dai dati.** I contenuti vivono nei file `js/dati-*.js`;
   `js/app.js` è solo logica. Per aggiornare un contenuto si tocca SOLO il file dati.
+  Dopo R1.5 (sessione 56) anche **quali** file esistono è un dato: sta in
+  `js/atenei/registro.js`; la logica che decide cosa caricare sta in
+  `js/carica-atenei.js`.
+- **Si carica un ateneo solo** (R1.5, sessione 56). L'ateneo attivo si sa prima
+  di qualunque dato, quindi chi studia a Ca' Foscari non scarica le 1.595 mete
+  della Sapienza: 903 KB invece di 2.263 (3s invece di 7s su S21 in 4G).
+  **Unica eccezione, ed è una garanzia di R1.3:** quando c'è uno zaino vecchio da
+  migrare si caricano TUTTI gli atenei, una volta sola — la migrazione attribuisce
+  le stelline leggendo gli id delle mete, e con mezzi dati le perderebbe in
+  silenzio. Se il caricatore sbagliasse, `app.js` si rifiuta di migrare e riavvia
+  (`rinviaMigrazioneERicarica`): il caso non previsto costa un riavvio, mai un dato.
+  **Non si divide per dipartimento** (misurato il 15/07: 42 aree su 101 alla
+  Sapienza vivono in più file, e le Mete si filtrano per area → si nasconderebbero
+  mete spettanti). Vedi `PLAN.md` §7/R1 punto 5.
 - **"Zaino unico" (account-ready).** Tutto lo stato dello studente sta in un solo
   contenitore in localStorage (chiave `erasmuswiz-zaino`), con **uno zaino per
   ateneo** dopo R1.3 (sessione 54):
@@ -2513,9 +2642,12 @@ richiede la schermata unificata a stazioni, che nasce in R3.
 
 | File | Tipo | A cosa serve |
 |------|------|--------------|
-| `index.html` | codice | Struttura v2 (tab OGGI/METE/CANDIDATURA + Idoneità/Profilo nascosti; Timeline rimossa in OP2) |
+| `index.html` | codice | Struttura v2 (tab OGGI/METE/CANDIDATURA + Idoneità/Profilo nascosti; Timeline rimossa in OP2). **Dalla sessione 56 NON elenca più i file dati**: due soli tag (`registro.js` + `carica-atenei.js`) |
 | `css/style.css` | codice | Design system v2: dark mode, font Bricolage/Jakarta/SpaceMono, responsive |
 | `js/app.js` | codice | Logica v2: missione del giorno, percorso, countdown, mete, checklist, profilo |
+| `js/atenei/registro.js` | **dati** | **R1.5 (56)**: anagrafica atenei che il sito conosce PRIMA di caricare i dati — label, URL, `disponibile` (dichiarato, non più dedotto contando le mete), elenco file. **Aggiungere un ateneo o una Facoltà = toccare SOLO questo file** |
+| `js/carica-atenei.js` | codice | **R1.5 (56)**: decide quali atenei servono (solo l'attivo; tutti se c'è una migrazione zaino da fare) ed emette i tag mantenendo la semantica sincrona che `app.js` si aspetta. 2.263 → 903 KB (Ca' Foscari) |
+| `.github/workflows/deploy-pages.yml` | infra | **Sessione 56**: pubblica il sito su Pages a ogni push su `main`, senza Jekyll, con guardia `node --check`. Prima non esisteva e il sito è rimasto fermo 12 giorni |
 | `img/wiz-hero.png` | asset | **NON più referenziato da nessun file** (C5: sostituito da webp + OG dedicata) — eliminabile nel blocco igiene con conferma di Nicola |
 | `img/og-erasmuswiz.png` | asset | **OG image dedicata** (C5): 1200×630, 64 KB, stile notte direzione C — usata da home e guide per og:image/twitter:image |
 | `guide/` | codice | Pagine statiche indicizzabili: 2 guide SEO (OP5) + `come-funziona.html` (pagina fiducia, C5). URL con canonical, JSON-LD FAQPage, GoatCounter |
@@ -2591,6 +2723,29 @@ richiede la schermata unificata a stazioni, che nasce in R3.
 Il CODICE è pronto. Le mete ora sono **REALI** (dalla lista ufficiale del bando
 2026/27). Resta da completare lingua e dettagli-scheda, e validare bando/checklist.
 
+> 🐞 **BUG APERTO, TROVATO IL 15/07 (sessione 56): 135 mete DOPPIE a Ca' Foscari.**
+> **Cosa vede lo studente:** in Studi Linguistici e Culturali Comparati (area
+> 0312) compaiono **29 card di cui 10 sono doppioni esatti**, e il contatore
+> annuncia "29 mete" — un numero falso. Stesso effetto su Studi Umanistici.
+> **Causa (una riga di troppo in due file dati):** in coda a
+> `js/atenei/cafoscari/dati-mete-linguistici.js` (righe ~3350) e
+> `dati-mete-umanistici.js` (~574) c'è
+> `window.METE = window.METE || []; window.METE.push(...METE);`.
+> Siccome `window.METE` **è già** l'array appena dichiarato dal file, quel push
+> ci rovescia dentro se stesso: linguistici 114→228, umanistici 21→42, totale
+> **+135**. È il residuo di uno schema di caricamento "ogni file appende a un
+> METE globale" che convive male con quello vero di `index.html`
+> (ogni file RIDICHIARA `var METE`, e il caricatore concatena).
+> **Numeri:** Ca' Foscari serve **527 mete ma solo 392 uniche**; la Sapienza è
+> pulita (1.595 = 1.595). Solo quei due file hanno il push.
+> **NON è una regressione di R1.5:** c'era identico prima (il totale 527 è
+> invariato) — R1.5 l'ha solo reso visibile, perché per la prima volta si è
+> contato quanto pesa davvero un ateneo. Il commento in `app.js` ("392
+> Ca' Foscari") dice il numero GIUSTO: è la pagina a servirne 527.
+> **Fix probabile (da confermare, non eseguito — roadmap regola 2):** togliere le
+> due code `window.METE.push(...METE)`. Prima però capire se qualche altro
+> consumatore (pipeline, script) si aspetta quello schema ad append.
+
 | Dato | Stato attuale | Da fare |
 |------|---------------|---------|
 | **58 mete Economia** (`dati-mete.js`) | **REALI** dalla lista ufficiale 2026/27 | Economia chiusa; arricchimenti futuri su alloggio/prerequisiti |
@@ -2632,7 +2787,54 @@ poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
 
-### Cantiere SITO (Claude Code) — numerazione 49→55
+### Cantiere SITO (Claude Code) — numerazione 49→56
+
+**Aggiornamento 2026-07-15 — sessione 56 (Pages riparato + R1.5 fatta, 7s→3s):**
+
+1. **Da decidere per primo: le 135 mete DOPPIE di Ca' Foscari** (§6, bug trovato
+   contando il payload di R1.5). Uno studente di Studi Linguistici vede 10 card
+   ripetute su 29 e un contatore che mente. Il fix sembra piccolo (togliere le due
+   code `window.METE.push(...METE)` da `dati-mete-linguistici.js` e
+   `dati-mete-umanistici.js`), ma tocca i DATI e va deciso da Nicola: prima
+   verificare che nessuno script della pipeline si aspetti quello schema ad
+   append. **Ha priorità su R1.6**: è visibile agli utenti, ora che il sito è
+   davvero pubblicato.
+2. **Prossima sessione di codice: R1.6 — regola deterministica della tappa
+   corrente** (`PLAN.md` §7/R1 punto 6). È l'ultimo punto di R1 e non dipende da
+   prove esterne: si può aprire subito.
+2. **Non fidarsi mai più di "pushato" come sinonimo di "pubblicato".** Oggi il
+   sito era fermo al 3 luglio da 171 commit e nessuno se n'era accorto, perché
+   `PUBBLICA.bat` dichiara "Online e locale coincidono" **senza verificare**.
+   Ora c'è `.github/workflows/deploy-pages.yml` e il guasto tecnico è chiuso, ma
+   la riga bugiarda del .bat c'è ancora: **attività aperta** per renderla vera
+   (confrontare l'URL, es. `git hash-object` della pagina scaricata contro
+   `git rev-parse origin/main:index.html`). Finché non è fatta, dopo ogni
+   pubblicazione verificare a mano.
+3. **Corollario che è già costato una sessione: mai misurare le prestazioni
+   senza prima verificare COSA è online.** I 3 secondi misurati la mattina del
+   15/07 descrivevano il sito del 3 luglio (metà del JS, niente mappa) e
+   avrebbero fatto ottimizzare R1.5 al buio. La misura vera era 7 secondi.
+4. **Il gate R1 ha una sola voce aperta: "navigazione stabile"**, che si chiude
+   con R3 (nav a 3 voci Mete·Home·Percorso) per decisione di Nicola della
+   sessione 52. R1.1, R1.2, R1.3, R1.4 e R1.5 sono chiuse; il primo avvio
+   misurato è chiuso con numeri prima/dopo su entrambi gli atenei.
+5. **Se un giorno la Sapienza deve scendere sotto i 5 secondi**, la strada NON è
+   caricare per dipartimento (misurato: 42 aree su 101 attraversano i file, si
+   nasconderebbero mete). Serve un indice area→file o dati riorganizzati per
+   area: è una decisione di `DISEGNO_PIPELINE_DATI.md`, da prendere con Nicola,
+   non un'ottimizzazione da improvvisare nell'app.
+6. **Restano tre verifiche a occhio accumulate** (in questo ambiente screenshot e
+   click per coordinate non funzionano): il dialogo `#scelta-percorso` di R1.3,
+   l'animazione d'ingresso del drawer di R1.2, il tasto Indietro di R1.4. Tutte
+   e tre si fanno in 5 minuti su http://localhost:8000 — e ora che il sito è
+   davvero pubblicato, anche direttamente online.
+7. **Da sapere prima che sembrino bug** (comportamenti voluti): dopo 5 tab
+   servono 5 Indietro per uscire (R1.4); cambiando ateneo parte l'onboarding
+   perché quello zaino è vuoto (R1.3); il primo avvio di chi arriva da uno zaino
+   vecchio è lento **una volta sola** perché carica entrambi gli atenei per non
+   perdere le stelline (R1.5).
+8. **La numerazione doppia resta da sanare**: questa è la sessione 56 del
+   **cantiere SITO**.
 
 **Aggiornamento 2026-07-15 — sessione 55 (R1.4 fatta, navigazione unica):**
 
