@@ -4,9 +4,11 @@
    SOSTITUISCE i valori BRAND BR0 del 04/07.
    Carattere: impianto ordinato e affidabile + calore nei momenti
    chiave — indigo primario, ambra come accento, neutri caldi.
-   Tema GIORNO (default): sfondo avorio, card bianche.
-   Tema NOTTE: .tema-notte su <body> — PRIMA CLASSE: palette
-   dedicata, superfici solide (mai card traslucide sul fondo).
+   TEMA UNICO GIORNO (R1.1, PLAN.md §7): sfondo avorio, card bianche.
+   Il tema notte è stato rimosso — la direzione "Notte cartografica in
+   versione giorno" vive in solo tema chiaro; l'inchiostro profondo
+   resta come SUPERFICIE (--night-*: nav, countdown, card-copertina),
+   non come tema alternativo. Ritorno del tema notte: post-settembre.
    Fonte di verità dei valori: design/tokens/colors.css.
    ============================================================ */
 
@@ -16,22 +18,22 @@
   --font-body:    'Plus Jakarta Sans', system-ui, sans-serif;
   --font-mono:    'Space Mono', 'Courier New', monospace;
 
-  /* ── Sfondo app (tema giorno) ── */
+  /* ── Sfondo app ── */
   --bg-app:         #FAFAF7;
   --bg-card:        #ffffff;
   --bg-card-hover:  #F3F1FA;
   --bg-track:       #ECEAF5;   /* binari di progressi/barre */
 
-  /* ── Testo (tema giorno) ── */
+  /* ── Testo ── */
   --text-dark:      #1E1B2E;
   --text-muted:     #4B4560;
   --text-hint:      #686180;
 
-  /* ── Bordi (tema giorno) ── */
+  /* ── Bordi ── */
   --border:         #E5E2F0;
   --border-strong:  #D6D1EA;
 
-  /* ── Indigo profondo — nav + countdown + superfici "notte" del giorno ── */
+  /* ── Indigo profondo — nav + countdown + superfici a inchiostro ── */
   --night-bg:       #232046;
   --night-bg-2:     #1C1A38;
   --night-text:     #ffffff;
@@ -48,8 +50,9 @@
   --primary:        #4F46E5;
   --primary-hover:  #4338CA;
   --primary-active: #3730A3;
-  /* fill = sfondi pieni con testo bianco (bottoni, chip attivi):
-     in notte NON si schiarisce come --primary, resta saturo */
+  /* fill = sfondi pieni con testo bianco (bottoni, chip attivi).
+     Resta distinto da --primary (usato per testo/bordi) anche se oggi
+     coincide: separa "colore del testo" da "colore della campitura". */
   --primary-fill:       #4F46E5;
   --primary-fill-hover: #4338CA;
   --primary-shadow: rgba(79,70,229,0.30);
@@ -161,18 +164,6 @@ body {
   font-family: var(--font-display); font-weight: 800; font-size: 20px; color: var(--night-text);
 }
 
-.toggle-tema {
-  background: none;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-  padding: 4px 8px;
-  opacity: 0.7;
-  display: block;
-  flex: 0 0 auto;
-  color: var(--night-muted);
-}
-
 @media (min-width: 768px) {
   .nav-bottom {
     top: 0; bottom: auto;
@@ -194,7 +185,6 @@ body {
   }
   .nav-icon  { font-size: 15px; }
   .nav-label { font-size: 14px; font-weight: 700; letter-spacing: 0; }
-  .toggle-tema { display: block; color: var(--night-muted); margin-left: 12px; }
 }
 
 /* ================================================================
@@ -226,7 +216,7 @@ body {
 }
 
 /* ================================================================
-   HOME HEADER — hero blu notte (BR2)
+   HOME HEADER — hero a inchiostro profondo (BR2)
 ================================================================ */
 .home-header {
   padding: 18px 20px 22px;
@@ -519,8 +509,8 @@ body {
 /* Scadenza collegata al passo (OP2): il prossimo passo si vede sempre
    insieme a QUANDO va fatto, senza dover aprire il capitolo sotto.
    Pillola con sfondo proprio (stesso pattern di .cand-scadenza-countdown):
-   garantisce contrasto sufficiente anche in tema notte, dove lo sfondo
-   della card è quasi trasparente. */
+   il fondo dedicato garantisce contrasto anche sulle superfici a
+   inchiostro (--night-bg), non solo sulle card chiare. */
 .prossimo-passo-scadenza {
   display: inline-block; margin: 4px 0 0 46px;
   font-family: var(--font-mono); font-size: 0.78rem; font-weight: 700;
@@ -697,8 +687,7 @@ body {
 
 /* Schedina — "Le tue 5 scelte" (BR4, 4b — Fase C3: schedina compatta, P1.4)
    Vuota = una riga di invito; parziale = solo gli slot pieni + riga compatta.
-   Colori a token semantici, leggibili anche in tema notte (dove --gold-bg
-   diventa ambra traslucida sulla card scura). */
+   Colori a token semantici, mai valori grezzi. */
 .schedina-invito-vuota { font-size: 0.85rem; color: var(--text-muted); margin: 0; }
 .schedina-lista { display: flex; flex-direction: column; gap: 8px; }
 .schedina-slot {
@@ -880,8 +869,6 @@ body {
 .mappa svg { display: block; width: 100%; height: auto; }
 .mappa-terra { fill: var(--bg-card-hover); stroke: var(--border-strong); stroke-width: .8; stroke-linejoin: round; }
 .mappa-terra-casa { fill: #C7D2FE; }
-body.tema-notte .mappa-terra { fill: #242741; stroke: #363A5C; }
-body.tema-notte .mappa-terra-casa { fill: #3B4290; }
 .mappa-pin-layer { position: absolute; inset: 0; }
 .mappa-pin {
   position: absolute; width: 44px; height: 44px; transform: translate(-50%,-50%);
@@ -893,7 +880,6 @@ body.tema-notte .mappa-terra-casa { fill: #3B4290; }
   border: 2.5px solid var(--bg-card); box-shadow: 0 2px 6px rgba(0,0,0,.3);
   transition: transform var(--dur-fast) var(--ease-out);
 }
-body.tema-notte .mappa-pin .punto { background: #A5B4FC; border-color: var(--bg-app); }
 .mappa-pin:hover .punto, .mappa-pin:focus-visible .punto { transform: scale(1.5); }
 .mappa-pin.evidenzia .punto { animation: mappa-pin-pop .35s var(--ease-bounce) backwards; }
 @keyframes mappa-pin-pop { from { transform: scale(0); } to { transform: scale(1); } }
@@ -901,7 +887,6 @@ body.tema-notte .mappa-pin .punto { background: #A5B4FC; border-color: var(--bg-
   width: 28px; height: 28px; display: grid; place-items: center;
   font-size: .7rem; font-weight: 800; color: #fff; font-family: var(--font-body);
 }
-body.tema-notte .mappa-pin-cluster .punto { color: #12141F; }
 .mappa-pin-stella .punto { background: var(--gold); }
 .mappa-pin-stella::after { content: "★"; position: absolute; top: 0; right: 2px; font-size: .78rem; color: var(--gold); text-shadow: 0 1px 2px rgba(0,0,0,.3); }
 .mappa-pin-ateneo { width: 56px; height: 56px; }
@@ -1088,66 +1073,6 @@ body.no-scroll { overflow: hidden; }
   .meta-overlay { align-items: center; }
   .meta-modal { border-radius: var(--radius-xl); max-height: 88vh; }
 }
-
-/* ================================================================
-   TEMA NOTTE
-================================================================ */
-body.tema-notte {
-  /* Direzione C (Fase C1): notte di PRIMA CLASSE — palette dedicata,
-     non più il blu della nav con card traslucide (difetto P1.11):
-     fondo indigo-nero, superfici SOLIDE ed elevate, primario schiarito
-     per il buio, ambra che si accende. */
-  --bg-app:        #12141F;
-  --bg-card:       #1B1E30;
-  --bg-card-hover: #252840;
-  --bg-track:      #2A2D48;
-  --text-dark:     #EDEBF7;
-  --text-muted:    #BEB9D6;
-  --text-hint:     #A29CC4;
-  --border:        #2E3150;
-  --border-strong: #3A3D63;
-  /* nav e superfici indigo: in notte si staccano appena dal fondo */
-  --night-bg:      #1B1E30;
-  --night-bg-2:    #12141F;
-  --night-border:  rgba(255,255,255,0.08);
-  /* primario ritarato per fondi scuri (tinte chiare, non inversione) */
-  --primary:        #818CF8;
-  --primary-hover:  #A5B4FC;
-  --primary-active: #6366F1;
-  --primary-fill:       #4F46E5;
-  --primary-fill-hover: #6366F1;
-  --primary-shadow: rgba(99,102,241,0.45);
-  --ring:           rgba(129,140,248,0.45);
-  --shadow-card:    0 1px 3px rgba(0,0,0,0.40);
-  --shadow-card-hover: 0 8px 28px rgba(0,0,0,0.50), 0 0 0 1px rgba(165,180,252,0.12);
-  /* semaforo e ambra: varianti leggibili sul buio */
-  --green:        #4ADE80; --green-bg:  rgba(74,222,128,0.12); --green-border: rgba(74,222,128,0.35);
-  --amber:        #FBBF24; --amber-bg:  rgba(251,191,36,0.12); --amber-border: rgba(251,191,36,0.35);
-  --red:          #F87171; --red-bg:    rgba(248,113,113,0.14); --red-border:   rgba(248,113,113,0.35);
-  --gold-bg:      rgba(251,191,36,0.12);
-  --gold-border:  rgba(251,191,36,0.40);
-  --gold-dark:    #FBBF24;
-  background: var(--bg-app);
-}
-body.tema-notte::before {
-  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
-  background-image:
-    radial-gradient(2px 2px at 10%  15%, var(--gold) 50%, transparent 51%),
-    radial-gradient(1.5px 1.5px at 80% 10%, var(--gold) 50%, transparent 51%),
-    radial-gradient(2px 2px at 60%  25%, #A5B4FC 50%, transparent 51%),
-    radial-gradient(1.5px 1.5px at 20% 35%, var(--gold) 50%, transparent 51%),
-    radial-gradient(2px 2px at 90%  45%, var(--gold) 50%, transparent 51%),
-    radial-gradient(1.5px 1.5px at 45%  8%, #A5B4FC 50%, transparent 51%),
-    radial-gradient(2px 2px at 72%  38%, var(--gold) 50%, transparent 51%);
-  opacity: .5;
-}
-body.tema-notte .btn-secondary { background: var(--bg-card-hover); border-color: var(--border-strong); color: var(--text-dark); }
-body.tema-notte .btn-secondary:hover { background: #2E3150; }
-body.tema-notte .campo-form select, body.tema-notte .campo-form input, body.tema-notte .riga-lingua select { background: var(--bg-card-hover); color: var(--text-dark); border-color: var(--border-strong); }
-/* Link/CTA testuali con colore proprio in cascata: lavanda del tema. */
-body.tema-notte .fase-cta,
-body.tema-notte .cand-checklist-toggle,
-body.tema-notte .profilo-strip-link { color: #A5B4FC; }
 
 /* ================================================================
    DESKTOP ≥1024px

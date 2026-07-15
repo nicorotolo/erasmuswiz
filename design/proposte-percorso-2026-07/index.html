@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Scegli la direzione — ondata PERCORSO · ErasmusWiz</title>
+<style>
+:root{
+  --bg:#F5F6F8; --surface:#FFFFFF; --ink:#151B23; --ink-soft:#41505F; --ink-faint:#6D7C8B;
+  --bordo:#E4E8EE; --r:16px; --shadow:0 6px 24px rgba(20,30,45,.10);
+  --font:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+}
+@media(prefers-color-scheme:dark){
+  :root{--bg:#0B1220;--surface:#111A28;--ink:#E7EEF8;--ink-soft:#B2C0D2;--ink-faint:#7E8FA5;--bordo:#22314a;--shadow:0 8px 30px rgba(0,0,0,.5)}
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;padding:24px 16px 60px}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:760px;margin:0 auto}
+.disc{display:inline-block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-faint);border:1px solid var(--bordo);border-radius:999px;padding:4px 12px}
+h1{font-size:clamp(1.5rem,5vw,2.1rem);font-weight:800;letter-spacing:-.02em;margin:14px 0 8px;line-height:1.15}
+.intro{color:var(--ink-soft);font-size:.98rem;max-width:56ch}
+.griglia{display:grid;gap:16px;margin-top:26px}
+@media(min-width:640px){.griglia{grid-template-columns:1fr 1fr}}
+.dir{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--bordo);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;transition:transform .15s ease,box-shadow .15s ease}
+.dir:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(20,30,45,.16)}
+.dir .swatch{height:120px;position:relative;display:flex;align-items:flex-end;padding:14px}
+.dir .swatch .rotta{position:absolute;inset:0}
+.dir .swatch .rotta path{fill:none;stroke-width:3;stroke-linecap:round}
+.dir .nome{position:relative;font-weight:800;font-size:1.1rem;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.4)}
+.notte .swatch{background:radial-gradient(120% 140% at 20% 10%,#12314a,#0B1B2B)}
+.notte .swatch .rotta path{stroke:#E9B949;filter:drop-shadow(0 0 4px #E9B94988)}
+.orizzonte .swatch{background:linear-gradient(120deg,#2563EB,#7Fb0ea 70%)}
+.orizzonte .swatch .rotta path{stroke:#fff;filter:drop-shadow(0 0 4px #ffffff99)}
+.orizzonte .swatch::after{content:"";position:absolute;right:16px;bottom:14px;width:18px;height:18px;border-radius:50%;background:#E07B39;box-shadow:0 0 10px #E07B39}
+.notte .swatch::after{content:"";position:absolute;right:20px;top:22px;width:9px;height:9px;border-radius:50%;background:#FFE08A;box-shadow:0 0 8px 2px #FFE08A}
+.dir .corpo{padding:16px 18px 20px;display:flex;flex-direction:column;gap:10px;flex:1}
+.dir .desc{font-size:.86rem;color:var(--ink-soft)}
+.dir ul{list-style:none;display:flex;flex-direction:column;gap:5px;font-size:.82rem;color:var(--ink-soft)}
+.dir ul li{display:flex;gap:7px;align-items:flex-start}
+.dir ul li::before{content:"—";color:var(--ink-faint)}
+.dir .apri{margin-top:auto;display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--ink);color:var(--bg);font-weight:700;font-size:.92rem;padding:13px 18px;border-radius:11px;min-height:50px}
+.dir .apri:hover{filter:brightness(1.1)}
+.come{margin-top:28px;background:var(--surface);border:1px solid var(--bordo);border-radius:var(--r);padding:18px 20px}
+.come h2{font-size:1rem;font-weight:700;margin-bottom:8px}
+.come ol{margin:0;padding-left:20px;font-size:.88rem;color:var(--ink-soft);display:flex;flex-direction:column;gap:6px}
+.come b{color:var(--ink)}
+.nota{margin-top:22px;font-size:.78rem;color:var(--ink-faint);text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="disc">Ondata PERCORSO · Fase P0 · scelta vincolante</span>
+  <h1>Due modi di raccontare lo stesso viaggio.</h1>
+  <p class="intro">Stesso impianto — Ingresso con la mappa e le rotte, Dashboard-planner, Candidatura a stazioni — con due identità a confronto. Guarda entrambe <b>dal telefono</b>, prova le tre schermate e il tema notte, poi scegli. La scelta diventa la direzione del sito.</p>
+
+  <div class="griglia">
+    <a class="dir notte" href="mockup-notte.html">
+      <div class="swatch">
+        <svg class="rotta" viewBox="0 0 200 120" preserveAspectRatio="none" aria-hidden="true"><path d="M20 96 Q80 20 180 44"/></svg>
+        <span class="nome">Notte cartografica</span>
+      </div>
+      <div class="corpo">
+        <p class="desc">Il buio è la firma: ingresso e card-copertina a inchiostro profondo, rotte e città in oro luminoso. La dashboard resta chiara e ariosa.</p>
+        <ul>
+          <li>Mappa notturna con archi d'oro</li>
+          <li>Accento oro caldo</li>
+          <li>Tema notte completo di prima classe</li>
+        </ul>
+        <span class="apri">Apri la direzione 1 →</span>
+      </div>
+    </a>
+
+    <a class="dir orizzonte" href="mockup-orizzonte.html">
+      <div class="swatch">
+        <svg class="rotta" viewBox="0 0 200 120" preserveAspectRatio="none" aria-hidden="true"><path d="M20 96 Q80 20 180 44"/></svg>
+        <span class="nome">Orizzonte chiaro</span>
+      </div>
+      <div class="corpo">
+        <p class="desc">Fondi chiarissimi con molta aria, blu orizzonte e un accento caldo. Superfici pulite, ombre minime, tutto leggibile a colpo d'occhio.</p>
+        <ul>
+          <li>Chiarezza lineare e accogliente</li>
+          <li>Blu orizzonte + accento terracotta</li>
+          <li>Tema notte come mappa notturna</li>
+        </ul>
+        <span class="apri">Apri la direzione 2 →</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="come">
+    <h2>Cosa provare in ciascuna</h2>
+    <ol>
+      <li><b>Ingresso</b>: la mappa è lo sfondo a schermo intero e le rotte si espandono in ogni direzione; scegli la partenza (Roma o Venezia), poi "Inizia il tuo percorso" apre le domande iniziali.</li>
+      <li><b>Dashboard</b>: la <b>linea di viaggio</b> al posto delle tab; il planner "Questa settimana", "Sei in linea?", il calendario e "Le tue rotte".</li>
+      <li><b>Candidatura</b>: l'itinerario a stazioni con "Ora tocca a te" sulla scadenza corrente.</li>
+      <li>Prova il <b>tema notte</b> (icona in alto a destra) e guarda tutto anche in verticale sul telefono.</li>
+    </ol>
+  </div>
+
+  <p class="nota">Mockup di design — non è il sito operativo. Dati delle mete reali (bandi 2026/27), scadenze dimostrative.</p>
+</div>
+</body>
+</html>

@@ -4,49 +4,60 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Orizzonte chiaro — Mockup PERCORSO · ErasmusWiz</title>
+<title>Notte cartografica — Mockup PERCORSO · ErasmusWiz</title>
 <style>
 /* ============================================================
-   DIREZIONE 2 — "ORIZZONTE CHIARO"
-   Fondi chiarissimi con molta aria, blu orizzonte + un accento
-   caldo, superfici pulite, ombre minime. Cartografia lineare.
-   Tema notte = la stessa mappa, di notte. Dashboard sempre ariosa.
+   DIREZIONE 1 — "NOTTE CARTOGRAFICA"
+   Il buio vive nell'INGRESSO e nelle card-copertina: fondo
+   inchiostro profondo, rotte oro/luce, città come punti luminosi.
+   Il tema chiaro è la "mappa diurna" della stessa cartografia; la
+   dashboard resta chiara e ariosa (come Orizzonte). Tema notte
+   completo = tutta la pagina di notte, di prima classe.
    ============================================================ */
 :root{
-  --bg:#F5F8FC; --bg-scena:#EAF1FA;
-  --surface:#FFFFFF; --surface-2:#EEF3F9;
-  --ink:#132135; --ink-soft:#3D5273; --ink-faint:#6B7E9C;
-  --primary:#2563EB; --primary-bg:#1D4ED8; --primary-ink:#FFFFFF;
-  --accent:#E07B39; --accent-soft:#FBE7D6;
-  --line:#1D4ED8;           /* colore rotte */
-  --luce:#E07B39;           /* punto luminoso sulla rotta */
-  --ok:#0F9D6B; --warn:#C9761F; --late:#D64545;
-  --terra:#DCE7F3; --terra-bordo:#C2D3E8; --terra-casa:#C9DDF6;
-  --pin:#1D4ED8; --pin-ring:#FFFFFF;
-  --bordo:#E1E9F2; --bordo-forte:#CBD8E8;
-  --shadow:0 1px 2px rgba(19,33,53,.05); --shadow-hi:0 8px 28px rgba(19,33,53,.10);
+  --bg:#F4F1E8; --bg-scena:#0B1B2B;
+  --surface:#FFFFFF; --surface-2:#EFEBDF;
+  --ink:#1A2530; --ink-soft:#3F4C59; --ink-faint:#6E7C88;
+  --primary:#14435F; --primary-bg:#0E3348; --primary-ink:#FDF7E6;
+  --accent:#B8860B; --accent-soft:#F3E7C4;
+  --line:#B8860B;           /* rotte oro (mappa diurna) */
+  --luce:#D9A521;           /* punto luminoso */
+  --ok:#2E7D53; --warn:#B07A16; --late:#C0432F;
+  --terra:#E4DECB; --terra-bordo:#CDC4A8; --terra-casa:#D8CFA6;
+  --pin:#14435F; --pin-ring:#FFFFFF;
+  --bordo:#E0D9C6; --bordo-forte:#CDC4A8;
+  --shadow:0 1px 2px rgba(26,37,48,.06); --shadow-hi:0 8px 28px rgba(26,37,48,.12);
   --r-xl:18px; --r-lg:14px; --r-md:11px; --r-sm:8px;
   --font:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
-  --scena-ink:#F5F8FC; --scena-faint:#B9CCE6;
+  --scena-ink:#F5EFDD; --scena-faint:#9FB2C4;
 }
 [data-theme="dark"]{
-  --bg:#0A1524; --bg-scena:#081120;
-  --surface:#0F1E33; --surface-2:#16273F;
-  --ink:#E7EEF8; --ink-soft:#B2C3DC; --ink-faint:#7E92B0;
-  --primary:#6FA0FB; --primary-bg:#2E5AD6; --primary-ink:#FFFFFF;
-  --accent:#F0925A; --accent-soft:#3A2415;
-  --line:#7DA6FA; --luce:#F5B27A;
-  --ok:#42D89E; --warn:#E5A94E; --late:#F87171;
-  --terra:#16283F; --terra-bordo:#26405E; --terra-casa:#1E3A6B;
-  --pin:#8FB6FF; --pin-ring:#0A1524;
-  --bordo:#213650; --bordo-forte:#2C486A;
+  --bg:#08131F; --bg-scena:#050D17;
+  --surface:#0F2233; --surface-2:#16304A;
+  --ink:#EAF1FA; --ink-soft:#B7C7D8; --ink-faint:#7F94A8;
+  --primary:#6FB2D8; --primary-bg:#124562; --primary-ink:#FDF7E6;
+  --accent:#E9B949; --accent-soft:#33290F;
+  --line:#E9B949; --luce:#FFE08A;
+  --ok:#42D89E; --warn:#E5B24E; --late:#F08672;
+  --terra:#12293D; --terra-bordo:#234763; --terra-casa:#1C4C66;
+  --pin:#7FD0F0; --pin-ring:#08131F;
+  --bordo:#1F3A52; --bordo-forte:#2B4E6C;
   --shadow:0 1px 2px rgba(0,0,0,.4); --shadow-hi:0 10px 30px rgba(0,0,0,.55);
-  --scena-ink:#E7EEF8; --scena-faint:#4B678C;
+  --scena-ink:#EAF1FA; --scena-faint:#5B7590;
 }
-/* La scena d'ingresso in questa direzione è chiara anche di giorno:
-   il buio non è il carattere dominante (a differenza di Notte cartografica). */
-.copertina{ --scena-bg:var(--bg-scena); }
-[data-theme="dark"] .copertina{ --scena-bg:var(--bg-scena); }
+/* La firma della direzione: la SCENA d'ingresso e le card-copertina
+   sono a inchiostro profondo anche in tema chiaro (mappa notturna),
+   con rotte e città in oro luminoso. Dashboard e resto restano chiari. */
+.copertina{
+  --scena-bg:var(--bg-scena);
+  --terra:#15304a; --terra-bordo:#24486a; --terra-casa:#1d5570;
+  --line:#E9B949; --luce:#FFE08A; --pin:#FFD473; --pin-ring:#0B1B2B;
+  --bordo:#233f5b; --surface:#123049; --surface-2:#16304a;
+  --ink:#EAF2FB; --ink-soft:#BACDE0; --ink-faint:#8AA3BE;
+  --primary:#7FB6DE; --accent:#E9B949; --accent-soft:#2c2410;
+  --scena-ink:#F5EFDD; --scena-faint:#A6BCD2;
+}
+[data-theme="dark"] .copertina{ --scena-bg:#050D17; --surface:#0F2233; --surface-2:#16304A; }
 </style>
 <style>
 /* ---------- struttura condivisa (identica nei due mockup) ---------- */
@@ -325,8 +336,8 @@ footer{margin-top:36px;text-align:center;font-size:.74rem;color:var(--ink-faint)
 <body>
 
 <div class="mock-bar">
-  <span class="tag">ORIZZONTE CHIARO</span>
-  <span class="disc">Direzione 2 · mockup di design — non è il sito operativo</span>
+  <span class="tag">NOTTE CARTOGRAFICA</span>
+  <span class="disc">Direzione 1 · mockup di design — non è il sito operativo</span>
   <nav class="viste" aria-label="Schermate del mockup">
     <button type="button" data-vista="ingresso" aria-pressed="true">Ingresso</button>
     <button type="button" data-vista="dashboard" aria-pressed="false">Dashboard</button>
@@ -405,7 +416,7 @@ footer{margin-top:36px;text-align:center;font-size:.74rem;color:var(--ink-faint)
 
 </main>
 
-<footer>Orizzonte chiaro · mockup P0 (2026-07) — dati mete reali dai bandi 2026/27, scadenze dimostrative</footer>
+<footer>Notte cartografica · mockup P0 (2026-07) — dati mete reali dai bandi 2026/27, scadenze dimostrative</footer>
 
 <div class="scheda" id="scheda" role="dialog" aria-label="Dettaglio" hidden></div>
 <div class="avviso" id="avviso" role="status" hidden></div>

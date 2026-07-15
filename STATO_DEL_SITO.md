@@ -4,7 +4,198 @@
 > incollalo all'inizio di ogni nuova sessione con Claude per ripristinare il
 > contesto. Va letto insieme a `PROGETTO_ERASMUS.md` (la "bussola" strategica).
 
-**Ultimo aggiornamento:** 2026-07-14 — sessione 69, Codex (**RETRY COMPLETO,
+> ⚠️ **DUE FLUSSI DI SESSIONI, NUMERI DUPLICATI (da sanare, decide Nicola).**
+> Il 15/07, unendo il lavoro sul sito con quello del cantiere dati, è emerso
+> che i due cantieri hanno numerato le sessioni **in parallelo a partire da
+> 48**, senza mai incontrarsi. Risultato: i numeri **49, 50, 51 e 52 esistono
+> due volte** e indicano sessioni diverse.
+>   - **Cantiere SITO** (Claude Code): sessioni 49→52 = mockup P0, piano
+>     definitivo, revisione strategica, R1.1. Elencate per prime qui sotto.
+>   - **Cantiere DATI/mappatura** (Codex, `PLAN.md` §8): sessioni 49→69 =
+>     pipeline Gemini+Codex, setup Facoltà Sapienza. Elencate dopo.
+> Nessuna delle due storie è stata cancellata nell'unione. La convenzione di
+> rinumerazione (prefissi tipo S-nn / M-nn, oppure un contatore unico) è una
+> decisione di Nicola: finché non è presa, citare sempre anche il cantiere.
+
+---
+
+### Cantiere SITO — sessioni 49→52
+
+**Ultimo aggiornamento:** 2026-07-15 — sessione 52, Claude Code (Opus 4.8)
+(**R1.1 IMPLEMENTATA: il sito è in TEMA UNICO GIORNO — il tema notte non
+esiste più.** Primo blocco di codice dell'ondata PERCORSO: fin qui le sessioni
+50-51 avevano solo pianificato. **(1) Tema notte RIMOSSO** come da `PLAN.md`
+§7/R1.1: via il blocco palette `body.tema-notte` (~60 righe di token
+alternativi), le 4 regole notte della mappa (`.mappa-terra`, `.mappa-terra-casa`,
+`.mappa-pin .punto`, `.mappa-pin-cluster .punto`), il CSS `.toggle-tema`
+(entrambe le regole, mobile + desktop), il bottone `#toggle-tema` da
+`index.html` e la funzione `initTema()` + la sua chiamata in `app.js`.
+**(2) I token `--night-*` RESTANO e cambiano significato**: non sono più un
+tema alternativo ma SUPERFICI a inchiostro profondo del tema giorno (nav,
+countdown-pill, hero della home, future card-copertina) — è esattamente la
+direzione "Notte cartografica in VERSIONE GIORNO". Commenti CSS che
+promettevano il tema notte riscritti di conseguenza; `--primary-fill` resta
+distinto da `--primary` (campitura vs testo) benché oggi coincidano.
+**(3) Caso legacy verificato** — è il punto che contava: un utente con
+`ew-tema: notte` in localStorage NON si ritrova il sito scuro, la chiave viene
+semplicemente ignorata (lasciata orfana e inerte: cancellarla costava una
+scrittura a ogni avvio). **(4) QA fatto su server locale**: console pulita su
+ENTRAMBI gli atenei (Ca' Foscari e Sapienza 1595 mete), `node --check js/app.js`
+OK, sfondo `#FAFAF7` confermato con tema notte legacy attivo, nav mobile 375px
+a 3 voci da 117px e altezza 45px (≥44px del piano) senza overflow, nav desktop
+allineata a destra (il buco del toggle si chiude da solo). NB: lo strumento
+screenshot non funziona in questo ambiente (già noto dalla sessione 49):
+verifica fatta via misure JS + read_page. **(5) DUE DECISIONI DI NICOLA in
+sessione: (a) la nav a 3 voci Mete·Home·Percorso NON si fa in R1.2 ma alla FINE
+di R1, insieme a R3** — motivo: la schermata Percorso unificata nasce solo in
+R3, e una voce "Percorso" che punta all'attuale Candidatura sarebbe una nav
+definitiva su un contenuto provvisorio. In R1.2 si fa dunque **solo il drawer**;
+la nav attuale (Percorso · Mete · Candidatura) resta fino ad allora, e il gate
+R1 "navigazione stabile" si chiude solo con R3. **(b) R1.1 è un blocco a sé**:
+R1.2 (drawer) e R1.3 (migrazione zaino per-ateneo) vanno in una sessione
+dedicata, perché il "Cambia ateneo" del drawer È il punto d'ingresso della
+migrazione prudente dello zaino — il pezzo più delicato di R1.
+**(6) Osservazione per R1.5**: `index.html` carica in sequenza TUTTI i file
+mete di ENTRAMBI gli atenei a ogni avvio (~1.700 mete) prima ancora di sapere
+quale ateneo serve. È il bersaglio esatto di R1.5 e il gate R1 chiede il primo
+avvio MISURATO su telefono: servirà un numero, non un'impressione.
+File toccati: `css/style.css`, `index.html`, `js/app.js`, `STATO_DEL_SITO.md`.
+Nessun file creato o rimosso, nessun dato toccato.
+**⚠️ Da segnalare a Nicola:** in radice c'è `m.dipartimentoCf`, file spurio a
+0 byte (la trappola nota del CLAUDE.md: JS non quotato passato a bash) — non
+creato in questa sessione, non cancellato di mia iniziativa. Va tolto con
+`PULISCI-SPAZZATURA.bat` prima di pubblicare. Inoltre il repo ha ancora NON
+committato tutto il lavoro delle sessioni 50-51 (`PLAN.md` +995 righe,
+`CLAUDE.md`, mockup in `design/proposte-percorso-2026-07/`).
+**Prossimo passo: R1.2 + R1.3 in sessione dedicata — drawer (Profilo, Cambia
+ateneo, Guide, Come funziona) + migrazione zaino per-ateneo.**)
+
+**Ultimo aggiornamento precedente:** 2026-07-15 — sessione 51, Codex
+(**REVISIONE STRATEGICA DEL PIANO PERCORSO — `PLAN.md` RISCRITTO, nessun file
+del sito o dato toccato.** Dopo una valutazione da cofondatore/stratega e la
+lettura del nuovo EUSurvey di Bruno, il vecchio piano “definitivo” è stato
+corretto nei punti che confondevano qualità e quantità di funzioni. **(1)
+Direzione confermata**: viaggio Erasmus, tema solo giorno, ingresso
+cartografico a inchiostro+oro, bottom nav Mete·Home·Percorso, niente account.
+**(2) Vecchia D15 SUPERATA**: non vale più “nessun sacrificabile”; introdotte
+priorità **MUST / SHOULD / LATER** per proteggere i flussi realmente
+testabili. **(3) Completezza dati definita su tre livelli**: A=meta pronta
+(obbligatorio per tutte le mete dei due atenei entro settembre), B=meta
+arricchita con scadenze/catalogo/disponibilità (obbligatorio per i due
+starter), C=singoli corsi mappati (progressivo, non promessa per ~2.000 mete).
+Starter: **Sapienza Giurisprudenza** + **Ca’ Foscari Economia** predefinito,
+modificabile solo in R0 se l’accesso ai tester è migliore altrove. **(4)
+Vecchia D11 MODIFICATA**: “Generator completo” diventa **LA Workspace v0
+manual-first e versionato** — inserimento corsi casa/host, molti-a-molti,
+totali ECTS/CFU, fonti, versioni, sostituzioni e motivi reali (non disponibile,
+lingua, richiesta host, conflitto orario), export di bozza; test obbligatorio
+sul caso Bruno. Non si presume più che corsi di casa e cataloghi esistano già
+(oggi non esistono in forma strutturata e `linkCatalogo` non è ancora nella
+pipeline). **(5) Home ridotta** a Prossima mossa → Questa settimana →
+Progresso → Rotte; calendario/check-in diventano SHOULD. **(6) Nuovo ordine
+R0→R6**: R0 verità+pipeline+starter → R1 fondamenta/velocità/zaino → R2
+ingresso+Home → R3 Mete+Percorso → R4 LA Workspace → R5 test utenti → R6
+completezza+SEO+QA. Checkpoint: 31/07, 14/08, 31/08, 15/09, 30/09. Il piano
+prevale sulle vecchie sequenze operative fino a settembre; la bussola
+`PROGETTO_ERASMUS.md` resta invariata. File toccati: `PLAN.md`,
+`STATO_DEL_SITO.md`. **Prossimo passo: R0 — confermare starter Ca’ Foscari,
+mail ufficio Erasmus, intervista Bruno D5/A2, G5 pipeline
+`linkCatalogo`+`notaDisponibilita`, misura gap A/B/C e schema del ramo `la`.**)
+
+**Ultimo aggiornamento precedente:** 2026-07-15 — sessione 50, Claude Code (Fable 5)
+(**GRILL DEL PERCORSO COMPLETO + PIANO DEFINITIVO: `PLAN.md` RISCRITTO come
+documento unico e vincolante fino a settembre (fasi R1→R8 delegabili a
+Sonnet/Opus/Codex). Nessun file del sito toccato.** Sessione /grill-me con
+16 decisioni di Nicola. **(1) P0 CHIUSA — direzione scelta: "Notte
+cartografica" in VERSIONE GIORNO**: il sito vive in SOLO tema chiaro (il
+toggle notte si rimuove in R1, QA dimezzato, eventuale ritorno del tema
+notte post-settembre); la firma resta la scena d'ingresso e le
+card-copertina a inchiostro profondo con rotte d'oro. **(2) Niente
+account**: il passo-iscrizione del percorso è un profilo locale VESTITO da
+iscrizione (Ateneo → Corso+livello → Lingue saltabili, lingue derivate dai
+dati = chiude P0.3); promessa pubblica "senza account" intatta; aggancio
+account futuro solo documentato. **(3) Navigazione nuova**: bottom nav
+mobile a 3 voci (Mete · Home centrale · Percorso), barra alta su desktop,
+drawer da destra (Profilo, Cambia ateneo, Guide, Come funziona); Candidati
+e Parti si FONDONO nella schermata Percorso (itinerario unico a stazioni:
+prepara → candidatura → gate selezione → LA → parti → città); la LINEA DI
+VIAGGIO diventa indicatore di PROGRESSO (modulo dashboard + testata
+Percorso), non più la nav. **(4) Ingresso mobile ripensato** (verdetto di
+Nicola sui mockup: "troppo sovrapposta da telefono"): scena cartografica
+pulita a schermo pieno, ZERO pin, solo wordmark+frase+CTA "Inizia il tuo
+percorso" → onboarding come sheet; mappa interattiva coi pin SOLO desktop.
+**(5) Dashboard**: hero = missione di oggi + countdown, poi Questa
+settimana → Sei in linea? → calendario (con bottone Esporta .ics riusato)
+→ Le tue rotte → check-in → linea di viaggio. **(6) Mete**: wizard alla
+prima visita ("Hai già in mente le destinazioni?" SÌ→fissa le rotte /
+NO→esplorazione guidata con affinità), poi per sempre strumento;
+rilanciabile con "Ripensa le rotte". **(7) LA GENERATOR INTERATTIVO ADESSO
+— decisione di Nicola CONTRO la raccomandazione del consulente, consapevole
+e vincolante (D11)**: si costruisce per intero come se fosse funzionante
+(corsi di casa dai dati esistenti + corsi meta dove la pipeline ha la
+mappatura + placeholder onesti + INSERIMENTO MANUALE sempre possibile +
+mapping molti-a-molti con totali ECTS/CFU + bozza esportabile "non
+ufficiale" + scrittura zaino nel nuovo ramo `la`, seconda eccezione
+additiva); i vincoli OP8 read-only sono formalmente SUPERATI; visibile a
+settembre con soglia di copertura; la pipeline di mappatura è il cantiere
+parallelo che lo riempie. **(8) Città**: stazione finale a checklist
+universale + link ufficiali, niente editoriale per-città. **(9) Priorità:
+NESSUN SACRIFICABILE dichiarato (D15)** — ordine R1 fondamenta → R2
+ingresso → R3 dashboard+migrazione zaino → R4 mete → R5 Percorso → R6 LA
+(2 sessioni) → R7 Parti+città+brand → R8 QA; se non ci sta entro
+settembre, slitta la CHIUSURA, non lo scope. Tutti i vincoli ingegneristici
+della review Codex del 14/07 sopravvivono nelle fasi (invarianti SEO della
+home sul DOM statico, migrazione zaino per-ateneo, fuso Europe/Rome con
+parser unico, accessibilità mappa, budget prestazioni, alias hash
+permanenti, git solo via .bat). File toccati: `PLAN.md` (riscritto),
+`STATO_DEL_SITO.md`. **Prossimo passo: Fase R1 — fondamenta (token
+solo-giorno dal tema giorno di mockup-notte, rimozione tema notte, bottom
+nav 3 voci, drawer, contratto hash, regola tappa corrente).**)
+
+**Ultimo aggiornamento precedente:** 2026-07-14 — sessione 49, Claude Code (**FASE P0
+REALIZZATA: 2 mockup PERCORSO completi + comparatore — nessun file del sito
+toccato.** Costruita la cartella `design/proposte-percorso-2026-07/` con il
+comparatore (`index.html`, pensato per la scelta DA TELEFONO) e i DUE mockup
+navigabili autonomi (via `file://`, nessun fetch/modulo): `mockup-notte.html`
+("Notte cartografica") e `mockup-orizzonte.html` ("Orizzonte chiaro").
+**Ciascun mockup ha le TRE schermate collegate del piano**: (a) INGRESSO —
+mappa d'Europa (43 paesi reali) con ARCHI DI VOLO animati da Roma verso le 3
+rotte preferite (disegno progressivo via stroke-dashoffset + punto luminoso
+in animateMotion, loop lento ~9s, stop con `prefers-reduced-motion` e tab
+nascosta via Page Visibility), pin/cluster come `<button>` in overlay,
+elenco testuale + skip-link + aria-live sul conteggio, onboarding a 3 domande
+ambientato sul viaggio; (b) DASHBOARD-PLANNER — LINEA DI VIAGGIO al posto
+delle tab (Dashboard · Scegli la meta · Candidati · Parti; compatta in barra
+tappe fissa in basso a 375px), moduli: missione di oggi (hero card-copertina),
+"Questa settimana" auto-generato, indicatore "Sei in linea?" onesto,
+countdown prossima scadenza, calendario mensile delle scadenze, widget "Le
+tue rotte" (mini-mappa con le 3 preferite come archi), check-in settimanale;
+(c) CANDIDATURA — itinerario verticale a stazioni con "Ora tocca a te" sulla
+scadenza corrente (regola deterministica: 1 sola corrente = prima non
+passata). **Motore condiviso** `_assets/motore-percorso.js` (identico per le
+due direzioni: l'identità cambia solo nei token CSS del file-tema); dati mete
+REALI riusati da `_assets/` (dati-demo.js 113 mete, europa-svg.js), scadenze
+demo in `_assets/dati-percorso.js` (con fonte {etichetta,url} HTTPS, parser
+unico Europe/Rome, mai `new Date(stringa)`). **Firma delle direzioni**: Notte
+= scena ingresso e card-copertina a inchiostro profondo con rotte oro anche in
+tema chiaro, dashboard chiara e ariosa in entrambe; Orizzonte = blu orizzonte
++ accento terracotta, superfici pulite. Tutto `noindex`, disclaimer "mockup
+non operativo", tema chiaro/notte in entrambi. **Verificato in browser**
+(HTTP locale): console pulita, 55 mete Giurisprudenza sulla mappa, archi+luci
+presenti, onboarding→dashboard, planner popolato (semaforo "In anticipo",
+calendario luglio con 2 scadenze, check-in coerente), itinerario 2 passate /
+1 corrente / 5 future, scheda apri/chiudi con Escape, gate mobile 375px
+(linea-nav fissa in basso, mappa nel primo viewport). NB: lo strumento
+screenshot non funziona in questo ambiente, verifica fatta via read_page +
+JS. **Prossimo passo: Nicola guarda il comparatore DA TELEFONO e SCEGLIE la
+direzione (scelta vincolante); poi Fase P1 — token in `css/style.css` +
+linea-nav reale.**)
+
+---
+
+### Cantiere DATI / mappatura — sessioni 49→69 (Codex)
+
+**Ultimo aggiornamento del cantiere dati:** 2026-07-14 — sessione 69, Codex (**RETRY COMPLETO,
 GEMINI ANCORA SATURO.** La correzione del timeout è stata pubblicata su `main`
 tramite PR #37 (`a6699f9`) e il lotto `TR VAN01` è stato rilanciato una sola
 volta. L'orchestratore ha lasciato concludere tutti e 3 i tentativi, confermando
@@ -223,51 +414,15 @@ approvabile:** correggere i guardrail e il ramo setup → completare i lavori
 schema della pipeline definitiva → test manuale di un solo lotto con controllo
 fonti/costi → solo dopo registrare Task Scheduler con una sola istanza e log.**)
 
-**Ultimo aggiornamento precedente:** 2026-07-14 — sessione 48, Claude Code (**NUOVA ONDATA
-"PERCORSO" PIANIFICATA E APPROVATA — nessun file del sito toccato.** Sessione
-/grill-me-codex sul verdetto di Nicola dopo C1–C5: "troppo bambinesco, manca
-il percorso, non c'è trasporto". **Atto 1 — grill, 10 decisioni di Nicola**:
-(1) il percorso diventa la SPINA DORSALE dell'app; (2) Wiz ridotto a segno
-grafico lineare (via render 3D e stelline dall'UI, tono di voce invariato);
-(3) mappa d'ingresso con ARCHI DI VOLO animati (movimento gentile,
-prefers-reduced-motion rispettato); (4) primo accesso = mappa-scena con
-l'onboarding ambientato sul viaggio; (5) modello a DUE MONDI: ingresso
-emozionale → DASHBOARD operativa "cabina di pilotaggio" per il profilato
-(linea di viaggio in testa + moduli operativi; la mappa lì è solo il widget
-"Le tue rotte"); (6) la linea di viaggio SOSTITUISCE la nav a tab; (7) la
-nuova ondata assorbe C6+D (la demo LA Generator nasce come stazione del
-viaggio, vincoli OP8 invariati), deadline settembre 2026, dati/motore/URL/SEO
-intoccabili; (8) PALETTE RIAPERTA — la direzione C decade, costo del terzo
-riallineamento accettato consapevolmente; (9) metodo mockup-first: 2 mockup
-completi (ingresso+dashboard+itinerario candidatura, chiaro E notte, dati
-veri) scelti DA TELEFONO, scelta vincolante; (10) direzioni a confronto:
-"Notte cartografica" vs "Orizzonte chiaro". Mete = mappa sincronizzata +
-schedina ribattezzata "Le tue rotte"; Candidatura = ITINERARIO A STAZIONI
-(dati scadenze e .ics invariati). **Atto 2 — revisione avversariale Codex
-(gpt-5.6-terra, codex-cli 0.144.1, sandbox read-only): APPROVED al Round 5;
-16 rilievi in 4 round di REVISE, TUTTI accolti**, tra cui: contratto di
-navigazione tappa→hash (`#parti` nuovo hash canonico dello zaino; alias
-`#checklist` dipendente dallo stato — selezionato→zaino, altrimenti
-candidatura; `#parti` pre-selezione = tappa bloccata ma informativa, senza
-toggle "selezionato" raggiungibile); **difetto REALE scovato nel codice:
-zaino unico `erasmuswiz-zaino` senza campo ateneo** → migrazione
-OBBLIGATORIA in P3 a contenitore per-ateneo (archivio al cambio ateneo, mai
-applicato al nuovo; migrazione legacy automatica SOLO con corrispondenza
-univoca dipartimento+area, altrimenti domanda esplicita allo studente);
-criteri prestazioni misurabili in P4 (nessun long task >50 ms, aggiornamento
-lista+mappa ≤250 ms post-debounce, 375px CPU 4x, dataset completo);
-invarianti SEO sul DOM STATICO COMPLETO della home (l'onboarding è già
-nell'HTML, nascosto via CSS — non solo-JS); regola accessibilità mappa
-(skip-link, elenco controparte completa, aria-live sul conteggio, focus
-espliciti); shell offline PWA definita in P6 e testata in P7 (upgrade cache,
-primo avvio offline); fonte colori operativa unica = `css/style.css`
-(`design/tokens/colors.css` è documentazione, con controllo di coerenza).
-**Deliverable: `PLAN.md` RISCRITTO** (ondata PERCORSO, fasi P0 mockup → P7
-QA, supersede i residui MERCATO-UI) + log integrale del confronto in coda a
-`PLAN-REVIEW-LOG.md`. **Nicola ha scelto di fermarsi al piano approvato:
-nessuna implementazione in questa sessione.** **Prossimo passo: Fase P0 —
-2 mockup completi in `design/proposte-percorso-2026-07/` (Notte cartografica
-vs Orizzonte chiaro), poi scelta di Nicola DA TELEFONO (vincolante).**)
+---
+
+**Ultimo aggiornamento precedente:** 2026-07-14 — sessione 48, Claude Code
+(**ondata "PERCORSO" pianificata e APPROVATA** via /grill-me-codex — 10
+decisioni di Nicola dopo il verdetto su C1–C5 "troppo bambinesco, manca il
+percorso"; revisione avversariale Codex APPROVED al Round 5, 16 rilievi tutti
+accolti, addendum PLANNER APPROVED al Round 4. Deliverable: `PLAN.md`
+riscritto (fasi P0→P7) + log in `PLAN-REVIEW-LOG.md`. Nessun file del sito
+toccato.)
 
 **Ultimo aggiornamento precedente:** 2026-07-14 — sessione 47, Claude Code (**FASE C5
 IMPLEMENTATA: OG image dedicata (chiude P2.14) + pagina fiducia + guide
@@ -2141,17 +2296,27 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | OP4 — Stima borsa per gruppo-paese | Nuovo `dati-borse.js` per ateneo, badge nella card + blocco nel dettaglio con disclaimer datato | ✅ Fatta e testata (2026-07-08) |
 | MERCATO-UI Fase A — Audit | `design/AUDIT_SITO.md`: 20 difetti P0-P3 + verdetti per area | ✅ Fatta (2026-07-10) |
 | MERCATO-UI Fase B — Direzioni visive | 3 mockup con mappa-hero interattiva in `design/proposte-2026-07/` (piano: `design/PLAN-FASE-B.md`, review Codex APPROVED) | ✅ Chiusa: **Nicola ha scelto la C "Ibrida"** (2026-07-10) — sostituisce BR0–BR7 |
-| MERCATO-UI Fase C1 — Fondamenta | Token direzione C in `css/style.css` + `design/tokens/colors.css`, `--primary-fill`, tema notte di prima classe (card solide, palette dedicata), theme-color/manifest | ✅ Fatta e testata (2026-07-10) |
+| MERCATO-UI Fase C1 — Fondamenta | Token direzione C in `css/style.css` + `design/tokens/colors.css`, `--primary-fill`, tema notte di prima classe (card solide, palette dedicata), theme-color/manifest | ✅ Fatta e testata (2026-07-10) — ⚠️ la parte "tema notte" è stata **rimossa in R1.1** (15/07): resta valido tutto il resto |
 | MERCATO-UI Fase C2 — Home con mappa-hero | Onboarding IN PAGINA sulla mappa (bug P0.1 chiuso), motore mappa in app.js, `dati-coordinate.js` (99,6% mete) + `dati-mappa-europa.js`, mappa compatta in home, gerarchia mobile rifatta (gate 375×667 ✅) | ✅ Fatta e testata (2026-07-10) |
 | MERCATO-UI Fase C3 — Tab Mete | Card ridisegnate (badge stato unico, nomi normalizzati, niente testi ripetuti), schedina compatta, codici sintetici nascosti nel dettaglio, strip con nome facoltà, debounce ricerca | ✅ Fatta e testata (2026-07-13) |
 | MERCATO-UI Fase C4 — Candidatura + Zaino | Zaino coi capitoli-card della candidatura (testa ambra + conteggio "N di M"), banner Wiz in webp (408→68 KB), celebrazione con focus/Escape, bonifica 6 residui blu pre-C1 | ✅ Fatta e testata (2026-07-14) |
 | MERCATO-UI Fase C5 — Guide + fiducia + OG | OG dedicata 64 KB (P2.14 chiuso), pagina fiducia `guide/come-funziona.html` (gate privacy ok), sw.js senza PNG 408 KB, sitemap 4 URL, 30 file spazzatura eliminati (cartelle legacy: attendono conferma Nicola) | ✅ Fatta e testata (2026-07-14) |
 | MERCATO-UI Fasi C6, D — Demo LA + QA | Assorbite dall'ondata PERCORSO: la demo LA Generator diventa stazione del viaggio (P5), il QA finale diventa P7 | 🔁 Superate (2026-07-14) |
-| **PERCORSO — redesign a viaggio** | `PLAN.md` riscritto (grill 10 decisioni + Codex APPROVED al R5): due mondi ingresso/dashboard, linea di viaggio = nav, itinerario a stazioni, palette riaperta (2 direzioni: Notte cartografica vs Orizzonte chiaro), fasi P0 mockup → P7 QA, deadline settembre 2026 | 📋 Pianificata — prossima: P0 (2 mockup) |
+| PERCORSO — Fase P0: mockup + scelta | 2 mockup completi in `design/proposte-percorso-2026-07/` (sessione 49) + **scelta di Nicola (15/07): "Notte cartografica" in VERSIONE GIORNO** — solo tema chiaro, firma scura nell'ingresso | ✅ Chiusa (2026-07-15) |
+| **PERCORSO — piano pilot-ready R0→R6** | `PLAN.md` revisionato dopo audit strategico (15/07, sessione 51): livelli dati A/B/C, starter Giurisprudenza+Economia, MUST/SHOULD/LATER, Home essenziale, **LA Workspace v0 manual-first e versionato**, test utenti prima delle rifiniture, checkpoint quindicinali; vecchie D11/D15 superate | 📋 Piano pronto e vincolante |
+| PERCORSO — R0: verità, dati e confini | Conferma starter Ca' Foscari, mail ufficio Erasmus, intervista Bruno A2/D5, G5 pipeline (`linkCatalogo`/`notaDisponibilita`/fonte/`verificataIl`), misura gap A/B/C, schema ramo `la` | ⏳ APERTA — in gran parte azioni umane (mail, intervista, conferma starter). Checkpoint 31/07 |
+| **PERCORSO — R1.1: tema unico giorno** | Tema notte rimosso (palette `body.tema-notte`, regole notte mappa, CSS+bottone toggle, `initTema()`); `--night-*` reinterpretati come superfici a inchiostro del giorno; caso legacy `ew-tema:notte` verificato innocuo | ✅ Fatta e testata (2026-07-15, sessione 52) |
+| PERCORSO — R1.2: drawer | Drawer da destra (Profilo, Cambia ateneo, Guide, Come funziona) con Escape/focus/ritorno al controllo di apertura. **Decisione Nicola 15/07: la nav a 3 voci NON è qui, slitta a fine R1 con R3** | ⬜ Prossima, in coppia con R1.3 |
+| PERCORSO — R1.3: zaino per-ateneo | Contenitore con ateneo attivo + zaini separati; legacy assegnato solo con corrispondenza univoca, ogni ambiguità chiede allo studente; nessuna perdita al cambio ateneo | ⬜ Prossima — pezzo più delicato di R1 |
+| PERCORSO — R1.4/R1.5/R1.6 | Contratto hash + funzione unica navigazione/history · caricamento dati progressivo (oggi si scaricano TUTTE le mete dei DUE atenei al primo avvio) · regola deterministica della tappa corrente | ⬜ Da fare — R1.5 richiede primo avvio MISURATO su telefono (gate R1) |
 | **Pipeline dati T0→T3 — Gemini + Codex** | Timeout esterno corretto e pubblicato; tutti i 3 retry ora completano, ma l'ultimo rilancio ha ricevuto 3× `503 UNAVAILABLE`; nessun dato parziale | ⏸️ Attendere che cali la domanda Gemini, poi eseguire un solo batch comparativo |
 
 **Tab visibili nella pagina (navigazione inferiore):** Oggi (missione) → Mete → Candidatura (scadenze+checklist fuse).
 **Tab nascosti (accessibili da JS):** Idoneità · Profilo.
+**Nav a 3 voci (Mete · Home · Percorso):** decisa nel piano, ma implementata a
+FINE R1 insieme a R3 (decisione di Nicola, sessione 52) — la voce "Percorso"
+richiede la schermata unificata a stazioni, che nasce in R3.
+**Tema:** UNICO, giorno. Il toggle notte non esiste più (R1.1).
 
 ## 3. ARCHITETTURA (le 2 regole d'oro, rispettate)
 
@@ -2284,6 +2449,82 @@ python -m http.server 8000
 poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
+
+### Cantiere SITO (Claude Code) — numerazione 49→52
+
+**Aggiornamento 2026-07-15 — sessione 52 (R1.1 fatta, tema unico giorno):**
+
+1. **Sanare la numerazione delle sessioni — decide Nicola.** Pubblicando R1.1
+   il 15/07 è emerso che cantiere SITO e cantiere DATI hanno numerato le
+   sessioni in parallelo da 48: **49, 50, 51 e 52 esistono due volte**. Nessuna
+   storia è andata persa nell'unione, ma finché non c'è una convenzione
+   (prefissi S-nn / M-nn, oppure contatore unico) ogni citazione di un numero
+   deve dire anche di quale cantiere parla. Vedi la nota in testa a questo file.
+2. **Prossima sessione di codice: R1.2 + R1.3 insieme** — drawer da destra
+   (Profilo, Cambia ateneo, Guide, Come funziona; Escape, focus e ritorno al
+   controllo di apertura obbligatori) **+ migrazione zaino per-ateneo**. Vanno
+   in coppia perché il "Cambia ateneo" del drawer è il punto d'ingresso della
+   migrazione: contenitore con ateneo attivo, zaini separati, legacy assegnato
+   automaticamente SOLO con corrispondenza univoca, ogni ambiguità chiede allo
+   studente, nessuna perdita al cambio ateneo. Oggi il cambio ateneo vive nel
+   form Profilo e fa `salva + location.reload()` su uno zaino condiviso.
+3. **Decisione di Nicola (sessione 52): la nav a 3 voci Mete·Home·Percorso
+   NON si fa in R1.2, slitta a FINE R1 insieme a R3.** La schermata Percorso
+   unificata a stazioni nasce in R3; una voce "Percorso" che punta all'attuale
+   Candidatura sarebbe nav definitiva su contenuto provvisorio. Conseguenza
+   dichiarata: il gate R1 "navigazione stabile" si chiude solo con R3.
+4. **R1.5 ha bisogno di una misura, non di un'opinione.** `index.html` carica
+   in sequenza tutti i file mete dei due atenei (~1.700 mete) prima di sapere
+   quale serve. Il gate R1 chiede il primo avvio misurato su telefono: fare la
+   misura PRIMA di ottimizzare, così il "dopo" è confrontabile. Il checkpoint
+   31/07 vuole anche la decisione tecnica sul caricamento progressivo.
+5. **R0 resta aperta e non la sblocca il codice**: mail all'ufficio Erasmus,
+   intervista a Bruno (A2/D5), conferma dello starter Ca' Foscari, G5 pipeline
+   e misura dei gap A/B/C sono azioni di Nicola/Bruno. Checkpoint 31/07.
+
+**Aggiornamento 2026-07-15 — sessione 51 (piano pilot-ready revisionato):**
+1. **Prossima sessione: R0 — Verità, dati e confini** (`PLAN.md` §7):
+   confermare Ca’ Foscari Economia come starter oppure sostituirla una sola
+   volta in base all’accesso a tester reali; Sapienza Giurisprudenza resta lo
+   starter obbligatorio.
+2. **Azioni Bruno/Nicola prima o in parallelo al codice**: inviare la mail di
+   conferma all’ufficio Erasmus; raccogliere da Bruno A2/D5 (come ha trovato i
+   corsi e scoperto che 6/8 non erano disponibili), Transcript e riconoscimento
+   finale quando disponibili.
+3. **G5 pipeline prima del Workspace**: introdurre `linkCatalogo`,
+   `notaDisponibilita`, fonte, `verificataIl` e controllo link nel contratto
+   batch; misurare separatamente copertura Livello A/B/C. Non considerare
+   esistenti corsi di casa o corsi host strutturati: oggi non lo sono.
+4. **Definire prima dell’UI** lo schema additivo `la` per-ateneo e per-meta,
+   con versioni, sostituzioni, motivazioni e timestamp; il Workspace resta
+   manual-first e usa dati proposti solo dove verificati.
+5. **Prima verifica formale: 31/07** — R0 chiusa, starter confermati, gap A/B/C
+   misurati e decisione sul caricamento progressivo dei dati. Se il core
+   slitta, si rinviano gli SHOULD; non si riapre il brand per gusto personale.
+
+**Aggiornamento 2026-07-15 — sessione 50 (piano definitivo del percorso):**
+1. **Prossima sessione: Fase R1 — Fondamenta** (vedi `PLAN.md` §R1): token
+   solo-giorno estratti dal tema GIORNO di `mockup-notte.html`, RIMOZIONE
+   del tema notte (toggle + CSS), bottom nav mobile a 3 voci (Mete · Home
+   centrale · Percorso) + barra alta desktop + drawer da destra, contratto
+   di navigazione (Home=`#oggi`, Mete=`#mete`, Percorso=`#percorso` nuovo;
+   vecchi hash alias permanenti, `#checklist` dipendente dallo stato),
+   regola deterministica della tappa corrente, Wiz a segno grafico.
+2. **Delega**: le fasi R1→R8 sono ordini di lavoro autosufficienti per
+   Sonnet/Opus/Codex — il modello esecutore legge `PLAN.md` + questo file,
+   implementa SOLO la propria fase e non rinegozia le decisioni del grill;
+   in caso di conflitto reale col piano si ferma e riporta a Nicola.
+3. **Decisioni da NON riaprire** (grill 15/07): niente account (profilo
+   locale vestito da iscrizione), LA Generator INTERATTIVO visibile con
+   soglia di copertura (vincoli OP8 read-only superati da D11), tema notte
+   accantonato, nessun sacrificabile (D15: se il tempo non basta slitta la
+   chiusura, non lo scope).
+4. Restano valide le azioni umane di Nicola delle sessioni precedenti
+   (rilettura pagina fiducia, decisione cartelle legacy via .bat,
+   registrazione sitemap su Google Search Console).
+### Cantiere DATI / mappatura (Codex) — numerazione 49→69
+
+> Numeri 49-52 duplicati rispetto al cantiere sito: vedi la nota in testa al file.
 
 **Aggiornamento 2026-07-14 — sessione 69 (retry completo, Gemini saturo):**
 1. Non rilanciare ancora nella stessa finestra: Gemini ha restituito 3× `503`.

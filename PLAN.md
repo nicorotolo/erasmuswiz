@@ -1,372 +1,631 @@
-# Plan: Ondata "PERCORSO" — redesign a viaggio di ErasmusWiz
-_Locked via grill — by Claude + Nicola (2026-07-14)_
+# Plan: Ondata "PERCORSO" — ErasmusWiz pilot-ready
 
-> **Supersessione**: questo piano sostituisce i blocchi residui del piano
-> "MERCATO-UI" del 2026-07-10 (C6 LA Generator demo e Fase D QA vengono
-> assorbiti qui). Le fasi C1–C5 già implementate restano il punto di
-> partenza del codice, ma la loro direzione visiva (direzione C
-> indigo/ambra) è formalmente RIAPERTA dalla decisione 8 del grill.
+_Baseline operativa — Nicola + Codex, 2026-07-15._
+_Sostituisce il piano “definitivo” della sessione 50 dopo la revisione strategica
+da cofondatore. La direzione visiva resta scelta; priorità e scope diventano
+modificabili sulla base di prove reali._
 
-## Goal
+> **Precedenza documentale:** per il lavoro luglio-settembre 2026 questo file è
+> l’ordine operativo principale e prevale sulle sequenze precedenti di
+> `ROADMAP.md`, `DISEGNO_OPERATIONS.md` e dei vecchi piani PERCORSO quando sono
+> in conflitto. `PROGETTO_ERASMUS.md` resta la bussola strategica. Da ottobre
+> torna valida la roadmap di lungo periodo, da riallineare agli esiti del
+> pilota di settembre.
 
-Trasformare ErasmusWiz da "sito a card impilate" ad app strutturata come un
-VIAGGIO: il verdetto di Nicola sull'esito delle fasi C1–C5 è "troppo
-bambinesco, manca il percorso, non c'è trasporto". Il redesign introduce un
-modello a due mondi — un INGRESSO emozionale (mappa d'Europa con archi di
-volo leggermente animati, onboarding come inizio del viaggio) e una
-DASHBOARD operativa ("cabina di pilotaggio") per l'utente profilato — con la
-LINEA DI VIAGGIO (Scegli la meta → Candidati → Parti) che diventa la
-navigazione principale al posto delle tab. Ogni sezione è una TAPPA: la
-candidatura diventa un itinerario a stazioni, le mete una mappa sincronizzata
-con le "rotte" preferite, la demo del LA Generator (ex C6) nasce come
-stazione del viaggio. L'identità si semplifica: immaginario cartografico
-lineare, Wiz ridotto a segno grafico a tratto, palette riaperta con due
-direzioni a confronto (Notte cartografica vs Orizzonte chiaro). Metodo:
-2 mockup HTML completi → scelta vincolante di Nicola da telefono →
-implementazione a blocchi. Chiusura entro settembre 2026. Dati, motore di
-compatibilità/scadenze, URL e SEO esistenti sono intoccabili.
+## 1. Obiettivo vero entro settembre
 
-## Approach
+Portare ErasmusWiz a una versione **pilot-ready**: non una collezione di
+schermate che sembra un’app, ma un prodotto che uno studente reale di Sapienza
+o Ca’ Foscari riesce a usare senza aiuto per:
 
-**Fase P0 — Due mockup completi + scelta (1 sessione + scelta di Nicola)**
-1. Nuova cartella `design/proposte-percorso-2026-07/` con comparatore e due
-   mockup navigabili autonomi, ciascuno con TRE schermate collegate:
-   (a) INGRESSO — mappa d'Europa con archi di volo animati (disegno
-   progressivo via stroke-dashoffset + punto luminoso che percorre la rotta,
-   poche rotte a rotazione in loop lento) e onboarding a 3 domande ambientato
-   sul viaggio; (b) DASHBOARD profilata — linea di viaggio orizzontale in
-   testa con tappa corrente evidenziata, sotto moduli operativi cliccabili
-   (prossima scadenza con countdown, missione del giorno, "Le tue rotte" come
-   widget mini-mappa con le preferite, stato candidatura, zaino, teaser LA
-   Generator); (c) CANDIDATURA — itinerario verticale a stazioni (linea di
-   rotta continua, scadenze come stazioni: passate spente, corrente
-   evidenziata con countdown, future attenuate; "Ora tocca a te" = stazione
-   corrente).
-2. Direzione 1 "Notte cartografica": fondo inchiostro profondo, rotte
-   oro/luce, città come punti luminosi; il tema chiaro è la "mappa diurna"
-   della stessa cartografia. Direzione 2 "Orizzonte chiaro": fondi
-   chiarissimi, blu orizzonte + un accento caldo, superfici pulite, ombre
-   minime. ENTRAMBE condividono: immaginario cartografico lineare, Wiz come
-   segno grafico a tratto (SVG, niente render 3D, niente stelline), tema
-   chiaro E notte disegnati entrambi, movimento gentile con fallback
-   `prefers-reduced-motion` (scena statica con rotte già disegnate).
-2-bis. **Riferimenti visivi forniti da Nicola (2026-07-14, 4 dashboard/app
-   scolastiche)** — principi vincolanti per ENTRAMBI i mockup:
-   (a) *chiarezza lineare e accogliente*: fondo chiarissimo con molta aria,
-   card morbide arrotondate, UN colore profondo come accento e per le
-   "card-copertina"; niente affollamento (rif. "iStudent");
-   (b) *quadro d'insieme modulare*: la dashboard tiene insieme numeri
-   chiave in alto, avanzamento, calendario-scadenze e bacheca delle
-   prossime azioni in una griglia ordinata e leggibile (rif. "ACERO") —
-   è l'impianto dei moduli di P3;
-   (c) *mobile a scorrimento*: una sola colonna verticale di card, hero
-   card "oggi" in testa (= missione del giorno), striscia giorni/date,
-   bottom nav a pillola (= la barra tappe compatta);
-   (d) *sintesi con le due direzioni*: i riferimenti sono tutti a tema
-   chiaro → in "Notte cartografica" il buio vive nell'INGRESSO/mappa e
-   nelle card-copertina, mentre la dashboard resta chiara e ariosa in
-   entrambe le direzioni; il tema notte completo resta di prima classe
-   come da piano.
-2-ter. **La dashboard è un PLANNER (grill 2026-07-14, ricognizione study
-   planner: Shovel, Structured, My Study Life)** — pattern vincolanti, da
-   mostrare GIÀ nei mockup della schermata dashboard: (a) *piano della
-   settimana AUTO-GENERATO*: l'app propone le prossime azioni incrociando
-   le scadenze del bando (dati con fonte esistenti) con le voci checklist
-   aperte — lo studente spunta, non crea nulla; (b) *indicatore "Sei in
-   linea?"*: segnale sempre visibile (in anticipo / in linea / in ritardo)
-   derivato onestamente da giorni alla prossima scadenza vs voci aperte
-   collegate; (c) *calendario mensile delle scadenze* come modulo (pattern
-   ACERO), complementare all'export .ics esistente; (d) *check-in
-   settimanale gentile*: card di inizio settimana (fatto / proposto /
-   quanto manca) che appare alla prima apertura in una nuova settimana —
-   niente notifiche. ESCLUSI consapevolmente: streak/serie di giorni
-   (meccanica di gioco, riporterebbe il bambinesco) e task personali
-   creati dallo studente (scope nuovo, eventualmente MERCATO-2).
-3. Vincoli tecnici dei mockup: dati REALI riusati da
-   `design/proposte-2026-07/_assets/` (mappa 43 paesi, mete demo con
-   coordinate precalcolate), pin = `<button>` accessibili in overlay HTML,
-   clustering esistente, rendering solo textContent/createElement, noindex,
-   budget ≤600 KB/pagina, gate mobile 375×667: nell'ingresso si vede mappa +
-   invito all'azione; nella dashboard linea di viaggio + primo modulo interi
-   nel primo viewport.
-4. Nicola guarda il comparatore PRIMA DA TELEFONO e sceglie. La scelta è
-   vincolante, sostituisce formalmente la direzione C (nota di supersessione
-   in `DISEGNO_BRAND.md`) e viene tradotta in token in P1. **Fonte di verità
-   dei colori (una sola)**: i valori APPLICATI vivono in `css/style.css`
-   (:root); `design/tokens/colors.css` è documentazione della direzione e va
-   riscritto nello stesso blocco P1, con un controllo di coerenza tra i due
-   file prima di ogni deploy che tocchi i token.
+1. capire se e come può candidarsi;
+2. trovare e ordinare mete realmente accessibili;
+3. capire qual è il prossimo passaggio burocratico;
+4. costruire e modificare una bozza di Learning Agreement;
+5. verificare sempre fonte e data delle informazioni importanti.
 
-**Fase P1 — Fondamenta della direzione scelta (1 sessione)**
-5. Ritaratura completa di `css/style.css` :root + tema notte sui nuovi
-   token; nuovo componente LINEA-NAV che sostituisce la nav a tab: tappe
-   cliccabili (Dashboard · Scegli la meta · Candidati · Parti) con la
-   posizione dello studente segnata; su mobile si comprime in barra tappe
-   compatta in basso. **Contratto di navigazione definito in questa fase**:
-   ricognizione degli hash reali esistenti (`#oggi`, `#mete`, `#checklist`,
-   `#idoneita`, `#profilo`, …) e tabella stabile tappa→hash→sezione —
-   con la decisione su "Parti" GIÀ PRESA: la tappa "Parti" ha un hash
-   dedicato NUOVO (`#parti`) che mostra la sezione zaino/partenza estratta
-   dall'area oggi condivisa con la candidatura, mentre `#checklist` resta
-   la tappa "Candidati"; i vecchi hash restano alias validi per sempre
-   (link esterni/bookmark), e UNA sola funzione di navigazione gestisce
-   tappe, alias e Indietro/Avanti del browser. L'alias legacy `#checklist`
-   risolve in modo DIPENDENTE DALLO STATO, replicando il comportamento
-   attuale: per l'utente selezionato apre lo zaino (`#parti`), altrimenti
-   la candidatura; `#parti` è il nuovo URL canonico dello zaino.
-   **`#parti` PRIMA della selezione** (raggiungibile dalla linea-nav e via
-   URL): tappa bloccata ma informativa — spiega cosa contiene ("qui
-   troverai la checklist di partenza quando sarai selezionato") con
-   bottone verso Candidati; NIENTE checklist post-selezione vuota e
-   NESSUN controllo che permetta di dichiararsi selezionato per errore
-   da questa vista. **Nella stessa fase si fissa
-   la regola deterministica della "tappa corrente"** (la linea-nav la mostra
-   da subito, non si può rimandare a P3): tabella di priorità su stato del
-   bando per data → flag selezione → progressi checklist, con fallback
-   "Scegli la meta" per zaini vecchi o stato indeterminabile. Wiz lineare come
-   SVG inline riutilizzabile; rimozione stelline decorative e riferimenti ai
-   render 3D dall'UI (gli asset restano in `img/` finché l'OG non è
-   riallineata in P6).
+La forma resta un sito statico che **si comporta come una web app**. Non serve
+un account per essere percepito come utile, rapido e curato.
 
-**Fase P2 — Ingresso (1 sessione)**
-6. La home non profilata diventa la mappa-scena: motore archi di volo
-   (riuso del motore mappa C2: pin, cluster, tooltip, dettaglio), onboarding
-   a 3 domande sul viaggio (riuso flusso `#home-benvenuto`, ambientazione
-   nuova), landing con mete accese + prossima scadenza.
-   `prefers-reduced-motion` e tab in background (Page Visibility) fermano
-   l'animazione; nessuna animazione su più di ~6 rotte simultanee.
-   **Invarianti SEO della home fissati PRIMA di toccarla**: title,
-   description, canonical, H1 e il testo indicizzabile restano identici.
-   ATTENZIONE (verificato): parte del testo dell'onboarding vive GIÀ nel
-   file HTML statico, solo nascosta via CSS — quindi il controllo si fa
-   confrontando il DOM STATICO COMPLETO di `index.html` prima/dopo
-   (inclusi blocchi nascosti, headings e testo), non solo ciò che appare
-   con JavaScript attivo; ogni testo statico che il redesign vuole
-   cambiare va deciso consapevolmente come cambiamento SEO, non subito
-   per sbaglio. **Accessibilità della mappa
-   (regola per OGNI uso della mappa, qui e in P3/P4)**: link "Salta ai
-   risultati" prima dei pin, elenco testuale controparte COMPLETA della
-   mappa, annuncio `aria-live` del conteggio filtrato, stato
-   selezionato/corrente visibile e annunciato, focus gestito
-   esplicitamente all'apertura e chiusura di dettaglio/modal.
+La capacità disponibile dichiarata è circa **10 ore a settimana**, con una
+sessione Claude/Codex per giorno lavorativo. Tra metà luglio e fine settembre
+il budget realistico è circa 100-110 ore umane, oltre alla produzione dei
+modelli. Il piano protegge quel budget: velocità di generazione del codice non
+elimina il tempo necessario per dati, controllo, test e decisioni.
 
-**Fase P3 — Dashboard profilata (1 sessione)**
-7. L'utente profilato atterra sulla dashboard-hub: linea di viaggio in testa
-   con tappa corrente calcolata dallo stato reale (fase del bando + progressi
-   checklist), moduli operativi cliccabili che portano alle tappe. La
-   missione del giorno e il countdown esistenti diventano moduli (il motore
-   temporale non si tocca). La mappa qui è SOLO il widget "Le tue rotte".
-   **Moduli planner (dal grill 2026-07-14, irrobustiti dalla review)**:
-   *Prerequisito dati (estensione ADDITIVA autorizzata, unica eccezione
-   all'intoccabilità dei dati)*: le scadenze guadagnano campi metadati
-   per-voce — `fonte`, `verificataIl`, `pubblicato`, `ciclo` — e il bando
-   uno STATO FORMALE che distingue: candidature aperte / candidature
-   chiuse ma ciclo attivo (graduatoria, accettazione, ISEE) / dati scaduti
-   / prossimo bando non pubblicato. Nessun valore esistente viene alterato;
-   i CONTENUTI dei nuovi valori vengono dai documenti già in `fonti/`, ma
-   il campo `fonte` è un oggetto {etichetta, url} il cui url è SEMPRE un
-   link HTTPS pubblico ufficiale (pagina/PDF dell'ateneo) — VIETATI i
-   percorsi verso `fonti/` (cartella in `.gitignore`, non esiste su GitHub
-   Pages); i link fonte si verificano nella QA P7 sul sito pubblicato. *Fuso
-   canonico*: tutte le date del bando si interpretano in `Europe/Rome`
-   (oggi sono orari locali `T12:00` letti nel fuso del dispositivo —
-   difetto latente per studenti all'estero e cambi d'ora); regola tecnica
-   VINCOLANTE: un'UNICA funzione di parsing che legge le stringhe-data
-   come orari civili italiani, e DIVIETO di `new Date(stringa)` diretto
-   nei moduli planner/countdown/calendario.
-   (a) "Questa settimana" — piano auto-generato da una FUNZIONE PURA di
-   derivazione con SPECIFICA COMPLETA: input (scadenze del ciclo attivo +
-   voci checklist aperte con collegamento voce→scadenza dell'impianto
-   OP2), ordinamento deterministico (per scadenza, poi per ordine di
-   checklist), regole per i casi limite — più voci sulla stessa scadenza,
-   voce senza scadenza collegata (mostrata senza data, mai inventata),
-   settimana già iniziata, checklist vuota o completa (risultato NEUTRO
-   esplicito: nessuna urgenza finta); nessun dato nuovo persistito oltre
-   le spunte esistenti. (b) indicatore "Sei in linea?": "in ritardo" SOLO
-   per voci azionabili non spuntate oltre la PROPRIA scadenza; negli altri
-   casi messaggio prudente e mai una valutazione di performance (le voci
-   non pesano tutte uguale e le spunte non hanno timestamp); sempre con la
-   spiegazione del perché. (c) calendario mensile con le scadenze del
-   ciclo attivo evidenziate; se NON esiste un ciclo pubblicato e
-   verificato, piano e calendario operativo si NASCONDONO e al loro posto
-   compaiono la data dell'ultimo controllo e il link alla pagina
-   ufficiale — in quello stato l'indicatore "Sei in linea?" mostra un
-   neutro "non disponibile" e la card check-in NON viene creata né
-   salvata. *Fonte raggiungibile ovunque* (coerenza con la promessa del
-   sito "link e data per ogni informazione"): ogni scadenza mostrata da
-   piano settimanale, calendario e dettaglio del giorno espone la sua
-   fonte apribile e la data dell'ultima verifica (`fonte`+`verificataIl`). (d) card check-in di inizio settimana: il campo "ultima
-   settimana vista" (formato completo `YYYY-Www`, fallback su valore
-   mancante o corrotto = mostra la card) vive DENTRO lo zaino
-   per-ateneo della migrazione P3, mai globale. *Ramo "selezionato"
-   separato*: lo stato è auto-dichiarato e va presentato come tale ("Hai
-   indicato di essere stato selezionato"); il planner post-selezione NON
-   mostra semaforo né piano datato finché non esistono date verificate
-   (molte dipendono dalla meta o da comunicazioni successive) — solo i
-   passi post-selezione pertinenti, senza date inventate; le scadenze
-   delle candidature non contaminano il ramo post-selezione.
-   **Migrazione zaino-ateneo OBBLIGATORIA in questo blocco** (difetto
-   dimostrato dal codice: un'unica chiave `erasmuswiz-zaino` senza campo
-   ateneo, conservata al cambio ateneo). Schema di arrivo: CONTENITORE
-   PER-ATENEO — un unico oggetto persistito con uno zaino separato per
-   ciascun ateneo + l'ateneo attivo; al cambio ateneo lo zaino corrente
-   viene ARCHIVIATO sotto il suo ateneo di origine (mai applicato al
-   nuovo) e il nuovo ateneo riparte dal proprio archivio se esiste,
-   altrimenti dall'onboarding. Migrazione dello zaino legacy: assegnazione
-   AUTOMATICA all'ateneo attivo SOLO con corrispondenza UNIVOCA
-   (dipartimento+area del profilo esistono nell'ateneo attivo E non
-   nell'altro); in OGNI caso ambiguo — area condivisa dai due atenei,
-   campo mancante, incoerenza — si chiede esplicitamente allo studente a
-   quale ateneo appartiene il profilo e si archivia il risultato scelto.
-   Nessuna perdita di dati in nessun ramo. Scenario cambio-ateneo nel mini-QA di
-   blocco: dashboard, mete e checklist coerenti col nuovo ateneo; ritorno
-   all'ateneo precedente che ripristina il suo zaino archiviato; zaino
-   legacy coerente e incoerente entrambi simulati.
+## 2. Che cosa significa “qualità”
 
-**Fase P4 — Tappa "Scegli la meta" (1 sessione)**
-8. Tab Mete: mappa sincronizzata in testa (mete dell'area del profilo;
-   filtri e ricerca aggiornano mappa ed elenco insieme; card↔pin collegati),
-   schedina ribattezzata "Le tue rotte" con le preferite disegnate come archi
-   sulla mappa in ordine di priorità. Card, filtri, motore di compatibilità,
-   stima borsa: INVARIATI nella logica. **Budget prestazioni con il dataset
-   COMPLETO** (la pagina carica già ~2,1 MB di dati dei due atenei):
-   l'aggiornamento mappa+lista è coalizzato — debounce già esistente sulla
-   ricerca + UN solo passaggio per frame via `requestAnimationFrame`, mai
-   render doppi a cascata; sulla mappa si disegnano solo cluster/città
-   uniche (mai un pin per meta). **Criterio misurabile e verificato nel
-   mini-QA di blocco** (375px, CPU throttled 4x, dataset completo):
-   nessun long task > 50 ms durante digitazione/filtri, aggiornamento
-   completo lista+mappa entro 250 ms dal termine del debounce; se il
-   criterio fallisce, si interviene su `renderMete()` (render incrementale
-   o cap+"mostra altre", già ipotizzato in C3) finché passa.
+La qualità di questa ondata si misura in quest’ordine:
 
-**Fase P5 — Tappa "Candidati" + LA Generator demo (1-2 sessioni)**
-9. Candidatura come itinerario a stazioni (presentazione nuova, dati
-   scadenze/fonti e export .ics INVARIATI). La demo UI del LA Generator (ex
-   C6) nasce come stazione dell'itinerario, con i vincoli già decisi e NON
-   rinegoziati: read-only, NESSUNA scrittura zaino, mapping molti-a-molti con
-   totali ECTS/CFU, niente campi codici corso host, placeholder onesto dove
-   manca `linkCatalogo`, stato onesto "in arrivo".
+1. **Comprensione:** lo studente capisce cosa fare senza spiegazioni di Nicola.
+2. **Affidabilità:** ogni informazione critica ha fonte, stato e data di verifica.
+3. **Completezza del compito:** i flussi principali non finiscono in vicoli ciechi.
+4. **Velocità:** il sito risponde bene anche su telefono economico.
+5. **Accessibilità:** tastiera, focus, lettori di schermo e movimento ridotto.
+6. **Coerenza visiva:** il viaggio cartografico dà identità senza coprire il valore.
+7. **Quantità di funzioni:** viene dopo tutto il resto.
 
-**Fase P6 — Tappa "Parti" + riallineamento brand pubblico (1 sessione)**
-10. Zaino/Partenza come tappa conclusiva dell'itinerario (stesso linguaggio
-    a stazioni; conteggi capitolo e retrocompatibilità zaino INVARIATI).
-    Riallineamento degli asset pubblici alla nuova identità: OG image nuova
-    (≤100 KB), `manifest.json` (theme/background color), favicon se serve,
-    guide SEO e pagina fiducia riallineate SENZA cambiare URL/canonical/
-    contenuti. **Service worker**: non solo cache bump — definizione
-    esplicita della shell offline (elenco preciso di HTML, CSS, JS
-    applicativo, file dati atenei e mappa necessari al primo avvio) nella
-    precache di `sw.js`.
+Una funzione presente ma non verificata non aumenta la qualità. Un placeholder
+evita una promessa falsa, ma non rende automaticamente utile una funzione.
 
-**Fase P7 — QA e chiusura (1 sessione)**
-11. Regressione completa: onboarding da localStorage pulito, zaino vecchio
-    simulato, entrambi gli atenei, chiaro/notte, mobile/desktop, export .ics,
-    riordino rotte, `prefers-reduced-motion`, navigazione da tastiera sulla
-    linea-nav, vecchi hash/bookmark che risolvono sugli alias. **Planner
-    (casi di prova ripetibili, da script o localStorage preparato)**:
-    checklist vuota, voce senza scadenza collegata, bando nei 4 stati
-    (aperto / chiuso ma ciclo attivo / dati scaduti / non pubblicato),
-    ramo selezionato senza date verificate, cambio ateneo (check-in e
-    piano indipendenti per ateneo), ISO week a cavallo di Capodanno,
-    date interpretate in Europe/Rome da un fuso diverso e nei cambi
-    d'ora. **PWA**:
-    upgrade da una cache precedente, primo avvio offline, riapertura dopo
-    deploy. Chiusura a due stati: "implementata" col QA interno,
-    "validata" col test di Bruno (se slitta, resta "implementata").
-    Aggiornamento `ROADMAP.md`, `STATO_DEL_SITO.md`, `DISEGNO_BRAND.md`.
+## 3. La strategia di copertura: larghezza + profondità
 
-**Regola trasversale (invariata dall'ondata precedente)**: ogni blocco si
-chiude con mini-QA a video (mobile ~375px + desktop, chiaro + notte,
-ENTRAMBI gli atenei), `node --check` sui JS toccati, e checklist SEO: URL e
-`rel=canonical` invariati, GoatCounter su tutte le pagine, `sitemap.xml`
-coerente, nessun evento analytics con dati personali. Git SOLO via .bat
-(incidente OneDrive, sessione 38).
+L’obiettivo finale resta avere **Ca’ Foscari e Sapienza completi**. Per evitare
+che “completo” significhi cose diverse a seconda della sessione, si fissano tre
+livelli.
 
-## Key decisions & tradeoffs
+### Livello A — Meta pronta
 
-- **Percorso = spina dorsale, non una sezione** (decisione 1): il viaggio
-  struttura navigazione, home e sezioni. Rifiutato il "percorso solo in
-  home" (non risolveva il verdetto) e la gamification (avrebbe aumentato il
-  bambinesco).
-- **Due mondi: ingresso vs dashboard** (decisioni 4-5): la mappa animata è
-  la scena del PRIMO contatto e dell'onboarding; l'utente profilato atterra
-  su una dashboard operativa dove la mappa è ridotta a widget. Rifiutata la
-  mappa protagonista anche da profilati (consuma il primo viewport a ogni
-  accesso) e la dashboard a sola to-do list (perde il colpo d'occhio).
-- **La linea di viaggio DIVENTA la nav** (decisione 6): le tab spariscono.
-  È la scelta più rischiosa del piano (pattern non convenzionale); mitigata
-  mantenendo identici hash/meccanismo di routing e comprimendo la linea in
-  barra tappe in basso su mobile — posizione convenzionale.
-- **Wiz ridotto a segno grafico lineare** (decisione 2): niente più render
-  3D e stelline nell'UI; tono di voce caldo invariato. Rifiutata
-  l'eliminazione totale (si perde riconoscibilità già costruita) e il
-  restyling 2D da protagonista (rischio di rientro del bambinesco).
-- **Archi di volo animati come firma del brand** (decisione 3): linguaggio
-  delle mappe di volo, adulto. Vincoli: poche rotte alla volta, loop lento,
-  stop con `prefers-reduced-motion` e tab nascosta. Rifiutata la scena
-  ricca continua (peso, distrazione) e il movimento solo all'interazione
-  (prima impressione statica = il difetto lamentato).
-- **Palette riaperta** (decisione 8): la direzione C decade a sole 4
-  sessioni dalla sua adozione — costo di riallineamento accettato
-  consapevolmente da Nicola pur di ottenere la semplificazione d'immagine.
-  Due direzioni a confronto: Notte cartografica e Orizzonte chiaro
-  (decisione 10; scartate "Inchiostro e carta" e "Indigo evoluto").
-- **La dashboard è un planner auto-generato** (grill 2026-07-14): il piano
-  settimanale nasce dai dati del bando, non da task creati dallo studente —
-  zero attrito e sfrutta il vantaggio competitivo (i dati con fonte).
-  Adottati "Sei in linea?", calendario scadenze e check-in settimanale;
-  rifiutati streak (bambinesco) e task personali (scope da MERCATO-2);
-  il planner manuale classico è stato scartato perché butta via i dati.
-- **Mockup-first** (decisione 9): 2 mockup completi prima di toccare il
-  sito, scelti da telefono. Costo ~1 sessione; assicura che il rebrand non
-  si faccia due volte sul sito vero.
-- **C6 dentro il viaggio** (decisione 7): la demo LA Generator si costruisce
-  UNA volta, già come stazione dell'itinerario, coi vincoli OP8 invariati.
-  Rifiutato "prima chiudere C6+D sul design bocciato" (lavoro da rifare).
-- **Intoccabili confermati**: dati (`js/atenei/**`, `js/dati-*.js`), motore
-  compatibilità/scadenze/temporale, schema ZAINO con retrocompatibilità,
-  URL/canonical/sitemap delle pagine indicizzate, stack vanilla senza build.
-  UNICA eccezione autorizzata (review 2026-07-14): estensione ADDITIVA dei
-  metadati delle scadenze/bando (fonte, verificataIl, pubblicato, ciclo,
-  stato del bando) richiesta dal planner — nessun valore esistente alterato.
+Deve valere per tutte le mete presenti nei due atenei entro settembre. Ogni
+meta possiede, oppure dichiara onestamente come non pubblicato/non trovato:
 
-## Risks / open questions
+- ateneo e dipartimento/facoltà;
+- università partner, città, Paese e codice Erasmus;
+- area disciplinare, livello, posti e durata;
+- requisito linguistico con stato verificabile;
+- collegamento ufficiale disponibile;
+- fonte e data dell’ultimo controllo.
 
-- **Sostituire le tab con la linea-nav** può disorientare gli utenti
-  esistenti e ha esigenze di accessibilità proprie (ruolo `navigation`,
-  stato corrente annunciato, target ≥44px nella barra compatta mobile).
-  Il QA P7 include navigazione completa da tastiera e screen-reader di base.
-- **Prestazioni dell'animazione** su telefoni economici: gli archi animati
-  vanno misurati (niente jank sul thread principale; solo proprietà
-  compositabili dove possibile). Budget: ingresso fluido a 375px su CPU
-  throttled 4x nel pannello dev.
-- **Terzo rebrand pubblico in un mese** (blu → direzione C → PERCORSO):
-  OG image, manifest e guide vanno riallineati di nuovo (P6); finché P6 non
-  chiude, il sito live convive con asset della direzione C — accettato, i
-  contenuti e gli URL non cambiano.
-- **Calcolo della "tappa corrente"**: la regola deterministica è fissata in
-  P1 (vedi Approach) perché la linea-nav la mostra da subito; il rischio
-  residuo sono combinazioni non previste di zaini vecchi/parziali —
-  coperte dal fallback "Scegli la meta" e dallo scenario cambio-ateneo nel
-  mini-QA di P3.
-- **Deadline settembre 2026** con 7-8 sessioni stimate: realistica solo se
-  la scelta mockup arriva rapidamente; se slitta, si comprime P6 (solo OG +
-  manifest, guide dopo).
-- **Disponibilità di Bruno** per la validazione: invariata dall'ondata
-  precedente (se slitta, l'ondata chiude "implementata").
+Un dato non pubblicato non blocca il Livello A se viene mostrato esplicitamente
+come tale. Non si inventa e non si nasconde l’assenza.
 
-## Out of scope
+### Livello B — Meta arricchita
 
-- Monetizzazione in ogni forma; backend, account, database, app native;
-  framework e build step.
-- Logica del LA Generator (generazione documento reale) e matching L3.
-- PWA push / notifiche (MERCATO-2) — il check-in settimanale è SOLO in-app.
-- Task/attività personali creati dallo studente e streak/serie di giorni
-  (decisione del grill 2026-07-14).
-- Modifiche a dati mete/bando/scadenze/borse e al motore di compatibilità
-  (eccetto l'estensione additiva dei metadati scadenze/bando autorizzata
-  per il planner, vedi Key decisions).
-- Cambi di URL o di contenuto testuale delle pagine indicizzate (home,
-  2 guide, pagina fiducia).
-- Nuovi render 3D o nuove pose della mascotte.
+In aggiunta al Livello A:
+
+- scadenze dell’ospitante;
+- `linkCatalogo` alla pagina corsi per incoming/Erasmus, preferita al catalogo
+  generale;
+- `notaDisponibilita` quando la fonte distingue corsi, semestre o accesso agli
+  studenti Erasmus;
+- fonte e `verificataIl` dei dati.
+
+Entro settembre il Livello B è obbligatorio per i due starter e cresce in
+parallelo sulle altre mete. Non è realistico prometterlo per circa 2.000 mete
+senza avere prima aggiornato la pipeline.
+
+### Livello C — Corsi mappati
+
+Comprende singoli corsi host, lingua, semestre, ECTS e disponibilità. È un
+arricchimento progressivo, non un prerequisito del sito di settembre e non una
+promessa per tutte le mete.
+
+### I due starter
+
+- **Sapienza Giurisprudenza** — starter obbligatorio: ground truth di Bruno,
+  55 mete, validatore disponibile.
+- **Ca’ Foscari Economia** — starter predefinito: dataset maturo e dimensione
+  gestibile. Può essere sostituito **solo in R0** se Nicola dispone di tester
+  reali più accessibili in un altro dipartimento Ca’ Foscari. Dopo R0 non si
+  cambia più starter durante l’ondata.
+
+L’architettura e i flussi devono funzionare per entrambi gli atenei da subito;
+la maggiore profondità dei dati parte dai due starter.
+
+## 4. Priorità esplicite
+
+### MUST — obbligatorio per dichiarare settembre “pilot-ready”
+
+- Livello A per tutte le mete dei due atenei.
+- Navigazione Mete · Home · Percorso e zaino separato per ateneo.
+- Ingresso, onboarding e Home essenziale.
+- Mete e Percorso completi nei compiti principali.
+- LA Workspace v0 funzionante, testato sul caso Bruno.
+- Livello B per i due starter.
+- Test con utenti reali dei due atenei.
+- QA mobile/desktop, accessibilità di base, fonti e prestazioni.
+- Completamento delle attività SEO già avviate e Search Console.
+
+### SHOULD — si fa se i MUST sono stabili
+
+- Calendario mensile ricco nella Home.
+- Check-in settimanale autonomo.
+- Stazione città con checklist universale e link ufficiali.
+- Animazioni cartografiche più elaborate del minimo previsto.
+- Livello B esteso oltre i due starter.
+- Export aggiuntivi oltre stampa/PDF e testo ordinato.
+
+### LATER — ottobre-dicembre o dopo validazione
+
+- Cataloghi di singoli corsi per tutte le mete.
+- Matching automatico L3 casa↔host.
+- Notifiche push e rifinitura PWA completa.
+- Account, backend, sincronizzazione fra dispositivi.
+- Tema notte, app nativa, monetizzazione.
+- Contenuti editoriali per ogni città.
+
+**Regola sostitutiva della vecchia D15:** se il tempo stringe, si proteggono i
+MUST e si rinviano SHOULD/LATER. La scadenza slitta solo quando un MUST richiede
+più tempo per essere affidabile, non per conservare tutto lo scope.
+
+## 5. Percorso utente
+
+### 5.1 Ingresso — promessa concreta dentro una scena emozionale
+
+La direzione resta **“Notte cartografica in versione giorno”**:
+
+- sito in solo tema chiaro;
+- scena d’ingresso a inchiostro profondo con rotte d’oro;
+- card-copertina scure usate con parsimonia;
+- Wiz come segno grafico lineare, non come render 3D dominante.
+
+La mappa è la veste, non la promessa. Il primo messaggio deve rendere visibile
+la missione, per esempio:
+
+> Capisci il bando, scegli mete davvero accessibili e non perdere i passaggi
+> importanti.
+
+CTA principale: **“Inizia il tuo percorso”**.
+
+- Mobile: scena pulita, zero pin nel primo viewport, massimo 4-6 rotte lente,
+  `prefers-reduced-motion` e Page Visibility.
+- Desktop: mappa interattiva solo se non rallenta il valore principale; pin
+  accessibili, salto all’elenco, controparte testuale completa e focus gestito.
+- Il contenuto SEO resta nel DOM statico completo e leggibile dai motori.
+
+### 5.2 Onboarding — personalizzazione, non finta iscrizione
+
+Titolo e microcopy parlano di **“Personalizza il tuo percorso”**, non di
+iscrizione. Tre passi:
+
+1. Ateneo.
+2. Corso/dipartimento + livello.
+3. Lingue e livello CEFR, saltabile.
+
+Messaggio sempre visibile:
+
+> I dati restano su questo dispositivo. Se cancelli i dati del browser o cambi
+> dispositivo, il percorso non viene recuperato.
+
+Niente account, bottoni social finti o promesse di sincronizzazione. Le lingue
+derivano dai dati delle mete, mai da una lista hardcoded.
+
+### 5.3 Home — una risposta a “che cosa devo fare adesso?”
+
+La Home non è una bacheca di sette moduli equivalenti. Ordine:
+
+1. **Prossima mossa** — azione principale + prossima scadenza verificata.
+2. **Questa settimana** — massimo 2-3 azioni pertinenti.
+3. **Il tuo progresso** — linea Scegli la meta → Candidati → Parti.
+4. **Le tue rotte** — preferite e accesso rapido alle mete.
+
+“Sei in linea?” viene integrato nella prima o seconda card, con linguaggio
+prudente: “in ritardo” solo per una voce azionabile non spuntata oltre la sua
+scadenza. Mai giudizi generici sulla performance dello studente.
+
+Calendario mensile e check-in sono secondo livello/SHOULD. Senza ciclo di bando
+pubblicato e verificato, non si simula un planner vivo: si mostra l’ultimo
+controllo con link ufficiale e stato neutro.
+
+### 5.4 Mete — prima orientamento, poi strumento
+
+Prima visita senza rotte:
+
+- “Hai già in mente le tue destinazioni?”
+- Sì → cerca e ordina fino a 5 mete.
+- No → esplora mappa, affinità e filtri.
+- Sempre saltabile; rilanciabile con “Ripensa le rotte”.
+
+Dopo la prima visita, Mete diventa uno strumento stabile: ricerca, filtri,
+elenco e mappa sincronizzati. La logica di compatibilità resta invariata finché
+non esiste una decisione separata e motivata.
+
+L’interfaccia distingue chiaramente:
+
+- requisito verificato;
+- requisito non pubblicato;
+- dato non ancora controllato;
+- dato potenzialmente scaduto.
+
+### 5.5 Percorso — itinerario burocratico unico
+
+Un’unica schermata verticale:
+
+1. Prepara la candidatura.
+2. Candidatura e scadenze.
+3. Gate auto-dichiarato “Hai indicato di essere stato selezionato”.
+4. Learning Agreement / LA Workspace.
+5. Parti: prima, durante, dopo.
+6. Preparati alla città — solo se i MUST sono già stabili.
+
+La linea di viaggio racconta il progresso, non sostituisce la navigazione.
+Una sola tappa è corrente: la prima non completata secondo regole
+deterministiche e dati disponibili.
+
+### 5.6 Navigazione
+
+- Mobile: bottom nav Mete · Home · Percorso, target ≥44 px e `aria-current`.
+- Desktop: barra alta con le stesse tre voci.
+- Drawer: Profilo, Cambia ateneo, Guide, Come funziona.
+- Escape, focus e ritorno al controllo di apertura obbligatori.
+
+Gli hash attuali importanti restano alias durante la migrazione. Non si promette
+“per sempre”: si documentano gli alias realmente supportati e li si testa.
+
+## 6. LA Workspace v0 — il punto qualitativo corretto
+
+La vecchia decisione “Generator completo subito” è sostituita da:
+
+> Costruire entro settembre un LA Workspace manual-first, realmente utile e
+> modificabile, profondo sui due starter e utilizzabile onestamente anche dove
+> i cataloghi non sono ancora mappati.
+
+### 6.1 Perché cambia
+
+Il caso Bruno mostra che il problema non è solo creare la prima bozza:
+
+- 6 corsi su 8 non erano disponibili;
+- la lingua reale poteva divergere dal catalogo;
+- l’ospitante poteva richiedere cambi;
+- esistevano conflitti d’orario;
+- il riconoscimento continuava dopo il rientro.
+
+Il prodotto deve gestire un piano instabile, non soltanto stampare una tabella.
+
+### 6.2 Dati della prima versione
+
+Non si assume più che “i corsi di casa esistono già”: oggi non esistono in
+forma strutturata. Lo studente può inserire manualmente:
+
+**Esame di casa**
+- nome;
+- codice facoltativo;
+- CFU;
+- stato/nota facoltativa.
+
+**Corso host**
+- nome;
+- ECTS;
+- lingua;
+- semestre;
+- link ufficiale;
+- stato: da verificare / disponibile / non disponibile / sostituito;
+- data dell’ultima verifica.
+
+Dove esistono dati verificati della pipeline, l’app li propone senza impedire
+l’inserimento manuale. Dove mancano, mostra `linkCatalogo` se disponibile e
+spiega onestamente che la selezione va inserita a mano.
+
+### 6.3 Funzioni MUST
+
+- Bozze separate per ateneo e meta.
+- Raggruppamento molti-a-molti fra corsi host ed esami di casa.
+- Totali ECTS e CFU sempre visibili.
+- Segnalazione prudente delle soglie, mai approvazione automatica.
+- Versioni della bozza con timestamp.
+- Sostituzione di un corso senza perdere la versione precedente.
+- Motivo della modifica: non disponibile, lingua, richiesta ospitante,
+  conflitto orario, scelta personale, altro.
+- Checklist pre-invio: link aperti e ECTS confrontati con la fonte.
+- Export stampabile/PDF e testo ordinato da inviare al RAM/docente.
+- Microcopy costante: “bozza di lavoro; il LA ufficiale resta nel sistema
+  dell’ateneo/OLA-EWP”.
+
+Niente codici corso host obbligatori: nel LA reale di Bruno erano “000”.
+
+### 6.4 Persistenza
+
+Nuovo ramo additivo nello zaino per-ateneo:
+
+```text
+la: {
+  bozzePerMeta: {
+    [metaId]: {
+      versioneCorrente,
+      versioni: [...],
+      aggiornatoIl
+    }
+  }
+}
+```
+
+Lo schema dettagliato viene definito prima dell’UI. Gli zaini senza `la`
+valgono “nessuna bozza”; nessuna perdita dei dati precedenti.
+
+### 6.5 Gate di pubblicazione
+
+- Il Workspace può essere usato manualmente da tutti.
+- L’esperienza arricchita da dati/cataloghi viene dichiarata solo per le mete
+  realmente coperte.
+- Prima della visibilità pubblica completa: test sul LA e Change Form di Bruno
+  + almeno un secondo scenario sintetico con corsi cambiati.
+- Nessun contatore “LA generato” viene considerato prova di valore finché non
+  sappiamo se la bozza è stata effettivamente utilizzata.
+
+## 7. Piano di esecuzione R0→R6
+
+Le stime sono intervalli, non promesse. Una fase può richiedere più sessioni.
+Ogni fase si chiude con un risultato verificabile prima di iniziare la
+successiva.
+
+### R0 — Verità, dati e confini (2-3 sessioni, 6-10 ore)
+
+1. Confermare starter Ca’ Foscari in base ai tester disponibili; default
+   Economia.
+2. Inviare la mail all’ufficio Erasmus come conferma della prassi del prospetto.
+3. Intervista breve a Bruno su:
+   - come ha trovato i corsi;
+   - quando e come ha scoperto che non erano disponibili;
+   - lingua, orari e sostituzioni;
+   - Transcript e riconoscimento appena disponibili.
+4. Eseguire G5 della pipeline:
+   - `linkCatalogo`;
+   - `notaDisponibilita`;
+   - fonte e `verificataIl`;
+   - controllo dei link;
+   - aggiornamento del contratto batch.
+5. Misurare il Livello A attuale per entrambi gli atenei e produrre l’elenco
+   dei gap, senza confonderlo col Livello B/C.
+6. Definire lo schema `la` e il formato dei dati che la pipeline potrà proporre.
+
+**Gate R0:** starter confermati, contratto dati scritto, gap misurati, nessuna
+assunzione falsa sui corsi disponibili.
+
+### R1 — Fondamenta e velocità (3-5 sessioni, 12-18 ore)
+
+1. Token solo-giorno e rimozione del toggle tema notte. **[fatto, sessione 52
+   del 15/07: `body.tema-notte`, regole notte della mappa, toggle e `initTema()`
+   rimossi; `--night-*` restano come superfici a inchiostro del tema giorno]**
+2. Drawer (Profilo, Cambia ateneo, Guide, Come funziona). **Decisione di Nicola
+   15/07: la nav a tre voci Mete·Home·Percorso si implementa a FINE R1 insieme
+   a R3**, perché la schermata Percorso unificata nasce in R3 e una voce
+   "Percorso" puntata all'attuale Candidatura sarebbe una nav definitiva su un
+   contenuto provvisorio. Conseguenza accettata: la parte "navigazione stabile"
+   del Gate R1 si chiude solo con R3.
+3. Migrazione zaino per-ateneo:
+   - contenitore con ateneo attivo e zaini separati;
+   - legacy assegnato automaticamente solo con corrispondenza univoca;
+   - ogni ambiguità chiede allo studente;
+   - nessuna perdita in cambio ateneo.
+4. Contratto hash e funzione unica di navigazione/history.
+5. Caricamento dati progressivo: evitare, quando possibile, di scaricare e
+   interpretare i dati di tutti i dipartimenti e di entrambi gli atenei al
+   primo avvio. Prima ateneo attivo, poi dipartimento/risorse necessarie.
+6. Regola deterministica della tappa corrente.
+
+**Gate R1:** cambio ateneo sicuro, navigazione stabile, primo avvio misurato su
+telefono e regressione dei dati esistenti. La voce "navigazione stabile" resta
+aperta fino a R3 per la decisione del 15/07 sul punto 2.
+
+### R2 — Ingresso, onboarding e Home essenziale (3-4 sessioni, 10-16 ore)
+
+1. Scena cartografica mobile pulita e desktop progressivamente interattivo.
+2. Onboarding “Personalizza il tuo percorso”.
+3. Lingue derivate dai dati.
+4. Home a quattro moduli, non sette.
+5. Stati del bando a quattro valori:
+   aperto / candidature chiuse ma ciclo attivo / dati scaduti / non pubblicato.
+6. Fonte raggiungibile e `verificataIl` per ogni scadenza mostrata.
+7. Invarianti SEO della home verificati sul DOM statico completo.
+
+**Gate R2:** in 10 secondi un utente capisce che cosa fa ErasmusWiz e qual è
+la prossima azione disponibile.
+
+### R3 — Mete e Percorso (4-5 sessioni, 14-20 ore)
+
+1. Wizard prima visita + rilancio.
+2. Mappa e lista sincronizzate, senza doppi render.
+3. Rotte preferite ordinate, massimo 5.
+4. Percorso unico a stazioni.
+5. Ramo selezionato isolato dalle scadenze candidatura.
+6. Export `.ics` esistente preservato.
+7. Prestazioni col dataset completo:
+   - nessun long task evitabile durante filtri;
+   - risposta percepita entro 250 ms dopo il debounce;
+   - se non passa: rendering incrementale/cap, non rinvio al QA finale.
+
+**Gate R3:** i due starter completano i flussi Mete e Percorso senza aiuto.
+
+### R4 — LA Workspace v0 (6-9 sessioni, 25-40 ore)
+
+1. Schema e migrazione additiva.
+2. Inserimento manuale casa/host.
+3. Proposte dai dati solo dove verificate.
+4. Gruppi molti-a-molti e totali.
+5. Versioni, sostituzioni e motivazioni.
+6. Link/fonti e checklist pre-invio.
+7. Export stampa/PDF + testo ordinato.
+8. Test sul caso Bruno:
+   - prima bozza;
+   - 6/8 corsi non disponibili;
+   - lingua diversa;
+   - richiesta host;
+   - conflitto orario;
+   - versione modificata.
+
+**Gate R4:** il caso Bruno può essere ricostruito senza perdere informazioni e
+senza presentare la bozza come ufficiale.
+
+### R5 — Test utenti e decisioni (2-3 sessioni + disponibilità tester)
+
+Test minimo:
+
+- Bruno + almeno 2 studenti Sapienza;
+- almeno 3 studenti dello starter Ca’ Foscari, se reperibili;
+- telefono reale prima del desktop.
+
+Compiti osservati senza aiutare:
+
+1. Capisci se puoi ancora candidarti?
+2. Trova e salva tre mete compatibili.
+3. Dimmi qual è il prossimo passaggio.
+4. Crea una bozza LA con un corso che poi diventa non disponibile.
+5. Trova la fonte di una scadenza o di un requisito linguistico.
+
+Correzioni immediate solo per:
+
+- blocchi di comprensione;
+- errori o ambiguità reputazionali;
+- perdita dati;
+- accessibilità;
+- prestazioni che impediscono il compito.
+
+Le nuove idee entrano nel backlog, non automaticamente nello scope.
+
+**Gate R5:** nessun blocco critico nei cinque compiti; feedback separato per
+ateneo e per tipo di utente.
+
+### R6 — Completezza, SEO, QA e chiusura (3-5 sessioni, 15-25 ore)
+
+1. Livello A verificato per tutte le mete dei due atenei.
+2. Livello B verificato per i due starter.
+3. Racconto SEO del caso Bruno, anonimizzato e approvato da lui.
+4. Search Console e controllo SEO/Lighthouse.
+5. Asset pubblici allineati alla direzione giorno: OG, manifest, favicon.
+6. Service worker: shell offline esplicita e cache bump; niente notifiche push
+   in questa fase.
+7. Regressione completa:
+   - entrambi gli atenei;
+   - mobile 375 + desktop;
+   - localStorage pulito e legacy;
+   - cambio ateneo;
+   - hash supportati;
+   - tastiera/focus/reduced motion;
+   - bando nei quattro stati;
+   - date Europe/Rome, Capodanno e ora legale;
+   - Workspace con/senza dati e con versioni separate;
+   - primo avvio, offline e upgrade cache.
+
+Chiusura a due stati:
+
+- **implementata:** QA interno superato;
+- **validata:** test utenti superato.
+
+Non usare “completa” se manca uno dei due.
+
+## 8. Cantiere dati parallelo
+
+Il lavoro sui dati non aspetta R6. Dopo R0 procede in parallelo senza
+modificare manualmente i grandi file mete:
+
+1. setup delle Facoltà Sapienza ancora in seed;
+2. completamento Livello A con stato esplicito dei campi mancanti;
+3. Livello B prima sui due starter;
+4. propagazione per codice Erasmus quando affidabile;
+5. campione umano: Nicola + Bruno per Giurisprudenza;
+6. da novembre, aggiornamento bando e scadenze 2027/28.
+
+La pipeline è fornitore del prodotto, non una promessa invisibile. Il piano
+misura copertura A/B/C separatamente.
+
+## 9. Checkpoint e regole di correzione
+
+Il brand non viene ridiscusso a ogni sessione. Le priorità possono cambiare
+quando una prova reale contraddice il piano.
+
+### 31 luglio
+
+- R0 chiusa;
+- starter confermati;
+- gap A/B/C misurati;
+- decisione tecnica sul caricamento progressivo.
+
+### 14 agosto
+
+- R1 chiusa o con blocchi dichiarati;
+- se migrazione e prestazioni non sono stabili, nessun ampliamento UI.
+
+### 31 agosto
+
+- R2+R3 utilizzabili sui due starter;
+- se il core non è testabile, si rinviano tutti gli SHOULD.
+
+### 15 settembre
+
+- LA Workspace ricostruisce il caso Bruno;
+- se non ci riesce, si riduce l’export o la rifinitura, non versioni e fonti.
+
+### 30 settembre
+
+- QA + test utenti;
+- classificazione implementata/validata;
+- decisione ottobre-dicembre basata sui risultati.
+
+Ogni checkpoint risponde a tre domande:
+
+1. Che cosa è stato provato da un utente o da un test ripetibile?
+2. Quale assunzione si è rivelata falsa?
+3. Che cosa esce dallo scope per proteggere i MUST?
+
+## 10. Vincoli ingegneristici trasversali
+
+1. Codice separato dai dati (`js/dati-*.js`, `js/atenei/**`).
+2. Zaino unico come contenitore, ma dati separati per ateneo.
+3. AI fuori dal runtime.
+4. Stack statico HTML/CSS/JS, senza framework, backend o build obbligatorio.
+5. Ogni informazione critica: fonte HTTPS pubblica ufficiale + data/stato.
+   Vietati link pubblici verso `fonti/`.
+6. Unica funzione per interpretare le date del bando come orari civili
+   `Europe/Rome`; vietato il parsing diretto incoerente nei moduli planner.
+7. Campi dati resi con API sicure (`textContent`/elementi), non HTML arbitrario.
+8. URL, canonical e contenuti indicizzati cambiano solo con decisione SEO
+   esplicita, mai come effetto collaterale di un redesign.
+9. GoatCounter su tutte le pagine, nessun dato personale negli eventi.
+10. Ogni blocco: mini-QA mobile+desktop, entrambi gli atenei, `node --check`
+    sui JS toccati.
+11. Git solo tramite workflow `.bat` previsto dal progetto.
+12. I dati personali di Bruno restano in `fonti/caso-bruno/`, mai su GitHub.
+
+## 11. Decisioni aggiornate
+
+- **Confermata:** direzione giorno cartografica.
+- **Confermata:** niente account.
+- **Modificata:** “iscrizione” → personalizzazione locale onesta.
+- **Confermata:** nav Mete · Home · Percorso.
+- **Confermata:** mappa mobile decorativa e pulita; interattività progressiva.
+- **Modificata:** Home da sette moduli equivalenti a quattro livelli principali.
+- **Modificata:** Generator completo → LA Workspace v0 manual-first, versionato.
+- **Confermata:** esperienza arricchita solo dove i dati sono verificati.
+- **Confermata:** città senza editoriale per-meta; ora è SHOULD.
+- **Confermata:** linea di viaggio = progresso, non navigazione.
+- **Superata:** “nessun sacrificabile”. Ora valgono MUST/SHOULD/LATER.
+- **Superata:** “ultima pianificazione fino a settembre”. Ora esistono
+  checkpoint basati su prove, senza riaprire il brand per gusto personale.
+- **Confermata:** un solo `PLAN.md` operativo per luglio-settembre.
+
+## 12. Rischi principali
+
+1. **Copertura dati confusa con qualità:** mitigazione A/B/C separati.
+2. **Workspace troppo grande:** proteggere manuale, versioni, fonti e test;
+   rinviare export secondari e automazioni.
+3. **Nessun tester Ca’ Foscari:** entro R0 cambiare starter una sola volta in
+   favore del dipartimento con accesso reale agli studenti.
+4. **Bando 2027/28 non ancora pubblicato:** planner onesto e neutro; niente
+   date simulate.
+5. **Dati locali persi:** messaggio esplicito e migrazione prudente; sync solo
+   dopo validazione.
+6. **Scene e mappa rallentano il primo avvio:** caricamento progressivo e
+   animazione ridotta prima della rifinitura.
+7. **Terzo rebrand in poco tempo:** asset pubblici riallineati una volta in R6;
+   niente ulteriori esplorazioni visive durante l’ondata.
+8. **Documenti precedenti in conflitto:** questo file prevale fino a settembre;
+   ROADMAP e disegni si riallineano dopo la validazione.
+
+## 13. Fuori scope fino alla validazione
+
+- account, backend, database e sync multi-dispositivo;
+- app nativa;
+- matching automatico L3;
+- cataloghi corso-per-corso per tutte le mete;
+- notifiche push prima dell’audit ottobre;
+- contenuti editoriali per ogni città;
+- tema notte;
+- monetizzazione e partnership;
+- nuovo logo definitivo o render 3D della mascotte;
+- modifiche non necessarie al motore di compatibilità.
+
+## 14. Regola di delega
+
+Ogni modello esecutore legge `PLAN.md` e `STATO_DEL_SITO.md`, implementa solo
+la fase assegnata e chiude il relativo gate. Non anticipa la fase successiva
+perché “avanza tempo”.
+
+Se scopre che un’assunzione del piano è falsa:
+
+1. si ferma sulla parte coinvolta;
+2. porta prova concreta a Nicola;
+3. propone l’impatto su MUST/SHOULD/LATER;
+4. non decide da solo un ampliamento di scope.
+
+Il piano non è un contratto per difendere decisioni passate: è uno strumento
+per arrivare al prodotto migliore verificabile entro il tempo disponibile.

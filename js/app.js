@@ -169,27 +169,6 @@ function initNav() {
 }
 
 // ============================================================
-// TEMA NOTTE
-// ============================================================
-function initTema() {
-  const btn = document.getElementById("toggle-tema");
-  if (!btn) return;
-
-  if (localStorage.getItem("ew-tema") === "notte") {
-    document.body.classList.add("tema-notte");
-    btn.textContent = "☀️";
-  }
-
-  btn.addEventListener("click", () => {
-    document.body.classList.toggle("tema-notte");
-    const notte = document.body.classList.contains("tema-notte");
-    btn.textContent = notte ? "☀️" : "🌙";
-    btn.setAttribute("aria-label", notte ? "Passa al tema giorno" : "Passa al tema notte");
-    localStorage.setItem("ew-tema", notte ? "notte" : "giorno");
-  });
-}
-
-// ============================================================
 // HOME — saluto + data
 // ============================================================
 function renderHome() {
@@ -2166,7 +2145,6 @@ function applicaBrandingAteneo() {
 
 function init() {
   initNav();
-  initTema();
   applicaBrandingAteneo();
   renderHome();
   initToggleFase();

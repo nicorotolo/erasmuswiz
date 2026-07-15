@@ -30,9 +30,19 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var isTouch = window.matchMedia('(hover: none)').matches;
 
+  /* Partenza SELEZIONABILE dall'ingresso (Roma/Venezia): ateneo, mete e
+     rotte preferite sono mutabili; il resto della demo (scadenze) resta
+     ambientato sull'ateneo demo. */
   var ATENEO = DEMO.atenei.find(function(a){ return a.key === D.ateneoDemo; });
-  var METE = DEMO.mete.filter(function(m){ return m.ateneo === D.ateneoDemo; });
-  var PREF = D.preferite.map(function(id){ return DEMO.mete.find(function(m){ return m.id === id; }); }).filter(Boolean);
+  var METE = [];
+  var PREF = [];
+  function calcolaMete(){
+    METE = DEMO.mete.filter(function(m){ return m.ateneo === ATENEO.key; });
+    PREF = (ATENEO.key === D.ateneoDemo
+      ? D.preferite.map(function(id){ return DEMO.mete.find(function(m){ return m.id === id; }); }).filter(Boolean)
+      : METE.filter(function(m){ return m.coord; }).slice(0, 3));
+  }
+  calcolaMete();
 
   /* ---------- date: parser unico "Europe/Rome" ----------
      Nel mockup non abbiamo Intl affidabile via file://; interpretiamo
@@ -75,6 +85,10 @@
       if (b) b.setAttribute('aria-pressed', String(k === v));
     });
     chiudiScheda();
+    chiudiOnboarding();
+    // l'animazione vive solo nell'ingresso
+    if (v === 'ingresso') { if (!reduce && archiStato.g) avviaArchi(); }
+    else stopArchi();
     // la linea-nav è la nav vera di dashboard/candidatura
     var lineaTappa = v === 'candidatura' ? 'candidati' : (v === 'dashboard' ? 'dashboard' : null);
     aggiornaLinea(lineaTappa);
@@ -170,54 +184,72 @@
     var cx = mx + nx * lift, cy = my + ny * lift;
     return 'M' + a.x + ' ' + a.y + ' Q' + cx.toFixed(1) + ' ' + cy.toFixed(1) + ' ' + b.x + ' ' + b.y;
   }
-  var archiStato = { g: null, timer: null, idx: 0 };
-  function disegnaArco(g, from, to, ritardo, id){
-    var d = arcoPath(from, to);
-    var path = document.createElementNS(NS, 'path');
-    path.setAttribute('d', d); path.setAttribute('class', 'arco');
-    path.setAttribute('pathLength', '100');
-    path.setAttribute('id', id);
-    g.appendChild(path);
-    if (!reduce) {
-      path.style.strokeDasharray = '100';
-      path.style.strokeDashoffset = '100';
-      path.style.animation = 'arco-disegna 2.4s ease-out ' + ritardo + 's forwards';
-      // punto luminoso che percorre la rotta
-      var dot = document.createElementNS(NS, 'circle');
-      dot.setAttribute('r', '5'); dot.setAttribute('class', 'arco-luce');
-      var mo = document.createElementNS(NS, 'animateMotion');
-      mo.setAttribute('dur', '2.4s'); mo.setAttribute('begin', ritardo + 's');
-      mo.setAttribute('fill', 'freeze'); mo.setAttribute('rotate', 'auto');
-      var mpath = document.createElementNS(NS, 'mpath');
-      mpath.setAttributeNS('http://www.w3.org/1999/xlink', 'href', '#' + id);
-      mpath.setAttribute('href', '#' + id);
-      mo.appendChild(mpath); dot.appendChild(mo);
-      g.appendChild(dot);
-    }
+  /* Ventaglio: un arco per CITTÀ, verso TUTTE le direzioni. Il disegno è
+     progressivo e scaglionato (stagger 0.28s su tratti da 1.8s → mai più di
+     ~6 rotte "in volo" contemporaneamente, come da piano); poi gli archi
+     RESTANO come rete disegnata e poche luci alla volta percorrono le rotte
+     a rotazione (loop lento). reduced-motion = rete già disegnata, ferma. */
+  var archiStato = { g: null, timers: [], giro: 0 };
+  function stopArchi(){
+    archiStato.timers.forEach(clearTimeout);
+    archiStato.timers = [];
+    if (archiStato.g) archiStato.g.querySelectorAll('.arco-luce').forEach(function(n){ n.remove(); });
   }
   function avviaArchi(){
     var g = archiStato.g; if (!g) return;
+    stopArchi();
     g.replaceChildren();
-    var rotte = PREF.filter(function(m){ return m.coord; }).slice(0, 6);
-    rotte.forEach(function(m, i){
-      disegnaArco(g, ATENEO.coord, m.coord, reduce ? 0 : i * 0.55, 'rt-' + i + '-' + (archiStato.idx));
+    var mete = METE.filter(function(m){ return m.coord; });
+    var citta = clusterizza(mete, ing.cont || document.body, 26);
+    citta.forEach(function(c, i){
+      var path = document.createElementNS(NS, 'path');
+      path.setAttribute('d', arcoPath(ATENEO.coord, c));
+      path.setAttribute('class', 'arco ventaglio');
+      path.setAttribute('pathLength', '100');
+      path.setAttribute('id', 'ing-rt-' + i);
+      if (!reduce) {
+        path.style.strokeDasharray = '100';
+        path.style.strokeDashoffset = '100';
+        path.style.animation = 'arco-disegna 1.8s ease-out ' + (i * 0.28).toFixed(2) + 's forwards';
+      }
+      g.appendChild(path);
     });
-    if (!reduce) {
-      // loop lento: ridisegna la scena ogni ~9s (rotazione gentile)
-      archiStato.timer = setTimeout(function(){
-        archiStato.idx++;
-        if (!document.hidden) avviaArchi();
-      }, 9000);
-    }
+    if (!reduce && citta.length) programmaLuci(g, citta.length);
   }
-  function stopArchi(){ if (archiStato.timer) { clearTimeout(archiStato.timer); archiStato.timer = null; } }
+  function programmaLuci(g, nRotte){
+    var N = Math.min(4, nRotte);
+    for (var k = 0; k < N; k++) {
+      (function(k){
+        var idx = (archiStato.giro * N + k) % nRotte;
+        archiStato.timers.push(setTimeout(function(){
+          if (document.hidden) return;
+          var dot = document.createElementNS(NS, 'circle');
+          dot.setAttribute('r', '4.5'); dot.setAttribute('class', 'arco-luce');
+          var mo = document.createElementNS(NS, 'animateMotion');
+          mo.setAttribute('dur', '2.2s'); mo.setAttribute('begin', 'indefinite'); mo.setAttribute('rotate', 'auto');
+          var mp = document.createElementNS(NS, 'mpath');
+          mp.setAttributeNS('http://www.w3.org/1999/xlink', 'href', '#ing-rt-' + idx);
+          mp.setAttribute('href', '#ing-rt-' + idx);
+          mo.appendChild(mp); dot.appendChild(mo);
+          g.appendChild(dot);
+          mo.beginElement();
+          archiStato.timers.push(setTimeout(function(){ dot.remove(); }, 2300));
+        }, 600 + k * 800));
+      })(k);
+    }
+    archiStato.timers.push(setTimeout(function(){
+      archiStato.giro++;
+      var vista = $('#vista-ingresso');
+      if (!document.hidden && vista && !vista.hidden) programmaLuci(g, nRotte);
+    }, 600 + N * 800 + 1800));
+  }
   document.addEventListener('visibilitychange', function(){
     if (document.hidden) stopArchi();
     else if (!reduce && archiStato.g && !$('#vista-ingresso').hidden) avviaArchi();
   });
 
   /* ---------- clustering + pin (riuso pattern Fase B) ---------- */
-  function clusterizza(mete, cont){
+  function clusterizza(mete, cont, sogliaVB){
     var perCitta = new Map();
     mete.forEach(function(m){
       if (!m.coord) return;
@@ -225,7 +257,7 @@
       if (!perCitta.has(k)) perCitta.set(k, { x:m.coord.x, y:m.coord.y, citta:m.citta, paese:m.paese, items:[] });
       perCitta.get(k).items.push(m);
     });
-    var soglia = 30 * (P.viewBoxW / Math.max(cont.clientWidth, 280));
+    var soglia = sogliaVB || 30 * (P.viewBoxW / Math.max(cont.clientWidth, 280));
     var out = [];
     Array.from(perCitta.values()).forEach(function(g){
       var vicino = out.find(function(o){ return Math.hypot(o.x - g.x, o.y - g.y) < soglia; });
@@ -294,7 +326,15 @@
       dove.textContent = 'Clicca per vederle tutte';
       tooltip.appendChild(h); tooltip.appendChild(dove);
     }
-    var lx = parseFloat(pin.style.left), ty = parseFloat(pin.style.top);
+    var lx, ty;
+    if (/px$/.test(pin.style.left)) {
+      // pin fullscreen posizionati in px → converto in % del contenitore
+      var pr = pin.parentElement;
+      lx = parseFloat(pin.style.left) / Math.max(pr.clientWidth, 1) * 100;
+      ty = parseFloat(pin.style.top) / Math.max(pr.clientHeight, 1) * 100;
+    } else {
+      lx = parseFloat(pin.style.left); ty = parseFloat(pin.style.top);
+    }
     tooltip.style.left = Math.min(Math.max(lx, 16), 84) + '%';
     tooltip.style.top = ty + '%';
     tooltip.classList.toggle('sotto', ty < 28);
@@ -381,7 +421,7 @@
     scheda.appendChild(linkFonte(s.fonte, s.verificataIl));
     apriScheda(ap);
   }
-  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') { chiudiScheda(); nascondiTooltip(); } });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') { chiudiScheda(); chiudiOnboarding(); nascondiTooltip(); } });
 
   /* ====================================================
      PLANNER — funzioni (quasi) pure di derivazione
@@ -436,49 +476,136 @@
   /* ====================================================
      INGRESSO
      ==================================================== */
-  var ingMap = null, ingLayer = null;
+  /* INGRESSO A SCHERMO INTERO: la mappa è lo SFONDO della scena
+     (preserveAspectRatio slice = copre tutto il viewport); i pin restano
+     <button> in overlay, riposizionati in px con la trasformazione slice. */
+  var ing = { built:false, cont:null, svg:null, layer:null };
   function costruisciIngresso(){
-    var cont = $('#mappa-ingresso'); if (!cont || ingMap) return;
-    ingMap = costruisciMappa(cont, { aria:'Mappa d’Europa: da Roma partono le rotte verso le destinazioni Erasmus' });
-    archiStato.g = ingMap.archi; ingLayer = ingMap.layer;
-    // pin ateneo (casa) + mete
+    var cont = $('#mappa-ingresso'); if (!cont || ing.built) return;
+    ing.built = true; ing.cont = cont;
+    var m = costruisciMappa(cont, { aria:'Mappa d’Europa a schermo intero: le rotte Erasmus si espandono dal tuo punto di partenza verso tutte le destinazioni' });
+    m.svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+    ing.svg = m.svg; ing.layer = m.layer;
+    archiStato.g = m.archi;
+    renderPartenze();
+    renderIngresso();
+    var cta = $('#cta-inizia');
+    if (cta) cta.addEventListener('click', apriOnboarding);
+  }
+  function sliceTransform(){
+    var cw = ing.cont.clientWidth, ch = ing.cont.clientHeight;
+    var scale = Math.max(cw / P.viewBoxW, ch / P.viewBoxH);
+    return { scale: scale, ox: (cw - P.viewBoxW * scale) / 2, oy: (ch - P.viewBoxH * scale) / 2 };
+  }
+  function renderIngresso(){
+    if (!ing.built) return;
+    var t = sliceTransform();
+    ing.layer.replaceChildren();
+    var stellate = PREF.map(function(m){ return m.id; });
+    clusterizza(METE, ing.cont, 30 / t.scale).forEach(function(cl){
+      var b = creaPin(cl, { stellate: stellate });
+      b.style.left = (t.ox + cl.x * t.scale).toFixed(1) + 'px';
+      b.style.top = (t.oy + cl.y * t.scale).toFixed(1) + 'px';
+      ing.layer.appendChild(b);
+    });
     var casa = document.createElement('button');
     casa.type = 'button'; casa.className = 'pin pin-ateneo';
-    casa.style.left = (ATENEO.coord.x / P.viewBoxW * 100) + '%';
-    casa.style.top = (ATENEO.coord.y / P.viewBoxH * 100) + '%';
+    casa.style.left = (t.ox + ATENEO.coord.x * t.scale).toFixed(1) + 'px';
+    casa.style.top = (t.oy + ATENEO.coord.y * t.scale).toFixed(1) + 'px';
     casa.setAttribute('aria-label', ATENEO.nome + ' — il tuo punto di partenza');
     var an = document.createElement('span'); an.className = 'anello';
     var dp = document.createElement('span'); dp.className = 'punto';
     var lb = document.createElement('span'); lb.className = 'pin-etichetta'; lb.textContent = ATENEO.citta;
     casa.appendChild(an); casa.appendChild(dp); casa.appendChild(lb);
     casa.addEventListener('click', function(){ avviso('Da ' + ATENEO.citta + ' partono le tue rotte Erasmus.'); });
-    renderPins(ingLayer, METE, { stellate: D.preferite });
-    ingLayer.appendChild(casa);
+    ing.layer.appendChild(casa);
     avviaArchi();
     aggiornaContoIngresso();
+    popolaElenco();
+  }
+  function renderPartenze(){
+    var wrap = $('#partenze'); if (!wrap) return;
+    wrap.replaceChildren();
+    DEMO.atenei.forEach(function(a){
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'partenza';
+      b.setAttribute('aria-pressed', String(a.key === ATENEO.key));
+      var c = document.createElement('b'); c.textContent = a.citta;
+      var s = document.createElement('span'); s.textContent = a.breve + ' · ' + a.facolta + ' (demo)';
+      b.appendChild(c); b.appendChild(s);
+      b.addEventListener('click', function(){ setPartenza(a.key); });
+      wrap.appendChild(b);
+    });
+  }
+  function setPartenza(key){
+    if (ATENEO.key === key) return;
+    ATENEO = DEMO.atenei.find(function(a){ return a.key === key; });
+    calcolaMete();
+    renderPartenze();
+    renderIngresso();
+    renderSaluto();
+    renderRotteModulo();
   }
   function aggiornaContoIngresso(){
     var el = $('#conto-mete');
     if (el) el.textContent = String(METE.length);
     var live = $('#ingresso-live');
-    if (live) live.textContent = METE.length + ' destinazioni per ' + ATENEO.facolta + ' · ' + ATENEO.breve;
+    if (live) live.textContent = METE.length + ' destinazioni per ' + ATENEO.facolta + ' partono da ' + ATENEO.citta + '.';
+  }
+  function popolaElenco(){
+    var ul = $('#elenco-ul'); if (!ul) return;
+    ul.replaceChildren();
+    METE.forEach(function(m){
+      var li = document.createElement('li');
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = m.universita + ' — ' + m.citta + (m.coord ? '' : ' (fuori mappa)');
+      b.addEventListener('click', function(){ apriSchedaMeta(m, b); });
+      li.appendChild(b); ul.appendChild(li);
+    });
+    var fuori = METE.filter(function(m){ return !m.coord; });
+    var pf = $('#elenco-fuori');
+    if (!pf) return;
+    if (fuori.length) {
+      pf.hidden = false;
+      pf.textContent = (fuori.length === 1 ? '1 destinazione è fuori' : fuori.length + ' destinazioni sono fuori') +
+        ' dall’inquadratura della mappa (' + fuori.map(function(m){ return m.citta; }).join(', ') + '): la trovi nell’elenco qui sopra.';
+    } else { pf.hidden = true; }
   }
 
-  // onboarding a 3 domande ambientato sul viaggio
+  /* Onboarding come PANNELLO sopra la mappa: la domanda 1 (da dove parti)
+     è già stata risolta scegliendo la partenza sulla scena; qui restano le
+     informazioni minime per costruire la prima dashboard, poi si entra. */
   var onbStep = 0;
+  function apriOnboarding(){
+    onbStep = 0;
+    var p = $('#onboarding'); if (!p) return;
+    renderOnboarding();
+    p.hidden = false;
+    var primo = p.querySelector('.onb-scelta'); if (primo) primo.focus();
+  }
+  function chiudiOnboarding(){
+    var p = $('#onboarding'); if (p && !p.hidden) p.hidden = true;
+  }
   function renderOnboarding(){
     var cont = $('#onboarding'); if (!cont) return;
     cont.replaceChildren();
+    var x = document.createElement('button'); x.type = 'button'; x.className = 'chiudi';
+    x.setAttribute('aria-label', 'Chiudi'); x.textContent = '✕';
+    x.addEventListener('click', chiudiOnboarding);
+    cont.appendChild(x);
     var domande = [
-      { q:'Da dove parti?', opzioni: DEMO.atenei.map(function(a){ return { txt:a.nome, sub:a.citta, key:a.key, on: a.key === D.ateneoDemo }; }) },
-      { q:'Con quale facoltà?', opzioni: [{ txt:ATENEO.facolta, sub:'attiva nella demo', on:true },
-          { txt:'Economia', sub:'demo', off:true }, { txt:'Medicina', sub:'demo', off:true }] },
-      { q:'A che punto sei?', opzioni: [{ txt:'Sto ancora scegliendo le mete', sub:'la maggior parte parte da qui', on:true },
+      { q:'Con quale facoltà parti da ' + ATENEO.citta + '?',
+        opzioni: [{ txt:ATENEO.facolta, sub:'attiva nella demo', on:true },
+          { txt: ATENEO.key === 'sapienza' ? 'Economia' : 'Lingue', sub:'demo', off:true },
+          { txt: ATENEO.key === 'sapienza' ? 'Medicina' : 'Management', sub:'demo', off:true }] },
+      { q:'A che punto sei del viaggio?', opzioni: [
+          { txt:'Sto ancora scegliendo le mete', sub:'la maggior parte parte da qui', on:true },
           { txt:'Ho già le idee chiare', sub:'' }] }
     ];
     var dq = domande[onbStep];
     var prog = document.createElement('p'); prog.className = 'onb-prog';
-    prog.textContent = 'Domanda ' + (onbStep + 1) + ' di 3';
+    prog.textContent = 'Domanda ' + (onbStep + 2) + ' di 3 — la partenza l’hai già scelta sulla mappa';
     var h = document.createElement('h2'); h.textContent = dq.q;
     cont.appendChild(prog); cont.appendChild(h);
     var wrap = document.createElement('div'); wrap.className = 'onb-opz';
@@ -489,15 +616,15 @@
       b.appendChild(t);
       if (o.off) b.disabled = true;
       b.addEventListener('click', function(){
-        if (onbStep < 2) { onbStep++; renderOnboarding(); }
-        else mostraVista('dashboard');
+        if (onbStep < domande.length - 1) { onbStep++; renderOnboarding(); }
+        else { chiudiOnboarding(); mostraVista('dashboard'); }
       });
       wrap.appendChild(b);
     });
     cont.appendChild(wrap);
-    if (onbStep === 2) {
+    if (onbStep === domande.length - 1) {
       var nota = document.createElement('p'); nota.className = 'onb-nota';
-      nota.textContent = 'Alla fine ti aspetta la tua dashboard, già con la prossima scadenza e le prime azioni.';
+      nota.textContent = 'Fatto: la tua dashboard nasce già con la prossima scadenza e le prime azioni.';
       cont.appendChild(nota);
     }
   }
@@ -732,10 +859,14 @@
     var cont = $('#itinerario'); if (!cont) return;
     cont.replaceChildren();
     var ol = document.createElement('ol'); ol.className='stazioni';
+    // regola deterministica: "corrente" = la PRIMA stazione non passata; una sola.
+    var correnteAssegnata = false;
     D.scadenze.forEach(function(s){
       var g = giorniDaOggi(s.data);
-      var stato = s.passata ? 'passata' : (s.corrente || (g !== null && g >= 0 && g <= 14 && !s.futura) ? 'corrente' : 'futura');
-      // determina corrente in modo deterministico: prima scadenza non passata
+      var stato;
+      if (s.passata || (g !== null && g < 0)) stato = 'passata';
+      else if (!correnteAssegnata) { stato = 'corrente'; correnteAssegnata = true; }
+      else stato = 'futura';
       var li = document.createElement('li'); li.className = 'stazione ' + stato;
       var nodo = document.createElement('span'); nodo.className='st-nodo'; nodo.setAttribute('aria-hidden','true');
       li.appendChild(nodo);
@@ -777,7 +908,7 @@
   window.addEventListener('resize', function(){
     if (rafId) cancelAnimationFrame(rafId);
     rafId = requestAnimationFrame(function(){
-      if (ingLayer) renderPins(ingLayer, METE, { stellate: D.preferite });
+      renderIngresso();
       renderRotte();
     });
   });
@@ -786,7 +917,6 @@
   costruisciLinea($('#linea-nav'));
   costruisciLinea($('#linea-nav-c'));
   costruisciIngresso();
-  renderOnboarding();
   costruisciDashboard();
   costruisciCandidatura();
   mostraVista('ingresso');
