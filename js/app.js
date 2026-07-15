@@ -169,6 +169,102 @@ function initNav() {
 }
 
 // ============================================================
+// DRAWER — menu secondario da destra (R1.2, PLAN.md §5.6)
+// Voci: Profilo, Cambia ateneo, Guide, Come funziona. Si chiude con
+// ✕, Escape o click sul velo, e il focus torna sempre al bottone che
+// l'ha aperto. È aria-modal, quindi il Tab resta dentro al drawer.
+// "Cambia ateneo" porta alla tendina già esistente nel Profilo: il
+// cambio ateneo con zaino separato (e migrazione dei dati legacy) è
+// R1.3, e qui NON si duplica quella logica.
+// ============================================================
+let drawerApertoDa = null;
+
+function drawerFocusabili(drawer) {
+  return Array.from(drawer.querySelectorAll("button, a[href]"))
+    .filter(el => !el.disabled && el.offsetParent !== null);
+}
+
+function apriDrawer() {
+  const drawer  = document.getElementById("drawer");
+  const overlay = document.getElementById("drawer-overlay");
+  if (!drawer || drawer.hidden === false) return;
+  drawerApertoDa = document.activeElement;
+  drawer.hidden = false;
+  if (overlay) overlay.hidden = false;
+  document.body.classList.add("no-scroll");
+  document.getElementById("btn-drawer")?.setAttribute("aria-expanded", "true");
+  document.getElementById("drawer-chiudi")?.focus();
+}
+
+function chiudiDrawer() {
+  const drawer  = document.getElementById("drawer");
+  const overlay = document.getElementById("drawer-overlay");
+  if (!drawer || drawer.hidden) return;
+  drawer.hidden = true;
+  if (overlay) overlay.hidden = true;
+  document.body.classList.remove("no-scroll");
+  document.getElementById("btn-drawer")?.setAttribute("aria-expanded", "false");
+  const daRiattivare = drawerApertoDa || document.getElementById("btn-drawer");
+  drawerApertoDa = null;
+  daRiattivare?.focus();
+}
+
+// Etichetta dell'ateneo attivo sotto "Cambia ateneo": mai un'etichetta
+// generica, lo studente deve vedere su quale ateneo sta lavorando.
+function aggiornaDrawerAteneo() {
+  const sub = document.getElementById("drawer-ateneo-sub");
+  if (sub) sub.textContent = `Ora: ${window.ATENEO_LABEL || "—"}`;
+}
+
+function initDrawer() {
+  const drawer = document.getElementById("drawer");
+  const btn    = document.getElementById("btn-drawer");
+  if (!drawer || !btn) return;
+
+  btn.addEventListener("click", apriDrawer);
+  document.getElementById("drawer-chiudi")?.addEventListener("click", chiudiDrawer);
+  document.getElementById("drawer-overlay")?.addEventListener("click", chiudiDrawer);
+
+  drawer.querySelectorAll("[data-drawer-goto]").forEach(voce => {
+    voce.addEventListener("click", () => {
+      const tab = voce.dataset.drawerGoto;
+      chiudiDrawer();
+      mostraTab(tab);
+      history.replaceState(null, "", `#${tab}`);
+    });
+  });
+
+  document.getElementById("drawer-cambia-ateneo")?.addEventListener("click", () => {
+    chiudiDrawer();
+    mostraTab("profilo");
+    history.replaceState(null, "", "#profilo");
+    // Il focus sulla tendina vince su quello che chiudiDrawer ha appena
+    // restituito al bottone: lo studente arriva dritto sulla scelta.
+    const sel = document.getElementById("select-ateneo");
+    if (sel) {
+      sel.focus();
+      sel.scrollIntoView({ block: "center", behavior: "smooth" });
+    }
+  });
+
+  document.addEventListener("keydown", e => {
+    if (drawer.hidden) return;
+    if (e.key === "Escape") { chiudiDrawer(); return; }
+    if (e.key !== "Tab") return;
+    const voci = drawerFocusabili(drawer);
+    if (!voci.length) return;
+    const primo = voci[0], ultimo = voci[voci.length - 1];
+    if (e.shiftKey && document.activeElement === primo) {
+      e.preventDefault(); ultimo.focus();
+    } else if (!e.shiftKey && document.activeElement === ultimo) {
+      e.preventDefault(); primo.focus();
+    }
+  });
+
+  aggiornaDrawerAteneo();
+}
+
+// ============================================================
 // HOME — saluto + data
 // ============================================================
 function renderHome() {
@@ -2145,6 +2241,7 @@ function applicaBrandingAteneo() {
 
 function init() {
   initNav();
+  initDrawer();
   applicaBrandingAteneo();
   renderHome();
   initToggleFase();

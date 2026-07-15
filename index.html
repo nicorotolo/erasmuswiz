@@ -311,7 +311,66 @@
       <span class="nav-icon" id="nav-candidatura-icona">📋</span>
       <span class="nav-label" id="nav-candidatura-label">Candidatura</span>
     </a>
+    <button class="nav-item nav-item-btn" id="btn-drawer" type="button"
+            aria-controls="drawer" aria-expanded="false" aria-haspopup="dialog">
+      <span class="nav-icon" aria-hidden="true">☰</span>
+      <span class="nav-label">Altro</span>
+    </button>
   </nav>
+
+  <!-- Drawer da destra (R1.2, PLAN.md §5.6): Profilo, Cambia ateneo, Guide,
+       Come funziona. Le tre voci della nav restano quelle attuali: la nav
+       Mete·Home·Percorso arriva a fine R1 con R3 (decisione 15/07). -->
+  <div class="drawer-overlay" id="drawer-overlay" hidden></div>
+  <aside class="drawer" id="drawer" role="dialog" aria-modal="true"
+         aria-labelledby="drawer-titolo" hidden>
+    <div class="drawer-testa">
+      <h2 class="drawer-titolo" id="drawer-titolo">Altro</h2>
+      <button class="drawer-chiudi" id="drawer-chiudi" type="button" aria-label="Chiudi il menu">✕</button>
+    </div>
+    <nav class="drawer-voci" aria-label="Menu secondario">
+      <button class="drawer-voce" type="button" data-drawer-goto="profilo">
+        <span class="drawer-voce-icona" aria-hidden="true">👤</span>
+        <span class="drawer-voce-testi">
+          <span class="drawer-voce-titolo">Profilo</span>
+          <span class="drawer-voce-sub">Nome, dipartimento, livello e lingue</span>
+        </span>
+      </button>
+      <button class="drawer-voce" type="button" id="drawer-cambia-ateneo">
+        <span class="drawer-voce-icona" aria-hidden="true">🎓</span>
+        <span class="drawer-voce-testi">
+          <span class="drawer-voce-titolo">Cambia ateneo</span>
+          <span class="drawer-voce-sub" id="drawer-ateneo-sub"></span>
+        </span>
+      </button>
+
+      <span class="drawer-gruppo">Guide</span>
+      <a class="drawer-voce" href="guide/come-fare-learning-agreement-sapienza.html">
+        <span class="drawer-voce-icona" aria-hidden="true">📄</span>
+        <span class="drawer-voce-testi">
+          <span class="drawer-voce-titolo">Come si fa il Learning Agreement</span>
+          <span class="drawer-voce-sub">Alla Sapienza, passo per passo</span>
+        </span>
+      </a>
+      <a class="drawer-voce" href="guide/requisiti-lingua-erasmus.html">
+        <span class="drawer-voce-icona" aria-hidden="true">🗣️</span>
+        <span class="drawer-voce-testi">
+          <span class="drawer-voce-titolo">Requisiti di lingua</span>
+          <span class="drawer-voce-sub">Quale livello ti serve davvero</span>
+        </span>
+      </a>
+
+      <span class="drawer-gruppo">Il progetto</span>
+      <a class="drawer-voce" href="guide/come-funziona.html">
+        <span class="drawer-voce-icona" aria-hidden="true">✨</span>
+        <span class="drawer-voce-testi">
+          <span class="drawer-voce-titolo">Come funziona ErasmusWiz</span>
+          <span class="drawer-voce-sub">Cosa fa il sito e chi c'è dietro</span>
+        </span>
+      </a>
+    </nav>
+    <p class="drawer-nota">I tuoi dati restano su questo dispositivo. Nessun account.</p>
+  </aside>
 
   <!-- Overlay celebrazione (mostrato da JS: ingresso in fase 4 "Lo zaino", BR6) -->
   <div class="celebrazione-overlay" id="celebrazione-overlay" style="display:none" role="dialog" aria-modal="true" aria-label="Sei stato selezionato">
