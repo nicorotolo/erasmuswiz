@@ -19,9 +19,78 @@
 
 ---
 
-### Cantiere SITO — sessioni 49→56
+### Cantiere SITO — sessioni 49→57
 
-**Ultimo aggiornamento:** 2026-07-15 — sessione 56, Claude Code (Opus 4.8)
+**Ultimo aggiornamento:** 2026-07-15 — sessione 57, Claude Code (Opus 4.8)
+(**BUG DEI DOPPIONI CHIUSO: Ca' Foscari serviva 527 mete ma ne ha 392. Il
+contatore diceva un numero falso.**
+
+**IL BUG, preesistente e non di R1.5.** In coda a
+`js/atenei/cafoscari/dati-mete-linguistici.js` e a `dati-mete-umanistici.js` c'era
+`window.METE = window.METE || []; window.METE.push(...METE);`. Ma `window.METE`
+**è già** l'array dichiarato da quel file: `var METE` a livello top di uno script
+classico crea la proprietà su `window`. Il push rovesciava quindi l'array dentro
+se stesso — Studi Linguistici 114→228, Studi Umanistici 21→42, **+135 doppioni**.
+Residuo di uno schema "ogni file appende a un METE globale" che convive male con
+quello vero: `js/carica-atenei.js` concatena TRA un file e l'altro
+(`__ewAccumulaMete`) proprio perché ogni file RIDICHIARA `var METE`. Uno studente
+con profilo in area 0312 vedeva **29 card di cui 9 doppioni esatti**, e
+`#conta-mete` annunciava "29 mete".
+**Nota sulla QA della sessione 56:** il punto (D) qui sotto riporta "527 mete
+(identiche a prima)". Era vero e giusto — R1.5 non ha causato **nessuna
+regressione**, il confronto prima/dopo tornava. Ma il numero di partenza era già
+gonfio da prima: il 527 non andava confrontato solo con se stesso, andava
+confrontato con gli **id unici**. È questo il controllo che mancava, ed è ora nel
+banco di prova.
+
+**(1) La verifica veniva PRIMA del fix, ed è il punto della sessione.** Prima di
+togliere le due code ho cercato chi altro si aspettasse lo schema ad append:
+`window.METE.push` non esiste in nessun altro file; il gemello
+`dati-mete-lingue.js` usa `window.METE_LINGUE = METE` (schema diverso — conferma
+che le due code erano residuo, non contratto); la pipeline dati
+(`scripts/valida-stato.mjs`, `scripts/lib-mete.mjs`, `setup-dipartimento.mjs`)
+legge con `Function(src + "; return METE")`, dove `window` non esiste — le code
+non ci giravano nemmeno; i mockup `design/proposte-*/` usano il loro
+`_assets/dati-demo.js`. **Nessun consumatore dipendeva dall'append**: fix
+eseguito, 10 righe tolte in 2 file. `module.exports` lasciato intatto (la
+pipeline continua a leggere 114 e 21).
+
+**(2) Misurato prima e dopo**, con un banco che emula `carica-atenei.js` fuori dal
+browser (contesto `vm` in cui `window` È il globale, così `var METE` si comporta
+come in pagina): PRIMA 527 servite / 392 uniche / **135 doppioni**; DOPO **392 =
+392**; Sapienza **invariata a 1.595** (era sempre stata pulita). `node --check` OK.
+Somma di controllo per file: 58+76+24+25+66+8+114+21 = **392** ✅
+
+**(3) QA browser su dati veri** (profilo area 0312): il tab Mete rende **20 card**
+e il contatore dice "20 mete" — ora è vero. L'area 0312 pesca da quattro file
+(Filosofia 7, Studi Linguistici 9, Lingue 3, Economia 1 = 20): solo i 9 di Studi
+Linguistici si raddoppiavano, da cui il 29 di prima.
+
+**(4) DOMANDA APERTA PER NICOLA, non un bug e non toccata:** fra le 20 card di
+0312 due si chiamano entrambe "Sciences Po Grenoble UGA", ma sono **record
+distinti** (id `21-f-grenobl23-0312-…` e `22-f-grenobl23-0312-…`): due righe
+separate del bando per lo stesso ateneo e dipartimento. Tutti i 392 id sono unici.
+Se debbano restare due card o fondersi è una scelta sui dati, non sul codice.
+
+**(5) ⚠️ TRAPPOLA NUOVA, e ha morso subito — il lavoro in un worktree NON lo
+pubblica `PUBBLICA.bat`.** Questa sessione è girata in
+`.claude/worktrees/upbeat-panini-24463c` (branch `claude/upbeat-panini-24463c`).
+Il `.bat` gira nella cartella principale su `main` e non può vedere quel branch:
+al primo tentativo ha pubblicato regolarmente `7f1f468` — che conteneva **solo**
+`STATO_DEL_SITO.md`, cioè l'entry della sessione 56 rimasta non committata — e il
+fix è restato indietro. **Verificato leggendo il sito pubblico**, non il commit:
+`window.METE` in rete diceva ancora 527. I due file dati corretti sono poi stati
+copiati nella cartella principale (verificato per hash dei blob git che la base
+fosse identica, quindi nessun lavoro altrui sovrascritto). È la stessa lezione del
+punto (A) della sessione 56: **il push non è la pubblicazione, e la pubblicazione
+non è la verifica**.
+
+File toccati: `js/atenei/cafoscari/dati-mete-linguistici.js`,
+`js/atenei/cafoscari/dati-mete-umanistici.js`, `STATO_DEL_SITO.md`. Nessun file
+creato o rimosso, nessun file spurio da 0 byte in radice (verificato).
+**Prossimo passo: R1.6 — regola deterministica della tappa corrente**, invariato.)
+
+**Ultimo aggiornamento precedente:** 2026-07-15 — sessione 56, Claude Code (Opus 4.8)
 (**DUE ESITI, e il primo non era in programma: il sito non si pubblicava da 12
 giorni. Poi R1.5 IMPLEMENTATA: 7 secondi → 3.**
 
@@ -2591,6 +2660,7 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **PERCORSO — R1.3: zaino per-ateneo** | Contenitore `{ v:2, zaini:{…} }` in `erasmuswiz-zaino`; ateneo attivo lasciato in `erasmuswiz_ateneo` (una sola fonte di verità). **Decisione Nicola 15/07: lo zaino legacy si SPACCA per evidenza** — id mete, dipartimenti e prefissi checklist non si sovrappongono fra atenei (misurato: zero collisioni), quindi anche uno zaino contaminato si ricompone senza perdite. Si chiede allo studente solo con profilo non attribuibile + contenuto di due atenei + qualcosa da collocare | ✅ Fatta e testata (2026-07-15, sessione 54) — 32 asserzioni su dati veri + QA browser. ⚠️ Cambiando ateneo ora parte l'onboarding (zaino nuovo = nessun profilo): è voluto |
 | **PERCORSO — R1.4: contratto hash + navigazione unica** | `vaiA()` unica porta di navigazione; contratto dichiarato (`TAB_VALIDI`, `TAB_PREDEFINITO`, `ALIAS_HASH`), non più sepolto in `initNav()`; `mostraTab()` rimossa e `onclick` inline convertito → nessun bypass. Sanato il bug per cui **6 punti su 10 cambiavano tab senza toccare l'hash**. **Decisioni Nicola 15/07: (a)** Indietro torna al tab precedente (`pushState`), ma solo se il tab cambia davvero; **(b)** unico alias `#timeline`→`#checklist`, l'unico con prova reale (OP2). In più: `aria-current` ora annunciato anche al primo avvio | ✅ Fatta e testata (2026-07-15, sessione 55) — 28 asserzioni + console pulita sui due atenei. ⚠️ Dopo 5 tab servono 5 Indietro per uscire: è voluto |
 | **PERCORSO — R1.5: caricamento progressivo** | Si carica SOLO l'ateneo attivo: `js/atenei/registro.js` (dati dichiarati) + `js/carica-atenei.js` (decide ed emette i tag), `index.html` −123 righe. Migrazione R1.3 protetta su due livelli (carico completo quando serve + rifiuto di migrare con mezzi dati). **7s → 3s Ca' Foscari, 5s Sapienza** su S21 in 4G; payload 2.263 → 903 KB (−60%) / 1.565 KB (−31%). Divisione per dipartimento scartata con prove (42 aree su 101 attraversano i file) | ✅ Fatta, testata e **pubblicata** (2026-07-15, sessione 56) |
+| **PERCORSO — R1.5b: bug dei doppioni** | Tolte le due code `window.METE.push(...METE)` in `dati-mete-linguistici.js` e `dati-mete-umanistici.js`: `window.METE` **era già** l'array del file (`var METE` top-level = proprietà di `window`), quindi il push lo rovesciava dentro se stesso. **527 servite → 392 = 392 uniche**; Sapienza invariata a 1.595. Bug **preesistente**, non di R1.5. Verificato prima del fix che nessun consumatore (pipeline `scripts/`, mockup `design/`) dipendesse dallo schema ad append | ✅ Fatta e testata (2026-07-15, sessione 57) — QA browser: area 0312 rende 20 card (erano 29 con 9 doppioni) e il contatore ora dice il vero |
 | PERCORSO — R1.6 | Regola deterministica della tappa corrente | ⬜ **PROSSIMA** — non dipende da prove esterne |
 | **Pubblicazione — guasto Pages** | Source su "GitHub Actions" senza workflow di deploy: sito fermo al commit del 3/7, **171 commit (125 sul sito) invisibili per 12 giorni** (C2, C3, C4, R1.1-R1.4). Risolto con `.github/workflows/deploy-pages.yml` (Static HTML, niente Jekyll, guardia `node --check`); online verificato per hash contro `origin/main` | ✅ Chiuso (2026-07-15, sessione 56) — resta da rendere vera la riga "Online e locale coincidono" di `PUBBLICA.bat` |
 | **Pipeline dati T0→T3 — Gemini + Codex** | Timeout esterno corretto e pubblicato; tutti i 3 retry ora completano, ma l'ultimo rilancio ha ricevuto 3× `503 UNAVAILABLE`; nessun dato parziale | ⏸️ Attendere che cali la domanda Gemini, poi eseguire un solo batch comparativo |
@@ -2723,28 +2793,37 @@ richiede la schermata unificata a stazioni, che nasce in R3.
 Il CODICE è pronto. Le mete ora sono **REALI** (dalla lista ufficiale del bando
 2026/27). Resta da completare lingua e dettagli-scheda, e validare bando/checklist.
 
-> 🐞 **BUG APERTO, TROVATO IL 15/07 (sessione 56): 135 mete DOPPIE a Ca' Foscari.**
-> **Cosa vede lo studente:** in Studi Linguistici e Culturali Comparati (area
-> 0312) compaiono **29 card di cui 10 sono doppioni esatti**, e il contatore
-> annuncia "29 mete" — un numero falso. Stesso effetto su Studi Umanistici.
-> **Causa (una riga di troppo in due file dati):** in coda a
-> `js/atenei/cafoscari/dati-mete-linguistici.js` (righe ~3350) e
-> `dati-mete-umanistici.js` (~574) c'è
-> `window.METE = window.METE || []; window.METE.push(...METE);`.
-> Siccome `window.METE` **è già** l'array appena dichiarato dal file, quel push
-> ci rovescia dentro se stesso: linguistici 114→228, umanistici 21→42, totale
-> **+135**. È il residuo di uno schema di caricamento "ogni file appende a un
-> METE globale" che convive male con quello vero di `index.html`
-> (ogni file RIDICHIARA `var METE`, e il caricatore concatena).
-> **Numeri:** Ca' Foscari serve **527 mete ma solo 392 uniche**; la Sapienza è
-> pulita (1.595 = 1.595). Solo quei due file hanno il push.
-> **NON è una regressione di R1.5:** c'era identico prima (il totale 527 è
-> invariato) — R1.5 l'ha solo reso visibile, perché per la prima volta si è
-> contato quanto pesa davvero un ateneo. Il commento in `app.js` ("392
-> Ca' Foscari") dice il numero GIUSTO: è la pagina a servirne 527.
-> **Fix probabile (da confermare, non eseguito — roadmap regola 2):** togliere le
-> due code `window.METE.push(...METE)`. Prima però capire se qualche altro
-> consumatore (pipeline, script) si aspetta quello schema ad append.
+**Quante mete sono davvero (misurato il 15/07, sessione 57).** Ca' Foscari:
+**392 servite = 392 uniche** su 8 dipartimenti; Sapienza: **1.595 = 1.595**. Fino
+al 15/07 Ca' Foscari ne serviva **527**: 135 erano doppioni prodotti da due code
+`window.METE.push(...METE)` (vedi il diario in cima, sessione 57). I conteggi per
+file della tabella qui sotto sono sempre stati quelli giusti — descrivono il file
+sorgente, che il bug non toccava; a raddoppiarsi era l'array in memoria.
+Somma di controllo: 58+76+24+25+66+8+114+21 = **392** ✅
+
+> ✅ **BUG CHIUSO IL 15/07 (trovato in sessione 56, risolto in sessione 57): le
+> 135 mete DOPPIE di Ca' Foscari non ci sono più.**
+> **Causa (due righe di troppo in due file dati):** in coda a
+> `js/atenei/cafoscari/dati-mete-linguistici.js` e a `dati-mete-umanistici.js`
+> c'era `window.METE = window.METE || []; window.METE.push(...METE);`. Siccome
+> `window.METE` **è già** l'array dichiarato dal file (`var METE` a livello top =
+> proprietà di `window`), quel push ci rovesciava dentro se stesso: linguistici
+> 114→228, umanistici 21→42, totale **+135**. Residuo di uno schema "ogni file
+> appende a un METE globale" che conviveva male con quello vero (ogni file
+> RIDICHIARA `var METE`, e `js/carica-atenei.js` concatena TRA un file e l'altro).
+> **NON era una regressione di R1.5:** c'era identico prima — R1.5 l'ha solo reso
+> visibile, perché per la prima volta si è contato quanto pesa un ateneo. Il
+> commento in `app.js` ("392 Ca' Foscari") diceva il numero GIUSTO.
+> **Fix eseguito** dopo aver verificato che **nessun altro consumatore** si
+> aspettasse lo schema ad append (pipeline `scripts/` — che legge via
+> `Function(src)`, dove `window` non esiste — e mockup `design/proposte-*/`, che
+> usano i loro dati demo): tolte le due code, 10 righe, `module.exports` intatto.
+> **Esito misurato:** Ca' Foscari **392 = 392**, Sapienza invariata 1.595; area
+> 0312 **29 card → 20**; il contatore ora dice il vero.
+> **⚠️ Una cifra di questa scheda era sbagliata e va ricordata così:** i doppioni
+> in area 0312 erano **9, non 10** (29 → 20, non 19). L'area 0312 pesca da quattro
+> file (Filosofia 7, Studi Linguistici 9, Lingue 3, Economia 1 = 20): solo i 9 di
+> Studi Linguistici si raddoppiavano.
 
 | Dato | Stato attuale | Da fare |
 |------|---------------|---------|
@@ -2754,8 +2833,9 @@ Il CODICE è pronto. Le mete ora sono **REALI** (dalla lista ufficiale del bando
 | **25 mete Scienze** (`dati-mete-scienze.js`) | **REALI** 2026/27; **23/25 lingua**, **25/25 scadenze** | 2 lingue residue |
 | **66 mete Filosofia** (`dati-mete-filosofia.js`) | **REALI** 2026/27; **56/66 lingua**, **66/66 scadenze** | 10 lingue in linguaNonTrovabile (non trovabili su siti ufficiali) |
 | **8 mete Scienze Molecolari** (`dati-mete-molecolari.js`) | **REALI** 2026/27; **8/8 lingua**, **8/8 scadenze** ✅ | completo |
-| **114 mete Studi Linguistici** (`dati-mete-linguistici.js`) | **REALI** 2026/27; **104/114 lingua**, **114/114 scadenze** | 10 lingue in linguaNonTrovabile |
-| **21 mete Studi Umanistici** (`dati-mete-umanistici.js`) | **REALI** 2026/27; **18/21 lingua**, **21/21 scadenze** | 3 lingue in linguaNonTrovabile |
+| **114 mete Studi Linguistici** (`dati-mete-linguistici.js`) | **REALI** 2026/27; **104/114 lingua**, **114/114 scadenze**; coda `window.METE.push` rimossa il 15/07 (raddoppiava l'array a 228) ✅ | 10 lingue in linguaNonTrovabile |
+| **21 mete Studi Umanistici** (`dati-mete-umanistici.js`) | **REALI** 2026/27; **18/21 lingua**, **21/21 scadenze**; coda `window.METE.push` rimossa il 15/07 (raddoppiava l'array a 42) ✅ | 3 lingue in linguaNonTrovabile |
+| **❓ "Sciences Po Grenoble UGA" ×2 in area 0312** | **NON è un doppione del bug**: sono due record distinti (id `21-f-grenobl23-0312-…` e `22-f-grenobl23-0312-…`), due righe separate del bando per lo stesso ateneo e dipartimento. Tutti i 392 id sono unici | **Decide Nicola**: due card o una sola? È una scelta sui dati, non sul codice |
 | **⚠️ EUTOPIA (46 accordi)** | non mappati | Cross-dipartimentali, richiede logica filtro speciale; task futura |
 | **Sapienza — 13 Facoltà avviate** (incluse Scienze Politiche, DIET, Polo di Latina, Scienze Statistiche, Informatica e DIAG) | REALI da Go Erasmus+; Informatica: 27/50 completate per riuso e 3 sotto-batch da 8; DIAG: 21/58 e 4 sotto-batch da 8 | Codex chiude i follow-up |
 | **Sapienza — ULTIME 4 Facoltà** | REALI dall'export ufficiale; lingua/scadenze vuote nel repo, ma al setup Codex il RIUSO ne pre-compila ~metà | Codex: 4 setup + batch di ricerca |
@@ -2787,22 +2867,29 @@ poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
 
-### Cantiere SITO (Claude Code) — numerazione 49→56
+### Cantiere SITO (Claude Code) — numerazione 49→57
 
-**Aggiornamento 2026-07-15 — sessione 56 (Pages riparato + R1.5 fatta, 7s→3s):**
+**Aggiornamento 2026-07-15 — sessione 57 (bug dei doppioni chiuso):**
 
-1. **Da decidere per primo: le 135 mete DOPPIE di Ca' Foscari** (§6, bug trovato
-   contando il payload di R1.5). Uno studente di Studi Linguistici vede 10 card
-   ripetute su 29 e un contatore che mente. Il fix sembra piccolo (togliere le due
-   code `window.METE.push(...METE)` da `dati-mete-linguistici.js` e
-   `dati-mete-umanistici.js`), ma tocca i DATI e va deciso da Nicola: prima
-   verificare che nessuno script della pipeline si aspetti quello schema ad
-   append. **Ha priorità su R1.6**: è visibile agli utenti, ora che il sito è
-   davvero pubblicato.
-2. **Prossima sessione di codice: R1.6 — regola deterministica della tappa
+1. **Pubblicare il fix: `PUBBLICA.bat` (azione di Nicola), poi VERIFICARE l'URL.**
+   Le 135 mete doppie sono state tolte e i due file dati corretti sono nella
+   cartella principale, ma **non ancora pubblicati**: finché il .bat non gira, il
+   sito online continua a servire 527 mete e a mostrare le card ripetute in area
+   0312. Verifica di accettazione: sul sito pubblico `window.METE.length` deve
+   dire **392** (oggi dice 527).
+2. **⚠️ TRAPPOLA NUOVA — il lavoro fatto in un worktree NON lo pubblica
+   `PUBBLICA.bat`.** La sessione 57 è girata in
+   `.claude/worktrees/upbeat-panini-24463c`: il .bat, che gira nella cartella
+   principale su `main`, non può vedere quel branch. Il primo tentativo ha
+   pubblicato solo `STATO_DEL_SITO.md` e il fix è restato indietro — scoperto solo
+   perché si è **letto il sito pubblico** invece del commit. Chi lavora in un
+   worktree deve travasare i file nella cartella principale prima di pubblicare.
+3. **Decidere sul doppio "Sciences Po Grenoble UGA"** in area 0312 (§6): due
+   record distinti e legittimi del bando, non un doppione del bug. Due card o una?
+4. **Prossima sessione di codice: R1.6 — regola deterministica della tappa
    corrente** (`PLAN.md` §7/R1 punto 6). È l'ultimo punto di R1 e non dipende da
    prove esterne: si può aprire subito.
-2. **Non fidarsi mai più di "pushato" come sinonimo di "pubblicato".** Oggi il
+5. **Non fidarsi mai più di "pushato" come sinonimo di "pubblicato".** Oggi il
    sito era fermo al 3 luglio da 171 commit e nessuno se n'era accorto, perché
    `PUBBLICA.bat` dichiara "Online e locale coincidono" **senza verificare**.
    Ora c'è `.github/workflows/deploy-pages.yml` e il guasto tecnico è chiuso, ma
@@ -2810,30 +2897,32 @@ poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
    (confrontare l'URL, es. `git hash-object` della pagina scaricata contro
    `git rev-parse origin/main:index.html`). Finché non è fatta, dopo ogni
    pubblicazione verificare a mano.
-3. **Corollario che è già costato una sessione: mai misurare le prestazioni
+6. **Corollario che è già costato una sessione: mai misurare le prestazioni
    senza prima verificare COSA è online.** I 3 secondi misurati la mattina del
    15/07 descrivevano il sito del 3 luglio (metà del JS, niente mappa) e
    avrebbero fatto ottimizzare R1.5 al buio. La misura vera era 7 secondi.
-4. **Il gate R1 ha una sola voce aperta: "navigazione stabile"**, che si chiude
+   Corollario del corollario, dalla sessione 57: **mai contare i dati senza
+   contare anche gli id unici** — il 527 tornava con se stesso e sembrava sano.
+7. **Il gate R1 ha una sola voce aperta: "navigazione stabile"**, che si chiude
    con R3 (nav a 3 voci Mete·Home·Percorso) per decisione di Nicola della
    sessione 52. R1.1, R1.2, R1.3, R1.4 e R1.5 sono chiuse; il primo avvio
    misurato è chiuso con numeri prima/dopo su entrambi gli atenei.
-5. **Se un giorno la Sapienza deve scendere sotto i 5 secondi**, la strada NON è
+8. **Se un giorno la Sapienza deve scendere sotto i 5 secondi**, la strada NON è
    caricare per dipartimento (misurato: 42 aree su 101 attraversano i file, si
    nasconderebbero mete). Serve un indice area→file o dati riorganizzati per
    area: è una decisione di `DISEGNO_PIPELINE_DATI.md`, da prendere con Nicola,
    non un'ottimizzazione da improvvisare nell'app.
-6. **Restano tre verifiche a occhio accumulate** (in questo ambiente screenshot e
+9. **Restano tre verifiche a occhio accumulate** (in questo ambiente screenshot e
    click per coordinate non funzionano): il dialogo `#scelta-percorso` di R1.3,
    l'animazione d'ingresso del drawer di R1.2, il tasto Indietro di R1.4. Tutte
    e tre si fanno in 5 minuti su http://localhost:8000 — e ora che il sito è
    davvero pubblicato, anche direttamente online.
-7. **Da sapere prima che sembrino bug** (comportamenti voluti): dopo 5 tab
+10. **Da sapere prima che sembrino bug** (comportamenti voluti): dopo 5 tab
    servono 5 Indietro per uscire (R1.4); cambiando ateneo parte l'onboarding
    perché quello zaino è vuoto (R1.3); il primo avvio di chi arriva da uno zaino
    vecchio è lento **una volta sola** perché carica entrambi gli atenei per non
    perdere le stelline (R1.5).
-8. **La numerazione doppia resta da sanare**: questa è la sessione 56 del
+11. **La numerazione doppia resta da sanare**: questa è la sessione 57 del
    **cantiere SITO**.
 
 **Aggiornamento 2026-07-15 — sessione 55 (R1.4 fatta, navigazione unica):**

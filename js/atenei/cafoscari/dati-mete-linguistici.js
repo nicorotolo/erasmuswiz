@@ -3346,11 +3346,6 @@ var METE = [
   }
 ];
 
-if (typeof window !== "undefined") {
-  window.METE = window.METE || [];
-  window.METE.push(...METE);
-}
-
 if (typeof module !== "undefined") {
   module.exports = METE;
 }
