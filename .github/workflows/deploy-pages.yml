@@ -1,0 +1,61 @@
+# Pubblicazione del sito su GitHub Pages (push su main).
+# Filosofia: la regola di pubblicazione sta NEL repo, non in un'impostazione
+# nascosta. Il 3 luglio 2026 la Source di Pages e' passata a "GitHub Actions"
+# senza che esistesse un workflow di deploy: il sito e' rimasto congelato per
+# 12 giorni (171 commit) senza che nulla segnalasse il guasto. Con questo file
+# un deploy che non parte o fallisce diventa una X rossa in Actions.
+#  - Pubblica il repo COSI' COM'E', senza passare da Jekyll: niente esclusioni
+#    silenziose (Jekyll scarta tutto cio' che inizia con "_", quindi mangerebbe
+#    i mockup in design/proposte-*/_assets/).
+#  - Nessun build step: il sito e' HTML/CSS/JS puro (regola d'oro del progetto).
+#  - Si pubblica solo cio' che e' tracciato: `fonti/` e' in .gitignore, quindi i
+#    materiali personali di Bruno non possono finire online da qui.
+name: Pubblica sito su Pages
+
+on:
+  push:
+    branches:
+      - main
+  # Permette di ripubblicare a mano da Actions -> "Run workflow"
+  # (utile senza dover fare un commit finto).
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Un solo deploy alla volta. `cancel-in-progress: false` lascia finire il deploy
+# in corso; le run in ATTESA vengono comunque superate dall'ultima, quindi le
+# raffiche di "auto-merge mappatura" non accodano decine di pubblicazioni.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/configure-pages@v5
+
+      - name: Verifica la sintassi del JS pubblicato
+        # Stessa guardia dell'auto-merge: un errore di sintassi in app.js o nei
+        # dati romperebbe il sito per tutti. Meglio non pubblicare affatto.
+        run: |
+          set -uo pipefail
+          for f in js/app.js js/dati-*.js js/atenei/*/*.js; do
+            [ -e "$f" ] || continue
+            node --check "$f" || { echo "::error::node --check fallito su $f: non pubblico."; exit 1; }
+          done
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
