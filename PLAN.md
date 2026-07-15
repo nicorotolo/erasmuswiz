@@ -382,6 +382,18 @@ assunzione falsa sui corsi disponibili.
    - legacy assegnato automaticamente solo con corrispondenza univoca;
    - ogni ambiguità chiede allo studente;
    - nessuna perdita in cambio ateneo.
+   **[fatto, sessione 54 del 15/07: contenitore `{ v:2, zaini:{…} }` in
+   `erasmuswiz-zaino`; l'ateneo attivo resta in `erasmuswiz_ateneo` (una sola
+   fonte di verità, letta da index.html prima di app.js). **Decisione di Nicola
+   15/07: lo zaino legacy si SPACCA per evidenza**, non va intero a un ateneo —
+   gli id delle mete non si sovrappongono (392 CF vs 1595 Sapienza, zero
+   collisioni), i dipartimenti nemmeno, checklist/requisiti sono prefissati:
+   quindi anche uno zaino contaminato dal bug si ricompone senza perdite. Il
+   profilo e i tre scalari (fase, onboardingFatto, zainoCelebrato) seguono
+   l'ateneo del dipartimento; si chiede allo studente SOLO se il profilo non è
+   attribuibile E c'è contenuto di due atenei. Alternativa scartata: assegnare
+   tutto a un ateneo solo (avrebbe lasciato le stelline dell'altro come id
+   morti = perdita silenziosa, contro il quarto trattino).]**
 4. Contratto hash e funzione unica di navigazione/history.
 5. Caricamento dati progressivo: evitare, quando possibile, di scaricare e
    interpretare i dati di tutti i dipartimenti e di entrambi gli atenei al

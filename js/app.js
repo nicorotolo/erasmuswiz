@@ -4,32 +4,259 @@
 // METE = array combinato Economia + Management (vedi index.html)
 // ============================================================
 
-const CHIAVE_ZAINO = "erasmuswiz-zaino";
+// ============================================================
+// LO ZAINO — un contenitore, uno zaino per ateneo (R1.3, PLAN.md §7/R1.3)
+// ------------------------------------------------------------
+// Fino alla sessione 53 lo zaino era UNO SOLO, condiviso fra gli atenei:
+// cambiando ateneo restavano dentro profilo, stelline e spunte dell'altro.
+// Ora in localStorage c'è un CONTENITORE con uno zaino separato per ateneo:
+//   { v: 2, zaini: { cafoscari: {…}, sapienza: {…} }, pendente: {…} }
+// L'ateneo attivo NON sta qui: resta in "erasmuswiz_ateneo", che index.html
+// legge prima di app.js — una sola fonte di verità, nessun disallineamento.
+// Il cambio ateneo diventa così una lettura di un'altra casella: niente da
+// migrare al volo, niente da perdere.
+// ============================================================
+const CHIAVE_ZAINO   = "erasmuswiz-zaino";
+const VERSIONE_ZAINO = 2;
+
+function zainoVuoto() {
+  return {
+    profilo: null, checklist: {}, metePreferite: [], schedina: [],
+    fase: "domanda", checklistPost: {}, onboardingFatto: false,
+    autoverifica: {}, zainoCelebrato: false
+  };
+}
+
+// Fallback per zaini vecchi su ogni estensione di ZAINO (regola del progetto).
+function normalizzaZaino(z) {
+  if (!z || typeof z !== "object") return zainoVuoto();
+  if (!Array.isArray(z.metePreferite)) z.metePreferite = [];
+  if (!Array.isArray(z.schedina)) z.schedina = [];
+  if (!z.checklist || typeof z.checklist !== "object") z.checklist = {};
+  if (!z.fase) z.fase = "domanda";
+  if (!z.checklistPost || typeof z.checklistPost !== "object") z.checklistPost = {};
+  if (typeof z.onboardingFatto !== "boolean") z.onboardingFatto = !!z.profilo;
+  if (!z.autoverifica || typeof z.autoverifica !== "object") z.autoverifica = {};
+  // "Lo zaino" (BR6): celebrazione all'ingresso in fase 4, una sola volta.
+  // Zaino vecchio senza il campo → non ancora celebrato.
+  if (typeof z.zainoCelebrato !== "boolean") z.zainoCelebrato = (z.fase === "selezionato");
+  return z;
+}
+
+function ateneoAttivo() {
+  return window.ATENEO_ATTIVO || "cafoscari";
+}
+
+// ---- Attribuzione: di quale ateneo è questa chiave? ----
+// Ogni chiave dello zaino porta con sé il suo ateneo, e non per fortuna:
+// gli id delle mete non si sovrappongono fra i due atenei (392 Ca' Foscari
+// contro 1595 Sapienza, zero collisioni), i nomi dei dipartimenti nemmeno,
+// e checklist/requisiti sono prefissati ("chk-", "cf-", "post-" contro
+// "sap-"). Quindi non si indovina: si legge dai dati.
+let _indiceAtenei = null;
+function indiceAtenei() {
+  if (_indiceAtenei) return _indiceAtenei;
+  _indiceAtenei = {};
+  const tutti = window.ATENEI || {};
+  Object.keys(tutti).forEach(k => {
+    const a = tutti[k] || {};
+    const idx = {
+      mete: new Set(), dipartimenti: new Set(),
+      checklist: new Set(), checklistPost: new Set(), requisiti: new Set()
+    };
+    (a.mete || []).forEach(m => {
+      if (m && m.id) idx.mete.add(m.id);
+      if (m && m.dipartimentoCf) idx.dipartimenti.add(m.dipartimentoCf);
+    });
+    (a.checklist     || []).forEach(c => { if (c && c.id) idx.checklist.add(c.id); });
+    (a.checklistPost || []).forEach(c => { if (c && c.id) idx.checklistPost.add(c.id); });
+    (a.requisiti     || []).forEach(r => { if (r && r.id) idx.requisiti.add(r.id); });
+    _indiceAtenei[k] = idx;
+  });
+  return _indiceAtenei;
+}
+
+// Gli atenei che riconoscono una chiave. Esattamente 1 = attribuzione certa.
+function ateneiCon(campo, chiave) {
+  const idx = indiceAtenei();
+  return Object.keys(idx).filter(k => idx[k][campo].has(chiave));
+}
+
+// Il "percorso" = le parti dello zaino SENZA marca d'ateneo. Vanno tutte
+// insieme all'ateneo principale: uno studente ha un profilo solo.
+// C'è qualcosa da collocare davvero? Un percorso senza profilo e fermo ai
+// valori di partenza non vale una domanda: qualsiasi risposta darebbe lo
+// stesso risultato.
+function percorsoDaCollocare(p) {
+  return !!(p.profilo || (p.fase && p.fase !== "domanda") || p.onboardingFatto || p.zainoCelebrato);
+}
+
+function applicaPercorso(z, p) {
+  z.profilo = p.profilo || null;
+  z.fase    = p.fase || "domanda";
+  if (typeof p.onboardingFatto === "boolean") z.onboardingFatto = p.onboardingFatto;
+  if (typeof p.zainoCelebrato  === "boolean") z.zainoCelebrato  = p.zainoCelebrato;
+  return normalizzaZaino(z);
+}
+
+// ---- Migrazione degli zaini vecchi (formato piatto) ----
+// Si SPACCA per evidenza: ogni campo va all'ateneo che le sue chiavi
+// indicano. Così anche uno zaino contaminato dal bug (profilo Ca' Foscari
+// + stelline su mete Sapienza) si ricompone senza perdere niente.
+// Restano senza marca i tre scalari (fase, onboardingFatto, zainoCelebrato)
+// e il profilo: seguono l'ateneo del dipartimento nel profilo. Solo se il
+// profilo non è attribuibile E c'è contenuto di DUE atenei la scelta è
+// impossibile: allora si chiede allo studente (vedi initSceltaPercorso).
+function migraZainoLegacy(legacy) {
+  const zaini  = {};
+  const toccati = {};
+  Object.keys(indiceAtenei()).forEach(k => { zaini[k] = zainoVuoto(); });
+
+  const assegna = (k, fn) => { if (zaini[k]) { fn(zaini[k]); toccati[k] = true; } };
+
+  // Stelline e schedina: l'id della meta dice l'ateneo, senza ambiguità.
+  (legacy.metePreferite || []).forEach(id => {
+    const c = ateneiCon("mete", id);
+    if (c.length === 1) assegna(c[0], z => z.metePreferite.push(id));
+  });
+  (legacy.schedina || []).forEach(id => {
+    const c = ateneiCon("mete", id);
+    if (c.length === 1) assegna(c[0], z => z.schedina.push(id));
+  });
+
+  // Spunte: checklist, checklist post-selezione, auto-verifica dei requisiti.
+  [["checklist", "checklist"], ["checklistPost", "checklistPost"], ["autoverifica", "requisiti"]]
+    .forEach(([campo, indice]) => {
+      const orig = legacy[campo] || {};
+      Object.keys(orig).forEach(id => {
+        const c = ateneiCon(indice, id);
+        if (c.length === 1) assegna(c[0], z => { z[campo][id] = orig[id]; });
+      });
+    });
+
+  const percorso = {
+    profilo:         legacy.profilo || null,
+    fase:            legacy.fase,
+    onboardingFatto: legacy.onboardingFatto,
+    zainoCelebrato:  legacy.zainoCelebrato
+  };
+
+  // Chi è l'ateneo principale? Prima il dipartimento del profilo (il segnale
+  // più forte), poi l'unico ateneo con contenuto attribuito.
+  const dip  = legacy.profilo && legacy.profilo.dipartimento;
+  const cand = dip ? ateneiCon("dipartimenti", dip) : [];
+  let principale = cand.length === 1 ? cand[0] : null;
+  const conContenuto = Object.keys(toccati);
+  if (!principale) {
+    if (conContenuto.length === 1) principale = conContenuto[0];
+    // Nessun contenuto marcato: non c'è niente da attribuire male, e
+    // l'ateneo in uso è il posto giusto. Chiedere sarebbe una domanda
+    // senza posta in gioco.
+    else if (conContenuto.length === 0) principale = ateneoAttivo();
+    // Contenuto di due atenei, ma niente da collocare: le stelline si sono
+    // già divise da sole e la domanda non deciderebbe nulla. Non si disturba
+    // lo studente per un'ambiguità che non ha conseguenze.
+    else if (!percorsoDaCollocare(percorso)) principale = ateneoAttivo();
+  }
+
+  const cont = { v: VERSIONE_ZAINO, zaini };
+  if (principale) applicaPercorso(zaini[principale] || (zaini[principale] = zainoVuoto()), percorso);
+  else cont.pendente = Object.assign({ candidati: conContenuto }, percorso);
+
+  Object.keys(zaini).forEach(k => normalizzaZaino(zaini[k]));
+  return cont;
+}
+
+function salvaContenitore(c) {
+  try { localStorage.setItem(CHIAVE_ZAINO, JSON.stringify(c)); } catch (e) {}
+}
+
+function caricaContenitore() {
+  let grezzo = null;
+  try { grezzo = localStorage.getItem(CHIAVE_ZAINO); } catch (e) {}
+  if (!grezzo) return { v: VERSIONE_ZAINO, zaini: {} };
+  let dato;
+  try { dato = JSON.parse(grezzo); } catch (e) { return { v: VERSIONE_ZAINO, zaini: {} }; }
+  if (dato && dato.v === VERSIONE_ZAINO && dato.zaini && typeof dato.zaini === "object") return dato;
+  // Formato piatto (fino alla sessione 53): si migra e si riscrive subito,
+  // così il vecchio blob non resta lì a farsi rileggere a ogni avvio.
+  const migrato = migraZainoLegacy(normalizzaZaino(dato));
+  salvaContenitore(migrato);
+  return migrato;
+}
+
+let CONTENITORE = caricaContenitore();
 
 function caricaZaino() {
-  try {
-    const g = localStorage.getItem(CHIAVE_ZAINO);
-    const z = g ? JSON.parse(g) : { profilo: null, checklist: {}, metePreferite: [], fase: "domanda", checklistPost: {} };
-    if (!Array.isArray(z.metePreferite)) z.metePreferite = [];
-    if (!Array.isArray(z.schedina)) z.schedina = [];
-    if (!z.fase) z.fase = "domanda";
-    if (!z.checklistPost || typeof z.checklistPost !== "object") z.checklistPost = {};
-    if (typeof z.onboardingFatto !== "boolean") z.onboardingFatto = !!z.profilo;
-    if (!z.autoverifica || typeof z.autoverifica !== "object") z.autoverifica = {};
-    // "Lo zaino" (BR6): celebrazione all'ingresso in fase 4, una sola volta.
-    // Zaino vecchio senza il campo → non ancora celebrato.
-    if (typeof z.zainoCelebrato !== "boolean") z.zainoCelebrato = (z.fase === "selezionato");
-    return z;
-  } catch (e) {
-    return { profilo: null, checklist: {}, metePreferite: [], schedina: [], fase: "domanda", checklistPost: {}, onboardingFatto: false, autoverifica: {}, zainoCelebrato: false };
-  }
+  const k = ateneoAttivo();
+  if (!CONTENITORE.zaini[k]) CONTENITORE.zaini[k] = zainoVuoto();
+  return normalizzaZaino(CONTENITORE.zaini[k]);
 }
 
 function salvaZaino(zaino) {
-  localStorage.setItem(CHIAVE_ZAINO, JSON.stringify(zaino));
+  CONTENITORE.zaini[ateneoAttivo()] = zaino;
+  salvaContenitore(CONTENITORE);
 }
 
 let ZAINO = caricaZaino();
+
+// La domanda dell'ultima spiaggia: si arriva qui solo se la migrazione non ha
+// potuto attribuire il profilo con certezza. Finché non risponde, il pendente
+// resta in localStorage: chiudere la pagina non perde niente, la domanda
+// ritorna al prossimo avvio.
+function initSceltaPercorso() {
+  const p = CONTENITORE.pendente;
+  if (!p) return;
+  const overlay = document.getElementById("scelta-percorso");
+  const zona    = document.getElementById("scelta-percorso-scelte");
+  if (!overlay || !zona) return;
+
+  const tutti = window.ATENEI || {};
+  const candidati = (p.candidati || []).filter(k => tutti[k]);
+  // Meno di due candidati validi (dati cambiati sotto i piedi da quando il
+  // pendente è stato scritto): la domanda non ha più due risposte possibili,
+  // e non si tiene lo studente in ostaggio. Decide l'unico candidato rimasto,
+  // o l'ateneo in uso.
+  if (candidati.length < 2) {
+    const k = candidati[0] || ateneoAttivo();
+    if (!CONTENITORE.zaini[k]) CONTENITORE.zaini[k] = zainoVuoto();
+    applicaPercorso(CONTENITORE.zaini[k], p);
+    delete CONTENITORE.pendente;
+    salvaContenitore(CONTENITORE);
+    ZAINO = caricaZaino();
+    return;
+  }
+
+  const testo = document.getElementById("scelta-percorso-testo");
+  if (testo) {
+    testo.textContent = "Nel percorso che avevi salvato ci sono dati di più atenei: " +
+      candidati.map(k => tutti[k].label).join(" e ") +
+      ". Non riesco a capire da solo dove ti eri candidato, e non voglio indovinare.";
+  }
+
+  zona.innerHTML = "";
+  candidati.forEach(k => {
+    const btn = crea("button", "scelta-percorso-btn", tutti[k].label);
+    btn.type = "button";
+    btn.addEventListener("click", () => {
+      if (!CONTENITORE.zaini[k]) CONTENITORE.zaini[k] = zainoVuoto();
+      applicaPercorso(CONTENITORE.zaini[k], p);
+      delete CONTENITORE.pendente;
+      salvaContenitore(CONTENITORE);
+      // L'ateneo scelto diventa quello attivo: è lì che lo studente si era
+      // fermato. Il reload rifà l'avvio con i dati giusti, come il cambio
+      // ateneo — nessuno stato a metà.
+      try { localStorage.setItem("erasmuswiz_ateneo", k); } catch (e) {}
+      location.reload();
+    });
+    zona.appendChild(btn);
+  });
+
+  overlay.hidden = false;
+  document.body.classList.add("no-scroll");
+  zona.querySelector("button")?.focus();
+}
+
 let filtroMeteAttivo = "tutte"; // "tutte" | "ok" | "medio" | "basso" — stato UI, non salvato nello zaino
 
 // ---- Utilità DOM ----
@@ -174,8 +401,9 @@ function initNav() {
 // ✕, Escape o click sul velo, e il focus torna sempre al bottone che
 // l'ha aperto. È aria-modal, quindi il Tab resta dentro al drawer.
 // "Cambia ateneo" porta alla tendina già esistente nel Profilo: il
-// cambio ateneo con zaino separato (e migrazione dei dati legacy) è
-// R1.3, e qui NON si duplica quella logica.
+// cambio ateneo con zaino separato (e migrazione dei dati legacy) sta
+// tutto nel contenitore per-ateneo in cima al file (R1.3), e qui NON si
+// duplica quella logica.
 // ============================================================
 let drawerApertoDa = null;
 
@@ -2240,6 +2468,9 @@ function applicaBrandingAteneo() {
 }
 
 function init() {
+  // Per prima: se la migrazione R1.3 ha lasciato un profilo da attribuire,
+  // qui si risolve (o si chiede) PRIMA che qualcuno renderizzi lo zaino.
+  initSceltaPercorso();
   initNav();
   initDrawer();
   applicaBrandingAteneo();

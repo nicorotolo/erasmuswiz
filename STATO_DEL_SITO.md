@@ -19,9 +19,75 @@
 
 ---
 
-### Cantiere SITO — sessioni 49→53
+### Cantiere SITO — sessioni 49→54
 
-**Ultimo aggiornamento:** 2026-07-15 — sessione 53, Claude Code (Opus 4.8)
+**Ultimo aggiornamento:** 2026-07-15 — sessione 54, Claude Code (Opus 4.8)
+(**R1.3 IMPLEMENTATA: lo zaino non è più condiviso fra atenei — il bug è
+chiuso.** Terzo blocco dell'ondata PERCORSO, il più delicato di R1. **(1) Il
+contenitore per-ateneo**: in `localStorage` la chiave `erasmuswiz-zaino` ora
+contiene `{ v: 2, zaini: { cafoscari: {…}, sapienza: {…} } }`. L'ateneo attivo
+NON sta nel contenitore: resta in `erasmuswiz_ateneo`, che `index.html` legge
+prima di `app.js` — una sola fonte di verità, nessun disallineamento possibile.
+Il cambio ateneo diventa così la lettura di un'altra casella: non c'è più niente
+da contaminare, e `salvaZaino()`/`caricaZaino()` scrivono e leggono sempre nella
+casella dell'ateneo in uso (il resto di `app.js` non se ne accorge: nessuna
+chiamata cambiata).
+**(2) La scoperta che ha deciso il disegno**: ogni chiave dello zaino porta già
+con sé il suo ateneo. Misurato sui dati veri: gli id delle mete **non si
+sovrappongono** (392 Ca' Foscari contro 1595 Sapienza, **zero** collisioni), i
+nomi dei dipartimenti nemmeno (8 contro 17, zero in comune), e
+checklist/post-selezione/requisiti sono prefissati (`chk-`/`cf-`/`post-` contro
+`sap-`). Quindi la migrazione non indovina: legge dai dati.
+**(3) DECISIONE DI NICOLA in sessione — lo zaino legacy si SPACCA per
+evidenza**, non va intero a un ateneo: ogni campo va all'ateneo che le sue
+chiavi indicano. Così anche uno zaino **contaminato dal bug** (profilo Ca'
+Foscari + stelline su mete Sapienza) si ricompone senza perdere niente. Profilo
+e i tre scalari senza marca (`fase`, `onboardingFatto`, `zainoCelebrato`)
+seguono l'ateneo del dipartimento del profilo. Alternative scartate: assegnare
+tutto a un ateneo solo (avrebbe lasciato le stelline dell'altro come id morti =
+perdita silenziosa, contro il quarto trattino di R1.3) e chiedere sempre
+(infastidisce chi ha uno zaino perfettamente attribuibile, e non risolve la
+contaminazione).
+**(4) Si chiede allo studente solo quando serve davvero**: se il profilo non è
+attribuibile E c'è contenuto di due atenei E c'è qualcosa da collocare. In
+autorevisione ho tolto una domanda inutile: senza profilo né progresso le
+stelline si dividono da sole e qualsiasi risposta darebbe lo stesso risultato —
+quel caso non merita di disturbare nessuno (`percorsoDaCollocare()`). Il dialogo
+(`#scelta-percorso`) non si chiude senza rispondere, ma il `pendente` resta in
+`localStorage`: chiudere la pagina non perde niente, la domanda ritorna al
+prossimo avvio.
+**(5) QA — banco di prova + browser.** Un harness in Node (fuori dal repo) gira
+`app.js` in una VM contro i **dati veri** dei due atenei: **32 asserzioni, tutte
+passate** (legacy pulito, legacy contaminato, ambiguo vero, ambiguo finto,
+profilo vecchio non attribuibile, andata-e-ritorno fra atenei, storage vuoto,
+JSON rotto, idempotenza). Poi su server locale, seminando lo zaino contaminato
+esatto del bug: la stellina Sapienza `sap-ius-salzburg` **è finita nello zaino
+Sapienza invece di sparire**, il profilo Economia è rimasto a Ca' Foscari;
+andata e ritorno fra i due atenei, ognuno ritrova il suo intatto; il dialogo
+ambiguo l'ho fatto comparire e ci ho cliccato (profilo e fase vanno dove si
+risponde, `pendente` si chiude, l'altro ateneo tiene la sua stellina). Console
+pulita su ENTRAMBI gli atenei, `node --check js/app.js` OK, dialogo centrato e
+dentro il viewport a 375/768/1280 senza scroll orizzontale, bottoni 48px (≥44),
+focus sul primo. Utente nuovo: nessun dialogo, onboarding regolare, nav a 4 voci
+intatta.
+**(6) ⚠️ CAMBIO DI COMPORTAMENTO VISIBILE, da sapere:** passando a un ateneo mai
+usato ora parte l'onboarding, perché quello zaino è vuoto e non ha profilo. È la
+conseguenza onesta degli zaini separati (una facoltà va scelta lì), ma è diverso
+da prima: non è un bug.
+**(7) Limite della verifica, invariato dalla sessione 53:** lo screenshot va in
+timeout in questo ambiente e i click per coordinate non arrivano — verifica
+fatta per misure DOM ed eventi dispacciati. Il dialogo non l'ha visto nessuno a
+occhio: merita un'occhiata da browser vero.
+File toccati: `js/app.js`, `index.html`, `css/style.css`, `PLAN.md` (spunta di
+R1 punto 3), `STATO_DEL_SITO.md`. Nessun file creato o rimosso, **nessun dato
+toccato**.
+**⚠️ Da segnalare a Nicola:** in radice sono ricomparsi due file spuri da 0 byte
+(`m.dipartimentoCf` e `{,+`, la trappola nota del bash) — eliminati in chiusura
+di questa sessione invece di committarli.
+**Prossimo passo: R1.4 — contratto hash e funzione unica di navigazione/history;
+poi R1.5, che prima di ottimizzare vuole il primo avvio MISURATO su telefono.**)
+
+**Ultimo aggiornamento precedente:** 2026-07-15 — sessione 53, Claude Code (Opus 4.8)
 (**R1.2 IMPLEMENTATA: il drawer da destra esiste.** Secondo blocco di codice
 dell'ondata PERCORSO, dopo R1.1. **(1) Drawer fatto** come da `PLAN.md` §5.6:
 bottone "☰ Altro" come QUARTA voce della nav (in basso su mobile, all'estremità
@@ -2347,8 +2413,8 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | PERCORSO — R0: verità, dati e confini | Conferma starter Ca' Foscari, mail ufficio Erasmus, intervista Bruno A2/D5, G5 pipeline (`linkCatalogo`/`notaDisponibilita`/fonte/`verificataIl`), misura gap A/B/C, schema ramo `la` | ⏳ APERTA — in gran parte azioni umane (mail, intervista, conferma starter). Checkpoint 31/07 |
 | **PERCORSO — R1.1: tema unico giorno** | Tema notte rimosso (palette `body.tema-notte`, regole notte mappa, CSS+bottone toggle, `initTema()`); `--night-*` reinterpretati come superfici a inchiostro del giorno; caso legacy `ew-tema:notte` verificato innocuo | ✅ Fatta e testata (2026-07-15, sessione 52) |
 | **PERCORSO — R1.2: drawer** | Drawer da destra (Profilo, Cambia ateneo, Guide, Come funziona) aperto da "☰ Altro", 4ª voce della nav; Escape/velo/✕, focus trappolato e ritorno al controllo di apertura; fix target 42→45px. **Decisione Nicola 15/07: la nav a 3 voci NON è qui, slitta a fine R1 con R3** | ✅ Fatta e testata (2026-07-15, sessione 53) — ⚠️ animazione d'ingresso non verificabile a video in questo ambiente |
-| PERCORSO — R1.3: zaino per-ateneo | Contenitore con ateneo attivo + zaini separati; legacy assegnato solo con corrispondenza univoca, ogni ambiguità chiede allo studente; nessuna perdita al cambio ateneo | ⬜ **PROSSIMA** — pezzo più delicato di R1. Il "Cambia ateneo" del drawer oggi è solo una scorciatoia alla tendina del Profilo: **lo zaino è ancora condiviso fra atenei** |
-| PERCORSO — R1.4/R1.5/R1.6 | Contratto hash + funzione unica navigazione/history · caricamento dati progressivo (oggi si scaricano TUTTE le mete dei DUE atenei al primo avvio) · regola deterministica della tappa corrente | ⬜ Da fare — R1.5 richiede primo avvio MISURATO su telefono (gate R1) |
+| **PERCORSO — R1.3: zaino per-ateneo** | Contenitore `{ v:2, zaini:{…} }` in `erasmuswiz-zaino`; ateneo attivo lasciato in `erasmuswiz_ateneo` (una sola fonte di verità). **Decisione Nicola 15/07: lo zaino legacy si SPACCA per evidenza** — id mete, dipartimenti e prefissi checklist non si sovrappongono fra atenei (misurato: zero collisioni), quindi anche uno zaino contaminato si ricompone senza perdite. Si chiede allo studente solo con profilo non attribuibile + contenuto di due atenei + qualcosa da collocare | ✅ Fatta e testata (2026-07-15, sessione 54) — 32 asserzioni su dati veri + QA browser. ⚠️ Cambiando ateneo ora parte l'onboarding (zaino nuovo = nessun profilo): è voluto |
+| PERCORSO — R1.4/R1.5/R1.6 | Contratto hash + funzione unica navigazione/history · caricamento dati progressivo (oggi si scaricano TUTTE le mete dei DUE atenei al primo avvio) · regola deterministica della tappa corrente | ⬜ **PROSSIMA (R1.4)** — R1.5 richiede primo avvio MISURATO su telefono (gate R1) |
 | **Pipeline dati T0→T3 — Gemini + Codex** | Timeout esterno corretto e pubblicato; tutti i 3 retry ora completano, ma l'ultimo rilancio ha ricevuto 3× `503 UNAVAILABLE`; nessun dato parziale | ⏸️ Attendere che cali la domanda Gemini, poi eseguire un solo batch comparativo |
 
 **Tab visibili nella pagina (navigazione inferiore):** Oggi (missione) → Mete →
@@ -2365,9 +2431,14 @@ richiede la schermata unificata a stazioni, che nasce in R3.
 - **Codice separato dai dati.** I contenuti vivono nei file `js/dati-*.js`;
   `js/app.js` è solo logica. Per aggiornare un contenuto si tocca SOLO il file dati.
 - **"Zaino unico" (account-ready).** Tutto lo stato dello studente sta in un solo
-  oggetto in localStorage:
-  `ZAINO = { profilo: {...}, checklist: { "chk-mete": true, ... } }`.
-  Domani lo stesso oggetto andrà su un server senza riscrivere la logica.
+  contenitore in localStorage (chiave `erasmuswiz-zaino`), con **uno zaino per
+  ateneo** dopo R1.3 (sessione 54):
+  `{ v: 2, zaini: { cafoscari: { profilo: {...}, checklist: { "chk-mete": true, ... } }, sapienza: {...} } }`.
+  `ZAINO` in `app.js` è sempre lo zaino dell'ateneo attivo; `caricaZaino()` e
+  `salvaZaino()` leggono e scrivono nella casella giusta, quindi il resto della
+  logica non è cambiato. L'ateneo attivo NON sta qui: vive in `erasmuswiz_ateneo`,
+  letto da `index.html` prima di `app.js` (una sola fonte di verità).
+  Domani lo stesso contenitore andrà su un server senza riscrivere la logica.
 
 ## 4. FILE DEL PROGETTO
 
@@ -2492,7 +2563,35 @@ poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
 
-### Cantiere SITO (Claude Code) — numerazione 49→53
+### Cantiere SITO (Claude Code) — numerazione 49→54
+
+**Aggiornamento 2026-07-15 — sessione 54 (R1.3 fatta, zaino per-ateneo):**
+
+1. **Prossima sessione di codice: R1.4 — contratto hash e funzione unica di
+   navigazione/history** (`PLAN.md` §7/R1 punto 4). Oggi la navigazione fra tab
+   passa da `mostraTab()` + `history.replaceState` sparsi (drawer, voci nav,
+   scorciatoia "Cambia ateneo"): serve UNA funzione sola e un contratto
+   esplicito sugli hash. È il presupposto della nav a 3 voci di fine R1.
+2. **R1.5 vuole una misura, non un'opinione** (invariato dalla sessione 52, e
+   ora conta di più): `index.html` carica in sequenza TUTTI i file mete dei due
+   atenei (~2.000 mete) prima di sapere quale serve. Con gli zaini separati
+   l'ateneo attivo è noto prima di `app.js` (`erasmuswiz_ateneo`), quindi il
+   caricamento progressivo ha finalmente un aggancio pulito. Fare la misura del
+   primo avvio su telefono PRIMA di ottimizzare: il gate R1 chiede un numero.
+3. **Verifica a video del dialogo R1.3 su browser vero.** In questo ambiente
+   screenshot e click per coordinate non funzionano: il dialogo
+   `#scelta-percorso` è verificato per misure DOM ed eventi dispacciati, ma
+   nessuno l'ha visto a occhio. Si fa comparire seminando in `localStorage` uno
+   zaino piatto con `fase: "selezionato"`, nessun dipartimento riconoscibile e
+   stelline su mete di entrambi gli atenei.
+4. **Da sapere prima che sembri un bug:** cambiando ateneo ora parte
+   l'onboarding, perché quello zaino è vuoto e non ha profilo. È la conseguenza
+   voluta degli zaini separati.
+5. **Il gate R1 resta aperto su "navigazione stabile"** (decisione sessione 52:
+   si chiude con R3) e sul primo avvio misurato (R1.5). R1.1, R1.2 e R1.3 sono
+   chiuse.
+6. **La numerazione doppia resta da sanare**: questa è la sessione 54 del
+   **cantiere SITO**.
 
 **Aggiornamento 2026-07-15 — sessione 53 (R1.2 fatta, il drawer esiste):**
 

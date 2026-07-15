@@ -380,6 +380,22 @@
     <button class="celebrazione-btn" id="celebrazione-btn">Apri lo zaino →</button>
   </div>
 
+  <!-- Scelta del percorso (R1.3): mostrata da JS SOLO quando uno zaino vecchio
+       ha dati di due atenei e il profilo non dice a quale appartiene. Le mete
+       preferite sono già state divise da sole (gli id non si sovrappongono):
+       qui si decide solo dove va il profilo. Non si chiude senza rispondere —
+       ma niente è perso: senza risposta la domanda ritorna al prossimo avvio. -->
+  <div class="scelta-percorso-overlay" id="scelta-percorso" hidden role="dialog"
+       aria-modal="true" aria-labelledby="scelta-percorso-titolo">
+    <div class="scelta-percorso-box">
+      <img src="img/mascotte/wiz-pensieroso.webp" alt="" class="scelta-percorso-wiz">
+      <h2 class="scelta-percorso-titolo" id="scelta-percorso-titolo">Dove stavi facendo la domanda?</h2>
+      <p class="scelta-percorso-testo" id="scelta-percorso-testo"></p>
+      <div class="scelta-percorso-scelte" id="scelta-percorso-scelte"></div>
+      <p class="scelta-percorso-nota">Le mete che avevi messo tra le preferite sono già al sicuro, ognuna nel suo ateneo. Qui scegli solo dove tenere profilo e progressi.</p>
+    </div>
+  </div>
+
   <!-- L'overlay onboarding è stato SOSTITUITO dal benvenuto in pagina
        (#home-benvenuto, Fase C2): stesso flusso a 3 domande, sulla mappa.
        Con l'overlay sparisce il bug P0.1 (opzioni tagliate su mobile). -->
