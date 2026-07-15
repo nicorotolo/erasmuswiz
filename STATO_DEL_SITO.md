@@ -19,9 +19,71 @@
 
 ---
 
-### Cantiere SITO — sessioni 49→54
+### Cantiere SITO — sessioni 49→55
 
-**Ultimo aggiornamento:** 2026-07-15 — sessione 54, Claude Code (Opus 4.8)
+**Ultimo aggiornamento:** 2026-07-15 — sessione 55, Claude Code (Opus 4.8)
+(**R1.4 IMPLEMENTATA: `vaiA()` è l'unica porta di navigazione e l'URL non può
+più mentire.** Quarto blocco dell'ondata PERCORSO. **(1) Il contratto è
+dichiarato, non sepolto**: `TAB_VALIDI`, `TAB_PREDEFINITO` e `ALIAS_HASH` stanno
+in cima alla sezione NAVIGAZIONE di `app.js` (prima `TAB_VALIDI` era una const
+locale dentro `initNav()`, invisibile a chiunque aggiungesse un tab). Gli hash
+supportati sono l'interfaccia pubblica del sito, e ora si leggono in un punto
+solo. **(2) IL BUG VERO, trovato leggendo il codice:** su 10 punti che cambiavano
+schermata, **6 non toccavano l'hash affatto** — i bottoni del fase-stepper, la
+card missione, i tre link "Vai al profilo", il filtro lingua. Cliccavi "Vedi i
+requisiti" e l'URL continuava a dire `#oggi`. Non era solo disordine: era l'URL
+che mentiva. Ora tutti e 10 passano da `vaiA()` (misurato: fase-stepper →
+`idoneita #idoneita`), l'`onclick` inline in `index.html` è diventato
+`data-goto`, e `mostraTab()` non esiste più — nessun bypass possibile.
+**(3) DECISIONE DI NICOLA in sessione — il tasto Indietro**: la navigazione
+voluta dallo studente fa `pushState`, quindi Indietro torna al tab precedente
+(comportamento da app), **ma solo se il tab cambia davvero**: ri-cliccare il tab
+attivo non aggiunge voci (misurato: `7 → 7`), perché un Indietro che non fa
+niente è peggio di nessun Indietro. Alternativa scartata: `replace` ovunque
+(cronologia piatta, Indietro esce dal sito).
+**(4) DECISIONE DI NICOLA — gli alias**: si dichiara SOLO `#timeline` →
+`#checklist`, l'unico con una prova alle spalle (era un hash vero fino a OP2, che
+ha rimosso la pagina Timeline fondendone i contenuti in scadenze+checklist: chi
+ha quel segnalibro atterra dove il contenuto è finito davvero). Scartati
+`#percorso` e `#candidatura`: sono etichette della nav, hash non lo sono MAI
+stati — sarebbero alias inventati, e i nomi veri arrivano con la nav di R3.
+Gli alias si normalizzano sul nome canonico; un hash sconosciuto (`#pippo`) NON
+resta nell'URL a raccontare una schermata che non esiste.
+**(5) Una cosa che il piano non chiedeva, emersa al primo avvio:** con l'hash
+vuoto non dipingeva nessuno, lo stato iniziale veniva dalle classi scritte a mano
+nell'HTML — che marcano `attivo` ma **non hanno `aria-current`**. Chi usa un
+lettore di schermo non sentiva annunciata la voce corrente al primo avvio,
+contro `PLAN.md` §5.6. Ora si dipinge anche a hash vuoto, **senza scrivere niente
+nell'URL**: l'indirizzo pubblico della home resta pulito (vincolo §10.8, gli URL
+indicizzati non cambiano per effetto collaterale di un refactor).
+**(6) QA — 28 asserzioni, tutte passate.** Contratto (alias `#timeline`, hash
+sconosciuto → predefinito + URL ripulito, `#METE` maiuscolo normalizzato,
+`vaiA("inesistente")` che rifiuta senza toccare né URL né tab), cronologia
+(push/Indietro/Avanti, ri-click che non sporca), drawer (R1.2 intatto, focus
+sulla tendina compreso), utente nuovo (onboarding regolare, nessun dialogo R1.3,
+URL senza `#oggi` appiccicato). Deep-link `#timeline` provato su un **reload
+vero** con Sapienza a 1595 mete. Console pulita su ENTRAMBI gli atenei,
+`node --check js/app.js` OK, nessuno scroll orizzontale a 375/768/1280, nav a 4
+voci da 88×45px (≥44). **Un errore mio smascherato dal banco di prova:**
+`location.href` verso la stessa pagina cambia solo l'hash e NON ricarica — il
+primo tentativo di passare a Sapienza sembrava fallito ma la pagina non si era
+mai ricaricata; rifatto con `location.reload()` e un marcatore per provare che il
+documento fosse davvero nuovo.
+**(7) ⚠️ CAMBIO DI COMPORTAMENTO VISIBILE, da sapere:** dopo 5 tab servono 5
+Indietro per uscire dal sito. È la conseguenza accettata della decisione (3), non
+un bug.
+**(8) Limite della verifica, invariato dalla sessione 49:** lo screenshot va in
+timeout in questo ambiente e i click per coordinate non arrivano — verifica fatta
+per misure DOM ed eventi dispacciati (che sono click veri, `element.click()`).
+File toccati: `js/app.js`, `index.html`, `PLAN.md` (spunta di R1 punto 4),
+`STATO_DEL_SITO.md`. Nessun file creato o rimosso, **nessun dato toccato**.
+**⚠️ Trappola nota, di nuovo:** i miei grep hanno ricreato due file spuri da
+0 byte in radice (`sincronizzaDaUrl())` e `vaiA(f.tab))`) — verificati vuoti ed
+eliminati prima del commit, come in sessione 54.
+**Prossimo passo: R1.5 — caricamento dati progressivo, che però PRIMA vuole il
+primo avvio MISURATO su telefono vero (gate R1): serve un passaggio di Nicola.**)
+
+**Ultimo aggiornamento precedente:** 2026-07-15 — sessione 54, Claude Code (Opus 4.8)
 (**R1.3 IMPLEMENTATA: lo zaino non è più condiviso fra atenei — il bug è
 chiuso.** Terzo blocco dell'ondata PERCORSO, il più delicato di R1. **(1) Il
 contenitore per-ateneo**: in `localStorage` la chiave `erasmuswiz-zaino` ora
@@ -2414,13 +2476,20 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **PERCORSO — R1.1: tema unico giorno** | Tema notte rimosso (palette `body.tema-notte`, regole notte mappa, CSS+bottone toggle, `initTema()`); `--night-*` reinterpretati come superfici a inchiostro del giorno; caso legacy `ew-tema:notte` verificato innocuo | ✅ Fatta e testata (2026-07-15, sessione 52) |
 | **PERCORSO — R1.2: drawer** | Drawer da destra (Profilo, Cambia ateneo, Guide, Come funziona) aperto da "☰ Altro", 4ª voce della nav; Escape/velo/✕, focus trappolato e ritorno al controllo di apertura; fix target 42→45px. **Decisione Nicola 15/07: la nav a 3 voci NON è qui, slitta a fine R1 con R3** | ✅ Fatta e testata (2026-07-15, sessione 53) — ⚠️ animazione d'ingresso non verificabile a video in questo ambiente |
 | **PERCORSO — R1.3: zaino per-ateneo** | Contenitore `{ v:2, zaini:{…} }` in `erasmuswiz-zaino`; ateneo attivo lasciato in `erasmuswiz_ateneo` (una sola fonte di verità). **Decisione Nicola 15/07: lo zaino legacy si SPACCA per evidenza** — id mete, dipartimenti e prefissi checklist non si sovrappongono fra atenei (misurato: zero collisioni), quindi anche uno zaino contaminato si ricompone senza perdite. Si chiede allo studente solo con profilo non attribuibile + contenuto di due atenei + qualcosa da collocare | ✅ Fatta e testata (2026-07-15, sessione 54) — 32 asserzioni su dati veri + QA browser. ⚠️ Cambiando ateneo ora parte l'onboarding (zaino nuovo = nessun profilo): è voluto |
-| PERCORSO — R1.4/R1.5/R1.6 | Contratto hash + funzione unica navigazione/history · caricamento dati progressivo (oggi si scaricano TUTTE le mete dei DUE atenei al primo avvio) · regola deterministica della tappa corrente | ⬜ **PROSSIMA (R1.4)** — R1.5 richiede primo avvio MISURATO su telefono (gate R1) |
+| **PERCORSO — R1.4: contratto hash + navigazione unica** | `vaiA()` unica porta di navigazione; contratto dichiarato (`TAB_VALIDI`, `TAB_PREDEFINITO`, `ALIAS_HASH`), non più sepolto in `initNav()`; `mostraTab()` rimossa e `onclick` inline convertito → nessun bypass. Sanato il bug per cui **6 punti su 10 cambiavano tab senza toccare l'hash**. **Decisioni Nicola 15/07: (a)** Indietro torna al tab precedente (`pushState`), ma solo se il tab cambia davvero; **(b)** unico alias `#timeline`→`#checklist`, l'unico con prova reale (OP2). In più: `aria-current` ora annunciato anche al primo avvio | ✅ Fatta e testata (2026-07-15, sessione 55) — 28 asserzioni + console pulita sui due atenei. ⚠️ Dopo 5 tab servono 5 Indietro per uscire: è voluto |
+| PERCORSO — R1.5/R1.6 | Caricamento dati progressivo (oggi si scaricano TUTTE le mete dei DUE atenei al primo avvio) · regola deterministica della tappa corrente | ⬜ **PROSSIMA (R1.5)** — richiede primo avvio MISURATO su telefono (gate R1), azione umana di Nicola |
 | **Pipeline dati T0→T3 — Gemini + Codex** | Timeout esterno corretto e pubblicato; tutti i 3 retry ora completano, ma l'ultimo rilancio ha ricevuto 3× `503 UNAVAILABLE`; nessun dato parziale | ⏸️ Attendere che cali la domanda Gemini, poi eseguire un solo batch comparativo |
 
 **Tab visibili nella pagina (navigazione inferiore):** Oggi (missione) → Mete →
 Candidatura (scadenze+checklist fuse) → **"☰ Altro" (apre il drawer, R1.2)**.
 **Tab nascosti (accessibili da JS):** Idoneità · Profilo — il Profilo ora ha
 anche una porta d'ingresso visibile: la voce "Profilo" del drawer.
+**Contratto hash (R1.4) — gli hash supportati sono 5:** `#oggi` (predefinito) ·
+`#mete` · `#checklist` · `#idoneita` · `#profilo`. **Unico alias dichiarato:**
+`#timeline` → `#checklist` (era un hash vero fino a OP2). Tutto il resto viene
+normalizzato: un hash sconosciuto porta al predefinito e sparisce dall'URL. Si
+naviga SOLO con `vaiA(dest, { storia, scroll })` — chi aggiunge o rinomina un tab
+aggiorna `TAB_VALIDI` in `js/app.js`, non i singoli punti di chiamata.
 **Nav a 3 voci (Mete · Home · Percorso):** decisa nel piano, ma implementata a
 FINE R1 insieme a R3 (decisione di Nicola, sessione 52) — la voce "Percorso"
 richiede la schermata unificata a stazioni, che nasce in R3.
@@ -2563,7 +2632,35 @@ poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
 
-### Cantiere SITO (Claude Code) — numerazione 49→54
+### Cantiere SITO (Claude Code) — numerazione 49→55
+
+**Aggiornamento 2026-07-15 — sessione 55 (R1.4 fatta, navigazione unica):**
+
+1. **La prossima sessione di codice NON parte da sola: R1.5 vuole una misura,
+   non un'opinione.** `index.html` carica in sequenza TUTTI i file mete dei due
+   atenei (~2.100 mete: 527 Ca' Foscari + 1595 Sapienza) prima di sapere quale
+   serve. L'aggancio pulito ora c'è (l'ateneo attivo è noto prima di `app.js`,
+   R1.3), ma **il gate R1 chiede un numero: il primo avvio misurato su telefono
+   vero**. È un'azione umana di Nicola — senza quella misura si ottimizzerebbe
+   al buio.
+2. **R1.6 (regola deterministica della tappa corrente) è l'alternativa
+   sbloccata**, se la misura di R1.5 tarda: non dipende da prove esterne.
+3. **Due verifiche a occhio si sono accumulate** (in questo ambiente screenshot
+   e click per coordinate non funzionano): (a) il dialogo `#scelta-percorso` di
+   R1.3, (b) l'animazione d'ingresso del drawer di R1.2. Ora si aggiunge (c) il
+   tasto **Indietro** provato su un browser vero — la logica è verificata con 28
+   asserzioni, ma la sensazione d'uso no. Tutte e tre si fanno in 5 minuti su
+   http://localhost:8000.
+4. **Da sapere prima che sembrino bug** (due comportamenti voluti): dopo 5 tab
+   servono 5 Indietro per uscire dal sito (R1.4); cambiando ateneo parte
+   l'onboarding, perché quello zaino è vuoto (R1.3).
+5. **Il gate R1 resta aperto su due voci sole:** "navigazione stabile" (si chiude
+   con R3, decisione sessione 52 — la nav a 3 voci Mete·Home·Percorso) e il primo
+   avvio misurato (R1.5). R1.1, R1.2, R1.3 e R1.4 sono chiuse.
+6. **Checkpoint 14/08 del piano** (`PLAN.md` §9): "R1 chiusa o con blocchi
+   dichiarati". Il blocco da dichiarare oggi è uno: la misura su telefono.
+7. **La numerazione doppia resta da sanare**: questa è la sessione 55 del
+   **cantiere SITO**.
 
 **Aggiornamento 2026-07-15 — sessione 54 (R1.3 fatta, zaino per-ateneo):**
 

@@ -394,7 +394,20 @@ assunzione falsa sui corsi disponibili.
    attribuibile E c'è contenuto di due atenei. Alternativa scartata: assegnare
    tutto a un ateneo solo (avrebbe lasciato le stelline dell'altro come id
    morti = perdita silenziosa, contro il quarto trattino).]**
-4. Contratto hash e funzione unica di navigazione/history.
+4. Contratto hash e funzione unica di navigazione/history. **[fatto, sessione 55
+   del 15/07: `vaiA()` è l'unica porta di navigazione; il contratto (`TAB_VALIDI`,
+   `TAB_PREDEFINITO`, `ALIAS_HASH`) è dichiarato in cima alla sezione e non più
+   sepolto dentro `initNav()`. Sanato il bug per cui 6 punti su 10 cambiavano tab
+   SENZA toccare l'hash (l'URL diceva `#oggi` mentre eri sulle mete).
+   **Decisione di Nicola 15/07 (a) tasto Indietro**: la navigazione voluta dallo
+   studente fa `pushState`, quindi Indietro torna al tab precedente — ma solo se
+   il tab cambia davvero, così ri-cliccare il tab attivo non sporca la cronologia.
+   Conseguenza accettata: dopo 5 tab servono 5 Indietro per uscire dal sito.
+   **Decisione di Nicola 15/07 (b) alias**: si dichiara SOLO `#timeline`→`checklist`,
+   l'unico con prova reale (era un hash supportato fino a OP2, che ha rimosso la
+   pagina Timeline fondendola in scadenze+checklist). Scartati `#percorso` e
+   `#candidatura`: sono etichette della nav, hash non lo sono mai stati —
+   sarebbero alias inventati, e i nomi veri arrivano con la nav di R3.]**
 5. Caricamento dati progressivo: evitare, quando possibile, di scaricare e
    interpretare i dati di tutti i dipartimenti e di entrambi gli atenei al
    primo avvio. Prima ateneo attivo, poi dipartimento/risorse necessarie.

@@ -356,9 +356,49 @@ function postiInParole(posto) {
 }
 
 // ============================================================
-// NAVIGAZIONE A TAB
+// NAVIGAZIONE — CONTRATTO HASH E FUNZIONE UNICA (R1.4, PLAN.md §7/R1.4)
+//
+// Prima di R1.4 la navigazione era sparsa: quattro punti mettevano in fila
+// a mano `mostraTab()` + `history.replaceState()`, e altri sei cambiavano
+// tab SENZA toccare l'hash — l'URL diceva `#oggi` mentre eri sulle mete.
+// Qui c'è una sola porta d'ingresso, `vaiA()`: chiunque debba cambiare
+// schermata passa di lì, e l'URL non può più mentire.
 // ============================================================
-function mostraTab(nome) {
+
+// IL CONTRATTO. Questi sono gli hash supportati: l'interfaccia pubblica del
+// sito, non un dettaglio interno. Chi aggiunge o rinomina un tab aggiorna
+// QUI (e in ALIAS_HASH se il vecchio nome era già in giro).
+const TAB_VALIDI      = ["oggi", "mete", "checklist", "idoneita", "profilo"];
+const TAB_PREDEFINITO = "oggi";
+
+// Alias realmente supportati (PLAN.md §5.6: si dichiarano e si testano, non si
+// promettono "per sempre"). `#timeline` è stato un hash vero fino a OP2, che ha
+// rimosso la pagina Timeline fondendone i contenuti in scadenze+checklist: chi
+// ha ancora quel link atterra dove il contenuto è finito davvero, non su una
+// schermata a caso. È l'unico alias con una prova alle spalle: gli altri nomi
+// (`#percorso`, `#candidatura`) sono etichette della nav, hash non lo sono MAI
+// stati — inventarli sarebbe promettere un contratto che nessuno ha mai avuto.
+const ALIAS_HASH = { timeline: "checklist" };
+
+// Unico punto che interpreta una destinazione, da qualunque parte arrivi
+// (hash, data-tab, data-goto, chiamata interna). Restituisce un tab valido
+// oppure null: chi chiama non deve validare niente per conto suo.
+function destDaHash(grezzo) {
+  const h = String(grezzo || "").replace(/^#/, "").trim().toLowerCase();
+  if (!h) return null;
+  const dest = ALIAS_HASH[h] || h;
+  return TAB_VALIDI.includes(dest) ? dest : null;
+}
+
+// La verità su dove siamo la tiene il DOM, non una variabile parallela che
+// può disallinearsi (stessa scelta dell'ateneo attivo in R1.3).
+function tabCorrente() {
+  const attivo = document.querySelector(".tab-pane.attivo");
+  return attivo ? attivo.id.replace(/^tab-/, "") : null;
+}
+
+// Solo pittura: nessuno la chiama da fuori, si passa da vaiA().
+function dipingiTab(nome) {
   document.querySelectorAll(".nav-item[data-tab]").forEach(t => {
     const isAttivo = t.dataset.tab === nome;
     t.classList.toggle("attivo", isAttivo);
@@ -369,30 +409,95 @@ function mostraTab(nome) {
     p.classList.toggle("attivo", attivo);
     p.classList.toggle("nascosto", !attivo);
   });
-  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function scriviHash(tab, storia) {
+  if (storia === "nessuna") return;
+  const nuovo = `#${tab}`;
+  if (location.hash === nuovo) return; // già giusto: non si sporca la cronologia
+  if (storia === "push") history.pushState(null, "", nuovo);
+  else                   history.replaceState(null, "", nuovo);
+}
+
+/**
+ * L'UNICA funzione di navigazione. Dipinge il tab e allinea l'URL.
+ *
+ * @param {string} dest      nome del tab o hash (accetta anche gli alias)
+ * @param {object} opzioni
+ *   storia: "push"    voce nuova in cronologia — Indietro torna al tab
+ *                     precedente. Solo per navigazione VOLUTA dallo studente,
+ *                     e solo se il tab cambia davvero (decisione di Nicola,
+ *                     15/07): ri-cliccare il tab attivo non sporca la
+ *                     cronologia.
+ *           "replace" allinea l'URL senza aggiungere voci: primo avvio,
+ *                     normalizzazione di un alias, sincronizzazioni.
+ *           "nessuna" non tocca l'URL (rientro da Indietro/Avanti: la
+ *                     cronologia l'ha già spostata il browser).
+ *   scroll: torna in cima (default true, comportamento storico).
+ * @returns {boolean} false se la destinazione non è nel contratto.
+ */
+function vaiA(dest, opzioni = {}) {
+  const tab = destDaHash(dest);
+  if (!tab) return false;
+  const { storia = "push", scroll = true } = opzioni;
+
+  const cambia = tab !== tabCorrente();
+  dipingiTab(tab);
+  // Un push per un tab che non cambia sarebbe un Indietro che non fa niente:
+  // il tasto Indietro deve sempre spostare qualcosa.
+  scriviHash(tab, storia === "push" && !cambia ? "replace" : storia);
+  if (scroll) window.scrollTo({ top: 0, behavior: "smooth" });
+  return true;
+}
+
+// L'URL comanda: primo avvio, Indietro/Avanti, hash scritto a mano.
+function sincronizzaDaUrl({ primoAvvio = false } = {}) {
+  const grezzo = location.hash.replace(/^#/, "");
+  const tab    = destDaHash(grezzo);
+
+  if (tab) {
+    // storia "replace": se era un alias (`#timeline`) l'URL si normalizza sul
+    // nome canonico; se era già canonico, scriviHash esce subito.
+    vaiA(tab, { storia: "replace", scroll: !primoAvvio });
+    return;
+  }
+  // Hash vuoto: si dipinge il predefinito ma NON si scrive niente nell'URL —
+  // l'indirizzo pubblico della home resta pulito (vincolo §10.8: gli URL
+  // indicizzati non cambiano per effetto collaterale di un refactor).
+  // Si dipinge lo stesso, non si "lascia com'è": l'HTML marca `attivo` a mano
+  // ma non ha `aria-current`, quindi senza questo passaggio il primo avvio
+  // restava senza la voce corrente annunciata (PLAN.md §5.6).
+  if (!grezzo) {
+    vaiA(TAB_PREDEFINITO, { storia: "nessuna", scroll: false });
+    return;
+  }
+  // Hash sconosciuto: si mostra il predefinito e si toglie dall'URL, invece di
+  // lasciare `#pippo` a raccontare una schermata che non esiste.
+  vaiA(TAB_PREDEFINITO, { storia: "replace", scroll: false });
 }
 
 function initNav() {
   document.querySelectorAll(".nav-item[data-tab]").forEach(tab => {
     tab.addEventListener("click", e => {
       e.preventDefault();
-      mostraTab(tab.dataset.tab);
-      history.replaceState(null, "", `#${tab.dataset.tab}`);
+      vaiA(tab.dataset.tab);
     });
   });
 
   document.addEventListener("click", e => {
     const el = e.target.closest("[data-goto]");
-    if (el) {
-      e.preventDefault();
-      mostraTab(el.dataset.goto);
-      history.replaceState(null, "", `#${el.dataset.goto}`);
-    }
+    if (!el) return;
+    e.preventDefault();
+    vaiA(el.dataset.goto);
   });
 
-  const hash = location.hash.replace("#", "");
-  const TAB_VALIDI = ["oggi", "checklist", "mete", "idoneita", "profilo"];
-  if (TAB_VALIDI.includes(hash)) mostraTab(hash);
+  // Indietro/Avanti del browser. `pushState` non emette hashchange, quindi
+  // servono entrambi: popstate per i tasti, hashchange per l'hash scritto a
+  // mano nella barra degli indirizzi.
+  window.addEventListener("popstate",   () => sincronizzaDaUrl());
+  window.addEventListener("hashchange", () => sincronizzaDaUrl());
+
+  sincronizzaDaUrl({ primoAvvio: true });
 }
 
 // ============================================================
@@ -455,17 +560,14 @@ function initDrawer() {
 
   drawer.querySelectorAll("[data-drawer-goto]").forEach(voce => {
     voce.addEventListener("click", () => {
-      const tab = voce.dataset.drawerGoto;
       chiudiDrawer();
-      mostraTab(tab);
-      history.replaceState(null, "", `#${tab}`);
+      vaiA(voce.dataset.drawerGoto);
     });
   });
 
   document.getElementById("drawer-cambia-ateneo")?.addEventListener("click", () => {
     chiudiDrawer();
-    mostraTab("profilo");
-    history.replaceState(null, "", "#profilo");
+    vaiA("profilo");
     // Il focus sulla tendina vince su quello che chiudiDrawer ha appena
     // restituito al bottone: lo studente arriva dritto sulla scelta.
     const sel = document.getElementById("select-ateneo");
@@ -609,7 +711,7 @@ function renderFaseStepper() {
 
     const btn = crea("button", "fase-cta", f.cta);
     btn.type = "button";
-    btn.addEventListener("click", () => mostraTab(f.tab));
+    btn.addEventListener("click", () => vaiA(f.tab));
     card.appendChild(btn);
 
     wrap.appendChild(card);
@@ -762,7 +864,7 @@ function renderMissione() {
   function setBtn(btn, testo, tab) {
     if (!btn) return;
     btn.textContent = testo;
-    btn.onclick = e => { e.preventDefault(); mostraTab(tab); };
+    btn.onclick = e => { e.preventDefault(); vaiA(tab); };
   }
 
   switch (m.tipo) {
@@ -1268,12 +1370,12 @@ function renderMete() {
         `${nomeAreaProfilo(profilo)} · ${livelloInParole(profilo.livello)}${linguaTesto}  `));
       const lnk = crea("a", "profilo-strip-link", "Modifica profilo →");
       lnk.href = "#";
-      lnk.addEventListener("click", e => { e.preventDefault(); mostraTab("profilo"); });
+      lnk.addEventListener("click", e => { e.preventDefault(); vaiA("profilo"); });
       strip.appendChild(lnk);
     } else {
       const lnk = crea("a", "profilo-strip-link", "Compila il profilo per vedere le mete compatibili →");
       lnk.href = "#";
-      lnk.addEventListener("click", e => { e.preventDefault(); mostraTab("profilo"); });
+      lnk.addEventListener("click", e => { e.preventDefault(); vaiA("profilo"); });
       strip.appendChild(lnk);
     }
   }
@@ -1286,7 +1388,7 @@ function renderMete() {
         "Aggiungi le tue lingue per vedere quali mete sono davvero compatibili. ");
       const lnk = crea("a", "profilo-strip-link", "Vai al profilo →");
       lnk.href = "#";
-      lnk.addEventListener("click", e => { e.preventDefault(); mostraTab("profilo"); });
+      lnk.addEventListener("click", e => { e.preventDefault(); vaiA("profilo"); });
       banner.appendChild(lnk);
       bannerLingue.appendChild(banner);
     }
@@ -1329,7 +1431,7 @@ function renderMete() {
           // Use case riunione d'asta (dossier §1-ter A): senza lingue in
           // profilo il filtro non ha nulla da confrontare — non un filtro
           // che finge di funzionare, si porta l'utente a compilarle.
-          if (opz.valore === "lingua" && lingueMancanti) { mostraTab("profilo"); return; }
+          if (opz.valore === "lingua" && lingueMancanti) { vaiA("profilo"); return; }
           filtroMeteAttivo = opz.valore;
           renderMete();
         });
@@ -2197,7 +2299,7 @@ function renderMappaHome() {
     if (!layer) { card.style.display = "none"; return; }
     _mappaHome = { layer };
     const vai = document.getElementById("mappa-vai-elenco");
-    if (vai) vai.addEventListener("click", e => { e.preventDefault(); mostraTab("mete"); });
+    if (vai) vai.addEventListener("click", e => { e.preventDefault(); vaiA("mete"); });
   }
   _mappaHome.mete = mete;
   _mappaHome.opts = { stellate: ZAINO.metePreferite || [] };
