@@ -19,9 +19,49 @@
 
 ---
 
-### Cantiere SITO — sessioni 49→52
+### Cantiere SITO — sessioni 49→53
 
-**Ultimo aggiornamento:** 2026-07-15 — sessione 52, Claude Code (Opus 4.8)
+**Ultimo aggiornamento:** 2026-07-15 — sessione 53, Claude Code (Opus 4.8)
+(**R1.2 IMPLEMENTATA: il drawer da destra esiste.** Secondo blocco di codice
+dell'ondata PERCORSO, dopo R1.1. **(1) Drawer fatto** come da `PLAN.md` §5.6:
+bottone "☰ Altro" come QUARTA voce della nav (in basso su mobile, all'estremità
+destra della barra su desktop) apre un pannello da destra con Profilo, Cambia
+ateneo, le due guide esistenti e Come funziona, più la riga "I tuoi dati restano
+su questo dispositivo. Nessun account.". Chiusura con ✕, Escape o click sul velo;
+il focus va al ✕ all'apertura e torna SEMPRE al bottone che ha aperto; essendo
+`aria-modal` il Tab è trappolato dentro al drawer (`drawerFocusabili()`).
+**(2) "Cambia ateneo" è una SCORCIATOIA, non il cambio ateneo — decisione di
+Nicola in sessione:** la voce apre il tab Profilo e porta il focus sulla tendina
+`#select-ateneo` già esistente, mostrando sotto l'ateneo attivo ("Ora: Sapienza
+Roma"). NON è stata duplicata nessuna logica di cambio: **lo zaino è ancora
+condiviso fra i due atenei e la migrazione prudente resta tutta in R1.3.** Le
+alternative scartate: voce disabilitata (vicolo cieco: il cambio resta comunque
+possibile dal Profilo) e cambio ateneo nel drawer subito (avrebbe promosso a
+voce di primo livello il flusso che contamina lo zaino, cioè il bug che R1.3
+deve sanare). **(3) Un bug trovato e corretto in verifica**: il bottone "Altro"
+era alto 42px contro i 45px delle altre voci — sotto i 44px richiesti dal piano
+(§5.6) — perché un `<button>` non eredita `line-height` come fanno gli `<a>`;
+risolto con `font: inherit` su `.nav-item-btn`. **(4) QA su server locale**:
+console pulita su ENTRAMBI gli atenei (Ca' Foscari e Sapienza 1595 mete),
+`node --check js/app.js` OK, nav a 4 voci da 88×45px a 375px senza overflow,
+drawer 330px dentro i 375 e 360px su desktop/tablet, sopra la nav (z-index 701
+vs 200), nessuno scroll orizzontale a 375/768/1280, contenuto che sta anche a
+375×560. **(5) ⚠️ LIMITE DELLA VERIFICA, da sapere:** in questo ambiente lo
+screenshot va in timeout (noto da sessione 49), il compositore è congelato
+(l'animazione d'ingresso resta a `currentTime: 0`) e i click per coordinate NON
+arrivano al bersaglio — verifica fatta per misure DOM ed eventi dispacciati. A
+riposo la geometria è corretta (`transform: none`, drawer a x=45), quindi il
+congelamento è un artefatto della preview e non del CSS, ma **l'animazione
+d'ingresso non è stata vista da nessuno**: merita un'occhiata da browser vero.
+**(6) Buone notizie sui residui della sessione 52**: `m.dipartimentoCf` non c'è
+più e il lavoro delle sessioni 50-51 risulta committato.
+File toccati: `css/style.css`, `index.html`, `js/app.js`, `PLAN.md` (spunta di
+R1 punto 2), `STATO_DEL_SITO.md`. Nessun file creato o rimosso, nessun dato
+toccato.
+**Prossimo passo: R1.3 — migrazione zaino per-ateneo, il pezzo più delicato di
+R1.**)
+
+**Ultimo aggiornamento precedente:** 2026-07-15 — sessione 52, Claude Code (Opus 4.8)
 (**R1.1 IMPLEMENTATA: il sito è in TEMA UNICO GIORNO — il tema notte non
 esiste più.** Primo blocco di codice dell'ondata PERCORSO: fin qui le sessioni
 50-51 avevano solo pianificato. **(1) Tema notte RIMOSSO** come da `PLAN.md`
@@ -2306,13 +2346,15 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **PERCORSO — piano pilot-ready R0→R6** | `PLAN.md` revisionato dopo audit strategico (15/07, sessione 51): livelli dati A/B/C, starter Giurisprudenza+Economia, MUST/SHOULD/LATER, Home essenziale, **LA Workspace v0 manual-first e versionato**, test utenti prima delle rifiniture, checkpoint quindicinali; vecchie D11/D15 superate | 📋 Piano pronto e vincolante |
 | PERCORSO — R0: verità, dati e confini | Conferma starter Ca' Foscari, mail ufficio Erasmus, intervista Bruno A2/D5, G5 pipeline (`linkCatalogo`/`notaDisponibilita`/fonte/`verificataIl`), misura gap A/B/C, schema ramo `la` | ⏳ APERTA — in gran parte azioni umane (mail, intervista, conferma starter). Checkpoint 31/07 |
 | **PERCORSO — R1.1: tema unico giorno** | Tema notte rimosso (palette `body.tema-notte`, regole notte mappa, CSS+bottone toggle, `initTema()`); `--night-*` reinterpretati come superfici a inchiostro del giorno; caso legacy `ew-tema:notte` verificato innocuo | ✅ Fatta e testata (2026-07-15, sessione 52) |
-| PERCORSO — R1.2: drawer | Drawer da destra (Profilo, Cambia ateneo, Guide, Come funziona) con Escape/focus/ritorno al controllo di apertura. **Decisione Nicola 15/07: la nav a 3 voci NON è qui, slitta a fine R1 con R3** | ⬜ Prossima, in coppia con R1.3 |
-| PERCORSO — R1.3: zaino per-ateneo | Contenitore con ateneo attivo + zaini separati; legacy assegnato solo con corrispondenza univoca, ogni ambiguità chiede allo studente; nessuna perdita al cambio ateneo | ⬜ Prossima — pezzo più delicato di R1 |
+| **PERCORSO — R1.2: drawer** | Drawer da destra (Profilo, Cambia ateneo, Guide, Come funziona) aperto da "☰ Altro", 4ª voce della nav; Escape/velo/✕, focus trappolato e ritorno al controllo di apertura; fix target 42→45px. **Decisione Nicola 15/07: la nav a 3 voci NON è qui, slitta a fine R1 con R3** | ✅ Fatta e testata (2026-07-15, sessione 53) — ⚠️ animazione d'ingresso non verificabile a video in questo ambiente |
+| PERCORSO — R1.3: zaino per-ateneo | Contenitore con ateneo attivo + zaini separati; legacy assegnato solo con corrispondenza univoca, ogni ambiguità chiede allo studente; nessuna perdita al cambio ateneo | ⬜ **PROSSIMA** — pezzo più delicato di R1. Il "Cambia ateneo" del drawer oggi è solo una scorciatoia alla tendina del Profilo: **lo zaino è ancora condiviso fra atenei** |
 | PERCORSO — R1.4/R1.5/R1.6 | Contratto hash + funzione unica navigazione/history · caricamento dati progressivo (oggi si scaricano TUTTE le mete dei DUE atenei al primo avvio) · regola deterministica della tappa corrente | ⬜ Da fare — R1.5 richiede primo avvio MISURATO su telefono (gate R1) |
 | **Pipeline dati T0→T3 — Gemini + Codex** | Timeout esterno corretto e pubblicato; tutti i 3 retry ora completano, ma l'ultimo rilancio ha ricevuto 3× `503 UNAVAILABLE`; nessun dato parziale | ⏸️ Attendere che cali la domanda Gemini, poi eseguire un solo batch comparativo |
 
-**Tab visibili nella pagina (navigazione inferiore):** Oggi (missione) → Mete → Candidatura (scadenze+checklist fuse).
-**Tab nascosti (accessibili da JS):** Idoneità · Profilo.
+**Tab visibili nella pagina (navigazione inferiore):** Oggi (missione) → Mete →
+Candidatura (scadenze+checklist fuse) → **"☰ Altro" (apre il drawer, R1.2)**.
+**Tab nascosti (accessibili da JS):** Idoneità · Profilo — il Profilo ora ha
+anche una porta d'ingresso visibile: la voce "Profilo" del drawer.
 **Nav a 3 voci (Mete · Home · Percorso):** decisa nel piano, ma implementata a
 FINE R1 insieme a R3 (decisione di Nicola, sessione 52) — la voce "Percorso"
 richiede la schermata unificata a stazioni, che nasce in R3.
@@ -2450,7 +2492,29 @@ poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
 
-### Cantiere SITO (Claude Code) — numerazione 49→52
+### Cantiere SITO (Claude Code) — numerazione 49→53
+
+**Aggiornamento 2026-07-15 — sessione 53 (R1.2 fatta, il drawer esiste):**
+
+1. **Prossima sessione di codice: R1.3 — migrazione zaino per-ateneo.** È il
+   pezzo più delicato di R1 e ora è isolato: R1.2 ha chiuso il drawer senza
+   toccare i dati. Serve il contenitore con ateneo attivo + zaini separati,
+   legacy assegnato automaticamente SOLO con corrispondenza univoca, ogni
+   ambiguità che chiede allo studente, nessuna perdita al cambio ateneo.
+2. **Il punto d'ingresso è già pronto e va sostituito, non aggiunto.** Oggi
+   "Cambia ateneo" nel drawer (`#drawer-cambia-ateneo` in `app.js`) è una
+   scorciatoia: apre il Profilo e mette il focus sulla tendina esistente, che
+   fa `salva + location.reload()` **su uno zaino condiviso**. R1.3 sostituisce
+   quel comportamento con la migrazione prudente. Fino ad allora, chi cambia
+   ateneo si porta dietro lo zaino dell'altro: è il bug noto, non una svista.
+3. **Verifica a video ancora da fare su browser vero.** In questo ambiente
+   screenshot, compositore e click per coordinate non funzionano (vedi la nota
+   della sessione 53 in testa): l'animazione d'ingresso del drawer non l'ha
+   vista nessuno. Geometria e comportamenti sono misurati e corretti, ma
+   un'occhiata da telefono/desktop reale prima di dare R1.2 per "validata".
+4. **La numerazione doppia resta da sanare** (punto 1 della sessione 52, sotto):
+   questa è la sessione 53 del **cantiere SITO** — esiste anche una sessione 53
+   del cantiere DATI, diversa.
 
 **Aggiornamento 2026-07-15 — sessione 52 (R1.1 fatta, tema unico giorno):**
 

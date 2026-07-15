@@ -366,7 +366,12 @@ assunzione falsa sui corsi disponibili.
 1. Token solo-giorno e rimozione del toggle tema notte. **[fatto, sessione 52
    del 15/07: `body.tema-notte`, regole notte della mappa, toggle e `initTema()`
    rimossi; `--night-*` restano come superfici a inchiostro del tema giorno]**
-2. Drawer (Profilo, Cambia ateneo, Guide, Come funziona). **Decisione di Nicola
+2. Drawer (Profilo, Cambia ateneo, Guide, Come funziona). **[fatto, sessione 53
+   del 15/07: aperto da "☰ Altro" (4ª voce della nav), chiusura ✕/Escape/velo,
+   focus trappolato e restituito al controllo di apertura. "Cambia ateneo" è
+   una SCORCIATOIA alla tendina del Profilo — decisione di Nicola: il cambio
+   ateneo vero, con zaino separato, resta tutto nel punto 3 qui sotto]**
+   **Decisione di Nicola
    15/07: la nav a tre voci Mete·Home·Percorso si implementa a FINE R1 insieme
    a R3**, perché la schermata Percorso unificata nasce in R3 e una voce
    "Percorso" puntata all'attuale Candidatura sarebbe una nav definitiva su un
