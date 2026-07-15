@@ -18,6 +18,9 @@
 // ============================================================
 const CHIAVE_ZAINO   = "erasmuswiz-zaino";
 const VERSIONE_ZAINO = 2;
+// Bandierina letta da js/carica-atenei.js: "al prossimo avvio caricali tutti".
+// Il nome e' condiviso con il caricatore: cambiarlo qui vuol dire cambiarlo li'.
+const CHIAVE_CARICA_TUTTI = "erasmuswiz_carica_tutti";
 
 function zainoVuoto() {
   return {
@@ -167,7 +170,43 @@ function migraZainoLegacy(legacy) {
   return cont;
 }
 
+// ---- R1.5: non migrare mai con mezzi dati in memoria --------------------
+// `migraZainoLegacy` attribuisce ogni chiave leggendo gli id delle mete di
+// TUTTI gli atenei. Dopo R1.5 il caricatore (js/carica-atenei.js) ne porta uno
+// solo, salvo quando riconosce che c'e' una migrazione da fare. Se quella
+// euristica sbagliasse, migrare qui vorrebbe dire buttare in silenzio le
+// stelline dell'altro ateneo: la perdita esatta che R1.3 esiste per impedire.
+// Quindi non si indovina: si chiede il carico completo e si riavvia.
+// Fino al riavvio lo zaino su disco NON si tocca — `location.reload()` non
+// ferma l'esecuzione all'istante, e un salvataggio nel frattempo
+// sovrascriverebbe il vecchio zaino con uno vuoto.
+let CARICO_INCOMPLETO = false;
+
+function ateneiTuttiCaricati() {
+  const registro = window.ATENEI_REGISTRO || {};
+  const attesi   = Object.keys(registro).filter(k => registro[k].disponibile);
+  const caricati = window.ATENEI_CARICATI || [];
+  return attesi.every(k => caricati.includes(k));
+}
+
+// true se il riavvio e' stato chiesto davvero. Se la bandierina non si riesce a
+// scrivere, NON si ricarica: un riavvio che non cambia nulla sarebbe un ciclo
+// infinito, e chi non ha sessionStorage non ha nemmeno un vecchio zaino da
+// salvare (senza localStorage non ci sarebbe niente da migrare).
+function rinviaMigrazioneERicarica() {
+  let chiesto = false;
+  try {
+    sessionStorage.setItem(CHIAVE_CARICA_TUTTI, "1");
+    chiesto = sessionStorage.getItem(CHIAVE_CARICA_TUTTI) === "1";
+  } catch (e) { chiesto = false; }
+  if (!chiesto) return false;
+  CARICO_INCOMPLETO = true;
+  location.reload();
+  return true;
+}
+
 function salvaContenitore(c) {
+  if (CARICO_INCOMPLETO) return;
   try { localStorage.setItem(CHIAVE_ZAINO, JSON.stringify(c)); } catch (e) {}
 }
 
@@ -178,6 +217,12 @@ function caricaContenitore() {
   let dato;
   try { dato = JSON.parse(grezzo); } catch (e) { return { v: VERSIONE_ZAINO, zaini: {} }; }
   if (dato && dato.v === VERSIONE_ZAINO && dato.zaini && typeof dato.zaini === "object") return dato;
+  // C'è da migrare: servono TUTTI gli atenei, altrimenti si perde in silenzio
+  // (vedi rinviaMigrazioneERicarica). Lo zaino vecchio resta intatto su disco e
+  // la migrazione la fa il prossimo avvio, con i dati completi.
+  if (!ateneiTuttiCaricati() && rinviaMigrazioneERicarica()) {
+    return { v: VERSIONE_ZAINO, zaini: {} };
+  }
   // Formato piatto (fino alla sessione 53): si migra e si riscrive subito,
   // così il vecchio blob non resta lì a farsi rileggere a ogni avvio.
   const migrato = migraZainoLegacy(normalizzaZaino(dato));
@@ -211,7 +256,11 @@ function initSceltaPercorso() {
   const zona    = document.getElementById("scelta-percorso-scelte");
   if (!overlay || !zona) return;
 
-  const tutti = window.ATENEI || {};
+  // Il REGISTRO, non ATENEI: qui servono solo l'esistenza e il nome dell'ateneo,
+  // mai le sue mete. Dopo R1.5 in ATENEI c'e' il solo ateneo caricato, e un
+  // candidato valido ma non caricato sparirebbe dalla domanda — facendola
+  // "decidere da sola" proprio nel caso in cui non deve.
+  const tutti = window.ATENEI_REGISTRO || {};
   const candidati = (p.candidati || []).filter(k => tutti[k]);
   // Meno di due candidati validi (dati cambiati sotto i piedi da quando il
   // pendente è stato scritto): la domanda non ha più due risposte possibili,
@@ -2333,8 +2382,11 @@ function benvPassoAteneo() {
   if (layer) {
     layer.innerHTML = "";
     const P = COORDINATE_CITTA.PROIEZIONE;
-    Object.keys(ATENEI).forEach(k => {
-      const a = ATENEI[k];
+    // Dal REGISTRO, non da ATENEI: qui si sceglie DOVE si studia, quindi vanno
+    // mostrati anche gli atenei che R1.5 non ha caricato. In ATENEI c'e' solo
+    // quello attivo, e un pin solo non sarebbe una scelta.
+    Object.keys(ATENEI_REGISTRO).forEach(k => {
+      const a = ATENEI_REGISTRO[k];
       if (!a.disponibile || !CITTA_ATENEO[k]) return;
       const c = CITTA_ATENEO[k];
       const [x, y] = proiettaXY(c.lat, c.lon);
@@ -2354,8 +2406,8 @@ function benvPassoAteneo() {
   // Scelte ridondanti sotto la mappa (accessibilità e chiarezza)
   const zona = document.getElementById("benvenuto-scelte");
   zona.innerHTML = "";
-  Object.keys(ATENEI).forEach(k => {
-    const a = ATENEI[k];
+  Object.keys(ATENEI_REGISTRO).forEach(k => {
+    const a = ATENEI_REGISTRO[k];
     if (!a.disponibile) return;
     const btn = crea("button", "benvenuto-scelta", a.label);
     btn.type = "button";

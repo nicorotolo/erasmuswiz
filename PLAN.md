@@ -408,14 +408,34 @@ assunzione falsa sui corsi disponibili.
    pagina Timeline fondendola in scadenze+checklist). Scartati `#percorso` e
    `#candidatura`: sono etichette della nav, hash non lo sono mai stati —
    sarebbero alias inventati, e i nomi veri arrivano con la nav di R3.]**
-5. Caricamento dati progressivo: evitare, quando possibile, di scaricare e
-   interpretare i dati di tutti i dipartimenti e di entrambi gli atenei al
-   primo avvio. Prima ateneo attivo, poi dipartimento/risorse necessarie.
+5. ~~Caricamento dati progressivo~~ ✅ **FATTO (R1.5, sessione 56)** — per
+   ATENEO. Si carica solo l'ateneo attivo: **903 KB invece di 2.263 per uno
+   studente Ca' Foscari (-60%), 1.565 KB per uno Sapienza (-31%)**. Elenco file
+   dichiarato in `js/atenei/registro.js`, decisione in `js/carica-atenei.js`;
+   `index.html` non elenca piu' i file a mano. Chi arriva per la prima volta
+   paga 903 KB prima di dire dove studia.
+   **Per DIPARTIMENTO: NON si fa, e non e' un rinvio pigro.** Misurato il 15/07:
+   alla Sapienza **42 aree disciplinari su 101 vivono in piu' file** (una in 7),
+   e il tab Mete filtra per AREA (`app.js`, `filter(m => m.areeDisciplinari...)`).
+   Caricare il solo file del dipartimento dello studente gli nasconderebbe in
+   silenzio mete che gli spettano — la perdita che R1.3 esiste per impedire.
+   Servirebbe un indice area→file o un rilayout dei dati per area: e' una
+   decisione di `DISEGNO_PIPELINE_DATI.md`, non una modifica all'app.
+   **Vincolo scoperto e protetto:** `migraZainoLegacy` (R1.3) attribuisce le
+   chiavi leggendo gli id delle mete di TUTTI gli atenei. Quando c'e' una
+   migrazione da fare si caricano tutti, una volta sola; e app.js si rifiuta di
+   migrare con mezzi dati in memoria (`rinviaMigrazioneERicarica`), cosi' il
+   caso non previsto costa un riavvio, mai un dato.
 6. Regola deterministica della tappa corrente.
 
 **Gate R1:** cambio ateneo sicuro, navigazione stabile, primo avvio misurato su
 telefono e regressione dei dati esistenti. La voce "navigazione stabile" resta
 aperta fino a R3 per la decisione del 15/07 sul punto 2.
+**Primo avvio misurato ✅ (15/07):** 7 secondi su Galaxy S21 in 4G, scheda in
+incognito, PRIMA di R1.5. La misura del 3/7 (3 secondi) era falsa: GitHub Pages
+serviva il sito del 3 luglio, meta' del JS e senza motore mappa (vedi
+`STATO_DEL_SITO.md`). **Da rifare dopo la pubblicazione di R1.5** per avere il
+numero del "dopo".
 
 ### R2 — Ingresso, onboarding e Home essenziale (3-4 sessioni, 10-16 ore)
 

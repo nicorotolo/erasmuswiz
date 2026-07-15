@@ -409,136 +409,19 @@
   </div>
 
   <!-- ============================================================
-       DATI MULTI-ATENEO
-       Ogni ateneo ha i suoi file in js/atenei/<key>/. Si caricano in
-       sequenza, poi si "fotografa" il set nel registro ATENEI.
-       app.js NON cambia: legge i globali dell'ateneo ATTIVO.
+       DATI MULTI-ATENEO — caricamento progressivo (R1.5)
+       Si carica SOLO l'ateneo attivo: chi studia a Ca' Foscari non
+       scarica piu' le 1.595 mete della Sapienza (7s -> ~3s al primo
+       avvio su S21 in 4G). L'elenco dei file e' DICHIARATO in
+       js/atenei/registro.js (dati); la decisione di cosa caricare sta
+       in js/carica-atenei.js (codice), che emette i tag qui sotto
+       mantenendo la stessa semantica sincrona di prima: app.js NON
+       cambia, legge i globali dell'ateneo ATTIVO gia' pronti.
+       Aggiungere un ateneo o una Facolta' = toccare SOLO il registro.
        Vedi js/atenei/README.md
   ============================================================ -->
-  <script>var ATENEI = {};</script>
-
-  <!-- ---------- Ca' Foscari Venezia ---------- -->
-  <script src="js/atenei/cafoscari/dati-bando.js"></script>
-  <script src="js/atenei/cafoscari/dati-borse.js"></script>
-  <!-- Mete: ogni file dipartimento dichiara `var METE`; le accumuliamo in _meteAll -->
-  <script src="js/atenei/cafoscari/dati-mete.js"></script>
-  <script>var _meteAll = METE;</script>
-  <script src="js/atenei/cafoscari/dati-mete-management.js"></script>
-  <script>_meteAll = _meteAll.concat(METE);</script>
-  <script src="js/atenei/cafoscari/dati-mete-lingue.js"></script>
-  <script>_meteAll = _meteAll.concat(METE);</script>
-  <script src="js/atenei/cafoscari/dati-mete-scienze.js"></script>
-  <script>_meteAll = _meteAll.concat(METE);</script>
-  <script src="js/atenei/cafoscari/dati-mete-filosofia.js"></script>
-  <script>_meteAll = _meteAll.concat(METE);</script>
-  <script src="js/atenei/cafoscari/dati-mete-linguistici.js"></script>
-  <script>_meteAll = _meteAll.concat(METE);</script>
-  <script src="js/atenei/cafoscari/dati-mete-umanistici.js"></script>
-  <script>_meteAll = _meteAll.concat(METE);</script>
-  <script src="js/atenei/cafoscari/dati-mete-molecolari.js"></script>
-  <script>_meteAll = _meteAll.concat(METE);</script>
-  <script src="js/atenei/cafoscari/dati-scadenze.js"></script>
-  <script src="js/atenei/cafoscari/dati-checklist.js"></script>
-  <script src="js/atenei/cafoscari/dati-postselezione.js"></script>
-  <script>
-    ATENEI['cafoscari'] = {
-      key: 'cafoscari',
-      label: "Ca' Foscari Venezia",
-      disponibile: true,
-      mete: _meteAll,
-      requisiti: REQUISITI_BANDO,
-      bandoInfo: BANDO_INFO,
-      borse: BORSE_INFO,
-      scadenze: SCADENZE_CAFOSCARI,
-      scadenzeInfo: SCADENZE_INFO,
-      checklist: CHECKLIST,
-      checklistPost: CHECKLIST_POST,
-      bandoUrl: "https://www.unive.it/erasmus-studio",
-      portaleUrl: "https://www.unive.it/data/11631/"
-    };
-  </script>
-
-  <!-- ---------- Sapienza Roma ---------- -->
-  <script src="js/atenei/sapienza/dati-bando.js"></script>
-  <script src="js/atenei/sapienza/dati-borse.js"></script>
-  <script src="js/atenei/sapienza/dati-mete-giurisprudenza.js"></script>
-  <script>var _meteAllSap = METE;</script>
-  <script src="js/atenei/sapienza/dati-mete-medicina-psicologia-area-medica.js"></script>
-  <script>_meteAllSap = _meteAllSap.concat(METE);</script>
-  <script src="js/atenei/sapienza/dati-mete-architettura.js"></script>
-  <script>_meteAllSap = _meteAllSap.concat(METE);</script>
-  <script src="js/atenei/sapienza/dati-mete-farmacia.js"></script>
-  <script>_meteAllSap = _meteAllSap.concat(METE);</script>
-  <script src="js/atenei/sapienza/dati-mete-comunicazione.js"></script>
-  <script>_meteAllSap = _meteAllSap.concat(METE);</script>
-  <script src="js/atenei/sapienza/dati-mete-scienze-sociali.js"></script>
-  <script>_meteAllSap = _meteAllSap.concat(METE);</script>
-  <script src="js/atenei/sapienza/dati-mete-psicologia.js"></script>
-  <script>_meteAllSap = _meteAllSap.concat(METE);</script>
-  <script src="js/atenei/sapienza/dati-mete-scienze-politiche.js"></script>
-  <script>_meteAllSap = _meteAllSap.concat(METE);</script>
-  <script src="js/atenei/sapienza/dati-mete-inge-elettronica.js"></script>
-  <script>_meteAllSap = _meteAllSap.concat(METE);</script>
-  <script src="js/atenei/sapienza/dati-mete-polo-latina.js"></script>
-  <script>_meteAllSap = _meteAllSap.concat(METE);</script>
-  <script src="js/atenei/sapienza/dati-mete-scienze-statistiche.js"></script>
-  <script>_meteAllSap = _meteAllSap.concat(METE);</script>
-  <script src="js/atenei/sapienza/dati-mete-informatica.js"></script>
-  <script>_meteAllSap = _meteAllSap.concat(METE);</script>
-  <script src="js/atenei/sapienza/dati-mete-inge-informatica-gestionale.js"></script>
-  <script>_meteAllSap = _meteAllSap.concat(METE);</script>
-  <script src="js/atenei/sapienza/dati-mete-medicina-odontoiatria.js"></script>
-  <script>_meteAllSap = _meteAllSap.concat(METE);</script>
-  <script src="js/atenei/sapienza/dati-mete-ingegneria-civile.js"></script>
-  <script>_meteAllSap = _meteAllSap.concat(METE);</script>
-  <script src="js/atenei/sapienza/dati-mete-scienze-mfn.js"></script>
-  <script>_meteAllSap = _meteAllSap.concat(METE);</script>
-  <script src="js/atenei/sapienza/dati-mete-lettere-filosofia.js"></script>
-  <script>_meteAllSap = _meteAllSap.concat(METE);</script>
-  <!-- (future: altre Facoltà Sapienza si concatenano qui, come a Ca' Foscari) -->
-  <script src="js/atenei/sapienza/dati-scadenze.js"></script>
-  <script src="js/atenei/sapienza/dati-checklist.js"></script>
-  <script src="js/atenei/sapienza/dati-postselezione.js"></script>
-  <script>
-    ATENEI['sapienza'] = {
-      key: 'sapienza',
-      label: 'Sapienza Roma',
-      disponibile: _meteAllSap.length > 0,
-      mete: _meteAllSap,
-      requisiti: REQUISITI_BANDO,
-      bandoInfo: BANDO_INFO,
-      borse: BORSE_INFO,
-      scadenze: SCADENZE_CAFOSCARI,
-      scadenzeInfo: SCADENZE_INFO,
-      checklist: CHECKLIST,
-      checklistPost: CHECKLIST_POST,
-      bandoUrl: "https://www.uniroma1.it/it/pagina/bando-erasmus-2026-2027-studio",
-      portaleUrl: "https://www.uniroma1.it/it/pagina/erasmus-studenti-sapienza-studio"
-    };
-  </script>
-
-  <!-- ---------- Scelta ateneo attivo + esposizione globali per app.js ---------- -->
-  <script>
-    (function () {
-      var salvato = null;
-      try { salvato = localStorage.getItem('erasmuswiz_ateneo'); } catch (e) {}
-      var key = (salvato && ATENEI[salvato] && ATENEI[salvato].disponibile) ? salvato : 'cafoscari';
-      window.ATENEO_ATTIVO = key;
-      var A = ATENEI[key];
-      // Globali che app.js già legge: li puntiamo all'ateneo attivo.
-      METE               = A.mete            || [];
-      REQUISITI_BANDO    = A.requisiti       || [];
-      BANDO_INFO         = A.bandoInfo       || {};
-      BORSE_INFO         = A.borse           || {};
-      SCADENZE_CAFOSCARI = A.scadenze        || [];
-      SCADENZE_INFO      = A.scadenzeInfo    || {};
-      CHECKLIST          = A.checklist       || [];
-      CHECKLIST_POST     = A.checklistPost   || [];
-      window.ATENEO_LABEL       = A.label      || "Ca' Foscari Venezia";
-      window.ATENEO_BANDO_URL   = A.bandoUrl   || "https://www.unive.it/erasmus-studio";
-      window.ATENEO_PORTALE_URL = A.portaleUrl || "https://www.unive.it/data/11631/";
-    })();
-  </script>
+  <script src="js/atenei/registro.js"></script>
+  <script src="js/carica-atenei.js"></script>
 
   <!-- Mappa (Fase C2): geometria Europa + lookup coordinate città.
        Condivisi tra gli atenei; le città non ancora geocodificate
@@ -548,13 +431,16 @@
 
   <script src="js/app.js"></script>
 
-  <!-- Selettore d'ateneo: popola la tendina e gestisce il cambio (salva + ricarica) -->
+  <!-- Selettore d'ateneo: popola la tendina e gestisce il cambio (salva + ricarica).
+       Legge dal REGISTRO, non da ATENEI: dopo R1.5 in ATENEI c'e' il solo ateneo
+       caricato, mentre la tendina deve elencare anche quello che NON e' in
+       memoria — e' proprio la porta per andarci. -->
   <script>
     (function () {
       var sel = document.getElementById('select-ateneo');
       if (!sel) return;
-      Object.keys(ATENEI).forEach(function (k) {
-        var a = ATENEI[k];
+      Object.keys(ATENEI_REGISTRO).forEach(function (k) {
+        var a = ATENEI_REGISTRO[k];
         var opt = document.createElement('option');
         opt.value = k;
         opt.textContent = a.disponibile ? a.label : (a.label + ' (in arrivo)');
@@ -564,7 +450,7 @@
       });
       sel.addEventListener('change', function () {
         var k = sel.value;
-        if (!ATENEI[k] || !ATENEI[k].disponibile) { sel.value = window.ATENEO_ATTIVO; return; }
+        if (!ATENEI_REGISTRO[k] || !ATENEI_REGISTRO[k].disponibile) { sel.value = window.ATENEO_ATTIVO; return; }
         try { localStorage.setItem('erasmuswiz_ateneo', k); } catch (e) {}
         location.reload();
       });
