@@ -1,6 +1,9 @@
 {
   "TR VAN01": {
-    "linkSito": "https://www.yyu.edu.tr/Birimler/67",
-    "notePraticheAppend": "https://www.yyu.edu.tr/Birimler/67/sayfalar/7860"
+    "linkSito": {
+      "url": "https://www.yyu.edu.tr/Birimler/67",
+      "citazione": "Erasmus Ofisi",
+      "verificataIl": "2026-07-16"
+    }
   }
 }
