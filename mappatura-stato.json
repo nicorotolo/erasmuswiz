@@ -4,30 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 312,
+  "runCompletati": 313,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "scienze-politiche-batch-1",
-      "priorita": 5,
-      "dipartimento": "Scienze Politiche (Sapienza)",
-      "descrizione": "Scienze Politiche (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "F  PARIS054",
-        "F  MARSEIL55",
-        "F  NANTES01",
-        "D  CHEMNIT01",
-        "D  BAYREUT01",
-        "D  WURZBUR03",
-        "D  FRANKFU08",
-        "PL WARSZAW68"
-      ]
-    },
     {
       "id": "scienze-politiche-batch-2",
       "priorita": 5,
@@ -729,6 +712,22 @@
       "mete": [
         "D  BERLIN20"
       ]
+    },
+    {
+      "id": "scienze politiche (sapienza)-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Scienze Politiche (Sapienza)",
+      "descrizione": "Scienze Politiche (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F  PARIS054",
+        "F  MARSEIL55",
+        "F  NANTES01",
+        "D  CHEMNIT01",
+        "D  FRANKFU08",
+        "PL WARSZAW68",
+        "D  BAYREUT01"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -1129,14 +1128,12 @@
       "fileJs": "js/atenei/sapienza/dati-mete-scienze-politiche.js",
       "stato": "in_corso",
       "totale": 24,
-      "completate": 11,
+      "completate": 12,
       "pendingScadenze": [
-        "F  PARIS054",
         "F  MARSEIL55",
         "F  NANTES01",
         "D  CHEMNIT01",
         "D  BAYREUT01",
-        "D  WURZBUR03",
         "D  FRANKFU08",
         "PL WARSZAW68",
         "PL KATOWIC01",
@@ -1150,8 +1147,6 @@
         "F  MARSEIL55",
         "F  NANTES01",
         "D  CHEMNIT01",
-        "D  BAYREUT01",
-        "D  WURZBUR03",
         "D  FRANKFU08",
         "PL WARSZAW68",
         "PL KATOWIC01",
@@ -1160,7 +1155,14 @@
         "HU GYOR01",
         "HU PECS01"
       ],
-      "tentativiLingua": {},
+      "tentativiLingua": {
+        "F  PARIS054": 1,
+        "F  MARSEIL55": 1,
+        "F  NANTES01": 1,
+        "D  CHEMNIT01": 1,
+        "D  FRANKFU08": 1,
+        "PL WARSZAW68": 1
+      },
       "linguaNonTrovabile": [],
       "ateneo": "Sapienza Roma"
     },
@@ -1564,7 +1566,6 @@
         "D  HANNOVE01",
         "D  RAVENSB01",
         "D  MUNCHEN02",
-        "D  BAYREUT01",
         "D  FREISIN01",
         "D  CLAUSTH01",
         "G  KRITIS09",
@@ -1760,7 +1761,6 @@
         "F  ORLEANS01",
         "F  CAEN01",
         "F  VALENCI01",
-        "F  PARIS054",
         "F  TAHITI01",
         "F  MAYOTTE01",
         "F  CLERMON02",
@@ -1852,7 +1852,6 @@
         "D  DORTMUN01",
         "D  SIEGEN01",
         "D  BONN01",
-        "D  BAYREUT01",
         "D  FRANKFU08",
         "D  HALLE01",
         "D  MARBURG01",
@@ -3842,6 +3841,12 @@
       "data": "2026-07-16",
       "mete": 1,
       "note": "Psicologia e Servizio Sociale (Sapienza) psicologia e servizio sociale (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 313,
+      "data": "2026-07-16",
+      "mete": 8,
+      "note": "Scienze Politiche (Sapienza) scienze-politiche-batch-1: merge automatico via applica-batch.mjs (+4 blocchi propagati ad altri dipartimenti)."
     }
   ],
   "storicoBatch": [

@@ -1,0 +1,65 @@
+{
+  "F  PARIS054": {
+    "scadenzeOspitante": {
+      "url": "https://www.ephe.psl.eu/etudiants-internationaux-programmes-echanges-universitaires",
+      "citazione": "Partner institutions of EPHE-PSL must send nominations of their students to the International Relations Department of EPHE-PSL by the end of May for mobility in the first semester of the following academic year, and by the end of December for mobility in the second semester of the following academic year.",
+      "verificataIl": "2026-07-16"
+    },
+    "linkCatalogo": {
+      "url": "https://www.ephe.psl.eu/formations-conferences",
+      "citazione": "Accédez à l'offre de formation et aux conférences.",
+      "verificataIl": "2026-07-16"
+    },
+    "notaDisponibilita": {
+      "url": "https://www.ephe.psl.eu/etudiants-internationaux-programmes-echanges-universitaires",
+      "citazione": "Le statut d’étudiant en échange s’adresse aux étudiants de master et de doctorat inscrits dans un établissement d’enseignement supérieur étranger",
+      "verificataIl": "2026-07-16"
+    }
+  },
+  "F  MARSEIL55": {
+    "linkCatalogo": {
+      "url": "https://www.sciencespo-aix.fr/international/etudier-a-sciences-po-aix/cours/",
+      "citazione": "The lists of courses (semester 1, semester 2 and courses in English) are available here.",
+      "verificataIl": "2026-07-16"
+    }
+  },
+  "D  BAYREUT01": {
+    "requisitoLingua": {
+      "url": "https://bayreuth.adv-pub.moveon4.de/home-page-2051/",
+      "citazione": "However, it is only required to upload a language certificate for the following three study programmes: Study of Religion (German or English), English Studies (English), Law (German or English). Accepted language certificates: For German: Goethe Certificate, at least B2 [...] For English: TOEFL, at least 75 [B2 equivalent]",
+      "verificataIl": "2026-07-16"
+    },
+    "linkCatalogo": {
+      "url": "https://campusonline.uni-bayreuth.de/ubto/webnav.ini",
+      "citazione": "cmlife / CAMPUSonline webnav",
+      "verificataIl": "2026-07-16"
+    },
+    "notaDisponibilita": {
+      "url": "https://bayreuth.adv-pub.moveon4.de/home-page-2051/",
+      "citazione": "The chosen exchange programme must be in coherence with the study programme at the home university (i.e. a student from Biology cannot join an exchange programme for Law students).",
+      "verificataIl": "2026-07-16"
+    }
+  },
+  "D  WURZBUR03": {
+    "requisitoLingua": {
+      "url": "https://international.thws.de/en/thws-international/ways-to-thws/incoming-exchange-students/admission-requirements/",
+      "citazione": "Language requirement: B2 level in German is required for attending classes with German as language of instruction. B2 level in English is required for attending classes with English as language of instruction.",
+      "verificataIl": "2026-07-16"
+    },
+    "scadenzeOspitante": {
+      "url": "https://international.thws.de/en/thws-international/ways-to-thws/incoming-exchange-students/",
+      "citazione": "Nomination deadline For summer semester: 15 November, For winter semester: 1 May. Application deadline For summer semester: 15.09. – 01.12, For winter semester: 01.03. – 15.05.",
+      "verificataIl": "2026-07-16"
+    },
+    "linkCatalogo": {
+      "url": "https://international.thws.de/en/thws-international/ways-to-thws/study-programmes-at-thws/module-handbooks/",
+      "citazione": "Module handbooks",
+      "verificataIl": "2026-07-16"
+    },
+    "notaDisponibilita": {
+      "url": "https://international.thws.de/en/thws-international/ways-to-thws/incoming-exchange-students/admission-requirements/",
+      "citazione": "Eligibility: Students in Bachelor study programmes are eligible. Master students are also eligible but there are restrictions for some master programmes at THWS.",
+      "verificataIl": "2026-07-16"
+    }
+  }
+}

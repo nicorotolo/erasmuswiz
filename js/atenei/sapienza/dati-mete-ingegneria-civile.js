@@ -888,10 +888,16 @@ var METE = [
     posti: [
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco o Inglese", livello: "B2", condizione: "richiesto certificato formale solo per i programmi Study of Religion, English Studies e Law" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.uni-bayreuth.de/",
+    linkCatalogo: "https://campusonline.uni-bayreuth.de/ubto/webnav.ini",
+
+    notaDisponibilita: "Il programma di scambio scelto deve essere coerente con il piano di studi dell'università di origine.",
+
     notePratiche: "Posti dell'accordo: 1. Accordo ERA69152."
   },
   {
@@ -906,10 +912,16 @@ var METE = [
     posti: [
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco o Inglese", livello: "B2", condizione: "richiesto certificato formale solo per i programmi Study of Religion, English Studies e Law" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.uni-bayreuth.de/",
+    linkCatalogo: "https://campusonline.uni-bayreuth.de/ubto/webnav.ini",
+
+    notaDisponibilita: "Il programma di scambio scelto deve essere coerente con il piano di studi dell'università di origine.",
+
     notePratiche: "Posti dell'accordo: 1. Accordo ERA69151."
   },
   {

@@ -80,8 +80,15 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (primo semestre)", periodo: "entro fine maggio" },
+        { cosa: "Nomination (secondo semestre)", periodo: "entro fine dicembre" }
+      ],
     linkSito: "http://www.ephe.sorbonne.fr",
+    linkCatalogo: "https://www.ephe.psl.eu/formations-conferences",
+
+    notaDisponibilita: "Lo status di studente in scambio è rivolto esclusivamente a studenti di livello Master e Dottorato.",
+
     notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70105."
   },
   {
@@ -101,6 +108,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.sciencespo-aix.fr/",
+    linkCatalogo: "https://www.sciencespo-aix.fr/international/etudier-a-sciences-po-aix/cours/",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70094."
   },
   {
@@ -230,10 +239,16 @@ var METE = [
       { numero: 1, mesi: 5, livello: "L", note: "" },
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco o Inglese", livello: "B2", condizione: "richiesto certificato formale solo per i programmi Study of Religion, English Studies e Law" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.uni-bayreuth.de/",
+    linkCatalogo: "https://campusonline.uni-bayreuth.de/ubto/webnav.ini",
+
+    notaDisponibilita: "Il programma di scambio scelto deve essere coerente con il piano di studi dell'università di origine.",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70058."
   },
   {
@@ -249,10 +264,22 @@ var METE = [
       { numero: 2, mesi: 5, livello: "L", note: "" },
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B2", condizione: "richiesto per corsi con tedesco come lingua di insegnamento" },
+        { lingua: "Inglese", livello: "B2", condizione: "richiesto per corsi con inglese come lingua di insegnamento" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (winter semester)", periodo: "entro 1 maggio" },
+        { cosa: "Application (winter semester)", periodo: "dal 1 marzo al 15 maggio" },
+        { cosa: "Nomination (summer semester)", periodo: "entro 15 novembre" },
+        { cosa: "Application (summer semester)", periodo: "dal 15 settembre al 1 dicembre" }
+      ],
     linkSito: "https://www.thws.de/",
+    linkCatalogo: "https://international.thws.de/en/thws-international/ways-to-thws/study-programmes-at-thws/module-handbooks/",
+
+    notaDisponibilita: "Sono ammessi gli studenti iscritti a corsi di laurea Triennale (Bachelor). Per gli studenti di livello Magistrale (Master) sono previste restrizioni per alcuni programmi.",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70070."
   },
   {

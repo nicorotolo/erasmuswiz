@@ -2421,8 +2421,15 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (primo semestre)", periodo: "entro fine maggio" },
+        { cosa: "Nomination (secondo semestre)", periodo: "entro fine dicembre" }
+      ],
     linkSito: "http://www.ephe.sorbonne.fr",
+    linkCatalogo: "https://www.ephe.psl.eu/formations-conferences",
+
+    notaDisponibilita: "Lo status di studente in scambio è rivolto esclusivamente a studenti di livello Master e Dottorato.",
+
     notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71047."
   },
   {
@@ -3800,10 +3807,16 @@ var METE = [
       { numero: 5, mesi: 6, livello: "L", note: "" },
       { numero: 5, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco o Inglese", livello: "B2", condizione: "richiesto certificato formale solo per i programmi Study of Religion, English Studies e Law" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.uni-bayreuth.de/",
+    linkCatalogo: "https://campusonline.uni-bayreuth.de/ubto/webnav.ini",
+
+    notaDisponibilita: "Il programma di scambio scelto deve essere coerente con il piano di studi dell'università di origine.",
+
     notePratiche: "Posti totali dell'accordo: 5 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71659."
   },
   {
