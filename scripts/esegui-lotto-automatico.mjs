@@ -276,7 +276,9 @@ async function main() {
   ].join("\n");
   eseguiCodex([
     "--search", "exec",
-    "--ignore-user-config",
+    // Niente --ignore-user-config: la config utente del PC dedicato abilita
+    // la sandbox scrivibile su Windows; senza, codex degrada a read-only e
+    // non puo' scrivere batch/OUTPUT.json (visto il 16/07).
     "--model", CODEX_MODEL,
     "--sandbox", "workspace-write",
     "--ephemeral",
