@@ -356,6 +356,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.uken.krakow.pl/",
+    notaDisponibilita: "I moduli partono a condizione che vi siano almeno 3 studenti iscritti. Gli studenti incoming devono scegliere un modulo completo da 30 ECTS.",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70126."
   },
   {
