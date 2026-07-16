@@ -49,10 +49,17 @@
         <div class="benvenuto-testa">
           <div class="benvenuto-testi">
             <h1 class="benvenuto-titolo">Scopri <em>dove può portarti</em> il tuo Erasmus.</h1>
-            <p class="benvenuto-claim">Scegli ateneo e facoltà: la mappa si accende con le destinazioni del tuo bando — lingua richiesta, posti e borsa già in anteprima.</p>
+            <!-- La missione, visibile nella scena d'ingresso (R2.1, PLAN §5.1):
+                 la mappa è la veste, questa è la promessa. -->
+            <p class="benvenuto-claim">Capisci il bando, scegli mete davvero accessibili e non perdere i passaggi importanti. Gratis, senza account.</p>
             <p class="benvenuto-fumetto" id="benvenuto-fumetto">Ciao! Sono Wiz. Dove studi?</p>
           </div>
           <img src="img/mascotte/wiz-saluto.webp" alt="Wiz" class="wiz-mascot benvenuto-wiz" id="benvenuto-wiz">
+        </div>
+        <!-- CTA della scena d'ingresso (R2.1, decisione Nicola 16/07):
+             il flusso a 3 domande parte al clic. -->
+        <div class="benvenuto-cta-wrap" id="benvenuto-cta-wrap" hidden>
+          <button class="btn-primary benvenuto-btn-inizia" id="benvenuto-inizia" type="button">Inizia il tuo percorso →</button>
         </div>
         <p class="benvenuto-kicker">Personalizza il tuo percorso</p>
         <div class="benvenuto-passi" id="benvenuto-passi" aria-hidden="true">
@@ -176,52 +183,167 @@
       </div>
       <div id="profilo-strip"></div>
       <div id="banner-lingue-mete"></div>
+      <!-- Wizard prima visita (R3.1, PLAN.md §5.4): compare senza rotte
+           salvate, è sempre saltabile e si rilancia con "Ripensa le rotte"
+           dalla schedina. Gli stati vivono nello zaino (wizardMete). -->
+      <div class="wizard-mete" id="wizard-mete" style="display:none">
+        <img src="img/mascotte/wiz-pensieroso.webp" alt="" class="wiz-mascot wizard-mete-wiz">
+        <div class="wizard-mete-testi">
+          <p class="wizard-mete-domanda">Hai già in mente le tue destinazioni?</p>
+          <div class="wizard-mete-scelte">
+            <button type="button" class="benvenuto-scelta" id="wizard-mete-si">Sì: le cerco e le metto in ordine</button>
+            <button type="button" class="benvenuto-scelta" id="wizard-mete-no">No: aiutami a esplorare</button>
+            <button type="button" class="wizard-mete-salta" id="wizard-mete-salta">Salta per ora</button>
+          </div>
+        </div>
+      </div>
       <div id="filtri-mete-chip" class="filtri-mete-chip"></div>
       <div class="cerca-mete-barra">
         <input id="cerca-mete" type="search" placeholder="Cerca per università, città o paese…" autocomplete="off">
         <span id="conta-mete"></span>
+      </div>
+      <!-- Mappa del tab Mete (R3.2): SINCRONIZZATA con ricerca e filtri —
+           mostra le stesse mete dell'elenco qui sotto, stelline comprese.
+           Stesso motore delle altre mappe (mappaCostruisci/RenderPins):
+           nessun doppio render, si aggiornano solo i pin. -->
+      <div class="card-mappa-mete" id="card-mappa-mete" style="display:none">
+        <div class="mappa mappa-compatta" id="mappa-mete"></div>
+        <p class="mappa-nota" id="mappa-nota-mete" hidden></p>
       </div>
       <div id="sezione-preferite"></div>
       <div id="griglia-mete-v2" class="griglia-mete-v2"></div>
     </section>
 
     <!-- ====================================================
-         TAB: CANDIDATURA (fusione Scadenze+Checklist, OP2)
-         La ex-pagina Timeline è stata rimossa (BR7): duplicava le
-         stesse scadenze già presenti qui, in forma più povera.
+         TAB: PERCORSO — itinerario burocratico unico a stazioni
+         (R3, PLAN.md §5.5). Una schermata verticale sola:
+         1 Prepara la candidatura (i requisiti, ex tab Idoneità),
+         2 Candidatura e scadenze (ex tab Candidatura),
+         3 gate auto-dichiarato dell'esito,
+         4 Learning Agreement (la guida; il Workspace arriva con R4),
+         5 Parti: lo zaino (ramo selezionato ISOLATO dalle scadenze
+           candidatura, R3.5 — contenitore suo, non più condiviso).
+         La linea di viaggio racconta il progresso (stati derivati da
+         tappaCorrente, R1.6), non sostituisce la navigazione.
+         Gli hash storici #checklist, #idoneita e #timeline sono alias
+         permanenti di #percorso (contratto in js/app.js).
     ==================================================== -->
-    <section id="tab-checklist" class="tab-pane nascosto">
+    <section id="tab-percorso" class="tab-pane nascosto">
       <div class="sezione-header">
-        <h2 class="sezione-titolo" id="checklist-titolo">📋 La tua checklist</h2>
-        <p class="sezione-sottotitolo" id="checklist-sottotitolo">Spunta i passi man mano che li completi. Restano salvati sul tuo dispositivo.</p>
-      </div>
-      <div id="banner-verifica-checklist" class="banner-in-verifica" style="display:none;"></div>
-      <div class="toggle-fase-wrap">
-        <button class="toggle-fase-btn fase-attiva" id="fase-domanda" type="button">📝 Sto preparando la candidatura</button>
-        <button class="toggle-fase-btn" id="fase-selezionato" type="button">🎉 Sono stato selezionato</button>
-      </div>
-      <div class="barra-wrap">
-        <div class="barra-progresso">
-          <div class="barra-riempimento" id="barra-riempimento-v2"></div>
-        </div>
-        <span class="barra-label" id="barra-label-v2"></span>
+        <h2 class="sezione-titolo">🧭 Il tuo percorso</h2>
+        <p class="sezione-sottotitolo">Le tappe burocratiche del tuo Erasmus, in ordine. Quello che spunti resta salvato sul tuo dispositivo.</p>
       </div>
       <div id="banner-wiz" class="banner-celebrazione" style="display:none; margin: 0 20px 14px;"></div>
-      <div id="prossimi-passi-v2" class="prossimi-passi-v2" style="display:none;"></div>
-      <div id="lista-checklist-v2" class="lista-checklist-v2"></div>
-    </section>
+      <ol class="stazioni">
 
-    <!-- ====================================================
-         TAB: IDONEITÀ (accessibile da JS, non nella nav)
-    ==================================================== -->
-    <section id="tab-idoneita" class="tab-pane nascosto">
-      <div class="sezione-header">
-        <h2 class="sezione-titolo">📋 Requisiti del bando</h2>
-        <p class="sezione-sottotitolo">Verifica di avere i requisiti per partecipare. Sono uguali per tutte le mete.</p>
-      </div>
-      <div id="banner-verifica-idoneita" class="banner-in-verifica" style="display:none;"></div>
-      <div id="idoneita-esito" class="idoneita-esito" style="display:none;"></div>
-      <div id="lista-requisiti-v2" class="griglia-requisiti-v2"></div>
+        <li class="stazione" id="stazione-requisiti">
+          <details class="stazione-dettagli">
+            <summary class="stazione-testa">
+              <span class="stazione-punto" aria-hidden="true">1</span>
+              <span class="stazione-testi">
+                <span class="stazione-titolo">Prepara la candidatura</span>
+                <span class="stazione-sub">Verifica i requisiti del bando: sono uguali per tutte le mete.</span>
+              </span>
+              <span class="stazione-stato"></span>
+              <span class="stazione-chevron" aria-hidden="true">▾</span>
+            </summary>
+            <div class="stazione-corpo">
+              <div id="banner-verifica-idoneita" class="banner-in-verifica" style="display:none;"></div>
+              <div id="idoneita-esito" class="idoneita-esito" style="display:none;"></div>
+              <div id="lista-requisiti-v2" class="griglia-requisiti-v2"></div>
+            </div>
+          </details>
+        </li>
+
+        <!-- Ponte verso le Mete: compare SOLO quando la tappa corrente è
+             "mete" (si sceglie nella schermata Mete, non qui). -->
+        <li class="stazione stazione-ponte" id="stazione-mete-ponte" hidden>
+          <button class="stazione-ponte-btn" type="button" data-goto="mete">
+            🗺️ Prossima tappa: scegli le mete e salva le tue preferite →
+          </button>
+        </li>
+
+        <li class="stazione" id="stazione-candidatura">
+          <details class="stazione-dettagli">
+            <summary class="stazione-testa">
+              <span class="stazione-punto" aria-hidden="true">2</span>
+              <span class="stazione-testi">
+                <span class="stazione-titolo">Candidatura e scadenze</span>
+                <span class="stazione-sub">I passi da fare, capitolo per capitolo, con le date del bando.</span>
+              </span>
+              <span class="stazione-stato"></span>
+              <span class="stazione-chevron" aria-hidden="true">▾</span>
+            </summary>
+            <div class="stazione-corpo">
+              <div id="banner-verifica-checklist" class="banner-in-verifica" style="display:none;"></div>
+              <div class="barra-wrap">
+                <div class="barra-progresso">
+                  <div class="barra-riempimento" id="barra-riempimento-v2"></div>
+                </div>
+                <span class="barra-label" id="barra-label-v2"></span>
+              </div>
+              <div id="prossimi-passi-v2" class="prossimi-passi-v2" style="display:none;"></div>
+              <div id="lista-checklist-v2" class="lista-checklist-v2"></div>
+            </div>
+          </details>
+        </li>
+
+        <li class="stazione" id="stazione-esito">
+          <details class="stazione-dettagli">
+            <summary class="stazione-testa">
+              <span class="stazione-punto" aria-hidden="true">3</span>
+              <span class="stazione-testi">
+                <span class="stazione-titolo">L'esito</span>
+                <span class="stazione-sub" id="stazione-esito-sub">Quando conosci l'esito della selezione, dichiaralo qui.</span>
+              </span>
+              <span class="stazione-stato"></span>
+              <span class="stazione-chevron" aria-hidden="true">▾</span>
+            </summary>
+            <div class="stazione-corpo">
+              <p class="stazione-testo">ErasmusWiz non conosce le graduatorie: l'esito lo dichiari tu, e il percorso si adatta.</p>
+              <div class="toggle-fase-wrap">
+                <button class="toggle-fase-btn fase-attiva" id="fase-domanda" type="button">📝 Sto preparando la candidatura</button>
+                <button class="toggle-fase-btn" id="fase-selezionato" type="button">🎉 Sono stato selezionato</button>
+              </div>
+            </div>
+          </details>
+        </li>
+
+        <li class="stazione" id="stazione-la">
+          <details class="stazione-dettagli">
+            <summary class="stazione-testa">
+              <span class="stazione-punto" aria-hidden="true">4</span>
+              <span class="stazione-testi">
+                <span class="stazione-titolo">Learning Agreement</span>
+                <span class="stazione-sub">Gli esami che seguirai all'estero e come vengono riconosciuti.</span>
+              </span>
+              <span class="stazione-stato"></span>
+              <span class="stazione-chevron" aria-hidden="true">▾</span>
+            </summary>
+            <div class="stazione-corpo">
+              <p class="stazione-testo">Il Learning Agreement ufficiale si compila nei sistemi del tuo ateneo (OLA/EWP o piattaforma interna), dopo la selezione. Qui trovi la guida passo-passo per arrivarci preparato.</p>
+              <a class="dett-link" href="guide/come-fare-learning-agreement-sapienza.html">Guida: il Learning Agreement alla Sapienza ↗</a>
+            </div>
+          </details>
+        </li>
+
+        <li class="stazione" id="stazione-partenza">
+          <details class="stazione-dettagli">
+            <summary class="stazione-testa">
+              <span class="stazione-punto" aria-hidden="true">5</span>
+              <span class="stazione-testi">
+                <span class="stazione-titolo">Parti: lo zaino</span>
+                <span class="stazione-sub">Prima, durante e dopo la partenza.</span>
+              </span>
+              <span class="stazione-stato"></span>
+              <span class="stazione-chevron" aria-hidden="true">▾</span>
+            </summary>
+            <div class="stazione-corpo">
+              <div id="lista-checklist-post" class="lista-checklist-v2"></div>
+            </div>
+          </details>
+        </li>
+      </ol>
     </section>
 
     <!-- ====================================================
@@ -307,23 +429,26 @@
     </div>
   </footer>
 
-  <!-- Navigazione principale — in basso su mobile, in alto su desktop -->
+  <!-- Navigazione principale — in basso su mobile, in alto su desktop.
+       Le TRE voci del contratto (R3, PLAN.md §5.6): Mete · Home · Percorso,
+       con la Home centrale su mobile. "Altro" non è una voce di nav: apre
+       il drawer. Etichette STABILI: chiude il gate R1 "navigazione stabile". -->
   <nav class="nav-bottom" aria-label="Navigazione principale">
     <div class="nav-brand" aria-hidden="true">
       <img src="img/logo-mark.svg" alt="" class="nav-logo">
       <span class="nav-wordmark">ErasmusWiz</span>
     </div>
-    <a href="#" class="nav-item attivo" data-tab="oggi">
-      <span class="nav-icon">🧭</span>
-      <span class="nav-label">Percorso</span>
-    </a>
     <a href="#" class="nav-item" data-tab="mete">
       <span class="nav-icon">🗺️</span>
       <span class="nav-label">Mete</span>
     </a>
-    <a href="#" class="nav-item" data-tab="checklist" id="nav-candidatura">
-      <span class="nav-icon" id="nav-candidatura-icona">📋</span>
-      <span class="nav-label" id="nav-candidatura-label">Candidatura</span>
+    <a href="#" class="nav-item attivo" data-tab="oggi">
+      <span class="nav-icon">🏠</span>
+      <span class="nav-label">Home</span>
+    </a>
+    <a href="#" class="nav-item" data-tab="percorso">
+      <span class="nav-icon">🧭</span>
+      <span class="nav-label">Percorso</span>
     </a>
     <button class="nav-item nav-item-btn" id="btn-drawer" type="button"
             aria-controls="drawer" aria-expanded="false" aria-haspopup="dialog">
@@ -333,8 +458,7 @@
   </nav>
 
   <!-- Drawer da destra (R1.2, PLAN.md §5.6): Profilo, Cambia ateneo, Guide,
-       Come funziona. Le tre voci della nav restano quelle attuali: la nav
-       Mete·Home·Percorso arriva a fine R1 con R3 (decisione 15/07). -->
+       Come funziona. -->
   <div class="drawer-overlay" id="drawer-overlay" hidden></div>
   <aside class="drawer" id="drawer" role="dialog" aria-modal="true"
          aria-labelledby="drawer-titolo" hidden>

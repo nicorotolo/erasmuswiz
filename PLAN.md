@@ -438,8 +438,8 @@ assunzione falsa sui corsi disponibili.
    verdi; QA browser su entrambi gli atenei.
 
 **Gate R1:** cambio ateneo sicuro, navigazione stabile, primo avvio misurato su
-telefono e regressione dei dati esistenti. La voce "navigazione stabile" resta
-aperta fino a R3 per la decisione del 15/07 sul punto 2.
+telefono e regressione dei dati esistenti. La voce "navigazione stabile" è
+**CHIUSA con R3** (sessione 59 del 16/07: nav a 3 voci Mete·Home·Percorso).
 **Primo avvio misurato ✅ (15/07):** 7 secondi su Galaxy S21 in 4G, scheda in
 incognito, PRIMA di R1.5. La misura del 3/7 (3 secondi) era falsa: GitHub Pages
 serviva il sito del 3 luglio, meta' del JS e senza motore mappa (vedi
@@ -448,7 +448,20 @@ numero del "dopo".
 
 ### R2 — Ingresso, onboarding e Home essenziale (3-4 sessioni, 10-16 ore)
 
-1. Scena cartografica mobile pulita e desktop progressivamente interattivo.
+1. ~~Scena cartografica~~ ✅ **FATTO (sessione 59 del 16/07)** — **decisione
+   di Nicola 16/07: scena CON CTA "Inizia il tuo percorso"** (§5.1 alla
+   lettera; alternativa "senza CTA" scartata). Primo contatto = scena a
+   inchiostro profondo (`.modo-scena` su #home-benvenuto): missione in
+   chiaro ("Capisci il bando, scegli mete davvero accessibili e non perdere
+   i passaggi importanti"), mappa notte SENZA pin, 6 rotte d'oro lente
+   (curve dalle due città-ateneo a città geocodificate NEI DATI, mai
+   coordinate inventate nel codice), CTA. Al clic parte il flusso a 3
+   domande esistente (focus sulla prima scelta). `prefers-reduced-motion`
+   ferma le rotte (regola globale); Page Visibility le mette in pausa.
+   Chi rientra dal cambio ateneo salta la scena (stava già rispondendo).
+   H1, title e description INVARIATI (vincolo §10.8). ⚠️ Implementata e
+   verificata staticamente; il QA browser della scena è il primo atto
+   della prossima verifica (strumento JS indisponibile a fine sessione).
 2. ~~Onboarding “Personalizza il tuo percorso”~~ ✅ **FATTO (sessione 58 del
    16/07)** — kicker "Personalizza il tuo percorso" sopra i passi, messaggio
    sempre visibile "I dati restano su questo dispositivo…", passo 3 nuovo
@@ -485,18 +498,47 @@ la prossima azione disponibile.
 
 ### R3 — Mete e Percorso (4-5 sessioni, 14-20 ore)
 
-1. Wizard prima visita + rilancio.
-2. Mappa e lista sincronizzate, senza doppi render.
-3. Rotte preferite ordinate, massimo 5.
-4. Percorso unico a stazioni.
-5. Ramo selezionato isolato dalle scadenze candidatura.
-6. Export `.ics` esistente preservato.
-7. Prestazioni col dataset completo:
-   - nessun long task evitabile durante filtri;
-   - risposta percepita entro 250 ms dopo il debounce;
-   - se non passa: rendering incrementale/cap, non rinvio al QA finale.
+1. ~~Wizard prima visita + rilancio~~ ✅ **FATTO (sessione 59 del 16/07)** —
+   "Hai già in mente le tue destinazioni?" nel tab Mete, solo senza rotte
+   salvate e finché senza risposta (`ZAINO.wizardMete`, additivo con
+   fallback). Sì → focus sulla ricerca; No → scroll alla mappa/filtri;
+   "Salta per ora" sempre presente. Rilancio con "✨ Ripensa le rotte"
+   nella testa della schedina (forza la comparsa anche con rotte salvate).
+2. ~~Mappa e lista sincronizzate~~ ✅ **FATTO (sessione 59)** — mappa nel tab
+   Mete (`#card-mappa-mete`), stesso motore delle altre (SVG costruito una
+   volta, si ridisegnano solo i pin). Riceve ESATTAMENTE l'elenco filtrato
+   di renderMete (una sola fonte: ricerca+filtri), stelline delle preferite
+   comprese; nota di copertura onesta per le mete fuori mappa.
+3. ~~Rotte preferite ordinate, massimo 5~~ ✅ **verificato (sessione 59)** —
+   già implementate da BR4 (schedina): max 5 con messaggio, riordino ▲▼,
+   ordine persistito. QA rifatto dopo R3: verde.
+4. ~~Percorso unico a stazioni~~ ✅ **FATTO (sessione 59)** — tab `#percorso`
+   (nuovo hash nel contratto; #checklist, #idoneita e #timeline alias
+   permanenti). Cinque stazioni (§5.5): 1 Prepara la candidatura (ex
+   Idoneità), 2 Candidatura e scadenze, 3 gate auto-dichiarato dell'esito
+   (i due bottoni di fase, con microcopy onesto sulle graduatorie),
+   4 Learning Agreement (guida; il Workspace arriva con R4, nessuna
+   promessa in UI), 5 Parti: lo zaino. Stati fatto/attivo/futuro derivati
+   da tappaCorrente() (R1.6); stazione corrente aperta, le altre chiuse
+   (`<details>`); "ponte" verso Mete quando la tappa corrente è "mete".
+   **Nav a 3 voci Mete·Home·Percorso** (Home centrale su mobile, "Altro"
+   apre il drawer): il gate R1 "navigazione stabile" È CHIUSO.
+5. ~~Ramo selezionato isolato~~ ✅ **FATTO (sessione 59)** — la checklist di
+   partenza scrive nel SUO contenitore (`#lista-checklist-post`, stazione 5)
+   e si renderizza sempre insieme a quella di candidatura, ciascuna nella
+   propria stazione. Niente più contenitore condiviso commutato dalla fase.
+6. ~~Export `.ics` esistente preservato~~ ✅ **verificato (sessione 59)** —
+   codice intatto; bottone presente per le scadenze future (simulata in
+   memoria), assente per le passate (comportamento voluto).
+7. ~~Prestazioni col dataset completo~~ ✅ **FATTO (sessione 59)** — render
+   a LOTTI da 80 card ("Mostra altre N — ne restano M", nessuna meta
+   nascosta in silenzio: conteggio e mappa restano sull'elenco completo).
+   Misure post-lotti: renderMete Sapienza senza profilo (1.595 mete) 6 ms,
+   filtrato 7 ms, Ca' Foscari 4 ms — budget 250 ms rispettato con margine.
 
 **Gate R3:** i due starter completano i flussi Mete e Percorso senza aiuto.
+QA interno superato (sessione 59, entrambi gli atenei, 390/768/1280,
+console pulita); la parte "senza aiuto" si prova coi tester in R5.
 
 ### R4 — LA Workspace v0 (6-9 sessioni, 25-40 ore)
 

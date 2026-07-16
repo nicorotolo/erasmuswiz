@@ -588,6 +588,80 @@ body {
 }
 
 /* ================================================================
+   PERCORSO A STAZIONI (R3, PLAN.md §5.5)
+   La linea di viaggio racconta il progresso: una sola tappa corrente
+   (decisa da tappaCorrente, R1.6). I <details> tengono compatta la
+   schermata: la stazione corrente parte aperta, le altre chiuse.
+================================================================ */
+.stazioni { list-style: none; margin: 0 20px 8px; padding: 0; }
+.stazione { position: relative; }
+.stazione + .stazione { margin-top: 10px; }
+/* Il tratto di linea che collega le stazioni, allineato ai marker. */
+.stazione + .stazione::before {
+  content: ""; position: absolute; left: 31px; top: -10px;
+  width: 2px; height: 10px; background: var(--border-strong);
+}
+.stazione-fatta + .stazione::before { background: var(--gold); }
+.stazione-dettagli {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+.stazione-attiva .stazione-dettagli { border: 1.5px solid var(--gold); }
+.stazione-testa {
+  display: flex; align-items: center; gap: 12px;
+  padding: 13px 16px; cursor: pointer; list-style: none; user-select: none;
+}
+.stazione-testa::-webkit-details-marker { display: none; }
+.stazione-testa:hover { background: var(--bg-card-hover); }
+.stazione-punto {
+  flex: none; width: 30px; height: 30px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; border: 2px solid var(--border-strong);
+  font-family: var(--font-mono); font-weight: 700; font-size: 0.85rem;
+  color: var(--text-muted); background: var(--bg-card);
+}
+.stazione-fatta  .stazione-punto { border-color: var(--green); background: var(--green-bg); color: var(--green); }
+.stazione-attiva .stazione-punto { border-color: var(--gold); background: var(--gold-bg); color: var(--gold-dark); }
+.stazione-testi { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+.stazione-titolo { font-family: var(--font-display); font-weight: 800; font-size: 1rem; color: var(--text-dark); }
+.stazione-futura .stazione-titolo { color: var(--text-muted); }
+.stazione-sub { font-size: 0.8rem; color: var(--text-muted); line-height: 1.35; }
+.stazione-stato {
+  flex: none; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700;
+  color: var(--text-muted); background: var(--bg-track);
+  padding: 2px 9px; border-radius: var(--radius-pill);
+}
+.stazione-stato:empty { display: none; }
+.stazione-fatta  .stazione-stato { color: var(--green); background: var(--green-bg); }
+.stazione-attiva .stazione-stato { color: var(--gold-dark); background: var(--gold-bg); }
+.stazione-chevron { flex: none; font-size: 0.8rem; color: var(--text-hint); transition: transform var(--dur-fast) var(--ease-out); }
+.stazione-dettagli:not([open]) .stazione-chevron { transform: rotate(-90deg); }
+.stazione-corpo { padding: 4px 16px 16px; border-top: 1px dashed var(--border); }
+.stazione-corpo > :first-child { margin-top: 12px; }
+.stazione-testo { font-size: 0.88rem; color: var(--text-muted); margin: 12px 0; line-height: 1.5; }
+/* I blocchi storici (checklist, requisiti, barra…) portano margini/padding
+   da pagina (0 20px): dentro una stazione il respiro lo dà la card. */
+.stazione-corpo .barra-wrap,
+.stazione-corpo .banner-in-verifica,
+.stazione-corpo .idoneita-esito,
+.stazione-corpo .prossimi-passi-v2,
+.stazione-corpo .toggle-fase-wrap { margin-left: 0; margin-right: 0; }
+.stazione-corpo .lista-checklist-v2,
+.stazione-corpo .griglia-requisiti-v2 { padding-left: 0; padding-right: 0; }
+/* Il ponte verso le Mete: compare solo quando la tappa corrente è "mete". */
+.stazione-ponte-btn {
+  display: block; width: 100%; text-align: left;
+  padding: 13px 16px; border-radius: var(--radius-lg);
+  border: 1.5px dashed var(--gold); background: var(--gold-bg);
+  color: var(--gold-dark); font-family: var(--font-body); font-size: 0.9rem; font-weight: 700;
+  cursor: pointer; transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+}
+.stazione-ponte-btn:hover { box-shadow: var(--shadow-card); }
+.stazione-ponte-btn:active { transform: translateY(1px) scale(.995); }
+.stazione-ponte[hidden] { display: none; }
+
+/* ================================================================
    "ORA TOCCA A TE" — prossimi 3 passi (BR5)
 ================================================================ */
 .prossimi-passi-v2 {
@@ -1139,6 +1213,32 @@ body {
   text-transform: uppercase; color: var(--text-hint); margin-top: 16px;
 }
 .benvenuto-privacy { font-size: .78rem; color: var(--text-hint); margin-top: 12px; max-width: 60ch; }
+/* ---- Scena d'ingresso (R2.1, PLAN §5.1): inchiostro profondo + rotte
+   d'oro lente, zero pin. Attiva con .modo-scena sul #home-benvenuto;
+   il clic sul CTA la toglie e fa partire il flusso a 3 domande. ---- */
+.benvenuto.modo-scena {
+  background: linear-gradient(160deg, var(--night-bg) 0%, var(--night-bg-2) 100%);
+  border-color: var(--night-border);
+}
+.modo-scena .benvenuto-titolo { color: #fff; }
+.modo-scena .benvenuto-titolo em { color: var(--gold); }
+.modo-scena .benvenuto-claim { color: rgba(255,255,255,.8); }
+.modo-scena .benvenuto-privacy { color: rgba(255,255,255,.55); }
+.modo-scena .benvenuto-kicker,
+.modo-scena .benvenuto-passi,
+.modo-scena .benvenuto-fumetto { display: none; }
+.modo-scena .mappa { background: transparent; border-color: var(--night-border); }
+.modo-scena .mappa-terra { fill: rgba(255,255,255,.08); stroke: rgba(255,255,255,.18); }
+.modo-scena .mappa-terra-casa { fill: rgba(255,182,39,.30); }
+.benvenuto-cta-wrap { margin: 16px 0 4px; }
+.benvenuto-cta-wrap[hidden] { display: none; }
+.rotta-oro {
+  fill: none; stroke: var(--gold); stroke-width: 1.6; stroke-linecap: round;
+  opacity: .85; stroke-dasharray: 5 8;
+  animation: rotta-scorri 9s linear infinite; /* lenta: è una scena, non un allarme */
+}
+@keyframes rotta-scorri { to { stroke-dashoffset: -130; } }
+.scena-pausa .rotta-oro { animation-play-state: paused; }
 .benvenuto-lingue { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
 .benvenuto-riga-lingua { display: flex; gap: 10px; }
 .benvenuto-riga-lingua select {
@@ -1267,25 +1367,10 @@ body.no-scroll { overflow: hidden; }
   .sezione-titolo { font-size: 1.6rem; }
   .sezione-header { margin-top: 28px; }
 
-  /* Candidatura/Zaino (BR6, 7a): 2 colonne — contenuto a sinistra
-     (header, banner, capitoli/lista), colonna azione compatta a destra
-     (cambio fase, progresso, "Ora tocca a te"). Stesso markup del
-     mobile: solo riassegnazione di colonna via CSS, nessun elemento
-     nuovo. Mobile resta invariato (colonna singola sotto i 1024px). */
-  #tab-checklist {
-    display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: 0 28px;
-    align-items: start;
-  }
-  #tab-checklist.nascosto { display: none; }
-  #tab-checklist .sezione-header,
-  #tab-checklist #banner-verifica-checklist,
-  #tab-checklist #lista-checklist-v2 { grid-column: 1; }
-  #tab-checklist .toggle-fase-wrap,
-  #tab-checklist .barra-wrap,
-  #tab-checklist #banner-wiz,
-  #tab-checklist #prossimi-passi-v2 { grid-column: 2; margin-left: 0; margin-right: 0; }
+  /* Percorso a stazioni (R3): UNA colonna anche sul desktop — è un
+     itinerario verticale (PLAN.md §5.5), non un cruscotto a colonne.
+     Sostituisce la vecchia griglia a 2 colonne del tab Candidatura. */
+  #tab-percorso { max-width: 820px; margin: 0 auto; }
 }
 @media (max-width: 1023px) { .missione-wiz-desktop { display: none; } }
 
@@ -1352,11 +1437,60 @@ body.no-scroll { overflow: hidden; }
 }
 
 /* ================================================================
+   TAB METE — wizard prima visita, mappa sincronizzata, render a lotti (R3)
+================================================================ */
+.wizard-mete {
+  display: flex; align-items: flex-start; gap: 14px;
+  margin: 0 20px 16px; padding: 16px;
+  background: var(--bg-card); border: 1.5px solid var(--primary);
+  border-radius: var(--radius-lg); box-shadow: var(--shadow-card);
+}
+.wizard-mete-wiz { width: 54px; height: auto; flex: none; }
+.wizard-mete-testi { flex: 1; min-width: 0; }
+.wizard-mete-domanda {
+  font-family: var(--font-display); font-weight: 800; font-size: 1.05rem;
+  color: var(--text-dark); margin-bottom: 10px;
+}
+.wizard-mete-scelte { display: flex; flex-wrap: wrap; gap: 0; align-items: center; }
+.wizard-mete-salta {
+  background: none; border: none; padding: 12px 6px; margin: 0 0 10px;
+  font-family: var(--font-body); font-size: .85rem; font-weight: 600;
+  color: var(--text-muted); cursor: pointer; text-decoration: underline;
+}
+.wizard-mete-salta:hover { color: var(--text-dark); }
+
+.card-mappa-mete {
+  margin: 0 20px 16px; background: var(--bg-card); border-radius: var(--radius-lg);
+  padding: 12px 16px 14px; box-shadow: var(--shadow-card);
+}
+.card-mappa-mete .mappa-compatta { width: fit-content; max-width: 100%; margin: 0 auto; }
+.card-mappa-mete .mappa-compatta svg { width: min(88vw, 460px); height: auto; }
+
+.btn-mostra-altre {
+  display: block; width: 100%; margin-top: 4px;
+  padding: 13px 16px; border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-strong); background: var(--bg-card);
+  color: var(--text-dark); font-family: var(--font-body); font-size: .9rem; font-weight: 700;
+  cursor: pointer; transition: border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+.btn-mostra-altre:hover { border-color: var(--primary); color: var(--primary); }
+.btn-mostra-altre:active { transform: translateY(1px) scale(.99); }
+
+.preferite-rilancia {
+  margin-left: auto; padding: 6px 10px;
+  background: none; border: 1px solid var(--gold-border); border-radius: var(--radius-pill);
+  font-family: var(--font-body); font-size: .75rem; font-weight: 700; color: var(--gold-dark);
+  cursor: pointer; transition: background var(--dur-fast) var(--ease-out);
+}
+.preferite-rilancia:hover { background: var(--gold-bg); }
+
+/* ================================================================
    MOBILE ≤480px
 ================================================================ */
 @media (max-width: 480px) {
   .home-header { padding: 14px 14px 18px; }
-  .percorso-wrap, .missione-card, .settimana-card { margin-left: 14px; margin-right: 14px; }
+  .percorso-wrap, .missione-card, .settimana-card, .stazioni,
+  .wizard-mete, .card-mappa-mete { margin-left: 14px; margin-right: 14px; }
   .sezione-header { margin-left: 14px; margin-right: 14px; }
   .lista-checklist-v2, .griglia-mete-v2, .griglia-requisiti-v2 { padding-left: 14px; padding-right: 14px; }
   .barra-wrap { margin-left: 14px; margin-right: 14px; }

@@ -26,7 +26,7 @@ function zainoVuoto() {
   return {
     profilo: null, checklist: {}, metePreferite: [], schedina: [],
     fase: "domanda", checklistPost: {}, onboardingFatto: false,
-    autoverifica: {}, zainoCelebrato: false
+    autoverifica: {}, zainoCelebrato: false, wizardMete: false
   };
 }
 
@@ -43,6 +43,9 @@ function normalizzaZaino(z) {
   // "Lo zaino" (BR6): celebrazione all'ingresso in fase 4, una sola volta.
   // Zaino vecchio senza il campo → non ancora celebrato.
   if (typeof z.zainoCelebrato !== "boolean") z.zainoCelebrato = (z.fase === "selezionato");
+  // Wizard prima visita delle Mete (R3.1): zaino vecchio senza il campo →
+  // il wizard non è mai stato visto (comparirà solo senza rotte salvate).
+  if (typeof z.wizardMete !== "boolean") z.wizardMete = false;
   return z;
 }
 
@@ -438,17 +441,20 @@ function postiInParole(posto) {
 // IL CONTRATTO. Questi sono gli hash supportati: l'interfaccia pubblica del
 // sito, non un dettaglio interno. Chi aggiunge o rinomina un tab aggiorna
 // QUI (e in ALIAS_HASH se il vecchio nome era già in giro).
-const TAB_VALIDI      = ["oggi", "mete", "checklist", "idoneita", "profilo"];
+// Da R3 le voci di nav sono TRE (Mete · Home · Percorso, PLAN.md §5.6);
+// "profilo" resta un tab raggiungibile dal drawer, non dalla nav.
+const TAB_VALIDI      = ["oggi", "mete", "percorso", "profilo"];
 const TAB_PREDEFINITO = "oggi";
 
 // Alias realmente supportati (PLAN.md §5.6: si dichiarano e si testano, non si
-// promettono "per sempre"). `#timeline` è stato un hash vero fino a OP2, che ha
-// rimosso la pagina Timeline fondendone i contenuti in scadenze+checklist: chi
-// ha ancora quel link atterra dove il contenuto è finito davvero, non su una
-// schermata a caso. È l'unico alias con una prova alle spalle: gli altri nomi
-// (`#percorso`, `#candidatura`) sono etichette della nav, hash non lo sono MAI
-// stati — inventarli sarebbe promettere un contratto che nessuno ha mai avuto.
-const ALIAS_HASH = { timeline: "checklist" };
+// promettono "per sempre"). Tutti e tre hanno una prova alle spalle:
+//   `#checklist` e `#idoneita` sono stati tab veri fino a R3, che li ha fusi
+//   nella schermata Percorso a stazioni (le stazioni "Candidatura e scadenze"
+//   e "Prepara la candidatura");
+//   `#timeline` è stato un hash vero fino a OP2 (pagina Timeline rimossa,
+//   contenuti fusi in scadenze+checklist, oggi nella stessa stazione).
+// Chi ha ancora quei link atterra dove il contenuto è finito davvero.
+const ALIAS_HASH = { timeline: "percorso", checklist: "percorso", idoneita: "percorso" };
 
 // Unico punto che interpreta una destinazione, da qualunque parte arrivi
 // (hash, data-tab, data-goto, chiamata interna). Restituisce un tab valido
@@ -782,7 +788,7 @@ function calcolaFasi() {
 
   const fasi = [
     {
-      id: 1, tappa: "requisiti", tab: "idoneita",
+      id: 1, tappa: "requisiti", tab: "percorso", stazione: "requisiti",
       domanda: "Posso partire?", fatto: requisitiOk,
       riassunto: requisitiOk
         ? "Profilo compilato — hai verificato tutti i requisiti."
@@ -798,7 +804,7 @@ function calcolaFasi() {
       cta: meteOk ? "Vedi le tue mete" : "Esplora le mete",
     },
     {
-      id: 3, tappa: "candidatura", tab: "checklist",
+      id: 3, tappa: "candidatura", tab: "percorso", stazione: "candidatura",
       domanda: "La candidatura", fatto: checklistOk,
       riassunto: checklistTot === 0
         ? "Nessun passo ancora disponibile."
@@ -806,7 +812,8 @@ function calcolaFasi() {
       cta: checklistOk ? "Rivedi la checklist" : "Vai alla checklist",
     },
     {
-      id: 4, tappa: "finale", tab: "checklist",
+      id: 4, tappa: "finale", tab: "percorso",
+      stazione: selezionato ? "partenza" : "esito",
       domanda: "Sono stato preso!", fatto: false,
       riassunto: selezionato
         ? "In preparazione alla partenza 🎒"
@@ -850,33 +857,110 @@ function renderFaseStepper() {
 
     const btn = crea("button", "fase-cta", f.cta);
     btn.type = "button";
-    btn.addEventListener("click", () => vaiA(f.tab));
+    btn.addEventListener("click", () => f.stazione ? vaiAStazione(f.stazione) : vaiA(f.tab));
     card.appendChild(btn);
 
     wrap.appendChild(card);
   });
 }
 
-// Etichetta del 3° tab in nav: "Candidatura" (in corso) oppure "Partenza" (selezionato)
-function aggiornaNavCandidatura() {
-  const icona = document.getElementById("nav-candidatura-icona");
-  const label = document.getElementById("nav-candidatura-label");
-  if (!icona || !label) return;
-  const selezionato = ZAINO.fase === "selezionato";
-  icona.textContent = selezionato ? "🎒" : "📋";
-  label.textContent = selezionato ? "Zaino" : "Candidatura";
+// ============================================================
+// PERCORSO A STAZIONI (R3, PLAN.md §5.5)
+// ------------------------------------------------------------
+// L'itinerario burocratico unico: 5 stazioni in una schermata verticale.
+// QUALE tappa è corrente lo decide tappaCorrente() (R1.6): qui si dipingono
+// solo gli stati (fatto/attivo/futuro), i conteggi e il gate dell'esito.
+// La stazione Learning Agreement è informativa: non ha uno stato misurabile
+// finché non esiste il Workspace (R4) — resta neutra, senza fingere progressi.
+// Con `apri: true` (avvio e cambio di fase) si allinea anche l'apertura dei
+// <details>: la stazione corrente aperta, le altre chiuse. Le ripitture
+// leggere (la spunta di una voce) NON toccano ciò che lo studente ha aperto.
+// ============================================================
+
+// Porta diretta a UNA stazione: naviga al tab Percorso e apre la tappa.
+// Lo scroll al top di vaiA si salta: si scorre alla stazione richiesta.
+function vaiAStazione(nome) {
+  if (!vaiA("percorso", { scroll: false })) return;
+  const li = document.getElementById("stazione-" + nome);
+  if (!li) return;
+  const det = li.querySelector("details");
+  if (det) det.open = true;
+  requestAnimationFrame(() => li.scrollIntoView({ behavior: "smooth", block: "start" }));
 }
 
-// Titolo/sottotitolo del tab Candidatura: "Lo zaino" (BR6) in fase 4.
-function aggiornaIntestazioneZaino() {
-  const titolo     = document.getElementById("checklist-titolo");
-  const sottotitolo = document.getElementById("checklist-sottotitolo");
-  if (!titolo || !sottotitolo) return;
-  const selezionato = ZAINO.fase === "selezionato";
-  titolo.textContent = selezionato ? "🎒 Lo zaino" : "📋 La tua checklist";
-  sottotitolo.textContent = selezionato
-    ? "Prima, durante e dopo la partenza: spunta i passi man mano che li completi."
-    : "Spunta i passi man mano che li completi. Restano salvati sul tuo dispositivo.";
+function renderPercorso(opzioni = {}) {
+  if (!document.getElementById("tab-percorso")) return;
+  const apri  = !!opzioni.apri;
+  const tappa = tappaCorrente();
+
+  const requisiti   = REQUISITI_BANDO || [];
+  const reqFatti    = requisiti.filter(r => ZAINO.autoverifica && ZAINO.autoverifica[r.id]).length;
+  const requisitiOk = !!ZAINO.profilo && requisiti.length > 0 && reqFatti === requisiti.length;
+
+  const checklist   = CHECKLIST || [];
+  const chkFatti    = checklist.filter(v => ZAINO.checklist && ZAINO.checklist[v.id]).length;
+  const checklistOk = checklist.length > 0 && chkFatti === checklist.length;
+
+  const post      = CHECKLIST_POST || [];
+  const postFatti = post.filter(v => ZAINO.checklistPost && ZAINO.checklistPost[v.id]).length;
+
+  const selezionato = tappa === "partenza";
+
+  // Il ponte verso le Mete: la tappa "mete" vive nella schermata Mete,
+  // qui compare solo il rimando (la linea non salta una tappa in silenzio).
+  const ponte = document.getElementById("stazione-mete-ponte");
+  if (ponte) ponte.hidden = tappa !== "mete";
+
+  const stazioni = {
+    requisiti: {
+      numero: "1",
+      stato: tappa === "requisiti" ? "attivo" : (selezionato || requisitiOk) ? "fatto" : "futuro",
+      conta: requisiti.length ? `${reqFatti}/${requisiti.length}` : "non pubblicati",
+    },
+    candidatura: {
+      numero: "2",
+      stato: tappa === "candidatura" ? "attivo" : (selezionato || checklistOk) ? "fatto" : "futuro",
+      conta: checklist.length ? `${chkFatti}/${checklist.length}` : "non pubblicata",
+    },
+    esito: {
+      numero: "3",
+      stato: selezionato ? "fatto" : tappa === "esiti" ? "attivo" : "futuro",
+      conta: selezionato ? "dichiarato" : "",
+    },
+    la: { numero: "4", stato: "info", conta: "" },
+    partenza: {
+      numero: "5",
+      stato: selezionato ? (post.length && postFatti === post.length ? "fatto" : "attivo") : "futuro",
+      conta: selezionato && post.length ? `${postFatti}/${post.length}` : "",
+    },
+  };
+
+  Object.keys(stazioni).forEach(nome => {
+    const li = document.getElementById("stazione-" + nome);
+    if (!li) return;
+    const s = stazioni[nome];
+    li.classList.toggle("stazione-fatta",  s.stato === "fatto");
+    li.classList.toggle("stazione-attiva", s.stato === "attivo");
+    li.classList.toggle("stazione-futura", s.stato === "futuro");
+    const punto = li.querySelector(".stazione-punto");
+    if (punto) punto.textContent = s.stato === "fatto" ? "✓" : s.numero;
+    const statoEl = li.querySelector(".stazione-stato");
+    if (statoEl) statoEl.textContent = (s.stato === "attivo" && !s.conta) ? "tappa corrente" : s.conta;
+    if (apri) {
+      const det = li.querySelector("details");
+      if (det) det.open = s.stato === "attivo";
+    }
+  });
+
+  // Il sottotitolo del gate racconta lo stato vero, con le parole del §5.5.
+  const sub = document.getElementById("stazione-esito-sub");
+  if (sub) {
+    sub.textContent = selezionato
+      ? "Hai indicato di essere stato selezionato 🎉"
+      : (tappa === "esiti" && candidatureChiuse())
+        ? "Le candidature sono chiuse: quando conosci l'esito, dichiaralo qui."
+        : "Quando conosci l'esito della selezione, dichiaralo qui.";
+  }
 }
 
 // ============================================================
@@ -991,7 +1075,7 @@ function renderSettimana() {
       const c = calcolaCountdown(scad.data);
       item.appendChild(crea("span", "settimana-item-scadenza", countdownInParole(c)));
     }
-    item.addEventListener("click", () => vaiA("checklist"));
+    item.addEventListener("click", () => vaiAStazione(tappa === "partenza" ? "partenza" : "candidatura"));
     lista.appendChild(item);
   }
 
@@ -1064,10 +1148,12 @@ function renderMissione() {
     }
   }
 
-  function setBtn(btn, testo, tab) {
+  // Con `stazione` la destinazione è UNA tappa del Percorso (R3): si apre
+  // e si scorre lì, non in cima al tab.
+  function setBtn(btn, testo, tab, stazione) {
     if (!btn) return;
     btn.textContent = testo;
-    btn.onclick = e => { e.preventDefault(); vaiA(tab); };
+    btn.onclick = e => { e.preventDefault(); stazione ? vaiAStazione(stazione) : vaiA(tab); };
   }
 
   switch (m.tipo) {
@@ -1083,12 +1169,12 @@ function renderMissione() {
         btnFatto.textContent = "Sono stato selezionato 🎒";
         btnFatto.onclick = e => {
           e.preventDefault();
-          // Riusa la logica del toggle di fase esistente.
+          // Riusa la logica del gate dell'esito (stazione 3 del Percorso).
           document.getElementById("fase-selezionato")?.click();
           renderMissione();
         };
       }
-      setBtn(btnCome, "Vedi le date del ciclo", "checklist");
+      setBtn(btnCome, "Vedi le date del ciclo", "percorso", "candidatura");
       break;
     }
     case "partenza":
@@ -1096,46 +1182,47 @@ function renderMissione() {
       if (dett)   dett.textContent   = m.prossima
         ? `Preparazione alla partenza — ${m.prossima.cosa} tra ${m.giorni} ${m.giorni === 1 ? "giorno" : "giorni"}.`
         : "Preparazione alla partenza: spunta i passi man mano che li completi.";
-      setBtn(btnFatto, "Fatto 🎒",           "checklist");
-      setBtn(btnCome,  "Vedi tutti i passi", "checklist");
+      setBtn(btnFatto, "Fatto 🎒",           "percorso", "partenza");
+      setBtn(btnCome,  "Vedi tutti i passi", "percorso", "partenza");
       break;
     case "urgente":
       card.classList.add("missione-urgente");
       if (titolo) titolo.textContent = `⚠️ Scadenza tra ${m.giorni} ${m.giorni === 1 ? "giorno" : "giorni"}!`;
       if (dett)   dett.textContent   = `${m.prossima.cosa} — ${formattaData(m.prossima.data)}. ${m.prossima.descrizione}`;
-      setBtn(btnFatto, "Vedi scadenze ⏳", "checklist");
-      setBtn(btnCome,  "Cosa devo fare?", "checklist");
+      setBtn(btnFatto, "Vedi scadenze ⏳", "percorso", "candidatura");
+      setBtn(btnCome,  "Cosa devo fare?", "percorso", "candidatura");
       break;
     case "profilo":
       if (titolo) titolo.textContent = "Compila il tuo profilo";
       if (dett)   dett.textContent   = "Inserisci area disciplinare, livello e lingue per scoprire le mete compatibili e ricevere una guida personalizzata.";
       setBtn(btnFatto, "Vai al profilo ✨", "profilo");
-      setBtn(btnCome,  "Vedi i requisiti",  "idoneita");
+      setBtn(btnCome,  "Vedi i requisiti",  "percorso", "requisiti");
       break;
     case "checklist":
       if (titolo) titolo.textContent = m.voce.testo;
       if (dett)   dett.textContent   = m.prossima
         ? `Prossima scadenza: ${m.prossima.cosa} tra ${m.giorni} giorni.`
         : "Completa i passi della checklist per essere pronto in tempo.";
-      setBtn(btnFatto, "Fatto ✨",     "checklist");
-      setBtn(btnCome,  "Come si fa?", "checklist");
+      setBtn(btnFatto, "Fatto ✨",     "percorso", "candidatura");
+      setBtn(btnCome,  "Come si fa?", "percorso", "candidatura");
       break;
     case "attendi":
       if (titolo) titolo.textContent = m.prossima.cosa;
       if (dett)   dett.textContent   = `Prossima scadenza tra ${m.giorni} giorni. ${m.prossima.descrizione}`;
-      setBtn(btnFatto, "Vedi scadenze ✨", "checklist");
+      setBtn(btnFatto, "Vedi scadenze ✨", "percorso", "candidatura");
       setBtn(btnCome,  "Esplora mete",     "mete");
       break;
     default:
       if (titolo) titolo.textContent = "Sei in ottima posizione! 🎉";
       if (dett)   dett.textContent   = "Checklist completata e nessuna scadenza imminente. Tieni d'occhio le mete disponibili.";
       setBtn(btnFatto, "Esplora le mete ✨", "mete");
-      setBtn(btnCome,  "La tua candidatura", "checklist");
+      setBtn(btnCome,  "La tua candidatura", "percorso", "candidatura");
   }
 
   renderPreparazione();
   renderFaseStepper();
   renderSettimana();
+  renderPercorso();
 }
 
 function aggiornaCountdownV2() {
@@ -1590,6 +1677,79 @@ function borsaSintesi(meta) {
 }
 
 // ============================================================
+// WIZARD PRIMA VISITA DELLE METE (R3.1, PLAN.md §5.4)
+// ------------------------------------------------------------
+// "Hai già in mente le tue destinazioni?" — compare SOLO senza rotte
+// salvate e finché non ha avuto risposta (ZAINO.wizardMete). Sempre
+// saltabile; rilanciabile con "Ripensa le rotte" dalla schedina (il
+// rilancio forza la comparsa anche con rotte già salvate).
+// ============================================================
+let _wizardMeteForzato = false;
+
+function renderWizardMete() {
+  const box = document.getElementById("wizard-mete");
+  if (!box) return;
+  const mostra = !ZAINO.wizardMete &&
+    (((ZAINO.metePreferite || []).length === 0) || _wizardMeteForzato);
+  box.style.display = mostra ? "" : "none";
+}
+
+function chiudiWizardMete() {
+  ZAINO.wizardMete = true;
+  _wizardMeteForzato = false;
+  salvaZaino(ZAINO);
+  renderWizardMete();
+}
+
+function initWizardMete() {
+  const si    = document.getElementById("wizard-mete-si");
+  const no    = document.getElementById("wizard-mete-no");
+  const salta = document.getElementById("wizard-mete-salta");
+  if (si) si.addEventListener("click", () => {
+    // "Sì" = cerca e ordina fino a 5 mete: dritto sulla ricerca.
+    chiudiWizardMete();
+    const cerca = document.getElementById("cerca-mete");
+    if (cerca) { cerca.focus(); cerca.scrollIntoView({ block: "center", behavior: "smooth" }); }
+  });
+  if (no) no.addEventListener("click", () => {
+    // "No" = esplora: mappa, affinità e filtri (l'elenco è già ordinato
+    // per compatibilità quando c'è un profilo).
+    chiudiWizardMete();
+    const mappa = document.getElementById("card-mappa-mete");
+    const dest = (mappa && mappa.style.display !== "none") ? mappa : document.getElementById("filtri-mete-chip");
+    dest?.scrollIntoView({ block: "center", behavior: "smooth" });
+  });
+  if (salta) salta.addEventListener("click", chiudiWizardMete);
+}
+
+// ============================================================
+// MAPPA DEL TAB METE (R3.2) — sincronizzata con ricerca e filtri.
+// Riceve le stesse mete dell'elenco reso sotto (MAI un filtro suo):
+// una sola fonte, nessun doppio render — l'SVG si costruisce una
+// volta, a ogni sincronizzazione si ridisegnano solo i pin.
+// ============================================================
+let _mappaMete = null;
+function renderMappaMete(mete) {
+  const card = document.getElementById("card-mappa-mete");
+  if (!card) return;
+  if (!window.EUROPA_MAPPA || !window.COORDINATE_CITTA || !mete.length) {
+    card.style.display = "none";
+    if (_mappaMete) _mappaMete.mete = null; // niente ri-cluster al resize
+    return;
+  }
+  card.style.display = "";
+  if (!_mappaMete) {
+    const layer = mappaCostruisci(document.getElementById("mappa-mete"));
+    if (!layer) { card.style.display = "none"; return; }
+    _mappaMete = { layer };
+  }
+  _mappaMete.mete = mete;
+  _mappaMete.opts = { stellate: ZAINO.metePreferite || [] };
+  mappaRenderPins(_mappaMete.layer, mete, _mappaMete.opts);
+  mappaNotaCopertura(document.getElementById("mappa-nota-mete"), mete);
+}
+
+// ============================================================
 // METE v2
 // ============================================================
 function renderMete() {
@@ -1707,6 +1867,11 @@ function renderMete() {
   const conta = document.getElementById("conta-mete");
   if (conta) conta.textContent = elenco.length + (elenco.length === 1 ? " meta" : " mete");
 
+  // R3.1 + R3.2: wizard prima visita, e mappa sincronizzata con l'ELENCO
+  // FILTRATO — una sola fonte per lista e mappa, mai due filtri diversi.
+  renderWizardMete();
+  renderMappaMete(elenco.map(e => e.meta));
+
   if (elenco.length === 0 && testo) {
     cont.appendChild(crea("p", "stato-vuoto-v2", `Nessuna meta trovata per «${testo}».`));
     return;
@@ -1716,7 +1881,32 @@ function renderMete() {
     return;
   }
 
-  elenco.forEach(({ meta, comp }) => {
+  // R3.7 — prestazioni col dataset completo: senza profilo la Sapienza
+  // mette in lista 1.595 mete e il render integrale sfora il budget dei
+  // 250 ms percepiti. Le card si rendono A LOTTI; conteggio e mappa qui
+  // sopra restano sull'elenco COMPLETO, il bottone dichiara quante
+  // restano — niente mete nascoste in silenzio.
+  const LOTTO_METE = 80;
+  let resi = 0;
+  function rendiLotto() {
+    const frag = document.createDocumentFragment();
+    elenco.slice(resi, resi + LOTTO_METE).forEach(({ meta, comp }) => frag.appendChild(creaCardMeta(meta, comp)));
+    resi = Math.min(resi + LOTTO_METE, elenco.length);
+    cont.appendChild(frag);
+    if (resi < elenco.length) {
+      const rimaste = elenco.length - resi;
+      const btn = crea("button", "btn-mostra-altre",
+        `Mostra altre ${Math.min(LOTTO_METE, rimaste)} mete — ne restano ${rimaste}`);
+      btn.type = "button";
+      btn.addEventListener("click", () => { btn.remove(); rendiLotto(); });
+      cont.appendChild(btn);
+    }
+  }
+  rendiLotto();
+}
+
+// Una card meta dell'elenco (estratta da renderMete per il render a lotti).
+function creaCardMeta(meta, comp) {
     const card = crea("article", "card-meta-v2");
 
     // Stellina preferiti: in alto a destra della card (feedback UX6 — prima
@@ -1774,8 +1964,7 @@ function renderMete() {
       if (e.key === "Enter" || e.key === " ") { e.preventDefault(); apriDettaglioMeta(meta); }
     });
 
-    cont.appendChild(card);
-  });
+    return card;
 }
 
 // ============================================================
@@ -1807,6 +1996,17 @@ function renderPreferite(msg) {
 
   const header = crea("div", "preferite-header");
   header.appendChild(crea("span", "preferite-label", `Le tue 5 scelte (${ids.length}/5)`));
+  // R3.1: il wizard della prima visita si può sempre rilanciare da qui.
+  const rilancia = crea("button", "preferite-rilancia", "✨ Ripensa le rotte");
+  rilancia.type = "button";
+  rilancia.addEventListener("click", () => {
+    ZAINO.wizardMete = false;
+    _wizardMeteForzato = true;
+    salvaZaino(ZAINO);
+    renderWizardMete();
+    document.getElementById("wizard-mete")?.scrollIntoView({ block: "center", behavior: "smooth" });
+  });
+  header.appendChild(rilancia);
   cont.appendChild(header);
 
   if (msg) cont.appendChild(crea("p", "msg-preferite", msg));
@@ -1879,7 +2079,7 @@ function togglePreferita(id) {
     salvaZaino(ZAINO);
     renderPreferite();
     renderMete();
-    renderFaseStepper();
+    renderMissione(); // le preferite spostano la tappa corrente: si riallinea tutto
   } else if (ZAINO.metePreferite.length >= 5) {
     renderPreferite("Il bando ne ammette al massimo 5. Rimuovi una meta per aggiungerne un'altra.");
   } else {
@@ -1887,7 +2087,7 @@ function togglePreferita(id) {
     salvaZaino(ZAINO);
     renderPreferite();
     renderMete();
-    renderFaseStepper();
+    renderMissione();
   }
 }
 
@@ -2053,21 +2253,18 @@ function initDettaglioMeta() {
 // voci che non lo hanno ancora, es. Sapienza provvisoria). Dentro
 // ogni capitolo restano le sotto-intestazioni per `fase` di prima
 // (nessun dato perso, solo un livello di raggruppamento in più).
+// R3.5: il ramo selezionato è ISOLATO dalle scadenze candidatura —
+// scrive nel SUO contenitore (stazione "Parti"), non più in quello
+// condiviso con la checklist di candidatura. Le due liste convivono
+// nella stessa schermata Percorso, ognuna nella propria stazione.
 // ============================================================
 const CAPITOLI_ZAINO = ["Prima", "Durante", "Dopo"];
 
 function renderChecklistPost() {
-  const cont = document.getElementById("lista-checklist-v2");
+  const cont = document.getElementById("lista-checklist-post");
   if (!cont) return;
   cont.innerHTML = "";
   if (!ZAINO.checklistPost) ZAINO.checklistPost = {};
-
-  // "Ora tocca a te" (BR5) appartiene alla vista candidatura (fase "domanda"):
-  // qui si nasconde per non lasciare contenuto vecchio quando si passa allo
-  // zaino (renderChecklistPost non lo ripopola mai, a differenza di
-  // renderChecklist).
-  const prossimiPassi = document.getElementById("prossimi-passi-v2");
-  if (prossimiPassi) prossimiPassi.style.display = "none";
 
   const lista  = CHECKLIST_POST || [];
   const spunte = ZAINO.checklistPost;
@@ -2085,7 +2282,7 @@ function renderChecklistPost() {
       ZAINO.checklistPost[voce.id] = cb.checked;
       salvaZaino(ZAINO);
       renderChecklistPost();
-      aggiornaProgressoV2(lista, spunte);
+      renderMissione(); // aggiorna anche conteggio stazione e "Questa settimana"
     });
 
     label.appendChild(cb);
@@ -2125,9 +2322,14 @@ function renderChecklistPost() {
     cont.appendChild(capitoloEl);
   });
 
-  aggiornaProgressoV2(lista, spunte);
+  // Il conteggio dello zaino vive nella testa della SUA stazione
+  // (renderPercorso), non nella barra della candidatura (R3.5).
 }
 
+// Il gate dell'esito (stazione 3 del Percorso, §5.5): auto-dichiarato,
+// il sito non conosce le graduatorie. Da R3 le due checklist vivono in
+// stazioni separate e sono SEMPRE renderizzate: il gate cambia solo lo
+// stato del viaggio (ZAINO.fase) e la stazione corrente.
 function initToggleFase() {
   const btnDomanda    = document.getElementById("fase-domanda");
   const btnSelezionato = document.getElementById("fase-selezionato");
@@ -2139,22 +2341,12 @@ function initToggleFase() {
     btnSelezionato.classList.toggle("fase-attiva", selezionato);
   }
 
-  function renderChecklistAttiva() {
-    if (ZAINO.fase === "selezionato") {
-      renderChecklistPost();
-    } else {
-      renderChecklist();
-    }
-  }
-
   btnDomanda.addEventListener("click", () => {
     ZAINO.fase = "domanda";
     salvaZaino(ZAINO);
     aggiornaBottoniFase();
-    renderChecklistAttiva();
-    aggiornaNavCandidatura();
-    aggiornaIntestazioneZaino();
-    renderFaseStepper();
+    renderMissione();
+    renderPercorso({ apri: true });
   });
 
   btnSelezionato.addEventListener("click", () => {
@@ -2163,10 +2355,8 @@ function initToggleFase() {
     if (primaVolta) ZAINO.zainoCelebrato = true;
     salvaZaino(ZAINO);
     aggiornaBottoniFase();
-    renderChecklistAttiva();
-    aggiornaNavCandidatura();
-    aggiornaIntestazioneZaino();
-    renderFaseStepper();
+    renderMissione();
+    renderPercorso({ apri: true });
     if (primaVolta) mostraCelebrazioneZaino();
   });
 
@@ -2201,7 +2391,12 @@ function chiudiCelebrazioneZaino() {
 
 function initCelebrazioneZaino() {
   const btn = document.getElementById("celebrazione-btn");
-  if (btn) btn.addEventListener("click", chiudiCelebrazioneZaino);
+  // "Apri lo zaino →" porta DAVVERO allo zaino: la stazione "Parti" del
+  // Percorso (prima di R3 lo zaino occupava il tab in cui già ci si trovava).
+  if (btn) btn.addEventListener("click", () => {
+    chiudiCelebrazioneZaino();
+    vaiAStazione("partenza");
+  });
   document.addEventListener("keydown", e => {
     if (e.key !== "Escape") return;
     const overlay = document.getElementById("celebrazione-overlay");
@@ -2297,7 +2492,7 @@ function renderIdoneita() {
         ZAINO.autoverifica[req.id] = cb.checked;
         salvaZaino(ZAINO);
         renderIdoneita();
-        renderFaseStepper();
+        renderMissione(); // stepper, missione, settimana e stazioni derivano tutti da qui
       });
       label.appendChild(cb);
       label.appendChild(document.createTextNode(" Lo rispetto"));
@@ -2521,6 +2716,7 @@ window.addEventListener("resize", () => {
   _mappaResizeRaf = requestAnimationFrame(() => {
     if (_mappaBenv && _mappaBenv.mete) mappaRenderPins(_mappaBenv.layer, _mappaBenv.mete, _mappaBenv.opts);
     if (_mappaHome && _mappaHome.mete) mappaRenderPins(_mappaHome.layer, _mappaHome.mete, _mappaHome.opts);
+    if (_mappaMete && _mappaMete.mete) mappaRenderPins(_mappaMete.layer, _mappaMete.mete, _mappaMete.opts);
   });
 });
 
@@ -2767,6 +2963,78 @@ function completaOnboarding(livello, lingue) {
   zona.appendChild(btn);
 }
 
+// ============================================================
+// SCENA D'INGRESSO (R2.1, PLAN.md §5.1 — decisione di Nicola 16/07:
+// CTA "Inizia il tuo percorso"). Promessa concreta dentro una scena
+// emozionale: inchiostro profondo, rotte d'oro LENTE, zero pin nel primo
+// viewport. Il flusso a 3 domande parte al clic sul CTA. Le rotte sono
+// decorative: partono dalle due città-ateneo e arrivano su città già
+// geocodificate nei DATI (nessuna coordinata inventata nel codice);
+// `prefers-reduced-motion` le ferma (regola globale), Page Visibility
+// le mette in pausa quando la scheda non si vede.
+// ============================================================
+const CITTA_ROTTE_SCENA = [
+  "Parigi|Francia", "Madrid|Spagna", "Berlino|Germania",
+  "Vienna|Austria", "Lisbona|Portogallo", "Stoccolma|Svezia",
+];
+
+function mappaRotteScena() {
+  const cont = document.getElementById("mappa-benvenuto");
+  const svg  = cont && cont.querySelector("svg");
+  if (!svg || !window.COORDINATE_CITTA) return;
+  const NS = "http://www.w3.org/2000/svg";
+  const partenze = Object.keys(CITTA_ATENEO)
+    .map(k => proiettaXY(CITTA_ATENEO[k].lat, CITTA_ATENEO[k].lon));
+  let i = 0;
+  CITTA_ROTTE_SCENA.forEach(chiave => {
+    if (i >= 6) return; // massimo 4-6 rotte (PLAN §5.1)
+    const c = COORDINATE_CITTA.citta[chiave];
+    if (!c || c.fuori || c.x === undefined) return;
+    const [x1, y1] = partenze[i % partenze.length];
+    // Curva morbida: controllo a metà strada, alzato in proporzione alla
+    // distanza — le rotte "volano", non tagliano dritto.
+    const cx = (x1 + c.x) / 2;
+    const cy = Math.min(y1, c.y) - Math.hypot(c.x - x1, c.y - y1) * 0.18;
+    const p = document.createElementNS(NS, "path");
+    p.setAttribute("d", `M ${x1.toFixed(1)} ${y1.toFixed(1)} Q ${cx.toFixed(1)} ${cy.toFixed(1)} ${c.x} ${c.y}`);
+    p.setAttribute("class", "rotta-oro");
+    p.style.animationDelay = (i * 1.2) + "s";
+    svg.appendChild(p);
+    i++;
+  });
+}
+
+function mappaRimuoviRotte() {
+  document.querySelectorAll("#mappa-benvenuto .rotta-oro").forEach(p => p.remove());
+}
+
+function aggiornaPausaScena() {
+  document.getElementById("mappa-benvenuto")
+    ?.classList.toggle("scena-pausa", document.hidden);
+}
+
+function benvScena() {
+  const benv = document.getElementById("home-benvenuto");
+  const wrap = document.getElementById("benvenuto-cta-wrap");
+  const btn  = document.getElementById("benvenuto-inizia");
+  // Markup della scena assente: dritti alle domande, nessun vicolo cieco.
+  if (!benv || !wrap || !btn) { benvPassoAteneo(); return; }
+  benv.classList.add("modo-scena");
+  wrap.hidden = false;
+  mappaRotteScena();
+  document.addEventListener("visibilitychange", aggiornaPausaScena);
+  aggiornaPausaScena();
+  btn.addEventListener("click", () => {
+    benv.classList.remove("modo-scena");
+    wrap.hidden = true;
+    mappaRimuoviRotte();
+    document.removeEventListener("visibilitychange", aggiornaPausaScena);
+    benvPassoAteneo();
+    // Il focus segue l'azione: dritto sulla prima scelta (accessibilità).
+    document.querySelector("#benvenuto-scelte .benvenuto-scelta")?.focus();
+  }, { once: true });
+}
+
 function initOnboarding() {
   const benv = document.getElementById("home-benvenuto");
   if (!benv || ZAINO.onboardingFatto) return;
@@ -2776,8 +3044,10 @@ function initOnboarding() {
 
   let stepRipresa = null;
   try { stepRipresa = sessionStorage.getItem(CHIAVE_ONBOARDING_STEP); sessionStorage.removeItem(CHIAVE_ONBOARDING_STEP); } catch (e) {}
+  // Chi torna dal cambio ateneo stava GIÀ rispondendo: niente scena, si
+  // riprende dal passo 2. La scena è solo per il primo contatto.
   if (stepRipresa === "2") benvPassoFacolta();
-  else benvPassoAteneo();
+  else benvScena();
 }
 
 // ============================================================
@@ -2909,12 +3179,12 @@ function init() {
   applicaBrandingAteneo();
   renderHome();
   initToggleFase();
-  if (ZAINO.fase === "selezionato") {
-    renderChecklistPost();
-  } else {
-    renderChecklist();
-  }
+  // R3.5: le due checklist vivono in stazioni separate del Percorso e si
+  // renderizzano SEMPRE entrambe, ognuna nel suo contenitore.
+  renderChecklist();
+  renderChecklistPost();
   renderPreferite();
+  initWizardMete();
   renderMete();
   initDettaglioMeta();
   // Debounce ~150ms sulla ricerca (P2.15): ogni keystroke rifaceva l'intera
@@ -2931,10 +3201,10 @@ function init() {
   renderBannerVerifica();
   initProfilo();
   initCountdownPill();
-  aggiornaNavCandidatura();
-  aggiornaIntestazioneZaino();
   initCelebrazioneZaino();
   renderMissione();
+  // All'avvio la stazione corrente parte aperta, le altre chiuse (R3).
+  renderPercorso({ apri: true });
   initOnboarding();
   renderMappaHome();
   setInterval(aggiornaCountdownV2, 30000); // i countdown non mostrano più i secondi

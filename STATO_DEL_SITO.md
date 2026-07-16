@@ -19,9 +19,91 @@
 
 ---
 
-### Cantiere SITO — sessioni 49→58
+### Cantiere SITO — sessioni 49→59
 
-**Ultimo aggiornamento:** 2026-07-16 — sessione 58, Claude Code (Fable 5)
+**Ultimo aggiornamento:** 2026-07-16 — sessione 59, Claude Code (Fable 5)
+(**R3 IMPLEMENTATA PER INTERO in una sessione multi-chunk richiesta da
+Nicola ("procedi a chunk senza fermarti") — e con R3 si CHIUDE anche il
+gate R1 "navigazione stabile".**
+
+**(1) R3.4+R3.5 — Percorso unico a stazioni, nav a 3 voci.** I tab
+Candidatura e Idoneità non esistono più: c'è `#tab-percorso`, una schermata
+verticale a 5 stazioni (PLAN §5.5): 1 Prepara la candidatura (requisiti),
+2 Candidatura e scadenze (fonte R2.6, barra, "Ora tocca a te", capitoli),
+3 gate auto-dichiarato dell'esito (i due bottoni di fase + "ErasmusWiz non
+conosce le graduatorie"), 4 Learning Agreement (solo la guida: il Workspace
+arriva con R4, nessuna promessa), 5 Parti: lo zaino. Stati fatto/attivo/
+futuro DERIVATI da `tappaCorrente()` (R1.6), stazione corrente aperta e le
+altre chiuse (`<details>`), linea d'oro fra le stazioni fatte, "ponte"
+verso Mete quando la tappa corrente è "mete". Il ramo selezionato è ISOLATO
+(R3.5): lo zaino scrive in `#lista-checklist-post`, la candidatura tiene il
+suo contenitore e la sua barra — le due checklist sono sempre renderizzate.
+**Nav: Mete · Home · Percorso** (Home centrale su mobile, "Altro" = drawer).
+Contratto hash aggiornato: `#percorso` nuovo tab valido; `#checklist`,
+`#idoneita` e `#timeline` alias permanenti (tutti e tre con prova reale).
+Rimossi `aggiornaNavCandidatura`/`aggiornaIntestazioneZaino` (nav stabile).
+La celebrazione "Apri lo zaino →" ora porta DAVVERO alla stazione Parti.
+
+**(2) R3.1+R3.2 — wizard prima visita e mappa nel tab Mete.** "Hai già in
+mente le tue destinazioni?" compare solo senza rotte salvate
+(`ZAINO.wizardMete`, additivo con fallback): Sì → focus ricerca; No →
+scroll a mappa/filtri; "Salta per ora"; rilancio con "✨ Ripensa le rotte"
+dalla testa della schedina. La mappa (`#card-mappa-mete`) usa lo stesso
+motore delle altre e riceve ESATTAMENTE l'elenco filtrato da renderMete
+(ricerca+filtri+stelline): una sola fonte, nessun doppio render, nota di
+copertura per le mete fuori mappa.
+
+**(3) R3.7 — prestazioni: render a lotti.** Senza profilo la Sapienza
+metteva in griglia 1.595 card in un colpo: ora LOTTI da 80 con "Mostra
+altre N — ne restano M" (conteggio e mappa restano sull'elenco completo,
+niente mete nascoste in silenzio). Misure: renderMete Sapienza 6 ms,
+filtrato 7 ms, Ca' Foscari 4 ms — budget §R3.7 (250 ms) preso con margine.
+R3.3 (schedina max 5, riordino ▲▼) verificata; R3.6 (.ics) preservato
+(bottone presente su scadenza futura simulata, assente sulle passate).
+
+**QA (browser, entrambi gli atenei):** stati stazioni esercitati su tutto
+il viaggio (requisiti→mete→candidatura→esiti→partenza e ritorno), gate
+avanti/indietro con celebrazione, alias hash in arrivo da link esterni
+(`#idoneita` → normalizzato `#percorso`), Indietro/pushState, migrazione
+zaino legacy piatto (profilo/preferite al posto giusto, nuovo campo
+wizardMete a false), flusso visitatore-nuovo completo via click reali
+(onboarding → landing → home → percorso), 390/768/1280 senza overflow-x,
+target ≥44px, console PULITA. Screenshot in timeout (trappola nota): QA
+geometrico via DOM. **5 file spuri da 0 byte in radice** (di nuovo, creati
+dagli hook di shell in questa sessione): verificati vuoti ed eliminati.
+File toccati: `index.html`, `js/app.js`, `css/style.css`, `PLAN.md`,
+`STATO_DEL_SITO.md`. Nessun file del sito creato o rimosso. NON pubblicata:
+serve occhio umano + PUBBLICA.bat.
+
+**(4) R2.1 — scena d'ingresso, DECISA E IMPLEMENTATA nella stessa
+sessione.** Nicola ha scelto (16/07, in sessione): **scena CON CTA
+"Inizia il tuo percorso"** (PLAN §5.1 alla lettera). Primo contatto =
+`.modo-scena` sul benvenuto: superficie a inchiostro profondo, missione
+in chiaro ("Capisci il bando, scegli mete davvero accessibili e non
+perdere i passaggi importanti"), mappa notte SENZA pin, 6 rotte d'oro
+lente e curve (partenze = città-ateneo; destinazioni = città geocodificate
+NEI DATI, verificate tutte presenti via Node), CTA. Al clic la scena si
+toglie e parte il flusso a 3 domande esistente, col focus sulla prima
+scelta. `prefers-reduced-motion` ferma le rotte (regola globale già in
+CSS); Page Visibility le mette in pausa. Chi rientra dal cambio ateneo
+salta la scena. H1/title/description INVARIATI (vincolo §10.8).
+**QA browser della scena ESEGUITO alla ripresa** (lo strumento JS era
+andato in indisponibilità temporanea; nel frattempo: `node --check`, id
+HTML univoci, 6 città verificate nei dati via Node): storage pulito →
+scena attiva con sfondo a inchiostro, 6 rotte d'oro, ZERO pin, CTA nel
+primo viewport a 390px, fumetto/passi nascosti → clic CTA → scena tolta,
+rotte rimosse, 2 pin ateneo, focus sulla prima scelta → flusso completo
+fino alla landing ("Per te ci sono 39 mete a Economia") e alla Home.
+Nessun overflow-x, console PULITA.
+
+**Resta di R2:** solo la validazione a video del punto 7 (invarianti SEO
+già verificati sul file statico in sessione 58). **R2 e R3 sono quindi
+IMPLEMENTATE per intero; "validate" arriva coi test utente (R5).**
+**Prossimo passo: occhio umano su scena+Percorso+Mete, PUBBLICA.bat e
+verifica dell'URL; poi R4 (LA Workspace — prima va definito lo schema
+`la`, PLAN §6.4, decisione con Nicola).**)
+
+**Ultimo aggiornamento precedente:** 2026-07-16 — sessione 58, Claude Code (Fable 5)
 (**R1 CHIUSA (R1.6) + R2 AVANZATA 5 PUNTI SU 7 in una sessione multi-blocco
 richiesta esplicitamente da Nicola** ("procedi a chunk senza fermarti").
 
@@ -2957,7 +3039,39 @@ poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
 
-### Cantiere SITO (Claude Code) — numerazione 49→57
+### Cantiere SITO (Claude Code) — numerazione 49→59
+
+**Aggiornamento 2026-07-16 — sessione 59 (R3 completa, gate R1 chiuso):**
+
+1. **Occhio umano su scena d'ingresso, Percorso e Mete, poi `PUBBLICA.bat`
+   e VERIFICA dell'URL pubblico** (regola sessione 56). Cosa guardare: la
+   scena a inchiostro con le rotte d'oro e il CTA (localStorage pulito),
+   la schermata Percorso a stazioni (mobile ~390 e desktop), il wizard
+   "Hai già in mente le tue destinazioni?" nel tab Mete, la mappa
+   sincronizzata coi filtri, il bottone "Mostra altre 80 mete". Verifica
+   di accettazione sull'URL: la nav dice Mete · Home · Percorso e
+   `#checklist` reindirizza a `#percorso`.
+2. **R2.1 decisa (Nicola, 16/07: scena CON CTA), implementata e con QA
+   browser SUPERATO nella stessa sessione 59** (scena a inchiostro, 6
+   rotte d'oro, zero pin, CTA nel primo viewport mobile, flusso a 3
+   domande fino alla Home, console pulita). Resta l'occhio umano, come
+   per tutto il resto della sessione.
+3. **R4 (LA Workspace v0) NON parte da sola:** prima va definito lo schema
+   `la` per-ateneo e per-meta (versioni, sostituzioni, motivazioni,
+   timestamp — PLAN §6.4) e va deciso con Nicola. È il pezzo più grosso
+   rimasto (6-9 sessioni).
+4. **Gate R3 "senza aiuto":** il QA interno è superato; la prova vera sono
+   i tester di R5 (Bruno + studenti). Da pianificare quando R4 è in piedi.
+5. **Comportamenti voluti, da sapere:** i vecchi link/bookmark `#checklist`,
+   `#idoneita` e `#timeline` atterrano sul Percorso (alias dichiarati);
+   le stelline sulla mappa compaiono solo sui pin NON raggruppati (limite
+   dei cluster, identico alla mappa Home); il wizard Mete non ricompare
+   dopo la risposta finché non lo si rilancia con "Ripensa le rotte".
+6. **File spuri da 0 byte in radice: ricontrollare a ogni chiusura** —
+   ricomparsi anche in questa sessione (5, creati dagli hook di shell),
+   verificati vuoti ed eliminati con `find . -maxdepth 1 -size 0`.
+7. **La numerazione doppia resta da sanare**: questa è la sessione 59 del
+   **cantiere SITO**.
 
 **Aggiornamento 2026-07-15 — sessione 57 (bug dei doppioni chiuso):**
 
