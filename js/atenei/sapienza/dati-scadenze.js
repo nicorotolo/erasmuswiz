@@ -14,7 +14,12 @@
 // ============================================================
 
 var SCADENZE_INFO = {
-  annoAccademico: "2026/2027"
+  annoAccademico: "2026/2027",
+  // Fine del ciclo del bando: ultimo giorno utile di mobilità ("tra il
+  // 1° giugno 2026 e il 31 luglio 2027", pagina ufficiale del bando).
+  // Passata questa data i dati appartengono a un ciclo concluso e il
+  // sito lo dichiara (stato "dati scaduti", app.js statoBando()).
+  fineCiclo: "2027-07-31T23:59"
 };
 
 var SCADENZE_CAFOSCARI = [

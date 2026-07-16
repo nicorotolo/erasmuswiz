@@ -382,6 +382,27 @@ function dataChiusuraCandidature() {
   return chiusure[0] ? new Date(chiusure[0].data).toLocaleDateString("it-IT", { day: "numeric", month: "long" }) : "";
 }
 
+// ---- Stato del bando a QUATTRO valori (R2, PLAN.md §R2.5) ----
+// Deciso SOLO dai dati e dalla data di oggi, mai hardcoded:
+//   "aperto"              — ci si può ancora candidare (candidatureChiuse()
+//                           è false e ci sono scadenze pubblicate);
+//   "chiuso-ciclo-attivo" — candidature chiuse per data, ma il ciclo del
+//                           bando è ancora in corso (fineCiclo futura o
+//                           non dichiarata: non si inventa una fine);
+//   "dati-scaduti"        — fineCiclo (dai dati scadenze) è passata: le
+//                           date mostrate appartengono a un ciclo concluso
+//                           e il sito lo dichiara invece di fingersi vivo;
+//   "non-pubblicato"      — nessuna scadenza nei dati: il bando non è
+//                           ancora stato pubblicato/caricato.
+function statoBando() {
+  const scadenze = SCADENZE_CAFOSCARI || [];
+  if (scadenze.length === 0) return "non-pubblicato";
+  const fine = (window.SCADENZE_INFO && SCADENZE_INFO.fineCiclo) || null;
+  if (fine && scadenzaPassata({ data: fine })) return "dati-scaduti";
+  if (candidatureChiuse()) return "chiuso-ciclo-attivo";
+  return "aperto";
+}
+
 // Una voce di checklist è "morta" se la sua scadenza è già passata:
 // non ha senso proporla come missione.
 function voceScaduta(voce) {
@@ -667,79 +688,148 @@ function renderHome() {
   const nomeEl = document.getElementById("home-nome");
   if (nomeEl) nomeEl.textContent = ZAINO.profilo?.nome || "Studente";
 
-  // Badge "Bando AAAA/AA aperto" — onesto: sparisce se il bando è chiuso o
-  // se lo studente è già stato selezionato (non è più la notizia rilevante).
+  // Badge del bando — dice sempre la verità sui QUATTRO stati (R2.5):
+  // aperto / candidature chiuse ma ciclo attivo / dati scaduti / non
+  // pubblicato. Sparisce solo per lo studente selezionato (per lui non
+  // è più la notizia rilevante).
   const badge = document.getElementById("badge-bando");
   if (badge) {
     const anno = (window.BANDO_INFO && BANDO_INFO.annoAccademico) || "";
     const parti = anno.split("/");
     const annoBreve = parti.length === 2 ? `${parti[0]}/${parti[1].slice(-2)}` : anno;
-    const mostraBadge = annoBreve && ZAINO.fase !== "selezionato" && !candidatureChiuse();
+    const stato = statoBando();
+    const testi = {
+      "aperto":              annoBreve ? `Bando ${annoBreve} aperto` : "",
+      "chiuso-ciclo-attivo": annoBreve ? `Bando ${annoBreve}: candidature chiuse` : "",
+      "dati-scaduti":        annoBreve ? `Bando ${annoBreve} concluso` : "",
+      "non-pubblicato":      "Nuovo bando non ancora pubblicato",
+    };
+    const testo = testi[stato] || "";
+    const mostraBadge = !!testo && ZAINO.fase !== "selezionato";
     badge.style.display = mostraBadge ? "" : "none";
-    if (mostraBadge) badge.textContent = `Bando ${annoBreve} aperto`;
+    badge.classList.toggle("badge-neutro", stato !== "aperto");
+    if (mostraBadge) badge.textContent = testo;
   }
 }
 
 // ============================================================
+// TAPPA CORRENTE — REGOLA DETERMINISTICA (R1.6, PLAN.md §7/R1.6)
+// ------------------------------------------------------------
+// UNA sola tappa è corrente, sempre, e la decide QUESTA funzione — i render
+// (stepper, missione, la Home di R2 e il Percorso di R3) la leggono, non la
+// ricalcolano ognuno a modo suo. Priorità dichiarate, dalla più forte:
+//   1. SELEZIONE DICHIARATA — lo studente ha detto "sono stato selezionato"
+//      (ZAINO.fase, l'unico gate auto-dichiarato): tappa "partenza",
+//      qualunque cosa dicano date e checklist.
+//   2. STATO DEL BANDO PER DATA — candidature chiuse (flag
+//      chiusuraCandidature nei dati scadenze, mai hardcoded) senza selezione
+//      dichiarata: nessuna tappa di lavoro può essere corrente, si è in
+//      attesa dell'esito → tappa "esiti" (il bivio onesto).
+//   3. IL VIAGGIO IN ORDINE — la prima tappa non completata sui dati
+//      disponibili: requisiti → mete → candidatura.
+//   4. TUTTO COMPLETATO, bando ancora aperto → "esiti": la tappa corrente
+//      non sparisce mai (prima di R1.6 questo caso lasciava lo stepper
+//      senza fase attiva).
+// Casi limite, decisi qui e non nei render:
+//   - zaino vuoto o legacy: normalizzaZaino garantisce i campi → si parte
+//     dai requisiti, come a un primo avvio;
+//   - REQUISITI_BANDO assente/vuoto: la tappa requisiti non è misurabile e
+//     si salta — non si chiede di verificare requisiti non pubblicati;
+//   - CHECKLIST assente/vuota: idem per la candidatura;
+//   - né requisiti né checklist pubblicati: non c'è viaggio misurabile →
+//     fallback "mete" ("Scegli la meta"), l'unica tappa sempre possibile;
+//   - scadenze senza flag chiusuraCandidature: bando considerato aperto
+//     (candidatureChiuse() torna false) — nessuna chiusura inventata.
+// Ritorna: "requisiti" | "mete" | "candidatura" | "esiti" | "partenza".
+function tappaCorrente() {
+  if (ZAINO.fase === "selezionato") return "partenza";
+  if (candidatureChiuse()) return "esiti";
+
+  const requisiti = REQUISITI_BANDO || [];
+  const checklist = CHECKLIST || [];
+  if (requisiti.length === 0 && checklist.length === 0) return "mete";
+
+  // La tappa requisiti è "fatta" con profilo compilato E tutte le
+  // auto-verifiche spuntate (fix da assessment 04/07, DISEGNO_BRAND.md BR3).
+  const requisitiOk = !!ZAINO.profilo && requisiti.length > 0 &&
+    requisiti.every(r => ZAINO.autoverifica && ZAINO.autoverifica[r.id]);
+  if (requisiti.length > 0 && !requisitiOk) return "requisiti";
+  if ((ZAINO.metePreferite || []).length === 0) return "mete";
+  const checklistOk = checklist.length > 0 &&
+    checklist.every(v => ZAINO.checklist && ZAINO.checklist[v.id]);
+  if (checklist.length > 0 && !checklistOk) return "candidatura";
+  return "esiti";
+}
+
+// ============================================================
 // PERCORSO A 4 FASI (DISEGNO_UX.md §2.1) — home-percorso UX2
+// Gli stati derivano da tappaCorrente() (R1.6): qui si decide solo COME
+// raccontare le fasi, mai QUALE sia quella corrente.
 // ============================================================
 function calcolaFasi() {
-  const profiloOk    = !!ZAINO.profilo;
+  const tappa = tappaCorrente();
+
   const requisiti     = REQUISITI_BANDO || [];
-  // Fase 1 è "fatta" quando TUTTE le auto-verifiche sono spuntate, non col
-  // solo profilo compilato (fix da assessment 04/07, DISEGNO_BRAND.md BR3).
-  const requisitiOk   = profiloOk && requisiti.length > 0 &&
+  const requisitiOk   = !!ZAINO.profilo && requisiti.length > 0 &&
     requisiti.every(r => ZAINO.autoverifica && ZAINO.autoverifica[r.id]);
   const nPreferite    = (ZAINO.metePreferite || []).length;
   const meteOk        = nPreferite >= 1;
   const checklistTot   = (CHECKLIST || []).length;
   const checklistFatti = (CHECKLIST || []).filter(v => ZAINO.checklist && ZAINO.checklist[v.id]).length;
   const checklistOk    = checklistTot > 0 && checklistFatti === checklistTot;
-  const selezionato    = ZAINO.fase === "selezionato";
+  const selezionato    = tappa === "partenza";
+  const attesaEsiti    = tappa === "esiti";
 
   const fasi = [
     {
-      id: 1, tab: "idoneita", domanda: "Posso partire?", fatto: requisitiOk,
+      id: 1, tappa: "requisiti", tab: "idoneita",
+      domanda: "Posso partire?", fatto: requisitiOk,
       riassunto: requisitiOk
         ? "Profilo compilato — hai verificato tutti i requisiti."
         : "Verifica i requisiti del bando prima di iniziare.",
       cta: requisitiOk ? "Rivedi i requisiti" : "Controlla se sei idoneo",
     },
     {
-      id: 2, tab: "mete", domanda: "Dove posso andare?", fatto: meteOk,
+      id: 2, tappa: "mete", tab: "mete",
+      domanda: "Dove posso andare?", fatto: meteOk,
       riassunto: meteOk
         ? `${nPreferite} ${nPreferite === 1 ? "meta salvata" : "mete salvate"} tra i preferiti.`
         : "Esplora le mete compatibili con il tuo profilo.",
       cta: meteOk ? "Vedi le tue mete" : "Esplora le mete",
     },
     {
-      id: 3, tab: "checklist", domanda: "La candidatura", fatto: checklistOk,
+      id: 3, tappa: "candidatura", tab: "checklist",
+      domanda: "La candidatura", fatto: checklistOk,
       riassunto: checklistTot === 0
         ? "Nessun passo ancora disponibile."
         : `${checklistFatti}/${checklistTot} passi completati.`,
       cta: checklistOk ? "Rivedi la checklist" : "Vai alla checklist",
     },
     {
-      id: 4, tab: "checklist", domanda: "Sono stato preso!", fatto: false,
+      id: 4, tappa: "finale", tab: "checklist",
+      domanda: "Sono stato preso!", fatto: false,
       riassunto: selezionato
         ? "In preparazione alla partenza 🎒"
-        : "Quando sarai selezionato, qui trovi la preparazione alla partenza.",
-      cta: selezionato ? "Continua la preparazione" : "Vai alla candidatura",
+        : attesaEsiti
+          ? (candidatureChiuse()
+              ? "Le candidature sono chiuse: quando conosci l'esito, dichiaralo qui."
+              : "Candidatura completata: quando arriva l'esito, dichiaralo qui.")
+          : "Quando sarai selezionato, qui trovi la preparazione alla partenza.",
+      cta: selezionato ? "Continua la preparazione"
+        : attesaEsiti ? "Dichiara l'esito" : "Vai alla candidatura",
     },
   ];
 
-  if (selezionato) {
-    fasi[0].stato = fasi[1].stato = fasi[2].stato = "fatto";
-    fasi[3].stato = "attivo";
-  } else {
-    let attivoAssegnato = false;
-    fasi.slice(0, 3).forEach(f => {
-      if (f.fatto) { f.stato = "fatto"; }
-      else if (!attivoAssegnato) { f.stato = "attivo"; attivoAssegnato = true; }
-      else { f.stato = "futuro"; }
-    });
-    fasi[3].stato = "futuro";
-  }
+  // La fase 4 racconta sia "partenza" sia "esiti": la tappa corrente
+  // "esiti"/"partenza" mappa sulla fase "finale".
+  const correnteId = (tappa === "esiti" || tappa === "partenza") ? "finale" : tappa;
+  fasi.forEach(f => {
+    if (f.tappa === correnteId) f.stato = "attivo";
+    // Selezione dichiarata: il viaggio è andato oltre, le fasi di lavoro
+    // sono superate anche se qualche spunta manca (comportamento storico).
+    else if (selezionato || f.fatto) f.stato = "fatto";
+    else f.stato = "futuro";
+  });
   return fasi;
 }
 
@@ -850,7 +940,67 @@ function renderPreparazione() {
 }
 
 // ============================================================
-// "MISSIONE DI OGGI"
+// "QUESTA SETTIMANA" (R2, PLAN.md §5.3 modulo 2)
+// ------------------------------------------------------------
+// Massimo 2-3 azioni pertinenti, derivate SOLO dai dati verificati:
+// le prossime voci di checklist non spuntate e non scadute, in ordine
+// di scadenza. Con la selezione dichiarata le azioni vengono dalla
+// checklist di partenza. Senza un ciclo di bando su cui agire il
+// modulo SI NASCONDE: non si simula un planner vivo (PLAN §5.3).
+// "Sei in linea?" prudente: "in ritardo" SOLO per una voce azionabile
+// non spuntata oltre la sua scadenza, mai giudizi generici.
+// ============================================================
+function renderSettimana() {
+  const card  = document.getElementById("settimana-card");
+  const lista = document.getElementById("settimana-lista");
+  if (!card || !lista) return;
+  lista.innerHTML = "";
+
+  const tappa = tappaCorrente();
+  const spuntata = (v, spunte) => !!(spunte && spunte[v.id]);
+
+  // Le voci nell'ordine della vista Candidatura: per scadenza, poi "quando puoi".
+  function vociInOrdine(checklist) {
+    const scadenze = (SCADENZE_CAFOSCARI || []).slice().sort((a, b) => new Date(a.data) - new Date(b.data));
+    const idNoti = scadenze.map(s => s.id);
+    const ordinate = [];
+    scadenze.forEach(s => ordinate.push(...checklist.filter(v => v.scadenzaId === s.id)));
+    ordinate.push(...checklist.filter(v => !v.scadenzaId || !idNoti.includes(v.scadenzaId)));
+    return ordinate;
+  }
+
+  let voci = [];
+  let inRitardo = null;
+  if (tappa === "partenza") {
+    voci = (CHECKLIST_POST || []).filter(v => !spuntata(v, ZAINO.checklistPost));
+  } else if (statoBando() === "aperto") {
+    const tutte = vociInOrdine(CHECKLIST || []);
+    voci = tutte.filter(v => !spuntata(v, ZAINO.checklist) && !voceScaduta(v));
+    inRitardo = tutte.find(v => !spuntata(v, ZAINO.checklist) && voceScaduta(v)) || null;
+  }
+
+  if (!voci.length && !inRitardo) { card.style.display = "none"; return; }
+  card.style.display = "";
+
+  function aggiungi(voce, ritardo) {
+    const item = crea("button", "settimana-item" + (ritardo ? " settimana-ritardo" : ""));
+    item.type = "button";
+    item.appendChild(crea("span", "settimana-item-testo", (ritardo ? "In ritardo: " : "") + voce.testo));
+    const scad = voce.scadenzaId ? scadenzaPerId(voce.scadenzaId) : null;
+    if (scad) {
+      const c = calcolaCountdown(scad.data);
+      item.appendChild(crea("span", "settimana-item-scadenza", countdownInParole(c)));
+    }
+    item.addEventListener("click", () => vaiA("checklist"));
+    lista.appendChild(item);
+  }
+
+  if (inRitardo) aggiungi(inRitardo, true);
+  voci.slice(0, inRitardo ? 2 : 3).forEach(v => aggiungi(v, false));
+}
+
+// ============================================================
+// "PROSSIMA MOSSA" (ex missione di oggi)
 // ============================================================
 function calcolaMissione() {
   // Solo scadenze future e AZIONABILI guidano la missione.
@@ -862,8 +1012,12 @@ function calcolaMissione() {
   const fatti     = checklist.filter(v => ZAINO.checklist && ZAINO.checklist[v.id]).length;
   const haProfilo = !!ZAINO.profilo;
 
+  // Le due priorità forti (selezione dichiarata, bando chiuso per data)
+  // vengono dalla regola unica della tappa corrente (R1.6), non ricalcolate.
+  const tappa = tappaCorrente();
+
   // Studente selezionato: la missione viene dalla checklist di partenza.
-  if (ZAINO.fase === "selezionato") {
+  if (tappa === "partenza") {
     const post     = CHECKLIST_POST || [];
     const vocePost = post.find(v => !(ZAINO.checklistPost && ZAINO.checklistPost[v.id]));
     const ora      = new Date();
@@ -876,7 +1030,7 @@ function calcolaMissione() {
 
   // Bando chiuso e non selezionato: il sito lo dice, onestamente,
   // e propone il bivio (selezionato → partenza / no → prossimo bando).
-  if (candidatureChiuse()) return { tipo: "bando-chiuso", fatti, totale };
+  if (tappa === "esiti" && candidatureChiuse()) return { tipo: "bando-chiuso", fatti, totale };
 
   // Le voci la cui scadenza è già passata non possono essere la missione.
   const prossimaVoce = checklist.find(v =>
@@ -981,6 +1135,7 @@ function renderMissione() {
 
   renderPreparazione();
   renderFaseStepper();
+  renderSettimana();
 }
 
 function aggiornaCountdownV2() {
@@ -1160,6 +1315,30 @@ function renderChecklist() {
   cont.innerHTML = "";
   if (!ZAINO.checklist) ZAINO.checklist = {};
 
+  // R2.6: fonte raggiungibile e data di verifica per le date mostrate.
+  // Tutte le scadenze di questa vista vengono dal bando in BANDO_INFO:
+  // qui si dichiara QUANDO sono state controllate e DOVE verificarle.
+  // Se lo stato del bando non è "aperto" (R2.5) lo si dice, prima delle date.
+  const infoBando = window.BANDO_INFO || {};
+  if (infoBando.linkUfficiale) {
+    const riga  = crea("div", "cand-fonte-riga");
+    const stato = statoBando();
+    const prefisso =
+      stato === "dati-scaduti"   ? "⚠️ Queste date appartengono a un ciclo concluso: il nuovo bando potrebbe essere già uscito. " :
+      stato === "non-pubblicato" ? "Il nuovo bando non è ancora stato pubblicato: nessuna data da mostrare. " : "";
+    const verificata = infoBando.dataVerificaDati
+      ? `Dati verificati il ${new Date(infoBando.dataVerificaDati).toLocaleDateString("it-IT", { day: "numeric", month: "long", year: "numeric" })}. `
+      : "";
+    riga.appendChild(document.createTextNode(`${prefisso}${verificata}Fa sempre fede la `));
+    const link = document.createElement("a");
+    link.href = infoBando.linkUfficiale;
+    link.target = "_blank";
+    link.rel = "noopener";
+    link.textContent = "fonte ufficiale ↗";
+    riga.appendChild(link);
+    cont.appendChild(riga);
+  }
+
   const checklist = CHECKLIST || [];
   const scadenze  = (SCADENZE_CAFOSCARI || []).slice().sort((a, b) => new Date(a.data) - new Date(b.data));
   const idScadenzeNote = scadenze.map(s => s.id);
@@ -1256,6 +1435,18 @@ function aggiornaProgressoV2(lista, spunte) {
 // COMPATIBILITÀ METE
 // ============================================================
 const SCALA_LINGUE = ["A1", "A2", "B1", "B2", "C1", "C2"];
+
+// Le lingue proposte all'utente (onboarding e profilo) derivano dai DATI
+// delle mete (requisitoLingua), mai da una lista scritta nel codice
+// (PLAN.md §5.2): un ateneo con mete in portoghese proporrà il portoghese
+// senza toccare l'app. Ordinate per frequenza, poi alfabetico.
+function lingueDaiDati() {
+  const conta = {};
+  (METE || []).forEach(m => (m.requisitoLingua || []).forEach(r => {
+    if (r && r.lingua) conta[r.lingua] = (conta[r.lingua] || 0) + 1;
+  }));
+  return Object.keys(conta).sort((a, b) => (conta[b] - conta[a]) || a.localeCompare(b, "it"));
+}
 
 function punteggioLinguaSingola(richiesta, lingueStudente) {
   const posseduta = lingueStudente.find(l => l.lingua === richiesta.lingua);
@@ -2451,7 +2642,9 @@ function benvPassoFacolta() {
 }
 
 function benvPassoLivello(dip) {
-  benvSetPasso(3);
+  // Facoltà e livello sono lo stesso passo 2 ("Cosa studi"): il passo 3
+  // è delle lingue (PLAN.md §5.2).
+  benvSetPasso(2);
   // Le mete della facoltà si ACCENDONO sulla mappa (il momento-firma).
   const mete = (METE || []).filter(m => m.dipartimentoCf === dip);
   benvFumetto(`${mete.length} mete ti aspettano. Guarda la mappa!`, "esulta");
@@ -2464,26 +2657,87 @@ function benvPassoLivello(dip) {
   const zona = document.getElementById("benvenuto-scelte");
   zona.innerHTML = "";
   zona.appendChild(crea("p", "benvenuto-sotto-domanda",
-    "Tocca un puntino per l'anteprima. Ultima domanda: a che punto sei?"));
+    "Tocca un puntino per l'anteprima. E tu a che punto sei?"));
   const wrap = crea("div", "benvenuto-scelte-riga");
   [["L", "Triennale"], ["LM", "Magistrale"]].forEach(([liv, label]) => {
     const btn = crea("button", "benvenuto-scelta", label);
     btn.type = "button";
-    btn.addEventListener("click", () => completaOnboarding(liv));
+    btn.addEventListener("click", () => benvPassoLingue(liv));
     wrap.appendChild(btn);
   });
   zona.appendChild(wrap);
 }
 
-function completaOnboarding(livello) {
+// Passo 3 — lingue e livello CEFR, SALTABILE (PLAN.md §5.2). Le lingue
+// proposte vengono dai dati delle mete (lingueDaiDati), mai hardcoded;
+// senza lingue il percorso parte comunque e si aggiungono dal Profilo.
+function benvPassoLingue(livello) {
+  benvSetPasso(3);
+  benvFumetto("Ultima cosa: che lingue parli? Puoi anche saltare.", "pensieroso");
+  const zona = document.getElementById("benvenuto-scelte");
+  zona.innerHTML = "";
+  zona.appendChild(crea("p", "benvenuto-sotto-domanda",
+    "Con le lingue le mete si ordinano per compatibilità. Le cambi quando vuoi dal Profilo."));
+
+  const lingue = lingueDaiDati();
+  const righe  = [];
+  const wrap   = crea("div", "benvenuto-lingue");
+  for (let i = 0; i < 2; i++) {
+    const riga = crea("div", "benvenuto-riga-lingua");
+    const selLingua = document.createElement("select");
+    selLingua.setAttribute("aria-label", `Lingua ${i + 1}`);
+    const vuota = document.createElement("option");
+    vuota.value = ""; vuota.textContent = "— lingua —";
+    selLingua.appendChild(vuota);
+    lingue.forEach(l => {
+      const o = document.createElement("option");
+      o.value = o.textContent = l;
+      selLingua.appendChild(o);
+    });
+    const selLivello = document.createElement("select");
+    selLivello.setAttribute("aria-label", `Livello lingua ${i + 1}`);
+    SCALA_LINGUE.forEach(liv => {
+      const o = document.createElement("option");
+      o.value = o.textContent = liv;
+      selLivello.appendChild(o);
+    });
+    selLivello.value = "B1";
+    riga.appendChild(selLingua);
+    riga.appendChild(selLivello);
+    wrap.appendChild(riga);
+    righe.push({ selLingua, selLivello });
+  }
+  zona.appendChild(wrap);
+
+  const bottoni = crea("div", "benvenuto-scelte-riga");
+  const btnOk = crea("button", "benvenuto-scelta", "Fatto ✓");
+  btnOk.type = "button";
+  btnOk.addEventListener("click", () => {
+    const scelte = righe
+      .filter(r => r.selLingua.value)
+      .map(r => ({ lingua: r.selLingua.value, livello: r.selLivello.value, certificata: false }));
+    completaOnboarding(livello, scelte);
+  });
+  const btnSalta = crea("button", "benvenuto-scelta", "Salta per ora");
+  btnSalta.type = "button";
+  btnSalta.addEventListener("click", () => completaOnboarding(livello, []));
+  bottoni.appendChild(btnOk);
+  bottoni.appendChild(btnSalta);
+  zona.appendChild(bottoni);
+}
+
+function completaOnboarding(livello, lingue) {
   const area = window._onboardingArea;
   const dip  = window._onboardingDipartimento;
   // La facoltà scelta si salva nel profilo (P1.5): lo strip del tab Mete la
   // mostra al posto del codice ISCED grezzo. Zaini vecchi senza questo campo
   // hanno il fallback sul nome dell'area (nomeAreaProfilo).
-  ZAINO.profilo = { area, dipartimento: dip, livello, lingue: [] };
+  ZAINO.profilo = { area, dipartimento: dip, livello, lingue: lingue || [] };
   ZAINO.onboardingFatto = true;
   salvaZaino(ZAINO);
+  // Il form del Profilo si precompila all'avvio: dopo l'onboarding va
+  // riallineato, o mostrerebbe campi vuoti fino al prossimo reload.
+  precompilaFormV2();
 
   const nMete = (METE || []).filter(m => m.areeDisciplinari.some(a => a.codice === area)).length;
   const prossima = prossimaScadenzaInfo();
@@ -2544,6 +2798,29 @@ function popolaAreeV2() {
   });
 }
 
+// Le tendine lingua del profilo si riempiono dai dati delle mete
+// (PLAN.md §5.2: mai lista hardcoded in index.html).
+function popolaLingueV2() {
+  const lingue = lingueDaiDati();
+  document.querySelectorAll(".riga-lingua .lingua-nome").forEach(sel => {
+    lingue.forEach(l => {
+      const o = document.createElement("option");
+      o.value = o.textContent = l;
+      sel.appendChild(o);
+    });
+  });
+}
+
+// Una lingua salvata nel profilo che non compare (più) nei dati delle mete
+// resta selezionabile: non si butta una scelta dello studente.
+function assicuraOpzioneLingua(sel, lingua) {
+  if (!lingua || !sel) return;
+  if ([...sel.options].some(o => o.value === lingua)) return;
+  const o = document.createElement("option");
+  o.value = o.textContent = lingua;
+  sel.appendChild(o);
+}
+
 function precompilaFormV2() {
   const p = ZAINO.profilo;
   if (!p) return;
@@ -2563,6 +2840,7 @@ function precompilaFormV2() {
   const righe = document.querySelectorAll(".riga-lingua");
   (p.lingue || []).forEach((l, i) => {
     if (!righe[i]) return;
+    assicuraOpzioneLingua(righe[i].querySelector(".lingua-nome"), l.lingua);
     righe[i].querySelector(".lingua-nome").value          = l.lingua;
     righe[i].querySelector(".lingua-livello").value       = l.livello;
     righe[i].querySelector(".lingua-certificata").checked = l.certificata;
@@ -2571,6 +2849,7 @@ function precompilaFormV2() {
 
 function initProfilo() {
   popolaAreeV2();
+  popolaLingueV2();
   precompilaFormV2();
 
   const form    = document.getElementById("form-profilo-v2");

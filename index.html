@@ -54,16 +54,21 @@
           </div>
           <img src="img/mascotte/wiz-saluto.webp" alt="Wiz" class="wiz-mascot benvenuto-wiz" id="benvenuto-wiz">
         </div>
+        <p class="benvenuto-kicker">Personalizza il tuo percorso</p>
         <div class="benvenuto-passi" id="benvenuto-passi" aria-hidden="true">
           <span class="benvenuto-passo" data-passo="1"><span class="n">1</span>Ateneo</span>
           <span class="benvenuto-passo" data-passo="2"><span class="n">2</span>Cosa studi</span>
-          <span class="benvenuto-passo" data-passo="3"><span class="n">3</span>A che punto sei</span>
+          <span class="benvenuto-passo" data-passo="3"><span class="n">3</span>Le tue lingue</span>
         </div>
         <div class="mappa-wrap">
           <div class="mappa" id="mappa-benvenuto"></div>
           <div class="mappa-tooltip" id="mappa-tooltip" hidden></div>
         </div>
         <div class="benvenuto-scelte" id="benvenuto-scelte" aria-live="polite"></div>
+        <!-- Personalizzazione locale onesta (PLAN §5.2): niente account,
+             e la verità sui dati detta sempre, in ogni passo. -->
+        <p class="benvenuto-privacy">I dati restano su questo dispositivo. Se cancelli
+          i dati del browser o cambi dispositivo, il percorso non viene recuperato.</p>
         <p class="mappa-nota" id="mappa-nota-benvenuto" hidden></p>
       </div>
 
@@ -82,14 +87,20 @@
         </div>
       </div>
 
-      <!-- Card Missione di oggi (Fase C2: PRIMA del percorso su mobile —
-           il valore del giorno nel primo schermo; sul desktop la griglia
-           posiziona per riga/colonna, l'ordine DOM non cambia nulla) -->
+      <!-- ================================================
+           HOME A 4 MODULI (R2, PLAN.md §5.3): 1 Prossima mossa,
+           2 Questa settimana, 3 Il tuo progresso, 4 Le tue rotte.
+           Sul desktop la griglia posiziona per riga/colonna,
+           l'ordine DOM non cambia nulla.
+      ================================================ -->
+
+      <!-- 1. PROSSIMA MOSSA: azione principale + prossima scadenza
+           verificata (il countdown vive DENTRO questo modulo) -->
       <div class="missione-card" id="missione-card">
         <div class="missione-top">
           <div class="missione-tag">
             <span>✨</span>
-            <span>La tua missione di oggi</span>
+            <span>La tua prossima mossa</span>
           </div>
           <span class="missione-scadenza" id="missione-scadenza" style="display:none"></span>
         </div>
@@ -99,46 +110,53 @@
           <button class="btn-primary" id="btn-fatto" type="button">Fatto ✨</button>
           <button class="btn-secondary" id="btn-come" type="button">Come si fa?</button>
         </div>
+        <div class="countdown-pill" id="countdown-pill">
+          <div class="countdown-sinistra">
+            <span class="countdown-dot"></span>
+            <div>
+              <div class="countdown-titolo" id="countdown-titolo">Chiusura candidature</div>
+              <div class="countdown-sub" id="countdown-sub">niente proroghe</div>
+            </div>
+          </div>
+          <div class="countdown-timer" id="countdown-timer">—</div>
+        </div>
         <img src="img/mascotte/wiz-saluto.webp" alt="Wiz" class="wiz-mascot missione-wiz-desktop">
       </div>
 
-      <!-- Pill countdown — sempre indigo profondo -->
-      <div class="countdown-pill" id="countdown-pill">
-        <div class="countdown-sinistra">
-          <span class="countdown-dot"></span>
-          <div>
-            <div class="countdown-titolo" id="countdown-titolo">Chiusura candidature</div>
-            <div class="countdown-sub" id="countdown-sub">niente proroghe</div>
-          </div>
+      <!-- 2. QUESTA SETTIMANA: massimo 2-3 azioni pertinenti, solo da
+           dati verificati; senza ciclo attivo il modulo si nasconde,
+           niente planner simulato (contenuto da app.js) -->
+      <div class="settimana-card" id="settimana-card" style="display:none">
+        <div class="preparazione-header">
+          <span class="preparazione-label">Questa settimana</span>
         </div>
-        <div class="countdown-timer" id="countdown-timer">—</div>
+        <div class="settimana-lista" id="settimana-lista"></div>
       </div>
 
-      <!-- Percorso a 4 fasi (DISEGNO_UX.md §2.1) — dopo missione+countdown -->
+      <!-- 3. IL TUO PROGRESSO: linea del viaggio (stati da tappaCorrente,
+           R1.6) + barra della preparazione, nello stesso modulo -->
       <div class="percorso-wrap">
         <div class="percorso-header">
-          <span class="percorso-label">Il tuo percorso</span>
+          <span class="percorso-label">Il tuo progresso</span>
           <a href="#" class="percorso-modifica-profilo" data-goto="profilo">Modifica profilo</a>
         </div>
         <div class="fase-stepper" id="fase-stepper"></div>
-      </div>
-
-      <!-- Card Preparazione -->
-      <div class="preparazione-card" id="preparazione-card">
-        <div class="preparazione-header">
-          <span class="preparazione-label">Preparazione candidatura</span>
-          <span class="preparazione-count" id="prep-count">0/0</span>
-        </div>
-        <div class="prep-barra">
-          <div class="prep-barra-fill" id="prep-fill" style="width:0%"></div>
+        <div class="preparazione-card" id="preparazione-card">
+          <div class="preparazione-header">
+            <span class="preparazione-label">Preparazione candidatura</span>
+            <span class="preparazione-count" id="prep-count">0/0</span>
+          </div>
+          <div class="prep-barra">
+            <div class="prep-barra-fill" id="prep-fill" style="width:0%"></div>
+          </div>
         </div>
       </div>
 
-      <!-- Mappa compatta (Fase C2): SOTTO missione/countdown — la mappa
-           non deve mai ritardare il valore quotidiano (gate PLAN-FASE-B) -->
+      <!-- 4. LE TUE ROTTE: preferite e accesso rapido alle mete (mappa
+           compatta SOTTO il valore quotidiano, gate PLAN-FASE-B) -->
       <div class="card-mappa-home" id="card-mappa-home" style="display:none">
         <div class="preparazione-header">
-          <span class="preparazione-label">Le tue mete sulla mappa</span>
+          <span class="preparazione-label">Le tue rotte</span>
           <a href="#" class="mappa-vai-elenco" id="mappa-vai-elenco">Elenco completo →</a>
         </div>
         <div class="mappa mappa-compatta" id="mappa-home"></div>
@@ -237,12 +255,10 @@
         <fieldset class="gruppo-lingue-v2">
           <legend>Le tue lingue</legend>
           <div class="riga-lingua">
+            <!-- Opzioni riempite da app.js con le lingue presenti nei
+                 dati delle mete (PLAN §5.2: mai lista hardcoded) -->
             <select class="lingua-nome">
               <option value="">— nessuna —</option>
-              <option value="Inglese">Inglese</option>
-              <option value="Francese">Francese</option>
-              <option value="Spagnolo">Spagnolo</option>
-              <option value="Tedesco">Tedesco</option>
             </select>
             <select class="lingua-livello">
               <option value="A1">A1</option><option value="A2">A2</option>
@@ -254,12 +270,10 @@
             </label>
           </div>
           <div class="riga-lingua">
+            <!-- Opzioni riempite da app.js con le lingue presenti nei
+                 dati delle mete (PLAN §5.2: mai lista hardcoded) -->
             <select class="lingua-nome">
               <option value="">— nessuna —</option>
-              <option value="Inglese">Inglese</option>
-              <option value="Francese">Francese</option>
-              <option value="Spagnolo">Spagnolo</option>
-              <option value="Tedesco">Tedesco</option>
             </select>
             <select class="lingua-livello">
               <option value="A1">A1</option><option value="A2">A2</option>

@@ -426,7 +426,16 @@ assunzione falsa sui corsi disponibili.
    migrazione da fare si caricano tutti, una volta sola; e app.js si rifiuta di
    migrare con mezzi dati in memoria (`rinviaMigrazioneERicarica`), cosi' il
    caso non previsto costa un riavvio, mai un dato.
-6. Regola deterministica della tappa corrente.
+6. ~~Regola deterministica della tappa corrente~~ ✅ **FATTO (R1.6, sessione 58
+   del 16/07)** — `tappaCorrente()` in `js/app.js` è l'unica funzione che decide
+   la tappa, con contratto dichiarato in testa: priorità selezione dichiarata →
+   stato bando per data → prima tappa non completata (requisiti→mete→
+   candidatura) → "esiti" a viaggio completo; fallback "mete" quando l'ateneo
+   non pubblica né requisiti né checklist. Casi limite dichiarati nel contratto
+   (zaino legacy/vuoto, dati mancanti, scadenze senza flag chiusura). Stepper e
+   missione derivano da lei; sanato il caso in cui a viaggio completo NESSUNA
+   fase risultava attiva. Banco di prova: 11 scenari deterministici, tutti
+   verdi; QA browser su entrambi gli atenei.
 
 **Gate R1:** cambio ateneo sicuro, navigazione stabile, primo avvio misurato su
 telefono e regressione dei dati esistenti. La voce "navigazione stabile" resta
@@ -440,12 +449,35 @@ numero del "dopo".
 ### R2 — Ingresso, onboarding e Home essenziale (3-4 sessioni, 10-16 ore)
 
 1. Scena cartografica mobile pulita e desktop progressivamente interattivo.
-2. Onboarding “Personalizza il tuo percorso”.
-3. Lingue derivate dai dati.
-4. Home a quattro moduli, non sette.
-5. Stati del bando a quattro valori:
-   aperto / candidature chiuse ma ciclo attivo / dati scaduti / non pubblicato.
-6. Fonte raggiungibile e `verificataIl` per ogni scadenza mostrata.
+2. ~~Onboarding “Personalizza il tuo percorso”~~ ✅ **FATTO (sessione 58 del
+   16/07)** — kicker "Personalizza il tuo percorso" sopra i passi, messaggio
+   sempre visibile "I dati restano su questo dispositivo…", passo 3 nuovo
+   "Le tue lingue" (CEFR, saltabile con "Salta per ora"); facoltà+livello
+   restano il passo 2. Il form Profilo si riallinea subito dopo l'onboarding.
+3. ~~Lingue derivate dai dati~~ ✅ **FATTO (sessione 58)** — `lingueDaiDati()`
+   legge `requisitoLingua` dalle mete dell'ateneo attivo (30 lingue CF, 39
+   Sapienza), ordina per frequenza; rimosse le 4 opzioni hardcoded da
+   `index.html`; una lingua salvata che sparisse dai dati resta selezionabile
+   (`assicuraOpzioneLingua`).
+4. ~~Home a quattro moduli, non sette~~ ✅ **FATTO (sessione 58)** — ordine
+   §5.3: 1 "La tua prossima mossa" (ex missione, col countdown DENTRO la
+   card), 2 "Questa settimana" (nuovo: max 3 azioni dalla checklist attiva,
+   ordinate per scadenza; con selezione dichiarata usa la checklist di
+   partenza; SI NASCONDE senza ciclo su cui agire — niente planner simulato),
+   3 "Il tuo progresso" (stepper R1.6 + barra preparazione nello stesso
+   modulo), 4 "Le tue rotte" (mappa compatta + preferite). "Sei in linea?"
+   integrato prudente: item "In ritardo" SOLO per una voce azionabile oltre
+   la sua scadenza e SOLO a bando aperto. Griglia desktop riallineata.
+5. ~~Stati del bando a quattro valori~~ ✅ **FATTO (sessione 58)** —
+   `statoBando()` con contratto dichiarato: aperto / chiuso-ciclo-attivo /
+   dati-scaduti / non-pubblicato, deciso SOLO da dati+data (`fineCiclo` nuovo
+   campo di SCADENZE_INFO, dal testo dei bandi). Badge Home a 4 stati (oro solo
+   per "aperto"). Banco di prova: 8 scenari verdi.
+6. ~~Fonte raggiungibile e `verificataIl` per ogni scadenza mostrata~~ ✅
+   **FATTO (sessione 58)** — riga fonte in testa alla vista Candidatura:
+   "Dati verificati il {dataVerificaDati}. Fa sempre fede la fonte ufficiale ↗"
+   (link `BANDO_INFO.linkUfficiale`), con avviso esplicito negli stati
+   dati-scaduti / non-pubblicato.
 7. Invarianti SEO della home verificati sul DOM statico completo.
 
 **Gate R2:** in 10 secondi un utente capisce che cosa fa ErasmusWiz e qual è

@@ -292,12 +292,10 @@ body {
 ================================================================ */
 .home-header {
   padding: 18px 20px 22px;
-  background:
-    radial-gradient(1.5px 1.5px at 12% 20%, var(--gold) 50%, transparent 51%),
-    radial-gradient(1.5px 1.5px at 85% 15%, var(--gold) 50%, transparent 51%),
-    radial-gradient(1.5px 1.5px at 70% 55%, var(--gold) 50%, transparent 51%),
-    radial-gradient(1.5px 1.5px at 30% 70%, var(--gold) 50%, transparent 51%),
-    linear-gradient(160deg, var(--night-bg) 0%, var(--night-bg-2) 100%);
+  /* Le 4 "stelline" oro da 1,5px sono state rimosse (sessione 58): su un
+     hero largo ~670px non si leggevano come stelle ma come pixel spuri,
+     e quella a 85%/15% finiva accanto al badge bianco. Resta l'inchiostro. */
+  background: linear-gradient(160deg, var(--night-bg) 0%, var(--night-bg-2) 100%);
   border-radius: 0 0 var(--radius-xl) var(--radius-xl);
   border: 1px solid var(--night-border);
   border-top: none;
@@ -309,6 +307,11 @@ body {
   background: var(--gold); color: var(--night-bg);
   border-radius: var(--radius-pill); padding: 4px 11px;
   white-space: nowrap;
+}
+/* Stati non "aperto" del bando (R2.5): notizia vera ma senza l'oro della festa */
+.home-hero-badge.badge-neutro {
+  background: var(--bg-card); color: var(--night-muted);
+  border: 1px solid var(--border);
 }
 .home-hero-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
 .home-header-text { flex: 1; }
@@ -462,10 +465,10 @@ body {
 }
 
 /* ================================================================
-   PILL COUNTDOWN
+   PILL COUNTDOWN — vive dentro la card "Prossima mossa" (R2, §5.3)
 ================================================================ */
 .countdown-pill {
-  margin: 12px 20px 0;
+  margin: 16px 0 0;
   background: var(--night-bg);
   border-radius: var(--radius-lg); padding: 12px 16px;
   display: flex; align-items: center; justify-content: space-between;
@@ -488,12 +491,34 @@ body {
 .countdown-timer  { font-family: var(--font-mono); font-size: 15px; font-weight: 700; color: var(--gold); }
 
 /* ================================================================
-   CARD PREPARAZIONE
+   "QUESTA SETTIMANA" (R2, §5.3 modulo 2) — max 2-3 azioni pertinenti
 ================================================================ */
-.preparazione-card {
+.settimana-card {
   margin: 12px 20px 0; background: var(--bg-card);
   border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px 16px;
   box-shadow: var(--shadow-card);
+}
+.settimana-lista { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+.settimana-item {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 10px;
+  width: 100%; text-align: left; padding: 10px 12px; min-height: 44px;
+  background: var(--bg-card-hover); border: 1px solid var(--border);
+  border-radius: var(--radius-md); cursor: pointer;
+  font-family: var(--font-body); font-size: .9rem; font-weight: 600; color: var(--text-dark);
+}
+.settimana-item:hover { border-color: var(--primary); }
+.settimana-item-scadenza { flex: none; font-size: .75rem; font-weight: 700; color: var(--text-hint); white-space: nowrap; }
+/* "Sei in linea?" prudente: solo una voce azionabile oltre la sua scadenza */
+.settimana-item.settimana-ritardo { border-color: var(--red); }
+.settimana-item.settimana-ritardo .settimana-item-scadenza { color: var(--red); }
+
+/* ================================================================
+   CARD PREPARAZIONE — vive dentro "Il tuo progresso" (R2, §5.3)
+================================================================ */
+.preparazione-card {
+  margin: 14px 0 0; background: transparent;
+  border: 0; border-top: 1px solid var(--border); border-radius: 0; padding: 12px 2px 0;
+  box-shadow: none;
 }
 .preparazione-header { display: flex; justify-content: space-between; align-items: center; }
 .preparazione-label { font-size: 11px; font-weight: 800; color: var(--text-hint); letter-spacing: .06em; text-transform: uppercase; }
@@ -817,6 +842,12 @@ body {
   font-size: 0.83rem; font-weight: 600;
 }
 
+/* Riga fonte + data di verifica sopra le scadenze (R2.6) */
+.cand-fonte-riga {
+  margin: 0 0 14px; font-size: 0.8rem; color: var(--night-muted);
+}
+.cand-fonte-riga a { color: inherit; text-decoration: underline; }
+
 /* ================================================================
    PROFILO v2
 ================================================================ */
@@ -1102,6 +1133,20 @@ body {
 .benvenuto-scelta:hover { border-color: var(--primary); transform: translateY(-1px); box-shadow: var(--shadow-card-hover); }
 .benvenuto-scelta:active { transform: scale(.97); }
 .benvenuto-sotto-domanda { font-weight: 700; font-size: .92rem; color: var(--text-muted); margin-bottom: 10px; }
+/* Onboarding = personalizzazione locale onesta (PLAN §5.2) */
+.benvenuto-kicker {
+  font-size: .78rem; font-weight: 800; letter-spacing: .07em;
+  text-transform: uppercase; color: var(--text-hint); margin-top: 16px;
+}
+.benvenuto-privacy { font-size: .78rem; color: var(--text-hint); margin-top: 12px; max-width: 60ch; }
+.benvenuto-lingue { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+.benvenuto-riga-lingua { display: flex; gap: 10px; }
+.benvenuto-riga-lingua select {
+  padding: 10px 12px; min-height: 44px; border-radius: var(--radius-md);
+  background: var(--bg-card); border: 1px solid var(--border);
+  font-family: var(--font-body); font-size: .92rem; font-weight: 600; color: var(--text-dark);
+}
+.benvenuto-riga-lingua select:first-child { flex: 1; min-width: 0; }
 .benvenuto-landing-titolo {
   font-family: var(--font-display); font-weight: 800; font-size: 1.3rem;
   letter-spacing: -.01em; color: var(--text-dark); margin-bottom: 6px;
@@ -1214,8 +1259,10 @@ body.no-scroll { overflow: hidden; }
   .home-data { font-size: 14px; }
   .percorso-wrap  { grid-column: 2; grid-row: 1 / 6; margin: 0; align-self: start; padding: 16px 18px 14px; }
   .missione-card  { grid-column: 1; grid-row: 2; margin: 20px 0 0; padding: 24px; padding-right: 190px; }
-  .countdown-pill    { grid-column: 1; grid-row: 3; margin: 20px 0 0; }
-  .preparazione-card { grid-column: 1; grid-row: 4; margin: 20px 0 0; }
+  .settimana-card { grid-column: 1; grid-row: 3; margin: 20px 0 0; }
+  .card-mappa-home { grid-column: 1; grid-row: 4; margin: 20px 0 0; }
+  /* pill e barra preparazione non sono più figli diretti della griglia:
+     vivono dentro Prossima mossa e Il tuo progresso (R2, §5.3) */
   .missione-wiz-desktop { display: block; }
   .sezione-titolo { font-size: 1.6rem; }
   .sezione-header { margin-top: 28px; }
@@ -1309,7 +1356,7 @@ body.no-scroll { overflow: hidden; }
 ================================================================ */
 @media (max-width: 480px) {
   .home-header { padding: 14px 14px 18px; }
-  .percorso-wrap, .missione-card, .countdown-pill, .preparazione-card { margin-left: 14px; margin-right: 14px; }
+  .percorso-wrap, .missione-card, .settimana-card { margin-left: 14px; margin-right: 14px; }
   .sezione-header { margin-left: 14px; margin-right: 14px; }
   .lista-checklist-v2, .griglia-mete-v2, .griglia-requisiti-v2 { padding-left: 14px; padding-right: 14px; }
   .barra-wrap { margin-left: 14px; margin-right: 14px; }

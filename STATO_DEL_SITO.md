@@ -19,9 +19,90 @@
 
 ---
 
-### Cantiere SITO — sessioni 49→57
+### Cantiere SITO — sessioni 49→58
 
-**Ultimo aggiornamento:** 2026-07-15 — sessione 57, Claude Code (Opus 4.8)
+**Ultimo aggiornamento:** 2026-07-16 — sessione 58, Claude Code (Fable 5)
+(**R1 CHIUSA (R1.6) + R2 AVANZATA 5 PUNTI SU 7 in una sessione multi-blocco
+richiesta esplicitamente da Nicola** ("procedi a chunk senza fermarti").
+
+**(1) R1.6 — la tappa corrente ha UNA regola, dichiarata.** `tappaCorrente()`
+in `js/app.js` con contratto in testa (stile R1.4): priorità **selezione
+dichiarata → stato bando per data → prima tappa non completata
+(requisiti→mete→candidatura) → "esiti"** a viaggio completo; fallback "mete"
+se l'ateneo non pubblica né requisiti né checklist. Casi limite decisi nel
+contratto, non nei render (zaino legacy/vuoto, dati mancanti, scadenze senza
+flag chiusura). Stepper e missione DERIVANO dalla regola; sanato il caso in
+cui a viaggio completo e bando aperto **nessuna fase risultava attiva**.
+Banco di prova: 11 scenari deterministici, tutti verdi (funzioni VERE
+estratte da app.js ed eseguite in vm con zaini simulati).
+
+**(2) R2.5 — stato del bando a 4 valori, deciso solo da dati+data.**
+`statoBando()`: aperto / chiuso-ciclo-attivo / dati-scaduti / non-pubblicato.
+Nuovo campo dati `SCADENZE_INFO.fineCiclo` (31/07/2027, dal testo dei bandi)
+in entrambe le `dati-scadenze.js`. Badge Home ora dice sempre la verità
+(oro solo per "aperto", stile neutro per gli altri); banco: 8 scenari verdi.
+Oggi entrambi gli atenei sono correttamente in "chiuso-ciclo-attivo".
+
+**(3) R2.6 — fonte e data di verifica davanti alle scadenze.** Riga in testa
+alla vista Candidatura: "Dati verificati il {dataVerificaDati}. Fa sempre
+fede la fonte ufficiale ↗" (link `BANDO_INFO.linkUfficiale`), con avviso
+esplicito negli stati dati-scaduti/non-pubblicato. API sicure (textContent).
+
+**(4) R2.2+R2.3 — onboarding "Personalizza il tuo percorso" e lingue dai
+dati.** Kicker sopra i passi, messaggio sempre visibile "I dati restano su
+questo dispositivo…", **nuovo passo 3 "Le tue lingue"** (lingua+CEFR,
+2 righe, "Salta per ora") — facoltà+livello restano il passo 2. Le lingue
+proposte vengono da `lingueDaiDati()` (dai `requisitoLingua` delle mete:
+30 lingue CF, 39 Sapienza) — **rimosse le 4 opzioni hardcoded** da
+`index.html` (violazione PLAN §5.2 trovata nel form profilo); una lingua
+salvata che sparisse dai dati resta selezionabile (`assicuraOpzioneLingua`);
+il form Profilo si riallinea subito dopo l'onboarding (prima restava vuoto
+fino al reload).
+
+**(5) R2.4 — Home a 4 moduli, non 7.** Ordine §5.3: 1 "La tua prossima
+mossa" (ex missione, countdown-pill DENTRO la card), 2 **"Questa settimana"
+(nuovo)**: max 3 azioni dalla checklist attiva ordinate per scadenza, dalla
+checklist di partenza se selezionato, e SI NASCONDE senza ciclo su cui agire
+(niente planner simulato); "Sei in linea?" prudente = item "In ritardo" SOLO
+per una voce azionabile oltre la sua scadenza e SOLO a bando aperto;
+3 "Il tuo progresso" (stepper R1.6 + barra preparazione nello stesso
+modulo); 4 "Le tue rotte" (mappa compatta+preferite). Griglia desktop
+≥1024px riallineata (settimana riga 3, mappa riga 4). R2.7: invarianti SEO
+verificati sul file statico — title, description e i due H1 immutati;
+canonical non esiste e non è stato aggiunto (sarebbe una decisione SEO).
+
+**QA:** `node --check` su ogni js toccato; 19 scenari di banco verdi; QA
+browser funzionale su ENTRAMBI gli atenei (flusso visitatore-nuovo completo:
+onboarding con lingue → home 4 moduli → candidatura con fonte; ramo
+selezionato; ramo "in ritardo" con scadenze simulate; console pulita).
+**Verifica a video fatta da NICOLA su desktop** (16/07, screenshot): Home a
+4 moduli confermata ("è questa la home che ti aspetti?" → sì, stati corretti
+per bando chiuso + zaino nuovo). Dal suo screenshot è emerso un difetto vero:
+un "puntino" bianco nell'hero vicino al badge — erano le **4 stelline oro da
+1,5px** disegnate come radial-gradient nel background dell'hero (direzione
+notte cartografica): su ~670px di larghezza si leggevano come pixel spuri,
+non come stelle, e quella a 85%/15% collideva col badge bianco. **Rimosse
+tutte e 4** (resta il gradiente a inchiostro), verificato nel browser che il
+background sia solo `linear-gradient`. Il giro su mobile ~390px resta da
+fare. **Pubblicata in questa stessa sessione via `PUBBLICA.bat`** (su
+richiesta di Nicola), con verifica dell'URL pubblico prima di dichiararla
+tale — vedi regola della sessione 56.
+
+**⚠️ Trappola nota, di nuovo:** 14 file spuri da 0 byte in radice (frammenti
+di codice degli edit passati per una shell, es. `(conta[b]`, `ZAINO.checklist`) —
+verificati TUTTI vuoti con `find -size 0` ed eliminati; radice pulita.
+
+**Resta di R2:** punto 1 (scena cartografica d'ingresso: rotte d'oro lente,
+CTA — serve QA visivo E una decisione di Nicola sul CTA "Inizia il tuo
+percorso", che aggiungerebbe un clic prima della prima domanda) e la parte
+"validata a video" del punto 7. File toccati: `js/app.js`, `index.html`,
+`css/style.css`, `js/atenei/cafoscari/dati-scadenze.js`,
+`js/atenei/sapienza/dati-scadenze.js`, `PLAN.md`, `STATO_DEL_SITO.md`.
+Nessun file del sito creato o rimosso.
+**Prossimo passo: occhio umano sulla Home + PUBBLICA.bat; poi R2.1 (scena,
+con decisione CTA) o avvio R3 (Percorso a stazioni + nav 3 voci).**)
+
+**Ultimo aggiornamento precedente:** 2026-07-15 — sessione 57, Claude Code (Opus 4.8)
 (**BUG DEI DOPPIONI CHIUSO: Ca' Foscari serviva 527 mete ma ne ha 392. Il
 contatore diceva un numero falso.**
 
@@ -2661,7 +2742,8 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **PERCORSO — R1.4: contratto hash + navigazione unica** | `vaiA()` unica porta di navigazione; contratto dichiarato (`TAB_VALIDI`, `TAB_PREDEFINITO`, `ALIAS_HASH`), non più sepolto in `initNav()`; `mostraTab()` rimossa e `onclick` inline convertito → nessun bypass. Sanato il bug per cui **6 punti su 10 cambiavano tab senza toccare l'hash**. **Decisioni Nicola 15/07: (a)** Indietro torna al tab precedente (`pushState`), ma solo se il tab cambia davvero; **(b)** unico alias `#timeline`→`#checklist`, l'unico con prova reale (OP2). In più: `aria-current` ora annunciato anche al primo avvio | ✅ Fatta e testata (2026-07-15, sessione 55) — 28 asserzioni + console pulita sui due atenei. ⚠️ Dopo 5 tab servono 5 Indietro per uscire: è voluto |
 | **PERCORSO — R1.5: caricamento progressivo** | Si carica SOLO l'ateneo attivo: `js/atenei/registro.js` (dati dichiarati) + `js/carica-atenei.js` (decide ed emette i tag), `index.html` −123 righe. Migrazione R1.3 protetta su due livelli (carico completo quando serve + rifiuto di migrare con mezzi dati). **7s → 3s Ca' Foscari, 5s Sapienza** su S21 in 4G; payload 2.263 → 903 KB (−60%) / 1.565 KB (−31%). Divisione per dipartimento scartata con prove (42 aree su 101 attraversano i file) | ✅ Fatta, testata e **pubblicata** (2026-07-15, sessione 56) |
 | **PERCORSO — R1.5b: bug dei doppioni** | Tolte le due code `window.METE.push(...METE)` in `dati-mete-linguistici.js` e `dati-mete-umanistici.js`: `window.METE` **era già** l'array del file (`var METE` top-level = proprietà di `window`), quindi il push lo rovesciava dentro se stesso. **527 servite → 392 = 392 uniche**; Sapienza invariata a 1.595. Bug **preesistente**, non di R1.5. Verificato prima del fix che nessun consumatore (pipeline `scripts/`, mockup `design/`) dipendesse dallo schema ad append | ✅ Fatta e testata (2026-07-15, sessione 57) — QA browser: area 0312 rende 20 card (erano 29 con 9 doppioni) e il contatore ora dice il vero |
-| PERCORSO — R1.6 | Regola deterministica della tappa corrente | ⬜ **PROSSIMA** — non dipende da prove esterne |
+| **PERCORSO — R1.6: tappa corrente deterministica** | `tappaCorrente()` unica regola con contratto dichiarato: selezione dichiarata → stato bando per data → prima tappa non completata → "esiti"; fallback "mete" senza dati. Stepper e missione derivano da lei; sanato il caso "viaggio completo = nessuna fase attiva". **R1 CHIUSA** (restano le voci rinviate per decisione: nav 3 voci → R3; ri-misura primo avvio → azione umana) | ✅ Fatta e testata (2026-07-16, sessione 58) — banco 11 scenari + QA browser sui due atenei |
+| **PERCORSO — R2 (5 punti su 7)** | R2.2 onboarding "Personalizza il tuo percorso" (passo 3 lingue CEFR saltabile, privacy sempre visibile); R2.3 lingue SOLO dai dati (`lingueDaiDati()`, via le 4 hardcoded dal form profilo); R2.4 Home a 4 moduli (nuovo "Questa settimana" onesto, countdown dentro "Prossima mossa", barra dentro "Progresso", mappa = "Le tue rotte", "Sei in linea?" prudente); R2.5 `statoBando()` a 4 valori + `fineCiclo` nei dati + badge veritiero; R2.6 fonte+`verificataIl` in testa alla Candidatura; R2.7 invarianti SEO verificati sul file statico | ✅ Implementata e **pubblicata** (2026-07-16, sessione 58) — validata a video da Nicola su desktop (dal suo screenshot: rimosse le 4 stelline-artefatto dall'hero); resta il giro su mobile ~390px. Resta R2.1 (scena d'ingresso: QA visivo + decisione CTA) |
 | **Pubblicazione — guasto Pages** | Source su "GitHub Actions" senza workflow di deploy: sito fermo al commit del 3/7, **171 commit (125 sul sito) invisibili per 12 giorni** (C2, C3, C4, R1.1-R1.4). Risolto con `.github/workflows/deploy-pages.yml` (Static HTML, niente Jekyll, guardia `node --check`); online verificato per hash contro `origin/main` | ✅ Chiuso (2026-07-15, sessione 56) — resta da rendere vera la riga "Online e locale coincidono" di `PUBBLICA.bat` |
 | **Pipeline dati T0→T3 — Gemini + Codex** | Timeout esterno corretto e pubblicato; tutti i 3 retry ora completano, ma l'ultimo rilancio ha ricevuto 3× `503 UNAVAILABLE`; nessun dato parziale | ⏸️ Attendere che cali la domanda Gemini, poi eseguire un solo batch comparativo |
 
