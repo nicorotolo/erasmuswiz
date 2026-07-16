@@ -85,8 +85,16 @@ non come stelle, e quella a 85%/15% collideva col badge bianco. **Rimosse
 tutte e 4** (resta il gradiente a inchiostro), verificato nel browser che il
 background sia solo `linear-gradient`. Il giro su mobile ~390px resta da
 fare. **Pubblicata in questa stessa sessione via `PUBBLICA.bat`** (su
-richiesta di Nicola), con verifica dell'URL pubblico prima di dichiararla
-tale — vedi regola della sessione 56.
+richiesta di Nicola): commit `c47354a` (7 file, +562/−98), push riuscito.
+**Verifica sull'URL pubblico ESEGUITA e superata** (regola sessione 56):
+`app.js` online contiene `tappaCorrente`, la home i marker dei 4 moduli, e
+il blocco `.home-header` del CSS pubblicato è SENZA stelline (letto il CSS
+in rete, non il commit). Nota: nel CSS restano 2 `radial-gradient(1.5px`
+che sono le stelline della **countdown-pill** (decorazione sua, oggi
+nascosta) — lasciate apposta; se daranno lo stesso fastidio quando la pill
+tornerà visibile, si tolgono con lo stesso taglio. Il commit è partito col
+messaggio di default "aggiornamento sito": il `set /p` di `PUBBLICA.bat`
+non accetta l'input pre-imbottito via stdin.
 
 **⚠️ Trappola nota, di nuovo:** 14 file spuri da 0 byte in radice (frammenti
 di codice degli edit passati per una shell, es. `(conta[b]`, `ZAINO.checklist`) —
