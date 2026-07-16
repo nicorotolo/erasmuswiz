@@ -131,7 +131,24 @@ async function chiamaGemini(prompt, tentativo = 1) {
   if (candidato?.finishReason && candidato.finishReason !== "STOP") {
     console.error(`Attenzione: finishReason=${candidato.finishReason} (risposta forse troncata o bloccata).`);
   }
-  return testo;
+
+  // Anche una risposta HTTP 200 puo' essere una generazione corrotta (JSON
+  // rotto a meta', visto il 16/07): un nuovo tentativo di solito la sana.
+  // Il parse sta DENTRO il budget MAX_TENTATIVI cosi' il tetto esterno dei
+  // 12 minuti (calcolato per 3 tentativi) resta valido.
+  try {
+    return estraiJson(testo);
+  } catch (errore) {
+    if (tentativo < MAX_TENTATIVI) {
+      const attesaMs = 15000 * tentativo;
+      console.log(`Risposta Gemini non-JSON (${errore.message}). Riprovo tra ${attesaMs / 1000}s (tentativo ${tentativo}/${MAX_TENTATIVI})...`);
+      await new Promise((r) => setTimeout(r, attesaMs));
+      return chiamaGemini(prompt, tentativo + 1);
+    }
+    const fallimento = new Error("Risposta Gemini non-JSON dopo tutti i tentativi.");
+    fallimento.rispostaGrezza = testo;
+    throw fallimento;
+  }
 }
 
 function estraiJson(testo) {
@@ -147,15 +164,15 @@ function estraiJson(testo) {
 }
 
 console.log(`Chiamo Gemini (${MODEL}) per il batch ${input.batchId} (${input.mete.length} mete)...`);
-const rispostaGrezza = await chiamaGemini(PROMPT);
 
 let output;
 try {
-  output = estraiJson(rispostaGrezza);
-} catch {
-  console.error("Risposta di Gemini non e' JSON valido. Salvo il grezzo per ispezione manuale.");
+  output = await chiamaGemini(PROMPT);
+} catch (errore) {
+  if (errore?.rispostaGrezza === undefined) throw errore;
+  console.error("Risposta di Gemini non e' JSON valido dopo tutti i tentativi. Salvo il grezzo per ispezione manuale.");
   fs.mkdirSync("batch", { recursive: true });
-  fs.writeFileSync("batch/GEMINI-RAW.txt", rispostaGrezza);
+  fs.writeFileSync("batch/GEMINI-RAW.txt", errore.rispostaGrezza);
   console.error("Vedi batch/GEMINI-RAW.txt. Termino senza scrivere SGROSSATURA.json.");
   // Niente process.exit(): con i socket di fetch ancora in chiusura innesca
   // su Windows l'assert libuv "UV_HANDLE_CLOSING" (visto il 16/07).
