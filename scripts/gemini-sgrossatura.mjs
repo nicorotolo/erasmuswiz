@@ -125,15 +125,25 @@ async function chiamaGemini(prompt, tentativo = 1) {
     throw new Error(`Gemini API errore ${res.status}: ${await res.text()}`);
   }
   const data = await res.json();
-  const testo = data.candidates?.[0]?.content?.parts?.map((p) => p.text).join("") ?? "";
+  const candidato = data.candidates?.[0];
+  const testo = candidato?.content?.parts?.map((p) => p.text).join("") ?? "";
   if (!testo) throw new Error("Risposta Gemini vuota o in formato inatteso: " + JSON.stringify(data));
+  if (candidato?.finishReason && candidato.finishReason !== "STOP") {
+    console.error(`Attenzione: finishReason=${candidato.finishReason} (risposta forse troncata o bloccata).`);
+  }
   return testo;
 }
 
 function estraiJson(testo) {
-  // Il modello a volte incornicia la risposta in ```json ... ```: ripuliamo.
-  const pulito = testo.replace(/^```json\s*/i, "").replace(/```\s*$/, "").trim();
-  return JSON.parse(pulito);
+  // Con la ricerca Google integrata il modello a volte incornicia la risposta
+  // in ```json ... ``` o aggiunge prosa attorno, nonostante le istruzioni:
+  // prova il testo ripulito, poi la porzione fra la prima "{" e l'ultima "}".
+  const pulito = testo.replace(/^```(?:json)?\s*/i, "").replace(/```\s*$/, "").trim();
+  try { return JSON.parse(pulito); } catch {}
+  const inizio = pulito.indexOf("{");
+  const fine = pulito.lastIndexOf("}");
+  if (inizio === -1 || fine <= inizio) throw new Error("Nessun oggetto JSON nel testo.");
+  return JSON.parse(pulito.slice(inizio, fine + 1));
 }
 
 console.log(`Chiamo Gemini (${MODEL}) per il batch ${input.batchId} (${input.mete.length} mete)...`);
@@ -147,13 +157,17 @@ try {
   fs.mkdirSync("batch", { recursive: true });
   fs.writeFileSync("batch/GEMINI-RAW.txt", rispostaGrezza);
   console.error("Vedi batch/GEMINI-RAW.txt. Termino senza scrivere SGROSSATURA.json.");
-  process.exit(1);
+  // Niente process.exit(): con i socket di fetch ancora in chiusura innesca
+  // su Windows l'assert libuv "UV_HANDLE_CLOSING" (visto il 16/07).
+  process.exitCode = 1;
 }
 
-fs.mkdirSync("batch", { recursive: true });
-// batchId dentro il file: cosi' chi lo consuma dopo (Codex) puo' controllare
-// che la bozza sia per LO STESSO batch corrente e non un residuo vecchio.
-const conBatchId = { batchId: input.batchId, dati: output };
-fs.writeFileSync("batch/SGROSSATURA.json", JSON.stringify(conBatchId, null, 2) + "\n");
-console.log(`batch/SGROSSATURA.json scritto (batch ${input.batchId}): ${Object.keys(output).length} mete con almeno un dato trovato.`);
-console.log("Pronto per la verifica di Codex (T2) -> node scripts/verifica-link.mjs, poi Codex.");
+if (output) {
+  fs.mkdirSync("batch", { recursive: true });
+  // batchId dentro il file: cosi' chi lo consuma dopo (Codex) puo' controllare
+  // che la bozza sia per LO STESSO batch corrente e non un residuo vecchio.
+  const conBatchId = { batchId: input.batchId, dati: output };
+  fs.writeFileSync("batch/SGROSSATURA.json", JSON.stringify(conBatchId, null, 2) + "\n");
+  console.log(`batch/SGROSSATURA.json scritto (batch ${input.batchId}): ${Object.keys(output).length} mete con almeno un dato trovato.`);
+  console.log("Pronto per la verifica di Codex (T2) -> node scripts/verifica-link.mjs, poi Codex.");
+}
