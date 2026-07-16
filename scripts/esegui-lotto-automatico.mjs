@@ -8,8 +8,11 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const ROOT = process.cwd();
+const SCRIPT_CORRENTE = fileURLToPath(import.meta.url);
+const SORGENTE_ALL_AVVIO = fs.readFileSync(SCRIPT_CORRENTE, "utf8");
 const PREFLIGHT = process.argv.includes("--preflight");
 const PREFLIGHT_ONLINE = process.argv.includes("--online");
 const PREFLIGHT_CODEX = process.argv.includes("--codex-smoke");
@@ -249,6 +252,15 @@ async function main() {
   if (inizia.status === 2) return console.log("Nessun batch pendente. Mappatura completata per ora.");
   if (inizia.status !== 0) throw new Error(`inizia-batch.mjs ha fallito con exit code ${inizia.status}`);
   if (!fs.existsSync("batch/INPUT.json")) throw new Error("batch/INPUT.json non trovato dopo inizia-batch.mjs");
+
+  // inizia-batch.mjs sincronizza il repo: se il sync ha aggiornato QUESTO
+  // script, il processo sta ancora eseguendo la versione vecchia caricata
+  // all'avvio. Fermarsi qui costa zero; proseguire con logica superata e'
+  // gia' costato 30k token Codex a vuoto (16/07).
+  if (fs.readFileSync(SCRIPT_CORRENTE, "utf8") !== SORGENTE_ALL_AVVIO) {
+    console.log("Il sync ha aggiornato l'orchestratore: questo processo esegue ancora la versione precedente. Termino senza chiamare Gemini/Codex; rilancia il comando.");
+    return;
+  }
 
   const input = JSON.parse(fs.readFileSync("batch/INPUT.json", "utf8"));
   if (input.tipo === "nuovo_dipartimento") {
