@@ -61,7 +61,8 @@ suo "campiDaRiempire":
 REGOLE FERREE:
 - Ogni dato deve avere una fonte dentro "fonti", nel formato
   campo -> { "url": URL esatto, "citazione": frase testuale presente nella
-  pagina, "verificataIl": "${OGGI}" }. La citazione deve dimostrare il dato.
+  pagina, "verificataIl": "${OGGI}" }. La citazione deve dimostrare il dato
+  ed essere BREVE: al massimo 25 parole, solo il pezzo che dimostra il dato.
 - Se non trovi un dato con una fonte precisa, OMETTI il campo. NON dedurre,
   NON stimare, NON usare la tua memoria: solo cio' che leggi ora su una pagina
   raggiungibile.
@@ -127,7 +128,19 @@ async function chiamaGemini(prompt, tentativo = 1) {
   const data = await res.json();
   const candidato = data.candidates?.[0];
   const testo = candidato?.content?.parts?.map((p) => p.text).join("") ?? "";
-  if (!testo) throw new Error("Risposta Gemini vuota o in formato inatteso: " + JSON.stringify(data));
+  if (!testo) {
+    // Capita con finishReason RECITATION (filtro anti-copyright: il prompt
+    // chiede citazioni testuali, ogni tanto il filtro scatta — visto il
+    // 16/07) o SAFETY: la generazione e' stocastica, ritentare spesso basta.
+    const motivo = candidato?.finishReason || "contenuto assente";
+    if (tentativo < MAX_TENTATIVI) {
+      const attesaMs = 15000 * tentativo;
+      console.log(`Risposta Gemini vuota (${motivo}). Riprovo tra ${attesaMs / 1000}s (tentativo ${tentativo}/${MAX_TENTATIVI})...`);
+      await new Promise((r) => setTimeout(r, attesaMs));
+      return chiamaGemini(prompt, tentativo + 1);
+    }
+    throw new Error(`Risposta Gemini vuota dopo tutti i tentativi (${motivo}): ` + JSON.stringify(data).slice(0, 800));
+  }
   if (candidato?.finishReason && candidato.finishReason !== "STOP") {
     console.error(`Attenzione: finishReason=${candidato.finishReason} (risposta forse troncata o bloccata).`);
   }
@@ -169,13 +182,17 @@ let output;
 try {
   output = await chiamaGemini(PROMPT);
 } catch (errore) {
-  if (errore?.rispostaGrezza === undefined) throw errore;
-  console.error("Risposta di Gemini non e' JSON valido dopo tutti i tentativi. Salvo il grezzo per ispezione manuale.");
-  fs.mkdirSync("batch", { recursive: true });
-  fs.writeFileSync("batch/GEMINI-RAW.txt", errore.rispostaGrezza);
-  console.error("Vedi batch/GEMINI-RAW.txt. Termino senza scrivere SGROSSATURA.json.");
-  // Niente process.exit(): con i socket di fetch ancora in chiusura innesca
-  // su Windows l'assert libuv "UV_HANDLE_CLOSING" (visto il 16/07).
+  if (errore?.rispostaGrezza !== undefined) {
+    console.error("Risposta di Gemini non e' JSON valido dopo tutti i tentativi. Salvo il grezzo per ispezione manuale.");
+    fs.mkdirSync("batch", { recursive: true });
+    fs.writeFileSync("batch/GEMINI-RAW.txt", errore.rispostaGrezza);
+    console.error("Vedi batch/GEMINI-RAW.txt. Termino senza scrivere SGROSSATURA.json.");
+  } else {
+    console.error(`Sgrossatura fallita: ${errore.message}`);
+  }
+  // Niente process.exit() ne' eccezioni non gestite: con i socket di fetch
+  // ancora in chiusura innescano su Windows l'assert libuv
+  // "UV_HANDLE_CLOSING" (visto due volte il 16/07).
   process.exitCode = 1;
 }
 
