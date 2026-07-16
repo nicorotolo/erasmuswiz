@@ -2834,22 +2834,24 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **PERCORSO — R1.5b: bug dei doppioni** | Tolte le due code `window.METE.push(...METE)` in `dati-mete-linguistici.js` e `dati-mete-umanistici.js`: `window.METE` **era già** l'array del file (`var METE` top-level = proprietà di `window`), quindi il push lo rovesciava dentro se stesso. **527 servite → 392 = 392 uniche**; Sapienza invariata a 1.595. Bug **preesistente**, non di R1.5. Verificato prima del fix che nessun consumatore (pipeline `scripts/`, mockup `design/`) dipendesse dallo schema ad append | ✅ Fatta e testata (2026-07-15, sessione 57) — QA browser: area 0312 rende 20 card (erano 29 con 9 doppioni) e il contatore ora dice il vero |
 | **PERCORSO — R1.6: tappa corrente deterministica** | `tappaCorrente()` unica regola con contratto dichiarato: selezione dichiarata → stato bando per data → prima tappa non completata → "esiti"; fallback "mete" senza dati. Stepper e missione derivano da lei; sanato il caso "viaggio completo = nessuna fase attiva". **R1 CHIUSA** (restano le voci rinviate per decisione: nav 3 voci → R3; ri-misura primo avvio → azione umana) | ✅ Fatta e testata (2026-07-16, sessione 58) — banco 11 scenari + QA browser sui due atenei |
 | **PERCORSO — R2 (5 punti su 7)** | R2.2 onboarding "Personalizza il tuo percorso" (passo 3 lingue CEFR saltabile, privacy sempre visibile); R2.3 lingue SOLO dai dati (`lingueDaiDati()`, via le 4 hardcoded dal form profilo); R2.4 Home a 4 moduli (nuovo "Questa settimana" onesto, countdown dentro "Prossima mossa", barra dentro "Progresso", mappa = "Le tue rotte", "Sei in linea?" prudente); R2.5 `statoBando()` a 4 valori + `fineCiclo` nei dati + badge veritiero; R2.6 fonte+`verificataIl` in testa alla Candidatura; R2.7 invarianti SEO verificati sul file statico | ✅ Implementata e **pubblicata** (2026-07-16, sessione 58) — validata a video da Nicola su desktop (dal suo screenshot: rimosse le 4 stelline-artefatto dall'hero); resta il giro su mobile ~390px. Resta R2.1 (scena d'ingresso: QA visivo + decisione CTA) |
+| **PERCORSO — R3 COMPLETA: Percorso a stazioni + nav definitiva** | R3.4 tab `#percorso` a 5 stazioni (requisiti → candidatura+scadenze → gate esito → Learning Agreement (guida) → Parti: lo zaino), stati derivati da `tappaCorrente()`, stazione corrente aperta, "ponte" verso Mete; R3.5 zaino post-selezione ISOLATO (`#lista-checklist-post`); **nav a 3 voci Mete·Home·Percorso** (Home centrale, "Altro"=drawer) → **gate R1 "navigazione stabile" CHIUSO**; alias permanenti `#checklist`/`#idoneita`/`#timeline`→`#percorso`; R3.1 wizard prima visita ("Ripensa le rotte" per rilanciarlo); R3.2 mappa nel tab Mete sincronizzata con ricerca+filtri; R3.3 schedina riverificata; R3.6 .ics preservato; R3.7 render a lotti da 80 (renderMete 1.595 mete: 6 ms) | ✅ Implementata e QA interno superato (2026-07-16, sessione 59) — resta occhio umano + pubblicazione; "validata" coi tester (R5) |
+| **PERCORSO — R2.1: scena d'ingresso** | **Decisione Nicola 16/07: scena CON CTA "Inizia il tuo percorso"** (§5.1). Primo contatto = scena a inchiostro (`.modo-scena`), missione in chiaro, mappa notte senza pin, 6 rotte d'oro lente da città geocodificate NEI DATI, CTA nel primo viewport mobile; al clic parte il flusso a 3 domande (focus sulla prima scelta). `prefers-reduced-motion` + Page Visibility rispettati; H1/title/description invariati. **R2 così è tutta implementata** (resta solo la validazione a video del punto 7) | ✅ Implementata e QA browser superato (2026-07-16, sessione 59) — resta occhio umano + pubblicazione |
 | **Pubblicazione — guasto Pages** | Source su "GitHub Actions" senza workflow di deploy: sito fermo al commit del 3/7, **171 commit (125 sul sito) invisibili per 12 giorni** (C2, C3, C4, R1.1-R1.4). Risolto con `.github/workflows/deploy-pages.yml` (Static HTML, niente Jekyll, guardia `node --check`); online verificato per hash contro `origin/main` | ✅ Chiuso (2026-07-15, sessione 56) — resta da rendere vera la riga "Online e locale coincidono" di `PUBBLICA.bat` |
 | **Pipeline dati T0→T3 — Gemini + Codex** | Timeout esterno corretto e pubblicato; tutti i 3 retry ora completano, ma l'ultimo rilancio ha ricevuto 3× `503 UNAVAILABLE`; nessun dato parziale | ⏸️ Attendere che cali la domanda Gemini, poi eseguire un solo batch comparativo |
 
-**Tab visibili nella pagina (navigazione inferiore):** Oggi (missione) → Mete →
-Candidatura (scadenze+checklist fuse) → **"☰ Altro" (apre il drawer, R1.2)**.
-**Tab nascosti (accessibili da JS):** Idoneità · Profilo — il Profilo ora ha
-anche una porta d'ingresso visibile: la voce "Profilo" del drawer.
-**Contratto hash (R1.4) — gli hash supportati sono 5:** `#oggi` (predefinito) ·
-`#mete` · `#checklist` · `#idoneita` · `#profilo`. **Unico alias dichiarato:**
-`#timeline` → `#checklist` (era un hash vero fino a OP2). Tutto il resto viene
-normalizzato: un hash sconosciuto porta al predefinito e sparisce dall'URL. Si
-naviga SOLO con `vaiA(dest, { storia, scroll })` — chi aggiunge o rinomina un tab
-aggiorna `TAB_VALIDI` in `js/app.js`, non i singoli punti di chiamata.
-**Nav a 3 voci (Mete · Home · Percorso):** decisa nel piano, ma implementata a
-FINE R1 insieme a R3 (decisione di Nicola, sessione 52) — la voce "Percorso"
-richiede la schermata unificata a stazioni, che nasce in R3.
+**Nav (R3, definitiva — gate R1 chiuso):** Mete → **Home** (centrale su
+mobile) → Percorso, + **"☰ Altro" (apre il drawer, R1.2)** che non è una
+voce di nav. I tab Candidatura e Idoneità NON esistono più: sono le
+stazioni 2 e 1 del Percorso.
+**Tab nascosto (dal drawer):** Profilo.
+**Contratto hash (R1.4, aggiornato in R3) — gli hash supportati sono 4:**
+`#oggi` (predefinito) · `#mete` · `#percorso` · `#profilo`. **Alias
+dichiarati (tutti con prova reale):** `#checklist` e `#idoneita` (tab veri
+fino a R3) e `#timeline` (hash vero fino a OP2) → tutti su `#percorso`.
+Tutto il resto viene normalizzato: un hash sconosciuto porta al predefinito
+e sparisce dall'URL. Si naviga SOLO con `vaiA(dest, { storia, scroll })` —
+o `vaiAStazione(nome)` per aprire una tappa precisa del Percorso — e chi
+aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 **Tema:** UNICO, giorno. Il toggle notte non esiste più (R1.1).
 
 ## 3. ARCHITETTURA (le 2 regole d'oro, rispettate)
