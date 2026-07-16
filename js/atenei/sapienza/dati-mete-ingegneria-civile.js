@@ -219,10 +219,19 @@ var METE = [
       { numero: 2, mesi: 5, livello: "L", note: "" },
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "livello B1 richiesto (B2 fortemente raccomandato)" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno e anno intero)", periodo: "entro il 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro il 31 ottobre" }
+      ],
     linkSito: "https://www.univ-spn.fr/",
+    linkCatalogo: "https://odf.univ-spn.fr/",
+
+    notaDisponibilita: "Alcuni corsi di Master 1 e Master 2 potrebbero non essere aperti agli studenti di scambio.",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69251."
   },
   {

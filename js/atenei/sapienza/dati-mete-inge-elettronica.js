@@ -166,10 +166,19 @@ var METE = [
     posti: [
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "livello B1 richiesto (B2 fortemente raccomandato)" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno e anno intero)", periodo: "entro il 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro il 31 ottobre" }
+      ],
     linkSito: "https://www.univ-spn.fr/",
+    linkCatalogo: "https://odf.univ-spn.fr/",
+
+    notaDisponibilita: "Alcuni corsi di Master 1 e Master 2 potrebbero non essere aperti agli studenti di scambio.",
+
     notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68263."
   },
   {
@@ -318,7 +327,10 @@ var METE = [
       { numero: 4, mesi: 10, livello: "L", note: "" },
       { numero: 4, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "almeno B1+" },
+        { lingua: "Polacco", livello: "B1", condizione: "almeno B1+" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.pcz.pl/",
@@ -572,8 +584,15 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (semestre autunnale)", periodo: "entro il 30 aprile" },
+        { cosa: "Application (semestre autunnale)", periodo: "entro il 15 maggio" },
+        { cosa: "Nomination (semestre primaverile)", periodo: "entro il 31 ottobre" },
+        { cosa: "Application (semestre primaverile)", periodo: "entro il 15 novembre" }
+      ],
     linkSito: "http://www.supsi.ch/international/",
+    linkCatalogo: "https://exchange.supsi.ch/en/incoming-students",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA68131."
   },
   {

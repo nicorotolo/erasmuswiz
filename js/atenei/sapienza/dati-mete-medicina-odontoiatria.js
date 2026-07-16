@@ -1892,8 +1892,15 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (semestre autunnale)", periodo: "entro il 30 aprile" },
+        { cosa: "Application (semestre autunnale)", periodo: "entro il 15 maggio" },
+        { cosa: "Nomination (semestre primaverile)", periodo: "entro il 31 ottobre" },
+        { cosa: "Application (semestre primaverile)", periodo: "entro il 15 novembre" }
+      ],
     linkSito: "http://www.supsi.ch/international/",
+    linkCatalogo: "https://exchange.supsi.ch/en/incoming-students",
+
     notePratiche: "Posti dell'accordo: 1. Accordo ERA69351."
   },
   {
@@ -1936,8 +1943,15 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (semestre autunnale)", periodo: "entro il 30 aprile" },
+        { cosa: "Application (semestre autunnale)", periodo: "entro il 15 maggio" },
+        { cosa: "Nomination (semestre primaverile)", periodo: "entro il 31 ottobre" },
+        { cosa: "Application (semestre primaverile)", periodo: "entro il 15 novembre" }
+      ],
     linkSito: "http://www.supsi.ch/international/",
+    linkCatalogo: "https://exchange.supsi.ch/en/incoming-students",
+
     notePratiche: "Posti dell'accordo: 1. Accordo ERA69352."
   },
   {
@@ -1954,8 +1968,15 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (semestre autunnale)", periodo: "entro il 30 aprile" },
+        { cosa: "Application (semestre autunnale)", periodo: "entro il 15 maggio" },
+        { cosa: "Nomination (semestre primaverile)", periodo: "entro il 31 ottobre" },
+        { cosa: "Application (semestre primaverile)", periodo: "entro il 15 novembre" }
+      ],
     linkSito: "http://www.supsi.ch/international/",
+    linkCatalogo: "https://exchange.supsi.ch/en/incoming-students",
+
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69353."
   },
   {

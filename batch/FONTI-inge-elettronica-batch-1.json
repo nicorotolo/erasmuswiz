@@ -1,0 +1,43 @@
+{
+  "F  PARIS013": {
+    "requisitoLingua": {
+      "url": "https://www.univ-spn.fr/programmes-dechanges/",
+      "citazione": "Avoir une connaissance de la langue française niveau B1 minimum (le niveau B2 est conseillé).",
+      "verificataIl": "2026-07-16"
+    },
+    "scadenzeOspitante": {
+      "url": "https://www.univ-spn.fr/programmes-dechanges/",
+      "citazione": "Pour un séjour au premier semestre ou à l’année : 15 mai. Pour un séjour au deuxième semestre : 31 octobre.",
+      "verificataIl": "2026-07-16"
+    },
+    "linkCatalogo": {
+      "url": "https://odf.univ-spn.fr/",
+      "citazione": "Catalogue des formations",
+      "verificataIl": "2026-07-16"
+    },
+    "notaDisponibilita": {
+      "url": "https://www.univ-spn.fr/programmes-dechanges/",
+      "citazione": "Some Master's (Year 1 and Year 2) courses may not be open to exchange students.",
+      "verificataIl": "2026-07-16"
+    }
+  },
+  "PL CZESTOC01": {
+    "requisitoLingua": {
+      "url": "https://pcz.pl/en/erasmus/for-partner-universities",
+      "citazione": "Required language skills for incoming students: English (B1+) or Polish (B1+)",
+      "verificataIl": "2026-07-16"
+    }
+  },
+  "CH LUGANO02": {
+    "scadenzeOspitante": {
+      "url": "https://exchange.supsi.ch/en/application",
+      "citazione": "For the upcoming fall semester: by April 30; For the upcoming spring semester: by October 31. Applications are accepted only through the Mobility Online platform. For the upcoming fall semester: by May 15. For the upcoming spring semester: by November 15.",
+      "verificataIl": "2026-07-16"
+    },
+    "linkCatalogo": {
+      "url": "https://exchange.supsi.ch/en/incoming-students",
+      "citazione": "Courses in German and English",
+      "verificataIl": "2026-07-16"
+    }
+  }
+}
