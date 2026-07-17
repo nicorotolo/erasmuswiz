@@ -26,7 +26,8 @@ function zainoVuoto() {
   return {
     profilo: null, checklist: {}, metePreferite: [], schedina: [],
     fase: "domanda", checklistPost: {}, onboardingFatto: false,
-    autoverifica: {}, zainoCelebrato: false, wizardMete: false
+    autoverifica: {}, zainoCelebrato: false, wizardMete: false,
+    la: { metaAperta: null, bozzePerMeta: {} }
   };
 }
 
@@ -46,6 +47,11 @@ function normalizzaZaino(z) {
   // Wizard prima visita delle Mete (R3.1): zaino vecchio senza il campo →
   // il wizard non è mai stato visto (comparirà solo senza rotte salvate).
   if (typeof z.wizardMete !== "boolean") z.wizardMete = false;
+  // LA Workspace (R4.1, PLAN.md §6.4): ramo ADDITIVO. Zaino senza `la` =
+  // "nessuna bozza", mai una perdita; lo schema vive nella sezione LA.
+  if (!z.la || typeof z.la !== "object") z.la = {};
+  if (!z.la.bozzePerMeta || typeof z.la.bozzePerMeta !== "object") z.la.bozzePerMeta = {};
+  if (z.la.metaAperta === undefined) z.la.metaAperta = null;
   return z;
 }
 
@@ -927,7 +933,15 @@ function renderPercorso(opzioni = {}) {
       stato: selezionato ? "fatto" : tappa === "esiti" ? "attivo" : "futuro",
       conta: selezionato ? "dichiarato" : "",
     },
-    la: { numero: "4", stato: "info", conta: "" },
+    // La stazione LA non ha un "fatto" misurabile (nessuno può approvare la
+    // bozza al posto dell'ateneo): mostra solo quante bozze esistono (R4).
+    la: {
+      numero: "4", stato: "info",
+      conta: (() => {
+        const n = Object.keys((ZAINO.la && ZAINO.la.bozzePerMeta) || {}).length;
+        return n ? `${n} ${n === 1 ? "bozza" : "bozze"}` : "";
+      })(),
+    },
     partenza: {
       numero: "5",
       stato: selezionato ? (post.length && postFatti === post.length ? "fatto" : "attivo") : "futuro",
@@ -2405,6 +2419,1155 @@ function initCelebrazioneZaino() {
 }
 
 // ============================================================
+// LA WORKSPACE v0 — stazione 4 del Percorso (R4, PLAN.md §6)
+// ------------------------------------------------------------
+// Bozza di lavoro MANUAL-FIRST del Learning Agreement: il LA ufficiale
+// resta nei sistemi dell'ateneo (OLA/EWP) e questo microcopy accompagna
+// ogni superficie del Workspace. I dati della pipeline (linkCatalogo,
+// notaDisponibilita) si PROPONGONO solo dove esistono davvero (§6.2):
+// dove mancano lo si dice, senza fingere una copertura che non c'è.
+//
+// SCHEMA (R4.1) — ramo additivo per-ateneo ZAINO.la (PLAN.md §6.4):
+//   la: {
+//     metaAperta: "id-meta" | null,      // ultima bozza aperta qui
+//     bozzePerMeta: {
+//       [metaId]: {
+//         meta: { id, universita, citta, paese },  // fotografata alla
+//                // creazione: la bozza resta leggibile anche se la meta
+//                // sparisse dai dati (mai un id orfano illeggibile)
+//         creataIl, aggiornatoIl,        // ISO
+//         versioneCorrente,              // numero dell'ULTIMA versione
+//         prossimoId,                    // contatore per id stabili e/c/g
+//         versioni: [{
+//           numero, creataIl,            // ISO
+//           motivo,                      // null (v1) | chiave di LA_MOTIVI
+//           notaMotivo,                  // testo libero facoltativo
+//           esamiCasa: [{ id:"e1", nome, codice, cfu, nota }],
+//           corsiHost: [{ id:"c2", nome, ects, lingua, semestre, link,
+//                         stato, verificataIl }],
+//              // stato: "da-verificare"|"disponibile"|"non-disponibile"|
+//              //        "sostituito" — niente codici corso obbligatori
+//              //        (nel LA reale di Bruno erano "000", §6.3)
+//           gruppi: [{ id:"g3", corsi:["c2"], esami:["e1"] }],
+//              // molti-a-molti: un corso copre più esami e viceversa
+//           preInvio: { linkAperti, ectsConfrontati }   // checklist §6.3
+//         }]
+//       }
+//     }
+//   }
+// REGOLE: si modifica SOLO l'ultima versione (la copia di lavoro); le
+// precedenti sono fotografie congelate. "Sostituisci" e "Salva nuova
+// versione" creano una versione nuova con motivo dichiarato — mai una
+// modifica che cancella la storia (§6.3: sostituzione senza perdere la
+// versione precedente). Gli zaini senza `la` valgono "nessuna bozza"
+// (normalizzaZaino, migrazione additiva).
+// ============================================================
+const LA_MOTIVI = [
+  ["non-disponibile",    "Corso non disponibile"],
+  ["lingua",             "Lingua diversa dal previsto"],
+  ["richiesta-ospitante", "Richiesta dell'università ospitante"],
+  ["conflitto-orario",   "Conflitto d'orario"],
+  ["scelta-personale",   "Scelta personale"],
+  ["altro",              "Altro"],
+];
+
+const LA_STATI_CORSO = [
+  ["da-verificare",   "🟡 Da verificare"],
+  ["disponibile",     "✅ Disponibile"],
+  ["non-disponibile", "🚫 Non disponibile"],
+  ["sostituito",      "↷ Sostituito"],
+];
+
+const LA_SEMESTRI = ["", "1º semestre", "2º semestre", "annuale"];
+
+function laEtichettaMotivo(chiave) {
+  const voce = LA_MOTIVI.find(([k]) => k === chiave);
+  return voce ? voce[1] : (chiave || "");
+}
+
+function laEtichettaStato(chiave) {
+  const voce = LA_STATI_CORSO.find(([k]) => k === chiave);
+  return voce ? voce[1] : "🟡 Da verificare";
+}
+
+// Stato UI del Workspace (non persistito, come filtroMeteAttivo):
+// il pannello-motivo in corso e i messaggi transitori tra un render e l'altro.
+let _laPending = null;    // { tipo: "versione" } | { tipo: "sostituzione", corsoId }
+let _laMessaggio = null;  // testo mostrato una volta al prossimo render
+let _laFocusId = null;    // id DOM da rifocalizzare dopo un render strutturale
+let _laStoriaAperta = false;
+
+function laBozze() { return ZAINO.la.bozzePerMeta; }
+
+function laBozzaAperta() {
+  const id = ZAINO.la.metaAperta;
+  const bozza = id ? laBozze()[id] : null;
+  if (!bozza) return null;
+  // Guardia leggera su bozze scritte da versioni future/imprevisti: i campi
+  // strutturali devono esserci, o il render non deve fidarsi.
+  if (!Array.isArray(bozza.versioni) || !bozza.versioni.length) return null;
+  return bozza;
+}
+
+function laVersioneCorrente(bozza) {
+  return bozza.versioni[bozza.versioni.length - 1];
+}
+
+function laId(bozza, prefisso) {
+  if (typeof bozza.prossimoId !== "number") bozza.prossimoId = 1;
+  return prefisso + (bozza.prossimoId++);
+}
+
+function laTocca(bozza) {
+  bozza.aggiornatoIl = new Date().toISOString();
+  salvaZaino(ZAINO);
+}
+
+function laNuovaBozza(meta) {
+  const ora = new Date().toISOString();
+  return {
+    meta: { id: meta.id, universita: meta.universita, citta: meta.citta || "", paese: meta.paese || "" },
+    creataIl: ora, aggiornatoIl: ora,
+    versioneCorrente: 1, prossimoId: 1,
+    versioni: [{
+      numero: 1, creataIl: ora, motivo: null, notaMotivo: "",
+      esamiCasa: [], corsiHost: [], gruppi: [],
+      preInvio: { linkAperti: false, ectsConfrontati: false },
+    }],
+  };
+}
+
+// Nuova versione = fotografia della corrente + motivo dichiarato. La
+// checklist pre-invio riparte da zero: la bozza nuova non è stata ricontrollata.
+function laNuovaVersione(bozza, motivo, notaMotivo) {
+  const copia = JSON.parse(JSON.stringify(laVersioneCorrente(bozza)));
+  copia.numero = laVersioneCorrente(bozza).numero + 1;
+  copia.creataIl = new Date().toISOString();
+  copia.motivo = motivo;
+  copia.notaMotivo = notaMotivo || "";
+  copia.preInvio = { linkAperti: false, ectsConfrontati: false };
+  bozza.versioni.push(copia);
+  bozza.versioneCorrente = copia.numero;
+  laTocca(bozza);
+  return copia;
+}
+
+// ---- Totali ECTS/CFU (R4.4): sempre visibili, mai un'approvazione ----
+// Nei totali contano solo i corsi ancora nel piano: quelli marcati
+// "non disponibile" o "sostituito" restano in bozza (storia onesta) ma
+// non gonfiano i numeri.
+function laCorsoAttivo(c) {
+  return c.stato !== "non-disponibile" && c.stato !== "sostituito";
+}
+
+function laNumeroDa(v) {
+  const n = parseFloat(String(v === undefined || v === null ? "" : v).replace(",", "."));
+  return isNaN(n) ? 0 : n;
+}
+
+function laFormattaNumero(n) {
+  return (Math.round(n * 100) / 100).toLocaleString("it-IT");
+}
+
+function laTotali(vers, soloIds) {
+  const corsi = vers.corsiHost.filter(c => (!soloIds || soloIds.corsi.includes(c.id)));
+  const esami = vers.esamiCasa.filter(e => (!soloIds || soloIds.esami.includes(e.id)));
+  const ects = corsi.filter(laCorsoAttivo).reduce((s, c) => s + laNumeroDa(c.ects), 0);
+  const cfu  = esami.reduce((s, e) => s + laNumeroDa(e.cfu), 0);
+  return { ects, cfu };
+}
+
+// Segnalazione PRUDENTE delle soglie (§6.3): si mostra la differenza e si
+// ricorda chi decide. Mai "approvato", mai un semaforo verde automatico.
+function laFraseSoglie(t) {
+  if (t.ects === 0 && t.cfu === 0) return "";
+  const diff = Math.round((t.ects - t.cfu) * 100) / 100;
+  if (diff === 0) return "I totali coincidono. Non è un'approvazione: sul riconoscimento decide sempre il tuo ateneo.";
+  const verso = diff > 0 ? "in più sul lato host" : "in meno sul lato host";
+  return `Differenza di ${laFormattaNumero(Math.abs(diff))} tra ECTS e CFU (${verso}). Non è per forza un errore: le regole di conversione le decide il tuo ateneo — confrontala col tuo regolamento.`;
+}
+
+// La data di "oggi" per verificataIl: quella LOCALE dello studente, non
+// l'UTC di toISOString — alle prime ore del mattino italiano segnerebbe
+// il giorno prima (stessa disciplina Europe/Rome del vincolo §10.6).
+function laOggiISO() {
+  const d = new Date();
+  const pad = n => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+}
+
+function laDataBreve(iso) {
+  if (!iso) return "";
+  const d = new Date(iso);
+  if (isNaN(d)) return "";
+  return d.toLocaleDateString("it-IT", { day: "numeric", month: "short", year: "numeric" });
+}
+
+// Un link inserito a mano si rende cliccabile solo se è un URL http(s):
+// qualunque altra cosa resta testo (vincolo §10.7, niente HTML arbitrario).
+function laLinkSicuro(url) {
+  return /^https?:\/\//i.test(String(url || "").trim()) ? String(url).trim() : null;
+}
+
+let analyticsLAInviato = false;
+function segnalaLAUsato() {
+  if (analyticsLAInviato) return;
+  analyticsLAInviato = true;
+  window.goatcounter?.count({ path: "la-workspace-usato", event: true });
+}
+
+// ---- Le mete proponibili nel selettore bozza ----
+// Prima le rotte della schedina (il caso vero: la meta assegnata è quasi
+// sempre lì), poi le mete del dipartimento del profilo, più le bozze già
+// esistenti qualunque cosa sia successo a preferite/profilo (una bozza non
+// diventa MAI irraggiungibile). Niente elenco completo dell'ateneo: 1.595
+// opzioni in una tendina non aiutano nessuno — per il resto c'è il tab Mete.
+function laGruppiSelettore() {
+  const bozze = laBozze();
+  const inSchedina = schedinaIds()
+    .map(id => (METE || []).find(m => m.id === id)).filter(Boolean);
+  const idsVisti = new Set(inSchedina.map(m => m.id));
+
+  const p = ZAINO.profilo;
+  const delDipartimento = !p ? [] : (METE || [])
+    .filter(m => (p.dipartimento
+      ? m.dipartimentoCf === p.dipartimento
+      : (m.areeDisciplinari || []).some(a => a.codice === p.area)))
+    .filter(m => !idsVisti.has(m.id))
+    .sort((a, b) => (a.universita || "").localeCompare(b.universita || "", "it"));
+  delDipartimento.forEach(m => idsVisti.add(m.id));
+
+  // Bozze la cui meta non compare nei gruppi sopra (profilo cambiato, mete
+  // tolte dalle preferite, dati mutati): si elencano col nome fotografato.
+  const orfane = Object.keys(bozze)
+    .filter(id => !idsVisti.has(id))
+    .map(id => ({ id, universita: (bozze[id].meta && bozze[id].meta.universita) || id }));
+
+  return { inSchedina, delDipartimento, orfane };
+}
+
+// ============================================================
+// RENDER DEL WORKSPACE — tutto passa da qui. Le digitazioni aggiornano il
+// modello su "change" e SOLO i totali a schermo (laAggiornaTotali): il
+// render completo è per i cambi strutturali (righe, gruppi, versioni).
+// ============================================================
+function renderLA() {
+  const cont = document.getElementById("la-workspace");
+  if (!cont) return;
+  cont.innerHTML = "";
+
+  // Microcopy costante (§6.3): su OGNI superficie del Workspace.
+  cont.appendChild(crea("p", "la-disclaimer",
+    "🧪 Bozza di lavoro: il Learning Agreement ufficiale resta nel sistema del tuo ateneo (OLA/EWP)."));
+
+  if (_laMessaggio) {
+    cont.appendChild(crea("p", "la-messaggio", _laMessaggio));
+    _laMessaggio = null;
+  }
+
+  const { inSchedina, delDipartimento, orfane } = laGruppiSelettore();
+
+  if (!inSchedina.length && !delDipartimento.length && !orfane.length) {
+    const vuoto = crea("div", "la-vuoto");
+    vuoto.appendChild(crea("p", "stazione-testo",
+      "Per iniziare una bozza scegli prima la meta: esplora le mete e salva le tue preferite."));
+    const btn = crea("button", "btn-secondary", "🗺️ Vai alle mete");
+    btn.type = "button";
+    btn.setAttribute("data-goto", "mete");
+    vuoto.appendChild(btn);
+    cont.appendChild(vuoto);
+    return;
+  }
+
+  // --- Selettore della meta ---
+  const scelta = crea("div", "la-scelta-meta");
+  const lbl = crea("label", "la-scelta-label", "La bozza per");
+  lbl.setAttribute("for", "la-select-meta");
+  scelta.appendChild(lbl);
+  const sel = document.createElement("select");
+  sel.id = "la-select-meta";
+  const optVuota = document.createElement("option");
+  optVuota.value = "";
+  optVuota.textContent = "— scegli la meta —";
+  sel.appendChild(optVuota);
+
+  function aggiungiGruppo(label, mete, conBozza) {
+    if (!mete.length) return;
+    const og = document.createElement("optgroup");
+    og.label = label;
+    mete.forEach(m => {
+      const o = document.createElement("option");
+      o.value = m.id;
+      const suffisso = laBozze()[m.id] ? " · bozza ✎" : "";
+      o.textContent = nomeUniversita(m.universita) + suffisso;
+      og.appendChild(o);
+    });
+    sel.appendChild(og);
+  }
+  aggiungiGruppo("Le tue 5 scelte", inSchedina);
+  aggiungiGruppo(ZAINO.profilo && ZAINO.profilo.dipartimento
+    ? `Mete di ${ZAINO.profilo.dipartimento}` : "Mete della tua area", delDipartimento);
+  aggiungiGruppo("Altre tue bozze", orfane);
+
+  if (ZAINO.la.metaAperta && [...sel.options].some(o => o.value === ZAINO.la.metaAperta)) {
+    sel.value = ZAINO.la.metaAperta;
+  }
+  sel.addEventListener("change", () => {
+    ZAINO.la.metaAperta = sel.value || null;
+    _laPending = null;
+    salvaZaino(ZAINO);
+    renderLA();
+  });
+  scelta.appendChild(sel);
+  cont.appendChild(scelta);
+
+  const metaId = ZAINO.la.metaAperta;
+  if (!metaId) return;
+
+  const bozza = laBozzaAperta();
+
+  // --- Meta scelta ma senza bozza: si crea qui, v1 vuota ---
+  if (!bozza) {
+    const meta = (METE || []).find(m => m.id === metaId);
+    if (!meta) return; // id non più nei dati e senza bozza: niente da mostrare
+    const box = crea("div", "la-vuoto");
+    box.appendChild(crea("p", "stazione-testo",
+      `Nessuna bozza per ${nomeUniversita(meta.universita)}: creala e inserisci esami di casa e corsi host. Tutto resta su questo dispositivo.`));
+    const btn = crea("button", "btn-primary", "＋ Crea la bozza");
+    btn.type = "button";
+    btn.addEventListener("click", () => {
+      laBozze()[metaId] = laNuovaBozza(meta);
+      salvaZaino(ZAINO);
+      segnalaLAUsato();
+      window.goatcounter?.count({ path: "la-bozza-creata", event: true });
+      renderPercorso();
+      renderLA();
+    });
+    box.appendChild(btn);
+    cont.appendChild(box);
+    laRenderPropostaDati(cont, meta);
+    return;
+  }
+
+  laRenderBozza(cont, bozza);
+}
+
+// ---- R4.3: proposte dai dati SOLO dove verificate ----
+// linkCatalogo/notaDisponibilita arrivano dalla pipeline (PLAN §3, Livello B).
+// Dove mancano non si finge: lo si dichiara e si offre il sito dell'ateneo.
+function laRenderPropostaDati(cont, meta) {
+  const box = crea("div", "la-dati-meta");
+  if (!meta) {
+    box.appendChild(crea("p", "la-dati-nota",
+      "Questa meta non è più nei dati del sito: la bozza resta tua e continua a funzionare."));
+    cont.appendChild(box);
+    return;
+  }
+  const catalogo = laLinkSicuro(meta.linkCatalogo);
+  if (catalogo) {
+    const riga = crea("p", "la-dati-riga");
+    riga.appendChild(document.createTextNode("📚 Catalogo corsi per studenti in scambio: "));
+    const a = crea("a", "la-dati-link", "apri il catalogo ↗");
+    a.href = catalogo; a.target = "_blank"; a.rel = "noopener";
+    riga.appendChild(a);
+    box.appendChild(riga);
+  } else {
+    const riga = crea("p", "la-dati-nota",
+      "Il catalogo corsi di questa meta non è ancora mappato: cerca i corsi sul sito dell'ospitante e inseriscili qui a mano. ");
+    const sito = laLinkSicuro(meta.linkSito);
+    if (sito) {
+      const a = crea("a", "la-dati-link", "Sito dell'università ↗");
+      a.href = sito; a.target = "_blank"; a.rel = "noopener";
+      riga.appendChild(a);
+    }
+    box.appendChild(riga);
+  }
+  if (meta.notaDisponibilita) {
+    box.appendChild(crea("p", "la-dati-avviso", `⚠️ ${meta.notaDisponibilita}`));
+  }
+  cont.appendChild(box);
+}
+
+// ---- Il corpo della bozza: versione corrente + sezioni ----
+function laRenderBozza(cont, bozza) {
+  const vers = laVersioneCorrente(bozza);
+  const meta = (METE || []).find(m => m.id === bozza.meta.id) || null;
+
+  // Testa: versione, date, azioni di versione
+  const testa = crea("div", "la-testa");
+  const titolo = crea("div", "la-testa-testi");
+  titolo.appendChild(crea("span", "la-testa-versione", `Versione ${vers.numero}`));
+  const dettagli = [`creata il ${laDataBreve(vers.creataIl)}`];
+  if (bozza.aggiornatoIl && bozza.aggiornatoIl !== vers.creataIl) {
+    dettagli.push(`ultima modifica ${laDataBreve(bozza.aggiornatoIl)}`);
+  }
+  if (vers.motivo) dettagli.push(`motivo: ${laEtichettaMotivo(vers.motivo)}`);
+  titolo.appendChild(crea("span", "la-testa-sub", dettagli.join(" · ")));
+  testa.appendChild(titolo);
+
+  const azioni = crea("div", "la-testa-azioni");
+  const btnVersione = crea("button", "btn-secondary la-btn-piccolo", "📌 Salva nuova versione");
+  btnVersione.type = "button";
+  btnVersione.addEventListener("click", () => {
+    _laPending = { tipo: "versione" };
+    renderLA();
+  });
+  azioni.appendChild(btnVersione);
+  const btnElimina = crea("button", "la-btn-elimina", "🗑 Elimina bozza");
+  btnElimina.type = "button";
+  btnElimina.addEventListener("click", () => {
+    const quante = bozza.versioni.length;
+    const ok = window.confirm(
+      `Eliminare la bozza per ${nomeUniversita(bozza.meta.universita)}? ` +
+      `Si perdono TUTTE le versioni (${quante}): questa operazione non si annulla.`);
+    if (!ok) return;
+    delete laBozze()[bozza.meta.id];
+    ZAINO.la.metaAperta = null;
+    salvaZaino(ZAINO);
+    renderPercorso();
+    renderLA();
+  });
+  azioni.appendChild(btnElimina);
+  testa.appendChild(azioni);
+  cont.appendChild(testa);
+
+  // Pannello-motivo (nuova versione / sostituzione): inline, mai un prompt.
+  if (_laPending) laRenderPannelloMotivo(cont, bozza, vers);
+
+  laRenderPropostaDati(cont, meta);
+
+  // Totali sempre visibili (§6.3) — aggiornati vivi da laAggiornaTotali.
+  const totali = crea("div", "la-totali");
+  totali.id = "la-totali";
+  cont.appendChild(totali);
+
+  // --- Corsi host ---
+  cont.appendChild(laRenderSezioneCorsi(bozza, vers));
+  // --- Esami di casa ---
+  cont.appendChild(laRenderSezioneEsami(bozza, vers));
+  // --- Corrispondenze molti-a-molti ---
+  cont.appendChild(laRenderSezioneGruppi(bozza, vers));
+  // --- Checklist pre-invio ---
+  cont.appendChild(laRenderPreInvio(bozza, vers));
+  // --- Export ---
+  cont.appendChild(laRenderExport(bozza, vers));
+  // --- Versioni precedenti ---
+  laRenderStoria(cont, bozza);
+
+  laAggiornaTotali(vers);
+  laAggiornaOrfani(vers);
+
+  // Focus richiesto da un'azione strutturale (es. riga appena aggiunta).
+  if (_laFocusId) {
+    document.getElementById(_laFocusId)?.focus();
+    _laFocusId = null;
+  }
+}
+
+function laRenderPannelloMotivo(cont, bozza, vers) {
+  const box = crea("div", "la-motivo");
+  const sostituzione = _laPending.tipo === "sostituzione";
+  const corso = sostituzione ? vers.corsiHost.find(c => c.id === _laPending.corsoId) : null;
+  box.appendChild(crea("p", "la-motivo-titolo", sostituzione
+    ? `Stai sostituendo «${(corso && corso.nome) || "corso senza nome"}»: si salva una nuova versione, quella attuale resta nella storia.`
+    : "Salva la bozza attuale come nuova versione: quella attuale resta nella storia, non si perde niente."));
+
+  const riga = crea("div", "la-motivo-riga");
+  const sel = document.createElement("select");
+  sel.id = "la-motivo-select";
+  sel.setAttribute("aria-label", "Motivo della modifica");
+  LA_MOTIVI.forEach(([valore, label]) => {
+    const o = document.createElement("option");
+    o.value = valore; o.textContent = label;
+    sel.appendChild(o);
+  });
+  if (sostituzione) sel.value = "non-disponibile";
+  riga.appendChild(sel);
+  const nota = document.createElement("input");
+  nota.type = "text";
+  nota.placeholder = "Nota facoltativa (es. cosa ti hanno scritto)";
+  nota.maxLength = 200;
+  nota.setAttribute("aria-label", "Nota sul motivo");
+  riga.appendChild(nota);
+  box.appendChild(riga);
+
+  const azioni = crea("div", "la-motivo-azioni");
+  const conferma = crea("button", "btn-primary la-btn-piccolo", sostituzione ? "Sostituisci e salva versione" : "Salva versione");
+  conferma.type = "button";
+  conferma.addEventListener("click", () => {
+    const nuova = laNuovaVersione(bozza, sel.value, nota.value.trim());
+    if (sostituzione) {
+      const c = nuova.corsiHost.find(x => x.id === _laPending.corsoId);
+      if (c) {
+        c.stato = "sostituito";
+        c.verificataIl = laOggiISO();
+      }
+      laTocca(bozza);
+      _laMessaggio = `Versione ${nuova.numero} creata: il corso è marcato «sostituito». Aggiungi ora il corso sostitutivo tra i corsi host.`;
+    } else {
+      _laMessaggio = `Versione ${nuova.numero} creata. Da qui in poi modifichi questa; la ${nuova.numero - 1} resta nella storia.`;
+    }
+    _laPending = null;
+    renderLA();
+  });
+  azioni.appendChild(conferma);
+  const annulla = crea("button", "btn-secondary la-btn-piccolo", "Annulla");
+  annulla.type = "button";
+  annulla.addEventListener("click", () => { _laPending = null; renderLA(); });
+  azioni.appendChild(annulla);
+  box.appendChild(azioni);
+  cont.appendChild(box);
+}
+
+// ---- Sezione corsi host (R4.2): campi del §6.2, stato + data verifica ----
+function laRenderSezioneCorsi(bozza, vers) {
+  const sez = crea("section", "la-sezione");
+  sez.appendChild(crea("h3", "la-sezione-titolo", "Corsi che seguirai all'estero (host)"));
+
+  if (!vers.corsiHost.length) {
+    sez.appendChild(crea("p", "la-sezione-vuota",
+      "Nessun corso ancora: aggiungi quelli che pensi di seguire dall'offerta dell'ospitante."));
+  }
+
+  vers.corsiHost.forEach(c => sez.appendChild(laRigaCorso(bozza, vers, c)));
+
+  const aggiungi = crea("button", "btn-secondary la-btn-aggiungi", "＋ Aggiungi corso host");
+  aggiungi.type = "button";
+  aggiungi.addEventListener("click", () => {
+    const nuovo = {
+      id: laId(bozza, "c"), nome: "", ects: "", lingua: "", semestre: "",
+      link: "", stato: "da-verificare", verificataIl: "",
+    };
+    vers.corsiHost.push(nuovo);
+    laTocca(bozza);
+    segnalaLAUsato();
+    _laFocusId = `la-corso-nome-${nuovo.id}`;
+    renderLA();
+  });
+  sez.appendChild(aggiungi);
+  return sez;
+}
+
+function laRigaCorso(bozza, vers, corso) {
+  const riga = crea("div", "la-riga" + (laCorsoAttivo(corso) ? "" : " la-riga-esclusa"));
+
+  const testaRiga = crea("div", "la-riga-testa");
+  const nome = document.createElement("input");
+  nome.type = "text";
+  nome.id = `la-corso-nome-${corso.id}`;
+  nome.value = corso.nome || "";
+  nome.placeholder = "Nome del corso host";
+  nome.maxLength = 120;
+  nome.setAttribute("aria-label", "Nome del corso host");
+  nome.addEventListener("change", () => { corso.nome = nome.value.trim(); laTocca(bozza); });
+  testaRiga.appendChild(nome);
+
+  const stato = document.createElement("select");
+  stato.className = "la-select-stato";
+  stato.setAttribute("aria-label", "Stato del corso");
+  LA_STATI_CORSO.forEach(([valore, label]) => {
+    const o = document.createElement("option");
+    o.value = valore; o.textContent = label;
+    stato.appendChild(o);
+  });
+  stato.value = corso.stato || "da-verificare";
+  stato.addEventListener("change", () => {
+    corso.stato = stato.value;
+    // Dichiarare uno stato È una verifica: la data si aggiorna a oggi se
+    // manca (resta modificabile a mano qui sotto).
+    if (!corso.verificataIl) corso.verificataIl = laOggiISO();
+    laTocca(bozza);
+    renderLA();
+  });
+  testaRiga.appendChild(stato);
+
+  const sostituisci = crea("button", "la-btn-riga", "↷ Sostituisci");
+  sostituisci.type = "button";
+  sostituisci.title = "Sostituisci questo corso salvando una nuova versione";
+  sostituisci.addEventListener("click", () => {
+    _laPending = { tipo: "sostituzione", corsoId: corso.id };
+    renderLA();
+    document.getElementById("la-motivo-select")?.focus();
+  });
+  testaRiga.appendChild(sostituisci);
+
+  const rimuovi = crea("button", "la-btn-riga la-btn-rimuovi", "✕");
+  rimuovi.type = "button";
+  rimuovi.title = "Rimuovi dalla bozza corrente";
+  rimuovi.setAttribute("aria-label", "Rimuovi questo corso dalla bozza corrente");
+  rimuovi.addEventListener("click", () => {
+    if (corso.nome && !window.confirm(`Rimuovere «${corso.nome}» dalla bozza corrente? Le versioni salvate non cambiano.`)) return;
+    vers.corsiHost = vers.corsiHost.filter(x => x.id !== corso.id);
+    vers.gruppi.forEach(g => { g.corsi = g.corsi.filter(id => id !== corso.id); });
+    laTocca(bozza);
+    renderLA();
+  });
+  testaRiga.appendChild(rimuovi);
+  riga.appendChild(testaRiga);
+
+  const campi = crea("div", "la-riga-campi");
+  campi.appendChild(laCampo("ECTS", () => {
+    const inp = document.createElement("input");
+    inp.type = "number"; inp.step = "0.5"; inp.min = "0"; inp.inputMode = "decimal";
+    inp.value = corso.ects === "" || corso.ects === undefined ? "" : corso.ects;
+    inp.addEventListener("change", () => {
+      corso.ects = inp.value === "" ? "" : laNumeroDa(inp.value);
+      laTocca(bozza);
+      laAggiornaTotali(vers);
+    });
+    return inp;
+  }));
+  campi.appendChild(laCampo("Lingua", () => {
+    const inp = document.createElement("input");
+    inp.type = "text"; inp.maxLength = 40;
+    inp.placeholder = "es. Inglese";
+    inp.value = corso.lingua || "";
+    inp.addEventListener("change", () => { corso.lingua = inp.value.trim(); laTocca(bozza); });
+    return inp;
+  }));
+  campi.appendChild(laCampo("Semestre", () => {
+    const s = document.createElement("select");
+    LA_SEMESTRI.forEach(v => {
+      const o = document.createElement("option");
+      o.value = v; o.textContent = v || "—";
+      s.appendChild(o);
+    });
+    s.value = LA_SEMESTRI.includes(corso.semestre) ? corso.semestre : "";
+    s.addEventListener("change", () => { corso.semestre = s.value; laTocca(bozza); });
+    return s;
+  }));
+  campi.appendChild(laCampo("Verificato il", () => {
+    const inp = document.createElement("input");
+    inp.type = "date";
+    inp.value = corso.verificataIl || "";
+    inp.addEventListener("change", () => { corso.verificataIl = inp.value; laTocca(bozza); });
+    return inp;
+  }));
+  campi.appendChild(laCampo("Link ufficiale", () => {
+    const inp = document.createElement("input");
+    inp.type = "url"; inp.placeholder = "https://…";
+    inp.value = corso.link || "";
+    inp.addEventListener("change", () => { corso.link = inp.value.trim(); laTocca(bozza); });
+    return inp;
+  }, "la-campo-largo"));
+  riga.appendChild(campi);
+
+  return riga;
+}
+
+// ---- Sezione esami di casa (R4.2): nome, codice facoltativo, CFU, nota ----
+function laRenderSezioneEsami(bozza, vers) {
+  const sez = crea("section", "la-sezione");
+  sez.appendChild(crea("h3", "la-sezione-titolo", "Esami di casa da riconoscere"));
+  sez.appendChild(crea("p", "la-sezione-sub",
+    "Il tuo piano di studi non è nei dati del sito: inserisci a mano gli esami che vuoi farti riconoscere."));
+
+  if (!vers.esamiCasa.length) {
+    sez.appendChild(crea("p", "la-sezione-vuota", "Nessun esame ancora."));
+  }
+
+  vers.esamiCasa.forEach(e => sez.appendChild(laRigaEsame(bozza, vers, e)));
+
+  const aggiungi = crea("button", "btn-secondary la-btn-aggiungi", "＋ Aggiungi esame di casa");
+  aggiungi.type = "button";
+  aggiungi.addEventListener("click", () => {
+    const nuovo = { id: laId(bozza, "e"), nome: "", codice: "", cfu: "", nota: "" };
+    vers.esamiCasa.push(nuovo);
+    laTocca(bozza);
+    segnalaLAUsato();
+    _laFocusId = `la-esame-nome-${nuovo.id}`;
+    renderLA();
+  });
+  sez.appendChild(aggiungi);
+  return sez;
+}
+
+function laRigaEsame(bozza, vers, esame) {
+  const riga = crea("div", "la-riga");
+  const testaRiga = crea("div", "la-riga-testa");
+  const nome = document.createElement("input");
+  nome.type = "text";
+  nome.id = `la-esame-nome-${esame.id}`;
+  nome.value = esame.nome || "";
+  nome.placeholder = "Nome dell'esame di casa";
+  nome.maxLength = 120;
+  nome.setAttribute("aria-label", "Nome dell'esame di casa");
+  nome.addEventListener("change", () => { esame.nome = nome.value.trim(); laTocca(bozza); });
+  testaRiga.appendChild(nome);
+
+  const rimuovi = crea("button", "la-btn-riga la-btn-rimuovi", "✕");
+  rimuovi.type = "button";
+  rimuovi.title = "Rimuovi dalla bozza corrente";
+  rimuovi.setAttribute("aria-label", "Rimuovi questo esame dalla bozza corrente");
+  rimuovi.addEventListener("click", () => {
+    if (esame.nome && !window.confirm(`Rimuovere «${esame.nome}» dalla bozza corrente? Le versioni salvate non cambiano.`)) return;
+    vers.esamiCasa = vers.esamiCasa.filter(x => x.id !== esame.id);
+    vers.gruppi.forEach(g => { g.esami = g.esami.filter(id => id !== esame.id); });
+    laTocca(bozza);
+    renderLA();
+  });
+  testaRiga.appendChild(rimuovi);
+  riga.appendChild(testaRiga);
+
+  const campi = crea("div", "la-riga-campi");
+  campi.appendChild(laCampo("Codice (facolt.)", () => {
+    const inp = document.createElement("input");
+    inp.type = "text"; inp.maxLength = 20;
+    inp.value = esame.codice || "";
+    inp.addEventListener("change", () => { esame.codice = inp.value.trim(); laTocca(bozza); });
+    return inp;
+  }));
+  campi.appendChild(laCampo("CFU", () => {
+    const inp = document.createElement("input");
+    inp.type = "number"; inp.step = "0.5"; inp.min = "0"; inp.inputMode = "decimal";
+    inp.value = esame.cfu === "" || esame.cfu === undefined ? "" : esame.cfu;
+    inp.addEventListener("change", () => {
+      esame.cfu = inp.value === "" ? "" : laNumeroDa(inp.value);
+      laTocca(bozza);
+      laAggiornaTotali(vers);
+    });
+    return inp;
+  }));
+  campi.appendChild(laCampo("Nota (facolt.)", () => {
+    const inp = document.createElement("input");
+    inp.type = "text"; inp.maxLength = 120;
+    inp.placeholder = "es. da sostenere al 2º anno";
+    inp.value = esame.nota || "";
+    inp.addEventListener("change", () => { esame.nota = inp.value.trim(); laTocca(bozza); });
+    return inp;
+  }, "la-campo-largo"));
+  riga.appendChild(campi);
+  return riga;
+}
+
+// Campo etichettato compatto (label + controllo), per le righe del Workspace.
+function laCampo(etichetta, costruisci, classeExtra) {
+  const label = crea("label", "la-campo" + (classeExtra ? " " + classeExtra : ""));
+  label.appendChild(crea("span", "la-campo-label", etichetta));
+  label.appendChild(costruisci());
+  return label;
+}
+
+// ---- Corrispondenze molti-a-molti (R4.4) ----
+function laRenderSezioneGruppi(bozza, vers) {
+  const sez = crea("section", "la-sezione");
+  sez.appendChild(crea("h3", "la-sezione-titolo", "Corrispondenze: quali corsi coprono quali esami"));
+  sez.appendChild(crea("p", "la-sezione-sub",
+    "Un corso host può coprire più esami di casa, e un esame può richiedere più corsi. Le corrispondenze le decide il tuo ateneo: qui le prepari."));
+
+  if (!vers.corsiHost.length || !vers.esamiCasa.length) {
+    sez.appendChild(crea("p", "la-sezione-vuota",
+      "Le corrispondenze si creano quando hai almeno un corso host e un esame di casa."));
+    return sez;
+  }
+
+  vers.gruppi.forEach((g, i) => sez.appendChild(laRigaGruppo(bozza, vers, g, i)));
+
+  // Onestà sui non collegati: niente sparisce in silenzio da una bozza.
+  // L'elemento c'è sempre e si aggiorna VIVO al click sulle checkbox
+  // (laAggiornaOrfani), come i totali: mai una nota stantia a schermo.
+  // Il primo riempimento lo fa laRenderBozza DOPO l'append: qui la sezione
+  // non è ancora nel documento e getElementById non la vedrebbe.
+  const orfani = crea("p", "la-gruppo-orfani");
+  orfani.id = "la-gruppo-orfani";
+  orfani.hidden = true;
+  sez.appendChild(orfani);
+
+  const aggiungi = crea("button", "btn-secondary la-btn-aggiungi", "＋ Nuova corrispondenza");
+  aggiungi.type = "button";
+  aggiungi.addEventListener("click", () => {
+    vers.gruppi.push({ id: laId(bozza, "g"), corsi: [], esami: [] });
+    laTocca(bozza);
+    renderLA();
+  });
+  sez.appendChild(aggiungi);
+  return sez;
+}
+
+function laRigaGruppo(bozza, vers, gruppo, indice) {
+  const box = crea("div", "la-gruppo");
+  const testaGruppo = crea("div", "la-gruppo-testa");
+  testaGruppo.appendChild(crea("span", "la-gruppo-titolo", `Corrispondenza ${indice + 1}`));
+  const rimuovi = crea("button", "la-btn-riga la-btn-rimuovi", "✕");
+  rimuovi.type = "button";
+  rimuovi.title = "Elimina questa corrispondenza (corsi ed esami restano in bozza)";
+  rimuovi.setAttribute("aria-label", `Elimina la corrispondenza ${indice + 1}`);
+  rimuovi.addEventListener("click", () => {
+    vers.gruppi = vers.gruppi.filter(g => g.id !== gruppo.id);
+    laTocca(bozza);
+    renderLA();
+  });
+  testaGruppo.appendChild(rimuovi);
+  box.appendChild(testaGruppo);
+
+  const cols = crea("div", "la-gruppo-cols");
+
+  function colonna(titolo, voci, selezionati, etichettaVoce) {
+    const fs = document.createElement("fieldset");
+    fs.className = "la-gruppo-col";
+    const leg = document.createElement("legend");
+    leg.textContent = titolo;
+    fs.appendChild(leg);
+    voci.forEach(v => {
+      const lbl = crea("label", "la-gruppo-voce");
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.checked = selezionati.includes(v.id);
+      cb.addEventListener("change", () => {
+        if (cb.checked) { if (!selezionati.includes(v.id)) selezionati.push(v.id); }
+        else {
+          const idx = selezionati.indexOf(v.id);
+          if (idx !== -1) selezionati.splice(idx, 1);
+        }
+        laTocca(bozza);
+        laAggiornaTotali(vers);
+        laAggiornaTotaliGruppo(box, vers, gruppo);
+        laAggiornaOrfani(vers);
+      });
+      lbl.appendChild(cb);
+      lbl.appendChild(crea("span", null, etichettaVoce(v)));
+      fs.appendChild(lbl);
+    });
+    return fs;
+  }
+
+  cols.appendChild(colonna("Corsi host", vers.corsiHost, gruppo.corsi,
+    c => (c.nome || "corso senza nome") + (laCorsoAttivo(c) ? "" : ` (${laEtichettaStato(c.stato).replace(/^\S+\s/, "")})`)));
+  cols.appendChild(colonna("Esami di casa", vers.esamiCasa, gruppo.esami,
+    e => e.nome || "esame senza nome"));
+  box.appendChild(cols);
+
+  const totaliEl = crea("p", "la-gruppo-totali");
+  totaliEl.className += " la-gruppo-totali-" + gruppo.id;
+  box.appendChild(totaliEl);
+  laAggiornaTotaliGruppo(box, vers, gruppo);
+  return box;
+}
+
+// Chi non è ancora in nessuna corrispondenza, riscritto in place.
+function laAggiornaOrfani(vers) {
+  const el = document.getElementById("la-gruppo-orfani");
+  if (!el) return;
+  const inGruppi = { corsi: new Set(), esami: new Set() };
+  vers.gruppi.forEach(g => {
+    g.corsi.forEach(id => inGruppi.corsi.add(id));
+    g.esami.forEach(id => inGruppi.esami.add(id));
+  });
+  const corsiSoli = vers.corsiHost.filter(c => laCorsoAttivo(c) && !inGruppi.corsi.has(c.id) && c.nome);
+  const esamiSoli = vers.esamiCasa.filter(e => !inGruppi.esami.has(e.id) && e.nome);
+  if (!corsiSoli.length && !esamiSoli.length) { el.hidden = true; return; }
+  const pezzi = [];
+  if (corsiSoli.length) pezzi.push(`corsi host: ${corsiSoli.map(c => c.nome).join(", ")}`);
+  if (esamiSoli.length) pezzi.push(`esami di casa: ${esamiSoli.map(e => e.nome).join(", ")}`);
+  el.textContent = `Non ancora in una corrispondenza — ${pezzi.join(" · ")}.`;
+  el.hidden = false;
+}
+
+function laAggiornaTotaliGruppo(box, vers, gruppo) {
+  const el = box.querySelector(".la-gruppo-totali");
+  if (!el) return;
+  const t = laTotali(vers, gruppo);
+  if (!gruppo.corsi.length && !gruppo.esami.length) {
+    el.textContent = "Seleziona almeno un corso e un esame.";
+    return;
+  }
+  el.textContent = `${laFormattaNumero(t.ects)} ECTS ↔ ${laFormattaNumero(t.cfu)} CFU. ${laFraseSoglie(t)}`;
+}
+
+// I totali globali della versione corrente, riscritti senza rifare il DOM.
+function laAggiornaTotali(vers) {
+  const el = document.getElementById("la-totali");
+  if (!el) return;
+  el.innerHTML = "";
+  const t = laTotali(vers);
+  const riga = crea("div", "la-totali-riga");
+  riga.appendChild(crea("span", "la-totali-numero", `${laFormattaNumero(t.ects)} ECTS`));
+  riga.appendChild(crea("span", "la-totali-vs", "↔"));
+  riga.appendChild(crea("span", "la-totali-numero", `${laFormattaNumero(t.cfu)} CFU`));
+  el.appendChild(riga);
+  const esclusi = vers.corsiHost.filter(c => !laCorsoAttivo(c)).length;
+  const note = [];
+  if (esclusi) note.push(`${esclusi} ${esclusi === 1 ? "corso escluso" : "corsi esclusi"} dal totale (non disponibili o sostituiti)`);
+  const soglie = laFraseSoglie(t);
+  if (soglie) note.push(soglie);
+  if (note.length) el.appendChild(crea("p", "la-totali-nota", note.join(". ")));
+}
+
+// ---- Checklist pre-invio (R4.6) ----
+function laRenderPreInvio(bozza, vers) {
+  const sez = crea("section", "la-sezione");
+  sez.appendChild(crea("h3", "la-sezione-titolo", "Prima di inviarla al referente"));
+  if (!vers.preInvio || typeof vers.preInvio !== "object") {
+    vers.preInvio = { linkAperti: false, ectsConfrontati: false };
+  }
+  const voci = [
+    ["linkAperti", "Ho aperto i link dei corsi host: esistono ancora e dicono quello che ho scritto qui."],
+    ["ectsConfrontati", "Ho confrontato gli ECTS di ogni corso con la fonte ufficiale dell'ospitante."],
+  ];
+  voci.forEach(([chiave, testo]) => {
+    const lbl = crea("label", "voce-checklist-v2" + (vers.preInvio[chiave] ? " fatta" : ""));
+    const cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.checked = !!vers.preInvio[chiave];
+    cb.addEventListener("change", () => {
+      vers.preInvio[chiave] = cb.checked;
+      laTocca(bozza);
+      lbl.classList.toggle("fatta", cb.checked);
+    });
+    lbl.appendChild(cb);
+    lbl.appendChild(crea("span", null, testo));
+    sez.appendChild(lbl);
+  });
+  sez.appendChild(crea("p", "la-sezione-sub",
+    "Questa checklist non approva la bozza: serve a non mandare al referente link morti o numeri sbagliati."));
+  return sez;
+}
+
+// ---- Export (R4.7): stampa/PDF + testo ordinato ----
+function laRenderExport(bozza, vers) {
+  const sez = crea("section", "la-sezione la-export");
+  sez.appendChild(crea("h3", "la-sezione-titolo", "Porta la bozza fuori di qui"));
+  const azioni = crea("div", "la-export-azioni");
+
+  const stampa = crea("button", "btn-primary la-btn-piccolo", "🖨 Stampa / salva PDF");
+  stampa.type = "button";
+  stampa.addEventListener("click", () => {
+    window.goatcounter?.count({ path: "la-export-stampa", event: true });
+    laStampa(bozza, vers);
+  });
+  azioni.appendChild(stampa);
+
+  const copia = crea("button", "btn-secondary la-btn-piccolo", "📋 Copia il testo per il referente");
+  copia.type = "button";
+  copia.addEventListener("click", () => {
+    window.goatcounter?.count({ path: "la-export-testo", event: true });
+    laCopiaTesto(laTestoExport(bozza, vers), copia);
+  });
+  azioni.appendChild(copia);
+  sez.appendChild(azioni);
+  sez.appendChild(crea("p", "la-sezione-sub",
+    "Il testo è pensato per una mail al referente/docente (RAM). La stampa è la stessa bozza, ordinata."));
+  return sez;
+}
+
+function laDescriviCorso(c, indice) {
+  const pezzi = [`${indice + 1}. ${c.nome}`];
+  if (c.ects !== "" && c.ects !== undefined && c.ects !== null) pezzi.push(`${laFormattaNumero(laNumeroDa(c.ects))} ECTS`);
+  if (c.lingua) pezzi.push(c.lingua);
+  if (c.semestre) pezzi.push(c.semestre);
+  pezzi.push(laEtichettaStato(c.stato).replace(/^\S+\s/, ""));
+  if (c.verificataIl) pezzi.push(`verificato il ${laDataBreve(c.verificataIl)}`);
+  let testo = pezzi.join(" — ");
+  if (laLinkSicuro(c.link)) testo += `\n   ${c.link.trim()}`;
+  return testo;
+}
+
+function laDescriviEsame(e, indice) {
+  const pezzi = [`${indice + 1}. ${e.nome}`];
+  if (e.codice) pezzi.push(`cod. ${e.codice}`);
+  if (e.cfu !== "" && e.cfu !== undefined && e.cfu !== null) pezzi.push(`${laFormattaNumero(laNumeroDa(e.cfu))} CFU`);
+  if (e.nota) pezzi.push(e.nota);
+  return pezzi.join(" — ");
+}
+
+function laTestoExport(bozza, vers) {
+  const m = bozza.meta;
+  const corsi = vers.corsiHost.filter(c => c.nome);
+  const esami = vers.esamiCasa.filter(e => e.nome);
+  const t = laTotali(vers);
+  const righe = [];
+  righe.push("LEARNING AGREEMENT — BOZZA DI LAVORO (non ufficiale)");
+  righe.push(`Meta: ${nomeUniversita(m.universita)}${m.citta ? ` — ${m.citta} (${m.paese})` : ""}`);
+  righe.push(`Ateneo di casa: ${window.ATENEO_LABEL || ""}`);
+  righe.push(`Versione ${vers.numero} del ${laDataBreve(vers.creataIl)}` +
+    (vers.motivo ? ` — motivo: ${laEtichettaMotivo(vers.motivo)}${vers.notaMotivo ? ` (${vers.notaMotivo})` : ""}` : ""));
+  righe.push("");
+  righe.push("CORSI ALL'ESTERO (host)");
+  righe.push(corsi.length ? corsi.map(laDescriviCorso).join("\n") : "(nessuno)");
+  righe.push("");
+  righe.push("ESAMI DI CASA DA RICONOSCERE");
+  righe.push(esami.length ? esami.map(laDescriviEsame).join("\n") : "(nessuno)");
+  righe.push("");
+  const gruppiPieni = vers.gruppi.filter(g => g.corsi.length || g.esami.length);
+  if (gruppiPieni.length) {
+    righe.push("CORRISPONDENZE PROPOSTE");
+    gruppiPieni.forEach((g, i) => {
+      const nomiCorsi = g.corsi.map(id => (vers.corsiHost.find(c => c.id === id) || {}).nome).filter(Boolean);
+      const nomiEsami = g.esami.map(id => (vers.esamiCasa.find(e => e.id === id) || {}).nome).filter(Boolean);
+      const tg = laTotali(vers, g);
+      righe.push(`${i + 1}. ${nomiCorsi.join(" + ") || "—"}  ⇢  ${nomiEsami.join(" + ") || "—"}  (${laFormattaNumero(tg.ects)} ECTS ↔ ${laFormattaNumero(tg.cfu)} CFU)`);
+    });
+    righe.push("");
+  }
+  righe.push(`TOTALI: ${laFormattaNumero(t.ects)} ECTS ↔ ${laFormattaNumero(t.cfu)} CFU` +
+    (vers.corsiHost.some(c => !laCorsoAttivo(c)) ? " (esclusi i corsi non disponibili o sostituiti)" : ""));
+  righe.push("");
+  righe.push("Bozza preparata con ErasmusWiz (https://nicorotolo.github.io/erasmuswiz/).");
+  righe.push("Il Learning Agreement ufficiale resta nel sistema dell'ateneo (OLA/EWP).");
+  righe.push("Verifica sempre corsi, ECTS e disponibilità sulle fonti ufficiali dell'ospitante.");
+  return righe.join("\n");
+}
+
+function laCopiaTesto(testo, btn) {
+  const fatto = () => {
+    const originale = btn.textContent;
+    btn.textContent = "✅ Copiato!";
+    setTimeout(() => { btn.textContent = originale; }, 2200);
+  };
+  const fallback = () => {
+    const ta = document.createElement("textarea");
+    ta.value = testo;
+    ta.setAttribute("readonly", "");
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    let ok = false;
+    try { ok = document.execCommand("copy"); } catch (e) {}
+    ta.remove();
+    if (ok) fatto();
+    else window.prompt("Copia il testo qui sotto (Ctrl+C):", testo);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(testo).then(fatto).catch(fallback);
+  } else fallback();
+}
+
+// Stampa: finestra dedicata costruita con API sicure (textContent), niente
+// HTML arbitrario. Chi vuole il PDF usa "Salva come PDF" del browser.
+function laStampa(bozza, vers) {
+  const w = window.open("", "_blank");
+  if (!w) {
+    _laMessaggio = "Il browser ha bloccato la finestra di stampa: consenti i popup per questo sito e riprova.";
+    renderLA();
+    return;
+  }
+  const d = w.document;
+  d.title = "Learning Agreement — bozza di lavoro (non ufficiale)";
+  const metaCharset = d.createElement("meta");
+  metaCharset.setAttribute("charset", "utf-8");
+  d.head.appendChild(metaCharset);
+  const style = d.createElement("style");
+  style.textContent = [
+    "body { font: 14px/1.5 'Plus Jakarta Sans', system-ui, sans-serif; color: #1E1B2E; margin: 32px; }",
+    "h1 { font-size: 20px; margin: 0 0 2px; }",
+    "h2 { font-size: 15px; margin: 22px 0 8px; border-bottom: 1px solid #D6D1EA; padding-bottom: 4px; }",
+    ".sub { color: #4B4560; margin: 0 0 4px; }",
+    ".avviso { background: #FEF3C7; border: 1px solid #FDE68A; padding: 8px 12px; border-radius: 8px; margin: 14px 0; }",
+    "table { border-collapse: collapse; width: 100%; }",
+    "th, td { border: 1px solid #D6D1EA; padding: 6px 8px; text-align: left; font-size: 13px; vertical-align: top; }",
+    "th { background: #F3F1FA; }",
+    ".fine { color: #4B4560; font-size: 12px; margin-top: 24px; }",
+  ].join("\n");
+  d.head.appendChild(style);
+
+  const el = (tag, testo, cls) => {
+    const e = d.createElement(tag);
+    if (testo) e.textContent = testo;
+    if (cls) e.className = cls;
+    return e;
+  };
+
+  const m = bozza.meta;
+  d.body.appendChild(el("h1", "Learning Agreement — bozza di lavoro"));
+  d.body.appendChild(el("p", `${nomeUniversita(m.universita)}${m.citta ? ` — ${m.citta} (${m.paese})` : ""} · Ateneo di casa: ${window.ATENEO_LABEL || ""}`, "sub"));
+  d.body.appendChild(el("p", `Versione ${vers.numero} del ${laDataBreve(vers.creataIl)}` +
+    (vers.motivo ? ` — motivo: ${laEtichettaMotivo(vers.motivo)}${vers.notaMotivo ? ` (${vers.notaMotivo})` : ""}` : ""), "sub"));
+  d.body.appendChild(el("p", "⚠️ Documento NON ufficiale: è una bozza di lavoro. Il Learning Agreement ufficiale resta nel sistema dell'ateneo (OLA/EWP).", "avviso"));
+
+  function tabella(titolo, intestazioni, righe) {
+    d.body.appendChild(el("h2", titolo));
+    if (!righe.length) { d.body.appendChild(el("p", "(nessuna voce)", "sub")); return; }
+    const t = d.createElement("table");
+    const tr = d.createElement("tr");
+    intestazioni.forEach(h => tr.appendChild(el("th", h)));
+    t.appendChild(tr);
+    righe.forEach(cells => {
+      const r = d.createElement("tr");
+      cells.forEach(c => r.appendChild(el("td", c)));
+      t.appendChild(r);
+    });
+    d.body.appendChild(t);
+  }
+
+  tabella("Corsi all'estero (host)",
+    ["Corso", "ECTS", "Lingua", "Semestre", "Stato", "Verificato il", "Link"],
+    vers.corsiHost.filter(c => c.nome).map(c => [
+      c.nome,
+      c.ects === "" || c.ects === undefined ? "" : laFormattaNumero(laNumeroDa(c.ects)),
+      c.lingua || "", c.semestre || "",
+      laEtichettaStato(c.stato).replace(/^\S+\s/, ""),
+      c.verificataIl ? laDataBreve(c.verificataIl) : "",
+      laLinkSicuro(c.link) || "",
+    ]));
+
+  tabella("Esami di casa da riconoscere",
+    ["Esame", "Codice", "CFU", "Nota"],
+    vers.esamiCasa.filter(e => e.nome).map(e => [
+      e.nome, e.codice || "",
+      e.cfu === "" || e.cfu === undefined ? "" : laFormattaNumero(laNumeroDa(e.cfu)),
+      e.nota || "",
+    ]));
+
+  const gruppiPieni = vers.gruppi.filter(g => g.corsi.length || g.esami.length);
+  tabella("Corrispondenze proposte",
+    ["Corsi host", "Esami di casa", "ECTS ↔ CFU"],
+    gruppiPieni.map(g => {
+      const nomiCorsi = g.corsi.map(id => (vers.corsiHost.find(c => c.id === id) || {}).nome).filter(Boolean).join(" + ");
+      const nomiEsami = g.esami.map(id => (vers.esamiCasa.find(e => e.id === id) || {}).nome).filter(Boolean).join(" + ");
+      const tg = laTotali(vers, g);
+      return [nomiCorsi || "—", nomiEsami || "—", `${laFormattaNumero(tg.ects)} ↔ ${laFormattaNumero(tg.cfu)}`];
+    }));
+
+  const t = laTotali(vers);
+  d.body.appendChild(el("h2", "Totali"));
+  d.body.appendChild(el("p", `${laFormattaNumero(t.ects)} ECTS ↔ ${laFormattaNumero(t.cfu)} CFU` +
+    (vers.corsiHost.some(c => !laCorsoAttivo(c)) ? " (esclusi i corsi non disponibili o sostituiti)" : "")));
+  const soglie = laFraseSoglie(t);
+  if (soglie) d.body.appendChild(el("p", soglie, "sub"));
+
+  d.body.appendChild(el("p",
+    `Bozza preparata con ErasmusWiz il ${laDataBreve(new Date().toISOString())}. ` +
+    "Verifica sempre corsi, ECTS e disponibilità sulle fonti ufficiali dell'ospitante.", "fine"));
+
+  w.focus();
+  w.print();
+}
+
+// ---- Versioni precedenti (R4.5): fotografie congelate, in sola lettura ----
+function laRenderStoria(cont, bozza) {
+  const precedenti = bozza.versioni.slice(0, -1);
+  if (!precedenti.length) return;
+  const det = document.createElement("details");
+  det.className = "la-storia";
+  det.open = _laStoriaAperta;
+  det.addEventListener("toggle", () => { _laStoriaAperta = det.open; });
+  const sum = document.createElement("summary");
+  sum.className = "la-storia-toggle";
+  sum.textContent = `Versioni precedenti (${precedenti.length}) ▸`;
+  det.appendChild(sum);
+
+  precedenti.slice().reverse().forEach(v => {
+    const box = crea("div", "la-storia-versione");
+    const testa = crea("p", "la-storia-testa",
+      `Versione ${v.numero} — ${laDataBreve(v.creataIl)}` +
+      (v.motivo ? ` — ${laEtichettaMotivo(v.motivo)}${v.notaMotivo ? ` (${v.notaMotivo})` : ""}` : " — prima bozza"));
+    box.appendChild(testa);
+    const corsi = v.corsiHost.filter(c => c.nome);
+    const esami = v.esamiCasa.filter(e => e.nome);
+    if (corsi.length) box.appendChild(crea("p", "la-storia-dett",
+      "Corsi host: " + corsi.map(c => `${c.nome} (${laEtichettaStato(c.stato).replace(/^\S+\s/, "")})`).join(" · ")));
+    if (esami.length) box.appendChild(crea("p", "la-storia-dett",
+      "Esami di casa: " + esami.map(e => e.nome).join(" · ")));
+    const t = laTotali(v);
+    box.appendChild(crea("p", "la-storia-dett",
+      `Totali: ${laFormattaNumero(t.ects)} ECTS ↔ ${laFormattaNumero(t.cfu)} CFU`));
+    det.appendChild(box);
+  });
+  cont.appendChild(det);
+}
+
+// ============================================================
 // IDONEITÀ v2
 // ============================================================
 // ============================================================
@@ -3205,6 +4368,7 @@ function init() {
   renderMissione();
   // All'avvio la stazione corrente parte aperta, le altre chiuse (R3).
   renderPercorso({ apri: true });
+  renderLA();
   initOnboarding();
   renderMappaHome();
   setInterval(aggiornaCountdownV2, 30000); // i countdown non mostrano più i secondi

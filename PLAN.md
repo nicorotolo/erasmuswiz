@@ -542,23 +542,58 @@ console pulita); la parte "senza aiuto" si prova coi tester in R5.
 
 ### R4 — LA Workspace v0 (6-9 sessioni, 25-40 ore)
 
-1. Schema e migrazione additiva.
-2. Inserimento manuale casa/host.
-3. Proposte dai dati solo dove verificate.
-4. Gruppi molti-a-molti e totali.
-5. Versioni, sostituzioni e motivazioni.
-6. Link/fonti e checklist pre-invio.
-7. Export stampa/PDF + testo ordinato.
-8. Test sul caso Bruno:
-   - prima bozza;
-   - 6/8 corsi non disponibili;
-   - lingua diversa;
-   - richiesta host;
-   - conflitto orario;
-   - versione modificata.
+1. ~~Schema e migrazione additiva~~ ✅ **FATTO (sessione 60 del 17/07)** —
+   ramo `ZAINO.la` per-ateneo con contratto documentato in testa alla
+   sezione LA di `js/app.js` (§6.4: `bozzePerMeta`, `versioni[]`,
+   `versioneCorrente`, meta fotografata alla creazione — una bozza resta
+   leggibile anche se la meta sparisse dai dati). Zaini senza `la` =
+   "nessuna bozza", nessuna perdita (`normalizzaZaino`, additivo).
+2. ~~Inserimento manuale casa/host~~ ✅ **FATTO (sessione 60)** — stazione 4
+   del Percorso: esami di casa (nome, codice facoltativo, CFU, nota) e
+   corsi host (nome, ECTS, lingua, semestre, link, stato a 4 valori,
+   data verifica auto alla data LOCALE — non UTC, vincolo §10.6).
+   Selettore bozza: schedina → mete del dipartimento → bozze orfane
+   (mai un elenco da 1.595 opzioni, mai una bozza irraggiungibile).
+3. ~~Proposte dai dati solo dove verificate~~ ✅ **FATTO (sessione 60)** —
+   `linkCatalogo`/`notaDisponibilita` mostrati SOLO se presenti nella
+   meta; dove mancano lo si dichiara e si offre `linkSito`. ⚠️ Scoperto:
+   la meta reale di Bruno (UCP Lisbona, P LISBOA01) NON è tra le 55
+   Giurisprudenza 26/27 — questione dati/lista, non dell'app.
+4. ~~Gruppi molti-a-molti e totali~~ ✅ **FATTO (sessione 60)** —
+   corrispondenze con checkbox su due colonne, totali per gruppo e
+   globali (card sticky), nota onesta sui non collegati (viva); nei
+   totali contano solo i corsi non esclusi (non disponibili/sostituiti).
+   Soglie PRUDENTI: si dichiara la differenza, decide sempre l'ateneo.
+5. ~~Versioni, sostituzioni e motivazioni~~ ✅ **FATTO (sessione 60)** — si
+   modifica SOLO l'ultima versione; "Sostituisci" e "Salva nuova
+   versione" creano una versione nuova con motivo (6 voci §6.3) + nota
+   (pannello inline, niente prompt); storia congelata in sola lettura;
+   checklist pre-invio azzerata a ogni nuova versione.
+6. ~~Link/fonti e checklist pre-invio~~ ✅ **FATTO (sessione 60)** — 2
+   spunte per versione (link aperti, ECTS confrontati) con microcopy che
+   NON approva; i link inseriti a mano sono cliccabili solo se http(s).
+7. ~~Export stampa/PDF + testo ordinato~~ ✅ **FATTO (sessione 60)** —
+   stampa in finestra dedicata (API sicure, tabelle, avviso NON
+   ufficiale) e "Copia il testo per il referente" (clipboard + doppio
+   fallback). Microcopy costante: "il LA ufficiale resta nel sistema
+   dell'ateneo (OLA/EWP)".
+8. ~~Test sul caso Bruno~~ ✅ **FATTO (sessione 60), su due binari** —
+   (a) banco vm con le funzioni vere di app.js: 33 scenari verdi (prima
+   bozza, 6/8 non disponibili, lingua diversa, richiesta host, conflitto
+   orario, versioni congelate, persistenza, guardie XSS/numeri);
+   (b) RICOSTRUZIONE REALE da LA + Change Form (`fonti/caso-bruno/`,
+   solo locale): v1 = **44 ECTS / 45 CFU** e v2 = **53 ECTS / 57 CFU**,
+   ESATTI come i documenti ufficiali; 6 componenti escluse, v1
+   congelata, export fedele. I codici host reali del Change Form
+   (144213…) si conservano nel nome del corso: il campo dedicato non
+   esiste per scelta (§6.3, nel LA erano "000").
 
-**Gate R4:** il caso Bruno può essere ricostruito senza perdere informazioni e
-senza presentare la bozza come ufficiale.
+**Gate R4: SUPERATO (QA interno, sessione 60)** — il caso Bruno si
+ricostruisce senza perdere informazioni e la bozza si dichiara sempre non
+ufficiale. "Validato" arriva coi test utente (R5). Lo schema `la` è stato
+definito in sessione seguendo §6.2-6.4 (mandato multi-chunk di Nicola):
+resta da ratificare — cambiare ora costa poco, le bozze vivono solo nei
+localStorage.
 
 ### R5 — Test utenti e decisioni (2-3 sessioni + disponibilità tester)
 

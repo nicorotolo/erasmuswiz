@@ -19,9 +19,83 @@
 
 ---
 
-### Cantiere SITO — sessioni 49→59
+### Cantiere SITO — sessioni 49→60
 
-**Ultimo aggiornamento:** 2026-07-16 — sessione 59, Claude Code (Fable 5)
+**Ultimo aggiornamento:** 2026-07-17 — sessione 60, Claude Code (Fable 5)
+(**R4 — LA WORKSPACE v0 IMPLEMENTATA PER INTERO in una sessione multi-chunk
+richiesta da Nicola ("procedi a chunk senza fermarti") e GATE R4 SUPERATO
+sulla ricostruzione del caso Bruno REALE.**
+
+**(1) R4.1+R4.2 — schema `la` e inserimento manuale.** Nuovo ramo ADDITIVO
+dello zaino per-ateneo: `ZAINO.la` con contratto documentato in testa alla
+sezione LA di `js/app.js` (PLAN §6.4 — `bozzePerMeta`, `versioni[]`,
+`versioneCorrente`, meta fotografata alla creazione, così la bozza resta
+leggibile anche se la meta sparisse dai dati; zaini senza `la` = "nessuna
+bozza"). NOTA: il punto 3 dei prossimi-passi della sessione 59 prevedeva
+di decidere lo schema CON Nicola — qui è stato definito seguendo alla
+lettera PLAN §6.2-6.4 in forza del mandato multi-chunk: va ratificato
+(cambiarlo ora costa poco, le bozze vivono solo nei localStorage). Il
+Workspace vive nella stazione 4 del Percorso: selettore bozza (schedina →
+mete del dipartimento → bozze orfane; mai 1.595 opzioni in tendina, mai
+una bozza irraggiungibile), esami di casa (nome, codice facoltativo, CFU,
+nota) e corsi host (nome, ECTS, lingua, semestre, link, stato a 4 valori
+— da verificare / disponibile / non disponibile / sostituito — e data di
+verifica auto-compilata alla data LOCALE, non UTC).
+
+**(2) R4.4+R4.5 — corrispondenze, totali, versioni.** Gruppi molti-a-molti
+corsi↔esami a checkbox, totali ECTS/CFU per gruppo e globali (card sticky,
+sempre visibili), nota onesta su chi non è ancora collegato (aggiornata
+viva, mai stantia); nei totali contano solo i corsi non esclusi. Soglie
+PRUDENTI: si dichiara la differenza e si ricorda che decide l'ateneo —
+mai un "approvato". Si modifica SOLO l'ultima versione: "↷ Sostituisci" e
+"📌 Salva nuova versione" creano una versione nuova con motivo dichiarato
+(le 6 voci del §6.3: non disponibile, lingua, richiesta ospitante,
+conflitto orario, scelta personale, altro) + nota, in un pannello inline;
+la storia è congelata in sola lettura e la checklist pre-invio riparte da
+zero a ogni versione.
+
+**(3) R4.3+R4.6+R4.7 — dati, fonti, export.** `linkCatalogo` e
+`notaDisponibilita` proposti SOLO dove esistono davvero nella meta; dove
+mancano lo si dice e si offre `linkSito`. Checklist pre-invio per versione
+(link aperti, ECTS confrontati) con microcopy che non approva niente.
+Export: stampa/PDF in finestra dedicata (costruita con API sicure, avviso
+NON ufficiale in testa) + "Copia il testo per il referente" (clipboard con
+doppio fallback). Microcopy costante su ogni superficie: "il LA ufficiale
+resta nel sistema dell'ateneo (OLA/EWP)". I link inseriti dagli studenti
+diventano cliccabili solo se http(s) (niente `javascript:`).
+
+**(4) R4.8 — GATE SUPERATO su due binari.** (a) Banco vm con le funzioni
+VERE di app.js: 33 scenari verdi — l'intera dinamica del caso (prima
+bozza, 6/8 corsi non disponibili, lingua diversa, richiesta host,
+conflitto orario, versioni congelate, persistenza, guardie XSS/numeri).
+(b) RICOSTRUZIONE REALE dal LA e dal Change Form di Bruno (letti da
+`fonti/caso-bruno/`, SOLO in locale): v1 = **44 ECTS / 45 CFU** e v2
+(Change Form del 19/02/2026) = **53 ECTS / 57 CFU** — ESATTI come i
+documenti ufficiali; 6 componenti escluse, v1 congelata, export fedele.
+I codici host reali del Change Form (144213…) si conservano nel nome del
+corso: il campo dedicato non esiste PER SCELTA (§6.3: nel LA erano "000").
+
+**QA browser (server proprio della sessione, entrambi gli atenei):**
+flusso reale via click (crea bozza → corsi/esami → corrispondenza →
+sostituisci con motivo → v2 → export testo e stampa), persistenza al
+reload, isolamento per ateneo (Ca' Foscari: stato vuoto onesto, conteggi
+suoi), 390/768/1280 senza overflow-x, voci-checkbox dei gruppi portate a
+44px, console PULITA. Screenshot in timeout (trappola nota): QA
+geometrico via DOM. Scoperte in corsa, sistemate subito: `verificataIl`
+usava la data UTC (alle prime ore del mattino segnava ieri) → data locale;
+nota orfani resa viva. **⚠️ Gap dati emerso:** la meta REALE di Bruno
+(UCP Lisbona, P LISBOA01) NON è tra le 55 mete Giurisprudenza 26/27 —
+questione di lista/pipeline, non dell'app (vedi §6). **8 file spuri da
+0 byte in radice** (hook di shell, di nuovo): verificati vuoti ed
+eliminati. File toccati: `index.html`, `js/app.js`, `css/style.css`,
+`PLAN.md`, `STATO_DEL_SITO.md`. Nessun file del sito creato o rimosso.
+NON pubblicata: serve occhio umano + PUBBLICA.bat — e sono ancora da
+pubblicare ANCHE scena/Percorso/Mete della sessione 59.
+**Prossimo passo: occhio umano su Workspace + sessione 59, PUBBLICA.bat e
+verifica dell'URL; poi R5 (test utenti, non eseguibile da Claude). R4 è
+"implementata"; "validata" arriva coi tester.**)
+
+**Ultimo aggiornamento precedente:** 2026-07-16 — sessione 59, Claude Code (Fable 5)
 (**R3 IMPLEMENTATA PER INTERO in una sessione multi-chunk richiesta da
 Nicola ("procedi a chunk senza fermarti") — e con R3 si CHIUDE anche il
 gate R1 "navigazione stabile".**
@@ -715,6 +789,14 @@ linea-nav reale.**)
 ---
 
 ### Cantiere DATI / mappatura — sessioni 49→69 (Codex)
+
+**Verifica operativa:** 2026-07-17, ore 02:00 circa (**MAPPATURA NON ATTIVA
+DAL POMERIGGIO DEL 16/07.** L'ultimo lotto di mappatura realmente pubblicato è
+l'auto-merge delle 13:08 (`ce89547`). Le modifiche delle 17:09 non contengono
+nuovi dati di mappatura. L'automazione `mappatura-mete-erasmus` risulta `PAUSED`,
+non ci sono processi di pipeline né branch remoti `mappatura/*` in corso. Stato
+attuale: 315 run completati, 45 batch in coda; il primo è
+`polo-latina-batch-1`.)
 
 **Ultimo aggiornamento del cantiere dati:** 2026-07-14 — sessione 69, Codex (**RETRY COMPLETO,
 GEMINI ANCORA SATURO.** La correzione del timeout è stata pubblicata su `main`
@@ -2836,8 +2918,9 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **PERCORSO — R2 (5 punti su 7)** | R2.2 onboarding "Personalizza il tuo percorso" (passo 3 lingue CEFR saltabile, privacy sempre visibile); R2.3 lingue SOLO dai dati (`lingueDaiDati()`, via le 4 hardcoded dal form profilo); R2.4 Home a 4 moduli (nuovo "Questa settimana" onesto, countdown dentro "Prossima mossa", barra dentro "Progresso", mappa = "Le tue rotte", "Sei in linea?" prudente); R2.5 `statoBando()` a 4 valori + `fineCiclo` nei dati + badge veritiero; R2.6 fonte+`verificataIl` in testa alla Candidatura; R2.7 invarianti SEO verificati sul file statico | ✅ Implementata e **pubblicata** (2026-07-16, sessione 58) — validata a video da Nicola su desktop (dal suo screenshot: rimosse le 4 stelline-artefatto dall'hero); resta il giro su mobile ~390px. Resta R2.1 (scena d'ingresso: QA visivo + decisione CTA) |
 | **PERCORSO — R3 COMPLETA: Percorso a stazioni + nav definitiva** | R3.4 tab `#percorso` a 5 stazioni (requisiti → candidatura+scadenze → gate esito → Learning Agreement (guida) → Parti: lo zaino), stati derivati da `tappaCorrente()`, stazione corrente aperta, "ponte" verso Mete; R3.5 zaino post-selezione ISOLATO (`#lista-checklist-post`); **nav a 3 voci Mete·Home·Percorso** (Home centrale, "Altro"=drawer) → **gate R1 "navigazione stabile" CHIUSO**; alias permanenti `#checklist`/`#idoneita`/`#timeline`→`#percorso`; R3.1 wizard prima visita ("Ripensa le rotte" per rilanciarlo); R3.2 mappa nel tab Mete sincronizzata con ricerca+filtri; R3.3 schedina riverificata; R3.6 .ics preservato; R3.7 render a lotti da 80 (renderMete 1.595 mete: 6 ms) | ✅ Implementata e QA interno superato (2026-07-16, sessione 59) — resta occhio umano + pubblicazione; "validata" coi tester (R5) |
 | **PERCORSO — R2.1: scena d'ingresso** | **Decisione Nicola 16/07: scena CON CTA "Inizia il tuo percorso"** (§5.1). Primo contatto = scena a inchiostro (`.modo-scena`), missione in chiaro, mappa notte senza pin, 6 rotte d'oro lente da città geocodificate NEI DATI, CTA nel primo viewport mobile; al clic parte il flusso a 3 domande (focus sulla prima scelta). `prefers-reduced-motion` + Page Visibility rispettati; H1/title/description invariati. **R2 così è tutta implementata** (resta solo la validazione a video del punto 7) | ✅ Implementata e QA browser superato (2026-07-16, sessione 59) — resta occhio umano + pubblicazione |
+| **PERCORSO — R4 COMPLETA: LA Workspace v0** | Ramo additivo `ZAINO.la` (bozze per meta, versioni con motivo e timestamp, meta fotografata alla creazione); stazione 4 del Percorso = Workspace manual-first: esami di casa + corsi host (stato a 4 valori, data verifica locale), corrispondenze molti-a-molti con totali ECTS/CFU sticky e soglie prudenti (mai "approvato"), sostituzione senza perdita (nuova versione col motivo, storia congelata), checklist pre-invio per versione, export stampa/PDF + testo per il referente, proposte dai dati solo dove verificate (`linkCatalogo`/`notaDisponibilita`). **Gate R4 SUPERATO**: banco vm 33 scenari verdi + ricostruzione REALE del caso Bruno — v1 44 ECTS/45 CFU, v2 53/57, identici a LA e Change Form ufficiali | ✅ Implementata e QA interno superato (2026-07-17, sessione 60) — resta occhio umano + pubblicazione; "validata" coi tester (R5); schema `la` da ratificare da Nicola |
 | **Pubblicazione — guasto Pages** | Source su "GitHub Actions" senza workflow di deploy: sito fermo al commit del 3/7, **171 commit (125 sul sito) invisibili per 12 giorni** (C2, C3, C4, R1.1-R1.4). Risolto con `.github/workflows/deploy-pages.yml` (Static HTML, niente Jekyll, guardia `node --check`); online verificato per hash contro `origin/main` | ✅ Chiuso (2026-07-15, sessione 56) — resta da rendere vera la riga "Online e locale coincidono" di `PUBBLICA.bat` |
-| **Pipeline dati T0→T3 — Gemini + Codex** | Timeout esterno corretto e pubblicato; tutti i 3 retry ora completano, ma l'ultimo rilancio ha ricevuto 3× `503 UNAVAILABLE`; nessun dato parziale | ⏸️ Attendere che cali la domanda Gemini, poi eseguire un solo batch comparativo |
+| **Pipeline dati T0→T3 — Gemini + Codex** | Copertura complessiva: **1.987 mete, 73% lingua, 79% scadenze**. Al 17/07: 315 run completati, 45 batch in coda; ultimo lotto reale pubblicato il 16/07 alle 13:08 | ⏸️ **Ferma**: automazione in pausa, nessun processo o branch di mappatura attivo. Prima di ripartire, decidere esplicitamente se riattivare il flusso |
 
 **Nav (R3, definitiva — gate R1 chiuso):** Mete → **Home** (centrale su
 mobile) → Percorso, + **"☰ Altro" (apre il drawer, R1.2)** che non è una
@@ -3011,6 +3094,7 @@ Somma di controllo: 58+76+24+25+66+8+114+21 = **392** ✅
 | **21 mete Studi Umanistici** (`dati-mete-umanistici.js`) | **REALI** 2026/27; **18/21 lingua**, **21/21 scadenze**; coda `window.METE.push` rimossa il 15/07 (raddoppiava l'array a 42) ✅ | 3 lingue in linguaNonTrovabile |
 | **❓ "Sciences Po Grenoble UGA" ×2 in area 0312** | **NON è un doppione del bug**: sono due record distinti (id `21-f-grenobl23-0312-…` e `22-f-grenobl23-0312-…`), due righe separate del bando per lo stesso ateneo e dipartimento. Tutti i 392 id sono unici | **Decide Nicola**: due card o una sola? È una scelta sui dati, non sul codice |
 | **⚠️ EUTOPIA (46 accordi)** | non mappati | Cross-dipartimentali, richiede logica filtro speciale; task futura |
+| **❓ Meta reale del caso Bruno (UCP Lisbona, P LISBOA01)** | NON presente tra le 55 mete Giurisprudenza 26/27 (verificato in sessione 60: nessun match Lisboa/Católica nel file). L'accordo di Bruno era del ciclo 25/26 | **Decidere (Nicola/pipeline)**: accordo assente dalla lista 26/27 o gap di mappatura? Rilevante per il pilota OP6 (la ground truth punta a una meta che il sito non elenca) |
 | **Sapienza — 13 Facoltà avviate** (incluse Scienze Politiche, DIET, Polo di Latina, Scienze Statistiche, Informatica e DIAG) | REALI da Go Erasmus+; Informatica: 27/50 completate per riuso e 3 sotto-batch da 8; DIAG: 21/58 e 4 sotto-batch da 8 | Codex chiude i follow-up |
 | **Sapienza — ULTIME 4 Facoltà** | REALI dall'export ufficiale; lingua/scadenze vuote nel repo, ma al setup Codex il RIUSO ne pre-compila ~metà | Codex: 4 setup + batch di ricerca |
 | → posti/livello/area/coordinatore/codice Erasmus | reali, dalla lista | ok |
@@ -3022,7 +3106,7 @@ Somma di controllo: 58+76+24+25+66+8+114+21 = **392** ✅
 | Requisiti bando (`dati-bando.js`) | **REALI** ✅ validati art. per art. sul PDF (8 requisiti, con rif. agli articoli) | Riverificare sul bando 2027/28 |
 | Scadenze (`dati-scadenze.js`) | **REALI** ✅ 7 tappe dal bando (candidature, laureandi, graduatoria, accettazione, ISEE, mobilità) | Riverificare ogni anno |
 | Checklist (`dati-checklist.js`) | **REALI** ✅ 9 passi validati sul bando | Riverificare ogni anno |
-| **Automazione dati Gemini+Codex** | Timeout esterno da 12 minuti pubblicato e verificato: tutti i 3 tentativi vengono eseguiti; ultimo test fermato da 3× `503` Gemini; nessun consumo Codex | Attendere una finestra senza alta domanda, poi riprovare una sola volta; mantenere ferma la vecchia automazione |
+| **Automazione dati Gemini+Codex** | **Ferma dal pomeriggio del 16/07**: ultimo auto-merge di mappatura alle 13:08; automazione `PAUSED`, nessun processo o branch remoto attivo. Coda: 45 batch, primo `polo-latina-batch-1` | Decidere se riattivarla; al riavvio eseguire un solo lotto controllato e verificare esito/consumi prima di programmare continuità |
 
 **Nota motore di compatibilità:** `app.js` ora gestisce la lingua mancante in modo
 onesto. Per le mete senza lingua mostra 🟡 "Idoneo — verifica la lingua" (se hai
@@ -3041,9 +3125,33 @@ poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
 
-### Cantiere SITO (Claude Code) — numerazione 49→59
+### Cantiere SITO (Claude Code) — numerazione 49→60
 
-**Aggiornamento 2026-07-16 — sessione 59 (R3 completa, gate R1 chiuso):**
+**Aggiornamento 2026-07-17 — sessione 60 (R4 LA Workspace v0 completa):**
+
+1. **Occhio umano sul Workspace** (stazione 4 del Percorso, con un profilo
+   e almeno una preferita): crea bozza → aggiungi corsi host ed esami di
+   casa → corrispondenza → "↷ Sostituisci" con motivo → storia versioni →
+   stampa/PDF e "Copia il testo". Poi `PUBBLICA.bat` e VERIFICA dell'URL
+   (regola sessione 56). Attenzione: sono ancora da pubblicare ANCHE
+   scena d'ingresso/Percorso/Mete della sessione 59.
+2. **Ratificare lo schema `la`** (contratto in testa alla sezione LA di
+   `js/app.js`): definito in sessione seguendo PLAN §6.2-6.4 in forza del
+   mandato "procedi a chunk senza fermarti". Se Nicola vuole cambiare
+   qualcosa, ORA costa poco: le bozze vivono solo nei localStorage.
+3. **Gap dati da decidere:** la meta reale di Bruno (UCP Lisbona,
+   P LISBOA01) non è tra le 55 Giurisprudenza 26/27 (vedi §6) — buco di
+   lista bando o di pipeline? Rilevante per il pilota OP6.
+4. **R5 (test utenti) è il prossimo blocco R e NON è eseguibile da
+   Claude:** servono Bruno + 2 studenti Sapienza + 3 Ca' Foscari se
+   reperibili, telefono prima del desktop (PLAN §7/R5). Il compito 4 dei
+   test ("crea una bozza LA con un corso che poi diventa non disponibile")
+   ora ha lo strumento per essere osservato. R6 (chiusura/SEO/QA) dopo.
+5. **File spuri da 0 byte in radice:** ricomparsi anche stavolta (8, dagli
+   hook di shell), verificati vuoti ed eliminati. La regola "controllare
+   a ogni chiusura con `find . -maxdepth 1 -size 0`" resta in vigore.
+
+**Aggiornamento precedente 2026-07-16 — sessione 59 (R3 completa, gate R1 chiuso):**
 
 1. **Occhio umano su scena d'ingresso, Percorso e Mete, poi `PUBBLICA.bat`
    e VERIFICA dell'URL pubblico** (regola sessione 56). Cosa guardare: la
@@ -3282,6 +3390,15 @@ poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 ### Cantiere DATI / mappatura (Codex) — numerazione 49→69
 
 > Numeri 49-52 duplicati rispetto al cantiere sito: vedi la nota in testa al file.
+
+**Aggiornamento 2026-07-17 — verifica avanzamento dal pomeriggio del 16/07:**
+1. La mappatura non è attualmente in esecuzione: ultimo lotto reale pubblicato
+   alle 13:08 del 16/07 (`ce89547`).
+2. L'automazione è `PAUSED`; non risultano processi della pipeline o branch
+   remoti `mappatura/*` aperti.
+3. La coda non è finita: restano 45 batch (primo `polo-latina-batch-1`).
+4. Prossimo passo: scegliere consapevolmente se riattivare; se sì, partire con
+   un solo lotto controllato, poi verificare qualità, pubblicazione e consumo.
 
 **Aggiornamento 2026-07-14 — sessione 69 (retry completo, Gemini saturo):**
 1. Non rilanciare ancora nella stessa finestra: Gemini ha restituito 3× `503`.
