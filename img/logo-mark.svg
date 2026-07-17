@@ -1,21 +1,21 @@
 <svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ErasmusWiz">
   <defs>
     <linearGradient id="ewHat" x1="36" y1="14" x2="96" y2="104" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#5e8eff"></stop>
-      <stop offset="1" stop-color="#214ec4"></stop>
+      <stop stop-color="#818CF8"></stop>
+      <stop offset="1" stop-color="#4338CA"></stop>
     </linearGradient>
   </defs>
-  
-  <ellipse cx="64" cy="99" rx="46" ry="13" fill="#1b377b"></ellipse>
-  <ellipse cx="64" cy="96" rx="46" ry="13" fill="#3d7dff"></ellipse>
-  
+
+  <ellipse cx="64" cy="99" rx="46" ry="13" fill="#3730A3"></ellipse>
+  <ellipse cx="64" cy="96" rx="46" ry="13" fill="#6366F1"></ellipse>
+
   <path d="M58 95 C42 92 34 90 30 89 C36 60 49 35 71 17 C80 10 88 16 84 27 C78 43 74 70 84 92 C76 94 68 95 58 95 Z" fill="url(#ewHat)"></path>
-  
-  <path d="M36 76 C52 81 74 81 90 75 C88 81 87 85 86 89 C70 94 54 94 34 89 C34 85 35 81 36 76 Z" fill="#ffb627"></path>
-  
-  <path d="M61 70 l4.3 8.7 9.6 1.4 -6.9 6.8 1.6 9.6 -8.6 -4.5 -8.6 4.5 1.6 -9.6 -6.9 -6.8 9.6 -1.4 Z" fill="#fff8e8"></path>
-  
-  <path d="M96 30 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2 Z" fill="#ffcb4d"></path>
-  <path d="M22 50 l1.4 3.6 3.6 1.4 -3.6 1.4 -1.4 3.6 -1.4 -3.6 -3.6 -1.4 3.6 -1.4 Z" fill="#ffb627"></path>
-  <circle cx="92" cy="58" r="2.4" fill="#ffcb4d"></circle>
+
+  <path d="M36 76 C52 81 74 81 90 75 C88 81 87 85 86 89 C70 94 54 94 34 89 C34 85 35 81 36 76 Z" fill="#FBBF24"></path>
+
+  <path d="M61 70 l4.3 8.7 9.6 1.4 -6.9 6.8 1.6 9.6 -8.6 -4.5 -8.6 4.5 1.6 -9.6 -6.9 -6.8 9.6 -1.4 Z" fill="#FFFBEB"></path>
+
+  <path d="M96 30 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2 Z" fill="#FCD34D"></path>
+  <path d="M22 50 l1.4 3.6 3.6 1.4 -3.6 1.4 -1.4 3.6 -1.4 -3.6 -3.6 -1.4 3.6 -1.4 Z" fill="#FBBF24"></path>
+  <circle cx="92" cy="58" r="2.4" fill="#FCD34D"></circle>
 </svg>

@@ -19,9 +19,73 @@
 
 ---
 
-### Cantiere SITO — sessioni 49→60
+### Cantiere SITO — sessioni 49→61
 
-**Ultimo aggiornamento:** 2026-07-17 — sessione 60, Claude Code (Fable 5)
+**Ultimo aggiornamento:** 2026-07-17 — sessione 61, Claude Code (Fable 5)
+(**R6 — PARTE ESEGUIBILE DA CLAUDE fatta in una sessione multi-chunk
+("procedi a chunk senza fermarti"): R6.5+R6.6 implementate, R6.1+R6.2
+misurate, regressione R6.7 core verde. R5 (test utenti) resta il gate
+umano: non eseguibile da Claude.**
+
+**(1) R6.5 — asset pubblici in direzione giorno.** `img/logo-mark.svg`
+(favicon + logo header + guide) riportato dalla palette BR0 superata
+(blu #3d7dff/#1b377b/#5e8eff) ai token Direzione C: indigo 400/500/700/800
++ ambra 200/300/400. Icone PWA `icon-192/512.png` RIGENERATE dal logo nuovo
+(canvas nel browser, fondo `--bg-deep #232046`, glifo nel 72% centrale =
+zona sicura maskable): prima erano un placeholder "EW" bianco su navy.
+OG image, manifest (theme `#232046`, background `#FAFAF7`) e theme-color
+erano GIÀ allineati: non toccati.
+
+**(2) R6.6 — service worker con shell offline esplicita.** Cache bump
+`erasmuswiz-v2`→`v3`. La shell precaricata ora elenca TUTTO il bootstrap
+pre-ateneo (index, css, registro.js, carica-atenei.js, dati-mappa/
+coordinate, app.js, logo, 2 icone, 3 pose Wiz usate in UI); i dati
+per-ateneo NON si pre-cachiano (grandi, ne serve uno solo: entrano in
+cache runtime al primo uso). Novità: fallback di navigazione su
+`index.html` quando offline su URL mai visto; in cache runtime va SOLO
+la nostra origine (prima finivano dentro anche GoatCounter e i font CDN,
+risposte opache che gonfiavano la cache). Niente push (LATER). Verificato
+in browser: v3 attiva, v2 eliminata, console pulita.
+
+**(3) R6.1+R6.2 — Livello A/B MISURATI (script vm in scratchpad, sola
+lettura, stessa semantica del loader).** Non "verificati": i gap sono del
+cantiere dati, non dell'app. **Livello A** — CF 392 mete: anagrafica
+≈100%, 37 senza lingua ma TUTTE dichiarate, 2 senza città, 8 posti
+incompleti. Sapienza 1.595: anagrafica 100%, **507 senza lingua di cui
+solo 101 dichiarate (≈406 mute)**, **469 senza link ufficiale (70,6%)**,
+183 codici sintetici SAP-* (G5). Gap sistemico di entrambi:
+**fonte/verificataIl per-meta = 0%** (vivono solo nei commenti dei file).
+**Livello B starter** — scadenzeOspitante 100% su entrambi (55/55 IUS,
+58/58 CF Economia); `linkCatalogo`/`notaDisponibilita`/`verificataIl` =
+**0% su entrambi**: il Livello B degli starter NON è soddisfatto, è la
+parte G5 della pipeline ancora da eseguire.
+
+**(4) R6.7 — regressione core, verde in browser (server della sessione).**
+localStorage pulito: scena d'ingresso con CTA → onboarding Sapienza
+Giurisprudenza via click reali (reload al cambio ateneo = R1.5, voluto) →
+"Fatto! Il tuo percorso è pronto". Zaino legacy PIATTO simulato: migrazione
+a v2 senza perdite (preferite, schedina, profilo, checklist con id reale
+`chk-requisiti`; il primo tentativo col mio id inventato `cf-dom-1` non
+migrava — artefatto del test, non regressione). Cambio ateneo: zaini
+isolati, Sapienza intatto. Hash: #timeline/#idoneita/#checklist→#percorso,
+#mete/#oggi/#percorso diretti. Nav 3 voci mobile E desktop (header).
+390/768/1280: zero overflow-x su Home/Mete/Percorso. Workspace LA su CF:
+stato vuoto onesto con microcopy OLA/EWP. Console PULITA su tutto il giro.
+Screenshot in timeout (trappola nota): QA via DOM. Restano (dichiarati in
+PLAN §R6.7): tastiera/focus/reduced-motion, bando 4 stati e date
+Europe/Rome a video (banchi vm già verdi in s58), offline reale su
+telefono, ri-misura primo avvio.
+
+**File toccati:** `img/logo-mark.svg`, `img/icon-192.png`,
+`img/icon-512.png`, `sw.js` (+ `PLAN.md`, `STATO_DEL_SITO.md`). Nessun
+file del sito creato o rimosso. **3 file spuri da 0 byte in radice**
+(hook di shell, di nuovo): verificati vuoti ed eliminati. NON ancora
+pubblicata: serve PUBBLICA.bat + verifica URL (regola sessione 56).
+**Bloccate su azioni umane:** R5 (Bruno + studenti), R6.3 (racconto caso
+Bruno: serve il suo ok), R6.4 (Search Console: azione di Nicola;
+Lighthouse: da ambiente con Chrome).)
+
+**Ultimo aggiornamento precedente:** 2026-07-17 — sessione 60, Claude Code (Fable 5)
 (**R4 — LA WORKSPACE v0 IMPLEMENTATA PER INTERO in una sessione multi-chunk
 richiesta da Nicola ("procedi a chunk senza fermarti") e GATE R4 SUPERATO
 sulla ricostruzione del caso Bruno REALE.**
@@ -2921,6 +2985,7 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **PERCORSO — R3 COMPLETA: Percorso a stazioni + nav definitiva** | R3.4 tab `#percorso` a 5 stazioni (requisiti → candidatura+scadenze → gate esito → Learning Agreement (guida) → Parti: lo zaino), stati derivati da `tappaCorrente()`, stazione corrente aperta, "ponte" verso Mete; R3.5 zaino post-selezione ISOLATO (`#lista-checklist-post`); **nav a 3 voci Mete·Home·Percorso** (Home centrale, "Altro"=drawer) → **gate R1 "navigazione stabile" CHIUSO**; alias permanenti `#checklist`/`#idoneita`/`#timeline`→`#percorso`; R3.1 wizard prima visita ("Ripensa le rotte" per rilanciarlo); R3.2 mappa nel tab Mete sincronizzata con ricerca+filtri; R3.3 schedina riverificata; R3.6 .ics preservato; R3.7 render a lotti da 80 (renderMete 1.595 mete: 6 ms) | ✅ Implementata e QA interno superato (2026-07-16, sessione 59); **pubblicata col push del 17/07** (sessione 60) — "validata" coi tester (R5) |
 | **PERCORSO — R2.1: scena d'ingresso** | **Decisione Nicola 16/07: scena CON CTA "Inizia il tuo percorso"** (§5.1). Primo contatto = scena a inchiostro (`.modo-scena`), missione in chiaro, mappa notte senza pin, 6 rotte d'oro lente da città geocodificate NEI DATI, CTA nel primo viewport mobile; al clic parte il flusso a 3 domande (focus sulla prima scelta). `prefers-reduced-motion` + Page Visibility rispettati; H1/title/description invariati. **R2 così è tutta implementata** (resta solo la validazione a video del punto 7) | ✅ Implementata e QA browser superato (2026-07-16, sessione 59); **pubblicata col push del 17/07** (sessione 60) |
 | **PERCORSO — R4 COMPLETA: LA Workspace v0** | Ramo additivo `ZAINO.la` (bozze per meta, versioni con motivo e timestamp, meta fotografata alla creazione); stazione 4 del Percorso = Workspace manual-first: esami di casa + corsi host (stato a 4 valori, data verifica locale), corrispondenze molti-a-molti con totali ECTS/CFU sticky e soglie prudenti (mai "approvato"), sostituzione senza perdita (nuova versione col motivo, storia congelata), checklist pre-invio per versione, export stampa/PDF + testo per il referente, proposte dai dati solo dove verificate (`linkCatalogo`/`notaDisponibilita`). **Gate R4 SUPERATO**: banco vm 33 scenari verdi + ricostruzione REALE del caso Bruno — v1 44 ECTS/45 CFU, v2 53/57, identici a LA e Change Form ufficiali | ✅ Implementata, QA interno superato e **PUBBLICATA + verificata sull'URL** (2026-07-17, sessione 60, commit «LA iniziale») — "validata" coi tester (R5); schema `la` da ratificare da Nicola |
+| **PERCORSO — R6 (parte eseguibile): asset, sw, misura A/B, QA core** | R6.5 asset in direzione giorno (logo-mark ai token Direzione C, icone PWA 192/512 rigenerate dal logo su `--bg-deep`, via il placeholder "EW"; OG/manifest già a posto); R6.6 sw `v3` con shell offline esplicita (bootstrap pre-ateneo completo), fallback navigazione su index, cache runtime solo same-origin, niente push; R6.1/R6.2 Livello A/B **misurati** (gap al cantiere dati: 0% fonte/verificataIl per-meta, 469 mete Sapienza senza link, ~406 lingue mute, Livello B starter 0% su linkCatalogo/notaDisponibilita); R6.7 regressione core verde (pulito+legacy, cambio ateneo, hash, 3 larghezze, console pulita) | ✅ Implementata, QA interno superato (2026-07-17, sessione 61) — da pubblicare; R6.3/R6.4 bloccate su azioni umane; R5 resta il gate dei tester |
 | **Pubblicazione — guasto Pages** | Source su "GitHub Actions" senza workflow di deploy: sito fermo al commit del 3/7, **171 commit (125 sul sito) invisibili per 12 giorni** (C2, C3, C4, R1.1-R1.4). Risolto con `.github/workflows/deploy-pages.yml` (Static HTML, niente Jekyll, guardia `node --check`); online verificato per hash contro `origin/main` | ✅ Chiuso (2026-07-15, sessione 56) — resta da rendere vera la riga "Online e locale coincidono" di `PUBBLICA.bat` |
 | **Pipeline dati T0→T3 — Gemini + Codex** | Copertura complessiva: **1.987 mete, 73% lingua, 79% scadenze**. Al 17/07: 315 run completati, 45 batch in coda; ultimo lotto reale pubblicato il 16/07 alle 13:08 | ⏸️ **Ferma**: automazione in pausa, nessun processo o branch di mappatura attivo. Prima di ripartire, decidere esplicitamente se riattivare il flusso |
 
@@ -3060,6 +3125,20 @@ file della tabella qui sotto sono sempre stati quelli giusti — descrivono il f
 sorgente, che il bug non toccava; a raddoppiarsi era l'array in memoria.
 Somma di controllo: 58+76+24+25+66+8+114+21 = **392** ✅
 
+**Misura Livello A/B del PLAN (17/07, sessione 61 — script vm, sola lettura).**
+Livello A: anagrafica (università/città/paese/aree/posti/dipartimento) ≈100%
+su entrambi gli atenei. I gap, in ordine di peso: **fonte/verificataIl
+per-meta = 0% ovunque** (la fonte vive solo nei commenti dei file: lo schema
+per-meta arriva con G5); Sapienza **469 mete senza alcun link ufficiale**
+(70,6% di copertura; CF 100%); Sapienza **507 senza requisitoLingua di cui
+solo 101 dichiarate "non trovato"** (CF: 37 senza, tutte dichiarate);
+Sapienza **183 codici Erasmus sintetici SAP-*** (G5); CF 2 mete senza città
+e 8 con posti incompleti. Livello B starter (Giurisprudenza 55, CF Economia
+58): **scadenzeOspitante 100% su entrambi**, ma `linkCatalogo`,
+`notaDisponibilita` e `verificataIl` **0% su entrambi** → il Livello B
+promesso "obbligatorio per i due starter entro settembre" (PLAN §3) dipende
+interamente da G5/pipeline, non dall'app.
+
 > ✅ **BUG CHIUSO IL 15/07 (trovato in sessione 56, risolto in sessione 57): le
 > 135 mete DOPPIE di Ca' Foscari non ci sono più.**
 > **Causa (due righe di troppo in due file dati):** in coda a
@@ -3127,9 +3206,34 @@ poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
 
-### Cantiere SITO (Claude Code) — numerazione 49→60
+### Cantiere SITO (Claude Code) — numerazione 49→61
 
-**Aggiornamento 2026-07-17 — sessione 60 (R4 LA Workspace v0 completa):**
+**Aggiornamento 2026-07-17 — sessione 61 (R6 parte eseguibile):**
+
+1. **PUBBLICA.bat + verifica URL** (regola sessione 56): vanno online il
+   logo/favicon in palette Direzione C, le icone PWA vere (via il
+   placeholder "EW") e il service worker v3 con shell offline. Verifica di
+   accettazione sull'URL: `sw.js` online contiene `erasmuswiz-v3` e
+   `img/icon-512.png` non è più il placeholder (44 KB circa, non 2,7 KB).
+2. **R5 (test utenti) è il VERO prossimo blocco e non è eseguibile da
+   Claude**: Bruno + 2 studenti Sapienza + 3 Ca' Foscari se reperibili,
+   telefono prima del desktop, i 5 compiti di PLAN §7/R5. Tutto ciò che
+   Claude poteva preparare per R6 è fatto o bloccato su umani.
+3. **Bloccate su azioni umane, in ordine di valore:** (a) ratifica dello
+   schema `la` (sessione 60, costa poco ORA); (b) R6.3 racconto SEO del
+   caso Bruno (serve il suo ok sul testo anonimizzato); (c) R6.4 Search
+   Console (registrazione di Nicola) + Lighthouse da Chrome; (d) decisione
+   sulla meta di Bruno assente dalla lista 26/27 (§6); (e) ri-misura primo
+   avvio su telefono post-R1.5.
+4. **Il Livello B degli starter è a 0% sui campi nuovi** (misura in §6):
+   se si vuole rispettare "Livello B obbligatorio per i due starter entro
+   settembre" (PLAN §3), la priorità operativa è G5/pipeline
+   (`DISEGNO_PIPELINE_DATI.md` §6), non altro codice dell'app.
+5. **File spuri da 0 byte in radice:** ricomparsi anche stavolta (3, dagli
+   hook di shell), verificati vuoti ed eliminati. La regola "controllare a
+   ogni chiusura con `find . -maxdepth 1 -size 0`" resta in vigore.
+
+**Aggiornamento precedente 2026-07-17 — sessione 60 (R4 LA Workspace v0 completa):**
 
 1. ✅ **PUBBLICATO il 17/07** — PUBBLICA.bat eseguito da Nicola (commit
    «LA iniziale»), URL verificato da Claude: `renderLA` e `la-workspace`

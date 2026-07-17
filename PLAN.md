@@ -626,14 +626,48 @@ ateneo e per tipo di utente.
 
 ### R6 — Completezza, SEO, QA e chiusura (3-5 sessioni, 15-25 ore)
 
-1. Livello A verificato per tutte le mete dei due atenei.
-2. Livello B verificato per i due starter.
+1. Livello A verificato per tutte le mete dei due atenei. **[MISURATO,
+   sessione 61 del 17/07 (non "verificato": i gap sono lavoro del cantiere
+   dati §8, non dell'app). CF 392 mete: anagrafica ≈100%, 37 senza
+   requisitoLingua ma TUTTE dichiarate "non trovato/non pubblicato", 2 senza
+   città, 8 con posti incompleti. Sapienza 1.595 mete: anagrafica 100%, 507
+   senza requisitoLingua di cui SOLO 101 dichiarate (≈406 mute), 469 senza
+   link ufficiale (70,6%), 183 codici Erasmus ancora sintetici SAP-* (G5).
+   Gap sistemico di ENTRAMBI: fonte/verificataIl per-meta = 0% (vivono solo
+   nei commenti dei file; lo schema per-meta arriva con G5/pipeline).]**
+2. Livello B verificato per i due starter. **[MISURATO, sessione 61:
+   scadenzeOspitante 100% su entrambi gli starter (55/55 Giurisprudenza,
+   58/58 CF Economia); linkCatalogo, notaDisponibilita e verificataIl = 0%
+   su entrambi. Il Livello B degli starter NON è soddisfatto: è la parte
+   della pipeline (G5) ancora da eseguire.]**
 3. Racconto SEO del caso Bruno, anonimizzato e approvato da lui.
 4. Search Console e controllo SEO/Lighthouse.
-5. Asset pubblici allineati alla direzione giorno: OG, manifest, favicon.
-6. Service worker: shell offline esplicita e cache bump; niente notifiche push
-   in questa fase.
-7. Regressione completa:
+5. ~~Asset pubblici allineati alla direzione giorno: OG, manifest, favicon~~
+   ✅ **FATTO (sessione 61 del 17/07)** — `img/logo-mark.svg` (favicon +
+   header + guide) riportato dalla palette BR0 superata (blu #3d7dff/#1b377b)
+   ai token Direzione C (indigo 400/500/700/800 + ambra 200/300/400);
+   icone PWA 192/512 rigenerate dal logo nuovo su fondo `--bg-deep #232046`
+   (glifo nel 72% centrale, zona sicura maskable) — prima erano un
+   placeholder "EW". OG image, manifest (theme `#232046`, background
+   `#FAFAF7`) e theme-color GIÀ allineati: invariati.
+6. ~~Service worker: shell offline esplicita e cache bump~~ ✅ **FATTO
+   (sessione 61)** — cache `erasmuswiz-v3`; shell ESPLICITA con tutto il
+   bootstrap pre-ateneo (index, css, registro.js, carica-atenei.js,
+   dati-mappa/coordinate, app.js, logo, icone, 3 pose Wiz usate in UI);
+   i dati per-ateneo restano runtime-cache (grandi, ne serve uno solo);
+   fallback di navigazione su index.html; in cache runtime va SOLO la
+   nostra origine (prima si cachavano anche GoatCounter e font CDN).
+   Niente push. Verificato: v3 attiva, v2 eliminata, console pulita.
+7. Regressione completa: **[PARZIALE, sessione 61 — verdi nel browser:
+   entrambi gli atenei; 390/768/1280 senza overflow-x; localStorage pulito
+   (scena+onboarding Sapienza via click reali) E legacy piatto (migrazione a
+   v2 senza perdite: preferite, schedina, profilo, checklist con id reale);
+   cambio ateneo con zaini isolati; tutti gli hash/alias (#timeline,
+   #idoneita, #checklist→percorso); Workspace LA stato vuoto onesto; upgrade
+   cache sw v2→v3; console PULITA su tutto il giro. Restano da fare:
+   tastiera/focus/reduced-motion, bando nei 4 stati a video (banco vm già
+   verde in s58), date Europe/Rome a video (banco vm verde), offline reale
+   su telefono, primo avvio misurato post-R1.5.]**
    - entrambi gli atenei;
    - mobile 375 + desktop;
    - localStorage pulito e legacy;
