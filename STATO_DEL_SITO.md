@@ -856,13 +856,16 @@ linea-nav reale.**)
 
 ### Cantiere DATI / mappatura — sessioni 49→69 (Codex)
 
-**Verifica operativa:** 2026-07-17, ore 02:00 circa (**MAPPATURA NON ATTIVA
-DAL POMERIGGIO DEL 16/07.** L'ultimo lotto di mappatura realmente pubblicato è
-l'auto-merge delle 13:08 (`ce89547`). Le modifiche delle 17:09 non contengono
-nuovi dati di mappatura. L'automazione `mappatura-mete-erasmus` risulta `PAUSED`,
-non ci sono processi di pipeline né branch remoti `mappatura/*` in corso. Stato
-attuale: 315 run completati, 45 batch in coda; il primo è
-`polo-latina-batch-1`.)
+**Verifica GitHub:** 2026-07-17, ore 12:00 circa (**LA MAPPATURA PROGRAMMATA
+SULL'ALTRO PC OGNI 3 ORE NON STA PRODUCENDO RISULTATI SU GITHUB.** L'ultimo
+lotto realmente pubblicato è l'auto-merge delle 13:08 del 16/07 (`ce89547`).
+Da allora `mappatura-stato.json` è invariato: 315 run completati, 45 batch in
+coda, primo `polo-latina-batch-1`. Non risultano nuovi commit, PR o branch
+`mappatura/*`. L'altro PC ha comunque pubblicato commit del cantiere sito fino
+alle 12:03 del 17/07: quindi è collegato a GitHub, ma la schedulazione della
+mappatura non sta arrivando alla pubblicazione. GitHub da solo non permette di
+distinguere tra attività non partita e attività partita ma fallita prima del
+push: per la causa serve il log dell'Utilità di pianificazione sull'altro PC.)
 
 **Ultimo aggiornamento del cantiere dati:** 2026-07-14 — sessione 69, Codex (**RETRY COMPLETO,
 GEMINI ANCORA SATURO.** La correzione del timeout è stata pubblicata su `main`
@@ -2987,7 +2990,7 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **PERCORSO — R4 COMPLETA: LA Workspace v0** | Ramo additivo `ZAINO.la` (bozze per meta, versioni con motivo e timestamp, meta fotografata alla creazione); stazione 4 del Percorso = Workspace manual-first: esami di casa + corsi host (stato a 4 valori, data verifica locale), corrispondenze molti-a-molti con totali ECTS/CFU sticky e soglie prudenti (mai "approvato"), sostituzione senza perdita (nuova versione col motivo, storia congelata), checklist pre-invio per versione, export stampa/PDF + testo per il referente, proposte dai dati solo dove verificate (`linkCatalogo`/`notaDisponibilita`). **Gate R4 SUPERATO**: banco vm 33 scenari verdi + ricostruzione REALE del caso Bruno — v1 44 ECTS/45 CFU, v2 53/57, identici a LA e Change Form ufficiali | ✅ Implementata, QA interno superato e **PUBBLICATA + verificata sull'URL** (2026-07-17, sessione 60, commit «LA iniziale») — "validata" coi tester (R5); schema `la` da ratificare da Nicola |
 | **PERCORSO — R6 (parte eseguibile): asset, sw, misura A/B, QA core** | R6.5 asset in direzione giorno (logo-mark ai token Direzione C, icone PWA 192/512 rigenerate dal logo su `--bg-deep`, via il placeholder "EW"; OG/manifest già a posto); R6.6 sw `v3` con shell offline esplicita (bootstrap pre-ateneo completo), fallback navigazione su index, cache runtime solo same-origin, niente push; R6.1/R6.2 Livello A/B **misurati** (gap al cantiere dati: 0% fonte/verificataIl per-meta, 469 mete Sapienza senza link, ~406 lingue mute, Livello B starter 0% su linkCatalogo/notaDisponibilita); R6.7 regressione core verde (pulito+legacy, cambio ateneo, hash, 3 larghezze, console pulita) | ✅ Implementata, QA interno superato (2026-07-17, sessione 61) — da pubblicare; R6.3/R6.4 bloccate su azioni umane; R5 resta il gate dei tester |
 | **Pubblicazione — guasto Pages** | Source su "GitHub Actions" senza workflow di deploy: sito fermo al commit del 3/7, **171 commit (125 sul sito) invisibili per 12 giorni** (C2, C3, C4, R1.1-R1.4). Risolto con `.github/workflows/deploy-pages.yml` (Static HTML, niente Jekyll, guardia `node --check`); online verificato per hash contro `origin/main` | ✅ Chiuso (2026-07-15, sessione 56) — resta da rendere vera la riga "Online e locale coincidono" di `PUBBLICA.bat` |
-| **Pipeline dati T0→T3 — Gemini + Codex** | Copertura complessiva: **1.987 mete, 73% lingua, 79% scadenze**. Al 17/07: 315 run completati, 45 batch in coda; ultimo lotto reale pubblicato il 16/07 alle 13:08 | ⏸️ **Ferma**: automazione in pausa, nessun processo o branch di mappatura attivo. Prima di ripartire, decidere esplicitamente se riattivare il flusso |
+| **Pipeline dati T0→T3 — Gemini + Codex** | Copertura complessiva: **1.987 mete, 73% lingua, 79% scadenze**. Al 17/07: 315 run completati, 45 batch in coda; ultimo lotto reale pubblicato il 16/07 alle 13:08 | ⚠️ La schedulazione ogni 3 ore sull'altro PC non sta producendo commit/PR/branch su GitHub; controllare cronologia e ultimo risultato dell'attività pianificata sul PC remoto |
 
 **Nav (R3, definitiva — gate R1 chiuso):** Mete → **Home** (centrale su
 mobile) → Percorso, + **"☰ Altro" (apre il drawer, R1.2)** che non è una
@@ -3187,7 +3190,7 @@ interamente da G5/pipeline, non dall'app.
 | Requisiti bando (`dati-bando.js`) | **REALI** ✅ validati art. per art. sul PDF (8 requisiti, con rif. agli articoli) | Riverificare sul bando 2027/28 |
 | Scadenze (`dati-scadenze.js`) | **REALI** ✅ 7 tappe dal bando (candidature, laureandi, graduatoria, accettazione, ISEE, mobilità) | Riverificare ogni anno |
 | Checklist (`dati-checklist.js`) | **REALI** ✅ 9 passi validati sul bando | Riverificare ogni anno |
-| **Automazione dati Gemini+Codex** | **Ferma dal pomeriggio del 16/07**: ultimo auto-merge di mappatura alle 13:08; automazione `PAUSED`, nessun processo o branch remoto attivo. Coda: 45 batch, primo `polo-latina-batch-1` | Decidere se riattivarla; al riavvio eseguire un solo lotto controllato e verificare esito/consumi prima di programmare continuità |
+| **Automazione dati Gemini+Codex** | **Nessun avanzamento visibile su GitHub dal pomeriggio del 16/07**: ultimo auto-merge alle 13:08; stato remoto ancora 315 run e 45 batch. L'altro PC pubblica normalmente il sito, quindi la connettività GitHub esiste | Controllare sull'altro PC se l'attività ogni 3 ore è abilitata, l'orario dell'ultima esecuzione, il codice dell'ultimo risultato e il relativo log |
 
 **Nota motore di compatibilità:** `app.js` ora gestisce la lingua mancante in modo
 onesto. Per le mete senza lingua mostra 🟡 "Idoneo — verifica la lingua" (se hai
@@ -3497,14 +3500,16 @@ poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 
 > Numeri 49-52 duplicati rispetto al cantiere sito: vedi la nota in testa al file.
 
-**Aggiornamento 2026-07-17 — verifica avanzamento dal pomeriggio del 16/07:**
-1. La mappatura non è attualmente in esecuzione: ultimo lotto reale pubblicato
-   alle 13:08 del 16/07 (`ce89547`).
-2. L'automazione è `PAUSED`; non risultano processi della pipeline o branch
-   remoti `mappatura/*` aperti.
-3. La coda non è finita: restano 45 batch (primo `polo-latina-batch-1`).
-4. Prossimo passo: scegliere consapevolmente se riattivare; se sì, partire con
-   un solo lotto controllato, poi verificare qualità, pubblicazione e consumo.
+**Aggiornamento 2026-07-17 — verifica GitHub della schedulazione sull'altro PC:**
+1. Nessun lotto di mappatura è arrivato su GitHub dopo le 13:08 del 16/07
+   (`ce89547`), nonostante la partenza prevista ogni 3 ore dal pomeriggio.
+2. Confronto remoto: `runCompletati` fermo a 315, coda ferma a 45 batch e primo
+   batch ancora `polo-latina-batch-1`; nessun nuovo PR o branch `mappatura/*`.
+3. L'altro PC ha pubblicato commit del sito fino alle 12:03 del 17/07: la sua
+   connessione a GitHub funziona, ma il processo di mappatura non pubblica.
+4. Prossimo passo: controllare sull'altro PC la cronologia dell'attività
+   pianificata, l'ultimo codice di risultato e il log. GitHub non può mostrare
+   un tentativo fallito prima della creazione/push del branch.
 
 **Aggiornamento 2026-07-14 — sessione 69 (retry completo, Gemini saturo):**
 1. Non rilanciare ancora nella stessa finestra: Gemini ha restituito 3× `503`.
