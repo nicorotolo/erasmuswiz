@@ -856,18 +856,32 @@ linea-nav reale.**)
 
 ### Cantiere DATI / mappatura — sessioni 49→69 (Codex)
 
-**Verifica GitHub:** 2026-07-17, ore 12:00 circa (**LA MAPPATURA PROGRAMMATA
-SULL'ALTRO PC OGNI 3 ORE NON STA PRODUCENDO RISULTATI SU GITHUB.** L'ultimo
-lotto realmente pubblicato è l'auto-merge delle 13:08 del 16/07 (`ce89547`).
-Da allora `mappatura-stato.json` è invariato: 315 run completati, 45 batch in
-coda, primo `polo-latina-batch-1`. Non risultano nuovi commit, PR o branch
-`mappatura/*`. L'altro PC ha comunque pubblicato commit del cantiere sito fino
-alle 12:03 del 17/07: quindi è collegato a GitHub, ma la schedulazione della
-mappatura non sta arrivando alla pubblicazione. GitHub da solo non permette di
-distinguere tra attività non partita e attività partita ma fallita prima del
-push: per la causa serve il log dell'Utilità di pianificazione sull'altro PC.)
+**Verifica GitHub:** 2026-07-22 — **RISOLTO.** La mappatura non pubblicava dal
+16/07 per due cause distinte (latenza Gemini + repo git corrotto da OneDrive),
+ora entrambe sistemate. Ripartita e schedulata. Dettaglio nell'ultimo
+aggiornamento qui sotto.
 
-**Ultimo aggiornamento del cantiere dati:** 2026-07-14 — sessione 69, Codex (**RETRY COMPLETO,
+**Ultimo aggiornamento del cantiere dati:** 2026-07-22 — sessione con Claude Code
+(Opus 4.8) + Nicola (**AUTOMAZIONE GEMINI RIPRISTINATA E RESA WATERPROOF.**
+_Causa 1 — latenza:_ `gemini-3.5-flash` è un modello 3.x con "thinking" di
+default MEDIUM; con Google Search grounding sull'intero batch la
+`generateContent` superava i 180s e faceva scattare `AbortError` ×3, uccidendo
+la pipeline prima di Codex. Fix: `thinkingConfig.thinkingLevel=LOW` (env
+`GEMINI_THINKING_LEVEL`), timeout per-chiamata 300s, tetto orchestratore 20 min,
+traccia persistente `batch/ULTIMO-ERRORE-GEMINI.txt` (commit `9ded5ae` su
+`main`). _Causa 2 — infrastruttura:_ il repo git viveva dentro OneDrive,
+sincronizzato su DUE macchine (`ASUS` e `nrotolo`) che ci facevano girare git
+sopra → `.git` gravemente corrotto sul PC dedicato (`git fsck` = decine di
+missing/broken object). Fix: clone pulito FUORI da OneDrive in `C:\erasmuswiz`;
+la cartella OneDrive è stata rinominata `..._OLD-DONOTUSE` e ritirata. Provato
+end-to-end dal clone pulito: `polo-latina-batch-1` e `-2` pubblicati e verificati
+su `origin/main`. Automazione ora su Task Scheduler ("ErasmusWiz mappatura",
+ogni ora 20:00–07:00, log in `%LOCALAPPDATA%\ErasmusWiz\logs`). **REGOLA D'ORO:**
+il repo dell'automazione non deve MAI stare in una cartella OneDrive. _Prossimo
+passo:_ controllare i log della prima notte automatica e, se serve più resa per
+batch, valutare `GEMINI_THINKING_LEVEL=MEDIUM` con timeout più alto.)
+
+**Ultimo aggiornamento precedente:** 2026-07-14 — sessione 69, Codex (**RETRY COMPLETO,
 GEMINI ANCORA SATURO.** La correzione del timeout è stata pubblicata su `main`
 tramite PR #37 (`a6699f9`) e il lotto `TR VAN01` è stato rilanciato una sola
 volta. L'orchestratore ha lasciato concludere tutti e 3 i tentativi, confermando
