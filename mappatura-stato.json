@@ -1,33 +1,16 @@
 {
   "versione": "2.0",
-  "aggiornato": "2026-07-16",
+  "aggiornato": "2026-07-22",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 315,
+  "runCompletati": 316,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "polo-latina-batch-1",
-      "priorita": 5,
-      "dipartimento": "Polo di Latina (Sapienza)",
-      "descrizione": "Polo di Latina (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "F  BREST29",
-        "D  NURNBER02",
-        "D  CLAUSTH01",
-        "PL WARSZAW41",
-        "PL KATOWIC02",
-        "PL WROCLAW03",
-        "P  PORTO05",
-        "MK SKOPJE15"
-      ]
-    },
     {
       "id": "polo-latina-batch-2",
       "priorita": 5,
@@ -727,6 +710,22 @@
         "TR ISTANBU63",
         "PL CZESTOC01"
       ]
+    },
+    {
+      "id": "polo di latina (sapienza)-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Polo di Latina (Sapienza)",
+      "descrizione": "Polo di Latina (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F  BREST29",
+        "D  NURNBER02",
+        "D  CLAUSTH01",
+        "PL WARSZAW41",
+        "PL WROCLAW03",
+        "P  PORTO05",
+        "MK SKOPJE15"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -1206,13 +1205,12 @@
       "fileJs": "js/atenei/sapienza/dati-mete-polo-latina.js",
       "stato": "in_corso",
       "totale": 33,
-      "completate": 12,
+      "completate": 13,
       "pendingScadenze": [
         "F  BREST29",
         "D  NURNBER02",
         "D  CLAUSTH01",
         "PL WARSZAW41",
-        "PL KATOWIC02",
         "PL WROCLAW03",
         "P  PORTO05",
         "MK SKOPJE15",
@@ -1230,7 +1228,6 @@
         "D  NURNBER02",
         "D  CLAUSTH01",
         "PL WARSZAW41",
-        "PL KATOWIC02",
         "PL WROCLAW03",
         "P  PORTO05",
         "MK SKOPJE15",
@@ -1243,7 +1240,15 @@
         "TR CANAKKA01",
         "TR ERZURUM01"
       ],
-      "tentativiLingua": {},
+      "tentativiLingua": {
+        "F  BREST29": 1,
+        "D  NURNBER02": 1,
+        "D  CLAUSTH01": 1,
+        "PL WARSZAW41": 1,
+        "PL WROCLAW03": 1,
+        "P  PORTO05": 1,
+        "MK SKOPJE15": 1
+      },
       "linguaNonTrovabile": [],
       "ateneo": "Sapienza Roma"
     },
@@ -3863,6 +3868,12 @@
       "data": "2026-07-16",
       "mete": 8,
       "note": "Ingegneria elettronica e comunicazioni - DIET (Sapienza) inge-elettronica-batch-1: merge automatico via applica-batch.mjs (+4 blocchi propagati ad altri dipartimenti)."
+    },
+    {
+      "batch": 316,
+      "data": "2026-07-22",
+      "mete": 8,
+      "note": "Polo di Latina (Sapienza) polo-latina-batch-1: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

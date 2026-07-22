@@ -1,0 +1,24 @@
+{
+  "PL KATOWIC02": {
+    "requisitoLingua": {
+      "url": "https://www.ue.katowice.pl/en/exchange-students/application-process-for-exchange-students.html",
+      "citazione": "All subjects from our study offer for exchange students are advanced-level courses taught entirely in English; students must demonstrate English skills at the B2 level.",
+      "verificataIl": "2026-07-22"
+    },
+    "scadenzeOspitante": {
+      "url": "https://www.ue.katowice.pl/en/exchange-students/application-process-for-exchange-students.html",
+      "citazione": "Nomination by Home Coordinator: 14 May / 14 October. Deadline for the duly signed student's Application Form and Online Learning Agreement: 31 May / 31 October.",
+      "verificataIl": "2026-07-22"
+    },
+    "linkCatalogo": {
+      "url": "https://www.ue.katowice.pl/en/exchange-students/study-offer.html",
+      "citazione": "Study offer; Subjects winter semester 2026/27; Subjects summer semester 2026/27.",
+      "verificataIl": "2026-07-22"
+    },
+    "notaDisponibilita": {
+      "url": "https://www.ue.katowice.pl/en/exchange-students/study-offer.html",
+      "citazione": "student chooses the subjects from the level of studies for which he/she will come",
+      "verificataIl": "2026-07-22"
+    }
+  }
+}
