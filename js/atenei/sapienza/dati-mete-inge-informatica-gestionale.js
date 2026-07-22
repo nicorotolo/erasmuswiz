@@ -933,9 +933,16 @@ var METE = [
       { numero: 2, mesi: 5, livello: "L", note: "" },
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "Livello minimo richiesto per studenti UE/SEE" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (Fall - studenti UE/SEE)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (Spring - studenti UE/SEE)", periodo: "entro 15 novembre" },
+        { cosa: "Application (Fall - studenti UE/SEE)", periodo: "entro 1 luglio" },
+        { cosa: "Application (Spring - studenti UE/SEE)", periodo: "entro 1 dicembre" }
+      ],
     linkSito: "https://www.rau.ro/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA68346."
   },
