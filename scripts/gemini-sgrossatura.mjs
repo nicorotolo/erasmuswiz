@@ -29,7 +29,15 @@ if (!API_KEY) {
 const MODEL = process.env.GEMINI_MODEL || "gemini-3.5-flash";
 const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 const OGGI = new Date().toISOString().slice(0, 10);
-const TIMEOUT_MS = Number(process.env.GEMINI_TIMEOUT_MS || 180000);
+// I modelli Gemini 3.x "pensano" prima di rispondere. Il default di
+// gemini-3.5-flash e' thinkingLevel=MEDIUM: con il grounding Google Search su un
+// intero batch supera i 180s e faceva scattare AbortError a ripetizione, con la
+// pipeline che moriva senza mai chiamare Codex (visto il 22/07). Per un compito
+// di estrazione dati + citazioni non serve ragionamento profondo: LOW e' molto
+// piu' veloce e Codex (T2) verifica comunque ogni dato. Valore REST in
+// MAIUSCOLO (MINIMAL|LOW|MEDIUM|HIGH). Override con GEMINI_THINKING_LEVEL.
+const THINKING_LEVEL = (process.env.GEMINI_THINKING_LEVEL || "LOW").toUpperCase();
+const TIMEOUT_MS = Number(process.env.GEMINI_TIMEOUT_MS || 300000);
 const MAX_TENTATIVI = 3;
 
 const input = JSON.parse(fs.readFileSync("batch/INPUT.json", "utf8"));
@@ -100,7 +108,10 @@ async function chiamaGemini(prompt, tentativo = 1) {
       body: JSON.stringify({
         contents: [{ parts: [{ text: prompt }] }],
         tools: [{ google_search: {} }],
-        generationConfig: { responseMimeType: "application/json" },
+        generationConfig: {
+          responseMimeType: "application/json",
+          thinkingConfig: { thinkingLevel: THINKING_LEVEL },
+        },
       }),
     });
   } catch (errore) {
@@ -148,7 +159,7 @@ async function chiamaGemini(prompt, tentativo = 1) {
   // Anche una risposta HTTP 200 puo' essere una generazione corrotta (JSON
   // rotto a meta', visto il 16/07): un nuovo tentativo di solito la sana.
   // Il parse sta DENTRO il budget MAX_TENTATIVI cosi' il tetto esterno dei
-  // 12 minuti (calcolato per 3 tentativi) resta valido.
+  // 20 minuti (calcolato per 3 tentativi da TIMEOUT_MS) resta valido.
   try {
     return estraiJson(testo);
   } catch (errore) {
@@ -176,20 +187,31 @@ function estraiJson(testo) {
   return JSON.parse(pulito.slice(inizio, fine + 1));
 }
 
-console.log(`Chiamo Gemini (${MODEL}) per il batch ${input.batchId} (${input.mete.length} mete)...`);
+console.log(`Chiamo Gemini (${MODEL}, thinkingLevel=${THINKING_LEVEL}, timeout ${TIMEOUT_MS / 1000}s) per il batch ${input.batchId} (${input.mete.length} mete)...`);
 
 let output;
 try {
   output = await chiamaGemini(PROMPT);
 } catch (errore) {
+  fs.mkdirSync("batch", { recursive: true });
+  const motivo = errore?.rispostaGrezza !== undefined
+    ? "Risposta non-JSON dopo tutti i tentativi (vedi batch/GEMINI-RAW.txt)"
+    : errore.message;
   if (errore?.rispostaGrezza !== undefined) {
     console.error("Risposta di Gemini non e' JSON valido dopo tutti i tentativi. Salvo il grezzo per ispezione manuale.");
-    fs.mkdirSync("batch", { recursive: true });
     fs.writeFileSync("batch/GEMINI-RAW.txt", errore.rispostaGrezza);
     console.error("Vedi batch/GEMINI-RAW.txt. Termino senza scrivere SGROSSATURA.json.");
   } else {
     console.error(`Sgrossatura fallita: ${errore.message}`);
   }
+  // Traccia leggibile del guasto: la prossima volta il motivo del blocco e'
+  // visibile subito (batch, modello, thinkingLevel, timeout) senza ri-fare il
+  // debug. File gitignored, ripulito automaticamente al primo run riuscito.
+  fs.writeFileSync(
+    "batch/ULTIMO-ERRORE-GEMINI.txt",
+    `${new Date().toISOString()}\nbatch=${input.batchId}\nmodel=${MODEL}\n` +
+    `thinkingLevel=${THINKING_LEVEL}\ntimeoutMs=${TIMEOUT_MS}\nmotivo=${motivo}\n`,
+  );
   // Niente process.exit() ne' eccezioni non gestite: con i socket di fetch
   // ancora in chiusura innescano su Windows l'assert libuv
   // "UV_HANDLE_CLOSING" (visto due volte il 16/07).
@@ -198,6 +220,8 @@ try {
 
 if (output) {
   fs.mkdirSync("batch", { recursive: true });
+  // Run riuscito: butta via l'eventuale traccia di un fallimento precedente.
+  fs.rmSync("batch/ULTIMO-ERRORE-GEMINI.txt", { force: true });
   // batchId dentro il file: cosi' chi lo consuma dopo (Codex) puo' controllare
   // che la bozza sia per LO STESSO batch corrente e non un residuo vecchio.
   const conBatchId = { batchId: input.batchId, dati: output };

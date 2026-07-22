@@ -273,7 +273,10 @@ async function main() {
     return;
   }
 
-  esegui(process.execPath, ["scripts/gemini-sgrossatura.mjs"], { timeout: 12 * 60_000 });
+  // 3 tentativi x GEMINI_TIMEOUT_MS (default 300s) + backoff 15s+30s ~= 16 min
+  // nel caso peggiore: il tetto esterno deve stare sopra, altrimenti spawnSync
+  // ucciderebbe gemini-sgrossatura a meta' dell'ultimo tentativo.
+  esegui(process.execPath, ["scripts/gemini-sgrossatura.mjs"], { timeout: 20 * 60_000 });
   esegui(process.execPath, ["scripts/verifica-link.mjs"], { timeout: 5 * 60_000 });
   eliminaSeEsiste("batch/OUTPUT.json");
 
