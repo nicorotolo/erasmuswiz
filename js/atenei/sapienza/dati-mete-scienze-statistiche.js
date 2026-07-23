@@ -154,8 +154,15 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno/intero anno)", periodo: "entro 30 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+      ],
     linkSito: "http://www.unwe.acad.bg",
+    linkCatalogo: "https://www.unwe.bg/mobility/en/pages/10639/courses-taught-in-english.html",
+
+    notaDisponibilita: "Alcuni corsi potrebbero subire variazioni all'arrivo essendo opzionali; l'elenco definitivo dei corsi attivi viene fornito 1-2 settimane prima dell'inizio delle lezioni.",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68124."
   },
   {
@@ -173,8 +180,15 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno/intero anno)", periodo: "entro 30 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+      ],
     linkSito: "http://www.unwe.acad.bg",
+    linkCatalogo: "https://www.unwe.bg/mobility/en/pages/10639/courses-taught-in-english.html",
+
+    notaDisponibilita: "Alcuni corsi potrebbero subire variazioni all'arrivo essendo opzionali; l'elenco definitivo dei corsi attivi viene fornito 1-2 settimane prima dell'inizio delle lezioni.",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68121."
   },
   {
@@ -192,8 +206,15 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno/intero anno)", periodo: "entro 30 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+      ],
     linkSito: "http://www.unwe.acad.bg",
+    linkCatalogo: "https://www.unwe.bg/mobility/en/pages/10639/courses-taught-in-english.html",
+
+    notaDisponibilita: "Alcuni corsi potrebbero subire variazioni all'arrivo essendo opzionali; l'elenco definitivo dei corsi attivi viene fornito 1-2 settimane prima dell'inizio delle lezioni.",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68122."
   },
   {
@@ -211,8 +232,15 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno/intero anno)", periodo: "entro 30 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+      ],
     linkSito: "http://www.unwe.acad.bg",
+    linkCatalogo: "https://www.unwe.bg/mobility/en/pages/10639/courses-taught-in-english.html",
+
+    notaDisponibilita: "Alcuni corsi potrebbero subire variazioni all'arrivo essendo opzionali; l'elenco definitivo dei corsi attivi viene fornito 1-2 settimane prima dell'inizio delle lezioni.",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68123."
   },
   {

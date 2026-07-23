@@ -1,33 +1,16 @@
 {
   "versione": "2.0",
-  "aggiornato": "2026-07-22",
+  "aggiornato": "2026-07-23",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 317,
+  "runCompletati": 318,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "scienze-statistiche-batch-1",
-      "priorita": 5,
-      "dipartimento": "Scienze Statistiche (Sapienza)",
-      "descrizione": "Scienze Statistiche (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "BG SOFIA03",
-        "CY LIMASSO02",
-        "F  PARIS487",
-        "F  ANTONY03",
-        "F  VAULX-V02",
-        "F  RENNES32",
-        "D  DORTMUN01",
-        "D  ESSEN04"
-      ]
-    },
     {
       "id": "scienze-statistiche-batch-2",
       "priorita": 5,
@@ -725,6 +708,23 @@
         "TR CANAKKA01",
         "TR ERZURUM01"
       ]
+    },
+    {
+      "id": "scienze statistiche (sapienza)-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Scienze Statistiche (Sapienza)",
+      "descrizione": "Scienze Statistiche (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "BG SOFIA03",
+        "CY LIMASSO02",
+        "F  PARIS487",
+        "F  ANTONY03",
+        "F  VAULX-V02",
+        "F  RENNES32",
+        "D  DORTMUN01",
+        "D  ESSEN04"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -1262,7 +1262,6 @@
       "totale": 38,
       "completate": 16,
       "pendingScadenze": [
-        "BG SOFIA03",
         "CY LIMASSO02",
         "F  PARIS487",
         "F  ANTONY03",
@@ -1295,7 +1294,15 @@
       ],
       "tentativiLingua": {
         "A  KLAGENF01": 2,
-        "D  TRIER01": 2
+        "D  TRIER01": 2,
+        "BG SOFIA03": 1,
+        "CY LIMASSO02": 1,
+        "F  PARIS487": 1,
+        "F  ANTONY03": 1,
+        "F  VAULX-V02": 1,
+        "F  RENNES32": 1,
+        "D  DORTMUN01": 1,
+        "D  ESSEN04": 1
       },
       "linguaNonTrovabile": [
         "A  KLAGENF01",
@@ -3882,6 +3889,12 @@
       "data": "2026-07-22",
       "mete": 8,
       "note": "Polo di Latina (Sapienza) polo-latina-batch-2: merge automatico via applica-batch.mjs (+1 blocchi propagati ad altri dipartimenti)."
+    },
+    {
+      "batch": 318,
+      "data": "2026-07-23",
+      "mete": 8,
+      "note": "Scienze Statistiche (Sapienza) scienze-statistiche-batch-1: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

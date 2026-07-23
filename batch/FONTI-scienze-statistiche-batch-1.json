@@ -1,0 +1,19 @@
+{
+  "BG SOFIA03": {
+    "scadenzeOspitante": {
+      "url": "https://www.unwe.bg/mobility/en/pages/19672/incoming-students.html",
+      "citazione": "30th of June - for students planning to attend the upcoming winter semester or full academic year; 30th of November - for students planning to attend the summer semester in the ongoing academic year.",
+      "verificataIl": "2026-07-24"
+    },
+    "linkCatalogo": {
+      "url": "https://www.unwe.bg/mobility/en/pages/19672/incoming-students.html",
+      "citazione": "The list of courses can be found here.",
+      "verificataIl": "2026-07-24"
+    },
+    "notaDisponibilita": {
+      "url": "https://www.unwe.bg/mobility/en/pages/19672/incoming-students.html",
+      "citazione": "some of the courses may vary upon arrival due to some of them being optional. Students will receive the final open courses 1-2 weeks before the official start of lectures.",
+      "verificataIl": "2026-07-24"
+    }
+  }
+}
