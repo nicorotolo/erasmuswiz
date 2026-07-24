@@ -1417,9 +1417,16 @@ var METE = [
       { numero: 2, mesi: 5, livello: "L", note: "" },
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "livello minimo richiesto per gli studenti in scambio" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (semestre invernale/intero anno)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (semestre estivo)", periodo: "entro 31 ottobre" },
+        { cosa: "Application (semestre invernale/intero anno)", periodo: "entro 31 maggio" },
+        { cosa: "Application (semestre estivo)", periodo: "entro 15 novembre" }
+      ],
     linkSito: "http://www.put.poznan.pl",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69315."
   },

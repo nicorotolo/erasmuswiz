@@ -4,26 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 321,
+  "runCompletati": 322,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "informatica-batch-3",
-      "priorita": 5,
-      "dipartimento": "Informatica (Sapienza)",
-      "descrizione": "Informatica (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "PL LODZ02",
-        "PL POZNAN02",
-        "RO TIMISOA07",
-        "E  VITORIA26"
-      ]
-    },
     {
       "id": "inge-informatica-gestionale-batch-1",
       "priorita": 5,
@@ -723,6 +710,17 @@
         "PL RZESZOW02",
         "LV RIGA01"
       ]
+    },
+    {
+      "id": "informatica (sapienza)-batch-followup-3",
+      "priorita": 6,
+      "dipartimento": "Informatica (Sapienza)",
+      "descrizione": "Informatica (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "PL LODZ02",
+        "RO TIMISOA07"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -1317,7 +1315,7 @@
       "fileJs": "js/atenei/sapienza/dati-mete-informatica.js",
       "stato": "in_corso",
       "totale": 50,
-      "completate": 29,
+      "completate": 31,
       "pendingScadenze": [
         "A  WELS01",
         "BG VELIKO01",
@@ -1333,9 +1331,7 @@
         "LV RIGA01",
         "PL RZESZOW02",
         "PL LODZ02",
-        "PL POZNAN02",
-        "RO TIMISOA07",
-        "E  VITORIA26"
+        "RO TIMISOA07"
       ],
       "pendingLingua": [
         "A  WELS01",
@@ -1352,9 +1348,7 @@
         "IRLSETU01",
         "PL RZESZOW02",
         "PL LODZ02",
-        "PL POZNAN02",
-        "RO TIMISOA07",
-        "E  VITORIA26"
+        "RO TIMISOA07"
       ],
       "tentativiLingua": {
         "G  PATRA01": 2,
@@ -1371,7 +1365,9 @@
         "D  KOLN04": 1,
         "G  IOANNIN01": 1,
         "IRLSETU01": 1,
-        "PL RZESZOW02": 1
+        "PL RZESZOW02": 1,
+        "PL LODZ02": 1,
+        "RO TIMISOA07": 1
       },
       "linguaNonTrovabile": [
         "G  PATRA01",
@@ -1524,7 +1520,7 @@
       "fileJs": "js/atenei/sapienza/dati-mete-ingegneria-civile.js",
       "stato": "in_corso",
       "totale": 128,
-      "completate": 67,
+      "completate": 68,
       "pendingScadenze": [
         "A  WIEN03",
         "A  SALZBUR08",
@@ -1553,7 +1549,6 @@
         "NL ENSCHED01",
         "PL OPOLE02",
         "PL GLIWICE01",
-        "PL POZNAN02",
         "PL WARSZAW02",
         "PL WROCLAW02",
         "PL KRAKOW03",
@@ -1600,7 +1595,6 @@
         "NL ENSCHED01",
         "PL OPOLE02",
         "PL GLIWICE01",
-        "PL POZNAN02",
         "PL WARSZAW02",
         "PL WROCLAW02",
         "PL KRAKOW03",
@@ -3915,6 +3909,12 @@
       "data": "2026-07-24",
       "mete": 8,
       "note": "Informatica (Sapienza) informatica-batch-2: merge automatico via applica-batch.mjs (+5 blocchi propagati ad altri dipartimenti)."
+    },
+    {
+      "batch": 322,
+      "data": "2026-07-24",
+      "mete": 4,
+      "note": "Informatica (Sapienza) informatica-batch-3: merge automatico via applica-batch.mjs (+1 blocchi propagati ad altri dipartimenti)."
     }
   ],
   "storicoBatch": [

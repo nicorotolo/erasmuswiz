@@ -705,9 +705,16 @@ var METE = [
     posti: [
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "livello minimo richiesto per gli studenti in scambio" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (semestre invernale/intero anno)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (semestre estivo)", periodo: "entro 31 ottobre" },
+        { cosa: "Application (semestre invernale/intero anno)", periodo: "entro 31 maggio" },
+        { cosa: "Application (semestre estivo)", periodo: "entro 15 novembre" }
+      ],
     linkSito: "http://www.put.poznan.pl",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA68340."
   },
@@ -1122,10 +1129,19 @@ var METE = [
       { numero: 2, mesi: 5, livello: "L", note: "" },
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1/B2", condizione: "livello minimo richiesto per studenti exchange incoming" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (semestre autunnale)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (semestre primaverile)", periodo: "entro 15 novembre" },
+        { cosa: "Application (semestre autunnale)", periodo: "entro 15 giugno" },
+        { cosa: "Application (semestre primaverile)", periodo: "entro 15 novembre" }
+      ],
     linkSito: "https://www.euneiz.com",
+    notaDisponibilita: "Tutti i corsi sono offerti in lingua spagnola.",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA68225."
   },
   {

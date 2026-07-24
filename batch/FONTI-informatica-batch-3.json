@@ -1,0 +1,31 @@
+{
+  "PL POZNAN02": {
+    "requisitoLingua": {
+      "url": "https://put.poznan.pl/en/stepbystep1",
+      "citazione": "Add your Certificate of English knowledge (Minimum level is B2). We can accept any official one but also a signed confirmation issued by your home University",
+      "verificataIl": "2026-07-24"
+    },
+    "scadenzeOspitante": {
+      "url": "https://put.poznan.pl/en/stepbystep1",
+      "citazione": "Deadlines for nominations: 15.05 (winter semester /whole academic year) or 31.10 (summer semester) ... Deadline for applications: 31.05 (winter semester /whole academic year) or 15.11 (summer semester)",
+      "verificataIl": "2026-07-24"
+    }
+  },
+  "E  VITORIA26": {
+    "requisitoLingua": {
+      "url": "https://www.euneiz.com/en/international/incoming-students/",
+      "citazione": "Incoming exchange students must have a sufficient level of proficiency in the language of instruction to follow classes effectively. The minimum required level is: Spanish: B1/B2 level according to the Common European Framework of Reference for Languages (CEFR)",
+      "verificataIl": "2026-07-24"
+    },
+    "scadenzeOspitante": {
+      "url": "https://www.euneiz.com/en/international/incoming-students/",
+      "citazione": "Nomination Deadlines: 15 May for the Autumn Semester; 15 November for the Spring Semester. Application Deadlines: 15 June for the Autumn Semester; 15 November for the Spring Semester",
+      "verificataIl": "2026-07-24"
+    },
+    "notaDisponibilita": {
+      "url": "https://www.euneiz.com/en/international/incoming-students/",
+      "citazione": "All our courses are offered in Spanish.",
+      "verificataIl": "2026-07-24"
+    }
+  }
+}
