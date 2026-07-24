@@ -120,6 +120,10 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.ue-varna.bg/en/",
+    linkCatalogo: "https://ue-varna.bg/en/p/8629/exchange-opportunities/erasmus/incoming-students",
+
+    notaDisponibilita: "I corsi si svolgono solo se il numero di studenti iscritti è superiore a 6.",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA68126."
   },
   {
@@ -180,10 +184,21 @@ var METE = [
       { numero: 1, mesi: 6, livello: "L", note: "" },
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "nessuna delle due abilità linguistiche può essere sotto B2" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (semestre autunnale/anno accademico)", periodo: "entro 1 maggio" },
+        { cosa: "Application (semestre autunnale/anno accademico)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (semestre primaverile)", periodo: "entro 1 novembre" },
+        { cosa: "Application (semestre primaverile)", periodo: "entro 15 novembre" }
+      ],
     linkSito: "https://taltech.ee/en/tallinn-university-of-technolog",
+    linkCatalogo: "https://taltech.ee/en/courses-english",
+
+    notaDisponibilita: "I corsi scelti devono corrispondere per circa il 70% al curriculum e al livello di studi dell'università d'origine. Non è possibile discutere la tesi finale a TalTech e il lavoro individuale non è consentito salvo supervisione confermata.",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA68230."
   },
   {
@@ -270,10 +285,19 @@ var METE = [
       { numero: 1, mesi: 10, livello: "L", note: "" },
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Non specificata", livello: "B2", condizione: "fortemente raccomandato; certificato obbligatorio solo per la Facoltà di Giurisprudenza, Economia e Management" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (primo semestre/anno accademico)", periodo: "entro 15 maggio 2026" },
+        { cosa: "Application (secondo semestre)", periodo: "entro 30 ottobre 2026" }
+      ],
     linkSito: "https://www.universite-paris-saclay.fr/",
+    linkCatalogo: "https://www.universite-paris-saclay.fr/en/study/masters-programmes-taught-english",
+
+    notaDisponibilita: "Non si possono scegliere corsi di facoltà o dipartimenti diversi. Per Polytech Paris-Saclay e gli IUT occorre scegliere corsi di una singola annualità e di un singolo programma; per Giurisprudenza, Economia e Management si sceglie tra Giurisprudenza oppure Economia/Management.",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68270."
   },
   {

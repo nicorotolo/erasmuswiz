@@ -4,30 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 319,
+  "runCompletati": 320,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "informatica-batch-1",
-      "priorita": 5,
-      "dipartimento": "Informatica (Sapienza)",
-      "descrizione": "Informatica (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "A  WELS01",
-        "BG VELIKO01",
-        "BG VARNA04",
-        "EE TALLINN05",
-        "EE TALLINN04",
-        "F  BICETRE02",
-        "F  PARIS481",
-        "F  NOISY02"
-      ]
-    },
     {
       "id": "informatica-batch-2",
       "priorita": 5,
@@ -725,6 +708,21 @@
         "TR ISTANBU06",
         "TR ISTANBU04"
       ]
+    },
+    {
+      "id": "informatica (sapienza)-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Informatica (Sapienza)",
+      "descrizione": "Informatica (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "A  WELS01",
+        "BG VELIKO01",
+        "BG VARNA04",
+        "EE TALLINN05",
+        "F  BICETRE02",
+        "F  NOISY02"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -1320,15 +1318,13 @@
       "fileJs": "js/atenei/sapienza/dati-mete-informatica.js",
       "stato": "in_corso",
       "totale": 50,
-      "completate": 27,
+      "completate": 29,
       "pendingScadenze": [
         "A  WELS01",
         "BG VELIKO01",
         "BG VARNA04",
         "EE TALLINN05",
-        "EE TALLINN04",
         "F  BICETRE02",
-        "F  PARIS481",
         "F  NOISY02",
         "F  GRENOBL22",
         "D  SIEGEN01",
@@ -1348,9 +1344,7 @@
         "BG VELIKO01",
         "BG VARNA04",
         "EE TALLINN05",
-        "EE TALLINN04",
         "F  BICETRE02",
-        "F  PARIS481",
         "F  NOISY02",
         "F  GRENOBL22",
         "D  SIEGEN01",
@@ -1367,7 +1361,13 @@
       ],
       "tentativiLingua": {
         "G  PATRA01": 2,
-        "E  PALMA01": 2
+        "E  PALMA01": 2,
+        "A  WELS01": 1,
+        "BG VELIKO01": 1,
+        "BG VARNA04": 1,
+        "EE TALLINN05": 1,
+        "F  BICETRE02": 1,
+        "F  NOISY02": 1
       },
       "linguaNonTrovabile": [
         "G  PATRA01",
@@ -1448,14 +1448,13 @@
       "fileJs": "js/atenei/sapienza/dati-mete-medicina-odontoiatria.js",
       "stato": "in_corso",
       "totale": 91,
-      "completate": 47,
+      "completate": 48,
       "pendingScadenze": [
         "B  BRUXEL87",
         "BG PLOVDIV02",
         "SF OULU11",
         "F  LISIEUX01",
         "F  SARCELL01",
-        "F  PARIS481",
         "D  MARBURG01",
         "D  BONN01",
         "LV JURMALA03",
@@ -1483,7 +1482,6 @@
         "SF OULU11",
         "F  LISIEUX01",
         "F  SARCELL01",
-        "F  PARIS481",
         "D  MARBURG01",
         "D  BONN01",
         "LV JURMALA03",
@@ -1522,13 +1520,12 @@
       "fileJs": "js/atenei/sapienza/dati-mete-ingegneria-civile.js",
       "stato": "in_corso",
       "totale": 128,
-      "completate": 66,
+      "completate": 67,
       "pendingScadenze": [
         "A  WIEN03",
         "A  SALZBUR08",
         "BG VARNA05",
         "CY LIMASSO02",
-        "EE TALLINN04",
         "F  ALES02",
         "F  LIMOGES01",
         "F  GRENOBL22",
@@ -1577,7 +1574,6 @@
         "A  SALZBUR08",
         "BG VARNA05",
         "CY LIMASSO02",
-        "EE TALLINN04",
         "F  ALES02",
         "F  LIMOGES01",
         "F  GRENOBL22",
@@ -1636,7 +1632,7 @@
       "fileJs": "js/atenei/sapienza/dati-mete-scienze-mfn.js",
       "stato": "in_corso",
       "totale": 254,
-      "completate": 164,
+      "completate": 166,
       "pendingScadenze": [
         "A  LINZ01",
         "A  GRAZ02",
@@ -1644,7 +1640,6 @@
         "HR ZADAR01",
         "SF JYVASKY01",
         "F  LYON103",
-        "F  PARIS481",
         "F  NANTES01",
         "F  GRENOBL22",
         "F  CAEN01",
@@ -1702,7 +1697,6 @@
         "HR ZADAR01",
         "SF JYVASKY01",
         "F  LYON103",
-        "F  PARIS481",
         "F  NANTES01",
         "F  GRENOBL22",
         "F  CAEN01",
@@ -3907,6 +3901,12 @@
       "data": "2026-07-24",
       "mete": 6,
       "note": "Scienze Statistiche (Sapienza) scienze-statistiche-batch-2: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 320,
+      "data": "2026-07-24",
+      "mete": 8,
+      "note": "Informatica (Sapienza) informatica-batch-1: merge automatico via applica-batch.mjs (+5 blocchi propagati ad altri dipartimenti)."
     }
   ],
   "storicoBatch": [

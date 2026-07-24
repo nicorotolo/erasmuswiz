@@ -1,0 +1,58 @@
+{
+  "BG VARNA04": {
+    "linkCatalogo": {
+      "url": "https://ue-varna.bg/en/p/8629/exchange-opportunities/erasmus/incoming-students",
+      "citazione": "Academic Courses 2026/2027 ... COURSE CATALOGUE English Courses for Incoming Erasmus+ students",
+      "verificataIl": "2026-07-24"
+    },
+    "notaDisponibilita": {
+      "url": "https://ue-varna.bg/en/p/8629/exchange-opportunities/erasmus/incoming-students",
+      "citazione": "The courses will take place only if the number of enrolled students is more than 6 (six).",
+      "verificataIl": "2026-07-24"
+    }
+  },
+  "EE TALLINN04": {
+    "requisitoLingua": {
+      "url": "https://taltech.ee/en/incoming-students",
+      "citazione": "Language requirements Level of English must be at least B2 for non-native English speaking students. Additionally, none of the 2 language skills can be under B2.",
+      "verificataIl": "2026-07-24"
+    },
+    "scadenzeOspitante": {
+      "url": "https://taltech.ee/en/incoming-students",
+      "citazione": "Nomination Deadline May 1st; Application Deadline May 15th ... Online Nomination ... Spring - 2027 November 1st ... Application Deadlines May 15th ... November 15th.",
+      "verificataIl": "2026-07-24"
+    },
+    "linkCatalogo": {
+      "url": "https://taltech.ee/en/courses-english",
+      "citazione": "This is the course offer for Exchange students. Courses are in English, taught by TalTech.",
+      "verificataIl": "2026-07-24"
+    },
+    "notaDisponibilita": {
+      "url": "https://taltech.ee/en/courses-english",
+      "citazione": "The chosen courses must correspond about 70% to the students' curriculum and level of studies at the home university ... As an Erasmus/exchange student, you cannot defend your final thesis at TalTech. The student cannot do individual work ... at TalTech.",
+      "verificataIl": "2026-07-24"
+    }
+  },
+  "F  PARIS481": {
+    "requisitoLingua": {
+      "url": "https://www.universite-paris-saclay.fr/en/admission/etudiants-internationaux/study-period-universite-paris-saclay-exchange-programme-erasmus-or-bilateral-agreement",
+      "citazione": "B2 language highly recommanded (Language certificate mandatory for the Faculty of Law, Economics and Management only)",
+      "verificataIl": "2026-07-24"
+    },
+    "scadenzeOspitante": {
+      "url": "https://www.universite-paris-saclay.fr/en/admission/etudiants-internationaux/study-period-universite-paris-saclay-exchange-programme-erasmus-or-bilateral-agreement",
+      "citazione": "Online application deadline 2026/2027: First semester (September–January) or academic year: until 15 May 2026. Second semester (January–May): until 30 October 2026.",
+      "verificataIl": "2026-07-24"
+    },
+    "linkCatalogo": {
+      "url": "https://www.universite-paris-saclay.fr/en/admission/etudiants-internationaux/study-period-universite-paris-saclay-exchange-programme-erasmus-or-bilateral-agreement",
+      "citazione": "English taught Master programmes: https://www.universite-paris-saclay.fr/en/study/masters-programmes-taught-english.",
+      "verificataIl": "2026-07-24"
+    },
+    "notaDisponibilita": {
+      "url": "https://www.universite-paris-saclay.fr/en/admission/etudiants-internationaux/study-period-universite-paris-saclay-exchange-programme-erasmus-or-bilateral-agreement",
+      "citazione": "You cannot choose courses from different faculties or departments due to timetable conflicts. ... Polytech Paris-Saclay: Choose courses from a single academic year and a single program. ... Faculty of Law, Economics, and Management: Choose courses either in Law or in Economics/Management",
+      "verificataIl": "2026-07-24"
+    }
+  }
+}

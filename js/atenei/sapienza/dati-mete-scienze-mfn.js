@@ -792,10 +792,19 @@ var METE = [
       { numero: 1, mesi: 5, livello: "L", note: "" },
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Non specificata", livello: "B2", condizione: "fortemente raccomandato; certificato obbligatorio solo per la Facoltà di Giurisprudenza, Economia e Management" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (primo semestre/anno accademico)", periodo: "entro 15 maggio 2026" },
+        { cosa: "Application (secondo semestre)", periodo: "entro 30 ottobre 2026" }
+      ],
     linkSito: "https://www.universite-paris-saclay.fr/",
+    linkCatalogo: "https://www.universite-paris-saclay.fr/en/study/masters-programmes-taught-english",
+
+    notaDisponibilita: "Non si possono scegliere corsi di facoltà o dipartimenti diversi. Per Polytech Paris-Saclay e gli IUT occorre scegliere corsi di una singola annualità e di un singolo programma; per Giurisprudenza, Economia e Management si sceglie tra Giurisprudenza oppure Economia/Management.",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70825."
   },
   {
@@ -1393,10 +1402,19 @@ var METE = [
       { numero: 2, mesi: 6, livello: "L", note: "" },
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Non specificata", livello: "B2", condizione: "fortemente raccomandato; certificato obbligatorio solo per la Facoltà di Giurisprudenza, Economia e Management" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (primo semestre/anno accademico)", periodo: "entro 15 maggio 2026" },
+        { cosa: "Application (secondo semestre)", periodo: "entro 30 ottobre 2026" }
+      ],
     linkSito: "https://www.universite-paris-saclay.fr/",
+    linkCatalogo: "https://www.universite-paris-saclay.fr/en/study/masters-programmes-taught-english",
+
+    notaDisponibilita: "Non si possono scegliere corsi di facoltà o dipartimenti diversi. Per Polytech Paris-Saclay e gli IUT occorre scegliere corsi di una singola annualità e di un singolo programma; per Giurisprudenza, Economia e Management si sceglie tra Giurisprudenza oppure Economia/Management.",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70824."
   },
   {

@@ -129,6 +129,10 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.ue-varna.bg/en/",
+    linkCatalogo: "https://ue-varna.bg/en/p/8629/exchange-opportunities/erasmus/incoming-students",
+
+    notaDisponibilita: "I corsi si svolgono solo se il numero di studenti iscritti è superiore a 6.",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA68125."
   },
   {

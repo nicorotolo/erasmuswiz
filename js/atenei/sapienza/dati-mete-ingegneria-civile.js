@@ -200,10 +200,21 @@ var METE = [
       { numero: 2, mesi: 5, livello: "L", note: "" },
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "nessuna delle due abilità linguistiche può essere sotto B2" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (semestre autunnale/anno accademico)", periodo: "entro 1 maggio" },
+        { cosa: "Application (semestre autunnale/anno accademico)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (semestre primaverile)", periodo: "entro 1 novembre" },
+        { cosa: "Application (semestre primaverile)", periodo: "entro 15 novembre" }
+      ],
     linkSito: "https://taltech.ee/en/tallinn-university-of-technolog",
+    linkCatalogo: "https://taltech.ee/en/courses-english",
+
+    notaDisponibilita: "I corsi scelti devono corrispondere per circa il 70% al curriculum e al livello di studi dell'università d'origine. Non è possibile discutere la tesi finale a TalTech e il lavoro individuale non è consentito salvo supervisione confermata.",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69229."
   },
   {
