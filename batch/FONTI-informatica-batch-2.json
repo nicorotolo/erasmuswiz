@@ -1,0 +1,33 @@
+{
+  "D  SIEGEN01": {
+    "scadenzeOspitante": {
+      "url": "https://www.uni-siegen.de/incoming/exchange/index.html.en?lang=en",
+      "citazione": "Nomination deadline: April 15 for the winter semester. October 15 for the summer semester. Application deadlines: May 15 for the winter semester.",
+      "verificataIl": "2026-07-24"
+    },
+    "linkCatalogo": {
+      "url": "https://www.uni-siegen.de/incoming/exchange/program/courses/index.html.en",
+      "citazione": "The courses offered in the coming semester will be published approx. 10 weeks before the start of the semester on unisono.",
+      "verificataIl": "2026-07-24"
+    }
+  },
+  "LV RIGA01": {
+    "requisitoLingua": {
+      "url": "https://www.lu.lv/en/admission/for-international-students/exchange-studies/",
+      "citazione": "Exchange students whose primary language is not English must meet level B1 requirements for English proficiency",
+      "verificataIl": "2026-07-24"
+    },
+    "linkCatalogo": {
+      "url": "https://www.lu.lv/en/admission/for-international-students/exchange-studies/",
+      "citazione": "Study plans can be prepared using the list of courses offered for exchange students.",
+      "verificataIl": "2026-07-24"
+    }
+  },
+  "PL RZESZOW02": {
+    "linkCatalogo": {
+      "url": "https://ur.edu.pl/en/courses",
+      "citazione": "List of courses taught in English at all Faculties of the University of Rzeszów",
+      "verificataIl": "2026-07-24"
+    }
+  }
+}

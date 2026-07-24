@@ -4,30 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 320,
+  "runCompletati": 321,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "informatica-batch-2",
-      "priorita": 5,
-      "dipartimento": "Informatica (Sapienza)",
-      "descrizione": "Informatica (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "F  GRENOBL22",
-        "D  SIEGEN01",
-        "D  FREISIN01",
-        "D  KOLN04",
-        "G  IOANNIN01",
-        "IRLSETU01",
-        "LV RIGA01",
-        "PL RZESZOW02"
-      ]
-    },
     {
       "id": "informatica-batch-3",
       "priorita": 5,
@@ -723,6 +706,23 @@
         "F  BICETRE02",
         "F  NOISY02"
       ]
+    },
+    {
+      "id": "informatica (sapienza)-batch-followup-2",
+      "priorita": 6,
+      "dipartimento": "Informatica (Sapienza)",
+      "descrizione": "Informatica (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F  GRENOBL22",
+        "D  SIEGEN01",
+        "D  FREISIN01",
+        "D  KOLN04",
+        "G  IOANNIN01",
+        "IRLSETU01",
+        "PL RZESZOW02",
+        "LV RIGA01"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -1268,7 +1268,6 @@
         "D  DORTMUN01",
         "D  ESSEN04",
         "D  ERFURT05",
-        "D  SIEGEN01",
         "PL OPOLE01",
         "TR ISTANBU10",
         "TR ISTANBU06",
@@ -1327,7 +1326,6 @@
         "F  BICETRE02",
         "F  NOISY02",
         "F  GRENOBL22",
-        "D  SIEGEN01",
         "D  FREISIN01",
         "D  KOLN04",
         "G  IOANNIN01",
@@ -1352,7 +1350,6 @@
         "D  KOLN04",
         "G  IOANNIN01",
         "IRLSETU01",
-        "LV RIGA01",
         "PL RZESZOW02",
         "PL LODZ02",
         "PL POZNAN02",
@@ -1367,7 +1364,14 @@
         "BG VARNA04": 1,
         "EE TALLINN05": 1,
         "F  BICETRE02": 1,
-        "F  NOISY02": 1
+        "F  NOISY02": 1,
+        "F  GRENOBL22": 1,
+        "D  SIEGEN01": 1,
+        "D  FREISIN01": 1,
+        "D  KOLN04": 1,
+        "G  IOANNIN01": 1,
+        "IRLSETU01": 1,
+        "PL RZESZOW02": 1
       },
       "linguaNonTrovabile": [
         "G  PATRA01",
@@ -1651,7 +1655,6 @@
         "D  MAINZ01",
         "D  HANNOVE01",
         "D  ESSEN04",
-        "D  SIEGEN01",
         "D  MARBURG01",
         "D  KARLSRU01",
         "D  ULM01",
@@ -1784,7 +1787,6 @@
         "F  CLERMON02",
         "D  WUPPERT01",
         "D  DORTMUN01",
-        "D  SIEGEN01",
         "D  BONN01",
         "D  BAYREUT01",
         "D  FRANKFU08",
@@ -3907,6 +3909,12 @@
       "data": "2026-07-24",
       "mete": 8,
       "note": "Informatica (Sapienza) informatica-batch-1: merge automatico via applica-batch.mjs (+5 blocchi propagati ad altri dipartimenti)."
+    },
+    {
+      "batch": 321,
+      "data": "2026-07-24",
+      "mete": 8,
+      "note": "Informatica (Sapienza) informatica-batch-2: merge automatico via applica-batch.mjs (+5 blocchi propagati ad altri dipartimenti)."
     }
   ],
   "storicoBatch": [

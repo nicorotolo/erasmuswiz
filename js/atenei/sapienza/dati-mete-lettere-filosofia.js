@@ -3584,8 +3584,15 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (semestre invernale)", periodo: "entro 15 aprile" },
+        { cosa: "Application (semestre invernale)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (semestre estivo)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (semestre estivo)", periodo: "entro 15 novembre" }
+      ],
     linkSito: "https://www.uni-siegen.de/start/",
+    linkCatalogo: "https://unisono.uni-siegen.de",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA71087."
   },
   {
