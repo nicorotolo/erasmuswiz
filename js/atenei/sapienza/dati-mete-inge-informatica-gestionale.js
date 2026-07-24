@@ -315,9 +315,17 @@ var METE = [
     posti: [
       { numero: 1, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "richiesto o TOEIC 720 (TOEFL, IELTS accettati)" },
+        { lingua: "Francese", livello: "B1", condizione: "opzionale, solo per corsi scelti in francese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (1° semestre / anno intero)", periodo: "1-30 aprile" },
+        { cosa: "Application (1° semestre / anno intero)", periodo: "1-31 maggio" },
+        { cosa: "Nomination (2° semestre)", periodo: "1-15 ottobre" },
+        { cosa: "Application (2° semestre)", periodo: "1-15 novembre" }
+      ],
     linkSito: "http://www.esiee.fr",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA68258."
   },
@@ -440,9 +448,17 @@ var METE = [
     posti: [
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "richiesto o TOEIC 720 (TOEFL, IELTS accettati)" },
+        { lingua: "Francese", livello: "B1", condizione: "opzionale, solo per corsi scelti in francese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (1° semestre / anno intero)", periodo: "1-30 aprile" },
+        { cosa: "Application (1° semestre / anno intero)", periodo: "1-31 maggio" },
+        { cosa: "Nomination (2° semestre)", periodo: "1-15 ottobre" },
+        { cosa: "Application (2° semestre)", periodo: "1-15 novembre" }
+      ],
     linkSito: "http://www.esiee.fr",
     notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68256."
   },
@@ -476,10 +492,20 @@ var METE = [
     posti: [
       { numero: 3, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese (International Track)", livello: "B1", condizione: "B2 fortemente raccomandato; nessun livello minimo di francese" },
+        { lingua: "Francese e Inglese (altri indirizzi)", livello: "B1", condizione: "B2 fortemente raccomandato per entrambi" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 giugno" },
+        { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+      ],
     linkSito: "https://www.ensai.fr/",
+    notaDisponibilita: "A causa di sovrapposizioni d'orario, è generalmente impossibile combinare corsi di programmi o anni diversi; la selezione è limitata alle classi dello specifico track assegnato.",
+
     notePratiche: "Posti dell'accordo: 3. Accordo ERA68273."
   },
   {

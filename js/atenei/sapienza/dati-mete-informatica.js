@@ -312,9 +312,17 @@ var METE = [
     posti: [
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "richiesto o TOEIC 720 (TOEFL, IELTS accettati)" },
+        { lingua: "Francese", livello: "B1", condizione: "opzionale, solo per corsi scelti in francese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (1° semestre / anno intero)", periodo: "1-30 aprile" },
+        { cosa: "Application (1° semestre / anno intero)", periodo: "1-31 maggio" },
+        { cosa: "Nomination (2° semestre)", periodo: "1-15 ottobre" },
+        { cosa: "Application (2° semestre)", periodo: "1-15 novembre" }
+      ],
     linkSito: "http://www.esiee.fr",
     notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68257."
   },

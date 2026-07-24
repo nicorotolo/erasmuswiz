@@ -403,10 +403,20 @@ var METE = [
     posti: [
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese (International Track)", livello: "B1", condizione: "B2 fortemente raccomandato; nessun livello minimo di francese" },
+        { lingua: "Francese e Inglese (altri indirizzi)", livello: "B1", condizione: "B2 fortemente raccomandato per entrambi" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 giugno" },
+        { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
+      ],
     linkSito: "https://www.ensai.fr/",
+    notaDisponibilita: "A causa di sovrapposizioni d'orario, è generalmente impossibile combinare corsi di programmi o anni diversi; la selezione è limitata alle classi dello specifico track assegnato.",
+
     notePratiche: "Posti dell'accordo: 2. Accordo ERA68274."
   },
   {

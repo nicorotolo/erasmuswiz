@@ -1,0 +1,31 @@
+{
+  "F  NOISY02": {
+    "requisitoLingua": {
+      "url": "https://www.esiee.fr/en/international/exchange-students",
+      "citazione": "English requirements: level B1 or TOEIC 720 points (TOEFL, IELTS accepted). French requirements (optional, only if chosen courses in French) : level B1.",
+      "verificataIl": "2026-07-24"
+    },
+    "scadenzeOspitante": {
+      "url": "https://www.esiee.fr/en/international/exchange-students",
+      "citazione": "1st semester (fall) / full academic year: april 1 to april 30. 2nd semester (Spring): october 1 to october 15. Application period: may 1 to may 31; november 1 to november 15.",
+      "verificataIl": "2026-07-24"
+    }
+  },
+  "F  RENNES32": {
+    "requisitoLingua": {
+      "url": "https://ensai.fr/en/exchange-students/",
+      "citazione": "International Track (English-taught program): B1 minimum (B2 highly recommended) in English; no minimum level in French. Statistical Studies & Methodology of Public Statistics tracks: B1 minimum in French and English (B2 highly recommended).",
+      "verificataIl": "2026-07-24"
+    },
+    "scadenzeOspitante": {
+      "url": "https://ensai.fr/en/exchange-students/",
+      "citazione": "Nomination deadlines: Autumn semester deadline: 15 June; Spring semester deadline: 15 November. Application deadlines: Autumn semester deadline: 30 June; Spring semester deadline: 30 November.",
+      "verificataIl": "2026-07-24"
+    },
+    "notaDisponibilita": {
+      "url": "https://ensai.fr/en/exchange-students/",
+      "citazione": "Due to scheduling overlap, it is generally impossible to take courses from different programs or different years during your exchange... Course selection is therefore limited to classes within the given track.",
+      "verificataIl": "2026-07-24"
+    }
+  }
+}
