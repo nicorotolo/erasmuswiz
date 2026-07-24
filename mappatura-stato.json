@@ -1,31 +1,16 @@
 {
   "versione": "2.0",
-  "aggiornato": "2026-07-23",
+  "aggiornato": "2026-07-24",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 318,
+  "runCompletati": 319,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "scienze-statistiche-batch-2",
-      "priorita": 5,
-      "dipartimento": "Scienze Statistiche (Sapienza)",
-      "descrizione": "Scienze Statistiche (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "D  ERFURT05",
-        "D  SIEGEN01",
-        "PL OPOLE01",
-        "TR ISTANBU10",
-        "TR ISTANBU06",
-        "TR ISTANBU04"
-      ]
-    },
     {
       "id": "informatica-batch-1",
       "priorita": 5,
@@ -725,6 +710,21 @@
         "D  DORTMUN01",
         "D  ESSEN04"
       ]
+    },
+    {
+      "id": "scienze statistiche (sapienza)-batch-followup-2",
+      "priorita": 6,
+      "dipartimento": "Scienze Statistiche (Sapienza)",
+      "descrizione": "Scienze Statistiche (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D  ERFURT05",
+        "D  SIEGEN01",
+        "PL OPOLE01",
+        "TR ISTANBU10",
+        "TR ISTANBU06",
+        "TR ISTANBU04"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -1302,7 +1302,13 @@
         "F  VAULX-V02": 1,
         "F  RENNES32": 1,
         "D  DORTMUN01": 1,
-        "D  ESSEN04": 1
+        "D  ESSEN04": 1,
+        "D  ERFURT05": 1,
+        "D  SIEGEN01": 1,
+        "PL OPOLE01": 1,
+        "TR ISTANBU10": 1,
+        "TR ISTANBU06": 1,
+        "TR ISTANBU04": 1
       },
       "linguaNonTrovabile": [
         "A  KLAGENF01",
@@ -3895,6 +3901,12 @@
       "data": "2026-07-23",
       "mete": 8,
       "note": "Scienze Statistiche (Sapienza) scienze-statistiche-batch-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 319,
+      "data": "2026-07-24",
+      "mete": 6,
+      "note": "Scienze Statistiche (Sapienza) scienze-statistiche-batch-2: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
