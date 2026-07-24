@@ -704,6 +704,10 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.comu.edu.tr/en/",
+    linkCatalogo: "https://courses.comu.edu.tr/",
+
+    notaDisponibilita: "Gli studenti Erasmus incoming possono scegliere corsi di qualsiasi dipartimento, purché approvati dall'università di provenienza.",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69677."
   },
   {

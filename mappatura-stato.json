@@ -4,25 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 325,
+  "runCompletati": 326,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "inge-informatica-gestionale-batch-4",
-      "priorita": 5,
-      "dipartimento": "Ingegneria informatica e gestionale - DIAG (Sapienza)",
-      "descrizione": "Ingegneria informatica e gestionale - DIAG (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "S  OREBRO01",
-        "TR KOCAELI02",
-        "TR CANAKKA01"
-      ]
-    },
     {
       "id": "medicina-odontoiatria-batch-1",
       "priorita": 5,
@@ -714,6 +702,18 @@
         "NL ENSCHED01",
         "RO CRAIOVA01",
         "SK BRATISL02"
+      ]
+    },
+    {
+      "id": "ingegneria informatica e gestionale - diag (sapienza)-batch-followup-4",
+      "priorita": 6,
+      "dipartimento": "Ingegneria informatica e gestionale - DIAG (Sapienza)",
+      "descrizione": "Ingegneria informatica e gestionale - DIAG (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "S  OREBRO01",
+        "TR KOCAELI02",
+        "TR CANAKKA01"
       ]
     }
   ],
@@ -1430,7 +1430,10 @@
         "G  IOANNIN01": 1,
         "NL ENSCHED01": 1,
         "RO CRAIOVA01": 1,
-        "SK BRATISL02": 1
+        "SK BRATISL02": 1,
+        "S  OREBRO01": 1,
+        "TR KOCAELI02": 1,
+        "TR CANAKKA01": 1
       },
       "linguaNonTrovabile": [
         "E  VALLADO03"
@@ -3923,6 +3926,12 @@
       "data": "2026-07-24",
       "mete": 8,
       "note": "Ingegneria informatica e gestionale - DIAG (Sapienza) inge-informatica-gestionale-batch-3: merge automatico via applica-batch.mjs (+7 blocchi propagati ad altri dipartimenti)."
+    },
+    {
+      "batch": 326,
+      "data": "2026-07-24",
+      "mete": 3,
+      "note": "Ingegneria informatica e gestionale - DIAG (Sapienza) inge-informatica-gestionale-batch-4: merge automatico via applica-batch.mjs (+1 blocchi propagati ad altri dipartimenti)."
     }
   ],
   "storicoBatch": [
