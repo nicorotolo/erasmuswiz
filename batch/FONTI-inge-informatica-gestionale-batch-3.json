@@ -1,0 +1,72 @@
+{
+  "D  WILDAU01": {
+    "requisitoLingua": {
+      "url": "https://www.veleri.hr/sites/default/files/2021-12/TH%20Wildau%20Fact%20Sheet.pdf",
+      "citazione": "Language requirements: For Bachelor: B1 (CERF). For Master: B2 (CERF)",
+      "verificataIl": "2026-07-24"
+    },
+    "scadenzeOspitante": {
+      "url": "https://www.veleri.hr/sites/default/files/2021-12/TH%20Wildau%20Fact%20Sheet.pdf",
+      "citazione": "Nomination deadline: Winter semester: 15 May; Summer semester: 15 November. Application deadline: Winter semester: 1 June; Summer semester: 1 December",
+      "verificataIl": "2026-07-24"
+    },
+    "linkCatalogo": {
+      "url": "https://www.veleri.hr/sites/default/files/2021-12/TH%20Wildau%20Fact%20Sheet.pdf",
+      "citazione": "Study programmes: https://en.th-wildau.de/study/programmes/",
+      "verificataIl": "2026-07-24"
+    },
+    "notaDisponibilita": {
+      "url": "https://www.veleri.hr/sites/default/files/2021-12/TH%20Wildau%20Fact%20Sheet.pdf",
+      "citazione": "Limited availability!",
+      "verificataIl": "2026-07-24"
+    }
+  },
+  "RO TARGU02": {
+    "requisitoLingua": {
+      "url": "https://disp.web.uniroma1.it/sites/default/files/allegati/ERASMUS%20FACTSHEETS%20FINALE.pdf",
+      "citazione": "LANGUAGE REQUIREMENTS ENGLISH B1",
+      "verificataIl": "2026-07-24"
+    },
+    "scadenzeOspitante": {
+      "url": "https://www.unime.it/sites/default/files/2025-03/RO%20TARGU02_0912%20MEDICINE.pdf",
+      "citazione": "Nominations ... Autumn ... 01-06 ... Spring ... 01-11; Applications ... Autumn ... 15-06 ... Spring ... 15-11",
+      "verificataIl": "2026-07-24"
+    },
+    "linkCatalogo": {
+      "url": "https://disp.web.uniroma1.it/sites/default/files/allegati/ERASMUS%20FACTSHEETS%20FINALE.pdf",
+      "citazione": "COURSE CATALOGUE ... https://www.umfst.ro/home.html",
+      "verificataIl": "2026-07-24"
+    },
+    "notaDisponibilita": {
+      "url": "https://www.unime.it/sites/default/files/2025-03/RO%20TARGU02_0912%20MEDICINE.pdf",
+      "citazione": "The receiving institution will send its decision within 4 weeks, and no later than 5 weeks",
+      "verificataIl": "2026-07-24"
+    }
+  },
+  "RO BUCURES18": {
+    "linkCatalogo": {
+      "url": "https://www.unich.it/sites/default/files/2024-04/economia_aziendale-_agg_07.02.23.pdf",
+      "citazione": "https://www.rau.ro/wp-content/mydocuments/erasmus/INCOMING students/Course Catalogue 2021-22 FINAL.pdf",
+      "verificataIl": "2026-07-24"
+    }
+  },
+  "RO BUCURES04": {
+    "requisitoLingua": {
+      "url": "https://www.uniroma1.it/sites/default/files/field_file_allegati/economia_2.pdf",
+      "citazione": "minimum B1, B2 recommended",
+      "verificataIl": "2026-07-24"
+    },
+    "scadenzeOspitante": {
+      "url": "https://erasmus.yildiz.edu.tr/media/files/RO%20BUCURES04.pdf",
+      "citazione": "Nomination Autumn: July 15th. Spring: December 1st. Application Autumn: July 30th. Spring: December 15th.",
+      "verificataIl": "2026-07-24"
+    }
+  },
+  "SK BRATISL02": {
+    "scadenzeOspitante": {
+      "url": "https://mobisis.auth.gr/factsheets/ec-view/SK%20BRATISL02",
+      "citazione": "Deadline for applications of Incoming students Autumn Term, Spring Term --06-15, --12-15. Deadline for Nominations --05-15, --11-15.",
+      "verificataIl": "2026-07-24"
+    }
+  }
+}

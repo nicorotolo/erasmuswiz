@@ -795,10 +795,22 @@ var METE = [
       { numero: 1, mesi: 5, livello: "L", note: "" },
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco/Inglese", livello: "B1", condizione: "per studenti di livello Bachelor" },
+        { lingua: "Tedesco/Inglese", livello: "B2", condizione: "per studenti di livello Master" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (semestre invernale)", periodo: "entro 15 maggio" },
+        { cosa: "Application (semestre invernale)", periodo: "entro 1 giugno" },
+        { cosa: "Nomination (semestre estivo)", periodo: "entro 15 novembre" },
+        { cosa: "Application (semestre estivo)", periodo: "entro 1 dicembre" }
+      ],
     linkSito: "https://www.th-wildau.de/",
+    linkCatalogo: "https://en.th-wildau.de/study/programmes/",
+
+    notaDisponibilita: "Disponibilità limitata.",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA68169."
   },
   {
@@ -928,10 +940,21 @@ var METE = [
       { numero: 2, mesi: 6, livello: "L", note: "" },
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "richiesto per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (semestre autunnale)", periodo: "entro 1 giugno" },
+        { cosa: "Application (semestre autunnale)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (semestre primaverile)", periodo: "entro 1 novembre" },
+        { cosa: "Application (semestre primaverile)", periodo: "entro 15 novembre" }
+      ],
     linkSito: "https://umfst.ro/",
+    linkCatalogo: "https://www.umfst.ro/home.html",
+
+    notaDisponibilita: "Per il catalogo corsi consultare l'università/facoltà.",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68384."
   },
   {
@@ -977,6 +1000,8 @@ var METE = [
         { cosa: "Application (Spring - studenti UE/SEE)", periodo: "entro 1 dicembre" }
       ],
     linkSito: "https://www.rau.ro/",
+    linkCatalogo: "https://www.rau.ro/wp-content/mydocuments/erasmus/INCOMING%20students/Course%20Catalogue%202021-22%20FINAL.pdf",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA68346."
   },
   {
@@ -1030,10 +1055,21 @@ var METE = [
       { numero: 1, mesi: 6, livello: "L", note: "" },
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "richiesto per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (semestre autunnale)", periodo: "entro 1 giugno" },
+        { cosa: "Application (semestre autunnale)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (semestre primaverile)", periodo: "entro 1 novembre" },
+        { cosa: "Application (semestre primaverile)", periodo: "entro 15 novembre" }
+      ],
     linkSito: "https://umfst.ro/",
+    linkCatalogo: "https://www.umfst.ro/home.html",
+
+    notaDisponibilita: "Per il catalogo corsi consultare l'università/facoltà.",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68385."
   },
   {
@@ -1048,9 +1084,16 @@ var METE = [
     posti: [
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "consigliato (B1 minimo accettato)" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (semestre autunnale)", periodo: "entro 15 luglio" },
+        { cosa: "Application (semestre autunnale)", periodo: "entro 30 luglio" },
+        { cosa: "Nomination (semestre primaverile)", periodo: "entro 1 dicembre" },
+        { cosa: "Application (semestre primaverile)", periodo: "entro 15 dicembre" }
+      ],
     linkSito: "HTTP://WWW.ASE.RO",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA68345."
   },
@@ -1069,7 +1112,12 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (semestre autunnale)", periodo: "entro 15 maggio" },
+        { cosa: "Application (semestre autunnale)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (semestre primaverile)", periodo: "entro 15 novembre" },
+        { cosa: "Application (semestre primaverile)", periodo: "entro 15 dicembre" }
+      ],
     linkSito: "http://www..uniba.sk",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68357."
   },

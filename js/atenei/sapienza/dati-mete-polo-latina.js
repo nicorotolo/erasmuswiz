@@ -307,6 +307,8 @@ var METE = [
         { cosa: "Application (Spring - studenti UE/SEE)", periodo: "entro 1 dicembre" }
       ],
     linkSito: "https://www.rau.ro/",
+    linkCatalogo: "https://www.rau.ro/wp-content/mydocuments/erasmus/INCOMING%20students/Course%20Catalogue%202021-22%20FINAL.pdf",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA69672."
   },
   {
@@ -398,6 +400,8 @@ var METE = [
         { cosa: "Application (Spring - studenti UE/SEE)", periodo: "entro 1 dicembre" }
       ],
     linkSito: "https://www.rau.ro/",
+    linkCatalogo: "https://www.rau.ro/wp-content/mydocuments/erasmus/INCOMING%20students/Course%20Catalogue%202021-22%20FINAL.pdf",
+
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69673."
   },
   {
@@ -434,7 +438,12 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (semestre autunnale)", periodo: "entro 15 maggio" },
+        { cosa: "Application (semestre autunnale)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (semestre primaverile)", periodo: "entro 15 novembre" },
+        { cosa: "Application (semestre primaverile)", periodo: "entro 15 dicembre" }
+      ],
     linkSito: "http://www..uniba.sk",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69675."
   },

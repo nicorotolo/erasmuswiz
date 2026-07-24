@@ -373,10 +373,21 @@ var METE = [
       { numero: 1, mesi: 5, livello: "L", note: "" },
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "richiesto per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (semestre autunnale)", periodo: "entro 1 giugno" },
+        { cosa: "Application (semestre autunnale)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (semestre primaverile)", periodo: "entro 1 novembre" },
+        { cosa: "Application (semestre primaverile)", periodo: "entro 15 novembre" }
+      ],
     linkSito: "https://umfst.ro/",
+    linkCatalogo: "https://www.umfst.ro/home.html",
+
+    notaDisponibilita: "Per il catalogo corsi consultare l'università/facoltà.",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70134."
   },
   {
