@@ -4,30 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 323,
+  "runCompletati": 324,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "inge-informatica-gestionale-batch-2",
-      "priorita": 5,
-      "dipartimento": "Ingegneria informatica e gestionale - DIAG (Sapienza)",
-      "descrizione": "Ingegneria informatica e gestionale - DIAG (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "F  PARIS083",
-        "F  NANTES07",
-        "D  LUBECK01",
-        "D  ST-AUGU02",
-        "D  KARLSRU01",
-        "D  KOLN04",
-        "D  DORTMUN01",
-        "D  PADERBO01"
-      ]
-    },
     {
       "id": "inge-informatica-gestionale-batch-3",
       "priorita": 5,
@@ -719,6 +702,23 @@
         "F  ANTONY03",
         "F  GRENOBL22"
       ]
+    },
+    {
+      "id": "ingegneria informatica e gestionale - diag (sapienza)-batch-followup-2",
+      "priorita": 6,
+      "dipartimento": "Ingegneria informatica e gestionale - DIAG (Sapienza)",
+      "descrizione": "Ingegneria informatica e gestionale - DIAG (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F  PARIS083",
+        "F  NANTES07",
+        "D  LUBECK01",
+        "D  ST-AUGU02",
+        "D  KARLSRU01",
+        "D  KOLN04",
+        "D  DORTMUN01",
+        "D  PADERBO01"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -1383,7 +1383,6 @@
         "F  GRENOBL22",
         "F  PARIS083",
         "F  NANTES07",
-        "D  LUBECK01",
         "D  ST-AUGU02",
         "D  KARLSRU01",
         "D  KOLN04",
@@ -1433,7 +1432,15 @@
         "F  CERGY01": 1,
         "F  TOULOUS16": 1,
         "F  ANTONY03": 1,
-        "F  GRENOBL22": 1
+        "F  GRENOBL22": 1,
+        "F  PARIS083": 1,
+        "F  NANTES07": 1,
+        "D  LUBECK01": 1,
+        "D  ST-AUGU02": 1,
+        "D  KARLSRU01": 1,
+        "D  KOLN04": 1,
+        "D  DORTMUN01": 1,
+        "D  PADERBO01": 1
       },
       "linguaNonTrovabile": [
         "E  VALLADO03"
@@ -3917,6 +3924,12 @@
       "data": "2026-07-24",
       "mete": 8,
       "note": "Ingegneria informatica e gestionale - DIAG (Sapienza) inge-informatica-gestionale-batch-1: merge automatico via applica-batch.mjs (+2 blocchi propagati ad altri dipartimenti)."
+    },
+    {
+      "batch": 324,
+      "data": "2026-07-24",
+      "mete": 8,
+      "note": "Ingegneria informatica e gestionale - DIAG (Sapienza) inge-informatica-gestionale-batch-2: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

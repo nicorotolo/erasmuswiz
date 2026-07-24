@@ -559,7 +559,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (semestre invernale)", periodo: "entro 15 maggio" },
+        { cosa: "Application (semestre estivo)", periodo: "entro 15 novembre" }
+      ],
     linkSito: "https://www.uni-luebeck.de/universitaet/universitaet.html",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA68162."
   },
