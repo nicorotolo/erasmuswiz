@@ -86,6 +86,11 @@ stato tolto.
 visualizzato — per lo stesso motivo transizioni e animazioni restano congelate al valore
 di partenza, cosa da tenere presente leggendo qualunque `box-shadow` in transizione. La
 verifica è per misura; il giudizio estetico è di Nicola al **GATE 2**.
+**PUSH ANTICIPATO (decisione di Nicola, 25/07).** Il piano collocava il push a F4, dopo
+il GATE 2; Nicola ha scelto di pubblicare subito. F1 e F2 sono quindi **online**
+(`1e23ddf..a10d16b`): il redesign è pubblico ma **parziale** — timeline e stati vuoti
+sono ancora quelli vecchi — e il **GATE 2 non è avvenuto**, quindi le correzioni
+estetiche che ne usciranno si applicheranno a un sito già visibile.
 **Prossimo passo: F3** (timeline §4.3 + stato vuoto §5.1, rischio ALTO — è l'unica fase
 che tocca `js/app.js`).
 
@@ -96,8 +101,8 @@ che tocca `js/app.js`).
 **(SESSIONE 2026-07-25 — F1 (Token, ritmo di pagina, gutter, griglia) del redesign
 v2 + GATE 1. Primo commit che tocca un file di PRODUZIONE: `css/style.css`,
 +238/−48. `index.html` e `js/app.js` intatti come da vincolo del piano.)**
-Eseguiti tutti e 17 i punti di F1 in un solo commit, **`ce0d5a8`** (NON pushato: il
-push è a F4). **Token** (§2.1–2.3): `--bg-app #FAFAF7→#FAF8F3`,
+Eseguiti tutti e 17 i punti di F1 in un solo commit, **`ce0d5a8`** (pushato il 25/07
+insieme a F2, in anticipo sul piano che collocava il push a F4). **Token** (§2.1–2.3): `--bg-app #FAFAF7→#FAF8F3`,
 `--night-bg #232046→#211E42`, blocco additivo in coda al `:root` (`--space-1…16`,
 `--fs-*`, `--gutter`, `--stack`, `--container: 1140px` per R31, `--shadow-gold`) e
 due `@media :root` per banda. `--ease-out` **non toccato** (esiste già, governa 30+
@@ -3217,9 +3222,9 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **Pubblicazione — guasto Pages** | Source su "GitHub Actions" senza workflow di deploy: sito fermo al commit del 3/7, **171 commit (125 sul sito) invisibili per 12 giorni** (C2, C3, C4, R1.1-R1.4). Risolto con `.github/workflows/deploy-pages.yml` (Static HTML, niente Jekyll, guardia `node --check`); online verificato per hash contro `origin/main` | ✅ Chiuso (2026-07-15, sessione 56) — resta da rendere vera la riga "Online e locale coincidono" di `PUBBLICA.bat` |
 | **Pipeline dati T0→T3 — Gemini + Codex** | Copertura complessiva: **1.987 mete, 73% lingua, 79% scadenze**. Al 17/07: 315 run completati, 45 batch in coda; ultimo lotto reale pubblicato il 16/07 alle 13:08 | ⚠️ La schedulazione ogni 3 ore sull'altro PC non sta producendo commit/PR/branch su GitHub; controllare cronologia e ultimo risultato dell'attività pianificata sul PC remoto |
 | **REDESIGN v2 — F0: Preparazione** | Spec versionata in `design/redesign-2026-07/` (canvas + baseline invarianti/touch, vedi §4). Nessun file di produzione toccato. Commit `ac7c1c9`, pushato | ✅ Fatta (2026-07-25) |
-| **REDESIGN v2 — F1: Token, ritmo, gutter, griglia** | Token §2.1–2.3 (`--bg-app #FAF8F3`, `--night-bg #211E42`, `--space-*`/`--fs-*`/`--gutter`/`--stack`/`--container:1140px`/`--shadow-gold`, due `@media :root`); ritmo verticale con `> * + *` e i tre antidoti; **gutter a un solo proprietario** (`.main-content`): 18 margini legacy in 3 misure + 5 padding-gutter + blocco ≤480px + `#banner-wiz` inline, tutto in un diff; `.griglia-mete-v2` 1→2→auto-fill; creato `/*__PROD_END__*/`. Solo `css/style.css` (+238/−48), `index.html` e `js/app.js` intatti. **Due correzioni al canvas, misurate:** `.percorso-wrap` conserva `grid-row: 1/6` (senza, 337px di buco e sticky a corsa zero) e il hero torna full-bleed sotto i 768px | ✅ Fatta e verificata (2026-07-25) — commit `ce0d5a8`, **non pushato** (il push è a F4). 4/4 controlli gutter, controllo browser 13 esecuzioni tutte vuote, invarianti F0 verdi ai 3 viewport |
+| **REDESIGN v2 — F1: Token, ritmo, gutter, griglia** | Token §2.1–2.3 (`--bg-app #FAF8F3`, `--night-bg #211E42`, `--space-*`/`--fs-*`/`--gutter`/`--stack`/`--container:1140px`/`--shadow-gold`, due `@media :root`); ritmo verticale con `> * + *` e i tre antidoti; **gutter a un solo proprietario** (`.main-content`): 18 margini legacy in 3 misure + 5 padding-gutter + blocco ≤480px + `#banner-wiz` inline, tutto in un diff; `.griglia-mete-v2` 1→2→auto-fill; creato `/*__PROD_END__*/`. Solo `css/style.css` (+238/−48), `index.html` e `js/app.js` intatti. **Due correzioni al canvas, misurate:** `.percorso-wrap` conserva `grid-row: 1/6` (senza, 337px di buco e sticky a corsa zero) e il hero torna full-bleed sotto i 768px | ✅ Fatta e verificata (2026-07-25) — commit `ce0d5a8`, **pushato il 25/07 insieme a F2** (decisione di Nicola: il piano lo collocava a F4). 4/4 controlli gutter, controllo browser 13 esecuzioni tutte vuote, invarianti F0 verdi ai 3 viewport |
 | **REDESIGN v2 — 🚦 GATE 1** | Nicola conferma le tre default: **P-A** su `modo-benvenuto` (R3), **`!important`** su `#banner-wiz` (R38, `index.html` non si tocca), **full-bleed conservato** per il hero. In più: **F2 riassegnata a Claude Code** invece di Codex (D4 rivista) | ✅ Passato (2026-07-25) |
-| **REDESIGN v2 — F2: Componenti §04** | Interamente CSS (`css/style.css`, +~700/−~270; `index.html` e `js/app.js` intatti). **F2.0** inventario touch sanato: da 5/89/35/16 bersagli sotto 44px (F0, 390px) a **zero**, salvo le 4 eccezioni già dichiarate (link inline dentro un paragrafo). §4.1 due bottoni primari uniti + secondario reattivo + **un solo anello di focus** (sostituisce il sistema esistente, variante oro sulle superfici a inchiostro); §4.2 corpo condiviso delle superfici (`.preparazione-card` esclusa: è annidata) e un solo hover per `.card-cliccabile`; §4.4 `.banner-stato` + i due nodi reali; §4.5 mete; §4.6 missione e countdown (pulsazione solo se urgente); §4.7 checklist, requisito a 3 registri, barre di progresso unificate; §4.8 modal a foglio + schedina; §4.9 form profilo a 2 colonne, nav, drawer, celebrazione. In più: `.sezione-titolo` consuma `--fs-h1` | ✅ Fatta e verificata (2026-07-25) — **non pushata** (il push è a F4). Invarianti F0 verdi su 4 tab × 390/768/1280, gutter F1 intatto, contrasto verificato su ~45 coppie, zero errori console |
+| **REDESIGN v2 — F2: Componenti §04** | Interamente CSS (`css/style.css`, +~700/−~270; `index.html` e `js/app.js` intatti). **F2.0** inventario touch sanato: da 5/89/35/16 bersagli sotto 44px (F0, 390px) a **zero**, salvo le 4 eccezioni già dichiarate (link inline dentro un paragrafo). §4.1 due bottoni primari uniti + secondario reattivo + **un solo anello di focus** (sostituisce il sistema esistente, variante oro sulle superfici a inchiostro); §4.2 corpo condiviso delle superfici (`.preparazione-card` esclusa: è annidata) e un solo hover per `.card-cliccabile`; §4.4 `.banner-stato` + i due nodi reali; §4.5 mete; §4.6 missione e countdown (pulsazione solo se urgente); §4.7 checklist, requisito a 3 registri, barre di progresso unificate; §4.8 modal a foglio + schedina; §4.9 form profilo a 2 colonne, nav, drawer, celebrazione. In più: `.sezione-titolo` consuma `--fs-h1` | ✅ Fatta e verificata (2026-07-25) — commit `a10d16b`, **pushato** (⚠️ anticipato rispetto al piano, che collocava il push a F4: il redesign è quindi ONLINE parziale, con la timeline ancora vecchia e il GATE 2 non ancora fatto). Invarianti F0 verdi su 4 tab × 390/768/1280, gutter F1 intatto, contrasto verificato su ~45 coppie, zero errori console |
 
 **Nav (R3, definitiva — gate R1 chiuso):** Mete → **Home** (centrale su
 mobile) → Percorso, + **"☰ Altro" (apre il drawer, R1.2)** che non è una
@@ -3447,9 +3452,14 @@ poi aprire **http://localhost:8001**. (Dettagli e alternative nel `README.md`.)
 
 **Aggiornamento 2026-07-25 (F2 chiusa) — il prossimo blocco di lavoro è F3:**
 
-0. **F0, F1 e F2 sono FATTE**, il **GATE 1 è passato**. Restano **due commit
-   di produzione locali non pushati** (`ce0d5a8` di F1 + quello di F2): il
-   push è a F4, per scelta del piano.
+0. **F0, F1 e F2 sono FATTE**, il **GATE 1 è passato**, e **tutto è ONLINE**:
+   il 25/07 Nicola ha scelto di pushare subito (`ce0d5a8` di F1 e `a10d16b`
+   di F2), mentre il piano collocava il push a F4. Conseguenza da tenere a
+   mente: **il redesign è pubblico ma parziale** — timeline e stati vuoti
+   sono ancora quelli vecchi (è F3) e il **GATE 2 non è avvenuto**, quindi
+   qualunque correzione estetica decisa lì si applicherà a un sito già
+   visibile. Non è un problema di stabilità: le invarianti erano verdi ai
+   tre viewport prima del push.
    **Prossimo passo: F3** — timeline `ol.stazioni` (§4.3) e stato vuoto ricco
    (§5.1). Rischio **ALTO**: è l'unica fase che tocca `js/app.js`.
    Ordine obbligatorio di F3.25: `git pull --rebase` → server su
