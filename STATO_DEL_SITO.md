@@ -19,9 +19,89 @@
 
 ---
 
-### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1 e F2 2026-07-25)
+### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2 e F3 2026-07-25)
 
 **Ultimo aggiornamento:** 2026-07-25 — Claude Code (Opus 5).
+
+**(SESSIONE 2026-07-25 — F3 (Timeline §4.3 + stato vuoto §5.1) del redesign v2. La fase
+a rischio ALTO, e l'unica di tutto il redesign che tocca `js/app.js`. Due commit
+separati: `ee2aca0` F3a, `db8d67b` F3b. `index.html` resta intatto.)**
+
+**F3a — la timeline `ol.stazioni`.** Il modello è una **corsia** larga 38px a sinistra
+della `<li>`: dentro stanno marker e binario, la card comincia dopo. Così il binario non
+passa mai sotto la card e non serve litigare né con lo z-index né con l'`overflow:hidden`
+di `.stazione-dettagli`. Eliminati `.stazione + .stazione::before` e
+`.stazione-fatta + .stazione::before` (V3): sommandosi al binario nuovo avrebbero
+prodotto due tratti sfalsati. Le due guardie obbligatorie sono commentate in loco —
+niente `position`/`transform`/`filter`/`will-change` su `.stazione-dettagli` (o il marker
+rientra nella card e sparisce), e `box-sizing: border-box` su `.stazione-punto` (o il
+bordo da 2px sposta il centro del marker fuori dall'asse del binario).
+**Cinque scostamenti dal canvas, tutti misurati.** (1) **Il "binario continuo" del canvas
+non è continuo**: con `bottom: calc(-1 * var(--space-4))` il tratto finisce al bordo
+superiore della `<li>` successiva, non al suo marker, e lasciava **un buco di 14px
+esattamente sopra ogni punto**. La geometria è ora espressa in funzione di `--marker`, e
+il blocco desktop cambia **un solo numero**. (2) **`#stazione-mete-ponte` è l'unica `<li>`
+senza marker né `<details>`** (index.html:260): il blocco del canvas la ignora e la linea
+si spezzava proprio lì → il suo binario parte da `top: 0`, e resta verde se la stazione
+precedente è completata. (3) **Bianco su `#10B981` sta a 2,6:1** → si usa `--green`
+(#0f7a3a, **5,5:1**), stesso criterio della deroga 4 di F2; idem per il binario (2,4:1
+contro 5,1:1). (4) **Tolto l'alone indaco fisso** sotto il marker attivo: con l'anello di
+focus installato in F2 sarebbe indistinguibile da un elemento a fuoco. (5) **La tappa
+corrente passa da oro a indaco**, con la pillola di stato al seguito — è la grammatica che
+F2 ha già dato a `.voce-checklist-v2.attiva`; lasciandone metà, la stazione corrente
+sarebbe rimasta mezza oro e mezza indaco.
+**Un difetto trovato solo alla misura, non nel diff** (come in F1): con `padding-top: 0`
+sul corpo — che è ciò che il canvas prescrive — le stazioni il cui primo figlio è un
+banner `display:none` avevano il contenuto vero **appiccicato alla testa, 0px misurati**.
+È la trappola di R39: `> :first-child` non sa nulla di `display:none`. Lo stacco ora lo dà
+il corpo, 12px in tutte e 5 le stazioni in ogni combinazione di banner acceso/spento.
+
+**F3b — lo stato vuoto ricco.** Helper `creaStatoVuoto(titolo, spiegazione, azione)` +
+i due siti in `renderMete()` (ex 1890 e 1894), con i **`return` conservati**: senza,
+lista vuota e stato vuoto verrebbero renderizzati insieme. Correzioni al canvas:
+**R21** — l'azione "Mostra tutte le mete" cercava `.chip-filtro[data-filtro="tutte"]`,
+attributo che non esiste (app.js:1842), quindi il bottone sarebbe nato morto: si agisce
+sullo stato, come fanno i chip. Stesso criterio su "Svuota la ricerca", `renderMete()`
+diretta invece di un `Event("input")` simulato che passerebbe dal debounce di 150ms.
+**R22** — `role="status"` sul nodo, che nasce a runtime dopo un'interazione. **R23** —
+nessuna promessa di compatibilità su `.stato-vuoto-v2`: quella classe non ha mai avuto
+stile e ora non è più emessa da nessuna parte. In più, il filtro **"lingua" non è una
+categoria di compatibilità** e ha una sua variante di copy, o la spiegazione generica
+direbbe la cosa sbagliata. `.schedina-invito-vuota` **non** usa l'helper (P1.4, invito di
+una riga per scelta deliberata): si allinea solo lo stile, e da riga grigia diventa invito
+d'oro — è un suggerimento, non un errore. Niente animazione d'ingresso: la griglia si
+ri-renderizza a ogni battuta della ricerca.
+
+**Verifiche.** Marker e binario allineati a **0.00px** a 390 e 1280, **zero buchi** fra i
+tratti, marker fermo all'apertura/chiusura (dx 0, dy 0), ultimo tratto spento. Entrambi
+gli stati vuoti provati alle tre larghezze: box a tutta griglia (delta 0), mascotte
+caricata, bottoni 48px, zero testo tagliato, zero sbordamenti; i due bottoni d'azione
+fanno quello che dicono. Contrasti: titolo 16,8:1 · testo 9,1:1 · bottone 8,9:1 ·
+schedina vuota 4,5:1. Sonda invarianti F0 verde sui 4 tab a 390/768/1280, touch sotto
+44px = le sole 4 eccezioni di `baseline/README.md`. `node --check` OK e **`_smoke.js`
+identico al baseline** (392 / 0 / n.d. / 9), zero errori in console. Il detector di
+`/impeccable` segnala 13 antipattern, **nessuno introdotto da F3**: sono i 9 `border-left`
+colorati di F2 — cioè, indipendentemente, la stessa cosa che le note di F2 avevano già
+messo all'ordine del giorno del GATE 2.
+⚠︎ **Nota operativa per le prossime prove:** `_smoke.js` richiede **jsdom@22** installato
+**fuori dal repo** (da jsdom 28 `ResourceLoader` non è più esportato) e un server con
+backlog ampio sulla **8123** — `python -m http.server` ha `request_queue_size = 5` e
+rifiuta le connessioni di jsdom, rendendo il baseline instabile (275/392/405 fra run).
+
+**🚦 GATE 2 — validato "per ora" da Nicola (25/07), con revisione completa rimandata.**
+Nicola ha dato l'ok a tutto (timeline, stati vuoti, e il passaggio della tappa corrente da
+oro a indaco), ma ha esplicitamente rinviato la revisione d'insieme: **«poi rivedremo
+tutto insieme alla fine»**. Restano quindi **aperte** le due domande lasciate da F2 —
+`--fs-hero` su `.home-hero-claim` (sembra un lapsus del canvas) e se il filetto di stato a
+sinistra sia ormai troppo — e non è stato ancora dato un giudizio a video su tipografia,
+card, nav, form e modal alle tre larghezze. ⚠︎ **Da fare prima di considerare chiuso il
+redesign.**
+**Prossimo passo: F4** (checklist §07 in 9 punti, aggiornamento documenti, commit finale)
+— ma la revisione d'insieme va fatta prima o insieme.
+
+---
+
+**Ultimo aggiornamento precedente:** 2026-07-25 — Claude Code (Opus 5).
 
 **(SESSIONE 2026-07-25 — F2 (Componenti §04) del redesign v2. Secondo commit su
 `css/style.css`: +~700/−~270. `index.html` e `js/app.js` intatti, come impone il
@@ -3225,6 +3305,8 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **REDESIGN v2 — F1: Token, ritmo, gutter, griglia** | Token §2.1–2.3 (`--bg-app #FAF8F3`, `--night-bg #211E42`, `--space-*`/`--fs-*`/`--gutter`/`--stack`/`--container:1140px`/`--shadow-gold`, due `@media :root`); ritmo verticale con `> * + *` e i tre antidoti; **gutter a un solo proprietario** (`.main-content`): 18 margini legacy in 3 misure + 5 padding-gutter + blocco ≤480px + `#banner-wiz` inline, tutto in un diff; `.griglia-mete-v2` 1→2→auto-fill; creato `/*__PROD_END__*/`. Solo `css/style.css` (+238/−48), `index.html` e `js/app.js` intatti. **Due correzioni al canvas, misurate:** `.percorso-wrap` conserva `grid-row: 1/6` (senza, 337px di buco e sticky a corsa zero) e il hero torna full-bleed sotto i 768px | ✅ Fatta e verificata (2026-07-25) — commit `ce0d5a8`, **pushato il 25/07 insieme a F2** (decisione di Nicola: il piano lo collocava a F4). 4/4 controlli gutter, controllo browser 13 esecuzioni tutte vuote, invarianti F0 verdi ai 3 viewport |
 | **REDESIGN v2 — 🚦 GATE 1** | Nicola conferma le tre default: **P-A** su `modo-benvenuto` (R3), **`!important`** su `#banner-wiz` (R38, `index.html` non si tocca), **full-bleed conservato** per il hero. In più: **F2 riassegnata a Claude Code** invece di Codex (D4 rivista) | ✅ Passato (2026-07-25) |
 | **REDESIGN v2 — F2: Componenti §04** | Interamente CSS (`css/style.css`, +~700/−~270; `index.html` e `js/app.js` intatti). **F2.0** inventario touch sanato: da 5/89/35/16 bersagli sotto 44px (F0, 390px) a **zero**, salvo le 4 eccezioni già dichiarate (link inline dentro un paragrafo). §4.1 due bottoni primari uniti + secondario reattivo + **un solo anello di focus** (sostituisce il sistema esistente, variante oro sulle superfici a inchiostro); §4.2 corpo condiviso delle superfici (`.preparazione-card` esclusa: è annidata) e un solo hover per `.card-cliccabile`; §4.4 `.banner-stato` + i due nodi reali; §4.5 mete; §4.6 missione e countdown (pulsazione solo se urgente); §4.7 checklist, requisito a 3 registri, barre di progresso unificate; §4.8 modal a foglio + schedina; §4.9 form profilo a 2 colonne, nav, drawer, celebrazione. In più: `.sezione-titolo` consuma `--fs-h1` | ✅ Fatta e verificata (2026-07-25) — commit `a10d16b`, **pushato** (⚠️ anticipato rispetto al piano, che collocava il push a F4: il redesign è quindi ONLINE parziale, con la timeline ancora vecchia e il GATE 2 non ancora fatto). Invarianti F0 verdi su 4 tab × 390/768/1280, gutter F1 intatto, contrasto verificato su ~45 coppie, zero errori console |
+| **REDESIGN v2 — F3: Timeline e stato vuoto** | La fase a rischio ALTO, e l'unica di tutto il redesign che tocca `js/app.js`. **F3a** — timeline `ol.stazioni` su una corsia di 38px (marker assoluto, binario continuo, `overflow:hidden` mai in mezzo), con le due guardie commentate in loco; eliminate le vecchie `.stazione + .stazione::before` (V3). **F3b** — helper `creaStatoVuoto()` + i due siti di `renderMete()` coi `return` conservati, `role="status"` (R22), azioni sullo stato invece che sul DOM (R21), variante di copy per il filtro "lingua"; `.schedina-invito-vuota` solo restilizzata (P1.4). **Cinque scostamenti misurati dal canvas**, fra cui: il "binario continuo" del canvas lasciava **un buco di 14px sopra ogni marker**; il ponte verso le Mete (unica `<li>` senza marker) spezzava la linea; bianco su `#10B981` sta a 2,6:1 → `--green` (5,5:1). **La tappa corrente passa da oro a indaco**, con la pillola al seguito: è la grammatica che F2 aveva già dato a `.voce-checklist-v2.attiva`. Trovato alla misura (non nel diff) un corpo-stazione appiccicato alla testa a 0px quando il primo figlio è un banner `display:none` — trappola R39, sanato | ✅ Fatta e verificata (2026-07-25) — commit `ee2aca0` (F3a) + `db8d67b` (F3b). Marker/binario allineati a 0.00px, zero buchi, marker fermo all'apertura; invarianti F0 verdi su 4 tab × 390/768/1280; `_smoke.js` identico al baseline; zero errori console; detector `/impeccable`: nessun antipattern introdotto da F3 |
+| **REDESIGN v2 — 🚦 GATE 2** | Nicola valida timeline, stati vuoti e il passaggio della tappa corrente da oro a indaco | ⚠︎ **Validato "per ora" (2026-07-25), revisione completa RIMANDATA** — «poi rivedremo tutto insieme alla fine». Restano senza giudizio a video tipografia, card, nav, form e modal alle 3 larghezze, più le 2 domande aperte da F2 (`--fs-hero` su `.home-hero-claim`; se il filetto di stato a sinistra sia ormai troppo) |
 
 **Nav (R3, definitiva — gate R1 chiuso):** Mete → **Home** (centrale su
 mobile) → Percorso, + **"☰ Altro" (apre il drawer, R1.2)** che non è una
@@ -3450,7 +3532,40 @@ poi aprire **http://localhost:8001**. (Dettagli e alternative nel `README.md`.)
 
 ### Cantiere SITO (Claude Code) — numerazione 49→61
 
-**Aggiornamento 2026-07-25 (F2 chiusa) — il prossimo blocco di lavoro è F3:**
+**Aggiornamento 2026-07-25 (F3 chiusa) — restano F4 e la revisione d'insieme:**
+
+0. **F0, F1, F2 e F3 sono FATTE.** Il redesign v2 è implementato per intero.
+   Commit di F3: `ee2aca0` (F3a, timeline) e `db8d67b` (F3b, stato vuoto),
+   più `e62de58` (esiti di F3 nel piano).
+1. ⚠︎ **La revisione d'insieme NON è stata fatta.** Il 25/07 Nicola ha
+   validato F3 «per ora» e ha rimandato: *«poi rivedremo tutto insieme alla
+   fine»*. Quindi **tipografia, card, nav, form e modal non hanno ancora un
+   giudizio a video** alle tre larghezze, benché siano online da F2. Da
+   portare a quella revisione anche le **due domande aperte da F2**:
+   `--fs-hero` su `.home-hero-claim` (non applicato: sembra un lapsus del
+   canvas, il consumatore naturale sarebbe `.home-saluto`) e se il
+   **filetto di stato a sinistra** sia ormai troppo — il detector di
+   `/impeccable` segnala 9 `border-left` colorati ≥3px, tutti di F2.
+   E la novità più visibile di F3: **la tappa corrente da oro a indaco**.
+2. **F4** — i 9 punti della checklist §07 con le tre correzioni del piano
+   ("griglia nei tre stati" alla luce di R3; "nessun target sotto 44px" col
+   criterio **lista vuota**, già soddisfatto da F2; il punto tipografia
+   spetta alla revisione d'insieme). Sospetti dichiarati per lo scroll
+   orizzontale: `.schedina-nome` senza `min-width:0` e la riga di chip
+   filtro. Poi commit finale.
+3. ⚠︎ **F3 non è ancora pubblicato**: `ee2aca0`, `db8d67b` e `e62de58` sono
+   **solo in locale**. Online c'è ancora la timeline vecchia. Il push va
+   deciso da Nicola.
+4. **Nota operativa per chiunque rifaccia le prove**: `_smoke.js` richiede
+   **jsdom@22** installato **fuori dal repo** (da jsdom 28 `ResourceLoader`
+   non è più esportato) e un server con backlog ampio sulla **8123** —
+   `python -m http.server` ha `request_queue_size = 5`, jsdom apre ~20
+   connessioni insieme e il baseline diventa instabile. Baseline sano:
+   **METE 392 · Area 0 · SCADENZE n.d. · CHECKLIST 9 · card 0**, con una
+   eccezione **pre-esistente** (`SCADENZE_CAFOSCARI is not defined`, solo
+   sotto jsdom: in browser reale la console è pulita).
+
+**Aggiornamento 2026-07-25 (F2 chiusa) — storico:**
 
 0. **F0, F1 e F2 sono FATTE**, il **GATE 1 è passato**, e **tutto è ONLINE**:
    il 25/07 Nicola ha scelto di pushare subito (`ce0d5a8` di F1 e `a10d16b`
