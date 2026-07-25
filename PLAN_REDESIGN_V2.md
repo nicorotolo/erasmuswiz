@@ -14,7 +14,7 @@ Codex" è decaduta. Vedi «Stato di avanzamento» qui sotto._
 | **F1** Token, ritmo, gutter, griglia | ✅ chiusa 2026-07-25 | `ce0d5a8` |
 | **🚦 GATE 1** | ✅ passato 2026-07-25 — Nicola ha confermato le tre default: **P-A** su `modo-benvenuto` (R3), **`!important`** su `#banner-wiz` (R38, `index.html` non si tocca), **full-bleed conservato** per il hero sotto i 768px | — |
 | **F2** Componenti §04 | ✅ chiusa 2026-07-25 — fatta da Claude Code | vedi «Esiti di F2» |
-| **F3** Timeline e stato vuoto | ⬜ da fare | — |
+| **F3** Timeline e stato vuoto | ✅ chiusa 2026-07-25 | `ee2aca0` (F3a) · `db8d67b` (F3b) |
 | **🚦 GATE 2** · **F4** | ⬜ da fare | — |
 
 ### Esiti di F1 che correggono questo piano
@@ -107,6 +107,54 @@ registri), `.idoneita-esito`, `.banner-in-verifica` e `.voce-checklist-v2.attiva
 motivo forte e ripetuto: se a video risulta troppo, il posto per dirlo è il GATE 2.
 `.profilo-salvato` è già stato riportato indietro — lì il filetto l'avevo aggiunto io, non
 il canvas, e un messaggio di conferma non è uno stato.
+**Corroborato da fuori**: il detector meccanico di `/impeccable` segnala 9 `border-left`
+colorati ≥3px come antipattern — tutti pre-esistenti a F3, nessuno introdotto da F3. Non è
+un verdetto (il filetto qui ha un motivo), ma è una seconda voce che dice la stessa cosa.
+
+### Esiti di F3 che il GATE 2 deve conoscere
+
+**Cinque scostamenti dal canvas**, tutti misurati, non di gusto:
+
+1. **Il binario del canvas non è continuo.** Con `bottom: calc(-1 * var(--space-4))` il
+   tratto finisce al bordo superiore della `<li>` successiva, non al suo marker: restava
+   scoperto il tratto alto `--marker-top`, cioè **un buco di 14px esattamente sopra ogni
+   punto** — su un elemento che il canvas chiama "binario continuo". La geometria è ora
+   espressa in funzione di `--marker` (`left`, `top`, `bottom` e la corsia si ricalcolano
+   da sé) e il blocco desktop cambia **un solo numero**. Misurato: buchi = 0 a 390 e 1280,
+   marker e binario allineati a **0.00px**.
+2. **`#stazione-mete-ponte` è l'unica `<li>` senza marker né `<details>`** (index.html:260).
+   Il blocco del canvas la ignora: la linea si spezzava proprio lì. Il suo binario parte da
+   `top: 0`, e se la stazione precedente è completata il tratto resta verde.
+3. **Bianco su `#10B981` sta a 2,6:1** — si usa `--green` (#0f7a3a, **5,5:1**). È lo stesso
+   criterio della deroga 4 di F2, applicato al colore che il canvas propone per il verde
+   della timeline. Stessa logica per il binario: 2,4:1 contro 5,1:1 su `--bg-app`.
+4. **Tolto l'alone indaco fisso** (`0 0 0 5px rgba(79,70,229,.16)`) sotto il marker attivo:
+   con l'anello di focus installato in F2 sarebbe indistinguibile da un elemento a fuoco.
+   Il pieno indaco basta da solo — verde = fatto, indaco = sei qui, contorno = dopo.
+5. **La tappa corrente passa da oro a indaco, con la pillola di stato al seguito.** Non è
+   una scelta nuova: è la grammatica che F2 ha già dato a `.voce-checklist-v2.attiva`
+   (`#EEF2FF` + `--primary`, ~894). Con la sola metà cambiata, la stazione corrente sarebbe
+   rimasta mezza oro e mezza indaco. **È la cosa più visibile di F3: se non convince, il
+   posto è il GATE 2.**
+
+**Un difetto trovato alla misura, non nel diff** (come in F1): con `padding-top: 0` sul
+corpo — che è ciò che il canvas prescrive — le stazioni il cui primo figlio è un banner
+`display:none` (`#banner-verifica-idoneita`, `#banner-verifica-checklist`) avevano il
+contenuto vero **appiccicato alla testa, 0px misurati**. È la stessa trappola di R39: `>
+:first-child` non sa nulla di `display:none`. Lo stacco ora lo dà il corpo — 12px in tutte
+e 5 le stazioni, in ogni combinazione di banner acceso/spento.
+
+**Due scelte su §5.1** oltre alle correzioni R21/R22/R23 già nel piano:
+- il filtro **"lingua" non è una categoria di compatibilità**: con la spiegazione generica
+  ("questa categoria è vuota, le altre restano piene") lo stato vuoto direbbe la cosa
+  sbagliata. Ha una sua variante di copy, stesso sito di render;
+- **niente animazione d'ingresso** sullo stato vuoto: la griglia si ri-renderizza a ogni
+  battuta della ricerca (debounce 150ms) e un'entrata ripartirebbe a ogni keystroke.
+
+**Una cosa NON fatta, dichiarata**: se l'**area** del profilo non ha mete e c'è un filtro
+attivo, compare "Nessuna meta con questo filtro" invece di "Nessuna meta per la tua area"
+(che oggi vive solo nel testo d'intro, app.js:1820). È **pre-esistente**, l'ordine dei due
+`if` non è stato toccato, e §5.1 inventaria tre soli stati vuoti: fuori scope di F3.
 
 > **Fonte-di-verità del design:** `design/redesign-2026-07/Redesign ErasmusWiz.dc.html`
 > (166 KB, prodotto da Claude Design in risposta a `BRIEF_redesign_per_ClaudeDesign.md`; il progetto
