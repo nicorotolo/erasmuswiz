@@ -2318,10 +2318,14 @@ var METE = [
       { numero: 1, mesi: 6, livello: "L", note: "" },
       { numero: 1, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "richiesto per seguire i corsi universitari" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.unicaen.fr/",
+    linkCatalogo: "https://pick-your-courses.unicaen.fr/catalog",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71099."
   },
   {
@@ -2757,10 +2761,14 @@ var METE = [
       { numero: 1, mesi: 10, livello: "L", note: "" },
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "richiesto per seguire i corsi universitari" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.unicaen.fr/",
+    linkCatalogo: "https://pick-your-courses.unicaen.fr/catalog",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70958."
   },
   {

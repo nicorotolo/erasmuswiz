@@ -1208,10 +1208,14 @@ var METE = [
     posti: [
       { numero: 2, mesi: 12, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "richiesto per seguire i corsi universitari" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.unicaen.fr/",
+    linkCatalogo: "https://pick-your-courses.unicaen.fr/catalog",
+
     notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70796."
   },
   {

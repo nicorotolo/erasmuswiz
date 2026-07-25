@@ -1,0 +1,14 @@
+{
+  "F  CAEN01": {
+    "requisitoLingua": {
+      "url": "https://www.unicaen.fr/international/bienvenue/etudiants-dechange/",
+      "citazione": "Donner la preuve que vous comprenez suffisamment le français pour suivre les cours universitaires (au minimum un niveau B1 du Cadre Européen Commun de Référence pour les Langues).",
+      "verificataIl": "2026-07-26"
+    },
+    "linkCatalogo": {
+      "url": "https://pick-your-courses.unicaen.fr/catalog",
+      "citazione": "Pick your courses",
+      "verificataIl": "2026-07-26"
+    }
+  }
+}

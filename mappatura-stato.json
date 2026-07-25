@@ -4,30 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 337,
+  "runCompletati": 338,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "scienze-mfn-batch-2",
-      "priorita": 5,
-      "dipartimento": "Scienze Matematiche Fisiche e Naturali (Sapienza)",
-      "descrizione": "Scienze Matematiche Fisiche e Naturali (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "F  GRENOBL22",
-        "F  CAEN01",
-        "F  LYON12",
-        "F  PARIS063",
-        "F  TOULOUS28",
-        "F  PARIS012",
-        "D  MUNCHEN02",
-        "D  MAINZ01"
-      ]
-    },
     {
       "id": "scienze-mfn-batch-3",
       "priorita": 5,
@@ -696,6 +679,22 @@
         "F  LYON103",
         "F  NANTES01",
         "A  LINZ01"
+      ]
+    },
+    {
+      "id": "scienze matematiche fisiche e naturali (sapienza)-batch-followup-2",
+      "priorita": 6,
+      "dipartimento": "Scienze Matematiche Fisiche e Naturali (Sapienza)",
+      "descrizione": "Scienze Matematiche Fisiche e Naturali (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F  LYON12",
+        "F  PARIS063",
+        "F  TOULOUS28",
+        "F  PARIS012",
+        "D  MUNCHEN02",
+        "D  MAINZ01",
+        "F  CAEN01"
       ]
     }
   ],
@@ -1681,7 +1680,6 @@
         "HR ZADAR01",
         "F  LYON103",
         "F  NANTES01",
-        "F  CAEN01",
         "F  LYON12",
         "F  PARIS063",
         "F  TOULOUS28",
@@ -1736,7 +1734,13 @@
         "BG PLOVDIV04": 1,
         "HR ZADAR01": 1,
         "F  LYON103": 1,
-        "F  NANTES01": 1
+        "F  NANTES01": 1,
+        "F  LYON12": 1,
+        "F  PARIS063": 1,
+        "F  TOULOUS28": 1,
+        "F  PARIS012": 1,
+        "D  MUNCHEN02": 1,
+        "D  MAINZ01": 1
       },
       "linguaNonTrovabile": [
         "F  CERGY-P11",
@@ -1838,7 +1842,6 @@
         "F  LIMOGES01",
         "F  CORTE01",
         "F  ORLEANS01",
-        "F  CAEN01",
         "F  VALENCI01",
         "F  PARIS054",
         "F  TAHITI01",
@@ -3985,6 +3988,12 @@
       "data": "2026-07-25",
       "mete": 8,
       "note": "Scienze Matematiche Fisiche e Naturali (Sapienza) scienze-mfn-batch-1: merge automatico via applica-batch.mjs (+3 blocchi propagati ad altri dipartimenti)."
+    },
+    {
+      "batch": 338,
+      "data": "2026-07-25",
+      "mete": 8,
+      "note": "Scienze Matematiche Fisiche e Naturali (Sapienza) scienze-mfn-batch-2: merge automatico via applica-batch.mjs (+2 blocchi propagati ad altri dipartimenti)."
     }
   ],
   "storicoBatch": [
