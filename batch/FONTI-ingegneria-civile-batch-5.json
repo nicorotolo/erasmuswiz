@@ -1,0 +1,47 @@
+{
+  "P  LISBOA05": {
+    "scadenzeOspitante": {
+      "url": "https://www.ipl.pt/en/international/mobility/erasmus-incoming-students/nominations",
+      "citazione": "1st April to 31st May – for 1st semester (Spring) or full year mobilities in the following academic year 26/27; 15th October to 15th November – for 2nd semester (Autumn) mobilities in the following academic year 26/27",
+      "verificataIl": "2026-07-25"
+    }
+  },
+  "P  COIMBRA02": {
+    "requisitoLingua": {
+      "url": "https://www.fekt.vut.cz/erasmus/CZ_BRNO_01_electro_P_COIMBRA_02.pdf",
+      "citazione": "P COIMBRA 02 All Portuguese English B1 B2",
+      "verificataIl": "2026-07-25"
+    },
+    "scadenzeOspitante": {
+      "url": "https://www.fekt.vut.cz/erasmus/CZ_BRNO_01_electro_P_COIMBRA_02.pdf",
+      "citazione": "P COIMBRA 02 July 15 December 30",
+      "verificataIl": "2026-07-25"
+    }
+  },
+  "RO TIMISOA04": {
+    "scadenzeOspitante": {
+      "url": "https://www.th-rosenheim.de/fileadmin/abteilungen_und_einrichtungen/international_office/Dokumente/Partner-HS_Factsheets/RO_Timisoara_Factsheet.pdf",
+      "citazione": "Fall/winter semester: June 18th, Spring/summer semester: December 10th.",
+      "verificataIl": "2026-07-25"
+    }
+  },
+  "SK ZILINA01": {
+    "requisitoLingua": {
+      "url": "https://www.vus.hr/erasmus/popis_institucija/university_of_zilina",
+      "citazione": "Language: en, B1",
+      "verificataIl": "2026-07-25"
+    },
+    "scadenzeOspitante": {
+      "url": "https://www.vus.hr/erasmus/popis_institucija/university_of_zilina",
+      "citazione": "for the winter semester or the entire academic year: 15th June; for registration for the summer semester: 30th November",
+      "verificataIl": "2026-07-25"
+    }
+  },
+  "E  BARCELO03": {
+    "requisitoLingua": {
+      "url": "https://camins.upc.edu/ca/pdf/pdf-foreign-students/fact-sheet-2025-26_0.pdf",
+      "citazione": "B1 English official certificate is required during the application period for those students willing to enrol courses in English.",
+      "verificataIl": "2026-07-25"
+    }
+  }
+}

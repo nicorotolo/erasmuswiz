@@ -1610,7 +1610,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (1° semestre/intero anno per A.A. 26/27)", periodo: "dal 1 aprile al 31 maggio" },
+        { cosa: "Nomination (2° semestre per A.A. 26/27)", periodo: "dal 15 ottobre al 15 novembre" }
+      ],
     linkSito: "http://www.ipl.pt",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69298."
   },
@@ -1627,9 +1630,15 @@ var METE = [
       { numero: 1, mesi: 10, livello: "L", note: "" },
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Portoghese", livello: "B1", condizione: "raccomandato" },
+        { lingua: "Inglese", livello: "B2", condizione: "raccomandato" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (Autunno)", periodo: "entro il 15 luglio" },
+        { cosa: "Application (Primavera)", periodo: "entro il 30 dicembre" }
+      ],
     linkSito: "http://www.ipc.pt",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA69297."
   },
@@ -1929,7 +1938,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination & Application (Semestre autunnale/invernale)", periodo: "entro 18 giugno" },
+        { cosa: "Nomination & Application (Semestre primaverile/estivo)", periodo: "entro 10 dicembre" }
+      ],
     linkSito: "http://www.upt.ro/",
     notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69325."
   },
@@ -1971,9 +1983,14 @@ var METE = [
     posti: [
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "raccomandato" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination/Application (Semestre invernale)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination/Application (Semestre estivo)", periodo: "entro 30 novembre" }
+      ],
     linkSito: "https://www.uniza.sk/",
     notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69337."
   },
@@ -1989,9 +2006,14 @@ var METE = [
     posti: [
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "raccomandato" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination/Application (Semestre invernale)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination/Application (Semestre estivo)", periodo: "entro 30 novembre" }
+      ],
     linkSito: "https://www.uniza.sk/",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA69336."
   },
@@ -2083,7 +2105,9 @@ var METE = [
       { numero: 1, mesi: 5, livello: "L", note: "" },
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "certificato ufficiale richiesto per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.upc.es",
@@ -2316,7 +2340,9 @@ var METE = [
       { numero: 1, mesi: 5, livello: "L", note: "" },
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "certificato ufficiale richiesto per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.upc.es",

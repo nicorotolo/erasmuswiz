@@ -4,30 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 334,
+  "runCompletati": 335,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "ingegneria-civile-batch-5",
-      "priorita": 5,
-      "dipartimento": "Ingegneria Civile e Industriale (Sapienza)",
-      "descrizione": "Ingegneria Civile e Industriale (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "PL KRAKOW03",
-        "P  LISBOA05",
-        "P  COIMBRA02",
-        "P  PORTO05",
-        "RO TIMISOA04",
-        "SK ZILINA01",
-        "E  BARCELO03",
-        "E  MADRID05"
-      ]
-    },
     {
       "id": "ingegneria-civile-batch-6",
       "priorita": 5,
@@ -702,6 +685,21 @@
         "PL GLIWICE01",
         "PL WARSZAW02",
         "PL WROCLAW02"
+      ]
+    },
+    {
+      "id": "ingegneria civile e industriale (sapienza)-batch-followup-5",
+      "priorita": 6,
+      "dipartimento": "Ingegneria Civile e Industriale (Sapienza)",
+      "descrizione": "Ingegneria Civile e Industriale (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "PL KRAKOW03",
+        "P  LISBOA05",
+        "P  PORTO05",
+        "RO TIMISOA04",
+        "E  MADRID05",
+        "E  BARCELO03"
       ]
     }
   ],
@@ -1517,7 +1515,7 @@
       "fileJs": "js/atenei/sapienza/dati-mete-ingegneria-civile.js",
       "stato": "in_corso",
       "totale": 128,
-      "completate": 75,
+      "completate": 78,
       "pendingScadenze": [
         "A  WIEN03",
         "BG VARNA05",
@@ -1539,11 +1537,7 @@
         "PL WARSZAW02",
         "PL WROCLAW02",
         "PL KRAKOW03",
-        "P  LISBOA05",
-        "P  COIMBRA02",
         "P  PORTO05",
-        "RO TIMISOA04",
-        "SK ZILINA01",
         "E  BARCELO03",
         "E  MADRID05",
         "E  VALENCI02",
@@ -1579,11 +1573,8 @@
         "PL WROCLAW02",
         "PL KRAKOW03",
         "P  LISBOA05",
-        "P  COIMBRA02",
         "P  PORTO05",
         "RO TIMISOA04",
-        "SK ZILINA01",
-        "E  BARCELO03",
         "E  MADRID05",
         "E  VALENCI02",
         "E  SANTAND01",
@@ -1618,7 +1609,12 @@
         "PL OPOLE02": 1,
         "PL GLIWICE01": 1,
         "PL WARSZAW02": 1,
-        "PL WROCLAW02": 1
+        "PL WROCLAW02": 1,
+        "PL KRAKOW03": 1,
+        "P  LISBOA05": 1,
+        "P  PORTO05": 1,
+        "RO TIMISOA04": 1,
+        "E  MADRID05": 1
       },
       "linguaNonTrovabile": [
         "G  PATRA01",
@@ -1726,7 +1722,6 @@
         "SK KOSICE02",
         "E  PAMPLON01",
         "E  MADRID05",
-        "E  BARCELO03",
         "E  ALMERIA01",
         "E  VALENCI02",
         "E  GIRONA02",
@@ -3979,6 +3974,12 @@
       "data": "2026-07-25",
       "mete": 8,
       "note": "Ingegneria Civile e Industriale (Sapienza) ingegneria-civile-batch-4: merge automatico via applica-batch.mjs (+1 blocchi propagati ad altri dipartimenti)."
+    },
+    {
+      "batch": 335,
+      "data": "2026-07-25",
+      "mete": 8,
+      "note": "Ingegneria Civile e Industriale (Sapienza) ingegneria-civile-batch-5: merge automatico via applica-batch.mjs (+1 blocchi propagati ad altri dipartimenti)."
     }
   ],
   "storicoBatch": [
