@@ -1766,6 +1766,31 @@ function renderMappaMete(mete) {
 // ============================================================
 // METE v2
 // ============================================================
+// Stato vuoto ricco (redesign v2 §5.1). `azione` è opzionale: {testo, onClick}.
+// role="status" (R22): il nodo NASCE a runtime dopo un'interazione — una
+// ricerca o un filtro — e senza regione live chi usa uno screen reader non
+// ha modo di accorgersi che la lista si è svuotata.
+function creaStatoVuoto(titolo, spiegazione, azione) {
+  const box = crea("div", "stato-vuoto");
+  box.setAttribute("role", "status");
+  const img = document.createElement("img");
+  img.src = "img/mascotte/wiz-pensieroso.webp";
+  img.alt = "";                 // decorativa: il testo dice già tutto
+  img.width = 110; img.height = 150;  // riserva lo spazio: niente salto di layout
+  img.loading = "lazy";
+  img.className = "stato-vuoto-wiz";
+  box.appendChild(img);
+  box.appendChild(crea("p", "stato-vuoto-titolo", titolo));
+  box.appendChild(crea("p", "stato-vuoto-testo", spiegazione));
+  if (azione) {
+    const btn = crea("button", "btn-secondary", azione.testo);
+    btn.type = "button";
+    btn.addEventListener("click", azione.onClick);
+    box.appendChild(btn);
+  }
+  return box;
+}
+
 function renderMete() {
   const cont  = document.getElementById("griglia-mete-v2");
   const intro = document.getElementById("intro-mete-v2");
@@ -1886,12 +1911,36 @@ function renderMete() {
   renderWizardMete();
   renderMappaMete(elenco.map(e => e.meta));
 
+  // ⚠️ I due `return` sono obbligatori: senza, la lista vuota e lo stato
+  // vuoto verrebbero renderizzati insieme.
   if (elenco.length === 0 && testo) {
-    cont.appendChild(crea("p", "stato-vuoto-v2", `Nessuna meta trovata per «${testo}».`));
+    cont.appendChild(creaStatoVuoto(
+      `Nessuna meta trovata per «${testo}»`,
+      "Può essere scritto in un altro modo, oppure quella sede non è nel bando del tuo dipartimento.",
+      { testo: "Svuota la ricerca", onClick: () => {
+        // renderMete() diretta, non un Event("input") simulato: il campo ha
+        // un debounce di 150ms (init, in fondo al file) e un bottone premuto
+        // non deve aspettarlo.
+        const campo = document.getElementById("cerca-mete");
+        if (campo) { campo.value = ""; campo.focus(); }
+        renderMete();
+      } }
+    ));
     return;
   }
   if (elenco.length === 0 && profilo && filtroMeteAttivo !== "tutte") {
-    cont.appendChild(crea("p", "stato-vuoto-v2", "Nessuna meta con questo filtro. Prova un'altra categoria."));
+    // "lingua" non è una categoria di compatibilità: se il filtro vuoto è
+    // quello, la spiegazione generica direbbe la cosa sbagliata.
+    const perLingua = filtroMeteAttivo === "lingua";
+    cont.appendChild(creaStatoVuoto(
+      perLingua ? "Nessuna meta coperta dalle tue lingue" : "Nessuna meta con questo filtro",
+      perLingua
+        ? "Nessuna meta di quest'area chiede una lingua che hai già certificato. Le altre restano visibili: il requisito lo verifichi meta per meta."
+        : "Con i tuoi dati attuali questa categoria è vuota. Le altre categorie restano piene.",
+      // R21 — il bottone del canvas cercava `.chip-filtro[data-filtro="tutte"]`,
+      // ma quell'attributo non esiste: si agisce sullo stato, come fanno i chip.
+      { testo: "Mostra tutte le mete", onClick: () => { filtroMeteAttivo = "tutte"; renderMete(); } }
+    ));
     return;
   }
 

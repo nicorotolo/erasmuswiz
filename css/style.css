@@ -1257,6 +1257,46 @@ body {
    allargare la traccia oltre la propria frazione. */
 @media (min-width: 768px)  { .griglia-mete-v2 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; } }
 @media (min-width: 1024px) { .griglia-mete-v2 { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); } }
+
+/* ================================================================
+   STATO VUOTO RICCO (redesign v2 §5.1 — F3b)
+   Additivo. Il nodo nasce a runtime dentro .griglia-mete-v2, che è una
+   grid: senza grid-column occuperebbe una sola colonna su tre.
+   Fondo, bordo, raggio e ombra sono quelli della famiglia card (§4.2):
+   è ciò che sostituisce le card nella griglia, non un pannello a parte.
+
+   ⛔ Niente animazione d'ingresso: la griglia si ri-renderizza a ogni
+   battuta della ricerca (debounce di 150ms, app.js:4358) e un'entrata
+   ripartirebbe da capo a ogni keystroke.
+================================================================ */
+.stato-vuoto {
+  grid-column: 1 / -1;
+  display: flex; flex-direction: column; align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-8) var(--space-5);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  text-align: center;
+}
+.stato-vuoto-wiz { width: 110px; height: auto; }
+.stato-vuoto-titolo {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: var(--fs-h3); letter-spacing: -.02em;
+  color: var(--text-dark); margin: 0;
+}
+.stato-vuoto-testo {
+  font-size: var(--fs-body); line-height: 1.6;
+  color: var(--text-muted); margin: 0;
+  max-width: 40ch; text-wrap: pretty;
+}
+.stato-vuoto .btn-secondary { margin-top: var(--space-2); }
+@media (min-width: 1024px) {
+  .stato-vuoto { padding: var(--space-12) var(--space-8); }
+  .stato-vuoto-wiz { width: 140px; }
+}
+
 /* Card meta — direzione C (Fase C3): l'affordance di tap la dà il DESIGN
    (hover-lift, cursore, freccia), non una label ripetuta su ogni card (P1.8). */
 /* REDESIGN v2 §4.5 — fondo, bordo, raggio e ombra vengono dal corpo condiviso
@@ -1339,7 +1379,21 @@ body {
 /* Schedina — "Le tue 5 scelte" (BR4, 4b — Fase C3: schedina compatta, P1.4)
    Vuota = una riga di invito; parziale = solo gli slot pieni + riga compatta.
    Colori a token semantici, mai valori grezzi. */
-.schedina-invito-vuota { font-size: 0.85rem; color: var(--text-muted); margin: 0; }
+/* §5.1 — la schedina vuota NON usa creaStatoVuoto: resta un invito di una
+   riga per scelta deliberata (P1.4: cinque slot vuoti occupavano 1,5
+   schermate prima della lista mete). Si allinea solo lo stile, e diventa
+   un invito d'oro invece di una riga grigia — è un suggerimento, non un
+   errore. --gold-dark su --gold-bg sta a 4,5:1. */
+.schedina-invito-vuota {
+  display: block; margin: 0;
+  padding: var(--space-4);
+  background: var(--gold-bg);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-sm); line-height: 1.6;
+  color: var(--gold-dark);
+  text-wrap: pretty;
+}
 /* REDESIGN v2 §4.8 — gli slot smettono di essere tutti bordati d'oro. La
    schedina ha già una sua sezione con titolo: ripetere l'accento su ogni riga
    lo consuma e lo toglie a dove serve davvero (missione, preferiti,
