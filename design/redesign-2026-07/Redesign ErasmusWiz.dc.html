@@ -1,0 +1,2046 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #FAF8F3; -webkit-font-smoothing: antialiased; }
+  a { color: #4F46E5; }
+  a:hover { color: #3730A3; }
+  @keyframes specPulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+</style>
+</helmet>
+
+<div style="font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:#1E1B2E;background:#FAF8F3;padding:0 0 120px">
+
+  <header style="background:#211E42;color:#fff;padding:56px 32px 48px;position:relative;overflow:hidden">
+    <div style="max-width:1120px;margin:0 auto;position:relative;z-index:1">
+      <div style="display:flex;align-items:center;gap:10px;font-family:'Space Mono',monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#FBBF24;margin-bottom:22px">
+        <span style="width:22px;height:1px;background:#FBBF24;display:block"></span>
+        <span>Specifica di redesign · v2 · verificata sul codice</span>
+      </div>
+      <h1 style="font-family:'Bricolage Grotesque',serif;font-weight:800;font-size:clamp(34px,5.2vw,54px);line-height:1.04;letter-spacing:-.03em;margin:0 0 18px;max-width:20ch">ErasmusWiz — redesign implementabile 1:1</h1>
+      <p style="font-size:17px;line-height:1.6;color:#C7C3E0;margin:0 0 32px;max-width:62ch;text-wrap:pretty">Documento operativo per l'implementazione. Ogni regola è ancorata a un selettore che esiste davvero in <span style="font-family:'Space Mono',monospace;font-size:14.5px;color:#fff">css/style.css</span>, a una riga di <span style="font-family:'Space Mono',monospace;font-size:14.5px;color:#fff">index.html</span> o a una funzione di <span style="font-family:'Space Mono',monospace;font-size:14.5px;color:#fff">js/app.js</span>. Niente DOM inventato.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px">
+        <span style="display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:8px 15px;font-size:13px;font-weight:600;color:#fff">index.html · 613 righe lette</span>
+        <span style="display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:8px 15px;font-size:13px;font-weight:600;color:#fff">style.css · 1702 righe lette</span>
+        <span style="display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:8px 15px;font-size:13px;font-weight:600;color:#fff">app.js · 4378 righe, 9 funzioni di render</span>
+      </div>
+    </div>
+  </header>
+
+  <nav style="max-width:1120px;margin:0 auto;padding:36px 32px 0">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:#E5E2F0;border:1px solid #E5E2F0;border-radius:14px;overflow:hidden">
+      <a href="#s1" style="background:#fff;padding:16px 18px;text-decoration:none;display:block"><span style="font-family:'Space Mono',monospace;font-size:11px;color:#4F46E5;display:block;margin-bottom:5px">01</span><span style="font-size:14px;font-weight:700;color:#1E1B2E">Verifica sul codice</span></a>
+      <a href="#s2" style="background:#fff;padding:16px 18px;text-decoration:none;display:block"><span style="font-family:'Space Mono',monospace;font-size:11px;color:#4F46E5;display:block;margin-bottom:5px">02</span><span style="font-size:14px;font-weight:700;color:#1E1B2E">Token &amp; scala</span></a>
+      <a href="#s3" style="background:#fff;padding:16px 18px;text-decoration:none;display:block"><span style="font-family:'Space Mono',monospace;font-size:11px;color:#4F46E5;display:block;margin-bottom:5px">03</span><span style="font-size:14px;font-weight:700;color:#1E1B2E">Griglia &amp; layout</span></a>
+      <a href="#s4" style="background:#fff;padding:16px 18px;text-decoration:none;display:block"><span style="font-family:'Space Mono',monospace;font-size:11px;color:#4F46E5;display:block;margin-bottom:5px">04</span><span style="font-size:14px;font-weight:700;color:#1E1B2E">Componenti</span></a>
+      <a href="#s5" style="background:#fff;padding:16px 18px;text-decoration:none;display:block"><span style="font-family:'Space Mono',monospace;font-size:11px;color:#4F46E5;display:block;margin-bottom:5px">05</span><span style="font-size:14px;font-weight:700;color:#1E1B2E">Markup nuovo</span></a>
+      <a href="#s6" style="background:#fff;padding:16px 18px;text-decoration:none;display:block"><span style="font-family:'Space Mono',monospace;font-size:11px;color:#4F46E5;display:block;margin-bottom:5px">06</span><span style="font-size:14px;font-weight:700;color:#1E1B2E">Specimen</span></a>
+      <a href="#s7" style="background:#fff;padding:16px 18px;text-decoration:none;display:block"><span style="font-family:'Space Mono',monospace;font-size:11px;color:#4F46E5;display:block;margin-bottom:5px">07</span><span style="font-size:14px;font-weight:700;color:#1E1B2E">Manifest &amp; checklist</span></a>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:18px;padding:22px 2px 0;font-size:12.5px;color:#4B4560">
+      <span style="display:inline-flex;align-items:center;gap:7px"><span style="font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;background:#EEF2FF;color:#3730A3;border:1px solid #C7D2FE;border-radius:5px;padding:3px 7px">MODIFICA css</span> regola già presente, cambia</span>
+      <span style="display:inline-flex;align-items:center;gap:7px"><span style="font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;background:#ECFDF5;color:#065F46;border:1px solid #A7F3D0;border-radius:5px;padding:3px 7px">NUOVA css</span> additiva, nessun rischio</span>
+      <span style="display:inline-flex;align-items:center;gap:7px"><span style="font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;background:#FEF3C7;color:#92400E;border:1px solid #FDE68A;border-radius:5px;padding:3px 7px">MARKUP index.html</span> tocca il DOM statico</span>
+      <span style="display:inline-flex;align-items:center;gap:7px"><span style="font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;background:#FEE2E2;color:#991B1B;border:1px solid #FECACA;border-radius:5px;padding:3px 7px">MARKUP app.js</span> tocca il JS di render</span>
+    </div>
+  </nav>
+
+  <section id="s1" style="max-width:1120px;margin:0 auto;padding:64px 32px 0">
+    <div style="display:flex;align-items:baseline;gap:16px;border-bottom:2px solid #1E1B2E;padding-bottom:14px;margin-bottom:34px">
+      <span style="font-family:'Space Mono',monospace;font-size:13px;color:#4F46E5;font-weight:700">01</span>
+      <h2 style="font-family:'Bricolage Grotesque',serif;font-weight:800;font-size:clamp(26px,3.4vw,34px);letter-spacing:-.025em;margin:0;flex:1">Verifica sul codice — cosa il brief dava per assunto e cosa dice il sorgente</h2>
+    </div>
+    <p style="font-size:16.5px;line-height:1.65;color:#4B4560;max-width:72ch;margin:0 0 32px;text-wrap:pretty">Sette scostamenti fra brief e sorgente. Sono in cima perché cambiano <em>cosa</em> va implementato: leggerli prima evita tre giri di correzioni.</p>
+
+    <div style="display:flex;flex-direction:column;gap:16px">
+
+      <article style="background:#fff;border:1px solid #E5E2F0;border-left:3px solid #FBBF24;border-radius:14px;padding:26px 28px">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:12px">
+          <span style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:#B45309">V1</span>
+          <h3 style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:20px;letter-spacing:-.015em;margin:0">La palette è già indigo. Il "rebase colore" è di 2 valori, non di 10.</h3>
+        </div>
+        <p style="font-size:15.5px;line-height:1.65;color:#4B4560;margin:0 0 16px;max-width:78ch;text-wrap:pretty">Il brief (B.6) chiede di rimappare <span style="font-family:'Space Mono',monospace;font-size:13.5px">--primary</span> a <span style="font-family:'Space Mono',monospace;font-size:13.5px">#4F46E5</span> e <span style="font-family:'Space Mono',monospace;font-size:13.5px">--gold</span> a <span style="font-family:'Space Mono',monospace;font-size:13.5px">#FBBF24</span>. Nel <span style="font-family:'Space Mono',monospace;font-size:13.5px">:root</span> reale (style.css righe 22–72) sono <strong>già esattamente quei valori</strong>. Il bundle azzurro <span style="font-family:'Space Mono',monospace;font-size:13.5px">_ds/</span> non è mai entrato nel codebase.</p>
+        <div style="background:#FAF8F3;border:1px solid #E5E2F0;border-radius:10px;padding:18px 20px">
+          <p style="font-size:13.5px;font-weight:700;margin:0 0 10px;color:#1E1B2E">Diff colore reale — 2 righe</p>
+          <p style="font-family:'Space Mono',monospace;font-size:13px;line-height:1.9;margin:0;color:#4B4560">--night-bg: #232046 → #211E42<br>--bg-app: #FAFAF7 → #FAF8F3</p>
+        </div>
+        <p style="font-size:15px;line-height:1.65;color:#1E1B2E;margin:16px 0 0;max-width:78ch;font-weight:600;text-wrap:pretty">Conseguenza operativa: il valore di questo redesign non è la tinta, è <strong>ritmo verticale, scala tipografica, gerarchia e trattamento dei componenti</strong>. Chi implementa non deve aspettarsi un cambio percepibile dal solo §02.</p>
+      </article>
+
+      <article style="background:#fff;border:1px solid #E5E2F0;border-left:3px solid #4F46E5;border-radius:14px;padding:26px 28px">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:12px">
+          <span style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:#4338CA">V2</span>
+          <h3 style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:20px;letter-spacing:-.015em;margin:0">Il marker assoluto funziona dentro <span style="font-family:'Space Mono',monospace;font-size:17px">&lt;details&gt;</span> — ma per un motivo fragile.</h3>
+        </div>
+        <p style="font-size:15.5px;line-height:1.65;color:#4B4560;margin:0 0 14px;max-width:78ch;text-wrap:pretty">DOM reale confermato: <span style="font-family:'Space Mono',monospace;font-size:13.5px">li.stazione &gt; details.stazione-dettagli &gt; summary.stazione-testa &gt; span.stazione-punto</span>. <span style="font-family:'Space Mono',monospace;font-size:13.5px">.stazione-dettagli</span> ha <span style="font-family:'Space Mono',monospace;font-size:13.5px">overflow:hidden</span> — sembra un problema, non lo è: <span style="font-family:'Space Mono',monospace;font-size:13.5px">.stazione-dettagli</span> <strong>non è posizionato</strong>, quindi non è il containing block del marker, e il clip di un antenato non-posizionato non si applica a un discendente assoluto il cui containing block gli sta sopra. Il marker risolve su <span style="font-family:'Space Mono',monospace;font-size:13.5px">.stazione</span> (già <span style="font-family:'Space Mono',monospace;font-size:13.5px">position:relative</span>, style.css:597) ed esce dalla card.</p>
+        <div style="background:#FEF3C7;border:1px solid #FDE68A;border-radius:10px;padding:16px 18px">
+          <p style="font-size:14.5px;line-height:1.6;margin:0;color:#92400E;text-wrap:pretty"><strong>Guardia obbligatoria.</strong> Basta che qualcuno aggiunga <span style="font-family:'Space Mono',monospace;font-size:13px">position</span>, <span style="font-family:'Space Mono',monospace;font-size:13px">transform</span>, <span style="font-family:'Space Mono',monospace;font-size:13px">filter</span> o <span style="font-family:'Space Mono',monospace;font-size:13px">will-change</span> a <span style="font-family:'Space Mono',monospace;font-size:13px">.stazione-dettagli</span> e il marker rientra nella card e viene tagliato. Il commento di guardia è parte della consegna (§04, blocco timeline) — non è opzionale.</p>
+        </div>
+      </article>
+
+      <article style="background:#fff;border:1px solid #E5E2F0;border-left:3px solid #4F46E5;border-radius:14px;padding:26px 28px">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:12px">
+          <span style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:#4338CA">V3</span>
+          <h3 style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:20px;letter-spacing:-.015em;margin:0">Il binario di oggi è un segmento fra card: va sostituito, non affiancato.</h3>
+        </div>
+        <p style="font-size:15.5px;line-height:1.65;color:#4B4560;margin:0;max-width:78ch;text-wrap:pretty">Regola reale: <span style="font-family:'Space Mono',monospace;font-size:13.5px">.stazione + .stazione::before</span> (style.css:600) disegna un tratto di 10px <em>nel gap</em>, con la variante verde <span style="font-family:'Space Mono',monospace;font-size:13.5px">.stazione-fatta + .stazione::before</span>. Il binario continuo per-stazione usa lo stesso pseudo-elemento: se si aggiunge la nuova regola senza rimuovere la vecchia si sovrappongono due tratti con offset diversi. Il §04 consegna il <strong>blocco sostitutivo completo</strong>, non un delta.</p>
+      </article>
+
+      <article style="background:#fff;border:1px solid #E5E2F0;border-left:3px solid #4F46E5;border-radius:14px;padding:26px 28px">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:12px">
+          <span style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:#4338CA">V4</span>
+          <h3 style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:20px;letter-spacing:-.015em;margin:0">Esistono <em>due</em> bottoni primari con nomi quasi identici.</h3>
+        </div>
+        <p style="font-size:15.5px;line-height:1.65;color:#4B4560;margin:0;max-width:78ch;text-wrap:pretty"><span style="font-family:'Space Mono',monospace;font-size:13.5px">.btn-primary</span> (missione, banner, profilo salvato) e <span style="font-family:'Space Mono',monospace;font-size:13.5px">.btn-primario</span> (submit del form profilo) sono classi distinte, con padding e ombra diversi, e <strong>nessuna delle due ha un min-height</strong>. Il requisito touch ≥48px va applicato a entrambe, altrimenti il submit del profilo resta a 41px. Chi legge solo "il bottone primario" ne sistema una su due.</p>
+      </article>
+
+      <article style="background:#fff;border:1px solid #E5E2F0;border-left:3px solid #4F46E5;border-radius:14px;padding:26px 28px">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:12px">
+          <span style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:#4338CA">V5</span>
+          <h3 style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:20px;letter-spacing:-.015em;margin:0">La griglia desktop di "Oggi" oggi usa <span style="font-family:'Space Mono',monospace;font-size:17px">grid-row</span> esplicite.</h3>
+        </div>
+        <p style="font-size:15.5px;line-height:1.65;color:#4B4560;margin:0;max-width:78ch;text-wrap:pretty">Il CSS reale assegna righe fisse a quattro figli (<span style="font-family:'Space Mono',monospace;font-size:13.5px">.percorso-wrap</span> su <span style="font-family:'Space Mono',monospace;font-size:13.5px">grid-row:1/6</span>, missione 2, settimana 3, mappa 4). È esattamente il pattern che B.2 vuole eliminare, perché i figli con <span style="font-family:'Space Mono',monospace;font-size:13.5px">display:none</span> lasciano righe vuote. Il passaggio ad auto-flow è quindi una <strong>sostituzione di regole esistenti</strong>: se le righe fisse restano, vincono e la nuova griglia non ha effetto.</p>
+      </article>
+
+      <article style="background:#fff;border:1px solid #E5E2F0;border-left:3px solid #10B981;border-radius:14px;padding:26px 28px">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:12px">
+          <span style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:#065F46">V6</span>
+          <h3 style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:20px;letter-spacing:-.015em;margin:0">Nessuna nuova regola <span style="font-family:'Space Mono',monospace;font-size:17px">prefers-reduced-motion</span> serve.</h3>
+        </div>
+        <p style="font-size:15.5px;line-height:1.65;color:#4B4560;margin:0;max-width:78ch;text-wrap:pretty">Il blocco esistente azzera <span style="font-family:'Space Mono',monospace;font-size:13.5px">animation</span> e <span style="font-family:'Space Mono',monospace;font-size:13.5px">transition</span> con il selettore universale <span style="font-family:'Space Mono',monospace;font-size:13.5px">*</span>. Copre già ogni animazione che questo redesign introduce. L'unica accortezza: le nuove transizioni non devono essere l'unico veicolo di un'informazione (mai "lo stato si capisce solo dal movimento").</p>
+      </article>
+
+      <article style="background:#fff;border:1px solid #E5E2F0;border-left:3px solid #EF4444;border-radius:14px;padding:26px 28px">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:12px">
+          <span style="font-family:'Space Mono',monospace;font-size:12px;font-weight:700;color:#991B1B">V7</span>
+          <h3 style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:20px;letter-spacing:-.015em;margin:0">Lo stato vuoto ricco non può essere solo CSS.</h3>
+        </div>
+        <p style="font-size:15.5px;line-height:1.65;color:#4B4560;margin:0;max-width:78ch;text-wrap:pretty">I due siti reali sono <span style="font-family:'Space Mono',monospace;font-size:13.5px">cont.appendChild(crea("p", "stato-vuoto-v2", …))</span> — app.js:1890 e 1894: emettono un <span style="font-family:'Space Mono',monospace;font-size:13.5px">&lt;p&gt;</span> di solo testo. Mascotte + titolo + riga d'azione richiedono nodi figli, quindi <strong>una modifica a app.js</strong> (§05 dà la funzione esatta). Stessa cosa per <span style="font-family:'Space Mono',monospace;font-size:13.5px">.schedina-invito-vuota</span> (app.js:2031). Il brief B.4 lo ammette come additivo agganciato a funzione: è l'unico caso di JS nuovo in tutta la consegna.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="s2" style="max-width:1120px;margin:0 auto;padding:78px 32px 0">
+    <div style="display:flex;align-items:baseline;gap:16px;border-bottom:2px solid #1E1B2E;padding-bottom:14px;margin-bottom:34px">
+      <span style="font-family:'Space Mono',monospace;font-size:13px;color:#4F46E5;font-weight:700">02</span>
+      <h2 style="font-family:'Bricolage Grotesque',serif;font-weight:800;font-size:clamp(26px,3.4vw,34px);letter-spacing:-.025em;margin:0;flex:1">Token &amp; scala tipografica</h2>
+    </div>
+    <p style="font-size:16.5px;line-height:1.65;color:#4B4560;max-width:72ch;margin:0 0 34px;text-wrap:pretty">Due soli interventi sul <span style="font-family:'Space Mono',monospace;font-size:14.5px">:root</span> esistente, poi un blocco additivo in coda. <strong>Non riscrivere il <span style="font-family:'Space Mono',monospace;font-size:14.5px">:root</span> per intero</strong>: contiene 40+ token vivi (ombre, night-*, gold-bg, primary-active) che un rimpiazzo integrale azzera.</p>
+
+    <h3 style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:22px;letter-spacing:-.02em;margin:0 0 14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">2.1 Token modificati <span style="font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;background:#EEF2FF;color:#3730A3;border:1px solid #C7D2FE;border-radius:5px;padding:3px 7px">MODIFICA css</span></h3>
+    <p style="font-size:15.5px;line-height:1.6;color:#4B4560;margin:0 0 18px;max-width:78ch">Sostituire in loco le due righe dentro il <span style="font-family:'Space Mono',monospace;font-size:13.5px">:root</span> (righe 22 e 37). Nessun'altra riga del <span style="font-family:'Space Mono',monospace;font-size:13.5px">:root</span> va toccata.</p>
+    <div style="overflow-x:auto;margin-bottom:16px">
+      <table style="width:100%;border-collapse:collapse;font-size:14px;min-width:640px;background:#fff;border:1px solid #E5E2F0;border-radius:12px;overflow:hidden">
+        <thead>
+          <tr style="background:#FAF8F3">
+            <th style="text-align:left;padding:13px 16px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#686180;font-weight:700;border-bottom:1px solid #E5E2F0">Token</th>
+            <th style="text-align:left;padding:13px 16px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#686180;font-weight:700;border-bottom:1px solid #E5E2F0">Riga</th>
+            <th style="text-align:left;padding:13px 16px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#686180;font-weight:700;border-bottom:1px solid #E5E2F0">Da</th>
+            <th style="text-align:left;padding:13px 16px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#686180;font-weight:700;border-bottom:1px solid #E5E2F0">A</th>
+            <th style="text-align:left;padding:13px 16px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#686180;font-weight:700;border-bottom:1px solid #E5E2F0">Perché</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:15px 16px;border-bottom:1px solid #F1EFF8;font-family:'Space Mono',monospace;font-size:13px;color:#1E1B2E;white-space:nowrap">--bg-app</td>
+            <td style="padding:15px 16px;border-bottom:1px solid #F1EFF8;font-family:'Space Mono',monospace;font-size:12.5px;color:#686180">22</td>
+            <td style="padding:15px 16px;border-bottom:1px solid #F1EFF8"><span style="display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:12.5px;color:#4B4560"><span style="width:16px;height:16px;border-radius:4px;background:#FAFAF7;border:1px solid #D6D1EA;display:inline-block"></span>#FAFAF7</span></td>
+            <td style="padding:15px 16px;border-bottom:1px solid #F1EFF8"><span style="display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:12.5px;color:#1E1B2E;font-weight:700"><span style="width:16px;height:16px;border-radius:4px;background:#FAF8F3;border:1px solid #D6D1EA;display:inline-block"></span>#FAF8F3</span></td>
+            <td style="padding:15px 16px;border-bottom:1px solid #F1EFF8;color:#4B4560;line-height:1.55">Un grado di calore in più: la carta smette di leggersi come grigio d'ufficio e regge meglio l'indigo accanto.</td>
+          </tr>
+          <tr>
+            <td style="padding:15px 16px;font-family:'Space Mono',monospace;font-size:13px;color:#1E1B2E;white-space:nowrap">--night-bg</td>
+            <td style="padding:15px 16px;font-family:'Space Mono',monospace;font-size:12.5px;color:#686180">37</td>
+            <td style="padding:15px 16px"><span style="display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:12.5px;color:#4B4560"><span style="width:16px;height:16px;border-radius:4px;background:#232046;display:inline-block"></span>#232046</span></td>
+            <td style="padding:15px 16px"><span style="display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono',monospace;font-size:12.5px;color:#1E1B2E;font-weight:700"><span style="width:16px;height:16px;border-radius:4px;background:#211E42;display:inline-block"></span>#211E42</span></td>
+            <td style="padding:15px 16px;color:#4B4560;line-height:1.55">Notte un filo più fredda e profonda: aumenta lo stacco dell'oro sul hero senza scendere verso il nero.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="background:#fff;border:1px solid #E5E2F0;border-radius:12px;padding:18px 20px;margin-bottom:44px">
+      <p style="font-size:14.5px;line-height:1.6;margin:0;color:#4B4560;text-wrap:pretty"><strong style="color:#1E1B2E">Restano invariati</strong> — e questo è un esito della verifica, non una dimenticanza: <span style="font-family:'Space Mono',monospace;font-size:13px">--primary #4F46E5</span> · <span style="font-family:'Space Mono',monospace;font-size:13px">--primary-fill #4F46E5</span> · <span style="font-family:'Space Mono',monospace;font-size:13px">--gold #FBBF24</span> · <span style="font-family:'Space Mono',monospace;font-size:13px">--gold-dark #B45309</span> · <span style="font-family:'Space Mono',monospace;font-size:13px">--bg-card-hover #F3F1FA</span> · <span style="font-family:'Space Mono',monospace;font-size:13px">--text-hint #686180</span> · <span style="font-family:'Space Mono',monospace;font-size:13px">--border-strong #D6D1EA</span> · <span style="font-family:'Space Mono',monospace;font-size:13px">--mission-glow rgba(251,191,36,.35)</span>. Sono già i valori bersaglio.</p>
+    </div>
+
+    <h3 style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:22px;letter-spacing:-.02em;margin:0 0 14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">2.2 Token additivi <span style="font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;background:#ECFDF5;color:#065F46;border:1px solid #A7F3D0;border-radius:5px;padding:3px 7px">NUOVA css</span></h3>
+    <p style="font-size:15.5px;line-height:1.6;color:#4B4560;margin:0 0 18px;max-width:78ch">Da incollare <strong>in coda al <span style="font-family:'Space Mono',monospace;font-size:13.5px">:root</span> esistente</strong>, prima della graffa di chiusura. Nessuno di questi nomi esiste oggi: zero collisioni.</p>
+    <sc-if value="{{ vistaCodice }}" hint-placeholder-val="{{ true }}">
+    <pre style="font-family:'Space Mono',monospace;font-size:12.5px;line-height:1.8;background:#211E42;color:#E9E7F5;padding:22px 24px;border-radius:14px;overflow-x:auto;white-space:pre;margin:0 0 20px">/* ── Scala 4px ─────────────────────────────────────── */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* ── Tipografia (valori mobile, rif. 390) ──────────── */
+  --fs-hero:  30px;   /* .home-hero-claim, .celebrazione-titolo */
+  --fs-h1:    25px;   /* .sezione-titolo */
+  --fs-h2:    20px;   /* .missione-titolo, .dett-titolo */
+  --fs-h3:    17px;   /* .card-meta-v2 h3, .stazione-titolo */
+  --fs-body:  15.5px;
+  --fs-sm:    13.5px;
+  --fs-xs:    12px;   /* micro-label MAIUSCOLE */
+  --fs-mono:  14px;   /* countdown, punteggi, livelli lingua */
+
+  /* ── Ritmo di pagina ───────────────────────────────── */
+  --gutter:    16px;  /* padding orizzontale del tab-pane */
+  --stack:     16px;  /* gap verticale fra blocchi di pari livello */
+  --container: 1120px;
+
+  /* ── Ombra magica (tinta oro, mai nero) ────────────── */
+  --shadow-gold: 0 2px 6px rgba(180,83,9,.10),
+                 0 10px 28px rgba(251,191,36,.24);</pre>
+    </sc-if>
+
+    <h3 style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:22px;letter-spacing:-.02em;margin:38px 0 14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">2.3 Override per banda <span style="font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;background:#ECFDF5;color:#065F46;border:1px solid #A7F3D0;border-radius:5px;padding:3px 7px">NUOVA css</span></h3>
+    <p style="font-size:15.5px;line-height:1.6;color:#4B4560;margin:0 0 18px;max-width:78ch">Il brief impone valori espliciti per tre bande: la banda 768–1023 <strong>non</strong> deve ereditare per caso il mobile. Due blocchi, entrambi additivi.</p>
+    <sc-if value="{{ vistaCodice }}" hint-placeholder-val="{{ true }}">
+    <pre style="font-family:'Space Mono',monospace;font-size:12.5px;line-height:1.8;background:#211E42;color:#E9E7F5;padding:22px 24px;border-radius:14px;overflow-x:auto;white-space:pre;margin:0 0 20px">/* Tablet — 768 a 1023 */
+@media (min-width: 768px) {
+  :root {
+    --fs-hero: 34px;
+    --fs-h1:   27px;
+    --fs-h2:   21px;
+    --fs-h3:   17.5px;
+    --fs-body: 16px;
+    --fs-sm:   14px;
+    --gutter:  24px;
+    --stack:   20px;
+  }
+}
+
+/* Desktop — da 1024 */
+@media (min-width: 1024px) {
+  :root {
+    --fs-hero: 40px;
+    --fs-h1:   30px;
+    --fs-h2:   23px;
+    --fs-h3:   18px;
+    --fs-body: 16px;
+    --fs-sm:   14px;
+    --fs-xs:   12.5px;
+    --fs-mono: 15px;
+    --gutter:  32px;
+    --stack:   24px;
+  }
+}</pre>
+    </sc-if>
+
+    <div style="background:#fff;border:1px solid #E5E2F0;border-radius:14px;padding:26px 28px;margin-bottom:20px">
+      <p style="font-size:13.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#686180;margin:0 0 20px">Scala resa visibile — 390 / 768 / 1280</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px">
+        <div>
+          <p style="font-family:'Space Mono',monospace;font-size:11.5px;color:#4F46E5;margin:0 0 12px;letter-spacing:.06em">--fs-hero · 30 → 34 → 40</p>
+          <p style="font-family:'Bricolage Grotesque',serif;font-weight:800;font-size:30px;line-height:1.1;letter-spacing:-.03em;margin:0;color:#1E1B2E">Entri confuso, esci con un piano.</p>
+        </div>
+        <div>
+          <p style="font-family:'Space Mono',monospace;font-size:11.5px;color:#4F46E5;margin:0 0 12px;letter-spacing:.06em">--fs-h2 · 20 → 21 → 23</p>
+          <p style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:20px;line-height:1.25;letter-spacing:-.02em;margin:0;color:#1E1B2E">Carica il certificato di lingua</p>
+        </div>
+        <div>
+          <p style="font-family:'Space Mono',monospace;font-size:11.5px;color:#4F46E5;margin:0 0 12px;letter-spacing:.06em">--fs-body · 15.5 → 16 → 16</p>
+          <p style="font-size:15.5px;line-height:1.65;margin:0;color:#4B4560">Ti serve il B2 di francese. Se non l'hai ancora, la meta resta in lista con riserva.</p>
+        </div>
+        <div>
+          <p style="font-family:'Space Mono',monospace;font-size:11.5px;color:#4F46E5;margin:0 0 12px;letter-spacing:.06em">--fs-mono · 14 → 14 → 15</p>
+          <p style="font-family:'Space Mono',monospace;font-weight:700;font-size:14px;margin:0;color:#1E1B2E">39g 23h 59m 57s</p>
+        </div>
+        <div>
+          <p style="font-family:'Space Mono',monospace;font-size:11.5px;color:#4F46E5;margin:0 0 12px;letter-spacing:.06em">--fs-xs · 12 → 12 → 12.5</p>
+          <p style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:0;color:#686180">POSTI DISPONIBILI</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#EEF2FF;border:1px solid #C7D2FE;border-radius:12px;padding:18px 20px">
+      <p style="font-size:14.5px;line-height:1.6;margin:0;color:#3730A3;text-wrap:pretty"><strong>Regola d'uso.</strong> Da qui in poi ogni valore di <span style="font-family:'Space Mono',monospace;font-size:13px">font-size</span>, <span style="font-family:'Space Mono',monospace;font-size:13px">padding</span>, <span style="font-family:'Space Mono',monospace;font-size:13px">gap</span> e <span style="font-family:'Space Mono',monospace;font-size:13px">margin</span> nei blocchi di produzione è scritto come <span style="font-family:'Space Mono',monospace;font-size:13px">var(--…)</span>. I px letterali sopravvivono solo dove sono geometria fissa e non ritmo: spessore dei bordi, diametro del marker, altezza del binario, raggi.</p>
+    </div>
+  </section>
+
+  <section id="s3" style="max-width:1120px;margin:0 auto;padding:78px 32px 0">
+    <div style="display:flex;align-items:baseline;gap:16px;border-bottom:2px solid #1E1B2E;padding-bottom:14px;margin-bottom:34px">
+      <span style="font-family:'Space Mono',monospace;font-size:13px;color:#4F46E5;font-weight:700">03</span>
+      <h2 style="font-family:'Bricolage Grotesque',serif;font-weight:800;font-size:clamp(26px,3.4vw,34px);letter-spacing:-.025em;margin:0;flex:1">Griglia &amp; layout</h2>
+    </div>
+
+    <h3 style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:22px;letter-spacing:-.02em;margin:0 0 14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">3.1 <span style="font-family:'Space Mono',monospace;font-size:19px">#tab-oggi</span> — due colonne a ≥1024 <span style="font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;background:#EEF2FF;color:#3730A3;border:1px solid #C7D2FE;border-radius:5px;padding:3px 7px">MODIFICA css</span></h3>
+    <p style="font-size:15.5px;line-height:1.65;color:#4B4560;margin:0 0 22px;max-width:78ch;text-wrap:pretty">Il principio di B.2: <strong>colonna esplicita a tutti e sei i figli, riga a nessuno</strong>. Tre dei sei nascono <span style="font-family:'Space Mono',monospace;font-size:13.5px">display:none</span> e il gate li accende a runtime; con le righe fisse di oggi ogni figlio spento lascia una riga vuota alta quanto il suo <span style="font-family:'Space Mono',monospace;font-size:13.5px">gap</span>.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:26px">
+      <div style="background:#fff;border:1px solid #E5E2F0;border-radius:14px;padding:22px 24px">
+        <p style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#686180;margin:0 0 14px">Colonna 1 — flusso</p>
+        <ol style="margin:0;padding-left:20px;font-size:14.5px;line-height:1.9;color:#1E1B2E">
+          <li><span style="font-family:'Space Mono',monospace;font-size:13px">.benvenuto</span> <span style="color:#686180">full-width, <span style="font-family:'Space Mono',monospace;font-size:12.5px">1 / -1</span></span></li>
+          <li><span style="font-family:'Space Mono',monospace;font-size:13px">.home-header</span></li>
+          <li><span style="font-family:'Space Mono',monospace;font-size:13px">.missione-card</span></li>
+          <li><span style="font-family:'Space Mono',monospace;font-size:13px">.settimana-card</span> <span style="color:#686180">spesso spenta</span></li>
+          <li><span style="font-family:'Space Mono',monospace;font-size:13px">.card-mappa-home</span> <span style="color:#686180">spesso spenta</span></li>
+        </ol>
+      </div>
+      <div style="background:#fff;border:1px solid #E5E2F0;border-radius:14px;padding:22px 24px">
+        <p style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#686180;margin:0 0 14px">Colonna 2 — 360px, sticky</p>
+        <p style="font-size:14.5px;line-height:1.7;color:#1E1B2E;margin:0"><span style="font-family:'Space Mono',monospace;font-size:13px">.percorso-wrap</span> — <span style="font-family:'Space Mono',monospace;font-size:13px">grid-column:2</span>, <span style="font-family:'Space Mono',monospace;font-size:13px">align-self:start</span>, <span style="font-family:'Space Mono',monospace;font-size:13px">position:sticky</span>. Nessun <span style="font-family:'Space Mono',monospace;font-size:13px">grid-row</span>: l'auto-placement la mette accanto al primo item di colonna 1 in modo deterministico, perché è l'unico item della colonna 2.</p>
+      </div>
+    </div>
+
+    <sc-if value="{{ vistaCodice }}" hint-placeholder-val="{{ true }}">
+    <pre style="font-family:'Space Mono',monospace;font-size:12.5px;line-height:1.8;background:#211E42;color:#E9E7F5;padding:22px 24px;border-radius:14px;overflow-x:auto;white-space:pre;margin:0 0 18px">/* Blocco SOSTITUTIVO: rimuovere le regole grid esistenti di #tab-oggi
+   (quelle con grid-row: 1/6, 2, 3, 4) — vedi V5. */
+@media (min-width: 1024px) {
+  #tab-oggi {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    gap: var(--space-6);
+    align-items: start;
+  }
+  /* colonna 1: solo la colonna, niente riga → si ricompattano
+     senza buchi quando il gate li spegne */
+  #tab-oggi > .benvenuto      { grid-column: 1 / -1; }
+  #tab-oggi > .home-header,
+  #tab-oggi > .missione-card,
+  #tab-oggi > .settimana-card,
+  #tab-oggi > .card-mappa-home { grid-column: 1; }
+
+  #tab-oggi > .percorso-wrap {
+    grid-column: 2;
+    align-self: start;
+    position: sticky;
+    top: var(--space-6);   /* nav è in header a ≥768: nessun offset da sommare */
+  }
+}</pre>
+    </sc-if>
+
+    <div style="background:#fff;border:1px solid #E5E2F0;border-radius:14px;padding:24px 26px;margin-bottom:44px">
+      <p style="font-size:13.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#686180;margin:0 0 18px">I tre stati da verificare a 1280</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px">
+        <div style="background:#FAF8F3;border:1px solid #E5E2F0;border-radius:10px;padding:14px">
+          <p style="font-size:12.5px;font-weight:700;color:#4F46E5;margin:0 0 10px">(a) primo accesso</p>
+          <div style="display:grid;grid-template-columns:1fr 88px;gap:5px">
+            <div style="grid-column:1/-1;height:30px;background:#C7D2FE;border-radius:5px"></div>
+            <div style="height:44px;background:#211E42;border-radius:5px"></div>
+            <div style="grid-row:span 3;background:#E5E2F0;border-radius:5px;min-height:100px"></div>
+            <div style="height:34px;background:#E5E2F0;border-radius:5px"></div>
+            <div style="height:26px;background:#E5E2F0;border-radius:5px"></div>
+          </div>
+          <p style="font-size:11.5px;line-height:1.5;color:#686180;margin:10px 0 0">Benvenuto full-width in prima riga, percorso accanto al hero.</p>
+        </div>
+        <div style="background:#FAF8F3;border:1px solid #E5E2F0;border-radius:10px;padding:14px">
+          <p style="font-size:12.5px;font-weight:700;color:#4F46E5;margin:0 0 10px">(b) settimana + mappa spente</p>
+          <div style="display:grid;grid-template-columns:1fr 88px;gap:5px">
+            <div style="height:44px;background:#211E42;border-radius:5px"></div>
+            <div style="grid-row:span 2;background:#E5E2F0;border-radius:5px;min-height:88px"></div>
+            <div style="height:38px;background:#E5E2F0;border-radius:5px"></div>
+          </div>
+          <p style="font-size:11.5px;line-height:1.5;color:#686180;margin:10px 0 0">Due soli item in colonna 1: nessuna riga fantasma sotto.</p>
+        </div>
+        <div style="background:#FAF8F3;border:1px solid #E5E2F0;border-radius:10px;padding:14px">
+          <p style="font-size:12.5px;font-weight:700;color:#4F46E5;margin:0 0 10px">(c) utente di ritorno, tutto attivo</p>
+          <div style="display:grid;grid-template-columns:1fr 88px;gap:5px">
+            <div style="height:40px;background:#211E42;border-radius:5px"></div>
+            <div style="grid-row:span 4;background:#E5E2F0;border-radius:5px;min-height:130px"></div>
+            <div style="height:34px;background:#E5E2F0;border-radius:5px"></div>
+            <div style="height:28px;background:#E5E2F0;border-radius:5px"></div>
+            <div style="height:34px;background:#E5E2F0;border-radius:5px"></div>
+          </div>
+          <p style="font-size:11.5px;line-height:1.5;color:#686180;margin:10px 0 0">La colonna 2 resta ancorata in alto e diventa sticky allo scroll.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:22px;letter-spacing:-.02em;margin:0 0 14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">3.2 Contenitore e gutter per banda <span style="font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;background:#EEF2FF;color:#3730A3;border:1px solid #C7D2FE;border-radius:5px;padding:3px 7px">MODIFICA css</span></h3>
+    <div style="overflow-x:auto;margin-bottom:24px">
+      <table style="width:100%;border-collapse:collapse;font-size:14px;min-width:680px;background:#fff;border:1px solid #E5E2F0;border-radius:12px;overflow:hidden">
+        <thead>
+          <tr style="background:#FAF8F3">
+            <th style="text-align:left;padding:13px 16px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#686180;font-weight:700;border-bottom:1px solid #E5E2F0">Selettore</th>
+            <th style="text-align:left;padding:13px 16px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#686180;font-weight:700;border-bottom:1px solid #E5E2F0">0–767 (rif. 390)</th>
+            <th style="text-align:left;padding:13px 16px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#686180;font-weight:700;border-bottom:1px solid #E5E2F0">768–1023</th>
+            <th style="text-align:left;padding:13px 16px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#686180;font-weight:700;border-bottom:1px solid #E5E2F0">≥1024 (rif. 1280)</th>
+          </tr>
+        </thead>
+        <tbody style="font-family:'Space Mono',monospace;font-size:12.5px;color:#4B4560">
+          <tr><td style="padding:13px 16px;border-bottom:1px solid #F1EFF8;color:#1E1B2E">.tab-pane</td><td style="padding:13px 16px;border-bottom:1px solid #F1EFF8">padding: var(--space-5) var(--gutter) 96px</td><td style="padding:13px 16px;border-bottom:1px solid #F1EFF8">padding: var(--space-8) var(--gutter) var(--space-16)</td><td style="padding:13px 16px;border-bottom:1px solid #F1EFF8">max-width: var(--container); margin-inline: auto</td></tr>
+          <tr><td style="padding:13px 16px;border-bottom:1px solid #F1EFF8;color:#1E1B2E">gap fra blocchi</td><td style="padding:13px 16px;border-bottom:1px solid #F1EFF8">var(--stack) = 16px</td><td style="padding:13px 16px;border-bottom:1px solid #F1EFF8">var(--stack) = 20px</td><td style="padding:13px 16px;border-bottom:1px solid #F1EFF8">var(--space-6) = 24px</td></tr>
+          <tr><td style="padding:13px 16px;border-bottom:1px solid #F1EFF8;color:#1E1B2E">.griglia-mete-v2</td><td style="padding:13px 16px;border-bottom:1px solid #F1EFF8">1 colonna</td><td style="padding:13px 16px;border-bottom:1px solid #F1EFF8">repeat(2, minmax(0,1fr))</td><td style="padding:13px 16px;border-bottom:1px solid #F1EFF8">repeat(auto-fill, minmax(300px,1fr))</td></tr>
+          <tr><td style="padding:13px 16px;color:#1E1B2E">nav</td><td style="padding:13px 16px">.nav-bottom in basso, fixed</td><td style="padding:13px 16px">in header, sticky top (soglia 768)</td><td style="padding:13px 16px">in header, sticky top</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="background:#FEF3C7;border:1px solid #FDE68A;border-radius:12px;padding:18px 20px;margin-bottom:44px">
+      <p style="font-size:14.5px;line-height:1.6;margin:0;color:#92400E;text-wrap:pretty"><strong>Il padding-bottom di 96px a mobile non è decorativo.</strong> È lo spazio sotto la barra fissa: se lo si riduce, l'ultima riga di checklist finisce sotto la nav. A ≥768 la nav lascia il fondo e quel padding va sostituito con <span style="font-family:'Space Mono',monospace;font-size:13px">var(--space-16)</span>, altrimenti resta un buco.</p>
+    </div>
+  </section>
+
+  <section id="s4" style="max-width:1120px;margin:0 auto;padding:78px 32px 0">
+    <div style="display:flex;align-items:baseline;gap:16px;border-bottom:2px solid #1E1B2E;padding-bottom:14px;margin-bottom:34px">
+      <span style="font-family:'Space Mono',monospace;font-size:13px;color:#4F46E5;font-weight:700">04</span>
+      <h2 style="font-family:'Bricolage Grotesque',serif;font-weight:800;font-size:clamp(26px,3.4vw,34px);letter-spacing:-.025em;margin:0;flex:1">Componenti</h2>
+    </div>
+    <p style="font-size:16.5px;line-height:1.65;color:#4B4560;max-width:72ch;margin:0 0 40px;text-wrap:pretty">Un blocco per famiglia. Il CSS mostrato è <strong>di produzione</strong>: va sopra il marcatore <span style="font-family:'Space Mono',monospace;font-size:14.5px">/*__PROD_END__*/</span>, tutto ciò che serve solo allo specimen sta sotto.</p>
+
+    <h3 style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:22px;letter-spacing:-.02em;margin:0 0 8px">4.1 Interattivi — i due bottoni primari, focus, touch</h3>
+    <p style="font-size:15.5px;line-height:1.65;color:#4B4560;margin:0 0 22px;max-width:78ch;text-wrap:pretty">Vedi V4: le classi sono due. Il selettore raggruppato le tratta insieme una volta per tutte, così il requisito touch non può sfuggire da un lato.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-bottom:22px">
+      <div style="background:#fff;border:1px solid #E5E2F0;border-radius:14px;padding:24px">
+        <p style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:#686180;margin:0 0 16px">Riposo</p>
+        <span style="display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;background:#4F46E5;color:#fff;font-size:15px;font-weight:700;border-radius:14px;box-shadow:0 2px 5px rgba(79,70,229,.18),0 10px 24px rgba(79,70,229,.28)">Fatto, un passo in meno</span>
+      </div>
+      <div style="background:#fff;border:1px solid #E5E2F0;border-radius:14px;padding:24px">
+        <p style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:#686180;margin:0 0 16px">Hover</p>
+        <span style="display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;background:#4338CA;color:#fff;font-size:15px;font-weight:700;border-radius:14px;box-shadow:0 3px 7px rgba(79,70,229,.22),0 14px 32px rgba(79,70,229,.34);transform:translateY(-1px)">Fatto, un passo in meno</span>
+      </div>
+      <div style="background:#fff;border:1px solid #E5E2F0;border-radius:14px;padding:24px">
+        <p style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:#686180;margin:0 0 16px">Focus da tastiera</p>
+        <span style="display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;background:#4F46E5;color:#fff;font-size:15px;font-weight:700;border-radius:14px;outline:2px solid #211E42;outline-offset:3px;box-shadow:0 0 0 6px rgba(79,70,229,.22)">Fatto, un passo in meno</span>
+      </div>
+      <div style="background:#fff;border:1px solid #E5E2F0;border-radius:14px;padding:24px">
+        <p style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:#686180;margin:0 0 16px">Disabilitato</p>
+        <span style="display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;background:#E5E2F0;color:#686180;font-size:15px;font-weight:700;border-radius:14px">Fatto, un passo in meno</span>
+      </div>
+      <div style="background:#fff;border:1px solid #E5E2F0;border-radius:14px;padding:24px">
+        <p style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:#686180;margin:0 0 16px">Secondario</p>
+        <span style="display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;background:#F3F1FA;color:#3730A3;font-size:15px;font-weight:700;border-radius:14px;border:1.5px solid #D6D1EA">Come si fa?</span>
+      </div>
+      <div style="background:#211E42;border:1px solid #211E42;border-radius:14px;padding:24px">
+        <p style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:#A5B4FC;margin:0 0 16px">Speciale — su notte</p>
+        <span style="display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;background:#FBBF24;color:#211E42;font-size:15px;font-weight:700;border-radius:14px;box-shadow:0 2px 6px rgba(180,83,9,.10),0 10px 28px rgba(251,191,36,.24)">✨ Calcola compatibilità</span>
+      </div>
+    </div>
+
+    <sc-if value="{{ vistaCodice }}" hint-placeholder-val="{{ true }}">
+    <pre style="font-family:'Space Mono',monospace;font-size:12.5px;line-height:1.8;background:#211E42;color:#E9E7F5;padding:22px 24px;border-radius:14px;overflow-x:auto;white-space:pre;margin:0 0 20px">/* [MODIFICA css] — le DUE classi primarie insieme (V4).
+   .btn-primary  = missione, banner, profilo salvato
+   .btn-primario = submit del form profilo */
+.btn-primary,
+.btn-primario {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 48px;                 /* touch — 44px è il minimo, 48 il target */
+  padding: 0 var(--space-5);
+  border: 0;
+  border-radius: 14px;
+  background: var(--primary-fill);
+  color: #fff;
+  font-family: inherit;
+  font-size: var(--fs-body);
+  font-weight: 700;
+  letter-spacing: -.005em;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(79,70,229,.18),
+              0 10px 24px var(--primary-shadow);
+  transition: background 140ms var(--ease-out, ease-out),
+              box-shadow 140ms ease-out,
+              transform 140ms ease-out;
+}
+.btn-primary:hover,
+.btn-primario:hover {
+  background: var(--primary-fill-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 7px rgba(79,70,229,.22),
+              0 14px 32px rgba(79,70,229,.34);
+}
+.btn-primary:active,
+.btn-primario:active {
+  background: var(--primary-active);
+  transform: translateY(1px) scale(.985);
+  box-shadow: 0 1px 3px rgba(79,70,229,.20);
+}
+.btn-primary:disabled,
+.btn-primario:disabled {
+  background: var(--border);
+  color: var(--text-hint);
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* [MODIFICA css] — secondario: oggi il bordo non reagisce all'hover */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 var(--space-5);
+  border: 1.5px solid var(--border-strong);
+  border-radius: 14px;
+  background: var(--bg-card-hover);
+  color: var(--primary-active);
+  font-family: inherit;
+  font-size: var(--fs-body);
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 140ms ease-out, background 140ms ease-out;
+}
+.btn-secondary:hover {
+  border-color: var(--primary);
+  background: #EEF2FF;
+}
+
+/* [NUOVA css] — un solo anello di focus per tutta l'app.
+   :focus-visible → non appare al click del mouse, appare da tastiera. */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+input:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--night-bg);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(79,70,229,.22);
+  border-radius: 10px;
+}
+/* le card-bottone hanno raggio proprio: l'anello lo segue */
+.card-meta-v2:focus-visible { border-radius: 20px; }
+
+/* [NUOVA css] — target touch minimo sui controlli piccoli.
+   .schedina-freccia e .btn-preferita oggi stanno sotto i 44px. */
+@media (max-width: 767px) {
+  .schedina-freccia,
+  .schedina-rimuovi,
+  .btn-preferita,
+  .chip-filtro {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}</pre>
+    </sc-if>
+
+    <div style="background:#fff;border:1px solid #E5E2F0;border-radius:12px;padding:18px 20px;margin-bottom:48px">
+      <p style="font-size:14.5px;line-height:1.6;margin:0;color:#4B4560;text-wrap:pretty"><strong style="color:#1E1B2E">Nota su <span style="font-family:'Space Mono',monospace;font-size:13.5px">--ease-out</span>.</strong> Il token non esiste nel <span style="font-family:'Space Mono',monospace;font-size:13.5px">:root</span> reale; il fallback <span style="font-family:'Space Mono',monospace;font-size:13.5px">var(--ease-out, ease-out)</span> lo rende innocuo. Se si preferisce introdurlo, aggiungere <span style="font-family:'Space Mono',monospace;font-size:13.5px">--ease-out: cubic-bezier(.2,.7,.3,1)</span> al blocco additivo 2.2 — è l'unico token di timing che questo redesign userebbe.</p>
+    </div>
+
+    <h3 style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:22px;letter-spacing:-.02em;margin:0 0 8px">4.2 Superfici — la card come unità</h3>
+    <p style="font-size:15.5px;line-height:1.65;color:#4B4560;margin:0 0 22px;max-width:78ch;text-wrap:pretty">Quattro classi condividono lo stesso corpo (<span style="font-family:'Space Mono',monospace;font-size:13.5px">.missione-card</span>, <span style="font-family:'Space Mono',monospace;font-size:13.5px">.settimana-card</span>, <span style="font-family:'Space Mono',monospace;font-size:13.5px">.preparazione-card</span>, <span style="font-family:'Space Mono',monospace;font-size:13.5px">.card-mappa-home</span>): il raggio sale a 20px, il padding passa alla scala, e il lift arriva solo dove c'è davvero un'azione.</p>
+    <sc-if value="{{ vistaCodice }}" hint-placeholder-val="{{ true }}">
+    <pre style="font-family:'Space Mono',monospace;font-size:12.5px;line-height:1.8;background:#211E42;color:#E9E7F5;padding:22px 24px;border-radius:14px;overflow-x:auto;white-space:pre;margin:0 0 48px">/* [MODIFICA css] */
+.missione-card,
+.settimana-card,
+.preparazione-card,
+.card-mappa-home,
+.card-meta-v2 {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: var(--space-5);
+  box-shadow: var(--shadow-card);
+}
+@media (min-width: 768px) {
+  .missione-card,
+  .settimana-card,
+  .preparazione-card,
+  .card-mappa-home,
+  .card-meta-v2 { padding: var(--space-6); }
+}
+
+/* il lift SOLO su ciò che si clicca (V: .card-cliccabile la mette app.js) */
+.card-cliccabile {
+  cursor: pointer;
+  transition: transform 160ms ease-out, box-shadow 160ms ease-out,
+              border-color 160ms ease-out;
+}
+.card-cliccabile:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-card-hover);
+}
+.card-cliccabile:active { transform: translateY(1px) scale(.995); }</pre>
+    </sc-if>
+
+    <h3 style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:22px;letter-spacing:-.02em;margin:0 0 8px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">4.3 Timeline <span style="font-family:'Space Mono',monospace;font-size:19px">ol.stazioni</span> — binario continuo, zero JS <span style="font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;background:#EEF2FF;color:#3730A3;border:1px solid #C7D2FE;border-radius:5px;padding:3px 7px">MODIFICA css</span></h3>
+    <p style="font-size:15.5px;line-height:1.65;color:#4B4560;margin:0 0 20px;max-width:78ch;text-wrap:pretty">Il pezzo più delicato della consegna. La soluzione: <strong>una corsia a sinistra della <span style="font-family:'Space Mono',monospace;font-size:13.5px">li.stazione</span></strong>, larga 38px. Dentro la corsia stanno binario e marker; la card comincia dopo. Così il binario non passa mai <em>sotto</em> la card e non serve litigare con lo <span style="font-family:'Space Mono',monospace;font-size:13.5px">z-index</span> né con l'<span style="font-family:'Space Mono',monospace;font-size:13.5px">overflow:hidden</span> di <span style="font-family:'Space Mono',monospace;font-size:13.5px">.stazione-dettagli</span>.</p>
+
+    <div style="background:#fff;border:1px solid #E5E2F0;border-radius:14px;padding:26px 28px;margin-bottom:20px">
+      <p style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:#686180;margin:0 0 22px">Geometria della corsia</p>
+      <div style="display:flex;gap:26px;flex-wrap:wrap;align-items:flex-start">
+        <div style="flex:1;min-width:260px">
+          <ol style="margin:0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:16px">
+            <li style="position:relative;padding-left:38px">
+              <span style="position:absolute;left:14px;top:44px;bottom:-16px;width:2px;background:#10B981;border-radius:1px;display:block"></span>
+              <span style="position:absolute;left:0;top:14px;box-sizing:border-box;width:30px;height:30px;border-radius:50%;background:#10B981;color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700">✓</span>
+              <div style="background:#fff;border:1px solid #E5E2F0;border-radius:16px;padding:14px 16px">
+                <p style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:16px;margin:0;color:#1E1B2E">Sei idoneo?</p>
+                <p style="font-size:13px;color:#686180;margin:3px 0 0">4 requisiti su 4 spuntati</p>
+              </div>
+            </li>
+            <li style="position:relative;padding-left:38px">
+              <span style="position:absolute;left:14px;top:44px;bottom:-16px;width:2px;background:#D6D1EA;border-radius:1px;display:block"></span>
+              <span style="position:absolute;left:0;top:14px;box-sizing:border-box;width:30px;height:30px;border-radius:50%;background:#4F46E5;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13.5px;font-weight:700;box-shadow:0 0 0 5px rgba(79,70,229,.16)">2</span>
+              <div style="background:#fff;border:1.5px solid #4F46E5;border-radius:16px;padding:14px 16px;box-shadow:0 2px 6px rgba(79,70,229,.10),0 8px 24px rgba(67,56,202,.14)">
+                <p style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:16px;margin:0;color:#1E1B2E">La domanda</p>
+                <p style="font-size:13px;color:#4F46E5;margin:3px 0 0;font-weight:600">Sei qui — 3 voci su 7</p>
+              </div>
+            </li>
+            <li style="position:relative;padding-left:38px">
+              <span style="position:absolute;left:0;top:14px;box-sizing:border-box;width:30px;height:30px;border-radius:50%;background:#FAF8F3;border:2px solid #D6D1EA;color:#686180;display:flex;align-items:center;justify-content:center;font-size:13.5px;font-weight:700">3</span>
+              <div style="background:#fff;border:1px solid #E5E2F0;border-radius:16px;padding:14px 16px">
+                <p style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:16px;margin:0;color:#4B4560">L'esito</p>
+                <p style="font-size:13px;color:#686180;margin:3px 0 0">Da marzo 2026</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+        <div style="flex:0 0 200px;font-size:13px;line-height:1.75;color:#4B4560">
+          <p style="margin:0 0 12px"><span style="font-family:'Space Mono',monospace;font-size:12px;color:#4F46E5">38px</span> — corsia (<span style="font-family:'Space Mono',monospace;font-size:12px">padding-left</span> di <span style="font-family:'Space Mono',monospace;font-size:12px">.stazione</span>)</p>
+          <p style="margin:0 0 12px"><span style="font-family:'Space Mono',monospace;font-size:12px;color:#4F46E5">30px</span> — marker, <span style="font-family:'Space Mono',monospace;font-size:12px">left:0 top:14px</span> — <strong>bordo incluso</strong>, quindi <span style="font-family:'Space Mono',monospace;font-size:12px">box-sizing:border-box</span></p>
+          <p style="margin:0 0 12px"><span style="font-family:'Space Mono',monospace;font-size:12px;color:#4F46E5">left:14px</span> — binario, centrato sul marker (15 − 1)</p>
+          <p style="margin:0"><span style="font-family:'Space Mono',monospace;font-size:12px;color:#4F46E5">bottom:−16px</span> — scavalca il <span style="font-family:'Space Mono',monospace;font-size:12px">gap</span> dell'<span style="font-family:'Space Mono',monospace;font-size:12px">ol</span></p>
+        </div>
+      </div>
+    </div>
+
+    <sc-if value="{{ vistaCodice }}" hint-placeholder-val="{{ true }}">
+    <pre style="font-family:'Space Mono',monospace;font-size:12.5px;line-height:1.8;background:#211E42;color:#E9E7F5;padding:22px 24px;border-radius:14px;overflow-x:auto;white-space:pre;margin:0 0 18px">/* BLOCCO SOSTITUTIVO — rimpiazza le regole timeline esistenti
+   (style.css ~590-615). Va eliminata in particolare
+       .stazione + .stazione::before      (segmento nel gap, riga 600)
+       .stazione-fatta + .stazione::before
+   altrimenti si sommano due binari sfalsati (V3). */
+
+ol.stazioni {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.stazione {
+  position: relative;   /* già presente (597): containing block del marker */
+  padding-left: 38px;   /* corsia: 30px marker + 8px respiro */
+}
+
+/* Binario continuo PER-STAZIONE: parte sotto il marker e scavalca il gap. */
+.stazione::before {
+  content: "";
+  position: absolute;
+  left: 14px;                            /* centro del marker da 30px */
+  top: 44px;                             /* 14px offset + 30px marker */
+  bottom: calc(-1 * var(--space-4));     /* = gap dell'ol */
+  width: 2px;
+  background: var(--border-strong);
+  border-radius: 1px;
+}
+.stazione:last-child::before { display: none; }
+/* tratto verde SOTTO una stazione completata */
+.stazione-fatta::before { background: #10B981; }
+
+/* ⚠️ GUARDIA — NON aggiungere position, transform, filter o will-change
+   a .stazione-dettagli. Oggi non è posizionato, quindi NON è il
+   containing block di .stazione-punto e il suo overflow:hidden non lo
+   taglia. Qualunque di quelle proprietà creerebbe un containing block
+   nuovo: il marker rientrerebbe nella card e sparirebbe. (V2)
+
+   ⚠️ GUARDIA 2 — il box-sizing qui sotto NON è cosmetico. Con
+   content-box il bordo da 2px si somma e il marker diventa 34px: il suo
+   centro scivola da 15px a 17px e si stacca dall'asse del binario
+   (left:14px + 1px di metà tratto = 15px). Stessa rottura silenziosa a
+   desktop: 36px diventano 40px, centro 20 contro 18. Se un domani
+   style.css adotta un reset globale *{box-sizing:border-box} questa
+   riga diventa ridondante, non sbagliata: lasciarla. */
+.stazione-punto {
+  position: absolute;
+  left: 0;
+  top: 14px;               /* allineato alla prima riga del titolo */
+  box-sizing: border-box;  /* il bordo sta DENTRO i 30px — GUARDIA 2 */
+  width: 30px;
+  height: 30px;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--bg-app);
+  border: 2px solid var(--border-strong);
+  color: var(--text-hint);
+  font-family: 'Space Mono', monospace;
+  font-size: 13.5px;
+  font-weight: 700;
+  z-index: 1;            /* sopra il binario */
+}
+.stazione-fatta .stazione-punto {
+  background: #10B981;
+  border-color: #10B981;
+  color: #fff;
+}
+.stazione-attiva .stazione-punto {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+  box-shadow: 0 0 0 5px rgba(79,70,229,.16);
+}
+
+/* La card: il marker è fuori dal flusso, quindi la testa non deve più
+   riservargli spazio. */
+.stazione-dettagli {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;      /* resta: serve all'animazione del corpo */
+}
+.stazione-attiva .stazione-dettagli {
+  border: 1.5px solid var(--primary);
+  box-shadow: var(--shadow-card-hover);
+}
+.stazione-testa {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  min-height: 48px;      /* touch */
+  cursor: pointer;
+  list-style: none;      /* via il triangolino nativo */
+}
+.stazione-testa::-webkit-details-marker { display: none; }
+.stazione-testa:hover { background: var(--bg-card-hover); }
+.stazione-titolo {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 700;
+  font-size: var(--fs-h3);
+  letter-spacing: -.015em;
+}
+.stazione-sub { font-size: var(--fs-sm); color: var(--text-hint); }
+.stazione-chevron { transition: transform 180ms ease-out; }
+.stazione-dettagli[open] .stazione-chevron { transform: rotate(180deg); }
+.stazione-corpo { padding: 0 var(--space-4) var(--space-4); }
+
+/* Desktop: la corsia si allarga, il marker cresce */
+@media (min-width: 1024px) {
+  .stazione { padding-left: 46px; }
+  .stazione::before { left: 17px; top: 50px; }
+  .stazione-punto { width: 36px; height: 36px; top: 14px; font-size: 15px; }
+  .stazione-testa { padding: var(--space-5); }
+  .stazione-corpo { padding: 0 var(--space-5) var(--space-5); }
+}</pre>
+    </sc-if>
+
+    <div style="background:#FEE2E2;border:1px solid #FECACA;border-radius:12px;padding:18px 20px;margin-bottom:48px">
+      <p style="font-size:14.5px;line-height:1.6;margin:0;color:#991B1B;text-wrap:pretty"><strong>Verifica obbligatoria dopo l'innesto.</strong> Aprire e chiudere una stazione con il mouse <em>e</em> con Invio da tastiera: il marker deve restare fermo e visibile in tutti e quattro i casi. Se scompare all'apertura, qualcuno ha dato un containing block a <span style="font-family:'Space Mono',monospace;font-size:13px">.stazione-dettagli</span>. Se invece è <em>visibile ma disallineato di un paio di pixel</em> rispetto al binario, manca il <span style="font-family:'Space Mono',monospace;font-size:13px">box-sizing:border-box</span> su <span style="font-family:'Space Mono',monospace;font-size:13px">.stazione-punto</span>: il bordo da 2px si somma e sposta il centro. Sono i due soli modi in cui questo blocco può rompersi.</p>
+    </div>
+
+    <h3 style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:22px;letter-spacing:-.02em;margin:0 0 8px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">4.4 <span style="font-family:'Space Mono',monospace;font-size:19px">.banner-stato</span> — 4 varianti, 2 cablate <span style="font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;background:#ECFDF5;color:#065F46;border:1px solid #A7F3D0;border-radius:5px;padding:3px 7px">NUOVA css</span></h3>
+    <p style="font-size:15.5px;line-height:1.65;color:#4B4560;margin:0 0 20px;max-width:78ch;text-wrap:pretty">La classe non esiste oggi: è interamente additiva. Ma <strong>solo due varianti hanno un dato reale che le accende</strong>. Le altre due restano nel foglio di stile come vocabolario disponibile, non cablate — perché in <span style="font-family:'Space Mono',monospace;font-size:13.5px">js/dati-*.js</span> non esiste alcun campo che distingua "con riserve" da "bloccato" a livello di idoneità (A.4). Le fasce ✅⚠️🔒 vivono <em>solo</em> sul punteggio delle mete.</p>
+
+    <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:22px">
+      <div style="display:flex;gap:13px;align-items:flex-start;background:#ECFDF5;border:1px solid #A7F3D0;border-left:3px solid #10B981;border-radius:14px;padding:16px 18px">
+        <span style="font-size:17px;line-height:1.4;flex:none">✅</span>
+        <div style="flex:1">
+          <p style="font-size:15px;font-weight:700;color:#065F46;margin:0 0 3px">Sembri idoneo</p>
+          <p style="font-size:14px;line-height:1.55;color:#047857;margin:0">Fa sempre fede il bando ufficiale.</p>
+          <p style="font-family:'Space Mono',monospace;font-size:11.5px;color:#059669;margin:9px 0 0">stato-ok → #idoneita-esito · renderIdoneita() app.js:3606</p>
+        </div>
+      </div>
+      <div style="display:flex;gap:13px;align-items:flex-start;background:#FEF3C7;border:1px solid #FDE68A;border-left:3px solid #F59E0B;border-radius:14px;padding:16px 18px">
+        <span style="font-size:17px;line-height:1.4;flex:none">⚠️</span>
+        <div style="flex:1">
+          <p style="font-size:15px;font-weight:700;color:#92400E;margin:0 0 3px">Dati in corso di verifica sul bando ufficiale</p>
+          <p style="font-size:14px;line-height:1.55;color:#B45309;margin:0">Usali come traccia, non come fonte.</p>
+          <p style="font-family:'Space Mono',monospace;font-size:11.5px;color:#B45309;margin:9px 0 0">stato-verifica → .banner-in-verifica ×2 · renderBannerVerifica() app.js:3577</p>
+        </div>
+      </div>
+      <div style="display:flex;gap:13px;align-items:flex-start;background:#FAF8F3;border:1px dashed #D6D1EA;border-left:3px solid #D6D1EA;border-radius:14px;padding:16px 18px">
+        <span style="font-size:17px;line-height:1.4;flex:none;opacity:.5">🟡</span>
+        <div style="flex:1">
+          <p style="font-size:15px;font-weight:700;color:#686180;margin:0 0 3px">stato-riserve — non cablata</p>
+          <p style="font-size:14px;line-height:1.55;color:#686180;margin:0">Nessun campo in <span style="font-family:'Space Mono',monospace;font-size:13px">js/dati-*.js</span> esprime "idoneità con riserve". Cablarla richiede prima il dato.</p>
+        </div>
+      </div>
+      <div style="display:flex;gap:13px;align-items:flex-start;background:#FAF8F3;border:1px dashed #D6D1EA;border-left:3px solid #D6D1EA;border-radius:14px;padding:16px 18px">
+        <span style="font-size:17px;line-height:1.4;flex:none;opacity:.5">🔒</span>
+        <div style="flex:1">
+          <p style="font-size:15px;font-weight:700;color:#686180;margin:0 0 3px">stato-bloccato — non cablata</p>
+          <p style="font-size:14px;line-height:1.55;color:#686180;margin:0">Idem. <span style="font-family:'Space Mono',monospace;font-size:13px">renderIdoneita()</span> ha un esito binario: o tutti i requisiti sono spuntati, o l'esito è nascosto.</p>
+        </div>
+      </div>
+    </div>
+
+    <sc-if value="{{ vistaCodice }}" hint-placeholder-val="{{ true }}">
+    <pre style="font-family:'Space Mono',monospace;font-size:12.5px;line-height:1.8;background:#211E42;color:#E9E7F5;padding:22px 24px;border-radius:14px;overflow-x:auto;white-space:pre;margin:0 0 18px">/* [NUOVA css] — additiva, nessuna collisione */
+.banner-stato {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: 14px;
+  border: 1px solid transparent;
+  border-left-width: 3px;
+  font-size: var(--fs-body);
+  line-height: 1.55;
+}
+.banner-stato-titolo { font-weight: 700; display: block; margin-bottom: 2px; }
+.banner-stato-icona  { flex: none; font-size: 17px; line-height: 1.4; }
+
+.banner-stato.stato-ok {
+  background: #ECFDF5; border-color: #A7F3D0;
+  border-left-color: #10B981; color: #065F46;
+}
+.banner-stato.stato-verifica {
+  background: var(--gold-bg); border-color: var(--gold-border);
+  border-left-color: #F59E0B; color: var(--gold-dark);
+}
+.banner-stato.stato-riserve {
+  background: var(--gold-bg); border-color: var(--gold-border);
+  border-left-color: var(--gold); color: var(--gold-dark);
+}
+.banner-stato.stato-bloccato {
+  background: #FEF2F2; border-color: #FECACA;
+  border-left-color: #EF4444; color: #991B1B;
+}
+
+/* [MODIFICA css] — i due nodi reali adottano il corpo della classe
+   senza cambiare markup: sono già <div> di solo testo. */
+#idoneita-esito {
+  display: flex; align-items: flex-start; gap: var(--space-3);
+  padding: var(--space-4); border-radius: 14px;
+  background: #ECFDF5; border: 1px solid #A7F3D0;
+  border-left: 3px solid #10B981; color: #065F46;
+  font-size: var(--fs-body); font-weight: 600; line-height: 1.55;
+}
+.banner-in-verifica {
+  display: flex; align-items: flex-start; gap: var(--space-3);
+  padding: var(--space-4); border-radius: 14px;
+  background: var(--gold-bg); border: 1px solid var(--gold-border);
+  border-left: 3px solid #F59E0B; color: var(--gold-dark);
+  font-size: var(--fs-sm); line-height: 1.55;
+}</pre>
+    </sc-if>
+
+    <div style="background:#EEF2FF;border:1px solid #C7D2FE;border-radius:12px;padding:18px 20px;margin-bottom:48px">
+      <p style="font-size:14.5px;line-height:1.6;margin:0;color:#3730A3;text-wrap:pretty"><strong>Perché non si cambia il markup di questi due.</strong> <span style="font-family:'Space Mono',monospace;font-size:13px">renderIdoneita()</span> e <span style="font-family:'Space Mono',monospace;font-size:13px">renderBannerVerifica()</span> scrivono con <span style="font-family:'Space Mono',monospace;font-size:13px">textContent</span>: qualunque figlio (icona, titolo) verrebbe cancellato al primo re-render. Lo stile arriva quindi dal CSS sul contenitore, e l'icona resta dentro la stringa di testo — dove già sta oggi (<span style="font-family:'Space Mono',monospace;font-size:13px">"Sembri idoneo ✅ — …"</span>). Zero JS.</p>
+    </div>
+
+    <h3 style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:22px;letter-spacing:-.02em;margin:0 0 8px">4.5 Mete — chip, card, punteggio</h3>
+    <p style="font-size:15.5px;line-height:1.65;color:#4B4560;margin:0 0 22px;max-width:78ch;text-wrap:pretty">La card è generata da <span style="font-family:'Space Mono',monospace;font-size:13.5px">creaCardMeta()</span> (app.js:1923) e la sua struttura è già completa: punteggio mono, badge di stato, titolo, luogo, tre chip, stellina assoluta, freccia. <strong>Non serve toccare il JS</strong>: tutto il redesign è CSS sui nodi che quella funzione già emette.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px;margin-bottom:22px">
+      <article style="background:#fff;border:1px solid #E5E2F0;border-radius:20px;padding:22px;box-shadow:0 1px 3px rgba(30,27,46,.06),0 4px 14px rgba(30,27,46,.05);position:relative">
+        <span style="position:absolute;top:14px;right:14px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:17px;color:#FBBF24;background:#FEF3C7;border-radius:50%">⭐</span>
+        <div style="display:flex;align-items:center;gap:9px;margin-bottom:13px;padding-right:44px">
+          <span style="font-family:'Space Mono',monospace;font-size:19px;font-weight:700;color:#059669;letter-spacing:-.02em">92%</span>
+          <span style="font-size:12px;font-weight:700;background:#ECFDF5;color:#065F46;border:1px solid #A7F3D0;border-radius:999px;padding:4px 10px">✅ compatibile</span>
+        </div>
+        <h3 style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:17px;line-height:1.25;letter-spacing:-.015em;margin:0 0 4px;color:#1E1B2E">Universidad de Zaragoza</h3>
+        <p style="font-size:13.5px;color:#686180;margin:0 0 15px">Saragozza (Spagna)</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          <span style="font-size:12px;font-weight:600;background:#FAF8F3;border:1px solid #E5E2F0;border-radius:999px;padding:5px 11px;color:#4B4560">3 posti · 6 mesi</span>
+          <span style="font-size:12px;font-weight:600;background:#FAF8F3;border:1px solid #E5E2F0;border-radius:999px;padding:5px 11px;color:#4B4560">ES B1</span>
+          <span style="font-size:12px;font-weight:600;background:#FAF8F3;border:1px solid #E5E2F0;border-radius:999px;padding:5px 11px;color:#4B4560">~€350/mese</span>
+        </div>
+        <span style="position:absolute;bottom:20px;right:20px;color:#4F46E5;font-size:17px;font-weight:700">→</span>
+      </article>
+      <article style="background:#fff;border:1px solid #E5E2F0;border-radius:20px;padding:22px;box-shadow:0 1px 3px rgba(30,27,46,.06),0 4px 14px rgba(30,27,46,.05);position:relative">
+        <span style="position:absolute;top:14px;right:14px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:17px;color:#686180;border-radius:50%">☆</span>
+        <div style="display:flex;align-items:center;gap:9px;margin-bottom:13px;padding-right:44px">
+          <span style="font-family:'Space Mono',monospace;font-size:19px;font-weight:700;color:#B45309;letter-spacing:-.02em">61%</span>
+          <span style="font-size:12px;font-weight:700;background:#FEF3C7;color:#92400E;border:1px solid #FDE68A;border-radius:999px;padding:4px 10px">⚠️ con riserve</span>
+        </div>
+        <h3 style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:17px;line-height:1.25;letter-spacing:-.015em;margin:0 0 4px;color:#1E1B2E">Université Lumière Lyon 2</h3>
+        <p style="font-size:13.5px;color:#686180;margin:0 0 15px">Lione (Francia)</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          <span style="font-size:12px;font-weight:600;background:#FAF8F3;border:1px solid #E5E2F0;border-radius:999px;padding:5px 11px;color:#4B4560">2 posti · 5 mesi</span>
+          <span style="font-size:12px;font-weight:600;background:#FEF3C7;border:1px solid #FDE68A;border-radius:999px;padding:5px 11px;color:#92400E">FR B2 richiesto</span>
+        </div>
+        <span style="position:absolute;bottom:20px;right:20px;color:#4F46E5;font-size:17px;font-weight:700">→</span>
+      </article>
+      <article style="background:#fff;border:1px solid #E5E2F0;border-radius:20px;padding:22px;box-shadow:0 1px 3px rgba(30,27,46,.06),0 4px 14px rgba(30,27,46,.05);position:relative;opacity:.78">
+        <span style="position:absolute;top:14px;right:14px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:17px;color:#686180;border-radius:50%">☆</span>
+        <div style="display:flex;align-items:center;gap:9px;margin-bottom:13px;padding-right:44px">
+          <span style="font-family:'Space Mono',monospace;font-size:19px;font-weight:700;color:#991B1B;letter-spacing:-.02em">18%</span>
+          <span style="font-size:12px;font-weight:700;background:#FEF2F2;color:#991B1B;border:1px solid #FECACA;border-radius:999px;padding:4px 10px">🔒 bloccata</span>
+        </div>
+        <h3 style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:17px;line-height:1.25;letter-spacing:-.015em;margin:0 0 4px;color:#1E1B2E">Univerzita Karlova</h3>
+        <p style="font-size:13.5px;color:#686180;margin:0 0 12px">Praga (Rep. Ceca)</p>
+        <p style="font-size:13px;line-height:1.5;color:#991B1B;margin:0 0 14px;background:#FEF2F2;border-radius:9px;padding:9px 11px">Richiede la magistrale: riprova l'anno prossimo.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          <span style="font-size:12px;font-weight:600;background:#FAF8F3;border:1px solid #E5E2F0;border-radius:999px;padding:5px 11px;color:#4B4560">1 posto · 10 mesi</span>
+        </div>
+        <span style="position:absolute;bottom:20px;right:20px;color:#4F46E5;font-size:17px;font-weight:700">→</span>
+      </article>
+    </div>
+
+    <div style="background:#fff;border:1px solid #E5E2F0;border-radius:14px;padding:22px 24px;margin-bottom:22px">
+      <p style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:#686180;margin:0 0 16px">.chip-filtro — riposo / attivo / focus</p>
+      <div style="display:flex;flex-wrap:wrap;gap:9px">
+        <span style="display:inline-flex;align-items:center;min-height:44px;padding:0 17px;border-radius:999px;background:#4F46E5;color:#fff;font-size:14px;font-weight:700;box-shadow:0 6px 16px rgba(79,70,229,.26)">Tutte</span>
+        <span style="display:inline-flex;align-items:center;min-height:44px;padding:0 17px;border-radius:999px;background:#fff;border:1.5px solid #E5E2F0;color:#4B4560;font-size:14px;font-weight:600">✅ Compatibili</span>
+        <span style="display:inline-flex;align-items:center;min-height:44px;padding:0 17px;border-radius:999px;background:#fff;border:1.5px solid #E5E2F0;color:#4B4560;font-size:14px;font-weight:600">⚠️ Con riserve</span>
+        <span style="display:inline-flex;align-items:center;min-height:44px;padding:0 17px;border-radius:999px;background:#fff;border:1.5px solid #E5E2F0;color:#4B4560;font-size:14px;font-weight:600;outline:2px solid #211E42;outline-offset:3px;box-shadow:0 0 0 6px rgba(79,70,229,.22)">Spagna</span>
+      </div>
+    </div>
+
+    <sc-if value="{{ vistaCodice }}" hint-placeholder-val="{{ true }}">
+    <pre style="font-family:'Space Mono',monospace;font-size:12.5px;line-height:1.8;background:#211E42;color:#E9E7F5;padding:22px 24px;border-radius:14px;overflow-x:auto;white-space:pre;margin:0 0 48px">/* [MODIFICA css] — griglia per banda (V: 3 bande esplicite) */
+.griglia-mete-v2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+@media (min-width: 768px) {
+  .griglia-mete-v2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-5);
+  }
+}
+@media (min-width: 1024px) {
+  .griglia-mete-v2 {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--space-6);
+  }
+}
+
+/* [MODIFICA css] — la card. position:relative serve a stellina e freccia,
+   entrambe già emesse da creaCardMeta(). */
+.card-meta-v2 {
+  position: relative;
+  padding-bottom: var(--space-10);   /* spazio per la freccia in basso a dx */
+}
+.card-meta-v2 h3 {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 700;
+  font-size: var(--fs-h3);
+  line-height: 1.25;
+  letter-spacing: -.015em;
+  margin: 0 0 var(--space-1);
+  padding-right: 44px;               /* non finisce sotto la stellina */
+}
+.card-luogo-v2 {
+  font-size: var(--fs-sm);
+  color: var(--text-hint);
+  margin-bottom: var(--space-4);
+}
+
+.card-meta-v2-punteggio {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  padding-right: 44px;
+}
+.meta-punteggio {
+  font-family: 'Space Mono', monospace;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -.02em;
+}
+.meta-punteggio.verde  { color: #059669; }
+.meta-punteggio.amber  { color: var(--gold-dark); }
+.meta-punteggio.locked { color: #991B1B; }
+
+.card-meta-v2-stato {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 4px 10px;
+  border: 1px solid;
+  white-space: nowrap;
+}
+.card-meta-v2-stato.stato-ok    { background:#ECFDF5; color:#065F46; border-color:#A7F3D0; }
+.card-meta-v2-stato.stato-medio { background:var(--gold-bg); color:#92400E; border-color:var(--gold-border); }
+.card-meta-v2-stato.stato-basso { background:#FEF2F2; color:#991B1B; border-color:#FECACA; }
+
+.chip-meta-riga { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.chip-meta {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  background: var(--bg-app);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 5px 11px;
+  color: var(--text-muted);
+}
+
+.btn-preferita {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  background: transparent; border: 0; border-radius: 50%;
+  font-size: 17px; color: var(--text-hint); cursor: pointer;
+  transition: background 140ms ease-out, transform 140ms ease-out;
+}
+.btn-preferita:hover { background: var(--bg-card-hover); transform: scale(1.08); }
+.btn-preferita.preferita { color: var(--gold); background: var(--gold-bg); }
+
+.card-freccia {
+  position: absolute;
+  bottom: var(--space-5);
+  right: var(--space-5);
+  color: var(--primary);
+  font-size: 17px; font-weight: 700;
+  transition: transform 160ms ease-out;
+}
+.card-cliccabile:hover .card-freccia { transform: translateX(4px); }
+
+/* [MODIFICA css] — chip di filtro: pill, touch 44, stato attivo pieno */
+.chip-filtro {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 17px;
+  border-radius: 999px;
+  border: 1.5px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 140ms ease-out, background 140ms ease-out;
+}
+.chip-filtro:hover { border-color: var(--border-strong); background: var(--bg-card-hover); }
+.chip-filtro.attivo {
+  background: var(--primary-fill);
+  border-color: var(--primary-fill);
+  color: #fff;
+  font-weight: 700;
+  box-shadow: 0 6px 16px var(--primary-shadow);
+}</pre>
+    </sc-if>
+
+    <h3 style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:22px;letter-spacing:-.02em;margin:48px 0 8px">4.6 Missione &amp; countdown</h3>
+    <p style="font-size:15.5px;line-height:1.65;color:#4B4560;margin:0 0 22px;max-width:78ch;text-wrap:pretty">La card è l'unica superficie di colonna 1 che può alzare la voce. Il countdown è l'unico posto dove il mono va grande: è il dato che lo studente cerca per primo. Il pallino pulsa <em>solo</em> sotto i 7 giorni, e la sua informazione è comunque scritta a parole accanto — mai solo movimento.</p>
+
+    <div style="background:#fff;border:1px solid #E5E2F0;border-radius:20px;padding:24px;box-shadow:0 1px 3px rgba(30,27,46,.06),0 4px 14px rgba(30,27,46,.05);max-width:520px;margin-bottom:22px">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;flex-wrap:wrap">
+        <span style="font-size:11.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:#4F46E5;background:#EEF2FF;border-radius:999px;padding:5px 11px">LA TUA MOSSA DI OGGI</span>
+        <span style="font-size:13px;font-weight:600;color:#B45309">entro il 12 feb, 13:00</span>
+      </div>
+      <h3 style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:23px;line-height:1.2;letter-spacing:-.025em;margin:0 0 8px;color:#1E1B2E">Carica il certificato di lingua</h3>
+      <p style="font-size:15.5px;line-height:1.6;color:#4B4560;margin:0 0 20px;text-wrap:pretty">Ti serve il B2 di francese per due delle tue cinque scelte. Se non l'hai ancora, quelle due restano in lista con riserva.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px">
+        <span style="display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 20px;background:#4F46E5;color:#fff;font-size:15px;font-weight:700;border-radius:14px;box-shadow:0 2px 5px rgba(79,70,229,.18),0 10px 24px rgba(79,70,229,.28)">Fatto</span>
+        <span style="display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 20px;background:#F3F1FA;color:#3730A3;font-size:15px;font-weight:700;border-radius:14px;border:1.5px solid #D6D1EA">Come si fa?</span>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;background:#211E42;border-radius:14px;padding:14px 17px;flex-wrap:wrap">
+        <div style="display:flex;align-items:center;gap:10px">
+          <span style="width:9px;height:9px;border-radius:50%;background:#FBBF24;flex:none;box-shadow:0 0 0 4px rgba(251,191,36,.22);animation:specPulse 1.8s ease-in-out infinite"></span>
+          <div>
+            <p style="font-size:13.5px;font-weight:700;color:#fff;margin:0">Chiusura del bando</p>
+            <p style="font-size:12px;color:#A5B4FC;margin:2px 0 0">meno di una settimana</p>
+          </div>
+        </div>
+        <span style="font-family:'Space Mono',monospace;font-size:17px;font-weight:700;color:#FBBF24;letter-spacing:-.01em">6g 04h 12m 39s</span>
+      </div>
+    </div>
+
+    <sc-if value="{{ vistaCodice }}" hint-placeholder-val="{{ true }}">
+    <pre style="font-family:'Space Mono',monospace;font-size:12.5px;line-height:1.8;background:#211E42;color:#E9E7F5;padding:22px 24px;border-radius:14px;overflow-x:auto;white-space:pre;margin:0 0 48px">/* [MODIFICA css] */
+.missione-top {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--space-3); flex-wrap: wrap; margin-bottom: var(--space-3);
+}
+.missione-tag {
+  font-size: 11.5px; font-weight: 700; letter-spacing: .11em;
+  text-transform: uppercase;                /* micro-label: MAIUSCOLO ok */
+  color: var(--primary); background: #EEF2FF;
+  border-radius: 999px; padding: 5px 11px;
+}
+.missione-scadenza { font-size: var(--fs-sm); font-weight: 600; color: var(--gold-dark); }
+.missione-titolo {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 700; font-size: var(--fs-h2); line-height: 1.2;
+  letter-spacing: -.025em; margin: 0 0 var(--space-2);
+}
+.missione-dettaglio {
+  font-size: var(--fs-body); line-height: 1.6;
+  color: var(--text-muted); margin: 0 0 var(--space-5);
+  text-wrap: pretty;
+}
+.missione-bottoni { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+
+/* Countdown — unica superficie notte dentro la card */
+.countdown-pill {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--space-4); flex-wrap: wrap;
+  margin-top: var(--space-5);
+  background: var(--night-bg); border-radius: 14px;
+  padding: var(--space-3) var(--space-4);
+}
+.countdown-titolo { font-size: var(--fs-sm); font-weight: 700; color: var(--night-text); }
+.countdown-sub    { font-size: var(--fs-xs); color: var(--night-muted); margin-top: 2px; }
+.countdown-timer  {
+  font-family: 'Space Mono', monospace;
+  font-size: 17px; font-weight: 700;
+  color: var(--gold); letter-spacing: -.01em;
+  font-variant-numeric: tabular-nums;      /* le cifre non ballano al secondo */
+}
+.countdown-dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--gold); flex: none;
+  box-shadow: 0 0 0 4px var(--mission-glow);
+}
+/* pulsa solo se urgente — la classe la mette già il JS del countdown */
+.countdown-pill.urgente .countdown-dot { animation: pulsa 1.8s ease-in-out infinite; }
+@media (min-width: 1024px) { .countdown-timer { font-size: 20px; } }</pre>
+    </sc-if>
+
+    <h3 style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:22px;letter-spacing:-.02em;margin:0 0 8px">4.7 Checklist &amp; requisito</h3>
+    <p style="font-size:15.5px;line-height:1.65;color:#4B4560;margin:0 0 22px;max-width:78ch;text-wrap:pretty">Righe alte, target generoso, e un solo segnale di stato per riga. Il requisito è un tre-registri (in chiaro / cosa dice il bando / auto-verifica) già presente in <span style="font-family:'Space Mono',monospace;font-size:13.5px">renderIdoneita()</span>: il redesign lo ordina, non lo riscrive.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:22px">
+      <div style="background:#fff;border:1px solid #E5E2F0;border-radius:16px;overflow:hidden">
+        <div style="display:flex;align-items:center;gap:13px;padding:15px 17px;border-bottom:1px solid #F1EFF8;min-height:48px">
+          <span style="box-sizing:border-box;width:24px;height:24px;border-radius:8px;background:#10B981;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex:none">✓</span>
+          <span style="font-size:15px;color:#686180;text-decoration:line-through;flex:1">Compila la domanda online</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:13px;padding:15px 17px;border-bottom:1px solid #F1EFF8;min-height:48px;background:#EEF2FF;border-left:3px solid #4F46E5">
+          <span style="box-sizing:border-box;width:24px;height:24px;border-radius:8px;background:#fff;border:2px solid #4F46E5;flex:none"></span>
+          <div style="flex:1">
+            <p style="font-size:15px;font-weight:700;color:#1E1B2E;margin:0">Carica il certificato di lingua</p>
+            <p style="font-size:12.5px;color:#4F46E5;margin:2px 0 0;font-weight:600">Tocca a te — entro il 12 feb</p>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:13px;padding:15px 17px;min-height:48px">
+          <span style="box-sizing:border-box;width:24px;height:24px;border-radius:8px;background:#fff;border:2px solid #D6D1EA;flex:none"></span>
+          <span style="font-size:15px;color:#4B4560;flex:1">Fai firmare il Learning Agreement</span>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid #A7F3D0;border-left:3px solid #10B981;border-radius:16px;padding:19px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:9px">
+          <span style="font-size:15px">✅</span>
+          <p style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:16.5px;margin:0;color:#1E1B2E">Media minima</p>
+        </div>
+        <p style="font-family:'Space Mono',monospace;font-size:14px;color:#065F46;margin:0 0 9px;font-weight:700">24/30 richiesta · la tua 26,4</p>
+        <p style="font-size:14px;line-height:1.6;color:#4B4560;margin:0 0 14px;text-wrap:pretty">Ci sei con margine. La media si calcola sui crediti registrati al momento della domanda, non su quelli che sostieni dopo.</p>
+        <div style="border-top:1px solid #F1EFF8;padding-top:13px">
+          <span style="display:inline-flex;align-items:center;gap:9px;font-size:13.5px;font-weight:600;color:#065F46;min-height:44px"><span style="box-sizing:border-box;width:22px;height:22px;border-radius:7px;background:#10B981;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px">✓</span>Lo rispetto</span>
+        </div>
+      </div>
+    </div>
+
+    <sc-if value="{{ vistaCodice }}" hint-placeholder-val="{{ true }}">
+    <pre style="font-family:'Space Mono',monospace;font-size:12.5px;line-height:1.8;background:#211E42;color:#E9E7F5;padding:22px 24px;border-radius:14px;overflow-x:auto;white-space:pre;margin:0 0 48px">/* [MODIFICA css] — voce di checklist */
+.voce-checklist-v2 {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: var(--space-4);
+  min-height: 48px;                       /* touch */
+  border-bottom: 1px solid #F1EFF8;
+  font-size: var(--fs-body); color: var(--text-muted);
+  cursor: pointer;
+  transition: background 120ms ease-out;
+}
+.voce-checklist-v2:last-child { border-bottom: 0; }
+.voce-checklist-v2:hover { background: #EEF2FF; }
+.voce-checklist-v2.attiva {
+  background: #EEF2FF;
+  border-left: 3px solid var(--primary);
+  padding-left: calc(var(--space-4) - 3px);
+  font-weight: 700; color: var(--text-dark);
+}
+.voce-checklist-v2.fatta { color: var(--text-hint); text-decoration: line-through; }
+
+/* [MODIFICA css] — requisito a tre registri */
+.requisito-v2 {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--border-strong);
+  border-radius: 16px;
+  padding: var(--space-5);
+}
+.requisito-v2--ok { border-color: #A7F3D0; border-left-color: #10B981; }
+.requisito-v2--daverificare { border-left-color: var(--gold); }
+.requisito-v2-testa {
+  display: flex; align-items: center; gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+.requisito-v2-titolo {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 700; font-size: var(--fs-h3); letter-spacing: -.015em;
+}
+.requisito-v2-valore {
+  font-family: 'Space Mono', monospace;
+  font-size: var(--fs-mono); font-weight: 700;
+  color: var(--primary-active); margin-bottom: var(--space-2);
+}
+.requisito-v2-desc {
+  font-size: var(--fs-sm); line-height: 1.6;
+  color: var(--text-muted); text-wrap: pretty;
+}
+.requisito-v2-bando > summary {
+  font-size: var(--fs-sm); font-weight: 600; color: var(--primary);
+  cursor: pointer; min-height: 44px;
+  display: flex; align-items: center;
+}
+.requisito-v2-autoverifica {
+  display: flex; align-items: center; gap: var(--space-2);
+  margin-top: var(--space-3); padding-top: var(--space-3);
+  border-top: 1px solid #F1EFF8;
+  font-size: var(--fs-sm); font-weight: 600;
+  min-height: 44px; cursor: pointer;
+}
+
+/* [MODIFICA css] — barra di progresso */
+.prep-barra, .barra-progresso {
+  height: 10px; border-radius: 999px;
+  background: var(--border); overflow: hidden;
+}
+.prep-barra-fill, .barra-riempimento {
+  height: 100%; border-radius: 999px;
+  background: linear-gradient(90deg, var(--primary) 0%, #6366F1 100%);
+  transition: width 420ms ease-out;
+}
+.preparazione-count, .barra-label {
+  font-family: 'Space Mono', monospace;
+  font-size: var(--fs-sm); font-weight: 700; color: var(--primary-active);
+}</pre>
+    </sc-if>
+
+    <h3 style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:22px;letter-spacing:-.02em;margin:0 0 8px">4.8 Dettaglio meta — il modal, e la schedina</h3>
+    <p style="font-size:15.5px;line-height:1.65;color:#4B4560;margin:0 0 22px;max-width:78ch;text-wrap:pretty">Il dettaglio <strong>non è una pagina</strong>: è <span style="font-family:'Space Mono',monospace;font-size:13.5px">.meta-overlay &gt; .meta-modal &gt; #meta-modal-corpo</span>, riempito da <span style="font-family:'Space Mono',monospace;font-size:13.5px">apriDettaglioMeta()</span> (app.js:2136). Bottom-sheet sotto 1024, dialogo centrato sopra. Le righe sono coppie etichetta/valore emesse da <span style="font-family:'Space Mono',monospace;font-size:13.5px">rigaDettaglio()</span>: il CSS le allinea a due colonne da 768 in su.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px;margin-bottom:22px">
+      <div style="background:#F1EFF8;border-radius:16px;padding:16px;display:flex;align-items:flex-end;min-height:330px">
+        <div style="background:#fff;border-radius:24px 24px 0 0;padding:20px;width:100%;box-shadow:0 -8px 34px rgba(30,27,46,.14)">
+          <div style="width:38px;height:4px;border-radius:999px;background:#D6D1EA;margin:0 auto 16px"></div>
+          <h3 style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:19px;line-height:1.2;letter-spacing:-.02em;margin:0 0 3px;color:#1E1B2E">Universidad de Zaragoza</h3>
+          <p style="font-size:13.5px;color:#686180;margin:0 0 14px">Saragozza (Spagna)</p>
+          <div style="background:#ECFDF5;border:1px solid #A7F3D0;border-radius:12px;padding:12px 14px;margin-bottom:16px">
+            <p style="font-size:14.5px;font-weight:700;color:#065F46;margin:0">✅ 92% — compatibile</p>
+            <p style="font-size:12.5px;line-height:1.5;color:#047857;margin:4px 0 0">Media e lingua a posto. Restano 3 posti su 3.</p>
+          </div>
+          <div style="border-top:1px solid #F1EFF8;padding-top:12px;margin-bottom:10px">
+            <p style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#686180;margin:0 0 4px">POSTI DISPONIBILI</p>
+            <p style="font-size:14px;color:#1E1B2E;margin:0">3 posti da 6 mesi, primo semestre</p>
+          </div>
+          <div style="border-top:1px solid #F1EFF8;padding-top:12px">
+            <p style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#686180;margin:0 0 4px">REQUISITI LINGUISTICI</p>
+            <p style="font-size:14px;color:#1E1B2E;margin:0">Spagnolo B1 — richiesto alla partenza</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:#686180;margin:0 0 14px">Schedina — le tue 5 scelte, l'ordine conta</p>
+        <div style="display:flex;flex-direction:column;gap:9px">
+          <div style="display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #E5E2F0;border-radius:14px;padding:12px 14px">
+            <span style="font-family:'Space Mono',monospace;font-size:15px;font-weight:700;color:#4F46E5;width:22px;flex:none">1</span>
+            <div style="flex:1;min-width:0">
+              <p style="font-size:14.5px;font-weight:700;color:#1E1B2E;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Universidad de Zaragoza</p>
+              <p style="font-family:'Space Mono',monospace;font-size:12px;color:#059669;margin:2px 0 0;font-weight:700">✅ 92%</p>
+            </div>
+            <div style="display:flex;gap:3px;flex:none">
+              <span style="width:34px;height:34px;border-radius:9px;background:#F3F1FA;color:#D6D1EA;display:flex;align-items:center;justify-content:center;font-size:11px">▲</span>
+              <span style="width:34px;height:34px;border-radius:9px;background:#F3F1FA;color:#4B4560;display:flex;align-items:center;justify-content:center;font-size:11px">▼</span>
+              <span style="width:34px;height:34px;border-radius:9px;background:#FEF2F2;color:#991B1B;display:flex;align-items:center;justify-content:center;font-size:12px">✕</span>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #E5E2F0;border-radius:14px;padding:12px 14px">
+            <span style="font-family:'Space Mono',monospace;font-size:15px;font-weight:700;color:#4F46E5;width:22px;flex:none">2</span>
+            <div style="flex:1;min-width:0">
+              <p style="font-size:14.5px;font-weight:700;color:#1E1B2E;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Université Lumière Lyon 2</p>
+              <p style="font-family:'Space Mono',monospace;font-size:12px;color:#B45309;margin:2px 0 0;font-weight:700">⚠️ 61%</p>
+            </div>
+            <div style="display:flex;gap:3px;flex:none">
+              <span style="width:34px;height:34px;border-radius:9px;background:#F3F1FA;color:#4B4560;display:flex;align-items:center;justify-content:center;font-size:11px">▲</span>
+              <span style="width:34px;height:34px;border-radius:9px;background:#F3F1FA;color:#D6D1EA;display:flex;align-items:center;justify-content:center;font-size:11px">▼</span>
+              <span style="width:34px;height:34px;border-radius:9px;background:#FEF2F2;color:#991B1B;display:flex;align-items:center;justify-content:center;font-size:12px">✕</span>
+            </div>
+          </div>
+        </div>
+        <p style="font-size:13.5px;line-height:1.55;color:#686180;margin:12px 0 0">Puoi aggiungerne altre 3 dalla lista qui sotto — l'ordine conta per la riunione di assegnazione.</p>
+      </div>
+    </div>
+
+    <sc-if value="{{ vistaCodice }}" hint-placeholder-val="{{ true }}">
+    <pre style="font-family:'Space Mono',monospace;font-size:12.5px;line-height:1.8;background:#211E42;color:#E9E7F5;padding:22px 24px;border-radius:14px;overflow-x:auto;white-space:pre;margin:0 0 48px">/* [MODIFICA css] — overlay + modal */
+.meta-overlay {
+  position: fixed; inset: 0; z-index: 600;
+  background: rgba(33,30,66,.55);
+  display: flex; align-items: flex-end;        /* bottom-sheet a mobile */
+  justify-content: center;
+}
+.meta-modal {
+  position: relative;
+  width: 100%; max-height: 88vh; overflow-y: auto;
+  background: var(--bg-card);
+  border-radius: 24px 24px 0 0;
+  padding: var(--space-5);
+  box-shadow: 0 -8px 34px rgba(30,27,46,.22);
+  -webkit-overflow-scrolling: touch;
+}
+/* maniglia: affordance del bottom-sheet, senza markup nuovo */
+.meta-modal::before {
+  content: ""; display: block;
+  width: 38px; height: 4px; border-radius: 999px;
+  background: var(--border-strong);
+  margin: 0 auto var(--space-4);
+}
+.meta-modal-chiudi {
+  position: absolute; top: var(--space-4); right: var(--space-4);
+  width: 44px; height: 44px;                   /* touch */
+  border: 0; border-radius: 50%;
+  background: var(--bg-card-hover); color: var(--text-muted);
+  font-size: 17px; cursor: pointer;
+}
+@media (min-width: 1024px) {
+  .meta-overlay { align-items: center; padding: var(--space-6); }
+  .meta-modal {
+    max-width: 640px; border-radius: 28px;
+    padding: var(--space-8); max-height: 84vh;
+    box-shadow: 0 24px 60px rgba(30,27,46,.28);
+  }
+  .meta-modal::before { display: none; }       /* niente maniglia da desktop */
+}
+
+/* famiglia .dett-* — coppie etichetta/valore da rigaDettaglio() */
+.dett-titolo {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 700; font-size: var(--fs-h2); line-height: 1.2;
+  letter-spacing: -.02em; margin: 0 0 var(--space-1);
+  padding-right: 52px;                          /* non passa sotto la X */
+}
+.dett-luogo { font-size: var(--fs-sm); color: var(--text-hint); margin: 0 0 var(--space-4); }
+.dett-compat {
+  display: block; padding: var(--space-3) var(--space-4);
+  border-radius: 12px; margin-bottom: var(--space-4);
+  background: var(--bg-app); border: 1px solid var(--border);
+}
+.dett-compat-stato  { display: block; font-size: var(--fs-body); font-weight: 700; }
+.dett-compat-detail { display: block; font-size: var(--fs-xs); line-height: 1.5; color: var(--text-hint); margin-top: var(--space-1); }
+.dett-riga {
+  border-top: 1px solid #F1EFF8;
+  padding: var(--space-3) 0;
+}
+.dett-label {
+  display: block;
+  font-size: var(--fs-xs); font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;   /* micro-label */
+  color: var(--text-hint); margin-bottom: var(--space-1);
+}
+.dett-valore { font-size: var(--fs-sm); line-height: 1.6; color: var(--text-dark); }
+.dett-valore ul { margin: 0; padding-left: var(--space-5); }
+.dett-vuoto { color: var(--text-hint); font-style: italic; }   /* onestà: dato assente */
+.dett-link-wrap { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-5); }
+.dett-link {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; padding: 0 var(--space-5);
+  border-radius: 14px; border: 1.5px solid var(--border-strong);
+  background: var(--bg-card-hover); color: var(--primary-active);
+  font-size: var(--fs-sm); font-weight: 700; text-decoration: none;
+}
+.dett-link.primario {
+  background: var(--primary-fill); border-color: var(--primary-fill); color: #fff;
+}
+.dett-nota { font-size: var(--fs-xs); line-height: 1.55; color: var(--text-hint); margin-top: var(--space-4); }
+@media (min-width: 768px) {
+  .dett-riga { display: grid; grid-template-columns: 190px 1fr; gap: var(--space-4); align-items: baseline; }
+  .dett-label { margin-bottom: 0; }
+}
+
+/* [MODIFICA css] — schedina */
+.schedina-lista { display: flex; flex-direction: column; gap: var(--space-2); }
+.schedina-slot {
+  display: flex; align-items: center; gap: var(--space-3);
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 14px; padding: var(--space-3);
+}
+.schedina-numero {
+  font-family: 'Space Mono', monospace; font-size: 15px; font-weight: 700;
+  color: var(--primary); width: 22px; flex: none; text-align: center;
+}
+.schedina-corpo { flex: 1; min-width: 0; }      /* min-width:0 = l'ellipsis funziona */
+.schedina-nome {
+  display: block; font-size: var(--fs-sm); font-weight: 700;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.schedina-stato {
+  display: block; font-family: 'Space Mono', monospace;
+  font-size: var(--fs-xs); font-weight: 700; margin-top: 2px;
+}
+.schedina-azioni { display: flex; gap: 3px; flex: none; }
+.schedina-freccia, .schedina-rimuovi {
+  width: 40px; height: 40px; border: 0; border-radius: 9px;
+  background: var(--bg-card-hover); color: var(--text-muted);
+  font-size: 12px; cursor: pointer;
+}
+.schedina-rimuovi { background: #FEF2F2; color: #991B1B; }
+.schedina-freccia:disabled { color: var(--border-strong); cursor: not-allowed; }</pre>
+    </sc-if>
+
+    <h3 style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:22px;letter-spacing:-.02em;margin:0 0 8px">4.9 Profilo, nav, drawer, celebrazione</h3>
+    <p style="font-size:15.5px;line-height:1.65;color:#4B4560;margin:0 0 22px;max-width:78ch;text-wrap:pretty">Le quattro superfici che il brief chiedeva in copertura. Il salto della nav dal fondo all'header avviene a 768 — una sola soglia, nessuna zona grigia.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:22px">
+      <div style="background:#fff;border:1px solid #E5E2F0;border-radius:16px;padding:20px">
+        <p style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:#686180;margin:0 0 16px">.campo-form</p>
+        <label style="display:block;font-size:13.5px;font-weight:700;color:#1E1B2E;margin-bottom:7px">La tua media ponderata</label>
+        <div style="display:flex;align-items:center;min-height:48px;border:1.5px solid #D6D1EA;border-radius:14px;padding:0 14px;font-family:'Space Mono',monospace;font-size:15px;color:#1E1B2E;background:#fff">26,4</div>
+        <p style="font-size:12.5px;color:#686180;margin:7px 0 0;line-height:1.5">Su 30. La trovi in libretto, voce "media ponderata".</p>
+        <label style="display:block;font-size:13.5px;font-weight:700;color:#1E1B2E;margin:18px 0 7px">Dipartimento</label>
+        <div style="display:flex;align-items:center;justify-content:space-between;min-height:48px;border:1.5px solid #4F46E5;border-radius:14px;padding:0 14px;font-size:15px;color:#1E1B2E;background:#fff;box-shadow:0 0 0 4px rgba(79,70,229,.14)"><span>Studi Linguistici</span><span style="color:#4F46E5">▾</span></div>
+      </div>
+      <div style="background:#211E42;border-radius:16px;padding:20px;display:flex;flex-direction:column">
+        <p style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:#A5B4FC;margin:0 0 16px">.nav-bottom — attivo in oro</p>
+        <div style="display:flex;gap:5px;margin-top:auto">
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 5px;border-radius:12px;background:rgba(251,191,36,.12)">
+            <span style="font-size:17px">🗓️</span><span style="font-size:11px;font-weight:700;color:#FBBF24">Oggi</span>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 5px;border-radius:12px">
+            <span style="font-size:17px;opacity:.7">🌍</span><span style="font-size:11px;font-weight:600;color:#A5B4FC">Mete</span>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 5px;border-radius:12px">
+            <span style="font-size:17px;opacity:.7">🧭</span><span style="font-size:11px;font-weight:600;color:#A5B4FC">Percorso</span>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 5px;border-radius:12px">
+            <span style="font-size:17px;opacity:.7">⋯</span><span style="font-size:11px;font-weight:600;color:#A5B4FC">Altro</span>
+          </div>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid #E5E2F0;border-radius:16px;overflow:hidden">
+        <div style="background:#211E42;padding:16px 18px;display:flex;align-items:center;justify-content:space-between">
+          <p style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:16px;color:#fff;margin:0">Altro</p>
+          <span style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px">✕</span>
+        </div>
+        <div style="padding:8px">
+          <p style="font-size:10.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:#686180;margin:10px 12px 6px">IL TUO PROFILO</p>
+          <div style="display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:11px;min-height:52px">
+            <span style="font-size:17px">👤</span>
+            <div><p style="font-size:14.5px;font-weight:700;color:#1E1B2E;margin:0">I tuoi dati</p><p style="font-size:12px;color:#686180;margin:1px 0 0">Media, lingue, dipartimento</p></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:11px;min-height:52px;background:#F3F1FA">
+            <span style="font-size:17px">📄</span>
+            <div><p style="font-size:14.5px;font-weight:700;color:#1E1B2E;margin:0">Il bando ufficiale</p><p style="font-size:12px;color:#686180;margin:1px 0 0">PDF, si apre in una scheda nuova</p></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:#211E42;border-radius:16px;padding:28px 20px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:210px">
+        <p style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:#A5B4FC;margin:0 0 18px">#celebrazione-overlay</p>
+        <img src="img/mascotte/wiz-esulta.webp" alt="" style="width:96px;height:auto;transform:rotate(-6deg);margin-bottom:14px" onerror="this.style.display='none'">
+        <p style="font-family:'Bricolage Grotesque',serif;font-weight:800;font-size:23px;letter-spacing:-.025em;color:#fff;margin:0 0 7px">Zaino pronto ✨</p>
+        <p style="font-size:14px;line-height:1.55;color:#C7C3E0;margin:0 0 18px">Hai chiuso tutte le voci. Ora tocca all'ufficio.</p>
+        <span style="display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;background:#FBBF24;color:#211E42;font-size:15px;font-weight:700;border-radius:14px;box-shadow:0 2px 6px rgba(180,83,9,.10),0 10px 28px rgba(251,191,36,.24)">Continua</span>
+      </div>
+    </div>
+
+    <sc-if value="{{ vistaCodice }}" hint-placeholder-val="{{ true }}">
+    <pre style="font-family:'Space Mono',monospace;font-size:12.5px;line-height:1.8;background:#211E42;color:#E9E7F5;padding:22px 24px;border-radius:14px;overflow-x:auto;white-space:pre;margin:0 0 20px">/* [MODIFICA css] — form profilo */
+.form-profilo-v2 { display: flex; flex-direction: column; gap: var(--space-5); }
+.campo-form { display: flex; flex-direction: column; gap: var(--space-2); }
+.campo-form > label { font-size: var(--fs-sm); font-weight: 700; color: var(--text-dark); }
+.campo-form input,
+.campo-form select,
+.riga-lingua select {
+  min-height: 48px;                       /* touch */
+  padding: 0 var(--space-4);
+  border: 1.5px solid var(--border-strong);
+  border-radius: 14px;
+  background: var(--bg-card);
+  font-family: inherit; font-size: var(--fs-body); color: var(--text-dark);
+  transition: border-color 140ms ease-out, box-shadow 140ms ease-out;
+}
+.campo-form input[type="number"] { font-family: 'Space Mono', monospace; }
+.campo-form input:focus,
+.campo-form select:focus,
+.riga-lingua select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(79,70,229,.14);
+}
+.campo-form .aiuto { font-size: var(--fs-xs); line-height: 1.5; color: var(--text-hint); }
+.gruppo-lingue-v2 {
+  border: 1px solid var(--border); border-radius: 16px;
+  padding: var(--space-5); margin: 0;
+}
+.gruppo-lingue-v2 > legend {
+  font-size: var(--fs-sm); font-weight: 700; padding: 0 var(--space-2);
+}
+.riga-lingua {
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+.checkbox-lingua {
+  display: flex; align-items: center; gap: var(--space-2);
+  min-height: 44px; font-size: var(--fs-sm); cursor: pointer;
+}
+@media (min-width: 768px) {
+  .form-profilo-v2 {
+    display: grid; grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: var(--space-5) var(--space-6);
+  }
+  .gruppo-lingue-v2,
+  .form-profilo-v2 > button[type="submit"] { grid-column: 1 / -1; }
+  .riga-lingua { grid-template-columns: 1fr 1fr auto; align-items: center; }
+}
+@media (min-width: 1024px) {
+  .form-profilo-v2 { max-width: 720px; }
+}
+
+/* [MODIFICA css] — nav: fondo sotto 768, header da 768 */
+.nav-bottom {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 400;
+  display: flex; align-items: center; gap: var(--space-1);
+  padding: var(--space-2) var(--space-2)
+           calc(var(--space-2) + env(safe-area-inset-bottom, 0px));
+  background: var(--night-bg);
+  border-top: 1px solid var(--night-border);
+}
+.nav-brand { display: none; }             /* a mobile la barra è solo tab */
+.nav-item {
+  flex: 1;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  min-height: 48px; padding: var(--space-2) var(--space-1);
+  border: 0; background: transparent; border-radius: 12px;
+  color: var(--night-muted); text-decoration: none; cursor: pointer;
+}
+.nav-icon  { font-size: 17px; opacity: .7; }
+.nav-label { font-size: 11px; font-weight: 600; }
+.nav-item.attivo { background: rgba(251,191,36,.12); }
+.nav-item.attivo .nav-icon  { opacity: 1; }
+.nav-item.attivo .nav-label { color: var(--gold); font-weight: 700; }
+
+@media (min-width: 768px) {
+  .nav-bottom {
+    position: sticky; top: 0; bottom: auto;
+    padding: var(--space-3) var(--gutter);
+    border-top: 0; border-bottom: 1px solid var(--night-border);
+    gap: var(--space-2);
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: var(--space-2);
+    margin-right: auto;
+  }
+  .nav-wordmark {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 800; font-size: 17px; letter-spacing: -.02em; color: #fff;
+  }
+  .nav-item {
+    flex: 0 0 auto; flex-direction: row; gap: var(--space-2);
+    padding: 0 var(--space-4);
+  }
+  .nav-label { font-size: var(--fs-sm); }
+}
+
+/* [MODIFICA css] — drawer */
+.drawer-overlay { position: fixed; inset: 0; z-index: 700; background: rgba(33,30,66,.55); }
+.drawer {
+  position: fixed; z-index: 701; right: 0; bottom: 0; left: 0;
+  max-height: 86vh; overflow-y: auto;
+  background: var(--bg-card);
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 -8px 34px rgba(30,27,46,.22);
+}
+.drawer-testa {
+  position: sticky; top: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: var(--space-4) var(--space-5);
+  background: var(--night-bg); color: #fff;
+}
+.drawer-titolo {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 700; font-size: var(--fs-h3);
+}
+.drawer-chiudi {
+  width: 44px; height: 44px; border: 0; border-radius: 50%;
+  background: rgba(255,255,255,.12); color: #fff; font-size: 15px; cursor: pointer;
+}
+.drawer-voci { padding: var(--space-2); }
+.drawer-voce {
+  display: flex; align-items: center; gap: var(--space-3);
+  width: 100%; min-height: 52px;
+  padding: var(--space-3);
+  border: 0; border-radius: 11px;
+  background: transparent; color: var(--text-dark);
+  font-family: inherit; text-align: left; text-decoration: none; cursor: pointer;
+}
+.drawer-voce:hover { background: var(--bg-card-hover); }
+.drawer-voce-icona  { font-size: 17px; flex: none; }
+.drawer-voce-titolo { display: block; font-size: var(--fs-sm); font-weight: 700; }
+.drawer-voce-sub    { display: block; font-size: var(--fs-xs); color: var(--text-hint); margin-top: 1px; }
+.drawer-gruppo {
+  display: block;
+  font-size: 10.5px; font-weight: 700; letter-spacing: .11em;
+  text-transform: uppercase; color: var(--text-hint);
+  padding: var(--space-3) var(--space-3) var(--space-1);
+}
+.drawer-nota { font-size: var(--fs-xs); line-height: 1.55; color: var(--text-hint); padding: var(--space-4); }
+@media (min-width: 768px) {
+  .drawer {
+    top: 0; left: auto; width: 400px; max-height: 100vh;
+    border-radius: 0;
+    box-shadow: -8px 0 34px rgba(30,27,46,.22);
+  }
+}
+
+/* [MODIFICA css] — celebrazione: la seconda e ultima superficie notte */
+.celebrazione-overlay {
+  position: fixed; inset: 0; z-index: 500;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: var(--space-4); padding: var(--space-8);
+  background: radial-gradient(120% 90% at 50% 0%, #2A2652 0%, var(--night-bg) 55%, var(--night-bg-2) 100%);
+  text-align: center;
+}
+.celebrazione-wiz { width: min(230px, 52vw); height: auto; transform: rotate(-6deg); }
+.celebrazione-titolo {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800; font-size: var(--fs-hero); line-height: 1.1;
+  letter-spacing: -.03em; color: #fff; margin: 0;
+}
+.celebrazione-sub { font-size: var(--fs-body); line-height: 1.55; color: #C7C3E0; margin: 0; max-width: 34ch; }
+.celebrazione-btn {
+  min-height: 48px; padding: 0 var(--space-5);
+  border: 0; border-radius: 14px;
+  background: var(--gold); color: var(--night-bg);
+  font-family: inherit; font-size: var(--fs-body); font-weight: 700;
+  cursor: pointer; box-shadow: var(--shadow-gold);
+}</pre>
+    </sc-if>
+
+    <div style="background:#fff;border:1px solid #E5E2F0;border-radius:12px;padding:18px 20px">
+      <p style="font-size:14.5px;line-height:1.6;margin:0;color:#4B4560;text-wrap:pretty"><strong style="color:#1E1B2E">Due sole superfici notte in tutta l'app</strong>, come da regola d'oro: <span style="font-family:'Space Mono',monospace;font-size:13px">.home-header</span> + <span style="font-family:'Space Mono',monospace;font-size:13px">.countdown-pill</span> nel hero, e <span style="font-family:'Space Mono',monospace;font-size:13px">.celebrazione-overlay</span> nel momento di gioia. La nav e la testa del drawer sono <em>cornice</em>, non contenuto: non contano nel bilancio. Nessun altro blocco può diventare scuro.</p>
+    </div>
+  </section>
+
+  <section id="s5" style="max-width:1120px;margin:0 auto;padding:78px 32px 0">
+    <div style="display:flex;align-items:baseline;gap:16px;border-bottom:2px solid #1E1B2E;padding-bottom:14px;margin-bottom:34px">
+      <span style="font-family:'Space Mono',monospace;font-size:13px;color:#4F46E5;font-weight:700">05</span>
+      <h2 style="font-family:'Bricolage Grotesque',serif;font-weight:800;font-size:clamp(26px,3.4vw,34px);letter-spacing:-.025em;margin:0;flex:1">Markup nuovo — tutto qui</h2>
+    </div>
+
+    <div style="background:#ECFDF5;border:1px solid #A7F3D0;border-radius:16px;padding:26px 28px;margin-bottom:32px">
+      <p style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:20px;letter-spacing:-.015em;margin:0 0 10px;color:#065F46">Zero modifiche a <span style="font-family:'Space Mono',monospace;font-size:18px">index.html</span>.</p>
+      <p style="font-size:15.5px;line-height:1.65;color:#047857;margin:0;max-width:78ch;text-wrap:pretty">Risultato della verifica: ogni contenitore che il redesign richiede esiste già nel markup statico — comprese <span style="font-family:'Space Mono',monospace;font-size:13.5px">.nav-brand</span> e <span style="font-family:'Space Mono',monospace;font-size:13.5px">.nav-wordmark</span> che servono alla nav in header, e la corsia della timeline che si ottiene con il solo <span style="font-family:'Space Mono',monospace;font-size:13.5px">padding-left</span>. L'unico file oltre al CSS che va toccato è <span style="font-family:'Space Mono',monospace;font-size:13.5px">js/app.js</span>, per un solo motivo: lo stato vuoto ricco (V7).</p>
+    </div>
+
+    <h3 style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:22px;letter-spacing:-.02em;margin:0 0 8px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">5.1 Stato vuoto ricco <span style="font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;background:#FEE2E2;color:#991B1B;border:1px solid #FECACA;border-radius:5px;padding:3px 7px">MARKUP app.js: renderMete + renderPreferite</span></h3>
+    <p style="font-size:15.5px;line-height:1.65;color:#4B4560;margin:0 0 22px;max-width:78ch;text-wrap:pretty">Tre soli stati vuoti sono inventariati nel codice, e sono i tre che seguono. Non ne esistono altri: le liste vuote altrove non hanno un sito di render, quindi inventarne uno sarebbe DOM a vuoto.</p>
+
+    <div style="background:#fff;border:1px solid #E5E2F0;border-radius:16px;padding:34px 28px;text-align:center;max-width:520px;margin:0 0 22px">
+      <img src="img/mascotte/wiz-pensieroso.webp" alt="" style="width:110px;height:auto;margin-bottom:16px" onerror="this.style.display='none'">
+      <p style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:19px;letter-spacing:-.02em;margin:0 0 8px;color:#1E1B2E">Nessuna meta trovata per «zurigo»</p>
+      <p style="font-size:15px;line-height:1.6;color:#4B4560;margin:0 0 20px;max-width:40ch;margin-inline:auto;text-wrap:pretty">Può essere scritto in un altro modo, oppure quella sede non è nel bando del tuo dipartimento.</p>
+      <span style="display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 20px;background:#F3F1FA;color:#3730A3;font-size:15px;font-weight:700;border-radius:14px;border:1.5px solid #D6D1EA">Svuota la ricerca</span>
+    </div>
+
+    <sc-if value="{{ vistaCodice }}" hint-placeholder-val="{{ true }}">
+    <pre style="font-family:'Space Mono',monospace;font-size:12.5px;line-height:1.8;background:#211E42;color:#E9E7F5;padding:22px 24px;border-radius:14px;overflow-x:auto;white-space:pre;margin:0 0 18px">// ── AGGIUNGERE una volta, accanto agli altri helper di render ──
+// Stato vuoto ricco. `azione` è opzionale: {testo, onClick}.
+function creaStatoVuoto(titolo, spiegazione, azione) {
+  const box = crea("div", "stato-vuoto");
+
+  const img = document.createElement("img");
+  img.src = "img/mascotte/wiz-pensieroso.webp";
+  img.alt = "";                       // decorativa: il testo dice tutto
+  img.width = 110;
+  img.loading = "lazy";
+  img.className = "stato-vuoto-wiz";
+  box.appendChild(img);
+
+  box.appendChild(crea("p", "stato-vuoto-titolo", titolo));
+  box.appendChild(crea("p", "stato-vuoto-testo", spiegazione));
+
+  if (azione) {
+    const btn = crea("button", "btn-secondary", azione.testo);
+    btn.type = "button";
+    btn.addEventListener("click", azione.onClick);
+    box.appendChild(btn);
+  }
+  return box;
+}</pre>
+
+    <pre style="font-family:'Space Mono',monospace;font-size:12.5px;line-height:1.8;background:#211E42;color:#E9E7F5;padding:22px 24px;border-radius:14px;overflow-x:auto;white-space:pre;margin:0 0 18px">// ── SITO 1 — app.js:1890, dentro renderMete() ──
+// PRIMA
+  cont.appendChild(crea("p", "stato-vuoto-v2", `Nessuna meta trovata per «${testo}».`));
+// DOPO
+  cont.appendChild(creaStatoVuoto(
+    `Nessuna meta trovata per «${testo}»`,
+    "Può essere scritto in un altro modo, oppure quella sede non è nel bando del tuo dipartimento.",
+    { testo: "Svuota la ricerca", onClick: () => {
+        const campo = document.getElementById("cerca-mete");
+        if (campo) { campo.value = ""; campo.dispatchEvent(new Event("input")); campo.focus(); }
+      } }
+  ));
+
+// ── SITO 2 — app.js:1894, dentro renderMete() ──
+// PRIMA
+  cont.appendChild(crea("p", "stato-vuoto-v2", "Nessuna meta con questo filtro. Prova un'altra categoria."));
+// DOPO
+  cont.appendChild(creaStatoVuoto(
+    "Nessuna meta con questo filtro",
+    "Con i tuoi dati attuali questa categoria è vuota. Le altre categorie restano piene.",
+    { testo: "Mostra tutte le mete", onClick: () => {
+        const chip = document.querySelector('.chip-filtro[data-filtro="tutte"]');
+        if (chip) chip.click();
+      } }
+  ));
+
+// ── SITO 3 — app.js:2031, dentro renderPreferite() ──
+// Qui NON si usa creaStatoVuoto: la schedina vuota è un invito di UNA riga
+// per scelta deliberata (commento P1.4 nel codice: 5 slot vuoti occupavano
+// 1,5 schermate PRIMA della lista mete). Si allinea solo lo stile, il
+// markup resta un <p>. Vedi il CSS .schedina-invito-vuota sotto.</pre>
+
+    <pre style="font-family:'Space Mono',monospace;font-size:12.5px;line-height:1.8;background:#211E42;color:#E9E7F5;padding:22px 24px;border-radius:14px;overflow-x:auto;white-space:pre;margin:0 0 18px">/* [NUOVA css] — additiva. La vecchia .stato-vuoto-v2 va lasciata nel
+   foglio: non è più emessa da renderMete, ma non costa nulla e copre
+   eventuali chiamate residue. */
+.stato-vuoto {
+  grid-column: 1 / -1;              /* è figlio di .griglia-mete-v2 */
+  display: flex; flex-direction: column; align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-8) var(--space-5);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  text-align: center;
+}
+.stato-vuoto-wiz { width: 110px; height: auto; }
+.stato-vuoto-titolo {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 700; font-size: var(--fs-h3);
+  letter-spacing: -.02em; margin: 0;
+}
+.stato-vuoto-testo {
+  font-size: var(--fs-body); line-height: 1.6;
+  color: var(--text-muted); margin: 0;
+  max-width: 40ch; text-wrap: pretty;
+}
+.stato-vuoto .btn-secondary { margin-top: var(--space-2); }
+
+/* [MODIFICA css] — la schedina vuota si allinea, non si duplica */
+.schedina-invito-vuota {
+  display: block;
+  padding: var(--space-4);
+  background: var(--gold-bg);
+  border: 1px solid var(--gold-border);
+  border-radius: 14px;
+  font-size: var(--fs-sm); line-height: 1.6;
+  color: var(--gold-dark);
+  text-wrap: pretty;
+}
+@media (min-width: 1024px) {
+  .stato-vuoto { padding: var(--space-12) var(--space-8); }
+  .stato-vuoto-wiz { width: 140px; }
+}</pre>
+    </sc-if>
+
+    <h3 style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:22px;letter-spacing:-.02em;margin:38px 0 8px">5.2 Il marcatore di produzione</h3>
+    <p style="font-size:15.5px;line-height:1.65;color:#4B4560;margin:0 0 18px;max-width:78ch;text-wrap:pretty">Tutto il CSS dei §02–§05 va <strong>sopra</strong> questa riga. Sotto ci va solo ciò che serve a guardare i componenti isolati (pagine di specimen, griglie di prova): così un domani si può tagliare la coda senza leggere ogni regola.</p>
+    <sc-if value="{{ vistaCodice }}" hint-placeholder-val="{{ true }}">
+    <pre style="font-family:'Space Mono',monospace;font-size:12.5px;line-height:1.8;background:#211E42;color:#E9E7F5;padding:22px 24px;border-radius:14px;overflow-x:auto;white-space:pre;margin:0">/* ═══════════════════════════════════════════════════════
+   Fine del CSS di produzione. Sotto: solo specimen.
+   ═══════════════════════════════════════════════════════ */
+/*__PROD_END__*/</pre>
+    </sc-if>
+  </section>
+
+  <sc-if value="{{ mostraSpecimen }}" hint-placeholder-val="{{ true }}">
+  <section id="s6" style="max-width:1120px;margin:0 auto;padding:78px 32px 0">
+    <div style="display:flex;align-items:baseline;gap:16px;border-bottom:2px solid #1E1B2E;padding-bottom:14px;margin-bottom:34px">
+      <span style="font-family:'Space Mono',monospace;font-size:13px;color:#4F46E5;font-weight:700">06</span>
+      <h2 style="font-family:'Bricolage Grotesque',serif;font-weight:800;font-size:clamp(26px,3.4vw,34px);letter-spacing:-.025em;margin:0;flex:1">Specimen — schermate a 390</h2>
+    </div>
+    <p style="font-size:16.5px;line-height:1.65;color:#4B4560;max-width:72ch;margin:0 0 34px;text-wrap:pretty">Il riferimento mobile. Le altre superfici (card meta, modal dettaglio, schedina, form, nav, drawer, celebrazione, stati vuoti) sono già rese in scala reale nei §04 e §05, accanto al CSS che le produce.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:26px">
+
+      <div>
+        <p style="font-family:'Space Mono',monospace;font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:#686180;margin:0 0 14px">#tab-oggi · utente di ritorno · 390</p>
+        <div style="width:390px;max-width:100%;background:#FAF8F3;border:1px solid #E5E2F0;border-radius:22px;overflow:hidden;box-shadow:0 2px 6px rgba(30,27,46,.06),0 14px 40px rgba(30,27,46,.10)">
+          <div style="padding:20px 16px 0">
+
+            <div style="background:#211E42;border-radius:20px;padding:20px;margin-bottom:16px;position:relative;overflow:hidden">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px">
+                <span style="font-family:'Space Mono',monospace;font-size:11px;color:#A5B4FC;letter-spacing:.05em">mer 24 lug</span>
+                <span style="font-size:11px;font-weight:700;background:rgba(251,191,36,.16);color:#FBBF24;border-radius:999px;padding:4px 10px">Bando aperto</span>
+              </div>
+              <div style="display:flex;align-items:flex-end;gap:12px">
+                <div style="flex:1">
+                  <p style="font-size:13.5px;color:#A5B4FC;margin:0 0 5px">Ciao Giulia,</p>
+                  <p style="font-family:'Bricolage Grotesque',serif;font-weight:800;font-size:26px;line-height:1.1;letter-spacing:-.03em;color:#fff;margin:0">sei a metà del percorso.</p>
+                </div>
+                <img src="img/mascotte/wiz-saluto.webp" alt="" style="width:64px;height:auto;flex:none;transform:scaleX(-1)" onerror="this.style.display='none'">
+              </div>
+            </div>
+
+            <div style="background:#fff;border:1px solid #E5E2F0;border-radius:20px;padding:20px;margin-bottom:16px;box-shadow:0 1px 3px rgba(30,27,46,.06),0 4px 14px rgba(30,27,46,.05)">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;flex-wrap:wrap">
+                <span style="font-size:11px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:#4F46E5;background:#EEF2FF;border-radius:999px;padding:5px 10px">LA TUA MOSSA DI OGGI</span>
+                <span style="font-size:12.5px;font-weight:600;color:#B45309">entro il 12 feb</span>
+              </div>
+              <h3 style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:20px;line-height:1.2;letter-spacing:-.025em;margin:0 0 8px;color:#1E1B2E">Carica il certificato di lingua</h3>
+              <p style="font-size:15px;line-height:1.6;color:#4B4560;margin:0 0 18px;text-wrap:pretty">Ti serve il B2 di francese per due delle tue cinque scelte.</p>
+              <div style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:18px">
+                <span style="display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 18px;background:#4F46E5;color:#fff;font-size:15px;font-weight:700;border-radius:14px;box-shadow:0 2px 5px rgba(79,70,229,.18),0 10px 24px rgba(79,70,229,.28)">Fatto</span>
+                <span style="display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 18px;background:#F3F1FA;color:#3730A3;font-size:15px;font-weight:700;border-radius:14px;border:1.5px solid #D6D1EA">Come si fa?</span>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;background:#211E42;border-radius:14px;padding:13px 15px">
+                <div style="display:flex;align-items:center;gap:9px;min-width:0">
+                  <span style="width:9px;height:9px;border-radius:50%;background:#FBBF24;flex:none;box-shadow:0 0 0 4px rgba(251,191,36,.22)"></span>
+                  <div style="min-width:0">
+                    <p style="font-size:13px;font-weight:700;color:#fff;margin:0;white-space:nowrap">Chiusura del bando</p>
+                    <p style="font-size:11.5px;color:#A5B4FC;margin:2px 0 0">meno di una settimana</p>
+                  </div>
+                </div>
+                <span style="font-family:'Space Mono',monospace;font-size:14px;font-weight:700;color:#FBBF24;flex:none">6g 04h</span>
+              </div>
+            </div>
+
+            <div style="background:#fff;border:1px solid #E5E2F0;border-radius:20px;padding:20px;margin-bottom:16px;box-shadow:0 1px 3px rgba(30,27,46,.06),0 4px 14px rgba(30,27,46,.05)">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+                <span style="font-size:11px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:#686180">IL TUO PERCORSO</span>
+                <span style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;color:#3730A3">3/7</span>
+              </div>
+              <div style="height:10px;border-radius:999px;background:#E5E2F0;overflow:hidden;margin-bottom:16px">
+                <div style="width:43%;height:100%;border-radius:999px;background:linear-gradient(90deg,#4F46E5,#6366F1)"></div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:9px">
+                <div style="display:flex;align-items:center;gap:11px;padding:11px 13px;background:#ECFDF5;border:1px solid #A7F3D0;border-radius:13px">
+                  <span style="box-sizing:border-box;width:22px;height:22px;border-radius:50%;background:#10B981;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;flex:none">✓</span>
+                  <div style="min-width:0"><p style="font-size:14px;font-weight:700;color:#065F46;margin:0">Sei idoneo?</p><p style="font-size:12px;color:#047857;margin:1px 0 0">4 requisiti su 4</p></div>
+                </div>
+                <div style="display:flex;align-items:center;gap:11px;padding:11px 13px;background:#EEF2FF;border:1.5px solid #4F46E5;border-radius:13px">
+                  <span style="box-sizing:border-box;width:22px;height:22px;border-radius:50%;background:#4F46E5;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;flex:none">2</span>
+                  <div style="min-width:0"><p style="font-size:14px;font-weight:700;color:#1E1B2E;margin:0">La domanda</p><p style="font-size:12px;color:#4F46E5;margin:1px 0 0;font-weight:600">Sei qui</p></div>
+                </div>
+                <div style="display:flex;align-items:center;gap:11px;padding:11px 13px;background:#FAF8F3;border:1px solid #E5E2F0;border-radius:13px">
+                  <span style="box-sizing:border-box;width:22px;height:22px;border-radius:50%;background:#fff;border:2px solid #D6D1EA;color:#686180;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;flex:none">3</span>
+                  <div style="min-width:0"><p style="font-size:14px;font-weight:700;color:#4B4560;margin:0">L'esito</p><p style="font-size:12px;color:#686180;margin:1px 0 0">Da marzo 2026</p></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div style="display:flex;gap:4px;padding:8px;background:#211E42;border-top:1px solid rgba(255,255,255,.10)">
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 4px;border-radius:12px;background:rgba(251,191,36,.12)"><span style="font-size:16px">🗓️</span><span style="font-size:11px;font-weight:700;color:#FBBF24">Oggi</span></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 4px"><span style="font-size:16px;opacity:.7">🌍</span><span style="font-size:11px;font-weight:600;color:#A5B4FC">Mete</span></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 4px"><span style="font-size:16px;opacity:.7">🧭</span><span style="font-size:11px;font-weight:600;color:#A5B4FC">Percorso</span></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 4px"><span style="font-size:16px;opacity:.7">⋯</span><span style="font-size:11px;font-weight:600;color:#A5B4FC">Altro</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p style="font-family:'Space Mono',monospace;font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:#686180;margin:0 0 14px">#tab-percorso · una stazione aperta · 390</p>
+        <div style="width:390px;max-width:100%;background:#FAF8F3;border:1px solid #E5E2F0;border-radius:22px;overflow:hidden;box-shadow:0 2px 6px rgba(30,27,46,.06),0 14px 40px rgba(30,27,46,.10)">
+          <div style="padding:20px 16px 0">
+            <p style="font-family:'Bricolage Grotesque',serif;font-weight:800;font-size:25px;letter-spacing:-.03em;margin:0 0 4px;color:#1E1B2E">Il tuo percorso</p>
+            <p style="font-size:14px;line-height:1.55;color:#686180;margin:0 0 18px">Cinque tappe, da oggi alla partenza.</p>
+
+            <div style="display:flex;gap:11px;align-items:flex-start;background:#FEF3C7;border:1px solid #FDE68A;border-left:3px solid #F59E0B;border-radius:14px;padding:14px 15px;margin-bottom:18px">
+              <span style="font-size:15px;flex:none">⚠️</span>
+              <p style="font-size:13px;line-height:1.55;color:#B45309;margin:0">Dati in corso di verifica sul bando ufficiale — usali come traccia, non come fonte.</p>
+            </div>
+
+            <ol style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px">
+              <li style="position:relative;padding-left:38px">
+                <span style="position:absolute;left:14px;top:44px;bottom:-16px;width:2px;background:#10B981;border-radius:1px;display:block"></span>
+                <span style="position:absolute;left:0;top:14px;box-sizing:border-box;width:30px;height:30px;border-radius:50%;background:#10B981;border:2px solid #10B981;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;z-index:1">✓</span>
+                <div style="background:#fff;border:1px solid #E5E2F0;border-radius:16px;overflow:hidden">
+                  <div style="display:flex;align-items:center;gap:12px;padding:16px;min-height:48px">
+                    <div style="flex:1;min-width:0"><p style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:17px;letter-spacing:-.015em;margin:0;color:#1E1B2E">Sei idoneo?</p><p style="font-size:13.5px;color:#686180;margin:2px 0 0">4 requisiti su 4 spuntati</p></div>
+                    <span style="font-size:12px;color:#686180;flex:none">⌄</span>
+                  </div>
+                </div>
+              </li>
+              <li style="position:relative;padding-left:38px">
+                <span style="position:absolute;left:14px;top:44px;bottom:-16px;width:2px;background:#D6D1EA;border-radius:1px;display:block"></span>
+                <span style="position:absolute;left:0;top:14px;box-sizing:border-box;width:30px;height:30px;border-radius:50%;background:#4F46E5;border:2px solid #4F46E5;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;z-index:1;box-shadow:0 0 0 5px rgba(79,70,229,.16)">2</span>
+                <div style="background:#fff;border:1.5px solid #4F46E5;border-radius:16px;overflow:hidden;box-shadow:0 2px 6px rgba(79,70,229,.10),0 8px 24px rgba(67,56,202,.14)">
+                  <div style="display:flex;align-items:center;gap:12px;padding:16px;min-height:48px;background:#EEF2FF">
+                    <div style="flex:1;min-width:0"><p style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:17px;letter-spacing:-.015em;margin:0;color:#1E1B2E">La domanda</p><p style="font-size:13.5px;color:#4F46E5;margin:2px 0 0;font-weight:600">3 voci su 7 — sei qui</p></div>
+                    <span style="font-size:12px;color:#4F46E5;flex:none;transform:rotate(180deg)">⌄</span>
+                  </div>
+                  <div style="padding:0 16px 16px">
+                    <div style="height:10px;border-radius:999px;background:#E5E2F0;overflow:hidden;margin:4px 0 14px">
+                      <div style="width:43%;height:100%;border-radius:999px;background:linear-gradient(90deg,#4F46E5,#6366F1)"></div>
+                    </div>
+                    <div style="border:1px solid #E5E2F0;border-radius:13px;overflow:hidden">
+                      <div style="display:flex;align-items:center;gap:11px;padding:14px 15px;border-bottom:1px solid #F1EFF8;min-height:48px">
+                        <span style="box-sizing:border-box;width:22px;height:22px;border-radius:7px;background:#10B981;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;flex:none">✓</span>
+                        <span style="font-size:14.5px;color:#686180;text-decoration:line-through">Compila la domanda online</span>
+                      </div>
+                      <div style="display:flex;align-items:center;gap:11px;padding:14px 15px 14px 12px;border-bottom:1px solid #F1EFF8;min-height:48px;background:#EEF2FF;border-left:3px solid #4F46E5">
+                        <span style="box-sizing:border-box;width:22px;height:22px;border-radius:7px;background:#fff;border:2px solid #4F46E5;flex:none"></span>
+                        <div><p style="font-size:14.5px;font-weight:700;color:#1E1B2E;margin:0">Carica il certificato</p><p style="font-size:12px;color:#4F46E5;margin:1px 0 0;font-weight:600">entro il 12 feb</p></div>
+                      </div>
+                      <div style="display:flex;align-items:center;gap:11px;padding:14px 15px;min-height:48px">
+                        <span style="box-sizing:border-box;width:22px;height:22px;border-radius:7px;background:#fff;border:2px solid #D6D1EA;flex:none"></span>
+                        <span style="font-size:14.5px;color:#4B4560">Fai firmare il Learning Agreement</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li style="position:relative;padding-left:38px">
+                <span style="position:absolute;left:14px;top:44px;bottom:-16px;width:2px;background:#D6D1EA;border-radius:1px;display:block"></span>
+                <span style="position:absolute;left:0;top:14px;box-sizing:border-box;width:30px;height:30px;border-radius:50%;background:#FAF8F3;border:2px solid #D6D1EA;color:#686180;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;z-index:1">3</span>
+                <div style="background:#fff;border:1px solid #E5E2F0;border-radius:16px">
+                  <div style="display:flex;align-items:center;gap:12px;padding:16px;min-height:48px">
+                    <div style="flex:1"><p style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:17px;letter-spacing:-.015em;margin:0;color:#4B4560">L'esito</p><p style="font-size:13.5px;color:#686180;margin:2px 0 0">Da marzo 2026</p></div>
+                    <span style="font-size:12px;color:#686180;flex:none">⌄</span>
+                  </div>
+                </div>
+              </li>
+              <li style="position:relative;padding-left:38px">
+                <span style="position:absolute;left:0;top:14px;box-sizing:border-box;width:30px;height:30px;border-radius:50%;background:#FAF8F3;border:2px solid #D6D1EA;color:#686180;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;z-index:1">4</span>
+                <div style="background:#fff;border:1px solid #E5E2F0;border-radius:16px">
+                  <div style="display:flex;align-items:center;gap:12px;padding:16px;min-height:48px">
+                    <div style="flex:1"><p style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:17px;letter-spacing:-.015em;margin:0;color:#4B4560">Il Learning Agreement</p><p style="font-size:13.5px;color:#686180;margin:2px 0 0">Dopo l'assegnazione</p></div>
+                    <span style="font-size:12px;color:#686180;flex:none">⌄</span>
+                  </div>
+                </div>
+              </li>
+            </ol>
+            <div style="height:20px"></div>
+          </div>
+          <div style="display:flex;gap:4px;padding:8px;background:#211E42;border-top:1px solid rgba(255,255,255,.10)">
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 4px"><span style="font-size:16px;opacity:.7">🗓️</span><span style="font-size:11px;font-weight:600;color:#A5B4FC">Oggi</span></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 4px"><span style="font-size:16px;opacity:.7">🌍</span><span style="font-size:11px;font-weight:600;color:#A5B4FC">Mete</span></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 4px;border-radius:12px;background:rgba(251,191,36,.12)"><span style="font-size:16px">🧭</span><span style="font-size:11px;font-weight:700;color:#FBBF24">Percorso</span></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 4px"><span style="font-size:16px;opacity:.7">⋯</span><span style="font-size:11px;font-weight:600;color:#A5B4FC">Altro</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  </sc-if>
+
+  <section id="s7" style="max-width:1120px;margin:0 auto;padding:78px 32px 0">
+    <div style="display:flex;align-items:baseline;gap:16px;border-bottom:2px solid #1E1B2E;padding-bottom:14px;margin-bottom:34px">
+      <span style="font-family:'Space Mono',monospace;font-size:13px;color:#4F46E5;font-weight:700">07</span>
+      <h2 style="font-family:'Bricolage Grotesque',serif;font-weight:800;font-size:clamp(26px,3.4vw,34px);letter-spacing:-.025em;margin:0;flex:1">Manifest di diff &amp; checklist</h2>
+    </div>
+
+    <div style="overflow-x:auto;margin-bottom:26px">
+      <table style="width:100%;border-collapse:collapse;font-size:13.5px;min-width:820px;background:#fff;border:1px solid #E5E2F0;border-radius:12px;overflow:hidden">
+        <thead>
+          <tr style="background:#FAF8F3">
+            <th style="text-align:left;padding:13px 15px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#686180;font-weight:700;border-bottom:1px solid #E5E2F0">File</th>
+            <th style="text-align:left;padding:13px 15px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#686180;font-weight:700;border-bottom:1px solid #E5E2F0">Selettore / blocco</th>
+            <th style="text-align:left;padding:13px 15px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#686180;font-weight:700;border-bottom:1px solid #E5E2F0">Tipo</th>
+            <th style="text-align:left;padding:13px 15px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#686180;font-weight:700;border-bottom:1px solid #E5E2F0">Rischio</th>
+            <th style="text-align:left;padding:13px 15px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#686180;font-weight:700;border-bottom:1px solid #E5E2F0">Nota</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;font-family:'Space Mono',monospace;font-size:12px;color:#4B4560">style.css</td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;font-family:'Space Mono',monospace;font-size:12px;color:#1E1B2E">:root righe 22, 37</td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8"><span style="font-family:'Space Mono',monospace;font-size:10px;font-weight:700;background:#EEF2FF;color:#3730A3;border:1px solid #C7D2FE;border-radius:5px;padding:2px 6px">MODIFICA</span></td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;color:#059669;font-weight:700;font-size:12.5px">basso</td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;color:#4B4560;line-height:1.5">Solo 2 righe. Non rimpiazzare il <span style="font-family:'Space Mono',monospace;font-size:12px">:root</span> intero.</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;font-family:'Space Mono',monospace;font-size:12px;color:#4B4560">style.css</td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;font-family:'Space Mono',monospace;font-size:12px;color:#1E1B2E">:root coda + 2 @media</td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8"><span style="font-family:'Space Mono',monospace;font-size:10px;font-weight:700;background:#ECFDF5;color:#065F46;border:1px solid #A7F3D0;border-radius:5px;padding:2px 6px">NUOVA</span></td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;color:#059669;font-weight:700;font-size:12.5px">nullo</td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;color:#4B4560;line-height:1.5">Nomi inesistenti oggi: nessuna collisione possibile.</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;font-family:'Space Mono',monospace;font-size:12px;color:#4B4560">style.css</td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;font-family:'Space Mono',monospace;font-size:12px;color:#1E1B2E">#tab-oggi @media 1024</td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8"><span style="font-family:'Space Mono',monospace;font-size:10px;font-weight:700;background:#EEF2FF;color:#3730A3;border:1px solid #C7D2FE;border-radius:5px;padding:2px 6px">MODIFICA</span></td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;color:#B45309;font-weight:700;font-size:12.5px">medio</td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;color:#4B4560;line-height:1.5">Sostituzione. Le <span style="font-family:'Space Mono',monospace;font-size:12px">grid-row</span> esistenti vanno rimosse o vincono (V5).</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;font-family:'Space Mono',monospace;font-size:12px;color:#4B4560">style.css</td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;font-family:'Space Mono',monospace;font-size:12px;color:#1E1B2E">timeline ~590–615</td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8"><span style="font-family:'Space Mono',monospace;font-size:10px;font-weight:700;background:#EEF2FF;color:#3730A3;border:1px solid #C7D2FE;border-radius:5px;padding:2px 6px">MODIFICA</span></td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;color:#991B1B;font-weight:700;font-size:12.5px">alto</td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;color:#4B4560;line-height:1.5">Blocco sostitutivo. Serve la guardia su <span style="font-family:'Space Mono',monospace;font-size:12px">.stazione-dettagli</span> (V2, V3).</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;font-family:'Space Mono',monospace;font-size:12px;color:#4B4560">style.css</td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;font-family:'Space Mono',monospace;font-size:12px;color:#1E1B2E">.btn-primary, .btn-primario</td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8"><span style="font-family:'Space Mono',monospace;font-size:10px;font-weight:700;background:#EEF2FF;color:#3730A3;border:1px solid #C7D2FE;border-radius:5px;padding:2px 6px">MODIFICA</span></td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;color:#B45309;font-weight:700;font-size:12.5px">medio</td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;color:#4B4560;line-height:1.5">Entrambe le classi, non una (V4). Il <span style="font-family:'Space Mono',monospace;font-size:12px">min-height</span> cambia l'altezza dei form.</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;font-family:'Space Mono',monospace;font-size:12px;color:#4B4560">style.css</td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;font-family:'Space Mono',monospace;font-size:12px;color:#1E1B2E">.banner-stato, .stato-vuoto</td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8"><span style="font-family:'Space Mono',monospace;font-size:10px;font-weight:700;background:#ECFDF5;color:#065F46;border:1px solid #A7F3D0;border-radius:5px;padding:2px 6px">NUOVA</span></td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;color:#059669;font-weight:700;font-size:12.5px">nullo</td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;color:#4B4560;line-height:1.5">Additive. Solo 2 delle 4 varianti banner sono cablate a dati reali.</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;font-family:'Space Mono',monospace;font-size:12px;color:#4B4560">style.css</td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;font-family:'Space Mono',monospace;font-size:12px;color:#1E1B2E">altri componenti §04</td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8"><span style="font-family:'Space Mono',monospace;font-size:10px;font-weight:700;background:#EEF2FF;color:#3730A3;border:1px solid #C7D2FE;border-radius:5px;padding:2px 6px">MODIFICA</span></td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;color:#059669;font-weight:700;font-size:12.5px">basso</td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;color:#4B4560;line-height:1.5">Restyling su selettori esistenti, nessuna rinomina.</td>
+          </tr>
+          <tr style="background:#FFFBEB">
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;font-family:'Space Mono',monospace;font-size:12px;color:#991B1B;font-weight:700">⚠️ js/app.js</td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;font-family:'Space Mono',monospace;font-size:12px;color:#1E1B2E">+ creaStatoVuoto()</td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8"><span style="font-family:'Space Mono',monospace;font-size:10px;font-weight:700;background:#FEE2E2;color:#991B1B;border:1px solid #FECACA;border-radius:5px;padding:2px 6px">MARKUP js</span></td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;color:#B45309;font-weight:700;font-size:12.5px">medio</td>
+            <td style="padding:12px 15px;border-bottom:1px solid #F1EFF8;color:#4B4560;line-height:1.5">Helper nuovo, nessuna funzione esistente riscritta.</td>
+          </tr>
+          <tr style="background:#FFFBEB">
+            <td style="padding:12px 15px;font-family:'Space Mono',monospace;font-size:12px;color:#991B1B;font-weight:700">⚠️ js/app.js</td>
+            <td style="padding:12px 15px;font-family:'Space Mono',monospace;font-size:12px;color:#1E1B2E">righe 1890, 1894</td>
+            <td style="padding:12px 15px"><span style="font-family:'Space Mono',monospace;font-size:10px;font-weight:700;background:#FEE2E2;color:#991B1B;border:1px solid #FECACA;border-radius:5px;padding:2px 6px">MARKUP js</span></td>
+            <td style="padding:12px 15px;color:#B45309;font-weight:700;font-size:12.5px">medio</td>
+            <td style="padding:12px 15px;color:#4B4560;line-height:1.5">Due <span style="font-family:'Space Mono',monospace;font-size:12px">appendChild</span> sostituiti dentro <span style="font-family:'Space Mono',monospace;font-size:12px">renderMete()</span>. Il <span style="font-family:'Space Mono',monospace;font-size:12px">return</span> subito dopo resta.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="background:#FEE2E2;border:1px solid #FECACA;border-radius:16px;padding:26px 28px;margin-bottom:26px">
+      <p style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:19px;letter-spacing:-.015em;margin:0 0 14px;color:#991B1B">⚠️ I tre punti che possono rompere qualcosa</p>
+      <ol style="margin:0;padding-left:20px;font-size:15px;line-height:1.7;color:#7F1D1D">
+        <li style="margin-bottom:9px"><strong>Timeline.</strong> Aggiungere il binario nuovo senza rimuovere <span style="font-family:'Space Mono',monospace;font-size:13px">.stazione + .stazione::before</span> produce due tratti sfalsati. E qualunque <span style="font-family:'Space Mono',monospace;font-size:13px">position</span>/<span style="font-family:'Space Mono',monospace;font-size:13px">transform</span> su <span style="font-family:'Space Mono',monospace;font-size:13px">.stazione-dettagli</span> fa sparire il marker. E senza <span style="font-family:'Space Mono',monospace;font-size:13px">box-sizing:border-box</span> su <span style="font-family:'Space Mono',monospace;font-size:13px">.stazione-punto</span> il bordo da 2px sposta il centro del marker fuori dall'asse del binario, a mobile e a desktop.</li>
+        <li style="margin-bottom:9px"><strong>Griglia di Oggi.</strong> Le <span style="font-family:'Space Mono',monospace;font-size:13px">grid-row</span> esistenti hanno la stessa specificità delle nuove regole: se sopravvivono, vince l'ultima dichiarata. Rimuoverle, non sovrascriverle.</li>
+        <li><strong>Stato vuoto.</strong> <span style="font-family:'Space Mono',monospace;font-size:13px">renderMete()</span> fa <span style="font-family:'Space Mono',monospace;font-size:13px">return</span> immediatamente dopo l'<span style="font-family:'Space Mono',monospace;font-size:13px">appendChild</span>: quel <span style="font-family:'Space Mono',monospace;font-size:13px">return</span> va conservato, altrimenti si rende la lista vuota <em>e</em> lo stato vuoto.</li>
+      </ol>
+    </div>
+
+    <div style="background:#fff;border:1px solid #E5E2F0;border-radius:16px;padding:28px 30px;margin-bottom:26px">
+      <p style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:20px;letter-spacing:-.015em;margin:0 0 20px;color:#1E1B2E">Checklist "fatto" — nell'ordine</p>
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <div style="display:flex;gap:13px;align-items:flex-start;padding:13px 0;border-bottom:1px solid #F1EFF8"><span style="box-sizing:border-box;width:22px;height:22px;border-radius:7px;border:2px solid #D6D1EA;flex:none"></span><p style="font-size:15px;line-height:1.55;margin:0;color:#1E1B2E">Triplo controllo a <strong>390 → 768 → 1280</strong>, sulle tre bande, non solo agli estremi.</p></div>
+        <div style="display:flex;gap:13px;align-items:flex-start;padding:13px 0;border-bottom:1px solid #F1EFF8"><span style="box-sizing:border-box;width:22px;height:22px;border-radius:7px;border:2px solid #D6D1EA;flex:none"></span><p style="font-size:15px;line-height:1.55;margin:0;color:#1E1B2E">Zero scroll orizzontale su ogni tab. I due sospetti: <span style="font-family:'Space Mono',monospace;font-size:13px">.schedina-nome</span> senza <span style="font-family:'Space Mono',monospace;font-size:13px">min-width:0</span>, e la riga di chip filtro.</p></div>
+        <div style="display:flex;gap:13px;align-items:flex-start;padding:13px 0;border-bottom:1px solid #F1EFF8"><span style="box-sizing:border-box;width:22px;height:22px;border-radius:7px;border:2px solid #D6D1EA;flex:none"></span><p style="font-size:15px;line-height:1.55;margin:0;color:#1E1B2E"><strong>Tab da tastiera su tutta l'app</strong>: ogni interattivo mostra l'anello, e nessuno lo mostra al click del mouse.</p></div>
+        <div style="display:flex;gap:13px;align-items:flex-start;padding:13px 0;border-bottom:1px solid #F1EFF8"><span style="box-sizing:border-box;width:22px;height:22px;border-radius:7px;border:2px solid #D6D1EA;flex:none"></span><p style="font-size:15px;line-height:1.55;margin:0;color:#1E1B2E">Target touch: nessun bersaglio sotto 44px a 390. Verificare <span style="font-family:'Space Mono',monospace;font-size:13px">.schedina-freccia</span>, <span style="font-family:'Space Mono',monospace;font-size:13px">.btn-preferita</span>, <span style="font-family:'Space Mono',monospace;font-size:13px">.chip-filtro</span> e il submit del profilo.</p></div>
+        <div style="display:flex;gap:13px;align-items:flex-start;padding:13px 0;border-bottom:1px solid #F1EFF8"><span style="box-sizing:border-box;width:22px;height:22px;border-radius:7px;border:2px solid #D6D1EA;flex:none"></span><p style="font-size:15px;line-height:1.55;margin:0;color:#1E1B2E"><strong>Timeline</strong>: apri/chiudi ogni stazione con mouse e con Invio. Il marker resta fermo e visibile in tutti i casi.</p></div>
+        <div style="display:flex;gap:13px;align-items:flex-start;padding:13px 0;border-bottom:1px solid #F1EFF8"><span style="box-sizing:border-box;width:22px;height:22px;border-radius:7px;border:2px solid #D6D1EA;flex:none"></span><p style="font-size:15px;line-height:1.55;margin:0;color:#1E1B2E"><strong>Griglia di Oggi</strong> nei tre stati: benvenuto visibile · settimana e mappa spente · utente di ritorno. Nessuna riga vuota in nessuno.</p></div>
+        <div style="display:flex;gap:13px;align-items:flex-start;padding:13px 0;border-bottom:1px solid #F1EFF8"><span style="box-sizing:border-box;width:22px;height:22px;border-radius:7px;border:2px solid #D6D1EA;flex:none"></span><p style="font-size:15px;line-height:1.55;margin:0;color:#1E1B2E"><span style="font-family:'Space Mono',monospace;font-size:13px">prefers-reduced-motion</span> attivo: nulla si muove, nulla diventa illeggibile, nessuna informazione si perde.</p></div>
+        <div style="display:flex;gap:13px;align-items:flex-start;padding:13px 0;border-bottom:1px solid #F1EFF8"><span style="box-sizing:border-box;width:22px;height:22px;border-radius:7px;border:2px solid #D6D1EA;flex:none"></span><p style="font-size:15px;line-height:1.55;margin:0;color:#1E1B2E">A mobile l'ultima riga di checklist <strong>non finisce sotto la nav</strong>; a 768 non resta un buco dove stava.</p></div>
+        <div style="display:flex;gap:13px;align-items:flex-start;padding:13px 0"><span style="box-sizing:border-box;width:22px;height:22px;border-radius:7px;border:2px solid #D6D1EA;flex:none"></span><p style="font-size:15px;line-height:1.55;margin:0;color:#1E1B2E">Due sole superfici notte in tutta l'app. Nessuna ombra nera pura. Nessuna emoji fuori dalle cinque codificate.</p></div>
+      </div>
+    </div>
+
+    <div style="background:#211E42;border-radius:16px;padding:28px 30px">
+      <p style="font-family:'Bricolage Grotesque',serif;font-weight:700;font-size:19px;letter-spacing:-.015em;margin:0 0 12px;color:#fff">Fuori scope, dichiarato</p>
+      <p style="font-size:15px;line-height:1.7;color:#C7C3E0;margin:0;max-width:78ch;text-wrap:pretty">Nuova logica di idoneità (le varianti <span style="font-family:'Space Mono',monospace;font-size:13px;color:#fff">stato-riserve</span> e <span style="font-family:'Space Mono',monospace;font-size:13px;color:#fff">stato-bloccato</span> restano vocabolario non cablato, perché il dato non esiste) · pipeline <span style="font-family:'Space Mono',monospace;font-size:13px;color:#fff">js/dati-*.js</span> · palette <span style="font-family:'Space Mono',monospace;font-size:13px;color:#fff">_ds/</span> come sorgente colore · librerie o framework · asset nuovi oltre a quelli già in <span style="font-family:'Space Mono',monospace;font-size:13px;color:#fff">img/</span>. Nessuna dipendenza esterna oltre ai tre font già caricati.</p>
+    </div>
+  </section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;vistaCodice&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Lettura&quot;},&quot;mostraSpecimen&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Lettura&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      vistaCodice: this.props.vistaCodice ?? true,
+      mostraSpecimen: this.props.mostraSpecimen ?? true
+    };
+  }
+}
+</script>
+</body>
+</html>
