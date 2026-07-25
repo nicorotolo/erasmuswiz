@@ -19,9 +19,69 @@
 
 ---
 
-### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0 2026-07-25)
+### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0 e F1 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-07-25 — Claude Code (Sonnet 5 / Opus 5).
+**Ultimo aggiornamento:** 2026-07-25 — Claude Code (Opus 5).
+
+**(SESSIONE 2026-07-25 — F1 (Token, ritmo di pagina, gutter, griglia) del redesign
+v2 + GATE 1. Primo commit che tocca un file di PRODUZIONE: `css/style.css`,
++238/−48. `index.html` e `js/app.js` intatti come da vincolo del piano.)**
+Eseguiti tutti e 17 i punti di F1 in un solo commit, **`ce0d5a8`** (NON pushato: il
+push è a F4). **Token** (§2.1–2.3): `--bg-app #FAFAF7→#FAF8F3`,
+`--night-bg #232046→#211E42`, blocco additivo in coda al `:root` (`--space-1…16`,
+`--fs-*`, `--gutter`, `--stack`, `--container: 1140px` per R31, `--shadow-gold`) e
+due `@media :root` per banda. `--ease-out` **non toccato** (esiste già, governa 30+
+transizioni). **Ritmo verticale** (§3.2): `.tab-pane.attivo > * + *` e non `gap`
+(il pane è `display:block`, dove `gap` è inerte), con i tre antidoti previsti —
+reset su `:first-child`, reset su `.home-header` quando `#home-benvenuto` è spento,
+`:empty` sui tre contenitori condizionali. **Gutter** (§3.2, il pezzo grosso):
+migrato a un solo proprietario, `.main-content`, riscritta per intero nelle tre
+bande; 18 margini legacy in **tre** misure (20/14/12px) ridotti alla sola
+componente verticale, 5 padding-gutter idem, blocco `≤480px` ridotto ai soli
+padding di componente, `#banner-wiz` neutralizzato con
+`margin-inline: 0 !important` (l'inline in `index.html:236` batte la cascata).
+`.griglia-mete-v2` 1 → 2 colonne dichiarate → auto-fill. Creato `/*__PROD_END__*/`
+in coda al foglio, che serve a F2.
+**DUE CORREZIONI AL PIANO, misurate nel browser e non stimate** (registrate anche
+in `PLAN_REDESIGN_V2.md` rev. 5): **(1)** `.percorso-wrap` **conserva
+`grid-row: 1 / 6`**. Il canvas sostiene che l'auto-placement la metta accanto al
+hero «in modo deterministico, perché è l'unico item della colonna 2»: è il **5°
+figlio nel DOM**, quindi finisce in riga 2. Misurato a 1280 senza la riga: sidebar
+a `top: 310px` invece di 102, **337px di buco** sotto `.missione-card`, **sticky a
+corsa zero**. Con la riga: sidebar a filo col hero, corsa **363.7px**, righe
+implicite alte 0. Di conseguenza `#tab-oggi` usa `gap: 0 var(--space-6)` e il reset
+`#tab-oggi > * + *` del piano non serve. **(2)** Il **hero torna full-bleed sotto i
+768px** con margini negativi mirati: col gutter su `.main-content` si rientrava di
+16px conservando `border-radius: 0 0 xl xl` + `border-top: none`, cioè due angoli
+superiori squadrati a mezz'aria.
+**VERIFICHE** (server locale 8001, stesso stato di prova di F0: Ca' Foscari ·
+Economia 0311 · Triennale · Inglese B2, onboarding completato). I 4 controlli di
+completezza del gutter passano: grep margin su 20/14/12px → **0 dichiarazioni**;
+grep padding 20px → solo le righe dichiarate non-gutter; `#banner-wiz` coperto
+dalla regola `!important`; controllo browser sul bordo sinistro di ogni figlio del
+tab attivo eseguito **13 volte invece delle 9 richieste** (4 tab × 390/768/1280 +
+Oggi a 390 in `modo-benvenuto`), tutte array vuoto salvo l'eccezione motivata del
+hero a −16px sotto i 768. Invarianti F0 (`probe-invarianti.js`) **tutte verdi** a
+390/768/1280 su tutti e 4 i tab, ordine dei blocchi invariato, zero errori in
+console. Griglia provata nei **tre stati** a 1280 (mappa spenta / tutto acceso /
+attuale): nessun buco fra le card di colonna 1.
+**🚦 GATE 1 PASSATO** — Nicola ha confermato le tre default: **P-A** su
+`modo-benvenuto` (non si tocca nulla, resta da correggere la checklist §07 in F4);
+**`!important`** su `#banner-wiz` (`index.html` non si tocca); **full-bleed
+conservato** per il hero. ⚠︎ Come in F0, **niente screenshot**: il pannello browser
+non compone frame se non è visualizzato, quindi la verifica è per misura. Il
+giudizio estetico a video resta di Nicola, e il piano lo colloca al GATE 2.
+**DECISIONE DI PROCESSO:** **F2 passa a Claude Code**, non più a Codex (D4 del
+piano rivista). Motivo: entrambi gli errori del canvas si sono visti solo
+*misurando in sessione*, che è precisamente ciò che una consegna a Codex non ha.
+Decade la sezione «Consegna a Codex» e la contingenza sandbox R24; restano in
+vigore i vincoli di fase (solo `css/style.css`, nessuna classe rinominata, le
+`[MODIFICA css]` sostituiscono e non si accodano). **Prossimo passo: F2**
+(componenti §04, rischio MEDIO, interamente CSS).
+
+---
+
+**Ultimo aggiornamento precedente:** 2026-07-25 — Claude Code (Sonnet 5 / Opus 5).
 
 **(SESSIONE 2026-07-25 — F0 (Preparazione) del redesign v2, primo passo del piano
 in 4 fasi. Nessun file di produzione toccato — solo `design/` e commit.)**
@@ -48,8 +108,8 @@ Touch <44px: **145/173/176** per viewport, per l'80% concentrati su
 `button.btn-preferita` (80 istanze a 40×40 nel tab Mete). Confermate per strada
 due verifiche del piano: `.nav-bottom` è `fixed` a tutti i breakpoint, e
 `.main-content` a 1280px ha `max-width:1140px` (convalida R31). Commit
-`ac7c1c9`, pushato. **Prossimo passo umano:** F1 (rischio MEDIO/ALTO — token,
-gutter su ~24 selettori, griglia), consigliato Opus 5 alto.
+`ac7c1c9`, pushato. ⚠︎ **Superato:** il "prossimo passo" indicato qui (F1) è stato
+eseguito e chiuso lo stesso giorno — vedi la sessione F1 in testa.
 
 ---
 
@@ -3087,6 +3147,9 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **Pubblicazione — guasto Pages** | Source su "GitHub Actions" senza workflow di deploy: sito fermo al commit del 3/7, **171 commit (125 sul sito) invisibili per 12 giorni** (C2, C3, C4, R1.1-R1.4). Risolto con `.github/workflows/deploy-pages.yml` (Static HTML, niente Jekyll, guardia `node --check`); online verificato per hash contro `origin/main` | ✅ Chiuso (2026-07-15, sessione 56) — resta da rendere vera la riga "Online e locale coincidono" di `PUBBLICA.bat` |
 | **Pipeline dati T0→T3 — Gemini + Codex** | Copertura complessiva: **1.987 mete, 73% lingua, 79% scadenze**. Al 17/07: 315 run completati, 45 batch in coda; ultimo lotto reale pubblicato il 16/07 alle 13:08 | ⚠️ La schedulazione ogni 3 ore sull'altro PC non sta producendo commit/PR/branch su GitHub; controllare cronologia e ultimo risultato dell'attività pianificata sul PC remoto |
 | **REDESIGN v2 — F0: Preparazione** | Spec versionata in `design/redesign-2026-07/` (canvas + baseline invarianti/touch, vedi §4). Nessun file di produzione toccato. Commit `ac7c1c9`, pushato | ✅ Fatta (2026-07-25) |
+| **REDESIGN v2 — F1: Token, ritmo, gutter, griglia** | Token §2.1–2.3 (`--bg-app #FAF8F3`, `--night-bg #211E42`, `--space-*`/`--fs-*`/`--gutter`/`--stack`/`--container:1140px`/`--shadow-gold`, due `@media :root`); ritmo verticale con `> * + *` e i tre antidoti; **gutter a un solo proprietario** (`.main-content`): 18 margini legacy in 3 misure + 5 padding-gutter + blocco ≤480px + `#banner-wiz` inline, tutto in un diff; `.griglia-mete-v2` 1→2→auto-fill; creato `/*__PROD_END__*/`. Solo `css/style.css` (+238/−48), `index.html` e `js/app.js` intatti. **Due correzioni al canvas, misurate:** `.percorso-wrap` conserva `grid-row: 1/6` (senza, 337px di buco e sticky a corsa zero) e il hero torna full-bleed sotto i 768px | ✅ Fatta e verificata (2026-07-25) — commit `ce0d5a8`, **non pushato** (il push è a F4). 4/4 controlli gutter, controllo browser 13 esecuzioni tutte vuote, invarianti F0 verdi ai 3 viewport |
+| **REDESIGN v2 — 🚦 GATE 1** | Nicola conferma le tre default: **P-A** su `modo-benvenuto` (R3), **`!important`** su `#banner-wiz` (R38, `index.html` non si tocca), **full-bleed conservato** per il hero. In più: **F2 riassegnata a Claude Code** invece di Codex (D4 rivista) | ✅ Passato (2026-07-25) |
+| **REDESIGN v2 — F2: Componenti §04** | Interamente CSS. §4.1 interattivi + focus, §4.2 superfici, §4.4 `.banner-stato`, §4.5–4.9. **La fa Claude Code** | ⬜ Prossimo blocco (rischio MEDIO) |
 
 **Nav (R3, definitiva — gate R1 chiuso):** Mete → **Home** (centrale su
 mobile) → Percorso, + **"☰ Altro" (apre il drawer, R1.2)** che non è una
@@ -3312,19 +3375,26 @@ poi aprire **http://localhost:8001**. (Dettagli e alternative nel `README.md`.)
 
 ### Cantiere SITO (Claude Code) — numerazione 49→61
 
-**Aggiornamento 2026-07-25 (F0 chiusa) — il prossimo blocco di lavoro è F1:**
+**Aggiornamento 2026-07-25 (F0 e F1 chiuse, GATE 1 passato) — il prossimo
+blocco di lavoro è F2:**
 
-0. **F0 è FATTA** (commit `ac7c1c9`, pushato): spec versionata in
-   `design/redesign-2026-07/`, baseline invarianti/touch in `baseline/`
-   (dettagli in §2 e §4). **Prossimo passo: F1** — token, gutter (~24
-   selettori, il pezzo più pesante e rischioso del redesign), griglia
-   di `#tab-oggi` a ≥1024. Consigliato **Opus 5 alto** (rischio MEDIO/ALTO).
-   Restano differite al GATE 1: (a) `modo-benvenuto` — l'onboarding resta una
-   schermata sola o entra nella griglia (R3); (b) `#banner-wiz` — override
-   `!important` oppure autorizzare la rimozione della sola dichiarazione
-   `margin` da `index.html:236` (R38/R41). Modelli per le fasi successive:
-   Opus 5 alto per F3 e per la tabella di F2, Sonnet 5 medio per F4, Codex
-   `gpt-5.6-sol` high per applicare F2.
+0. **F0 e F1 sono FATTE** e il **GATE 1 è passato** (dettagli in §2 e nel
+   diario in testa). F1 = commit `ce0d5a8`, **non pushato**: il push è a F4,
+   quindi al momento c'è **un commit di produzione locale che non è online**.
+   Le tre decisioni del GATE 1 sono chiuse: P-A su `modo-benvenuto`,
+   `!important` su `#banner-wiz`, full-bleed conservato per il hero.
+   **Prossimo passo: F2** — componenti §04, interamente CSS, rischio MEDIO.
+   **Cambio di processo: F2 la fa Claude Code, non Codex** (D4 del piano
+   rivista): in F1 entrambi gli errori del canvas si sono visti solo
+   misurando in sessione, che è ciò che manca a una consegna a Codex.
+   Attenzione ai due punti già noti di F2: §4.1 **sostituisce** il sistema
+   `:focus-visible` esistente e serve una variante chiara/oro per le
+   superfici notte (outline `--night-bg` su nav dello stesso colore è
+   invisibile, R17); §4.2 deve preservare `position:relative` +
+   `overflow:hidden` di `.missione-card` e il `padding-right:190px` desktop.
+   F2.0 sana l'inventario touch di `baseline/README.md` (criterio: lista
+   **vuota**, R30). Modelli: Opus 5 alto per F2 e F3, Sonnet 5 medio per F4.
+   Da correggere in F4: la checklist §07 alla luce di P-A (R3).
 
 **Aggiornamento 2026-07-17 — sessione 61 (R6 parte eseguibile):**
 

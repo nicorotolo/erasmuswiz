@@ -1,5 +1,51 @@
 # Plan: implementare il redesign v2 di ErasmusWiz (canvas "Redesign ErasmusWiz.dc.html")
 _Locked via grill — by Claude + Nicola (2026-07-24) · rev. 4, dopo 4 round di Codex_
+_rev. 5 (2026-07-25, in corso d'opera): **F0 e F1 chiuse, GATE 1 passato**; **F2 passa a
+Claude Code** invece che a Codex (scelta di Nicola) → D4 rivista, la sezione "Consegna a
+Codex" è decaduta. Vedi «Stato di avanzamento» qui sotto._
+
+---
+
+## Stato di avanzamento
+
+| Fase | Stato | Commit |
+|---|---|---|
+| **F0** Preparazione | ✅ chiusa 2026-07-25 | `ac7c1c9` + `1e23ddf` |
+| **F1** Token, ritmo, gutter, griglia | ✅ chiusa 2026-07-25 | `ce0d5a8` |
+| **🚦 GATE 1** | ✅ passato 2026-07-25 — Nicola ha confermato le tre default: **P-A** su `modo-benvenuto` (R3), **`!important`** su `#banner-wiz` (R38, `index.html` non si tocca), **full-bleed conservato** per il hero sotto i 768px | — |
+| **F2** Componenti §04 | ⬜ da fare — **la fa Claude Code**, non Codex | — |
+| **F3** Timeline e stato vuoto | ⬜ da fare | — |
+| **🚦 GATE 2** · **F4** | ⬜ da fare | — |
+
+### Esiti di F1 che correggono questo piano
+
+Due affermazioni del canvas recepite dal piano si sono rivelate **false alla misura** (non
+alla stima). F1 le ha corrette; chi legge F2/F3 deve partire da qui, non dal testo originale
+di F1.10–F1.12 più sotto.
+
+1. **`.percorso-wrap` conserva `grid-row: 1 / 6`** — non è una dimenticanza. Il canvas
+   sostiene che l'auto-placement la metta accanto al hero «in modo deterministico, perché è
+   l'unico item della colonna 2»: è il **5° figlio nel DOM** (dopo `missione-card` e
+   `settimana-card`), quindi il cursore la deposita in riga 2. Misurato a 1280 **senza** la
+   riga: sidebar a `top: 310px` invece di 102, **337px di buco** sotto `.missione-card`, e
+   **sticky a corsa zero** (l'area di griglia era alta quanto l'elemento). Con la riga:
+   sidebar a filo col hero, corsa **363.7px**, righe implicite 4–5 alte 0px.
+   → Conseguenza: `#tab-oggi` usa **`gap: 0 var(--space-6)`**, non `gap: var(--space-6)`.
+   Con un row-gap vero ogni riga implicita attraversata dalla sidebar porterebbe il suo gap.
+   Il ritmo verticale resta 24px, ma lo dà `--stack` via `> * + *`. **Il reset
+   `#tab-oggi > * + * { margin-top: 0 }` di F1.12 NON è stato applicato**: sarebbe servito
+   solo con un row-gap.
+2. **Il hero è full-bleed sotto i 768px, con margini negativi espliciti.** Spostando il
+   gutter su `.main-content`, `.home-header` si rientrava di 16px conservando
+   `border-radius: 0 0 xl xl` + `border-top: none`: due angoli superiori squadrati a
+   mezz'aria. Prima di F1 il full-bleed era **implicito** (a mobile `.main-content` non
+   aveva alcun padding). Sopra i 768 il hero era già rientrato anche prima, e a ≥1024 è una
+   card a tutti gli effetti: la regola si ferma a 767px.
+
+Nota per **F2.0 / F4** (R30): l'inventario touch misurato dopo F1 dà 11/15/15 su Oggi,
+48/52/52 su Mete, 35/52/57 su Percorso, 15/20/20 su Profilo (390/768/1280). I conteggi di
+Mete sono più bassi di quelli di F0 perché il render a lotti non aveva ancora finito: la
+lista di riferimento resta quella di `baseline/README.md`.
 
 > **Fonte-di-verità del design:** `design/redesign-2026-07/Redesign ErasmusWiz.dc.html`
 > (166 KB, prodotto da Claude Design in risposta a `BRIEF_redesign_per_ClaudeDesign.md`; il progetto
@@ -225,14 +271,27 @@ verticale**: `margin: 12px 20px 0` → `margin-top: 12px`.
     ⚠️ **Cosa NON si giudica qui** (R15): la scala tipografica e i componenti — F1 *definisce* i
     `--fs-*`, ma sono i componenti di F2 a consumarli. Il giudizio sul redesign compiuto è al GATE 2.
 
-### F2 — Componenti §04 (**Codex** costruisce, Claude rivede il diff) · rischio MEDIO
+### F2 — Componenti §04 (**Claude Code**) · rischio MEDIO
+
+> **rev. 5 — F2 non va più a Codex.** Scelta di Nicola (2026-07-25), dopo F1: le due
+> correzioni che F1 ha dovuto fare al canvas si sono viste **solo misurando nel browser**,
+> e la misura in sessione è precisamente ciò che la consegna a Codex non ha. Lo stesso
+> rischio vale per i componenti: §4.1 sostituisce un sistema `:focus-visible` esistente e
+> §4.2 tocca `.missione-card`, che porta `position:relative` + `overflow:hidden` funzionali.
+> Decade quindi la sezione «Consegna a Codex» in fondo, e con essa la contingenza sandbox
+> (R24). **Restano in vigore** le regole non negoziabili (a)–(d) e la lista dei divieti:
+> non erano vincoli *per Codex*, sono vincoli *della fase*.
 
 Fase interamente **CSS**. Non tocca `js/app.js` né `index.html`.
 
-18. **Prerequisito bloccante** (R16): la consegna a Codex **non è "leggi il canvas"**. Claude prepara
-    prima, per ogni sotto-sezione, la tabella **blocco-vecchio → blocco-nuovo già normalizzato**:
-    righe esatte, proprietà da preservare, valori già tradotti in `var(--…)`, `@media` successivi che
-    riapplicherebbero i valori vecchi. **Codex applica, non interpreta.** Senza tabella F2 non parte.
+18. **Preparazione, non più consegna** (R16 rivista): la tabella **blocco-vecchio →
+    blocco-nuovo già normalizzato** (righe esatte, proprietà da preservare, valori tradotti in
+    `var(--…)`, `@media` successivi che riapplicherebbero i valori vecchi) **non è più il
+    contratto di handover verso un altro modello**, quindi non è più un prerequisito
+    bloccante. Resta però il metodo: per ogni `[MODIFICA css]` si rilegge il blocco reale,
+    si fa il diff proprietà-per-proprietà e si preserva in caso di ambiguità (Regola 1, R7).
+    ⚠️ **Il tempo risparmiato sulla tabella va speso nella verifica**, non incassato: è la
+    misura nel browser che in F1 ha intercettato entrambi gli errori del canvas.
 19. **F2.0 — sanare l'inventario touch** (R34): la lista di F0.5 diventa **patch CSS qui**, non un
     rilevamento senza seguito. Include i controlli che il canvas non nomina (`.fase-cta`,
     `.percorso-modifica-profilo`, il selettore d'ateneo, `.mappa-vai-elenco`). Ogni bersaglio che
@@ -320,28 +379,25 @@ Fase interamente **CSS**. Non tocca `js/app.js` né `index.html`.
 
 ---
 
-## Consegna a Codex — ordine di lavoro per F2
+## ~~Consegna a Codex — ordine di lavoro per F2~~ → Regole di fase per F2
 
-> Solo dopo il GATE 1, e solo dopo la tabella blocco-vecchio → blocco-nuovo del punto 18.
+> **rev. 5 (2026-07-25): la consegna a Codex è decaduta**, F2 la fa Claude Code (vedi il
+> riquadro all'inizio di F2). Questa sezione resta perché i vincoli qui sotto non erano
+> vincoli *per Codex*: sono vincoli *della fase*, e valgono identici per chiunque la esegua.
+> Cade solo la **contingenza sandbox (R24)**, che riguardava esclusivamente la capacità di
+> Codex di leggere i file su questo PC.
 
 - **File da toccare: solo `css/style.css`.** Vietato `index.html` e `js/app.js`.
-- **Input**: la tabella di sostituzione preparata da Claude, non il canvas grezzo. Per ogni voce:
-  righe esatte, blocco vecchio integrale, blocco nuovo integrale già normalizzato, proprietà
-  preservate, `@media` successivi da aggiornare.
 - **Regole non negoziabili**: (a) nessuna classe rinominata; (b) le regole `[MODIFICA css]`
   **sostituiscono** il blocco esistente, non si accodano più avanti nel foglio; (c) se lo stesso
   selettore ricorre in più `@media`, si sostituisce quello della banda giusta; (d) nessuna proprietà
-  del blocco vecchio sparisce se non è nella colonna "sostituita da".
-- **Vietato**: introdurre selettori fuori tabella, "migliorare" valori, aggiungere token, toccare la
-  timeline (`ol.stazioni`, `.stazione*` → è F3, di Claude).
-- **Contingenza sandbox** (R24): il 24/07 Codex non è riuscito a leggere i file da sé su questo PC
-  (`CreateProcessAsUserW` err. 5) — nel Round 1 di questa revisione ci è riuscito "per via
-  alternativa", quindi il comportamento non è affidabile. **Niente "canvas inline parziale"**: senza
-  il CSS reale sotto gli occhi non può sapere cosa preservare, ed è esattamente il fallimento che
-  rompe `.missione-card` e i gutter. Se non legge: o coppie vecchio/nuovo **complete** contro uno SHA
-  dichiarato, o **F2 torna a Claude**.
-- **Revisione**: Claude legge il diff completo come una PR (nessuna rinomina? tutti i `var()`?
-  nessuna proprietà funzionale persa? nessun blocco duplicato?) prima del commit.
+  del blocco vecchio sparisce se non è dichiaratamente sostituita.
+- **Vietato**: "migliorare" valori a orecchio, aggiungere token oltre quelli di §2.2, toccare la
+  timeline (`ol.stazioni`, `.stazione*` → è F3).
+- **Revisione**: il diff si rilegge per intero come una PR (nessuna rinomina? tutti i `var()`?
+  nessuna proprietà funzionale persa? nessun blocco duplicato?) **e si misura nel browser**
+  prima del commit. In F1 la rilettura del diff da sola non avrebbe intercettato né la
+  griglia né il hero: entrambi si vedevano solo alla misura.
 
 ---
 
@@ -352,7 +408,7 @@ Fase interamente **CSS**. Non tocca `js/app.js` né `index.html`.
 | D1 | **Commit diretti su `main`** | Scelta di Nicola: `git revert` chirurgico per fase | `pull --rebase` a inizio fase, nell'ordine di F0.1 |
 | D2 | **4 fasi, 2 gate umani** | Scelta di Nicola | Il GATE 1 non può giudicare la tipografia (R15) → il GATE 2 diventa la revisione completa (R37) |
 | D3 | **`modo-benvenuto`: si decide al GATE 1, patch pre-scritte** | La decisione è di prodotto, l'esecuzione non deve slittare | Lavoro preparato che verrà in parte buttato |
-| D4 | **Metà e metà: Codex fa F2, Claude F1/F3/F4** | Le fasi ad alto rischio hanno bisogno delle verifiche in sessione | La consegna a Codex costa a Claude la tabella del punto 18 |
+| ~~D4~~ | ~~Metà e metà: Codex fa F2, Claude F1/F3/F4~~ | **RIVISTA rev. 5 (2026-07-25): tutte le fasi le fa Claude Code.** In F1 entrambi gli errori del canvas (griglia desktop, hero) si sono visti **solo misurando nel browser** — e la misura in sessione è esattamente ciò che manca a una consegna a Codex. §4.1 e §4.2 hanno la stessa forma di rischio (un sistema `:focus-visible` da sostituire, `position:relative`+`overflow:hidden` da preservare) | Nessuna seconda opinione automatica sul diff di F2: la revisione resta di Claude + il GATE 2 |
 | ~~D5~~ | ~~aggiungere `--ease-out`~~ | **RITIRATA**: esiste già (65), governa 30+ transizioni | — |
 | D6 | `grid-row` rimossa **dichiarazione per dichiarazione** | Quei blocchi portano `padding-right:190px`, radius, margin | Più lento di "cancella e riscrivi", e molto più sicuro |
 | D7 | Il canvas entra nel repo (con `support.js`) | È ciò che rende il lavoro ripetibile | ~700 KB nel repo |
@@ -372,9 +428,10 @@ Fase interamente **CSS**. Non tocca `js/app.js` né `index.html`.
 3. **R3** — **Contraddizione canvas ↔ codice sull'onboarding.** Il canvas (§3.1 stato "a") descrive
    «benvenuto full-width, percorso accanto al hero»; il CSS reale fa l'opposto:
    `#tab-oggi.modo-benvenuto { display:block }` (1263) + `> *:not(#home-benvenuto) { display:none }`
-   (1160) — durante l'onboarding **tutto il resto è spento**. → **Decide Nicola al GATE 1**, con
-   entrambe le patch pronte: **(P-A, default)** non si tocca nulla, si corregge la checklist §07;
-   **(P-B)** si rimuovono quelle due regole — ma è un **cambio di UX dell'onboarding**, non un restyling.
+   (1160) — durante l'onboarding **tutto il resto è spento**. → **DECISO al GATE 1
+   (2026-07-25): P-A.** Non si tocca nulla; resta da correggere la checklist §07 in F4. P-B
+   (rimuovere le due regole) è stata scartata perché è un cambio di UX dell'onboarding, non
+   un restyling.
 4. **R7** — Ancore `file:riga` verificate al 2026-07-24; dopo ogni fase slittano. **Rileggere il
    blocco prima di ogni sostituzione**, mai applicare per numero di riga cieco.
 5. **R8** — Il redesign **non si vede a colpo d'occhio**: la palette è già indigo. Rischio di
@@ -390,11 +447,11 @@ Fase interamente **CSS**. Non tocca `js/app.js` né `index.html`.
    — per questo il criterio di completezza non è più un grep ma **quattro controlli**, di cui uno nel
    browser che misura il bordo sinistro di ogni figlio (R40).
 10. **R38** — **Gutter inline invisibile al grep**: `#banner-wiz` porta `style="… margin: 0 20px 14px"`
-    (index.html:236) e l'inline batte la cascata. È l'unico caso in tutto `index.html`. Default:
-    override `!important` circoscritto; alternativa (richiede autorizzazione perché tocca
-    `index.html`): rimuovere **esclusivamente la dichiarazione `margin`**, conservando
-    `style="display:none"` — vedi R41, togliere l'attributo intero mostrerebbe un banner vuoto.
-    **Decisione al GATE 1.**
+    (index.html:236) e l'inline batte la cascata. È l'unico caso in tutto `index.html`.
+    → **DECISO al GATE 1 (2026-07-25): override `!important` circoscritto**
+    (`#banner-wiz { margin-inline: 0 !important }`, con commento in loco). `index.html` resta
+    intatto. L'alternativa — rimuovere **solo** la dichiarazione `margin` conservando
+    `style="display:none"` (vedi R41) — è scartata.
 11. **R39** — Il selettore di ritmo `> * + *` ha **tre effetti collaterali**: somma il margine al
     primo figlio che già ne ha uno (`.sezione-header`, 532), non sa nulla di `display:none` (colpisce
     `.home-header` quando `#home-benvenuto` è spento), e dà spazio ai contenitori condizionali vuoti.
@@ -404,7 +461,10 @@ Fase interamente **CSS**. Non tocca `js/app.js` né `index.html`.
     padding-gutter, i `margin-left/right`, né gli `style=` inline. Servono i 4 controlli di F1.13.
 10. **R15 / R37** — Il GATE 1 giudica il ritmo, non la tipografia; **il GATE 2 è la revisione
     dell'intero redesign** prima di F4 e del push.
-11. **R16** — La consegna a Codex è il punto fragile di F2, non l'esecuzione. → tabella del punto 18.
+11. **R16** — ~~La consegna a Codex è il punto fragile di F2, non l'esecuzione.~~ **DECADUTO
+    rev. 5**: F2 la fa Claude Code, non c'è più una consegna. Il punto fragile di F2 torna a
+    essere l'esecuzione, e l'antidoto non è la tabella ma la **misura nel browser** (vedi
+    punto 18 rivisto).
 12. **R17** — Il focus non sarà "un unico anello" senza sostituire il sistema esistente; l'outline
     `--night-bg` è invisibile sulla nav dello stesso colore.
 13. **R19** — L'animazione urgente del canvas punta a classe e keyframes inesistenti.
@@ -412,8 +472,9 @@ Fase interamente **CSS**. Non tocca `js/app.js` né `index.html`.
 15. **R21** — `data-filtro` non esiste: il bottone "Mostra tutte le mete" del canvas sarebbe morto.
 16. **R22** — Lo stato vuoto dinamico non è annunciato agli screen reader → `role="status"`.
 17. **R23** — `.stato-vuoto-v2` non ha stile: la garanzia di compatibilità del canvas è falsa.
-18. **R24** — Sandbox di Codex su Windows: comportamento **non affidabile** (fallito il 24/07,
-    riuscito "per via alternativa" nel Round 1). → contingenza in "Consegna a Codex".
+18. **R24** — ~~Sandbox di Codex su Windows: comportamento non affidabile.~~ **DECADUTO
+    rev. 5**: nessuna fase viene più eseguita da Codex. Il rischio resta vero come fatto
+    (fallito il 24/07 con `CreateProcessAsUserW` err. 5), ma non tocca più questo piano.
 19. **R25** — **Focus trap del modal dettaglio-meta**: prende il focus ma non intrappola Tab né lo
     restituisce alla card d'origine. **Pre-esistente, non introdotto da questo redesign** →
     consapevolmente fuori scope, da aprire come lavoro separato.
