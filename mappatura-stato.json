@@ -1,33 +1,16 @@
 {
   "versione": "2.0",
-  "aggiornato": "2026-07-24",
+  "aggiornato": "2026-07-25",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 327,
+  "runCompletati": 328,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "medicina-odontoiatria-batch-2",
-      "priorita": 5,
-      "dipartimento": "Medicina e Odontoiatria - Area medica (Sapienza)",
-      "descrizione": "Medicina e Odontoiatria - Area medica (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "LV JURMALA03",
-        "PL SZCZECI05",
-        "PL LUBLIN08",
-        "PL POZNAN05",
-        "P  MONTE-D02",
-        "P  LEIRIA01",
-        "UK NOTTING01",
-        "MK SKOPJE01"
-      ]
-    },
     {
       "id": "medicina-odontoiatria-batch-3",
       "priorita": 5,
@@ -713,6 +696,23 @@
         "F  SARCELL01",
         "D  MARBURG01",
         "D  BONN01"
+      ]
+    },
+    {
+      "id": "medicina e odontoiatria - area medica (sapienza)-batch-followup-2",
+      "priorita": 6,
+      "dipartimento": "Medicina e Odontoiatria - Area medica (Sapienza)",
+      "descrizione": "Medicina e Odontoiatria - Area medica (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "LV JURMALA03",
+        "PL SZCZECI05",
+        "PL LUBLIN08",
+        "PL POZNAN05",
+        "P  MONTE-D02",
+        "P  LEIRIA01",
+        "UK NOTTING01",
+        "MK SKOPJE01"
       ]
     }
   ],
@@ -1509,7 +1509,15 @@
         "F  LISIEUX01": 1,
         "F  SARCELL01": 1,
         "D  MARBURG01": 1,
-        "D  BONN01": 1
+        "D  BONN01": 1,
+        "LV JURMALA03": 1,
+        "PL SZCZECI05": 1,
+        "PL LUBLIN08": 1,
+        "PL POZNAN05": 1,
+        "P  MONTE-D02": 1,
+        "P  LEIRIA01": 1,
+        "UK NOTTING01": 1,
+        "MK SKOPJE01": 1
       },
       "linguaNonTrovabile": [
         "BG SOFIA11",
@@ -3944,6 +3952,12 @@
       "data": "2026-07-24",
       "mete": 8,
       "note": "Medicina e Odontoiatria - Area medica (Sapienza) medicina-odontoiatria-batch-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 328,
+      "data": "2026-07-25",
+      "mete": 8,
+      "note": "Medicina e Odontoiatria - Area medica (Sapienza) medicina-odontoiatria-batch-2: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
