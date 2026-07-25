@@ -1375,6 +1375,10 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.utwente.nl",
+    linkCatalogo: "https://www.utwente.nl/en/education/exchange-students/programmes/",
+
+    notaDisponibilita: "È possibile scegliere al massimo un modulo presso una facoltà diversa da quella dello scambio.",
+
     notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69288."
   },
   {
@@ -1393,6 +1397,10 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.utwente.nl",
+    linkCatalogo: "https://www.utwente.nl/en/education/exchange-students/programmes/",
+
+    notaDisponibilita: "È possibile scegliere al massimo un modulo presso una facoltà diversa da quella dello scambio.",
+
     notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69291."
   },
   {
@@ -1411,6 +1419,10 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.utwente.nl",
+    linkCatalogo: "https://www.utwente.nl/en/education/exchange-students/programmes/",
+
+    notaDisponibilita: "È possibile scegliere al massimo un modulo presso una facoltà diversa da quella dello scambio.",
+
     notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69290."
   },
   {

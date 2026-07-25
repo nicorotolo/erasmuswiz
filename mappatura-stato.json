@@ -4,30 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 333,
+  "runCompletati": 334,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "ingegneria-civile-batch-4",
-      "priorita": 5,
-      "dipartimento": "Ingegneria Civile e Industriale (Sapienza)",
-      "descrizione": "Ingegneria Civile e Industriale (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "NL EINDHOV17",
-        "NL DELFT01",
-        "NL ENSCHED01",
-        "PL OPOLE02",
-        "PL GLIWICE01",
-        "PL POZNAN02",
-        "PL WARSZAW02",
-        "PL WROCLAW02"
-      ]
-    },
     {
       "id": "ingegneria-civile-batch-5",
       "priorita": 5,
@@ -703,6 +686,22 @@
         "LV RIGA31",
         "LT VILNIUS02",
         "D  BAYREUT01"
+      ]
+    },
+    {
+      "id": "ingegneria civile e industriale (sapienza)-batch-followup-4",
+      "priorita": 6,
+      "dipartimento": "Ingegneria Civile e Industriale (Sapienza)",
+      "descrizione": "Ingegneria Civile e Industriale (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "NL EINDHOV17",
+        "NL DELFT01",
+        "NL ENSCHED01",
+        "PL OPOLE02",
+        "PL GLIWICE01",
+        "PL WARSZAW02",
+        "PL WROCLAW02"
       ]
     }
   ],
@@ -1612,7 +1611,14 @@
         "D  CLAUSTH01": 1,
         "G  KRITIS09": 1,
         "LV RIGA31": 1,
-        "LT VILNIUS02": 1
+        "LT VILNIUS02": 1,
+        "NL EINDHOV17": 1,
+        "NL DELFT01": 1,
+        "NL ENSCHED01": 1,
+        "PL OPOLE02": 1,
+        "PL GLIWICE01": 1,
+        "PL WARSZAW02": 1,
+        "PL WROCLAW02": 1
       },
       "linguaNonTrovabile": [
         "G  PATRA01",
@@ -3967,6 +3973,12 @@
       "data": "2026-07-25",
       "mete": 8,
       "note": "Ingegneria Civile e Industriale (Sapienza) ingegneria-civile-batch-3: merge automatico via applica-batch.mjs (+1 blocchi propagati ad altri dipartimenti)."
+    },
+    {
+      "batch": 334,
+      "data": "2026-07-25",
+      "mete": 8,
+      "note": "Ingegneria Civile e Industriale (Sapienza) ingegneria-civile-batch-4: merge automatico via applica-batch.mjs (+1 blocchi propagati ad altri dipartimenti)."
     }
   ],
   "storicoBatch": [

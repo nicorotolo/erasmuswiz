@@ -922,6 +922,10 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.utwente.nl",
+    linkCatalogo: "https://www.utwente.nl/en/education/exchange-students/programmes/",
+
+    notaDisponibilita: "È possibile scegliere al massimo un modulo presso una facoltà diversa da quella dello scambio.",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA68308."
   },
   {
