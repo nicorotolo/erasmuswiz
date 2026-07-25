@@ -13,7 +13,7 @@ Codex" è decaduta. Vedi «Stato di avanzamento» qui sotto._
 | **F0** Preparazione | ✅ chiusa 2026-07-25 | `ac7c1c9` + `1e23ddf` |
 | **F1** Token, ritmo, gutter, griglia | ✅ chiusa 2026-07-25 | `ce0d5a8` |
 | **🚦 GATE 1** | ✅ passato 2026-07-25 — Nicola ha confermato le tre default: **P-A** su `modo-benvenuto` (R3), **`!important`** su `#banner-wiz` (R38, `index.html` non si tocca), **full-bleed conservato** per il hero sotto i 768px | — |
-| **F2** Componenti §04 | ⬜ da fare — **la fa Claude Code**, non Codex | — |
+| **F2** Componenti §04 | ✅ chiusa 2026-07-25 — fatta da Claude Code | vedi «Esiti di F2» |
 | **F3** Timeline e stato vuoto | ⬜ da fare | — |
 | **🚦 GATE 2** · **F4** | ⬜ da fare | — |
 
@@ -46,6 +46,67 @@ Nota per **F2.0 / F4** (R30): l'inventario touch misurato dopo F1 dà 11/15/15 s
 48/52/52 su Mete, 35/52/57 su Percorso, 15/20/20 su Profilo (390/768/1280). I conteggi di
 Mete sono più bassi di quelli di F0 perché il render a lotti non aveva ancora finito: la
 lista di riferimento resta quella di `baseline/README.md`.
+
+### Esiti di F2 che correggono questo piano
+
+**Il criterio touch di R30 è già soddisfatto qui, non a F4.** Dopo F2.0 l'inventario a
+390/768/1280 su tutti e 4 i tab (con i `<details>` del Percorso forzati aperti, o i controlli
+dentro le stazioni chiuse sfuggirebbero alla misura) contiene **soltanto** le quattro
+eccezioni già dichiarate in `baseline/README.md` — i link inline dentro un paragrafo:
+`#footer-link-bando`, i tre link del footer, `.profilo-strip-link`, «fonte ufficiale ↗».
+Nessuna eccezione nuova. A F4 resta da rimisurare, non da correggere.
+
+**Sei scostamenti deliberati dal canvas**, tutti per un motivo strutturale o di contrasto,
+non di gusto — chi legge F3/F4 deve partire da qui:
+
+1. **`.preparazione-card` è ESCLUSA dal corpo condiviso §4.2.** Vive dentro «Il tuo
+   progresso», cioè dentro un'altra card: darle fondo, bordo e ombra propri produrrebbe una
+   card annidata. Resta la sezione senza cornice che era.
+2. **`.voce-checklist-v2` resta una card, non diventa la riga con `border-bottom`.**
+   `.lista-checklist-v2` non contiene voci ma **capitoli** (`.cand-capitolo`,
+   `.zaino-capitolo`, app.js:1414): le voci vivono in `.cand-checklist-sotto` e
+   `.gruppo-post`, che le appiattiscono già. La forma-card compare solo in «Ora tocca a te»
+   (max 3 voci), dove è il punto. Del canvas si prende touch 48, spaziatura a token e la
+   voce attiva a filetto invece che ad anello da 2px + alone.
+3. **Il drawer resta un pannello da destra a ogni banda.** Il canvas lo vuole bottom-sheet
+   sotto i 768, ma l'animazione d'ingresso è `translateX(100%)`: un foglio che sale dal
+   basso scivolando da destra è un movimento sbagliato. Adottati testa `sticky`, scala e
+   spaziature.
+4. **`.meta-punteggio` conserva la famiglia semaforo** (`--green/--amber/--red`) invece dei
+   letterali del canvas: `#059669` sul bianco sta a **3.4:1** e non passa il 4.5:1 richiesto
+   a un testo che *è* il dato della card. Del canvas si prende il registro rosso per
+   `locked`. Stesso criterio per i fondi dei badge di stato.
+5. **44px e non 36/40 su `.btn-preferita`, `.schedina-freccia`, `.schedina-rimuovi`.** Il
+   canvas propone misure sotto soglia (e un `@media (max-width:767px)` che le alzerebbe solo
+   a mobile): il criterio d'uscita di R30 è **lista vuota a tutte e tre le larghezze**.
+6. **L'anello di focus non impone `border-radius`.** Il canvas ne prescrive uno (10px, 20px
+   sulle card): ma il raggio si applica all'ELEMENTO, quindi ogni bottone tondo da 44px
+   (`.drawer-chiudi`, `.btn-preferita`, `.meta-modal-chiudi`) diventerebbe un quadrato
+   smussato nell'istante in cui riceve il fuoco. L'outline segue già da sé il raggio.
+   La specificità dell'anello è alzata a (0,3,0) con `:is(…):focus-visible:not(:disabled)`,
+   o `.missione-urgente .btn-primary` (0,2,0) ne spegnerebbe l'alone.
+
+**Due cose in più rispetto a §04, entrambe dovute:**
+- **`.sezione-titolo` consuma `--fs-h1`** (25/27/30px). Il token, creato in F1, dichiara nei
+  suoi commenti proprio quel selettore come consumatore; prima `.sezione-titolo` viveva su
+  una scala parallela (1.35rem, con override a 1.6rem a ≥1024). Rimosso l'override.
+- **`.prep-barra` e `.barra-progresso` diventano lo stesso componente** (§4.7 le tratta
+  insieme): stessa altezza, stesso binario, stesso riempimento indaco, etichette monospazio.
+
+**Una cosa NON fatta, da decidere al GATE 2:** il commento del canvas su `--fs-hero` indica
+come consumatori `.home-hero-claim` e `.celebrazione-titolo`. Il secondo è applicato; il
+primo **no**: `.home-hero-claim` è la riga piccola sotto il saluto (13-14.5px, `--night-muted`),
+e portarla a 30-40px non è un cambio di scala ma un cambio di gerarchia del hero — cioè §3,
+già passata dal GATE 1. Sembra un lapsus del canvas (il consumatore naturale sarebbe
+`.home-saluto`): la decisione è di Nicola.
+
+**Nota per il GATE 2 — il filetto di stato a sinistra.** §4.4 e §4.7 lo prescrivono come
+grammatica degli stati, e ora è usato da `.banner-stato` (4 varianti), `.requisito-v2` (3
+registri), `.idoneita-esito`, `.banner-in-verifica` e `.voce-checklist-v2.attiva`, sopra i
+`border-left` d'oro che `.cand-scadenza-card` e `.zaino-capitolo-testa` già avevano. È un
+motivo forte e ripetuto: se a video risulta troppo, il posto per dirlo è il GATE 2.
+`.profilo-salvato` è già stato riportato indietro — lì il filetto l'avevo aggiunto io, non
+il canvas, e un messaggio di conferma non è uno stato.
 
 > **Fonte-di-verità del design:** `design/redesign-2026-07/Redesign ErasmusWiz.dc.html`
 > (166 KB, prodotto da Claude Design in risposta a `BRIEF_redesign_per_ClaudeDesign.md`; il progetto

@@ -167,11 +167,43 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
-/* ---- Focus visibile da tastiera ---- */
-:focus-visible {
-  outline: 3px solid var(--primary);
+/* ---- REDESIGN v2 §4.1 — UN SOLO anello di focus per tutta l'app ----
+   Sostituisce la regola nuda `:focus-visible` precedente (outline indigo da
+   3px + border-radius). Quattro scelte deliberate, due delle quali correggono
+   il canvas:
+   (1) ⛔ NIENTE `border-radius` nell'anello. Il canvas ne impone uno (10px,
+       e 20px sulle card): ma `border-radius` si applica all'ELEMENTO, non
+       all'outline — un bottone tondo da 44px (.drawer-chiudi, .btn-preferita,
+       .meta-modal-chiudi) diventerebbe un quadrato smussato nell'istante in
+       cui riceve il focus. L'outline segue già da sé il raggio dell'elemento.
+       Il vecchio `border-radius: 4px` aveva lo stesso difetto: è un fix.
+   (2) L'anello vale anche per i CAMPI, ma i campi che hanno un trattamento
+       di fuoco proprio (bordo primario + alone, §4.9 e famiglia .la-*) lo
+       conservano: quelle regole hanno specificità più alta e vincono. Così
+       nessun campo resta senza indicatore — è il buco che si aprirebbe
+       spegnendo l'outline a tappeto su `input, select`.
+   (3) R17 — sulle superfici a inchiostro un outline --night-bg è invisibile
+       (fondo dello stesso colore): lì l'anello passa all'oro.
+   (4) La specificità è alzata di proposito con `:is(…)` + `:not(:disabled)`
+       — (0,3,0). Molti componenti che ricevono il fuoco hanno un `box-shadow`
+       PROPRIO, e alcuni lo dichiarano con due classi: `.missione-urgente
+       .btn-primary` è (0,2,0) e scavalcherebbe un `button:focus-visible`
+       (0,1,1), spegnendo l'alone proprio sul bottone della missione urgente.
+       `:not(:disabled)` non è decorativo: porta la specificità sopra quei
+       selettori e dice anche la cosa giusta — un controllo disabilitato non
+       mostra l'anello. */
+:is(a, button, summary, input, select, textarea, [tabindex]):focus-visible:not(:disabled) {
+  outline: 2px solid var(--night-bg);
   outline-offset: 3px;
-  border-radius: 4px;
+  box-shadow: 0 0 0 6px rgba(79,70,229,.22);
+}
+/* Superfici a inchiostro: nav, hero, testa del drawer, footer, celebrazione,
+   scena d'ingresso dell'onboarding. Stessa specificità della regola sopra,
+   ma viene dopo: vince. */
+:is(.nav-bottom, .home-header, .drawer-testa, .footer-v2, .celebrazione-overlay, .modo-scena)
+  :is(a, button, summary, input, select, [tabindex]):focus-visible {
+  outline-color: var(--gold);
+  box-shadow: 0 0 0 6px rgba(251,191,36,.26);
 }
 body {
   font-family: var(--font-body);
@@ -199,6 +231,11 @@ body {
 /* ================================================================
    NAVIGAZIONE — bottom mobile, top desktop
 ================================================================ */
+/* REDESIGN v2 §4.9 — ⚠️ la nav resta `fixed` a OGNI banda (R20): sta dopo
+   `</main>` e perfino dopo `</footer>` (index.html), quindi il `position:
+   sticky` che il canvas propone a ≥768 la mostrerebbe in fondo alla pagina
+   e diventerebbe appiccicosa solo quando ci si arriva. `index.html` è fuori
+   scope, quindi `fixed` non è negoziabile. */
 .nav-bottom {
   position: fixed;
   bottom: 0; left: 0; right: 0;
@@ -207,29 +244,36 @@ body {
   border-top: 1px solid var(--night-border);
   display: flex;
   align-items: center;
-  padding: 10px 12px env(safe-area-inset-bottom, 16px);
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-2) calc(var(--space-2) + env(safe-area-inset-bottom, 0px));
   box-shadow: 0 -8px 24px rgba(16, 27, 63, 0.14);
 }
+/* ⛔ RIMOSSA `opacity: .55` sulle voci inattive: --night-muted (#A5B4FC) su
+   --night-bg passa 7.9:1, ma velato al 55% scende sotto 3:1 — cioè l'etichetta
+   di tre tab su quattro non era leggibile. Lo stacco della voce attiva ora lo
+   danno l'oro e la campitura, non lo sbiadimento delle altre. */
 .nav-item {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
+  justify-content: center;
+  gap: var(--space-1);
+  min-height: 48px;                       /* touch — F2.0 */
   text-decoration: none;
   color: var(--night-muted);
-  opacity: 0.55;
-  padding: 4px 6px;
-  border-radius: var(--radius-sm);
-  transition: opacity var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+  padding: var(--space-2) var(--space-1);
+  border-radius: var(--radius-md);
+  transition: color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
 }
 .nav-item.attivo {
-  opacity: 1;
   color: var(--gold);
-  background: rgba(255,182,39,0.12);
+  background: rgba(251,191,36,0.12);
 }
-.nav-icon  { font-size: 18px; line-height: 1; }
-.nav-label { font-size: 10.5px; font-weight: 700; letter-spacing: .03em; }
+.nav-icon  { font-size: 17px; line-height: 1; opacity: .75; }
+.nav-item.attivo .nav-icon { opacity: 1; }
+.nav-label { font-size: 11px; font-weight: 700; letter-spacing: .02em; }
+.nav-item.attivo .nav-label { font-weight: 800; }
 
 /* Il trigger del drawer è un <button>: azzera lo stile nativo e prende
    quello delle voci di nav (che sono <a>). `font: inherit` serve anche
@@ -244,26 +288,32 @@ body {
 }
 
 @media (min-width: 768px) {
+  /* ⚠️ `height: 64px` e `justify-content: flex-end` sono FUNZIONALI e il
+     canvas li perde: i 64px sono l'altezza che .main-content compensa nel
+     padding superiore, e flex-end è ciò che tiene le voci a destra del
+     wordmark. Il gutter passa a --gutter così le voci si allineano al
+     margine della pagina invece che a un 32px fisso. */
   .nav-bottom {
     top: 0; bottom: auto;
     border-top: none;
     border-bottom: 1px solid var(--night-border);
-    padding: 0 32px;
+    padding: 0 var(--gutter);
     height: 64px;
     justify-content: flex-end;
-    gap: 4px;
+    gap: var(--space-1);
     box-shadow: 0 8px 24px rgba(16, 27, 63, 0.18);
   }
   .nav-brand { display: flex; }
   .nav-item {
     flex: none;
     flex-direction: row;
-    gap: 6px;
-    padding: 6px 14px;
-    border-radius: var(--radius-sm);
+    gap: var(--space-2);
+    /* min-height 48 dentro una barra da 64: il bersaglio cresce da 33px
+       (misura F0.5) senza toccare l'altezza della barra. */
+    padding: 0 var(--space-4);
   }
   .nav-icon  { font-size: 15px; }
-  .nav-label { font-size: 14px; font-weight: 700; letter-spacing: 0; }
+  .nav-label { font-size: var(--fs-sm); letter-spacing: 0; }
 }
 
 /* ================================================================
@@ -292,12 +342,22 @@ body {
 @keyframes drawer-entra { from { transform: translateX(100%); } to { transform: none; } }
 @keyframes drawer-velo  { from { opacity: 0; } to { opacity: 1; } }
 
+/* REDESIGN v2 §4.9 — il drawer resta un pannello da destra a ogni banda.
+   Il canvas lo trasforma in bottom-sheet sotto i 768: non si può, l'animazione
+   d'ingresso è `translateX(100%)` (drawer-entra) e un foglio che entra dal
+   basso scivolando da destra è un movimento sbagliato. Del canvas si prende
+   il resto: testa appiccicata in cima, scala tipografica a token, spaziature
+   sulla scala 4px.
+   `position: sticky` sulla testa è un miglioramento vero: il drawer scorre
+   (overflow-y: auto) e prima il titolo con la X spariva verso l'alto. */
 .drawer-testa {
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  padding: 16px 16px 16px 20px;
+  position: sticky; top: 0; z-index: 1;
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-3);
+  /* asimmetrico di proposito: a destra c'è il bersaglio da 44px della X */
+  padding: var(--space-4) var(--space-4) var(--space-4) var(--space-5);
   background: var(--night-bg); color: var(--night-text);
 }
-.drawer-titolo { font-family: var(--font-display); font-weight: 800; font-size: 20px; }
+.drawer-titolo { font-family: var(--font-display); font-weight: 800; font-size: var(--fs-h3); }
 .drawer-chiudi {
   flex: none; width: 44px; height: 44px;
   background: rgba(255,255,255,0.10); border: 1px solid var(--night-border);
@@ -307,29 +367,31 @@ body {
 }
 .drawer-chiudi:hover { background: rgba(255,255,255,0.18); }
 
-.drawer-voci { display: flex; flex-direction: column; padding: 8px; }
+.drawer-voci { display: flex; flex-direction: column; padding: var(--space-2); }
 .drawer-gruppo {
-  padding: 16px 12px 6px;
-  font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+  padding: var(--space-4) var(--space-3) var(--space-1);
+  font-size: 10.5px; font-weight: 800; letter-spacing: .11em; text-transform: uppercase;
   color: var(--text-hint);
 }
 .drawer-voce {
-  display: flex; align-items: center; gap: 12px;
-  width: 100%; min-height: 52px; padding: 10px 12px;
+  display: flex; align-items: center; gap: var(--space-3);
+  width: 100%; min-height: 52px; padding: var(--space-3);
   background: none; border: none; border-radius: var(--radius-md);
-  font-family: var(--font-body); font-size: 15px; color: var(--text-dark);
+  font-family: var(--font-body); color: var(--text-dark);
   text-align: left; text-decoration: none; cursor: pointer;
   transition: background var(--dur-fast) var(--ease-out);
 }
 .drawer-voce:hover { background: var(--bg-card-hover); }
-.drawer-voce-icona { flex: none; font-size: 18px; line-height: 1; }
-.drawer-voce-testi { display: flex; flex-direction: column; gap: 2px; }
-.drawer-voce-titolo { font-weight: 700; }
-.drawer-voce-sub { font-size: 12.5px; color: var(--text-muted); line-height: 1.35; }
+.drawer-voce-icona { flex: none; font-size: 17px; line-height: 1; }
+.drawer-voce-testi { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.drawer-voce-titolo { font-size: var(--fs-sm); font-weight: 700; }
+.drawer-voce-sub { font-size: var(--fs-xs); color: var(--text-hint); line-height: 1.35; }
 .drawer-nota {
-  margin-top: auto; padding: 16px 20px calc(16px + env(safe-area-inset-bottom, 0px));
+  /* margin-top:auto lo tiene in fondo alla colonna; il safe-area lo tiene
+     sopra la barra di sistema su iOS. Entrambi funzionali: restano. */
+  margin-top: auto; padding: var(--space-4) var(--space-5) calc(var(--space-4) + env(safe-area-inset-bottom, 0px));
   border-top: 1px solid var(--border);
-  font-size: 12px; color: var(--text-hint);
+  font-size: var(--fs-xs); line-height: 1.55; color: var(--text-hint);
 }
 
 /* ================================================================
@@ -522,12 +584,14 @@ body {
 .fase-cta {
   flex: 1 1 100%;
   margin-left: 38px;
-  text-align: left;
   align-self: stretch;
+  /* F2.0 — bersaglio da 29px a 44 (inventario touch F0.5 / R34) */
+  display: inline-flex; align-items: center;
+  min-height: 44px;
   border: 1.5px solid var(--border-strong);
   background: var(--bg-card);
   border-radius: var(--radius-pill);
-  padding: 6px 12px;
+  padding: 0 var(--space-3);
   font-size: 11.5px; font-weight: 700; color: var(--primary);
   cursor: pointer;
   transition: border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
@@ -536,55 +600,137 @@ body {
 .fase-cta:active { transform: translateY(1px) scale(.985); }
 
 /* ================================================================
+   REDESIGN v2 §4.2 — SUPERFICI: la card come unità
+   Un solo corpo condiviso dalle superfici di primo livello, così bordo,
+   raggio, respiro e ombra smettono di divergere card per card. Chi ha una
+   ragione per staccarsene la dichiara SOTTO, senza riscrivere il corpo.
+   ⛔ .preparazione-card NON è in questo elenco, e non è una dimenticanza:
+   vive DENTRO "Il tuo progresso", cioè dentro un'altra card. Darle fondo
+   bianco, bordo e ombra propri produrrebbe una card annidata. Resta la
+   sezione senza cornice che è oggi.
+================================================================ */
+.missione-card,
+.settimana-card,
+.card-mappa-home,
+.card-meta-v2 {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-card);
+}
+@media (min-width: 768px) {
+  .missione-card,
+  .settimana-card,
+  .card-mappa-home,
+  .card-meta-v2 { padding: var(--space-6); }
+}
+
+/* ================================================================
    CARD MISSIONE DI OGGI
 ================================================================ */
+/* La missione è l'unica superficie che deve staccarsi dalle altre: è la
+   ragione per cui si torna sul sito. Il segnale resta l'oro, ma detto con
+   bordo + --shadow-gold (il token nato in F1 §2.2, finora senza consumatori)
+   invece dell'anello da 1.5px con ombra neutra: l'ombra tinta d'oro tiene
+   la card calda anche a distanza, dove un anello sottile sparisce.
+   ⚠️ position:relative + overflow:hidden sono FUNZIONALI — ancorano e
+   ritagliano .missione-wiz-desktop, che è in posizione assoluta. Il corpo
+   condiviso del canvas non li contiene: si preservano (Regola 1).
+   Il margine verticale non è più qui: da F1 lo dà `.tab-pane.attivo > * + *`. */
 .missione-card {
-  margin-top: 12px;
-  background: var(--bg-card);
-  border-radius: var(--radius-xl);
-  padding: 18px;
-  box-shadow: 0 0 0 1.5px var(--gold), 0 12px 32px rgba(30,27,46,.12);
+  border-color: var(--gold);
+  box-shadow: var(--shadow-gold);
   position: relative;
   overflow: hidden;
 }
-.missione-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.missione-top {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--space-3); flex-wrap: wrap; margin-bottom: var(--space-3);
+}
 .missione-tag {
-  display: flex; align-items: center; gap: 6px;
-  font-size: 11.5px; font-weight: 800;
-  color: var(--gold-dark); letter-spacing: .07em; text-transform: uppercase;
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  font-size: 11.5px; font-weight: 700; letter-spacing: .11em;
+  text-transform: uppercase;                /* micro-etichetta: maiuscolo ok */
+  color: var(--primary); background: #EEF2FF;
+  border-radius: var(--radius-pill); padding: 5px 11px;
 }
-.missione-scadenza {
-  font-family: var(--font-mono); font-size: 11.5px;
-  color: var(--red); background: var(--red-bg);
-  border-radius: var(--radius-pill); padding: 3px 10px; flex-shrink: 0;
-}
+.missione-scadenza { font-size: var(--fs-sm); font-weight: 600; color: var(--gold-dark); flex: none; }
 .missione-titolo {
   font-family: var(--font-display); font-weight: 800;
-  font-size: clamp(20px, 5vw, 24px); line-height: 1.15;
-  letter-spacing: -.01em; color: var(--text-dark); margin: 8px 0 6px;
+  font-size: var(--fs-h2); line-height: 1.2;
+  letter-spacing: -.025em; color: var(--text-dark); margin: 0 0 var(--space-2);
 }
-.missione-dettaglio { font-size: 13px; line-height: 1.45; color: var(--text-muted); }
-.missione-bottoni { display: flex; gap: 10px; margin-top: 14px; }
-.btn-primary {
-  flex: 1; background: var(--primary-fill); color: #fff; border: none;
-  border-radius: var(--radius-pill); padding: 13px 18px;
-  font-family: var(--font-body); font-size: 14.5px; font-weight: 700;
-  box-shadow: 0 8px 18px var(--primary-shadow); cursor: pointer;
-  transition: background var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+.missione-dettaglio {
+  font-size: var(--fs-body); line-height: 1.6;
+  color: var(--text-muted); text-wrap: pretty;
 }
-.btn-primary:hover { background: var(--primary-fill-hover); box-shadow: 0 10px 24px var(--primary-shadow); }
-.btn-primary:active { transform: translateY(1px) scale(.985); }
+.missione-bottoni { display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: var(--space-5); }
+
+/* ── REDESIGN v2 §4.1 — I DUE bottoni primari, insieme ──────────────
+   .btn-primary  = missione, banner, "vedi le mete" · .btn-primario = submit
+   del form profilo. Sono due classi diverse per ragioni storiche, non due
+   componenti diversi: da qui condividono un corpo solo (V4). Il submit del
+   profilo passa da 41px a 48: atteso, è il minimo touch.
+   ⚠️ `flex: 1` si preserva: i bottoni della missione stanno in un flex e
+   senza si stringerebbero sul contenuto. */
+.btn-primary,
+.btn-primario {
+  flex: 1;
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: var(--space-2);
+  min-height: 48px;
+  padding: 0 var(--space-5);
+  border: 0; border-radius: 14px;
+  background: var(--primary-fill); color: #fff;
+  font-family: var(--font-body); font-size: var(--fs-body); font-weight: 700;
+  letter-spacing: -.005em;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(79,70,229,.18), 0 10px 24px var(--primary-shadow);
+  transition: background var(--dur-fast) var(--ease-out),
+              box-shadow var(--dur-fast) var(--ease-out),
+              transform var(--dur-fast) var(--ease-out);
+}
+.btn-primary:hover,
+.btn-primario:hover {
+  background: var(--primary-fill-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 7px rgba(79,70,229,.22), 0 14px 32px rgba(79,70,229,.34);
+}
+.btn-primary:active,
+.btn-primario:active {
+  background: var(--primary-active);
+  transform: translateY(1px) scale(.985);
+  box-shadow: 0 1px 3px rgba(79,70,229,.20);
+}
+.btn-primary:disabled,
+.btn-primario:disabled {
+  background: var(--border); color: var(--text-hint);
+  box-shadow: none; cursor: not-allowed; transform: none;
+}
+/* Secondario: prima il bordo non reagiva all'hover e il fondo restava
+   identico — era un bottone che non rispondeva. */
 .btn-secondary {
-  flex: 1; background: var(--bg-card-hover); border: 1.5px solid var(--border); color: var(--text-dark);
-  border-radius: var(--radius-pill); padding: 13px 18px;
-  font-family: var(--font-body); font-size: 14.5px; font-weight: 700;
-  cursor: pointer; transition: background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+  flex: 1;
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: var(--space-2);
+  min-height: 48px;
+  padding: 0 var(--space-5);
+  border: 1.5px solid var(--border-strong); border-radius: 14px;
+  background: var(--bg-card-hover); color: var(--primary-active);
+  font-family: var(--font-body); font-size: var(--fs-body); font-weight: 700;
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
 }
-.btn-secondary:hover { background: var(--bg-card-hover); }
+.btn-secondary:hover { border-color: var(--primary); background: #EEF2FF; }
 .btn-secondary:active { transform: translateY(1px) scale(.985); }
-.missione-urgente .missione-tag  { color: var(--red); }
-.missione-urgente { box-shadow: 0 0 0 1.5px var(--red), 0 12px 32px rgba(176,61,54,.15); }
-.missione-urgente .btn-primary { background: var(--red); box-shadow: 0 8px 18px rgba(176,61,54,.35); }
+
+/* Missione urgente: cambia il registro dell'intera card, non un dettaglio. */
+.missione-urgente { border-color: var(--red); box-shadow: 0 2px 6px rgba(180,35,24,.12), 0 10px 28px rgba(180,35,24,.20); }
+.missione-urgente .missione-tag { color: var(--red); background: var(--red-bg); }
+.missione-urgente .missione-scadenza { color: var(--red); font-weight: 700; }
+.missione-urgente .btn-primary { background: var(--red); box-shadow: 0 2px 5px rgba(180,35,24,.20), 0 10px 24px rgba(180,35,24,.32); }
+.missione-urgente .btn-primary:hover { background: #9c1f14; box-shadow: 0 3px 7px rgba(180,35,24,.26), 0 14px 32px rgba(180,35,24,.36); }
 .missione-wiz-desktop {
   position: absolute; right: 22px; bottom: 0;
   height: 160px; width: auto; transform: scaleX(-1);
@@ -594,38 +740,56 @@ body {
 /* ================================================================
    PILL COUNTDOWN — vive dentro la card "Prossima mossa" (R2, §5.3)
 ================================================================ */
+/* REDESIGN v2 §4.6 — l'unica superficie a inchiostro dentro una card chiara.
+   ⛔ Rimosse le due stelline oro da 1.5px in `background-image`: erano fisse a
+   40px/250px, quindi su una pill che cambia larghezza cadevano ogni volta in
+   un punto diverso e a quella scala non si leggevano come stelle ma come
+   pixel spuri. Stesso motivo per cui erano già state tolte dal hero. */
 .countdown-pill {
-  margin: 16px 0 0;
+  margin: var(--space-5) 0 0;
   background: var(--night-bg);
-  border-radius: var(--radius-lg); padding: 12px 16px;
+  border-radius: var(--radius-lg);
+  padding: var(--space-3) var(--space-4);
   display: flex; align-items: center; justify-content: space-between;
-  background-image:
-    radial-gradient(1.5px 1.5px at 40px 12px, var(--gold) 50%, transparent 51%),
-    radial-gradient(1.5px 1.5px at 250px 30px, var(--gold) 50%, transparent 51%);
+  gap: var(--space-4); flex-wrap: wrap;
 }
-.countdown-sinistra { display: flex; align-items: center; gap: 9px; }
+.countdown-sinistra { display: flex; align-items: center; gap: var(--space-3); }
+/* R19 — il canvas anima `.countdown-pill.urgente .countdown-dot` con
+   `@keyframes pulsa`: entrambi inesistenti. La classe che il JS scrive è
+   `missione-urgente` e sta sulla CARD (app.js), e il keyframes si chiama
+   `pulsa-dot`. Da qui il pallino è fermo per default e pulsa solo quando la
+   missione è urgente: un pallino che pulsa sempre non segnala più niente. */
 .countdown-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: #ff7a6e; box-shadow: 0 0 8px rgba(255,122,110,.8);
-  flex: 0 0 8px; animation: pulsa-dot 2s ease-in-out infinite alternate;
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--gold); flex: none;
+  box-shadow: 0 0 0 4px var(--mission-glow);
+  animation: none;
 }
+.missione-urgente .countdown-dot {
+  background: #ff7a6e;
+  box-shadow: 0 0 0 4px rgba(255,122,110,.30);
+  animation: pulsa-dot 1.8s ease-in-out infinite alternate;
+}
+/* Keyframes senza colore: opacità e scala funzionano su qualunque pallino
+   (prima animava un box-shadow rosso cablato, incompatibile con l'oro). */
 @keyframes pulsa-dot {
-  from { opacity: .7; }
-  to   { opacity: 1; box-shadow: 0 0 14px rgba(255,122,110,.9); }
+  from { opacity: .55; transform: scale(.82); }
+  to   { opacity: 1;   transform: scale(1); }
 }
-.countdown-titolo { font-size: 12px; font-weight: 700; color: #fff; }
-.countdown-sub    { font-size: 10.5px; color: var(--night-muted); }
-.countdown-timer  { font-family: var(--font-mono); font-size: 15px; font-weight: 700; color: var(--gold); }
+.countdown-titolo { font-size: var(--fs-sm); font-weight: 700; color: var(--night-text); }
+.countdown-sub    { font-size: var(--fs-xs); color: var(--night-muted); margin-top: 2px; }
+.countdown-timer  {
+  font-family: var(--font-mono); font-size: 17px; font-weight: 700;
+  color: var(--gold); letter-spacing: -.01em;
+  font-variant-numeric: tabular-nums;   /* le cifre non ballano a ogni secondo */
+}
+@media (min-width: 1024px) { .countdown-timer { font-size: 20px; } }
 
 /* ================================================================
    "QUESTA SETTIMANA" (R2, §5.3 modulo 2) — max 2-3 azioni pertinenti
 ================================================================ */
-.settimana-card {
-  margin-top: 12px; background: var(--bg-card);
-  border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px 16px;
-  box-shadow: var(--shadow-card);
-}
-.settimana-lista { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+/* fondo, bordo, raggio, respiro e ombra vengono dal corpo condiviso §4.2 */
+.settimana-lista { display: flex; flex-direction: column; gap: var(--space-2); margin-top: var(--space-3); }
 .settimana-item {
   display: flex; align-items: baseline; justify-content: space-between; gap: 10px;
   width: 100%; text-align: left; padding: 10px 12px; min-height: 44px;
@@ -649,47 +813,100 @@ body {
 }
 .preparazione-header { display: flex; justify-content: space-between; align-items: center; }
 .preparazione-label { font-size: 11px; font-weight: 800; color: var(--text-hint); letter-spacing: .06em; text-transform: uppercase; }
-.preparazione-count { font-family: var(--font-mono); font-size: 12.5px; font-weight: 700; color: var(--text-dark); }
-.prep-barra { margin-top: 9px; height: 8px; background: var(--bg-track); border-radius: var(--radius-pill); overflow: hidden; }
-.prep-barra-fill { height: 100%; background: var(--gold); border-radius: var(--radius-pill); transition: width var(--dur-slow) var(--ease-out); }
+/* REDESIGN v2 §4.7 — le due barre di progresso del sito (preparazione in home,
+   checklist nel Percorso) parlavano lingue diverse: altezze, fondi ed etichette
+   scollegati. Da qui sono lo stesso componente. Il riempimento passa dall'oro
+   all'indigo: l'oro resta all'accento raro (missione, preferiti, celebrazione),
+   il progresso è cronaca, non festa.
+   Il binario resta --bg-track e non --border come nel canvas: è il token nato
+   apposta per i binari, e --border è il colore dei bordi. */
+.preparazione-count,
+.barra-label {
+  font-family: var(--font-mono); font-size: var(--fs-sm); font-weight: 700;
+  color: var(--primary-active); white-space: nowrap;
+}
+.prep-barra { margin-top: var(--space-2); }
+.prep-barra,
+.barra-progresso {
+  height: 10px; background: var(--bg-track);
+  border-radius: var(--radius-pill); overflow: hidden;
+}
+.prep-barra-fill,
+.barra-riempimento {
+  height: 100%; border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--primary) 0%, #6366F1 100%);
+  transition: width var(--dur-slow) var(--ease-out);
+}
 
 /* ================================================================
    HEADER SEZIONI
 ================================================================ */
-.sezione-header { margin: 20px 0 16px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
-.sezione-titolo { font-family: var(--font-display); font-size: 1.35rem; font-weight: 800; color: var(--text-dark); margin-bottom: 5px; }
-.sezione-sottotitolo { color: var(--text-muted); font-size: 0.88rem; }
+.sezione-header { margin: 20px 0 16px; padding-bottom: var(--space-4); border-bottom: 1px solid var(--border); }
+/* --fs-h1 esiste da F1 §2.2 e dichiara `.sezione-titolo` come suo consumatore:
+   è qui che il token entra in servizio (25 / 27 / 30px per banda). Prima era
+   1.35rem con un override a 1.6rem a ≥1024, cioè una scala parallela a quella
+   dei token — ed è esattamente il disallineamento che il GATE 2 giudicherà. */
+.sezione-titolo {
+  font-family: var(--font-display); font-size: var(--fs-h1); font-weight: 800;
+  line-height: 1.15; letter-spacing: -.025em;
+  color: var(--text-dark); margin-bottom: var(--space-1);
+}
+.sezione-sottotitolo { color: var(--text-muted); font-size: var(--fs-sm); line-height: 1.55; text-wrap: pretty; }
 
 /* ================================================================
    BARRA PROGRESSO CHECKLIST
 ================================================================ */
-.barra-wrap { display: flex; align-items: center; gap: 14px; margin: 0 0 16px; }
-.barra-progresso { flex: 1; height: 10px; background: var(--bg-track); border-radius: var(--radius-pill); overflow: hidden; }
-.barra-riempimento { height: 100%; background: var(--gold); border-radius: var(--radius-pill); width: 0%; transition: width var(--dur-slow) var(--ease-out); }
-.barra-label { color: var(--text-muted); font-size: 0.82rem; white-space: nowrap; }
+/* corpo condiviso con .prep-barra più sopra (§4.7): qui solo ciò che è
+   specifico della barra dentro .barra-wrap */
+.barra-wrap { display: flex; align-items: center; gap: var(--space-4); margin: 0 0 var(--space-4); }
+.barra-progresso   { flex: 1; }
+.barra-riempimento { width: 0%; }
 
 /* ================================================================
    CHECKLIST v2
 ================================================================ */
-.lista-checklist-v2 { display: flex; flex-direction: column; gap: 8px; }
+.lista-checklist-v2 { display: flex; flex-direction: column; gap: var(--space-2); }
+/* REDESIGN v2 §4.7 — la voce resta una CARD e non diventa la riga con
+   `border-bottom` del canvas. Motivo strutturale che il canvas non poteva
+   vedere: `.lista-checklist-v2` non contiene voci, contiene CAPITOLI
+   (`.cand-capitolo`, `.zaino-capitolo`, app.js). Le voci vivono dentro
+   `.cand-checklist-sotto` e `.gruppo-post`, che le appiattiscono già oggi;
+   la forma-card compare solo in "Ora tocca a te", dove sono al massimo tre
+   ed essere card è il punto. Righe con separatore, lì, sarebbero una lista
+   senza contenitore.
+   Del canvas si prende ciò che vale in entrambe le forme: bersaglio da 48px
+   (misurato 41.1 in F0.5), spaziatura a token, e la voce attiva segnata da
+   un filetto indaco invece che da un anello da 2px con alone. */
 .voce-checklist-v2 {
-  display: flex; align-items: flex-start; gap: 12px;
+  display: flex; align-items: center; gap: var(--space-3);
+  min-height: 48px;
   background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius-md); padding: 13px 16px;
-  cursor: pointer; transition: background 0.12s, border-color .15s;
+  border-radius: var(--radius-md); padding: var(--space-3) var(--space-4);
+  font-size: var(--fs-body); color: var(--text-dark);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
 }
-.voce-checklist-v2:hover { background: var(--bg-card-hover); border-color: var(--border-strong); }
-.voce-checklist-v2.fatta { background: var(--green-bg); border-color: var(--green-border); opacity: .65; }
-.voce-checklist-v2.attiva { border: 2px solid var(--primary); box-shadow: 0 6px 16px var(--primary-shadow); }
-.voce-checklist-v2 input { width: 18px; height: 18px; margin-top: 1px; flex-shrink: 0; cursor: pointer; accent-color: var(--green); }
+.voce-checklist-v2:hover { background: #EEF2FF; border-color: var(--border-strong); }
+/* ⛔ via `opacity: .65` dalla voce fatta: velava anche il testo, che su
+   --green-bg scendeva sotto 4.5:1. Il "fatto" lo dicono già fondo verde e
+   barratura, senza sbiadire ciò che resta da leggere. */
+.voce-checklist-v2.fatta { background: var(--green-bg); border-color: var(--green-border); }
+.voce-checklist-v2.attiva {
+  background: #EEF2FF;
+  border-color: var(--primary);
+  border-left: 3px solid var(--primary);
+  padding-left: calc(var(--space-4) - 2px);
+  font-weight: 700;
+}
+.voce-checklist-v2 input { width: 18px; height: 18px; flex-shrink: 0; cursor: pointer; accent-color: var(--green); }
 .voce-checklist-v2 input:checked { animation: check-pop var(--dur-slow) var(--ease-bounce); }
 @keyframes check-pop {
   0%   { transform: scale(1); }
   45%  { transform: scale(1.3); }
   100% { transform: scale(1); }
 }
-.voce-checklist-v2 span { font-size: 0.92rem; color: var(--text-dark); }
-.voce-checklist-v2.fatta span { text-decoration: line-through; color: var(--text-muted); }
+.voce-checklist-v2 span { font-size: inherit; color: inherit; }
+.voce-checklist-v2.fatta span { text-decoration: line-through; color: var(--text-hint); }
 /* Traduttore a 3 registri sotto la voce di checklist (DISEGNO_UX §6) */
 .voce-checklist-wrap  { display: flex; flex-direction: column; }
 .voce-checklist-trad  { padding: 4px 16px 2px 46px; }
@@ -702,7 +919,10 @@ body {
 }
 .toggle-fase-btn {
   flex: 1; min-width: 140px;
-  padding: 9px 14px; border-radius: var(--radius-pill);
+  /* F2.0 — da 39px a 44 (inventario touch F0.5) */
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px;
+  padding: 0 var(--space-4); border-radius: var(--radius-pill);
   border: 1.5px solid var(--border); background: var(--bg-card);
   color: var(--text-muted); font-size: 0.88rem; font-weight: 500;
   cursor: pointer; transition: border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
@@ -826,8 +1046,11 @@ body {
 .cand-checklist-dettagli { }
 .cand-checklist-toggle {
   cursor: pointer; list-style: none;
-  font-size: 0.82rem; font-weight: 700; color: var(--primary);
-  margin: 0 0 10px; padding: 0; user-select: none;
+  /* F2.0 — era alto 19.7px: è il comando che apre i passi di un capitolo,
+     non un'etichetta (inventario touch F0.5) */
+  display: flex; align-items: center; min-height: 44px;
+  font-size: var(--fs-sm); font-weight: 700; color: var(--primary);
+  margin: 0; padding: 0; user-select: none;
 }
 .cand-checklist-toggle::-webkit-details-marker { display: none; }
 .cand-checklist-toggle:hover { color: var(--primary-hover); }
@@ -928,10 +1151,20 @@ body {
 /* ================================================================
    METE v2
 ================================================================ */
-.cerca-mete-barra { display: flex; align-items: center; gap: 10px; padding: 10px 0 4px; }
-#cerca-mete { flex: 1; padding: 9px 13px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); background: var(--bg-card); color: var(--text-dark); font-size: 0.95rem; transition: border-color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out); }
-#cerca-mete:focus-visible { outline: none; border-color: var(--primary); box-shadow: var(--shadow-focus); }
-#conta-mete { color: var(--text-muted); font-size: 0.85rem; white-space: nowrap; }
+.cerca-mete-barra { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-2) 0 var(--space-1); }
+/* F2.0 — il campo di ricerca era alto 37px (inventario touch F0.5) */
+#cerca-mete {
+  flex: 1; min-width: 0; min-height: 48px;
+  padding: 0 var(--space-4);
+  border: 1.5px solid var(--border-strong); border-radius: 14px;
+  background: var(--bg-card); color: var(--text-dark);
+  font-family: var(--font-body); font-size: var(--fs-body);
+  transition: border-color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+}
+/* `:focus` e non `:focus-visible`: un campo di testo mostra il fuoco anche
+   quando ci arrivi col mouse. È lo stesso trattamento dei campi del profilo. */
+#cerca-mete:focus { outline: none; border-color: var(--primary); box-shadow: var(--shadow-focus); }
+#conta-mete { color: var(--text-hint); font-size: var(--fs-sm); white-space: nowrap; }
 .griglia-mete-v2 { display: grid; grid-template-columns: 1fr; gap: 14px; }
 /* redesign v2 §3.2 — 1 col · 2 col esatte a tablet · auto-fill a desktop.
    A 768–1023 `auto-fill minmax(300px,1fr)` dava 2 colonne solo per caso:
@@ -941,83 +1174,120 @@ body {
 @media (min-width: 1024px) { .griglia-mete-v2 { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); } }
 /* Card meta — direzione C (Fase C3): l'affordance di tap la dà il DESIGN
    (hover-lift, cursore, freccia), non una label ripetuta su ogni card (P1.8). */
+/* REDESIGN v2 §4.5 — fondo, bordo, raggio e ombra vengono dal corpo condiviso
+   §4.2. Qui resta ciò che è solo della card meta: il contesto di
+   posizionamento per stellina e freccia, e lo spazio in basso che la freccia
+   occupa. L'hover NON è più descritto qui: lo governa .card-cliccabile, una
+   volta sola per tutte le card cliccabili del sito. */
 .card-meta-v2 {
-  position: relative; background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius-lg); padding: 16px 18px 30px; box-shadow: var(--shadow-card);
-  transition: border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+  position: relative;
+  padding-bottom: var(--space-10);
 }
-.card-meta-v2.card-cliccabile { cursor: pointer; }
-.card-meta-v2.card-cliccabile:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: var(--shadow-card-hover); }
-.card-meta-v2 h3 { color: var(--text-dark); font-size: 1rem; margin-bottom: 2px; font-weight: 700; padding-right: 44px; }
-.card-luogo-v2 { color: var(--text-muted); font-size: 0.87rem; margin-bottom: 10px; }
-.meta-punteggio { font-family: var(--font-mono); font-size: 21px; font-weight: 700; }
+.card-meta-v2 h3 {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: var(--fs-h3); line-height: 1.25; letter-spacing: -.015em;
+  color: var(--text-dark);
+  margin: 0 0 var(--space-1);
+  padding-right: 44px;                     /* non finisce sotto la stellina */
+}
+.card-luogo-v2 { color: var(--text-hint); font-size: var(--fs-sm); margin-bottom: var(--space-4); }
+/* Il punteggio conserva la famiglia semaforo (--green / --amber / --red) invece
+   dei letterali del canvas: #059669 sul bianco sta a 3.4:1 e non passa il 4.5:1
+   richiesto a un testo che È il dato della card. --green (#0f7a3a) sta a 5.3:1.
+   Del canvas si prende il registro del "locked": rosso, non grigio — una meta
+   fuori portata è un'informazione, non un dato assente. */
+.meta-punteggio { font-family: var(--font-mono); font-size: 19px; font-weight: 700; letter-spacing: -.02em; }
 .meta-punteggio.verde  { color: var(--green); }
 .meta-punteggio.amber  { color: var(--amber); }
-.meta-punteggio.locked { color: var(--text-hint); }
+.meta-punteggio.locked { color: var(--red); }
 .card-freccia {
-  position: absolute; bottom: 10px; right: 14px;
-  color: var(--text-hint); font-weight: 700; font-size: 0.95rem;
-  transition: color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+  position: absolute; bottom: var(--space-5); right: var(--space-5);
+  color: var(--primary); font-weight: 700; font-size: 17px;
+  transition: transform var(--dur-base) var(--ease-out);
 }
-.card-meta-v2.card-cliccabile:hover .card-freccia { color: var(--primary); transform: translateX(3px); }
+.card-cliccabile:hover .card-freccia { transform: translateX(4px); }
 
 /* Filtri a chip — tab Mete (BR4, 4a) */
-.filtri-mete-chip { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 0 10px; }
+.filtri-mete-chip { display: flex; flex-wrap: wrap; gap: var(--space-2); padding: 0 0 var(--space-2); }
 .chip-filtro {
   display: inline-flex; align-items: center; min-height: 44px;
   border: 1.5px solid var(--border); background: var(--bg-card); color: var(--text-muted);
-  border-radius: var(--radius-pill); padding: 0 16px; font-size: 0.85rem; font-weight: 600;
-  font-family: var(--font-body); cursor: pointer;
+  border-radius: var(--radius-pill); padding: 0 17px;
+  font-family: var(--font-body); font-size: var(--fs-sm); font-weight: 600;
+  white-space: nowrap; cursor: pointer;
   transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
 }
-.chip-filtro:hover { border-color: var(--border-strong); }
+.chip-filtro:hover { border-color: var(--border-strong); background: var(--bg-card-hover); }
 .chip-filtro:active { transform: translateY(1px) scale(.985); }
-.chip-filtro.attivo { background: var(--primary-fill); border-color: var(--primary-fill); color: #fff; }
+/* il chip attivo è pieno e porta l'ombra del primario: si legge come lo stato
+   corrente anche in una riga che scorre in orizzontale */
+.chip-filtro.attivo {
+  background: var(--primary-fill); border-color: var(--primary-fill); color: #fff;
+  font-weight: 700; box-shadow: 0 6px 16px var(--primary-shadow);
+}
 
 /* Card meta compatta (BR4, 4a) — badge di stato a pillola (direzione C):
    un'icona SOLA per card (P1.6), colore semantico dal semaforo esistente. */
-.card-meta-v2-punteggio { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
-.card-meta-v2-stato {
-  display: inline-flex; align-items: center; gap: 5px;
-  font-size: 0.76rem; font-weight: 800;
-  border-radius: var(--radius-pill); padding: 3px 10px;
+.card-meta-v2-punteggio {
+  display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap;
+  margin-bottom: var(--space-3);
+  padding-right: 44px;                     /* la riga non passa sotto la stellina */
 }
-.card-meta-v2-stato.stato-ok    { background: var(--green-bg); color: var(--green); }
-.card-meta-v2-stato.stato-medio { background: var(--amber-bg); color: var(--amber); }
-.card-meta-v2-stato.stato-basso { background: var(--bg-app); border: 1px solid var(--border); color: var(--text-muted); }
-.chip-meta-riga { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 4px; }
+.card-meta-v2-stato {
+  display: inline-flex; align-items: center; gap: var(--space-1);
+  font-size: var(--fs-xs); font-weight: 700;
+  border-radius: var(--radius-pill); padding: 4px 10px;
+  border: 1px solid; white-space: nowrap;
+}
+.card-meta-v2-stato.stato-ok    { background: var(--green-bg); color: var(--green); border-color: var(--green-border); }
+.card-meta-v2-stato.stato-medio { background: var(--amber-bg); color: var(--amber); border-color: var(--amber-border); }
+/* il canvas porta "basso" nel registro rosso: prima era grigio-neutro, cioè
+   indistinguibile da un dato mancante */
+.card-meta-v2-stato.stato-basso { background: var(--red-bg);   color: var(--red);   border-color: var(--red-border); }
+.chip-meta-riga { display: flex; flex-wrap: wrap; gap: var(--space-2); }
 .chip-meta {
   display: inline-block; background: var(--bg-app); border: 1px solid var(--border);
-  border-radius: var(--radius-pill); padding: 3px 11px; font-size: 0.76rem; color: var(--text-muted);
+  border-radius: var(--radius-pill); padding: 5px 11px;
+  font-size: var(--fs-xs); font-weight: 600; color: var(--text-muted);
 }
 
 /* Schedina — "Le tue 5 scelte" (BR4, 4b — Fase C3: schedina compatta, P1.4)
    Vuota = una riga di invito; parziale = solo gli slot pieni + riga compatta.
    Colori a token semantici, mai valori grezzi. */
 .schedina-invito-vuota { font-size: 0.85rem; color: var(--text-muted); margin: 0; }
-.schedina-lista { display: flex; flex-direction: column; gap: 8px; }
+/* REDESIGN v2 §4.8 — gli slot smettono di essere tutti bordati d'oro. La
+   schedina ha già una sua sezione con titolo: ripetere l'accento su ogni riga
+   lo consuma e lo toglie a dove serve davvero (missione, preferiti,
+   celebrazione). Il numero d'ordine resta il segno, in indaco monospaziato. */
+.schedina-lista { display: flex; flex-direction: column; gap: var(--space-2); }
 .schedina-slot {
-  display: flex; align-items: center; gap: 10px;
-  background: var(--bg-card); border: 1px solid var(--gold-border);
-  border-radius: var(--radius-sm); padding: 8px 10px;
+  display: flex; align-items: center; gap: var(--space-3);
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 14px; padding: var(--space-3);
 }
 .schedina-numero {
-  flex-shrink: 0; width: 26px; height: 26px; border-radius: var(--radius-pill);
-  background: var(--gold); color: #232046; font-family: var(--font-mono); font-weight: 700;
-  font-size: 0.8rem; display: flex; align-items: center; justify-content: center;
+  flex: none; width: 22px; text-align: center;
+  font-family: var(--font-mono); font-size: 15px; font-weight: 700;
+  color: var(--primary);
 }
-.schedina-corpo { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
-.schedina-nome { font-size: 0.87rem; font-weight: 700; color: var(--text-dark); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.schedina-stato { font-size: 0.76rem; color: var(--text-muted); }
-.schedina-azioni { display: flex; gap: 4px; flex-shrink: 0; }
+/* min-width:0 è ciò che fa funzionare l'ellissi sul nome: senza, il flex item
+   non scende sotto la larghezza del contenuto e la riga sfonda. */
+.schedina-corpo { flex: 1; min-width: 0; }
+.schedina-nome { display: block; font-size: var(--fs-sm); font-weight: 700; color: var(--text-dark); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.schedina-stato { display: block; font-family: var(--font-mono); font-size: var(--fs-xs); font-weight: 700; color: var(--text-muted); margin-top: 2px; }
+.schedina-azioni { display: flex; gap: var(--space-1); flex: none; }
+/* F2.0 — da 40px a 44 (inventario touch F0.5). Il canvas ne propone 40:
+   il criterio d'uscita di F4 è lista VUOTA, quindi 44 a tutte le larghezze. */
 .schedina-freccia, .schedina-rimuovi {
-  min-width: 40px; min-height: 40px; display: flex; align-items: center; justify-content: center;
-  background: none; border: 1px solid var(--gold-border); border-radius: var(--radius-sm);
-  cursor: pointer; color: var(--text-dark); font-size: 0.85rem;
-  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+  background: var(--bg-card-hover); border: 0; border-radius: var(--radius-sm);
+  cursor: pointer; color: var(--text-muted); font-size: var(--fs-sm);
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
 }
-.schedina-freccia:disabled { opacity: .35; cursor: default; }
-.schedina-freccia:hover:not(:disabled), .schedina-rimuovi:hover { background: var(--bg-card-hover); }
+.schedina-rimuovi { background: var(--red-bg); color: var(--red); }
+.schedina-freccia:disabled { color: var(--border-strong); cursor: not-allowed; }
+.schedina-freccia:hover:not(:disabled) { background: var(--border); color: var(--text-dark); }
+.schedina-rimuovi:hover { background: #fbdada; }
 @media (max-width: 480px) {
   .schedina-slot { flex-wrap: wrap; }
   .schedina-azioni { width: 100%; justify-content: flex-end; margin-top: 4px; }
@@ -1028,27 +1298,89 @@ body {
 ================================================================ */
 .griglia-requisiti-v2 { display: grid; grid-template-columns: 1fr; gap: 12px; }
 @media (min-width: 768px) { .griglia-requisiti-v2 { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); } }
-.requisito-v2 { background: var(--bg-card); border: 1px solid var(--border); border-top: 3px solid var(--gold); border-radius: var(--radius-md); padding: 14px 16px; box-shadow: var(--shadow-card); transition: border-color var(--dur-base) var(--ease-out); }
-.requisito-v2--ok { border-top-color: var(--green); }
-.requisito-v2-testa { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+/* REDESIGN v2 §4.7 — il requisito parla a tre registri, e il registro lo dice
+   il filetto a sinistra: neutro finché non c'è un esito, oro se va verificato,
+   verde se è soddisfatto. Prima il filetto stava in alto ed era oro SEMPRE:
+   una card che nasce allarmata anche quando il requisito è a posto. */
+.requisito-v2 {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  box-shadow: var(--shadow-card);
+  transition: border-color var(--dur-base) var(--ease-out);
+}
+.requisito-v2--ok { border-color: var(--green-border); border-left-color: var(--green); }
+.requisito-v2--daverificare { border-left-color: var(--gold); }
+.requisito-v2-testa { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); margin-bottom: var(--space-2); }
 .requisito-v2-semaforo { font-size: 1rem; line-height: 1; flex-shrink: 0; }
-.requisito-v2-titolo { font-weight: 700; font-size: 0.88rem; color: var(--text-dark); }
-.requisito-v2-valore { color: var(--gold-dark); font-weight: 700; font-size: 1.05rem; margin: 5px 0 6px; }
-.requisito-v2-desc   { color: var(--text-muted); font-size: 0.83rem; }
-.requisito-v2-azione { color: var(--text-dark); font-size: 0.83rem; font-weight: 600; margin-top: 6px; }
-.requisito-v2-bando  { margin-top: 8px; font-size: 0.8rem; }
-.requisito-v2-bando summary { cursor: pointer; color: var(--gold-dark); font-weight: 600; }
-.requisito-v2-citazione { margin: 6px 0 4px; padding-left: 10px; border-left: 3px solid var(--border); color: var(--text-muted); font-style: italic; }
-.requisito-v2-fonte  { color: var(--text-muted); font-size: 0.78rem; }
-.requisito-v2-autoverifica { display: flex; align-items: center; gap: 6px; margin-top: 10px; font-size: 0.83rem; font-weight: 600; cursor: pointer; }
+.requisito-v2-titolo {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: var(--fs-h3); letter-spacing: -.015em; color: var(--text-dark);
+}
+.requisito-v2-valore {
+  font-family: var(--font-mono); font-size: var(--fs-mono); font-weight: 700;
+  color: var(--primary-active); margin: 0 0 var(--space-2);
+}
+.requisito-v2-desc   { color: var(--text-muted); font-size: var(--fs-sm); line-height: 1.6; text-wrap: pretty; }
+.requisito-v2-azione { color: var(--text-dark); font-size: var(--fs-sm); font-weight: 600; margin-top: var(--space-2); }
+.requisito-v2-bando  { margin-top: var(--space-2); font-size: var(--fs-sm); }
+/* F2.0 — la riga "cosa dice il bando" era alta 19px (inventario touch F0.5) */
+.requisito-v2-bando summary {
+  display: flex; align-items: center; min-height: 44px;
+  cursor: pointer; color: var(--primary); font-weight: 600;
+}
+.requisito-v2-citazione { margin: var(--space-2) 0 var(--space-1); padding-left: var(--space-3); border-left: 3px solid var(--border); color: var(--text-muted); font-style: italic; }
+.requisito-v2-fonte  { color: var(--text-hint); font-size: var(--fs-xs); }
+/* F2.0 — l'autoverifica era alta 19.9px ed è una casella da spuntare */
+.requisito-v2-autoverifica {
+  display: flex; align-items: center; gap: var(--space-2);
+  margin-top: var(--space-3); padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+  min-height: 44px;
+  font-size: var(--fs-sm); font-weight: 600; cursor: pointer;
+}
+
+/* REDESIGN v2 §4.4 — i due banner di stato reali adottano il corpo di
+   .banner-stato senza cambiare markup: sono già nodi di solo testo, scritti
+   con textContent da renderIdoneita() e renderBannerVerifica(). */
 .idoneita-esito {
-  margin: 0 0 12px; padding: 10px 14px; border-radius: var(--radius-sm);
-  background: var(--green-bg); color: var(--green); font-weight: 700; font-size: 0.88rem;
+  display: flex; align-items: flex-start; gap: var(--space-3);
+  margin: 0 0 var(--space-3); padding: var(--space-4); border-radius: 14px;
+  background: var(--green-bg); border: 1px solid var(--green-border);
+  border-left: 3px solid var(--green); color: var(--green);
+  font-size: var(--fs-body); font-weight: 600; line-height: 1.55;
 }
 .banner-in-verifica {
-  margin: 0 0 14px; padding: 10px 14px; border-radius: var(--radius-sm);
-  background: var(--gold-bg); border: 1px solid var(--gold); color: var(--gold-dark);
-  font-size: 0.83rem; font-weight: 600;
+  display: flex; align-items: flex-start; gap: var(--space-3);
+  margin: 0 0 var(--space-4); padding: var(--space-4); border-radius: 14px;
+  background: var(--gold-bg); border: 1px solid var(--gold-border);
+  border-left: 3px solid var(--gold); color: var(--gold-dark);
+  font-size: var(--fs-sm); font-weight: 600; line-height: 1.55;
+}
+
+/* REDESIGN v2 §4.4 — .banner-stato: la classe generica, additiva. Nessun nodo
+   la usa oggi (i due casi reali sopra hanno selettori propri e il JS li scrive
+   con textContent, che cancellerebbe qualunque figlio al re-render): è
+   vocabolario, non codice morto per distrazione. Le due varianti SENZA dato —
+   riserve e bloccato — stanno sotto il marcatore di fine produzione, in fondo
+   al foglio. */
+.banner-stato {
+  display: flex; align-items: flex-start; gap: var(--space-3);
+  padding: var(--space-4); border-radius: 14px;
+  border: 1px solid transparent; border-left-width: 3px;
+  font-size: var(--fs-body); line-height: 1.55;
+}
+.banner-stato-titolo { font-weight: 700; display: block; margin-bottom: 2px; }
+.banner-stato-icona  { flex: none; font-size: 17px; line-height: 1.4; }
+.banner-stato.stato-ok {
+  background: var(--green-bg); border-color: var(--green-border);
+  border-left-color: var(--green); color: var(--green);
+}
+.banner-stato.stato-verifica {
+  background: var(--gold-bg); border-color: var(--gold-border);
+  border-left-color: var(--gold); color: var(--gold-dark);
 }
 
 /* Riga fonte + data di verifica sopra le scadenze (R2.6) */
@@ -1060,37 +1392,63 @@ body {
 /* ================================================================
    PROFILO v2
 ================================================================ */
-.form-profilo-v2 { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; max-width: 540px; }
-.campo-form { margin-bottom: 16px; }
-.campo-form label { display: block; font-weight: 700; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 7px; }
+/* REDESIGN v2 §4.9 — il form perde la cornice-card. I campi diventano bianchi
+   su carta avorio: il contenitore non serve più a separarli dallo sfondo, e a
+   ≥768 una card unica intorno a due colonne di campi è solo una scatola.
+   Tutti i controlli passano a 48px (misurati 37–40 in F0.5). */
+.form-profilo-v2 { display: flex; flex-direction: column; gap: var(--space-5); }
+.campo-form { display: flex; flex-direction: column; gap: var(--space-2); }
+.campo-form > label { font-size: var(--fs-sm); font-weight: 700; color: var(--text-dark); }
 .campo-form select, .campo-form input, .riga-lingua select {
-  width: 100%; padding: 9px 12px; border: 1.5px solid var(--border);
-  border-radius: var(--radius-sm); background: var(--bg-app);
-  color: var(--text-dark); font-family: var(--font-body); font-size: 0.88rem;
-  box-sizing: border-box; transition: border-color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+  width: 100%; min-height: 48px; padding: 0 var(--space-4);
+  border: 1.5px solid var(--border-strong); border-radius: 14px;
+  background: var(--bg-card);
+  color: var(--text-dark); font-family: var(--font-body); font-size: var(--fs-body);
+  transition: border-color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
 }
+.campo-form input[type="number"] { font-family: var(--font-mono); }
 .campo-form select:focus, .campo-form input:focus, .riga-lingua select:focus { outline: none; border-color: var(--primary); box-shadow: var(--shadow-focus); }
-.gruppo-lingue-v2 { border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 14px; margin-bottom: 20px; }
-.gruppo-lingue-v2 legend { font-weight: 700; font-size: 0.85rem; color: var(--text-muted); padding: 0 6px; }
-.riga-lingua { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 10px; }
-.riga-lingua .lingua-nome, .riga-lingua .lingua-livello { flex: 1 1 110px; }
-.checkbox-lingua { font-size: 0.83rem; color: var(--text-muted); display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
-.checkbox-lingua input { accent-color: var(--primary); }
-.btn-primario {
-  background: var(--primary-fill); color: #fff; border: none; border-radius: var(--radius-pill);
-  padding: 12px 24px; font-family: var(--font-body); font-size: 0.95rem; font-weight: 700;
-  cursor: pointer; box-shadow: 0 6px 14px var(--primary-shadow);
-  transition: background var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+.campo-form .aiuto { font-size: var(--fs-xs); line-height: 1.5; color: var(--text-hint); }
+.gruppo-lingue-v2 { border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-5); margin: 0; }
+.gruppo-lingue-v2 legend { font-size: var(--fs-sm); font-weight: 700; color: var(--text-dark); padding: 0 var(--space-2); }
+.riga-lingua { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); margin-bottom: var(--space-3); }
+/* F2.0 — la casella "madrelingua" era alta 19.9px */
+.checkbox-lingua {
+  display: flex; align-items: center; gap: var(--space-2);
+  min-height: 44px; font-size: var(--fs-sm); color: var(--text-muted); cursor: pointer;
 }
-.btn-primario:hover { background: var(--primary-fill-hover); box-shadow: 0 8px 20px var(--primary-shadow); }
-.btn-primario:active { transform: translateY(1px) scale(.985); }
+.checkbox-lingua input { accent-color: var(--primary); }
+/* il corpo del bottone è quello condiviso con .btn-primary (§4.1). Qui solo
+   il comportamento nel form: `flex: 1` è per la barra della missione, in una
+   colonna verticale non deve allungarsi. */
+.form-profilo-v2 > .btn-primario { flex: none; }
+@media (min-width: 768px) {
+  .form-profilo-v2 {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-5) var(--space-6);
+    align-items: start;
+  }
+  .gruppo-lingue-v2,
+  .form-profilo-v2 > .btn-primario { grid-column: 1 / -1; }
+  /* `justify-self: start` e non stretch: su due colonne il submit occuperebbe
+     720px, cioè un bottone lungo quanto tutto il form. A mobile resta invece
+     a piena larghezza, che è giusto per l'unica azione della schermata. */
+  .form-profilo-v2 > .btn-primario { justify-self: start; }
+  .riga-lingua { grid-template-columns: 1fr 1fr auto; align-items: center; }
+}
+@media (min-width: 1024px) { .form-profilo-v2 { max-width: 720px; } }
 .profilo-salvato {
-  margin-top: 14px; background: var(--green-bg); border: 1px solid var(--green-border);
-  border-radius: var(--radius-sm); padding: 12px 16px; font-size: 0.88rem;
+  /* niente filetto a sinistra qui: il canvas non lo chiede e il fondo verde
+     dice già "salvato". Il filetto è il vocabolario degli STATI (§4.4/§4.7),
+     e allargarlo a ogni superficie verde lo svuota. */
+  margin-top: var(--space-4); background: var(--green-bg); border: 1px solid var(--green-border);
+  border-radius: 14px; padding: var(--space-4); font-size: var(--fs-sm);
   color: var(--green); max-width: 540px;
 }
 .profilo-salvato a { color: var(--primary); }
-.btn-primary-sm { flex: none; padding: 8px 18px; font-size: 13.5px; box-shadow: none; margin-top: 8px; display: inline-block; }
+/* variante compatta: resta inline-flex, o con min-height:48 il testo si
+   appoggerebbe in cima al bottone invece di stare al centro */
+.btn-primary-sm { flex: none; min-height: 44px; padding: 0 var(--space-5); font-size: var(--fs-sm); box-shadow: none; margin-top: var(--space-2); }
 
 /* Profilo strip — tab Mete */
 #profilo-strip {
@@ -1103,9 +1461,13 @@ body {
 .profilo-strip-link:hover { text-decoration: underline; }
 
 /* Link modifica profilo — percorso-wrap */
+/* F2.0 — link autonomo, non inline in un paragrafo: è un bersaglio e va a 44px
+   (inventario touch F0.5 / R34). `margin-left:auto` lo tiene a destra come
+   faceva `text-align: right` prima che diventasse un flex. */
 .percorso-modifica-profilo {
-  display: block; text-align: right; font-size: 11px;
-  color: var(--text-hint); text-decoration: none; margin-top: 6px; padding: 0 2px;
+  display: flex; align-items: center; min-height: 44px;
+  width: fit-content; margin-left: auto; margin-top: var(--space-1);
+  font-size: 11px; color: var(--text-hint); text-decoration: none; padding: 0 2px;
 }
 .percorso-modifica-profilo:hover { text-decoration: underline; }
 
@@ -1153,31 +1515,44 @@ body {
 /* ================================================================
    CELEBRAZIONE OVERLAY
 ================================================================ */
+/* REDESIGN v2 §4.9 — la seconda e ultima superficie a inchiostro. Il gradiente
+   passa da lineare a radiale con la sorgente in alto al centro: la luce cade
+   sulla mascotte e sul titolo invece di scivolare uniforme dall'alto in basso. */
 .celebrazione-overlay {
   position: fixed; inset: 0; z-index: 500;
-  background: linear-gradient(180deg, var(--night-bg) 0%, var(--night-bg-2) 100%);
+  background: radial-gradient(120% 90% at 50% 0%, #2A2652 0%, var(--night-bg) 55%, var(--night-bg-2) 100%);
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  padding: 32px; text-align: center; animation: fadeInScale .3s ease;
+  gap: var(--space-4);
+  padding: var(--space-8); text-align: center; animation: fadeInScale .3s ease;
 }
 @keyframes fadeInScale {
   from { opacity: 0; transform: scale(.96); }
   to   { opacity: 1; transform: scale(1);   }
 }
-.celebrazione-wiz { height: 230px; width: auto; transform: rotate(-6deg); filter: drop-shadow(0 16px 36px rgba(18,20,31,.55)); }
+/* `width: min(230px, 52vw)` invece di `height: 230px`: su un telefono stretto
+   la mascotte occupava più di metà schermo in altezza e schiacciava il titolo. */
+.celebrazione-wiz { width: min(230px, 52vw); height: auto; transform: rotate(-6deg); filter: drop-shadow(0 16px 36px rgba(18,20,31,.55)); }
 .celebrazione-titolo {
   font-family: var(--font-display); font-weight: 800;
-  font-size: clamp(28px, 7vw, 34px); letter-spacing: -.02em; color: #fff; margin: 26px 0 8px;
+  font-size: var(--fs-hero); line-height: 1.1;
+  letter-spacing: -.03em; color: #fff; margin: 0;
 }
-.celebrazione-sub { font-size: 15px; color: #C9C5E4; }
+.celebrazione-sub { font-size: var(--fs-body); line-height: 1.55; color: #C7C3E0; margin: 0; max-width: 34ch; }
+/* il bottone resta a piena larghezza fino a 320px: è l'unica azione della
+   schermata, e a contenuto libero diventerebbe un bersaglio piccolo al centro
+   di uno schermo vuoto */
 .celebrazione-btn {
-  margin-top: 28px; width: 100%; max-width: 320px;
-  background: var(--gold); color: var(--night-bg); border: none; border-radius: var(--radius-pill); padding: 16px;
-  font-family: var(--font-body); font-size: 16px; font-weight: 800;
-  box-shadow: 0 10px 26px rgba(255,182,39,.35); cursor: pointer;
+  margin-top: var(--space-4); width: 100%; max-width: 320px;
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px;
+  background: var(--gold); color: var(--night-bg); border: none;
+  border-radius: 14px; padding: 0 var(--space-5);
+  font-family: var(--font-body); font-size: var(--fs-body); font-weight: 800;
+  box-shadow: var(--shadow-gold); cursor: pointer;
   transition: background var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
 }
-.celebrazione-btn:hover { background: var(--gold-dark); box-shadow: 0 12px 30px rgba(255,182,39,.45); }
+.celebrazione-btn:hover { background: #fcd34d; box-shadow: 0 4px 10px rgba(180,83,9,.14), 0 14px 34px rgba(251,191,36,.32); }
 .celebrazione-btn:active { transform: translateY(1px) scale(.985); }
 
 /* ================================================================
@@ -1283,13 +1658,14 @@ body {
 .mappa-cluster-dove { display: block; font-size: .78rem; color: var(--text-hint); }
 
 /* Mappa compatta nella home profilata */
-.card-mappa-home {
-  margin-top: 20px; background: var(--bg-card); border-radius: var(--radius-lg);
-  padding: 14px 16px 16px; box-shadow: var(--shadow-card);
-}
-.card-mappa-home .mappa-compatta { width: fit-content; max-width: 100%; margin: 4px auto 0; }
+/* fondo, bordo, raggio, respiro e ombra vengono dal corpo condiviso §4.2 */
+.card-mappa-home .mappa-compatta { width: fit-content; max-width: 100%; margin: var(--space-1) auto 0; }
 .card-mappa-home .mappa-compatta svg { width: min(88vw, 400px); height: auto; }
-.mappa-vai-elenco { font-size: .8rem; font-weight: 700; color: var(--primary); text-decoration: none; }
+/* F2.0 — link autonomo nella testa della card mappa: bersaglio a 44px */
+.mappa-vai-elenco {
+  display: inline-flex; align-items: center; min-height: 44px;
+  font-size: var(--fs-sm); font-weight: 700; color: var(--primary); text-decoration: none;
+}
 .mappa-vai-elenco:hover { text-decoration: underline; }
 .mappa-legenda { display: flex; gap: 14px; font-size: .75rem; color: var(--text-hint); margin-top: 8px; flex-wrap: wrap; }
 .mappa-legenda .pin-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--primary-fill); margin-right: 5px; }
@@ -1417,9 +1793,18 @@ body {
 /* ================================================================
    CARD CLICCABILE + DETTAGLIO META
 ================================================================ */
-.card-cliccabile { cursor: pointer; position: relative; box-shadow: var(--shadow-card); transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out); }
+/* REDESIGN v2 §4.2 — il sollevamento sta SOLO su ciò che si clicca davvero:
+   `.card-cliccabile` la mette app.js sulle card che aprono il dettaglio. Una
+   sola grammatica di hover per tutte le card cliccabili del sito — prima
+   `.card-meta-v2` ne aveva una sua (−2px, bordo indaco) e le altre un'altra.
+   ⛔ Rimossa la regola `:focus-visible` locale: l'anello è uno solo ed è
+   quello di §4.1, in cima al foglio. */
+.card-cliccabile {
+  cursor: pointer; position: relative;
+  transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
+}
 .card-cliccabile:hover { border-color: var(--border-strong); box-shadow: var(--shadow-card-hover); transform: translateY(-3px); }
-.card-cliccabile:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
+.card-cliccabile:active { transform: translateY(1px) scale(.995); }
 
 .meta-overlay {
   position: fixed; inset: 0; z-index: 600;
@@ -1428,52 +1813,93 @@ body {
   animation: fadeIn .2s ease;
 }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+/* REDESIGN v2 §4.8 — sotto i 1024 è un foglio dal basso a piena larghezza (e
+   non un pannello da 640px centrato con due fessure ai lati, che è ciò che
+   succedeva a 768); da 1024 diventa un dialogo centrato. */
 .meta-modal {
   position: relative;
   background: var(--bg-card);
-  width: 100%; max-width: 640px;
-  max-height: 92vh; overflow-y: auto;
-  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-  padding: 26px 20px 32px;
+  width: 100%;
+  max-height: 88vh; overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 24px 24px 0 0;
+  padding: var(--space-5);
   box-shadow: 0 -10px 40px rgba(30,27,46,.25);
   animation: slideUp .25s ease;
 }
+/* maniglia: l'affordance del foglio dal basso, senza markup nuovo */
+.meta-modal::before {
+  content: ""; display: block;
+  width: 38px; height: 4px; border-radius: var(--radius-pill);
+  background: var(--border-strong);
+  margin: 0 auto var(--space-4);
+}
 @keyframes slideUp { from { transform: translateY(24px); } to { transform: translateY(0); } }
+/* F2.0 — la X passa da 36 a 44px */
 .meta-modal-chiudi {
-  position: absolute; top: 12px; right: 12px;
-  width: 36px; height: 36px; border-radius: 50%;
-  border: 1px solid var(--border); background: var(--bg-app);
-  color: var(--text-muted); font-size: 16px; line-height: 1; cursor: pointer;
+  position: absolute; top: var(--space-4); right: var(--space-4);
+  display: flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 0; background: var(--bg-card-hover);
+  color: var(--text-muted); font-size: 17px; line-height: 1; cursor: pointer;
   transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
 }
 .meta-modal-chiudi:hover { background: var(--bg-card-hover); color: var(--text-dark); }
 .meta-modal-chiudi:active { transform: translateY(1px) scale(.985); }
 
-.dett-titolo { font-family: var(--font-display); font-weight: 800; font-size: 1.25rem; line-height: 1.2; color: var(--text-dark); padding-right: 36px; }
-.dett-luogo { margin: 2px 0 14px; font-size: .92rem; color: var(--text-muted); }
+.dett-titolo {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: var(--fs-h2); line-height: 1.2; letter-spacing: -.02em;
+  color: var(--text-dark); margin: 0 0 var(--space-1);
+  padding-right: 52px;                       /* non passa sotto la X da 44px */
+}
+.dett-luogo { margin: 0 0 var(--space-4); font-size: var(--fs-sm); color: var(--text-hint); }
 
-.dett-compat { display: flex; flex-direction: column; gap: 2px; margin-bottom: 16px; padding: 10px 12px; background: var(--bg-app); border: 1px solid var(--border); border-radius: var(--radius-md); }
-.dett-compat-stato { font-weight: 800; color: var(--text-dark); }
-.dett-compat-detail { font-size: .85rem; color: var(--text-muted); }
+.dett-compat { display: block; margin-bottom: var(--space-4); padding: var(--space-3) var(--space-4); background: var(--bg-app); border: 1px solid var(--border); border-radius: var(--radius-md); }
+.dett-compat-stato { display: block; font-size: var(--fs-body); font-weight: 700; color: var(--text-dark); }
+.dett-compat-detail { display: block; font-size: var(--fs-xs); line-height: 1.5; color: var(--text-hint); margin-top: var(--space-1); }
 
-.dett-riga { padding: 11px 0; border-top: 1px solid var(--border); }
-.dett-label { display: block; margin-bottom: 4px; font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--text-hint); }
-.dett-valore { font-size: .92rem; line-height: 1.5; color: var(--text-dark); }
-.dett-valore ul { margin: 0; padding-left: 18px; }
+.dett-riga { padding: var(--space-3) 0; border-top: 1px solid var(--border); }
+.dett-label { display: block; margin-bottom: var(--space-1); font-size: var(--fs-xs); font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--text-hint); }
+.dett-valore { font-size: var(--fs-sm); line-height: 1.6; color: var(--text-dark); }
+.dett-valore ul { margin: 0; padding-left: var(--space-5); }
 .dett-valore li { margin: 2px 0; }
-.dett-vuoto { list-style: none; margin-left: -18px; font-style: italic; color: var(--text-muted); }
+/* è un <li>: il rientro negativo lo riallinea alla colonna del valore, e
+   list-style:none toglie il pallino a un "dato assente" che non è una voce */
+.dett-vuoto { list-style: none; margin-left: calc(-1 * var(--space-5)); font-style: italic; color: var(--text-hint); }
+/* da tablet in su etichetta e valore stanno sulla stessa riga: la colonna di
+   sinistra rende la scheda leggibile a colpo d'occhio invece che a scorrimento */
+@media (min-width: 768px) {
+  .dett-riga { display: grid; grid-template-columns: 190px 1fr; gap: var(--space-4); align-items: baseline; }
+  .dett-label { margin-bottom: 0; }
+}
 
-.dett-link-wrap { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
-.dett-link { flex: 1 1 auto; padding: 12px 14px; text-align: center; text-decoration: none; font-weight: 700; font-size: .9rem; border: 1px solid var(--border-strong); border-radius: var(--radius-md); color: var(--text-dark); }
+.dett-link-wrap { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-5); }
+.dett-link {
+  flex: 1 1 auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; padding: 0 var(--space-5);
+  text-align: center; text-decoration: none;
+  font-size: var(--fs-sm); font-weight: 700;
+  border: 1.5px solid var(--border-strong); border-radius: 14px;
+  background: var(--bg-card-hover); color: var(--primary-active);
+  transition: border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+}
+.dett-link:hover { border-color: var(--primary); background: #EEF2FF; }
 .dett-link.primario { background: var(--primary-fill); border-color: var(--primary-fill); color: #fff; }
-.dett-link:hover { opacity: .92; }
-.dett-nota { margin-top: 16px; font-size: .78rem; line-height: 1.5; color: var(--text-hint); }
+.dett-link.primario:hover { background: var(--primary-fill-hover); border-color: var(--primary-fill-hover); }
+.dett-nota { margin-top: var(--space-4); font-size: var(--fs-xs); line-height: 1.55; color: var(--text-hint); }
 
 body.no-scroll { overflow: hidden; }
 
 @media (min-width: 1024px) {
-  .meta-overlay { align-items: center; }
-  .meta-modal { border-radius: var(--radius-xl); max-height: 88vh; }
+  .meta-overlay { align-items: center; padding: var(--space-6); }
+  .meta-modal {
+    max-width: 640px; border-radius: 28px;
+    padding: var(--space-8); max-height: 84vh;
+    box-shadow: 0 24px 60px rgba(30,27,46,.28);
+  }
+  .meta-modal::before { display: none; }   /* niente maniglia in un dialogo centrato */
 }
 
 /* ================================================================
@@ -1545,7 +1971,7 @@ body.no-scroll { overflow: hidden; }
   /* pill e barra preparazione non sono più figli diretti della griglia:
      vivono dentro Prossima mossa e Il tuo progresso (R2, §5.3) */
   .missione-wiz-desktop { display: block; }
-  .sezione-titolo { font-size: 1.6rem; }
+  /* niente override di font-size qui: la banda la dà --fs-h1 (30px a ≥1024) */
   .sezione-header { margin-top: 28px; }
 
   /* Percorso a stazioni (R3): UNA colonna anche sul desktop — è un
@@ -1588,32 +2014,36 @@ body.no-scroll { overflow: hidden; }
 /* Stellina preferiti: in alto a destra della card (feedback UX6 — prima era
    un bottone a piena larghezza in fondo, poco visibile). Icona sola, area di
    tocco 44px anche se il segno visivo è più piccolo (accessibilità mobile). */
+/* REDESIGN v2 §4.5 + F2.0 — è il bersaglio più ripetuto del sito: 80 istanze
+   misurate a 40×40 in F0.5, cioè da solo l'80% dell'inventario touch. Passa a
+   44×44, e perde il bordo: una stella disegnata si legge già come stella, il
+   cerchio intorno a ottanta card era rumore. Il canvas ne propone 36: qui vale
+   il criterio d'uscita di F4 (lista vuota), quindi 44 a ogni larghezza. */
 .btn-preferita {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: var(--space-2);
+  right: var(--space-2);
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   padding: 0;
   margin: 0;
-  background: none;
-  border: 1px solid var(--border);
+  background: transparent;
+  border: 0;
   border-radius: 50%;
-  color: var(--text-muted);
+  color: var(--text-hint);
   cursor: pointer;
-  font-size: 19px;
+  font-size: 17px;
   line-height: 1;
   font-family: var(--font-body);
-  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
 }
-.btn-preferita:hover { background: var(--bg-card-hover); border-color: var(--border-strong); }
-.btn-preferita:active { transform: translateY(1px) scale(.985); }
+.btn-preferita:hover { background: var(--bg-card-hover); color: var(--text-muted); transform: scale(1.08); }
+.btn-preferita:active { transform: translateY(1px) scale(.98); }
 .btn-preferita.preferita {
   background: var(--gold-bg);
-  border-color: var(--gold-border);
   color: var(--gold-dark);
 }
 
@@ -1633,9 +2063,11 @@ body.no-scroll { overflow: hidden; }
   color: var(--text-dark); margin-bottom: 10px;
 }
 .wizard-mete-scelte { display: flex; flex-wrap: wrap; gap: 0; align-items: center; }
+/* F2.0 — era alto 41px (inventario touch F0.5) */
 .wizard-mete-salta {
-  background: none; border: none; padding: 12px 6px; margin: 0 0 10px;
-  font-family: var(--font-body); font-size: .85rem; font-weight: 600;
+  display: inline-flex; align-items: center; min-height: 44px;
+  background: none; border: none; padding: 0 var(--space-2); margin: 0 0 var(--space-2);
+  font-family: var(--font-body); font-size: var(--fs-sm); font-weight: 600;
   color: var(--text-muted); cursor: pointer; text-decoration: underline;
 }
 .wizard-mete-salta:hover { color: var(--text-dark); }
@@ -1657,10 +2089,12 @@ body.no-scroll { overflow: hidden; }
 .btn-mostra-altre:hover { border-color: var(--primary); color: var(--primary); }
 .btn-mostra-altre:active { transform: translateY(1px) scale(.99); }
 
+/* F2.0 — era alto 30px, il più piccolo dei bersagli-bottone (F0.5) */
 .preferite-rilancia {
-  margin-left: auto; padding: 6px 10px;
+  display: inline-flex; align-items: center; min-height: 44px;
+  margin-left: auto; padding: 0 var(--space-3);
   background: none; border: 1px solid var(--gold-border); border-radius: var(--radius-pill);
-  font-family: var(--font-body); font-size: .75rem; font-weight: 700; color: var(--gold-dark);
+  font-family: var(--font-body); font-size: var(--fs-xs); font-weight: 700; color: var(--gold-dark);
   cursor: pointer; transition: background var(--dur-fast) var(--ease-out);
 }
 .preferite-rilancia:hover { background: var(--gold-bg); }
@@ -1872,7 +2306,9 @@ body.no-scroll { overflow: hidden; }
 .guida-wrap a.btn-primary { color: #fff; }
 .guida-disclaimer { background: var(--gold-bg); border: 1px solid var(--gold-border); border-radius: var(--radius-md); padding: 14px 16px; font-size: 0.85rem; color: var(--text-dark); margin: 24px 0; }
 .guida-cta { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); padding: 20px; margin: 28px 0; text-align: center; }
-.guida-cta a.btn-primary { display: inline-block; text-decoration: none; margin-top: 8px; }
+/* inline-FLEX e non inline-block: da §4.1 il bottone ha min-height 48 e centra
+   il testo con align-items — con inline-block il testo resterebbe in cima. */
+.guida-cta a.btn-primary { display: inline-flex; text-decoration: none; margin-top: var(--space-2); }
 .guida-faq dt { font-family: var(--font-display); font-weight: 700; margin-top: 16px; }
 .guida-faq dd { margin: 6px 0 0; color: var(--text-muted); }
 .guida-footer { max-width: 720px; margin: 0 auto; padding: 0 20px 48px; font-size: 0.8rem; color: var(--text-muted); }
@@ -1889,3 +2325,18 @@ body.no-scroll { overflow: hidden; }
    Creato in F1 perché F2 (§4.4, varianti .banner-stato) deve poterci
    scrivere sotto: un marcatore introdotto a F4 arriverebbe troppo tardi.
 ================================================================ */
+
+/* REDESIGN v2 §4.4 — le due varianti di .banner-stato che oggi NON hanno un
+   dato che le accenda. Nessuna logica di idoneità le emette (è fuori scope,
+   dichiarato nel piano): stanno qui perché il vocabolario di stato sia
+   completo — ok / verifica / riserve / bloccato — e perché il giorno in cui
+   la logica arriverà non si debba reinventare il colore del "bloccato".
+   Le due cablate (stato-ok, stato-verifica) stanno sopra il marcatore. */
+.banner-stato.stato-riserve {
+  background: var(--amber-bg); border-color: var(--amber-border);
+  border-left-color: var(--gold); color: var(--amber);
+}
+.banner-stato.stato-bloccato {
+  background: var(--red-bg); border-color: var(--red-border);
+  border-left-color: var(--red); color: var(--red);
+}
