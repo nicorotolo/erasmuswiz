@@ -68,10 +68,21 @@ var METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese o Tedesco", livello: "B2", condizione: "richiesto per corsi in inglese e/o tedesco se la lingua non è madrelingua" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (semestre invernale)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (semestre estivo)", periodo: "entro 15 ottobre" },
+        { cosa: "Application (semestre autunnale)", periodo: "entro 1 maggio" },
+        { cosa: "Application (semestre primaverile)", periodo: "entro 1 novembre" }
+      ],
     linkSito: "https://www.fh-salzburg.ac.at/",
+    linkCatalogo: "https://www.fh-salzburg.ac.at/en/international/incoming-students/course-catalogue",
+
+    notaDisponibilita: "Gli studenti di Multimedia Art & Design e Product Management devono presentare un portfolio.",
+
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69132."
   },
   {
