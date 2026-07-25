@@ -1032,10 +1032,22 @@ var METE = [
       { numero: 1, mesi: 10, livello: "L", note: "" },
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "per Medicina e Medicina Dentale" },
+        { lingua: "Rumeno", livello: "B1", condizione: "per le altre Facoltà (con supporto/tutoring in inglese)" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (Autunno)", periodo: "entro il 15 giugno" },
+        { cosa: "Application (Autunno)", periodo: "entro il 30 giugno" },
+        { cosa: "Nomination (Primavera)", periodo: "entro il 15 novembre" },
+        { cosa: "Application (Primavera)", periodo: "entro il 30 novembre" }
+      ],
     linkSito: "https://www.utm.ro/",
+    linkCatalogo: "https://www.utm.ro/en/course-catalogue/",
+
+    notaDisponibilita: "I tirocini (traineeships) sono attualmente offerti esclusivamente all'interno della Facoltà di Medicina.",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA69431."
   },
   {

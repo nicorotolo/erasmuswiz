@@ -4,30 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 328,
+  "runCompletati": 329,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "medicina-odontoiatria-batch-3",
-      "priorita": 5,
-      "dipartimento": "Medicina e Odontoiatria - Area medica (Sapienza)",
-      "descrizione": "Medicina e Odontoiatria - Area medica (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "RO BUCURES16",
-        "SI MEDVOD01",
-        "SI CELJE08",
-        "E  BARCELO24",
-        "E  LAS-PAL43",
-        "E  MADRID28",
-        "E  ALMERIA01",
-        "E  BILBAO26"
-      ]
-    },
     {
       "id": "medicina-odontoiatria-batch-4",
       "priorita": 5,
@@ -713,6 +696,22 @@
         "P  LEIRIA01",
         "UK NOTTING01",
         "MK SKOPJE01"
+      ]
+    },
+    {
+      "id": "medicina e odontoiatria - area medica (sapienza)-batch-followup-3",
+      "priorita": 6,
+      "dipartimento": "Medicina e Odontoiatria - Area medica (Sapienza)",
+      "descrizione": "Medicina e Odontoiatria - Area medica (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "SI MEDVOD01",
+        "SI CELJE08",
+        "E  BARCELO24",
+        "E  LAS-PAL43",
+        "E  MADRID28",
+        "E  ALMERIA01",
+        "E  BILBAO26"
       ]
     }
   ],
@@ -1443,7 +1442,7 @@
       "fileJs": "js/atenei/sapienza/dati-mete-medicina-odontoiatria.js",
       "stato": "in_corso",
       "totale": 91,
-      "completate": 48,
+      "completate": 49,
       "pendingScadenze": [
         "B  BRUXEL87",
         "BG PLOVDIV02",
@@ -1460,7 +1459,6 @@
         "P  LEIRIA01",
         "UK NOTTING01",
         "MK SKOPJE01",
-        "RO BUCURES16",
         "SI MEDVOD01",
         "SI CELJE08",
         "E  BARCELO24",
@@ -1487,7 +1485,6 @@
         "P  LEIRIA01",
         "UK NOTTING01",
         "MK SKOPJE01",
-        "RO BUCURES16",
         "SI MEDVOD01",
         "SI CELJE08",
         "E  BARCELO24",
@@ -1517,7 +1514,14 @@
         "P  MONTE-D02": 1,
         "P  LEIRIA01": 1,
         "UK NOTTING01": 1,
-        "MK SKOPJE01": 1
+        "MK SKOPJE01": 1,
+        "SI MEDVOD01": 1,
+        "SI CELJE08": 1,
+        "E  BARCELO24": 1,
+        "E  LAS-PAL43": 1,
+        "E  MADRID28": 1,
+        "E  ALMERIA01": 1,
+        "E  BILBAO26": 1
       },
       "linguaNonTrovabile": [
         "BG SOFIA11",
@@ -3958,6 +3962,12 @@
       "data": "2026-07-25",
       "mete": 8,
       "note": "Medicina e Odontoiatria - Area medica (Sapienza) medicina-odontoiatria-batch-2: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 329,
+      "data": "2026-07-25",
+      "mete": 8,
+      "note": "Medicina e Odontoiatria - Area medica (Sapienza) medicina-odontoiatria-batch-3: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
