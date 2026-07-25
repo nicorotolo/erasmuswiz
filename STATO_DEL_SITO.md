@@ -19,12 +19,46 @@
 
 ---
 
-### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24 e piano 2026-07-25)
+### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-07-25 — Claude Code (Opus 5).
+**Ultimo aggiornamento:** 2026-07-25 — Claude Code (Sonnet 5 / Opus 5).
+
+**(SESSIONE 2026-07-25 — F0 (Preparazione) del redesign v2, primo passo del piano
+in 4 fasi. Nessun file di produzione toccato — solo `design/` e commit.)**
+Eseguiti i 6 passi di F0: `git pull --rebase` (già allineato); versionata la spec
+in **`design/redesign-2026-07/`** (canvas `Redesign ErasmusWiz.dc.html` 166 KB +
+`support.js` + `redesign-erasmuswiz.html` + `img/` + `uploads/`, **esclusi**
+`_ds/` e `.thumbnail` come da piano — sorgente: il pacchetto zip consegnato,
+verificato in `Downloads`); canvas aperto dalla nuova cartella e confermato che
+renderizza senza errori console; `uploads/style.css` riconfermato **byte-identico**
+a `css/style.css` (SHA-256). Le invarianti R29 (screenshot di riferimento) e
+l'inventario touch R12 **non sono stati fatti con PNG**: il pannello browser di
+sessione non può salvare file su disco, e il Chrome reale della macchina non si
+lascia ridimensionare (estensione, scorciatoie, DevTools, Win32 API: tutti
+falliti o bloccati — provato a fondo prima di cambiare strada). **Deviazione dal
+piano, motivata:** le sei invarianti sono tutte leggibili dal DOM, quindi sono
+state **misurate** invece che fotografate — più rigoroso e diffabile in git.
+Prodotto **`design/redesign-2026-07/baseline/probe-invarianti.js`** (script
+riusabile: `await __run()` misura i 4 tab al viewport corrente, `__confronta(a,b)`
+fa il diff) e **`baseline/README.md`** (la "lista prima"). Stato di prova per la
+misura: Ca' Foscari · Economia · Triennale · Inglese B2, onboarding completato.
+**Esito:** invarianti tutte verdi a 390/768/1280 su tutti e 4 i tab (zero
+overflow, zero testo tagliato, zero card sovrapposte, ordine blocchi stabile).
+Touch <44px: **145/173/176** per viewport, per l'80% concentrati su
+`button.btn-preferita` (80 istanze a 40×40 nel tab Mete). Confermate per strada
+due verifiche del piano: `.nav-bottom` è `fixed` a tutti i breakpoint, e
+`.main-content` a 1280px ha `max-width:1140px` (convalida R31). Commit
+`ac7c1c9`, pushato. **Prossimo passo umano:** F1 (rischio MEDIO/ALTO — token,
+gutter su ~24 selettori, griglia), consigliato Opus 5 alto.
+
+---
+
+**Ultimo aggiornamento precedente:** 2026-07-25 — Claude Code (Opus 5).
 
 **(SESSIONE 2026-07-25 — PIANO DI IMPLEMENTAZIONE del redesign v2, nessun codice
-del sito toccato.)** È arrivato l'output di Claude Design in risposta al brief del
+del sito toccato. ⚠︎ Il "prossimo passo umano" qui sotto è SUPERATO: il piano è
+stato firmato e F0 è chiusa — vedi la sessione F0 qui sopra.)** È arrivato
+l'output di Claude Design in risposta al brief del
 24/07: il canvas **`Redesign ErasmusWiz.dc.html`** (166 KB), consegnato via zip e
 verificato **identico** al progetto remoto `claude.ai/design/p/9965e1be-fac2-4891-82e2-c24fba385c0c`
 (confronto file-per-file col MCP design; `redesign-erasmuswiz.html` e il bundle
@@ -3052,6 +3086,7 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **PERCORSO — R6 (parte eseguibile): asset, sw, misura A/B, QA core** | R6.5 asset in direzione giorno (logo-mark ai token Direzione C, icone PWA 192/512 rigenerate dal logo su `--bg-deep`, via il placeholder "EW"; OG/manifest già a posto); R6.6 sw `v3` con shell offline esplicita (bootstrap pre-ateneo completo), fallback navigazione su index, cache runtime solo same-origin, niente push; R6.1/R6.2 Livello A/B **misurati** (gap al cantiere dati: 0% fonte/verificataIl per-meta, 469 mete Sapienza senza link, ~406 lingue mute, Livello B starter 0% su linkCatalogo/notaDisponibilita); R6.7 regressione core verde (pulito+legacy, cambio ateneo, hash, 3 larghezze, console pulita) | ✅ Implementata, QA interno superato (2026-07-17, sessione 61) — da pubblicare; R6.3/R6.4 bloccate su azioni umane; R5 resta il gate dei tester |
 | **Pubblicazione — guasto Pages** | Source su "GitHub Actions" senza workflow di deploy: sito fermo al commit del 3/7, **171 commit (125 sul sito) invisibili per 12 giorni** (C2, C3, C4, R1.1-R1.4). Risolto con `.github/workflows/deploy-pages.yml` (Static HTML, niente Jekyll, guardia `node --check`); online verificato per hash contro `origin/main` | ✅ Chiuso (2026-07-15, sessione 56) — resta da rendere vera la riga "Online e locale coincidono" di `PUBBLICA.bat` |
 | **Pipeline dati T0→T3 — Gemini + Codex** | Copertura complessiva: **1.987 mete, 73% lingua, 79% scadenze**. Al 17/07: 315 run completati, 45 batch in coda; ultimo lotto reale pubblicato il 16/07 alle 13:08 | ⚠️ La schedulazione ogni 3 ore sull'altro PC non sta producendo commit/PR/branch su GitHub; controllare cronologia e ultimo risultato dell'attività pianificata sul PC remoto |
+| **REDESIGN v2 — F0: Preparazione** | Spec versionata in `design/redesign-2026-07/` (canvas + baseline invarianti/touch, vedi §4). Nessun file di produzione toccato. Commit `ac7c1c9`, pushato | ✅ Fatta (2026-07-25) |
 
 **Nav (R3, definitiva — gate R1 chiuso):** Mete → **Home** (centrale su
 mobile) → Percorso, + **"☰ Altro" (apre il drawer, R1.2)** che non è una
@@ -3103,7 +3138,8 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 | `PLAN_REDESIGN_V2.md` | doc | **Sessione 2026-07-25**: piano di implementazione del redesign v2 in 4 fasi (F0 preparazione · F1 token+gutter+griglia · F2 componenti §04 · F3 timeline+stato vuoto · F4 checklist) con 2 gate umani. Rev. 5, sopravvissuto a 5 round di Codex. **Da leggere prima di toccare `css/style.css`** |
 | `PLAN_REDESIGN_V2-LOG.md` | doc | **Sessione 2026-07-25**: 357 righe, l'intera revisione avversariale round per round, con le motivazioni di ciò che è stato respinto. È l'artefatto che spiega *perché* il piano è così |
 | `BRIEF_redesign_per_ClaudeDesign.md` (+ `-LOG.md`) | doc | Sessione 2026-07-24: il brief consegnato a Claude Design che ha prodotto il canvas. Superato dal canvas, tenuto come storia |
-| `design/redesign-2026-07/` | doc/asset | **Da creare in F0**: il canvas `Redesign ErasmusWiz.dc.html` + `support.js` + asset. È la fonte-di-verità del redesign |
+| `design/redesign-2026-07/` | doc/asset | **Creata in F0 (25/07)**: il canvas `Redesign ErasmusWiz.dc.html` + `support.js` + `redesign-erasmuswiz.html` + `img/` + `uploads/` (escl. `_ds/`). È la fonte-di-verità del redesign — verificata: renderizza, `uploads/style.css` è byte-identico a `css/style.css` |
+| `design/redesign-2026-07/baseline/` | doc | **F0 (25/07)**: `probe-invarianti.js` (misura le 6 invarianti R29 + inventario touch R12 dal DOM, riusabile a F3/F4 con `__confronta`) e `README.md` (la "lista prima": invarianti verdi, touch <44px = 145/173/176 per viewport) |
 | `index.html` | codice | Struttura v2 (tab OGGI/METE/CANDIDATURA + Idoneità/Profilo nascosti; Timeline rimossa in OP2). **Dalla sessione 56 NON elenca più i file dati**: due soli tag (`registro.js` + `carica-atenei.js`) |
 | `css/style.css` | codice | Design system v2: dark mode, font Bricolage/Jakarta/SpaceMono, responsive |
 | `js/app.js` | codice | Logica v2: missione del giorno, percorso, countdown, mete, checklist, profilo |
@@ -3267,28 +3303,28 @@ percentuale. Le mete con lingua nota (Aix) mantengono il punteggio 0-100 pieno.
 Non aprire `index.html` col doppio click (pagina bianca: sicurezza del browser).
 Avviare un server locale:
 ```
-cd "C:\Users\ASUS\OneDrive - Presidenza del Consiglio dei ministri\Desktop\Me\6. Business AI\3. ErasmusWiz"
-python -m http.server 8000
+cd "C:\erasmuswiz"
+python -m http.server 8001
 ```
-poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
+poi aprire **http://localhost:8001**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
 
 ### Cantiere SITO (Claude Code) — numerazione 49→61
 
-**Aggiornamento 2026-07-25 — il prossimo blocco di lavoro è il REDESIGN v2:**
+**Aggiornamento 2026-07-25 (F0 chiusa) — il prossimo blocco di lavoro è F1:**
 
-0. **Firmare `PLAN_REDESIGN_V2.md` e partire da F0.** Il piano è pronto e
-   verificato; l'unica decisione che resta prima di iniziare è se spendere un
-   round extra di Codex per ri-verificare i 3 correttivi dell'ultimo round
-   (applicati ma non ri-passati in revisione). Due decisioni sono differite al
-   GATE 1: (a) `modo-benvenuto` — l'onboarding resta una schermata sola o entra
-   nella griglia (R3); (b) `#banner-wiz` — override `!important` oppure
-   autorizzare la rimozione della sola dichiarazione `margin` da `index.html:236`
-   (R38/R41). Modelli: **Opus 5 alto** per F1/F3 e per la tabella di F2,
-   **Sonnet 5 medio** per F0/F4, **Codex `gpt-5.6-sol` high** per applicare F2.
-   ⚠︎ Attenzione: F1 include la migrazione del gutter, che tocca ~24 selettori —
-   è il pezzo più pesante e più rischioso di tutto il redesign.
+0. **F0 è FATTA** (commit `ac7c1c9`, pushato): spec versionata in
+   `design/redesign-2026-07/`, baseline invarianti/touch in `baseline/`
+   (dettagli in §2 e §4). **Prossimo passo: F1** — token, gutter (~24
+   selettori, il pezzo più pesante e rischioso del redesign), griglia
+   di `#tab-oggi` a ≥1024. Consigliato **Opus 5 alto** (rischio MEDIO/ALTO).
+   Restano differite al GATE 1: (a) `modo-benvenuto` — l'onboarding resta una
+   schermata sola o entra nella griglia (R3); (b) `#banner-wiz` — override
+   `!important` oppure autorizzare la rimozione della sola dichiarazione
+   `margin` da `index.html:236` (R38/R41). Modelli per le fasi successive:
+   Opus 5 alto per F3 e per la tabella di F2, Sonnet 5 medio per F4, Codex
+   `gpt-5.6-sol` high per applicare F2.
 
 **Aggiornamento 2026-07-17 — sessione 61 (R6 parte eseguibile):**
 
