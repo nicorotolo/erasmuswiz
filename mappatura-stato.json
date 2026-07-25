@@ -4,30 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 336,
+  "runCompletati": 337,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "scienze-mfn-batch-1",
-      "priorita": 5,
-      "dipartimento": "Scienze Matematiche Fisiche e Naturali (Sapienza)",
-      "descrizione": "Scienze Matematiche Fisiche e Naturali (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "A  LINZ01",
-        "A  GRAZ02",
-        "BG PLOVDIV04",
-        "HR ZADAR01",
-        "SF JYVASKY01",
-        "F  LYON103",
-        "F  PARIS481",
-        "F  NANTES01"
-      ]
-    },
     {
       "id": "scienze-mfn-batch-2",
       "priorita": 5,
@@ -698,6 +681,21 @@
         "TR ISTANBU49",
         "TR ISTANBU04",
         "HU GODOLLO01"
+      ]
+    },
+    {
+      "id": "scienze matematiche fisiche e naturali (sapienza)-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Scienze Matematiche Fisiche e Naturali (Sapienza)",
+      "descrizione": "Scienze Matematiche Fisiche e Naturali (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "A  GRAZ02",
+        "BG PLOVDIV04",
+        "HR ZADAR01",
+        "F  LYON103",
+        "F  NANTES01",
+        "A  LINZ01"
       ]
     }
   ],
@@ -1624,13 +1622,12 @@
       "fileJs": "js/atenei/sapienza/dati-mete-scienze-mfn.js",
       "stato": "in_corso",
       "totale": 254,
-      "completate": 170,
+      "completate": 171,
       "pendingScadenze": [
         "A  LINZ01",
         "A  GRAZ02",
         "BG PLOVDIV04",
         "HR ZADAR01",
-        "SF JYVASKY01",
         "F  LYON103",
         "F  NANTES01",
         "F  CAEN01",
@@ -1679,11 +1676,9 @@
         "TR MERSIN01"
       ],
       "pendingLingua": [
-        "A  LINZ01",
         "A  GRAZ02",
         "BG PLOVDIV04",
         "HR ZADAR01",
-        "SF JYVASKY01",
         "F  LYON103",
         "F  NANTES01",
         "F  CAEN01",
@@ -1736,7 +1731,12 @@
         "F  CERGY-P11": 2,
         "F  RENNES09": 2,
         "G  PATRA01": 2,
-        "E  CORDOBA01": 2
+        "E  CORDOBA01": 2,
+        "A  GRAZ02": 1,
+        "BG PLOVDIV04": 1,
+        "HR ZADAR01": 1,
+        "F  LYON103": 1,
+        "F  NANTES01": 1
       },
       "linguaNonTrovabile": [
         "F  CERGY-P11",
@@ -3979,6 +3979,12 @@
       "data": "2026-07-25",
       "mete": 8,
       "note": "Ingegneria Civile e Industriale (Sapienza) ingegneria-civile-batch-6: merge automatico via applica-batch.mjs (+5 blocchi propagati ad altri dipartimenti)."
+    },
+    {
+      "batch": 337,
+      "data": "2026-07-25",
+      "mete": 8,
+      "note": "Scienze Matematiche Fisiche e Naturali (Sapienza) scienze-mfn-batch-1: merge automatico via applica-batch.mjs (+3 blocchi propagati ad altri dipartimenti)."
     }
   ],
   "storicoBatch": [

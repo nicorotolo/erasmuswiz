@@ -1,0 +1,33 @@
+{
+  "A  LINZ01": {
+    "requisitoLingua": {
+      "url": "https://www.jku.at/en/degree-programs/international-students/exchange-students/",
+      "citazione": "Exchange students should have at least a B2 level of language proficiency in the language of instruction (English or German, depending on the degree program and selected courses).",
+      "verificataIl": "2026-07-26"
+    },
+    "notaDisponibilita": {
+      "url": "https://www.jku.at/en/degree-programs/international-students/exchange-students/",
+      "citazione": "Medicine (German only)",
+      "verificataIl": "2026-07-26"
+    }
+  },
+  "SF JYVASKY01": {
+    "requisitoLingua": {
+      "url": "https://www.jyu.fi/en/study-with-us/student-exchange-at-jyu",
+      "citazione": "the minimum requirement for students wishing to study at the University of Jyväskylä as exchange students is level B1. Applicants should preferably be B2 (or higher)",
+      "verificataIl": "2026-07-26"
+    },
+    "scadenzeOspitante": {
+      "url": "https://www.jyu.fi/en/study-with-us/student-exchange-at-jyu",
+      "citazione": "Nomination periods: Autumn semester/academic year: 15 March - 1 May; Spring semester: 1 September - 15 October. Application periods: Autumn semester/academic year: 15 March - 15 May; Spring semester: 15 September - 1 November.",
+      "verificataIl": "2026-07-26"
+    }
+  },
+  "F  NANTES01": {
+    "notaDisponibilita": {
+      "url": "https://www.univ-nantes.fr/international/venir-a-nantes/incoming-exchange-students-class-catalog",
+      "citazione": "At least 70 % of your course load must be in a field of study that figures in the exchange agreement.",
+      "verificataIl": "2026-07-26"
+    }
+  }
+}

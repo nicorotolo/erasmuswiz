@@ -183,10 +183,14 @@ var METE = [
     posti: [
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese o tedesco", livello: "B2", condizione: "nella lingua di insegnamento, in base al corso scelto" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.jku.at/",
+    notaDisponibilita: "Medicina esclusivamente in tedesco.",
+
     notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70671."
   },
   {
@@ -673,9 +677,16 @@ var METE = [
       { numero: 1, mesi: 5, livello: "L", note: "" },
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "livello minimo; preferibilmente B2 o superiore" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (Semestre autunnale / anno intero)", periodo: "15 marzo - 1 maggio" },
+        { cosa: "Application (Semestre autunnale / anno intero)", periodo: "15 marzo - 15 maggio" },
+        { cosa: "Nomination (Semestre primaverile)", periodo: "1 settembre - 15 ottobre" },
+        { cosa: "Application (Semestre primaverile)", periodo: "15 settembre - 1 novembre" }
+      ],
     linkSito: "http://www.jyu.fi",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70884."
   },
@@ -850,6 +861,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.univ-nantes.fr/foreignstudents",
+    notaDisponibilita: "Almeno il 70% dei corsi selezionati deve appartenere all'area di studio coperta dall'accordo bilaterale.",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70812."
   },
   {
