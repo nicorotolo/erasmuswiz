@@ -443,6 +443,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.hswt.de/",
+    linkCatalogo: "https://www.hswt.de/en/study/study-offer",
+
     notePratiche: "Posti dell'accordo: 2. Accordo ERA71677."
   },
   {

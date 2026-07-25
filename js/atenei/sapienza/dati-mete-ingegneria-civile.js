@@ -834,8 +834,15 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro 30 aprile" },
+        { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
+      ],
     linkSito: "http://www.hs-weingarten.de",
+    linkCatalogo: "https://www.lsf.hs-weingarten.de",
+
+    notaDisponibilita: "Gli studenti di scambio possono frequentare corsi ordinari, svolgere progetti di ricerca o combinare le due cose.",
+
     notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69163."
   },
   {
@@ -1043,6 +1050,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.hswt.de/",
+    linkCatalogo: "https://www.hswt.de/en/study/study-offer",
+
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69159."
   },
   {
@@ -1153,7 +1162,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno e intero anno)", periodo: "entro 15 giugno (previa nomination via email)" },
+        { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
+      ],
     linkSito: "http://en.tuc.gr/erasmus-en.html",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA69263."
   },

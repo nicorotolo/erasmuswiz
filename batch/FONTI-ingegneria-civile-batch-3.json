@@ -1,0 +1,33 @@
+{
+  "D  RAVENSB01": {
+    "scadenzeOspitante": {
+      "url": "https://www.rwu.de/en/international/exchange-students/application",
+      "citazione": "April 30 for the winter semester; October 31 for the summer semester.",
+      "verificataIl": "2026-07-25"
+    },
+    "linkCatalogo": {
+      "url": "https://www.rwu.de/en/international/exchange-students/application",
+      "citazione": "Overall course catalogue www.lsf.hs-weingarten.de",
+      "verificataIl": "2026-07-25"
+    },
+    "notaDisponibilita": {
+      "url": "https://www.rwu.de/en/international/exchange-students/application",
+      "citazione": "As an exchange student, you can attend lectures, do projects or both",
+      "verificataIl": "2026-07-25"
+    }
+  },
+  "D  FREISIN01": {
+    "linkCatalogo": {
+      "url": "https://www.hswt.de/en/study/study-offer",
+      "citazione": "The range of studies offered by the HSWT",
+      "verificataIl": "2026-07-25"
+    }
+  },
+  "G  KRITIS09": {
+    "scadenzeOspitante": {
+      "url": "https://www.tuc.gr/en/studies/erasmus-programme/student-mobility-for-studies",
+      "citazione": "June 15th, both for the winter semester and the whole academic year; November 15th, for the spring semester.",
+      "verificataIl": "2026-07-25"
+    }
+  }
+}
