@@ -15,7 +15,71 @@ Codex" è decaduta. Vedi «Stato di avanzamento» qui sotto._
 | **🚦 GATE 1** | ✅ passato 2026-07-25 — Nicola ha confermato le tre default: **P-A** su `modo-benvenuto` (R3), **`!important`** su `#banner-wiz` (R38, `index.html` non si tocca), **full-bleed conservato** per il hero sotto i 768px | — |
 | **F2** Componenti §04 | ✅ chiusa 2026-07-25 — fatta da Claude Code | vedi «Esiti di F2» |
 | **F3** Timeline e stato vuoto | ✅ chiusa 2026-07-25 | `ee2aca0` (F3a) · `db8d67b` (F3b) |
-| **🚦 GATE 2** · **F4** | ⬜ da fare | — |
+| **🚦 GATE 2** | ⚠︎ validato «per ora» 2026-07-25 — **revisione d'insieme rimandata da Nicola** | — |
+| **F4** Chiusura e checklist §07 | ✅ chiusa 2026-07-25 | vedi «Esiti di F4» |
+
+### Esiti di F4 — la checklist §07, punto per punto
+
+Misurata il **2026-07-25** sui 4 tab a **390 / 768 / 1280**, stato di prova
+Ca' Foscari · Economia (0311) · Triennale · Inglese B2, `<details>` del Percorso
+forzati aperti (o i controlli dentro le stazioni chiuse sfuggirebbero alla misura).
+Strumento: `design/redesign-2026-07/baseline/probe-invarianti.js`, lo stesso di F0.
+
+| # | Punto §07 | Esito |
+|---|---|---|
+| 1 | Triplo controllo 390 → 768 → 1280 | ✅ 12 misure (4 tab × 3 bande): overflow 0, sporgenti 0, testo tagliato 0, card sovrapposte 0, ordine dei blocchi identico al baseline F0 |
+| 2 | Zero scroll orizzontale | ✅ `scrollWidth − clientWidth = 0` ovunque. **I due sospetti dichiarati non si sono materializzati**: né `.schedina-nome` né la riga di chip filtro sporgono a nessuna banda |
+| 3 | Anello da tastiera, mai al mouse | ✅ **110 fermate di Tab reali** (45 Percorso + 30 Profilo + 35 Mete): tutte con anello, tutte `:focus-visible`. Click reale del mouse su `summary.stazione-testa` → `:focus-visible = false`, **nessun anello** |
+| 4 | Nessun target sotto 44px (criterio R30: lista **vuota**) | ✅ La lista contiene **soltanto** le 4 famiglie di eccezioni già dichiarate in `baseline/README.md` (link inline dentro un paragrafo): `#footer-link-bando`, i 3 link del footer, `.profilo-strip-link`, «fonte ufficiale ↗». **Nessuna eccezione nuova** rispetto a F2 |
+| 5 | Timeline: apri/chiudi, marker fermo | ✅ 5 stazioni × (apri + chiudi): marker **fermo a 0,0px** (dx 0 / dy 14 / 36×36 / `border-box`), centro a 18px contro binario a `left:17px` + 2px = allineati. ⚠︎ *L'attivazione da tastiera non è confermabile da qui*: l'automazione del browser recapita `keydown`/`keyup` ma non genera l'attivazione — verificato che fallisce **anche su un `<button>` qualunque**, quindi è un limite dello strumento, non dell'app. Verificato invece che tutti i 26 `<summary>` sono **primo figlio** del loro `<details>`, con `tabIndex 0`, `pointer-events: auto` e `defaultPrevented: false` sull'Enter: da specifica l'Enter apre. La prova col dito resta a Nicola |
+| 6 | Griglia di Oggi nei 3 stati, nessuna riga vuota | ✅ **(a) benvenuto** → `#tab-oggi.modo-benvenuto` è `display:block` e tutto il resto è `display:none` (P-A del GATE 1): non c'è griglia, quindi non c'è riga vuota. Il testo del canvas («benvenuto full-width, percorso accanto al hero») descrive un'altra UX: è la correzione R3 già decisa. **(b) settimana e mappa spente** → righe `184 / 319 / 100,8 / 100,8 / 100,8`: le tre code sono l'altezza che la sidebar occupa, non righe vuote; la colonna 1 finisce prima. **(c) utente di ritorno** → righe `184 / 319 / 537,6 / 0 / 0`: le implicite 4-5 collassano a **0px**, esattamente come F1 aveva misurato. In (b), a scroll 0, hero e sidebar partono **entrambi da 102px**: la `grid-row: 1/6` conservata da F1 regge |
+| 7 | `prefers-reduced-motion` | ✅ Iniettato il blocco a runtime: **179 elementi prima, 179 dopo, zero nuovi invisibili**. Nessuna animazione porta informazione da sola: le 8 d'ingresso finiscono sullo stato base (nessuna base a `opacity:0`), `pulsa-dot` è ridondante col rosso `#ff7a6e` della missione urgente, `mappa-ruota` e `rotta-scorri` sono decorative e restano disegnate |
+| 8 | Ultima riga sopra la nav a mobile, nessun buco a 768 | ✅ A 390, a fondo pagina sui 4 tab: **0 elementi interattivi coperti** dalla nav; il footer chiude con `padding-bottom: 84px` contro una nav da 70,5px. A 768 la nav è in testa (`top:0`, `h:64`) e il footer torna a `padding-bottom: 22px`: **spazio morto sotto = 0px** |
+| 9 | Due superfici notte · nessuna ombra nera pura · emoji | ⚠️ **2 su 3.** Vedi sotto |
+
+**Punto 9, in dettaglio** — è l'unico che ha prodotto lavoro e l'unico che resta aperto:
+
+- **Superfici notte** ✅ (con una lettura dichiarata). A runtime, per tab, l'inchiostro
+  è: `nav.nav-bottom` + `footer.footer-v2` su tutti e 4 i tab, più `div.home-header` sul
+  solo Oggi. Nav e footer sono **chrome**, non superfici di pagina; il hero è la firma
+  d'identità del sito (BR2), non un blocco di contenuto. Le due superfici di contenuto che
+  il CSS stesso dichiara — `.countdown-pill` («l'unica superficie a inchiostro dentro una
+  card chiara») e `.celebrazione-overlay` («la seconda e ultima») — **non sono mai
+  compresenti**. Contate le superfici di contenuto, sono due. Contati tutti i fondi scuri
+  a video, sono tre.
+- **Ombre nere pure** ✅ **corretto in questa fase.** Erano due, entrambe sui pin della
+  mappa e **pre-esistenti al redesign**: `.mappa-pin .punto` (`box-shadow: … rgba(0,0,0,.3)`)
+  e `.mappa-pin-stella::after` (`text-shadow: … rgba(0,0,0,.3)`). Portate a
+  `rgba(30,27,46,.30)` — stessa alfa, stesso peso, tinta d'inchiostro come tutto il resto
+  del foglio. Dopo la patch, `rgba(0,0,0` e `#000` **non compaiono più** in `css/style.css`
+  se non dentro il commento che spiega la correzione.
+- **Emoji** ⛔ **non verificabile, e non eseguibile in F4.** Il canvas dice «nessuna emoji
+  fuori dalle cinque codificate» ma **non elenca da nessuna parte quali siano le cinque**
+  (il canvas stesso ne usa 14). Nel codice ce ne sono **13 in `index.html`** e **24 in
+  `js/app.js`**. Ridurle a cinque significa (a) toccare `index.html`, che il Goal di questo
+  piano vieta esplicitamente, e (b) riscrivere copy in tutta l'app: non è un punto di
+  checklist, è un mini-progetto di sua natura. **Resta aperto per Nicola.**
+
+**Due cose trovate fuori checklist, dichiarate e NON corrette** (nessuna delle due è
+introdotta dal redesign, nessuna delle due rientra in F4):
+
+1. **Il fuoco si perde cambiando filtro nelle Mete.** `renderMete()` ricostruisce la riga
+   dei chip, quindi il nodo che aveva il fuoco sparisce e il fuoco cade su `<body>`:
+   misurato (`chipRicreato: true`, `fuocoDopo: BODY`). Per chi naviga da tastiera vuol dire
+   che dopo aver scelto un filtro il Tab **riparte dall'inizio della pagina**. È logica di
+   `js/app.js`, pre-esistente, ~5 righe da sanare: merita un intervento suo.
+2. **Detector `/impeccable`, 15 segnalazioni, nessuna nuova.** 9 `side-tab` (i `border-left`
+   colorati ≥3px — è la domanda già aperta per il GATE 2), 3 `bounce-easing`
+   (`--ease-bounce` su `check-pop` e `mappa-pin-pop`: micro-feedback voluto), 1
+   `layout-transition` (`transition: width` sulle barre di progresso — anima il layout
+   invece di `transform: scaleX()`), 1 font Google molto diffuso e 1 conteggio di trattini
+   lunghi nel copy. Le ultime tre stanno tutte fuori dal perimetro del redesign.
+
+**Perché `_smoke.js` non è stato rieseguito**: F4 tocca due letterali di colore in
+`css/style.css` e nient'altro. `_smoke.js` misura conteggi che vengono da `js/*.js`
+(METE, CHECKLIST, card renderizzate): non ha una superficie su cui regredire. Al suo posto,
+la ri-misura delle invarianti dopo la patch (390px, tab Mete) e la console: **overflow 0,
+sporgenti 0, testo tagliato 0, touch invariato, zero errori**.
 
 ### Esiti di F1 che correggono questo piano
 

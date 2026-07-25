@@ -19,9 +19,62 @@
 
 ---
 
-### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2 e F3 2026-07-25)
+### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
 **Ultimo aggiornamento:** 2026-07-25 — Claude Code (Opus 5).
+
+**(SESSIONE 2026-07-25 — F4: chiusura del redesign v2 e checklist §07. Prima cosa,
+push del pendente: `ee2aca0`, `db8d67b` e i due commit di stato/piano erano fermi in
+locale — dopo `git pull --rebase` sono diventati `1ae1eXX`…`2e73d74` e sono ONLINE.
+Da qui **tutto il redesign v2 è pubblicato**, timeline e stati vuoti compresi.)**
+
+**La checklist §07 in una riga: 8 punti verdi su 9, un solo difetto vero, corretto.**
+Le misure stanno per esteso in `PLAN_REDESIGN_V2.md` §«Esiti di F4»; qui il sunto.
+
+**I due sospetti dichiarati dal canvas non esistevano.** Il piano indicava
+`.schedina-nome` senza `min-width:0` e la riga di chip filtro come le cause probabili di
+scroll orizzontale: misurati a 390/768/1280 sui 4 tab, `scrollWidth − clientWidth = 0`
+ovunque e zero elementi sporgenti. Il gutter a un solo proprietario di F1 regge.
+
+**Il criterio più severo del piano è passato: la lista touch è vuota.** R30 chiedeva
+lista vuota, non «un sottoinsieme». Dopo F2 restano soltanto le 4 famiglie di eccezioni
+già scritte in `baseline/README.md` — link inline dentro un paragrafo, che non sono
+bersagli-bottone. Nessuna eccezione nuova.
+
+**110 fermate di Tab reali, tutte con l'anello; il mouse non lo mostra mai.** 45 sul
+Percorso, 30 sul Profilo, 35 sulle Mete: ognuna con `outline 2px` + alone, ognuna
+`:focus-visible`. Un click vero del mouse su una testa di stazione dà
+`:focus-visible = false`: l'anello unico installato in F2 si comporta come deve.
+
+**La griglia di Oggi non ha righe vuote in nessuno dei tre stati.** Con l'utente di
+ritorno le righe implicite 4-5 collassano a **0px** (la misura che F1 aveva previsto);
+con settimana e mappa spente le tre righe di coda sono l'ingombro della sidebar, non un
+buco; in onboarding non c'è proprio griglia (`display:block`, tutto il resto spento — è
+la P-A del GATE 1, e conferma che il testo del canvas su questo stato è sbagliato).
+
+**`prefers-reduced-motion`: 179 elementi prima, 179 dopo, zero nuovi invisibili.**
+Nessuna animazione porta informazione da sola — le 8 d'ingresso finiscono sullo stato
+base, e la pulsazione della missione urgente è ridondante col rosso.
+
+**L'unico difetto vero: le ultime due ombre nere pure.** `.mappa-pin .punto` e
+`.mappa-pin-stella::after` portavano ancora `rgba(0,0,0,.3)`, pre-esistenti al redesign
+e ultimi due nel foglio. Passati a `rgba(30,27,46,.30)`: stessa alfa, stesso peso
+percepito, tinta d'inchiostro come tutte le altre ombre del sito. Dopo la patch
+`rgba(0,0,0` e `#000` non compaiono più in `css/style.css`.
+
+**Un punto della checklist resta APERTO e non è eseguibile qui: le emoji.** Il canvas
+dice «nessuna emoji fuori dalle cinque codificate» ma **non dice mai quali siano le
+cinque** (e ne usa 14 al proprio interno). In codice ce ne sono 13 in `index.html` e 24
+in `js/app.js`: ridurle significherebbe toccare `index.html` — che il Goal del piano
+vieta — e riscrivere copy in tutta l'app. È un mini-progetto, non una spunta. Decide Nicola.
+
+**Trovato fuori checklist, dichiarato e non corretto:** cambiando filtro nelle Mete
+`renderMete()` ricostruisce la riga dei chip, il nodo col fuoco sparisce e **il fuoco
+cade su `<body>`** — da tastiera, dopo aver scelto un filtro il Tab riparte dall'inizio
+della pagina. Pre-esistente, logica di `js/app.js`, ~5 righe: merita un intervento suo.
+Il detector `/impeccable` dà 15 segnalazioni, **nessuna nuova**: 9 `side-tab` (la domanda
+già aperta per il GATE 2), 3 `bounce-easing`, 1 `transition: width` sulle barre di
+progresso, 1 font diffuso e 1 conteggio di trattini lunghi.
 
 **(SESSIONE 2026-07-25 — F3 (Timeline §4.3 + stato vuoto §5.1) del redesign v2. La fase
 a rischio ALTO, e l'unica di tutto il redesign che tocca `js/app.js`. Due commit
@@ -3307,6 +3360,7 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **REDESIGN v2 — F2: Componenti §04** | Interamente CSS (`css/style.css`, +~700/−~270; `index.html` e `js/app.js` intatti). **F2.0** inventario touch sanato: da 5/89/35/16 bersagli sotto 44px (F0, 390px) a **zero**, salvo le 4 eccezioni già dichiarate (link inline dentro un paragrafo). §4.1 due bottoni primari uniti + secondario reattivo + **un solo anello di focus** (sostituisce il sistema esistente, variante oro sulle superfici a inchiostro); §4.2 corpo condiviso delle superfici (`.preparazione-card` esclusa: è annidata) e un solo hover per `.card-cliccabile`; §4.4 `.banner-stato` + i due nodi reali; §4.5 mete; §4.6 missione e countdown (pulsazione solo se urgente); §4.7 checklist, requisito a 3 registri, barre di progresso unificate; §4.8 modal a foglio + schedina; §4.9 form profilo a 2 colonne, nav, drawer, celebrazione. In più: `.sezione-titolo` consuma `--fs-h1` | ✅ Fatta e verificata (2026-07-25) — commit `a10d16b`, **pushato** (⚠️ anticipato rispetto al piano, che collocava il push a F4: il redesign è quindi ONLINE parziale, con la timeline ancora vecchia e il GATE 2 non ancora fatto). Invarianti F0 verdi su 4 tab × 390/768/1280, gutter F1 intatto, contrasto verificato su ~45 coppie, zero errori console |
 | **REDESIGN v2 — F3: Timeline e stato vuoto** | La fase a rischio ALTO, e l'unica di tutto il redesign che tocca `js/app.js`. **F3a** — timeline `ol.stazioni` su una corsia di 38px (marker assoluto, binario continuo, `overflow:hidden` mai in mezzo), con le due guardie commentate in loco; eliminate le vecchie `.stazione + .stazione::before` (V3). **F3b** — helper `creaStatoVuoto()` + i due siti di `renderMete()` coi `return` conservati, `role="status"` (R22), azioni sullo stato invece che sul DOM (R21), variante di copy per il filtro "lingua"; `.schedina-invito-vuota` solo restilizzata (P1.4). **Cinque scostamenti misurati dal canvas**, fra cui: il "binario continuo" del canvas lasciava **un buco di 14px sopra ogni marker**; il ponte verso le Mete (unica `<li>` senza marker) spezzava la linea; bianco su `#10B981` sta a 2,6:1 → `--green` (5,5:1). **La tappa corrente passa da oro a indaco**, con la pillola al seguito: è la grammatica che F2 aveva già dato a `.voce-checklist-v2.attiva`. Trovato alla misura (non nel diff) un corpo-stazione appiccicato alla testa a 0px quando il primo figlio è un banner `display:none` — trappola R39, sanato | ✅ Fatta e verificata (2026-07-25) — commit `ee2aca0` (F3a) + `db8d67b` (F3b). Marker/binario allineati a 0.00px, zero buchi, marker fermo all'apertura; invarianti F0 verdi su 4 tab × 390/768/1280; `_smoke.js` identico al baseline; zero errori console; detector `/impeccable`: nessun antipattern introdotto da F3 |
 | **REDESIGN v2 — 🚦 GATE 2** | Nicola valida timeline, stati vuoti e il passaggio della tappa corrente da oro a indaco | ⚠︎ **Validato "per ora" (2026-07-25), revisione completa RIMANDATA** — «poi rivedremo tutto insieme alla fine». Restano senza giudizio a video tipografia, card, nav, form e modal alle 3 larghezze, più le 2 domande aperte da F2 (`--fs-hero` su `.home-hero-claim`; se il filetto di stato a sinistra sia ormai troppo) |
+| **REDESIGN v2 — F4: Chiusura e checklist §07** | I 9 punti della checklist misurati sui 4 tab a 390/768/1280 (stato Ca' Foscari · Economia · Triennale · Inglese B2, `<details>` forzati aperti). **8 verdi**: zero overflow e zero elementi sporgenti — **i due sospetti del canvas, `.schedina-nome` e la riga di chip, non si sono materializzati**; touch **lista vuota** (criterio R30) salvo le 4 eccezioni già dichiarate; **110 fermate di Tab reali** tutte con anello e tutte `:focus-visible`, click del mouse senza anello; marker della timeline fermo a 0,0px su 5 stazioni × apri/chiudi; griglia di Oggi senza righe vuote nei 3 stati (implicite 4-5 a **0px**); `prefers-reduced-motion` senza perdita d'informazione (179 elementi prima e dopo); nulla di interattivo coperto dalla nav a 390, zero spazio morto a 768. **1 difetto corretto**: le ultime due ombre nere pure (`.mappa-pin .punto`, `.mappa-pin-stella::after`) da `rgba(0,0,0,.3)` a `rgba(30,27,46,.30)` | ✅ Fatta e verificata (2026-07-25) — **⛔ un punto resta aperto**: «nessuna emoji fuori dalle cinque codificate» non è eseguibile (il canvas non elenca mai le cinque; 13 emoji in `index.html`, 24 in `js/app.js`, e `index.html` è vietato dal Goal). Fuori checklist: il fuoco si perde cambiando filtro nelle Mete (pre-esistente, `js/app.js`) |
 
 **Nav (R3, definitiva — gate R1 chiuso):** Mete → **Home** (centrale su
 mobile) → Percorso, + **"☰ Altro" (apre il drawer, R1.2)** che non è una
@@ -3532,7 +3586,46 @@ poi aprire **http://localhost:8001**. (Dettagli e alternative nel `README.md`.)
 
 ### Cantiere SITO (Claude Code) — numerazione 49→61
 
-**Aggiornamento 2026-07-25 (F3 chiusa) — restano F4 e la revisione d'insieme:**
+**Aggiornamento 2026-07-25 (F4 chiusa) — il redesign v2 è finito e online. Resta
+la revisione d'insieme, che è di Nicola:**
+
+1. 🚦 **La revisione d'insieme (GATE 2 completo) è l'unica cosa che manca.** Il 25/07
+   Nicola ha validato F3 «per ora» e ha rimandato: *«poi rivedremo tutto insieme alla
+   fine»*. Ora la fine è arrivata. Da guardare a video, ai 3 breakpoint:
+   tipografia, card, nav, form e modal — che sono online da F2 **senza aver mai avuto
+   un giudizio**. Più le **tre domande aperte**:
+   - `--fs-hero` su `.home-hero-claim`: non applicato. Sembra un lapsus del canvas
+     (il consumatore naturale sarebbe `.home-saluto`), ma la decisione è di prodotto.
+   - **Il filetto di stato a sinistra è ormai troppo?** Il detector `/impeccable` ne
+     segnala 9 (`border-left` colorati ≥3px). Tutti pre-esistenti a F3, tutti con un
+     motivo — ma è una voce esterna che dice la stessa cosa.
+   - **La tappa corrente da oro a indaco** (F3): la cosa più visibile di tutto il
+     redesign. Se non convince, si torna indietro qui.
+2. ⛔ **Punto §07 rimasto aperto: le emoji.** «Nessuna emoji fuori dalle cinque
+   codificate» — ma il canvas non dice mai quali siano le cinque, e ne usa 14 lui
+   stesso. Oggi: **13 in `index.html`, 24 in `js/app.js`**. Farlo davvero significa
+   toccare `index.html` (vietato dal Goal del piano) e riscrivere copy in tutta
+   l'app: è un mini-progetto a sé, da aprire solo se Nicola lo vuole.
+3. **Da sanare, fuori dal redesign: il fuoco perso sui filtri delle Mete.**
+   `renderMete()` ricostruisce la riga dei chip, il nodo col fuoco sparisce e il fuoco
+   cade su `<body>`; da tastiera il Tab riparte dall'inizio della pagina. Pre-esistente,
+   ~5 righe in `js/app.js` (ricordare quale chip aveva il fuoco e rimetterlo dopo il
+   render). Piccolo, ma è accessibilità vera.
+4. **Segnalazioni del detector da valutare a freddo** (nessuna introdotta dal
+   redesign): 3 `bounce-easing` (`--ease-bounce` su `check-pop` e `mappa-pin-pop`:
+   micro-feedback voluto), 1 `transition: width` sulle barre di progresso (anima il
+   layout invece di `transform: scaleX()`), font Google molto diffuso, trattini lunghi
+   nel copy. Nessuna è urgente.
+5. **Nota operativa per chiunque rifaccia le prove**: `_smoke.js` richiede **jsdom@22**
+   installato **fuori dal repo** (da jsdom 28 `ResourceLoader` non è più esportato) e un
+   server con backlog ampio sulla **8123** — `python -m http.server` ha
+   `request_queue_size = 5`, jsdom apre ~20 connessioni insieme e il baseline diventa
+   instabile. Baseline sano: **METE 392 · Area 0 · SCADENZE n.d. · CHECKLIST 9 · card 0**,
+   con una eccezione **pre-esistente** (`SCADENZE_CAFOSCARI is not defined`, solo sotto
+   jsdom: in browser reale la console è pulita). Le invarianti e l'inventario touch si
+   rifanno invece con `design/redesign-2026-07/baseline/probe-invarianti.js`.
+
+**Aggiornamento 2026-07-25 (F3 chiusa) — storico, restavano F4 e la revisione d'insieme:**
 
 0. **F0, F1, F2 e F3 sono FATTE.** Il redesign v2 è implementato per intero.
    Commit di F3: `ee2aca0` (F3a, timeline) e `db8d67b` (F3b, stato vuoto),

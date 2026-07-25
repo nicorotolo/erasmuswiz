@@ -1749,9 +1749,13 @@ body {
   display: grid; place-items: center; border-radius: 50%;
   background: none; border: none; padding: 0; cursor: pointer;
 }
+/* F4 §07 — "nessuna ombra nera pura": erano gli ultimi due `rgba(0,0,0,…)` del
+   foglio. Il nero puro su una mappa chiara vira al grigio freddo e stacca dalle
+   ombre del resto del sito, tutte a inchiostro (`--shadow-card`, 30,27,46).
+   Stessa alfa, stesso peso percepito: cambia solo la tinta. */
 .mappa-pin .punto {
   width: 13px; height: 13px; border-radius: 50%; background: var(--primary-fill);
-  border: 2.5px solid var(--bg-card); box-shadow: 0 2px 6px rgba(0,0,0,.3);
+  border: 2.5px solid var(--bg-card); box-shadow: 0 2px 6px rgba(30,27,46,.30);
   transition: transform var(--dur-fast) var(--ease-out);
 }
 .mappa-pin:hover .punto, .mappa-pin:focus-visible .punto { transform: scale(1.5); }
@@ -1762,7 +1766,7 @@ body {
   font-size: .7rem; font-weight: 800; color: #fff; font-family: var(--font-body);
 }
 .mappa-pin-stella .punto { background: var(--gold); }
-.mappa-pin-stella::after { content: "★"; position: absolute; top: 0; right: 2px; font-size: .78rem; color: var(--gold); text-shadow: 0 1px 2px rgba(0,0,0,.3); }
+.mappa-pin-stella::after { content: "★"; position: absolute; top: 0; right: 2px; font-size: .78rem; color: var(--gold); text-shadow: 0 1px 2px rgba(30,27,46,.30); }
 .mappa-pin-ateneo { width: 56px; height: 56px; }
 .mappa-pin-ateneo .punto { width: 24px; height: 24px; background: var(--primary-fill); display: grid; place-items: center; }
 .mappa-pin-ateneo .punto::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #fff; }
