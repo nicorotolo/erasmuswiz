@@ -1095,10 +1095,17 @@ var METE = [
     posti: [
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per corsi in francese" },
+        { lingua: "Inglese", livello: "B1", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno o intero anno)", periodo: "dal 1 marzo al 1 aprile 2026" }
+      ],
     linkSito: "http://www.inpg.fr",
+    notaDisponibilita: "Non è possibile seguire corsi presso altre scuole del gruppo Grenoble INP.",
+
     notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70798."
   },
   {
@@ -1310,10 +1317,17 @@ var METE = [
       { numero: 2, mesi: 5, livello: "L", note: "" },
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per corsi in francese" },
+        { lingua: "Inglese", livello: "B1", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno o intero anno)", periodo: "dal 1 marzo al 1 aprile 2026" }
+      ],
     linkSito: "http://www.inpg.fr",
+    notaDisponibilita: "Non è possibile seguire corsi presso altre scuole del gruppo Grenoble INP.",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70799."
   },
   {
@@ -1329,10 +1343,17 @@ var METE = [
       { numero: 2, mesi: 10, livello: "L", note: "" },
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per corsi in francese" },
+        { lingua: "Inglese", livello: "B1", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno o intero anno)", periodo: "dal 1 marzo al 1 aprile 2026" }
+      ],
     linkSito: "http://www.inpg.fr",
+    notaDisponibilita: "Non è possibile seguire corsi presso altre scuole del gruppo Grenoble INP.",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70800."
   },
   {
@@ -2257,9 +2278,17 @@ var METE = [
       { numero: 2, mesi: 10, livello: "L", note: "" },
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B1", condizione: "se si seguono corsi esclusivamente in tedesco" },
+        { lingua: "Tedesco", livello: "B2", condizione: "per studenti in German Studies e Biology" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (inverno)", periodo: "entro il 30 aprile" },
+        { cosa: "Nomination (estate)", periodo: "entro il 31 ottobre" },
+        { cosa: "Application (inverno)", periodo: "entro il 31 maggio" },
+        { cosa: "Application (estate)", periodo: "entro il 30 novembre" }
+      ],
     linkSito: "http://www.uni-hannover.de",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70706."
   },

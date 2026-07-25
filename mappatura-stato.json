@@ -4,30 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 331,
+  "runCompletati": 332,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "ingegneria-civile-batch-2",
-      "priorita": 5,
-      "dipartimento": "Ingegneria Civile e Industriale (Sapienza)",
-      "descrizione": "Ingegneria Civile e Industriale (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "F  GRENOBL22",
-        "F  MARSEIL11",
-        "F  TOULOUS16",
-        "F  TARBES03",
-        "F  NANTES07",
-        "F  TOULOUS18",
-        "F  PARIS086",
-        "D  HANNOVE01"
-      ]
-    },
     {
       "id": "ingegneria-civile-batch-3",
       "priorita": 5,
@@ -710,6 +693,17 @@
         "F  ALES02",
         "F  LIMOGES01"
       ]
+    },
+    {
+      "id": "ingegneria civile e industriale (sapienza)-batch-followup-2",
+      "priorita": 6,
+      "dipartimento": "Ingegneria Civile e Industriale (Sapienza)",
+      "descrizione": "Ingegneria Civile e Industriale (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F  TOULOUS18",
+        "F  PARIS086"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -1155,10 +1149,9 @@
       "fileJs": "js/atenei/sapienza/dati-mete-inge-elettronica.js",
       "stato": "in_corso",
       "totale": 26,
-      "completate": 18,
+      "completate": 19,
       "pendingScadenze": [
         "F  LILLE91",
-        "D  HANNOVE01",
         "D  LANDSHU01",
         "G  PIREAS01",
         "PL CZESTOC01",
@@ -1166,7 +1159,6 @@
       ],
       "pendingLingua": [
         "F  LILLE91",
-        "D  HANNOVE01",
         "D  LANDSHU01",
         "G  PIREAS01",
         "CH LUGANO02",
@@ -1299,14 +1291,13 @@
       "fileJs": "js/atenei/sapienza/dati-mete-informatica.js",
       "stato": "in_corso",
       "totale": 50,
-      "completate": 32,
+      "completate": 34,
       "pendingScadenze": [
         "A  WELS01",
         "BG VELIKO01",
         "BG VARNA04",
         "EE TALLINN05",
         "F  BICETRE02",
-        "F  GRENOBL22",
         "D  FREISIN01",
         "D  KOLN04",
         "G  IOANNIN01",
@@ -1322,7 +1313,6 @@
         "BG VARNA04",
         "EE TALLINN05",
         "F  BICETRE02",
-        "F  GRENOBL22",
         "D  SIEGEN01",
         "D  FREISIN01",
         "D  KOLN04",
@@ -1361,16 +1351,13 @@
       "fileJs": "js/atenei/sapienza/dati-mete-inge-informatica-gestionale.js",
       "stato": "in_corso",
       "totale": 58,
-      "completate": 29,
+      "completate": 32,
       "pendingScadenze": [
         "B  NAMUR01",
         "BG VARNA04",
         "F  CERGY01",
-        "F  TOULOUS16",
         "F  ANTONY03",
-        "F  GRENOBL22",
         "F  PARIS083",
-        "F  NANTES07",
         "D  ST-AUGU02",
         "D  KARLSRU01",
         "D  KOLN04",
@@ -1387,11 +1374,8 @@
         "B  NAMUR01",
         "BG VARNA04",
         "F  CERGY01",
-        "F  TOULOUS16",
         "F  ANTONY03",
-        "F  GRENOBL22",
         "F  PARIS083",
-        "F  NANTES07",
         "D  LUBECK01",
         "D  ST-AUGU02",
         "D  KARLSRU01",
@@ -1534,21 +1518,14 @@
       "fileJs": "js/atenei/sapienza/dati-mete-ingegneria-civile.js",
       "stato": "in_corso",
       "totale": 128,
-      "completate": 69,
+      "completate": 75,
       "pendingScadenze": [
         "A  WIEN03",
         "BG VARNA05",
         "CY LIMASSO02",
         "F  ALES02",
         "F  LIMOGES01",
-        "F  GRENOBL22",
-        "F  MARSEIL11",
-        "F  TOULOUS16",
-        "F  TARBES03",
-        "F  NANTES07",
         "F  TOULOUS18",
-        "F  PARIS086",
-        "D  HANNOVE01",
         "D  RAVENSB01",
         "D  MUNCHEN02",
         "D  BAYREUT01",
@@ -1587,14 +1564,8 @@
         "CY LIMASSO02",
         "F  ALES02",
         "F  LIMOGES01",
-        "F  GRENOBL22",
-        "F  MARSEIL11",
-        "F  TOULOUS16",
-        "F  TARBES03",
-        "F  NANTES07",
         "F  TOULOUS18",
         "F  PARIS086",
-        "D  HANNOVE01",
         "D  RAVENSB01",
         "D  MUNCHEN02",
         "D  FREISIN01",
@@ -1634,7 +1605,9 @@
         "BG VARNA05": 1,
         "CY LIMASSO02": 1,
         "F  ALES02": 1,
-        "F  LIMOGES01": 1
+        "F  LIMOGES01": 1,
+        "F  TOULOUS18": 1,
+        "F  PARIS086": 1
       },
       "linguaNonTrovabile": [
         "G  PATRA01",
@@ -1647,7 +1620,7 @@
       "fileJs": "js/atenei/sapienza/dati-mete-scienze-mfn.js",
       "stato": "in_corso",
       "totale": 254,
-      "completate": 166,
+      "completate": 170,
       "pendingScadenze": [
         "A  LINZ01",
         "A  GRAZ02",
@@ -1656,7 +1629,6 @@
         "SF JYVASKY01",
         "F  LYON103",
         "F  NANTES01",
-        "F  GRENOBL22",
         "F  CAEN01",
         "F  LYON12",
         "F  PARIS063",
@@ -1664,7 +1636,6 @@
         "F  PARIS012",
         "D  MUNCHEN02",
         "D  MAINZ01",
-        "D  HANNOVE01",
         "D  ESSEN04",
         "D  MARBURG01",
         "D  KARLSRU01",
@@ -1712,7 +1683,6 @@
         "SF JYVASKY01",
         "F  LYON103",
         "F  NANTES01",
-        "F  GRENOBL22",
         "F  CAEN01",
         "F  LYON12",
         "F  PARIS063",
@@ -1720,7 +1690,6 @@
         "F  PARIS012",
         "D  MUNCHEN02",
         "D  MAINZ01",
-        "D  HANNOVE01",
         "D  ESSEN04",
         "D  SIEGEN01",
         "D  MARBURG01",
@@ -3981,6 +3950,12 @@
       "data": "2026-07-25",
       "mete": 8,
       "note": "Ingegneria Civile e Industriale (Sapienza) ingegneria-civile-batch-1: merge automatico via applica-batch.mjs (+1 blocchi propagati ad altri dipartimenti)."
+    },
+    {
+      "batch": 332,
+      "data": "2026-07-25",
+      "mete": 8,
+      "note": "Ingegneria Civile e Industriale (Sapienza) ingegneria-civile-batch-2: merge automatico via applica-batch.mjs (+10 blocchi propagati ad altri dipartimenti)."
     }
   ],
   "storicoBatch": [

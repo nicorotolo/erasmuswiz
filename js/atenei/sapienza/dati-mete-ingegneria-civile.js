@@ -330,10 +330,17 @@ var METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per corsi in francese" },
+        { lingua: "Inglese", livello: "B1", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno o intero anno)", periodo: "dal 1 marzo al 1 aprile 2026" }
+      ],
     linkSito: "http://www.inpg.fr",
+    notaDisponibilita: "Non è possibile seguire corsi presso altre scuole del gruppo Grenoble INP.",
+
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69231."
   },
   {
@@ -348,10 +355,17 @@ var METE = [
     posti: [
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "livello consigliato" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro il 1 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro il 1 dicembre" }
+      ],
     linkSito: "https://www.centrale-mediterranee.fr/en",
+    notaDisponibilita: "Gli scambi semestrali o annuali consentono di iscriversi solo a corsi di livello Master (S8, S9 - S10).",
+
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69237."
   },
   {
@@ -366,10 +380,17 @@ var METE = [
     posti: [
       { numero: 2, mesi: 12, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "richiesto" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro aprile" },
+        { cosa: "Application (primavera)", periodo: "entro il 15 ottobre" }
+      ],
     linkSito: "http://www.supaero.fr",
+    notaDisponibilita: "Il programma di ingegneria è interamente insegnato in lingua francese.",
+
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69260."
   },
   {
@@ -459,10 +480,18 @@ var METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "richiesto" },
+        { lingua: "Francese", livello: "B2", condizione: "consigliato" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro il 15 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro il 15 dicembre" }
+      ],
     linkSito: "https://www.uttop.fr/",
+    notaDisponibilita: "Corsi da semestri diversi non possono essere mischiati.",
+
     notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69259."
   },
   {
@@ -634,9 +663,15 @@ var METE = [
     posti: [
       { numero: 5, mesi: 12, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per programma di ingegneria" },
+        { lingua: "Inglese", livello: "B2", condizione: "per BSc/MSc" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (intero anno o autunno)", periodo: "entro il 15 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro il 31 ottobre" }
+      ],
     linkSito: "http://www.ec-nantes.fr",
     notePratiche: "Posti dell'accordo: 5. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69249."
   },
@@ -726,8 +761,13 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro il 1 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro il 1 dicembre" }
+      ],
     linkSito: "http://www.eivp-paris.fr",
+    notaDisponibilita: "Il semestre S10 consiste in un tirocinio di 6 mesi; in questo periodo non è consentita la mobilità di scambio.",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69252."
   },
   {
@@ -766,9 +806,17 @@ var METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B1", condizione: "se si seguono corsi esclusivamente in tedesco" },
+        { lingua: "Tedesco", livello: "B2", condizione: "per studenti in German Studies e Biology" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (inverno)", periodo: "entro il 30 aprile" },
+        { cosa: "Nomination (estate)", periodo: "entro il 31 ottobre" },
+        { cosa: "Application (inverno)", periodo: "entro il 31 maggio" },
+        { cosa: "Application (estate)", periodo: "entro il 30 novembre" }
+      ],
     linkSito: "http://www.uni-hannover.de",
     notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69160."
   },

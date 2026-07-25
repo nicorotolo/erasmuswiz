@@ -244,9 +244,17 @@ var METE = [
       { numero: 4, mesi: 5, livello: "L", note: "" },
       { numero: 4, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Tedesco", livello: "B1", condizione: "se si seguono corsi esclusivamente in tedesco" },
+        { lingua: "Tedesco", livello: "B2", condizione: "per studenti in German Studies e Biology" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (inverno)", periodo: "entro il 30 aprile" },
+        { cosa: "Nomination (estate)", periodo: "entro il 31 ottobre" },
+        { cosa: "Application (inverno)", periodo: "entro il 31 maggio" },
+        { cosa: "Application (estate)", periodo: "entro il 30 novembre" }
+      ],
     linkSito: "http://www.uni-hannover.de",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Accordo ERA68155."
   },

@@ -368,10 +368,17 @@ var METE = [
     posti: [
       { numero: 2, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "richiesto" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro aprile" },
+        { cosa: "Application (primavera)", periodo: "entro il 15 ottobre" }
+      ],
     linkSito: "http://www.supaero.fr",
+    notaDisponibilita: "Il programma di ingegneria è interamente insegnato in lingua francese.",
+
     notePratiche: "Posti dell'accordo: 2. Accordo ERA68279."
   },
   {
@@ -430,10 +437,17 @@ var METE = [
     posti: [
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per corsi in francese" },
+        { lingua: "Inglese", livello: "B1", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno o intero anno)", periodo: "dal 1 marzo al 1 aprile 2026" }
+      ],
     linkSito: "http://www.inpg.fr",
+    notaDisponibilita: "Non è possibile seguire corsi presso altre scuole del gruppo Grenoble INP.",
+
     notePratiche: "Posti dell'accordo: 2. Accordo ERA68244."
   },
   {
@@ -538,9 +552,15 @@ var METE = [
     posti: [
       { numero: 4, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per programma di ingegneria" },
+        { lingua: "Inglese", livello: "B2", condizione: "per BSc/MSc" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (intero anno o autunno)", periodo: "entro il 15 maggio" },
+        { cosa: "Application (primavera)", periodo: "entro il 31 ottobre" }
+      ],
     linkSito: "http://www.ec-nantes.fr",
     notePratiche: "Posti dell'accordo: 4. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68252."
   },

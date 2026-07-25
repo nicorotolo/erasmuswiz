@@ -338,10 +338,17 @@ var METE = [
     posti: [
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per corsi in francese" },
+        { lingua: "Inglese", livello: "B1", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno o intero anno)", periodo: "dal 1 marzo al 1 aprile 2026" }
+      ],
     linkSito: "http://www.inpg.fr",
+    notaDisponibilita: "Non è possibile seguire corsi presso altre scuole del gruppo Grenoble INP.",
+
     notePratiche: "Posti dell'accordo: 2. Accordo ERA68245."
   },
   {
@@ -356,10 +363,17 @@ var METE = [
     posti: [
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1", condizione: "per corsi in francese" },
+        { lingua: "Inglese", livello: "B1", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno o intero anno)", periodo: "dal 1 marzo al 1 aprile 2026" }
+      ],
     linkSito: "http://www.inpg.fr",
+    notaDisponibilita: "Non è possibile seguire corsi presso altre scuole del gruppo Grenoble INP.",
+
     notePratiche: "Posti dell'accordo: 2. Accordo ERA71484."
   },
   {
