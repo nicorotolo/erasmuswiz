@@ -19,9 +19,56 @@
 
 ---
 
-### Cantiere SITO — sessioni 49→61
+### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24 e piano 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-07-17 — sessione 61, Claude Code (Fable 5)
+**Ultimo aggiornamento:** 2026-07-25 — Claude Code (Opus 5).
+
+**(SESSIONE 2026-07-25 — PIANO DI IMPLEMENTAZIONE del redesign v2, nessun codice
+del sito toccato.)** È arrivato l'output di Claude Design in risposta al brief del
+24/07: il canvas **`Redesign ErasmusWiz.dc.html`** (166 KB), consegnato via zip e
+verificato **identico** al progetto remoto `claude.ai/design/p/9965e1be-fac2-4891-82e2-c24fba385c0c`
+(confronto file-per-file col MCP design; `redesign-erasmuswiz.html` e il bundle
+`_ds/` erano invece **invariati** rispetto al 24/07 — l'unica novità è il canvas).
+**Il canvas è implementabile**: rispetta il contratto di consegna (18 `[MODIFICA css]`,
+4 `[NUOVA css]`, `__PROD_END__`, manifest di diff, checklist) e in §01 rilegge il
+sorgente correggendo il brief in 7 punti (V1–V7), tutti ri-verificati.
+Prodotti **`PLAN_REDESIGN_V2.md`** (piano in 4 fasi con 2 gate umani) e
+**`PLAN_REDESIGN_V2-LOG.md`** (357 righe: 5 round di revisione avversariale con
+Codex `gpt-5.6-sol`, reasoning high). Traiettoria dei rilievi: 22 → 12 → 6 → 3 → 3.
+**Il ritrovamento principale, che nessuno dei due sapeva partendo:** il gutter mobile
+del sito **non** è padding di un contenitore ma un margine ripetuto su **18 selettori
+con tre misure diverse** (20px ×17, 14px nel blocco ≤480, 12px su `.benvenuto`:1268),
+più 5 padding-gutter e **un margine inline in `index.html`** invisibile a ogni grep.
+Il canvas dà per scontato che `.main-content` possieda il gutter: applicarlo alla
+lettera raddoppiava padding e container. Tre trappole disinnescate: `--ease-out`
+esiste già (style.css:65, 30+ transizioni); la nav non può diventare `sticky` (sta
+dopo `</main>` e `</footer>`); togliere lo `style` di `#banner-wiz` mostrerebbe un
+banner vuoto (porta anche `display:none`). ⚠︎ **Cap dei 5 round raggiunto senza
+`APPROVED` formale**: nessun disaccordo aperto resta, ma i 3 correttivi dell'ultimo
+round sono applicati e **non ri-verificati** da Codex. **Prossimo passo umano:**
+firmare il piano e partire da F0. Modelli consigliati: Opus 5 alto per F1/F3 e per
+la tabella di F2, Sonnet 5 medio per F0/F4, Codex `gpt-5.6-sol` high per applicare F2.
+
+**(SESSIONE 2026-07-24 — BRIEF DI REDESIGN per Claude Design, nessun codice del
+sito toccato. ⚠︎ SUPERATA: il brief è stato consegnato e ha prodotto il canvas —
+vedi la sessione del 25/07 qui sopra.)** Grigliato l'output di «claude design» (`redesign-erasmuswiz.html`
++ bundle `_ds/`, arrivati come zip) contro il codebase reale di `C:\erasmuswiz`;
+scritto un brief ancorato al codice — `BRIEF_redesign_per_ClaudeDesign.md` — che
+vincola Claude Design a produrre un redesign **implementabile 1:1**, poi
+stress-testato con Codex (`gpt-5.6-terra`) per **5 round** (log completo in
+`BRIEF_redesign_per_ClaudeDesign-LOG.md`). Decisioni chiave bloccate: redesign
+completo pelle+struttura; griglia desktop di Oggi con **tutti e 6** i figli
+gestiti (la spec ne dimenticava 2); timeline tiene i `<details>` + binario
+continuo via CSS; `.banner-stato` e `.stato-vuoto` sono **additivi** (non
+esistono oggi); token dalla §6.2 del redesign (indigo — si **ignora** la palette
+del bundle `_ds/`). **Prossimo passo umano:** consegnare il brief a Claude
+Design, poi implementarne l'output. ⚠︎ Codex non ha potuto leggere i file da sé
+(sandbox Windows blocca le letture, `CreateProcessAsUserW` err. 5): prove passate
+inline, ancore `file:riga` **da riconfermare** in fase di implementazione.
+
+---
+
+**Ultimo aggiornamento (sessione 61):** 2026-07-17 — sessione 61, Claude Code (Fable 5)
 (**R6 — PARTE ESEGUIBILE DA CLAUDE fatta in una sessione multi-chunk
 ("procedi a chunk senza fermarti"): R6.5+R6.6 implementate, R6.1+R6.2
 misurate, regressione R6.7 core verde. R5 (test utenti) resta il gate
@@ -3053,6 +3100,10 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 
 | File | Tipo | A cosa serve |
 |------|------|--------------|
+| `PLAN_REDESIGN_V2.md` | doc | **Sessione 2026-07-25**: piano di implementazione del redesign v2 in 4 fasi (F0 preparazione · F1 token+gutter+griglia · F2 componenti §04 · F3 timeline+stato vuoto · F4 checklist) con 2 gate umani. Rev. 5, sopravvissuto a 5 round di Codex. **Da leggere prima di toccare `css/style.css`** |
+| `PLAN_REDESIGN_V2-LOG.md` | doc | **Sessione 2026-07-25**: 357 righe, l'intera revisione avversariale round per round, con le motivazioni di ciò che è stato respinto. È l'artefatto che spiega *perché* il piano è così |
+| `BRIEF_redesign_per_ClaudeDesign.md` (+ `-LOG.md`) | doc | Sessione 2026-07-24: il brief consegnato a Claude Design che ha prodotto il canvas. Superato dal canvas, tenuto come storia |
+| `design/redesign-2026-07/` | doc/asset | **Da creare in F0**: il canvas `Redesign ErasmusWiz.dc.html` + `support.js` + asset. È la fonte-di-verità del redesign |
 | `index.html` | codice | Struttura v2 (tab OGGI/METE/CANDIDATURA + Idoneità/Profilo nascosti; Timeline rimossa in OP2). **Dalla sessione 56 NON elenca più i file dati**: due soli tag (`registro.js` + `carica-atenei.js`) |
 | `css/style.css` | codice | Design system v2: dark mode, font Bricolage/Jakarta/SpaceMono, responsive |
 | `js/app.js` | codice | Logica v2: missione del giorno, percorso, countdown, mete, checklist, profilo |
@@ -3224,6 +3275,20 @@ poi aprire **http://localhost:8000**. (Dettagli e alternative nel `README.md`.)
 ## 8. PROSSIMI PASSI
 
 ### Cantiere SITO (Claude Code) — numerazione 49→61
+
+**Aggiornamento 2026-07-25 — il prossimo blocco di lavoro è il REDESIGN v2:**
+
+0. **Firmare `PLAN_REDESIGN_V2.md` e partire da F0.** Il piano è pronto e
+   verificato; l'unica decisione che resta prima di iniziare è se spendere un
+   round extra di Codex per ri-verificare i 3 correttivi dell'ultimo round
+   (applicati ma non ri-passati in revisione). Due decisioni sono differite al
+   GATE 1: (a) `modo-benvenuto` — l'onboarding resta una schermata sola o entra
+   nella griglia (R3); (b) `#banner-wiz` — override `!important` oppure
+   autorizzare la rimozione della sola dichiarazione `margin` da `index.html:236`
+   (R38/R41). Modelli: **Opus 5 alto** per F1/F3 e per la tabella di F2,
+   **Sonnet 5 medio** per F0/F4, **Codex `gpt-5.6-sol` high** per applicare F2.
+   ⚠︎ Attenzione: F1 include la migrazione del gutter, che tocca ~24 selettori —
+   è il pezzo più pesante e più rischioso di tutto il redesign.
 
 **Aggiornamento 2026-07-17 — sessione 61 (R6 parte eseguibile):**
 
