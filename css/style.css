@@ -19,7 +19,9 @@
   --font-mono:    'Space Mono', 'Courier New', monospace;
 
   /* ── Sfondo app ── */
-  --bg-app:         #FAFAF7;
+  /* redesign v2 §2.1: un grado di calore in più — la carta smette di
+     leggersi come grigio d'ufficio e regge meglio l'indigo accanto. */
+  --bg-app:         #FAF8F3;
   --bg-card:        #ffffff;
   --bg-card-hover:  #F3F1FA;
   --bg-track:       #ECEAF5;   /* binari di progressi/barre */
@@ -34,7 +36,9 @@
   --border-strong:  #D6D1EA;
 
   /* ── Indigo profondo — nav + countdown + superfici a inchiostro ── */
-  --night-bg:       #232046;
+  /* redesign v2 §2.1: notte un filo più fredda e profonda — aumenta lo
+     stacco dell'oro sul hero senza scendere verso il nero. */
+  --night-bg:       #211E42;
   --night-bg-2:     #1C1A38;
   --night-text:     #ffffff;
   --night-muted:    #A5B4FC;
@@ -88,6 +92,75 @@
   --radius-md:   12px;
   --radius-sm:   9px;
   --radius-pill: 999px;
+
+  /* ============================================================
+     REDESIGN v2 §2.2 — token additivi (nessuna collisione con i nomi
+     sopra). ⛔ --ease-out NON è qui: esiste già (riga ~65) e governa
+     30+ transizioni; ridefinirlo cambierebbe il movimento di tutto.
+     ============================================================ */
+
+  /* ── Scala 4px ── */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* ── Tipografia (valori mobile, rif. 390) ── */
+  --fs-hero:  30px;   /* .home-hero-claim, .celebrazione-titolo */
+  --fs-h1:    25px;   /* .sezione-titolo */
+  --fs-h2:    20px;   /* .missione-titolo, .dett-titolo */
+  --fs-h3:    17px;   /* .card-meta-v2 h3, .stazione-titolo */
+  --fs-body:  15.5px;
+  --fs-sm:    13.5px;
+  --fs-xs:    12px;   /* micro-label MAIUSCOLE */
+  --fs-mono:  14px;   /* countdown, punteggi, livelli lingua */
+
+  /* ── Ritmo di pagina ── */
+  --gutter:    16px;  /* padding orizzontale: UNICO proprietario = .main-content */
+  --stack:     16px;  /* spazio verticale fra blocchi di pari livello */
+  /* 1140px e non i 1120px del canvas: è la larghezza desktop che
+     .main-content ha già oggi (misurata a 1280 in F0). Il canvas
+     restringerebbe la pagina di 20px senza motivo — decisione R31. */
+  --container: 1140px;
+
+  /* ── Ombra magica (tinta oro, mai nero) ── */
+  --shadow-gold: 0 2px 6px rgba(180,83,9,.10),
+                 0 10px 28px rgba(251,191,36,.24);
+}
+
+/* ── REDESIGN v2 §2.3 — override per banda ──────────────────────
+   La banda 768–1023 non deve ereditare per caso i valori mobile. */
+@media (min-width: 768px) {
+  :root {
+    --fs-hero: 34px;
+    --fs-h1:   27px;
+    --fs-h2:   21px;
+    --fs-h3:   17.5px;
+    --fs-body: 16px;
+    --fs-sm:   14px;
+    --gutter:  24px;
+    --stack:   20px;
+  }
+}
+@media (min-width: 1024px) {
+  :root {
+    --fs-hero: 40px;
+    --fs-h1:   30px;
+    --fs-h2:   23px;
+    --fs-h3:   18px;
+    --fs-body: 16px;
+    --fs-sm:   14px;
+    --fs-xs:   12.5px;
+    --fs-mono: 15px;
+    --gutter:  32px;
+    --stack:   24px;
+  }
 }
 
 /* ---- Reset ---- */
@@ -262,20 +335,29 @@ body {
 /* ================================================================
    LAYOUT PRINCIPALE
 ================================================================ */
+/* REDESIGN v2 §3.2 — .main-content è l'UNICO proprietario del gutter
+   orizzontale e del contenitore. Prima il gutter era per-figlio: 18 margini
+   in tre misure diverse (20 / 14 / 12px) + 5 padding + 1 margine inline
+   nell'HTML. Se qui si aggiunge padding senza toglierlo di là, si somma.
+   Il padding è scritto COMPLETO per ciascuna banda (shorthand, non
+   padding-top/left sparsi): così nessun blocco successivo può vincere con
+   uno shorthand ereditato. */
 .main-content {
   position: relative;
   z-index: 1;
   max-width: 680px;
   margin: 0 auto;
-  padding: 0 0 calc(80px + env(safe-area-inset-bottom, 0px));
+  /* il fondo è lo spazio sotto la nav fissa: se cala, l'ultima riga di
+     checklist finisce sotto la barra. */
+  padding: var(--space-5) var(--gutter) calc(80px + env(safe-area-inset-bottom, 0px));
 }
 @media (min-width: 768px) {
   .main-content {
-    padding-bottom: 0;
-    padding-top: 64px;
+    /* 64px è l'ALTEZZA della nav, che qui è in header e fissa: da sola non
+       lascia respiro, va sommato uno spazio. In basso la nav libera il fondo
+       e il padding mobile va sostituito, o resta un buco. */
+    padding: calc(64px + var(--space-5)) var(--gutter) var(--space-16);
     max-width: 740px;
-    padding-left: 20px;
-    padding-right: 20px;
   }
 }
 
@@ -286,6 +368,37 @@ body {
   from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: none; }
 }
+
+/* ================================================================
+   REDESIGN v2 §3.2 — RITMO VERTICALE DELLA PAGINA
+   Un solo spazio fra blocchi di pari livello, per banda: --stack.
+   ⚠️ NON si usa `gap`: .tab-pane.attivo è `display: block` (riga sopra),
+   dove `gap` è inerte. Serve il selettore fratello — che però ha tre
+   effetti collaterali, neutralizzati qui sotto uno per uno.
+================================================================ */
+.tab-pane.attivo > * + * { margin-top: var(--stack); }
+
+/* (a) il primo figlio non deve sommare il suo vecchio margine al padding
+   superiore di .main-content — es. .sezione-header ha margin-top, ed è il
+   primo figlio di Mete, Percorso e Profilo. */
+.tab-pane.attivo > :first-child { margin-top: 0; }
+
+/* (b) `+` non sa nulla di display:none: #home-benvenuto è il primo figlio
+   del tab Oggi ma è spento per gli utenti di ritorno, quindi .home-header
+   — secondo nodo, non :first-child — riceverebbe comunque il margine. */
+#tab-oggi:not(.modo-benvenuto) > .home-header { margin-top: 0; }
+
+/* (c) contenitori condizionali vuoti = spazi fantasma. I tre nodi sono
+   `<div id="…"></div>` senza whitespace interno, quindi :empty li
+   intercetta davvero (verificato in index.html). */
+#banner-lingue-mete:empty,
+#filtri-mete-chip:empty,
+#sezione-preferite:empty { display: none; }
+
+/* NB — nella griglia di Oggi a ≥1024 il ritmo verticale resta questo, non un
+   `row-gap`: la sidebar attraversa le righe della colonna 1 e un row-gap
+   vero aprirebbe un buco per ogni riga implicita che attraversa. Il valore
+   coincide comunque (--stack = 24px a desktop = il gap del canvas). */
 
 /* ================================================================
    HOME HEADER — hero a inchiostro profondo (BR2)
@@ -300,6 +413,20 @@ body {
   border: 1px solid var(--night-border);
   border-top: none;
   box-shadow: 0 8px 20px rgba(30,27,46,.18);
+}
+/* Sotto i 768 il hero è a filo: tutta la larghezza e attaccato al bordo alto
+   della pagina. Non è un dettaglio — è ciò che rende leggibili le due
+   proprietà qui sopra, `border-radius: 0 0 xl xl` e `border-top: none`: un
+   hero rientrato con gli angoli superiori squadrati sembra un ritaglio
+   sbagliato, non una card. Prima di F1 il full-bleed era implicito, perché
+   .main-content non aveva alcun padding a mobile; ora che il gutter è suo
+   (F1.13) va restituito con margini negativi. Sopra i 768 il hero era già
+   rientrato anche prima, e a ≥1024 è una card a tutti gli effetti
+   (border-radius pieno + border-top): questa regola si ferma a 767. */
+@media (max-width: 767px) {
+  #tab-oggi > .home-header { margin-inline: calc(-1 * var(--gutter)); }
+  /* stessa specificità dell'antidoto (b) di F1.12, e viene dopo: vince */
+  #tab-oggi:not(.modo-benvenuto) > .home-header { margin-top: calc(-1 * var(--space-5)); }
 }
 .home-hero-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
 .home-hero-badge {
@@ -356,7 +483,7 @@ body {
    PERCORSO A 4 FASI (DISEGNO_UX.md §2.1) — home-percorso UX2
 ================================================================ */
 .percorso-wrap {
-  margin: 12px 20px 0;
+  margin-top: 12px;
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
@@ -412,7 +539,7 @@ body {
    CARD MISSIONE DI OGGI
 ================================================================ */
 .missione-card {
-  margin: 12px 20px 0;
+  margin-top: 12px;
   background: var(--bg-card);
   border-radius: var(--radius-xl);
   padding: 18px;
@@ -494,7 +621,7 @@ body {
    "QUESTA SETTIMANA" (R2, §5.3 modulo 2) — max 2-3 azioni pertinenti
 ================================================================ */
 .settimana-card {
-  margin: 12px 20px 0; background: var(--bg-card);
+  margin-top: 12px; background: var(--bg-card);
   border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px 16px;
   box-shadow: var(--shadow-card);
 }
@@ -529,14 +656,14 @@ body {
 /* ================================================================
    HEADER SEZIONI
 ================================================================ */
-.sezione-header { margin: 20px 20px 16px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+.sezione-header { margin: 20px 0 16px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
 .sezione-titolo { font-family: var(--font-display); font-size: 1.35rem; font-weight: 800; color: var(--text-dark); margin-bottom: 5px; }
 .sezione-sottotitolo { color: var(--text-muted); font-size: 0.88rem; }
 
 /* ================================================================
    BARRA PROGRESSO CHECKLIST
 ================================================================ */
-.barra-wrap { display: flex; align-items: center; gap: 14px; margin: 0 20px 16px; }
+.barra-wrap { display: flex; align-items: center; gap: 14px; margin: 0 0 16px; }
 .barra-progresso { flex: 1; height: 10px; background: var(--bg-track); border-radius: var(--radius-pill); overflow: hidden; }
 .barra-riempimento { height: 100%; background: var(--gold); border-radius: var(--radius-pill); width: 0%; transition: width var(--dur-slow) var(--ease-out); }
 .barra-label { color: var(--text-muted); font-size: 0.82rem; white-space: nowrap; }
@@ -544,7 +671,7 @@ body {
 /* ================================================================
    CHECKLIST v2
 ================================================================ */
-.lista-checklist-v2 { display: flex; flex-direction: column; gap: 8px; padding: 0 20px; }
+.lista-checklist-v2 { display: flex; flex-direction: column; gap: 8px; }
 .voce-checklist-v2 {
   display: flex; align-items: flex-start; gap: 12px;
   background: var(--bg-card); border: 1px solid var(--border);
@@ -571,7 +698,7 @@ body {
    TOGGLE FASE (candidatura / selezionato)
 ================================================================ */
 .toggle-fase-wrap {
-  display: flex; gap: 8px; margin: 0 20px 16px; flex-wrap: wrap;
+  display: flex; gap: 8px; margin: 0 0 16px; flex-wrap: wrap;
 }
 .toggle-fase-btn {
   flex: 1; min-width: 140px;
@@ -593,7 +720,7 @@ body {
    (decisa da tappaCorrente, R1.6). I <details> tengono compatta la
    schermata: la stazione corrente parte aperta, le altre chiuse.
 ================================================================ */
-.stazioni { list-style: none; margin: 0 20px 8px; padding: 0; }
+.stazioni { list-style: none; margin: 0 0 8px; padding: 0; }
 .stazione { position: relative; }
 .stazione + .stazione { margin-top: 10px; }
 /* Il tratto di linea che collega le stazioni, allineato ai marker. */
@@ -640,8 +767,11 @@ body {
 .stazione-corpo { padding: 4px 16px 16px; border-top: 1px dashed var(--border); }
 .stazione-corpo > :first-child { margin-top: 12px; }
 .stazione-testo { font-size: 0.88rem; color: var(--text-muted); margin: 12px 0; line-height: 1.5; }
-/* I blocchi storici (checklist, requisiti, barra…) portano margini/padding
-   da pagina (0 20px): dentro una stazione il respiro lo dà la card. */
+/* Guardia storica: questi blocchi portavano un gutter di pagina (0 20px)
+   anche dentro una stazione, dove il respiro lo dà la card. Da F1.13 il
+   gutter è stato tolto alla fonte, quindi queste righe sono diventate dei
+   no-op — restano come rete di sicurezza se un gutter per-figlio dovesse
+   rientrare da un blocco futuro. */
 .stazione-corpo .barra-wrap,
 .stazione-corpo .banner-in-verifica,
 .stazione-corpo .idoneita-esito,
@@ -665,7 +795,7 @@ body {
    "ORA TOCCA A TE" — prossimi 3 passi (BR5)
 ================================================================ */
 .prossimi-passi-v2 {
-  margin: 0 20px 22px; padding: 16px;
+  margin: 0 0 22px; padding: 16px;
   background: var(--bg-card); border: 1.5px solid var(--primary);
   border-radius: var(--radius-lg); box-shadow: var(--shadow-card);
 }
@@ -798,12 +928,17 @@ body {
 /* ================================================================
    METE v2
 ================================================================ */
-.cerca-mete-barra { display: flex; align-items: center; gap: 10px; padding: 10px 20px 4px; }
+.cerca-mete-barra { display: flex; align-items: center; gap: 10px; padding: 10px 0 4px; }
 #cerca-mete { flex: 1; padding: 9px 13px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); background: var(--bg-card); color: var(--text-dark); font-size: 0.95rem; transition: border-color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out); }
 #cerca-mete:focus-visible { outline: none; border-color: var(--primary); box-shadow: var(--shadow-focus); }
 #conta-mete { color: var(--text-muted); font-size: 0.85rem; white-space: nowrap; }
-.griglia-mete-v2 { display: grid; grid-template-columns: 1fr; gap: 14px; padding: 0 20px; }
-@media (min-width: 768px) { .griglia-mete-v2 { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; } }
+.griglia-mete-v2 { display: grid; grid-template-columns: 1fr; gap: 14px; }
+/* redesign v2 §3.2 — 1 col · 2 col esatte a tablet · auto-fill a desktop.
+   A 768–1023 `auto-fill minmax(300px,1fr)` dava 2 colonne solo per caso:
+   qui sono dichiarate, e minmax(0,1fr) impedisce ai nomi lunghi di
+   allargare la traccia oltre la propria frazione. */
+@media (min-width: 768px)  { .griglia-mete-v2 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; } }
+@media (min-width: 1024px) { .griglia-mete-v2 { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); } }
 /* Card meta — direzione C (Fase C3): l'affordance di tap la dà il DESIGN
    (hover-lift, cursore, freccia), non una label ripetuta su ogni card (P1.8). */
 .card-meta-v2 {
@@ -827,7 +962,7 @@ body {
 .card-meta-v2.card-cliccabile:hover .card-freccia { color: var(--primary); transform: translateX(3px); }
 
 /* Filtri a chip — tab Mete (BR4, 4a) */
-.filtri-mete-chip { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 20px 10px; }
+.filtri-mete-chip { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 0 10px; }
 .chip-filtro {
   display: inline-flex; align-items: center; min-height: 44px;
   border: 1.5px solid var(--border); background: var(--bg-card); color: var(--text-muted);
@@ -891,7 +1026,7 @@ body {
 /* ================================================================
    IDONEITÀ v2
 ================================================================ */
-.griglia-requisiti-v2 { display: grid; grid-template-columns: 1fr; gap: 12px; padding: 0 20px; }
+.griglia-requisiti-v2 { display: grid; grid-template-columns: 1fr; gap: 12px; }
 @media (min-width: 768px) { .griglia-requisiti-v2 { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); } }
 .requisito-v2 { background: var(--bg-card); border: 1px solid var(--border); border-top: 3px solid var(--gold); border-radius: var(--radius-md); padding: 14px 16px; box-shadow: var(--shadow-card); transition: border-color var(--dur-base) var(--ease-out); }
 .requisito-v2--ok { border-top-color: var(--green); }
@@ -907,11 +1042,11 @@ body {
 .requisito-v2-fonte  { color: var(--text-muted); font-size: 0.78rem; }
 .requisito-v2-autoverifica { display: flex; align-items: center; gap: 6px; margin-top: 10px; font-size: 0.83rem; font-weight: 600; cursor: pointer; }
 .idoneita-esito {
-  margin: 0 20px 12px; padding: 10px 14px; border-radius: var(--radius-sm);
+  margin: 0 0 12px; padding: 10px 14px; border-radius: var(--radius-sm);
   background: var(--green-bg); color: var(--green); font-weight: 700; font-size: 0.88rem;
 }
 .banner-in-verifica {
-  margin: 0 20px 14px; padding: 10px 14px; border-radius: var(--radius-sm);
+  margin: 0 0 14px; padding: 10px 14px; border-radius: var(--radius-sm);
   background: var(--gold-bg); border: 1px solid var(--gold); color: var(--gold-dark);
   font-size: 0.83rem; font-weight: 600;
 }
@@ -925,7 +1060,7 @@ body {
 /* ================================================================
    PROFILO v2
 ================================================================ */
-.form-profilo-v2 { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; margin: 0 20px; max-width: 540px; }
+.form-profilo-v2 { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; max-width: 540px; }
 .campo-form { margin-bottom: 16px; }
 .campo-form label { display: block; font-weight: 700; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 7px; }
 .campo-form select, .campo-form input, .riga-lingua select {
@@ -950,7 +1085,7 @@ body {
 .btn-primario:hover { background: var(--primary-fill-hover); box-shadow: 0 8px 20px var(--primary-shadow); }
 .btn-primario:active { transform: translateY(1px) scale(.985); }
 .profilo-salvato {
-  margin: 14px 20px 0; background: var(--green-bg); border: 1px solid var(--green-border);
+  margin-top: 14px; background: var(--green-bg); border: 1px solid var(--green-border);
   border-radius: var(--radius-sm); padding: 12px 16px; font-size: 0.88rem;
   color: var(--green); max-width: 540px;
 }
@@ -989,6 +1124,14 @@ body {
 }
 .banner-celebrazione img { height: 52px; width: auto; transform: rotate(-4deg); flex-shrink: 0; }
 .banner-testo { font-size: 13.5px; font-weight: 700; color: var(--green); }
+/* REDESIGN v2 §3.2 — l'ultimo gutter, e l'unico invisibile al grep sul CSS:
+   #banner-wiz porta `style="display:none; margin: 0 20px 14px;"` inline
+   (index.html), e l'inline batte qualunque cascata. `!important` mirato è
+   l'unico modo di neutralizzarlo senza toccare index.html (vincolo del
+   piano). ⚠️ NON si può rimuovere l'attributo `style`: contiene anche
+   `display:none`, e .banner-celebrazione è `display:flex` → all'avvio si
+   vedrebbe un banner verde vuoto. */
+#banner-wiz { margin-inline: 0 !important; }
 
 /* ================================================================
    FOOTER
@@ -1141,7 +1284,7 @@ body {
 
 /* Mappa compatta nella home profilata */
 .card-mappa-home {
-  margin: 20px 20px 0; background: var(--bg-card); border-radius: var(--radius-lg);
+  margin-top: 20px; background: var(--bg-card); border-radius: var(--radius-lg);
   padding: 14px 16px 16px; box-shadow: var(--shadow-card);
 }
 .card-mappa-home .mappa-compatta { width: fit-content; max-width: 100%; margin: 4px auto 0; }
@@ -1159,7 +1302,7 @@ body {
 ================================================================ */
 #tab-oggi.modo-benvenuto > *:not(#home-benvenuto) { display: none; }
 .benvenuto {
-  margin: 12px 20px 0; padding: 22px 18px 24px;
+  margin-top: 12px; padding: 22px 18px 24px;
   background: linear-gradient(175deg, var(--bg-card) 0%, var(--bg-card-hover) 100%);
   border: 1px solid var(--border); border-radius: var(--radius-xl);
   box-shadow: var(--shadow-card);
@@ -1265,7 +1408,9 @@ body {
 }
 @media (max-width: 759px) {
   .mappa-tooltip { display: none !important; }
-  .benvenuto { margin: 12px 12px 0; }
+  /* Rimosso `.benvenuto { margin: 12px 12px 0 }`: era la TERZA misura del
+     gutter legacy (12px, dopo 20 e 14) e nessun grep sulle prime due la
+     trovava. Il margine verticale è già quello del blocco base. */
   .benvenuto-wiz { height: 64px; }
 }
 
@@ -1335,21 +1480,35 @@ body.no-scroll { overflow: hidden; }
    DESKTOP ≥1024px
 ================================================================ */
 @media (min-width: 1024px) {
-  .main-content { max-width: 1140px; padding: 104px 40px 48px; }
+  .main-content {
+    max-width: var(--container);
+    padding: calc(64px + var(--space-8)) var(--gutter) var(--space-12);
+  }
   /* Home a 2 colonne bilanciate: contenuto principale largo a sinistra
      (hero, missione, countdown, preparazione), percorso come sidebar destra.
      Sostituisce la vecchia griglia a 3 colonne che comprimeva l'hero a
      ~500px e lasciava la colonna destra quasi vuota. */
+  /* redesign v2 §3.1 — colonna esplicita a ogni figlio della COLONNA 1,
+     riga a nessuno di loro: tre dei sei figli nascono display:none e il gate
+     li accende a runtime, e con le grid-row fisse di prima l'ordine era
+     cablato riga per riga. Unica eccezione motivata: la sidebar di colonna 2,
+     che deve attraversarle (vedi #tab-oggi > .percorso-wrap più sotto).
+     Il ritmo verticale resta quello di F1.12 (`> * + *`), non un row-gap. */
   #tab-oggi {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 360px;
-    grid-template-rows: auto;
-    gap: 0 32px;
+    /* row-gap DEVE restare 0. Il ritmo verticale della colonna 1 lo dà
+       `.tab-pane.attivo > * + *` (= var(--stack), 24px qui: lo stesso
+       valore). Con un row-gap vero, le righe implicite che .percorso-wrap
+       attraversa — vuote e alte 0 — porterebbero comunque il loro gap, e
+       sotto la colonna 1 comparirebbero buchi da 24px l'uno. */
+    gap: 0 var(--space-6);
     align-items: start;
   }
   #tab-oggi.nascosto { display: none; }
+  #tab-oggi > .benvenuto { grid-column: 1 / -1; }
   .home-header {
-    grid-column: 1; grid-row: 1;
+    grid-column: 1;
     border-radius: var(--radius-xl); border-top: 1px solid var(--night-border);
     padding: 30px 34px 34px;
   }
@@ -1357,10 +1516,32 @@ body.no-scroll { overflow: hidden; }
   .home-saluto { font-size: 34px; }
   .home-hero-claim { font-size: 14.5px; max-width: 44ch; }
   .home-data { font-size: 14px; }
-  .percorso-wrap  { grid-column: 2; grid-row: 1 / 6; margin: 0; align-self: start; padding: 16px 18px 14px; }
-  .missione-card  { grid-column: 1; grid-row: 2; margin: 20px 0 0; padding: 24px; padding-right: 190px; }
-  .settimana-card { grid-column: 1; grid-row: 3; margin: 20px 0 0; }
-  .card-mappa-home { grid-column: 1; grid-row: 4; margin: 20px 0 0; }
+  /* La sidebar è l'UNICO elemento che conserva una grid-row, e non è una
+     dimenticanza: deve ATTRAVERSARE la colonna 1, non affiancarne una riga.
+     ⚠️ Il canvas sostiene che l'auto-placement «la mette accanto al primo
+     item di colonna 1 in modo deterministico, perché è l'unico item della
+     colonna 2»: è falso, e misurato falso. .percorso-wrap è il 5° figlio
+     nel DOM (dopo missione-card e settimana-card), quindi il cursore di
+     auto-placement la deposita in riga 2 o 3 — mai accanto al hero. Esito
+     misurato a 1280 senza questa riga: riga 2 alta 560px per contenere la
+     sidebar, con .missione-card (223px) allineata in alto e 337px di buco
+     sotto, e sticky a corsa ZERO (area di griglia alta quanto l'elemento).
+     Con `1 / 6` l'area copre tutte le righe di colonna 1: la card parte
+     accanto al hero e ha una corsa vera. Le righe 4-5 restano implicite e
+     alte 0 — invisibili solo perché il row-gap è 0 (vedi #tab-oggi). */
+  #tab-oggi > .percorso-wrap {
+    grid-column: 2; grid-row: 1 / 6;
+    margin: 0; align-self: start; padding: 16px 18px 14px;
+    /* R13: il canvas scrive `top: var(--space-6)` assumendo che a ≥768 la
+       nav non sia più fissa. È falso — .nav-bottom resta `fixed; top: 0;
+       height: 64px` a ogni breakpoint (misurato in F0). Senza sommare i
+       64px la card si infila sotto la nav. */
+    position: sticky;
+    top: calc(64px + var(--space-6));
+  }
+  .missione-card  { grid-column: 1; margin: 20px 0 0; padding: 24px; padding-right: 190px; }
+  .settimana-card { grid-column: 1; margin: 20px 0 0; }
+  .card-mappa-home { grid-column: 1; margin: 20px 0 0; }
   /* pill e barra preparazione non sono più figli diretti della griglia:
      vivono dentro Prossima mossa e Il tuo progresso (R2, §5.3) */
   .missione-wiz-desktop { display: block; }
@@ -1378,7 +1559,7 @@ body.no-scroll { overflow: hidden; }
    METE PREFERITE
 ================================================================ */
 #sezione-preferite:not(:empty) {
-  margin: 0 20px 16px;
+  margin: 0 0 16px;
   background: var(--gold-bg);
   border: 1px solid var(--gold-border);
   border-radius: var(--radius-lg);
@@ -1441,7 +1622,7 @@ body.no-scroll { overflow: hidden; }
 ================================================================ */
 .wizard-mete {
   display: flex; align-items: flex-start; gap: 14px;
-  margin: 0 20px 16px; padding: 16px;
+  margin: 0 0 16px; padding: 16px;
   background: var(--bg-card); border: 1.5px solid var(--primary);
   border-radius: var(--radius-lg); box-shadow: var(--shadow-card);
 }
@@ -1460,7 +1641,7 @@ body.no-scroll { overflow: hidden; }
 .wizard-mete-salta:hover { color: var(--text-dark); }
 
 .card-mappa-mete {
-  margin: 0 20px 16px; background: var(--bg-card); border-radius: var(--radius-lg);
+  margin: 0 0 16px; background: var(--bg-card); border-radius: var(--radius-lg);
   padding: 12px 16px 14px; box-shadow: var(--shadow-card);
 }
 .card-mappa-mete .mappa-compatta { width: fit-content; max-width: 100%; margin: 0 auto; }
@@ -1653,14 +1834,11 @@ body.no-scroll { overflow: hidden; }
    MOBILE ≤480px
 ================================================================ */
 @media (max-width: 480px) {
+  /* Restano SOLO i padding interni di componente. Tutto il resto era il
+     gutter legacy a 14px, riapplicato per-figlio su 8 gruppi: ora il gutter
+     orizzontale lo dà --gutter su .main-content, e riscriverlo qui lo
+     raddoppierebbe. */
   .home-header { padding: 14px 14px 18px; }
-  .percorso-wrap, .missione-card, .settimana-card, .stazioni,
-  .wizard-mete, .card-mappa-mete { margin-left: 14px; margin-right: 14px; }
-  .sezione-header { margin-left: 14px; margin-right: 14px; }
-  .lista-checklist-v2, .griglia-mete-v2, .griglia-requisiti-v2 { padding-left: 14px; padding-right: 14px; }
-  .barra-wrap { margin-left: 14px; margin-right: 14px; }
-  .form-profilo-v2 { margin-left: 14px; margin-right: 14px; }
-  .profilo-salvato { margin-left: 14px; margin-right: 14px; }
 }
 
 /* ================================================================
@@ -1699,3 +1877,15 @@ body.no-scroll { overflow: hidden; }
 .guida-faq dd { margin: 6px 0 0; color: var(--text-muted); }
 .guida-footer { max-width: 720px; margin: 0 auto; padding: 0 20px 48px; font-size: 0.8rem; color: var(--text-muted); }
 .guida-footer a { color: var(--text-muted); }
+
+/*__PROD_END__*/
+/* ================================================================
+   Tutto ciò che sta SOTTO questo marcatore è vocabolario di design non
+   cablato da nessuna riga di js/app.js: esiste perché il design system
+   lo prevede, non perché il sito lo usi oggi.
+   ⚠️ Onestà su cosa NON è: il marcatore è un commento, non un passo di
+   build. Queste regole vengono comunque scaricate dal browser — la
+   separazione è organizzativa, non un risparmio di byte.
+   Creato in F1 perché F2 (§4.4, varianti .banner-stato) deve poterci
+   scrivere sotto: un marcatore introdotto a F4 arriverebbe troppo tardi.
+================================================================ */
