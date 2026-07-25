@@ -7223,10 +7223,18 @@ var METE = [
     posti: [
       { numero: 1, mesi: 9, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "per corsi in spagnolo" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro il 30 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro il 1 novembre" }
+      ],
     linkSito: "http://www.unican.es",
+    linkCatalogo: "http://www.unican.es/WebUC/Unidades/relinteng/catalogue/EHEA/",
+
     notePratiche: "Posti dell'accordo: 1. Accordo ERA71410."
   },
   {
@@ -8181,7 +8189,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno / anno intero)", periodo: "dal 1 marzo al 30 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "dal 1 giugno al 30 settembre" }
+      ],
     linkSito: "http://www.upv.es",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70954."
   },
@@ -9100,10 +9111,18 @@ var METE = [
     posti: [
       { numero: 1, mesi: 9, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "per corsi in spagnolo" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro il 30 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro il 1 novembre" }
+      ],
     linkSito: "http://www.unican.es",
+    linkCatalogo: "http://www.unican.es/WebUC/Unidades/relinteng/catalogue/EHEA/",
+
     notePratiche: "Posti dell'accordo: 1. Accordo ERA71192."
   },
   {

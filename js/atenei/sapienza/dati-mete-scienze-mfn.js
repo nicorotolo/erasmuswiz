@@ -5051,7 +5051,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno / anno intero)", periodo: "dal 1 marzo al 30 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "dal 1 giugno al 30 settembre" }
+      ],
     linkSito: "http://www.upv.es",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Accordo ERA70789."
   },

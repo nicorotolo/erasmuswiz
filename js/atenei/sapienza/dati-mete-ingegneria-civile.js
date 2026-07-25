@@ -2457,7 +2457,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno / anno intero)", periodo: "dal 1 marzo al 30 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "dal 1 giugno al 30 settembre" }
+      ],
     linkSito: "http://www.upv.es",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Accordo ERA69225."
   },
@@ -2473,10 +2476,18 @@ var METE = [
     posti: [
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "per corsi in spagnolo" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro il 30 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro il 1 novembre" }
+      ],
     linkSito: "http://www.unican.es",
+    linkCatalogo: "http://www.unican.es/WebUC/Unidades/relinteng/catalogue/EHEA/",
+
     notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69209."
   },
   {
@@ -2509,10 +2520,18 @@ var METE = [
     posti: [
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Spagnolo", livello: "B1", condizione: "per corsi in spagnolo" },
+        { lingua: "Inglese", livello: "B2", condizione: "per corsi in inglese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (autunno)", periodo: "entro il 30 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro il 1 novembre" }
+      ],
     linkSito: "http://www.unican.es",
+    linkCatalogo: "http://www.unican.es/WebUC/Unidades/relinteng/catalogue/EHEA/",
+
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69208."
   },
   {
@@ -2834,7 +2853,12 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro il 1 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro il 15 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro il 1 ottobre" },
+        { cosa: "Application (primavera)", periodo: "entro il 15 ottobre" }
+      ],
     linkSito: "https://www.hv.se/",
     notePratiche: "Posti dell'accordo: 3. Accordo ERA69330."
   },
@@ -2851,10 +2875,20 @@ var METE = [
       { numero: 1, mesi: 10, livello: "L", note: "" },
       { numero: 1, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "fortemente raccomandato, nessun certificato richiesto" },
+        { lingua: "Inglese", livello: "B2", condizione: "fortemente raccomandato, nessun certificato richiesto" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination/Application (autunno, atenei europei)", periodo: "entro il 15 aprile" },
+        { cosa: "Nomination/Application (primavera, atenei europei)", periodo: "entro il 15 ottobre" }
+      ],
     linkSito: "http://www.epfl.ch/",
+    linkCatalogo: "https://go.epfl.ch/in-studies",
+
+    notaDisponibilita: "Projects in laboratories are only open for students who already completed at least 2 years at the Bachelor level. Limited places courses are not open to exchange students.",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA69145."
   },
   {
@@ -2871,8 +2905,15 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro il 15 giugno" },
+        { cosa: "Application (autunno)", periodo: "entro il 30 giugno" },
+        { cosa: "Nomination (primavera)", periodo: "entro il 15 novembre" },
+        { cosa: "Application (primavera)", periodo: "entro il 30 novembre" }
+      ],
     linkSito: "https://www.mef.edu.tr/en",
+    linkCatalogo: "https://sis.mef.edu.tr/bilgipaketi/eobsakts/icerik/id/43/menu_id/6_40/ln/en",
+
     notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69341."
   },
   {
@@ -2938,6 +2979,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.itu.edu.tr/",
+    linkCatalogo: "https://global.itu.edu.tr/students/international-programs/global-exchange-students",
+
     notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69339."
   },
   {
@@ -2981,6 +3024,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://en.uni-mate.hu/",
+    linkCatalogo: "https://international.uni-mate.hu/course-catalogue",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69270."
   }
 ];

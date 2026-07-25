@@ -1,0 +1,81 @@
+{
+  "E  VALENCI02": {
+    "scadenzeOspitante": {
+      "url": "https://www.upv.es/entidades/sint/en/nomination-european-mobility/",
+      "citazione": "March 1 – April 30 for the first semester / full academic year (arrival in September). June 1 – September 30 for the second semester (arrival at the end of January/beginning of February).",
+      "verificataIl": "2026-07-25"
+    }
+  },
+  "E  SANTAND01": {
+    "requisitoLingua": {
+      "url": "https://docs.univr.it/documenti/ProgrammaMobilita/all/all019288.pdf",
+      "citazione": "B1 Spanish. B2 English (only for courses in English).",
+      "verificataIl": "2026-07-25"
+    },
+    "scadenzeOspitante": {
+      "url": "https://docs.univr.it/documenti/ProgrammaMobilita/all/all019288.pdf",
+      "citazione": "E SANTAND01 30th June (deadline for online application) 1st November (deadline for online application)",
+      "verificataIl": "2026-07-25"
+    },
+    "linkCatalogo": {
+      "url": "https://docs.univr.it/documenti/ProgrammaMobilita/all/all019288.pdf",
+      "citazione": "Course Catalogue: http://www.unican.es/WebUC/Unidades/relinteng/catalogue/EHEA/",
+      "verificataIl": "2026-07-25"
+    }
+  },
+  "S  TROLLHA01": {
+    "scadenzeOspitante": {
+      "url": "https://www.hv.se/contentassets/269eddda9c95480c8de534070beaa5e5/university-west-fact-sheet-for-partners-2025-2026.pdf",
+      "citazione": "Nomination deadlines Autumn semester: 1 April; Spring semester: 1 October. Application deadlines Autumn semester: 15 April; Spring semester: 15 October.",
+      "verificataIl": "2026-07-25"
+    }
+  },
+  "CH LAUSANN06": {
+    "requisitoLingua": {
+      "url": "https://dean.technion.ac.il/wp-content/uploads/2026/01/EPFLKeyData2026-2027_Partners.pdf",
+      "citazione": "It is strongly recommended to have a B2 level in French and/or in English. No certificate is required.",
+      "verificataIl": "2026-07-25"
+    },
+    "scadenzeOspitante": {
+      "url": "https://dean.technion.ac.il/wp-content/uploads/2026/01/EPFLKeyData2026-2027_Partners.pdf",
+      "citazione": "Universities in Europe: Autumn semester 15th April; Spring semester 15th October.",
+      "verificataIl": "2026-07-25"
+    },
+    "linkCatalogo": {
+      "url": "https://dean.technion.ac.il/wp-content/uploads/2026/01/EPFLKeyData2026-2027_Partners.pdf",
+      "citazione": "Courses and study plans https://go.epfl.ch/in-studies",
+      "verificataIl": "2026-07-25"
+    },
+    "notaDisponibilita": {
+      "url": "https://dean.technion.ac.il/wp-content/uploads/2026/01/EPFLKeyData2026-2027_Partners.pdf",
+      "citazione": "Projects in laboratories are only open for students who already completed at least 2 years at the Bachelor level. limited places courses are not open to exchange students.",
+      "verificataIl": "2026-07-25"
+    }
+  },
+  "TR ISTANBU49": {
+    "scadenzeOspitante": {
+      "url": "https://www.mef.edu.tr/en/incoming-erasmus-and-visiting-students",
+      "citazione": "Fall semester: nominations by 15 June, applications by 30 June. Spring semester: nominations by 15 November, applications by 30 November.",
+      "verificataIl": "2026-07-25"
+    },
+    "linkCatalogo": {
+      "url": "https://sis.mef.edu.tr/bilgipaketi/eobsakts/icerik/id/43/menu_id/6_40/ln/en",
+      "citazione": "Information Package / Course Catalogue",
+      "verificataIl": "2026-07-25"
+    }
+  },
+  "TR ISTANBU04": {
+    "linkCatalogo": {
+      "url": "https://global.itu.edu.tr/students/international-programs/global-exchange-students",
+      "citazione": "Course Catalogue. Courses and Schedules. Undergraduate Courses · Graduate Courses",
+      "verificataIl": "2026-07-25"
+    }
+  },
+  "HU GODOLLO01": {
+    "linkCatalogo": {
+      "url": "https://en.uni-mate.hu/documents/d/hungarian-university-of-agriculture-and-life-sciences/institute-of-plant-protection_erasmus-course-catalogue_2026-2027",
+      "citazione": "COURSE CATALOGUE for Exchange students. 2026/27 Academic year",
+      "verificataIl": "2026-07-25"
+    }
+  }
+}

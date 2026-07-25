@@ -890,6 +890,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.itu.edu.tr/",
+    linkCatalogo: "https://global.itu.edu.tr/students/international-programs/global-exchange-students",
+
     notePratiche: "Posti dell'accordo: 3. Accordo ERA68363."
   }
 ];

@@ -4,30 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 335,
+  "runCompletati": 336,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "ingegneria-civile-batch-6",
-      "priorita": 5,
-      "dipartimento": "Ingegneria Civile e Industriale (Sapienza)",
-      "descrizione": "Ingegneria Civile e Industriale (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "E  VALENCI02",
-        "E  SANTAND01",
-        "E  MADRID02",
-        "S  TROLLHA01",
-        "CH LAUSANN06",
-        "TR ISTANBU49",
-        "TR ISTANBU04",
-        "HU GODOLLO01"
-      ]
-    },
     {
       "id": "scienze-mfn-batch-1",
       "priorita": 5,
@@ -700,6 +683,21 @@
         "RO TIMISOA04",
         "E  MADRID05",
         "E  BARCELO03"
+      ]
+    },
+    {
+      "id": "ingegneria civile e industriale (sapienza)-batch-followup-6",
+      "priorita": 6,
+      "dipartimento": "Ingegneria Civile e Industriale (Sapienza)",
+      "descrizione": "Ingegneria Civile e Industriale (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E  VALENCI02",
+        "E  MADRID02",
+        "S  TROLLHA01",
+        "TR ISTANBU49",
+        "TR ISTANBU04",
+        "HU GODOLLO01"
       ]
     }
   ],
@@ -1515,7 +1513,7 @@
       "fileJs": "js/atenei/sapienza/dati-mete-ingegneria-civile.js",
       "stato": "in_corso",
       "totale": 128,
-      "completate": 78,
+      "completate": 81,
       "pendingScadenze": [
         "A  WIEN03",
         "BG VARNA05",
@@ -1540,12 +1538,7 @@
         "P  PORTO05",
         "E  BARCELO03",
         "E  MADRID05",
-        "E  VALENCI02",
-        "E  SANTAND01",
         "E  MADRID02",
-        "S  TROLLHA01",
-        "CH LAUSANN06",
-        "TR ISTANBU49",
         "TR ISTANBU04",
         "HU GODOLLO01"
       ],
@@ -1577,10 +1570,8 @@
         "RO TIMISOA04",
         "E  MADRID05",
         "E  VALENCI02",
-        "E  SANTAND01",
         "E  MADRID02",
         "S  TROLLHA01",
-        "CH LAUSANN06",
         "TR ISTANBU49",
         "TR ISTANBU04",
         "HU GODOLLO01"
@@ -1614,7 +1605,13 @@
         "P  LISBOA05": 1,
         "P  PORTO05": 1,
         "RO TIMISOA04": 1,
-        "E  MADRID05": 1
+        "E  MADRID05": 1,
+        "E  VALENCI02": 1,
+        "E  MADRID02": 1,
+        "S  TROLLHA01": 1,
+        "TR ISTANBU49": 1,
+        "TR ISTANBU04": 1,
+        "HU GODOLLO01": 1
       },
       "linguaNonTrovabile": [
         "G  PATRA01",
@@ -1669,7 +1666,6 @@
         "E  MADRID05",
         "E  BARCELO03",
         "E  ALMERIA01",
-        "E  VALENCI02",
         "E  GIRONA02",
         "E  VIC01",
         "CH ZURICH07",
@@ -1754,7 +1750,7 @@
       "fileJs": "js/atenei/sapienza/dati-mete-lettere-filosofia.js",
       "stato": "in_corso",
       "totale": 424,
-      "completate": 305,
+      "completate": 307,
       "pendingScadenze": [
         "A LINZ04",
         "BG SOFIA06",
@@ -1806,9 +1802,7 @@
         "SI KOPER03",
         "SI MARIBOR01",
         "E  BARCELO45",
-        "E  SANTAND01",
         "E  PAMPLON01",
-        "E  VALENCI02",
         "E  LOGRONO01",
         "E  ALMERIA01",
         "E  MADRID221",
@@ -1887,7 +1881,6 @@
         "SI KOPER03",
         "SI MARIBOR01",
         "E  BARCELO45",
-        "E  SANTAND01",
         "E  PAMPLON01",
         "E  VALENCI02",
         "E  LOGRONO01",
@@ -3980,6 +3973,12 @@
       "data": "2026-07-25",
       "mete": 8,
       "note": "Ingegneria Civile e Industriale (Sapienza) ingegneria-civile-batch-5: merge automatico via applica-batch.mjs (+1 blocchi propagati ad altri dipartimenti)."
+    },
+    {
+      "batch": 336,
+      "data": "2026-07-25",
+      "mete": 8,
+      "note": "Ingegneria Civile e Industriale (Sapienza) ingegneria-civile-batch-6: merge automatico via applica-batch.mjs (+5 blocchi propagati ad altri dipartimenti)."
     }
   ],
   "storicoBatch": [
