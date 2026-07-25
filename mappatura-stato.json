@@ -4,25 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 329,
+  "runCompletati": 330,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "medicina-odontoiatria-batch-4",
-      "priorita": 5,
-      "dipartimento": "Medicina e Odontoiatria - Area medica (Sapienza)",
-      "descrizione": "Medicina e Odontoiatria - Area medica (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "CH LUGANO02",
-        "TR ANKARA02",
-        "HU PECS01"
-      ]
-    },
     {
       "id": "ingegneria-civile-batch-1",
       "priorita": 5,
@@ -712,6 +700,18 @@
         "E  MADRID28",
         "E  ALMERIA01",
         "E  BILBAO26"
+      ]
+    },
+    {
+      "id": "medicina e odontoiatria - area medica (sapienza)-batch-followup-4",
+      "priorita": 6,
+      "dipartimento": "Medicina e Odontoiatria - Area medica (Sapienza)",
+      "descrizione": "Medicina e Odontoiatria - Area medica (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "CH LUGANO02",
+        "TR ANKARA02",
+        "HU PECS01"
       ]
     }
   ],
@@ -1521,7 +1521,10 @@
         "E  LAS-PAL43": 1,
         "E  MADRID28": 1,
         "E  ALMERIA01": 1,
-        "E  BILBAO26": 1
+        "E  BILBAO26": 1,
+        "CH LUGANO02": 1,
+        "TR ANKARA02": 1,
+        "HU PECS01": 1
       },
       "linguaNonTrovabile": [
         "BG SOFIA11",
@@ -3968,6 +3971,12 @@
       "data": "2026-07-25",
       "mete": 8,
       "note": "Medicina e Odontoiatria - Area medica (Sapienza) medicina-odontoiatria-batch-3: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 330,
+      "data": "2026-07-25",
+      "mete": 3,
+      "note": "Medicina e Odontoiatria - Area medica (Sapienza) medicina-odontoiatria-batch-4: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
