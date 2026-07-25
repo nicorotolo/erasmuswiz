@@ -935,58 +935,134 @@ body {
 }
 
 /* ================================================================
-   PERCORSO A STAZIONI (R3, PLAN.md §5.5)
+   PERCORSO A STAZIONI (R3, PLAN.md §5.5 · redesign v2 §4.3 — F3a)
    La linea di viaggio racconta il progresso: una sola tappa corrente
    (decisa da tappaCorrente, R1.6). I <details> tengono compatta la
    schermata: la stazione corrente parte aperta, le altre chiuse.
+
+   Il modello è una CORSIA a sinistra della <li>: dentro ci stanno il
+   marker e il binario, la card comincia dopo. Così il binario non
+   passa mai sotto la card e non serve litigare né con lo z-index né
+   con l'overflow:hidden di .stazione-dettagli.
+
+   ⚠️ GUARDIA 1 — NON aggiungere position, transform, filter o
+   will-change a .stazione-dettagli. Oggi non è posizionato, quindi
+   NON è il containing block di .stazione-punto e il suo
+   overflow:hidden non lo taglia. Una qualunque di quelle proprietà
+   creerebbe un containing block nuovo: il marker rientrerebbe nella
+   card e sparirebbe.
+
+   ⚠️ GUARDIA 2 — il box-sizing: border-box su .stazione-punto NON è
+   cosmetico. Con content-box il bordo da 2px si somma e il marker
+   diventa 34px: il suo centro scivola da 15 a 17px e si stacca
+   dall'asse del binario. Stessa rottura silenziosa a desktop (36 →
+   40px, centro 20 contro 18). Se un domani il foglio adottasse un
+   reset globale *{box-sizing:border-box} questa riga diventerebbe
+   ridondante, non sbagliata: lasciarla.
 ================================================================ */
-.stazioni { list-style: none; margin: 0 0 8px; padding: 0; }
-.stazione { position: relative; }
-.stazione + .stazione { margin-top: 10px; }
-/* Il tratto di linea che collega le stazioni, allineato ai marker. */
-.stazione + .stazione::before {
-  content: ""; position: absolute; left: 31px; top: -10px;
-  width: 2px; height: 10px; background: var(--border-strong);
+.stazioni {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-direction: column; gap: var(--space-4);
 }
-.stazione-fatta + .stazione::before { background: var(--gold); }
+/* La geometria della corsia sta in un posto solo: il blocco desktop in
+   fondo cambia UN numero (--marker) e binario, corsia e offset si
+   ricalcolano da sé. */
+.stazione {
+  --marker:     30px;          /* diametro del punto, bordo incluso */
+  --marker-top: 14px;          /* allineato alla prima riga del titolo */
+  --lane:       var(--space-4);/* = gap dell'ol: il binario deve scavalcarlo */
+  position: relative;          /* containing block del marker — GUARDIA 1 */
+  padding-left: calc(var(--marker) + 8px);
+}
+/* Binario continuo PER-STAZIONE: parte sotto il proprio marker e arriva
+   fino al BORDO SUPERIORE del marker successivo. Non al bordo della <li>
+   successiva (che è ciò che darebbe un semplice -1 * gap): resterebbe
+   scoperto il tratto alto var(--marker-top), cioè un buco di 14px
+   esattamente sopra ogni punto — su un elemento che si chiama "binario
+   continuo". */
+.stazione::before {
+  content: "";
+  position: absolute;
+  left:   calc(var(--marker) / 2 - 1px);
+  top:    calc(var(--marker-top) + var(--marker));
+  bottom: calc(-1 * (var(--lane) + var(--marker-top)));
+  width: 2px; border-radius: 1px;
+  background: var(--border-strong);
+}
+.stazione:last-child::before { display: none; }
+/* Il tratto che ESCE da una stazione completata è verde: il binario si
+   riempie mano a mano, come una barra di progresso verticale. */
+.stazione-fatta::before { background: var(--green); }
+/* Il ponte verso le Mete non è una stazione: è l'unica <li> senza marker
+   e senza <details> (index.html:260). Il suo binario parte da 0, o la
+   linea si spezza proprio lì. */
+.stazione-ponte::before { top: 0; }
+.stazione-fatta + .stazione-ponte::before { background: var(--green); }
+.stazione-punto {
+  position: absolute; left: 0; top: var(--marker-top);
+  box-sizing: border-box;                  /* GUARDIA 2 */
+  width: var(--marker); height: var(--marker);
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; border: 2px solid var(--border-strong);
+  /* il marker sta sulla PAGINA, non sulla card: il fondo è quello dell'app,
+     o il binario gli si vedrebbe attraverso */
+  background: var(--bg-app); color: var(--text-hint);
+  /* misura legata al diametro del cerchio, non alla scala di testo */
+  font-family: var(--font-mono); font-weight: 700; font-size: 13.5px;
+  z-index: 1;                              /* sopra il binario */
+}
+/* Il canvas propone #10B981 per il verde e un alone indaco fisso sotto
+   il marker attivo. Entrambi corretti qui: bianco su #10B981 sta a
+   2,6:1 (--green, #0f7a3a, sta a 5,5:1), e un anello colorato sempre
+   acceso sarebbe indistinguibile dall'anello di focus di F2. */
+.stazione-fatta  .stazione-punto { background: var(--green);        border-color: var(--green);        color: #fff; }
+.stazione-attiva .stazione-punto { background: var(--primary-fill); border-color: var(--primary-fill); color: #fff; }
 .stazione-dettagli {
   background: var(--bg-card); border: 1px solid var(--border);
   border-radius: var(--radius-lg); box-shadow: var(--shadow-card);
-  overflow: hidden;
+  overflow: hidden;                        /* serve all'apertura del corpo */
 }
-.stazione-attiva .stazione-dettagli { border: 1.5px solid var(--gold); }
+.stazione-attiva .stazione-dettagli {
+  border: 1.5px solid var(--primary); box-shadow: var(--shadow-card-hover);
+}
 .stazione-testa {
-  display: flex; align-items: center; gap: 12px;
-  padding: 13px 16px; cursor: pointer; list-style: none; user-select: none;
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: var(--space-4); min-height: 48px;
+  cursor: pointer; list-style: none; user-select: none;
 }
 .stazione-testa::-webkit-details-marker { display: none; }
 .stazione-testa:hover { background: var(--bg-card-hover); }
-.stazione-punto {
-  flex: none; width: 30px; height: 30px;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: 50%; border: 2px solid var(--border-strong);
-  font-family: var(--font-mono); font-weight: 700; font-size: 0.85rem;
-  color: var(--text-muted); background: var(--bg-card);
-}
-.stazione-fatta  .stazione-punto { border-color: var(--green); background: var(--green-bg); color: var(--green); }
-.stazione-attiva .stazione-punto { border-color: var(--gold); background: var(--gold-bg); color: var(--gold-dark); }
 .stazione-testi { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
-.stazione-titolo { font-family: var(--font-display); font-weight: 800; font-size: 1rem; color: var(--text-dark); }
+.stazione-titolo {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: var(--fs-h3); letter-spacing: -.015em; color: var(--text-dark);
+}
 .stazione-futura .stazione-titolo { color: var(--text-muted); }
-.stazione-sub { font-size: 0.8rem; color: var(--text-muted); line-height: 1.35; }
+.stazione-sub { font-size: var(--fs-sm); color: var(--text-hint); line-height: 1.35; }
 .stazione-stato {
-  flex: none; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700;
+  flex: none; font-family: var(--font-mono); font-size: var(--fs-xs); font-weight: 700;
   color: var(--text-muted); background: var(--bg-track);
   padding: 2px 9px; border-radius: var(--radius-pill);
 }
 .stazione-stato:empty { display: none; }
 .stazione-fatta  .stazione-stato { color: var(--green); background: var(--green-bg); }
-.stazione-attiva .stazione-stato { color: var(--gold-dark); background: var(--gold-bg); }
+/* La pillola segue il marker: se la tappa corrente è indaco, "tappa
+   corrente" non può restare oro. È la stessa grammatica che F2 ha dato
+   alla voce di checklist corrente (.voce-checklist-v2.attiva, ~894). */
+.stazione-attiva .stazione-stato { color: var(--primary-active); background: #EEF2FF; }
 .stazione-chevron { flex: none; font-size: 0.8rem; color: var(--text-hint); transition: transform var(--dur-fast) var(--ease-out); }
 .stazione-dettagli:not([open]) .stazione-chevron { transform: rotate(-90deg); }
-.stazione-corpo { padding: 4px 16px 16px; border-top: 1px dashed var(--border); }
-.stazione-corpo > :first-child { margin-top: 12px; }
-.stazione-testo { font-size: 0.88rem; color: var(--text-muted); margin: 12px 0; line-height: 1.5; }
+/* Niente più filetto tratteggiato fra testa e corpo: quando la stazione è
+   aperta il confine lo disegna già l'hover della testa.
+   Lo stacco dalla testa lo dà il CORPO, non il primo figlio: i quattro nodi
+   condizionali (#banner-verifica-idoneita, #idoneita-esito,
+   #banner-verifica-checklist, #prossimi-passi-v2) nascono display:none e
+   resterebbero loro il :first-child, lasciando il contenuto vero
+   appiccicato alla testa — misurato a 0px, stessa trappola di R39. */
+.stazione-corpo { padding: var(--space-3) var(--space-4) var(--space-4); }
+.stazione-corpo > :first-child { margin-top: 0; }
+/* margine solo in basso: in alto ci pensa il padding del corpo, o si somma */
+.stazione-testo { font-size: var(--fs-sm); color: var(--text-muted); margin: 0 0 var(--space-3); line-height: 1.5; }
 /* Guardia storica: questi blocchi portavano un gutter di pagina (0 20px)
    anche dentro una stazione, dove il respiro lo dà la card. Da F1.13 il
    gutter è stato tolto alla fonte, quindi queste righe sono diventate dei
@@ -1010,6 +1086,15 @@ body {
 .stazione-ponte-btn:hover { box-shadow: var(--shadow-card); }
 .stazione-ponte-btn:active { transform: translateY(1px) scale(.995); }
 .stazione-ponte[hidden] { display: none; }
+/* Desktop: la corsia si allarga e il marker cresce. Basta --marker: il
+   binario (left, top, bottom) e il padding della corsia sono espressi
+   in funzione sua. */
+@media (min-width: 1024px) {
+  .stazione { --marker: 36px; }
+  .stazione-punto { font-size: 15px; }
+  .stazione-testa { padding: var(--space-5); }
+  .stazione-corpo { padding: var(--space-4) var(--space-5) var(--space-5); }
+}
 
 /* ================================================================
    "ORA TOCCA A TE" — prossimi 3 passi (BR5)
