@@ -4,30 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 342,
+  "runCompletati": 343,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "scienze-mfn-batch-7",
-      "priorita": 5,
-      "dipartimento": "Scienze Matematiche Fisiche e Naturali (Sapienza)",
-      "descrizione": "Scienze Matematiche Fisiche e Naturali (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "TR ISTANBU61",
-        "TR BURDUR01",
-        "TR IZMIR03",
-        "TR ISTANBU05",
-        "TR BINGOL01",
-        "TR ISTANBU70",
-        "TR ISPARTA01",
-        "TR MERSIN01"
-      ]
-    },
     {
       "id": "lettere-filosofia-batch-1",
       "priorita": 5,
@@ -693,6 +676,23 @@
         "E  VIC01",
         "CH ZURICH07",
         "E  BARCELO03"
+      ]
+    },
+    {
+      "id": "scienze matematiche fisiche e naturali (sapienza)-batch-followup-7",
+      "priorita": 6,
+      "dipartimento": "Scienze Matematiche Fisiche e Naturali (Sapienza)",
+      "descrizione": "Scienze Matematiche Fisiche e Naturali (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "TR ISTANBU61",
+        "TR BURDUR01",
+        "TR IZMIR03",
+        "TR ISTANBU05",
+        "TR BINGOL01",
+        "TR ISTANBU70",
+        "TR ISPARTA01",
+        "TR MERSIN01"
       ]
     }
   ],
@@ -1758,7 +1758,15 @@
         "E  VALENCI02": 1,
         "E  GIRONA02": 1,
         "E  VIC01": 1,
-        "CH ZURICH07": 1
+        "CH ZURICH07": 1,
+        "TR ISTANBU61": 1,
+        "TR BURDUR01": 1,
+        "TR IZMIR03": 1,
+        "TR ISTANBU05": 1,
+        "TR BINGOL01": 1,
+        "TR ISTANBU70": 1,
+        "TR ISPARTA01": 1,
+        "TR MERSIN01": 1
       },
       "linguaNonTrovabile": [
         "F  CERGY-P11",
@@ -4035,6 +4043,12 @@
       "data": "2026-07-26",
       "mete": 8,
       "note": "Scienze Matematiche Fisiche e Naturali (Sapienza) scienze-mfn-batch-6: merge automatico via applica-batch.mjs (+3 blocchi propagati ad altri dipartimenti)."
+    },
+    {
+      "batch": 343,
+      "data": "2026-07-26",
+      "mete": 8,
+      "note": "Scienze Matematiche Fisiche e Naturali (Sapienza) scienze-mfn-batch-7: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
