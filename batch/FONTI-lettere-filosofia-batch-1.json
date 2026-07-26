@@ -1,0 +1,26 @@
+{
+  "A LINZ04": {
+    "requisitoLingua": {
+      "url": "https://www.phdl.at/international/incomings/incoming_students",
+      "citazione": "Language of Instruction: mostly German. For access to the complete course lists, German B2. Non-German speaking students must prove their English language proficiency by submitting an official language certificate, proving B2-English.",
+      "verificataIl": "2026-07-26"
+    },
+    "scadenzeOspitante": {
+      "url": "https://www.phdl.at/international/incomings/incoming_students",
+      "citazione": "Nomination Deadlines: 15. April (WS), 31. October (SoSe). Application Deadlines: 15. May (WS), 15. November (SoSe).",
+      "verificataIl": "2026-07-26"
+    },
+    "notaDisponibilita": {
+      "url": "https://www.phdl.at/international/incomings/incoming_students",
+      "citazione": "Elementary Teacher Education: German-speakers only, minimum B2 (as of 2025/26) Primary Teacher Education: non-German speakers welcome. Secondary Teacher Education: non-German speakers welcome.",
+      "verificataIl": "2026-07-26"
+    }
+  },
+  "F  NANTES01": {
+    "linkCatalogo": {
+      "url": "https://www.univ-nantes.fr/international/venir-a-nantes/incoming-exchange-students-class-catalog",
+      "citazione": "At least 70% of your course load must be in a field of study that figures in the exchange agreement.",
+      "verificataIl": "2026-07-26"
+    }
+  }
+}

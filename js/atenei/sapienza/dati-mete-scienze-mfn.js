@@ -863,6 +863,8 @@ var METE = [
     linkSito: "http://www.univ-nantes.fr/foreignstudents",
     notaDisponibilita: "Almeno il 70% dei corsi selezionati deve appartenere all'area di studio coperta dall'accordo bilaterale.",
 
+    linkCatalogo: "https://www.univ-nantes.fr/international/venir-a-nantes/incoming-exchange-students-class-catalog",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70812."
   },
   {

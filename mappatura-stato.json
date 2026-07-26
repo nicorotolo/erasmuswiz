@@ -4,30 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 343,
+  "runCompletati": 344,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "lettere-filosofia-batch-1",
-      "priorita": 5,
-      "dipartimento": "Lettere e Filosofia (Sapienza)",
-      "descrizione": "Lettere e Filosofia (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "A  SALZBUR08",
-        "A LINZ04",
-        "BG SOFIA06",
-        "EE TALLINN05",
-        "SF OULU01",
-        "F  NANTES01",
-        "F  LYON103",
-        "F  LIMOGES01"
-      ]
-    },
     {
       "id": "lettere-filosofia-batch-2",
       "priorita": 5,
@@ -693,6 +676,21 @@
         "TR ISTANBU70",
         "TR ISPARTA01",
         "TR MERSIN01"
+      ]
+    },
+    {
+      "id": "lettere e filosofia (sapienza)-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Lettere e Filosofia (Sapienza)",
+      "descrizione": "Lettere e Filosofia (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "BG SOFIA06",
+        "EE TALLINN05",
+        "SF OULU01",
+        "F  NANTES01",
+        "F  LYON103",
+        "F  LIMOGES01"
       ]
     }
   ],
@@ -1780,9 +1778,8 @@
       "fileJs": "js/atenei/sapienza/dati-mete-lettere-filosofia.js",
       "stato": "in_corso",
       "totale": 424,
-      "completate": 307,
+      "completate": 308,
       "pendingScadenze": [
-        "A LINZ04",
         "BG SOFIA06",
         "EE TALLINN05",
         "SF OULU01",
@@ -1858,7 +1855,6 @@
         "HU MISKOLC01"
       ],
       "pendingLingua": [
-        "A LINZ04",
         "BG SOFIA06",
         "EE TALLINN05",
         "SF OULU01",
@@ -1944,7 +1940,13 @@
         "RO TIMISOA01": 2,
         "E  CORDOBA01": 2,
         "E  PALMA01": 2,
-        "TR IZMIR02": 2
+        "TR IZMIR02": 2,
+        "BG SOFIA06": 1,
+        "EE TALLINN05": 1,
+        "SF OULU01": 1,
+        "F  NANTES01": 1,
+        "F  LYON103": 1,
+        "F  LIMOGES01": 1
       },
       "linguaNonTrovabile": [
         "HR RIJEKA01",
@@ -4049,6 +4051,12 @@
       "data": "2026-07-26",
       "mete": 8,
       "note": "Scienze Matematiche Fisiche e Naturali (Sapienza) scienze-mfn-batch-7: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 344,
+      "data": "2026-07-26",
+      "mete": 8,
+      "note": "Lettere e Filosofia (Sapienza) lettere-filosofia-batch-1: merge automatico via applica-batch.mjs (+2 blocchi propagati ad altri dipartimenti)."
     }
   ],
   "storicoBatch": [

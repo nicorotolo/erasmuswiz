@@ -293,10 +293,20 @@ var METE = [
       { numero: 2, mesi: 6, livello: "L", note: "" },
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "per studenti non germanofoni" },
+        { lingua: "Tedesco", livello: "B2", condizione: "per accesso alla lista completa dei corsi" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (Autunno)", periodo: "entro 15 aprile" },
+        { cosa: "Nomination (Primavera)", periodo: "entro 31 ottobre" },
+        { cosa: "Application (Autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Application (Primavera)", periodo: "entro 15 novembre" }
+      ],
     linkSito: "https://www.phdl.at/",
+    notaDisponibilita: "Elementary Teacher Education: solo per studenti germanofoni, livello minimo B2. Per Primary Teacher Education e Secondary Teacher Education sono benvenuti gli studenti non germanofoni.",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA71133."
   },
   {
@@ -1041,6 +1051,8 @@ var METE = [
     scadenzeOspitante: [],
     linkSito: "http://www.univ-nantes.fr/foreignstudents",
     notaDisponibilita: "Almeno il 70% dei corsi selezionati deve appartenere all'area di studio coperta dall'accordo bilaterale.",
+
+    linkCatalogo: "https://www.univ-nantes.fr/international/venir-a-nantes/incoming-exchange-students-class-catalog",
 
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA71288."
   },
@@ -2278,6 +2290,8 @@ var METE = [
     scadenzeOspitante: [],
     linkSito: "http://www.univ-nantes.fr/foreignstudents",
     notaDisponibilita: "Almeno il 70% dei corsi selezionati deve appartenere all'area di studio coperta dall'accordo bilaterale.",
+
+    linkCatalogo: "https://www.univ-nantes.fr/international/venir-a-nantes/incoming-exchange-students-class-catalog",
 
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Accordo ERA71105."
   },
