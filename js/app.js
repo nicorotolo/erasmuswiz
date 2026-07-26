@@ -1850,6 +1850,16 @@ function renderMete() {
 
   const filtriChip = document.getElementById("filtri-mete-chip");
   if (filtriChip) {
+    // A11y — questo re-render distrugge il chip che aveva il fuoco, che così
+    // cade su <body>: chi naviga da tastiera, dopo aver scelto un filtro,
+    // ripartirebbe col Tab dall'inizio della pagina. Si ricorda la POSIZIONE
+    // del chip a fuoco e la si ridà al nodo nuovo corrispondente (la lista dei
+    // chip è fissa, l'indice è un'identità stabile).
+    const fuocoChip = document.activeElement;
+    const indiceFuoco = (fuocoChip && filtriChip.contains(fuocoChip) &&
+      fuocoChip.classList.contains("chip-filtro"))
+      ? Array.prototype.indexOf.call(filtriChip.children, fuocoChip)
+      : -1;
     filtriChip.innerHTML = "";
     if (profilo) {
       const lingueMancanti = !profilo.lingue || profilo.lingue.length === 0;
@@ -1878,6 +1888,13 @@ function renderMete() {
       });
     } else {
       filtroMeteAttivo = "tutte";
+    }
+    // `preventScroll`: il fuoco torna dov'era, la pagina non deve muoversi.
+    // Il ripristino scatta solo se il fuoco era GIÀ su un chip, quindi non
+    // ruba nulla; dopo un click di mouse l'anello resta invisibile perché il
+    // tema usa `:focus-visible`, non `:focus`.
+    if (indiceFuoco > -1 && filtriChip.children[indiceFuoco]) {
+      filtriChip.children[indiceFuoco].focus({ preventScroll: true });
     }
   }
   if (profilo && filtroMeteAttivo === "lingua") {

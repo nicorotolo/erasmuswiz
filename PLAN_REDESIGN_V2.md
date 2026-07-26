@@ -60,14 +60,36 @@ Strumento: `design/redesign-2026-07/baseline/probe-invarianti.js`, lo stesso di 
   piano vieta esplicitamente, e (b) riscrivere copy in tutta l'app: non è un punto di
   checklist, è un mini-progetto di sua natura. **Resta aperto per Nicola.**
 
-**Due cose trovate fuori checklist, dichiarate e NON corrette** (nessuna delle due è
-introdotta dal redesign, nessuna delle due rientra in F4):
+**Due cose trovate fuori checklist e dichiarate** (nessuna delle due è introdotta dal
+redesign, nessuna delle due rientrava in F4). La prima è stata **sanata dopo F4**, con un
+intervento suo, il **2026-07-26**; la seconda resta aperta:
 
-1. **Il fuoco si perde cambiando filtro nelle Mete.** `renderMete()` ricostruisce la riga
-   dei chip, quindi il nodo che aveva il fuoco sparisce e il fuoco cade su `<body>`:
-   misurato (`chipRicreato: true`, `fuocoDopo: BODY`). Per chi naviga da tastiera vuol dire
-   che dopo aver scelto un filtro il Tab **riparte dall'inizio della pagina**. È logica di
-   `js/app.js`, pre-esistente, ~5 righe da sanare: merita un intervento suo.
+1. **Il fuoco si perde cambiando filtro nelle Mete.** ✅ **corretto il 2026-07-26**, fuori
+   fase, come previsto. `renderMete()` ricostruisce la riga dei chip, quindi il nodo che
+   aveva il fuoco spariva e il fuoco cadeva su `<body>`: misurato in F4 (`chipRicreato:
+   true`, `fuocoDopo: BODY`). Per chi naviga da tastiera voleva dire che dopo aver scelto un
+   filtro il Tab **ripartiva dall'inizio della pagina**.
+   **La patch** (solo `js/app.js`, dentro `renderMete()`, `index.html` e il CSS intatti):
+   prima di `filtriChip.innerHTML = ""` si registra l'**indice** del chip a fuoco — solo se
+   `document.activeElement` è davvero un `.chip-filtro` dentro quel contenitore — e dopo la
+   ricostruzione lo si ridà al nodo nuovo nella stessa posizione, con
+   `focus({ preventScroll: true })`. Indice e non un `data-filtro`: la lista dei 5 chip è
+   fissa, e aggiungere quell'attributo renderebbe bugiardo il commento R21 poche righe sotto,
+   che dichiara che `data-filtro` non esiste.
+   **Misura dopo la patch** (server locale 8123, profilo di prova): attivando un chip,
+   `chipRicreato: true` ma `fuocoDopo: BUTTON` sul chip corrispondente, già in classe
+   `attivo`; **Tab reale** subito dopo → va al chip successivo, non in cima alla pagina;
+   `window.scrollY` invariato; **click di mouse** → fuoco ripristinato ma
+   `:focus-visible = false`, quindi nessun anello che compare dal nulla (il tema usa
+   `:focus-visible`, non `:focus` — `css/style.css:195`); digitando in `#cerca-mete`, che
+   pure richiama `renderMete()`, il fuoco **resta nel campo**; `renderMete()` senza profilo
+   (contenitore chip vuoto) non solleva eccezioni.
+   ⚠︎ Come al punto 5, **l'Invio da tastiera non è confermabile con l'automazione del
+   browser** (dopo `key Return` il filtro restava su "Tutte"): l'attivazione è stata
+   riprodotta con `chip.click()`, la stessa strada che percorre l'Invio, mentre i **Tab sono
+   reali** — ed è il Tab la prova che conta. `_smoke.js` non è rieseguibile (`jsdom` non è
+   più installato fuori dal repo); al suo posto `node --check js/app.js`, che comunque non
+   saprebbe misurare né `:focus-visible` né l'ordine di Tab.
 2. **Detector `/impeccable`, 15 segnalazioni, nessuna nuova.** 9 `side-tab` (i `border-left`
    colorati ≥3px — è la domanda già aperta per il GATE 2), 3 `bounce-easing`
    (`--ease-bounce` su `check-pop` e `mappa-pin-pop`: micro-feedback voluto), 1

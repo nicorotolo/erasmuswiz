@@ -21,7 +21,34 @@
 
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-07-25 — Claude Code (Opus 5).
+**Ultimo aggiornamento:** 2026-07-26 — Claude Code (Opus 5).
+
+**(SESSIONE 2026-07-26 — chiuso il punto 1 delle cose trovate fuori checklist in F4:
+il fuoco che si perdeva cambiando filtro nelle Mete. Intervento suo, fuori fase, come
+F4 aveva previsto. Un solo file toccato: `js/app.js`.)**
+
+**Il difetto.** `renderMete()` ricostruisce la riga `#filtri-mete-chip`, quindi il chip
+che aveva il fuoco veniva distrutto e il fuoco cadeva su `<body>`: da tastiera, dopo aver
+scelto un filtro, il Tab **ripartiva dall'inizio della pagina**.
+
+**La patch, dentro `renderMete()`.** Prima di svuotare la riga si registra l'**indice**
+del chip a fuoco — solo se `document.activeElement` è davvero un `.chip-filtro` di quel
+contenitore — e dopo la ricostruzione lo si ridà al nodo nuovo nella stessa posizione,
+con `focus({ preventScroll: true })`. Indice e non un `data-filtro` nuovo: i 5 chip sono
+una lista fissa, e quell'attributo renderebbe bugiardo il commento R21 poche righe sotto,
+che dichiara che `data-filtro` non esiste. `index.html` e `css/style.css` non toccati.
+
+**Misurato nel browser** (server locale sulla 8123, profilo di prova): attivando un chip
+il nodo viene ancora ricreato, ma il fuoco finisce sul chip corrispondente — non più su
+`<body>` — e **un Tab reale subito dopo va al chip successivo**, non in cima alla pagina.
+Scroll invariato. Col **mouse** il fuoco viene ripristinato ma `:focus-visible` resta
+`false`: nessun anello che compaia dal nulla, coerente col punto 3 di F4. Digitando in
+`#cerca-mete` (che pure richiama `renderMete()`) il fuoco resta nel campo, e senza profilo
+il render non solleva eccezioni. ⚠︎ Come per la timeline in F4, **l'Invio da tastiera non
+è confermabile con l'automazione del browser**: l'attivazione è stata riprodotta con
+`chip.click()`, mentre i Tab sono reali — ed è il Tab la prova che conta. `_smoke.js` non
+è rieseguibile (`jsdom` non è più installato fuori dal repo); al suo posto `node --check
+js/app.js`, che comunque non saprebbe misurare né `:focus-visible` né l'ordine di Tab.
 
 **(SESSIONE 2026-07-25 — F4: chiusura del redesign v2 e checklist §07. Prima cosa,
 push del pendente: `ee2aca0`, `db8d67b` e i due commit di stato/piano erano fermi in
@@ -68,10 +95,11 @@ cinque** (e ne usa 14 al proprio interno). In codice ce ne sono 13 in `index.htm
 in `js/app.js`: ridurle significherebbe toccare `index.html` — che il Goal del piano
 vieta — e riscrivere copy in tutta l'app. È un mini-progetto, non una spunta. Decide Nicola.
 
-**Trovato fuori checklist, dichiarato e non corretto:** cambiando filtro nelle Mete
+**Trovato fuori checklist e dichiarato:** cambiando filtro nelle Mete
 `renderMete()` ricostruisce la riga dei chip, il nodo col fuoco sparisce e **il fuoco
 cade su `<body>`** — da tastiera, dopo aver scelto un filtro il Tab riparte dall'inizio
 della pagina. Pre-esistente, logica di `js/app.js`, ~5 righe: merita un intervento suo.
+→ **corretto il 2026-07-26**, vedi la sessione in cima a questa sezione.
 Il detector `/impeccable` dà 15 segnalazioni, **nessuna nuova**: 9 `side-tab` (la domanda
 già aperta per il GATE 2), 3 `bounce-easing`, 1 `transition: width` sulle barre di
 progresso, 1 font diffuso e 1 conteggio di trattini lunghi.
@@ -3360,7 +3388,8 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **REDESIGN v2 — F2: Componenti §04** | Interamente CSS (`css/style.css`, +~700/−~270; `index.html` e `js/app.js` intatti). **F2.0** inventario touch sanato: da 5/89/35/16 bersagli sotto 44px (F0, 390px) a **zero**, salvo le 4 eccezioni già dichiarate (link inline dentro un paragrafo). §4.1 due bottoni primari uniti + secondario reattivo + **un solo anello di focus** (sostituisce il sistema esistente, variante oro sulle superfici a inchiostro); §4.2 corpo condiviso delle superfici (`.preparazione-card` esclusa: è annidata) e un solo hover per `.card-cliccabile`; §4.4 `.banner-stato` + i due nodi reali; §4.5 mete; §4.6 missione e countdown (pulsazione solo se urgente); §4.7 checklist, requisito a 3 registri, barre di progresso unificate; §4.8 modal a foglio + schedina; §4.9 form profilo a 2 colonne, nav, drawer, celebrazione. In più: `.sezione-titolo` consuma `--fs-h1` | ✅ Fatta e verificata (2026-07-25) — commit `a10d16b`, **pushato** (⚠️ anticipato rispetto al piano, che collocava il push a F4: il redesign è quindi ONLINE parziale, con la timeline ancora vecchia e il GATE 2 non ancora fatto). Invarianti F0 verdi su 4 tab × 390/768/1280, gutter F1 intatto, contrasto verificato su ~45 coppie, zero errori console |
 | **REDESIGN v2 — F3: Timeline e stato vuoto** | La fase a rischio ALTO, e l'unica di tutto il redesign che tocca `js/app.js`. **F3a** — timeline `ol.stazioni` su una corsia di 38px (marker assoluto, binario continuo, `overflow:hidden` mai in mezzo), con le due guardie commentate in loco; eliminate le vecchie `.stazione + .stazione::before` (V3). **F3b** — helper `creaStatoVuoto()` + i due siti di `renderMete()` coi `return` conservati, `role="status"` (R22), azioni sullo stato invece che sul DOM (R21), variante di copy per il filtro "lingua"; `.schedina-invito-vuota` solo restilizzata (P1.4). **Cinque scostamenti misurati dal canvas**, fra cui: il "binario continuo" del canvas lasciava **un buco di 14px sopra ogni marker**; il ponte verso le Mete (unica `<li>` senza marker) spezzava la linea; bianco su `#10B981` sta a 2,6:1 → `--green` (5,5:1). **La tappa corrente passa da oro a indaco**, con la pillola al seguito: è la grammatica che F2 aveva già dato a `.voce-checklist-v2.attiva`. Trovato alla misura (non nel diff) un corpo-stazione appiccicato alla testa a 0px quando il primo figlio è un banner `display:none` — trappola R39, sanato | ✅ Fatta e verificata (2026-07-25) — commit `ee2aca0` (F3a) + `db8d67b` (F3b). Marker/binario allineati a 0.00px, zero buchi, marker fermo all'apertura; invarianti F0 verdi su 4 tab × 390/768/1280; `_smoke.js` identico al baseline; zero errori console; detector `/impeccable`: nessun antipattern introdotto da F3 |
 | **REDESIGN v2 — 🚦 GATE 2** | Nicola valida timeline, stati vuoti e il passaggio della tappa corrente da oro a indaco | ⚠︎ **Validato "per ora" (2026-07-25), revisione completa RIMANDATA** — «poi rivedremo tutto insieme alla fine». Restano senza giudizio a video tipografia, card, nav, form e modal alle 3 larghezze, più le 2 domande aperte da F2 (`--fs-hero` su `.home-hero-claim`; se il filetto di stato a sinistra sia ormai troppo) |
-| **REDESIGN v2 — F4: Chiusura e checklist §07** | I 9 punti della checklist misurati sui 4 tab a 390/768/1280 (stato Ca' Foscari · Economia · Triennale · Inglese B2, `<details>` forzati aperti). **8 verdi**: zero overflow e zero elementi sporgenti — **i due sospetti del canvas, `.schedina-nome` e la riga di chip, non si sono materializzati**; touch **lista vuota** (criterio R30) salvo le 4 eccezioni già dichiarate; **110 fermate di Tab reali** tutte con anello e tutte `:focus-visible`, click del mouse senza anello; marker della timeline fermo a 0,0px su 5 stazioni × apri/chiudi; griglia di Oggi senza righe vuote nei 3 stati (implicite 4-5 a **0px**); `prefers-reduced-motion` senza perdita d'informazione (179 elementi prima e dopo); nulla di interattivo coperto dalla nav a 390, zero spazio morto a 768. **1 difetto corretto**: le ultime due ombre nere pure (`.mappa-pin .punto`, `.mappa-pin-stella::after`) da `rgba(0,0,0,.3)` a `rgba(30,27,46,.30)` | ✅ Fatta e verificata (2026-07-25) — **⛔ un punto resta aperto**: «nessuna emoji fuori dalle cinque codificate» non è eseguibile (il canvas non elenca mai le cinque; 13 emoji in `index.html`, 24 in `js/app.js`, e `index.html` è vietato dal Goal). Fuori checklist: il fuoco si perde cambiando filtro nelle Mete (pre-esistente, `js/app.js`) |
+| **REDESIGN v2 — F4: Chiusura e checklist §07** | I 9 punti della checklist misurati sui 4 tab a 390/768/1280 (stato Ca' Foscari · Economia · Triennale · Inglese B2, `<details>` forzati aperti). **8 verdi**: zero overflow e zero elementi sporgenti — **i due sospetti del canvas, `.schedina-nome` e la riga di chip, non si sono materializzati**; touch **lista vuota** (criterio R30) salvo le 4 eccezioni già dichiarate; **110 fermate di Tab reali** tutte con anello e tutte `:focus-visible`, click del mouse senza anello; marker della timeline fermo a 0,0px su 5 stazioni × apri/chiudi; griglia di Oggi senza righe vuote nei 3 stati (implicite 4-5 a **0px**); `prefers-reduced-motion` senza perdita d'informazione (179 elementi prima e dopo); nulla di interattivo coperto dalla nav a 390, zero spazio morto a 768. **1 difetto corretto**: le ultime due ombre nere pure (`.mappa-pin .punto`, `.mappa-pin-stella::after`) da `rgba(0,0,0,.3)` a `rgba(30,27,46,.30)` | ✅ Fatta e verificata (2026-07-25) — **⛔ un punto resta aperto**: «nessuna emoji fuori dalle cinque codificate» non è eseguibile (il canvas non elenca mai le cinque; 13 emoji in `index.html`, 24 in `js/app.js`, e `index.html` è vietato dal Goal). Fuori checklist: il fuoco si perdeva cambiando filtro nelle Mete (pre-esistente, `js/app.js`) → **sanato il 2026-07-26** con un intervento suo |
+| **A11y — fuoco sui filtri delle Mete** | Il punto 1 delle cose trovate fuori checklist in F4. `renderMete()` ricostruisce `#filtri-mete-chip`: il chip a fuoco veniva distrutto e il fuoco cadeva su `<body>`, così da tastiera il Tab ripartiva dall'inizio della pagina. Ora prima del re-render si registra l'**indice** del chip a fuoco (solo se `document.activeElement` è davvero un `.chip-filtro` di quel contenitore) e dopo lo si ridà al nodo nuovo con `focus({ preventScroll: true })`. Indice e non un `data-filtro` nuovo: i 5 chip sono una lista fissa, e l'attributo renderebbe bugiardo il commento R21 poche righe sotto. Solo `js/app.js`; `index.html` e `css/style.css` intatti | ✅ Fatta e verificata (2026-07-26) — nel browser sulla 8123: fuoco sul chip corrispondente invece che su `BODY`, **Tab reale successivo → chip seguente**, scroll invariato, col mouse `:focus-visible = false` (nessun anello), fuoco in `#cerca-mete` non rubato, nessuna eccezione senza profilo. ⚠︎ L'Invio da tastiera non è confermabile con l'automazione (stesso limite del punto 5 di F4): attivazione riprodotta con `chip.click()`, Tab reali |
 
 **Nav (R3, definitiva — gate R1 chiuso):** Mete → **Home** (centrale su
 mobile) → Percorso, + **"☰ Altro" (apre il drawer, R1.2)** che non è una
@@ -3606,11 +3635,11 @@ la revisione d'insieme, che è di Nicola:**
    stesso. Oggi: **13 in `index.html`, 24 in `js/app.js`**. Farlo davvero significa
    toccare `index.html` (vietato dal Goal del piano) e riscrivere copy in tutta
    l'app: è un mini-progetto a sé, da aprire solo se Nicola lo vuole.
-3. **Da sanare, fuori dal redesign: il fuoco perso sui filtri delle Mete.**
-   `renderMete()` ricostruisce la riga dei chip, il nodo col fuoco sparisce e il fuoco
-   cade su `<body>`; da tastiera il Tab riparte dall'inizio della pagina. Pre-esistente,
-   ~5 righe in `js/app.js` (ricordare quale chip aveva il fuoco e rimetterlo dopo il
-   render). Piccolo, ma è accessibilità vera.
+3. ✅ ~~**Da sanare, fuori dal redesign: il fuoco perso sui filtri delle Mete.**~~
+   **Fatto il 2026-07-26.** `renderMete()` ora ricorda l'indice del chip a fuoco e lo
+   ridà al nodo nuovo dopo il render (`focus({ preventScroll: true })`). Verificato con
+   Tab reali nel browser: dopo aver scelto un filtro il Tab riparte dal chip, non
+   dall'inizio della pagina; col mouse nessun anello (`:focus-visible = false`).
 4. **Segnalazioni del detector da valutare a freddo** (nessuna introdotta dal
    redesign): 3 `bounce-easing` (`--ease-bounce` su `check-pop` e `mappa-pin-pop`:
    micro-feedback voluto), 1 `transition: width` sulle barre di progresso (anima il
