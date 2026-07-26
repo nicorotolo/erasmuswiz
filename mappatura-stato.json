@@ -4,30 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 345,
+  "runCompletati": 346,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "lettere-filosofia-batch-3",
-      "priorita": 5,
-      "dipartimento": "Lettere e Filosofia (Sapienza)",
-      "descrizione": "Lettere e Filosofia (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "D  WUPPERT01",
-        "D  DORTMUN01",
-        "D  SIEGEN01",
-        "D  BONN01",
-        "D  BAYREUT01",
-        "D  FRANKFU08",
-        "D  HALLE01",
-        "D  MARBURG01"
-      ]
-    },
     {
       "id": "lettere-filosofia-batch-4",
       "priorita": 5,
@@ -692,6 +675,22 @@
         "F  CAEN01",
         "F  TAHITI01"
       ]
+    },
+    {
+      "id": "lettere e filosofia (sapienza)-batch-followup-3",
+      "priorita": 6,
+      "dipartimento": "Lettere e Filosofia (Sapienza)",
+      "descrizione": "Lettere e Filosofia (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D  WUPPERT01",
+        "D  DORTMUN01",
+        "D  SIEGEN01",
+        "D  BONN01",
+        "D  FRANKFU08",
+        "D  HALLE01",
+        "D  MARBURG01"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -1092,12 +1091,11 @@
       "fileJs": "js/atenei/sapienza/dati-mete-scienze-politiche.js",
       "stato": "in_corso",
       "totale": 24,
-      "completate": 13,
+      "completate": 14,
       "pendingScadenze": [
         "F  MARSEIL55",
         "F  NANTES01",
         "D  CHEMNIT01",
-        "D  BAYREUT01",
         "D  FRANKFU08",
         "PL WARSZAW68",
         "PL KATOWIC01",
@@ -1505,7 +1503,7 @@
       "fileJs": "js/atenei/sapienza/dati-mete-ingegneria-civile.js",
       "stato": "in_corso",
       "totale": 128,
-      "completate": 82,
+      "completate": 84,
       "pendingScadenze": [
         "A  WIEN03",
         "BG VARNA05",
@@ -1514,7 +1512,6 @@
         "F  LIMOGES01",
         "F  TOULOUS18",
         "D  MUNCHEN02",
-        "D  BAYREUT01",
         "D  FREISIN01",
         "D  CLAUSTH01",
         "LV RIGA31",
@@ -1778,7 +1775,7 @@
       "fileJs": "js/atenei/sapienza/dati-mete-lettere-filosofia.js",
       "stato": "in_corso",
       "totale": 424,
-      "completate": 308,
+      "completate": 309,
       "pendingScadenze": [
         "BG SOFIA06",
         "EE TALLINN05",
@@ -1796,7 +1793,6 @@
         "D  WUPPERT01",
         "D  DORTMUN01",
         "D  BONN01",
-        "D  BAYREUT01",
         "D  FRANKFU08",
         "D  HALLE01",
         "D  MARBURG01",
@@ -1949,7 +1945,14 @@
         "F  VALENCI01": 1,
         "F  PARIS054": 1,
         "F  MAYOTTE01": 1,
-        "F  CLERMON02": 1
+        "F  CLERMON02": 1,
+        "D  WUPPERT01": 1,
+        "D  DORTMUN01": 1,
+        "D  SIEGEN01": 1,
+        "D  BONN01": 1,
+        "D  FRANKFU08": 1,
+        "D  HALLE01": 1,
+        "D  MARBURG01": 1
       },
       "linguaNonTrovabile": [
         "HR RIJEKA01",
@@ -4066,6 +4069,12 @@
       "data": "2026-07-26",
       "mete": 8,
       "note": "Lettere e Filosofia (Sapienza) lettere-filosofia-batch-2: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 346,
+      "data": "2026-07-26",
+      "mete": 8,
+      "note": "Lettere e Filosofia (Sapienza) lettere-filosofia-batch-3: merge automatico via applica-batch.mjs (+3 blocchi propagati ad altri dipartimenti)."
     }
   ],
   "storicoBatch": [

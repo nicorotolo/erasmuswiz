@@ -3871,7 +3871,10 @@ var METE = [
         { lingua: "Tedesco o Inglese", livello: "B2", condizione: "richiesto certificato formale solo per i programmi Study of Religion, English Studies e Law" }
       ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (semestre invernale)", periodo: "15 marzo - 1 maggio" },
+        { cosa: "Nomination (semestre estivo)", periodo: "15 settembre - 1 novembre" }
+      ],
     linkSito: "http://www.uni-bayreuth.de/",
     linkCatalogo: "https://campusonline.uni-bayreuth.de/ubto/webnav.ini",
 
