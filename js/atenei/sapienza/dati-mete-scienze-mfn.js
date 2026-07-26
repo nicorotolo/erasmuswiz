@@ -3156,9 +3156,16 @@ var METE = [
       { numero: 1, mesi: 5, livello: "L", note: "" },
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "Richiesto in generale, salvo diversa indicazione nell'accordo bilaterale" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (anno intero/autunno)", periodo: "entro il 15 maggio di ogni anno" },
+        { cosa: "Application (anno intero/autunno)", periodo: "entro il 30 maggio di ogni anno" },
+        { cosa: "Nomination (primavera)", periodo: "entro il 15 novembre di ogni anno" },
+        { cosa: "Application (primavera)", periodo: "entro il 30 novembre di ogni anno" }
+      ],
     linkSito: "https://www.auth.gr/en/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70838."
   },

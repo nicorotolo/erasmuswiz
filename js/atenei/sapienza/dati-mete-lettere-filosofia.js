@@ -5120,9 +5120,16 @@ var METE = [
       { numero: 2, mesi: 6, livello: "L", note: "" },
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "Richiesto in generale, salvo diversa indicazione nell'accordo bilaterale" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (anno intero/autunno)", periodo: "entro il 15 maggio di ogni anno" },
+        { cosa: "Application (anno intero/autunno)", periodo: "entro il 30 maggio di ogni anno" },
+        { cosa: "Nomination (primavera)", periodo: "entro il 15 novembre di ogni anno" },
+        { cosa: "Application (primavera)", periodo: "entro il 30 novembre di ogni anno" }
+      ],
     linkSito: "https://www.auth.gr/en/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70978."
   },
@@ -5139,9 +5146,16 @@ var METE = [
       { numero: 2, mesi: 6, livello: "L", note: "" },
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "Richiesto in generale, salvo diversa indicazione nell'accordo bilaterale" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (anno intero/autunno)", periodo: "entro il 15 maggio di ogni anno" },
+        { cosa: "Application (anno intero/autunno)", periodo: "entro il 30 maggio di ogni anno" },
+        { cosa: "Nomination (primavera)", periodo: "entro il 15 novembre di ogni anno" },
+        { cosa: "Application (primavera)", periodo: "entro il 30 novembre di ogni anno" }
+      ],
     linkSito: "https://www.auth.gr/en/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70979."
   },
@@ -5262,6 +5276,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.ucd.ie/",
+    notaDisponibilita: "I posti nei moduli non sono garantiti; si applicano restrizioni ad alcune aree disciplinari e tipologie di moduli.",
+
     notePratiche: "Posti dell'accordo: 1. Accordo ERA70987."
   },
   {
@@ -5280,6 +5296,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.ucd.ie/",
+    notaDisponibilita: "I posti nei moduli non sono garantiti; si applicano restrizioni ad alcune aree disciplinari e tipologie di moduli.",
+
     notePratiche: "Posti dell'accordo: 1. Accordo ERA70988."
   },
   {

@@ -1,0 +1,21 @@
+{
+  "G  THESSAL01": {
+    "requisitoLingua": {
+      "url": "https://eurep.auth.gr/en/students/studies/language_requirements",
+      "citazione": "We generally require a B2 English Language Level, unless it is stated otherwise in the Bilateral Agreement, since some Faculties/ Schools require a higher Level of English Language.",
+      "verificataIl": "2026-07-27"
+    },
+    "scadenzeOspitante": {
+      "url": "https://eurep.auth.gr/en/students/studies/deadlines",
+      "citazione": "Full Year | 15th May of each year; Fall Semester | 15th of May of each year; Spring Semester | 15th November of each year. Application deadlines: Full Year | 30th of May of each year; Fall Semester | 30th of May of each year; Spring Semester | 30th of November of each year.",
+      "verificataIl": "2026-07-27"
+    }
+  },
+  "IRLDUBLIN02": {
+    "notaDisponibilita": {
+      "url": "https://www.ucd.ie/global/study-at-ucd/studyabroadandexchanges/exchangesanderasmus/",
+      "citazione": "Places in modules at UCD are not guaranteed. Moreover, there are certain restrictions on specific subject areas ... as well as certain types of modules.",
+      "verificataIl": "2026-07-27"
+    }
+  }
+}
