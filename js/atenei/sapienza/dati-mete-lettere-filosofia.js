@@ -2104,10 +2104,14 @@ var METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B2", condizione: "richiesto" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.univ-orleans.fr/",
+    notaDisponibilita: "Smart Building, Production, PEIP e AESM non sono disponibili per gli exchange students.",
+
     notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71289."
   },
   {
@@ -2634,10 +2638,14 @@ var METE = [
       { numero: 5, mesi: 6, livello: "L", note: "" },
       { numero: 5, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Francese", livello: "B1/B2", condizione: "raccomandato" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.upf.pf",
+    notaDisponibilita: "Esclusi i corsi del 1° anno del Premier Cycle d'Etudes Médicales e della continuing education.",
+
     notePratiche: "Posti totali dell'accordo: 5 (condivisi tra i livelli). Accordo ERA71470."
   },
   {
@@ -2676,6 +2684,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.uca.fr/",
+    notaDisponibilita: "Gli exchange students all'IAE Clermont Auvergne possono scegliere corsi in altre facoltà/scuole all'interno di UCA.",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA71423."
   },
   {
@@ -2695,6 +2705,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.uca.fr/",
+    notaDisponibilita: "Gli exchange students all'IAE Clermont Auvergne possono scegliere corsi in altre facoltà/scuole all'interno di UCA.",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA71420."
   },
   {
@@ -2714,6 +2726,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.uca.fr/",
+    notaDisponibilita: "Gli exchange students all'IAE Clermont Auvergne possono scegliere corsi in altre facoltà/scuole all'interno di UCA.",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA71422."
   },
   {
@@ -2733,6 +2747,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.uca.fr/",
+    notaDisponibilita: "Gli exchange students all'IAE Clermont Auvergne possono scegliere corsi in altre facoltà/scuole all'interno di UCA.",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA71421."
   },
   {

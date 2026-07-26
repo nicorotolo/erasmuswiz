@@ -4,30 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 344,
+  "runCompletati": 345,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "lettere-filosofia-batch-2",
-      "priorita": 5,
-      "dipartimento": "Lettere e Filosofia (Sapienza)",
-      "descrizione": "Lettere e Filosofia (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "F  CORTE01",
-        "F  ORLEANS01",
-        "F  CAEN01",
-        "F  VALENCI01",
-        "F  PARIS054",
-        "F  TAHITI01",
-        "F  MAYOTTE01",
-        "F  CLERMON02"
-      ]
-    },
     {
       "id": "lettere-filosofia-batch-3",
       "priorita": 5,
@@ -691,6 +674,23 @@
         "F  NANTES01",
         "F  LYON103",
         "F  LIMOGES01"
+      ]
+    },
+    {
+      "id": "lettere e filosofia (sapienza)-batch-followup-2",
+      "priorita": 6,
+      "dipartimento": "Lettere e Filosofia (Sapienza)",
+      "descrizione": "Lettere e Filosofia (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F  CORTE01",
+        "F  VALENCI01",
+        "F  PARIS054",
+        "F  MAYOTTE01",
+        "F  CLERMON02",
+        "F  ORLEANS01",
+        "F  CAEN01",
+        "F  TAHITI01"
       ]
     }
   ],
@@ -1862,10 +1862,8 @@
         "F  LYON103",
         "F  LIMOGES01",
         "F  CORTE01",
-        "F  ORLEANS01",
         "F  VALENCI01",
         "F  PARIS054",
-        "F  TAHITI01",
         "F  MAYOTTE01",
         "F  CLERMON02",
         "D  WUPPERT01",
@@ -1946,7 +1944,12 @@
         "SF OULU01": 1,
         "F  NANTES01": 1,
         "F  LYON103": 1,
-        "F  LIMOGES01": 1
+        "F  LIMOGES01": 1,
+        "F  CORTE01": 1,
+        "F  VALENCI01": 1,
+        "F  PARIS054": 1,
+        "F  MAYOTTE01": 1,
+        "F  CLERMON02": 1
       },
       "linguaNonTrovabile": [
         "HR RIJEKA01",
@@ -4057,6 +4060,12 @@
       "data": "2026-07-26",
       "mete": 8,
       "note": "Lettere e Filosofia (Sapienza) lettere-filosofia-batch-1: merge automatico via applica-batch.mjs (+2 blocchi propagati ad altri dipartimenti)."
+    },
+    {
+      "batch": 345,
+      "data": "2026-07-26",
+      "mete": 8,
+      "note": "Lettere e Filosofia (Sapienza) lettere-filosofia-batch-2: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

@@ -1,0 +1,33 @@
+{
+  "F  ORLEANS01": {
+    "requisitoLingua": {
+      "url": "https://www.univ-orleans.fr/upload/public/2025-03/FORLEANS01_2025-2026_FACT-SHEET.pdf",
+      "citazione": "Teaching Language: French minimum Level required is B2.",
+      "verificataIl": "2026-07-26"
+    },
+    "notaDisponibilita": {
+      "url": "https://www.univ-orleans.fr/upload/public/2024-02/Polytech%20Orleans%20fact%20sheet%20internet.pdf",
+      "citazione": "Please note that Smart Building, Production, PEIP and AESM programmes are not available to exchange students.",
+      "verificataIl": "2026-07-26"
+    }
+  },
+  "F  TAHITI01": {
+    "requisitoLingua": {
+      "url": "https://international.upf.pf/en/pratiquer-les-langues/",
+      "citazione": "The required level in French corresponds to levels B1-B2 of the Common European Framework of Reference for Languages (CEFR).",
+      "verificataIl": "2026-07-26"
+    },
+    "notaDisponibilita": {
+      "url": "https://international.upf.pf/en/programme-dechange/",
+      "citazione": "with the exception of courses in the 1st year of the Premier Cycle d'Etudes Médicales and in continuing education",
+      "verificataIl": "2026-07-26"
+    }
+  },
+  "F  CLERMON02": {
+    "notaDisponibilita": {
+      "url": "https://iae.uca.fr/medias/fichier/iae-factsheet-2026-27_1776757931696-pdf?ID_FICHE=1026729&INLINE=FALSE",
+      "citazione": "Incoming students at IAE Clermont Auvergne - School of Management are allowed to select courses in other Faculties/Schools/Departments inside UCA",
+      "verificataIl": "2026-07-26"
+    }
+  }
+}
