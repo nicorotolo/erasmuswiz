@@ -3443,6 +3443,7 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 | `BRIEF_redesign_per_ClaudeDesign.md` (+ `-LOG.md`) | doc | Sessione 2026-07-24: il brief consegnato a Claude Design che ha prodotto il canvas. Superato dal canvas, tenuto come storia |
 | `design/redesign-2026-07/` | doc/asset | **Creata in F0 (25/07)**: il canvas `Redesign ErasmusWiz.dc.html` + `support.js` + `redesign-erasmuswiz.html` + `img/` + `uploads/` (escl. `_ds/`). È la fonte-di-verità del redesign — verificata: renderizza, `uploads/style.css` è byte-identico a `css/style.css` |
 | `design/redesign-2026-07/baseline/` | doc | **F0 (25/07)**: `probe-invarianti.js` (misura le 6 invarianti R29 + inventario touch R12 dal DOM, riusabile a F3/F4 con `__confronta`) e `README.md` (la "lista prima": invarianti verdi, touch <44px = 145/173/176 per viewport) |
+| `design/redesign-2026-07/GATE2-revisione-guidata.md` | doc | **Creato il 26/07**: il copione della revisione d'insieme rimandata da Nicola. Preparazione (server + stato di prova + le 3 larghezze), cosa NON riguardare perché già misurato, le **4 decisioni aperte** con raccomandazione e costo di ciascuna (`--fs-hero`, i 9 filetti di stato, oro→indaco, le emoji), il giro dei 4 tab × 3 larghezze con 3 domande a tab, tabella dei verdetti. Pensato per essere eseguito **guidati da Claude** in una chat nuova |
 | `index.html` | codice | Struttura v2 (tab OGGI/METE/CANDIDATURA + Idoneità/Profilo nascosti; Timeline rimossa in OP2). **Dalla sessione 56 NON elenca più i file dati**: due soli tag (`registro.js` + `carica-atenei.js`) |
 | `css/style.css` | codice | Design system v2: dark mode, font Bricolage/Jakarta/SpaceMono, responsive |
 | `js/app.js` | codice | Logica v2: missione del giorno, percorso, countdown, mete, checklist, profilo |
@@ -3618,9 +3619,15 @@ poi aprire **http://localhost:8001**. (Dettagli e alternative nel `README.md`.)
 **Aggiornamento 2026-07-25 (F4 chiusa) — il redesign v2 è finito e online. Resta
 la revisione d'insieme, che è di Nicola:**
 
-1. 🚦 **La revisione d'insieme (GATE 2 completo) è l'unica cosa che manca.** Il 25/07
-   Nicola ha validato F3 «per ora» e ha rimandato: *«poi rivedremo tutto insieme alla
-   fine»*. Ora la fine è arrivata. Da guardare a video, ai 3 breakpoint:
+1. 🚦 **La revisione d'insieme (GATE 2 completo) è l'unica cosa che manca.**
+   ▶ **Il copione è pronto: `design/redesign-2026-07/GATE2-revisione-guidata.md`**
+   (preparato il 26/07). Si apre la prossima chat con *«Facciamo la revisione
+   d'insieme del redesign (GATE 2). Guidami tu, segui
+   design/redesign-2026-07/GATE2-revisione-guidata.md»* e Claude guida: preparazione,
+   4 decisioni aperte con raccomandazione e costo di ognuna, giro dei 4 tab × 3
+   larghezze, tabella dei verdetti. ~30-40 minuti.
+   Il 25/07 Nicola ha validato F3 «per ora» e ha rimandato: *«poi rivedremo tutto
+   insieme alla fine»*. Ora la fine è arrivata. Da guardare a video, ai 3 breakpoint:
    tipografia, card, nav, form e modal — che sono online da F2 **senza aver mai avuto
    un giudizio**. Più le **tre domande aperte**:
    - `--fs-hero` su `.home-hero-claim`: non applicato. Sembra un lapsus del canvas
