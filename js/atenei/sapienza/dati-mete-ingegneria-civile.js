@@ -1526,10 +1526,19 @@ var METE = [
       { numero: 1, mesi: 5, livello: "L", note: "" },
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B2", condizione: "Indicato come lingua di istruzione per i programmi 2026/2027" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno/anno intero)", periodo: "entro 30 aprile" },
+        { cosa: "Application (autunno/anno intero)", periodo: "dal 4 al 31 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
+        { cosa: "Application (primavera)", periodo: "dal 2 al 30 novembre" }
+      ],
     linkSito: "http://www.arch.pw.edu.pl",
+    notaDisponibilita: "Per il programma IDEAS, i corsi contrassegnati in nero non sono disponibili agli studenti in scambio. Gli studenti dall'estero in mobilità Erasmus+ non possono discutere o difendere il progetto/tesi finale presso la facoltà.",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69317."
   },
   {

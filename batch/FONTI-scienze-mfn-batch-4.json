@@ -1,0 +1,31 @@
+{
+  "IS AKUREYR01": {
+    "scadenzeOspitante": {
+      "url": "https://www.unak.is/english/study/education/exchange-studies",
+      "citazione": "15 May – Deadline for the autumn semester and the full academic year (non-EU/EEA students: 15 March). The nomination deadline is two weeks prior to the application deadline. 1 November – Deadline for the spring semester (non-EU/EEA students: 15 September).",
+      "verificataIl": "2026-07-26"
+    },
+    "notaDisponibilita": {
+      "url": "https://www.unak.is/english/study/education/exchange-studies",
+      "citazione": "the master courses marked with the code number CRD or CMM are not offered at UNAK but at the University Centre of the Westfjords in Ísafjörður. These courses can not be taken in Akureyri and are not offered as distance learning courses.",
+      "verificataIl": "2026-07-26"
+    }
+  },
+  "PL WARSZAW02": {
+    "requisitoLingua": {
+      "url": "https://www.arch.pw.edu.pl/Studies-in-English/International-Exchange-Programmes/Incoming-Students",
+      "citazione": "Study programmes for 2026/2027 AY (language of instruction English B2)",
+      "verificataIl": "2026-07-26"
+    },
+    "scadenzeOspitante": {
+      "url": "https://www.arch.pw.edu.pl/Studies-in-English/International-Exchange-Programmes/Incoming-Students",
+      "citazione": "Deadlines for Nomination: Fall (1st) semester / whole academic year: Aprli 30th; Spring (2nd) semester: October 31st. Deadlines for Application: Fall (1st) semester/ whole academic year: 4 May - 31 May; Spring (2nd) semester: November 2-30",
+      "verificataIl": "2026-07-26"
+    },
+    "notaDisponibilita": {
+      "url": "https://www.arch.pw.edu.pl/Studies-in-English/International-Exchange-Programmes/Incoming-Students",
+      "citazione": "courses marked in black are not available to exchange students ... students from abroad (studying at our Faculty within „Erasmus +” programme) are not allowed to consult and/or defend their final project/thesis at our Faculty.",
+      "verificataIl": "2026-07-26"
+    }
+  }
+}
