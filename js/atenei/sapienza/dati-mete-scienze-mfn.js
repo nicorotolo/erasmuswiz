@@ -2367,7 +2367,12 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (semestre invernale)", periodo: "entro 1 maggio" },
+        { cosa: "Application (semestre invernale)", periodo: "entro 1 giugno" },
+        { cosa: "Nomination (semestre estivo)", periodo: "entro 1 novembre" },
+        { cosa: "Application (semestre estivo)", periodo: "entro 1 dicembre" }
+      ],
     linkSito: "http://www.uni-duisburg-essen.de/",
     notePratiche: "Posti dell'accordo: 3. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70702."
   },
@@ -2680,7 +2685,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (semestre invernale)", periodo: "1-15 maggio" },
+        { cosa: "Application (semestre estivo)", periodo: "1-15 novembre" }
+      ],
     linkSito: "http://www.uni-ulm.de",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70731."
   },
@@ -2699,7 +2707,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (semestre invernale)", periodo: "1-15 maggio" },
+        { cosa: "Application (semestre estivo)", periodo: "1-15 novembre" }
+      ],
     linkSito: "http://www.uni-ulm.de",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70730."
   },

@@ -1,33 +1,16 @@
 {
   "versione": "2.0",
-  "aggiornato": "2026-07-25",
+  "aggiornato": "2026-07-26",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 338,
+  "runCompletati": 339,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "scienze-mfn-batch-3",
-      "priorita": 5,
-      "dipartimento": "Scienze Matematiche Fisiche e Naturali (Sapienza)",
-      "descrizione": "Scienze Matematiche Fisiche e Naturali (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "D  HANNOVE01",
-        "D  ESSEN04",
-        "D  SIEGEN01",
-        "D  MARBURG01",
-        "D  KARLSRU01",
-        "D  ULM01",
-        "D  BONN01",
-        "G  KRITIS05"
-      ]
-    },
     {
       "id": "scienze-mfn-batch-4",
       "priorita": 5,
@@ -696,6 +679,22 @@
         "D  MAINZ01",
         "F  CAEN01"
       ]
+    },
+    {
+      "id": "scienze matematiche fisiche e naturali (sapienza)-batch-followup-3",
+      "priorita": 6,
+      "dipartimento": "Scienze Matematiche Fisiche e Naturali (Sapienza)",
+      "descrizione": "Scienze Matematiche Fisiche e Naturali (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "D  ESSEN04",
+        "D  SIEGEN01",
+        "D  MARBURG01",
+        "D  KARLSRU01",
+        "D  ULM01",
+        "D  BONN01",
+        "G  KRITIS05"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -1233,7 +1232,6 @@
         "F  ANTONY03",
         "F  VAULX-V02",
         "D  DORTMUN01",
-        "D  ESSEN04",
         "D  ERFURT05",
         "PL OPOLE01",
         "TR ISTANBU10",
@@ -1636,10 +1634,8 @@
         "F  PARIS012",
         "D  MUNCHEN02",
         "D  MAINZ01",
-        "D  ESSEN04",
         "D  MARBURG01",
         "D  KARLSRU01",
-        "D  ULM01",
         "D  BONN01",
         "G  KRITIS05",
         "G  ATHINE02",
@@ -1740,7 +1736,14 @@
         "F  TOULOUS28": 1,
         "F  PARIS012": 1,
         "D  MUNCHEN02": 1,
-        "D  MAINZ01": 1
+        "D  MAINZ01": 1,
+        "D  ESSEN04": 1,
+        "D  SIEGEN01": 1,
+        "D  MARBURG01": 1,
+        "D  KARLSRU01": 1,
+        "D  ULM01": 1,
+        "D  BONN01": 1,
+        "G  KRITIS05": 1
       },
       "linguaNonTrovabile": [
         "F  CERGY-P11",
@@ -3994,6 +3997,12 @@
       "data": "2026-07-25",
       "mete": 8,
       "note": "Scienze Matematiche Fisiche e Naturali (Sapienza) scienze-mfn-batch-2: merge automatico via applica-batch.mjs (+2 blocchi propagati ad altri dipartimenti)."
+    },
+    {
+      "batch": 339,
+      "data": "2026-07-26",
+      "mete": 8,
+      "note": "Scienze Matematiche Fisiche e Naturali (Sapienza) scienze-mfn-batch-3: merge automatico via applica-batch.mjs (+2 blocchi propagati ad altri dipartimenti)."
     }
   ],
   "storicoBatch": [

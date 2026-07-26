@@ -527,7 +527,12 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (semestre invernale)", periodo: "entro 1 maggio" },
+        { cosa: "Application (semestre invernale)", periodo: "entro 1 giugno" },
+        { cosa: "Nomination (semestre estivo)", periodo: "entro 1 novembre" },
+        { cosa: "Application (semestre estivo)", periodo: "entro 1 dicembre" }
+      ],
     linkSito: "http://www.uni-duisburg-essen.de/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA68151."
   },
@@ -564,7 +569,12 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (semestre invernale)", periodo: "entro 1 maggio" },
+        { cosa: "Application (semestre invernale)", periodo: "entro 1 giugno" },
+        { cosa: "Nomination (semestre estivo)", periodo: "entro 1 novembre" },
+        { cosa: "Application (semestre estivo)", periodo: "entro 1 dicembre" }
+      ],
     linkSito: "http://www.uni-duisburg-essen.de/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA68150."
   },
