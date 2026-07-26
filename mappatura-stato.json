@@ -4,30 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 341,
+  "runCompletati": 342,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "scienze-mfn-batch-6",
-      "priorita": 5,
-      "dipartimento": "Scienze Matematiche Fisiche e Naturali (Sapienza)",
-      "descrizione": "Scienze Matematiche Fisiche e Naturali (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "E  PAMPLON01",
-        "E  MADRID05",
-        "E  BARCELO03",
-        "E  ALMERIA01",
-        "E  VALENCI02",
-        "E  GIRONA02",
-        "E  VIC01",
-        "CH ZURICH07"
-      ]
-    },
     {
       "id": "scienze-mfn-batch-7",
       "priorita": 5,
@@ -693,6 +676,23 @@
         "CZ CESKE01",
         "RO BUCURES12",
         "SK KOSICE02"
+      ]
+    },
+    {
+      "id": "scienze matematiche fisiche e naturali (sapienza)-batch-followup-6",
+      "priorita": 6,
+      "dipartimento": "Scienze Matematiche Fisiche e Naturali (Sapienza)",
+      "descrizione": "Scienze Matematiche Fisiche e Naturali (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E  PAMPLON01",
+        "E  MADRID05",
+        "E  ALMERIA01",
+        "E  VALENCI02",
+        "E  GIRONA02",
+        "E  VIC01",
+        "CH ZURICH07",
+        "E  BARCELO03"
       ]
     }
   ],
@@ -1649,7 +1649,6 @@
         "CZ CESKE01",
         "RO BUCURES12",
         "SK KOSICE02",
-        "E  PAMPLON01",
         "E  MADRID05",
         "E  BARCELO03",
         "E  ALMERIA01",
@@ -1752,7 +1751,14 @@
         "UK GLASGOW01": 1,
         "CZ CESKE01": 1,
         "RO BUCURES12": 1,
-        "SK KOSICE02": 1
+        "SK KOSICE02": 1,
+        "E  PAMPLON01": 1,
+        "E  MADRID05": 1,
+        "E  ALMERIA01": 1,
+        "E  VALENCI02": 1,
+        "E  GIRONA02": 1,
+        "E  VIC01": 1,
+        "CH ZURICH07": 1
       },
       "linguaNonTrovabile": [
         "F  CERGY-P11",
@@ -1818,7 +1824,6 @@
         "SI KOPER03",
         "SI MARIBOR01",
         "E  BARCELO45",
-        "E  PAMPLON01",
         "E  LOGRONO01",
         "E  ALMERIA01",
         "E  MADRID221",
@@ -4024,6 +4029,12 @@
       "data": "2026-07-26",
       "mete": 8,
       "note": "Scienze Matematiche Fisiche e Naturali (Sapienza) scienze-mfn-batch-5: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 342,
+      "data": "2026-07-26",
+      "mete": 8,
+      "note": "Scienze Matematiche Fisiche e Naturali (Sapienza) scienze-mfn-batch-6: merge automatico via applica-batch.mjs (+3 blocchi propagati ad altri dipartimenti)."
     }
   ],
   "storicoBatch": [

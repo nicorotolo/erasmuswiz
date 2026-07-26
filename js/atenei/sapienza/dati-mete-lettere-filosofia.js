@@ -7960,8 +7960,17 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro il 1 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro il 1 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro il 15 settembre" },
+        { cosa: "Application (primavera)", periodo: "entro il 15 ottobre" }
+      ],
     linkSito: "http://www.unav.es",
+    linkCatalogo: "https://www.unav.edu/estudiantes/programas-de-intercambio/incoming#courses",
+
+    notaDisponibilita: "È possibile scegliere corsi presso la propria facoltà di riferimento (almeno il 50% dei crediti) e alcuni corsi in inglese da altre facoltà, previa verifica di disponibilità e prerequisiti.",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70947."
   },
   {
@@ -8375,8 +8384,17 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro il 1 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro il 1 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro il 15 settembre" },
+        { cosa: "Application (primavera)", periodo: "entro il 15 ottobre" }
+      ],
     linkSito: "http://www.unav.es",
+    linkCatalogo: "https://www.unav.edu/estudiantes/programas-de-intercambio/incoming#courses",
+
+    notaDisponibilita: "È possibile scegliere corsi presso la propria facoltà di riferimento (almeno il 50% dei crediti) e alcuni corsi in inglese da altre facoltà, previa verifica di disponibilità e prerequisiti.",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71190."
   },
   {
@@ -9034,8 +9052,17 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro il 1 aprile" },
+        { cosa: "Application (autunno)", periodo: "entro il 1 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro il 15 settembre" },
+        { cosa: "Application (primavera)", periodo: "entro il 15 ottobre" }
+      ],
     linkSito: "http://www.unav.es",
+    linkCatalogo: "https://www.unav.edu/estudiantes/programas-de-intercambio/incoming#courses",
+
+    notaDisponibilita: "È possibile scegliere corsi presso la propria facoltà di riferimento (almeno il 50% dei crediti) e alcuni corsi in inglese da altre facoltà, previa verifica di disponibilità e prerequisiti.",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71409."
   },
   {
