@@ -342,7 +342,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (semestre invernale)", periodo: "entro 15 giugno" },
+        { cosa: "Application (semestre estivo)", periodo: "entro 30 novembre" }
+      ],
     linkSito: "https://www.us.edu.pl/en/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70124."
   },

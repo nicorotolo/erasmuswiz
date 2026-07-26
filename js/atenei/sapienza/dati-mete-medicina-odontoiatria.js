@@ -684,8 +684,13 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination e Application (semestre autunnale/intero anno)", periodo: "entro 30 giugno" },
+        { cosa: "Nomination e Application (semestre primaverile)", periodo: "entro 30 novembre" }
+      ],
     linkSito: "https://www.akademia-pol.edu.pl/",
+    linkCatalogo: "https://vpu.edu.pl/erasmus-incoming-students/",
+
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69428."
   },
   {

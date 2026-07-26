@@ -3529,6 +3529,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.uni.wroc.pl",
+    linkCatalogo: "https://international.uni.wroc.pl/en/incoming-exchange-students/university-guidelines-all-exchange-students#timetabes-for-2024-2025-academic-year",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70882."
   },
   {

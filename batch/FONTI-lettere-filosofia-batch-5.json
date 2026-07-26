@@ -1,0 +1,52 @@
+{
+  "PL WROCLAW01": {
+    "linkCatalogo": {
+      "url": "https://international.uni.wroc.pl/en/incoming-exchange-students/university-guidelines-all-exchange-students#timetabes-for-2024-2025-academic-year",
+      "citazione": "Timetables for 2024/2025 academic year; To check the details about the courses please use the courses catalogue.",
+      "verificataIl": "2026-07-27"
+    }
+  },
+  "PL KROSNO01": {
+    "linkCatalogo": {
+      "url": "https://pans.krosno.pl/iro/course-catalogue/",
+      "citazione": "Course catalogue",
+      "verificataIl": "2026-07-27"
+    }
+  },
+  "PL LUBLIN01": {
+    "requisitoLingua": {
+      "url": "https://www.umcs.pl/en/application-procedure,1534.htm",
+      "citazione": "The results of the online assessment (at least at the B1 level, for English Philology at least at the B2 level) ... for the English language.",
+      "verificataIl": "2026-07-27"
+    },
+    "scadenzeOspitante": {
+      "url": "https://www.umcs.pl/en/exchanges,1509.htm",
+      "citazione": "Nomination periods: March 1 – May 15 ... September 15 – December 1 ... Application periods: March 1 – May 31 ... September 15 – December 15.",
+      "verificataIl": "2026-07-27"
+    },
+    "linkCatalogo": {
+      "url": "https://www.umcs.pl/en/list-of-courses,5022.htm",
+      "citazione": "List of Courses - Erasmus Incoming Students",
+      "verificataIl": "2026-07-27"
+    }
+  },
+  "PL LUBLIN08": {
+    "scadenzeOspitante": {
+      "url": "https://vpu.edu.pl/erasmus-incoming-students/",
+      "citazione": "Deadline for nominations and application for nominated students. For Autumn term and full year 30 June; For Spring term 30 November",
+      "verificataIl": "2026-07-27"
+    },
+    "linkCatalogo": {
+      "url": "https://vpu.edu.pl/erasmus-incoming-students/",
+      "citazione": "Course catalog 2025/2026",
+      "verificataIl": "2026-07-27"
+    }
+  },
+  "PL KATOWIC01": {
+    "scadenzeOspitante": {
+      "url": "https://erasmus.us.edu.pl/exchange-students/application-procedure/",
+      "citazione": "Application deadlines for studies: Winter semester: 15 June; Summer semester: 30 November",
+      "verificataIl": "2026-07-27"
+    }
+  }
+}

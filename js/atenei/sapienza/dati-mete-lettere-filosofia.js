@@ -5490,6 +5490,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.uni.wroc.pl",
+    linkCatalogo: "https://international.uni.wroc.pl/en/incoming-exchange-students/university-guidelines-all-exchange-students#timetabes-for-2024-2025-academic-year",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71014."
   },
   {
@@ -5534,6 +5536,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://pans.krosno.pl/",
+    linkCatalogo: "https://pans.krosno.pl/iro/course-catalogue/",
+
     notePratiche: "Posti dell'accordo: 4. Accordo ERA71004."
   },
   {
@@ -5612,10 +5616,19 @@ var METE = [
       { numero: 3, mesi: 5, livello: "L", note: "" },
       { numero: 3, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "B2 richiesto per English Philology" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (semestre invernale/intero anno)", periodo: "1 marzo - 15 maggio" },
+        { cosa: "Nomination (semestre estivo)", periodo: "15 settembre - 1 dicembre" },
+        { cosa: "Application (semestre invernale/intero anno)", periodo: "1 marzo - 31 maggio" },
+        { cosa: "Application (semestre estivo)", periodo: "15 settembre - 15 dicembre" }
+      ],
     linkSito: "http://www.umcs.lublin.pl",
+    linkCatalogo: "https://www.umcs.pl/en/list-of-courses,5022.htm",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Accordo ERA71006."
   },
   {
@@ -5781,8 +5794,13 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination e Application (semestre autunnale/intero anno)", periodo: "entro 30 giugno" },
+        { cosa: "Nomination e Application (semestre primaverile)", periodo: "entro 30 novembre" }
+      ],
     linkSito: "https://www.akademia-pol.edu.pl/",
+    linkCatalogo: "https://vpu.edu.pl/erasmus-incoming-students/",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA71007."
   },
   {
@@ -5828,6 +5846,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.uni.wroc.pl",
+    linkCatalogo: "https://international.uni.wroc.pl/en/incoming-exchange-students/university-guidelines-all-exchange-students#timetabes-for-2024-2025-academic-year",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71459."
   },
   {
@@ -5917,10 +5937,19 @@ var METE = [
       { numero: 2, mesi: 10, livello: "L", note: "" },
       { numero: 2, mesi: 10, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Inglese", livello: "B1", condizione: "B2 richiesto per English Philology" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (semestre invernale/intero anno)", periodo: "1 marzo - 15 maggio" },
+        { cosa: "Nomination (semestre estivo)", periodo: "15 settembre - 1 dicembre" },
+        { cosa: "Application (semestre invernale/intero anno)", periodo: "1 marzo - 31 maggio" },
+        { cosa: "Application (semestre estivo)", periodo: "15 settembre - 15 dicembre" }
+      ],
     linkSito: "http://www.umcs.lublin.pl",
+    linkCatalogo: "https://www.umcs.pl/en/list-of-courses,5022.htm",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA71125."
   },
   {
@@ -6059,7 +6088,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (semestre invernale)", periodo: "entro 15 giugno" },
+        { cosa: "Application (semestre estivo)", periodo: "entro 30 novembre" }
+      ],
     linkSito: "https://www.us.edu.pl/en/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71000."
   },
