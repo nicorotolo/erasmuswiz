@@ -4,30 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 352,
+  "runCompletati": 353,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "lettere-filosofia-batch-10",
-      "priorita": 5,
-      "dipartimento": "Lettere e Filosofia (Sapienza)",
-      "descrizione": "Lettere e Filosofia (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "TR KAHRAMA01",
-        "TR ANKARA24",
-        "TR ISTANBU09",
-        "TR SAMSUN01",
-        "TR ISTANBU25",
-        "TR CORUM01",
-        "TR ANTALYA01",
-        "HU SZEGED01"
-      ]
-    },
     {
       "id": "lettere-filosofia-batch-11",
       "priorita": 5,
@@ -682,6 +665,23 @@
         "TR IZMIR09",
         "TR BALIKES02",
         "TR ORDU01"
+      ]
+    },
+    {
+      "id": "lettere e filosofia (sapienza)-batch-followup-10",
+      "priorita": 6,
+      "dipartimento": "Lettere e Filosofia (Sapienza)",
+      "descrizione": "Lettere e Filosofia (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "TR KAHRAMA01",
+        "TR ANKARA24",
+        "TR ISTANBU09",
+        "TR SAMSUN01",
+        "TR ISTANBU25",
+        "TR CORUM01",
+        "TR ANTALYA01",
+        "HU SZEGED01"
       ]
     }
   ],
@@ -1958,7 +1958,15 @@
         "TR DENIZLI01": 1,
         "TR IZMIR09": 1,
         "TR BALIKES02": 1,
-        "TR ORDU01": 1
+        "TR ORDU01": 1,
+        "TR KAHRAMA01": 1,
+        "TR ANKARA24": 1,
+        "TR ISTANBU09": 1,
+        "TR SAMSUN01": 1,
+        "TR ISTANBU25": 1,
+        "TR CORUM01": 1,
+        "TR ANTALYA01": 1,
+        "HU SZEGED01": 1
       },
       "linguaNonTrovabile": [
         "HR RIJEKA01",
@@ -4117,6 +4125,12 @@
       "data": "2026-07-27",
       "mete": 8,
       "note": "Lettere e Filosofia (Sapienza) lettere-filosofia-batch-9: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 353,
+      "data": "2026-07-27",
+      "mete": 8,
+      "note": "Lettere e Filosofia (Sapienza) lettere-filosofia-batch-10: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
