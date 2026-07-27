@@ -1143,6 +1143,8 @@ var METE = [
         { cosa: "Application (semestre primaverile)", periodo: "entro 15 dicembre" }
       ],
     linkSito: "http://www..uniba.sk",
+    linkCatalogo: "https://uniba.sk/en/international-relations/eninternational-relationserasmus/incoming-students/",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68357."
   },
   {

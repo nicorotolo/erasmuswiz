@@ -1,0 +1,23 @@
+{
+  "SK BRATISL02": {
+    "linkCatalogo": {
+      "url": "https://uniba.sk/en/international-relations/eninternational-relationserasmus/incoming-students/",
+      "citazione": "See the list of offered courses.",
+      "verificataIl": "2026-07-27"
+    }
+  },
+  "SK TRNAVA01": {
+    "linkCatalogo": {
+      "url": "http://www.truni.sk/en/course-catalogue",
+      "citazione": "Course catalogue",
+      "verificataIl": "2026-07-27"
+    }
+  },
+  "SI MARIBOR01": {
+    "linkCatalogo": {
+      "url": "https://www.erasmusplus.um.si/international-students/application/course-catalogue/",
+      "citazione": "COURSE CATALOGUE - Erasmus+",
+      "verificataIl": "2026-07-27"
+    }
+  }
+}

@@ -4,30 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 349,
+  "runCompletati": 350,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "lettere-filosofia-batch-7",
-      "priorita": 5,
-      "dipartimento": "Lettere e Filosofia (Sapienza)",
-      "descrizione": "Lettere e Filosofia (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "RO CLUJNAP07",
-        "RO TARGU02",
-        "SK BRATISL02",
-        "SK TRNAVA01",
-        "SI KOPER03",
-        "SI MARIBOR01",
-        "E  BARCELO45",
-        "E  SANTAND01"
-      ]
-    },
     {
       "id": "lettere-filosofia-batch-8",
       "priorita": 5,
@@ -687,6 +670,21 @@
         "RO ALBAIU01",
         "RO CONSTAN02",
         "RO BRASOV01"
+      ]
+    },
+    {
+      "id": "lettere e filosofia (sapienza)-batch-followup-7",
+      "priorita": 6,
+      "dipartimento": "Lettere e Filosofia (Sapienza)",
+      "descrizione": "Lettere e Filosofia (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "RO CLUJNAP07",
+        "SK BRATISL02",
+        "SK TRNAVA01",
+        "SI KOPER03",
+        "SI MARIBOR01",
+        "E  BARCELO45"
       ]
     }
   ],
@@ -1951,7 +1949,13 @@
         "RO SIBIU01": 1,
         "RO ALBAIU01": 1,
         "RO CONSTAN02": 1,
-        "RO BRASOV01": 1
+        "RO BRASOV01": 1,
+        "RO CLUJNAP07": 1,
+        "SK BRATISL02": 1,
+        "SK TRNAVA01": 1,
+        "SI KOPER03": 1,
+        "SI MARIBOR01": 1,
+        "E  BARCELO45": 1
       },
       "linguaNonTrovabile": [
         "HR RIJEKA01",
@@ -4092,6 +4096,12 @@
       "data": "2026-07-27",
       "mete": 8,
       "note": "Lettere e Filosofia (Sapienza) lettere-filosofia-batch-6: merge automatico via applica-batch.mjs (+3 blocchi propagati ad altri dipartimenti)."
+    },
+    {
+      "batch": 350,
+      "data": "2026-07-27",
+      "mete": 8,
+      "note": "Lettere e Filosofia (Sapienza) lettere-filosofia-batch-7: merge automatico via applica-batch.mjs (+2 blocchi propagati ad altri dipartimenti)."
     }
   ],
   "storicoBatch": [

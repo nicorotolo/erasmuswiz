@@ -7063,6 +7063,8 @@ var METE = [
         { cosa: "Application (semestre primaverile)", periodo: "entro 15 dicembre" }
       ],
     linkSito: "http://www..uniba.sk",
+    linkCatalogo: "https://uniba.sk/en/international-relations/eninternational-relationserasmus/incoming-students/",
+
     notePratiche: "Posti dell'accordo: 2. Accordo ERA71242."
   },
   {
@@ -7082,6 +7084,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.truni.sk/",
+    linkCatalogo: "http://www.truni.sk/en/course-catalogue",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71302."
   },
   {
@@ -7106,6 +7110,8 @@ var METE = [
         { cosa: "Application (semestre primaverile)", periodo: "entro 15 dicembre" }
       ],
     linkSito: "http://www..uniba.sk",
+    linkCatalogo: "https://uniba.sk/en/international-relations/eninternational-relationserasmus/incoming-students/",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71023."
   },
   {
@@ -7193,6 +7199,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.um.si/",
+    linkCatalogo: "https://www.erasmusplus.um.si/international-students/application/course-catalogue/",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71367."
   },
   {
