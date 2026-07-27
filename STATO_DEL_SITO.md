@@ -21,7 +21,77 @@
 
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-07-26 — Claude Code (Opus 5).
+**Ultimo aggiornamento:** 2026-07-27 — Claude Code (Opus 5).
+
+**(SESSIONE 2026-07-27 — il GATE 2 si è trasformato in v3. Aperto per fare la
+revisione d'insieme del redesign v2; alla prima schermata Nicola ha fermato la
+revisione e dato un feedback in 6 punti che non era una lista di ritocchi ma una
+richiesta di ristrutturazione. La sessione è diventata un `/grill-me-codex`
+completo. Nessuna riga di codice del sito toccata: due soli file nuovi,
+`PLAN_REDESIGN_V3.md` e `PLAN_REDESIGN_V3-LOG.md`.)**
+
+**Il GATE 2 non è "passato": è stato ASSORBITO in v3.** Le 4 decisioni aperte del
+copione non sono state votate a video. D1 (`--fs-hero`) e D3 (oro→indaco) cadono
+dentro la riprogettazione di home ed entrata; **D2 (i 9 filetti di stato) resta
+esplicitamente aperto** e si ridiscute alla fine di V4, quando il contesto in cui
+si vedono sarà cambiato; **D4 (le emoji) resta aperto** come prima.
+
+**Act 1 — il grill.** 10 domande, una alla volta, ognuna con raccomandazione e
+costo di ripensarci. Decisioni chiuse: guida all'ingresso e cruscotto a regime ·
+nav a 3 voci con indirizzi profondi condivisibili · entrata a 4 passi (3
+obbligatori) con la mappa che reagisce a ogni risposta · **3 porte d'ingresso**
+(`esplorando` / `in-attesa` / `selezionato`) chieste con lo stepper stesso · un
+solo gesto per le mete (stella = desiderio illimitato, casella = decisione) ·
+home = «Adesso», con la regola *entra solo ciò che è vero adesso e ha un'azione*.
+
+**Due scoperte che il feedback non conteneva.** (1) **Il LA Workspace esiste già**
+— ~1.140 righe (app.js 2490→3634), versioni congelate, corrispondenze
+molti-a-molti, checklist pre-invio — ed è schiacciato dentro la stazione 4 di una
+fisarmonica: il problema è di reperibilità, non di funzionalità. (2) **Non esiste
+nessuna retention**: l'export `.ics` è commentato in codice come «gancio di
+retention» e **non contiene nessun `VALARM`** (evento muto), la PWA è installabile
+da sempre e niente lo ha mai proposto. È diventata una fase sua.
+
+**Nicola ha ribaltato una raccomandazione (D13).** Claude proponeva di liberare il
+Learning Agreement per primo, per i partenti di settembre. Nicola: costruire per
+il **bando 2027/28**, perché i selezionati di quest'anno sono già passati
+dall'imbuto e non tornano. Argomento accolto: acquisizione batte bisogno quando
+chi ha bisogno è irraggiungibile.
+
+**Act 2 — 5 round con Codex `gpt-5.6-sol`, cap raggiunto.** Rilievi: **33 → 18 →
+12 → 11 → 1**. Nessun `APPROVED` formale, **ma nessun disaccordo aperto**:
+l'ultimo bloccante è stato verificato e accolto, e la rev. 6 non è stata rivista
+solo perché il cap era esaurito. ⚠︎ Stessa condizione in cui si era chiuso il
+piano v2.
+
+**Cinque errori fattuali di Claude, trovati da Codex e verificati in codice**, che
+avrebbero prodotto lavoro sbagliato: il **router esiste già** (contratto R1.4,
+app.js:437, hash nudi `#oggi`) — la fase V1 ne avrebbe costruito un secondo;
+l'**entrata mappa-hero esiste già** (`#home-benvenuto`) — V3 sarebbe stata
+un'implementazione parallela; il **footer era già dinamico**
+(`applicaBrandingAteneo`, app.js:4389); i conteggi CEFR erano del **repo intero**,
+non di Ca' Foscari; e **«~1.600 pin» era falso** — la mappa clusterizza, sono ~50
+pulsanti a 390px. Per questo `PLAN_REDESIGN_V3.md` **apre** con una sezione
+«Stato reale del codice».
+
+**Il difetto più grave del sito, che nessuno dei due stava cercando.**
+`SCALA_LINGUE.indexOf("B1/B2")` è `-1`, quindi la differenza risulta sempre
+positiva e **un requisito con livello CEFR non standard risulta superato al
+punteggio massimo**: 109 requisiti su 75 mete (28 CF, 81 Sapienza). Peggio ancora
+il caso Groningen (`dati-mete.js:1560`): `Inglese B2 per bachelor` + `Inglese C1
+per master` letti come alternative darebbero ✅ a un magistrale che ha solo B2.
+**Il sito oggi promette mete linguisticamente inaccessibili**, e uno studente
+potrebbe metterle fra le 5 che invia. È il motivo per cui V0 (lingue) precede
+tutto, entrata compresa. In direzione opposta, le 21 stringhe composte + 7
+segnaposto **nascondono** 25 mete accessibili di Ca' Foscari.
+
+**Misurato in sessione, per la prima volta:** Ca' Foscari 392 mete / 585 requisiti;
+**Sapienza 1.595 mete / 1.839 requisiti** — quattro volte Ca' Foscari; **806 mete
+(41%) hanno più requisiti linguistici**, il che rende il contratto di migrazione
+della radice `ANY`/`ALL` la decisione più delicata di V0.
+
+**Cosa NON è stato fatto:** nessuna riga di `index.html`, `css/style.css` o
+`js/app.js`. Il piano è scritto, non iniziato.
 
 **(SESSIONE 2026-07-26 — chiuso il punto 1 delle cose trovate fuori checklist in F4:
 il fuoco che si perdeva cambiando filtro nelle Mete. Intervento suo, fuori fase, come
@@ -3387,8 +3457,9 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **REDESIGN v2 — 🚦 GATE 1** | Nicola conferma le tre default: **P-A** su `modo-benvenuto` (R3), **`!important`** su `#banner-wiz` (R38, `index.html` non si tocca), **full-bleed conservato** per il hero. In più: **F2 riassegnata a Claude Code** invece di Codex (D4 rivista) | ✅ Passato (2026-07-25) |
 | **REDESIGN v2 — F2: Componenti §04** | Interamente CSS (`css/style.css`, +~700/−~270; `index.html` e `js/app.js` intatti). **F2.0** inventario touch sanato: da 5/89/35/16 bersagli sotto 44px (F0, 390px) a **zero**, salvo le 4 eccezioni già dichiarate (link inline dentro un paragrafo). §4.1 due bottoni primari uniti + secondario reattivo + **un solo anello di focus** (sostituisce il sistema esistente, variante oro sulle superfici a inchiostro); §4.2 corpo condiviso delle superfici (`.preparazione-card` esclusa: è annidata) e un solo hover per `.card-cliccabile`; §4.4 `.banner-stato` + i due nodi reali; §4.5 mete; §4.6 missione e countdown (pulsazione solo se urgente); §4.7 checklist, requisito a 3 registri, barre di progresso unificate; §4.8 modal a foglio + schedina; §4.9 form profilo a 2 colonne, nav, drawer, celebrazione. In più: `.sezione-titolo` consuma `--fs-h1` | ✅ Fatta e verificata (2026-07-25) — commit `a10d16b`, **pushato** (⚠️ anticipato rispetto al piano, che collocava il push a F4: il redesign è quindi ONLINE parziale, con la timeline ancora vecchia e il GATE 2 non ancora fatto). Invarianti F0 verdi su 4 tab × 390/768/1280, gutter F1 intatto, contrasto verificato su ~45 coppie, zero errori console |
 | **REDESIGN v2 — F3: Timeline e stato vuoto** | La fase a rischio ALTO, e l'unica di tutto il redesign che tocca `js/app.js`. **F3a** — timeline `ol.stazioni` su una corsia di 38px (marker assoluto, binario continuo, `overflow:hidden` mai in mezzo), con le due guardie commentate in loco; eliminate le vecchie `.stazione + .stazione::before` (V3). **F3b** — helper `creaStatoVuoto()` + i due siti di `renderMete()` coi `return` conservati, `role="status"` (R22), azioni sullo stato invece che sul DOM (R21), variante di copy per il filtro "lingua"; `.schedina-invito-vuota` solo restilizzata (P1.4). **Cinque scostamenti misurati dal canvas**, fra cui: il "binario continuo" del canvas lasciava **un buco di 14px sopra ogni marker**; il ponte verso le Mete (unica `<li>` senza marker) spezzava la linea; bianco su `#10B981` sta a 2,6:1 → `--green` (5,5:1). **La tappa corrente passa da oro a indaco**, con la pillola al seguito: è la grammatica che F2 aveva già dato a `.voce-checklist-v2.attiva`. Trovato alla misura (non nel diff) un corpo-stazione appiccicato alla testa a 0px quando il primo figlio è un banner `display:none` — trappola R39, sanato | ✅ Fatta e verificata (2026-07-25) — commit `ee2aca0` (F3a) + `db8d67b` (F3b). Marker/binario allineati a 0.00px, zero buchi, marker fermo all'apertura; invarianti F0 verdi su 4 tab × 390/768/1280; `_smoke.js` identico al baseline; zero errori console; detector `/impeccable`: nessun antipattern introdotto da F3 |
-| **REDESIGN v2 — 🚦 GATE 2** | Nicola valida timeline, stati vuoti e il passaggio della tappa corrente da oro a indaco | ⚠︎ **Validato "per ora" (2026-07-25), revisione completa RIMANDATA** — «poi rivedremo tutto insieme alla fine». Restano senza giudizio a video tipografia, card, nav, form e modal alle 3 larghezze, più le 2 domande aperte da F2 (`--fs-hero` su `.home-hero-claim`; se il filetto di stato a sinistra sia ormai troppo) |
+| **REDESIGN v2 — 🚦 GATE 2** | Nicola valida timeline, stati vuoti e il passaggio della tappa corrente da oro a indaco | ⚠︎ **Validato "per ora" (2026-07-25), revisione completa RIMANDATA** — «poi rivedremo tutto insieme alla fine». Restano senza giudizio a video tipografia, card, nav, form e modal alle 3 larghezze, più le 2 domande aperte da F2 (`--fs-hero` su `.home-hero-claim`; se il filetto di stato a sinistra sia ormai troppo) → **ASSORBITO in v3 il 2026-07-27** |
 | **REDESIGN v2 — F4: Chiusura e checklist §07** | I 9 punti della checklist misurati sui 4 tab a 390/768/1280 (stato Ca' Foscari · Economia · Triennale · Inglese B2, `<details>` forzati aperti). **8 verdi**: zero overflow e zero elementi sporgenti — **i due sospetti del canvas, `.schedina-nome` e la riga di chip, non si sono materializzati**; touch **lista vuota** (criterio R30) salvo le 4 eccezioni già dichiarate; **110 fermate di Tab reali** tutte con anello e tutte `:focus-visible`, click del mouse senza anello; marker della timeline fermo a 0,0px su 5 stazioni × apri/chiudi; griglia di Oggi senza righe vuote nei 3 stati (implicite 4-5 a **0px**); `prefers-reduced-motion` senza perdita d'informazione (179 elementi prima e dopo); nulla di interattivo coperto dalla nav a 390, zero spazio morto a 768. **1 difetto corretto**: le ultime due ombre nere pure (`.mappa-pin .punto`, `.mappa-pin-stella::after`) da `rgba(0,0,0,.3)` a `rgba(30,27,46,.30)` | ✅ Fatta e verificata (2026-07-25) — **⛔ un punto resta aperto**: «nessuna emoji fuori dalle cinque codificate» non è eseguibile (il canvas non elenca mai le cinque; 13 emoji in `index.html`, 24 in `js/app.js`, e `index.html` è vietato dal Goal). Fuori checklist: il fuoco si perdeva cambiando filtro nelle Mete (pre-esistente, `js/app.js`) → **sanato il 2026-07-26** con un intervento suo |
+| **REDESIGN v3 — piano bloccato (nessun codice)** | Il GATE 2 si trasforma in v3: feedback di Nicola in 6 punti → `/grill-me-codex` completo. **Act 1**: 10 domande, decisioni chiuse su entrata, nav, porte d'ingresso, mete, home, retention. **Act 2**: 5 round con Codex `gpt-5.6-sol`, rilievi **33→18→12→11→1**. Prodotti `PLAN_REDESIGN_V3.md` (9 fasi V0-V8 + 2 gate, 22 decisioni tabellate) e `PLAN_REDESIGN_V3-LOG.md` (grill + 5 round integrali). **Due scoperte**: il LA Workspace esiste già (~1.140 righe, sepolto nella stazione 4) e **non esiste nessuna retention** (`.ics` senza `VALARM`, PWA mai proposta). **Il difetto più grave trovato**: `indexOf` su livelli CEFR non standard li rende *superati al massimo* — 109 requisiti su 75 mete — e il caso Groningen (B2 bachelor / C1 master letti come alternative) darebbe ✅ a un magistrale con B2: **il sito promette mete inaccessibili** | 📋 **Piano scritto, non iniziato** (2026-07-27). Nessuna riga di `index.html`, `css/style.css` o `js/app.js` toccata. ⚠︎ `MAX_ROUNDS=5` raggiunto **senza `APPROVED` formale**, ma **senza disaccordo aperto**: l'ultimo bloccante è stato verificato e accolto, la rev. 6 non è stata rivista perché il cap era esaurito. **5 errori fattuali di Claude corretti da Codex** (router ed entrata dati per inesistenti ma già in codice, footer già dinamico, conteggi attribuiti all'ateneo sbagliato, «1.600 pin» che erano record) |
 | **A11y — fuoco sui filtri delle Mete** | Il punto 1 delle cose trovate fuori checklist in F4. `renderMete()` ricostruisce `#filtri-mete-chip`: il chip a fuoco veniva distrutto e il fuoco cadeva su `<body>`, così da tastiera il Tab ripartiva dall'inizio della pagina. Ora prima del re-render si registra l'**indice** del chip a fuoco (solo se `document.activeElement` è davvero un `.chip-filtro` di quel contenitore) e dopo lo si ridà al nodo nuovo con `focus({ preventScroll: true })`. Indice e non un `data-filtro` nuovo: i 5 chip sono una lista fissa, e l'attributo renderebbe bugiardo il commento R21 poche righe sotto. Solo `js/app.js`; `index.html` e `css/style.css` intatti | ✅ Fatta e verificata (2026-07-26) — nel browser sulla 8123: fuoco sul chip corrispondente invece che su `BODY`, **Tab reale successivo → chip seguente**, scroll invariato, col mouse `:focus-visible = false` (nessun anello), fuoco in `#cerca-mete` non rubato, nessuna eccezione senza profilo. ⚠︎ L'Invio da tastiera non è confermabile con l'automazione (stesso limite del punto 5 di F4): attivazione riprodotta con `chip.click()`, Tab reali |
 
 **Nav (R3, definitiva — gate R1 chiuso):** Mete → **Home** (centrale su
@@ -3438,12 +3509,14 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 
 | File | Tipo | A cosa serve |
 |------|------|--------------|
+| `PLAN_REDESIGN_V3.md` | doc | **⭐ Sessione 2026-07-27 — l'ordine operativo del cantiere SITO da agosto 2026 a marzo 2027.** Prevale su `PLAN_REDESIGN_V2.md` (chiuso). 9 fasi V0-V8 + 2 gate (G1 «niente contenuto vecchio spacciato per attuale», G2 «dati 2027/28 validati»), 22 decisioni tabellate con l'alternativa scartata, criteri di uscita misurabili e dipendenze esplicite. **Apre con «Stato reale del codice»**, la sezione che elenca ciò che ESISTE GIÀ (router, entrata mappa-hero, LA Workspace, footer dinamico, PWA) — nata perché la rev. 1 conteneva due fasi intere costruite su premesse false. **Da leggere PRIMA di progettare qualunque cosa** |
+| `PLAN_REDESIGN_V3-LOG.md` | doc | **Sessione 2026-07-27**: 698 righe. Le 10 domande del grill con le risposte di Nicola, poi i 5 round di Codex integrali con, per ognuno, cosa è stato accolto e cosa respinto **e perché**. Contiene anche le due note di metodo sugli errori di Claude. È l'artefatto che spiega *perché* il piano è così |
 | `PLAN_REDESIGN_V2.md` | doc | **Sessione 2026-07-25**: piano di implementazione del redesign v2 in 4 fasi (F0 preparazione · F1 token+gutter+griglia · F2 componenti §04 · F3 timeline+stato vuoto · F4 checklist) con 2 gate umani. Rev. 5, sopravvissuto a 5 round di Codex. **Da leggere prima di toccare `css/style.css`** |
 | `PLAN_REDESIGN_V2-LOG.md` | doc | **Sessione 2026-07-25**: 357 righe, l'intera revisione avversariale round per round, con le motivazioni di ciò che è stato respinto. È l'artefatto che spiega *perché* il piano è così |
 | `BRIEF_redesign_per_ClaudeDesign.md` (+ `-LOG.md`) | doc | Sessione 2026-07-24: il brief consegnato a Claude Design che ha prodotto il canvas. Superato dal canvas, tenuto come storia |
 | `design/redesign-2026-07/` | doc/asset | **Creata in F0 (25/07)**: il canvas `Redesign ErasmusWiz.dc.html` + `support.js` + `redesign-erasmuswiz.html` + `img/` + `uploads/` (escl. `_ds/`). È la fonte-di-verità del redesign — verificata: renderizza, `uploads/style.css` è byte-identico a `css/style.css` |
 | `design/redesign-2026-07/baseline/` | doc | **F0 (25/07)**: `probe-invarianti.js` (misura le 6 invarianti R29 + inventario touch R12 dal DOM, riusabile a F3/F4 con `__confronta`) e `README.md` (la "lista prima": invarianti verdi, touch <44px = 145/173/176 per viewport) |
-| `design/redesign-2026-07/GATE2-revisione-guidata.md` | doc | **Creato il 26/07**: il copione della revisione d'insieme rimandata da Nicola. Preparazione (server + stato di prova + le 3 larghezze), cosa NON riguardare perché già misurato, le **4 decisioni aperte** con raccomandazione e costo di ciascuna (`--fs-hero`, i 9 filetti di stato, oro→indaco, le emoji), il giro dei 4 tab × 3 larghezze con 3 domande a tab, tabella dei verdetti. Pensato per essere eseguito **guidati da Claude** in una chat nuova |
+| `design/redesign-2026-07/GATE2-revisione-guidata.md` | doc | ⚠︎ **STORICO — mai eseguito fino in fondo.** Il 27/07 la revisione è stata interrotta alla prima schermata e assorbita in v3 (vedi `PLAN_REDESIGN_V3.md`). **Creato il 26/07**: il copione della revisione d'insieme rimandata da Nicola. Preparazione (server + stato di prova + le 3 larghezze), cosa NON riguardare perché già misurato, le **4 decisioni aperte** con raccomandazione e costo di ciascuna (`--fs-hero`, i 9 filetti di stato, oro→indaco, le emoji), il giro dei 4 tab × 3 larghezze con 3 domande a tab, tabella dei verdetti. Pensato per essere eseguito **guidati da Claude** in una chat nuova |
 | `index.html` | codice | Struttura v2 (tab OGGI/METE/CANDIDATURA + Idoneità/Profilo nascosti; Timeline rimossa in OP2). **Dalla sessione 56 NON elenca più i file dati**: due soli tag (`registro.js` + `carica-atenei.js`) |
 | `css/style.css` | codice | Design system v2: dark mode, font Bricolage/Jakarta/SpaceMono, responsive |
 | `js/app.js` | codice | Logica v2: missione del giorno, percorso, countdown, mete, checklist, profilo |
@@ -3616,8 +3689,38 @@ poi aprire **http://localhost:8001**. (Dettagli e alternative nel `README.md`.)
 
 ### Cantiere SITO (Claude Code) — numerazione 49→61
 
-**Aggiornamento 2026-07-25 (F4 chiusa) — il redesign v2 è finito e online. Resta
-la revisione d'insieme, che è di Nicola:**
+**⇢ AGGIORNAMENTO 2026-07-27 — questa lista è SUPERATA da `PLAN_REDESIGN_V3.md`.**
+Il GATE 2 non si farà più come revisione a sé: è stato **assorbito in v3**. Il
+piano operativo del cantiere SITO da agosto 2026 a marzo 2027 è
+**`PLAN_REDESIGN_V3.md`**; quanto segue resta per storia.
+
+**I prossimi passi veri, in ordine di dipendenza (non di mese):**
+
+1. ▶️ **V0 — Lingue e livelli.** Nessuna dipendenza, valore immediato: sblocca 25
+   mete nascoste (stringhe composte) e chiude **109 falsi positivi** su 75 mete
+   (livelli CEFR fuori scala trattati come superati al massimo). Include
+   `package.json` + `js/puro.js` + i test golden, cioè l'infrastruttura di prova
+   che oggi manca del tutto. **Consegnabile a Codex con `/codex-build`.**
+2. **V1 — Router esteso** (⚠︎ *estendere* quello esistente, contratto R1.4, hash
+   nudi: non costruirne un secondo) · **V2 — Stepper a 6 tappe, 3 porte,
+   migrazione zaino con doppio ciclo**.
+3. **V4 Home «Adesso» → V3 Entrata** (in quest'ordine: lo stato pre-bando nasce
+   in V4 ed è ciò che supera il gate G1) · **V5 Retention** — 🔴 **prima che esca
+   il bando**, cioè entro novembre.
+4. **V6a Mete** (wishlist e riordino) · **G2** all'uscita del bando 2027/28 ·
+   **V6b** schedina ufficiale · **V7** Learning Agreement · **V8** rifiniture.
+
+**Restano aperte, dichiarate nel piano:** il filetto di stato a sinistra (9
+selettori — si ridiscute alla fine di V4, quando il contesto sarà cambiato); le
+emoji; la guida al Learning Agreement di **Ca' Foscari, che non esiste** (l'unica
+scritta è per la Sapienza); la porta «ho fatto domanda, aspetto l'esito», che
+oggi non ha contenuto; la checklist post-selezione Sapienza (5 voci provvisorie
+contro le 20 validate di Ca' Foscari).
+
+---
+
+**Aggiornamento 2026-07-25 (F4 chiusa) — SUPERATO, vedi sopra. Il redesign v2 è
+finito e online; la revisione d'insieme non si farà come sessione a sé:**
 
 1. 🚦 **La revisione d'insieme (GATE 2 completo) è l'unica cosa che manca.**
    ▶ **Il copione è pronto: `design/redesign-2026-07/GATE2-revisione-guidata.md`**
