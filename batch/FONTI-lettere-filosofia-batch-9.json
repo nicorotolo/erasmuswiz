@@ -1,0 +1,65 @@
+{
+  "CH BASEL01": {
+    "requisitoLingua": {
+      "url": "https://www.unibas.ch/dam/jcr:c699adeb-ad38-40e9-8aa6-e5728aad1f2a/Factsheet%20CHBasel01_2026_27.2026-01-28-08-15-20.pdf",
+      "citazione": "Required language skills German: B2 and/or English: B2",
+      "verificataIl": "2026-07-27"
+    },
+    "scadenzeOspitante": {
+      "url": "https://www.unibas.ch/dam/jcr:c699adeb-ad38-40e9-8aa6-e5728aad1f2a/Factsheet%20CHBasel01_2026_27.2026-01-28-08-15-20.pdf",
+      "citazione": "Applications deadline for nominated exchange students: For autumn semester 30/04. For spring semester 30/11.",
+      "verificataIl": "2026-07-27"
+    },
+    "linkCatalogo": {
+      "url": "https://www.unibas.ch/dam/jcr:c699adeb-ad38-40e9-8aa6-e5728aad1f2a/Factsheet%20CHBasel01_2026_27.2026-01-28-08-15-20.pdf",
+      "citazione": "Course catalogues http://vorlesungsverzeichnis.unibas.ch",
+      "verificataIl": "2026-07-27"
+    }
+  },
+  "CH DELEMON02": {
+    "requisitoLingua": {
+      "url": "https://www.he-arc.ch/wp-content/uploads/2024/01/HEG-Arc-Fact-Sheet-2026-2027-EN.pdf",
+      "citazione": "Master’s level courses are taught in English. A level B2 in English is required and must be certified",
+      "verificataIl": "2026-07-27"
+    },
+    "scadenzeOspitante": {
+      "url": "https://www.he-arc.ch/wp-content/uploads/2024/01/HEG-Arc-Fact-Sheet-2026-2027-EN.pdf",
+      "citazione": "NOMINATION DEADLINE Autumn Semester March 31 Spring Semester October 10. APPLICATION DEADLINE Autumn Semester April 30 Spring Semester October 31",
+      "verificataIl": "2026-07-27"
+    },
+    "notaDisponibilita": {
+      "url": "https://www.he-arc.ch/wp-content/uploads/2024/01/HEG-Arc-Fact-Sheet-2026-2027-EN.pdf",
+      "citazione": "Master’s level courses are only accessible to students selected under an agreement for the Master of Science in Business Administration, Major Business in Eurasia.",
+      "verificataIl": "2026-07-27"
+    }
+  },
+  "TR SAKARYA01": {
+    "requisitoLingua": {
+      "url": "https://international.ionio.gr/en/institutions/p4/",
+      "citazione": "Language Requirements for Students (SMS): TR/EN:B1.",
+      "verificataIl": "2026-07-27"
+    },
+    "scadenzeOspitante": {
+      "url": "https://international.ionio.gr/en/institutions/p4/",
+      "citazione": "Nomination Deadlines: 15 AUGUST / 15 DECEMBER. Application Deadlines: 15 AUGUST / 15 DECEMBER.",
+      "verificataIl": "2026-07-27"
+    }
+  },
+  "TR BALIKES02": {
+    "scadenzeOspitante": {
+      "url": "https://erasmus.bandirma.edu.tr/en/erasmus/s/Frequently-Asked-Questions-810",
+      "citazione": "For fall semester and full academic year: 15 May. For spring semester: 15 October.",
+      "verificataIl": "2026-07-27"
+    },
+    "linkCatalogo": {
+      "url": "https://erasmus.bandirma.edu.tr/en/erasmus/s/How-to-apply-as-an-exchange-student-794",
+      "citazione": "You can find all the courses taught (for all levels), at this link: http://erasmus.bandirma.edu.tr/course_catalogue/.",
+      "verificataIl": "2026-07-27"
+    },
+    "notaDisponibilita": {
+      "url": "https://erasmus.bandirma.edu.tr/en/erasmus/s/How-to-apply-as-an-exchange-student-794",
+      "citazione": "There is not any restriction for Erasmus students ... you may choose your courses from any faculty and department.",
+      "verificataIl": "2026-07-27"
+    }
+  }
+}

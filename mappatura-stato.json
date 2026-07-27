@@ -4,30 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 351,
+  "runCompletati": 352,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "lettere-filosofia-batch-9",
-      "priorita": 5,
-      "dipartimento": "Lettere e Filosofia (Sapienza)",
-      "descrizione": "Lettere e Filosofia (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "CH BASEL01",
-        "CH DELEMON02",
-        "TR ISTANBU10",
-        "TR SAKARYA01",
-        "TR DENIZLI01",
-        "TR IZMIR09",
-        "TR BALIKES02",
-        "TR ORDU01"
-      ]
-    },
     {
       "id": "lettere-filosofia-batch-10",
       "priorita": 5,
@@ -685,6 +668,20 @@
         "E  ELCHE01",
         "E  BARCELO33",
         "E  BURGOS20"
+      ]
+    },
+    {
+      "id": "lettere e filosofia (sapienza)-batch-followup-9",
+      "priorita": 6,
+      "dipartimento": "Lettere e Filosofia (Sapienza)",
+      "descrizione": "Lettere e Filosofia (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "TR ISTANBU10",
+        "TR DENIZLI01",
+        "TR IZMIR09",
+        "TR BALIKES02",
+        "TR ORDU01"
       ]
     }
   ],
@@ -1761,7 +1758,7 @@
       "fileJs": "js/atenei/sapienza/dati-mete-lettere-filosofia.js",
       "stato": "in_corso",
       "totale": 424,
-      "completate": 316,
+      "completate": 320,
       "pendingScadenze": [
         "BG SOFIA06",
         "EE TALLINN05",
@@ -1810,13 +1807,9 @@
         "E  ELCHE01",
         "E  BARCELO33",
         "E  BURGOS20",
-        "CH BASEL01",
-        "CH DELEMON02",
         "TR ISTANBU10",
-        "TR SAKARYA01",
         "TR DENIZLI01",
         "TR IZMIR09",
-        "TR BALIKES02",
         "TR ORDU01",
         "TR KAHRAMA01",
         "TR ANKARA24",
@@ -1883,10 +1876,7 @@
         "E  ELCHE01",
         "E  BARCELO33",
         "E  BURGOS20",
-        "CH BASEL01",
-        "CH DELEMON02",
         "TR ISTANBU10",
-        "TR SAKARYA01",
         "TR DENIZLI01",
         "TR IZMIR09",
         "TR BALIKES02",
@@ -1963,7 +1953,12 @@
         "E  MADRID221": 1,
         "E  ELCHE01": 1,
         "E  BARCELO33": 1,
-        "E  BURGOS20": 1
+        "E  BURGOS20": 1,
+        "TR ISTANBU10": 1,
+        "TR DENIZLI01": 1,
+        "TR IZMIR09": 1,
+        "TR BALIKES02": 1,
+        "TR ORDU01": 1
       },
       "linguaNonTrovabile": [
         "HR RIJEKA01",
@@ -4116,6 +4111,12 @@
       "data": "2026-07-27",
       "mete": 8,
       "note": "Lettere e Filosofia (Sapienza) lettere-filosofia-batch-8: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 352,
+      "data": "2026-07-27",
+      "mete": 8,
+      "note": "Lettere e Filosofia (Sapienza) lettere-filosofia-batch-9: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
