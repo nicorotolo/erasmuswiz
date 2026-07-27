@@ -6134,10 +6134,21 @@ var METE = [
       { numero: 1, mesi: 5, livello: "L", note: "" },
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Portoghese", livello: "B2", condizione: "per studiare in portoghese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (1° semestre / intero anno) presso ISEP", periodo: "dal 1 aprile al 15 maggio" },
+        { cosa: "Application (1° semestre / intero anno) presso ISEP", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (2° semestre) presso ISEP", periodo: "dal 1 settembre al 15 ottobre" },
+        { cosa: "Application (2° semestre) presso ISEP", periodo: "entro 15 novembre" }
+      ],
     linkSito: "https://www.ipp.pt/",
+    linkCatalogo: "http://www.isep.ipp.pt/Page/ViewPage/MOBILITYSTUDENTSACADEMICOFFER",
+
+    notaDisponibilita: "Se si desidera studiare in portoghese, è richiesta la conoscenza nativa o un livello minimo B2.",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70997."
   },
   {
@@ -6153,10 +6164,21 @@ var METE = [
       { numero: 2, mesi: 5, livello: "L", note: "" },
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Portoghese", livello: "B2", condizione: "per studiare in portoghese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (1° semestre / intero anno) presso ISEP", periodo: "dal 1 aprile al 15 maggio" },
+        { cosa: "Application (1° semestre / intero anno) presso ISEP", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (2° semestre) presso ISEP", periodo: "dal 1 settembre al 15 ottobre" },
+        { cosa: "Application (2° semestre) presso ISEP", periodo: "entro 15 novembre" }
+      ],
     linkSito: "https://www.ipp.pt/",
+    linkCatalogo: "http://www.isep.ipp.pt/Page/ViewPage/MOBILITYSTUDENTSACADEMICOFFER",
+
+    notaDisponibilita: "Se si desidera studiare in portoghese, è richiesta la conoscenza nativa o un livello minimo B2.",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70995."
   },
   {
@@ -6172,10 +6194,21 @@ var METE = [
       { numero: 1, mesi: 5, livello: "L", note: "" },
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Portoghese", livello: "B2", condizione: "per studiare in portoghese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (1° semestre / intero anno) presso ISEP", periodo: "dal 1 aprile al 15 maggio" },
+        { cosa: "Application (1° semestre / intero anno) presso ISEP", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (2° semestre) presso ISEP", periodo: "dal 1 settembre al 15 ottobre" },
+        { cosa: "Application (2° semestre) presso ISEP", periodo: "entro 15 novembre" }
+      ],
     linkSito: "https://www.ipp.pt/",
+    linkCatalogo: "http://www.isep.ipp.pt/Page/ViewPage/MOBILITYSTUDENTSACADEMICOFFER",
+
+    notaDisponibilita: "Se si desidera studiare in portoghese, è richiesta la conoscenza nativa o un livello minimo B2.",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70996."
   },
   {
@@ -6271,8 +6304,13 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (Semestre 1 / Autunno)", periodo: "dal 1 marzo al 20 aprile" },
+        { cosa: "Application (Semestre 1 / Autunno)", periodo: "dal 11 marzo al 1 maggio" }
+      ],
     linkSito: "http://www.gla.ac.uk",
+    linkCatalogo: "https://www.gla.ac.uk/coursecatalogue/",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70399."
   },
   {
@@ -6289,8 +6327,15 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (Semestre 1 / Settembre)", periodo: "entro 30 aprile" },
+        { cosa: "Nomination (Semestre 2 / Gennaio)", periodo: "entro 1 ottobre" },
+        { cosa: "Application (Semestre 1 / Anno intero)", periodo: "entro 31 maggio" },
+        { cosa: "Application (Semestre 2)", periodo: "entro 31 ottobre" }
+      ],
     linkSito: "http://www.exeter.ac.uk/",
+    notaDisponibilita: "I moduli di Biomedical Sciences, Drama e Psychology sono disponibili solo per partner di scambio con accordi specifici in queste discipline. Esclusi i moduli di Liberal Arts, College of Medicine and Health, Graduate School of Education.",
+
     notePratiche: "Posti dell'accordo: 1. Accordo ERA70479."
   },
   {

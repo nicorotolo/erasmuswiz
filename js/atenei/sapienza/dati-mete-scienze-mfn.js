@@ -3949,8 +3949,13 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (Semestre 1 / Autunno)", periodo: "dal 1 marzo al 20 aprile" },
+        { cosa: "Application (Semestre 1 / Autunno)", periodo: "dal 11 marzo al 1 maggio" }
+      ],
     linkSito: "http://www.gla.ac.uk",
+    linkCatalogo: "https://www.gla.ac.uk/coursecatalogue/",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70212."
   },
   {

@@ -1,33 +1,16 @@
 {
   "versione": "2.0",
-  "aggiornato": "2026-07-26",
+  "aggiornato": "2026-07-27",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 348,
+  "runCompletati": 349,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "lettere-filosofia-batch-6",
-      "priorita": 5,
-      "dipartimento": "Lettere e Filosofia (Sapienza)",
-      "descrizione": "Lettere e Filosofia (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "P  PORTO05",
-        "UK GLASGOW01",
-        "UK EXETER01",
-        "CZ OPAVA01",
-        "RO SIBIU01",
-        "RO ALBAIU01",
-        "RO CONSTAN02",
-        "RO BRASOV01"
-      ]
-    },
     {
       "id": "lettere-filosofia-batch-7",
       "priorita": 5,
@@ -689,6 +672,22 @@
         "PL KRAKOW08",
         "PL KATOWIC01"
       ]
+    },
+    {
+      "id": "lettere e filosofia (sapienza)-batch-followup-6",
+      "priorita": 6,
+      "dipartimento": "Lettere e Filosofia (Sapienza)",
+      "descrizione": "Lettere e Filosofia (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "UK GLASGOW01",
+        "UK EXETER01",
+        "CZ OPAVA01",
+        "RO SIBIU01",
+        "RO ALBAIU01",
+        "RO CONSTAN02",
+        "RO BRASOV01"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -1162,14 +1161,13 @@
       "fileJs": "js/atenei/sapienza/dati-mete-polo-latina.js",
       "stato": "in_corso",
       "totale": 33,
-      "completate": 15,
+      "completate": 16,
       "pendingScadenze": [
         "F  BREST29",
         "D  NURNBER02",
         "D  CLAUSTH01",
         "PL WARSZAW41",
         "PL WROCLAW03",
-        "P  PORTO05",
         "MK SKOPJE15",
         "CZ HRADEC01",
         "RO CRAIOVA01",
@@ -1184,7 +1182,6 @@
         "D  CLAUSTH01",
         "PL WARSZAW41",
         "PL WROCLAW03",
-        "P  PORTO05",
         "MK SKOPJE15",
         "CZ HRADEC01",
         "RO CRAIOVA01",
@@ -1499,7 +1496,7 @@
       "fileJs": "js/atenei/sapienza/dati-mete-ingegneria-civile.js",
       "stato": "in_corso",
       "totale": 128,
-      "completate": 84,
+      "completate": 85,
       "pendingScadenze": [
         "A  WIEN03",
         "BG VARNA05",
@@ -1519,7 +1516,6 @@
         "PL GLIWICE01",
         "PL WROCLAW02",
         "PL KRAKOW03",
-        "P  PORTO05",
         "E  BARCELO03",
         "E  MADRID05",
         "E  MADRID02",
@@ -1549,7 +1545,6 @@
         "PL WROCLAW02",
         "PL KRAKOW03",
         "P  LISBOA05",
-        "P  PORTO05",
         "RO TIMISOA04",
         "E  MADRID05",
         "E  VALENCI02",
@@ -1635,7 +1630,6 @@
         "PL BIALYST04",
         "PL LUBLIN04",
         "P  EVORA01",
-        "UK GLASGOW01",
         "CZ CESKE01",
         "RO BUCURES12",
         "SK KOSICE02",
@@ -1769,7 +1763,7 @@
       "fileJs": "js/atenei/sapienza/dati-mete-lettere-filosofia.js",
       "stato": "in_corso",
       "totale": 424,
-      "completate": 313,
+      "completate": 316,
       "pendingScadenze": [
         "BG SOFIA06",
         "EE TALLINN05",
@@ -1802,9 +1796,6 @@
         "PL GDANSK01",
         "PL KRAKOW05",
         "PL KRAKOW08",
-        "P  PORTO05",
-        "UK GLASGOW01",
-        "UK EXETER01",
         "CZ OPAVA01",
         "RO SIBIU01",
         "RO ALBAIU01",
@@ -1873,7 +1864,6 @@
         "PL LUBLIN08",
         "PL KRAKOW08",
         "PL KATOWIC01",
-        "P  PORTO05",
         "UK GLASGOW01",
         "UK EXETER01",
         "CZ OPAVA01",
@@ -1954,7 +1944,14 @@
         "PL KRAKOW05": 1,
         "PL LUBLIN08": 1,
         "PL KRAKOW08": 1,
-        "PL KATOWIC01": 1
+        "PL KATOWIC01": 1,
+        "UK GLASGOW01": 1,
+        "UK EXETER01": 1,
+        "CZ OPAVA01": 1,
+        "RO SIBIU01": 1,
+        "RO ALBAIU01": 1,
+        "RO CONSTAN02": 1,
+        "RO BRASOV01": 1
       },
       "linguaNonTrovabile": [
         "HR RIJEKA01",
@@ -4089,6 +4086,12 @@
       "data": "2026-07-26",
       "mete": 8,
       "note": "Lettere e Filosofia (Sapienza) lettere-filosofia-batch-5: merge automatico via applica-batch.mjs (+3 blocchi propagati ad altri dipartimenti)."
+    },
+    {
+      "batch": 349,
+      "data": "2026-07-27",
+      "mete": 8,
+      "note": "Lettere e Filosofia (Sapienza) lettere-filosofia-batch-6: merge automatico via applica-batch.mjs (+3 blocchi propagati ad altri dipartimenti)."
     }
   ],
   "storicoBatch": [

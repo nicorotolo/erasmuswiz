@@ -1,0 +1,48 @@
+{
+  "P  PORTO05": {
+    "requisitoLingua": {
+      "url": "https://www.isep.ipp.pt/Page/ViewPage/MOBILITYSTUDENTSAPPLICATIONPROCEDURES",
+      "citazione": "If you want to study in Portuguese you need to be a native speaker or have a Portuguese language knowledge of B2 or higher.",
+      "verificataIl": "2026-07-27"
+    },
+    "scadenzeOspitante": {
+      "url": "https://www.isep.ipp.pt/Page/ViewPage/MOBILITYSTUDENTSAPPLICATIONPROCEDURES",
+      "citazione": "for the first semester and the whole academic year between April 1st and May 15th; for the second semester between September 1st and October 15th. The application deadline for the first semester and the whole academic year is June 15th. The application deadline for the second semester is November 15th.",
+      "verificataIl": "2026-07-27"
+    },
+    "linkCatalogo": {
+      "url": "https://www.isep.ipp.pt/Page/ViewPage/MOBILITYSTUDENTSAPPLICATIONPROCEDURES",
+      "citazione": "We listed them on the Academic Offer (http://www.isep.ipp.pt/Page/ViewPage/MOBILITYSTUDENTSACADEMICOFFER) page.",
+      "verificataIl": "2026-07-27"
+    },
+    "notaDisponibilita": {
+      "url": "https://www.isep.ipp.pt/Page/ViewPage/MOBILITYSTUDENTSAPPLICATIONPROCEDURES",
+      "citazione": "If you want to study in Portuguese you need to be a native speaker or have a Portuguese language knowledge of B2 or higher.",
+      "verificataIl": "2026-07-27"
+    }
+  },
+  "UK GLASGOW01": {
+    "scadenzeOspitante": {
+      "url": "https://www.gla.ac.uk/study/visiting/studyabroadexchange/applicationdeadlinesandsemesterdates/",
+      "citazione": "Nominations open: 1 March. Deadline: 20 April. Applications open: 11 March. Deadline: 1 May.",
+      "verificataIl": "2026-07-27"
+    },
+    "linkCatalogo": {
+      "url": "https://www.gla.ac.uk/coursecatalogue/",
+      "citazione": "Welcome to the Course Catalogue 2025-2026. The Course Catalogue allows you to find the individual courses which make up our degree programmes.",
+      "verificataIl": "2026-07-27"
+    }
+  },
+  "UK EXETER01": {
+    "scadenzeOspitante": {
+      "url": "https://www.exeter.ac.uk/study/studyabroadprogrammes/partners/",
+      "citazione": "Nomination deadlines: September entry (semester 1 and full-year students), 30th April. January entry (semester 2 students), 1st October. Student application deadlines: 31st May; 31st October.",
+      "verificataIl": "2026-07-27"
+    },
+    "notaDisponibilita": {
+      "url": "https://www.exeter.ac.uk/study/studyabroadprogrammes/moduleselection/",
+      "citazione": "Biomedical Sciences, Drama, and Psychology modules are only available to students from subject-specific exchange partners in those disciplines.",
+      "verificataIl": "2026-07-27"
+    }
+  }
+}

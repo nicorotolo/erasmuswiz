@@ -1773,10 +1773,21 @@ var METE = [
       { numero: 1, mesi: 5, livello: "L", note: "" },
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: [
+        { lingua: "Portoghese", livello: "B2", condizione: "per studiare in portoghese" }
+      ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (1° semestre / intero anno) presso ISEP", periodo: "dal 1 aprile al 15 maggio" },
+        { cosa: "Application (1° semestre / intero anno) presso ISEP", periodo: "entro 15 giugno" },
+        { cosa: "Nomination (2° semestre) presso ISEP", periodo: "dal 1 settembre al 15 ottobre" },
+        { cosa: "Application (2° semestre) presso ISEP", periodo: "entro 15 novembre" }
+      ],
     linkSito: "https://www.ipp.pt/",
+    linkCatalogo: "http://www.isep.ipp.pt/Page/ViewPage/MOBILITYSTUDENTSACADEMICOFFER",
+
+    notaDisponibilita: "Se si desidera studiare in portoghese, è richiesta la conoscenza nativa o un livello minimo B2.",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA69306."
   },
   {
