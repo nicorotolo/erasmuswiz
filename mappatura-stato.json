@@ -4,30 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 350,
+  "runCompletati": 351,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "lettere-filosofia-batch-8",
-      "priorita": 5,
-      "dipartimento": "Lettere e Filosofia (Sapienza)",
-      "descrizione": "Lettere e Filosofia (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "E  PAMPLON01",
-        "E  VALENCI02",
-        "E  LOGRONO01",
-        "E  ALMERIA01",
-        "E  MADRID221",
-        "E  ELCHE01",
-        "E  BARCELO33",
-        "E  BURGOS20"
-      ]
-    },
     {
       "id": "lettere-filosofia-batch-9",
       "priorita": 5,
@@ -685,6 +668,23 @@
         "SI KOPER03",
         "SI MARIBOR01",
         "E  BARCELO45"
+      ]
+    },
+    {
+      "id": "lettere e filosofia (sapienza)-batch-followup-8",
+      "priorita": 6,
+      "dipartimento": "Lettere e Filosofia (Sapienza)",
+      "descrizione": "Lettere e Filosofia (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "E  PAMPLON01",
+        "E  VALENCI02",
+        "E  LOGRONO01",
+        "E  ALMERIA01",
+        "E  MADRID221",
+        "E  ELCHE01",
+        "E  BARCELO33",
+        "E  BURGOS20"
       ]
     }
   ],
@@ -1955,7 +1955,15 @@
         "SK TRNAVA01": 1,
         "SI KOPER03": 1,
         "SI MARIBOR01": 1,
-        "E  BARCELO45": 1
+        "E  BARCELO45": 1,
+        "E  PAMPLON01": 1,
+        "E  VALENCI02": 1,
+        "E  LOGRONO01": 1,
+        "E  ALMERIA01": 1,
+        "E  MADRID221": 1,
+        "E  ELCHE01": 1,
+        "E  BARCELO33": 1,
+        "E  BURGOS20": 1
       },
       "linguaNonTrovabile": [
         "HR RIJEKA01",
@@ -4102,6 +4110,12 @@
       "data": "2026-07-27",
       "mete": 8,
       "note": "Lettere e Filosofia (Sapienza) lettere-filosofia-batch-7: merge automatico via applica-batch.mjs (+2 blocchi propagati ad altri dipartimenti)."
+    },
+    {
+      "batch": 351,
+      "data": "2026-07-27",
+      "mete": 8,
+      "note": "Lettere e Filosofia (Sapienza) lettere-filosofia-batch-8: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [
