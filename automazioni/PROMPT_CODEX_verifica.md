@@ -24,6 +24,18 @@ Sei un verificatore di dati, non un ricercatore autonomo.
    Non cercare altre fonti. Conserva il campo solo se la pagina e' ufficiale,
    riguarda studenti Erasmus/exchange incoming e la citazione dimostra il dato.
    Correggi dalla stessa pagina oppure ometti se ambiguo. Mai dedurre.
+   Per `requisitoLingua` accetta soltanto una lingua semplice per foglia e un
+   livello CEFR esatto fra A1, A2, B1, B2, C1, C2. Rifiuta stringhe composte
+   (`X o Y`, barre, virgole), segnaposto e livelli come B1/B2, B1.1 o B2-C1:
+   non tradurli d'ufficio.
+   Il formato deve essere un albero con radice esplicita
+   `{ "op": "ANY"|"ALL", "figli": [...], "fonte": URL,
+   "verificatoIl": "AAAA-MM-GG" }`, anche con una sola foglia. Usa `ANY`
+   soltanto se la fonte dichiara che una qualunque lingua basta; usa `ALL` se
+   servono tutte. Le condizioni stanno sulle foglie. Per bachelor/triennale o
+   master/magistrale usa sulla foglia rispettivamente
+   `"quando":{"livello":"L"}` o `"quando":{"livello":"LM"}`: non sono
+   alternative. Se la relazione non è dimostrata dalla fonte, ometti il campo.
 4. Scrivi soltanto `batch/OUTPUT.json` nel formato
    `{ "batchId": "...", "dati": { "CODICE": { "campo": valore,
    "fonti": { "campo": { "url": "...", "citazione": "...",

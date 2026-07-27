@@ -1535,7 +1535,23 @@ function aggiornaProgressoV2(lista, spunte) {
 // ============================================================
 // COMPATIBILITÀ METE
 // ============================================================
-const SCALA_LINGUE = ["A1", "A2", "B1", "B2", "C1", "C2"];
+// V0: tutta la semantica di lingua e livello vive in js/puro.js, caricato per
+// primo da carica-atenei.js. app.js si occupa soltanto di presentare l'esito.
+// Il lookup è pigro per tollerare anche jsdom, che scarica in parallelo gli
+// script creati da document.write pur rispettando poi l'avvio della pagina.
+function motorePuro() {
+  if (!window.ErasmusWizPuro) throw new Error("js/puro.js non disponibile");
+  return window.ErasmusWizPuro;
+}
+function requisitiLinguaNormalizzati(meta) {
+  return motorePuro().requisitiLinguaNormalizzati(meta);
+}
+function foglieRequisitoLingua(requisito) {
+  return motorePuro().foglieRequisitoLingua(requisito);
+}
+function valutaRequisitoLingua(meta, profilo) {
+  return motorePuro().valutaRequisitoLingua(meta, profilo);
+}
 
 // Le lingue proposte all'utente (onboarding e profilo) derivano dai DATI
 // delle mete (requisitoLingua), mai da una lista scritta nel codice
@@ -1543,24 +1559,50 @@ const SCALA_LINGUE = ["A1", "A2", "B1", "B2", "C1", "C2"];
 // senza toccare l'app. Ordinate per frequenza, poi alfabetico.
 function lingueDaiDati() {
   const conta = {};
-  (METE || []).forEach(m => (m.requisitoLingua || []).forEach(r => {
-    if (r && r.lingua) conta[r.lingua] = (conta[r.lingua] || 0) + 1;
-  }));
+  (METE || []).forEach(meta => {
+    const requisito = requisitiLinguaNormalizzati(meta);
+    motorePuro().lingueDaRequisito(requisito).forEach(lingua => {
+      conta[lingua] = (conta[lingua] || 0) + 1;
+    });
+  });
   return Object.keys(conta).sort((a, b) => (conta[b] - conta[a]) || a.localeCompare(b, "it"));
 }
 
-function punteggioLinguaSingola(richiesta, lingueStudente) {
-  const posseduta = lingueStudente.find(l => l.lingua === richiesta.lingua);
-  if (!posseduta) return 0;
-  const diff = SCALA_LINGUE.indexOf(posseduta.livello) - SCALA_LINGUE.indexOf(richiesta.livello);
-  if (diff >= 0) return posseduta.certificata ? 50 : 25;
-  if (diff === -1) return 12;
-  return 0;
+function fogliaLinguaInParole(foglia) {
+  const base = foglia.testoOriginale || [foglia.lingua, foglia.livello].filter(Boolean).join(" ");
+  const condizione = foglia.condizione ? ` — ${foglia.condizione}` : "";
+  const verifica = (foglia.daVerificare || foglia.livelloAmbiguo) ? " — da verificare" : "";
+  return base + condizione + verifica;
 }
 
-function punteggioLingua(meta, profilo) {
-  if (!meta.requisitoLingua || !meta.requisitoLingua.length) return 50;
-  return Math.max(...meta.requisitoLingua.map(r => punteggioLinguaSingola(r, profilo.lingue)));
+function lingueInFrase(lingue) {
+  if (lingue.length <= 1) return lingue[0] || "";
+  return `${lingue.slice(0, -1).join(", ")} o ${lingue[lingue.length - 1]}`;
+}
+
+function avvisiRequisitoLingua(requisito) {
+  const avvisi = [];
+  const foglie = foglieRequisitoLingua(requisito);
+  const lingueCondizionate = [...new Set(foglie
+    .filter(f => f.condizionatoCorsi && f.lingua && !f.daVerificare)
+    .map(f => f.lingua.toLocaleLowerCase("it")))];
+  if (lingueCondizionate.length) {
+    const elenco = lingueInFrase(lingueCondizionate);
+    const apertura = lingueCondizionate.length === 1
+      ? `Il requisito di lingua vale per i corsi tenuti in ${elenco}.`
+      : `I requisiti di lingua valgono per i corsi tenuti in ${elenco}.`;
+    avvisi.push({
+      classe: "banner-stato stato-riserve",
+      testo: `${apertura} Controlla che l'offerta di corsi in ${elenco} sia sufficiente per il tuo piano di studi.`
+    });
+  }
+  if (requisito.rootPresunta) {
+    avvisi.push({
+      classe: "banner-stato stato-verifica",
+      testo: "Questa meta indica più lingue senza dichiarare se ne basti una o se servano tutte: verifica la scheda ufficiale."
+    });
+  }
+  return avvisi;
 }
 
 function punteggioLivello(meta, profilo) {
@@ -1574,43 +1616,23 @@ function punteggioPosti(meta, profilo) {
   return n <= 0 ? 0 : Math.min(20, 5 + (n - 1) * 3);
 }
 
-function motivoMancanza(meta, profilo, pLing, pLiv) {
-  const m = [];
-  if (pLiv === 0) m.push(`nessun posto per ${livelloInParole(profilo.livello)}`);
-  if (pLing === 25) m.push("lingua non certificata");
-  else if (pLing === 12) m.push("un livello sotto il richiesto");
-  else if (pLing === 0) m.push("requisito linguistico non soddisfatto");
-  return m.length ? "Attenzione: " + m.join("; ") + "." : "Mancano solo dettagli minori.";
-}
-
 function calcolaCompatibilita(meta, profilo) {
   const pLiv = punteggioLivello(meta, profilo);
   const pPos = punteggioPosti(meta, profilo);
-  const linguaNota = !!(meta.requisitoLingua && meta.requisitoLingua.length);
-
-  if (!linguaNota) {
-    if (pLiv === 0) return {
-      totale: null, ordine: 10, icona: "🔒",
-      stato: "Non accessibile ora",
-      dettaglio: `Nessun posto per il tuo livello (${livelloInParole(profilo.livello)}).`
-    };
-    return {
-      totale: null, ordine: 60, icona: "🟡",
-      stato: "Idoneo — verifica la lingua",
-      dettaglio: "Livello e posti compatibili. Requisito linguistico assente: controlla la scheda PDF."
-    };
-  }
-
-  const pLing = punteggioLingua(meta, profilo);
-  const totale = Math.round(pLing + pLiv + pPos);
-  if (totale >= 80) return { totale, ordine: totale, icona: "✅", stato: "Compatibile", dettaglio: "Hai i requisiti principali." };
-  if (totale >= 40) return { totale, ordine: totale, icona: "⚠️", stato: "Possibile, con riserve", dettaglio: motivoMancanza(meta, profilo, pLing, pLiv) };
-  return { totale, ordine: totale, icona: "🔒", stato: "Non accessibile ora", dettaglio: motivoMancanza(meta, profilo, pLing, pLiv) };
+  const valutazioneLingua = valutaRequisitoLingua(meta, profilo);
+  // V0: anche la decisione visibile (✅/⚠️/🔒/🟡) è pura e testata.
+  // Qui restano soltanto i due punteggi legati alla struttura della meta.
+  return motorePuro().presentaCompatibilita(valutazioneLingua, {
+    livello: pLiv,
+    posti: pPos,
+    livelloTesto: livelloInParole(profilo.livello)
+  });
 }
 
 // Categoria sintetica per badge e filtri a chip (BR4): stessa soglia di calcolaCompatibilita.
 function categoriaCompat(comp) {
   if (comp.totale === null) return comp.ordine >= 60 ? "medio" : "basso";
+  if (comp.verificaLingua) return "medio";
   if (comp.totale >= 80) return "ok";
   if (comp.totale >= 40) return "medio";
   return "basso";
@@ -1671,9 +1693,15 @@ function nomeAreaProfilo(profilo) {
 }
 
 function linguaSintesi(meta) {
-  if (!meta.requisitoLingua || !meta.requisitoLingua.length) return "Lingua da verificare";
-  const [prima, ...altre] = meta.requisitoLingua;
-  return `${prima.lingua} ${prima.livello}` + (altre.length ? ` +${altre.length}` : "");
+  const requisito = requisitiLinguaNormalizzati(meta);
+  if (requisito.assente) return "Lingua da verificare";
+  const foglie = foglieRequisitoLingua(requisito);
+  if (!foglie.length || foglie.some(f => f.daVerificare || f.livelloAmbiguo)) {
+    return "Lingua da verificare";
+  }
+  const prima = foglie[0];
+  const suffisso = requisito.rootPresunta ? " · verifica" : (foglie.length > 1 ? ` +${foglie.length - 1}` : "");
+  return `${prima.lingua} ${prima.livello}${suffisso}`;
 }
 
 // Stima borsa per gruppo-paese (OP4): mappa meta.paese al gruppo dell'ateneo
@@ -1898,14 +1926,9 @@ function renderMete() {
     }
   }
   if (profilo && filtroMeteAttivo === "lingua") {
-    // Riusa punteggioLingua (motore di compatibilità, NON duplicato): 50 =
-    // lingua richiesta coperta dal profilo E certificata. Le mete con
-    // requisito lingua non verificabile restano visibili (mai nascoste in
-    // silenzio), la card le marca già "Lingua da verificare" (linguaSintesi).
-    elenco = elenco.filter(({ meta }) => {
-      if (!meta.requisitoLingua || !meta.requisitoLingua.length) return true;
-      return punteggioLingua(meta, profilo) === 50;
-    });
+    // Il filtro usa lo stesso esito a tre valori del punteggio. Un requisito
+    // sconosciuto resta visibile: l'ambiguità non deve diventare un'esclusione.
+    elenco = elenco.filter(({ meta }) => motorePuro().linguaCopertaPerFiltro(meta, profilo));
     if (intro) intro.textContent = "Preparati alla riunione di assegnazione: queste sono le mete che le tue lingue coprono davvero.";
   } else if (profilo && filtroMeteAttivo !== "tutte") {
     elenco = elenco.filter(({ comp }) => categoriaCompat(comp) === filtroMeteAttivo);
@@ -2243,13 +2266,24 @@ function apriDettaglioMeta(meta) {
 
   // --- Requisiti linguistici ---
   const ulL = document.createElement("ul");
-  if (meta.requisitoLingua && meta.requisitoLingua.length) {
-    meta.requisitoLingua.forEach(l =>
-      ulL.appendChild(crea("li", null, `${l.lingua} ${l.livello} — ${l.condizione}`)));
+  const requisitoLingua = requisitiLinguaNormalizzati(meta);
+  const foglieLingua = foglieRequisitoLingua(requisitoLingua);
+  const contenutoLingua = document.createElement("div");
+  if (!requisitoLingua.assente && foglieLingua.length) {
+    foglieLingua.forEach(foglia =>
+      ulL.appendChild(crea("li", null, fogliaLinguaInParole(foglia))));
   } else {
     ulL.appendChild(crea("li", "dett-vuoto", "Non indicato nella lista ufficiale: controlla la scheda PDF."));
   }
-  corpo.appendChild(rigaDettaglio("Requisiti linguistici", ulL));
+  contenutoLingua.appendChild(ulL);
+  avvisiRequisitoLingua(requisitoLingua).forEach(avviso => {
+    const banner = crea("div", avviso.classe);
+    banner.setAttribute("role", "note");
+    banner.appendChild(crea("span", "banner-stato-icona", "⚠️"));
+    banner.appendChild(crea("span", null, avviso.testo));
+    contenutoLingua.appendChild(banner);
+  });
+  corpo.appendChild(rigaDettaglio("Requisiti linguistici", contenutoLingua));
 
   // --- Borsa Erasmus stimata per gruppo-paese (OP4) ---
   const gruppoBorsa = trovaGruppoBorsa(meta);
@@ -3840,8 +3874,11 @@ function mappaMostraTooltip(cl, pin) {
     t.appendChild(h); t.appendChild(dove);
     const chips = crea("p", "mappa-tooltip-chips");
     const pezzi = [];
-    if (m.requisitoLingua && m.requisitoLingua.length) {
-      pezzi.push(m.requisitoLingua.map(r => `${r.lingua} ${r.livello}`).join(" / "));
+    const requisito = requisitiLinguaNormalizzati(m);
+    const foglie = foglieRequisitoLingua(requisito);
+    if (!requisito.assente && foglie.length && !foglie.some(f => f.daVerificare || f.livelloAmbiguo)) {
+      pezzi.push(foglie.map(f => `${f.lingua} ${f.livello}`).join(requisito.op === "ALL" ? " + " : " / "));
+      if (requisito.rootPresunta) pezzi.push("combinazione da verificare");
     } else pezzi.push("Lingua da verificare");
     const gruppo = (typeof trovaGruppoBorsa === "function") ? trovaGruppoBorsa(m) : null;
     if (gruppo) pezzi.push(`~€${gruppo.importoMensile}/mese (stima)`);
@@ -4119,16 +4156,37 @@ function benvPassoLingue(livello) {
       o.value = o.textContent = l;
       selLingua.appendChild(o);
     });
+    // D9/V0 (decisione completa nel LOG): Italiano C2 è soltanto proposto
+    // nella prima riga. Entra nello zaino e nel calcolo esclusivamente quando
+    // lo studente preme "Fatto"; "Salta per ora" salva ancora un array vuoto.
+    if (i === 0 && lingue.includes("Italiano")) selLingua.value = "Italiano";
     const selLivello = document.createElement("select");
     selLivello.setAttribute("aria-label", `Livello lingua ${i + 1}`);
-    SCALA_LINGUE.forEach(liv => {
+    motorePuro().SCALA_CEFR.forEach(liv => {
       const o = document.createElement("option");
       o.value = o.textContent = liv;
       selLivello.appendChild(o);
     });
-    selLivello.value = "B1";
+    selLivello.value = selLingua.value === "Italiano" ? "C2" : "B1";
+    let italianoPrecedente = selLingua.value === "Italiano";
+    selLingua.addEventListener("change", () => {
+      const italianoOra = selLingua.value === "Italiano";
+      if (italianoOra) selLivello.value = "C2";
+      else if (italianoPrecedente && selLivello.value === "C2") selLivello.value = "B1";
+      italianoPrecedente = italianoOra;
+    });
+    const rimuovi = crea("button", "schedina-rimuovi", "✕");
+    rimuovi.type = "button";
+    rimuovi.setAttribute("aria-label", `Rimuovi lingua ${i + 1}`);
+    rimuovi.addEventListener("click", () => {
+      selLingua.value = "";
+      selLivello.value = "B1";
+      italianoPrecedente = false;
+      selLingua.focus();
+    });
     riga.appendChild(selLingua);
     riga.appendChild(selLivello);
+    riga.appendChild(rimuovi);
     wrap.appendChild(riga);
     righe.push({ selLingua, selLivello });
   }

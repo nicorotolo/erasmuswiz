@@ -13,11 +13,11 @@ import fs from "node:fs";
 import { execSync } from "node:child_process";
 import {
   leggiStato, spanTutteMete, valoreCampo, caricaMete,
-  CAMPI_RIEMPIBILI, impostaCampo,
+  CAMPI_RIEMPIBILI, impostaCampo, datoStrutturatoVuoto,
 } from "./lib-mete.mjs";
 import { leggiEValidaOutput } from "./lib-output-batch.mjs";
 
-const vuoto = (a) => !Array.isArray(a) || a.length === 0;
+const vuoto = datoStrutturatoVuoto;
 const DIM_BATCH = 8; // mete per batch di follow-up (era 5)
 const norm = (c) => String(c).replace(/\s+/g, " ").trim().toUpperCase();
 

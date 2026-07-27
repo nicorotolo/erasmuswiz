@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 // valida-stato.mjs -- Validatore di coerenza per ErasmusWiz
 import { readFileSync } from "node:fs";
+import { datoStrutturatoVuoto } from "./lib-mete.mjs";
 
 const ROOT = process.cwd();
 const errors = [];
 const warnings = [];
 const err  = (m) => errors.push(m);
 const warn = (m) => warnings.push(m);
-const vuoto = (a) => !Array.isArray(a) || a.length === 0;
+const vuoto = datoStrutturatoVuoto;
 
 let stato;
 try {

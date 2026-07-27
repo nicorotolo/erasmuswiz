@@ -16,10 +16,10 @@ import fs from "node:fs";
 import { execSync } from "node:child_process";
 import {
   leggiStato, caricaMete, spanTutteMete, valoreCampo, campoVuoto,
-  impostaCampo,
+  impostaCampo, datoStrutturatoVuoto,
 } from "./lib-mete.mjs";
 
-const vuoto = (a) => !Array.isArray(a) || a.length === 0;
+const vuoto = datoStrutturatoVuoto;
 const DIM_BATCH = 8; // mete per sotto-batch (era 5: alzato per ridurre l'overhead per-run)
 
 const stato = leggiStato();

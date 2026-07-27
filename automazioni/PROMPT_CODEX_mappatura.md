@@ -1,3 +1,10 @@
+# ⛔ OBSOLETO — SOLO STORICO
+#
+# Dal 2026-07-27 questo prompt non governa la pipeline attiva. Restano attivi
+# scripts/gemini-sgrossatura.mjs e automazioni/PROMPT_CODEX_verifica.md.
+# Il contenuto storico sottostante è conservato intenzionalmente e non va
+# riattivato né aggiornato.
+
 # Prompt per l'automazione Codex — Mappatura mete Erasmus (pipeline a imbuto, MULTI-ATENEO)
 #
 # VERSIONE RICONCILIATA — 2026-07-01. Prima di questa data esistevano DUE

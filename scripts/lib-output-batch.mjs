@@ -1,11 +1,56 @@
 import fs from "node:fs";
-import { CAMPI_RIEMPIBILI } from "./lib-mete.mjs";
+import {
+  CAMPI_RIEMPIBILI,
+  LIVELLI_CEFR,
+  linguaSempliceValida,
+} from "./lib-mete.mjs";
 
 const CAMPI_EXTRA = new Set(["notePraticheAppend", "fonti"]);
 const DATA_ISO = /^\d{4}-\d{2}-\d{2}$/;
+const CHIAVI_GRUPPO_LINGUA = new Set(["op", "figli"]);
+const CHIAVI_RADICE_LINGUA = new Set(["op", "figli", "fonte", "verificatoIl"]);
+const CHIAVI_FOGLIA_LINGUA = new Set(["lingua", "livello", "condizione", "quando"]);
 
 function assert(condizione, messaggio) {
   if (!condizione) throw new Error(messaggio);
+}
+
+function validaChiavi(nodo, consentite, contesto) {
+  for (const chiave of Object.keys(nodo)) {
+    assert(consentite.has(chiave), `${contesto}.${chiave}: chiave non prevista dallo schema V0`);
+  }
+}
+
+function validaNodoLingua(nodo, contesto, { radice = false } = {}) {
+  assert(nodo && typeof nodo === "object" && !Array.isArray(nodo), `${contesto}: oggetto dichiarativo atteso`);
+  if (radice) {
+    assert(nodo.op === "ANY" || nodo.op === "ALL", `${contesto}.op: la radice deve dichiarare sempre ANY oppure ALL`);
+  }
+  if (nodo.op != null) {
+    validaChiavi(nodo, radice ? CHIAVI_RADICE_LINGUA : CHIAVI_GRUPPO_LINGUA, contesto);
+    assert(nodo.op === "ANY" || nodo.op === "ALL", `${contesto}.op: usare soltanto ANY o ALL`);
+    assert(Array.isArray(nodo.figli) && nodo.figli.length > 0, `${contesto}.figli: array non vuoto atteso`);
+    if (radice) {
+      assert(typeof nodo.fonte === "string" && /^https?:\/\//i.test(nodo.fonte), `${contesto}.fonte: URL ufficiale mancante`);
+      assert(typeof nodo.verificatoIl === "string" && DATA_ISO.test(nodo.verificatoIl), `${contesto}.verificatoIl: usare AAAA-MM-GG`);
+    }
+    nodo.figli.forEach((figlio, i) =>
+      validaNodoLingua(figlio, `${contesto}.figli[${i}]`));
+    return;
+  }
+
+  validaChiavi(nodo, CHIAVI_FOGLIA_LINGUA, contesto);
+  assert(typeof nodo.lingua === "string" && nodo.lingua.trim(), `${contesto}.lingua mancante`);
+  assert(linguaSempliceValida(nodo.lingua), `${contesto}.lingua composta o segnaposto: usare una foglia per lingua oppure omettere il dato ambiguo`);
+  assert(typeof nodo.livello === "string" && LIVELLI_CEFR.includes(nodo.livello.trim().toUpperCase()), `${contesto}.livello CEFR non valido: ammessi solo A1, A2, B1, B2, C1, C2`);
+  if (nodo.condizione != null) {
+    assert(typeof nodo.condizione === "string" && nodo.condizione.trim(), `${contesto}.condizione: stringa non vuota attesa`);
+  }
+  if (nodo.quando != null) {
+    assert(nodo.quando && typeof nodo.quando === "object" && !Array.isArray(nodo.quando), `${contesto}.quando: oggetto atteso`);
+    validaChiavi(nodo.quando, new Set(["livello"]), `${contesto}.quando`);
+    assert(nodo.quando.livello === "L" || nodo.quando.livello === "LM", `${contesto}.quando.livello: usare L oppure LM`);
+  }
 }
 
 export function validaFonte(fonte, contesto = "fonte") {
@@ -23,12 +68,7 @@ export function validaFonte(fonte, contesto = "fonte") {
 
 function validaValore(campo, valore, contesto) {
   if (campo === "requisitoLingua") {
-    assert(Array.isArray(valore) && valore.length > 0, `${contesto}: deve essere un array non vuoto`);
-    for (const [i, r] of valore.entries()) {
-      assert(r && typeof r === "object", `${contesto}[${i}]: oggetto atteso`);
-      assert(typeof r.lingua === "string" && r.lingua.trim(), `${contesto}[${i}].lingua mancante`);
-      assert(typeof r.livello === "string" && /^(A1|A2|B1|B2|C1|C2)([-/]?(A1|A2|B1|B2|C1|C2))?$/i.test(r.livello.trim()), `${contesto}[${i}].livello CEFR non valido`);
-    }
+    validaNodoLingua(valore, contesto, { radice: true });
     return;
   }
   if (campo === "scadenzeOspitante") {
@@ -72,7 +112,12 @@ export function validaContenitoreOutput(contenitore, input, { etichetta = "OUTPU
       assert(consentiti.has(campo), `${etichetta}.${codice}.${campo}: non richiesto da campiDaRiempire`);
       validaValore(campo, patch[campo], `${etichetta}.${codice}.${campo}`);
       patchPulita[campo] = patch[campo];
-      patchPulita.fonti[campo] = validaFonte(fonti[campo], `${etichetta}.${codice}.fonti.${campo}`);
+      const fontePulita = validaFonte(fonti[campo], `${etichetta}.${codice}.fonti.${campo}`);
+      if (campo === "requisitoLingua") {
+        assert(patch[campo].fonte === fontePulita.url, `${etichetta}.${codice}.${campo}.fonte: deve coincidere con fonti.${campo}.url`);
+        assert(patch[campo].verificatoIl === fontePulita.verificataIl, `${etichetta}.${codice}.${campo}.verificatoIl: deve coincidere con fonti.${campo}.verificataIl`);
+      }
+      patchPulita.fonti[campo] = fontePulita;
     }
 
     if (patch.notePraticheAppend != null) {

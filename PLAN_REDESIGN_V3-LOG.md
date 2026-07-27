@@ -696,3 +696,78 @@ senza correggere nulla).
 prodotto codice sbagliato: il router inesistente, l'entrata inesistente, il
 footer da generalizzare (già fatto), i conteggi attribuiti all'ateneo sbagliato,
 e i «1.600 pin» che erano record e non pulsanti.
+
+---
+
+## Act 3 — Build V0 (2026-07-27)
+
+La specifica congelata è stata consegnata a Codex per l'implementazione e poi
+riesaminata in due passaggi avversariali sul working tree, senza commit. Il
+riesame ha corretto cinque percorsi che avrebbero indebolito il contratto:
+radice dichiarativa non obbligatoria nella pipeline; condizioni insieme di
+livello e corsi; più foglie applicabili allo stesso livello trattate come
+alternative; testo «Idoneo» su uno stato sconosciuto; marcatore prudenziale
+degli array storici misti scritto dall'adattatore ma non consumato
+dall'evaluatore.
+
+Esito finale dopo la revisione del layer di presentazione: i 10 casi golden e
+14 guardrail passano con `node --test`. La funzione pura
+`presentaCompatibilita()` è ora l'unico punto che produce
+✅/⚠️/🔒/🟡; `calcolaCompatibilita()` le passa soltanto esito e punteggi.
+Il ramo condizionato dichiara anche l'eventuale assenza di posti per il livello
+scelto. I golden 1, 4, 5, 6, 7 e 8 verificano quindi l'icona visibile, non più
+soltanto l'esito intermedio.
+La pipeline storica passa 7/7; i controlli di sintassi sono verdi. La matrice
+attuale, ripetibile su 554 profili per ciascuna delle 1.987 mete, misura **262 mete
+scese di categoria** e **365 salite o tornate visibili**. Restano **121
+`rootPresunta` non revisionate**, dichiarate a schermo e mai verdi da sole.
+
+I dati attivi non sono stati riscritti. `index.html`, `css/style.css` e i file
+`dati-mete*.js` sono rimasti invariati. `_smoke.js` parte ma conserva il difetto
+jsdom preesistente `SCADENZE_CAFOSCARI is not defined`; non è un gate di V0.
+
+### Deroga di prodotto alla tabella V0 — condizioni sui corsi (2026-07-27)
+
+Dopo aver visto l'impatto della regola prudenziale, Nicola ha deciso
+esplicitamente di allentare una sola riga della tabella di migrazione congelata:
+se l'unica riserva è `condizionatoCorsi`, la meta può raggiungere ✅ con le
+normali soglie. La ragione è operativa: è lo studente a scegliere i corsi nella
+lingua che possiede; fermarlo sempre a ⚠️ aggiunge attrito senza offrirgli una
+decisione ulteriore su cui agire.
+
+La contropartita che mantiene onesto il verde è un avviso ben visibile nella
+scheda di dettaglio. Il banner nomina la lingua concreta quando è una sola e
+chiede di controllare che l'offerta di corsi in quella lingua basti per il
+proprio piano di studi. Non usa lo stile grigio dei dati mancanti. La decisione
+riusa le classi esistenti `banner-stato stato-riserve`, senza modificare il CSS.
+
+La deroga non si estende alle altre incertezze: `rootPresunta` ha sempre la
+precedenza e non produce mai verde, neppure insieme a `condizionatoCorsi`;
+`livelloAmbiguo`, `daVerificare`, segnaposto e requisito assente restano 🟡;
+Groningen resta non verde per un magistrale B2 quando il master richiede C1.
+Anche l'assenza di posti continua a essere dichiarata nel dettaglio.
+
+Con un profilo di controllo che possiede tutte le 23 lingue del catalogo a C2
+certificate, la deroga riporta al verde **940 mete** rispetto alla regola
+prudenziale precedente; **740 restano fuori dal verde**. Fra queste ultime le
+cause, non mutuamente esclusive, comprendono **121 `rootPresunta`**, **68 mete
+con livello ambiguo** e **20 con segnaposto**. Il nuovo gate è di **24/24 test**:
+include il banner reale in jsdom, la precedenza `rootPresunta` +
+`condizionatoCorsi` e tutti i vincoli rimasti invariati.
+
+**Subentro di Claude dopo i due round di fix** (protocollo `/codex-build`:
+esauriti i round, il revisore finisce da sé invece di continuare a delegare).
+La revisione esaustiva sul catalogo reale ha trovato un'ultima falla, nella
+direzione dannosa: il vocabolario dei selettori di livello è per forza
+incompleto — `master` è riconosciuto, lo spagnolo `corsi di grado` no — quindi
+la foglia scritta per il triennale risultava valida per tutti e soddisfaceva un
+magistrale a cui il master chiedeva di più. È il fallimento di Groningen
+rientrato da una porta laterale (caso reale: `sap-comm-madrid-5`, dove il
+triennale chiede Spagnolo B2 e il master `B2/C1`).
+
+Il rimedio **non** è allargare il vocabolario: `corsi di laurea` (9 occorrenze)
+è generico e marcarlo come triennale introdurrebbe un errore nuovo. La guardia
+è strutturale e indipendente dal vocabolario: **quando una foglia dichiara
+esplicitamente il livello dello studente, è quella a governare la sua lingua**,
+e una foglia della stessa lingua che non dichiara il livello descrive un altro
+ciclo e non può soddisfare al posto suo. Gate finale **25/25**.

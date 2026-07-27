@@ -129,6 +129,11 @@
   function src(f) { html.push('<script src="' + f + '"><\/script>'); }
   function inline(js) { html.push('<script>' + js + '<\/script>'); }
 
+  // V0: il motore puro deve esistere prima dei dati e di app.js. Lo emette il
+  // caricatore, invece di aggiungere un tag a index.html, così l'ordine resta
+  // garantito anche durante il caricamento progressivo dei singoli atenei.
+  src("js/puro.js");
+
   daCaricare.forEach(function (k) {
     var voce = ATENEI_REGISTRO[k];
     inline("__ewIniziaAteneo();");

@@ -21,7 +21,51 @@
 
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-07-27 — Claude Code (Opus 5).
+**Ultimo aggiornamento:** 2026-07-27 — Codex (GPT-5).
+
+**(SESSIONE 2026-07-27 — V0 «Il motore di compatibilità smette di mentire»
+IMPLEMENTATA, riesaminata e aggiornata con una deroga esplicita di prodotto
+decisa da Nicola.)** Creato `js/puro.js`, unico
+adattatore browser/Node per il vecchio array e il nuovo albero `ANY`/`ALL`;
+livelli CEFR fuori scala, barre e segnaposto danno `sconosciuto`, mai un falso
+✅ o 🔒 linguistico. Le condizioni bachelor/master filtrano la sola foglia
+applicabile; `rootPresunta` non può produrre verde. Per decisione esplicita di
+Nicola, invece, la sola condizione sui corsi può raggiungere ✅: è lo studente a
+scegliere i corsi nella lingua che possiede. La scheda rende visibile la
+contropartita con un banner che nomina la lingua e chiede di verificare che
+l'offerta basti per il piano di studi. Tutti gli accessi UI al requisito grezzo
+passano dall'adattatore. Italiano C2 è proposto nell'onboarding ma entra nel
+calcolo solo dopo «Fatto». Pipeline chiusa ai nuovi dati composti/ambigui;
+prompt storico marcato obsoleto. Il riesame ha chiuso cinque falle: la pipeline
+ora pretende davvero una radice anche con una sola foglia e rifiuta chiavi fuori
+schema; una condizione può selezionare insieme il ciclo e i corsi; più requisiti
+applicabili allo stesso ciclo restano sconosciuti; lo stato ignoto usa sempre il
+contratto unico «🟡 Verifica la lingua», senza chiamarlo «Idoneo»; anche gli
+array storici misti restano marcati come condizionati dai corsi. Aggiunti
+package+lockfile, 10 casi golden e prove mirate di pipeline, tabella ANY/ALL,
+onboarding e dettaglio (**24 test totali**). La revisione successiva ha portato
+anche la decisione visibile di icona/stato/dettaglio in `js/puro.js`: il ramo
+condizionato segnala l'eventuale assenza di posti, e i golden che parlano di
+colore verificano l'icona realmente restituita all'interfaccia. Misura corrente: **1.987
+mete, 2.445 requisiti, 110 livelli fuori scala su 76 mete, 121
+`rootPresunta` non revisionate**. Confronto su 554 profili per meta: **262
+mete scendono** in almeno uno scenario e **365 salgono o tornano visibili**.
+Con tutte le 23 lingue del catalogo a C2 certificate, la deroga riporta al verde
+**940 mete** e ne lascia **740 fuori**; fra queste ultime, con cause che possono
+sovrapporsi, ci sono 121 `rootPresunta`, 68 livelli ambigui e 20 segnaposto.
+`_smoke.js` parte ma conserva l'eccezione jsdom preesistente
+`SCADENZE_CAFOSCARI is not defined`, quindi non è un gate V0; il test jsdom
+mirato all'onboarding e quello sul disclaimer di dettaglio passano sullo stesso
+sito statico.
+**Revisione finale di Claude, dopo i due round di fix** (protocollo
+`/codex-build`: esauriti i round, il revisore finisce da sé). La scansione
+esaustiva sul catalogo reale ha trovato un'ultima falla nella direzione
+dannosa — il vocabolario dei selettori di livello è incompleto (`master` è
+riconosciuto, lo spagnolo `corsi di grado` no), quindi la foglia scritta per il
+triennale valeva per tutti e soddisfaceva un magistrale a cui il master chiedeva
+di più: il fallimento di Groningen da una porta laterale (`sap-comm-madrid-5`).
+Rimedio **strutturale, non lessicale**: quando una foglia dichiara il livello
+dello studente è quella a governare la sua lingua. **Gate finale 25/25 test.**
 
 **(SESSIONE 2026-07-27 — il GATE 2 si è trasformato in v3. Aperto per fare la
 revisione d'insieme del redesign v2; alla prima schermata Nicola ha fermato la
@@ -3460,6 +3504,7 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **REDESIGN v2 — 🚦 GATE 2** | Nicola valida timeline, stati vuoti e il passaggio della tappa corrente da oro a indaco | ⚠︎ **Validato "per ora" (2026-07-25), revisione completa RIMANDATA** — «poi rivedremo tutto insieme alla fine». Restano senza giudizio a video tipografia, card, nav, form e modal alle 3 larghezze, più le 2 domande aperte da F2 (`--fs-hero` su `.home-hero-claim`; se il filetto di stato a sinistra sia ormai troppo) → **ASSORBITO in v3 il 2026-07-27** |
 | **REDESIGN v2 — F4: Chiusura e checklist §07** | I 9 punti della checklist misurati sui 4 tab a 390/768/1280 (stato Ca' Foscari · Economia · Triennale · Inglese B2, `<details>` forzati aperti). **8 verdi**: zero overflow e zero elementi sporgenti — **i due sospetti del canvas, `.schedina-nome` e la riga di chip, non si sono materializzati**; touch **lista vuota** (criterio R30) salvo le 4 eccezioni già dichiarate; **110 fermate di Tab reali** tutte con anello e tutte `:focus-visible`, click del mouse senza anello; marker della timeline fermo a 0,0px su 5 stazioni × apri/chiudi; griglia di Oggi senza righe vuote nei 3 stati (implicite 4-5 a **0px**); `prefers-reduced-motion` senza perdita d'informazione (179 elementi prima e dopo); nulla di interattivo coperto dalla nav a 390, zero spazio morto a 768. **1 difetto corretto**: le ultime due ombre nere pure (`.mappa-pin .punto`, `.mappa-pin-stella::after`) da `rgba(0,0,0,.3)` a `rgba(30,27,46,.30)` | ✅ Fatta e verificata (2026-07-25) — **⛔ un punto resta aperto**: «nessuna emoji fuori dalle cinque codificate» non è eseguibile (il canvas non elenca mai le cinque; 13 emoji in `index.html`, 24 in `js/app.js`, e `index.html` è vietato dal Goal). Fuori checklist: il fuoco si perdeva cambiando filtro nelle Mete (pre-esistente, `js/app.js`) → **sanato il 2026-07-26** con un intervento suo |
 | **REDESIGN v3 — piano bloccato (nessun codice)** | Il GATE 2 si trasforma in v3: feedback di Nicola in 6 punti → `/grill-me-codex` completo. **Act 1**: 10 domande, decisioni chiuse su entrata, nav, porte d'ingresso, mete, home, retention. **Act 2**: 5 round con Codex `gpt-5.6-sol`, rilievi **33→18→12→11→1**. Prodotti `PLAN_REDESIGN_V3.md` (9 fasi V0-V8 + 2 gate, 22 decisioni tabellate) e `PLAN_REDESIGN_V3-LOG.md` (grill + 5 round integrali). **Due scoperte**: il LA Workspace esiste già (~1.140 righe, sepolto nella stazione 4) e **non esiste nessuna retention** (`.ics` senza `VALARM`, PWA mai proposta). **Il difetto più grave trovato**: `indexOf` su livelli CEFR non standard li rende *superati al massimo* — 109 requisiti su 75 mete — e il caso Groningen (B2 bachelor / C1 master letti come alternative) darebbe ✅ a un magistrale con B2: **il sito promette mete inaccessibili** | 📋 **Piano scritto, non iniziato** (2026-07-27). Nessuna riga di `index.html`, `css/style.css` o `js/app.js` toccata. ⚠︎ `MAX_ROUNDS=5` raggiunto **senza `APPROVED` formale**, ma **senza disaccordo aperto**: l'ultimo bloccante è stato verificato e accolto, la rev. 6 non è stata rivista perché il cap era esaurito. **5 errori fattuali di Claude corretti da Codex** (router ed entrata dati per inesistenti ma già in codice, footer già dinamico, conteggi attribuiti all'ateneo sbagliato, «1.600 pin» che erano record) |
+| **REDESIGN v3 — V0: compatibilità lingua veritiera** | Adattatore unico `requisitiLinguaNormalizzati()` con albero `ANY`/`ALL`, esito prudente a tre valori + caso condizionato, selezione L/LM, `rootPresunta` visibile e contabile; menu, filtro, scheda, dettaglio e tooltip normalizzati; pipeline rifiuta nuovo debito. Anche la decisione visibile di icona/stato/dettaglio vive nel modulo puro | ✅ **Implementata e riesaminata avversarialmente (2026-07-27), non committata** — 10/10 golden verdi, 24/24 test totali. **Deroga di Nicola:** la sola condizione sui corsi può raggiungere ✅, con banner visibile che nomina la lingua e chiede di verificare l'offerta; `rootPresunta` conserva la precedenza e non diventa verde. Il condizionato non nasconde l'assenza di posti; 1.987 mete attraversate senza eccezioni; 262 scese e 365 salite/tornate visibili nella matrice; debito residuo dichiarato: 121 `rootPresunta` |
 | **A11y — fuoco sui filtri delle Mete** | Il punto 1 delle cose trovate fuori checklist in F4. `renderMete()` ricostruisce `#filtri-mete-chip`: il chip a fuoco veniva distrutto e il fuoco cadeva su `<body>`, così da tastiera il Tab ripartiva dall'inizio della pagina. Ora prima del re-render si registra l'**indice** del chip a fuoco (solo se `document.activeElement` è davvero un `.chip-filtro` di quel contenitore) e dopo lo si ridà al nodo nuovo con `focus({ preventScroll: true })`. Indice e non un `data-filtro` nuovo: i 5 chip sono una lista fissa, e l'attributo renderebbe bugiardo il commento R21 poche righe sotto. Solo `js/app.js`; `index.html` e `css/style.css` intatti | ✅ Fatta e verificata (2026-07-26) — nel browser sulla 8123: fuoco sul chip corrispondente invece che su `BODY`, **Tab reale successivo → chip seguente**, scroll invariato, col mouse `:focus-visible = false` (nessun anello), fuoco in `#cerca-mete` non rubato, nessuna eccezione senza profilo. ⚠︎ L'Invio da tastiera non è confermabile con l'automazione (stesso limite del punto 5 di F4): attivazione riprodotta con `chip.click()`, Tab reali |
 
 **Nav (R3, definitiva — gate R1 chiuso):** Mete → **Home** (centrale su
@@ -3510,7 +3555,7 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 | File | Tipo | A cosa serve |
 |------|------|--------------|
 | `PLAN_REDESIGN_V3.md` | doc | **⭐ Sessione 2026-07-27 — l'ordine operativo del cantiere SITO da agosto 2026 a marzo 2027.** Prevale su `PLAN_REDESIGN_V2.md` (chiuso). 9 fasi V0-V8 + 2 gate (G1 «niente contenuto vecchio spacciato per attuale», G2 «dati 2027/28 validati»), 22 decisioni tabellate con l'alternativa scartata, criteri di uscita misurabili e dipendenze esplicite. **Apre con «Stato reale del codice»**, la sezione che elenca ciò che ESISTE GIÀ (router, entrata mappa-hero, LA Workspace, footer dinamico, PWA) — nata perché la rev. 1 conteneva due fasi intere costruite su premesse false. **Da leggere PRIMA di progettare qualunque cosa** |
-| `PLAN_REDESIGN_V3-LOG.md` | doc | **Sessione 2026-07-27**: 698 righe. Le 10 domande del grill con le risposte di Nicola, poi i 5 round di Codex integrali con, per ognuno, cosa è stato accolto e cosa respinto **e perché**. Contiene anche le due note di metodo sugli errori di Claude. È l'artefatto che spiega *perché* il piano è così |
+| `PLAN_REDESIGN_V3-LOG.md` | doc | **Sessione 2026-07-27**: le 10 domande del grill con le risposte di Nicola, i 5 round di revisione del piano e, da V0, il diario Act 3 dell'implementazione e del riesame avversariale. Registra anche la deroga di prodotto sulle condizioni dei corsi e il disclaimer scelto come contropartita. È l'artefatto che spiega *perché* il piano e il codice sono così |
 | `PLAN_REDESIGN_V2.md` | doc | **Sessione 2026-07-25**: piano di implementazione del redesign v2 in 4 fasi (F0 preparazione · F1 token+gutter+griglia · F2 componenti §04 · F3 timeline+stato vuoto · F4 checklist) con 2 gate umani. Rev. 5, sopravvissuto a 5 round di Codex. **Da leggere prima di toccare `css/style.css`** |
 | `PLAN_REDESIGN_V2-LOG.md` | doc | **Sessione 2026-07-25**: 357 righe, l'intera revisione avversariale round per round, con le motivazioni di ciò che è stato respinto. È l'artefatto che spiega *perché* il piano è così |
 | `BRIEF_redesign_per_ClaudeDesign.md` (+ `-LOG.md`) | doc | Sessione 2026-07-24: il brief consegnato a Claude Design che ha prodotto il canvas. Superato dal canvas, tenuto come storia |
@@ -3519,9 +3564,13 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 | `design/redesign-2026-07/GATE2-revisione-guidata.md` | doc | ⚠︎ **STORICO — mai eseguito fino in fondo.** Il 27/07 la revisione è stata interrotta alla prima schermata e assorbita in v3 (vedi `PLAN_REDESIGN_V3.md`). **Creato il 26/07**: il copione della revisione d'insieme rimandata da Nicola. Preparazione (server + stato di prova + le 3 larghezze), cosa NON riguardare perché già misurato, le **4 decisioni aperte** con raccomandazione e costo di ciascuna (`--fs-hero`, i 9 filetti di stato, oro→indaco, le emoji), il giro dei 4 tab × 3 larghezze con 3 domande a tab, tabella dei verdetti. Pensato per essere eseguito **guidati da Claude** in una chat nuova |
 | `index.html` | codice | Struttura v2 (tab OGGI/METE/CANDIDATURA + Idoneità/Profilo nascosti; Timeline rimossa in OP2). **Dalla sessione 56 NON elenca più i file dati**: due soli tag (`registro.js` + `carica-atenei.js`) |
 | `css/style.css` | codice | Design system v2: dark mode, font Bricolage/Jakarta/SpaceMono, responsive |
-| `js/app.js` | codice | Logica v2: missione del giorno, percorso, countdown, mete, checklist, profilo |
+| `js/app.js` | codice | Logica v2: missione del giorno, percorso, countdown, mete, checklist, profilo. Da V0 presenta gli esiti di `js/puro.js` senza leggere direttamente `meta.requisitoLingua` |
+| `js/puro.js` | codice puro | **V0 (27/07)**: adattatore unico del requisito lingua legacy/strutturato, normalizzazione CEFR, albero `ANY`/`ALL`, selezione L/LM, valutazione, punteggio e decisione dell'icona senza DOM o storage; caricato dal browser e direttamente dai test Node. La deroga sulle condizioni dei corsi vive qui, con precedenza esplicita di `rootPresunta` |
+| `package.json` · `package-lock.json` | test/infra | **V0 (27/07)**: dipendenze fissate (`jsdom@22.1.0`, `@playwright/test@1.62.0`) e comandi distinti `test:unit`, `test:ui`, `test:a11y`, `test:visual`; nessun bundler e nessun browser Playwright installato |
+| `test/compatibilita-lingua.test.cjs` · `test/pipeline-lingue.test.mjs` · `test/onboarding-lingue.test.cjs` | test | **V0 (27/07)**: i 10 casi golden, icone effettive per i casi che parlano di colore, assenza posti nel ramo condizionato, precedenza `rootPresunta`, tabella ANY/ALL, pipeline, prova jsdom di Italiano C2 e banner di dettaglio; `node --test`, uscita non zero su errore |
+| `scripts/conta-anomalie-lingua.mjs` | automazione di sola lettura | **V0 (27/07)**: rigenera per ateneo mete/requisiti/occorrenze/valori distinti, lista `daVerificare`, `rootPresunta` residue, confronto deterministico prima/dopo e impatto della deroga sui corsi |
 | `js/atenei/registro.js` | **dati** | **R1.5 (56)**: anagrafica atenei che il sito conosce PRIMA di caricare i dati — label, URL, `disponibile` (dichiarato, non più dedotto contando le mete), elenco file. **Aggiungere un ateneo o una Facoltà = toccare SOLO questo file** |
-| `js/carica-atenei.js` | codice | **R1.5 (56)**: decide quali atenei servono (solo l'attivo; tutti se c'è una migrazione zaino da fare) ed emette i tag mantenendo la semantica sincrona che `app.js` si aspetta. 2.263 → 903 KB (Ca' Foscari) |
+| `js/carica-atenei.js` | codice | **R1.5 (56)**: decide quali atenei servono (solo l'attivo; tutti se c'è una migrazione zaino da fare) ed emette i tag mantenendo la semantica sincrona che `app.js` si aspetta. Da V0 emette `js/puro.js` per primo, prima di ogni file dati. 2.263 → 903 KB (Ca' Foscari) |
 | `.github/workflows/deploy-pages.yml` | infra | **Sessione 56**: pubblica il sito su Pages a ogni push su `main`, senza Jekyll, con guardia `node --check`. Prima non esisteva e il sito è rimasto fermo 12 giorni |
 | `img/wiz-hero.png` | asset | **NON più referenziato da nessun file** (C5: sostituito da webp + OG dedicata) — eliminabile nel blocco igiene con conferma di Nicola |
 | `img/og-erasmuswiz.png` | asset | **OG image dedicata** (C5): 1200×630, 64 KB, stile notte direzione C — usata da home e guide per og:image/twitter:image |
@@ -3598,6 +3647,23 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 Il CODICE è pronto. Le mete ora sono **REALI** (dalla lista ufficiale del bando
 2026/27). Resta da completare lingua e dettagli-scheda, e validare bando/checklist.
 
+**Debito lingua V0, misurato il 27/07 dopo il secondo giro avversariale.**
+I dati non sono stati riscritti: restano **121 radici `ANY` presunte** da
+revisionare una fonte alla volta, oltre a 110 occorrenze di livelli CEFR fuori
+scala e 109 occorrenze di lingue composte/segnaposto. Il motore le tratta in
+modo prudente e `scripts/conta-anomalie-lingua.mjs` le rende contabili; non sono
+contenuti “sanati” automaticamente.
+
+**Deroga di prodotto V0, decisa da Nicola il 27/07.** La sola condizione
+`condizionatoCorsi` può ora raggiungere il verde: chi possiede la lingua può
+scegliere i corsi tenuti in quella lingua. Per non trasformare questa
+semplificazione in una promessa muta, la scheda mostra un banner evidente che
+nomina la lingua e chiede di controllare se l'offerta basta per il piano di
+studi. `rootPresunta` prevale sempre e resta fuori dal verde. Con il profilo di
+controllo perfetto la deroga riporta al verde 940 mete; 740 restano fuori. Le
+cause richieste, non esclusive fra loro, sono 121 `rootPresunta`, 68 mete con
+livello ambiguo e 20 con segnaposto.
+
 **Quante mete sono davvero (misurato il 15/07, sessione 57).** Ca' Foscari:
 **392 servite = 392 uniche** su 8 dipartimenti; Sapienza: **1.595 = 1.595**. Fino
 al 15/07 Ca' Foscari ne serviva **527**: 135 erano doppioni prodotti da due code
@@ -3670,10 +3736,15 @@ interamente da G5/pipeline, non dall'app.
 | Checklist (`dati-checklist.js`) | **REALI** ✅ 9 passi validati sul bando | Riverificare ogni anno |
 | **Automazione dati Gemini+Codex** | **Nessun avanzamento visibile su GitHub dal pomeriggio del 16/07**: ultimo auto-merge alle 13:08; stato remoto ancora 315 run e 45 batch. L'altro PC pubblica normalmente il sito, quindi la connettività GitHub esiste | Controllare sull'altro PC se l'attività ogni 3 ore è abilitata, l'orario dell'ultima esecuzione, il codice dell'ultimo risultato e il relativo log |
 
-**Nota motore di compatibilità:** `app.js` ora gestisce la lingua mancante in modo
-onesto. Per le mete senza lingua mostra 🟡 "Idoneo — verifica la lingua" (se hai
-livello e posti) o 🔒 "Non accessibile" (se manca il livello), SENZA inventare una
-percentuale. Le mete con lingua nota (Aix) mantengono il punteggio 0-100 pieno.
+**Nota motore di compatibilità (V0, 27/07):** `app.js` non legge più il requisito
+grezzo: ogni consumatore usa `js/puro.js`. Requisito assente, barra, segnaposto o
+livello CEFR fuori scala danno 🟡 «verifica la lingua», senza inventare una
+percentuale; `rootPresunta` può ordinare e filtrare ma non dare ✅. In deroga
+esplicita alla tabella V0, la sola condizione sui corsi può invece dare verde,
+con avviso visibile nella scheda. I nuovi conteggi correnti sono **2.445 requisiti**:
+Ca' Foscari 28 livelli fuori scala su 17 mete, Sapienza 82 su 59; totale **110 su
+76 mete**. Restano **121 `rootPresunta` non revisionate**, debito dichiarato da
+ridurre con revisione delle fonti, non con parsing automatico.
 
 ## 7. COME TESTARE (promemoria)
 
@@ -3696,18 +3767,23 @@ piano operativo del cantiere SITO da agosto 2026 a marzo 2027 è
 
 **I prossimi passi veri, in ordine di dipendenza (non di mese):**
 
-1. ▶️ **V0 — Lingue e livelli.** Nessuna dipendenza, valore immediato: sblocca 25
-   mete nascoste (stringhe composte) e chiude **109 falsi positivi** su 75 mete
-   (livelli CEFR fuori scala trattati come superati al massimo). Include
-   `package.json` + `js/puro.js` + i test golden, cioè l'infrastruttura di prova
-   che oggi manca del tutto. **Consegnabile a Codex con `/codex-build`.**
-2. **V1 — Router esteso** (⚠︎ *estendere* quello esistente, contratto R1.4, hash
+0. ✅ **V0 — Lingue e livelli COMPLETATA e riesaminata in working tree, da
+   pubblicare senza migrazione massiva dei dati.** Il residuo misurabile è 121
+   `rootPresunta`, non un blocco tecnico. Il gate è ora di 24 test: i casi che
+   parlano di colore verificano l'icona effettiva; il condizionato non nasconde
+   l'assenza di posti; il banner sui corsi è provato nel DOM reale; la
+   precedenza di `rootPresunta` è protetta. La possibilità di verde per la sola
+   condizione sui corsi è una deroga esplicita decisa da Nicola, non una
+   correzione silenziosa della specifica. `_smoke.js` resta fuori dai gate
+   finché non viene reso deterministico: con jsdom conserva l'eccezione
+   preesistente sulle scadenze; le prove jsdom mirate sono verdi.
+1. ▶️ **V1 — Router esteso** (⚠︎ *estendere* quello esistente, contratto R1.4, hash
    nudi: non costruirne un secondo) · **V2 — Stepper a 6 tappe, 3 porte,
    migrazione zaino con doppio ciclo**.
-3. **V4 Home «Adesso» → V3 Entrata** (in quest'ordine: lo stato pre-bando nasce
+2. **V4 Home «Adesso» → V3 Entrata** (in quest'ordine: lo stato pre-bando nasce
    in V4 ed è ciò che supera il gate G1) · **V5 Retention** — 🔴 **prima che esca
    il bando**, cioè entro novembre.
-4. **V6a Mete** (wishlist e riordino) · **G2** all'uscita del bando 2027/28 ·
+3. **V6a Mete** (wishlist e riordino) · **G2** all'uscita del bando 2027/28 ·
    **V6b** schedina ufficiale · **V7** Learning Agreement · **V8** rifiniture.
 
 **Restano aperte, dichiarate nel piano:** il filetto di stato a sinistra (9

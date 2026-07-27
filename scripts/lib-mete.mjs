@@ -5,6 +5,29 @@
 
 import fs from "node:fs";
 
+// Contratto V0 per i nuovi dati in ingresso. I dati storici vengono adattati
+// da js/puro.js; la pipeline, invece, deve impedire che il debito cresca.
+export const LIVELLI_CEFR = Object.freeze(["A1", "A2", "B1", "B2", "C1", "C2"]);
+export function linguaSempliceValida(valore) {
+  if (typeof valore !== "string" || !valore.trim()) return false;
+  const lingua = valore.trim();
+  if (/[\/,;|&]|\s+(?:o|oppure|e)\s+/i.test(lingua)) return false;
+  return !/^(?:n\/a|nessuna|nessuno|non indicata|non indicato|non specificata|non specificato|da verificare|sconosciuta|sconosciuto|lingua (?:degli studi|del corso scelto|di insegnamento(?: dei corsi scelti)?|principale (?:del programma scelto|di insegnamento del programma scelto)|da verificare))$/i.test(lingua);
+}
+
+// I file storici usano array; i nuovi requisiti lingua usano un albero.
+// La pipeline deve considerarli entrambi "presenti", altrimenti un dato nuovo
+// valido tornerebbe per errore nella coda delle ricerche mancanti.
+export function datoStrutturatoVuoto(valore) {
+  if (Array.isArray(valore)) return valore.length === 0;
+  if (valore && typeof valore === "object" &&
+      (valore.op === "ANY" || valore.op === "ALL") &&
+      Array.isArray(valore.figli)) {
+    return valore.figli.length === 0;
+  }
+  return true;
+}
+
 // Campi che l'LLM puo completare. Tutto il resto e immutabile.
 export const CAMPI_RIEMPIBILI = [
   "requisitoLingua",

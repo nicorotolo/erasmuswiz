@@ -55,9 +55,15 @@ nell'elenco JSON qui sotto devi trovare SOLO informazioni verificabili online,
 per studenti Erasmus INCOMING. Per ogni partner cerca SOLO i campi elencati nel
 suo "campiDaRiempire":
 
-- "requisitoLingua": lingua e livello CEFR richiesti agli incoming, formato
-  [{ "lingua": "Inglese", "livello": "B2", "condizione": "per corsi in inglese" }].
-  Se ci sono piu' lingue, includile tutte.
+- "requisitoLingua": albero dichiarativo con radice SEMPRE esplicita, formato
+  { "op": "ANY", "figli": [
+      { "lingua": "Tedesco", "livello": "B2" },
+      { "lingua": "Inglese", "livello": "B2",
+        "condizione": "per corsi in inglese" }
+    ], "fonte": "https://...", "verificatoIl": "${OGGI}" }.
+  Usa ANY soltanto se la fonte dice che basta una qualunque delle lingue; usa
+  ALL se servono tutte. Anche con una sola foglia usa una radice ALL. Puoi
+  annidare gruppi ANY/ALL, ma la condizione resta sulla singola lingua.
 - "scadenzeOspitante": scadenze di nomination e application per incoming
   (autunno e primavera se distinte), formato
   [{ "cosa": "Nomination (autunno)", "periodo": "entro 1 aprile" }].
@@ -77,12 +83,25 @@ REGOLE FERREE:
 - Non confondere i requisiti per DEGREE STUDENTS con quelli per
   ERASMUS/EXCHANGE: se la pagina non distingue, ometti il campo e segnala il
   dubbio in "notePraticheAppend".
+- Per requisitoLingua sono ammessi SOLO i livelli CEFR esatti A1, A2, B1, B2,
+  C1, C2. Valori come B1/B2, B1-B2, B1.1 o B2-C1 sono ambigui: NON tradurli,
+  ometti requisitoLingua e conserva il testo in "notePraticheAppend".
+- Ogni foglia contiene UNA lingua semplice. Non scrivere "Tedesco o Inglese",
+  "Francese/Inglese", elenchi con virgole o segnaposto come "Non specificata".
+  Se la fonte non permette di dichiarare le alternative senza indovinare,
+  ometti requisitoLingua e spiega il dubbio in "notePraticheAppend".
+- Se la fonte distingue esplicitamente il livello di studio, aggiungi alla
+  singola foglia "quando": { "livello": "L" } per bachelor/triennale oppure
+  "quando": { "livello": "LM" } per master/magistrale. Non usare ANY per
+  trasformare bachelor e master in alternative.
 - Se trovi solo scadenze di un anno accademico diverso da 2026/27, usale ma
   aggiungi in "notePraticheAppend": "Scadenze: basate su <anno>".
 - Rispondi SOLO con un oggetto JSON (nessun testo attorno, nessun blocco
   markdown), con una chiave per ogni "codiceErasmus" che ha almeno un dato
   trovato. Ometti le mete senza nessun dato. Formato per ogni meta:
-  { "requisitoLingua": [...], "scadenzeOspitante": [...], "linkSito": "...",
+  { "requisitoLingua": { "op": "ALL", "figli": [...],
+      "fonte": "https://...", "verificatoIl": "${OGGI}" },
+    "scadenzeOspitante": [...], "linkSito": "...",
     "linkCatalogo": "...", "notaDisponibilita": "...",
     "notePraticheAppend": "...", "fonti": {
       "requisitoLingua": { "url": "https://...", "citazione": "...", "verificataIl": "${OGGI}" }

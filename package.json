@@ -1,0 +1,16 @@
+{
+  "name": "erasmuswiz",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Sito statico ErasmusWiz e relative prove riproducibili.",
+  "scripts": {
+    "test:unit": "node --test \"test/*.test.*\"",
+    "test:ui": "node -e \"console.log('non ancora implementato: arriva con V2/V3')\"",
+    "test:a11y": "node -e \"console.log('non ancora implementato: arriva con V2/V3')\"",
+    "test:visual": "node -e \"console.log('non ancora implementato: arriva con V2/V3')\""
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.0",
+    "jsdom": "22.1.0"
+  }
+}
