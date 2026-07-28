@@ -1,27 +1,16 @@
 {
   "versione": "2.0",
-  "aggiornato": "2026-07-27",
+  "aggiornato": "2026-07-28",
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 353,
+  "runCompletati": 354,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "lettere-filosofia-batch-11",
-      "priorita": 5,
-      "dipartimento": "Lettere e Filosofia (Sapienza)",
-      "descrizione": "Lettere e Filosofia (Sapienza) - lotto iniziale",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "HU DEBRECE01",
-        "HU MISKOLC01"
-      ]
-    },
     {
       "id": "farmacia (sapienza)-batch-followup-1",
       "priorita": 6,
@@ -682,6 +671,17 @@
         "TR CORUM01",
         "TR ANTALYA01",
         "HU SZEGED01"
+      ]
+    },
+    {
+      "id": "lettere e filosofia (sapienza)-batch-followup-11",
+      "priorita": 6,
+      "dipartimento": "Lettere e Filosofia (Sapienza)",
+      "descrizione": "Lettere e Filosofia (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "HU DEBRECE01",
+        "HU MISKOLC01"
       ]
     }
   ],
@@ -1819,8 +1819,7 @@
         "TR CORUM01",
         "TR ANTALYA01",
         "HU SZEGED01",
-        "HU DEBRECE01",
-        "HU MISKOLC01"
+        "HU DEBRECE01"
       ],
       "pendingLingua": [
         "BG SOFIA06",
@@ -1966,7 +1965,9 @@
         "TR ISTANBU25": 1,
         "TR CORUM01": 1,
         "TR ANTALYA01": 1,
-        "HU SZEGED01": 1
+        "HU SZEGED01": 1,
+        "HU DEBRECE01": 1,
+        "HU MISKOLC01": 1
       },
       "linguaNonTrovabile": [
         "HR RIJEKA01",
@@ -4131,6 +4132,12 @@
       "data": "2026-07-27",
       "mete": 8,
       "note": "Lettere e Filosofia (Sapienza) lettere-filosofia-batch-10: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 354,
+      "data": "2026-07-28",
+      "mete": 2,
+      "note": "Lettere e Filosofia (Sapienza) lettere-filosofia-batch-11: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

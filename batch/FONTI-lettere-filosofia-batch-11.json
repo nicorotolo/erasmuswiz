@@ -1,0 +1,21 @@
+{
+  "HU DEBRECE01": {
+    "linkCatalogo": {
+      "url": "https://internationaloffice.unideb.hu/incoming-students",
+      "citazione": "Course list: https://www.edu.unideb.hu/p/programs-a-z",
+      "verificataIl": "2026-07-28"
+    }
+  },
+  "HU MISKOLC01": {
+    "scadenzeOspitante": {
+      "url": "https://www.uni-miskolc.hu/en/education/exchange-programmes/erasmus/",
+      "citazione": "Step 1: Register & fill out the Online Registration form (DreamApply account) — Deadline: 30 June 2026.",
+      "verificataIl": "2026-07-28"
+    },
+    "linkCatalogo": {
+      "url": "https://www.uni-miskolc.hu/en/education/exchange-programmes/erasmus/",
+      "citazione": "Step 2: Choose your courses from the Course list: http://erasmus.uni-miskolc.hu/courses",
+      "verificataIl": "2026-07-28"
+    }
+  }
+}

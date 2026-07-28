@@ -10334,6 +10334,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://unideb.hu/",
+    linkCatalogo: "https://www.edu.unideb.hu/p/programs-a-z",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71446."
   },
   {
@@ -10403,8 +10405,12 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Registrazione DreamApply (autunno 2026)", periodo: "entro 30 giugno 2026" }
+      ],
     linkSito: "http://www.uni-miskolc.hu",
+    linkCatalogo: "http://erasmus.uni-miskolc.hu/courses",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70984."
   },
   {
