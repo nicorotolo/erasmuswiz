@@ -1,5 +1,12 @@
-# Fonti ufficiali (PDF/ODS del bando): restano solo in locale
-fonti/
+# Fonti ufficiali (PDF/ODS del bando): restano solo in locale.
+# Eccezione: INDICE.md e' testo, ed e' la MAPPA delle fonti — dice quale
+# documento ha prodotto quale file dati e registra le trappole trovate
+# leggendoli (es. il Decreto 326/2026 che sposta una scadenza del bando
+# Sapienza). Senza, chi clona vede le citazioni ma non sa da dove vengono.
+# NB: `fonti/*` e non `fonti/`: git non scende dentro una cartella esclusa,
+# quindi con `fonti/` la riga di eccezione qui sotto sarebbe inefficace.
+fonti/*
+!fonti/INDICE.md
 
 # File di lavoro locali
 .claude/

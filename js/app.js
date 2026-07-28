@@ -850,8 +850,20 @@ function renderHome() {
 // se cambia nei file dati, va cambiata qui nello stesso intervento.
 const FASE_CHECKLIST_LEARNING_AGREEMENT = "Learning Agreement";
 
+// Le voci marcate `condizionale` nei dati-postselezione.js valgono solo in
+// certi casi ("se fai ricerca tesi", "se hai cittadinanza extra-UE") oppure
+// sono un vincolo da conoscere senza un'azione per tutti. Restano nella
+// checklist e nei contatori — si possono spuntare — ma NON possono diventare
+// "la prossima mossa": nessuno spunta mai "Se hai deciso di non partire", e
+// chi ha fatto le quattro azioni vere dell'accettazione resterebbe fermo li'
+// per sempre. Prova: test/ui/porte-v2.spec.cjs "la prima azione post-selezione
+// e' calcolata".
+function vociPostPromuovibili() {
+  return (CHECKLIST_POST || []).filter(voce => !voce.condizionale);
+}
+
 function primaVocePostIncompleta() {
-  return (CHECKLIST_POST || []).find(voce =>
+  return vociPostPromuovibili().find(voce =>
     !(ZAINO.checklistPost && ZAINO.checklistPost[voce.id])
   ) || null;
 }
@@ -1242,7 +1254,7 @@ function renderSettimana() {
   let voci = [];
   let inRitardo = null;
   if (ZAINO.fase === "selezionato") {
-    voci = (CHECKLIST_POST || []).filter(v => !spuntata(v, ZAINO.checklistPost));
+    voci = vociPostPromuovibili().filter(v => !spuntata(v, ZAINO.checklistPost));
   } else if (statoBando() === "aperto") {
     const tutte = vociInOrdine(CHECKLIST || []);
     voci = tutte.filter(v => !spuntata(v, ZAINO.checklist) && !voceScaduta(v));
@@ -1294,7 +1306,7 @@ function calcolaMissione() {
 
   // Studente selezionato: la missione viene dalla checklist di partenza.
   if (ZAINO.fase === "selezionato") {
-    const post     = CHECKLIST_POST || [];
+    const post     = vociPostPromuovibili();
     const vocePost = post.find(v => !(ZAINO.checklistPost && ZAINO.checklistPost[v.id]));
     const ora      = new Date();
     const evento   = (SCADENZE_CAFOSCARI || [])

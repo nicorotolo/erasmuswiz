@@ -27,6 +27,15 @@
 //    con "Erasmus Italiano" (mobilita' fra atenei italiani): sono due
 //    procedure diverse, con pagine e termini propri.
 //
+// ⚠️ CAMPO "condizionale" (aggiunto 2026-07-28, LETTO dal codice):
+//    vociPostPromuovibili() in app.js salta queste voci quando calcola la
+//    stazione corrente e "la prossima mossa". Valgono solo in certi casi
+//    ("se sei cittadino extra-UE") o sono un vincolo da conoscere senza
+//    un'azione per tutti: restano nella lista e nei contatori, si spuntano
+//    normalmente, ma non vengono proposte come mossa — altrimenti uno
+//    studente italiano resterebbe fermo per sempre su una voce che non lo
+//    riguarda. Stesso campo e stessa regola in cafoscari/dati-postselezione.js.
+//
 // Ogni voce ha:
 //  - id:         stabile (chiave dello zaino — non cambiarlo)
 //  - fase:       gruppo di appartenenza (mostrato come sotto-intestazione)
@@ -34,6 +43,8 @@
 //                "Durante" | "Dopo" la partenza. Se assente, il codice
 //                usa "Prima" come fallback (vedi renderChecklistPost).
 //  - testo:      cosa deve fare lo studente
+//  - condizionale: (facoltativo) true = non vale per tutti, non promuovibile
+//                come "prossima mossa". Assente = vale per tutti.
 // ============================================================
 
 var CHECKLIST_POST = [
@@ -74,7 +85,7 @@ var CHECKLIST_POST = [
     testo: "Indica la lingua dei corsi nella sezione OLS e fai il test di piazzamento su EU Academy (olsapienza@uniroma1.it per assistenza)." },
   { id: "sap-post-doc-6", fase: "Documenti pre-partenza", gruppoZaino: "Prima",
     testo: "Verifica che carta d'identità o passaporto siano validi per tutto il periodo della mobilità." },
-  { id: "sap-post-doc-7", fase: "Documenti pre-partenza", gruppoZaino: "Prima",
+  { id: "sap-post-doc-7", fase: "Documenti pre-partenza", gruppoZaino: "Prima", condizionale: true,
     testo: "Se sei cittadino extra-UE, informati per tempo presso ambasciata o consolato del paese di destinazione e controlla la scadenza del permesso di soggiorno." },
   { id: "sap-post-doc-8", fase: "Documenti pre-partenza", gruppoZaino: "Prima",
     testo: "Procurati la Tessera Europea di Assicurazione Malattia (TEAM) in corso di validità e chiedi alla ASL e all'ateneo ospitante come funziona l'assistenza sanitaria sul posto." },
@@ -84,15 +95,15 @@ var CHECKLIST_POST = [
   // ---- Arrivo ----
   { id: "sap-post-arr-1", fase: "Arrivo", gruppoZaino: "Durante",
     testo: "Scarica la dichiarazione di arrivo dalla pagina personale, falla compilare, firmare e timbrare dall'ateneo ospitante, poi caricala in «UPLOAD DOCUMENTI» indicando la data di arrivo. Entro 15 giorni ricevi l'email di riscontro." },
-  { id: "sap-post-arr-2", fase: "Arrivo", gruppoZaino: "Durante",
+  { id: "sap-post-arr-2", fase: "Arrivo", gruppoZaino: "Durante", condizionale: true,
     testo: "Ricorda che l'arrivo viene registrato solo se hai già fatto tutte e tre le cose obbligatorie: contratto approvato, Learning Agreement completo, dati bancari salvati." },
 
   // ---- Durante la permanenza ----
-  { id: "sap-post-dur-1", fase: "Durante la permanenza", gruppoZaino: "Durante",
+  { id: "sap-post-dur-1", fase: "Durante la permanenza", gruppoZaino: "Durante", condizionale: true,
     testo: "Se cambi o aggiungi esami, compila il Change Form dalla pagina personale (disponibile solo dopo la registrazione dell'arrivo): quello che non è nel Learning Agreement o nel Change Form non viene riconosciuto." },
   { id: "sap-post-dur-2", fase: "Durante la permanenza", gruppoZaino: "Durante",
     testo: "Controlla che i nomi degli esami nel «Study Programme abroad» siano identici a quelli che compariranno nel Transcript of Records." },
-  { id: "sap-post-dur-3", fase: "Durante la permanenza", gruppoZaino: "Durante",
+  { id: "sap-post-dur-3", fase: "Durante la permanenza", gruppoZaino: "Durante", condizionale: true,
     testo: "Se ti serve più tempo, chiedi il prolungamento almeno un mese prima della fine prevista dal contratto: serve l'autorizzazione dell'ospitante e di Sapienza, e non si può andare oltre la chiusura dell'anno finanziario Erasmus." },
 
   // ---- Rientro ----
@@ -108,6 +119,6 @@ var CHECKLIST_POST = [
     testo: "Convalida gli esami entro il termine indicato nelle informazioni generali del tuo anno: sotto il minimo di CFU riconosciuti devi restituire tutto il contributo integrativo MUR/Sapienza (nel 2025/26 il minimo era 12 CFU, 3 per la sola ricerca tesi)." },
   { id: "sap-post-rit-6", fase: "Rientro", gruppoZaino: "Dopo",
     testo: "Compila il rapporto narrativo (EU Survey) quando ricevi l'invito sull'email istituzionale." },
-  { id: "sap-post-rit-7", fase: "Rientro", gruppoZaino: "Dopo",
+  { id: "sap-post-rit-7", fase: "Rientro", gruppoZaino: "Dopo", condizionale: true,
     testo: "Non puoi laurearti prima di aver convalidato gli esami o il lavoro di tesi svolti in Erasmus. E dopo l'email di chiusura pratica la posizione non si può più riaprire: controlla tutto prima." },
 ];

@@ -23,6 +23,82 @@
 
 **Ultimo aggiornamento:** 2026-07-28 — Claude Code.
 
+**(SESSIONE 2026-07-28 quater — I TRE PREREQUISITI DI V4, CHIUSI. NESSUN
+CODICE DI V4.)** Sessione deliberatamente fermata prima di `/codex-build`:
+i tre punti che il piano voleva "prima, non durante" sono ora chiusi, la §V4
+congelabile no. **74/74 unit (+1 skip dichiarato) e 25/25 UI.**
+
+**1. G1 esiste: da promessa a gate.** Nuovo `INVENTARIO_G1.md` — 19 punti di
+render censiti, con gli **ancoraggi a frammenti di codice e non a numeri di
+riga** (la §V2 aveva già citato righe morte). Il censimento ha trovato **due
+famiglie di campi che il piano non nominava**: `dati-checklist.js` (che il
+piano stesso cita come portatore del `25/02/2026`) e soprattutto
+`meta.scadenzeOspitante[].periodo`, testo libero per-meta reso a
+`app.js:2512`, senza nessun flag di ciclo che lo copra — cioè esattamente
+*«il testo 2026/27 rimasto in un tooltip»* che G1 deve intercettare, su ~1.900
+mete Sapienza. Nuovo `test/inventario-g1.test.cjs`: **T1** i campi dichiarati
+esistono ancora, **T2** i 19 ancoraggi esistono ancora in `app.js`, **T3**
+nessun campo con il ciclo è comparso **fuori** da quelli dichiarati (è il test
+che fa fallire l'aggiunta silenziosa), **T4** i due file dello stesso ateneo
+dichiarano lo stesso anno. Le tre prove che contano sono **verificate per
+mutazione** (rinominata una funzione ancorata, aggiunto un campo con una data,
+disallineato un anno: una rossa per ciascuna, ripristino byte-identico).
+⚠️ **Il gate NON è superato e il test lo dice**: **T5** — «in pre-bando nessuno
+dei 19 punti mostra un valore del ciclo se non etichettato» — è uno `skip` con
+motivazione, perché lo stato pre-bando nasce in V4. **T5 è il criterio di
+uscita di V4**, non un test rinviabile.
+
+**2. Debito di V2 saldato, in entrambe le direzioni.** Ca' Foscari
+post-selezione **20 → 37 voci**, rilette sulle due fonti reali (bando artt. 1,
+3, 8, 9 + pagina procedure, aggiornata al 24/07/2026 mentre l'header del file
+citava la versione del 10/04). Mancava un capitolo intero — «Durante la
+permanenza» non esisteva — e mancavano le trappole che costano i soldi:
+*se non sostieni nemmeno un esame dell'OLA la mobilità è annullata*, *non puoi
+laurearti prima del riconoscimento*, *non puoi rifiutare un voto presente nel
+ToR*. I 20 `id` storici sono intatti (sono chiavi dello zaino: si aggiunge, non
+si rinumera) e **nessuna voce scrive una data assoluta del ciclo**.
+Sapienza `dati-bando.js`: **5 requisiti generici e `inVerifica: true` → 9
+validati** articolo per articolo sul bando ufficiale (D.R. 3613/2025), con il
+«traduttore a 3 registri» che la Sapienza non aveva affatto; `inVerifica`
+rimosso, il banner «dati in corso di verifica» non compare più.
+
+**3. Il difetto che le voci nuove hanno fatto emergere — e che le prove hanno
+visto.** Aggiunte le voci condizionali, la prova UI *«la prima azione
+post-selezione è calcolata»* è diventata **rossa**: `primaVocePostIncompleta()`
+prende la prima voce non spuntata dell'array, e nessuno spunta mai *«Se hai
+deciso di non partire…»* — chi aveva fatto le quattro azioni vere
+dell'accettazione restava fermo lì per sempre. **È da quella funzione che V4
+ricava "la mossa principale" della home.** Rimedio: campo `condizionale` nei
+dati e `vociPostPromuovibili()` in `app.js`, che lo salta per stazione e
+missione **ma non per i contatori** (13 voci Ca' Foscari, 5 Sapienza — marcate
+anche lì, altrimenti un italiano resterebbe bloccato su «se sei extra-UE»).
+
+**4. La lezione di metodo della sessione: l'articolato non basta.** Il bando
+Sapienza fissa la 1ª scadenza al **12/02/2026**, `dati-scadenze.js` porta
+**27/02/2026**. Sembrava un errore da 15 giorni sulla data più importante del
+file: è invece il **Decreto n. 326/2026 del 17/02/2026**, che riaprì i termini
+dopo un incidente informatico e cambiò anche la procedura (candidature via
+moduli Google per Facoltà). **Validare sul solo PDF del bando avrebbe
+introdotto l'errore, non corretto.** Registrato in `fonti/INDICE.md` e nel
+file dati.
+
+**Deciso da Nicola:** il bando Sapienza è scaricato in `fonti/sapienza/` ma
+**`fonti/` resta in `.gitignore`** (decisione esistente: i PDF non ingrassano
+il repo); eccezione solo per `fonti/INDICE.md`, che è la mappa delle fonti.
+Nota tecnica: serviva `fonti/*` e non `fonti/`, perché git non scende in una
+cartella esclusa e la riga di eccezione sarebbe stata inefficace.
+
+**Aperto e dichiarato:** la **§V4 non è ancora una specifica congelabile** — va
+riscritta come fu fatto per §V2, dichiarando che le matrici A/B **non
+esistono** (`cicloDati`/`cicloPercorso` sono scritti in `app.js:103-106` e
+`puro.js:137-188`, ma `indipendenteDalCiclo` ha **0 occorrenze** e l'evento che
+applica le matrici non c'è) e decidendo le tre cose che l'inventario lascia
+aperte: se il pre-bando è un quarto stato di `statoBando()` o una lettura di
+`dati-scaduti` + `cicloPercorso ≠ cicloDati`; cosa si nasconde e cosa si
+etichetta; e come si etichetta `scadenzeOspitante`, che non ha un flag di
+ciclo. Restano inoltre le scadenze Sapienza di graduatoria e accettazione, mai
+inserite (4 voci contro le 7 di Ca' Foscari).
+
 **(SESSIONE 2026-07-28 ter — V2 COSTRUITA, REVISIONATA E ONLINE.)** Delegata a
 Codex `gpt-5.6-sol` con `/codex-build` sulla §V2 congelata: un giro di
 correzione più subentro del revisore. **61/61 unit + 25/25 UI.** Sei tappe, tre
