@@ -33,16 +33,28 @@ _Act 1+2 di `/grill-me-codex`. Argomentazione integrale: `PLAN_REDESIGN_V3-LOG.m
 | **Dati bando** | Ciclo **2026/27**, tutte le scadenze di candidatura **già passate**. Il limite di 5 destinazioni è **Art. 7 c. 4** (non Art. 5) e **non esiste come campo numerico** | `dati-bando.js` |
 
 **Numeri esatti, misurati e divisi per ateneo** (la rev. 2 li etichettava tutti
-come Ca' Foscari: sbagliato):
+come Ca' Foscari: sbagliato). ⚠️ **Questa tabella si rigenera, non si cita**:
+da V0 esiste `scripts/conta-anomalie-lingua.mjs` ed è quello la fonte di verità.
+I valori qui sotto sono la fotografia del **2026-07-28** e invecchiano da soli,
+perché la pipeline notturna aggiunge dati ogni notte da un altro computer.
 
 | | Mete | Requisiti lingua | Livelli CEFR fuori scala |
 |---|---|---|---|
 | **Ca' Foscari** | 392 | 585 | **28** su 17 mete |
-| **Sapienza** | **1.595** | 1.839 | **81** su 58 mete |
-| **Totale repo** | 1.987 | 2.424 | **109** su 75 mete |
+| **Sapienza** | **1.595** | 1.861 | **82** su 59 mete |
+| **Totale repo** | 1.987 | 2.446 | **110** su 76 mete |
 
-Stringhe composte e segnaposto: **21 occorrenze composte + 7 segnaposto**, su
-**15 valori anomali distinti**, che toccano **25 mete di Ca' Foscari**.
+Stringhe composte e segnaposto — **per ateneo, non sommate**: Ca' Foscari
+**21 occorrenze composte + 7 segnaposto**, su **15 valori anomali distinti**,
+che toccano **25 mete**; Sapienza **67 + 14** su **21 valori**, che toccano
+**80 mete**. Totale repo: **88 + 21** su **27 valori**, **105 mete**.
+
+> **Perché i numeri della rev. 6 non tornavano più.** La rev. 6 dava Sapienza a
+> 1.839 requisiti e il totale a 109 livelli fuori scala su 75 mete. Non era un
+> errore di misura: fra la stesura del piano e l'implementazione di V0 la
+> pipeline ha pubblicato nuovi lotti. Quando `conta-anomalie-lingua.mjs`
+> restituisce numeri diversi da quelli scritti qui, **si aggiorna questa tabella,
+> non lo script**.
 
 > ⚠️ **La Sapienza ha quattro volte le mete di Ca' Foscari.** Il budget
 > prestazionale di V3 si misura **sul dataset peggiore**, cioè Sapienza.
@@ -180,7 +192,7 @@ Codex da sola, con **data** e **criterio di uscita misurabile**.
 
 | Fase | Dipende da | Quando | Gate |
 |---|---|---|---|
-| **V0** Lingue e livelli | — (+ `package.json` e `js/puro.js`, *Verifiche* §0) | agosto 2026 | — |
+| ~~**V0** Lingue e livelli~~ ✅ **FATTA** (`3d0b524`, 2026-07-27, online) | — | — | — |
 | **V1** Router esteso | — | agosto 2026 | — |
 | **V2** Stepper, 6 tappe, migrazione zaino | V1 | settembre 2026 | — |
 | **V4** Home «Adesso» + stato pre-bando | V0, V1, V2 | ottobre 2026 | **G1** |
@@ -200,7 +212,28 @@ Codex da sola, con **data** e **criterio di uscita misurabile**.
 > ufficiale) esce subito; `V6b` (le 5 da inviare) aspetta **G2**, perché prima
 > il limite verrebbe dal bando vecchio.
 
-### V0 — Il motore di compatibilità smette di mentire (agosto)
+### V0 — Il motore di compatibilità smette di mentire ✅ FATTA (2026-07-27)
+
+> ✅ **Chiusa e online**, commit `3d0b524`. Costruita da Codex `gpt-5.6-sol` con
+> `/codex-build` su questa specifica congelata, revisionata da Claude in due
+> round più un subentro del revisore. Cronaca completa in
+> `PLAN_REDESIGN_V3-LOG.md` §Act 3.
+>
+> **Cosa esiste ora che prima non esisteva**: `js/puro.js` (albero `ANY`/`ALL`,
+> esito a tre valori, adattatore unico, decisione dell'icona), `package.json` +
+> lockfile con `jsdom` fissato a 22, **25 test** sotto `npm run test:unit`,
+> `scripts/conta-anomalie-lingua.mjs`. `index.html` e `css/style.css` **non
+> toccati**: `puro.js` è emesso da `carica-atenei.js`.
+>
+> **Due scostamenti dalla specifica, entrambi deliberati e argomentati**: la
+> deroga sulla condizione dei corsi (§2-bis) e una guardia aggiunta in revisione
+> — *quando una foglia dichiara il livello dello studente, è quella a governare
+> la sua lingua* — perché il vocabolario dei selettori di livello è per forza
+> incompleto (`master` riconosciuto, lo spagnolo `corsi di grado` no) e la foglia
+> del triennale accontentava un magistrale a cui il master chiedeva di più.
+>
+> **Resta aperto**: **71** `rootPresunta` da revisionare sulla fonte (erano 121;
+> 50 chiuse il 2026-07-28 leggendo meglio il dato, vedi §2-bis).
 
 **Prima di tutto**, perché la mappa reattiva di V3 colora gli spilli con questo
 calcolo: se mente il calcolo, mentono gli spilli.
@@ -282,7 +315,7 @@ studente può metterle fra le 5 che invia — **dannoso**.
    |---|---|---|
    | Un solo requisito | **foglia**, nessuna radice | — |
    | Condizione che **seleziona per livello** (`"per bachelor exchange"` / `"per master exchange"`, triennale/magistrale) | **`quando: { livello: "L" \| "LM" }`** — si valutano **solo le foglie applicabili** | ⛔ **Non è `ANY`.** Groningen (`dati-mete.js:1560`) chiede **Inglese B2 per il bachelor e C1 per il master**: non sono alternative, è lo stesso requisito a due livelli. Con `ANY` un magistrale con B2 soddisferebbe il ramo bachelor e prenderebbe ✅ pur dovendo avere C1. **61 mete** così: 28 CF, 33 Sapienza |
-   | Condizione **dipendente dai corsi scelti** (`"per corsi in tedesco"`) | **`soddisfattoCondizionato`** → «possibile, **verifica i corsi**» | Dimostra che una strada **esiste**, non che esista un piano di corsi sufficiente per quello studente. Non è verde |
+   | Condizione **dipendente dai corsi scelti** (`"per corsi in tedesco"`) | **`soddisfattoCondizionato`** → **può raggiungere il verde** (deroga di Nicola, vedi sotto), con avviso obbligatorio in scheda | Dimostra che una strada **esiste**, non che esista un piano di corsi sufficiente per quello studente — ma è **lo studente** a scegliere i corsi |
    | Lingue diverse, nessuna condizione discriminante | **`rootPresunta: "ANY"`** | Flaggata, contata, **dichiarata a schermo** — e **da sola non produce mai il verde ✅**: serve a ordinare e filtrare |
    | La fonte dichiara davvero che **una qualunque** delle lingue basta, a prescindere da livello e piano di corsi | **`ANY` accertato** | L'unico caso che merita quel nome |
    | Condizioni contraddittorie | **`sconosciuto`** | Revisione umana |
@@ -300,7 +333,61 @@ studente può metterle fra le 5 che invia — **dannoso**.
 
    **Nel criterio di uscita di V0** entra il **numero di `rootPresunta` non ancora
    revisionate**, che deve scendere nel tempo: è un debito dichiarato, non un
-   problema risolto.
+   problema risolto. **Sceso da 121 a 71 il 2026-07-28** (Ca' Foscari 21→10,
+   Sapienza 100→61) senza consultare una sola fonte: il dato si è disambiguato da
+   solo, esattamente come questo piano aveva previsto contestando il rimedio di
+   Codex. **40 mete** erano `ANY` **accertato** e non presunto, perché la
+   `condizione` lo dichiara in chiaro — *«requisito minimo in greco o inglese»*,
+   *«in alternativa al certificato di inglese»*, *«richiesta competenza in almeno
+   una delle due lingue»* — e **10** dipendono dalla lingua di studio scelta
+   (*«per studiare in sloveno»*, *«per moduli in tedesco»*), che è la stessa cosa
+   di *«per corsi in tedesco»* detta con altre parole.
+   Il riconoscimento **non usa un elenco di lingue scritto nel codice** (regola
+   del progetto): confronta la condizione con le lingue delle foglie della meta
+   stessa, quindi *«greco o inglese»* vale solo dove greco e inglese sono davvero
+   i due requisiti. Le **71 restanti** hanno condizioni che non discriminano
+   (*«raccomandato»*, *«requisito generale»*, *«per studenti incoming»*): lì serve
+   davvero la scheda ufficiale, ed è lavoro umano.
+
+   > 🔻 **Deroga alla riga «condizione dipendente dai corsi» — decisa da Nicola il
+   > 2026-07-27, in produzione dal commit `3d0b524`.** La regola originale
+   > (`soddisfattoCondizionato` non è mai verde) è stata **allentata**, e la riga
+   > sopra è già riscritta: qui sta il perché, perché la deroga contraddice la
+   > lettera della rev. 6 e chi rilegge deve trovare la ragione, non una
+   > contraddizione muta.
+   >
+   > **Misurato prima di decidere.** Con la regola alla lettera, uno studente che
+   > possiede *tutte* le 23 lingue del catalogo a C2 certificato vedeva verdi
+   > **307 mete su 1.987** (contro ~1.477 prima di V0): non 967 mete perdevano il
+   > verde per colpa di `rootPresunta` (che ne conta 121) ma per la condizione sui
+   > corsi. Le stringhe dominanti sono `per corsi in inglese` (282),
+   > `per corsi in tedesco` (91), `per corsi in francese` (85).
+   >
+   > **L'argomento di Nicola, accolto.** Chi va all'estero e sceglie corsi in
+   > inglese o francese lo fa *perché* ha quella lingua: la condizione **si avvera
+   > da sé** per uno studente che quella lingua la possiede, ed è lui a scegliere.
+   > Trattarla come incognita aggiunge attrito senza dargli un'informazione su cui
+   > possa agire. È anche coerente con l'argomento con cui questo stesso piano
+   > aveva respinto il rimedio «806 mete a `sconosciuto`»: *«non è prudenza, è
+   > rendere inutile il prodotto»*. Dopo la deroga: **1.247 mete (62,8%)**.
+   >
+   > **Contropartita obbligatoria, non facoltativa.** La scheda di dettaglio mostra
+   > un avviso che **nomina la lingua concreta** e chiede di verificare che
+   > l'offerta di corsi basti per il piano di studi (`avvisiRequisitoLingua()`,
+   > classe `.banner-stato.stato-riserve`). Senza quell'avviso la deroga non regge:
+   > è ciò che la rende una dichiarazione e non una scommessa.
+   >
+   > **Rischio residuo, misurato e accettato.** **151 mete** hanno come unica
+   > strada l'inglese in università che **non insegnano in inglese**, dove «per
+   > corsi in inglese» può significare un'offerta sottile e senza ripiego. Sono il
+   > 7,6% del catalogo. Le lingue non veicolari sono invece le più sicure: «per
+   > corsi in francese» a Grenoble vuol dire il catalogo intero.
+   >
+   > ⛔ **La deroga NON tocca `rootPresunta`**, che resta esclusa dal verde anche
+   > quando compare insieme alla condizione sui corsi: lì non è lo studente a
+   > scegliere, è l'ateneo a non aver dichiarato se serva una lingua o tutte.
+   > E **non tocca il difetto (B)**: livelli ambigui, barre e segnaposto restano
+   > `sconosciuto` → 🟡.
 
 3. **Conversione automatica solo di `X o Y`. La barra va in revisione a mano.**
    La rev. 3 diceva che una barra non garantisce alternativa e poi ne

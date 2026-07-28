@@ -67,6 +67,20 @@ di più: il fallimento di Groningen da una porta laterale (`sap-comm-madrid-5`).
 Rimedio **strutturale, non lessicale**: quando una foglia dichiara il livello
 dello studente è quella a governare la sua lingua. **Gate finale 25/25 test.**
 
+**(2026-07-28 — coda di V0: piano riallineato e debito smaltito.)** V0 è
+**online** (`3d0b524`). Chiuse le due code. (1) Il §V0 del piano contraddiceva il
+codice pubblicato — la deroga sulla condizione dei corsi era solo nel verbale:
+ora la tabella di migrazione è riscritta e la deroga argomentata dentro il piano,
+con misure, contropartita e rischio residuo. Riallineati i conteggi, con
+l'avvertenza che si rigenerano e non si citano. (2) Le **`rootPresunta` scendono
+da 121 a 71** senza aprire una fonte: 40 mete dichiaravano l'alternativa in
+chiaro nella condizione (*«requisito minimo in greco o inglese»*, *«in
+alternativa al certificato di inglese»*) e sono `ANY` **accertato**; 10
+dipendono dalla lingua di studio (*«per studiare in sloveno»*, *«per moduli in
+tedesco»*). Il riconoscimento confronta la condizione con le lingue **della meta
+stessa**, senza elenchi di lingue nel codice. Le 71 restanti hanno condizioni che
+non discriminano e richiedono la scheda ufficiale: lavoro umano. **28/28 test.**
+
 **(SESSIONE 2026-07-27 — il GATE 2 si è trasformato in v3. Aperto per fare la
 revisione d'insieme del redesign v2; alla prima schermata Nicola ha fermato la
 revisione e dato un feedback in 6 punti che non era una lista di ritocchi ma una

@@ -7,6 +7,7 @@ const {
   presentazioneLinguaSconosciuta,
   presentaCompatibilita,
   requisitiLinguaNormalizzati,
+  foglieRequisitoLingua,
   valutaRequisitoLingua,
 } = require("../js/puro.js");
 
@@ -343,4 +344,57 @@ test("V0 — la foglia che dichiara il livello governa la sua lingua", () => {
   // Il triennale invece è governato dalla foglia senza livello dichiarato.
   const triennale = valutaRequisitoLingua(meta, profilo([certificata("Spagnolo", "B2")], "L"));
   assert.notEqual(triennale.esito, ESITI_LINGUA.SCONOSCIUTO);
+});
+
+// Smaltimento del debito `rootPresunta` (2026-07-28). La specifica prevede un
+// solo caso che meriti il nome di ANY: quando la fonte dichiara davvero che una
+// qualunque delle lingue basta. Molte condizioni lo scrivono in chiaro, e
+// riconoscerle è ciò che fa scendere il debito — che è un criterio di uscita.
+test("V0 — l'alternativa dichiarata nella condizione è ANY accertato, non presunto", () => {
+  const dichiarata = {
+    requisitoLingua: [
+      { lingua: "Greco", livello: "B2", condizione: "requisito minimo in greco o inglese definito negli accordi bilaterali" },
+      { lingua: "Inglese", livello: "B2", condizione: "requisito minimo in greco o inglese definito negli accordi bilaterali" },
+    ],
+  };
+  const nodo = requisitiLinguaNormalizzati(dichiarata);
+  assert.ok(!nodo.rootPresunta, "la fonte dichiara l'alternativa: non è presunta");
+  // Di conseguenza può raggiungere il verde, che a una rootPresunta è vietato.
+  const esito = valutaRequisitoLingua(dichiarata, profilo([certificata("Inglese", "B2")]));
+  assert.equal(esito.esito, ESITI_LINGUA.SODDISFATTO);
+  assert.equal(
+    presentaCompatibilita(esito, { livello: 30, posti: 20, livelloTesto: "triennale" }).icona,
+    "✅"
+  );
+});
+
+test("V0 — due lingue senza alternativa dichiarata restano rootPresunta e non verdi", () => {
+  const presunta = {
+    requisitoLingua: [
+      { lingua: "Greco", livello: "B2", condizione: "raccomandato" },
+      { lingua: "Inglese", livello: "B2", condizione: "requisito generale" },
+    ],
+  };
+  const nodo = requisitiLinguaNormalizzati(presunta);
+  assert.equal(nodo.rootPresunta, "ANY");
+  const esito = valutaRequisitoLingua(presunta, profilo([certificata("Inglese", "B2")]));
+  assert.notEqual(
+    presentaCompatibilita(esito, { livello: 30, posti: 20, livelloTesto: "triennale" }).icona,
+    "✅"
+  );
+});
+
+test("V0 — «per studiare in X» dipende dai corsi quanto «per corsi in X»", () => {
+  const meta = {
+    requisitoLingua: [
+      { lingua: "Sloveno", livello: "B2", condizione: "per studiare in sloveno" },
+      { lingua: "Inglese", livello: "B2", condizione: "per studiare in inglese" },
+    ],
+  };
+  const nodo = requisitiLinguaNormalizzati(meta);
+  assert.ok(!nodo.rootPresunta, "la condizione discrimina: non è una radice presunta");
+  assert.ok(
+    foglieRequisitoLingua(nodo).every(f => f.condizionatoCorsi),
+    "entrambe le foglie dipendono dalla lingua di studio scelta"
+  );
 });

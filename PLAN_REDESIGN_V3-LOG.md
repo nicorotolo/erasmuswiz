@@ -771,3 +771,36 @@ Il rimedio **non** è allargare il vocabolario: `corsi di laurea` (9 occorrenze)
 esplicitamente il livello dello studente, è quella a governare la sua lingua**,
 e una foglia della stessa lingua che non dichiara il livello descrive un altro
 ciclo e non può soddisfare al posto suo. Gate finale **25/25**.
+
+## Act 3-bis — riallineamento del piano e smaltimento del debito (2026-07-28)
+
+Due code lasciate aperte alla chiusura di V0, chiuse il giorno dopo.
+
+**Il piano contraddiceva il codice pubblicato.** La deroga sulla condizione dei
+corsi era tracciata qui nel verbale ma non nella tabella di migrazione di §2-bis,
+che continuava a dire «non è verde». Ora la riga è riscritta e la deroga è
+argomentata dentro il piano: misura prima di decidere (307 mete verdi su 1.987
+con la regola alla lettera, 1.247 dopo), argomento di Nicola, contropartita
+obbligatoria dell'avviso in scheda, rischio residuo dichiarato (151 mete con
+l'inglese come unica strada in atenei che non insegnano in inglese), e i due
+confini che la deroga NON tocca (`rootPresunta` e il difetto B). Aggiornati anche
+i conteggi della sezione «Stato reale del codice», con l'avvertenza che quella
+tabella si rigenera e non si cita: la pipeline notturna la fa invecchiare da sola.
+
+**Il debito delle `rootPresunta` è sceso da 121 a 71 senza aprire una sola
+fonte** — ed è la conferma sul campo dell'argomento con cui questo piano aveva
+respinto il rimedio di Codex («il dato spesso si disambigua da solo»). Nessuna
+delle 121 era priva di condizione: 40 mete la dichiaravano alternativa in chiaro
+(*«requisito minimo in greco o inglese»*, *«in alternativa al certificato di
+inglese»*, *«almeno una delle due lingue»*) e sono quindi `ANY` **accertato**, il
+solo caso che la specifica autorizza a chiamarsi così; altre 10 dipendono dalla
+lingua di studio (*«per studiare in sloveno»*, *«per moduli in tedesco»*), che è
+*«per corsi in tedesco»* detto con altre parole. Il riconoscimento è
+**data-driven**: confronta la condizione con le lingue delle foglie della meta,
+senza elenchi di lingue scritti nel codice, che il progetto vieta. Le 71 restanti
+hanno condizioni che davvero non discriminano — *«raccomandato»*, *«requisito
+generale»*, *«per studenti incoming»* — e lì serve la scheda ufficiale.
+
+Gate: **28/28**, più le scansioni esaustive sul catalogo (nessuna `rootPresunta`
+nel verde, nessun ✅ prodotto da una foglia a livello ambiguo, Groningen corretto
+nelle due direzioni).

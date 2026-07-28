@@ -72,6 +72,14 @@
     if (/\b(?:cors[io]|insegnament[io]|lezion[ei]|materi[ae]|learning agreement|lingua di insegnamento|piano di studi|scelta dei corsi|corso scelto)\b/.test(c)) {
       return true;
     }
+    // «per studiare in sloveno», «per studi principalmente in inglese», «per
+    // moduli in tedesco»: dicono la stessa cosa di «per corsi in tedesco» con
+    // altre parole, cioè che il requisito dipende dalla lingua in cui lo
+    // studente sceglierà di studiare. Senza questa riga finivano fra le
+    // `rootPresunta`, che è più vago e meno vero.
+    if (/\bper (?:studiare in|studi principalmente in|modul[oi] in)\b/.test(c)) {
+      return true;
+    }
     if (quandoDaCondizione(c)) return false;
     return /\b(?:program(?:ma|mi)|faculty|facolt[aà])\b/.test(c);
   }
@@ -195,9 +203,56 @@
       return { op: "ANY", figli: figli, migrazioneCondizionata: true };
     }
 
+    // La fonte a volte dichiara l'alternativa in chiaro dentro la `condizione`
+    // — «requisito minimo in greco o inglese», «in alternativa al certificato di
+    // inglese», «richiesta competenza in almeno una delle due lingue». È il caso
+    // che la specifica chiama `ANY` ACCERTATO, l'unico che merita quel nome: qui
+    // non stiamo presumendo niente, lo sta scrivendo il dato. Riconoscerlo è ciò
+    // che fa scendere il debito delle `rootPresunta`, che è un criterio di uscita
+    // di V0 e non un numero decorativo.
+    if (alternativaDichiarata(figli)) {
+      return { op: "ANY", figli: figli, alternativaEsplicita: true };
+    }
+
     // È lo stesso ANY che il vecchio Math.max applicava in silenzio. Ora è
     // visibile e contabile, e l'evaluatore gli impedisce di produrre verde.
     return { op: "ANY", figli: figli, rootPresunta: "ANY" };
+  }
+
+  // Vero solo quando la `condizione` dichiara l'alternativa senza margini.
+  // Il confronto fra lingue NON usa un elenco scritto qui dentro: prende le
+  // lingue delle foglie della meta stessa (regola del progetto — le lingue
+  // vengono dai dati, mai dal codice) e cerca se la condizione le nomina
+  // entrambe unite da un separatore alternativo. Così «greco o inglese» conta
+  // solo dove greco e inglese sono davvero i due requisiti.
+  function alternativaDichiarata(figli) {
+    var lingue = figli
+      .filter(function (f) { return !eGruppo(f) && f.lingua; })
+      .map(function (f) { return chiaveLingua(f.lingua); });
+    if (lingue.length < 2) return false;
+
+    var condizioni = figli
+      .filter(function (f) { return !eGruppo(f) && f.condizione; })
+      .map(function (f) { return chiaveLingua(f.condizione); });
+
+    for (var i = 0; i < condizioni.length; i++) {
+      var c = condizioni[i];
+      // Formule che dichiarano l'alternativa da sole, senza nominare le lingue.
+      if (/\bin alternativa (?:a|al|all'|alla)\b/.test(c)) return true;
+      if (/\balmeno una delle due\b/.test(c)) return true;
+      if (/\be\/o\b/.test(c)) return true;
+      // Oppure due lingue DELLA META unite da un separatore alternativo.
+      for (var a = 0; a < lingue.length; a++) {
+        for (var b = 0; b < lingue.length; b++) {
+          if (a === b) continue;
+          var coppia = new RegExp(
+            "\\b" + lingue[a] + "\\s+(?:o|oppure|od)\\s+" + lingue[b] + "\\b"
+          );
+          if (coppia.test(c)) return true;
+        }
+      }
+    }
+    return false;
   }
 
   function foglieRequisitoLingua(nodo) {
