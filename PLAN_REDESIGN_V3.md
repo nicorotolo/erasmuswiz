@@ -465,15 +465,87 @@ asserito, con codice d'uscita non zero se fallisce.
    > disponibile. È il primo passo di V1, non un dettaglio di V7.
 4. **Gestione del fuoco, obbligatoria e specificata per rotta** (anche per quelle
    esistenti): dove va il fuoco, quale titolo viene annunciato, cosa fa lo
-   scroll, come si ripristina tornando indietro. Oggi non è definita da nessuna parte.
+   scroll, come si ripristina tornando indietro. Oggi non è definita da nessuna
+   parte → **scritta il 2026-07-28**, qui sotto: *Il contratto del fuoco*.
 5. Chi arriva da un link esterno **atterra sul contenuto** (D3).
 6. **Le guide restano pagine HTML vere** (`guide/*.html`): un hash non produce
    anteprima social né indicizzazione, e le guide sono l'esca della distribuzione.
+
+**Decisione del 2026-07-28 — l'ateneo dell'hash NON si persiste.**
+`carica-atenei.js` legge l'ateneo dall'hash e carica **quel** dataset, ma **non
+scrive `erasmuswiz_ateneo`**. Un link ricevuto su WhatsApp non deve ri-domiciliare
+in silenzio uno studente che il suo ateneo l'aveva già scelto: la forma canonica
+esiste per portare *allo strumento*, non per riassegnare l'utente. Conseguenza
+dichiarata e accettata: **per quel solo caricamento `ATENEO_ATTIVO` può differire
+da `localStorage`**; è sicuro perché gli zaini sono separati per ateneo dalla
+R1.3, quindi nulla si mescola e un ricaricamento senza hash riporta lo studente
+a casa propria. Il cambio ateneo vero resta l'unico che scrive
+(`app.js:307`, `app.js:4076`).
+
+#### Il contratto del fuoco
+
+Regole, valide per **ogni** navigazione che passa da `vaiA()`:
+
+- **F1 — il fuoco non resta mai su `<body>`.** Cambiare schermata senza spostare
+  il fuoco lascia la tastiera all'inizio del documento e lo screen reader muto:
+  è lo stesso difetto già sanato sui chip dei filtri il 26/07.
+- **F2 — bersaglio: la sezione di destinazione**, `<section id="tab-…">`, resa
+  raggiungibile col solo `tabindex="-1"` e nominata con `aria-labelledby` sul
+  titolo **che esiste già** (`index.html:51/90` per oggi, `:181`, `:233`, `:359`).
+  Nessun nodo nuovo, nessuna classe nuova → **diff visivo nullo per costruzione**.
+- **F3 — nessun anello che compare dal nulla.** L'anello di focus del design
+  system v2 è `:focus-visible` (`css/style.css:196`), che **non** scatta su un
+  `focus()` programmatico: va **asserito**, non dato per scontato.
+- **F4 — `focus({ preventScroll: true })` prima dello scroll.** Il fuoco non
+  muove la pagina; a muoverla è solo `vaiA()`, e in un momento solo.
+- **F5 — lo scroll rispetta `prefers-reduced-motion`.** `app.js:531` fa oggi
+  `behavior: "smooth"` **sempre**: difetto esistente, si chiude qui (`"auto"`
+  quando la preferenza è `reduce`).
+- **F6 — solo quando il tab cambia davvero.** Ri-cliccare la voce attiva non
+  sposta né fuoco né pagina, esattamente come già non sporca la cronologia.
+- **F7 — Indietro/Avanti: stesso contratto** della navigazione voluta.
+  **La posizione di scorrimento non si ripristina** — oggi non è salvata e in V1
+  non lo diventa: conseguenza dichiarata, non incidente.
+- **F8 — il `<title>` non si tocca in V1.** Nessuna rotta nuova è registrata e il
+  vincolo §10.8 vieta cambi SEO come effetto collaterale. Torna in V6/V7, con le
+  schermate che avranno un titolo proprio. L'annuncio, intanto, è il nome della
+  sezione che riceve il fuoco: **niente `aria-live`**, che direbbe la stessa cosa
+  due volte.
+- **F9 — chi possiede il fuoco lo restituisce prima.** `chiudiDrawer()`
+  (`app.js:614`) riporta il fuoco al controllo che aveva aperto il drawer: una
+  rotta lanciata da dentro il drawer deve chiudere **prima** e navigare **dopo**,
+  o il drawer si riprende il fuoco appena `vaiA()` l'ha spostato. Tutti i punti
+  di chiamata vanno censiti, non solo sistemati dove si vede.
+
+| Rotta | Il fuoco va su | Nome annunciato | Scroll |
+|---|---|---|---|
+| `#oggi` (e hash vuoto) | `#tab-oggi` | il saluto/claim già presente | in cima |
+| `#mete` | `#tab-mete` | «Mete disponibili» | in cima |
+| `#percorso` | `#tab-percorso` | «Il tuo percorso» | in cima |
+| `#profilo` | `#tab-profilo` | «Il tuo profilo» | in cima |
+| alias (`#timeline`, `#checklist`, `#idoneita`) | come la rotta canonica | idem | in cima |
+| hash sconosciuto | come `#oggi` | idem | in cima, **senza** scroll animato |
+| rotta a due livelli non ancora registrata | come `#oggi` | idem | come sopra |
 
 **Criterio di uscita.** Ogni hash del contratto raggiungibile a freddo (finestra
 nuova, `localStorage` vuoto) senza errori; indietro/avanti coerenti su 10
 passaggi; per ogni rotta, destinazione del fuoco verificata; **diff visivo nullo**
 rispetto alla baseline salvata (vedi *Verifiche*).
+
+**Come si prova — deciso da Nicola il 2026-07-28: V1 accende Playwright.**
+`npm run test:ui` smette di essere un segnaposto (`package.json:8`): chromium è
+installato in locale. Le prove che V1 deve lasciare in eredità a V2 e V3:
+1. **A freddo**, `localStorage` vuoto, un test per ogni hash del contratto + un
+   alias + un hash sconosciuto + `#learning-agreement/sapienza`: nessun errore di
+   console, la sezione attesa è visibile, `document.activeElement` è la sezione.
+2. **`#learning-agreement/sapienza` a freddo carica il dataset Sapienza** e
+   **`localStorage.erasmuswiz_ateneo` resta invariato** (la decisione qui sopra).
+3. **10 passaggi** di navigazione, poi 10 Indietro e 10 Avanti: schermata, hash e
+   fuoco coerenti a ogni passo.
+4. **Nessun anello visibile** dopo una navigazione col mouse (`:focus-visible`
+   falso sulla sezione), anello presente sulla prima fermata di Tab dopo.
+5. **`prefers-reduced-motion: reduce`**: nessuno scorrimento animato.
+6. Le funzioni pure del parser esteso restano provate da `npm run test:unit`.
 
 ### V2 — Stepper a 6 tappe, tre porte, migrazione (settembre)
 
