@@ -1,0 +1,147 @@
+const test = require("node:test");
+const assert = require("node:assert/strict");
+const {
+  creaZainoV3,
+  migraContenitoreZainoV3,
+} = require("../js/puro.js");
+
+const ATENEI = ["cafoscari", "sapienza"];
+const CICLI = {
+  cicloDati: "2026/27",
+  cicloPercorsoLegacy: "2026/27",
+  cicloPercorsoNuovo: "2027/28",
+  atenei: ATENEI,
+};
+
+function ramoLA(presente) {
+  return presente
+    ? {
+        metaAperta: "meta-prova",
+        bozzePerMeta: {
+          "meta-prova": { titolo: "Bozza da non perdere" },
+        },
+      }
+    : undefined;
+}
+
+function zainoFixture(tipo, conLA) {
+  const base = {
+    checklist: { "passo-legacy": true },
+    metePreferite: ["meta-legacy"],
+    marcatoreFixture: tipo,
+  };
+  if (conLA) base.la = ramoLA(true);
+
+  if (tipo === "domanda") base.fase = "domanda";
+  if (tipo === "selezionato") base.fase = "selezionato";
+  if (tipo === "sconosciuto") base.fase = "valore-mai-esistito";
+  if (tipo === "corrotto") {
+    base.fase = "domanda";
+    base.checklist = "non-e-un-oggetto";
+    base.metePreferite = null;
+    if (conLA) {
+      base.la = {
+        bozzePerMeta: null,
+        residuoDaConservare: "presente",
+      };
+    }
+  }
+  // "assente" non riceve deliberatamente il campo fase.
+  return base;
+}
+
+function migra(tipo, ateneo, conLA) {
+  const zaino = zainoFixture(tipo, conLA);
+  if (tipo === "piatto") {
+    return migraContenitoreZainoV3(zaino, {
+      ...CICLI,
+      migraPiatto: piatto => ({
+        v: 2,
+        zaini: { [ateneo]: piatto },
+      }),
+    });
+  }
+  const zaini = { [ateneo]: zaino };
+  if (tipo === "corrotto") {
+    const altro = ATENEI.find(chiave => chiave !== ateneo);
+    zaini[altro] = "casella-illeggibile-da-conservare";
+  }
+  return migraContenitoreZainoV3({
+    v: 2,
+    zaini,
+  }, CICLI);
+}
+
+const TIPI = [
+  "domanda",
+  "selezionato",
+  "assente",
+  "sconosciuto",
+  "corrotto",
+  "piatto",
+];
+
+for (const tipo of TIPI) {
+  for (const ateneo of ATENEI) {
+    for (const conLA of [false, true]) {
+      test(`migrazione v2→v3 — ${tipo}, ${ateneo}, LA ${conLA ? "presente" : "assente"}`, () => {
+        const migrato = migra(tipo, ateneo, conLA);
+        const zaino = migrato.zaini[ateneo];
+
+        assert.equal(migrato.v, 3);
+        assert.equal(
+          zaino.fase,
+          tipo === "selezionato" ? "selezionato" : "esplorando"
+        );
+        assert.equal(zaino.cicloDati, "2026/27");
+        assert.equal(zaino.cicloPercorso, "2026/27");
+        assert.equal(zaino.marcatoreFixture, tipo);
+        assert.ok(zaino.la && typeof zaino.la === "object");
+        assert.ok(
+          zaino.la.bozzePerMeta &&
+          typeof zaino.la.bozzePerMeta === "object"
+        );
+
+        if (conLA && tipo !== "corrotto") {
+          assert.equal(
+            zaino.la.bozzePerMeta["meta-prova"].titolo,
+            "Bozza da non perdere"
+          );
+          assert.equal(zaino.la.bozzePerMeta["meta-prova"].ciclo, "2026/27");
+          assert.equal(zaino.la.bozzePerMeta["meta-prova"].ateneo, ateneo);
+        } else {
+          assert.deepEqual(zaino.la.bozzePerMeta, {});
+        }
+
+        if (tipo === "corrotto") {
+          assert.deepEqual(zaino.checklist, {});
+          assert.deepEqual(zaino.metePreferite, []);
+          if (conLA) {
+            assert.equal(zaino.la.residuoDaConservare, "presente");
+          }
+          const altro = ATENEI.find(chiave => chiave !== ateneo);
+          assert.equal(
+            migrato.zaini[altro].recuperoLegacy,
+            "casella-illeggibile-da-conservare"
+          );
+        } else {
+          assert.equal(zaino.checklist["passo-legacy"], true);
+          assert.deepEqual(zaino.metePreferite, ["meta-legacy"]);
+        }
+      });
+    }
+  }
+}
+
+test("uno zaino davvero nuovo punta al ciclo successivo ma dichiara il ciclo dei dati", () => {
+  const nuovo = creaZainoV3(CICLI);
+  assert.equal(nuovo.fase, "esplorando");
+  assert.equal(nuovo.cicloPercorso, "2027/28");
+  assert.equal(nuovo.cicloDati, "2026/27");
+});
+
+test("la migrazione v2→v3 è idempotente", () => {
+  const unaVolta = migra("selezionato", "sapienza", true);
+  const dueVolte = migraContenitoreZainoV3(unaVolta, CICLI);
+  assert.deepEqual(dueVolte, unaVolta);
+});

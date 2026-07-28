@@ -10,49 +10,38 @@
 // Fino alla sessione 53 lo zaino era UNO SOLO, condiviso fra gli atenei:
 // cambiando ateneo restavano dentro profilo, stelline e spunte dell'altro.
 // Ora in localStorage c'è un CONTENITORE con uno zaino separato per ateneo:
-//   { v: 2, zaini: { cafoscari: {…}, sapienza: {…} }, pendente: {…} }
+//   { v: 3, zaini: { cafoscari: {…}, sapienza: {…} }, pendente: {…} }
 // L'ateneo attivo NON sta qui: resta in "erasmuswiz_ateneo", che index.html
 // legge prima di app.js — una sola fonte di verità, nessun disallineamento.
 // Il cambio ateneo diventa così una lettura di un'altra casella: niente da
 // migrare al volo, niente da perdere.
 // ============================================================
 const CHIAVE_ZAINO   = "erasmuswiz-zaino";
-const VERSIONE_ZAINO = 2;
+const VERSIONE_ZAINO = ErasmusWizPuro.VERSIONE_CONTENITORE_ZAINO;
 // Bandierina letta da js/carica-atenei.js: "al prossimo avvio caricali tutti".
 // Il nome e' condiviso con il caricatore: cambiarlo qui vuol dire cambiarlo li'.
 const CHIAVE_CARICA_TUTTI = "erasmuswiz_carica_tutti";
 
-function zainoVuoto() {
+function cicloDatiAttivo() {
+  return String(window.BANDO_INFO?.annoAccademico || "");
+}
+
+function configurazioneZaino() {
+  const cicloDati = cicloDatiAttivo();
   return {
-    profilo: null, checklist: {}, metePreferite: [], schedina: [],
-    fase: "domanda", checklistPost: {}, onboardingFatto: false,
-    autoverifica: {}, zainoCelebrato: false, wizardMete: false,
-    la: { metaAperta: null, bozzePerMeta: {} }
+    cicloDati,
+    cicloPercorsoLegacy: cicloDati,
+    cicloPercorsoNuovo: ErasmusWizPuro.cicloSuccessivo(cicloDati) || cicloDati,
   };
+}
+
+function zainoVuoto() {
+  return ErasmusWizPuro.creaZainoV3(configurazioneZaino());
 }
 
 // Fallback per zaini vecchi su ogni estensione di ZAINO (regola del progetto).
 function normalizzaZaino(z) {
-  if (!z || typeof z !== "object") return zainoVuoto();
-  if (!Array.isArray(z.metePreferite)) z.metePreferite = [];
-  if (!Array.isArray(z.schedina)) z.schedina = [];
-  if (!z.checklist || typeof z.checklist !== "object") z.checklist = {};
-  if (!z.fase) z.fase = "domanda";
-  if (!z.checklistPost || typeof z.checklistPost !== "object") z.checklistPost = {};
-  if (typeof z.onboardingFatto !== "boolean") z.onboardingFatto = !!z.profilo;
-  if (!z.autoverifica || typeof z.autoverifica !== "object") z.autoverifica = {};
-  // "Lo zaino" (BR6): celebrazione all'ingresso in fase 4, una sola volta.
-  // Zaino vecchio senza il campo → non ancora celebrato.
-  if (typeof z.zainoCelebrato !== "boolean") z.zainoCelebrato = (z.fase === "selezionato");
-  // Wizard prima visita delle Mete (R3.1): zaino vecchio senza il campo →
-  // il wizard non è mai stato visto (comparirà solo senza rotte salvate).
-  if (typeof z.wizardMete !== "boolean") z.wizardMete = false;
-  // LA Workspace (R4.1, PLAN.md §6.4): ramo ADDITIVO. Zaino senza `la` =
-  // "nessuna bozza", mai una perdita; lo schema vive nella sezione LA.
-  if (!z.la || typeof z.la !== "object") z.la = {};
-  if (!z.la.bozzePerMeta || typeof z.la.bozzePerMeta !== "object") z.la.bozzePerMeta = {};
-  if (z.la.metaAperta === undefined) z.la.metaAperta = null;
-  return z;
+  return ErasmusWizPuro.normalizzaZainoV3(z, configurazioneZaino());
 }
 
 function ateneoAttivo() {
@@ -100,12 +89,21 @@ function ateneiCon(campo, chiave) {
 // valori di partenza non vale una domanda: qualsiasi risposta darebbe lo
 // stesso risultato.
 function percorsoDaCollocare(p) {
-  return !!(p.profilo || (p.fase && p.fase !== "domanda") || p.onboardingFatto || p.zainoCelebrato);
+  return !!(
+    p.profilo ||
+    (p.fase && p.fase !== "domanda" && p.fase !== "esplorando") ||
+    p.onboardingFatto ||
+    p.zainoCelebrato
+  );
 }
 
 function applicaPercorso(z, p) {
   z.profilo = p.profilo || null;
-  z.fase    = p.fase || "domanda";
+  z.fase    = ErasmusWizPuro.faseViaggioV3(p.fase);
+  z.cicloDati = p.cicloDati || cicloDatiAttivo();
+  // Un percorso legacy appartiene al ciclo dei dati che lo ha prodotto.
+  // Trattarlo come nuovo 2027/28 conserverebbe spunte del 2026/27 come vere.
+  z.cicloPercorso = p.cicloPercorso || z.cicloDati;
   if (typeof p.onboardingFatto === "boolean") z.onboardingFatto = p.onboardingFatto;
   if (typeof p.zainoCelebrato  === "boolean") z.zainoCelebrato  = p.zainoCelebrato;
   return normalizzaZaino(z);
@@ -124,7 +122,15 @@ function migraZainoLegacy(legacy) {
   const toccati = {};
   Object.keys(indiceAtenei()).forEach(k => { zaini[k] = zainoVuoto(); });
 
-  const assegna = (k, fn) => { if (zaini[k]) { fn(zaini[k]); toccati[k] = true; } };
+  const assegna = (k, fn) => {
+    if (!zaini[k]) return;
+    fn(zaini[k]);
+    // Anche una sola spunta attribuita e' contenuto del vecchio ciclo: la
+    // doppia identita' impedisce che sembri confermata per quello successivo.
+    zaini[k].cicloDati = cicloDatiAttivo();
+    zaini[k].cicloPercorso = cicloDatiAttivo();
+    toccati[k] = true;
+  };
 
   // Stelline e schedina: l'id della meta dice l'ateneo, senza ambiguità.
   (legacy.metePreferite || []).forEach(id => {
@@ -150,7 +156,9 @@ function migraZainoLegacy(legacy) {
     profilo:         legacy.profilo || null,
     fase:            legacy.fase,
     onboardingFatto: legacy.onboardingFatto,
-    zainoCelebrato:  legacy.zainoCelebrato
+    zainoCelebrato:  legacy.zainoCelebrato,
+    cicloDati:       legacy.cicloDati,
+    cicloPercorso:   legacy.cicloPercorso
   };
 
   // Chi è l'ateneo principale? Prima il dipartimento del profilo (il segnale
@@ -175,7 +183,7 @@ function migraZainoLegacy(legacy) {
   if (principale) applicaPercorso(zaini[principale] || (zaini[principale] = zainoVuoto()), percorso);
   else cont.pendente = Object.assign({ candidati: conContenuto }, percorso);
 
-  Object.keys(zaini).forEach(k => normalizzaZaino(zaini[k]));
+  Object.keys(zaini).forEach(k => { zaini[k] = normalizzaZaino(zaini[k]); });
   return cont;
 }
 
@@ -225,16 +233,22 @@ function caricaContenitore() {
   if (!grezzo) return { v: VERSIONE_ZAINO, zaini: {} };
   let dato;
   try { dato = JSON.parse(grezzo); } catch (e) { return { v: VERSIONE_ZAINO, zaini: {} }; }
-  if (dato && dato.v === VERSIONE_ZAINO && dato.zaini && typeof dato.zaini === "object") return dato;
-  // C'è da migrare: servono TUTTI gli atenei, altrimenti si perde in silenzio
-  // (vedi rinviaMigrazioneERicarica). Lo zaino vecchio resta intatto su disco e
-  // la migrazione la fa il prossimo avvio, con i dati completi.
-  if (!ateneiTuttiCaricati() && rinviaMigrazioneERicarica()) {
+  const eContenitore = !!(
+    dato && typeof dato === "object" &&
+    (Object.prototype.hasOwnProperty.call(dato, "zaini") ||
+     Object.prototype.hasOwnProperty.call(dato, "v"))
+  );
+  // Soltanto lo zaino PIATTO richiede tutti gli atenei per attribuire gli id.
+  // Il contenitore v2 ha gia' una casella per ateneo: ricaricare 2 MB di mete
+  // non rende la sua migrazione piu' sicura.
+  if (!eContenitore && !ateneiTuttiCaricati() && rinviaMigrazioneERicarica()) {
     return { v: VERSIONE_ZAINO, zaini: {} };
   }
-  // Formato piatto (fino alla sessione 53): si migra e si riscrive subito,
-  // così il vecchio blob non resta lì a farsi rileggere a ogni avvio.
-  const migrato = migraZainoLegacy(normalizzaZaino(dato));
+  const migrato = ErasmusWizPuro.migraContenitoreZainoV3(dato, {
+    ...configurazioneZaino(),
+    atenei: Object.keys(window.ATENEI_REGISTRO || {}),
+    migraPiatto: migraZainoLegacy,
+  });
   salvaContenitore(migrato);
   return migrato;
 }
@@ -809,8 +823,8 @@ function renderHome() {
 // (stepper, missione, la Home di R2 e il Percorso di R3) la leggono, non la
 // ricalcolano ognuno a modo suo. Priorità dichiarate, dalla più forte:
 //   1. SELEZIONE DICHIARATA — lo studente ha detto "sono stato selezionato"
-//      (ZAINO.fase, l'unico gate auto-dichiarato): tappa "partenza",
-//      qualunque cosa dicano date e checklist.
+//      (ZAINO.fase, l'unico gate auto-dichiarato): la prima azione incompleta
+//      della checklist reale, qualunque cosa dicano date e checklist.
 //   2. STATO DEL BANDO PER DATA — candidature chiuse (flag
 //      chiusuraCandidature nei dati scadenze, mai hardcoded) senza selezione
 //      dichiarata: nessuna tappa di lavoro può essere corrente, si è in
@@ -830,9 +844,30 @@ function renderHome() {
 //     fallback "mete" ("Scegli la meta"), l'unica tappa sempre possibile;
 //   - scadenze senza flag chiusuraCandidature: bando considerato aperto
 //     (candidatureChiuse() torna false) — nessuna chiusura inventata.
-// Ritorna: "requisiti" | "mete" | "candidatura" | "esiti" | "partenza".
+// La checklist reale decide dove comincia il dopo-selezione: accettazione,
+// nomination e application vengono prima del Learning Agreement.
+// Questa etichetta e' accoppiata al campo `fase` dei dati-postselezione.js:
+// se cambia nei file dati, va cambiata qui nello stesso intervento.
+const FASE_CHECKLIST_LEARNING_AGREEMENT = "Learning Agreement";
+
+function primaVocePostIncompleta() {
+  return (CHECKLIST_POST || []).find(voce =>
+    !(ZAINO.checklistPost && ZAINO.checklistPost[voce.id])
+  ) || null;
+}
+
+function tappaPerVocePost(voce) {
+  return voce && voce.fase === FASE_CHECKLIST_LEARNING_AGREEMENT ? "la" : "partenza";
+}
+
+function primaTappaPostSelezione() {
+  return tappaPerVocePost(primaVocePostIncompleta());
+}
+
+// Ritorna una delle sei tappe del viaggio.
 function tappaCorrente() {
-  if (ZAINO.fase === "selezionato") return "partenza";
+  if (ZAINO.fase === "selezionato") return primaTappaPostSelezione();
+  if (ZAINO.fase === "in-attesa") return "esiti";
   if (candidatureChiuse()) return "esiti";
 
   const requisiti = REQUISITI_BANDO || [];
@@ -852,7 +887,7 @@ function tappaCorrente() {
 }
 
 // ============================================================
-// PERCORSO A 4 FASI (DISEGNO_UX.md §2.1) — home-percorso UX2
+// STEPPER A 6 TAPPE — lo stesso viaggio riassunto nella home.
 // Gli stati derivano da tappaCorrente() (R1.6): qui si decide solo COME
 // raccontare le fasi, mai QUALE sia quella corrente.
 // ============================================================
@@ -867,13 +902,20 @@ function calcolaFasi() {
   const checklistTot   = (CHECKLIST || []).length;
   const checklistFatti = (CHECKLIST || []).filter(v => ZAINO.checklist && ZAINO.checklist[v.id]).length;
   const checklistOk    = checklistTot > 0 && checklistFatti === checklistTot;
-  const selezionato    = tappa === "partenza";
+  const selezionato    = ZAINO.fase === "selezionato";
+  const inAttesa       = ZAINO.fase === "in-attesa";
   const attesaEsiti    = tappa === "esiti";
+  const post           = CHECKLIST_POST || [];
+  const postFatti      = post.filter(v => ZAINO.checklistPost && ZAINO.checklistPost[v.id]).length;
+  const vociLA         = post.filter(v => v.fase === FASE_CHECKLIST_LEARNING_AGREEMENT);
+  const laFatto        = vociLA.length > 0 &&
+    vociLA.every(v => ZAINO.checklistPost && ZAINO.checklistPost[v.id]);
+  const postFatto      = post.length > 0 && postFatti === post.length;
 
   const fasi = [
     {
       id: 1, tappa: "requisiti", tab: "percorso", stazione: "requisiti",
-      domanda: "Posso partire?", fatto: requisitiOk,
+      domanda: "Requisiti", fatto: requisitiOk,
       riassunto: requisitiOk
         ? "Profilo compilato — hai verificato tutti i requisiti."
         : "Verifica i requisiti del bando prima di iniziare.",
@@ -881,7 +923,7 @@ function calcolaFasi() {
     },
     {
       id: 2, tappa: "mete", tab: "mete",
-      domanda: "Dove posso andare?", fatto: meteOk,
+      domanda: "Mete e le 5 scelte", fatto: meteOk,
       riassunto: meteOk
         ? `${nPreferite} ${nPreferite === 1 ? "meta salvata" : "mete salvate"} tra i preferiti.`
         : "Esplora le mete compatibili con il tuo profilo.",
@@ -889,37 +931,66 @@ function calcolaFasi() {
     },
     {
       id: 3, tappa: "candidatura", tab: "percorso", stazione: "candidatura",
-      domanda: "La candidatura", fatto: checklistOk,
+      domanda: "Candidatura e scadenze", fatto: checklistOk,
       riassunto: checklistTot === 0
         ? "Nessun passo ancora disponibile."
         : `${checklistFatti}/${checklistTot} passi completati.`,
       cta: checklistOk ? "Rivedi la checklist" : "Vai alla checklist",
     },
     {
-      id: 4, tappa: "finale", tab: "percorso",
-      stazione: selezionato ? "partenza" : "esito",
-      domanda: "Sono stato preso!", fatto: false,
+      id: 4, tappa: "esito", tab: "percorso", stazione: "esito",
+      domanda: "Esito", fatto: selezionato,
       riassunto: selezionato
-        ? "In preparazione alla partenza 🎒"
+        ? "Selezione dichiarata: il percorso continua dalle azioni ancora da fare."
+        : inAttesa
+          ? "Domanda inviata: qui trovi cosa succede e cosa fare nell'attesa."
         : attesaEsiti
           ? (candidatureChiuse()
               ? "Le candidature sono chiuse: quando conosci l'esito, dichiaralo qui."
               : "Candidatura completata: quando arriva l'esito, dichiaralo qui.")
           : "Quando sarai selezionato, qui trovi la preparazione alla partenza.",
-      cta: selezionato ? "Continua la preparazione"
-        : attesaEsiti ? "Dichiara l'esito" : "Vai alla candidatura",
+      cta: inAttesa ? "Vedi cosa succede"
+        : selezionato ? "Rivedi l'esito"
+          : attesaEsiti ? "Dichiara l'esito" : "Vai alla candidatura",
+    },
+    {
+      id: 5, tappa: "la", tab: "percorso", stazione: "la",
+      domanda: "Learning Agreement", fatto: laFatto,
+      riassunto: laFatto
+        ? "Le azioni del Learning Agreement risultano completate."
+        : "Prepara la bozza dopo accettazione, nomination e application.",
+      cta: "Apri il Learning Agreement",
+    },
+    {
+      id: 6, tappa: "partenza", tab: "percorso", stazione: "partenza",
+      domanda: "Zaino e partenza", fatto: postFatto,
+      riassunto: selezionato
+        ? `${postFatti}/${post.length} azioni post-selezione completate.`
+        : "Si apre dopo la selezione e parte dalla prima azione incompleta.",
+      cta: selezionato ? "Continua dallo zaino" : "Vedi cosa ti aspetta",
     },
   ];
 
-  // La fase 4 racconta sia "partenza" sia "esiti": la tappa corrente
-  // "esiti"/"partenza" mappa sulla fase "finale".
-  const correnteId = (tappa === "esiti" || tappa === "partenza") ? "finale" : tappa;
+  const correnteId = tappa === "esiti" ? "esito" : tappa;
   fasi.forEach(f => {
-    if (f.tappa === correnteId) f.stato = "attivo";
-    // Selezione dichiarata: il viaggio è andato oltre, le fasi di lavoro
-    // sono superate anche se qualche spunta manca (comportamento storico).
-    else if (selezionato || f.fatto) f.stato = "fatto";
-    else f.stato = "futuro";
+    if (f.tappa === correnteId) { f.stato = "attivo"; return; }
+    if (f.fatto) { f.stato = "fatto"; return; }
+
+    // Superata per DICHIARAZIONE, non perche' misurata: chi ha gia' inviato la
+    // domanda si e' lasciato indietro le prime tappe anche con la checklist a
+    // zero. Il riassunto va riscritto, altrimenti la scheda dice "fatto" e
+    // sotto "0/9 passi completati" — la stessa spunta falsa che questo
+    // progetto rifiuta sulle checklist. Meglio dichiarare l'inferenza.
+    const superataPerDichiarazione =
+      (inAttesa && f.id <= 3) || (selezionato && f.id <= 4);
+    if (superataPerDichiarazione) {
+      f.stato = "fatto";
+      f.riassunto = inAttesa
+        ? "Alle spalle: hai dichiarato di aver inviato la domanda."
+        : "Alle spalle: hai dichiarato di essere stato selezionato.";
+      return;
+    }
+    f.stato = "futuro";
   });
   return fasi;
 }
@@ -951,11 +1022,11 @@ function renderFaseStepper() {
 // ============================================================
 // PERCORSO A STAZIONI (R3, PLAN.md §5.5)
 // ------------------------------------------------------------
-// L'itinerario burocratico unico: 5 stazioni in una schermata verticale.
+// L'itinerario burocratico unico: 6 tappe in una schermata verticale.
 // QUALE tappa è corrente lo decide tappaCorrente() (R1.6): qui si dipingono
 // solo gli stati (fatto/attivo/futuro), i conteggi e il gate dell'esito.
-// La stazione Learning Agreement è informativa: non ha uno stato misurabile
-// finché non esiste il Workspace (R4) — resta neutra, senza fingere progressi.
+// La tappa Learning Agreement usa le sole azioni omonime della checklist
+// post-selezione; il Workspace non finge invece un'approvazione dell'ateneo.
 // Con `apri: true` (avvio e cambio di fase) si allinea anche l'apertura dei
 // <details>: la stazione corrente aperta, le altre chiuse. Le ripitture
 // leggere (la spunta di una voce) NON toccano ciò che lo studente ha aperto.
@@ -963,13 +1034,21 @@ function renderFaseStepper() {
 
 // Porta diretta a UNA stazione: naviga al tab Percorso e apre la tappa.
 // Lo scroll al top di vaiA si salta: si scorre alla stazione richiesta.
-function vaiAStazione(nome) {
+function vaiAStazione(nome, opzioni = {}) {
   if (!vaiA("percorso", { scroll: false })) return;
   const li = document.getElementById("stazione-" + nome);
   if (!li) return;
+  if (opzioni.esclusiva) {
+    document.querySelectorAll(".stazioni > .stazione > details").forEach(dettagli => {
+      dettagli.open = false;
+    });
+  }
   const det = li.querySelector("details");
   if (det) det.open = true;
-  requestAnimationFrame(() => li.scrollIntoView({ behavior: "smooth", block: "start" }));
+  requestAnimationFrame(() => li.scrollIntoView({
+    behavior: comportamentoScrollRotta(),
+    block: "start"
+  }));
 }
 
 function renderPercorso(opzioni = {}) {
@@ -988,12 +1067,18 @@ function renderPercorso(opzioni = {}) {
   const post      = CHECKLIST_POST || [];
   const postFatti = post.filter(v => ZAINO.checklistPost && ZAINO.checklistPost[v.id]).length;
 
-  const selezionato = tappa === "partenza";
+  const selezionato = ZAINO.fase === "selezionato";
+  const inAttesa    = ZAINO.fase === "in-attesa";
+  const nPreferite  = (ZAINO.metePreferite || []).length;
+  const vociLA      = post.filter(v => v.fase === FASE_CHECKLIST_LEARNING_AGREEMENT);
+  const laFatto     = vociLA.length > 0 &&
+    vociLA.every(v => ZAINO.checklistPost && ZAINO.checklistPost[v.id]);
+  const postFatto   = post.length > 0 && postFatti === post.length;
 
-  // Il ponte verso le Mete: la tappa "mete" vive nella schermata Mete,
-  // qui compare solo il rimando (la linea non salta una tappa in silenzio).
+  // La tappa Mete resta un rimando alla sua schermata, ma non sparisce: uno
+  // stepper di sei tappe non puo' cambiare lunghezza mentre lo si percorre.
   const ponte = document.getElementById("stazione-mete-ponte");
-  if (ponte) ponte.hidden = tappa !== "mete";
+  if (ponte) ponte.hidden = false;
 
   const stazioni = {
     requisiti: {
@@ -1001,28 +1086,34 @@ function renderPercorso(opzioni = {}) {
       stato: tappa === "requisiti" ? "attivo" : (selezionato || requisitiOk) ? "fatto" : "futuro",
       conta: requisiti.length ? `${reqFatti}/${requisiti.length}` : "non pubblicati",
     },
-    candidatura: {
+    "mete-ponte": {
       numero: "2",
-      stato: tappa === "candidatura" ? "attivo" : (selezionato || checklistOk) ? "fatto" : "futuro",
+      stato: tappa === "mete" ? "attivo" : (selezionato || inAttesa || nPreferite > 0) ? "fatto" : "futuro",
+      conta: nPreferite ? `${nPreferite} salvate` : "",
+    },
+    candidatura: {
+      numero: "3",
+      stato: tappa === "candidatura" ? "attivo" : (selezionato || inAttesa || checklistOk) ? "fatto" : "futuro",
       conta: checklist.length ? `${chkFatti}/${checklist.length}` : "non pubblicata",
     },
     esito: {
-      numero: "3",
+      numero: "4",
       stato: selezionato ? "fatto" : tappa === "esiti" ? "attivo" : "futuro",
-      conta: selezionato ? "dichiarato" : "",
+      conta: selezionato ? "selezionato" : inAttesa ? "in attesa" : "",
     },
     // La stazione LA non ha un "fatto" misurabile (nessuno può approvare la
     // bozza al posto dell'ateneo): mostra solo quante bozze esistono (R4).
     la: {
-      numero: "4", stato: "info",
+      numero: "5",
+      stato: tappa === "la" ? "attivo" : laFatto ? "fatto" : selezionato ? "futuro" : "info",
       conta: (() => {
         const n = Object.keys((ZAINO.la && ZAINO.la.bozzePerMeta) || {}).length;
         return n ? `${n} ${n === 1 ? "bozza" : "bozze"}` : "";
       })(),
     },
     partenza: {
-      numero: "5",
-      stato: selezionato ? (post.length && postFatti === post.length ? "fatto" : "attivo") : "futuro",
+      numero: "6",
+      stato: tappa === "partenza" ? "attivo" : postFatto ? "fatto" : "futuro",
       conta: selezionato && post.length ? `${postFatti}/${post.length}` : "",
     },
   };
@@ -1049,10 +1140,13 @@ function renderPercorso(opzioni = {}) {
   if (sub) {
     sub.textContent = selezionato
       ? "Hai indicato di essere stato selezionato 🎉"
+      : inAttesa
+        ? "Hai inviato la domanda e stai aspettando l'esito."
       : (tappa === "esiti" && candidatureChiuse())
         ? "Le candidature sono chiuse: quando conosci l'esito, dichiaralo qui."
         : "Quando conosci l'esito della selezione, dichiaralo qui.";
   }
+  renderAttesaInfo();
 }
 
 // ============================================================
@@ -1147,7 +1241,7 @@ function renderSettimana() {
 
   let voci = [];
   let inRitardo = null;
-  if (tappa === "partenza") {
+  if (ZAINO.fase === "selezionato") {
     voci = (CHECKLIST_POST || []).filter(v => !spuntata(v, ZAINO.checklistPost));
   } else if (statoBando() === "aperto") {
     const tutte = vociInOrdine(CHECKLIST || []);
@@ -1167,7 +1261,9 @@ function renderSettimana() {
       const c = calcolaCountdown(scad.data);
       item.appendChild(crea("span", "settimana-item-scadenza", countdownInParole(c)));
     }
-    item.addEventListener("click", () => vaiAStazione(tappa === "partenza" ? "partenza" : "candidatura"));
+    item.addEventListener("click", () => vaiAStazione(
+      ZAINO.fase === "selezionato" ? tappaPerVocePost(voce) : "candidatura"
+    ));
     lista.appendChild(item);
   }
 
@@ -1192,15 +1288,27 @@ function calcolaMissione() {
   // vengono dalla regola unica della tappa corrente (R1.6), non ricalcolate.
   const tappa = tappaCorrente();
 
+  if (ZAINO.fase === "in-attesa") {
+    return { tipo: "in-attesa", fatti, totale };
+  }
+
   // Studente selezionato: la missione viene dalla checklist di partenza.
-  if (tappa === "partenza") {
+  if (ZAINO.fase === "selezionato") {
     const post     = CHECKLIST_POST || [];
     const vocePost = post.find(v => !(ZAINO.checklistPost && ZAINO.checklistPost[v.id]));
     const ora      = new Date();
     const evento   = (SCADENZE_CAFOSCARI || [])
       .filter(s => new Date(s.data) > ora)
       .sort((a, b) => new Date(a.data) - new Date(b.data))[0] || null;
-    if (vocePost) return { tipo: "partenza", voce: vocePost, prossima: evento, giorni: evento ? giorniA(evento.data) : Infinity, fatti, totale };
+    if (vocePost) return {
+      tipo: "partenza",
+      voce: vocePost,
+      stazione: tappaPerVocePost(vocePost),
+      prossima: evento,
+      giorni: evento ? giorniA(evento.data) : Infinity,
+      fatti,
+      totale
+    };
     return { tipo: "completo", fatti, totale };
   }
 
@@ -1261,21 +1369,28 @@ function renderMissione() {
         btnFatto.textContent = "Sono stato selezionato 🎒";
         btnFatto.onclick = e => {
           e.preventDefault();
-          // Riusa la logica del gate dell'esito (stazione 3 del Percorso).
-          document.getElementById("fase-selezionato")?.click();
-          renderMissione();
+          impostaFaseViaggio("selezionato");
         };
       }
       setBtn(btnCome, "Vedi le date del ciclo", "percorso", "candidatura");
       break;
     }
+    case "in-attesa":
+      if (titolo) titolo.textContent =
+        window.ATTESA_INFO?.titolo || "Hai inviato la domanda. Adesso si aspetta.";
+      if (dett) dett.textContent =
+        window.ATTESA_INFO?.quantoDura ||
+        "Controlla la posta istituzionale e preparati ai passaggi successivi.";
+      setBtn(btnFatto, "Vedi cosa succede", "percorso", "esito");
+      setBtn(btnCome, "Cosa posso fare intanto?", "percorso", "esito");
+      break;
     case "partenza":
       if (titolo) titolo.textContent = m.voce.testo;
       if (dett)   dett.textContent   = m.prossima
         ? `Preparazione alla partenza — ${m.prossima.cosa} tra ${m.giorni} ${m.giorni === 1 ? "giorno" : "giorni"}.`
         : "Preparazione alla partenza: spunta i passi man mano che li completi.";
-      setBtn(btnFatto, "Fatto 🎒",           "percorso", "partenza");
-      setBtn(btnCome,  "Vedi tutti i passi", "percorso", "partenza");
+      setBtn(btnFatto, "Fatto 🎒",           "percorso", m.stazione);
+      setBtn(btnCome,  "Vedi tutti i passi", "percorso", m.stazione);
       break;
     case "urgente":
       card.classList.add("missione-urgente");
@@ -2518,39 +2633,109 @@ function renderChecklistPost() {
   // (renderPercorso), non nella barra della candidatura (R3.5).
 }
 
-// Il gate dell'esito (stazione 3 del Percorso, §5.5): auto-dichiarato,
+// La porta "in attesa" consuma il contenuto dell'ateneo attivo. Le date
+// assolute restano volutamente fuori: esempioCiclo misura il passato e il
+// gate G1 vieta di presentarlo come calendario corrente.
+function renderAttesaInfo() {
+  const cont = document.getElementById("attesa-info");
+  if (!cont) return;
+  const visibile = ZAINO.fase === "in-attesa";
+  cont.hidden = !visibile;
+  if (!visibile) return;
+
+  const info = window.ATTESA_INFO || {};
+  cont.innerHTML = "";
+
+  const introduzione = crea("div", "banner-stato stato-verifica");
+  const corpoIntroduzione = crea("div");
+  corpoIntroduzione.appendChild(crea("h3", "stazione-titolo", info.titolo || "In attesa dell'esito"));
+  if (info.sottotitolo) corpoIntroduzione.appendChild(crea("p", "stazione-testo", info.sottotitolo));
+  if (info.quantoDura) {
+    corpoIntroduzione.appendChild(crea("p", "stazione-testo", "Quanto dura: " + info.quantoDura));
+  }
+  introduzione.appendChild(corpoIntroduzione);
+  cont.appendChild(introduzione);
+
+  [
+    ["Cosa succede adesso", info.tappe],
+    ["Cosa puoi fare intanto", info.intanto],
+    ["A cosa fare attenzione", info.attenzione],
+  ].forEach(([titolo, voci]) => {
+    if (!Array.isArray(voci) || voci.length === 0) return;
+    const capitolo = crea("div", "zaino-capitolo");
+    const testa = crea("div", "zaino-capitolo-testa");
+    testa.appendChild(crea("h4", "zaino-capitolo-titolo", titolo));
+    capitolo.appendChild(testa);
+    const corpo = crea("div", "zaino-capitolo-corpo");
+    voci.forEach(voce => {
+      const gruppo = crea("div", "gruppo-post");
+      gruppo.appendChild(crea("h5", "gruppo-post-titolo", voce.titolo));
+      gruppo.appendChild(crea("p", "stazione-testo", voce.testo));
+      corpo.appendChild(gruppo);
+    });
+    capitolo.appendChild(corpo);
+    cont.appendChild(capitolo);
+  });
+
+  if (info.inVerifica) {
+    cont.appendChild(crea(
+      "div",
+      "banner-stato stato-riserve",
+      "La procedura generale è verificata; i dettagli di assegnazione della sede possono cambiare fra le Facoltà."
+    ));
+  }
+  if (info.fonteUrl) {
+    const fonte = crea("a", "dett-link", "Consulta la fonte ufficiale ↗");
+    fonte.href = info.fonteUrl;
+    fonte.target = "_blank";
+    fonte.rel = "noopener";
+    cont.appendChild(fonte);
+  }
+}
+
+// Il gate dell'esito (tappa 4 del Percorso): auto-dichiarato,
 // il sito non conosce le graduatorie. Da R3 le due checklist vivono in
 // stazioni separate e sono SEMPRE renderizzate: il gate cambia solo lo
 // stato del viaggio (ZAINO.fase) e la stazione corrente.
-function initToggleFase() {
-  const btnDomanda    = document.getElementById("fase-domanda");
-  const btnSelezionato = document.getElementById("fase-selezionato");
-  if (!btnDomanda || !btnSelezionato) return;
+function aggiornaBottoniFase() {
+  document.querySelectorAll(".toggle-fase-btn[data-fase]").forEach(btn => {
+    const attivo = ZAINO.fase === btn.dataset.fase;
+    btn.classList.toggle("fase-attiva", attivo);
+    btn.setAttribute("aria-pressed", attivo ? "true" : "false");
+  });
+}
 
-  function aggiornaBottoniFase() {
-    const selezionato = ZAINO.fase === "selezionato";
-    btnDomanda.classList.toggle("fase-attiva", !selezionato);
-    btnSelezionato.classList.toggle("fase-attiva", selezionato);
+function destinazionePerFase(fase) {
+  if (fase === "esplorando") return "requisiti";
+  if (fase === "in-attesa") return "esito";
+  return primaTappaPostSelezione();
+}
+
+function impostaFaseViaggio(fase, opzioni = {}) {
+  if (!ErasmusWizPuro.FASI_VIAGGIO.includes(fase)) return false;
+  const primaSelezione = fase === "selezionato" && !ZAINO.zainoCelebrato;
+  ZAINO.fase = fase;
+  if (primaSelezione) ZAINO.zainoCelebrato = true;
+  salvaZaino(ZAINO);
+  aggiornaBottoniFase();
+  renderHome();
+  renderMissione();
+  if (opzioni.naviga !== false) {
+    vaiAStazione(destinazionePerFase(fase), { esclusiva: true });
   }
+  if (primaSelezione && opzioni.celebra !== false) mostraCelebrazioneZaino();
+  return true;
+}
 
-  btnDomanda.addEventListener("click", () => {
-    ZAINO.fase = "domanda";
-    salvaZaino(ZAINO);
-    aggiornaBottoniFase();
-    renderMissione();
-    renderPercorso({ apri: true });
-  });
+function initToggleFase() {
+  const btnEsplorando = document.getElementById("fase-esplorando");
+  const btnAttesa     = document.getElementById("fase-in-attesa");
+  const btnSelezionato = document.getElementById("fase-selezionato");
+  if (!btnEsplorando || !btnAttesa || !btnSelezionato) return;
 
-  btnSelezionato.addEventListener("click", () => {
-    const primaVolta = !ZAINO.zainoCelebrato;
-    ZAINO.fase = "selezionato";
-    if (primaVolta) ZAINO.zainoCelebrato = true;
-    salvaZaino(ZAINO);
-    aggiornaBottoniFase();
-    renderMissione();
-    renderPercorso({ apri: true });
-    if (primaVolta) mostraCelebrazioneZaino();
-  });
+  btnEsplorando.addEventListener("click", () => impostaFaseViaggio("esplorando"));
+  btnAttesa.addEventListener("click", () => impostaFaseViaggio("in-attesa"));
+  btnSelezionato.addEventListener("click", () => impostaFaseViaggio("selezionato"));
 
   aggiornaBottoniFase();
 }
@@ -2589,7 +2774,7 @@ function initCelebrazioneZaino() {
   // invertire le due chiamate permetterebbe alla chiusura di rubarlo a vaiA().
   if (btn) btn.addEventListener("click", () => {
     chiudiCelebrazioneZaino();
-    vaiAStazione("partenza");
+    vaiAStazione(primaTappaPostSelezione());
   });
   document.addEventListener("keydown", e => {
     if (e.key !== "Escape") return;
@@ -2615,6 +2800,7 @@ function initCelebrazioneZaino() {
 //         meta: { id, universita, citta, paese },  // fotografata alla
 //                // creazione: la bozza resta leggibile anche se la meta
 //                // sparisse dai dati (mai un id orfano illeggibile)
+//         ciclo, ateneo,                   // mobilita' a cui appartiene
 //         creataIl, aggiornatoIl,        // ISO
 //         versioneCorrente,              // numero dell'ULTIMA versione
 //         prossimoId,                    // contatore per id stabili e/c/g
@@ -2707,6 +2893,8 @@ function laNuovaBozza(meta) {
   const ora = new Date().toISOString();
   return {
     meta: { id: meta.id, universita: meta.universita, citta: meta.citta || "", paese: meta.paese || "" },
+    ciclo: ZAINO.cicloPercorso,
+    ateneo: ateneoAttivo(),
     creataIl: ora, aggiornatoIl: ora,
     versioneCorrente: 1, prossimoId: 1,
     versioni: [{

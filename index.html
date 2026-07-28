@@ -219,11 +219,11 @@
     <!-- ====================================================
          TAB: PERCORSO — itinerario burocratico unico a stazioni
          (R3, PLAN.md §5.5). Una schermata verticale sola:
-         1 Prepara la candidatura (i requisiti, ex tab Idoneità),
-         2 Candidatura e scadenze (ex tab Candidatura),
-         3 gate auto-dichiarato dell'esito,
-         4 Learning Agreement (la guida; il Workspace arriva con R4),
-         5 Parti: lo zaino (ramo selezionato ISOLATO dalle scadenze
+         1 Requisiti, 2 Mete e le 5 scelte,
+         3 Candidatura e scadenze (ex tab Candidatura),
+         4 gate auto-dichiarato dell'esito,
+         5 Learning Agreement (la guida; il Workspace arriva con R4),
+         6 Parti: lo zaino (ramo selezionato ISOLATO dalle scadenze
            candidatura, R3.5 — contenitore suo, non più condiviso).
          La linea di viaggio racconta il progresso (stati derivati da
          tappaCorrente, R1.6), non sostituisce la navigazione.
@@ -244,7 +244,11 @@
             <summary class="stazione-testa">
               <span class="stazione-punto" aria-hidden="true">1</span>
               <span class="stazione-testi">
-                <span class="stazione-titolo">Prepara la candidatura</span>
+                <!-- "Requisiti", non piu' "Prepara la candidatura": con le sei
+                     tappe di V2 quel nome collideva con la tappa 3 "Candidatura
+                     e scadenze", e lo stesso passo si chiamava in due modi fra
+                     stepper della home e stazione. -->
+                <span class="stazione-titolo">Requisiti</span>
                 <span class="stazione-sub">Verifica i requisiti del bando: sono uguali per tutte le mete.</span>
               </span>
               <span class="stazione-stato"></span>
@@ -258,18 +262,18 @@
           </details>
         </li>
 
-        <!-- Ponte verso le Mete: compare SOLO quando la tappa corrente è
-             "mete" (si sceglie nella schermata Mete, non qui). -->
-        <li class="stazione stazione-ponte" id="stazione-mete-ponte" hidden>
+        <!-- Le Mete vivono nella loro schermata, ma la tappa resta sempre
+             visibile: lo stepper non cambia lunghezza durante il viaggio. -->
+        <li class="stazione stazione-ponte" id="stazione-mete-ponte">
           <button class="stazione-ponte-btn" type="button" data-goto="mete">
-            🗺️ Prossima tappa: scegli le mete e salva le tue preferite →
+            2. 🗺️ Mete e le 5 scelte — esplora e salva le tue preferite →
           </button>
         </li>
 
         <li class="stazione" id="stazione-candidatura">
           <details class="stazione-dettagli">
             <summary class="stazione-testa">
-              <span class="stazione-punto" aria-hidden="true">2</span>
+              <span class="stazione-punto" aria-hidden="true">3</span>
               <span class="stazione-testi">
                 <span class="stazione-titolo">Candidatura e scadenze</span>
                 <span class="stazione-sub">I passi da fare, capitolo per capitolo, con le date del bando.</span>
@@ -294,7 +298,7 @@
         <li class="stazione" id="stazione-esito">
           <details class="stazione-dettagli">
             <summary class="stazione-testa">
-              <span class="stazione-punto" aria-hidden="true">3</span>
+              <span class="stazione-punto" aria-hidden="true">4</span>
               <span class="stazione-testi">
                 <span class="stazione-titolo">L'esito</span>
                 <span class="stazione-sub" id="stazione-esito-sub">Quando conosci l'esito della selezione, dichiaralo qui.</span>
@@ -305,9 +309,11 @@
             <div class="stazione-corpo">
               <p class="stazione-testo">ErasmusWiz non conosce le graduatorie: l'esito lo dichiari tu, e il percorso si adatta.</p>
               <div class="toggle-fase-wrap">
-                <button class="toggle-fase-btn fase-attiva" id="fase-domanda" type="button">📝 Sto preparando la candidatura</button>
-                <button class="toggle-fase-btn" id="fase-selezionato" type="button">🎉 Sono stato selezionato</button>
+                <button class="toggle-fase-btn fase-attiva" id="fase-esplorando" data-fase="esplorando" type="button">🧭 Sto esplorando</button>
+                <button class="toggle-fase-btn" id="fase-in-attesa" data-fase="in-attesa" type="button">📨 Ho fatto domanda e aspetto</button>
+                <button class="toggle-fase-btn" id="fase-selezionato" data-fase="selezionato" type="button">🎉 Sono stato selezionato</button>
               </div>
+              <div id="attesa-info" hidden></div>
             </div>
           </details>
         </li>
@@ -319,7 +325,7 @@
         <li class="stazione" id="stazione-la">
           <details class="stazione-dettagli">
             <summary class="stazione-testa">
-              <span class="stazione-punto" aria-hidden="true">4</span>
+              <span class="stazione-punto" aria-hidden="true">5</span>
               <span class="stazione-testi">
                 <span class="stazione-titolo">Learning Agreement</span>
                 <span class="stazione-sub">Prepara la bozza: esami di casa, corsi host e corrispondenze.</span>
@@ -338,7 +344,7 @@
         <li class="stazione" id="stazione-partenza">
           <details class="stazione-dettagli">
             <summary class="stazione-testa">
-              <span class="stazione-punto" aria-hidden="true">5</span>
+              <span class="stazione-punto" aria-hidden="true">6</span>
               <span class="stazione-testi">
                 <span class="stazione-titolo">Parti: lo zaino</span>
                 <span class="stazione-sub">Prima, durante e dopo la partenza.</span>
@@ -568,6 +574,13 @@
        Vedi js/atenei/README.md
   ============================================================ -->
   <script src="js/atenei/registro.js"></script>
+  <!-- puro.js sta QUI, e non fra i tag emessi da carica-atenei.js, perche' da
+       V2 app.js usa ErasmusWizPuro gia' a tempo di parsing (VERSIONE_ZAINO e
+       caricaContenitore()). Uno script emesso con document.write non e'
+       garantito che esegua prima del tag statico successivo — in jsdom non lo
+       fa e app.js muore prima di dichiarare ZAINO. Non e' un file dati:
+       aggiungere un ateneo continua a non toccare index.html. -->
+  <script src="js/puro.js"></script>
   <script src="js/carica-atenei.js"></script>
 
   <!-- Mappa (Fase C2): geometria Europa + lookup coordinate città.

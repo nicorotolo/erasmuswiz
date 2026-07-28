@@ -77,6 +77,199 @@
     };
   }
 
+  // V2 — il formato persistito cambia da contenitore v2 a v3. La migrazione
+  // vive qui perche' deve poter essere provata senza DOM e localStorage: lo
+  // zaino di uno studente non puo' dipendere dal modo in cui si apre la pagina.
+  var VERSIONE_CONTENITORE_ZAINO = 3;
+  var FASI_VIAGGIO = Object.freeze(["esplorando", "in-attesa", "selezionato"]);
+
+  function copiaPersistibile(valore) {
+    if (valore === undefined) return undefined;
+    try {
+      return JSON.parse(JSON.stringify(valore));
+    } catch (e) {
+      return valore;
+    }
+  }
+
+  function cicloSuccessivo(ciclo) {
+    var parti = testo(ciclo).match(/^(\d{4})\/(\d{2}|\d{4})$/);
+    if (!parti) return "";
+    var inizio = Number(parti[1]) + 1;
+    var fineCompleta = parti[2].length === 2
+      ? Number(parti[1].slice(0, 2) + parti[2]) + 1
+      : Number(parti[2]) + 1;
+    return inizio + "/" + String(fineCompleta).slice(-2);
+  }
+
+  function faseViaggioV3(fase) {
+    if (fase === "domanda") return "esplorando";
+    return FASI_VIAGGIO.indexOf(fase) >= 0 ? fase : "esplorando";
+  }
+
+  function oggettoSemplice(valore) {
+    return !!valore && typeof valore === "object" && !Array.isArray(valore);
+  }
+
+  function haChiavi(valore) {
+    return oggettoSemplice(valore) && Object.keys(valore).length > 0;
+  }
+
+  function zainoLegacyHaContenuto(zaino) {
+    if (!oggettoSemplice(zaino)) return false;
+    var fase = zaino.fase;
+    return !!(
+      zaino.profilo ||
+      (fase && fase !== "domanda" && fase !== "esplorando") ||
+      zaino.onboardingFatto ||
+      zaino.zainoCelebrato ||
+      (Array.isArray(zaino.metePreferite) && zaino.metePreferite.length) ||
+      (Array.isArray(zaino.schedina) && zaino.schedina.length) ||
+      haChiavi(zaino.checklist) ||
+      haChiavi(zaino.checklistPost) ||
+      haChiavi(zaino.autoverifica) ||
+      haChiavi(zaino.la && zaino.la.bozzePerMeta)
+    );
+  }
+
+  function creaZainoV3(configurazione) {
+    var opzioni = configurazione || {};
+    var cicloDati = testo(opzioni.cicloDati);
+    var cicloPercorso = testo(opzioni.cicloPercorso) ||
+      testo(opzioni.cicloPercorsoNuovo) ||
+      cicloSuccessivo(cicloDati) ||
+      cicloDati;
+    return {
+      profilo: null,
+      checklist: {},
+      metePreferite: [],
+      schedina: [],
+      fase: "esplorando",
+      checklistPost: {},
+      onboardingFatto: false,
+      autoverifica: {},
+      zainoCelebrato: false,
+      wizardMete: false,
+      la: { metaAperta: null, bozzePerMeta: {} },
+      cicloPercorso: cicloPercorso,
+      cicloDati: cicloDati,
+      storico: {},
+      schedinaCiclo: {}
+    };
+  }
+
+  function normalizzaZainoV3(grezzo, configurazione) {
+    var opzioni = configurazione || {};
+    var valido = oggettoSemplice(grezzo);
+    var originale = valido ? copiaPersistibile(grezzo) : {};
+    var cicloDati = testo(originale.cicloDati) || testo(opzioni.cicloDati);
+    var legacyConContenuto =
+      !!opzioni.forzaCicloLegacy || zainoLegacyHaContenuto(originale);
+    var cicloPercorso = testo(originale.cicloPercorso);
+    if (!cicloPercorso) {
+      cicloPercorso = legacyConContenuto
+        ? (testo(opzioni.cicloPercorsoLegacy) || cicloDati)
+        : (testo(opzioni.cicloPercorsoNuovo) || cicloSuccessivo(cicloDati) || cicloDati);
+    }
+
+    // Object.assign conserva anche campi che una versione futura non conosce:
+    // ignorarli sarebbe una cancellazione silenziosa durante la migrazione.
+    var zaino = Object.assign(
+      creaZainoV3({
+        cicloDati: cicloDati,
+        cicloPercorso: cicloPercorso,
+        cicloPercorsoNuovo: opzioni.cicloPercorsoNuovo
+      }),
+      originale
+    );
+
+    zaino.fase = faseViaggioV3(originale.fase);
+    zaino.cicloDati = cicloDati;
+    zaino.cicloPercorso = cicloPercorso;
+    if (!Array.isArray(zaino.metePreferite)) zaino.metePreferite = [];
+    if (!Array.isArray(zaino.schedina)) zaino.schedina = [];
+    if (!oggettoSemplice(zaino.checklist)) zaino.checklist = {};
+    if (!oggettoSemplice(zaino.checklistPost)) zaino.checklistPost = {};
+    if (!oggettoSemplice(zaino.autoverifica)) zaino.autoverifica = {};
+    if (!oggettoSemplice(zaino.storico)) zaino.storico = {};
+    if (!oggettoSemplice(zaino.schedinaCiclo)) zaino.schedinaCiclo = {};
+    if (typeof zaino.onboardingFatto !== "boolean") {
+      zaino.onboardingFatto = !!zaino.profilo;
+    }
+    if (typeof zaino.zainoCelebrato !== "boolean") {
+      zaino.zainoCelebrato = originale.fase === "selezionato";
+    }
+    if (typeof zaino.wizardMete !== "boolean") zaino.wizardMete = false;
+    if (!oggettoSemplice(zaino.la)) zaino.la = {};
+    if (!oggettoSemplice(zaino.la.bozzePerMeta)) zaino.la.bozzePerMeta = {};
+    if (zaino.la.metaAperta === undefined) zaino.la.metaAperta = null;
+    Object.keys(zaino.la.bozzePerMeta).forEach(function (metaId) {
+      var bozza = zaino.la.bozzePerMeta[metaId];
+      if (!oggettoSemplice(bozza)) return;
+      if (!testo(bozza.ciclo)) bozza.ciclo = zaino.cicloPercorso;
+      if (!testo(bozza.ateneo) && testo(opzioni.ateneo)) {
+        bozza.ateneo = testo(opzioni.ateneo);
+      }
+    });
+
+    if (!valido && grezzo !== undefined && grezzo !== null) {
+      zaino.recuperoLegacy = copiaPersistibile(grezzo);
+    }
+    return zaino;
+  }
+
+  function migraContenitoreZainoV3(grezzo, configurazione) {
+    var opzioni = configurazione || {};
+    var dato = oggettoSemplice(grezzo) ? copiaPersistibile(grezzo) : {};
+    var sembraContenitore =
+      Object.prototype.hasOwnProperty.call(dato, "zaini") ||
+      Object.prototype.hasOwnProperty.call(dato, "v");
+
+    // Il formato piatto richiede l'attribuzione per ateneo, che dipende dagli
+    // id reali caricati dall'app. La funzione resta pura ricevendo quel solo
+    // adattatore dall'esterno.
+    if (!sembraContenitore && typeof opzioni.migraPiatto === "function") {
+      dato = opzioni.migraPiatto(copiaPersistibile(grezzo));
+      sembraContenitore = true;
+    }
+
+    var contenitore = sembraContenitore && oggettoSemplice(dato)
+      ? dato
+      : {};
+    var zainiGrezzi = oggettoSemplice(contenitore.zaini)
+      ? contenitore.zaini
+      : {};
+    var zainiIlleggibili =
+      Object.prototype.hasOwnProperty.call(contenitore, "zaini") &&
+      !oggettoSemplice(contenitore.zaini)
+        ? copiaPersistibile(contenitore.zaini)
+        : undefined;
+    var zaini = {};
+    var chiavi = Object.keys(zainiGrezzi);
+    var vieneDaVersioneLegacy =
+      Number(contenitore.v) !== VERSIONE_CONTENITORE_ZAINO;
+    (opzioni.atenei || []).forEach(function (ateneo) {
+      if (chiavi.indexOf(ateneo) < 0) chiavi.push(ateneo);
+    });
+
+    chiavi.forEach(function (ateneo) {
+      zaini[ateneo] = normalizzaZainoV3(
+        zainiGrezzi[ateneo],
+        Object.assign({}, opzioni, {
+          forzaCicloLegacy: vieneDaVersioneLegacy,
+          ateneo: ateneo
+        })
+      );
+    });
+
+    contenitore.zaini = zaini;
+    contenitore.v = VERSIONE_CONTENITORE_ZAINO;
+    if (zainiIlleggibili !== undefined) {
+      contenitore.recuperoContenitoreLegacy = zainiIlleggibili;
+    }
+    return contenitore;
+  }
+
   function chiaveLingua(value) {
     return testo(value).toLocaleLowerCase("it");
   }
@@ -645,6 +838,13 @@
     SCALA_CEFR: SCALA_CEFR,
     ESITI_LINGUA: ESITI_LINGUA,
     destDaHash: destDaHash,
+    VERSIONE_CONTENITORE_ZAINO: VERSIONE_CONTENITORE_ZAINO,
+    FASI_VIAGGIO: FASI_VIAGGIO,
+    cicloSuccessivo: cicloSuccessivo,
+    faseViaggioV3: faseViaggioV3,
+    creaZainoV3: creaZainoV3,
+    normalizzaZainoV3: normalizzaZainoV3,
+    migraContenitoreZainoV3: migraContenitoreZainoV3,
     livelloCefr: livelloCefr,
     requisitiLinguaNormalizzati: requisitiLinguaNormalizzati,
     foglieRequisitoLingua: foglieRequisitoLingua,

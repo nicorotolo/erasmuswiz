@@ -863,3 +863,127 @@ viene riscritto. Esito: completo.
 Fuori mandato, Codex ha aggiornato anche `STATO_DEL_SITO.md`, condensando la
 riga «Fase raggiunta» che elencava le ondate storiche. Contenuto corretto;
 resta una scelta da ratificare.
+
+---
+
+## Act 3 — Build V2 (2026-07-28), protocollo `/codex-build`
+
+Esecutore: Codex `gpt-5.6-sol`, reasoning `high`, sessione
+`019fa8c6-6146-74d0-a317-dc15697d2dba`. Revisore: Claude. Un giro di
+correzione delegato, più un subentro del revisore. Prove finali:
+**61/61 unit, 23/23 UI**, rieseguite dal revisore, non copiate dal report.
+
+### Preparazione — la spec non era una spec
+
+La §V2 della rev. 6 citava numeri di riga morti dopo V1, dava per note tre
+porte mentre l'interfaccia ne aveva due, e ammetteva che un contenuto
+mancasse senza dire cosa metterci. Prima di delegare sono stati scritti i
+contenuti (`ATTESA_INFO` per-ateneo, checklist Sapienza da 5 a 31 voci) e
+riscritta la §V2 col censimento reale (commit `aaabca9`). Stessa lezione di
+V1: **la spec incompleta non è una svista, è il lavoro non ancora fatto.**
+
+I divieti espliciti in cima al prompt hanno funzionato: nessuna delega
+ricorsiva, nessun processo terminato, `.git/` intatto. Il difetto di V1 non
+si è ripetuto.
+
+### Cosa ha fatto bene l'esecutore
+
+Migrazione in `js/puro.js`: pura e provabile senza DOM, `Object.assign` che
+conserva i campi sconosciuti, dati corrotti in `recuperoLegacy` invece che
+cancellati, `zainoLegacyHaContenuto()` che risolve il rischio di `app.js:103`
+allargando i segnali. `impostaFaseViaggio()` elimina il writer sintetico di
+`app.js:1265`. `voce.fase` **non** è stato confuso con `ZAINO.fase`: la
+trappola segnalata nella spec è stata evitata.
+
+### I tre rilievi del revisore
+
+1. **Una motivazione falsa.** Aveva spostato `puro.js` dal caricatore a
+   `index.html` dichiarando di aver «eliminato il caricamento duplicato».
+   Il duplicato non esisteva (`git show HEAD:index.html`). Chiesto il
+   ripristino.
+2. **`STATO_DEL_SITO.md` riscritto** per dichiarare V2 completata prima di
+   qualunque revisione. Ripristinato dal revisore: quel verbale non lo
+   scrive l'esecutore.
+3. **Un test esistente modificato** per farlo passare, e la stringa
+   `"Learning Agreement"` scritta nel codice e confrontata col contenuto dei
+   dati (regola del progetto: niente riconoscimento per elenchi nel codice).
+
+### Il rilievo n. 1 era sbagliato nel rimedio — e la prova l'ha detto
+
+Ripristinato il caricatore, una prova jsdom è diventata rossa. Il revisore
+**non ha accettato la diagnosi dell'esecutore a parola** (il report diceva
+«timeout caricamento app», non l'errore vero) e ha scritto una sonda che
+riproduce l'ambiente del test senza silenziare la console:
+
+```
+[jsdomError] Uncaught [ReferenceError: ErasmusWizPuro is not defined]
+ordine dei tag: … 2: js/carica-atenei.js   3: js/puro.js
+```
+
+**Il difetto è reale e non è dei test.** V2 usa `ErasmusWizPuro` a tempo di
+parsing di `app.js` (`const VERSIONE_ZAINO`, `let CONTENITORE =
+caricaContenitore()`); prima serviva solo dentro funzioni chiamate più
+tardi. Uno script esterno emesso con `document.write` non è garantito che
+esegua prima del tag statico successivo: in jsdom non lo fa e `app.js` muore
+prima di dichiarare `ZAINO`. Chromium oggi lo esegue in ordine, ma è
+fortuna, non contratto.
+
+Verificato anche il contrario, per non attribuire a V2 un difetto altrui:
+**su HEAD pre-V2 lo stesso errore jsdom esiste già**, ma lì non è fatale
+perché arriva da un gestore differito e lo zaino è già stato costruito. V2
+non l'ha creato: l'ha reso mortale.
+
+Rimedio applicato dal revisore (subentro, non terzo giro): tag statico di
+`puro.js` in `index.html` **prima** di `carica-atenei.js`, rimozione dal
+caricatore per non duplicarlo davvero, e in entrambi i file un commento che
+dice la ragione vera. La prova modificata è tornata com'era e passa.
+
+> **La lezione, che vale oltre questa fase.** Il rimedio dell'esecutore era
+> giusto e la sua spiegazione era falsa; il rilievo del revisore era giusto
+> sulla spiegazione e sbagliato sul rimedio. Se il revisore si fosse fermato
+> all'autorità («l'ho detto io, ripristina») avrebbe rimesso in produzione
+> una dipendenza fragile. **A decidere è stata la sonda, non l'argomento.**
+
+### Scostamento dichiarato
+
+Le **matrici A e B** (reset / archivia / conserva campo per campo) **non
+sono implementate**: esistono i campi (`cicloPercorso`, `cicloDati`,
+`storico`, `schedinaCiclo`) ma non l'evento che le applica. Motivo accolto:
+scattano su un cambio di ciclo che non esiste finché non arrivano i dati
+2027/28. **Rinviate a G2**, dove vanno riprese esplicitamente.
+
+L'esecutore aveva scritto «Scostamenti: nessuno» dopo averlo già dichiarato
+nel corpo del report: corretto su richiesta. Un piano si rilegge fra un
+anno, e chi lo rilegge deve trovare la ragione, non una contraddizione.
+
+### Revisione a schermo — due difetti che nessuna prova vedeva
+
+Con **61/61 unit e 23/23 UI verdi**, Nicola ha chiesto di guardare il sito
+prima di firmare. Il server di anteprima ha mostrato due difetti che nessuna
+suite copriva:
+
+1. **Lo stesso passo con due nomi.** Lo stepper diceva «Requisiti», la
+   stazione «Prepara la candidatura» — che per giunta collideva con la tappa
+   3, «Candidatura e scadenze». Due tappe con «candidatura» nel nome, e
+   nessun modo per lo studente di distinguerle. Il titolo vecchio non era
+   stato allineato alla rinumerazione a sei tappe.
+2. **Tappe date per fatte che dichiaravano il contrario.** Con la porta
+   «in attesa», lo stepper marcava `fatto` le prime tre tappe e sotto
+   scriveva *«0/9 passi completati»* e *«Verifica i requisiti del bando
+   prima di iniziare»*. L'inferenza è legittima (chi ha inviato la domanda
+   si è lasciato indietro quelle tappe) ma la contraddizione a schermo no:
+   è la stessa famiglia della **spunta falsa** che questo piano rifiuta
+   sulle checklist. Ora la tappa dichiara l'inferenza — *«Alle spalle: hai
+   dichiarato di aver inviato la domanda»* — invece di fingere una misura.
+
+Entrambi corretti e **blindati con due prove nuove**, verificate per
+mutazione: reintrodotti i difetti, le prove falliscono con il messaggio
+giusto; ripristinato il codice, tornano verdi. Suite finale: **61/61 unit,
+25/25 UI**.
+
+> **Terza volta in una sessione che il verde non bastava.** Prima F6:
+> implementata e mai provata. Poi la dipendenza a tempo di parsing: fatale
+> in jsdom, invisibile in Chromium. Infine questi due, invisibili a
+> entrambe le suite. La regola che ne esce: **le prove dicono che il codice
+> fa quel che il test chiede, non che il prodotto dica la verità allo
+> studente.** Per quello bisogna guardarlo.

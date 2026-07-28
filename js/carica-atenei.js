@@ -161,10 +161,22 @@
   function src(f) { html.push('<script src="' + f + '"><\/script>'); }
   function inline(js) { html.push('<script>' + js + '<\/script>'); }
 
-  // V0: il motore puro deve esistere prima dei dati e di app.js. Lo emette il
-  // caricatore, invece di aggiungere un tag a index.html, così l'ordine resta
-  // garantito anche durante il caricamento progressivo dei singoli atenei.
-  src("js/puro.js");
+  // V2, 2026-07-28: puro.js NON si emette piu' da qui — ha un tag suo in
+  // index.html, PRIMA di questo file. La regola di V0 (il motore puro esiste
+  // prima dei dati e di app.js) resta intatta: un tag statico che precede il
+  // caricatore precede anche tutto cio' che il caricatore emette.
+  //
+  // PERCHE' e' cambiato, ed e' un difetto vero, non una preferenza. V2 usa
+  // ErasmusWizPuro a TEMPO DI PARSING di app.js (`const VERSIONE_ZAINO` e
+  // `let CONTENITORE = caricaContenitore()`); prima serviva solo dentro
+  // funzioni chiamate piu' tardi. Uno script esterno emesso con document.write
+  // NON e' garantito che esegua prima del tag statico successivo: in jsdom non
+  // lo fa, e app.js muore con "ErasmusWizPuro is not defined" prima ancora di
+  // dichiarare ZAINO. Chromium oggi lo esegue in ordine, ma e' fortuna, non
+  // contratto — e uno studente con l'app morta non ha un test che glielo dica.
+  // Aggiungere un ateneo continua a non richiedere modifiche a index.html
+  // (la promessa di js/atenei/registro.js): quella riguarda i file DATI, che
+  // restano tutti emessi qui sotto.
 
   daCaricare.forEach(function (k) {
     var voce = ATENEI_REGISTRO[k];
