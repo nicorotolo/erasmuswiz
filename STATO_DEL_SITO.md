@@ -21,7 +21,62 @@
 
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-07-28 — Codex (GPT-5).
+**Ultimo aggiornamento:** 2026-07-28 (sera) — Claude Code.
+
+**(SESSIONE 2026-07-28 bis — PREPARAZIONE DI V2: debito F6 saldato, contenuti
+scritti, spec congelabile. NESSUN CODICE DI V2.)** Sessione deliberatamente
+fermata prima dell'implementazione: la §V2 non era una specifica: citava numeri
+di riga morti, dava per note tre porte mentre l'interfaccia ne ha due, e
+ammetteva che un contenuto mancasse senza dire cosa metterci. Gli stessi tre
+difetti che su V1 avevano imposto di scrivere il contratto del fuoco prima di
+delegare. Decisione di Nicola: **contenuti prima, codice dopo**; V2 slitta.
+
+**1. Debito di V1 saldato — F6 ha finalmente una prova.** La regola (ri-cliccare
+la voce di menu attiva non muove né fuoco né pagina) era implementata in
+`vaiA()` (`app.js:573-586`) ma nessuno dei 14 test la toccava. Aggiunto un test
+Playwright in due parti: il riclic dall'interfaccia (cronologia, scroll, fuoco e
+chiamate a `scrollTo` invariati) e la stessa regola chiesta a `vaiA()` in
+purezza, senza il clic di mezzo. **La prova è stata verificata per mutazione**:
+rompendo F6 di proposito (`if (true || cambia …)`) fallisce; ripristinato il
+codice, `app.js` è tornato byte-identico. Suite: **33/33 unit, 15/15 UI**.
+
+**2. Checklist post-selezione Sapienza — da 5 voci provvisorie a 31 validate.**
+Fonte: *Informazioni generali — Studenti Erasmus outgoing A.A. 2025/26*, Settore
+Erasmus Sapienza, copia già in repo (`fonti/caso-bruno/…_INFORMAZIONI_GENERALI_25_26.pdf`).
+Risolto anche un difetto silenzioso: le 5 voci vecchie non avevano
+`gruppoZaino` e cadevano tutte nel fallback «Prima» (`app.js:2486`), lasciando
+vuoti i capitoli «Durante» e «Dopo». Ora 19/5/7. Due trappole evitate e
+documentate nel file: le pagine «Erasmus+ ICM» (extra-Europa) e «Erasmus
+Italiano» (fra atenei italiani) descrivono procedure diverse e **non** valgono
+qui; e la finestra per accettare la sede **la fissa la Facoltà** (Economia 5
+giorni, CoRIS 7), quindi nessuna voce scrive un numero unico. Marcata anche la
+vendemmia del dato: fra il 2023/24 e il 2025/26 la soglia CFU per non restituire
+il contributo integrativo è passata **da 6 a 12** — la prova che questi contenuti
+non si citano a memoria.
+
+**3. Porta «in-attesa» — da inesistente a scritta.** Nuovo globale `ATTESA_INFO`
+in `js/atenei/<ateneo>/dati-attesa.js`, per-ateneo perché le due procedure sono
+diverse: Ca' Foscari ha graduatoria unica, riserve e ripescaggi (bando 2026/27,
+artt. 7-9, in `fonti/`); la Sapienza ha graduatoria provvisoria + definitiva e
+una seconda finestra a giugno. Contiene `tappe[]` (cosa succede), `intanto[]`
+(azioni vere durante l'attesa) e `attenzione[]` (le trappole che costano il
+posto: a Ca' Foscari fra graduatoria e scadenza di accettazione passavano **due
+giorni**, e rinunciare dopo aver accettato può precludere il bando successivo).
+Le date del ciclo stanno confinate in `esempioCiclo` e non sono mostrabili come
+attuali (gate G1). Cablato in `registro.js` e `carica-atenei.js`, **caricato e
+non ancora consumato**: V2 lo legge, non lo inventa.
+
+**4. §V2 del piano riscritta come specifica congelabile.** Contiene ora il
+censimento reale di `fase` (12 punti, con i numeri di riga di `16b3e53`), l'
+avvertimento che `voce.fase` dei file dati **non** è `ZAINO.fase` — un `grep
+fase` li mescola e corrompe i dati —, il fatto che la terza porta richiede anche
+`index.html:307-309` e il writer nascosto di `app.js:1265`, e i divieti da
+mettere in cima a un eventuale `/codex-build`.
+
+**Aperto e dichiarato:** `dati-bando.js` della Sapienza è ancora
+`inVerifica: true`; le 20 voci post-selezione di Ca' Foscari sono ora le più
+magre delle due e meritano una rilettura sull'originale; la meccanica di
+assegnazione delle sedi Sapienza varia per Facoltà ed è marcata da confermare.
 
 **(SESSIONE 2026-07-28 — V1 «Estendere il router esistente» COMPLETATA E
 PROVATA.)** La V1 conserva il router R1.4 e i quattro hash nudi: il parser puro

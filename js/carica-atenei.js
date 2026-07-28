@@ -129,6 +129,7 @@
       scadenzeInfo: typeof SCADENZE_INFO !== "undefined" ? SCADENZE_INFO : {},
       checklist: typeof CHECKLIST !== "undefined" ? CHECKLIST : [],
       checklistPost: typeof CHECKLIST_POST !== "undefined" ? CHECKLIST_POST : [],
+      attesa: typeof ATTESA_INFO !== "undefined" ? ATTESA_INFO : {},
       bandoUrl: voce.bandoUrl,
       portaleUrl: voce.portaleUrl
     };
@@ -147,6 +148,7 @@
     window.SCADENZE_INFO      = A.scadenzeInfo  || {};
     window.CHECKLIST          = A.checklist     || [];
     window.CHECKLIST_POST     = A.checklistPost || [];
+    window.ATTESA_INFO        = A.attesa        || {};
     window.ATENEO_LABEL       = A.label      || ATENEI_REGISTRO[ATENEO_PREDEFINITO].label;
     window.ATENEO_BANDO_URL   = A.bandoUrl   || ATENEI_REGISTRO[ATENEO_PREDEFINITO].bandoUrl;
     window.ATENEO_PORTALE_URL = A.portaleUrl || ATENEI_REGISTRO[ATENEO_PREDEFINITO].portaleUrl;

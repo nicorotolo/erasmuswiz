@@ -40,7 +40,8 @@ var ATENEI_REGISTRO = {
       "dati-borse.js",
       "dati-scadenze.js",
       "dati-checklist.js",
-      "dati-postselezione.js"
+      "dati-postselezione.js",
+      "dati-attesa.js"
     ]
   },
 
@@ -76,7 +77,8 @@ var ATENEI_REGISTRO = {
       "dati-borse.js",
       "dati-scadenze.js",
       "dati-checklist.js",
-      "dati-postselezione.js"
+      "dati-postselezione.js",
+      "dati-attesa.js"
     ]
   }
 };

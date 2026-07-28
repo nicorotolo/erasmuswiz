@@ -571,14 +571,49 @@ dimenticando le porte — le lasciava puntate sulla numerazione vecchia):
 > scadenza perentoria. **La prima azione post-selezione si calcola dalla
 > checklist reale**, non si sceglie a priori.
 
+#### Censimento di `fase` — fatto il 2026-07-28, prima di scrivere codice
+
+> ⛔ **I numeri di riga della rev. 6 (757, 2419, 2425, 2434) sono MORTI**: V1 ha
+> spostato tutto. Questa è la mappa misurata sul codice online (`16b3e53`).
+> Va rifatta se V2 non parte da lì.
+
+| Riga | Cosa fa | Ruolo |
+|---|---|---|
+| `app.js:28` | `fase: "domanda"` nel template dello zaino | default da cambiare |
+| `app.js:40` | `if (!z.fase) z.fase = "domanda"` | **campo assente** → fixture |
+| `app.js:46` | `zainoCelebrato = (z.fase === "selezionato")` | lettura |
+| `app.js:103` | `p.fase && p.fase !== "domanda"` — rileva lo zaino non vuoto | **si rompe se `"domanda"` sparisce**: un utente legacy verrebbe letto come nuovo |
+| `app.js:108` | `z.fase = p.fase \|\| "domanda"` — piatto → contenitore | migrazione esistente |
+| `app.js:151` | `fase: legacy.fase` — adattatore legacy | migrazione esistente |
+| `app.js:798` | badge nascosto se `!== "selezionato"` | lettura |
+| `app.js:835` | `if (ZAINO.fase === "selezionato") return "partenza"` | tappa corrente |
+| `app.js:2531` | `aggiornaBottoniFase()`, stato dei due bottoni | lettura |
+| `app.js:2537` · `app.js:2546` | **gli unici due writer espliciti** | scrittura |
+| `app.js:1265` | `getElementById("fase-selezionato")?.click()` | **writer nascosto**: pilota la fase con un click sintetico. Con tre stati non basta più |
+| `index.html:307-309` | `.toggle-fase-wrap` con **due** bottoni | UI da 2 a 3 stati |
+
+> ⛔⛔ **`voce.fase` NON è `ZAINO.fase`.** In `app.js:2501-2508` e in tutti i
+> `dati-postselezione.js` il campo `fase` è **l'etichetta di gruppo** della
+> checklist (`"Accettazione"`, `"Learning Agreement"`, `"Rientro"`…). Un
+> censimento fatto a `grep fase` — cioè quello che farebbe un esecutore
+> automatico — le mescola e **corrompe i dati**. Nessuna trasformazione
+> meccanica su `fase` può essere applicata a quei file.
+
+**Conseguenza di progetto: la terza porta non è solo un valore nuovo.** L'UI
+dell'esito è un **toggle binario** (`index.html:307-309`), `aggiornaBottoniFase()`
+ragiona su un booleano (`const selezionato = …`), e `app.js:1265` cambia stato
+simulando un click su uno dei due bottoni. Aggiungere `in-attesa` richiede tutti
+e tre gli interventi, non solo `normalizzaZaino()`.
+
 **Migrazione dello zaino — esplicita, non un incremento di versione.**
 1. Contenitore **v2 → v3** dichiarato e **idempotente**. `VERSIONE_ZAINO` non si
    incrementa e basta: la migrazione attuale rischia di trattare il contenitore
    v2 come uno zaino piatto.
 2. `fase`: `"domanda"` → `esplorando`, `"selezionato"` → `selezionato`, più il
-   nuovo `in-attesa`. **Tutti i rami che confrontano i valori vecchi vanno
-   censiti e aggiornati** (app.js:757, 2419, 2425, 2434 e altri): cambiare solo
-   `normalizzaZaino()` lascia comportamento incoerente.
+   nuovo `in-attesa`. **Tutti i rami del censimento qui sopra vanno aggiornati**:
+   cambiare solo `normalizzaZaino()` lascia comportamento incoerente. In
+   particolare `app.js:103` va riscritto **prima** di togliere `"domanda"`, o la
+   rilevazione dello zaino legacy si inverte in silenzio.
 3. **Identità di ciclo doppia** — `cicloPercorso` e `cicloDati` (vedi *Il
    vincolo che governa tutto*) — con la matrice reset / archivia / conserva
    applicata campo per campo. Senza, spunte e preferenze del ciclo vecchio
@@ -590,18 +625,54 @@ dimenticando le porte — le lasciava puntate sulla numerazione vecchia):
    `la`. Per entrambi gli atenei. La migrazione dev'essere **idempotente**:
    applicarla due volte dà lo stesso risultato.
 
-**Contenuti.** La porta `in-attesa` oggi **non esiste affatto** e va riempita, o
-si apre sul niente. La porta `selezionato` ha 20 voci a Ca' Foscari ma **solo 5,
-provvisorie, alla Sapienza**: l'uscita della porta dipende dall'ateneo, e la
-Sapienza resta bloccata finché la sua checklist non è validata.
+**Contenuti — scritti il 2026-07-28, PRIMA del codice (decisione di Nicola).**
+La §V2 della rev. 6 ammetteva che la porta `in-attesa` non avesse contenuti e poi
+ne pianificava comunque la costruzione. Il debito è stato saldato prima:
+
+| Cosa | Dov'è ora | Note |
+|---|---|---|
+| Porta `in-attesa` | **`js/atenei/<ateneo>/dati-attesa.js`**, globale `ATTESA_INFO` | `titolo`, `sottotitolo`, `quantoDura`, `tappe[]`, `intanto[]`, `attenzione[]`, `esempioCiclo`, `fonte` |
+| Checklist Sapienza | `dati-postselezione.js` — **da 5 provvisorie a 31 validate** | fonte: *Informazioni generali studenti Erasmus outgoing A.A. 2025/26*, Settore Erasmus |
+| Capitoli dello zaino Sapienza | **risolti** | le 5 voci vecchie non avevano `gruppoZaino`: cadevano tutte nel fallback «Prima» (`app.js:2486`) e i capitoli «Durante» e «Dopo» restavano vuoti |
+
+`ATTESA_INFO` è già caricato per entrambi gli atenei (`registro.js` → `contorno`,
+`carica-atenei.js` → `attesa`) e **non è ancora consumato da nessuno**: V2 lo
+legge, non lo inventa.
+
+> ⚠️ **Tre asimmetrie che V2 eredita e non deve appiattire.**
+> **(1)** Alla Sapienza la graduatoria esce in **due tempi** (provvisoria →
+> definitiva) e c'è una **seconda finestra** di candidatura; a Ca' Foscari la
+> graduatoria è una sola, con lista di **riserve** e **ripescaggi**. La porta
+> `in-attesa` racconta procedure diverse per ateneo: è per questo che
+> `ATTESA_INFO` è per-ateneo e non condiviso.
+> **(2)** La finestra per accettare la sede alla Sapienza **la fissa la Facoltà**
+> (Economia 5 giorni, CoRIS 7): nessun contenuto scrive un numero unico.
+> **(3)** Ca' Foscari ha ora **20** voci post-selezione contro le **31** della
+> Sapienza: l'asimmetria si è **invertita** e le 20 meritano una rilettura
+> sull'originale, non una copia da qui.
 
 **Criterio di uscita.** Le 6 tappe navigabili da tocco e tastiera; fixture di
 migrazione verdi per **ogni input legacy elencato sopra** (2 valori vecchi +
 assente + sconosciuto + contenitore corrotto + zaino piatto) × 2 atenei × con/senza
 `la`); uno zaino `selezionato` con accettazione non spuntata apre
-sull'**accettazione**, non sul LA.
+sull'**accettazione**, non sul LA; la porta `in-attesa` mostra `ATTESA_INFO`
+dell'ateneo attivo e **su nessun ateneo mostra una sezione vuota**; le suite
+restano verdi (oggi **33/33** unit, **15/15** UI) e il **diff visivo resta nullo**
+sulle sei invarianti DOM.
 
 **Rischio.** ALTO — la fase che tocca più `js/app.js` e `index.html`.
+
+> 🔻 **Se V2 si delega con `/codex-build`, questi divieti vanno in cima al
+> prompt.** Il primo tentativo su V1 ha riconosciuto la procedura stessa, ha
+> lanciato copie ricorsive di sé sullo stesso albero e ha poi terminato 13
+> processi, il proprio compreso (cronaca in `PLAN_REDESIGN_V3-LOG.md` §Act 3):
+> **non invocare `codex` né alcuna procedura di delega**; **non terminare
+> processi** (`Stop-Process`, `kill`, `taskkill`); **non toccare `.git/`**;
+> **nessun processo persistente** (server, watcher, task pianificati) — l'unico
+> server ammesso è quello avviato e fermato da `npm run test:ui`.
+> E due divieti specifici di V2: **non applicare trasformazioni meccaniche al
+> campo `fase`** senza distinguere `ZAINO.fase` da `voce.fase`; **non riscrivere
+> i file dati** — i contenuti sono già validati sulle fonti e non vanno «migliorati».
 
 ### V3 — Entrata a tutta pagina 🔴 online entro il 15 novembre (ottobre)
 

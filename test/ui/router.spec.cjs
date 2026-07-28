@@ -133,6 +133,70 @@ test("10 navigazioni, 10 Indietro e 10 Avanti conservano URL, schermata e fuoco"
   expect(errori).toEqual([]);
 });
 
+test("ri-cliccare la voce attiva non muove ne' il fuoco ne' la pagina (F6)", async ({ page }) => {
+  const errori = raccogliErrori(page);
+  await page.addInitScript(() => {
+    window.__scrollF6 = [];
+    const scrollToNativo = window.scrollTo;
+    window.scrollTo = function (...argomenti) {
+      window.__scrollF6.push(argomenti[0]);
+      return scrollToNativo.apply(this, argomenti);
+    };
+  });
+  await preparaAvvioFreddo(page);
+  await page.goto(PAGINA, { waitUntil: "domcontentloaded" });
+  await navigaDallInterfaccia(page, "mete");
+
+  // Si porta la pagina in uno stato che un riclic NON deve rimettere a posto:
+  // fuoco fuori dalla sezione e pagina scesa. Senza questo la prova passerebbe
+  // anche con un router che rifa' tutto da capo.
+  await page.keyboard.press("Tab");
+  await page.evaluate(() => window.scrollTo({ top: 400, behavior: "auto" }));
+  const prima = await page.evaluate(() => {
+    window.__scrollF6 = []; // lo scroll di preparazione non e' sotto esame
+    return { voci: history.length, y: Math.round(window.scrollY) };
+  });
+  expect(prima.y, "la pagina deve poter scorrere, o la prova non prova niente")
+    .toBeGreaterThan(0);
+
+  // (a) riclic dall'interfaccia. La nav prende il fuoco come qualunque
+  //     bottone — e' il browser, non il router: quel che conta e' che la
+  //     SEZIONE non se lo riprenda e che la pagina non risalga.
+  await page.locator('.nav-item[data-tab="mete"]').click();
+  const dopoClic = await page.evaluate(() => ({
+    hash: location.hash,
+    voci: history.length,
+    y: Math.round(window.scrollY),
+    sezioneHaIlFuoco: document.activeElement?.id === "tab-mete",
+    chiamateScroll: window.__scrollF6.length,
+  }));
+  expect(dopoClic.hash).toBe("#mete");
+  expect(dopoClic.voci, "la cronologia non si sporca").toBe(prima.voci);
+  expect(dopoClic.y, "la pagina non risale").toBe(prima.y);
+  expect(dopoClic.sezioneHaIlFuoco, "la sezione non si riprende il fuoco").toBe(false);
+  expect(dopoClic.chiamateScroll, "nessuno scroll richiesto").toBe(0);
+
+  // (b) la stessa regola chiesta al router in purezza: senza il clic di mezzo,
+  //     il fuoco su un controllo qualunque deve restare esattamente dov'e'.
+  await page.keyboard.press("Tab");
+  await page.evaluate(() => { document.activeElement.dataset.f6 = "1"; });
+  const dopoRouter = await page.evaluate(() => {
+    const esito = window.vaiA("mete");
+    return {
+      esito,
+      fuocoFermo: document.activeElement?.dataset.f6 === "1",
+      y: Math.round(window.scrollY),
+      chiamateScroll: window.__scrollF6.length,
+    };
+  });
+  expect(dopoRouter.esito, "la rotta e' valida...").toBe(true);
+  expect(dopoRouter.fuocoFermo, "...ma non tocca il fuoco").toBe(true);
+  expect(dopoRouter.y).toBe(prima.y);
+  expect(dopoRouter.chiamateScroll).toBe(0);
+
+  expect(errori).toEqual([]);
+});
+
 test("il drawer restituisce il fuoco, poi la destinazione o la tendina prevalgono", async ({ page }) => {
   await preparaAvvioFreddo(page);
   await page.goto(PAGINA, { waitUntil: "domcontentloaded" });
