@@ -4,29 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 357,
+  "runCompletati": 358,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "scienze politiche (sapienza)-batch-followup-1",
-      "priorita": 6,
-      "dipartimento": "Scienze Politiche (Sapienza)",
-      "descrizione": "Scienze Politiche (Sapienza) - follow-up pending",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "F  PARIS054",
-        "F  MARSEIL55",
-        "F  NANTES01",
-        "D  CHEMNIT01",
-        "D  FRANKFU08",
-        "PL WARSZAW68",
-        "D  BAYREUT01"
-      ]
-    },
     {
       "id": "scienze politiche (sapienza)-batch-followup-2",
       "priorita": 6,
@@ -673,6 +657,19 @@
       "mete": [
         "D  BERLIN20"
       ]
+    },
+    {
+      "id": "scienze politiche (sapienza)-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Scienze Politiche (Sapienza)",
+      "descrizione": "Scienze Politiche (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F  MARSEIL55",
+        "F  NANTES01",
+        "D  FRANKFU08",
+        "PL WARSZAW68"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -1075,7 +1072,6 @@
       "pendingScadenze": [
         "F  MARSEIL55",
         "F  NANTES01",
-        "D  CHEMNIT01",
         "D  FRANKFU08",
         "PL WARSZAW68",
         "PL KRAKOW05",
@@ -1083,31 +1079,32 @@
         "HU PECS01"
       ],
       "pendingLingua": [
-        "F  PARIS054",
-        "F  MARSEIL55",
-        "F  NANTES01",
-        "D  CHEMNIT01",
-        "D  FRANKFU08",
-        "PL WARSZAW68",
         "PL KATOWIC01",
         "PL KRAKOW05",
         "HU GYOR01",
         "HU PECS01"
       ],
       "tentativiLingua": {
-        "F  PARIS054": 1,
-        "F  MARSEIL55": 1,
-        "F  NANTES01": 1,
-        "D  CHEMNIT01": 1,
-        "D  FRANKFU08": 1,
-        "PL WARSZAW68": 1,
+        "F  PARIS054": 2,
+        "F  MARSEIL55": 2,
+        "F  NANTES01": 2,
+        "D  CHEMNIT01": 2,
+        "D  FRANKFU08": 2,
+        "PL WARSZAW68": 2,
         "PL KATOWIC01": 1,
         "PL KRAKOW05": 1,
         "RO TARGU02": 1,
         "HU GYOR01": 1,
         "HU PECS01": 1
       },
-      "linguaNonTrovabile": [],
+      "linguaNonTrovabile": [
+        "F  PARIS054",
+        "F  MARSEIL55",
+        "F  NANTES01",
+        "D  CHEMNIT01",
+        "D  FRANKFU08",
+        "PL WARSZAW68"
+      ],
       "ateneo": "Sapienza Roma"
     },
     "Ingegneria elettronica e comunicazioni - DIET (Sapienza)": {
@@ -4144,6 +4141,12 @@
       "data": "2026-07-28",
       "mete": 1,
       "note": "Psicologia e Servizio Sociale (Sapienza) psicologia e servizio sociale (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 358,
+      "data": "2026-07-28",
+      "mete": 7,
+      "note": "Scienze Politiche (Sapienza) scienze politiche (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

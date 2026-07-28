@@ -89,7 +89,7 @@ var METE = [
 
     notaDisponibilita: "Lo status di studente in scambio è rivolto esclusivamente a studenti di livello Master e Dottorato.",
 
-    notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70105."
+    notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70105. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-polit-marseil",
@@ -110,7 +110,7 @@ var METE = [
     linkSito: "https://www.sciencespo-aix.fr/",
     linkCatalogo: "https://www.sciencespo-aix.fr/international/etudier-a-sciences-po-aix/cours/",
 
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70094."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70094. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-polit-angers",
@@ -156,7 +156,7 @@ var METE = [
 
     linkCatalogo: "https://www.univ-nantes.fr/international/venir-a-nantes/incoming-exchange-students-class-catalog",
 
-    notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70098."
+    notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70098. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-polit-regensb",
@@ -226,9 +226,12 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application (semestre estivo)", periodo: "da meta dicembre al 15 gennaio" },
+        { cosa: "Application (semestre invernale)", periodo: "da meta maggio al 15 luglio" }
+      ],
     linkSito: "https://www.tu-chemnitz.de/",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70061."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70061. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-polit-bayreut",
@@ -306,7 +309,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.euv-frankfurt-o.de",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70065."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70065. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-polit-warszaw",
@@ -325,7 +328,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.akademia.mil.pl/",
-    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71533."
+    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71533. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-polit-katowic",
