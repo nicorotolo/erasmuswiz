@@ -45,6 +45,21 @@ sono stati toccati. Emersa un'incoerenza nella baseline: il README dichiara
 onboarding completato ma per Oggi elenca il blocco di benvenuto; con quella
 fixture il codice pre-V1 mostra invece i quattro blocchi della home profilata.
 
+**Online il 28/07 con `5eed20f`**, rebasato sopra il lotto notturno e con
+entrambe le suite rieseguite dal revisore dopo il rebase. Tre cose da sapere,
+tutte argomentate in `PLAN_REDESIGN_V3-LOG.md` §Act 3. (1) **La spec era
+incompleta e non per una svista**: il §V1 chiedeva un contratto del fuoco
+ammettendo nella riga dopo che non esisteva, quindi è stato scritto PRIMA di
+delegare (`e6411ba`) — e scrivendolo sono emersi due difetti già in produzione,
+lo scroll sempre `smooth` di `app.js:531` e `chiudiDrawer()` che si riprende il
+fuoco. (2) **Il primo giro di Codex si è auto-terminato**: ha riconosciuto a sua
+volta la procedura `/codex-build`, ha lanciato copie ricorsive di sé sullo stesso
+albero e poi ha fatto `Stop-Process` su 13 PID, il proprio compreso. Nessun danno
+al repo; il secondo giro, con divieti espliciti nel prompt, è filato. (3) **Una
+decisione di prodotto era stata cancellata dall'esecutore**: la scorciatoia
+«Cambia ateneo» → tendina della sessione 53, rimossa per far quadrare F9 quando
+il conflitto si risolveva con l'ordine. Ripristinata e ora coperta da una prova.
+
 **(SESSIONE 2026-07-27 — V0 «Il motore di compatibilità smette di mentire»
 IMPLEMENTATA, riesaminata e aggiornata con una deroga esplicita di prodotto
 decisa da Nicola.)** Creato `js/puro.js`, unico
@@ -3479,7 +3494,7 @@ Roadmap: UX1 spuntata. Prossima sessione: UX2 (home-percorso + nav a 3 tab).)
 
 **Ultimo aggiornamento precedente:** 2026-06-25 (MERGE GitHub→locale: i dati mappati da Codex su GitHub (che la copia locale non aveva) sono stati portati nel working tree mantenendo il design v2. Catalogo passato da 134 a **249 mete su 5 dipartimenti**: Economia 58, Management 76, Lingue 24, Scienze 25, Filosofia 66. I 3 nuovi file dati (`dati-mete-lingue.js`, `dati-mete-scienze.js`, `dati-mete-filosofia.js`) collegati in `index.html` con la catena di concat `_meteAll`; tutti i 5 file mete convertiti a `var METE`. ATTENZIONE: il merge NON è stato fatto via git (working tree su branch `feature/pipeline-imbuto` con modifiche non committate + lock OneDrive su `.git`); i file dati sono stati estratti con `git show origin/main:...`. Backup pre-merge in `_backup-20260625-*/`.)
 **Fase raggiunta:** prodotto statico multi-ateneo e redesign v2 completati; piano
-v3: **V0 ✅ online, V1 ✅ implementata e verificata in working tree, V2 ▶ prossima**.
+v3: **V0 ✅ online, V1 ✅ online (`5eed20f`), V2 ▶ prossima**.
 Cataloghi correnti: 392 mete Ca' Foscari + 1.595 Sapienza.
 **Cosa funziona:** tutto, validato (node --check su tutti i JS); mete REALI su 8 dipartimenti Ca' Foscari; bando, scadenze e checklist VALIDATI sul PDF ufficiale. Completezza lingua per dipartimento:
 Economia 52/58; Management 71/76; Lingue 23/24; Scienze 23/25; Filosofia 56/66;
@@ -3817,8 +3832,10 @@ piano operativo del cantiere SITO da agosto 2026 a marzo 2027 è
 
 0. ✅ **V0 — Lingue e livelli COMPLETATA e online.** Debito residuo:
    71 `rootPresunta`, da revisionare con fonti ufficiali.
-1. ✅ **V1 — Router esteso COMPLETATA in working tree.** Gate: 33/33 unit e
-   14/14 UI; nessuna modifica a CSS o dati.
+1. ✅ **V1 — Router esteso COMPLETATA e ONLINE** (`5eed20f`, 28/07). Gate: 33/33
+   unit e 14/14 UI, rieseguiti dal revisore anche dopo il rebase sul lotto
+   notturno; nessuna modifica a CSS o dati. Debito dichiarato: **F6** (ri-cliccare
+   la voce attiva non muove nulla) è implementata ma **non provata**.
 2. ▶️ **V2 — Stepper a 6 tappe, 3 porte, migrazione zaino con doppio ciclo.**
 3. **V4 Home «Adesso» → V3 Entrata** (in quest'ordine: lo stato pre-bando nasce
    in V4 ed è ciò che supera il gate G1) · **V5 Retention** — 🔴 **prima che esca
