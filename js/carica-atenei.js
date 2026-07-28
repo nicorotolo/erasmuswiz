@@ -6,10 +6,11 @@
 // Galaxy S21 in 4G, scheda in incognito: 7 secondi al primo avvio. Uno studente
 // di Ca' Foscari scaricava le 1.595 mete della Sapienza per non guardarle mai.
 //
-// LA REGOLA. Si carica UN ateneo solo: quello attivo. L'ateneo attivo si sa
-// prima di qualunque dato (`erasmuswiz_ateneo` in localStorage, una sola fonte
-// di verita' dalla sessione 54/R1.3), e label e disponibilita' degli ALTRI
-// arrivano da js/atenei/registro.js senza scaricarne le mete.
+// LA REGOLA. Si carica UN ateneo solo: quello attivo. Di norma arriva da
+// `erasmuswiz_ateneo`; una rotta profonda puo' indicarne uno per il solo
+// caricamento corrente, senza cambiare la scelta salvata dello studente.
+// Label e disponibilita' degli ALTRI arrivano da js/atenei/registro.js senza
+// scaricarne le mete.
 //
 // L'ECCEZIONE, ed e' il punto delicato. La migrazione dello zaino vecchio
 // (R1.3, `migraZainoLegacy` in app.js) attribuisce ogni chiave all'ateneo che
@@ -39,9 +40,38 @@
     try { return store.getItem(chiave); } catch (e) { return null; }
   }
 
+  // Questo controllo vive qui, prima dei dati e prima di puro.js: aspettare il
+  // router di app.js farebbe caricare il dataset sbagliato nei link condivisi.
+  // Accettiamo la forma preparata da V1 (uno o due livelli + ateneo) e
+  // convalidiamo la coda contro il registro, senza mai persisterla.
+  function ateneoDaHash() {
+    var pulito = String(location.hash || "").replace(/^#/, "").trim();
+    if (!pulito || pulito.charAt(0) === "/") return null;
+    var segmentiGrezzi = pulito.split("/");
+    if (segmentiGrezzi.length < 2 || segmentiGrezzi.length > 3) return null;
+    var segmenti = [];
+    for (var i = 0; i < segmentiGrezzi.length; i += 1) {
+      var segmento;
+      try {
+        segmento = decodeURIComponent(segmentiGrezzi[i]).trim().toLowerCase();
+      } catch (e) {
+        return null;
+      }
+      if (!segmento || /[\/#]/.test(segmento)) return null;
+      segmenti.push(segmento);
+    }
+    var candidato = segmenti.pop();
+    var voce = ATENEI_REGISTRO[candidato];
+    return (voce && voce.disponibile && segmenti.length <= 2)
+      ? candidato
+      : null;
+  }
+
   // Quale ateneo serve. Uno sconosciuto o non disponibile (dati cambiati sotto
   // i piedi) non blocca l'avvio: si torna al predefinito.
   function ateneoAttivo() {
+    var dallHash = ateneoDaHash();
+    if (dallHash) return dallHash;
     var salvato = leggi(localStorage, CHIAVE_ATENEO);
     var voce = ATENEI_REGISTRO[salvato];
     return (voce && voce.disponibile) ? salvato : ATENEO_PREDEFINITO;

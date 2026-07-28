@@ -24,6 +24,59 @@
     return value == null ? "" : String(value).trim();
   }
 
+  // Interpreta la sola forma dell'indirizzo, senza leggere browser, DOM o
+  // registro globale. Le rotte profonde possono avere uno o due livelli e,
+  // in coda, la chiave di un ateneo noto. La registrazione resta separata:
+  // capire `mete/scelte/sapienza` non significa renderla navigabile prima
+  // che V6 costruisca davvero quella schermata.
+  function destDaHash(grezzo, configurazione) {
+    var opzioni = configurazione || {};
+    var pulito = testo(grezzo).replace(/^#/, "");
+    if (!pulito || pulito.charAt(0) === "/") return null;
+
+    var segmentiGrezzi = pulito.split("/");
+    if (segmentiGrezzi.length > 3) return null;
+
+    var segmenti = [];
+    for (var i = 0; i < segmentiGrezzi.length; i += 1) {
+      var segmento;
+      try {
+        segmento = decodeURIComponent(segmentiGrezzi[i]);
+      } catch (e) {
+        return null;
+      }
+      segmento = testo(segmento).toLocaleLowerCase("it");
+      // Segmenti vuoti o una barra nascosta tramite percent-encoding
+      // renderebbero ambiguo il numero reale di livelli.
+      if (!segmento || /[\/#]/.test(segmento)) return null;
+      segmenti.push(segmento);
+    }
+
+    var ateneiValidi = (opzioni.ateneiValidi || [])
+      .map(function (chiave) { return testo(chiave).toLocaleLowerCase("it"); });
+    var ateneo = null;
+    if (segmenti.length >= 2 &&
+        ateneiValidi.indexOf(segmenti[segmenti.length - 1]) >= 0) {
+      ateneo = segmenti.pop();
+    }
+    if (segmenti.length < 1 || segmenti.length > 2) return null;
+
+    var rotta = segmenti.join("/");
+    var alias = opzioni.aliasHash || {};
+    var canonica = testo(alias[rotta] || rotta).toLocaleLowerCase("it");
+    var registrate = (opzioni.destinazioniValide || [])
+      .map(function (destinazione) {
+        return testo(destinazione).toLocaleLowerCase("it");
+      });
+
+    return {
+      rotta: canonica,
+      segmenti: segmenti.slice(),
+      ateneo: ateneo,
+      destinazione: registrate.indexOf(canonica) >= 0 ? canonica : null
+    };
+  }
+
   function chiaveLingua(value) {
     return testo(value).toLocaleLowerCase("it");
   }
@@ -591,6 +644,7 @@
   return Object.freeze({
     SCALA_CEFR: SCALA_CEFR,
     ESITI_LINGUA: ESITI_LINGUA,
+    destDaHash: destDaHash,
     livelloCefr: livelloCefr,
     requisitiLinguaNormalizzati: requisitiLinguaNormalizzati,
     foglieRequisitoLingua: foglieRequisitoLingua,

@@ -38,7 +38,8 @@
     <!-- ====================================================
          TAB: OGGI — "La missione di oggi"
     ==================================================== -->
-    <section id="tab-oggi" class="tab-pane attivo">
+    <section id="tab-oggi" class="tab-pane attivo" tabindex="-1"
+             aria-labelledby="titolo-tab-oggi-benvenuto">
 
       <!-- ================================================
            BENVENUTO (primo contatto) — mappa-hero (Fase C2)
@@ -176,7 +177,8 @@
     <!-- ====================================================
          TAB: METE
     ==================================================== -->
-    <section id="tab-mete" class="tab-pane nascosto">
+    <section id="tab-mete" class="tab-pane nascosto" tabindex="-1"
+             aria-labelledby="titolo-tab-mete">
       <div class="sezione-header">
         <h2 class="sezione-titolo">🗺️ Mete disponibili</h2>
         <p class="sezione-sottotitolo" id="intro-mete-v2">Compila il profilo per vedere le mete ordinate per compatibilità.</p>
@@ -228,7 +230,8 @@
          Gli hash storici #checklist, #idoneita e #timeline sono alias
          permanenti di #percorso (contratto in js/app.js).
     ==================================================== -->
-    <section id="tab-percorso" class="tab-pane nascosto">
+    <section id="tab-percorso" class="tab-pane nascosto" tabindex="-1"
+             aria-labelledby="titolo-tab-percorso">
       <div class="sezione-header">
         <h2 class="sezione-titolo">🧭 Il tuo percorso</h2>
         <p class="sezione-sottotitolo">Le tappe burocratiche del tuo Erasmus, in ordine. Quello che spunti resta salvato sul tuo dispositivo.</p>
@@ -354,7 +357,8 @@
     <!-- ====================================================
          TAB: PROFILO (accessibile da JS, non nella nav)
     ==================================================== -->
-    <section id="tab-profilo" class="tab-pane nascosto">
+    <section id="tab-profilo" class="tab-pane nascosto" tabindex="-1"
+             aria-labelledby="titolo-tab-profilo">
       <div class="sezione-header">
         <h2 class="sezione-titolo">👤 Il tuo profilo</h2>
         <p class="sezione-sottotitolo">Inserisci i tuoi dati una volta: le mete si ordinano per compatibilità. I dati restano solo sul tuo dispositivo.</p>

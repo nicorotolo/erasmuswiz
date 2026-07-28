@@ -804,3 +804,62 @@ generale»*, *«per studenti incoming»* — e lì serve la scheda ufficiale.
 Gate: **28/28**, più le scansioni esaustive sul catalogo (nessuna `rootPresunta`
 nel verde, nessun ✅ prodotto da una foglia a livello ambiguo, Groningen corretto
 nelle due direzioni).
+
+---
+
+## Act 3 — Build V1 (2026-07-28), protocollo `/codex-build`
+
+**Prima della delega: la spec era incompleta, e non per una svista.** Il §V1
+chiedeva una «gestione del fuoco specificata per rotta» e ammetteva nella riga
+successiva che *non è definita da nessuna parte*. Consegnarla così sarebbe stato
+delegare una decisione di design a un esecutore. È stata scritta prima
+(commit `V1, spec: scritto il contratto del fuoco e le prove`): nove regole
+F1-F9 più una tabella per rotta. Scrivendola sono emersi due difetti già in
+produzione che il piano non aveva visto — `app.js:531` scorre sempre in
+`smooth`, ignorando `prefers-reduced-motion`, e `chiudiDrawer()` (`app.js:614`)
+si riprende il fuoco dopo che la rotta l'ha spostato — e una domanda che il
+piano lasciava aperta: **l'ateneo dell'hash non si persiste**, perché un link
+ricevuto non deve ri-domiciliare in silenzio chi il suo ateneo l'aveva già
+scelto. Sicuro solo perché gli zaini sono separati per ateneo dalla R1.3.
+
+**Decisione di Nicola sulle prove: V1 accende Playwright.** L'alternativa era
+provare il parser con `node --test` e verificare fuoco e cronologia a mano.
+Scartata: metà del criterio d'uscita sarebbe rimasta sulla parola del revisore,
+e V2 (fixture di migrazione) e V3 (prestazioni mappa) avrebbero comunque dovuto
+costruire l'impalcatura.
+
+**Round 1 — Codex si è auto-terminato.** Il processo delegato ha riconosciuto a
+sua volta la procedura `codex-build` e ha lanciato **copie ricorsive di se
+stesso**: tre `codex exec` sullo stesso albero, uno dei quali scriveva dentro
+`.git/`. Accortosene, ha eseguito `Stop-Process -Force` su tredici PID —
+**compreso il proprio** — e si è ucciso a metà lavoro, senza report. Ha
+lasciato ~180 righe corrette ma incomplete e un server statico in ascolto sulla
+8123, spento a mano. Nessun danno al repo: `.git` pulito, nessun commit.
+
+**Round 2 — con la museruola.** Sessione nuova (il thread morto non si
+resuscita), prompt che si apre con quattro divieti espliciti — non invocare
+`codex` in nessuna forma, non terminare processi, non toccare `.git/` né
+eseguire comandi git, nessun processo che sopravviva alla sessione — e con lo
+stato reale dell'albero dichiarato in apertura, così il lavoro parziale non
+viene riscritto. Esito: completo.
+
+**Verifica di Claude, non delegata.** Prove rieseguite dal revisore:
+**33/33 unitari** e **14/14 Playwright**. Il diff letto per intero. Tre rilievi:
+
+1. Il round 1 aveva **cancellato** la scorciatoia «Cambia ateneo» → tendina
+   `#select-ateneo`, che è una decisione di prodotto di Nicola della sessione 53.
+   Rimossa per far quadrare F9, quando il conflitto si risolveva con l'ordine:
+   chiusura drawer → rotta → controllo specifico per ultimo. Ripristinata nel
+   round 2, con lo `scrollIntoView` allineato a F5.
+2. **F6 non ha una prova**: che ri-cliccare la voce attiva non sposti né fuoco né
+   pagina è implementato ma non asserito. Debito dichiarato, non nascosto.
+3. L'ordine dei blocchi del tab Oggi nella prova visiva è stato **ricavato
+   misurando**, non letto dal README della baseline F0, che per quella fixture è
+   internamente incoerente (dichiara onboarding completato ma elenca il blocco di
+   benvenuto, che in quello stato è nascosto). Rischio basso — `index.html` ha
+   ricevuto solo attributi, quindi l'ordine non poteva cambiare — ma va detto:
+   per quel tab la prova certifica lo stato osservato, non quello registrato.
+
+Fuori mandato, Codex ha aggiornato anche `STATO_DEL_SITO.md`, condensando la
+riga «Fase raggiunta» che elencava le ondate storiche. Contenuto corretto;
+resta una scelta da ratificare.

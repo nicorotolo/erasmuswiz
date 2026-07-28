@@ -5,7 +5,7 @@
   "description": "Sito statico ErasmusWiz e relative prove riproducibili.",
   "scripts": {
     "test:unit": "node --test \"test/*.test.*\"",
-    "test:ui": "node -e \"console.log('non ancora implementato: arriva con V2/V3')\"",
+    "test:ui": "playwright test",
     "test:a11y": "node -e \"console.log('non ancora implementato: arriva con V2/V3')\"",
     "test:visual": "node -e \"console.log('non ancora implementato: arriva con V2/V3')\""
   },

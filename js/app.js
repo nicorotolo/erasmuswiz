@@ -462,14 +462,16 @@ const TAB_PREDEFINITO = "oggi";
 // Chi ha ancora quei link atterra dove il contenuto è finito davvero.
 const ALIAS_HASH = { timeline: "percorso", checklist: "percorso", idoneita: "percorso" };
 
-// Unico punto che interpreta una destinazione, da qualunque parte arrivi
-// (hash, data-tab, data-goto, chiamata interna). Restituisce un tab valido
-// oppure null: chi chiama non deve validare niente per conto suo.
+// Unico punto che interpreta una destinazione, da qualunque parte arrivi.
+// La forma vive in puro.js ed e' gia' capace di leggere uno o due livelli
+// con un ateneo finale; qui registriamo ancora soltanto i quattro tab V1.
 function destDaHash(grezzo) {
-  const h = String(grezzo || "").replace(/^#/, "").trim().toLowerCase();
-  if (!h) return null;
-  const dest = ALIAS_HASH[h] || h;
-  return TAB_VALIDI.includes(dest) ? dest : null;
+  const analizzata = ErasmusWizPuro.destDaHash(grezzo, {
+    destinazioniValide: TAB_VALIDI,
+    aliasHash: ALIAS_HASH,
+    ateneiValidi: Object.keys(window.ATENEI_REGISTRO || {})
+  });
+  return analizzata ? analizzata.destinazione : null;
 }
 
 // La verità su dove siamo la tiene il DOM, non una variabile parallela che
@@ -501,6 +503,49 @@ function scriviHash(tab, storia) {
   else                   history.replaceState(null, "", nuovo);
 }
 
+// Le quattro section ricevono aria-labelledby in index.html, ma i titoli
+// esistenti non avevano un id. Li nominiamo qui senza aggiungere markup e,
+// per Oggi, scegliamo il titolo realmente mostrato nel primo contatto o nella
+// home di ritorno: lo screen reader annuncia la stessa schermata che si vede.
+function preparaNomiTab() {
+  const titoli = [
+    ["#home-benvenuto .benvenuto-titolo", "titolo-tab-oggi-benvenuto"],
+    ["#tab-oggi .home-saluto", "titolo-tab-oggi-home"],
+    ["#tab-mete .sezione-titolo", "titolo-tab-mete"],
+    ["#tab-percorso .sezione-titolo", "titolo-tab-percorso"],
+    ["#tab-profilo .sezione-titolo", "titolo-tab-profilo"]
+  ];
+  titoli.forEach(([selettore, id]) => {
+    const titolo = document.querySelector(selettore);
+    if (titolo) titolo.id = id;
+  });
+  aggiornaNomeTabOggi();
+}
+
+function aggiornaNomeTabOggi() {
+  const sezione = document.getElementById("tab-oggi");
+  if (!sezione) return;
+  sezione.setAttribute(
+    "aria-labelledby",
+    ZAINO.onboardingFatto ? "titolo-tab-oggi-home" : "titolo-tab-oggi-benvenuto"
+  );
+}
+
+function portaFuocoAllaSezione(tab) {
+  if (tab === "oggi") aggiornaNomeTabOggi();
+  const sezione = document.getElementById(`tab-${tab}`);
+  if (!sezione) return;
+  // preventScroll separa le due responsabilita': prima si annuncia la nuova
+  // sezione, poi un solo comando decide se e come muovere la pagina.
+  sezione.focus({ preventScroll: true });
+}
+
+function comportamentoScrollRotta() {
+  return window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
+    ? "auto"
+    : "smooth";
+}
+
 /**
  * L'UNICA funzione di navigazione. Dipinge il tab e allinea l'URL.
  *
@@ -516,19 +561,29 @@ function scriviHash(tab, storia) {
  *           "nessuna" non tocca l'URL (rientro da Indietro/Avanti: la
  *                     cronologia l'ha già spostata il browser).
  *   scroll: torna in cima (default true, comportamento storico).
+ *   forzaFuoco: inizializza il contratto anche quando il tab Oggi era gia'
+ *               marcato attivo nell'HTML. Non si usa sui riclic della nav.
  * @returns {boolean} false se la destinazione non è nel contratto.
  */
 function vaiA(dest, opzioni = {}) {
   const tab = destDaHash(dest);
   if (!tab) return false;
-  const { storia = "push", scroll = true } = opzioni;
+  const { storia = "push", scroll = true, forzaFuoco = false } = opzioni;
 
   const cambia = tab !== tabCorrente();
   dipingiTab(tab);
   // Un push per un tab che non cambia sarebbe un Indietro che non fa niente:
   // il tasto Indietro deve sempre spostare qualcosa.
   scriviHash(tab, storia === "push" && !cambia ? "replace" : storia);
-  if (scroll) window.scrollTo({ top: 0, behavior: "smooth" });
+  // Un riclic sulla schermata attiva non sposta ne' fuoco ne' pagina. Il
+  // primo avvio e' diverso: l'HTML parte gia' su Oggi, ma il fuoco non puo'
+  // restare sul body, quindi sincronizzaDaUrl chiede esplicitamente l'avvio.
+  if (cambia || forzaFuoco) {
+    portaFuocoAllaSezione(tab);
+    if (scroll) {
+      window.scrollTo({ top: 0, behavior: comportamentoScrollRotta() });
+    }
+  }
   return true;
 }
 
@@ -540,7 +595,11 @@ function sincronizzaDaUrl({ primoAvvio = false } = {}) {
   if (tab) {
     // storia "replace": se era un alias (`#timeline`) l'URL si normalizza sul
     // nome canonico; se era già canonico, scriviHash esce subito.
-    vaiA(tab, { storia: "replace", scroll: !primoAvvio });
+    vaiA(tab, {
+      storia: "replace",
+      scroll: !primoAvvio,
+      forzaFuoco: primoAvvio
+    });
     return;
   }
   // Hash vuoto: si dipinge il predefinito ma NON si scrive niente nell'URL —
@@ -550,15 +609,24 @@ function sincronizzaDaUrl({ primoAvvio = false } = {}) {
   // ma non ha `aria-current`, quindi senza questo passaggio il primo avvio
   // restava senza la voce corrente annunciata (PLAN.md §5.6).
   if (!grezzo) {
-    vaiA(TAB_PREDEFINITO, { storia: "nessuna", scroll: false });
+    vaiA(TAB_PREDEFINITO, {
+      storia: "nessuna",
+      scroll: false,
+      forzaFuoco: primoAvvio
+    });
     return;
   }
   // Hash sconosciuto: si mostra il predefinito e si toglie dall'URL, invece di
   // lasciare `#pippo` a raccontare una schermata che non esiste.
-  vaiA(TAB_PREDEFINITO, { storia: "replace", scroll: false });
+  vaiA(TAB_PREDEFINITO, {
+    storia: "replace",
+    scroll: false,
+    forzaFuoco: primoAvvio
+  });
 }
 
 function initNav() {
+  preparaNomiTab();
   document.querySelectorAll(".nav-item[data-tab]").forEach(tab => {
     tab.addEventListener("click", e => {
       e.preventDefault();
@@ -640,6 +708,11 @@ function initDrawer() {
   document.getElementById("drawer-chiudi")?.addEventListener("click", chiudiDrawer);
   document.getElementById("drawer-overlay")?.addEventListener("click", chiudiDrawer);
 
+  // Censimento F9 (V1): queste voci e "Cambia ateneo" sono i soli punti del
+  // drawer che avviano una rotta. L'altro proprietario del fuoco che naviga e'
+  // la celebrazione dello zaino (piu' sotto). In entrambi i casi l'ordine e':
+  // chiusura/restituzione del fuoco, poi vaiA(); un eventuale controllo
+  // specifico della destinazione riceve il fuoco per ultimo.
   drawer.querySelectorAll("[data-drawer-goto]").forEach(voce => {
     voce.addEventListener("click", () => {
       chiudiDrawer();
@@ -650,12 +723,16 @@ function initDrawer() {
   document.getElementById("drawer-cambia-ateneo")?.addEventListener("click", () => {
     chiudiDrawer();
     vaiA("profilo");
-    // Il focus sulla tendina vince su quello che chiudiDrawer ha appena
-    // restituito al bottone: lo studente arriva dritto sulla scelta.
+    // "Cambia ateneo" non e' una semplice rotta Profilo: e' la scorciatoia
+    // decisa nella sessione 53. Dopo i due ripristini generici qui sopra, la
+    // tendina vince per ultima e porta lo studente direttamente alla scelta.
     const sel = document.getElementById("select-ateneo");
     if (sel) {
-      sel.focus();
-      sel.scrollIntoView({ block: "center", behavior: "smooth" });
+      sel.focus({ preventScroll: true });
+      sel.scrollIntoView({
+        block: "center",
+        behavior: comportamentoScrollRotta()
+      });
     }
   });
 
@@ -688,6 +765,7 @@ function renderHome() {
     const primoContatto = !ZAINO.onboardingFatto;
     benv.style.display = primoContatto ? "" : "none";
     tabOggi.classList.toggle("modo-benvenuto", primoContatto);
+    aggiornaNomeTabOggi();
   }
 
   const dataEl = document.getElementById("home-data");
@@ -2507,6 +2585,8 @@ function initCelebrazioneZaino() {
   const btn = document.getElementById("celebrazione-btn");
   // "Apri lo zaino →" porta DAVVERO allo zaino: la stazione "Parti" del
   // Percorso (prima di R3 lo zaino occupava il tab in cui già ci si trovava).
+  // Censimento F9: anche qui la modale restituisce il fuoco PRIMA della rotta;
+  // invertire le due chiamate permetterebbe alla chiusura di rubarlo a vaiA().
   if (btn) btn.addEventListener("click", () => {
     chiudiCelebrazioneZaino();
     vaiAStazione("partenza");

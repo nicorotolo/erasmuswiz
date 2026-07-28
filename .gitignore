@@ -20,6 +20,11 @@ chatgpt-project/
 # Dipendenze Node: mai committare, si rigenerano con npm install
 node_modules/
 
+# Artefatti di Playwright (V1): li scrive `npm run test:ui` quando una prova
+# fallisce. Sono diagnostica locale, non codice.
+test-results/
+playwright-report/
+
 # Backup locali creati durante le sessioni di sync
 _backup-*/
 
