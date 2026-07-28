@@ -4,23 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 355,
+  "runCompletati": 356,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "farmacia (sapienza)-batch-followup-2",
-      "priorita": 6,
-      "dipartimento": "Farmacia (Sapienza)",
-      "descrizione": "Farmacia (Sapienza) - follow-up pending",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "TR VAN01"
-      ]
-    },
     {
       "id": "psicologia e servizio sociale (sapienza)-batch-followup-1",
       "priorita": 6,
@@ -953,10 +943,9 @@
       "fileJs": "js/atenei/sapienza/dati-mete-farmacia.js",
       "stato": "in_corso",
       "totale": 62,
-      "completate": 43,
+      "completate": 44,
       "pendingScadenze": [
-        "F  COMPIEG05",
-        "TR VAN01"
+        "F  COMPIEG05"
       ],
       "pendingLingua": [],
       "tentativiLingua": {
@@ -971,8 +960,7 @@
         "P  BRAGANC01": 2,
         "RO BUCURES09": 2,
         "E  SANTIAG01": 2,
-        "E  PALMA01": 2,
-        "TR VAN01": 6
+        "E  PALMA01": 2
       },
       "linguaNonTrovabile": [
         "BG SOFIA11",
@@ -4144,6 +4132,12 @@
       "data": "2026-07-28",
       "mete": 1,
       "note": "Farmacia (Sapienza) farmacia (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 356,
+      "data": "2026-07-28",
+      "mete": 1,
+      "note": "Farmacia (Sapienza) farmacia (sapienza)-batch-followup-2: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

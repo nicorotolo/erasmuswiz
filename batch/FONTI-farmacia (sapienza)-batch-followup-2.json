@@ -1,9 +1,19 @@
 {
   "TR VAN01": {
-    "linkSito": {
-      "url": "https://www.yyu.edu.tr/Birimler/67",
-      "citazione": "Erasmus Ofisi",
-      "verificataIl": "2026-07-16"
+    "requisitoLingua": {
+      "url": "https://www.yyu.edu.tr/images/files/YYU_Ispanya_1.pdf",
+      "citazione": "English B1. English B1.",
+      "verificataIl": "2026-07-28"
+    },
+    "scadenzeOspitante": {
+      "url": "https://www.yyu.edu.tr/images/files/Mobility_Agreement_(INSTITUTO_POLITECNICO_DA_GUARDA)(3).pdf",
+      "citazione": "Incoming student nominations must reach the institution by: Autumn term [day/month] 30/04. Spring term [day/month] 15/11.",
+      "verificataIl": "2026-07-28"
+    },
+    "linkCatalogo": {
+      "url": "https://www.yyu.edu.tr/Birimler/19/sayfalar/7973",
+      "citazione": "Ders içeriklerine aşağıdaki linkten ulaşabilirsiniz. http://bilgipaketi.yyu.edu.tr/DereceProgramlari/0",
+      "verificataIl": "2026-07-28"
     }
   }
 }

@@ -1456,10 +1456,18 @@ var METE = [
       { numero: 2, mesi: 6, livello: "L", note: "" },
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: { op: "ALL", figli: [
+        { lingua: "Inglese", livello: "B1" }
+      ], fonte: "https://www.yyu.edu.tr/images/files/YYU_Ispanya_1.pdf", verificatoIl: "2026-07-28" },
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 30 aprile" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" }
+      ],
     linkSito: "https://www.yyu.edu.tr/Birimler/67",
+
+    linkCatalogo: "http://bilgipaketi.yyu.edu.tr/DereceProgramlari/0",
+
 
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
