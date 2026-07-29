@@ -122,20 +122,32 @@ numeri muoiono al primo commit (è già successo alla §V2 del piano).
 
 ---
 
-## 3. Cosa NON è ancora deciso (e V4 deve decidere)
+## 3. Le tre domande aperte — **decise il 2026-07-29 in `PLAN_REDESIGN_V3.md` §V4**
 
-1. **Lo stato pre-bando non esiste come valore.** `statoBando()` oggi torna
-   `aperto` / `dati-scaduti` / `non-pubblicato`. «Pre-bando» ≈ `dati-scaduti`,
-   ma non è la stessa cosa: *scaduto* descrive i dati, *pre-bando* descrive il
-   momento dello studente. V4 deve dire se è un quarto stato o una lettura di
-   `dati-scaduti` + `cicloPercorso ≠ cicloDati`.
-2. **Nascondere o etichettare?** La tabella §2 propone una colonna, non la
-   decide. Regola suggerita: si **nasconde** ciò che chiede un'azione ormai
-   impossibile (countdown, `.ics`, prossimo passo), si **etichetta** ciò che
-   resta informativo (requisiti, timeline, scadenze ospitante).
-3. **`meta.scadenzeOspitante` non ha un flag di ciclo.** Etichettarlo richiede
-   o un campo nuovo nei dati (≈1.900 mete Sapienza + 392 Ca' Foscari) o
-   un'etichetta generica sulla sezione. La seconda è l'unica sostenibile ora.
+> Questa sezione non è più una lista di dubbi: è il verbale delle decisioni.
+> La spec vincolante è §V4, qui c'è solo il rimando.
+
+1. **Lo stato pre-bando non esisteva come valore.** → **D‑V4.1: è una lettura,
+   non un valore nuovo.** `statoBando()` non si tocca.
+   ⛔ **Correzione a questo stesso documento**: `statoBando()` ha **quattro**
+   valori, non tre — `aperto` / **`chiuso-ciclo-attivo`** / `dati-scaduti` /
+   `non-pubblicato` — e oggi il sito è su **`chiuso-ciclo-attivo`**, perché
+   `fineCiclo` (2027‑07‑31) è futura. `dati-scaduti` scatta il **1° agosto
+   2027**: leggere il pre-bando da lì, come proponeva questa riga, avrebbe
+   prodotto uno stato che **non si accende mai** da agosto a dicembre.
+2. **Nascondere o etichettare?** → **D‑V4.2: si etichetta, non si nasconde.**
+   Deciso da Nicola contro la raccomandazione della regola suggerita qui sotto.
+   Tre forme ammesse e nessuna quarta: **etichetta** · **riscrittura al passato**
+   · **disattivazione spiegata**.
+   ⚠️ **La colonna «In pre-bando deve» della §2 è superata**: dove dice «non
+   mostrare» (punti 5, 8, 10, 11, 12, 13) vale la tabella di §V4 §2.
+3. **`meta.scadenzeOspitante` non ha un flag di ciclo.** → **D‑V4.3: etichetta
+   di sezione**, zero file dati toccati (li riscrive l'automazione notturna).
+
+Una quarta decisione, che questo inventario non aveva visto: **D‑V4.4** — le 18
+voci `condizionale` dei `dati-postselezione.js` si dividono in tre famiglie
+(`condizione` / `opzione` / `avvertenza`) e il denominatore dell'avanzamento
+diventa personalizzato, con due domande nuove nel profilo.
 
 ---
 
@@ -156,11 +168,13 @@ numeri muoiono al primo commit (è già successo alla §V2 del piano).
 Quello che **diventa eseguibile con V4**, e senza cui G1 non è superato:
 
 - **T5** per ciascuno dei 19 punti, in stato pre-bando, il testo reso non
-  contiene nessuno dei valori di §1 se non dentro un'etichetta «storico». È la
+  contiene nessuno dei valori di §1 se non dentro un'etichetta di ciclo. È la
   prova che il piano descrive: *«un testo 2026/27 rimasto in un tooltip deve
-  far fallire la prova»*. Oggi non è scrivibile perché lo stato pre-bando
-  nasce in V4: **T5 è la definizione del criterio di uscita di V4**, non un
-  test rinviabile.
+  far fallire la prova»*. **T5 è la definizione del criterio di uscita di V4**,
+  non un test rinviabile.
 
-> **Stato del gate al 2026-07-28: NON superato.** T1–T4 verdi, T5 non
-> scrivibile. G1 resta aperto fino a V4.
+> **Stato del gate al 2026-07-29: NON superato, ma T5 è ora scrivibile.**
+> T1–T4 verdi. Lo stato pre-bando ha una definizione (`modoCiclo`, §V4 §1) e
+> ogni punto di render ha una forma decisa (§V4 §2): T5 non è più bloccato da
+> una decisione mancante, è lavoro di V4. G1 resta aperto fino a T5 verde,
+> **provato per mutazione**.

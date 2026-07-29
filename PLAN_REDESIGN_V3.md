@@ -749,35 +749,294 @@ transizioni senza perdere informazione.
 
 ### V4 — Home «Adesso» + stato pre-bando (ottobre)
 
+> **SPEC CONGELATA il 2026-07-29**, su `fbfd73e`. Le quattro decisioni che la
+> rev. 6 lasciava aperte (`INVENTARIO_G1.md` §3) sono **prese qui**: D‑V4.1…
+> D‑V4.4, ognuna decisa da Nicola dopo misura sul codice. Da qui in giù non ci
+> sono domande: è delegabile a `/codex-build`.
+>
+> Ancoraggi: **frammenti di codice, non numeri di riga** — §V2 ha già citato
+> righe morte una volta. I numeri fra parentesi valgono al 2026-07-29 e servono
+> solo a ritrovare il posto.
+
+#### §0. La correzione misurata che cambia il progetto
+
+⛔ **`statoBando()` ha QUATTRO valori, non tre** (app.js, blocco commentato
+*«Stato del bando a QUATTRO valori (R2, PLAN.md §R2.5)»*): `aperto` ·
+`chiuso-ciclo-attivo` · `dati-scaduti` · `non-pubblicato`. L'inventario §3.1 ne
+elencava tre e proponeva di leggere il pre-bando come *«`dati-scaduti` +
+`cicloPercorso ≠ cicloDati`»*.
+
+**Quella lettura non si accenderebbe mai nella finestra per cui V4 esiste.**
+Misurato: le due chiusure candidature (`sap-chiusura1` 2026‑02‑27,
+`sap-chiusura2` 2026‑05‑27; Ca' Foscari 2026‑02‑25) sono **passate**, ma
+`SCADENZE_INFO.fineCiclo` è **`2027-07-31T23:59`**, cioè **futura**. Quindi
+oggi, e da qui a tutto luglio 2027, `statoBando()` vale
+**`chiuso-ciclo-attivo`**. `dati-scaduti` scatta il **1° agosto 2027** — mesi
+*dopo* l'uscita del bando 2027/28, cioè quando il pre-bando non serve più.
+
+Questo è il motivo per cui la sessione del 29/07 si è fermata prima di delegare.
+
+#### §1. D‑V4.1 — Il pre-bando è una **lettura**, non un quinto valore
+
+**Deciso: due interruttori separati.** `statoBando()` **non si tocca**: resta
+deciso *solo* dai dati e dalla data di oggi, com'è scritto nel suo commento.
+Il pre-bando descrive **lo studente**, non i dati, e quindi vive altrove.
+
+**Funzione nuova, pura, in `js/puro.js`** (nome vincolante: `modoCiclo`):
+
+```
+modoCiclo({ stato, cicloDati, cicloPercorso }) → "pre-bando" | "corrente"
+```
+
+| Regola | Valore |
+|---|---|
+| `stato` ∈ {`chiuso-ciclo-attivo`, `dati-scaduti`} **E** `cicloPercorso` ≠ `cicloDati` | `"pre-bando"` |
+| ogni altro caso (compreso `aperto`) | `"corrente"` |
+| `non-pubblicato` | **`"corrente"`** — è l'assenza di dati, non il pre-bando: conserva il messaggio che ha già (*«Il nuovo bando non è ancora stato pubblicato»*) |
+| `cicloDati` o `cicloPercorso` mancanti/vuoti | `"corrente"` — non si inventa uno stato su dati assenti |
+
+**Pura davvero**: nessun `window`, nessun `localStorage`, nessun `new Date()`
+dentro. I tre valori entrano come argomenti. Provabile senza browser, come
+`faseViaggioV3` e `creaZainoV3`.
+
+**Un solo lettore in `app.js`**: `inPreBando()`, che mette insieme
+`statoBando()`, `ZAINO.cicloDati` e `ZAINO.cicloPercorso` e chiama `modoCiclo`.
+⛔ **I 19 punti di render chiamano `inPreBando()`, non ricalcolano la condizione
+ognuno a modo suo** — è la stessa regola con cui R1.6 tiene una sola
+`tappaCorrente()`.
+
+**Perché non il quinto valore**: `statoBando()` è la funzione più letta del
+motore e oggi non sa niente dello zaino. Farle leggere `ZAINO.cicloPercorso`
+renderebbe falso il contratto scritto sopra di lei e legherebbe una funzione
+dati‑only al `localStorage`. Costo di ritorno se la decisione fosse sbagliata:
+**una funzione e i suoi test**, nessun punto di render da riscrivere.
+
+#### §2. D‑V4.2 — **Si etichetta, non si nasconde**
+
+**Deciso da Nicola contro la raccomandazione di Claude**, e messo per iscritto
+qui perché sia una scelta e non una svista: **niente sparisce dallo schermo per
+il fatto di essere vecchio.** Il gate G1 dice già *«G1 non chiede di cancellare
+le date»*: questa decisione lo porta fino in fondo.
+
+**Tre forme ammesse, e nessuna quarta:**
+
+| Forma | Quando | Esempio |
+|---|---|---|
+| **ETICHETTA** | il contenuto resta vero e utile | requisiti, timeline: contenuto invariato + cartellino «storico 2026/27» |
+| **RISCRITTURA AL PASSATO** | la forma presuppone un futuro che non c'è | *«Manca 1 giorno»* → *«Scaduta da 153 giorni»* |
+| **DISATTIVAZIONE SPIEGATA** | il comando produrrebbe qualcosa di inutile | il bottone `.ics` resta **visibile e disabilitato**, con la ragione accanto |
+
+⛔ **Vietato**: nascondere un contenuto perché appartiene al ciclo vecchio.
+⛔ **Vietato**: lasciare a schermo un contenitore vuoto (lezione di V2: *«su
+nessun ateneo mostra una sezione vuota»*).
+
+> ✅ **Misurato, e riduce il lavoro**: `countdownInParole()` **non stampa numeri
+> negativi** — per una data passata dice già *«Scaduta da N giorni»* / *«Scaduta
+> oggi»*. La riscrittura al passato **esiste già**: ai punti 8, 9, 11, 12 manca
+> solo il cartellino che dica **di quale bando** è quella scadenza.
+
+**I 19 punti dell'inventario, con la forma decisa per ciascuno.** Sostituisce la
+colonna *«In pre-bando deve»* di `INVENTARIO_G1.md` §2, che proponeva
+«non mostrare» in cinque punti: **quella colonna è superata da questa tabella**.
+
+| # | Ancoraggio | Forma | Cosa fa V4 |
+|---|---|---|---|
+| 1 | `SCADENZE_INFO.fineCiclo` in `statoBando()` | — | **invariata**: è la sorgente, non un render |
+| 2 | `getElementById("badge-bando")` | ETICHETTA | in pre-bando: **«Bando 2027/28 non ancora uscito · dati 2026/27»**. Il ciclo mostrato è quello a cui punta lo studente, non quello dei dati |
+| 3 | `Il bando ${anno} è chiuso` | RISCRITTURA | **«Il bando 2027/28 non è ancora uscito»** — l'anno viene da `cicloPercorso`, non da `BANDO_INFO` |
+| 4 | `dataChiusuraCandidature()` | ETICHETTA | *«Le candidature **del 2026/27** si sono chiuse il …»* — il ciclo va scritto, oggi manca |
+| 5 | `m.prossima.cosa} — ${formattaData(` | RISCRITTURA | non c'è una prossima scadenza del 2027/28: la riga diventa *«La prossima data certa è l'uscita del bando, di solito fra dicembre e gennaio»*. **V5** ci attacca la sveglia |
+| 6 | `window.ATTESA_INFO?.titolo` | — | invariato |
+| 7 | `il prossimo esce in genere tra dicembre e gennaio` | RISCRITTURA | è **già** il testo del pre-bando: V4 lo promuove da caso limite a testo canonico dello stato, con una formulazione sola riusata in 3, 5 e 7 |
+| 8 | `settimana-item-scadenza` | — | ⚠️ **la card resta com'è oggi**: `renderSettimana()` la nasconde quando lo stato non è `aperto`, per la regola di PLAN §5.3 *«senza un ciclo di bando su cui agire il modulo si nasconde: non si simula un planner vivo»*. **Non è un nascondere introdotto da V4** ed è dichiarato qui perché resti una scelta. V4 **non** la riaccende |
+| 9 | `cand-scadenza-data` / `cand-scadenza-countdown` | ETICHETTA | intestazione di sezione **«Calendario del bando 2026/27 (concluso)»**; countdown invariato (dice già «Scaduta da…») |
+| 10 | `prossimo-passo-scadenza` | — | in pre-bando `prossimaVoceId` è già `undefined` (tutte le scadenze passate) e il badge non nasce. **Dichiarato e testato**, non lasciato al caso |
+| 11 | `el.getAttribute("data-scadenza")` | ETICHETTA | cartellino di ciclo accanto al countdown |
+| 12 | `📅 ${scad.cosa} — ${countdownInParole(c)}` | ETICHETTA | idem |
+| 13 | `function scaricaICSScadenza` | DISATTIVAZIONE SPIEGATA | per una scadenza passata il bottone resta **visibile, `disabled`**, con accanto *«Scadenza del bando 2026/27, già passata»*. **V5** lo sostituisce con «Controlla se è uscito il bando» |
+| 14 | `Dati verificati il ${new Date(infoBando.dataVerificaDati)` | ETICHETTA | è **il posto giusto** per dichiarare il ciclo dei dati: prefisso pre-bando accanto ai due che già esistono (`dati-scaduti`, `non-pubblicato`) |
+| 15 | `REQUISITI_BANDO` in `renderAutoverifica` | ETICHETTA | cartellino **di sezione**, una volta sola: *«Requisiti del bando 2026/27. Il bando 2027/28 può cambiarli: qui per farti un'idea, non per candidarti»*. **Non** uno per scheda: 8/9 cartellini sono rumore |
+| 16 | `const requisiti = REQUISITI_BANDO` (tappa 1) | ETICHETTA | il conteggio «x/y requisiti» eredita il cartellino di 15 |
+| 17 | `meta.scadenzeOspitante` | ETICHETTA | vedi **D‑V4.3** |
+| 18 | `const info = window.ATTESA_INFO \|\| {}` | — | invariato |
+| 19 | `BANDO_INFO.inVerifica` | — | invariato, indipendente da G1 |
+
+**Una sola formulazione del cartellino**, definita una volta in codice e riusata:
+i punti 2, 4, 9, 15 e 17 non possono dire la stessa cosa con cinque parole
+diverse.
+
+#### §3. D‑V4.3 — `scadenzeOspitante`: **etichetta di sezione**
+
+**Deciso: etichetta, zero file dati toccati.** Ancoraggio:
+`rigaDettaglio("Scadenze dell'università ospitante", ulS)`. Sopra l'elenco
+compare una riga sola:
+
+> *«Date del ciclo 2026/27 — l'università ospitante le ripubblica ogni anno.»*
+
+**Perché non un campo nuovo nei dati**: sono ~1.900 mete Sapienza + 392
+Ca' Foscari, e quei file **li riscrive ogni notte l'automazione di mappatura
+dall'altro PC** (`AUTOMAZIONE_GEMINI.md`). Un campo aggiunto a mano lì dentro è
+un conflitto ricorrente, e non è lavoro di V4. Costo di ritorno: **una riga**.
+
+⛔ **`js/atenei/*/dati-mete-*.js` non si tocca in V4.** Nemmeno una riga.
+
+#### §4. D‑V4.4 — Tre famiglie di voci condizionali, e un **denominatore personalizzato**
+
+**Il difetto, misurato.** `postFatto` (in `calcolaFasi()` e in
+`renderStazioni()`) conta **tutte** le voci di `CHECKLIST_POST`, mentre la
+missione usa `vociPostPromuovibili()`, che salta le `condizionale`. A
+Ca' Foscari sono **37 contro 24**: la missione può dire «completo» mentre lo
+stepper aspetta ancora 13 voci. È la stessa forma della spunta falsa che V2 ha
+chiuso, girata al contrario.
+
+**La decisione di Nicola**: le condizioni che riguardano *chi sei* si chiedono
+**nel profilo**, e nella lista entra solo ciò che ti riguarda davvero.
+
+**Misurato prima di scrivere**: le 18 voci condizionali (13 Ca' Foscari,
+5 Sapienza) **non sono la stessa cosa**. Si dividono in tre famiglie, e la
+decisione vale solo per la prima:
+
+| Tipo | Cos'è | Nel denominatore? | Promuovibile a «prossima mossa»? |
+|---|---|---|---|
+| `condizione` | dipende da **chi sei**, vero da subito | **sì, se il profilo dice di sì** | sì, se attiva |
+| `opzione` | una scelta che **forse** farai più avanti | **no** | no |
+| `avvertenza` | **non è un'azione**: è una regola da sapere | **no** — non ha una spunta | no |
+
+**Classificazione vincolante, voce per voce.** Codex **non deve dedurla dal
+testo**: è questa.
+
+| Ateneo | `condizione` | `opzione` | `avvertenza` |
+|---|---|---|---|
+| Ca' Foscari (13) | `post-la-4` (ricerca tesi) · `post-doc-8` (cittadinanza extra‑UE) | `post-acc-5` · `post-doc-2` · `post-arr-2` · `post-dur-2` · `post-dur-3` · `post-dur-4` | `post-acc-6` · `post-acc-7` · `post-la-6` · `post-rit-5` · `post-rit-7` |
+| Sapienza (5) | `sap-post-doc-7` (cittadinanza extra‑UE) | `sap-post-dur-1` · `sap-post-dur-3` | `sap-post-arr-2` · `sap-post-rit-7` |
+
+> `post-doc-2` (visto per un paese non UE) **sembra** una condizione ma dipende
+> dalla **meta**, non dallo studente: resta `opzione` finché le mete non
+> espongono il paese, che è lavoro di **V6**. Il campo lo dice nel commento.
+
+**Nei dati** (`js/atenei/*/dati-postselezione.js`): si **aggiunge** il campo
+`tipo` alle 18 voci elencate e si **lascia `condizionale: true` dov'è** — è già
+in produzione, già letto, già testato. ⛔ **Nessun testo delle voci va toccato**:
+sono contenuti validati sulle fonti il 28/07.
+
+**In codice:**
+
+- `vociPostApplicabili()` — voci **senza `tipo`** (le 24 / 26 che valgono per
+  tutti) **più** le `condizione` che il profilo attiva. È il **denominatore**:
+  lo usano `postFatto` in **entrambi** i punti e i contatori della stazione.
+- `vociPostPromuovibili()` — diventa un filtro **sopra** `vociPostApplicabili()`:
+  nessuna `opzione` e nessuna `avvertenza` può essere «la prossima mossa».
+- **Le `avvertenza` escono dalla lista dei compiti**: `renderChecklistPost()` le
+  raccoglie in un riquadro **«Da sapere prima»**, **senza casella di spunta**,
+  in cima al capitolo a cui appartengono (`gruppoZaino`). Sono le trappole che
+  costano soldi — *non laurearti prima del riconoscimento*, *non puoi rifiutare
+  un voto già nel ToR*, *l'ospitante può respingerti dopo la graduatoria* — e
+  oggi sono mescolate ai compiti come se fossero compiti.
+- Le `opzione` restano spuntabili, raccolte sotto **«Se ti riguarda»**, fuori dal
+  conteggio.
+
+**Le due domande nuove di profilo** — e sono **due**, non tredici:
+
+| Campo in `ZAINO.profilo` | Domanda | Attiva |
+|---|---|---|
+| `extraUE` | *«Hai cittadinanza extra‑UE?»* | `post-doc-8`, `sap-post-doc-7` |
+| `ricercaTesi` | *«Il tuo Erasmus è (anche) per ricerca tesi?»* | `post-la-4` |
+
+- Tre valori: `true` · `false` · **`null` = non risposto**. Con `null` la voce
+  **non** entra nel denominatore e **non** è promuovibile: non si conta come
+  fatta né come da fare. Il default onesto è non sapere.
+- **Dove si chiedono**: nel form del profilo (`#form-profilo-v2`) **e** con un
+  invito mostrato allo studente `selezionato` che non ha ancora risposto —
+  l'«indicazione» chiesta da Nicola. ⛔ **Non nell'onboarding**: chi esplora ad
+  agosto non ha ancora idea di cosa sia un OLA, e le tre domande obbligatorie
+  dell'entrata (V3) non diventano cinque.
+- ⛔ **Trappola misurata, da non ripetere**: `ZAINO.profilo` ha **due scrittori**
+  — la fine dell'onboarding (`ZAINO.profilo = { area, dipartimento, livello,
+  lingue }`) e il salvataggio del form (`ZAINO.profilo = { nome, area,
+  dipartimento, livello, lingue }`). **Entrambi riscrivono l'oggetto da zero**:
+  così com'è, il primo dei due **cancella** `extraUE` e `ricercaTesi` senza
+  dirlo. Vanno cambiati **tutti e due** nello stesso intervento.
+- **Migrazione**: uno zaino esistente non ha i due campi → valgono `null` →
+  denominatore invariato. Nessun passo di migrazione, ma la prova di
+  idempotenza va aggiunta alle fixture di V2.
+
+#### §5. La home «Adesso» — inventario dei contenuti ammessi
+
 **La regola, vincolante anche per Codex:** *nella home entra solo ciò che è vero
 adesso e per cui c'è qualcosa da fare.* Un blocco che informa senza chiedere
-un'azione **non entra**.
+un'azione **non entra**. (Vale per la **home**: nelle stazioni, per D‑V4.2, si
+etichetta e non si toglie.)
 
 **Contiene**: la tappa corrente con la barra di avanzamento **in cima** · **una**
 mossa principale · **le scadenze principali**, e una scadenza in home non è mai
 un numero ma **numero + la cosa da fare**, col collegamento al passo che la
 chiude. Senza azione collegata, non entra.
 
-**Lo stato pre-bando è il caso normale da qui a dicembre**, non un caso limite:
-finché il bando 2027/28 non esce, la home dice che non è uscito, indica la
-finestra attesa e propone l'unica azione sensata (esplorare, verificare i
-requisiti che **non** dipendono dal ciclo, **farsi avvisare** — che è V5).
-Tutto ciò che dipende dal ciclo — iscrizione 2025/26, scadenza CFU 25/02/2026,
-finestra di mobilità 2026/27 — è **nascosto o marcato «storico 2026/27, non
-valido per candidarsi al 2027/28»**. È il gate G1.
-
 **Esce**: il claim del sito (sta nell'entrata) · «Ciao, Studente» senza nome
 (→ invito a completare il profilo) · «Modifica profilo» dal blocco progresso
 (→ drawer) · «1 meta non è sulla mappa» (→ accanto alla mappa, nelle Mete) · i
 riassunti delle altre sezioni. Su telefono i due bottoni **uno sotto l'altro**.
 
-**Chi torna già selezionato** apre sulla stessa home, con la tappa corrente e la
-mossa **calcolate da `CHECKLIST_POST`** (V2), non fissate sul LA.
+**In pre-bando la home dice tre cose, in quest'ordine**: che il bando 2027/28
+non è ancora uscito · la finestra attesa (dicembre–gennaio) · l'unica azione
+sensata — esplorare le mete, e **farsi avvisare**, che è **V5**. La barra di
+avanzamento resta: misura il percorso dello studente, non il bando.
 
-**Criterio di uscita.** A 390×844 l'informazione principale è visibile **senza
-scorrere** (soglia esplicita, non «una schermata»); inventario dichiarato dei
-contenuti ammessi in home, e nessun elemento fuori inventario; le tre fasi × lo
-stato pre-bando danno home diverse e coerenti.
+**Chi torna già selezionato** apre sulla stessa home, con la tappa corrente e la
+mossa **calcolate da `CHECKLIST_POST`** (V2), non fissate sul LA — e adesso col
+denominatore di D‑V4.4.
+
+#### §6. Vincoli da tenere presenti — scritti, non dedotti
+
+⛔ **Le matrici A/B non esistono.** `cicloDati` e `cicloPercorso` sono scritti
+(`applicaPercorso` in app.js, `creaZainoV3`/`normalizzaZainoV3` in puro.js) e un
+utente nuovo nasce con `cicloPercorso` = **ciclo successivo** — che è già lo
+stato pre-bando, ed è il motivo per cui D‑V4.1 funziona. Ma
+**`indipendenteDalCiclo` ha 0 occorrenze in tutto il repo** e l'evento che
+applica le matrici **non c'è** (deviazione dichiarata di V2, rinviata a G2).
+**V4 legge i due campi per calcolare il modo e basta**: non archivia, non
+resetta, non promuove niente.
+
+⚠️ **Conseguenza da accettare, non da nascondere**: chi ha uno zaino del
+2026/27 ha `cicloPercorso === cicloDati` e quindi **non** è in pre-bando — vede
+il sito come oggi. È corretto (per lui quei dati *sono* il suo ciclo) e resta
+così fino a **G2**.
+
+#### §7. Criterio di uscita
+
+1. **T5 verde, senza `skip`**, in `test/inventario-g1.test.cjs`: per **ciascuno**
+   dei 19 punti, in stato pre-bando, nessun valore dei campi di
+   `INVENTARIO_G1.md` §1 compare **fuori** da un'etichetta di ciclo. **Finché T5
+   è skip, G1 non è superato e V3 non può uscire.** Il test va provato **per
+   mutazione**: si toglie un cartellino, T5 diventa rosso.
+2. `modoCiclo` provata su tutti e quattro i valori di `statoBando()` × ciclo
+   uguale/diverso × campi mancanti — **senza browser**.
+3. `postFatto` e la missione dicono la **stessa** cosa: uno zaino con tutte le
+   voci applicabili spuntate dà «completo» **e** stepper `fatto`, su entrambi
+   gli atenei, con `extraUE`/`ricercaTesi` a `true`, `false` e `null`.
+4. Un profilo salvato dal form **e poi** dall'onboarding conserva i due campi.
+5. Le `avvertenza` non hanno casella di spunta e non entrano in nessun conteggio.
+6. A **390×844** l'informazione principale è visibile **senza scorrere**; nessun
+   elemento fuori dall'inventario §5; le tre fasi × pre-bando/corrente danno
+   **sei** home diverse e coerenti.
+7. Suite verdi: unit (oggi **74/74** + 1 skip che qui **sparisce**) e UI (25/25).
+8. ⛔ **Si guarda il sito prima di firmare.** Tre difetti su tre sessioni sono
+   passati sotto suite verdi: le prove dicono che il codice fa ciò che il test
+   chiede, non che il prodotto dica la verità allo studente.
+
+**Rischio.** ALTO — tocca il motore (`puro.js`), 19 punti di render, i due
+scrittori del profilo e i file dati (solo il campo `tipo`).
+
+> 🔻 **Se V4 si delega con `/codex-build`, questi divieti vanno in cima al
+> prompt** (hanno funzionato su V0, V1 al secondo giro e V2): **non invocare
+> `codex` né alcuna procedura di delega**; **non terminare processi**
+> (`Stop-Process`, `kill`, `taskkill`); **non toccare `.git/`**; **nessun
+> processo persistente** — l'unico server ammesso è quello di `npm run test:ui`.
+> E quattro divieti specifici di V4: **non modificare `statoBando()`**; **non
+> toccare `js/atenei/*/dati-mete-*.js`**; **non riscrivere il testo di nessuna
+> voce dei `dati-postselezione.js`** (aggiungere `tipo`, nient'altro); **non
+> nascondere nessun contenuto perché appartiene al ciclo vecchio** — D‑V4.2
+> ammette tre forme e nessuna quarta.
 
 ### V5 — Retention 🔴 prima che esca il bando (novembre)
 
