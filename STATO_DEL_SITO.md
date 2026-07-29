@@ -3699,8 +3699,9 @@ Roadmap: UX1 spuntata. Prossima sessione: UX2 (home-percorso + nav a 3 tab).)
 
 **Ultimo aggiornamento precedente:** 2026-06-25 (MERGE GitHub→locale: i dati mappati da Codex su GitHub (che la copia locale non aveva) sono stati portati nel working tree mantenendo il design v2. Catalogo passato da 134 a **249 mete su 5 dipartimenti**: Economia 58, Management 76, Lingue 24, Scienze 25, Filosofia 66. I 3 nuovi file dati (`dati-mete-lingue.js`, `dati-mete-scienze.js`, `dati-mete-filosofia.js`) collegati in `index.html` con la catena di concat `_meteAll`; tutti i 5 file mete convertiti a `var METE`. ATTENZIONE: il merge NON è stato fatto via git (working tree su branch `feature/pipeline-imbuto` con modifiche non committate + lock OneDrive su `.git`); i file dati sono stati estratti con `git show origin/main:...`. Backup pre-merge in `_backup-20260625-*/`.)
 **Fase raggiunta:** prodotto statico multi-ateneo e redesign v2 completati; piano
-v3: **V0 ✅ online, V1 ✅ online, V2 ✅ online, V4 ✅ completata nel working
-tree; G1 ✅ superato. Prossima: revisione umana/pubblicazione, poi V3 e V5**.
+v3: **V0 ✅ online, V1 ✅ online, V2 ✅ online, V4 ✅ ONLINE (`68f571e`,
+29/07, revisionata e pubblicata); G1 ✅ superato. Prossima: V3** (🔴 online
+entro il 15 novembre), **poi V5**.
 Cataloghi correnti: 392 mete Ca' Foscari + 1.595 Sapienza.
 **Cosa funziona:** tutto, validato (node --check su tutti i JS); mete REALI su 8 dipartimenti Ca' Foscari; bando, scadenze e checklist VALIDATI sul PDF ufficiale. Completezza lingua per dipartimento:
 Economia 52/58; Management 71/76; Lingue 23/24; Scienze 23/25; Filosofia 56/66;
@@ -4067,20 +4068,28 @@ piano operativo del cantiere SITO da agosto 2026 a marzo 2027 è
    `dati-bando.js` Sapienza ancora `inVerifica: true`; le 20 voci
    post-selezione di Ca' Foscari sono ora le più magre delle due (Sapienza 31)
    e meritano una rilettura sull'originale.
-3. ✅ **V4 Home «Adesso» + stato pre-bando COMPLETATA nel working tree**
-   (29/07). G1 superato; review dei due difetti chiusa con mutazioni e suite
-   finali 90/90 unit + 33/33 UI. Restano revisione umana finale e pubblicazione.
-4. **V3 Entrata → V5 Retention** — 🔴 **prima che esca il bando**, cioè entro
-   novembre. V5 aggiungerà la sveglia promessa; V4 non l'ha anticipata.
+3. ✅ **V4 Home «Adesso» + stato pre-bando COMPLETATA e ONLINE** (`68f571e`,
+   29/07). G1 superato; review dei due difetti chiusa con mutazioni e suite
+   finali 90/90 unit + 33/33 UI, rieseguite dal revisore anche dopo il rebase
+   sul lotto notturno.
+4. **V3 Entrata a tutta pagina** — 🔴 **online entro il 15 novembre**, ora
+   sbloccata da G1. **Poi V5 Retention**, 🔴 prima che esca il bando: V5
+   aggiungerà la sveglia promessa, V4 non l'ha anticipata.
 5. **V6a Mete** (wishlist e riordino) · **G2** all'uscita del bando 2027/28 ·
    **V6b** schedina ufficiale · **V7** Learning Agreement · **V8** rifiniture.
 
 **Restano aperte, dichiarate nel piano:** il filetto di stato a sinistra (9
-selettori — si ridiscute alla fine di V4, quando il contesto sarà cambiato); le
-emoji; la guida al Learning Agreement di **Ca' Foscari, che non esiste** (l'unica
-scritta è per la Sapienza); la porta «ho fatto domanda, aspetto l'esito», che
-oggi non ha contenuto; la checklist post-selezione Sapienza (5 voci provvisorie
-contro le 20 validate di Ca' Foscari).
+selettori — si ridiscute ora che V4 è chiusa); le emoji; la guida al Learning
+Agreement di **Ca' Foscari, che non esiste** (l'unica scritta è per la
+Sapienza); le **scadenze Sapienza incomplete** (4 voci contro le 7 di
+Ca' Foscari: mancano graduatoria e accettazione, da riscontrare contro il
+Decreto 326/2026); i **71 `rootPresunta`** residui, che richiedono le schede
+ufficiali e quindi lavoro umano.
+
+> ⚠︎ **Chiuse il 28/07, non più aperte:** la porta «ho fatto domanda, aspetto
+> l'esito» ha contenuto (`ATTESA_INFO` per ateneo) e la checklist
+> post-selezione è validata su entrambi gli atenei (Ca' Foscari 37, Sapienza
+> 31).
 
 ---
 
