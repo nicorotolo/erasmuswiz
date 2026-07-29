@@ -4,29 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 359,
+  "runCompletati": 360,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "ingegneria elettronica e comunicazioni - diet (sapienza)-batch-followup-1",
-      "priorita": 6,
-      "dipartimento": "Ingegneria elettronica e comunicazioni - DIET (Sapienza)",
-      "descrizione": "Ingegneria elettronica e comunicazioni - DIET (Sapienza) - follow-up pending",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "F  LILLE91",
-        "D  HANNOVE01",
-        "D  LANDSHU01",
-        "G  PIREAS01",
-        "CH LUGANO02",
-        "TR ISTANBU63",
-        "PL CZESTOC01"
-      ]
-    },
     {
       "id": "polo di latina (sapienza)-batch-followup-1",
       "priorita": 6,
@@ -668,6 +652,19 @@
         "HU GYOR01",
         "HU PECS01"
       ]
+    },
+    {
+      "id": "ingegneria elettronica e comunicazioni - diet (sapienza)-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Ingegneria elettronica e comunicazioni - DIET (Sapienza)",
+      "descrizione": "Ingegneria elettronica e comunicazioni - DIET (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F  LILLE91",
+        "G  PIREAS01",
+        "PL CZESTOC01",
+        "TR ISTANBU63"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -1105,30 +1102,26 @@
       "fileJs": "js/atenei/sapienza/dati-mete-inge-elettronica.js",
       "stato": "in_corso",
       "totale": 26,
-      "completate": 19,
+      "completate": 20,
       "pendingScadenze": [
         "F  LILLE91",
-        "D  LANDSHU01",
         "G  PIREAS01",
         "PL CZESTOC01",
         "TR ISTANBU63"
       ],
-      "pendingLingua": [
+      "pendingLingua": [],
+      "tentativiLingua": {
+        "F  LILLE91": 2,
+        "G  PIREAS01": 2,
+        "CH LUGANO02": 2,
+        "TR ISTANBU63": 2
+      },
+      "linguaNonTrovabile": [
         "F  LILLE91",
-        "D  LANDSHU01",
         "G  PIREAS01",
         "CH LUGANO02",
         "TR ISTANBU63"
       ],
-      "tentativiLingua": {
-        "F  LILLE91": 1,
-        "D  HANNOVE01": 1,
-        "D  LANDSHU01": 1,
-        "G  PIREAS01": 1,
-        "CH LUGANO02": 1,
-        "TR ISTANBU63": 1
-      },
-      "linguaNonTrovabile": [],
       "ateneo": "Sapienza Roma"
     },
     "Polo di Latina (Sapienza)": {
@@ -4146,6 +4139,12 @@
       "data": "2026-07-29",
       "mete": 5,
       "note": "Scienze Politiche (Sapienza) scienze politiche (sapienza)-batch-followup-2: merge automatico via applica-batch.mjs (+1 blocchi propagati ad altri dipartimenti)."
+    },
+    {
+      "batch": 360,
+      "data": "2026-07-29",
+      "mete": 7,
+      "note": "Ingegneria elettronica e comunicazioni - DIET (Sapienza) ingegneria elettronica e comunicazioni - diet (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

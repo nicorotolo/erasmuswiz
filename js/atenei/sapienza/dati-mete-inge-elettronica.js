@@ -55,7 +55,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://imt-lille-douai.fr/",
-    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Accordo ERA68248."
+    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Accordo ERA68248. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-diet-lille-2",
@@ -74,7 +74,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://imt-lille-douai.fr/",
-    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Accordo ERA68247."
+    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Accordo ERA68247. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-diet-marseil",
@@ -270,9 +270,17 @@ var METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: { op: "ANY", figli: [
+        { lingua: "Inglese", livello: "B2" },
+        { lingua: "Tedesco", livello: "B2" }
+      ], fonte: "https://www.haw-landshut.de/en/international/incoming/exchange-/-double-degree-students", verificatoIl: "2026-07-29" },
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
+        { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
+        { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
+        { cosa: "Application (primavera)", periodo: "entro 15 dicembre" }
+      ],
     linkSito: "https://www.haw-landshut.de/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA68161."
   },
@@ -320,7 +328,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.unipi.gr/",
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA68293."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA68293. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-diet-czestoc",
@@ -601,7 +609,7 @@ var METE = [
     linkSito: "http://www.supsi.ch/international/",
     linkCatalogo: "https://exchange.supsi.ch/en/incoming-students",
 
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA68131."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA68131. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-diet-ankara",
@@ -644,6 +652,6 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://msu.edu.tr/eng/default",
-    notePratiche: "Posti dell'accordo: 1. Accordo ERA68366."
+    notePratiche: "Posti dell'accordo: 1. Accordo ERA68366. || Lingua: CEFR non trovato dopo ricerca approfondita"
   }
 ];
