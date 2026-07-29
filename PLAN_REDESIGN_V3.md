@@ -818,13 +818,35 @@ che sono**: dichiarati, non riempiti di nascosto e non silenziosamente rimossi):
 | Prove | **5 esecuzioni**, si giudica il **valore peggiore** (mai la media) |
 | Si stampano | **le tre grandezze separate**: record elaborati · gruppi geografici · pulsanti creati — più i tempi giro per giro |
 
-**Soglie di uscita, ancorate alla misura di §0 e non a un numero desiderato:**
+**Soglie di uscita — CORRETTE il 2026-07-29 dopo la costruzione**, perché la
+prima formulazione non era usabile. ⛔ **La soglia assoluta «peggiore di 5
+< 50 ms» misurava il computer, non la mappa**: sette esecuzioni dello **stesso
+identico codice** hanno dato un peggiore fra **3,8 e 73,5 ms**, cioè **rosso 2
+volte su 7 senza che nulla fosse cambiato**. Un cancello che si apre a caso non
+è un cancello.
 
-| Misura | Soglia | Margine sulla misura di oggi |
+**Il giudizio è RELATIVO.** Il banco misura vecchio e nuovo algoritmo
+**alternati nella stessa esecuzione** (in blocchi separati il secondo pagava la
+macchina com'era diventata nel frattempo: il rapporto oscillava fra 0,95× e
+1,42× a codice invariato). Alternandoli il rapporto è stabile e il rumore si
+cancella.
+
+Le mediane si calcolano su **41 giri** (con 5 e con 9 le code erano troppo
+lunghe). Otto esecuzioni consecutive verdi il 29/07 con questa forma.
+
+| Misura | Criterio | Osservato il 29/07 |
 |---|---|---|
-| `mappaClusterizza()`, peggiore di 5 | **< 50 ms** | oggi 12,3 ms |
-| `mappaRenderPins()`, peggiore di 5 | **< 50 ms** | oggi 13,8 ms |
-| Long task osservati durante un render | **zero** | oggi zero |
+| `mappaClusterizza()`, rapporto nuovo/vecchio sulle mediane | **≤ 3,00×** — ⚠️ **scelta dichiarata, vedi §5** | 1,84 – 2,53 (stabile) |
+| `mappaRenderPins()`, rapporto nuovo/vecchio | **stampato, NON giudicato** | 0,61 – 1,68 a codice invariato: sotto ±40% questo strumento **non discrimina**, e un limite più stretto del rumore è di nuovo una monetina |
+| Tetto assoluto, valore peggiore | **< 150 ms** | intercetta un disastro, non fa da cronometro |
+| Long task osservati durante un render | **zero** | zero, sempre |
+| Invarianti I1–I3, confronto automatico vecchio/nuovo | **identiche** | identiche, sempre |
+
+> ⛔ **Perché il disegno non fa da cancello.** Alzare il limite finché non passa
+> sarebbe la stessa disonestà del criterio assoluto che questo banco ha
+> sostituito. Ciò che sorveglia il disegno è quello che **non balla**: le
+> invarianti I1–I3 sono deterministiche, e una modifica che cambia pin,
+> etichette o classi le fa diventare rosse subito.
 
 ⚠️ **Onestà su cosa misura il banco**: un desktop rallentato 4× **non è** un
 Android da 250 €. Il banco è un **proxy riproducibile**, ed è ciò che rende il
@@ -929,6 +951,22 @@ motore è **condiviso con le Mete** — cambiarlo per l'entrata cambia le Mete.
    l'ordine d'inserimento decide quale gruppo assorbe quale. Cambiando ordine
    cambiano centro del pin, `aria-label` e contenuto del cluster — cioè cambia
    il prodotto, in silenzio.
+
+   > ⚠️ **ESITO MISURATO, 2026-07-29 — questa ottimizzazione è una
+   > PESSIMIZZAZIONE, e resta per decisione esplicita di Nicola.** Su 5
+   > esecuzioni interlacciate la griglia rende `mappaClusterizza()`
+   > **2,19–2,66× più lenta** della ricerca lineare che sostituisce, e lo è
+   > **anche saltando del tutto il passo 1** grazie alla memoizzazione: il
+   > costo è tutto nella griglia. La ragione è aritmetica: con 385 città e
+   > **~44 gruppi finali**, `out.find()` scorre al più 44 elementi con sole
+   > operazioni numeriche, mentre la griglia costruisce 9 chiavi-stringa per
+   > ogni città (≈3.500 allocazioni) e non esce al primo candidato utile.
+   > Converrebbe su numeri molto maggiori.
+   > **Decisione di Nicola (29/07): resta comunque**, in previsione di più
+   > atenei. La forma scritta di quella decisione è
+   > `PEGGIORAMENTO_MAX_CLUSTER = 3.0` in `test/perf-mappa.cjs`: il banco NON
+   > dichiara che va bene, dichiara che **abbiamo accettato di essere più
+   > lenti adesso**. Tornando alla ricerca lineare quel numero torna a 1.25.
 3. **Aggiornamento incrementale del DOM.** Al posto di `layer.innerHTML = ""`,
    si riusa il pulsante esistente quando il gruppo c'è ancora (chiave stabile
    `citta|paese` del gruppo capofila), si aggiornano posizione, classi e

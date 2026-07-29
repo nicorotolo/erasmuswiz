@@ -44,7 +44,7 @@
       <!-- ================================================
            BENVENUTO (primo contatto) — mappa-hero (Fase C2)
            Sostituisce l'overlay onboarding (bug P0.1): stesso
-           flusso a 3 domande, ma in pagina, sulla mappa.
+           flusso a 4 passi, ma in pagina, sulla mappa.
       ================================================ -->
       <div class="benvenuto" id="home-benvenuto" style="display:none">
         <div class="benvenuto-testa">
@@ -58,19 +58,26 @@
           <img src="img/mascotte/wiz-saluto.webp" alt="Wiz" class="wiz-mascot benvenuto-wiz" id="benvenuto-wiz">
         </div>
         <!-- CTA della scena d'ingresso (R2.1, decisione Nicola 16/07):
-             il flusso a 3 domande parte al clic. -->
+                 il flusso a 4 passi parte al clic. -->
         <div class="benvenuto-cta-wrap" id="benvenuto-cta-wrap" hidden>
           <button class="btn-primary benvenuto-btn-inizia" id="benvenuto-inizia" type="button">Inizia il tuo percorso →</button>
         </div>
         <p class="benvenuto-kicker">Personalizza il tuo percorso</p>
         <div class="benvenuto-passi" id="benvenuto-passi" aria-hidden="true">
-          <span class="benvenuto-passo" data-passo="1"><span class="n">1</span>Ateneo</span>
-          <span class="benvenuto-passo" data-passo="2"><span class="n">2</span>Cosa studi</span>
-          <span class="benvenuto-passo" data-passo="3"><span class="n">3</span>Le tue lingue</span>
+          <span class="benvenuto-passo" data-passo="1"><span class="n">1</span>Il tuo momento</span>
+          <span class="benvenuto-passo" data-passo="2"><span class="n">2</span>Ateneo</span>
+          <span class="benvenuto-passo" data-passo="3"><span class="n">3</span>Cosa studi</span>
+          <span class="benvenuto-passo" data-passo="4"><span class="n">4</span>Le tue lingue</span>
         </div>
         <div class="mappa-wrap">
           <div class="mappa" id="mappa-benvenuto"></div>
           <div class="mappa-tooltip" id="mappa-tooltip" hidden></div>
+          <div class="mappa-legenda benvenuto-mappa-legenda" hidden
+               aria-label="Legenda della compatibilità">
+            <span><span class="pin-forma compatibile"></span>Compatibile</span>
+            <span><span class="pin-forma da-verificare"></span>Da verificare</span>
+            <span><span class="pin-forma non-accessibile"></span>Non accessibile ora</span>
+          </div>
         </div>
         <div class="benvenuto-scelte" id="benvenuto-scelte" aria-live="polite"></div>
         <!-- Personalizzazione locale onesta (PLAN §5.2): niente account,

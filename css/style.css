@@ -2463,6 +2463,224 @@ body.no-scroll { overflow: hidden; }
 .la-storia-dett { font-size: .78rem; color: var(--text-muted); margin: 0 0 3px; line-height: 1.45; }
 
 /* ================================================================
+   V3 — ENTRATA A TUTTA PAGINA
+   Il body riceve .modo-entrata solo finché lo zaino non ha concluso
+   l'onboarding. La nav e il footer tornano appena renderHome() lo chiude.
+================================================================ */
+body.modo-entrata { background: var(--night-bg); }
+/* Solo il primo velo nasconde la navigazione: da P1 in poi il contratto del
+   router V1 torna disponibile anche se l'onboarding non è ancora concluso. */
+@media (max-width: 767px) {
+  body.modo-scena-entrata .nav-bottom,
+  body.modo-scena-entrata .footer-v2 { display: none; }
+}
+body.modo-entrata .main-content {
+  width: 100%;
+  max-width: none;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+  padding: 0;
+}
+body.modo-entrata #tab-oggi.modo-benvenuto {
+  display: block;
+  min-height: 100vh;
+  min-height: 100dvh;
+  animation: none;
+}
+body.modo-entrata .benvenuto {
+  width: 100%;
+  max-width: none;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 20px 16px 88px;
+}
+
+/* La prima scena mobile è un solo piano: mappa sotto, velo sopra, poi il
+   claim e l'unico comando. Titolo SEO, Wiz e controlli restano fuori vista. */
+body.modo-entrata .benvenuto.modo-scena {
+  display: grid;
+  grid-template: minmax(100vh, 100dvh) / 1fr;
+  padding: 0;
+  overflow: hidden;
+}
+.modo-scena > .mappa-wrap,
+.modo-scena > .benvenuto-testa,
+.modo-scena > .benvenuto-cta-wrap { grid-area: 1 / 1; }
+.modo-scena > .mappa-wrap {
+  z-index: 0;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+}
+.modo-scena > .mappa-wrap .mappa {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+}
+body.modo-entrata .modo-scena .mappa svg {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+.modo-scena > .benvenuto-testa {
+  z-index: 2;
+  align-self: stretch;
+  align-items: flex-end;
+  padding: 28px 24px 144px;
+  background: linear-gradient(
+    180deg,
+    rgba(16,27,63,.30) 0%,
+    rgba(16,27,63,.58) 48%,
+    rgba(16,27,63,.96) 100%
+  );
+  pointer-events: none;
+}
+.modo-scena .benvenuto-titolo,
+.modo-scena .benvenuto-wiz,
+.modo-scena .benvenuto-scelte,
+.modo-scena .benvenuto-privacy,
+.modo-scena .mappa-nota,
+.modo-scena .benvenuto-mappa-legenda { display: none; }
+.modo-scena .benvenuto-claim {
+  max-width: 22ch;
+  margin: 0;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: clamp(26px, 7.5vw, 38px);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -.025em;
+}
+.modo-scena > .benvenuto-cta-wrap {
+  z-index: 3;
+  align-self: end;
+  width: 100%;
+  margin: 0;
+  padding: 0 24px 48px;
+  text-align: left;
+}
+.modo-scena .benvenuto-btn-inizia {
+  width: min(100%, 320px);
+  max-width: 320px;
+}
+
+.benvenuto-conseguenza-salto {
+  margin: 10px 0 14px;
+  color: var(--text-muted);
+  font-size: .84rem;
+  line-height: 1.5;
+}
+.benvenuto-mappa-legenda[hidden] { display: none; }
+.benvenuto-mappa-legenda {
+  position: absolute;
+  display: flex;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  z-index: 3;
+  justify-content: center;
+  padding: 7px 9px;
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: rgba(255,255,255,.92);
+  color: var(--text-muted);
+  backdrop-filter: blur(8px);
+}
+.benvenuto-mappa-legenda > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.pin-forma {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  flex: none;
+}
+.pin-forma.compatibile,
+.mappa-pin-compatibile .punto {
+  border-radius: 50%;
+  background: var(--green);
+}
+.pin-forma.da-verificare,
+.mappa-pin-da-verificare .punto {
+  border-radius: 2px;
+  background: var(--amber);
+}
+.pin-forma.non-accessibile {
+  border: 2px solid var(--red);
+  border-radius: 2px;
+  background: transparent;
+}
+.mappa-pin-non-accessibile .punto {
+  border-color: var(--red);
+  border-radius: 2px;
+  background: var(--bg-card);
+  color: var(--red);
+}
+
+@media (min-width: 768px) {
+  /* Desktop: il velo è la colonna sinistra, la mappa occupa la destra. */
+  body.modo-entrata .benvenuto.modo-scena {
+    grid-template: minmax(100vh, 100dvh) / minmax(320px, 42%) minmax(0, 58%);
+  }
+  .modo-scena > .mappa-wrap { grid-area: 1 / 2; }
+  .modo-scena > .benvenuto-testa,
+  .modo-scena > .benvenuto-cta-wrap { grid-area: 1 / 1; }
+  .modo-scena > .benvenuto-testa {
+    padding: 48px clamp(34px, 5vw, 72px) 168px;
+    background: linear-gradient(160deg, var(--night-bg) 0%, var(--night-bg-2) 100%);
+  }
+  .modo-scena > .benvenuto-cta-wrap {
+    padding: 0 clamp(34px, 5vw, 72px) 72px;
+  }
+  .modo-scena .benvenuto-claim {
+    max-width: 17ch;
+    font-size: clamp(34px, 4vw, 54px);
+  }
+
+  /* Dopo il velo: domande a sinistra, mappa reattiva a destra. */
+  body.modo-entrata .benvenuto:not(.modo-scena) {
+    display: grid;
+    grid-template-columns: minmax(300px, .85fr) minmax(420px, 1.15fr);
+    grid-template-areas:
+      "testa mappa"
+      "kicker mappa"
+      "passi mappa"
+      "scelte mappa"
+      "privacy nota";
+    align-content: center;
+    gap: 12px clamp(28px, 4vw, 64px);
+    padding: 48px clamp(32px, 5vw, 80px);
+  }
+  .benvenuto:not(.modo-scena) > .benvenuto-testa { grid-area: testa; }
+  .benvenuto:not(.modo-scena) > .benvenuto-kicker { grid-area: kicker; }
+  .benvenuto:not(.modo-scena) > .benvenuto-passi { grid-area: passi; }
+  .benvenuto:not(.modo-scena) > .mappa-wrap {
+    grid-area: mappa;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+  }
+  body.modo-entrata .benvenuto:not(.modo-scena) .mappa svg {
+    width: 100%;
+    height: auto;
+  }
+  .benvenuto:not(.modo-scena) > .benvenuto-scelte { grid-area: scelte; }
+  .benvenuto:not(.modo-scena) > .benvenuto-privacy { grid-area: privacy; }
+  .benvenuto:not(.modo-scena) > .mappa-nota { grid-area: nota; }
+}
+
+/* ================================================================
    MOBILE ≤480px
 ================================================================ */
 @media (max-width: 480px) {

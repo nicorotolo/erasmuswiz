@@ -6,6 +6,7 @@
   "scripts": {
     "test:unit": "node --test \"test/*.test.*\"",
     "test:ui": "playwright test",
+    "test:perf": "node test/perf-mappa.cjs",
     "test:a11y": "node -e \"console.log('non ancora implementato: arriva con V2/V3')\"",
     "test:visual": "node -e \"console.log('non ancora implementato: arriva con V2/V3')\""
   },

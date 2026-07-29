@@ -556,6 +556,29 @@ function dipingiTab(nome) {
   });
 }
 
+// UN SOLO scrittore per `modo-entrata`. Quella classe rimodella l'INTERA
+// pagina (nasconde nav e footer, azzera il gutter di `.main-content` e forza
+// `#tab-oggi` a `display:block` con specificità superiore a `.tab-pane`
+// nascosto). Vale quindi solo quando l'entrata è davvero la schermata a
+// video: primo contatto E tab Oggi attivo.
+// ⛔ Senza la seconda condizione uno studente nuovo che arriva da un LINK
+// PROFONDO (`#mete` — la via di distribuzione per cui esiste V1) si trovava
+// l'entrata impilata sopra le Mete, con la pagina alta 7521px invece di 800.
+// Misurato a schermo il 2026-07-29; nessuna delle due suite lo vedeva.
+// Anche `modo-scena-entrata` si DERIVA da qui, invece di essere aggiunta e
+// tolta a mano da `benvScena()`: altrimenti sopravviveva alla navigazione e su
+// telefono nascondeva la nav mentre lo studente era già sulle Mete.
+// La sorgente di verità della scena resta `#home-benvenuto.modo-scena`.
+function aggiornaModoEntrata() {
+  const benv = document.getElementById("home-benvenuto");
+  const entrata = !ZAINO.onboardingFatto && tabCorrente() === "oggi";
+  document.body.classList.toggle("modo-entrata", entrata);
+  document.body.classList.toggle(
+    "modo-scena-entrata",
+    entrata && !!benv && benv.classList.contains("modo-scena")
+  );
+}
+
 function scriviHash(tab, storia) {
   if (storia === "nessuna") return;
   const nuovo = `#${tab}`;
@@ -633,6 +656,9 @@ function vaiA(dest, opzioni = {}) {
 
   const cambia = tab !== tabCorrente();
   dipingiTab(tab);
+  // La schermata è cambiata: `modo-entrata` va ricalcolato qui, perché
+  // `renderHome()` non gira a ogni navigazione (vedi aggiornaModoEntrata).
+  aggiornaModoEntrata();
   // Un push per un tab che non cambia sarebbe un Indietro che non fa niente:
   // il tasto Indietro deve sempre spostare qualcosa.
   scriviHash(tab, storia === "push" && !cambia ? "replace" : storia);
@@ -826,6 +852,7 @@ function renderHome() {
     const primoContatto = !ZAINO.onboardingFatto;
     benv.style.display = primoContatto ? "" : "none";
     tabOggi.classList.toggle("modo-benvenuto", primoContatto);
+    aggiornaModoEntrata();
     aggiornaNomeTabOggi();
   }
 
@@ -2089,25 +2116,34 @@ function chiudiWizardMete() {
   renderWizardMete();
 }
 
+// Un solo contratto per i tre esiti. V3 lo richiama dalla schermata finale
+// dell'entrata; il vecchio riquadro Mete continua a usare le stesse azioni.
+function applicaEsitoWizardMete(esito) {
+  chiudiWizardMete();
+  if (esito === "si") {
+    const cerca = document.getElementById("cerca-mete");
+    if (cerca) {
+      cerca.focus();
+      cerca.scrollIntoView({ block: "center", behavior: comportamentoScrollRotta() });
+    }
+    return;
+  }
+  if (esito === "no") {
+    const mappa = document.getElementById("card-mappa-mete");
+    const dest = (mappa && mappa.style.display !== "none")
+      ? mappa
+      : document.getElementById("filtri-mete-chip");
+    dest?.scrollIntoView({ block: "center", behavior: comportamentoScrollRotta() });
+  }
+}
+
 function initWizardMete() {
   const si    = document.getElementById("wizard-mete-si");
   const no    = document.getElementById("wizard-mete-no");
   const salta = document.getElementById("wizard-mete-salta");
-  if (si) si.addEventListener("click", () => {
-    // "Sì" = cerca e ordina fino a 5 mete: dritto sulla ricerca.
-    chiudiWizardMete();
-    const cerca = document.getElementById("cerca-mete");
-    if (cerca) { cerca.focus(); cerca.scrollIntoView({ block: "center", behavior: "smooth" }); }
-  });
-  if (no) no.addEventListener("click", () => {
-    // "No" = esplora: mappa, affinità e filtri (l'elenco è già ordinato
-    // per compatibilità quando c'è un profilo).
-    chiudiWizardMete();
-    const mappa = document.getElementById("card-mappa-mete");
-    const dest = (mappa && mappa.style.display !== "none") ? mappa : document.getElementById("filtri-mete-chip");
-    dest?.scrollIntoView({ block: "center", behavior: "smooth" });
-  });
-  if (salta) salta.addEventListener("click", chiudiWizardMete);
+  if (si) si.addEventListener("click", () => applicaEsitoWizardMete("si"));
+  if (no) no.addEventListener("click", () => applicaEsitoWizardMete("no"));
+  if (salta) salta.addEventListener("click", () => applicaEsitoWizardMete("salta"));
 }
 
 // ============================================================
@@ -4241,9 +4277,11 @@ function renderIdoneita() {
 }
 
 // ============================================================
-// ONBOARDING — 3 domande + valore immediato (UX1)
+// ONBOARDING — 4 passi + valore immediato (V3)
 // ============================================================
-const CHIAVE_ONBOARDING_STEP = "ew-onboarding-riprendi-step";
+// La ripresa vive nella sessione, non nello zaino per-ateneo: P1 viene
+// risposto prima di sapere in quale zaino andrebbe scritto.
+const CHIAVE_ONBOARDING_RIPRESA = "ew-onboarding-ripresa";
 
 function areaDominanteDipartimento(dipartimento) {
   const conteggi = {};
@@ -4308,25 +4346,74 @@ function mappaCostruisci(cont) {
   return layer;
 }
 
-function mappaClusterizza(mete, cont) {
-  // 1) stessa coppia città+paese = coordinate identiche → un gruppo
-  const perCitta = new Map();
+// V3/ottimizzazione 1 — la prima metà del raggruppamento dipende solo
+// dall'identità dell'array e dalla sua lunghezza, non dalla larghezza resa.
+// WeakMap evita sia una chiave globale per-ateneo (sbagliata con i filtri)
+// sia di trattenere in memoria array che l'interfaccia non usa più.
+const _mappaCachePerCitta = new WeakMap();
+function mappaGruppiPerCitta(mete) {
+  const precedente = _mappaCachePerCitta.get(mete);
+  if (precedente && precedente.lunghezza === mete.length) return precedente.gruppi;
+
+  const gruppi = new Map();
   mete.forEach(m => {
     const c = coordDiMeta(m);
     if (!c || c.fuori || c.x === undefined) return;
     const k = m.citta + "|" + m.paese;
-    if (!perCitta.has(k)) perCitta.set(k, { x: c.x, y: c.y, citta: m.citta, paese: m.paese, items: [] });
-    perCitta.get(k).items.push(m);
+    if (!gruppi.has(k)) {
+      gruppi.set(k, {
+        x: c.x, y: c.y, citta: m.citta, paese: m.paese, items: []
+      });
+    }
+    gruppi.get(k).items.push(m);
   });
+  _mappaCachePerCitta.set(mete, { lunghezza: mete.length, gruppi });
+  return gruppi;
+}
+
+function mappaClusterizza(mete, cont) {
+  // 1) stessa coppia città+paese = coordinate identiche → un gruppo
+  const perCitta = mappaGruppiPerCitta(mete);
   // 2) fusione dei gruppi sotto soglia di distanza (unità viewBox,
   //    scalate sulla larghezza resa: su schermi stretti si fonde di più)
   const P = COORDINATE_CITTA.PROIEZIONE;
   const soglia = 30 * (P.viewBoxW / Math.max(cont.clientWidth || 320, 280));
   const out = [];
+  // V3/ottimizzazione 2 — ogni centro viene cercato solo nella sua cella e
+  // nelle otto adiacenti. Fra più candidati vince comunque quello inserito
+  // per primo: è esattamente l'ordine del vecchio `out.find()`.
+  const celle = new Map();
+  const chiaveCella = (x, y) => `${Math.floor(x / soglia)}|${Math.floor(y / soglia)}`;
   perCitta.forEach(g => {
-    const vicino = out.find(o => Math.hypot(o.x - g.x, o.y - g.y) < soglia);
+    const cx = Math.floor(g.x / soglia);
+    const cy = Math.floor(g.y / soglia);
+    let vicino = null;
+    let indiceVicino = Infinity;
+    for (let dx = -1; dx <= 1; dx++) {
+      for (let dy = -1; dy <= 1; dy++) {
+        const candidati = celle.get(`${cx + dx}|${cy + dy}`) || [];
+        candidati.forEach(candidato => {
+          if (
+            candidato.indice < indiceVicino &&
+            Math.hypot(candidato.gruppo.x - g.x, candidato.gruppo.y - g.y) < soglia
+          ) {
+            vicino = candidato.gruppo;
+            indiceVicino = candidato.indice;
+          }
+        });
+      }
+    }
     if (vicino) vicino.items = vicino.items.concat(g.items);
-    else out.push({ x: g.x, y: g.y, citta: g.citta, paese: g.paese, items: g.items.slice() });
+    else {
+      const nuovo = {
+        x: g.x, y: g.y, citta: g.citta, paese: g.paese, items: g.items.slice()
+      };
+      const indice = out.length;
+      out.push(nuovo);
+      const chiave = chiaveCella(nuovo.x, nuovo.y);
+      if (!celle.has(chiave)) celle.set(chiave, []);
+      celle.get(chiave).push({ gruppo: nuovo, indice });
+    }
   });
   return out;
 }
@@ -4394,38 +4481,80 @@ function apriListaCluster(cl) {
   document.body.classList.add("no-scroll");
 }
 
+function mappaClasseCompatibilita(cl, opts) {
+  if (typeof opts.compatibilita !== "function") return "";
+  const categorie = cl.items.map(opts.compatibilita);
+  if (categorie.includes("ok")) return " mappa-pin-compatibile";
+  if (categorie.includes("medio")) return " mappa-pin-da-verificare";
+  return " mappa-pin-non-accessibile";
+}
+
 function mappaRenderPins(layer, mete, opts) {
   if (!layer) return;
   opts = opts || {};
-  layer.innerHTML = "";
+  if (opts.fuoriTab) layer.setAttribute("aria-hidden", "true");
+  else layer.removeAttribute("aria-hidden");
+
   const P = COORDINATE_CITTA.PROIEZIONE;
   const cont = layer.parentElement;
+  const esistenti = new Map();
+  Array.from(layer.children).forEach(pin => {
+    if (pin.dataset && pin.dataset.mappaChiave) {
+      esistenti.set(pin.dataset.mappaChiave, pin);
+    }
+  });
+  const usati = new Set();
+
   mappaClusterizza(mete, cont).forEach((cl, i) => {
     const n = cl.items.length;
-    const b = crea("button",
+    // V3/ottimizzazione 3 — il capofila è la stessa chiave stabile che
+    // governa l'ordine del cluster. Se esiste, si aggiorna quel pulsante.
+    const chiave = `${cl.citta}|${cl.paese}`;
+    let b = esistenti.get(chiave);
+    if (!b) {
+      b = crea("button", "mappa-pin");
+      b.type = "button";
+      b.dataset.mappaChiave = chiave;
+      b.appendChild(crea("span", "punto"));
+      b.addEventListener("mouseenter", () => {
+        if (b._mappaCluster) mappaMostraTooltip(b._mappaCluster, b);
+      });
+      b.addEventListener("mouseleave", mappaNascondiTooltip);
+      b.addEventListener("focus", () => {
+        if (b._mappaCluster) mappaMostraTooltip(b._mappaCluster, b);
+      });
+      b.addEventListener("blur", mappaNascondiTooltip);
+      b.addEventListener("click", () => {
+        const gruppo = b._mappaCluster;
+        if (!gruppo) return;
+        mappaNascondiTooltip();
+        if (gruppo.items.length === 1) apriDettaglioMeta(gruppo.items[0]);
+        else apriListaCluster(gruppo);
+      });
+    }
+    b._mappaCluster = cl;
+    b.className =
       "mappa-pin" + (n > 1 ? " mappa-pin-cluster" : "") +
       (opts.evidenzia ? " evidenzia" : "") +
-      (opts.stellate && n === 1 && opts.stellate.includes(cl.items[0].id) ? " mappa-pin-stella" : ""));
-    b.type = "button";
+      (opts.stellate && n === 1 && opts.stellate.includes(cl.items[0].id)
+        ? " mappa-pin-stella"
+        : "") +
+      mappaClasseCompatibilita(cl, opts);
     b.style.left = (cl.x / P.viewBoxW * 100) + "%";
     b.style.top  = (cl.y / P.viewBoxH * 100) + "%";
-    const dot = crea("span", "punto");
-    if (n > 1) dot.textContent = String(n);
-    if (opts.evidenzia) dot.style.animationDelay = Math.min(i, 25) * 30 + "ms";
-    b.appendChild(dot);
+    const dot = b.querySelector(".punto");
+    dot.textContent = n > 1 ? String(n) : "";
+    dot.style.animationDelay = opts.evidenzia ? Math.min(i, 25) * 30 + "ms" : "";
+    if (opts.fuoriTab) b.setAttribute("tabindex", "-1");
+    else b.removeAttribute("tabindex");
     b.setAttribute("aria-label", n === 1
       ? `${nomeUniversita(cl.items[0].universita)}, ${cl.citta} (${cl.paese}) — apri il dettaglio`
       : `${n} mete vicino a ${cl.citta} — apri l'elenco`);
-    b.addEventListener("mouseenter", () => mappaMostraTooltip(cl, b));
-    b.addEventListener("mouseleave", mappaNascondiTooltip);
-    b.addEventListener("focus", () => mappaMostraTooltip(cl, b));
-    b.addEventListener("blur", mappaNascondiTooltip);
-    b.addEventListener("click", () => {
-      mappaNascondiTooltip();
-      if (n === 1) apriDettaglioMeta(cl.items[0]);
-      else apriListaCluster(cl);
-    });
     layer.appendChild(b);
+    usati.add(b);
+  });
+  Array.from(layer.children).forEach(pin => {
+    if (!usati.has(pin)) pin.remove();
   });
 }
 
@@ -4460,12 +4589,12 @@ window.addEventListener("resize", () => {
 });
 
 // ============================================================
-// BENVENUTO (primo contatto) — il flusso a 3 domande, sulla mappa.
+// BENVENUTO (primo contatto) — quattro passi e un esito, sulla mappa.
 // Sostituisce l'overlay onboarding (bug P0.1: su mobile le prime
 // opzioni erano irraggiungibili). Stesse domande, stessa uscita.
 // ============================================================
 function benvSetPasso(n) {
-  document.querySelectorAll(".benvenuto-passo").forEach(p => {
+  document.querySelectorAll("#home-benvenuto .benvenuto-passo").forEach(p => {
     const k = Number(p.dataset.passo);
     p.dataset.attivo = String(k === n);
     p.dataset.fatto = String(k < n);
@@ -4478,54 +4607,126 @@ function benvFumetto(testo, posa) {
   if (wiz && posa) wiz.src = `img/mascotte/wiz-${posa}.webp`;
 }
 
-function benvPassoAteneo() {
+function benvMostraLegenda(mostra) {
+  const legenda = document.querySelector(
+    "#home-benvenuto .benvenuto-mappa-legenda"
+  );
+  if (legenda) legenda.hidden = !mostra;
+}
+
+function benvTestoPorta(fase) {
+  return document.querySelector(`.toggle-fase-btn[data-fase="${fase}"]`)
+    ?.textContent.trim() || "";
+}
+
+// P1 — i testi vengono letti dalle tre porte già esistenti nel Percorso.
+// Non nasce una quarta copia della stessa domanda.
+function benvPassoPorta() {
   benvSetPasso(1);
-  benvFumetto("Ciao! Sono Wiz. Dove studi?", "saluto");
-  const layer = _mappaBenv && _mappaBenv.layer;
-  if (layer) {
-    layer.innerHTML = "";
-    const P = COORDINATE_CITTA.PROIEZIONE;
-    // Dal REGISTRO, non da ATENEI: qui si sceglie DOVE si studia, quindi vanno
-    // mostrati anche gli atenei che R1.5 non ha caricato. In ATENEI c'e' solo
-    // quello attivo, e un pin solo non sarebbe una scelta.
-    Object.keys(ATENEI_REGISTRO).forEach(k => {
-      const a = ATENEI_REGISTRO[k];
-      if (!a.disponibile || !CITTA_ATENEO[k]) return;
-      const c = CITTA_ATENEO[k];
-      const [x, y] = proiettaXY(c.lat, c.lon);
-      const b = crea("button", "mappa-pin mappa-pin-ateneo");
-      b.type = "button";
-      b.style.left = (x / P.viewBoxW * 100) + "%";
-      b.style.top  = (y / P.viewBoxH * 100) + "%";
-      b.setAttribute("aria-label", `${a.label} (${c.citta}) — scegli`);
-      b.appendChild(crea("span", "anello"));
-      b.appendChild(crea("span", "punto"));
-      b.appendChild(crea("span", "mappa-pin-etichetta", c.citta));
-      b.addEventListener("click", () => benvScegliAteneo(k));
-      layer.appendChild(b);
-    });
+  benvMostraLegenda(false);
+  benvFumetto("Prima di partire: a che punto sei?", "pensieroso");
+  if (_mappaBenv && _mappaBenv.layer) {
+    _mappaBenv.layer.innerHTML = "";
+    _mappaBenv.layer.setAttribute("aria-hidden", "true");
+    _mappaBenv.mete = null;
   }
-  _mappaBenv.mete = null; // niente ri-cluster al resize in questo passo
+  const zona = document.getElementById("benvenuto-scelte");
+  zona.innerHTML = "";
+  zona.appendChild(crea(
+    "p",
+    "benvenuto-sotto-domanda",
+    "Scegli il momento che descrive il tuo percorso."
+  ));
+  const riga = crea("div", "benvenuto-scelte-riga");
+  ErasmusWizPuro.FASI_VIAGGIO.forEach(fase => {
+    const testo = benvTestoPorta(fase);
+    if (!testo) return;
+    const btn = crea("button", "benvenuto-scelta", testo);
+    btn.type = "button";
+    btn.dataset.fase = fase;
+    btn.addEventListener("click", () => {
+      window._onboardingPorta = fase;
+      benvPassoAteneo();
+    });
+    riga.appendChild(btn);
+  });
+  zona.appendChild(riga);
+}
+
+function benvDisegnaAtenei(soloAteneo) {
+  const layer = _mappaBenv && _mappaBenv.layer;
+  if (!layer) return;
+  layer.innerHTML = "";
+  layer.setAttribute("aria-hidden", "true");
+  const P = COORDINATE_CITTA.PROIEZIONE;
+  Object.keys(ATENEI_REGISTRO).forEach(k => {
+    if (soloAteneo && k !== soloAteneo) return;
+    const a = ATENEI_REGISTRO[k];
+    if (!a.disponibile || !CITTA_ATENEO[k]) return;
+    const c = CITTA_ATENEO[k];
+    const [x, y] = proiettaXY(c.lat, c.lon);
+    const b = crea("button", "mappa-pin mappa-pin-ateneo");
+    b.type = "button";
+    b.tabIndex = -1;
+    b.style.left = (x / P.viewBoxW * 100) + "%";
+    b.style.top  = (y / P.viewBoxH * 100) + "%";
+    b.setAttribute("aria-label", `${a.label} (${c.citta}) — scegli`);
+    b.appendChild(crea("span", "anello"));
+    b.appendChild(crea("span", "punto"));
+    b.appendChild(crea("span", "mappa-pin-etichetta", c.citta));
+    b.addEventListener("click", () => benvScegliAteneo(k));
+    layer.appendChild(b);
+  });
+  _mappaBenv.mete = null;
+}
+
+function benvPassoAteneo() {
+  benvSetPasso(2);
+  benvMostraLegenda(false);
+  benvFumetto("Ciao! Sono Wiz. Dove studi?", "saluto");
+  // Dal REGISTRO, non da ATENEI: qui si sceglie DOVE si studia, quindi vanno
+  // mostrati anche gli atenei che R1.5 non ha caricato.
+  benvDisegnaAtenei(null);
   // Scelte ridondanti sotto la mappa (accessibilità e chiarezza)
   const zona = document.getElementById("benvenuto-scelte");
   zona.innerHTML = "";
-  Object.keys(ATENEI_REGISTRO).forEach(k => {
+  const disponibili = Object.keys(ATENEI_REGISTRO)
+    .filter(k => ATENEI_REGISTRO[k].disponibile);
+  zona.appendChild(crea(
+    "p",
+    "benvenuto-sotto-domanda",
+    `${disponibili.length} atenei disponibili. Scegli dove studi.`
+  ));
+  const riga = crea("div", "benvenuto-scelte-riga");
+  disponibili.forEach(k => {
     const a = ATENEI_REGISTRO[k];
-    if (!a.disponibile) return;
     const btn = crea("button", "benvenuto-scelta", a.label);
     btn.type = "button";
     btn.addEventListener("click", () => benvScegliAteneo(k));
-    zona.appendChild(btn);
+    riga.appendChild(btn);
   });
+  zona.appendChild(riga);
 }
 
 function benvScegliAteneo(k) {
   if (k !== window.ATENEO_ATTIVO) {
-    // I dati sono per-ateneo: si salva la scelta e si ricarica al passo 2.
+    // I dati sono per-ateneo: si salva la scelta e si ricarica al P3. Porta,
+    // dipartimento e livello sono ancora transitori, fuori dallo zaino.
+    let ateneoSalvato = false;
     try {
       localStorage.setItem("erasmuswiz_ateneo", k);
-      sessionStorage.setItem(CHIAVE_ONBOARDING_STEP, "2");
+      ateneoSalvato = true;
     } catch (e) {}
+    if (ateneoSalvato) {
+      try {
+        sessionStorage.setItem(CHIAVE_ONBOARDING_RIPRESA, JSON.stringify({
+          passo: 3,
+          porta: window._onboardingPorta,
+          dipartimento: null,
+          livello: null,
+        }));
+      } catch (e) {}
+    }
     location.reload();
     return;
   }
@@ -4533,14 +4734,24 @@ function benvScegliAteneo(k) {
 }
 
 function benvPassoFacolta() {
-  benvSetPasso(2);
+  benvSetPasso(3);
+  benvMostraLegenda(false);
   benvFumetto("Bene! E cosa studi?", "pensieroso");
+  // Dopo la risposta P2 resta acceso il solo ateneo scelto: la mappa ha
+  // reagito alla risposta senza fingere di conoscere già il dipartimento.
+  benvDisegnaAtenei(window.ATENEO_ATTIVO);
   const zona = document.getElementById("benvenuto-scelte");
   zona.innerHTML = "";
   const visti = [];
   (METE || []).forEach(m => {
     if (m.dipartimentoCf && !visti.includes(m.dipartimentoCf)) visti.push(m.dipartimentoCf);
   });
+  zona.appendChild(crea(
+    "p",
+    "benvenuto-sotto-domanda",
+    `${visti.length} dipartimenti disponibili: scegli il tuo.`
+  ));
+  const riga = crea("div", "benvenuto-scelte-riga");
   visti.forEach(dip => {
     const btn = crea("button", "benvenuto-scelta", dip);
     btn.type = "button";
@@ -4549,47 +4760,59 @@ function benvPassoFacolta() {
       window._onboardingArea = areaDominanteDipartimento(dip);
       benvPassoLivello(dip);
     });
-    zona.appendChild(btn);
+    riga.appendChild(btn);
   });
+  zona.appendChild(riga);
 }
 
 function benvPassoLivello(dip) {
-  // Facoltà e livello sono lo stesso passo 2 ("Cosa studi"): il passo 3
-  // è delle lingue (PLAN.md §5.2).
-  benvSetPasso(2);
+  // Facoltà e livello sono lo stesso P3 ("Cosa studi").
+  benvSetPasso(3);
+  benvMostraLegenda(false);
+  window._onboardingDipartimento = dip;
+  window._onboardingArea = areaDominanteDipartimento(dip);
   // Le mete della facoltà si ACCENDONO sulla mappa (il momento-firma).
   const mete = (METE || []).filter(m => m.dipartimentoCf === dip);
   benvFumetto(`${mete.length} mete ti aspettano. Guarda la mappa!`, "esulta");
   if (_mappaBenv && _mappaBenv.layer) {
     _mappaBenv.mete = mete;
-    _mappaBenv.opts = { evidenzia: true };
+    _mappaBenv.opts = { evidenzia: true, fuoriTab: true };
     mappaRenderPins(_mappaBenv.layer, mete, _mappaBenv.opts);
   }
   mappaNotaCopertura(document.getElementById("mappa-nota-benvenuto"), mete);
   const zona = document.getElementById("benvenuto-scelte");
   zona.innerHTML = "";
   zona.appendChild(crea("p", "benvenuto-sotto-domanda",
-    "Tocca un puntino per l'anteprima. E tu a che punto sei?"));
+    `${mete.length} mete accese per ${dip}. Tocca un puntino per l’anteprima, poi scegli il livello.`));
   const wrap = crea("div", "benvenuto-scelte-riga");
   [["L", "Triennale"], ["LM", "Magistrale"]].forEach(([liv, label]) => {
     const btn = crea("button", "benvenuto-scelta", label);
     btn.type = "button";
-    btn.addEventListener("click", () => benvPassoLingue(liv));
+    btn.addEventListener("click", () => {
+      window._onboardingLivello = liv;
+      benvPassoLingue(liv);
+    });
     wrap.appendChild(btn);
   });
   zona.appendChild(wrap);
 }
 
-// Passo 3 — lingue e livello CEFR, SALTABILE (PLAN.md §5.2). Le lingue
+// P4 — lingue e livello CEFR, SALTABILE. Le lingue
 // proposte vengono dai dati delle mete (lingueDaiDati), mai hardcoded;
 // senza lingue il percorso parte comunque e si aggiungono dal Profilo.
 function benvPassoLingue(livello) {
-  benvSetPasso(3);
+  benvSetPasso(4);
+  benvMostraLegenda(true);
+  window._onboardingLivello = livello;
   benvFumetto("Ultima cosa: che lingue parli? Puoi anche saltare.", "pensieroso");
   const zona = document.getElementById("benvenuto-scelte");
   zona.innerHTML = "";
-  zona.appendChild(crea("p", "benvenuto-sotto-domanda",
-    "Con le lingue le mete si ordinano per compatibilità. Le cambi quando vuoi dal Profilo."));
+  const stato = crea(
+    "p",
+    "benvenuto-sotto-domanda",
+    "Con le lingue la mappa mostra la compatibilità."
+  );
+  zona.appendChild(stato);
 
   const lingue = lingueDaiDati();
   const righe  = [];
@@ -4624,7 +4847,9 @@ function benvPassoLingue(livello) {
       if (italianoOra) selLivello.value = "C2";
       else if (italianoPrecedente && selLivello.value === "C2") selLivello.value = "B1";
       italianoPrecedente = italianoOra;
+      aggiornaCompatibilita();
     });
+    selLivello.addEventListener("change", () => aggiornaCompatibilita());
     const rimuovi = crea("button", "schedina-rimuovi", "✕");
     rimuovi.type = "button";
     rimuovi.setAttribute("aria-label", `Rimuovi lingua ${i + 1}`);
@@ -4632,6 +4857,7 @@ function benvPassoLingue(livello) {
       selLingua.value = "";
       selLivello.value = "B1";
       italianoPrecedente = false;
+      aggiornaCompatibilita();
       selLingua.focus();
     });
     riga.appendChild(selLingua);
@@ -4641,6 +4867,11 @@ function benvPassoLingue(livello) {
     righe.push({ selLingua, selLivello });
   }
   zona.appendChild(wrap);
+  zona.appendChild(crea(
+    "p",
+    "benvenuto-conseguenza-salto",
+    "Se salti, le mete non si ordinano per compatibilità: puoi aggiungere le lingue quando vuoi dal Profilo."
+  ));
 
   const bottoni = crea("div", "benvenuto-scelte-riga");
   const btnOk = crea("button", "benvenuto-scelta", "Fatto ✓");
@@ -4653,10 +4884,52 @@ function benvPassoLingue(livello) {
   });
   const btnSalta = crea("button", "benvenuto-scelta", "Salta per ora");
   btnSalta.type = "button";
-  btnSalta.addEventListener("click", () => completaOnboarding(livello, []));
+  btnSalta.addEventListener("click", () => {
+    aggiornaCompatibilita([]);
+    completaOnboarding(livello, []);
+  });
   bottoni.appendChild(btnOk);
   bottoni.appendChild(btnSalta);
   zona.appendChild(bottoni);
+
+  function lingueCorrenti() {
+    return righe
+      .filter(r => r.selLingua.value)
+      .map(r => ({
+        lingua: r.selLingua.value,
+        livello: r.selLivello.value,
+        certificata: false,
+      }));
+  }
+
+  function aggiornaCompatibilita(forzate) {
+    const scelte = Array.isArray(forzate) ? forzate : lingueCorrenti();
+    const dip = window._onboardingDipartimento;
+    const mete = (METE || []).filter(m => m.dipartimentoCf === dip);
+    const profilo = {
+      area: window._onboardingArea,
+      dipartimento: dip,
+      livello,
+      lingue: scelte,
+    };
+    const categorie = mete.map(meta => categoriaCompat(
+      calcolaCompatibilita(meta, profilo)
+    ));
+    const quanti = categoria => categorie.filter(c => c === categoria).length;
+    stato.textContent =
+      `${mete.length} mete per ${dip}: ${quanti("ok")} compatibili, ` +
+      `${quanti("medio")} da verificare, ${quanti("basso")} non accessibili ora.`;
+    if (_mappaBenv && _mappaBenv.layer) {
+      _mappaBenv.mete = mete;
+      _mappaBenv.opts = {
+        fuoriTab: true,
+        compatibilita: meta => categoriaCompat(calcolaCompatibilita(meta, profilo)),
+      };
+      mappaRenderPins(_mappaBenv.layer, mete, _mappaBenv.opts);
+    }
+  }
+
+  aggiornaCompatibilita();
 }
 
 function completaOnboarding(livello, lingue) {
@@ -4679,14 +4952,28 @@ function completaOnboarding(livello, lingue) {
       ? true
       : profiloPrecedente.ricercaTesi === false ? false : null,
   };
+  // Un chiamante storico può completare il profilo senza passare da P1:
+  // in quel caso la fase già dichiarata non va retrocessa in silenzio.
+  if (ErasmusWizPuro.FASI_VIAGGIO.includes(window._onboardingPorta)) {
+    ZAINO.fase = window._onboardingPorta;
+  }
   ZAINO.onboardingFatto = true;
+  // La domanda sulle mete viene posta qui, una volta sola: il vecchio
+  // riquadro del tab Mete resta cablato per il rilancio deliberato.
+  ZAINO.wizardMete = true;
   salvaZaino(ZAINO);
   // Il form del Profilo si precompila all'avvio: dopo l'onboarding va
   // riallineato, o mostrerebbe campi vuoti fino al prossimo reload.
   precompilaFormV2();
+  // Stessa ragione, e vale per il «mai più» di D-V3.4: il riquadro del tab
+  // Mete è stato reso all'avvio, quando `wizardMete` era ancora false. Senza
+  // questo, chi lascia la schermata di esito senza rispondere e va alle Mete
+  // dalla nav si ritrova la domanda a schermo: il flag era giusto, la vista no.
+  renderWizardMete();
 
   const nMete = (METE || []).filter(m => m.areeDisciplinari.some(a => a.codice === area)).length;
   const prossima = prossimaScadenzaInfo();
+  benvSetPasso(5); // E non è un quinto passo: i quattro risultano conclusi.
   benvFumetto("Fatto! Il tuo percorso è pronto.", "saluto");
   const zona = document.getElementById("benvenuto-scelte");
   zona.innerHTML = "";
@@ -4703,22 +4990,44 @@ function completaOnboarding(livello, lingue) {
     dett = `Il bando ${anno} è chiuso. Il prossimo esce in genere tra dicembre e gennaio. Intanto puoi esplorare le mete con calma.`;
   }
   if (dett) zona.appendChild(crea("p", "benvenuto-landing-dettaglio", dett));
-  const btn = crea("button", "btn-primary benvenuto-btn-inizia", "Inizia il percorso →");
-  btn.type = "button";
-  btn.addEventListener("click", () => {
-    renderHome();
-    renderMete();
-    renderMissione();
-    window.scrollTo(0, 0);
+  const domanda = document.querySelector("#wizard-mete .wizard-mete-domanda");
+  if (domanda) {
+    zona.appendChild(crea(
+      "h2",
+      "benvenuto-landing-titolo",
+      domanda.textContent.trim()
+    ));
+  }
+  const riga = crea("div", "benvenuto-scelte-riga benvenuto-esiti");
+  [
+    ["si", document.getElementById("wizard-mete-si")],
+    ["no", document.getElementById("wizard-mete-no")],
+    ["salta", document.getElementById("wizard-mete-salta")],
+  ].forEach(([esito, sorgente]) => {
+    if (!sorgente) return;
+    const btn = crea("button", "benvenuto-scelta", sorgente.textContent.trim());
+    btn.type = "button";
+    btn.dataset.esitoMete = esito;
+    btn.addEventListener("click", () => benvConcludiConEsito(esito));
+    riga.appendChild(btn);
   });
-  zona.appendChild(btn);
+  zona.appendChild(riga);
+}
+
+function benvConcludiConEsito(esito) {
+  renderHome();
+  renderMete();
+  renderMissione();
+  window.scrollTo(0, 0);
+  if (esito !== "salta") vaiA("mete");
+  applicaEsitoWizardMete(esito);
 }
 
 // ============================================================
 // SCENA D'INGRESSO (R2.1, PLAN.md §5.1 — decisione di Nicola 16/07:
 // CTA "Inizia il tuo percorso"). Promessa concreta dentro una scena
 // emozionale: inchiostro profondo, rotte d'oro LENTE, zero pin nel primo
-// viewport. Il flusso a 3 domande parte al clic sul CTA. Le rotte sono
+// viewport. Il flusso a 4 passi parte al clic sul CTA. Le rotte sono
 // decorative: partono dalle due città-ateneo e arrivano su città già
 // geocodificate nei DATI (nessuna coordinata inventata nel codice);
 // `prefers-reduced-motion` le ferma (regola globale), Page Visibility
@@ -4769,21 +5078,53 @@ function benvScena() {
   const wrap = document.getElementById("benvenuto-cta-wrap");
   const btn  = document.getElementById("benvenuto-inizia");
   // Markup della scena assente: dritti alle domande, nessun vicolo cieco.
-  if (!benv || !wrap || !btn) { benvPassoAteneo(); return; }
+  if (!benv || !wrap || !btn) { benvPassoPorta(); return; }
   benv.classList.add("modo-scena");
+  aggiornaModoEntrata();
   wrap.hidden = false;
   mappaRotteScena();
   document.addEventListener("visibilitychange", aggiornaPausaScena);
   aggiornaPausaScena();
   btn.addEventListener("click", () => {
     benv.classList.remove("modo-scena");
+    aggiornaModoEntrata();
     wrap.hidden = true;
     mappaRimuoviRotte();
     document.removeEventListener("visibilitychange", aggiornaPausaScena);
-    benvPassoAteneo();
+    benvPassoPorta();
     // Il focus segue l'azione: dritto sulla prima scelta (accessibilità).
     document.querySelector("#benvenuto-scelte .benvenuto-scelta")?.focus();
   }, { once: true });
+}
+
+function leggiRipresaOnboarding() {
+  let grezzo = null;
+  try {
+    grezzo = sessionStorage.getItem(CHIAVE_ONBOARDING_RIPRESA);
+    sessionStorage.removeItem(CHIAVE_ONBOARDING_RIPRESA);
+  } catch (e) {
+    return null;
+  }
+  if (!grezzo) return null;
+  try {
+    const ripresa = JSON.parse(grezzo);
+    const passiValidi = [2, 3, 4];
+    if (
+      !ripresa ||
+      !passiValidi.includes(ripresa.passo) ||
+      !ErasmusWizPuro.FASI_VIAGGIO.includes(ripresa.porta)
+    ) return null;
+    if (
+      ripresa.passo === 4 &&
+      (
+        typeof ripresa.dipartimento !== "string" ||
+        !["L", "LM"].includes(ripresa.livello)
+      )
+    ) return null;
+    return ripresa;
+  } catch (e) {
+    return null;
+  }
 }
 
 function initOnboarding() {
@@ -4793,12 +5134,26 @@ function initOnboarding() {
   if (!layer) return; // dati mappa assenti: restano le scelte testuali
   _mappaBenv = { layer };
 
-  let stepRipresa = null;
-  try { stepRipresa = sessionStorage.getItem(CHIAVE_ONBOARDING_STEP); sessionStorage.removeItem(CHIAVE_ONBOARDING_STEP); } catch (e) {}
+  const ripresa = leggiRipresaOnboarding();
   // Chi torna dal cambio ateneo stava GIÀ rispondendo: niente scena, si
-  // riprende dal passo 2. La scena è solo per il primo contatto.
-  if (stepRipresa === "2") benvPassoFacolta();
-  else benvScena();
+  // riprende dal passo dichiarato con le risposte transitorie già in memoria.
+  if (!ripresa) {
+    benvScena();
+    return;
+  }
+  window._onboardingPorta = ripresa.porta;
+  if (ripresa.passo === 2) {
+    benvPassoAteneo();
+    return;
+  }
+  if (ripresa.passo === 3) {
+    benvPassoFacolta();
+    return;
+  }
+  window._onboardingDipartimento = ripresa.dipartimento;
+  window._onboardingArea = areaDominanteDipartimento(ripresa.dipartimento);
+  window._onboardingLivello = ripresa.livello;
+  benvPassoLingue(ripresa.livello);
 }
 
 // ============================================================
