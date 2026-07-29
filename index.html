@@ -80,7 +80,7 @@
         <p class="mappa-nota" id="mappa-nota-benvenuto" hidden></p>
       </div>
 
-      <!-- Hero indigo: saluto, claim, badge bando, Wiz -->
+      <!-- Hero indigo: intestazione personale, badge bando, Wiz -->
       <div class="home-header">
         <div class="home-hero-top">
           <p class="home-data" id="home-data"></p>
@@ -88,8 +88,10 @@
         </div>
         <div class="home-hero-row">
           <div class="home-header-text">
-            <h1 class="home-saluto">Ciao, <span id="home-nome">Studente</span></h1>
-            <p class="home-hero-claim">Entri confuso, esci con un piano.</p>
+            <!-- Nessun id qui: l'id di questo h1 appartiene alla tabella
+                 aria di app.js (diventa "titolo-tab-oggi-home"). Il saluto si
+                 seleziona per classe, dentro #tab-oggi. -->
+            <h1 class="home-saluto">Il tuo percorso Erasmus</h1>
           </div>
           <img src="img/mascotte/wiz-saluto.webp" alt="Wiz" class="wiz-mascot flip">
         </div>
@@ -146,7 +148,6 @@
       <div class="percorso-wrap">
         <div class="percorso-header">
           <span class="percorso-label">Il tuo progresso</span>
-          <a href="#" class="percorso-modifica-profilo" data-goto="profilo">Modifica profilo</a>
         </div>
         <div class="fase-stepper" id="fase-stepper"></div>
         <div class="preparazione-card" id="preparazione-card">
@@ -158,18 +159,6 @@
             <div class="prep-barra-fill" id="prep-fill" style="width:0%"></div>
           </div>
         </div>
-      </div>
-
-      <!-- 4. LE TUE ROTTE: preferite e accesso rapido alle mete (mappa
-           compatta SOTTO il valore quotidiano, gate PLAN-FASE-B) -->
-      <div class="card-mappa-home" id="card-mappa-home" style="display:none">
-        <div class="preparazione-header">
-          <span class="preparazione-label">Le tue rotte</span>
-          <a href="#" class="mappa-vai-elenco" id="mappa-vai-elenco">Elenco completo →</a>
-        </div>
-        <div class="mappa mappa-compatta" id="mappa-home"></div>
-        <p class="mappa-nota" id="mappa-nota-home" hidden></p>
-        <div class="mappa-legenda"><span><i class="pin-dot"></i>Mete della tua facoltà</span><span><i class="pin-dot stella"></i>Le tue preferite</span></div>
       </div>
 
     </section>
@@ -422,6 +411,22 @@
             </label>
           </div>
         </fieldset>
+        <div class="campo-form">
+          <label for="extra-ue-v2">Hai cittadinanza extra-UE?</label>
+          <select id="extra-ue-v2">
+            <option value="">— non ho ancora risposto —</option>
+            <option value="false">No</option>
+            <option value="true">Sì</option>
+          </select>
+        </div>
+        <div class="campo-form">
+          <label for="ricerca-tesi-v2">Il tuo Erasmus è (anche) per ricerca tesi?</label>
+          <select id="ricerca-tesi-v2">
+            <option value="">— non ho ancora risposto —</option>
+            <option value="false">No</option>
+            <option value="true">Sì</option>
+          </select>
+        </div>
         <button type="submit" class="btn-primario">Salva profilo e calcola compatibilità</button>
       </form>
       <div class="profilo-salvato" id="profilo-salvato" hidden>

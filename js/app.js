@@ -426,6 +426,53 @@ function statoBando() {
   return "aperto";
 }
 
+// V4 — un solo lettore del modo pre-bando. `statoBando()` resta
+// deliberatamente dati-only; qui si aggiunge la prospettiva dello studente.
+function inPreBando() {
+  return ErasmusWizPuro.modoCiclo({
+    stato: statoBando(),
+    cicloDati: ZAINO.cicloDati,
+    cicloPercorso: ZAINO.cicloPercorso,
+  }) === "pre-bando";
+}
+
+function cicloBreve(ciclo) {
+  const parti = String(ciclo || "").split("/");
+  return parti.length === 2 && parti[1].length === 4
+    ? `${parti[0]}/${parti[1].slice(-2)}`
+    : String(ciclo || "");
+}
+
+// Una formulazione sola, riusata ovunque un contenuto del vecchio ciclo
+// resta visibile. Cambiarla qui cambia insieme badge, calendario, requisiti
+// e scadenze delle università ospitanti.
+function cartellinoCicloDati() {
+  const ciclo = cicloBreve(ZAINO.cicloDati || window.BANDO_INFO?.annoAccademico);
+  return ciclo || "ciclo precedente";
+}
+
+function cicloPercorsoBreve() {
+  return cicloBreve(ZAINO.cicloPercorso);
+}
+
+function titoloPreBando() {
+  const ciclo = cicloPercorsoBreve();
+  return ciclo
+    ? `Il bando ${ciclo} non è ancora uscito`
+    : "Il prossimo bando non è ancora uscito";
+}
+
+// È il testo canonico della finestra attesa: missione, prossima data e
+// conclusione dell'onboarding non ne mantengono tre copie divergenti.
+function finestraAttesaBando() {
+  return "La prossima data certa è l’uscita del bando, di solito fra dicembre e gennaio.";
+}
+
+function countdownConCiclo(data) {
+  const testo = countdownInParole(calcolaCountdown(data));
+  return inPreBando() ? `${testo} · bando ${cartellinoCicloDati()}` : testo;
+}
+
 // Una voce di checklist è "morta" se la sua scadenza è già passata:
 // non ha senso proporla come missione.
 function voceScaduta(voce) {
@@ -789,8 +836,14 @@ function renderHome() {
       weekday: "long", day: "numeric", month: "short", year: "numeric"
     });
   }
-  const nomeEl = document.getElementById("home-nome");
-  if (nomeEl) nomeEl.textContent = ZAINO.profilo?.nome || "Studente";
+  // L'id di questo titolo viene assegnato da preparaNomiTab() per il
+  // contratto ARIA: la classe è il suo riferimento stabile nel render.
+  const salutoEl = document.querySelector("#tab-oggi .home-saluto");
+  if (salutoEl) {
+    salutoEl.textContent = ZAINO.profilo?.nome
+      ? `Ciao, ${ZAINO.profilo.nome}`
+      : "Il tuo percorso Erasmus";
+  }
 
   // Badge del bando — dice sempre la verità sui QUATTRO stati (R2.5):
   // aperto / candidature chiuse ma ciclo attivo / dati scaduti / non
@@ -798,17 +851,17 @@ function renderHome() {
   // è più la notizia rilevante).
   const badge = document.getElementById("badge-bando");
   if (badge) {
-    const anno = (window.BANDO_INFO && BANDO_INFO.annoAccademico) || "";
-    const parti = anno.split("/");
-    const annoBreve = parti.length === 2 ? `${parti[0]}/${parti[1].slice(-2)}` : anno;
     const stato = statoBando();
+    const annoBreve = cicloBreve(window.BANDO_INFO?.annoAccademico);
     const testi = {
       "aperto":              annoBreve ? `Bando ${annoBreve} aperto` : "",
       "chiuso-ciclo-attivo": annoBreve ? `Bando ${annoBreve}: candidature chiuse` : "",
       "dati-scaduti":        annoBreve ? `Bando ${annoBreve} concluso` : "",
       "non-pubblicato":      "Nuovo bando non ancora pubblicato",
     };
-    const testo = testi[stato] || "";
+    const testo = inPreBando()
+      ? `Bando ${cicloPercorsoBreve()} non ancora uscito · dati ${cartellinoCicloDati()}`
+      : (testi[stato] || "");
     const mostraBadge = !!testo && ZAINO.fase !== "selezionato";
     badge.style.display = mostraBadge ? "" : "none";
     badge.classList.toggle("badge-neutro", stato !== "aperto");
@@ -825,10 +878,12 @@ function renderHome() {
 //   1. SELEZIONE DICHIARATA — lo studente ha detto "sono stato selezionato"
 //      (ZAINO.fase, l'unico gate auto-dichiarato): la prima azione incompleta
 //      della checklist reale, qualunque cosa dicano date e checklist.
-//   2. STATO DEL BANDO PER DATA — candidature chiuse (flag
-//      chiusuraCandidature nei dati scadenze, mai hardcoded) senza selezione
-//      dichiarata: nessuna tappa di lavoro può essere corrente, si è in
-//      attesa dell'esito → tappa "esiti" (il bivio onesto).
+//   2. STATO DEL BANDO PER DATA — fuori dal pre-bando, candidature chiuse
+//      (flag chiusuraCandidature nei dati scadenze, mai hardcoded) senza
+//      selezione dichiarata: nessuna tappa di lavoro può essere corrente,
+//      si è in attesa dell'esito → tappa "esiti" (il bivio onesto). Nel
+//      pre-bando quella chiusura appartiene al ciclo storico dei dati e non
+//      sposta agli esiti il percorso rivolto al bando nuovo.
 //   3. IL VIAGGIO IN ORDINE — la prima tappa non completata sui dati
 //      disponibili: requisiti → mete → candidatura.
 //   4. TUTTO COMPLETATO, bando ancora aperto → "esiti": la tappa corrente
@@ -850,16 +905,36 @@ function renderHome() {
 // se cambia nei file dati, va cambiata qui nello stesso intervento.
 const FASE_CHECKLIST_LEARNING_AGREEMENT = "Learning Agreement";
 
-// Le voci marcate `condizionale` nei dati-postselezione.js valgono solo in
-// certi casi ("se fai ricerca tesi", "se hai cittadinanza extra-UE") oppure
-// sono un vincolo da conoscere senza un'azione per tutti. Restano nella
-// checklist e nei contatori — si possono spuntare — ma NON possono diventare
-// "la prossima mossa": nessuno spunta mai "Se hai deciso di non partire", e
-// chi ha fatto le quattro azioni vere dell'accettazione resterebbe fermo li'
-// per sempre. Prova: test/ui/porte-v2.spec.cjs "la prima azione post-selezione
-// e' calcolata".
+// Le sole condizioni personali previste da V4. Il campo `tipo` distingue
+// condizioni, opzioni e avvertenze; questa mappa collega le tre condizioni
+// alle due risposte del profilo, senza dedurre nulla dal testo validato.
+const CONDIZIONI_POST_PROFILO = Object.freeze({
+  "post-la-4": "ricercaTesi",
+  "post-doc-8": "extraUE",
+  "sap-post-doc-7": "extraUE",
+});
+
+function vociPostApplicabili() {
+  const profilo = ZAINO.profilo || {};
+  return (CHECKLIST_POST || []).filter(voce => {
+    if (!voce.tipo) return true;
+    if (voce.tipo !== "condizione") return false;
+    const campo = CONDIZIONI_POST_PROFILO[voce.id];
+    return !!campo && profilo[campo] === true;
+  });
+}
+
 function vociPostPromuovibili() {
-  return (CHECKLIST_POST || []).filter(voce => !voce.condizionale);
+  return vociPostApplicabili().filter(voce =>
+    voce.tipo !== "opzione" && voce.tipo !== "avvertenza"
+  );
+}
+
+function risposteProfiloPostMancanti() {
+  const profilo = ZAINO.profilo || {};
+  return ["extraUE", "ricercaTesi"].filter(campo =>
+    profilo[campo] !== true && profilo[campo] !== false
+  );
 }
 
 function primaVocePostIncompleta() {
@@ -880,7 +955,9 @@ function primaTappaPostSelezione() {
 function tappaCorrente() {
   if (ZAINO.fase === "selezionato") return primaTappaPostSelezione();
   if (ZAINO.fase === "in-attesa") return "esiti";
-  if (candidatureChiuse()) return "esiti";
+  // In pre-bando la chiusura appartiene al ciclo dei dati, non al percorso
+  // nuovo dello studente: non può spedirlo artificialmente agli esiti.
+  if (!inPreBando() && candidatureChiuse()) return "esiti";
 
   const requisiti = REQUISITI_BANDO || [];
   const checklist = CHECKLIST || [];
@@ -917,20 +994,23 @@ function calcolaFasi() {
   const selezionato    = ZAINO.fase === "selezionato";
   const inAttesa       = ZAINO.fase === "in-attesa";
   const attesaEsiti    = tappa === "esiti";
-  const post           = CHECKLIST_POST || [];
+  const post           = vociPostApplicabili();
   const postFatti      = post.filter(v => ZAINO.checklistPost && ZAINO.checklistPost[v.id]).length;
   const vociLA         = post.filter(v => v.fase === FASE_CHECKLIST_LEARNING_AGREEMENT);
   const laFatto        = vociLA.length > 0 &&
     vociLA.every(v => ZAINO.checklistPost && ZAINO.checklistPost[v.id]);
   const postFatto      = post.length > 0 && postFatti === post.length;
+  const notaRequisitiCiclo = inPreBando()
+    ? ` Requisiti del bando ${cartellinoCicloDati()}.`
+    : "";
 
   const fasi = [
     {
       id: 1, tappa: "requisiti", tab: "percorso", stazione: "requisiti",
       domanda: "Requisiti", fatto: requisitiOk,
       riassunto: requisitiOk
-        ? "Profilo compilato — hai verificato tutti i requisiti."
-        : "Verifica i requisiti del bando prima di iniziare.",
+        ? `Profilo compilato — hai verificato tutti i requisiti.${notaRequisitiCiclo}`
+        : `Verifica i requisiti del bando prima di iniziare.${notaRequisitiCiclo}`,
       cta: requisitiOk ? "Rivedi i requisiti" : "Controlla se sei idoneo",
     },
     {
@@ -1076,7 +1156,7 @@ function renderPercorso(opzioni = {}) {
   const chkFatti    = checklist.filter(v => ZAINO.checklist && ZAINO.checklist[v.id]).length;
   const checklistOk = checklist.length > 0 && chkFatti === checklist.length;
 
-  const post      = CHECKLIST_POST || [];
+  const post      = vociPostApplicabili();
   const postFatti = post.filter(v => ZAINO.checklistPost && ZAINO.checklistPost[v.id]).length;
 
   const selezionato = ZAINO.fase === "selezionato";
@@ -1154,7 +1234,7 @@ function renderPercorso(opzioni = {}) {
       ? "Hai indicato di essere stato selezionato 🎉"
       : inAttesa
         ? "Hai inviato la domanda e stai aspettando l'esito."
-      : (tappa === "esiti" && candidatureChiuse())
+      : (tappa === "esiti" && !inPreBando() && candidatureChiuse())
         ? "Le candidature sono chiuse: quando conosci l'esito, dichiaralo qui."
         : "Quando conosci l'esito della selezione, dichiaralo qui.";
   }
@@ -1255,7 +1335,7 @@ function renderSettimana() {
   let inRitardo = null;
   if (ZAINO.fase === "selezionato") {
     voci = vociPostPromuovibili().filter(v => !spuntata(v, ZAINO.checklistPost));
-  } else if (statoBando() === "aperto") {
+  } else if (!inPreBando() && statoBando() === "aperto") {
     const tutte = vociInOrdine(CHECKLIST || []);
     voci = tutte.filter(v => !spuntata(v, ZAINO.checklist) && !voceScaduta(v));
     inRitardo = tutte.find(v => !spuntata(v, ZAINO.checklist) && voceScaduta(v)) || null;
@@ -1270,8 +1350,7 @@ function renderSettimana() {
     item.appendChild(crea("span", "settimana-item-testo", (ritardo ? "In ritardo: " : "") + voce.testo));
     const scad = voce.scadenzaId ? scadenzaPerId(voce.scadenzaId) : null;
     if (scad) {
-      const c = calcolaCountdown(scad.data);
-      item.appendChild(crea("span", "settimana-item-scadenza", countdownInParole(c)));
+      item.appendChild(crea("span", "settimana-item-scadenza", countdownConCiclo(scad.data)));
     }
     item.addEventListener("click", () => vaiAStazione(
       ZAINO.fase === "selezionato" ? tappaPerVocePost(voce) : "candidatura"
@@ -1324,6 +1403,15 @@ function calcolaMissione() {
     return { tipo: "completo", fatti, totale };
   }
 
+  // Il pre-bando resta la cornice onesta anche per un nuovo visitatore, ma
+  // senza profilo la sua azione utile viene prima dell'esplorazione delle mete.
+  if (inPreBando()) return {
+    tipo: "pre-bando",
+    profiloMancante: !haProfilo,
+    fatti,
+    totale
+  };
+
   // Bando chiuso e non selezionato: il sito lo dice, onestamente,
   // e propone il bivio (selezionato → partenza / no → prossimo bando).
   if (tappa === "esiti" && candidatureChiuse()) return { tipo: "bando-chiuso", fatti, totale };
@@ -1364,11 +1452,33 @@ function renderMissione() {
   // e si scorre lì, non in cima al tab.
   function setBtn(btn, testo, tab, stazione) {
     if (!btn) return;
+    btn.style.display = "";
     btn.textContent = testo;
     btn.onclick = e => { e.preventDefault(); stazione ? vaiAStazione(stazione) : vaiA(tab); };
   }
 
   switch (m.tipo) {
+    case "pre-bando": {
+      const quando = dataChiusuraCandidature();
+      if (titolo) titolo.textContent = titoloPreBando();
+      if (dett) dett.textContent =
+        `${finestraAttesaBando()} ` +
+        `Le candidature del ${cartellinoCicloDati()} si sono chiuse${quando ? ` il ${quando}` : ""}; ` +
+        "quelle date restano qui come riferimento storico." +
+        (m.profiloMancante
+          ? " Completa il profilo per filtrare le mete compatibili con il tuo percorso."
+          : "");
+      if (m.profiloMancante) {
+        setBtn(btnFatto, "Completa il profilo", "profilo");
+      } else {
+        setBtn(btnFatto, "Esplora le mete", "mete");
+      }
+      if (btnCome) {
+        btnCome.style.display = "none";
+        btnCome.onclick = null;
+      }
+      break;
+    }
     case "bando-chiuso": {
       const quando = dataChiusuraCandidature();
       const anno   = (window.BANDO_INFO && BANDO_INFO.annoAccademico) || "";
@@ -1446,16 +1556,16 @@ function renderMissione() {
 
 function aggiornaCountdownV2() {
   document.querySelectorAll(".cand-scadenza-card").forEach(el => {
-    const c  = calcolaCountdown(el.getAttribute("data-scadenza"));
+    const data = el.getAttribute("data-scadenza");
+    const c  = calcolaCountdown(data);
     const cd = el.querySelector(".cand-scadenza-countdown");
-    if (cd) cd.textContent = countdownInParole(c);
+    if (cd) cd.textContent = countdownConCiclo(data);
     if (c.passata) el.closest(".cand-capitolo")?.classList.add("passata");
   });
   document.querySelectorAll(".prossimo-passo-scadenza[data-scadenza-id]").forEach(el => {
     const scad = scadenzaPerId(el.getAttribute("data-scadenza-id"));
     if (!scad) return;
-    const c = calcolaCountdown(scad.data);
-    el.textContent = `📅 ${scad.cosa} — ${countdownInParole(c)}`;
+    el.textContent = `📅 ${scad.cosa} — ${countdownConCiclo(scad.data)}`;
   });
 }
 
@@ -1544,6 +1654,9 @@ function escapaTestoICS(testo) {
 }
 
 function scaricaICSScadenza(scad) {
+  // Guardia V4: anche una chiamata programmatica non può esportare nel
+  // calendario una scadenza storica del ciclo precedente.
+  if (inPreBando() && scadenzaPassata(scad)) return false;
   const dtStamp = formattaDataICS(new Date().toISOString());
   const dtStart = formattaDataICS(scad.data);
   const uid = `${scad.id || "ew-scadenza"}-${dtStart}@erasmuswiz`;
@@ -1570,6 +1683,7 @@ function scaricaICSScadenza(scad) {
   a.click();
   a.remove();
   URL.revokeObjectURL(url);
+  return true;
 }
 
 // ---- "Ora tocca a te" (BR5, 5b): le prime 3 voci non spuntate in
@@ -1595,8 +1709,7 @@ function renderProssimiPassi(vociInOrdine, prossimaVoceId) {
     item.appendChild(creaVoceChecklist(voce, prossimaVoceId));
     const scad = voce.scadenzaId ? scadenzaPerId(voce.scadenzaId) : null;
     if (scad) {
-      const c = calcolaCountdown(scad.data);
-      const badge = crea("div", "prossimo-passo-scadenza", `📅 ${scad.cosa} — ${countdownInParole(c)}`);
+      const badge = crea("div", "prossimo-passo-scadenza", `📅 ${scad.cosa} — ${countdownConCiclo(scad.data)}`);
       badge.setAttribute("data-scadenza-id", scad.id);
       item.appendChild(badge);
     }
@@ -1620,6 +1733,15 @@ function renderChecklist() {
   if (!cont) return;
   cont.innerHTML = "";
   if (!ZAINO.checklist) ZAINO.checklist = {};
+  const preBando = inPreBando();
+
+  if (preBando) {
+    cont.appendChild(crea(
+      "div",
+      "cartellino-ciclo cartellino-ciclo-sezione",
+      `Calendario del bando ${cartellinoCicloDati()} (concluso)`
+    ));
+  }
 
   // R2.6: fonte raggiungibile e data di verifica per le date mostrate.
   // Tutte le scadenze di questa vista vengono dal bando in BANDO_INFO:
@@ -1630,6 +1752,7 @@ function renderChecklist() {
     const riga  = crea("div", "cand-fonte-riga");
     const stato = statoBando();
     const prefisso =
+      preBando                  ? `⚠️ Date del bando ${cartellinoCicloDati()}: sono dati storici, non scadenze per candidarti al ${cicloPercorsoBreve()}. ` :
       stato === "dati-scaduti"   ? "⚠️ Queste date appartengono a un ciclo concluso: il nuovo bando potrebbe essere già uscito. " :
       stato === "non-pubblicato" ? "Il nuovo bando non è ancora stato pubblicato: nessuna data da mostrare. " : "";
     const verificata = infoBando.dataVerificaDati
@@ -1652,7 +1775,9 @@ function renderChecklist() {
   // La voce "attiva" (evidenziata) è la prima non spuntata la cui
   // scadenza NON è già passata: mai indicare come prossimo passo
   // qualcosa su cui non si può più agire.
-  const prossimaVoceId = checklist.find(v => !ZAINO.checklist[v.id] && !voceScaduta(v))?.id;
+  const prossimaVoceId = preBando
+    ? undefined
+    : checklist.find(v => !ZAINO.checklist[v.id] && !voceScaduta(v))?.id;
 
   const vociSenzaScadenza = checklist.filter(v => !v.scadenzaId || !idScadenzeNote.includes(v.scadenzaId));
 
@@ -1673,14 +1798,30 @@ function renderChecklist() {
     card.setAttribute("data-scadenza", scad.data);
     card.appendChild(crea("div", "cand-scadenza-titolo", scad.cosa));
     card.appendChild(crea("div", "cand-scadenza-data", formattaData(scad.data)));
-    card.appendChild(crea("div", "cand-scadenza-countdown", countdownInParole(c)));
+    card.appendChild(crea("div", "cand-scadenza-countdown", countdownConCiclo(scad.data)));
 
-    // Niente export calendario per una scadenza già passata
-    if (!c.passata) {
+    // In pre-bando l'export storico resta visibile ma non produce un evento
+    // inutile: la disattivazione spiega il perché. Fuori dal pre-bando resta
+    // il comportamento precedente.
+    if (!c.passata || preBando) {
       const btnIcs = crea("button", "cand-btn-ics", "🗓 Aggiungi al calendario");
       btnIcs.type = "button";
-      btnIcs.addEventListener("click", () => scaricaICSScadenza(scad));
-      card.appendChild(btnIcs);
+      if (c.passata && preBando) {
+        btnIcs.disabled = true;
+        const motivoId = `ics-motivo-${scad.id}`;
+        btnIcs.setAttribute("aria-describedby", motivoId);
+        card.appendChild(btnIcs);
+        const motivo = crea(
+          "span",
+          "cand-ics-motivo",
+          `Scadenza del bando ${cartellinoCicloDati()}, già passata`
+        );
+        motivo.id = motivoId;
+        card.appendChild(motivo);
+      } else {
+        btnIcs.addEventListener("click", () => scaricaICSScadenza(scad));
+        card.appendChild(btnIcs);
+      }
     }
 
     capitolo.appendChild(card);
@@ -2299,9 +2440,6 @@ function renderPreferite(msg) {
   const ids = schedinaIds();
   salvaZaino(ZAINO);
 
-  // Fase C2: le stelle sulla mappa compatta seguono la schedina.
-  if (typeof renderMappaHome === "function") renderMappaHome();
-
   const header = crea("div", "preferite-header");
   header.appendChild(crea("span", "preferite-label", `Le tue 5 scelte (${ids.length}/5)`));
   // R3.1: il wizard della prima visita si può sempre rilanciare da qui.
@@ -2510,10 +2648,19 @@ function apriDettaglioMeta(meta) {
 
   // --- Scadenze università ospitante (dato reale, prima invisibile) ---
   if (meta.scadenzeOspitante && meta.scadenzeOspitante.length) {
+    const boxScadenze = crea("div", "dett-scadenze-ospitante");
+    if (inPreBando()) {
+      boxScadenze.appendChild(crea(
+        "p",
+        "cartellino-ciclo",
+        `Date del ciclo ${cartellinoCicloDati()} — l’università ospitante le ripubblica ogni anno.`
+      ));
+    }
     const ulS = document.createElement("ul");
     meta.scadenzeOspitante.forEach(s =>
       ulS.appendChild(crea("li", null, `${s.cosa}: ${s.periodo}`)));
-    corpo.appendChild(rigaDettaglio("Scadenze dell'università ospitante", ulS));
+    boxScadenze.appendChild(ulS);
+    corpo.appendChild(rigaDettaglio("Scadenze dell'università ospitante", boxScadenze));
   }
 
   // --- Campi descrittivi: solo se REALI (niente segnaposto) ---
@@ -2587,6 +2734,25 @@ function renderChecklistPost() {
 
   const lista  = CHECKLIST_POST || [];
   const spunte = ZAINO.checklistPost;
+  const applicabili = vociPostApplicabili();
+  const idApplicabili = new Set(applicabili.map(voce => voce.id));
+
+  if (ZAINO.fase === "selezionato" && risposteProfiloPostMancanti().length) {
+    const invito = crea("div", "profilo-post-invito");
+    const testi = crea("div");
+    testi.appendChild(crea("strong", null, "Completa due risposte per personalizzare lo zaino"));
+    testi.appendChild(crea(
+      "p",
+      null,
+      "Cittadinanza extra-UE e ricerca tesi decidono quali passaggi riguardano davvero te."
+    ));
+    invito.appendChild(testi);
+    const btn = crea("button", "btn-secondary btn-primary-sm", "Completa il profilo");
+    btn.type = "button";
+    btn.addEventListener("click", () => vaiA("profilo"));
+    invito.appendChild(btn);
+    cont.appendChild(invito);
+  }
 
   function creaVocePost(voce) {
     const spuntato = !!spunte[voce.id];
@@ -2612,6 +2778,9 @@ function renderChecklistPost() {
   CAPITOLI_ZAINO.forEach(capitolo => {
     const vociCapitolo = lista.filter(v => (v.gruppoZaino || "Prima") === capitolo);
     if (vociCapitolo.length === 0) return; // niente contenuti per questo capitolo: si nasconde
+    const compitiCapitolo = vociCapitolo.filter(voce => idApplicabili.has(voce.id));
+    const opzioniCapitolo = vociCapitolo.filter(voce => voce.tipo === "opzione");
+    const avvertenzeCapitolo = vociCapitolo.filter(voce => voce.tipo === "avvertenza");
 
     const capitoloEl = crea("div", "zaino-capitolo");
     // Testa-capitolo come blocco distinto (Fase C4): stesso linguaggio dei
@@ -2619,23 +2788,39 @@ function renderChecklistPost() {
     // posto del countdown (qui non c'è urgenza: è un percorso, non una corsa).
     const testa = crea("div", "zaino-capitolo-testa");
     testa.appendChild(crea("h2", "zaino-capitolo-titolo", capitolo));
-    const fattiCapitolo = vociCapitolo.filter(v => spunte[v.id]).length;
-    testa.appendChild(crea("span", "zaino-capitolo-count", `${fattiCapitolo} di ${vociCapitolo.length}`));
+    const fattiCapitolo = compitiCapitolo.filter(v => spunte[v.id]).length;
+    testa.appendChild(crea("span", "zaino-capitolo-count", `${fattiCapitolo} di ${compitiCapitolo.length}`));
     capitoloEl.appendChild(testa);
 
     const fasi = [];
-    vociCapitolo.forEach(voce => {
+    compitiCapitolo.forEach(voce => {
       if (!fasi.includes(voce.fase)) fasi.push(voce.fase);
     });
 
     const corpo = crea("div", "zaino-capitolo-corpo");
+    if (avvertenzeCapitolo.length) {
+      const avvertenze = crea("section", "zaino-da-sapere");
+      avvertenze.appendChild(crea("h3", "gruppo-post-titolo", "Da sapere prima"));
+      avvertenzeCapitolo.forEach(voce =>
+        avvertenze.appendChild(crea("p", "zaino-avvertenza", voce.testo))
+      );
+      corpo.appendChild(avvertenze);
+    }
+
     fasi.forEach(fase => {
-      const voci = vociCapitolo.filter(v => v.fase === fase);
+      const voci = compitiCapitolo.filter(v => v.fase === fase);
       const gruppo = crea("div", "gruppo-post");
       gruppo.appendChild(crea("h3", "gruppo-post-titolo", fase));
       voci.forEach(voce => gruppo.appendChild(creaVocePost(voce)));
       corpo.appendChild(gruppo);
     });
+
+    if (opzioniCapitolo.length) {
+      const opzioni = crea("section", "zaino-opzioni");
+      opzioni.appendChild(crea("h3", "gruppo-post-titolo", "Se ti riguarda"));
+      opzioniCapitolo.forEach(voce => opzioni.appendChild(creaVocePost(voce)));
+      corpo.appendChild(opzioni);
+    }
     capitoloEl.appendChild(corpo);
 
     cont.appendChild(capitoloEl);
@@ -2731,6 +2916,7 @@ function impostaFaseViaggio(fase, opzioni = {}) {
   salvaZaino(ZAINO);
   aggiornaBottoniFase();
   renderHome();
+  renderChecklistPost();
   renderMissione();
   if (opzioni.naviga !== false) {
     vaiAStazione(destinazionePerFase(fase), { esclusiva: true });
@@ -3983,6 +4169,14 @@ function renderIdoneita() {
   if (!ZAINO.autoverifica) ZAINO.autoverifica = {};
 
   const requisiti = REQUISITI_BANDO || [];
+  if (inPreBando() && requisiti.length) {
+    cont.appendChild(crea(
+      "div",
+      "cartellino-ciclo cartellino-ciclo-sezione",
+      `Requisiti del bando ${cartellinoCicloDati()}. ` +
+      `Il bando ${cicloPercorsoBreve()} può cambiarli: qui per farti un’idea, non per candidarti.`
+    ));
+  }
 
   const esitoEl = document.getElementById("idoneita-esito");
   if (esitoEl) {
@@ -4255,39 +4449,15 @@ function mappaNotaCopertura(el, mete) {
 }
 
 // Stato per il ri-cluster al resize (la soglia dipende dalla larghezza resa).
-let _mappaBenv = null, _mappaHome = null;
+let _mappaBenv = null;
 let _mappaResizeRaf = null;
 window.addEventListener("resize", () => {
   if (_mappaResizeRaf) cancelAnimationFrame(_mappaResizeRaf);
   _mappaResizeRaf = requestAnimationFrame(() => {
     if (_mappaBenv && _mappaBenv.mete) mappaRenderPins(_mappaBenv.layer, _mappaBenv.mete, _mappaBenv.opts);
-    if (_mappaHome && _mappaHome.mete) mappaRenderPins(_mappaHome.layer, _mappaHome.mete, _mappaHome.opts);
     if (_mappaMete && _mappaMete.mete) mappaRenderPins(_mappaMete.layer, _mappaMete.mete, _mappaMete.opts);
   });
 });
-
-// Mappa compatta nella home profilata — SOTTO missione/countdown.
-function renderMappaHome() {
-  const card = document.getElementById("card-mappa-home");
-  if (!card) return;
-  if (!ZAINO.onboardingFatto || !ZAINO.profilo || !window.EUROPA_MAPPA || !window.COORDINATE_CITTA) {
-    card.style.display = "none";
-    return;
-  }
-  card.style.display = "";
-  const mete = (METE || []).filter(m => m.areeDisciplinari.some(a => a.codice === ZAINO.profilo.area));
-  if (!_mappaHome) {
-    const layer = mappaCostruisci(document.getElementById("mappa-home"));
-    if (!layer) { card.style.display = "none"; return; }
-    _mappaHome = { layer };
-    const vai = document.getElementById("mappa-vai-elenco");
-    if (vai) vai.addEventListener("click", e => { e.preventDefault(); vaiA("mete"); });
-  }
-  _mappaHome.mete = mete;
-  _mappaHome.opts = { stellate: ZAINO.metePreferite || [] };
-  mappaRenderPins(_mappaHome.layer, mete, _mappaHome.opts);
-  mappaNotaCopertura(document.getElementById("mappa-nota-home"), mete);
-}
 
 // ============================================================
 // BENVENUTO (primo contatto) — il flusso a 3 domande, sulla mappa.
@@ -4492,10 +4662,23 @@ function benvPassoLingue(livello) {
 function completaOnboarding(livello, lingue) {
   const area = window._onboardingArea;
   const dip  = window._onboardingDipartimento;
+  const profiloPrecedente = ZAINO.profilo || {};
   // La facoltà scelta si salva nel profilo (P1.5): lo strip del tab Mete la
   // mostra al posto del codice ISCED grezzo. Zaini vecchi senza questo campo
   // hanno il fallback sul nome dell'area (nomeAreaProfilo).
-  ZAINO.profilo = { area, dipartimento: dip, livello, lingue: lingue || [] };
+  ZAINO.profilo = {
+    nome: profiloPrecedente.nome,
+    area,
+    dipartimento: dip,
+    livello,
+    lingue: lingue || [],
+    extraUE: profiloPrecedente.extraUE === true
+      ? true
+      : profiloPrecedente.extraUE === false ? false : null,
+    ricercaTesi: profiloPrecedente.ricercaTesi === true
+      ? true
+      : profiloPrecedente.ricercaTesi === false ? false : null,
+  };
   ZAINO.onboardingFatto = true;
   salvaZaino(ZAINO);
   // Il form del Profilo si precompila all'avvio: dopo l'onboarding va
@@ -4513,9 +4696,11 @@ function completaOnboarding(livello, lingue) {
   if (prossima) {
     const giorni = Math.ceil((new Date(prossima.data) - new Date()) / 86400000);
     dett = `La prossima scadenza è ${prossima.cosa}, tra ${giorni} ${giorni === 1 ? "giorno" : "giorni"}.`;
+  } else if (inPreBando()) {
+    dett = `${titoloPreBando()}. ${finestraAttesaBando()} Intanto puoi esplorare le mete con calma.`;
   } else if (candidatureChiuse()) {
     const anno = (window.BANDO_INFO && BANDO_INFO.annoAccademico) || "";
-    dett = `Il bando ${anno} è chiuso: il prossimo esce in genere tra dicembre e gennaio. Intanto puoi esplorare le mete con calma.`;
+    dett = `Il bando ${anno} è chiuso. Il prossimo esce in genere tra dicembre e gennaio. Intanto puoi esplorare le mete con calma.`;
   }
   if (dett) zona.appendChild(crea("p", "benvenuto-landing-dettaglio", dett));
   const btn = crea("button", "btn-primary benvenuto-btn-inizia", "Inizia il percorso →");
@@ -4524,7 +4709,6 @@ function completaOnboarding(livello, lingue) {
     renderHome();
     renderMete();
     renderMissione();
-    renderMappaHome();
     window.scrollTo(0, 0);
   });
   zona.appendChild(btn);
@@ -4674,6 +4858,11 @@ function precompilaFormV2() {
     area.value = dip || "";
   }
   if (livello) livello.value = p.livello;
+  const extraUE = document.getElementById("extra-ue-v2");
+  const ricercaTesi = document.getElementById("ricerca-tesi-v2");
+  if (extraUE) extraUE.value = p.extraUE === true ? "true" : p.extraUE === false ? "false" : "";
+  if (ricercaTesi) ricercaTesi.value =
+    p.ricercaTesi === true ? "true" : p.ricercaTesi === false ? "false" : "";
   const righe = document.querySelectorAll(".riga-lingua");
   (p.lingue || []).forEach((l, i) => {
     if (!righe[i]) return;
@@ -4706,12 +4895,18 @@ function initProfilo() {
     });
     const nomeDigitato   = (document.getElementById("nome-v2")?.value || "").trim();
     const dipartimento   = document.getElementById("area-v2").value;
+    const leggiRisposta = id => {
+      const valore = document.getElementById(id)?.value;
+      return valore === "true" ? true : valore === "false" ? false : null;
+    };
     ZAINO.profilo = {
       nome:         nomeDigitato || undefined,
       area:         areaDominanteDipartimento(dipartimento),
       dipartimento: dipartimento,
       livello:      document.getElementById("livello-v2").value,
       lingue,
+      extraUE:      leggiRisposta("extra-ue-v2"),
+      ricercaTesi:  leggiRisposta("ricerca-tesi-v2"),
     };
     salvaZaino(ZAINO);
     renderHome();
@@ -4774,7 +4969,6 @@ function init() {
   renderPercorso({ apri: true });
   renderLA();
   initOnboarding();
-  renderMappaHome();
   setInterval(aggiornaCountdownV2, 30000); // i countdown non mostrano più i secondi
 }
 

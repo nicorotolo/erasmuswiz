@@ -327,14 +327,13 @@ test("diff visivo nullo sulle sei invarianti DOM della baseline", async ({ page 
 
   const ordineBaseline = {
     // README.md dichiara una fixture con onboarding completato ma, per Oggi,
-    // riporta ancora il vecchio solo blocco di benvenuto. Con quella fixture
-    // il codice pre-V1 mostra invece questi quattro blocchi, il cui ordine nel
-    // markup non e' stato toccato dalla V1.
+    // riporta ancora il vecchio solo blocco di benvenuto. V4 applica
+    // l'inventario della Home "Adesso": la mappa-riepilogo esce dalla Home,
+    // mentre restano intestazione, mossa e progresso.
     oggi: [
       "div.home-header",
       "div#missione-card.missione-card",
       "div.percorso-wrap",
-      "div#card-mappa-home.card-mappa-home",
     ],
     mete: [
       "div.sezione-header",

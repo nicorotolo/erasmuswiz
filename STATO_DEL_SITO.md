@@ -21,7 +21,52 @@
 
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-07-28 — Claude Code.
+**Ultimo aggiornamento:** 2026-07-29 — Codex.
+
+**(SESSIONE 2026-07-29 BIS — REVIEW V4: DUE REGRESSIONI CHIUSE E CODICE
+MORTO RIMOSSO.)** La revisione umana ha trovato due difetti non intercettati
+dalle 31 prove UI: il contratto ARIA rinominava l'id del saluto e impediva
+«Ciao, Nome»; inoltre il ramo pre-bando aveva precedenza sul profilo mancante
+e proponeva subito le mete a un nuovo visitatore. Il saluto ora usa la classe
+stabile; la missione conserva la cornice onesta «bando non ancora uscito», ma
+propone «Completa il profilo» finché il profilo manca e «Esplora le mete» dopo.
+
+Rimossi soltanto lo stato, il render e i CSS esclusivi della card mappa già
+tolta dalla Home. Il motore condiviso della mappa e `.mappa-compatta` restano
+per Entrata e Mete. Il contratto sopra `tappaCorrente()` ora dichiara
+l'eccezione pre-bando già presente nel codice: è uno **scostamento reale dalla
+§V4 congelata**, perché la spec non chiedeva di modificare quella funzione,
+ma evita che la chiusura storica del 2026/27 spedisca agli Esiti chi segue il
+2027/28.
+
+Nuovo `test/ui/v4-regressioni.spec.cjs`, senza cambiare prove già verdi o
+baseline. Entrambe le regole sono state verificate separatamente per
+mutazione: selettore saluto riportato all'id → rosso; profilo mancante forzato
+a falso → rosso; dopo ciascun ripristino → verde. **Prove finali: 90/90 unit,
+33/33 UI.**
+
+**(SESSIONE 2026-07-29 — V4 HOME «ADESSO» + STATO PRE-BANDO COMPLETATA
+NEL WORKING TREE. G1 SUPERATO.)** Implementata la specifica congelata §V4
+senza delega, senza operazioni Git, senza processi terminati e senza toccare
+`statoBando()` o i file `dati-mete-*`. `modoCiclo()` è puro e
+`inPreBando()` è l'unico lettore nell'app. I 19 punti di render dichiarano il
+ciclo storico con etichetta, passato o disattivazione spiegata; T5 ora contiene
+19 asserzioni DOM, non ha `skip` ed è stato provato per mutazione sul punto 9
+(cartellino tolto → rosso, ripristino → verde).
+
+La Home segue l'inventario «Adesso»: niente claim, riepilogo-mappa o link
+profilo nel progresso; su mobile mostra la sola tappa corrente prima della
+mossa principale. A 390×844 badge, tappa, finestra attesa e CTA «Esplora le
+mete» stanno nel primo schermo. La chiusura del bando 2026/27 non manda più
+un nuovo percorso 2027/28 alla tappa Esito.
+
+Le 18 voci condizionali post-selezione hanno ricevuto solo il campo `tipo`
+prescritto: 3 `condizione`, 8 `opzione`, 7 `avvertenza`. Le avvertenze sono
+nel riquadro «Da sapere prima» senza checkbox; le opzioni restano spuntabili
+ma fuori conteggio; il denominatore comprende solo azioni universali e
+condizioni attivate dal profilo. Aggiunte al profilo le due risposte
+`extraUE` e `ricercaTesi` a tre valori, conservate da entrambi gli scrittori.
+**Prove finali: 90/90 unit, 31/31 UI.**
 
 **(SESSIONE 2026-07-28 quater — I TRE PREREQUISITI DI V4, CHIUSI. NESSUN
 CODICE DI V4.)** Sessione deliberatamente fermata prima di `/codex-build`:
@@ -3654,7 +3699,8 @@ Roadmap: UX1 spuntata. Prossima sessione: UX2 (home-percorso + nav a 3 tab).)
 
 **Ultimo aggiornamento precedente:** 2026-06-25 (MERGE GitHub→locale: i dati mappati da Codex su GitHub (che la copia locale non aveva) sono stati portati nel working tree mantenendo il design v2. Catalogo passato da 134 a **249 mete su 5 dipartimenti**: Economia 58, Management 76, Lingue 24, Scienze 25, Filosofia 66. I 3 nuovi file dati (`dati-mete-lingue.js`, `dati-mete-scienze.js`, `dati-mete-filosofia.js`) collegati in `index.html` con la catena di concat `_meteAll`; tutti i 5 file mete convertiti a `var METE`. ATTENZIONE: il merge NON è stato fatto via git (working tree su branch `feature/pipeline-imbuto` con modifiche non committate + lock OneDrive su `.git`); i file dati sono stati estratti con `git show origin/main:...`. Backup pre-merge in `_backup-20260625-*/`.)
 **Fase raggiunta:** prodotto statico multi-ateneo e redesign v2 completati; piano
-v3: **V0 ✅ online, V1 ✅ online (`5eed20f`), V2 ▶ prossima**.
+v3: **V0 ✅ online, V1 ✅ online, V2 ✅ online, V4 ✅ completata nel working
+tree; G1 ✅ superato. Prossima: revisione umana/pubblicazione, poi V3 e V5**.
 Cataloghi correnti: 392 mete Ca' Foscari + 1.595 Sapienza.
 **Cosa funziona:** tutto, validato (node --check su tutti i JS); mete REALI su 8 dipartimenti Ca' Foscari; bando, scadenze e checklist VALIDATI sul PDF ufficiale. Completezza lingua per dipartimento:
 Economia 52/58; Management 71/76; Lingue 23/24; Scienze 23/25; Filosofia 56/66;
@@ -3720,6 +3766,7 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **REDESIGN v3 — V0: compatibilità lingua veritiera** | Adattatore unico `requisitiLinguaNormalizzati()` con albero `ANY`/`ALL`, esito prudente a tre valori + caso condizionato, selezione L/LM, `rootPresunta` visibile e contabile; menu, filtro, scheda, dettaglio e tooltip normalizzati; pipeline rifiuta nuovo debito. Anche la decisione visibile di icona/stato/dettaglio vive nel modulo puro | ✅ **Implementata, riesaminata e online** (`3d0b524`, 2026-07-28) — deroga di Nicola sulle condizioni dei corsi protetta da banner; debito residuo dopo la coda deterministica: 71 `rootPresunta`; i vecchi conteggi di impatto vanno rigenerati quando servono |
 | **REDESIGN v3 — V1: router esteso + contratto del fuoco** | Esteso il parser puro a uno/due livelli + ateneo senza nuove rotte; ateneo dell'hash letto prima dei dati e mai persistito; `vaiA()` porta fuoco e scroll secondo F1–F9; scorciatoia «Cambia ateneo» ripristinata; Playwright reale con server Node e invarianti esistenti | ✅ **Implementata e verificata (2026-07-28), in working tree** — 33/33 unit + 14/14 UI; 8 avvii a freddo, Sapienza senza persistenza, cronologia 10+10+10, focus-visible, reduced motion e 4 tab × 3 viewport |
 | **REDESIGN v3 — V2: stepper a 6 tappe, tre porte, migrazione zaino v2→v3** | Sei tappe (Requisiti · Mete e le 5 scelte · Candidatura e scadenze · Esito · Learning Agreement · Zaino), il ponte Mete sempre visibile; tre porte (`esplorando` · `in-attesa` · `selezionato`) con `impostaFaseViaggio()` come unico writer — sparito il click sintetico di `app.js:1265`; migrazione v2→v3 **pura** in `js/puro.js` (conserva i campi sconosciuti, dati corrotti in `recuperoLegacy`, idempotente); `cicloPercorso`/`cicloDati`; la porta `selezionato` calcola la prima azione incompleta dalla checklist reale; la porta `in-attesa` consuma `ATTESA_INFO` | ✅ **Implementata, revisionata e online** (2026-07-28) — costruita da Codex `gpt-5.6-sol` con `/codex-build`, un giro di correzione più subentro del revisore. 61/61 unit + 25/25 UI. ⚠︎ **Scostamento dichiarato**: le matrici A/B di reset/archivia/conserva **non** sono implementate (ci sono i campi, non l'evento che le applica) — rinviate a **G2**. CSS e file dati non toccati |
+| **REDESIGN v3 — V4: Home «Adesso» + stato pre-bando** | `modoCiclo()` puro + lettore unico `inPreBando()`; 19 punti storicizzati senza cancellare contenuti; Home ridotta all'inventario ammesso; checklist post-selezione con denominatore personale, avvertenze senza checkbox, opzioni fuori conteggio; due risposte profilo a tre valori | ✅ **Implementata e verificata nel working tree** (2026-07-29). G1 superato: T5 senza skip, 19 asserzioni DOM, mutazione #9 rossa e ripristino verde. Review bis: saluto personalizzato e invito al profilo in pre-bando coperti da due nuove prove, entrambe verificate per mutazione; codice morto della vecchia mappa Home rimosso. 90/90 unit + 33/33 UI; baseline esistente invariata |
 | **A11y — fuoco sui filtri delle Mete** | Il punto 1 delle cose trovate fuori checklist in F4. `renderMete()` ricostruisce `#filtri-mete-chip`: il chip a fuoco veniva distrutto e il fuoco cadeva su `<body>`, così da tastiera il Tab ripartiva dall'inizio della pagina. Ora prima del re-render si registra l'**indice** del chip a fuoco (solo se `document.activeElement` è davvero un `.chip-filtro` di quel contenitore) e dopo lo si ridà al nodo nuovo con `focus({ preventScroll: true })`. Indice e non un `data-filtro` nuovo: i 5 chip sono una lista fissa, e l'attributo renderebbe bugiardo il commento R21 poche righe sotto. Solo `js/app.js`; `index.html` e `css/style.css` intatti | ✅ Fatta e verificata (2026-07-26) — nel browser sulla 8123: fuoco sul chip corrispondente invece che su `BODY`, **Tab reale successivo → chip seguente**, scroll invariato, col mouse `:focus-visible = false` (nessun anello), fuoco in `#cerca-mete` non rubato, nessuna eccezione senza profilo. ⚠︎ L'Invio da tastiera non è confermabile con l'automazione (stesso limite del punto 5 di F4): attivazione riprodotta con `chip.click()`, Tab reali |
 
 **Nav (R3, definitiva — gate R1 chiuso):** Mete → **Home** (centrale su
@@ -3779,19 +3826,22 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 | `design/redesign-2026-07/` | doc/asset | **Creata in F0 (25/07)**: il canvas `Redesign ErasmusWiz.dc.html` + `support.js` + `redesign-erasmuswiz.html` + `img/` + `uploads/` (escl. `_ds/`). È la fonte-di-verità del redesign — verificata: renderizza, `uploads/style.css` è byte-identico a `css/style.css` |
 | `design/redesign-2026-07/baseline/` | doc | **F0 (25/07)**: `probe-invarianti.js` (misura le 6 invarianti R29 + inventario touch R12 dal DOM, riusabile a F3/F4 con `__confronta`) e `README.md` (la "lista prima": invarianti verdi, touch <44px = 145/173/176 per viewport) |
 | `design/redesign-2026-07/GATE2-revisione-guidata.md` | doc | ⚠︎ **STORICO — mai eseguito fino in fondo.** Il 27/07 la revisione è stata interrotta alla prima schermata e assorbita in v3 (vedi `PLAN_REDESIGN_V3.md`). **Creato il 26/07**: il copione della revisione d'insieme rimandata da Nicola. Preparazione (server + stato di prova + le 3 larghezze), cosa NON riguardare perché già misurato, le **4 decisioni aperte** con raccomandazione e costo di ciascuna (`--fs-hero`, i 9 filetti di stato, oro→indaco, le emoji), il giro dei 4 tab × 3 larghezze con 3 domande a tab, tabella dei verdetti. Pensato per essere eseguito **guidati da Claude** in una chat nuova |
-| `index.html` | codice | Struttura v2. **V1:** le 4 section del contratto hanno `tabindex="-1"` e `aria-labelledby`, senza nodi o testi nuovi. **V2:** sei stazioni rinumerate (la 1 si chiama ora «Requisiti», non più «Prepara la candidatura», che collideva con la 3), ponte Mete sempre visibile, toggle a **tre** porte con `data-fase` e `aria-pressed`, contenitore `#attesa-info`. Carica `js/puro.js` con un tag proprio **prima** di `carica-atenei.js` (vedi il commento in loco: da V2 `app.js` lo usa a tempo di parsing) |
-| `css/style.css` | codice | Design system v2: dark mode, font Bricolage/Jakarta/SpaceMono, responsive |
-| `js/app.js` | codice | Logica v2. **V1:** delega il parser a `js/puro.js`; `vaiA()` gestisce fuoco, scroll e reduced motion; F9 censita. **V2:** `impostaFaseViaggio()` è l'unico writer di `ZAINO.fase` (via il click sintetico di `app.js:1265`); `calcolaFasi()` fa sei tappe e una tappa superata **per dichiarazione** lo dichiara invece di fingere misure; `primaTappaPostSelezione()` calcola dove atterra il selezionato dalla checklist reale; `renderAttesaInfo()` consuma `ATTESA_INFO`. ⚠︎ `voce.fase` dei dati **non** è `ZAINO.fase`: non trasformarli insieme |
-| `js/puro.js` | codice puro | **V0:** motore lingua senza DOM/storage. **V1:** esporta `destDaHash()`. **V2:** la migrazione dello zaino — `creaZainoV3`, `normalizzaZainoV3`, `migraContenitoreZainoV3`, `faseViaggioV3`, `cicloSuccessivo`. Conserva i campi sconosciuti, mette i dati corrotti in `recuperoLegacy` invece di cancellarli, ed è idempotente |
+| `index.html` | codice | Struttura v2. **V1:** le 4 section del contratto hanno `tabindex="-1"` e `aria-labelledby`, senza nodi o testi nuovi. **V2:** sei stazioni rinumerate, ponte Mete sempre visibile, toggle a tre porte, contenitore `#attesa-info`, caricamento esplicito di `js/puro.js`. **V4:** Home ripulita secondo l'inventario «Adesso»; aggiunte al form le due domande `extraUE` e `ricercaTesi` |
+| `css/style.css` | codice | Design system responsive. **V4:** cartellini di ciclo, motivazione `.ics` disabilitata, riquadri «Da sapere prima»/«Se ti riguarda», invito profilo e Home 390×844 con sola tappa corrente. **Review V4:** rimossi soltanto i selettori orfani della card mappa Home; `.mappa-compatta` e gli stili della mappa Mete restano |
+| `js/app.js` | codice | Logica v2. **V1–V2:** router, sei tappe, tre porte, prima azione post-selezione e pannello attesa. **V4:** lettore unico `inPreBando()`, copy canonico e protezioni sui 19 render; Home «Adesso»; `vociPostApplicabili()`/denominatore personale; due scrittori profilo corretti. **Review V4:** saluto legato alla classe stabile, azione profilo prioritaria nel pre-bando e rimozione del render mappa Home orfano. `statoBando()` è rimasta intatta |
+| `js/puro.js` | codice puro | **V0–V2:** motore lingua, router e migrazione zaino. **V4:** esporta `modoCiclo({stato,cicloDati,cicloPercorso})`, senza DOM/storage/orologio |
 | `package.json` · `package-lock.json` | test/infra | Dipendenze fissate (`jsdom@22.1.0`, `@playwright/test@1.62.0`) e comandi distinti. **V1:** `test:ui` esegue Playwright; `test:a11y` e `test:visual` restano segnaposto V2/V3 |
 | `test/compatibilita-lingua.test.cjs` · `test/pipeline-lingue.test.mjs` · `test/onboarding-lingue.test.cjs` | test | **V0 (27/07)**: i 10 casi golden, icone effettive per i casi che parlano di colore, assenza posti nel ramo condizionato, precedenza `rootPresunta`, tabella ANY/ALL, pipeline, prova jsdom di Italiano C2 e banner di dettaglio; `node --test`, uscita non zero su errore |
 | `test/router.test.cjs` | test unitario | **V1:** 5 prove pure su hash nudi/alias, Learning Agreement con ateneo, due livelli futuri e input malformati |
 | `playwright.config.cjs` | test/infra | **V1:** un solo progetto Chromium, un worker e `webServer` sulla 8123 con `reuseExistingServer:false` |
 | `test/server-statico.cjs` | test/infra | **V1:** server HTTP Node puro, senza dipendenze; serve solo il repo, niente cache e nessun processo persistente |
 | `test/ui/router.spec.cjs` | test UI | **V1:** 14 prove Playwright su avvio, dataset, storia, fuoco, reduced motion e invarianti visive DOM. **28/07:** +1, la prova di **F6** (ri-cliccare la voce attiva non muove né fuoco né pagina), verificata per mutazione |
-| `test/migrazione-zaino.test.cjs` | test unitario | **V2:** 26 prove sulla migrazione v2→v3 — due valori vecchi + `fase` assente + valore sconosciuto + contenitore corrotto + zaino piatto, × 2 atenei, con e senza il ramo `la`, più l'idempotenza |
-| `test/checklist-post.test.cjs` | test unitario | **V2:** per ogni ateneo, i dati devono contenere il gruppo «Learning Agreement» — è l'etichetta su cui `app.js` decide la tappa 5, e se cambia nei dati deve accorgersene una prova |
-| `test/ui/porte-v2.spec.cjs` | test UI | **V2:** 10 prove sulle tre porte per entrambi gli atenei, sulla precedenza dell'Accettazione sul LA, sulle sei tappe da tastiera, e due nate guardando il sito: una tappa data per fatta non mostra un riassunto che chiede di farla, e lo stesso passo ha lo stesso nome nello stepper e nella stazione |
+| `test/modo-ciclo.test.cjs` | test unitario | **V4:** tutti i quattro stati × cicli uguali/diversi, più campi mancanti o vuoti |
+| `test/inventario-g1.test.cjs` | test unitario + DOM | **V4:** T1–T5; T5 senza skip con 19 asserzioni numerate sui render pre-bando, verificato per mutazione |
+| `test/migrazione-zaino.test.cjs` | test unitario | **V2:** migrazione v2→v3 e idempotenza. **V4:** conservazione idempotente di `extraUE`/`ricercaTesi` |
+| `test/checklist-post.test.cjs` | test unitario | Contratto della checklist post-selezione. **V4:** classificazione esatta delle 18 voci condizionali |
+| `test/ui/porte-v2.spec.cjs` | test UI | Porte e tappe V2. **V4:** denominatore personale sui due atenei e tre valori, avvertenze senza checkbox, conservazione dei due scrittori e gate visuale 390×844 |
+| `test/ui/v4-regressioni.spec.cjs` | test UI | **Review V4:** prova il saluto con e senza nome e la mossa pre-bando con e senza profilo; entrambe le regole sono state rotte e ripristinate separatamente per verificare che la prova diventi rossa |
 | `scripts/conta-anomalie-lingua.mjs` | automazione di sola lettura | **V0 (27/07)**: rigenera per ateneo mete/requisiti/occorrenze/valori distinti, lista `daVerificare`, `rootPresunta` residue, confronto deterministico prima/dopo e impatto della deroga sui corsi |
 | `js/atenei/registro.js` | **dati** | **R1.5 (56)**: anagrafica atenei che il sito conosce PRIMA di caricare i dati — label, URL, `disponibile` (dichiarato, non più dedotto contando le mete), elenco file. **Aggiungere un ateneo o una Facoltà = toccare SOLO questo file** |
 | `js/carica-atenei.js` | codice | Decide quali atenei servono ed emette i tag in modo sincrono. **V1:** valida l'ateneo finale dell'hash prima dei dati e lo usa per il solo caricamento corrente, senza persisterlo |
@@ -3872,6 +3922,15 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 
 Il CODICE è pronto. Le mete ora sono **REALI** (dalla lista ufficiale del bando
 2026/27). Resta da completare lingua e dettagli-scheda, e validare bando/checklist.
+
+**V4 non aggiorna i dati del bando: li rende onesti durante l'attesa.** Tutti i
+dati di candidatura restano 2026/27, ma i 19 punti censiti li presentano come
+storici quando `cicloPercorso` punta al 2027/28. Le checklist post-selezione
+restano 37 voci Ca' Foscari e 31 Sapienza; sono cambiati soltanto il campo
+`tipo` sulle 18 voci già condizionali e il modo in cui l'interfaccia le conta.
+La review V4 non ha riscritto alcun contenuto validato o dato: ha ripristinato
+il saluto col nome e rende raggiungibile il profilo per un nuovo visitatore
+anche durante il pre-bando.
 
 **Debito lingua V0, rimisurato il 28/07 dopo la coda deterministica.**
 I dati non sono stati riscritti: restano **71 radici `ANY` presunte** da
@@ -3989,7 +4048,7 @@ poi aprire **http://localhost:8001**. (Dettagli e alternative nel `README.md`.)
 
 ### Cantiere SITO (Claude Code) — numerazione 49→61
 
-**⇢ AGGIORNAMENTO 2026-07-28 — questa lista è governata da `PLAN_REDESIGN_V3.md`.**
+**⇢ AGGIORNAMENTO 2026-07-29 — questa lista è governata da `PLAN_REDESIGN_V3.md`.**
 Il GATE 2 non si farà più come revisione a sé: è stato **assorbito in v3**. Il
 piano operativo del cantiere SITO da agosto 2026 a marzo 2027 è
 **`PLAN_REDESIGN_V3.md`**; quanto segue resta per storia.
@@ -4008,10 +4067,12 @@ piano operativo del cantiere SITO da agosto 2026 a marzo 2027 è
    `dati-bando.js` Sapienza ancora `inVerifica: true`; le 20 voci
    post-selezione di Ca' Foscari sono ora le più magre delle due (Sapienza 31)
    e meritano una rilettura sull'originale.
-3. **V4 Home «Adesso» → V3 Entrata** (in quest'ordine: lo stato pre-bando nasce
-   in V4 ed è ciò che supera il gate G1) · **V5 Retention** — 🔴 **prima che esca
-   il bando**, cioè entro novembre.
-4. **V6a Mete** (wishlist e riordino) · **G2** all'uscita del bando 2027/28 ·
+3. ✅ **V4 Home «Adesso» + stato pre-bando COMPLETATA nel working tree**
+   (29/07). G1 superato; review dei due difetti chiusa con mutazioni e suite
+   finali 90/90 unit + 33/33 UI. Restano revisione umana finale e pubblicazione.
+4. **V3 Entrata → V5 Retention** — 🔴 **prima che esca il bando**, cioè entro
+   novembre. V5 aggiungerà la sveglia promessa; V4 non l'ha anticipata.
+5. **V6a Mete** (wishlist e riordino) · **G2** all'uscita del bando 2027/28 ·
    **V6b** schedina ufficiale · **V7** Learning Agreement · **V8** rifiniture.
 
 **Restano aperte, dichiarate nel piano:** il filetto di stato a sinistra (9

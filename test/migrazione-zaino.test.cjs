@@ -145,3 +145,27 @@ test("la migrazione v2→v3 è idempotente", () => {
   const dueVolte = migraContenitoreZainoV3(unaVolta, CICLI);
   assert.deepEqual(dueVolte, unaVolta);
 });
+
+test("la normalizzazione conserva le due risposte V4 del profilo ed è idempotente", () => {
+  const contenitore = {
+    v: 3,
+    zaini: {
+      cafoscari: {
+        profilo: {
+          area: "0311",
+          livello: "L",
+          lingue: [],
+          extraUE: true,
+          ricercaTesi: false,
+        },
+        cicloDati: "2026/27",
+        cicloPercorso: "2027/28",
+      },
+    },
+  };
+  const unaVolta = migraContenitoreZainoV3(contenitore, CICLI);
+  const dueVolte = migraContenitoreZainoV3(unaVolta, CICLI);
+  assert.equal(unaVolta.zaini.cafoscari.profilo.extraUE, true);
+  assert.equal(unaVolta.zaini.cafoscari.profilo.ricercaTesi, false);
+  assert.deepEqual(dueVolte, unaVolta);
+});

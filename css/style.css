@@ -112,7 +112,7 @@
   --space-16: 64px;
 
   /* ── Tipografia (valori mobile, rif. 390) ── */
-  --fs-hero:  30px;   /* .home-hero-claim, .celebrazione-titolo */
+  --fs-hero:  30px;   /* .celebrazione-titolo */
   --fs-h1:    25px;   /* .sezione-titolo */
   --fs-h2:    20px;   /* .missione-titolo, .dett-titolo */
   --fs-h3:    17px;   /* .card-meta-v2 h3, .stazione-titolo */
@@ -513,8 +513,6 @@ body {
   color: var(--night-text);
   margin-top: 2px;
 }
-.home-hero-claim { font-size: 13px; color: var(--night-muted); margin-top: 6px; max-width: 30ch; }
-
 /* Selettore d'ateneo */
 .ateneo-selettore {
   display: inline-flex;
@@ -611,7 +609,6 @@ body {
 ================================================================ */
 .missione-card,
 .settimana-card,
-.card-mappa-home,
 .card-meta-v2 {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -622,7 +619,6 @@ body {
 @media (min-width: 768px) {
   .missione-card,
   .settimana-card,
-  .card-mappa-home,
   .card-meta-v2 { padding: var(--space-6); }
 }
 
@@ -1599,17 +1595,6 @@ body {
 .profilo-strip-link { color: var(--primary); font-weight: 700; text-decoration: none; }
 .profilo-strip-link:hover { text-decoration: underline; }
 
-/* Link modifica profilo — percorso-wrap */
-/* F2.0 — link autonomo, non inline in un paragrafo: è un bersaglio e va a 44px
-   (inventario touch F0.5 / R34). `margin-left:auto` lo tiene a destra come
-   faceva `text-align: right` prima che diventasse un flex. */
-.percorso-modifica-profilo {
-  display: flex; align-items: center; min-height: 44px;
-  width: fit-content; margin-left: auto; margin-top: var(--space-1);
-  font-size: 11px; color: var(--text-hint); text-decoration: none; padding: 0 2px;
-}
-.percorso-modifica-profilo:hover { text-decoration: underline; }
-
 /* ================================================================
    BANNER CELEBRAZIONE INLINE (nota Wiz dopo spunta)
 ================================================================ */
@@ -1800,16 +1785,88 @@ body {
 .mappa-cluster-nome { display: block; font-weight: 700; font-size: .92rem; }
 .mappa-cluster-dove { display: block; font-size: .78rem; color: var(--text-hint); }
 
-/* Mappa compatta nella home profilata */
-/* fondo, bordo, raggio, respiro e ombra vengono dal corpo condiviso §4.2 */
-.card-mappa-home .mappa-compatta { width: fit-content; max-width: 100%; margin: var(--space-1) auto 0; }
-.card-mappa-home .mappa-compatta svg { width: min(88vw, 400px); height: auto; }
-/* F2.0 — link autonomo nella testa della card mappa: bersaglio a 44px */
-.mappa-vai-elenco {
-  display: inline-flex; align-items: center; min-height: 44px;
-  font-size: var(--fs-sm); font-weight: 700; color: var(--primary); text-decoration: none;
+/* V4 — i dati del ciclo precedente restano leggibili ma non possono
+   sembrare attuali. Il cartellino usa i token già presenti nel sistema. */
+.cartellino-ciclo {
+  margin: 0 0 var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--bg-card-hover);
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  line-height: 1.45;
 }
-.mappa-vai-elenco:hover { text-decoration: underline; }
+.cartellino-ciclo-sezione { margin-bottom: var(--space-5); }
+.cand-ics-motivo {
+  display: block;
+  margin-top: var(--space-2);
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+  line-height: 1.4;
+}
+.cand-btn-ics:disabled {
+  cursor: not-allowed;
+  opacity: .58;
+}
+
+/* Le regole importanti non sono compiti: niente casella, superficie distinta.
+   Le opzioni restano spuntabili ma fuori dai contatori obbligatori. */
+.zaino-da-sapere,
+.zaino-opzioni,
+.profilo-post-invito {
+  margin-bottom: var(--space-5);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+}
+.zaino-da-sapere {
+  border: 1px solid var(--amber-border);
+  background: var(--amber-bg);
+}
+.zaino-opzioni {
+  border: 1px dashed var(--border-strong);
+  background: var(--bg-card-hover);
+}
+.zaino-avvertenza {
+  margin: var(--space-2) 0 0;
+  color: var(--text-dark);
+  line-height: 1.55;
+}
+.profilo-post-invito {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  border: 1px solid var(--primary);
+  background: rgba(79,70,229,.08);
+}
+.profilo-post-invito p { margin: var(--space-1) 0 0; color: var(--text-muted); }
+
+/* In Home resta il viaggio, ma le tappe non correnti non ripetono i riassunti
+   delle altre sezioni. Questo mantiene la mossa principale nel primo schermo
+   anche a 390×844, conservando i sei comandi raggiungibili da tastiera. */
+#tab-oggi .fase-card:not(.fase-attivo) .fase-riassunto { display: none; }
+
+@media (max-width: 767px) {
+  .profilo-post-invito { align-items: stretch; flex-direction: column; }
+  .missione-bottoni { flex-direction: column; }
+  .missione-bottoni > * { width: 100%; }
+  /* La Home "Adesso" mostra la tappa corrente, non sei riassunti. Le sei
+     tappe complete restano nella schermata Percorso e nel DOM desktop. */
+  #tab-oggi .fase-card:not(.fase-attivo) { display: none; }
+}
+
+@media (max-width: 1023px) {
+  #tab-oggi.attivo:not(.modo-benvenuto) {
+    display: flex;
+    flex-direction: column;
+  }
+  #tab-oggi:not(.modo-benvenuto) > .home-header { order: 1; }
+  #tab-oggi:not(.modo-benvenuto) > .percorso-wrap { order: 2; }
+  #tab-oggi:not(.modo-benvenuto) > .missione-card { order: 3; }
+  #tab-oggi:not(.modo-benvenuto) > .settimana-card { order: 4; }
+}
 .mappa-legenda { display: flex; gap: 14px; font-size: .75rem; color: var(--text-hint); margin-top: 8px; flex-wrap: wrap; }
 .mappa-legenda .pin-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--primary-fill); margin-right: 5px; }
 .mappa-legenda .pin-dot.stella { background: var(--gold); }
@@ -2083,7 +2140,6 @@ body.no-scroll { overflow: hidden; }
   }
   .home-header .wiz-mascot { display: none; } /* sul desktop c'è già il Wiz nella card missione */
   .home-saluto { font-size: 34px; }
-  .home-hero-claim { font-size: 14.5px; max-width: 44ch; }
   .home-data { font-size: 14px; }
   /* La sidebar è l'UNICO elemento che conserva una grid-row, e non è una
      dimenticanza: deve ATTRAVERSARE la colonna 1, non affiancarne una riga.
@@ -2110,7 +2166,6 @@ body.no-scroll { overflow: hidden; }
   }
   .missione-card  { grid-column: 1; margin: 20px 0 0; padding: 24px; padding-right: 190px; }
   .settimana-card { grid-column: 1; margin: 20px 0 0; }
-  .card-mappa-home { grid-column: 1; margin: 20px 0 0; }
   /* pill e barra preparazione non sono più figli diretti della griglia:
      vivono dentro Prossima mossa e Il tuo progresso (R2, §5.3) */
   .missione-wiz-desktop { display: block; }

@@ -100,18 +100,18 @@ numeri muoiono al primo commit (è già successo alla §V2 del piano).
 
 | # | Dove | Ancoraggio in `js/app.js` | Cosa mostra | In pre-bando deve |
 |---|---|---|---|---|
-| 1 | Motore | `SCADENZE_INFO.fineCiclo` in `statoBando()` | stato globale `aperto`/`dati-scaduti`/`non-pubblicato` | **governare tutti gli altri**: è il punto unico da cui deriva «pre-bando» |
+| 1 | Motore | `SCADENZE_INFO.fineCiclo` in `statoBando()` + `inPreBando()` | stato globale a quattro valori; il pre-bando è una lettura separata | **governare tutti gli altri** senza modificare `statoBando()` |
 | 2 | Badge in cima | `document.getElementById("badge-bando")` | anno breve `2026/27` + stato | etichettare, mai dire «aperto» |
-| 3 | Home / missione | `Il bando ${anno} è chiuso` | titolo missione | è già onesto; va riformulato al pre-bando (§3) |
+| 3 | Home / missione | `titoloPreBando()` | titolo missione | «Il bando 2027/28 non è ancora uscito» |
 | 4 | Home / missione | `dataChiusuraCandidature()` | «si sono chiuse il {data}» | storico esplicito |
-| 5 | Home / missione | `m.prossima.cosa} — ${formattaData(` | prossima scadenza + descrizione | **non mostrare**: non esiste prossima scadenza |
+| 5 | Home / missione | `finestraAttesaBando()` | prossima data certa | riscrivere come uscita attesa del nuovo bando |
 | 6 | Home / missione | `window.ATTESA_INFO?.titolo` | porta in-attesa | invariato (non dipende dal ciclo) |
-| 7 | Home / landing | `il prossimo esce in genere tra dicembre e gennaio` | invito | **è già il testo pre-bando**: V4 lo promuove da caso limite a stato |
+| 7 | Home / landing | `finestraAttesaBando()` | invito | riusa la formulazione canonica del pre-bando |
 | 8 | Card «questa settimana» | `settimana-item-scadenza` | countdown per voce | **non mostrare** |
 | 9 | Stazione candidatura | `cand-scadenza-data` / `cand-scadenza-countdown` | timeline scadenze | etichettare «storico 2026/27» |
 | 10 | Stazione candidatura | `prossimo-passo-scadenza` | badge prossimo passo | **non mostrare** |
 | 11 | Tooltip / badge | `el.getAttribute("data-scadenza")` | countdown inline | **non mostrare** |
-| 12 | Tooltip / badge | `📅 ${scad.cosa} — ${countdownInParole(c)}` | badge per `data-scadenza-id` | **non mostrare** |
+| 12 | Tooltip / badge | `countdownConCiclo(scad.data)` | badge per `data-scadenza-id` | etichettare col ciclo |
 | 13 | Calendario `.ics` | `function scaricaICSScadenza` | `DTSTART` + testo evento | **non generare** per scadenze passate; V5 sostituisce con «Controlla se è uscito il bando» |
 | 14 | Riga fonte | `Dati verificati il ${new Date(infoBando.dataVerificaDati)` | disclaimer | mostrare, ed è il posto giusto per dire il ciclo dei dati |
 | 15 | Stazione requisiti | `REQUISITI_BANDO` in `renderAutoverifica` | 8/9 schede requisito | etichettare: i requisiti sono del ciclo vecchio |
@@ -153,7 +153,7 @@ diventa personalizzato, con due domande nuove nel profilo.
 
 ## 4. Come si prova
 
-`test/inventario-g1.test.cjs`. Quello che è **eseguibile oggi**:
+`test/inventario-g1.test.cjs`. Sono **eseguibili oggi**:
 
 - **T1** ogni campo dichiarato in §1 esiste ancora nei dati (l'inventario non
   mente per omissione);
@@ -165,16 +165,14 @@ diventa personalizzato, con due domande nuove nel profilo.
   `dati-bando.js` e `dati-scadenze.js` (un disallineamento fra i due file dello
   stesso ateneo è già oggi un difetto).
 
-Quello che **diventa eseguibile con V4**, e senza cui G1 non è superato:
-
 - **T5** per ciascuno dei 19 punti, in stato pre-bando, il testo reso non
   contiene nessuno dei valori di §1 se non dentro un'etichetta di ciclo. È la
   prova che il piano descrive: *«un testo 2026/27 rimasto in un tooltip deve
   far fallire la prova»*. **T5 è la definizione del criterio di uscita di V4**,
   non un test rinviabile.
 
-> **Stato del gate al 2026-07-29: NON superato, ma T5 è ora scrivibile.**
-> T1–T4 verdi. Lo stato pre-bando ha una definizione (`modoCiclo`, §V4 §1) e
-> ogni punto di render ha una forma decisa (§V4 §2): T5 non è più bloccato da
-> una decisione mancante, è lavoro di V4. G1 resta aperto fino a T5 verde,
-> **provato per mutazione**.
+> **Stato del gate al 2026-07-29: SUPERATO.**
+> T1–T5 verdi, nessuno `skip`. T5 contiene una asserzione numerata per ciascuno
+> dei 19 punti e lavora sul DOM realmente reso in pre-bando. Prova di mutazione
+> eseguita sul punto 9: rimosso temporaneamente il ciclo dal cartellino del
+> calendario, T5 rosso con l'errore `#9`; ripristinata la riga, T5 verde.

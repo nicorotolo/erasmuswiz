@@ -987,3 +987,76 @@ giusto; ripristinato il codice, tornano verdi. Suite finale: **61/61 unit,
 > entrambe le suite. La regola che ne esce: **le prove dicono che il codice
 > fa quel che il test chiede, non che il prodotto dica la verità allo
 > studente.** Per quello bisogna guardarlo.
+
+---
+
+## Act 3 — Build V4 (2026-07-29)
+
+**Spec congelata prima di delegare** (`eca1678`). §V4 conteneva quattro
+decisioni non prese; delegarle sarebbe stato l'errore che V1 e V2 hanno già
+pagato. Le decisioni sono di Nicola, dopo misura sul codice:
+
+- **D‑V4.1** pre-bando = lettura, non quinto valore. `modoCiclo()` in `puro.js`.
+- **D‑V4.2** si etichetta, **non** si nasconde (contro la raccomandazione di
+  Claude). Tre forme ammesse, nessuna quarta.
+- **D‑V4.3** `scadenzeOspitante`: etichetta di sezione, zero file dati toccati.
+- **D‑V4.4** tre famiglie di voci condizionali e denominatore personalizzato,
+  con due domande nuove nel profilo.
+
+> ⛔ **La correzione che ha giustificato la sessione.** L'inventario proponeva
+> di leggere il pre-bando da `dati-scaduti`. Misurato: `statoBando()` ha
+> **quattro** valori e oggi vale `chiuso-ciclo-attivo`, perché `fineCiclo`
+> (2027‑07‑31) è futura. `dati-scaduti` si accende il **1° agosto 2027**, mesi
+> dopo l'uscita del bando 2027/28. Delegata così, V4 avrebbe costruito uno
+> stato che da agosto a dicembre **non si accende mai** — con le suite verdi.
+
+### Round 1 — Codex build
+
+Codex `gpt-5.6-sol` (effort high), thread `019fad13`, otto divieti in cima al
+prompt. Consegnato in un colpo: `modoCiclo` + `inPreBando()` come lettore
+unico, i 19 punti di render, la home ridotta all'inventario, il campo `tipo`
+sulle 18 voci, le due domande di profilo, T5 senza `skip` con un'asserzione
+per punto. **90/90 unit, 31/31 UI.**
+
+### Verdetto di Claude — due difetti che le suite verdi non vedevano
+
+1. **Il saluto non si personalizzava più.** L'`id` messo sull'`<h1>` viene
+   sovrascritto a runtime dalla tabella aria di V1 (`app.js:574`), quindi
+   `getElementById` tornava sempre `null`: uno studente di nome Marco leggeva
+   *«Il tuo percorso Erasmus»*. Prima funzionava perché il nome viveva in uno
+   `<span>` interno, che l'aria non tocca.
+2. **In pre-bando nessuno invitava più a compilare il profilo.** Il ramo
+   pre-bando precedeva quello del profilo — e ogni utente **nasce** in
+   pre-bando, quindi da agosto a dicembre la mossa «Compila il profilo» era
+   irraggiungibile. La spec la chiedeva esplicitamente e non era stata fatta.
+
+Più due minori: il render della card-mappa rimasto in vita dopo la rimozione
+della card, e un `tappaCorrente()` cambiato **senza dichiararlo** (`Scostamenti:
+nessuno`) con il commento-contratto R1.6 diventato falso.
+
+### Round 2 — correzioni, stessa sessione
+
+Codex si è fermato davanti alla porta 8123 occupata **senza terminare il
+processo** — che era del revisore — e ha chiesto. È il comportamento che a V1
+mancava, quando uccise tredici processi compreso sé stesso: **il divieto ha
+funzionato**. Chiuse tutte e quattro le voci, entrambe le regole nuove
+verificate per mutazione, scostamento dichiarato. **90/90 unit, 33/33 UI.**
+
+Subentro del revisore per una rifinitura sola: tolto da `index.html` l'`id`
+morto che l'aria sovrascrive comunque.
+
+### Verifiche di Claude, non delegate
+
+Diff letto per intero; entrambe le suite rieseguite in proprio; e **il sito
+guardato**, che è dove sono usciti i due difetti veri — con profilo *«Ciao,
+Marco»* e «Esplora le mete», senza profilo titolo neutro e «Completa il
+profilo», in entrambi i casi con la cornice onesta del pre-bando.
+
+> **Quarta volta che il verde non basta.** Dopo F6, la dipendenza a tempo di
+> parsing e i due difetti di V2: le due regressioni di oggi erano invisibili a
+> **31 prove UI** e sono comparse alla prima occhiata al sito con uno zaino
+> vero. La regola regge: *le prove dicono che il codice fa quel che il test
+> chiede, non che il prodotto dica la verità allo studente.*
+
+**G1 è superato**: T1–T5 verdi, nessuno `skip`, T5 provato per mutazione.
+Cade il blocco su **V3** (🔴 online entro il 15 novembre) e su **V5**.

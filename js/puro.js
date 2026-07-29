@@ -102,6 +102,24 @@
     return inizio + "/" + String(fineCompleta).slice(-2);
   }
 
+  // V4 — il pre-bando descrive il rapporto tra il percorso dello studente
+  // e il ciclo dei dati. Non modifica lo stato del bando e non legge né
+  // browser né orologio: riceve tutto come argomento, così il contratto è
+  // verificabile senza DOM.
+  function modoCiclo(configurazione) {
+    var opzioni = configurazione || {};
+    var stato = testo(opzioni.stato);
+    var cicloDati = testo(opzioni.cicloDati);
+    var cicloPercorso = testo(opzioni.cicloPercorso);
+    if (!cicloDati || !cicloPercorso) return "corrente";
+    if (stato === "non-pubblicato") return "corrente";
+    var cicloConclusoOChiuso =
+      stato === "chiuso-ciclo-attivo" || stato === "dati-scaduti";
+    return cicloConclusoOChiuso && cicloPercorso !== cicloDati
+      ? "pre-bando"
+      : "corrente";
+  }
+
   function faseViaggioV3(fase) {
     if (fase === "domanda") return "esplorando";
     return FASI_VIAGGIO.indexOf(fase) >= 0 ? fase : "esplorando";
@@ -841,6 +859,7 @@
     VERSIONE_CONTENITORE_ZAINO: VERSIONE_CONTENITORE_ZAINO,
     FASI_VIAGGIO: FASI_VIAGGIO,
     cicloSuccessivo: cicloSuccessivo,
+    modoCiclo: modoCiclo,
     faseViaggioV3: faseViaggioV3,
     creaZainoV3: creaZainoV3,
     normalizzaZainoV3: normalizzaZainoV3,

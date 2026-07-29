@@ -9,6 +9,18 @@ const FASE_CHECKLIST_LEARNING_AGREEMENT = "Learning Agreement";
 // cambiati anche qui (app.js:2568 CAPITOLI_ZAINO).
 const CAPITOLI_ZAINO = ["Prima", "Durante", "Dopo"];
 const ATENEI = ["cafoscari", "sapienza"];
+const TIPI_ATTESI = {
+  cafoscari: {
+    condizione: ["post-la-4", "post-doc-8"],
+    opzione: ["post-acc-5", "post-doc-2", "post-arr-2", "post-dur-2", "post-dur-3", "post-dur-4"],
+    avvertenza: ["post-acc-6", "post-acc-7", "post-la-6", "post-rit-5", "post-rit-7"],
+  },
+  sapienza: {
+    condizione: ["sap-post-doc-7"],
+    opzione: ["sap-post-dur-1", "sap-post-dur-3"],
+    avvertenza: ["sap-post-arr-2", "sap-post-rit-7"],
+  },
+};
 
 function caricaChecklistPost(ateneo) {
   const file = path.join(
@@ -55,14 +67,12 @@ ATENEI.forEach(ateneo => {
     });
   });
 
-  // La regola nasce da un difetto reale: aggiungendo le voci condizionali a
-  // Ca' Foscari (2026-07-28) la prova UI "la prima azione post-selezione e'
-  // calcolata" e' diventata rossa, perche' chi aveva fatto le quattro azioni
-  // vere dell'accettazione restava fermo su una voce che nessuno spunta mai
-  // ("Se hai deciso di non partire..."). vociPostPromuovibili() in app.js
-  // salta le condizionali: perche' possa farlo, ne deve restare almeno una
-  // NON condizionale per ogni capitolo dello zaino, altrimenti quel capitolo
-  // non produce piu' nessuna mossa.
+  // La regola nasce da un difetto reale: le vecchie voci condizionali
+  // potevano diventare una falsa "prossima mossa". V4 distingue i tipi:
+  // le voci senza tipo sono azioni per tutti, mentre una `condizione` entra
+  // solo quando il profilo la attiva. Ogni capitolo deve comunque conservare
+  // almeno un'azione universale, o per chi non ha condizioni attive quel
+  // capitolo non produrrebbe nessuna mossa.
   test(`${ateneo}: ogni capitolo dello zaino ha almeno una voce promuovibile`, () => {
     const checklist = caricaChecklistPost(ateneo);
     const capitoliUsati = [...new Set(checklist.map(v => v.gruppoZaino))];
@@ -93,5 +103,23 @@ ATENEI.forEach(ateneo => {
       0,
       `Voci con una data del ciclo scritta come attuale: ${colpevoli.join(", ")}. I termini che dipendono dall'anno vanno rimandati al bando o al contratto.`
     );
+  });
+
+  test(`${ateneo}: le voci condizionali hanno esattamente la classificazione V4`, () => {
+    const checklist = caricaChecklistPost(ateneo);
+    const condizionali = checklist.filter(voce => voce.condizionale);
+    assert.equal(
+      condizionali.every(voce => ["condizione", "opzione", "avvertenza"].includes(voce.tipo)),
+      true,
+      `${ateneo}: ogni voce condizionale deve avere un tipo V4 noto`
+    );
+    for (const tipo of ["condizione", "opzione", "avvertenza"]) {
+      const ottenuti = condizionali
+        .filter(voce => voce.tipo === tipo)
+        .map(voce => voce.id)
+        .sort()
+        .join(",");
+      assert.equal(ottenuti, TIPI_ATTESI[ateneo][tipo].slice().sort().join(","));
+    }
   });
 });
