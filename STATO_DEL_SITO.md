@@ -21,7 +21,27 @@
 
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-07-29 — Codex.
+**Ultimo aggiornamento:** 2026-07-29 — Claude Code (sessione V3).
+
+**(SESSIONE 2026-07-29 TER — V3 ENTRATA A TUTTA PAGINA: SPEC CONGELATA,
+COSTRUITA, RIVISTA E ONLINE.)** Prima `cda51f6`: §V3 riscritta come specifica
+congelabile, con le quattro decisioni prese dopo misura sul codice (D‑V3.1
+reload + chiave di sessione, mai lo zaino che è per-ateneo · D‑V3.2 budget
+misurabile in sessione · D‑V3.3 pin fuori dal Tab dentro l'entrata · D‑V3.4
+`wizardMete` è cablato davvero, l'entrata lo chiude). **La correzione che ha
+giustificato la sessione**: il piano dava per assodato che il raggruppamento
+della mappa fosse il collo di bottiglia — misurato con CPU 4× sul dataset
+peggiore fa 12,3 ms, e il caso reale dell'entrata non è 1.595 record ma 424.
+Poi `6ed11a5`: costruita da Codex `gpt-5.6-sol` con `/codex-build` in due giri
+— entrambi fermati dallo stesso muro strutturale (la suite UI dura 5,7 min, il
+limite per comando di Codex è 240 s) — e finita dal revisore. **Cinque difetti
+trovati dopo il verde**, tre dei quali invisibili a entrambe le suite: la nav
+nascosta per tutta l'entrata; la fase retrocessa a «esplorando»; **entrata e
+Mete impilate per chi arriva da un link condiviso** (pagina alta 7521px invece
+di 800 — è il percorso d'arrivo per cui esiste V1); il «mai più» che non valeva
+per chi abbandona l'esito; e una prova nuova che passava per il motivo
+sbagliato. 90/90 unit · **40/40 UI** (+7, ognuna verificata per mutazione) ·
+banco prestazionale verde 8 volte di fila.
 
 **(SESSIONE 2026-07-29 BIS — REVIEW V4: DUE REGRESSIONI CHIUSE E CODICE
 MORTO RIMOSSO.)** La revisione umana ha trovato due difetti non intercettati
@@ -3768,6 +3788,7 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **REDESIGN v3 — V1: router esteso + contratto del fuoco** | Esteso il parser puro a uno/due livelli + ateneo senza nuove rotte; ateneo dell'hash letto prima dei dati e mai persistito; `vaiA()` porta fuoco e scroll secondo F1–F9; scorciatoia «Cambia ateneo» ripristinata; Playwright reale con server Node e invarianti esistenti | ✅ **Implementata e verificata (2026-07-28), in working tree** — 33/33 unit + 14/14 UI; 8 avvii a freddo, Sapienza senza persistenza, cronologia 10+10+10, focus-visible, reduced motion e 4 tab × 3 viewport |
 | **REDESIGN v3 — V2: stepper a 6 tappe, tre porte, migrazione zaino v2→v3** | Sei tappe (Requisiti · Mete e le 5 scelte · Candidatura e scadenze · Esito · Learning Agreement · Zaino), il ponte Mete sempre visibile; tre porte (`esplorando` · `in-attesa` · `selezionato`) con `impostaFaseViaggio()` come unico writer — sparito il click sintetico di `app.js:1265`; migrazione v2→v3 **pura** in `js/puro.js` (conserva i campi sconosciuti, dati corrotti in `recuperoLegacy`, idempotente); `cicloPercorso`/`cicloDati`; la porta `selezionato` calcola la prima azione incompleta dalla checklist reale; la porta `in-attesa` consuma `ATTESA_INFO` | ✅ **Implementata, revisionata e online** (2026-07-28) — costruita da Codex `gpt-5.6-sol` con `/codex-build`, un giro di correzione più subentro del revisore. 61/61 unit + 25/25 UI. ⚠︎ **Scostamento dichiarato**: le matrici A/B di reset/archivia/conserva **non** sono implementate (ci sono i campi, non l'evento che le applica) — rinviate a **G2**. CSS e file dati non toccati |
 | **REDESIGN v3 — V4: Home «Adesso» + stato pre-bando** | `modoCiclo()` puro + lettore unico `inPreBando()`; 19 punti storicizzati senza cancellare contenuti; Home ridotta all'inventario ammesso; checklist post-selezione con denominatore personale, avvertenze senza checkbox, opzioni fuori conteggio; due risposte profilo a tre valori | ✅ **Implementata e verificata nel working tree** (2026-07-29). G1 superato: T5 senza skip, 19 asserzioni DOM, mutazione #9 rossa e ripristino verde. Review bis: saluto personalizzato e invito al profilo in pre-bando coperti da due nuove prove, entrambe verificate per mutazione; codice morto della vecchia mappa Home rimosso. 90/90 unit + 33/33 UI; baseline esistente invariata |
+| **REDESIGN v3 — V3: Entrata a tutta pagina** | Scena a tutta pagina (velo + claim + **un solo** bottone, zero scorrimento a 390×844), poi quattro passi — P1 porta d'ingresso · P2 ateneo · P3 dipartimento+livello · P4 lingue — più la schermata di esito che smista alle Mete. La mappa reagisce a ogni risposta: si centra, filtra, poi colora per compatibilità con **forma oltre che colore**, con legenda. I pin escono dall'ordine di Tab **dentro l'entrata** (nelle Mete restano attraversabili). Cambio ateneo: resta il `location.reload()`, e lo stato dell'entrata vive in una chiave di `sessionStorage` — **mai nello zaino**, che è per-ateneo: una risposta data prima di scegliere l'ateneo finirebbe nello zaino sbagliato. La domanda «hai già in mente le mete?» si pone una volta sola (`wizardMete`). Tre ottimizzazioni della mappa a comportamento invariato, con le invarianti I1–I8 verificate prima e dopo. Banco prestazionale `test/perf-mappa.cjs` (`npm run test:perf`) | ✅ **Implementata, revisionata e online** (`6ed11a5`, 2026-07-29) — spec congelata prima di delegare (`cda51f6`), costruita da Codex `gpt-5.6-sol` con `/codex-build` in due giri, entrambi fermati dal limite di 240 s per comando (la suite UI dura 5,7 min), poi finita dal revisore. **90/90 unit + 40/40 UI** (+7 nuove, ognuna verificata per mutazione). ⚠︎ **Dichiarato**: la griglia a celle è una **pessimizzazione misurata** — rende il raggruppamento **1,84–2,53× più lento** della ricerca lineare che sostituisce, perché con 385 città e ~44 gruppi scorrere 44 elementi costa meno che indicizzare una griglia — ed è tenuta per decisione di Nicola in previsione di più atenei: `PEGGIORAMENTO_MAX_CLUSTER = 3.0` nel banco è la forma scritta di quella scelta. ⚠︎ **Il banco non giudica il disegno**: a codice invariato il rapporto va da 0,61× a 1,68×, quindi sotto ±40% non discrimina; il disegno resta sorvegliato dalle invarianti I1–I3, che sono deterministiche. Nessun file dati toccato, nessuna funzione congelata da V0/V4 modificata |
 | **A11y — fuoco sui filtri delle Mete** | Il punto 1 delle cose trovate fuori checklist in F4. `renderMete()` ricostruisce `#filtri-mete-chip`: il chip a fuoco veniva distrutto e il fuoco cadeva su `<body>`, così da tastiera il Tab ripartiva dall'inizio della pagina. Ora prima del re-render si registra l'**indice** del chip a fuoco (solo se `document.activeElement` è davvero un `.chip-filtro` di quel contenitore) e dopo lo si ridà al nodo nuovo con `focus({ preventScroll: true })`. Indice e non un `data-filtro` nuovo: i 5 chip sono una lista fissa, e l'attributo renderebbe bugiardo il commento R21 poche righe sotto. Solo `js/app.js`; `index.html` e `css/style.css` intatti | ✅ Fatta e verificata (2026-07-26) — nel browser sulla 8123: fuoco sul chip corrispondente invece che su `BODY`, **Tab reale successivo → chip seguente**, scroll invariato, col mouse `:focus-visible = false` (nessun anello), fuoco in `#cerca-mete` non rubato, nessuna eccezione senza profilo. ⚠︎ L'Invio da tastiera non è confermabile con l'automazione (stesso limite del punto 5 di F4): attivazione riprodotta con `chip.click()`, Tab reali |
 
 **Nav (R3, definitiva — gate R1 chiuso):** Mete → **Home** (centrale su
@@ -3827,13 +3848,15 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 | `design/redesign-2026-07/` | doc/asset | **Creata in F0 (25/07)**: il canvas `Redesign ErasmusWiz.dc.html` + `support.js` + `redesign-erasmuswiz.html` + `img/` + `uploads/` (escl. `_ds/`). È la fonte-di-verità del redesign — verificata: renderizza, `uploads/style.css` è byte-identico a `css/style.css` |
 | `design/redesign-2026-07/baseline/` | doc | **F0 (25/07)**: `probe-invarianti.js` (misura le 6 invarianti R29 + inventario touch R12 dal DOM, riusabile a F3/F4 con `__confronta`) e `README.md` (la "lista prima": invarianti verdi, touch <44px = 145/173/176 per viewport) |
 | `design/redesign-2026-07/GATE2-revisione-guidata.md` | doc | ⚠︎ **STORICO — mai eseguito fino in fondo.** Il 27/07 la revisione è stata interrotta alla prima schermata e assorbita in v3 (vedi `PLAN_REDESIGN_V3.md`). **Creato il 26/07**: il copione della revisione d'insieme rimandata da Nicola. Preparazione (server + stato di prova + le 3 larghezze), cosa NON riguardare perché già misurato, le **4 decisioni aperte** con raccomandazione e costo di ciascuna (`--fs-hero`, i 9 filetti di stato, oro→indaco, le emoji), il giro dei 4 tab × 3 larghezze con 3 domande a tab, tabella dei verdetti. Pensato per essere eseguito **guidati da Claude** in una chat nuova |
-| `index.html` | codice | Struttura v2. **V1:** le 4 section del contratto hanno `tabindex="-1"` e `aria-labelledby`, senza nodi o testi nuovi. **V2:** sei stazioni rinumerate, ponte Mete sempre visibile, toggle a tre porte, contenitore `#attesa-info`, caricamento esplicito di `js/puro.js`. **V4:** Home ripulita secondo l'inventario «Adesso»; aggiunte al form le due domande `extraUE` e `ricercaTesi` |
-| `css/style.css` | codice | Design system responsive. **V4:** cartellini di ciclo, motivazione `.ics` disabilitata, riquadri «Da sapere prima»/«Se ti riguarda», invito profilo e Home 390×844 con sola tappa corrente. **Review V4:** rimossi soltanto i selettori orfani della card mappa Home; `.mappa-compatta` e gli stili della mappa Mete restano |
-| `js/app.js` | codice | Logica v2. **V1–V2:** router, sei tappe, tre porte, prima azione post-selezione e pannello attesa. **V4:** lettore unico `inPreBando()`, copy canonico e protezioni sui 19 render; Home «Adesso»; `vociPostApplicabili()`/denominatore personale; due scrittori profilo corretti. **Review V4:** saluto legato alla classe stabile, azione profilo prioritaria nel pre-bando e rimozione del render mappa Home orfano. `statoBando()` è rimasta intatta |
+| `index.html` | codice | Struttura v2. **V1:** le 4 section del contratto hanno `tabindex="-1"` e `aria-labelledby`, senza nodi o testi nuovi. **V2:** sei stazioni rinumerate, ponte Mete sempre visibile, toggle a tre porte, contenitore `#attesa-info`, caricamento esplicito di `js/puro.js`. **V4:** Home ripulita secondo l'inventario «Adesso»; aggiunte al form le due domande `extraUE` e `ricercaTesi`. **V3:** stepper a 4 voci e legenda forme/compatibilità dell'entrata |
+| `css/style.css` | codice | Design system responsive. **V4:** cartellini di ciclo, motivazione `.ics` disabilitata, riquadri «Da sapere prima»/«Se ti riguarda», invito profilo e Home 390×844 con sola tappa corrente. **Review V4:** rimossi soltanto i selettori orfani della card mappa Home; `.mappa-compatta` e gli stili della mappa Mete restano. **V3:** scena a tutta pagina (mobile a un piano, desktop velo a sinistra e mappa a destra), forme dei pin, legenda |
+| `js/app.js` | codice | Logica v2. **V1–V2:** router, sei tappe, tre porte, prima azione post-selezione e pannello attesa. **V4:** lettore unico `inPreBando()`, copy canonico e protezioni sui 19 render; Home «Adesso»; `vociPostApplicabili()`/denominatore personale; due scrittori profilo corretti. **Review V4:** saluto legato alla classe stabile, azione profilo prioritaria nel pre-bando e rimozione del render mappa Home orfano. `statoBando()` è rimasta intatta. **V3:** macchina P1–P4–E dell'entrata, ripresa in `sessionStorage`, pin fuori dal Tab, tre ottimizzazioni della mappa, e `aggiornaModoEntrata()` come **unico** scrittore di `modo-entrata` (senza, chi arrivava da un link profondo vedeva due schermate impilate) |
 | `js/puro.js` | codice puro | **V0–V2:** motore lingua, router e migrazione zaino. **V4:** esporta `modoCiclo({stato,cicloDati,cicloPercorso})`, senza DOM/storage/orologio |
-| `package.json` · `package-lock.json` | test/infra | Dipendenze fissate (`jsdom@22.1.0`, `@playwright/test@1.62.0`) e comandi distinti. **V1:** `test:ui` esegue Playwright; `test:a11y` e `test:visual` restano segnaposto V2/V3 |
+| `package.json` · `package-lock.json` | test/infra | Dipendenze fissate (`jsdom@22.1.0`, `@playwright/test@1.62.0`) e comandi distinti. **V1:** `test:ui` esegue Playwright; `test:a11y` e `test:visual` restano segnaposto V2/V3. **V3:** aggiunto `test:perf`, senza dipendenze nuove; `test:a11y` e `test:visual` restano i segnaposto dichiarati che sono |
 | `test/compatibilita-lingua.test.cjs` · `test/pipeline-lingue.test.mjs` · `test/onboarding-lingue.test.cjs` | test | **V0 (27/07)**: i 10 casi golden, icone effettive per i casi che parlano di colore, assenza posti nel ramo condizionato, precedenza `rootPresunta`, tabella ANY/ALL, pipeline, prova jsdom di Italiano C2 e banner di dettaglio; `node --test`, uscita non zero su errore |
 | `test/router.test.cjs` | test unitario | **V1:** 5 prove pure su hash nudi/alias, Learning Agreement con ateneo, due livelli futuri e input malformati |
+| `test/perf-mappa.cjs` | test/performance | **V3 (nuovo)**: banco Chromium 390×844 con CPU rallentata 4×, dataset Sapienza integrale, contenitore a larghezza **dichiarata** (340px). Misura vecchio e nuovo algoritmo **alternati nella stessa esecuzione**, mediane su 41 giri: il giudizio è **relativo**, perché la soglia assoluta misurava il computer (7 esecuzioni dello stesso codice: da 3,8 a 73,5 ms). Confronta automaticamente le invarianti I1–I3 e si ferma senza uccidere nessuno se la porta 8123 è occupata |
+| `test/ui/v3-entrata.spec.cjs` | test UI | **V3 (nuovo)**: 7 prove — tastiera che completa P1→P4→E senza attraversare i pin; ripresa dal cambio ateneo più i 4 casi sporchi (chiave assente, JSON illeggibile, passo fuori intervallo, porta sconosciuta); entrata non rivista; `wizardMete` chiuso, rilanciabile, e **non rivisto da chi abbandona l'esito**; invarianti I4–I8 delle Mete. Tutte verificate per mutazione |
 | `playwright.config.cjs` | test/infra | **V1:** un solo progetto Chromium, un worker e `webServer` sulla 8123 con `reuseExistingServer:false` |
 | `test/server-statico.cjs` | test/infra | **V1:** server HTTP Node puro, senza dipendenze; serve solo il repo, niente cache e nessun processo persistente |
 | `test/ui/router.spec.cjs` | test UI | **V1:** 14 prove Playwright su avvio, dataset, storia, fuoco, reduced motion e invarianti visive DOM. **28/07:** +1, la prova di **F6** (ri-cliccare la voce attiva non muove né fuoco né pagina), verificata per mutazione |
@@ -3932,6 +3955,17 @@ restano 37 voci Ca' Foscari e 31 Sapienza; sono cambiati soltanto il campo
 La review V4 non ha riscritto alcun contenuto validato o dato: ha ripristinato
 il saluto col nome e rende raggiungibile il profilo per un nuovo visitatore
 anche durante il pre-bando.
+
+**V3 non tocca alcun contenuto né alcun file dati** — nemmeno una riga di
+`js/atenei/*/dati-*.js`. Ma **rende visibile un difetto di contenuto che
+esisteva già**: alla fine dell'entrata il contatore dichiara sempre
+*«0 compatibili»*. Misurato il 29/07: su tutte le **392 mete di Ca' Foscari** il
+punteggio massimo raggiungibile è **75**, mentre la soglia per «compatibile» è
+**80**; a 100 si arriva **solo** dichiarando la lingua `certificata`, e
+l'entrata salva sempre `certificata: false` perché quella domanda non la fa
+nessuno. Finché resta così, la forma verde della legenda **non si accende mai**
+e lo studente legge un numero che non descrive la realtà: è la stessa famiglia
+del difetto lingue chiuso da V0. Decisione rinviata (vedi §8).
 
 **Debito lingua V0, rimisurato il 28/07 dopo la coda deterministica.**
 I dati non sono stati riscritti: restano **71 radici `ANY` presunte** da
@@ -4072,11 +4106,38 @@ piano operativo del cantiere SITO da agosto 2026 a marzo 2027 è
    29/07). G1 superato; review dei due difetti chiusa con mutazioni e suite
    finali 90/90 unit + 33/33 UI, rieseguite dal revisore anche dopo il rebase
    sul lotto notturno.
-4. **V3 Entrata a tutta pagina** — 🔴 **online entro il 15 novembre**, ora
-   sbloccata da G1. **Poi V5 Retention**, 🔴 prima che esca il bando: V5
-   aggiungerà la sveglia promessa, V4 non l'ha anticipata.
-5. **V6a Mete** (wishlist e riordino) · **G2** all'uscita del bando 2027/28 ·
+4. ✅ **V3 Entrata a tutta pagina COMPLETATA e ONLINE** (`6ed11a5`, 29/07),
+   con **tre mesi e mezzo di anticipo** sulla scadenza del 15 novembre.
+   90/90 unit + 40/40 UI. **Debito dichiarato**: la griglia a celle resta pur essendo
+   più lenta (scelta di Nicola, scritta nel banco); il banco **non giudica** il tempo di
+   disegno perché non sa discriminarlo.
+5. ▶ **V5 Retention** — 🔴 **prima che esca il bando** (dicembre-gennaio): è il prossimo.
+   Stessa metodica: **congelare §V5 prima di delegare**. Quattro cose che il piano lascia
+   aperte: (a) la data della finestra attesa **non esiste nei dati** — `finestraAttesa` ha
+   zero occorrenze nel repo e la frase vive come stringa fissa dentro
+   `finestraAttesaBando()`, quindi va deciso dove nasce e su quale **prova**, perché un
+   `DTSTART` è un giorno preciso e «fra dicembre e gennaio» non lo è; (b) **dove** entra
+   l'offerta della sveglia, ora che la fine dell'entrata è già occupata dalla domanda sulle
+   mete; (c) un solo `.ics` o uno per scadenza, e cosa succede a chi ha già importato i
+   vecchi (un `.ics` importato non si aggiorna); (d) l'invito all'installazione ha una
+   matrice per piattaforma **non verificabile in sessione** (`beforeinstallprompt` non
+   esiste su iOS): stesso problema del budget di V3, o la prova la fa Nicola o il criterio
+   va riscritto.
+6. **V6a Mete** (wishlist e riordino) · **G2** all'uscita del bando 2027/28 · **V6b** schedina ufficiale · **V7** Learning Agreement · **V8** rifiniture.
    **V6b** schedina ufficiale · **V7** Learning Agreement · **V8** rifiniture.
+
+> ⚠︎ **DUE COSE MISURATE IL 29/07 E NON CORRETTE — decidere se entrano in V5.**
+> **(1) Il contatore dell'entrata dice sempre «0 compatibili».** Misurato: su tutte le
+> **392 mete di Ca' Foscari** il punteggio massimo raggiungibile è **75**, e la soglia per
+> «compatibile» è **80**; si arriva a 100 **solo** dichiarando la lingua `certificata`, e
+> l'entrata salva sempre `certificata: false` perché la domanda non la fa nessuno.
+> **Preesiste a V3**, che però l'ha reso visibile e quantificato a ogni studente, con una
+> legenda verde che non si accende mai. È la stessa famiglia del difetto lingue di V0: il
+> sito dice allo studente qualcosa che non è vero.
+> **(2) Due conteggi diversi a una schermata di distanza**: «58 mete accese per Economia»
+> al passo 3, «Per te ci sono 39 mete a Economia» subito dopo — uno per `dipartimentoCf`,
+> l'altro per area disciplinare. Anche questo preesiste, ma prima i due numeri non erano
+> mai stati vicini.
 
 **Restano aperte, dichiarate nel piano:** il filetto di stato a sinistra (9
 selettori — si ridiscute ora che V4 è chiusa); le emoji; la guida al Learning
