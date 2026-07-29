@@ -6968,8 +6968,13 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination & Application (semestre invernale)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination & Application (semestre estivo)", periodo: "entro 15 dicembre" }
+      ],
     linkSito: "http://unitbv.ro",
+    linkCatalogo: "https://www.unitbv.ro/en/prospective-students/academic-programmes.html",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA71015."
   },
   {

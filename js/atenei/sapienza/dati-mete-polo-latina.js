@@ -292,7 +292,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.uhk.cz/",
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69638."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69638. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-polat-bucures",
@@ -386,7 +386,9 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.ucv.ro/",
-    notePratiche: "Posti dell'accordo: 1. Accordo ERA69674."
+    linkCatalogo: "http://www.ucv.ro/international/programe/programe_europene/studenti_incoming.php",
+
+    notePratiche: "Posti dell'accordo: 1. Accordo ERA69674. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-polat-bucures-4",
@@ -430,9 +432,14 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination & Application (semestre invernale)", periodo: "entro 15 giugno" },
+        { cosa: "Nomination & Application (semestre estivo)", periodo: "entro 15 dicembre" }
+      ],
     linkSito: "http://unitbv.ro",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA69667."
+    linkCatalogo: "https://www.unitbv.ro/en/prospective-students/academic-programmes.html",
+
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA69667. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-polat-bratisl",
@@ -458,7 +465,7 @@ var METE = [
     linkSito: "http://www..uniba.sk",
     linkCatalogo: "https://uniba.sk/en/international-relations/eninternational-relationserasmus/incoming-students/",
 
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69675."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69675. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-polat-madrid",
@@ -552,7 +559,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.upct.es/",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA69650."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA69650. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-polat-huelva",
@@ -674,7 +681,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.upct.es/",
-    notePratiche: "Posti dell'accordo: 2. Accordo ERA69651."
+    notePratiche: "Posti dell'accordo: 2. Accordo ERA69651. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-polat-murcia-3",
@@ -721,7 +728,7 @@ var METE = [
 
     notaDisponibilita: "Gli studenti Erasmus incoming possono scegliere corsi di qualsiasi dipartimento, purché approvati dall'università di provenienza.",
 
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69677."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69677. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-polat-erzurum",
@@ -740,7 +747,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.atauni.edu.tr/",
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69678."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69678. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-polat-erzurum-2",
@@ -759,6 +766,6 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.atauni.edu.tr/",
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69679."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69679. || Lingua: CEFR non trovato dopo ricerca approfondita"
   }
 ];

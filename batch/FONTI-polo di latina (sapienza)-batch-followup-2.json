@@ -1,0 +1,21 @@
+{
+  "RO CRAIOVA01": {
+    "linkCatalogo": {
+      "url": "http://www.ucv.ro/international/programe/programe_europene/studenti_incoming.php",
+      "citazione": "COURSE CATALOGUE ... Faculty of Exact Sciences ... Faculty of Economics and Business Administration ... Faculty of Letters",
+      "verificataIl": "2026-07-29"
+    }
+  },
+  "RO BRASOV01": {
+    "scadenzeOspitante": {
+      "url": "https://www.unitbv.ro/en/erasmus-students/incoming-students.html",
+      "citazione": "Deadlines: First semester : 15th of June Second semester: 15th of December",
+      "verificataIl": "2026-07-29"
+    },
+    "linkCatalogo": {
+      "url": "https://www.unitbv.ro/en/prospective-students/academic-programmes.html",
+      "citazione": "Academic programmes – catalogue course.",
+      "verificataIl": "2026-07-29"
+    }
+  }
+}

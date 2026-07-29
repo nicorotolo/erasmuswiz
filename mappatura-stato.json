@@ -4,29 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 361,
+  "runCompletati": 362,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "polo di latina (sapienza)-batch-followup-2",
-      "priorita": 6,
-      "dipartimento": "Polo di Latina (Sapienza)",
-      "descrizione": "Polo di Latina (Sapienza) - follow-up pending",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "CZ HRADEC01",
-        "RO CRAIOVA01",
-        "RO BRASOV01",
-        "SK BRATISL02",
-        "E  MURCIA04",
-        "TR CANAKKA01",
-        "TR ERZURUM01"
-      ]
-    },
     {
       "id": "scienze statistiche (sapienza)-batch-followup-1",
       "priorita": 6,
@@ -664,6 +648,20 @@
         "PL WROCLAW03",
         "MK SKOPJE15"
       ]
+    },
+    {
+      "id": "polo di latina (sapienza)-batch-followup-2",
+      "priorita": 6,
+      "dipartimento": "Polo di Latina (Sapienza)",
+      "descrizione": "Polo di Latina (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "CZ HRADEC01",
+        "RO CRAIOVA01",
+        "E  MURCIA04",
+        "TR CANAKKA01",
+        "TR ERZURUM01"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -1137,20 +1135,11 @@
         "MK SKOPJE15",
         "CZ HRADEC01",
         "RO CRAIOVA01",
-        "RO BRASOV01",
         "E  MURCIA04",
         "TR CANAKKA01",
         "TR ERZURUM01"
       ],
-      "pendingLingua": [
-        "CZ HRADEC01",
-        "RO CRAIOVA01",
-        "RO BRASOV01",
-        "SK BRATISL02",
-        "E  MURCIA04",
-        "TR CANAKKA01",
-        "TR ERZURUM01"
-      ],
+      "pendingLingua": [],
       "tentativiLingua": {
         "F  BREST29": 2,
         "D  NURNBER02": 2,
@@ -1158,13 +1147,13 @@
         "PL WARSZAW41": 2,
         "PL WROCLAW03": 2,
         "MK SKOPJE15": 2,
-        "CZ HRADEC01": 1,
-        "RO CRAIOVA01": 1,
-        "RO BRASOV01": 1,
-        "SK BRATISL02": 1,
-        "E  MURCIA04": 1,
-        "TR CANAKKA01": 1,
-        "TR ERZURUM01": 1
+        "CZ HRADEC01": 2,
+        "RO CRAIOVA01": 2,
+        "RO BRASOV01": 2,
+        "SK BRATISL02": 2,
+        "E  MURCIA04": 2,
+        "TR CANAKKA01": 2,
+        "TR ERZURUM01": 2
       },
       "linguaNonTrovabile": [
         "F  BREST29",
@@ -1172,7 +1161,14 @@
         "D  CLAUSTH01",
         "PL WARSZAW41",
         "PL WROCLAW03",
-        "MK SKOPJE15"
+        "MK SKOPJE15",
+        "CZ HRADEC01",
+        "RO CRAIOVA01",
+        "RO BRASOV01",
+        "SK BRATISL02",
+        "E  MURCIA04",
+        "TR CANAKKA01",
+        "TR ERZURUM01"
       ],
       "ateneo": "Sapienza Roma"
     },
@@ -1766,7 +1762,6 @@
         "RO SIBIU01",
         "RO ALBAIU01",
         "RO CONSTAN02",
-        "RO BRASOV01",
         "RO CLUJNAP07",
         "SK TRNAVA01",
         "SI KOPER03",
@@ -4150,6 +4145,12 @@
       "data": "2026-07-29",
       "mete": 7,
       "note": "Polo di Latina (Sapienza) polo di latina (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 362,
+      "data": "2026-07-29",
+      "mete": 7,
+      "note": "Polo di Latina (Sapienza) polo di latina (sapienza)-batch-followup-2: merge automatico via applica-batch.mjs (+4 blocchi propagati ad altri dipartimenti)."
     }
   ],
   "storicoBatch": [

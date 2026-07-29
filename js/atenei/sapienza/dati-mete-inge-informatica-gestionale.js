@@ -998,6 +998,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.ucv.ro/",
+    linkCatalogo: "http://www.ucv.ro/international/programe/programe_europene/studenti_incoming.php",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA68350."
   },
   {
@@ -1045,6 +1047,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.ucv.ro/",
+    linkCatalogo: "http://www.ucv.ro/international/programe/programe_europene/studenti_incoming.php",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA68349."
   },
   {
@@ -1064,6 +1068,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.ucv.ro/",
+    linkCatalogo: "http://www.ucv.ro/international/programe/programe_europene/studenti_incoming.php",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA68351."
   },
   {
