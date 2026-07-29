@@ -350,7 +350,7 @@ var METE = [
         { cosa: "Application (semestre estivo)", periodo: "entro 30 novembre" }
       ],
     linkSito: "https://www.us.edu.pl/en/",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70124."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70124. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-polit-krakow",
@@ -365,11 +365,16 @@ var METE = [
       { numero: 1, mesi: 5, livello: "L", note: "" },
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: { op: "ALL", figli: [
+        { lingua: "Inglese", livello: "B2" }
+      ], fonte: "https://bwm.uken.krakow.pl/incoming/exchange-student-application-procedure/", verificatoIl: "2026-07-29" },
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.uken.krakow.pl/",
     notaDisponibilita: "I moduli partono a condizione che vi siano almeno 3 studenti iscritti. Gli studenti incoming devono scegliere un modulo completo da 30 ECTS.",
+
+    linkCatalogo: "https://bwm.uken.krakow.pl/incoming/modules-2025-2026/",
+
 
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70126."
   },
@@ -576,7 +581,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://uni.sze.hu",
-    notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71532."
+    notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71532. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-polit-pecs",
@@ -595,6 +600,6 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.pte.hu",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70115."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70115. || Lingua: CEFR non trovato dopo ricerca approfondita"
   }
 ];
