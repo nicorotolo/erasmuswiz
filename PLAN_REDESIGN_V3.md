@@ -676,76 +676,411 @@ sulle sei invarianti DOM.
 
 ### V3 — Entrata a tutta pagina 🔴 online entro il 15 novembre (ottobre)
 
-> ⚠️ **La scena esiste** (`#home-benvenuto`). Questa fase è una **lista di
+> **SPEC CONGELATA il 2026-07-29**, su `9c9fc57`. Le quattro decisioni che la
+> rev. 6 lasciava aperte — cambio ateneo, budget prestazionale, accessibilità
+> della mappa, smistamento finale — sono **prese qui**: D‑V3.1… D‑V3.4, ognuna
+> decisa da Nicola **dopo misura sul codice**. Da qui in giù non ci sono
+> domande: è delegabile a `/codex-build`.
+>
+> Ancoraggi: **frammenti di codice, non numeri di riga** — §V2 ha già citato
+> righe morte una volta e §V4 ha ripetuto la regola. I numeri fra parentesi
+> valgono al 2026‑07‑29 e servono solo a ritrovare il posto.
+>
+> ⚠️ **La scena esiste** (`#home-benvenuto`, `initOnboarding`, `benvScena`,
+> `benvPassoAteneo` → `benvPassoFacolta` → `benvPassoLivello` →
+> `benvPassoLingue` → `completaOnboarding`). Questa fase è una **lista di
 > differenze**, non una seconda implementazione parallela.
+
+#### §0. La correzione misurata che cambia il progetto
+
+⛔ **Il collo di bottiglia dichiarato da §V3 non esiste ai numeri veri.** La
+rev. 6 dava per assodato che `mappaClusterizza()` fosse il punto lento e
+ordinava tre rimedi. **Misurato il 2026‑07‑29** con banco Chromium headless,
+viewport 390×844, `Emulation.setCPUThrottlingRate(4)`, dataset **Sapienza
+integrale (1.595 record, nessun filtro)**, 5 giri, valore **peggiore**:
+
+| Grandezza | Misura |
+|---|---|
+| `mappaClusterizza()` sull'intero dataset | **12,3 ms** (giri: 6,9 · 8,9 · 12,3 · 5,0 · 7,4) |
+| `mappaRenderPins()` — distrugge e ricrea tutti i pin | **13,8 ms** (13,7 · 7,2 · 13,8 · 9,2 · 11,0) |
+| Long task > 50 ms osservati (`PerformanceObserver`) | **nessuno** |
+
+**Le tre grandezze del piano sono invece confermate**, e vanno lette così:
+
+| Ateneo | Record | Senza coordinate | Fuori inquadratura | Città uniche | Pulsanti a 390px |
+|---|---|---|---|---|---|
+| **Sapienza** | **1.595** | 8 | 33 | **385** | **39** |
+| Ca' Foscari | 392 | 2 | 6 | 192 | 37 |
+
+> Il piano diceva «~50 pulsanti»: sono **39** misurati nel browser a 390×844.
+> Un calcolo a tavolino con larghezza resa 358px ne dà 47 — la differenza è la
+> larghezza **effettiva** del contenitore, che entra nella soglia di fusione
+> (`soglia = 30 * viewBoxW / max(cont.clientWidth, 280)`). **Il numero buono è
+> quello misurato nel browser**, perché è lì che `clientWidth` è vero.
+
+⛔ **E il caso peggiore dell'entrata non è 1.595.** Al passo P3 la mappa mostra
+le mete **del dipartimento scelto**: il dipartimento più grande della Sapienza è
+*Lettere e Filosofia*, **424 record → 166 città → 40 pulsanti**. I 1.595 record
+non filtrati si raggruppano solo nel tab **Mete** senza filtri attivi. Chi
+progetta l'entrata sul numero 1.595 sta ottimizzando una schermata che non
+esiste.
+
+**Conseguenza vincolante:** le ottimizzazioni di §5 **non sono un rimedio a un
+difetto misurato** — sono una scelta di prudenza di Nicola (vedi §5). Vanno
+quindi trattate come **rifattorizzazione a comportamento invariato**, non come
+correzione: il banco non deve solo restare sotto soglia, deve dimostrare che
+l'esito è **identico** a prima.
+
+#### §1. D‑V3.1 — Cambio ateneo: **si tiene il `location.reload()`**, e lo stato dell'entrata vive in `sessionStorage`
+
+**Deciso: reload.** Il caricamento asincrono del solo ateneo scelto è escluso, e
+non per prudenza generica ma per un vincolo misurato: `js/carica-atenei.js`
+emette i dati con **`document.write` a tempo di parsing** — è scritto nel suo
+commento — perché `app.js` legge i globali **già pronti** (`let CONTENITORE =
+caricaContenitore()` gira subito). Caricare in asincrono significa riscrivere
+quel contratto e il modo in cui `app.js` nasce. Costo sproporzionato per una
+scelta che lo studente fa **una volta sola in tutta la vita dell'utente**.
+
+**Il meccanismo esiste già e va esteso, non inventato**: `benvScegliAteneo()`
+scrive `sessionStorage.setItem(CHIAVE_ONBOARDING_STEP, "2")` e `initOnboarding()`
+lo rilegge, lo cancella e riprende da `benvPassoFacolta()`. Oggi trasporta **un
+numero**; con la macchina a 4 passi deve trasportare **le risposte già date**,
+perché **P1 precede P2**.
+
+**Dove sopravvive lo stato — deciso, ed è una sola casella:**
+
+| Candidato | Verdetto |
+|---|---|
+| **`sessionStorage`, una chiave sola, un oggetto JSON** | ✅ **scelto** |
+| Lo zaino (`localStorage`) | ⛔ **vietato** — vedi la trappola qui sotto |
+| L'hash | ⛔ **vietato** — l'hash è il **contratto pubblico del router** (V1, `vaiA()` e la tabella degli alias): un'entrata a metà non è un indirizzo condivisibile |
+
+⛔ **Trappola misurata, e la ragione vera per cui lo zaino non va bene.** Lo
+zaino è **per‑ateneo**: `CONTENITORE.zaini[<ateneo>]`. Una risposta di P1
+scritta nello zaino **prima** che l'ateneo sia scelto finisce nello zaino
+**sbagliato**, e dopo il reload lo studente non la ritrova. È la stessa forma
+del difetto dei due scrittori di `profilo` chiuso in D‑V4.4, un passo più a
+monte.
+
+**Regola vincolante, che rende la ripresa verificabile:**
+
+> **Tutte le risposte dell'entrata restano transitorie fino a
+> `completaOnboarding()`, che le scrive UNA volta sola nello zaino
+> dell'ateneo scelto.** È già il comportamento di dipartimento e livello
+> (`window._onboardingDipartimento`, `window._onboardingArea`): V3 lo estende
+> alla porta d'ingresso e lo rende esplicito invece che casuale.
+
+**Forma della chiave** (nome vincolante, sostituisce `CHIAVE_ONBOARDING_STEP`
+che oggi porta un numero — la vecchia chiave si **rimuove**, non si affianca):
+
+```
+sessionStorage["ew-onboarding-ripresa"] = JSON.stringify({
+  passo: 2 | 3 | 4,      // il passo da cui riprendere
+  porta: "esplorando" | "in-attesa" | "selezionato",   // risposta di P1
+  dipartimento: string | null,
+  livello: "L" | "LM" | null
+})
+```
+
+- Si scrive **solo** al cambio ateneo, subito prima di `location.reload()`.
+- `initOnboarding()` la legge, la **cancella subito** (come oggi) e riparte dal
+  passo dichiarato **con le risposte precedenti già in memoria**.
+- **JSON illeggibile, chiave assente, `passo` fuori da {2,3,4}, `porta` non fra
+  i tre valori di `FASI_VIAGGIO`** → si ricomincia dalla scena, senza errori a
+  schermo. Un dato corrotto non deve produrre un'entrata a metà.
+- `sessionStorage` non disponibile (navigazione privata restrittiva): il
+  `try/catch` c'è già; se la scrittura fallisce **si ricarica lo stesso** e si
+  riparte dalla scena. ⛔ Non si blocca il cambio ateneo per salvare un
+  progresso di tre clic.
+
+**Perché muore con la scheda, ed è giusto**: un'entrata risposta a metà non è un
+fatto sullo studente, è un fatto su **questa** visita.
+
+#### §2. D‑V3.2 — Il budget si misura **in sessione**; il telefono resta conferma, non cancello
+
+**Deciso: banco riproducibile, committato nel repo.** Il protocollo della rev. 6
+chiedeva un Android reale sotto i 250 € con modello e versioni nel referto:
+è una misura che **solo Nicola può fare**, e delegarla a `/codex-build`
+significa delegare un criterio che l'esecutore non può soddisfare — cioè,
+di fatto, non avere criterio.
+
+**Il banco** — `test/perf-mappa.cjs`, avviato da **`npm run test:perf`** (voce
+nuova in `package.json`; ⛔ `test:a11y` e `test:visual` **restano i segnaposto
+che sono**: dichiarati, non riempiti di nascosto e non silenziosamente rimossi):
+
+| Voce | Valore vincolante |
+|---|---|
+| Motore | Chromium di `@playwright/test` **già in `devDependencies`**, headless |
+| Server | `test/server-statico.cjs`, **avviato e fermato dal banco stesso** |
+| Viewport | **390×844** |
+| CPU | **`Emulation.setCPUThrottlingRate(4)`** via CDP |
+| Dataset | **Sapienza integrale**, nessun filtro (`localStorage.erasmuswiz_ateneo = "sapienza"` in `addInitScript`) |
+| Prove | **5 esecuzioni**, si giudica il **valore peggiore** (mai la media) |
+| Si stampano | **le tre grandezze separate**: record elaborati · gruppi geografici · pulsanti creati — più i tempi giro per giro |
+
+**Soglie di uscita, ancorate alla misura di §0 e non a un numero desiderato:**
+
+| Misura | Soglia | Margine sulla misura di oggi |
+|---|---|---|
+| `mappaClusterizza()`, peggiore di 5 | **< 50 ms** | oggi 12,3 ms |
+| `mappaRenderPins()`, peggiore di 5 | **< 50 ms** | oggi 13,8 ms |
+| Long task osservati durante un render | **zero** | oggi zero |
+
+⚠️ **Onestà su cosa misura il banco**: un desktop rallentato 4× **non è** un
+Android da 250 €. Il banco è un **proxy riproducibile**, ed è ciò che rende il
+criterio delegabile e ripetibile a ogni commit. La prova sul telefono vero
+**resta una verifica di Nicola, facoltativa e successiva**: se sfora, si apre
+una correzione dedicata, **non** si riapre V3.
+
+⛔ Il referto del banco (le tre grandezze + i tempi dei 5 giri, prima e dopo le
+ottimizzazioni di §5) va **incollato nel commit o nel LOG**. Un banco che gira e
+non lascia traccia non è una prova.
+
+#### §3. D‑V3.3 — Accessibilità della mappa: **i pin escono dall'ordine di Tab** durante l'entrata
+
+**Deciso da Nicola: strada A.** Le due strade della rev. 6 erano due interfacce
+diverse e la spec ne sceglie una.
+
+**Durante l'entrata** (e **solo** durante l'entrata):
+
+- I pin restano `<button>` reali ma **fuori dall'ordine di Tab**:
+  `tabindex="-1"` sul pulsante e `aria-hidden="true"` sul **layer**
+  (`.mappa-pin-layer`), così lo screen reader non legge decine di voci che non
+  servono a rispondere. Restano cliccabili col dito e col mouse: l'anteprima al
+  tocco (`benvPassoLivello`: *«Tocca un puntino per l'anteprima»*) **non si
+  perde**.
+- La navigazione da tastiera passa **solo** dai pulsanti‑risposta sotto la mappa
+  (`#benvenuto-scelte`), che già esistono e sono già ridondanti rispetto ai pin
+  (`benvPassoAteneo` li costruisce entrambi).
+- **Il conteggio si annuncia**: `#benvenuto-scelte` ha già `aria-live="polite"`.
+  Il numero di mete accese entra **nel testo di quel contenitore** a ogni
+  cambio di filtro. ⛔ Non si aggiunge una seconda regione `aria-live`: due
+  regioni che parlano insieme si accavallano.
+- **Il colore non basta**: la compatibilità sui pin si comunica **anche con
+  forma o testo**, con **legenda** visibile accanto alla mappa. Un pin
+  incompatibile non può distinguersi *solo* per tinta.
+
+**Nel tab Mete non cambia nulla**: lì esplorare *è* il lavoro, i pin restano
+nell'ordine di Tab con il loro `aria-label` attuale. La differenza si ottiene
+con un `opts` esplicito passato a `mappaRenderPins` (es. `opts.fuoriTab`), ⛔
+**non** con un `if` che indovina il contenitore.
+
+`prefers-reduced-motion` spegne comparsa e transizioni **senza perdere
+informazione**: i pin compaiono, semplicemente non si animano. La regola globale
+esiste già (`css/style.css`, blocco `:is(.nav-bottom, …, .modo-scena)`).
+
+#### §4. D‑V3.4 — Smistamento finale: `wizardMete` **è cablato**, l'entrata lo chiude
+
+**Misurato, e la risposta è diversa da quella temuta.** `wizardMete` **non** è un
+campo dichiarato e mai letto come lo erano `cicloDati` e `cicloPercorso` prima
+di V4. È **cablato per intero**:
+
+| Punto | Cosa fa |
+|---|---|
+| `puro.js` — `wizardMete: false` nel template + normalizzazione a booleano | il campo nasce e si difende dai valori sporchi |
+| `renderWizardMete()` — `mostra = !ZAINO.wizardMete && (metePreferite vuote \|\| _wizardMeteForzato)` | la regola di comparsa |
+| `chiudiWizardMete()` — mette `true` e salva | la risposta è definitiva |
+| `initWizardMete()` — «Sì» → ricerca · «No» → mappa/filtri · «Salta» → chiude | i tre esiti |
+| `renderPreferite()` — «✨ Ripensa le rotte» rimette `false` e forza | il rilancio **deliberato** |
+
+**Quindi V3 non costruisce niente di nuovo: sposta la domanda.** La schermata
+**E** dell'entrata pone la domanda **una volta**, e `completaOnboarding()`
+scrive **`ZAINO.wizardMete = true`** insieme al profilo. Da lì in poi il
+riquadro `#wizard-mete` del tab Mete **non compare mai**, perché la sua
+condizione è già falsa. **Il «mai più» del piano si ottiene con una riga**, non
+con una macchina nuova.
+
+- **Il rilancio «Ripensa le rotte» resta**: è deliberato, lo chiede lo studente,
+  e non è la ricomparsa che il piano vuole evitare.
+- I tre esiti di `initWizardMete()` **si riusano**, non si riscrivono: la
+  schermata E porta agli stessi tre posti (ricerca · mappa e filtri · niente).
+  ⛔ Una seconda copia dei tre esiti è esattamente l'errore delle tre finestre
+  attesa divergenti chiuso da V4.
+- ⚠️ **Caso limite dichiarato, non nascosto**: chi cambia ateneo dopo aver
+  finito ottiene uno zaino nuovo per quell'ateneo, quindi `onboardingFatto` e
+  `wizardMete` tornano `false` e **rifà l'entrata**. È il comportamento attuale
+  (lo zaino è per‑ateneo) ed è coerente: le mete sono altre. Va **testato**, non
+  scoperto in produzione.
+
+#### §5. Le tre ottimizzazioni: **dentro**, per decisione di Nicola — e come si provano innocue
+
+**Deciso da Nicola contro la raccomandazione di Claude**, e messo per iscritto
+qui perché sia una scelta e non una svista: §0 mostra che **non c'è niente da
+correggere**, e la raccomandazione era di lasciarle fuori e tenerle come rimedio
+se il banco avesse sforato. Nicola le vuole **dentro comunque**, per margine sui
+telefoni davvero lenti.
+
+**Conseguenza sul modo di lavorare, e non è negoziabile:** poiché non correggono
+un difetto, **valgono solo se non cambiano niente di ciò che si vede**. Il
+motore è **condiviso con le Mete** — cambiarlo per l'entrata cambia le Mete.
+
+**Le tre, nell'ordine, con il perimetro esatto:**
+
+1. **Memoizzare il raggruppamento per città.** Il passo 1 di
+   `mappaClusterizza()` (la `Map` per `citta|paese`) **non dipende dalla
+   larghezza**: si calcola **una volta per dataset** e si riusa. Chiave della
+   cache: l'**identità dell'array `mete` ricevuto** più la sua lunghezza; ⛔ mai
+   una chiave globale «l'ateneo attivo», perché lo stesso motore riceve elenchi
+   **filtrati** diversi a ogni ricerca nelle Mete. Solo il passo 2 (la fusione a
+   soglia) resta dipendente da `cont.clientWidth`.
+2. **Bucket spaziali al posto di `out.find()` lineare.** Griglia di celle di
+   lato `soglia`; si confrontano solo le celle adiacenti. ⛔ **La fusione deve
+   restare quella di oggi anche nell'ordine**: `perCitta` è una `Map` e
+   l'ordine d'inserimento decide quale gruppo assorbe quale. Cambiando ordine
+   cambiano centro del pin, `aria-label` e contenuto del cluster — cioè cambia
+   il prodotto, in silenzio.
+3. **Aggiornamento incrementale del DOM.** Al posto di `layer.innerHTML = ""`,
+   si riusa il pulsante esistente quando il gruppo c'è ancora (chiave stabile
+   `citta|paese` del gruppo capofila), si aggiornano posizione, classi e
+   `aria-label`, si rimuovono solo i superflui. ⛔ **`benvPassoAteneo()` svuota
+   il layer per conto suo** per disegnare i 2 pin‑ateneo: quel percorso non
+   passa da `mappaRenderPins` e non deve essere «unificato» per simmetria.
+
+**Le invarianti delle Mete che non possono cambiare** — sono il contratto, e il
+banco/le prove le verificano **prima e dopo**:
+
+| # | Invariante | Ancoraggio |
+|---|---|---|
+| I1 | **Stesso numero di pin** e stessi centri (±0,1%) per lo stesso elenco e la stessa larghezza | `mappaClusterizza` |
+| I2 | **Stessi `aria-label`**, parola per parola, nelle due forme (singola / *«N mete vicino a …»*) | `mappaRenderPins` |
+| I3 | Stesse classi: `mappa-pin` · `mappa-pin-cluster` · `evidenzia` · `mappa-pin-stella` | `opts.stellate`, `opts.evidenzia` |
+| I4 | Clic: 1 meta → `apriDettaglioMeta` · N mete → `apriListaCluster` | i due rami del `click` |
+| I5 | Tooltip su `mouseenter`/`focus` **solo** desktop con mouse, e **solo** per i pin figli del suo contenitore | `mappaMostraTooltip` |
+| I6 | **Nota di copertura invariata**: testo, conteggi, `hidden` | `mappaNotaCopertura` |
+| I7 | Il **ri‑cluster al resize** continua a funzionare per **entrambe** le mappe | il `resize` con `requestAnimationFrame` |
+| I8 | La stellina segue `ZAINO.metePreferite` | `renderMappaMete` |
+
+⛔ **Divieto di prodotto**: se una qualsiasi invariante non si può conservare, la
+tre‑ottimizzazioni **si ferma lì e si dichiara** — non si «migliora» la mappa
+delle Mete dentro la fase dell'entrata. Il filtraggio **non si taglia mai**: è
+il motivo per cui l'entrata regge 4 passi.
+
+#### §6. La macchina a stati e le differenze a schermo
+
+**Una sola definizione, numerata** (la rev. 1 ne dava tre in conflitto):
+
+| Passo | Chiede | Obbligatorio | La mappa | Ancoraggio |
+|---|---|---|---|---|
+| **P1** | **Porta d'ingresso** (3 opzioni) | **sì** | ferma | i tre valori di `FASI_VIAGGIO` in `puro.js`, gli stessi testi dei tre `.toggle-fase-btn` |
+| **P2** | Ateneo | **sì** | si centra sull'ateneo | `benvPassoAteneo` |
+| **P3** | Dipartimento **e** livello, una schermata sola | **sì** | **filtra gli spilli** | `benvPassoFacolta` + `benvPassoLivello` |
+| **P4** | Lingue | **no** | **colora gli spilli** | `benvPassoLingue` |
+| **E** | Smistamento «hai già in mente le mete?» | — | **schermata di esito, non un passo** | §4 |
+
+**3 passi obbligatori su 4.** P3 resta unito com'è già in codice. **E non è un
+passo**: chiude l'entrata e smista.
+
+- Lo stepper visibile (`#benvenuto-passi`, oggi **3** `.benvenuto-passo`) passa
+  a **4** voci. È `aria-hidden="true"` e resta tale: lo stato del passo lo
+  annuncia `#benvenuto-scelte`.
+- **P1 usa gli stessi tre testi** dei bottoni di `index.html`
+  (*«🧭 Sto esplorando»* · *«📨 Ho fatto domanda e aspetto»* · *«🎉 Sono stato
+  selezionato»*). ⛔ Una quarta formulazione della stessa domanda è la stessa
+  divergenza che V4 ha appena chiuso sui testi del pre‑bando.
+- **Il salto delle lingue smette di essere muto**: «Salta per ora» dichiara la
+  conseguenza (*«senza lingue le mete non si ordinano per compatibilità: le
+  aggiungi quando vuoi dal Profilo»*). Il comportamento non cambia — array
+  vuoto, D9/V0 — cambia che lo studente **lo sa**.
 
 **Le differenze rispetto a oggi:**
 
 | # | Oggi | v3 |
 |---|---|---|
-| 1 | Mappa in un riquadro **sotto la piega** | **A tutta pagina**, spostata a destra, velo scuro a sinistra |
+| 1 | Mappa in un riquadro **sotto la piega** | **A tutta pagina** |
 | 2 | Titolo, claim, fumetto e CTA impilati sopra la mappa | Claim + **un solo** bottone sul velo; nient'altro nella prima schermata |
-| 3 | 3 domande (ateneo, dipartimento+livello, lingue) | **+ la porta d'ingresso come primo passo** (via stepper) e **+ lo smistamento finale** |
+| 3 | 3 domande | **+ P1 la porta d'ingresso** e **+ lo smistamento finale** |
 | 4 | La mappa **non reagisce** durante le domande | **Reagisce a ogni risposta**: filtra, poi colora |
 | 5 | Salto delle lingue **muto** | Salto **con la conseguenza scritta** |
-| 6 | «Hai già in mente le destinazioni?» **nelle Mete, e ricompare** | Ultimo passo dell'entrata, **mai più** |
+| 6 | «Hai già in mente le destinazioni?» **nelle Mete** | Ultimo passo dell'entrata, **mai più** (§4) |
 
-**La macchina a stati — una sola definizione, numerata** (la rev. 1 ne dava tre
-in conflitto: «5 passi», una tabella da 6 righe, «3+2»):
+**«A tutta pagina» ha due forme, e la spec le scrive perché a 390px «a destra»
+non vuol dire niente:**
 
-| Passo | Chiede | Obbligatorio | La mappa |
-|---|---|---|---|
-| **P1** | Porta d'ingresso (3 opzioni, via stepper) | **sì** | ferma |
-| **P2** | Ateneo | **sì** | si centra sull'ateneo |
-| **P3** | Dipartimento **e** livello (una schermata sola, come oggi) | **sì** | **filtra gli spilli** |
-| **P4** | Lingue | **no** | **colora gli spilli** |
-| **E** | Smistamento «hai già in mente le mete?» | — | **schermata di esito, non un passo** |
+- **< 768px**: la mappa occupa il primo viewport a **piena larghezza**; il velo
+  scuro è **sopra** la mappa; claim e unico bottone stanno **sul velo**. La
+  classe `.modo-scena` (che già esiste, con il suo `prefers-reduced-motion`)
+  resta il punto in cui questo vive.
+- **≥ 768px**: mappa **a destra**, velo **a sinistra**, come dice la rev. 6.
 
-**3 passi obbligatori su 4.** P3 resta unito com'è già in codice
-(`benvPassoLivello` dentro il passo 2). E non è un passo: è la schermata di
-esito che chiude l'entrata e smista verso le Mete.
+#### §7. Vincoli scritti, non dedotti
 
-**Il cambio ateneo oggi provoca un `location.reload()`** perché viene caricato un
-solo dataset, e i dati Sapienza pesano ~1,8 MB. **Decisione richiesta e da
-testare in questa fase**: o si accetta il reload **con ripresa affidabile del
-passo** (lo stato dell'entrata sopravvive al ricaricamento), o si passa al
-caricamento asincrono del solo ateneo scelto. **Raccomando il reload con
-ripresa**: è il comportamento attuale, il rischio è contenuto, e l'ateneo si
-sceglie una volta sola in tutta la vita dell'utente.
+⛔ **Gli id dentro `#home-benvenuto` non sono tuoi.** `preparaNomiTab()`
+**riscrive l'id** del titolo di ogni tab, e la prima riga della sua tabella è
+proprio `["#home-benvenuto .benvenuto-titolo", "titolo-tab-oggi-benvenuto"]`.
+Ieri un `id` messo su un `<h1>` ha ucciso il saluto col nome **in silenzio, con
+31 prove UI verdi**. **Nell'entrata si seleziona per classe, dentro il tab**
+(`document.querySelector("#tab-oggi .home-saluto")` è il modello già in uso in
+`renderHome`), ⛔ mai per `id` su un titolo.
 
-**Accessibilità della mappa — vincolo, non consiglio.** I pin sono `<button>`
-reali: dopo il filtro se ne inseriscono decine o centinaia **prima** delle
-risposte successive, e un utente da tastiera dovrebbe attraversarli tutti.
-Durante l'entrata i pin escono dall'ordine di Tab (o si usa un controllo a fuoco
-singolo). **Il colore non basta**: compatibilità comunicata anche con forma o
-testo, più legenda e `aria-live` sul conteggio che cambia.
+⛔ **Un ramo nuovo messo troppo in alto spegne i rami vecchi.** Ieri il ramo
+pre‑bando precedeva quello del profilo e, siccome ogni utente **nasce** in
+pre‑bando, nessuno veniva più invitato a compilare il profilo. **P1 aggiunge un
+ramo a monte di tutta l'entrata**: ogni aggiunta a una catena di `if` va provata
+**anche per ciò che NON deve intercettare** — in particolare che
+`initOnboarding()` continui a non fare nulla per chi ha `onboardingFatto`, e che
+la ripresa da `sessionStorage` **non** scatti al primo avvio normale.
 
-**Prestazioni — protocollo ripetibile, non «fluido».** `mappaClusterizza()` cerca
-linearmente un gruppo vicino per ogni città, e ogni aggiornamento **distrugge e
-ricrea tutti i pin**. Con la Sapienza sono **~1.595 record elaborati** a ogni
-aggiornamento, che diventano ~385 gruppi e **~50 pulsanti a 390px** (vedi le tre
-grandezze in cima al piano). **Il collo di bottiglia va confermato misurando**,
-non dedotto dalla lettura del codice.
+⛔ **Il testo della finestra attesa non si riscrive.** Dopo V4 esiste **una sola
+copia** (`titoloPreBando()`, `finestraAttesaBando()`), e `completaOnboarding()`
+**la usa già** nel ramo `inPreBando()`. L'entrata **riusa quelle funzioni**.
+Erano **tre copie divergenti** prima di V4.
 
-| Voce | Valore |
-|---|---|
-| Dataset | **Sapienza** (il peggiore: 1.595 record), nessun filtro applicato |
-| Dispositivo | **modello esatto, versione Android e versione Chrome registrati nel referto**. Riferimento indicativo: un Android sotto i 250 € dell'anno in corso — ma senza le tre versioni la misura non è ripetibile |
-| Browser | Chrome stabile, profilo pulito, **throttling CPU 4×** in DevTools |
-| Prove | **5 esecuzioni**, si giudica il **valore peggiore** (non la media) |
-| Soglie | risposta al tocco **< 100 ms**; **nessun task > 50 ms** |
-| Si misura | **le tre grandezze separate**: record elaborati, gruppi geografici, pulsanti creati |
+⛔ **`js/atenei/*/dati-mete-*.js` e `dati-coordinate.js` non si toccano.**
+Nemmeno una riga: i file mete **li riscrive ogni notte l'automazione di
+mappatura dall'altro PC** (`AUTOMAZIONE_GEMINI.md`), le coordinate sono generate
+offline. Se un pin è nel posto sbagliato, si dichiara — non si corregge qui.
 
-**Rimedi in ordine, dal più mirato:** (1) memoizzare il raggruppamento per città
-— si calcola **una volta**, il filtro lavora sui gruppi; (2) bucket spaziali al
-posto di `out.find()` lineare; (3) aggiornamento **incrementale** del DOM. Se
-sfora ancora: comparsa/scomparsa **senza transizione** — **il filtraggio non si
-taglia**, è il motivo per cui l'entrata regge 4 passi.
+⛔ **`statoBando()`, `modoCiclo()` e `inPreBando()` non si toccano**: V4 li ha
+appena congelati e G1 li prova.
 
-**Criterio di uscita.** Budget rispettato e misurato; entrata completabile da
-tastiera senza attraversare i pin; chi l'ha già fatta non la rivede; il reload
-di cambio ateneo riprende dal passo giusto; `prefers-reduced-motion` spegne le
-transizioni senza perdere informazione.
+#### §8. Criterio di uscita
+
+1. **L'entrata si completa da tastiera senza attraversare i pin**: prova UI che
+   conta i tab‑stop dentro `#home-benvenuto` e verifica che nessuno sia un
+   `.mappa-pin`; i pulsanti‑risposta bastano a percorrere P1→P4→E.
+2. **La ripresa dal cambio ateneo riprende dal passo giusto e con le risposte
+   date**: prova UI che risponde a P1, cambia ateneo a P2, e dopo il reload
+   trova P3 con la porta di P1 ancora scelta. Più i casi sporchi: chiave
+   assente · JSON illeggibile · `passo` fuori intervallo · `porta` sconosciuta
+   → **si riparte dalla scena, senza errori a schermo**.
+3. **Chi l'ha già fatta non la rivede**: con `onboardingFatto` l'entrata non
+   compare e `initOnboarding()` esce subito.
+4. **`wizardMete`**: finita l'entrata, il riquadro `#wizard-mete` non compare
+   nel tab Mete; «Ripensa le rotte» lo **rimette**; il caso «cambio ateneo →
+   zaino nuovo → entrata rifatta» è **provato e dichiarato**.
+5. **`npm run test:perf` verde**, con il referto delle **tre grandezze** e i 5
+   giri, **prima e dopo** le ottimizzazioni di §5.
+6. **Le otto invarianti I1–I8 verdi**, misurate sullo stesso elenco e alla
+   stessa larghezza prima e dopo §5. Una sola invariante che cede ferma le
+   ottimizzazioni e si dichiara.
+7. `prefers-reduced-motion` spegne le transizioni **senza perdere
+   informazione** (stesso numero di elementi resi, come al F4 del redesign v2).
+8. A **390×844** la prima schermata dell'entrata mostra claim e **un solo**
+   bottone, **senza scorrere**.
+9. **Suite verdi**: unit (oggi **90/90**, zero skip) e UI (oggi **33/33**).
+   ⛔ Nessuno `skip` nuovo.
+10. ⛔ **Si guarda il sito prima di firmare, con uno zaino vero.** Quattro
+    difetti su quattro sessioni sono passati sotto suite verdi: le prove dicono
+    che il codice fa ciò che il test chiede, **non che il prodotto dica la
+    verità allo studente**.
+
+**Rischio.** ALTO — tocca il motore della mappa **condiviso con le Mete**, la
+macchina dell'entrata, e aggiunge un ramo a monte di tutto il primo contatto.
+
+> 🔻 **Se V3 si delega con `/codex-build`, questi divieti vanno in cima al
+> prompt** (hanno funzionato su V0, su V1 al secondo giro, su V2 e su V4 — dove
+> Codex si è fermato davanti a una porta occupata **senza terminare il
+> processo**): **non invocare `codex` né alcuna procedura di delega**; **non
+> terminare processi** (`Stop-Process`, `kill`, `taskkill`); **non toccare
+> `.git/`**; **nessun processo persistente** — gli unici server ammessi sono
+> quelli avviati e fermati da `npm run test:ui` e `npm run test:perf`.
+> E cinque divieti specifici di V3: **nessun `id` su un titolo dentro
+> `#home-benvenuto`** (la tabella aria lo riscrive); **non toccare
+> `js/atenei/*/dati-mete-*.js` né `js/dati-coordinate.js`**; **non modificare
+> `statoBando()`, `modoCiclo()`, `inPreBando()`**; **non riscrivere il testo
+> della finestra attesa** — si riusano `titoloPreBando()` e
+> `finestraAttesaBando()`; **nessuna ottimizzazione che cambi una delle
+> invarianti I1–I8** delle Mete.
 
 ### V4 — Home «Adesso» + stato pre-bando (ottobre)
 
