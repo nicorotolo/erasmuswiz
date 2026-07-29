@@ -4,29 +4,13 @@
   "note": "File di stato per la mappatura automatica delle mete Erasmus. Aggiornato da ogni run della GitHub Action. NON modificare manualmente salvo emergenze.",
   "universitaCorrente": "Sapienza Roma",
   "dipartimentoCorrente": "Lettere e Filosofia (Sapienza)",
-  "runCompletati": 360,
+  "runCompletati": 361,
   "config": {
     "maxTentativiLingua": 2,
     "sogliaAvanzamentoDipartimento": 0.85,
     "_nota": "Una meta lingua dopo maxTentativiLingua ricerche infruttuose va in linguaNonTrovabile. Un dipartimento avanza se pendingScadenze e pendingLingua sono vuoti, OPPURE se le restanti pendingLingua sono tutte in linguaNonTrovabile e completate/totale >= sogliaAvanzamentoDipartimento."
   },
   "prossimiBatch": [
-    {
-      "id": "polo di latina (sapienza)-batch-followup-1",
-      "priorita": 6,
-      "dipartimento": "Polo di Latina (Sapienza)",
-      "descrizione": "Polo di Latina (Sapienza) - follow-up pending",
-      "tipo": "scadenze+lingua",
-      "mete": [
-        "F  BREST29",
-        "D  NURNBER02",
-        "D  CLAUSTH01",
-        "PL WARSZAW41",
-        "PL WROCLAW03",
-        "P  PORTO05",
-        "MK SKOPJE15"
-      ]
-    },
     {
       "id": "polo di latina (sapienza)-batch-followup-2",
       "priorita": 6,
@@ -665,6 +649,21 @@
         "PL CZESTOC01",
         "TR ISTANBU63"
       ]
+    },
+    {
+      "id": "polo di latina (sapienza)-batch-followup-1",
+      "priorita": 6,
+      "dipartimento": "Polo di Latina (Sapienza)",
+      "descrizione": "Polo di Latina (Sapienza) - follow-up pending",
+      "tipo": "scadenze+lingua",
+      "mete": [
+        "F  BREST29",
+        "D  NURNBER02",
+        "D  CLAUSTH01",
+        "PL WARSZAW41",
+        "PL WROCLAW03",
+        "MK SKOPJE15"
+      ]
     }
   ],
   "statoDipartimenti": {
@@ -1144,12 +1143,6 @@
         "TR ERZURUM01"
       ],
       "pendingLingua": [
-        "F  BREST29",
-        "D  NURNBER02",
-        "D  CLAUSTH01",
-        "PL WARSZAW41",
-        "PL WROCLAW03",
-        "MK SKOPJE15",
         "CZ HRADEC01",
         "RO CRAIOVA01",
         "RO BRASOV01",
@@ -1159,13 +1152,12 @@
         "TR ERZURUM01"
       ],
       "tentativiLingua": {
-        "F  BREST29": 1,
-        "D  NURNBER02": 1,
-        "D  CLAUSTH01": 1,
-        "PL WARSZAW41": 1,
-        "PL WROCLAW03": 1,
-        "P  PORTO05": 1,
-        "MK SKOPJE15": 1,
+        "F  BREST29": 2,
+        "D  NURNBER02": 2,
+        "D  CLAUSTH01": 2,
+        "PL WARSZAW41": 2,
+        "PL WROCLAW03": 2,
+        "MK SKOPJE15": 2,
         "CZ HRADEC01": 1,
         "RO CRAIOVA01": 1,
         "RO BRASOV01": 1,
@@ -1174,7 +1166,14 @@
         "TR CANAKKA01": 1,
         "TR ERZURUM01": 1
       },
-      "linguaNonTrovabile": [],
+      "linguaNonTrovabile": [
+        "F  BREST29",
+        "D  NURNBER02",
+        "D  CLAUSTH01",
+        "PL WARSZAW41",
+        "PL WROCLAW03",
+        "MK SKOPJE15"
+      ],
       "ateneo": "Sapienza Roma"
     },
     "Scienze Statistiche (Sapienza)": {
@@ -4145,6 +4144,12 @@
       "data": "2026-07-29",
       "mete": 7,
       "note": "Ingegneria elettronica e comunicazioni - DIET (Sapienza) ingegneria elettronica e comunicazioni - diet (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
+    },
+    {
+      "batch": 361,
+      "data": "2026-07-29",
+      "mete": 7,
+      "note": "Polo di Latina (Sapienza) polo di latina (sapienza)-batch-followup-1: merge automatico via applica-batch.mjs."
     }
   ],
   "storicoBatch": [

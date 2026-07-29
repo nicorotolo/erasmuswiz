@@ -56,7 +56,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://brest-bs.com/",
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69657."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69657. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-polat-munster",
@@ -100,7 +100,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.th-nuernberg.de/",
-    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Accordo ERA69641."
+    notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Accordo ERA69641. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-polat-nurnber-2",
@@ -119,7 +119,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.th-nuernberg.de/",
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69642."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69642. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-polat-clausth",
@@ -138,7 +138,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.tu-clausthal.de/",
-    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69639."
+    notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69639. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-polat-warszaw",
@@ -157,7 +157,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://eng.wseiz.pl/",
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69664."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69664. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-polat-katowic",
@@ -206,7 +206,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://eng.wseiz.pl/",
-    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69665."
+    notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69665. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-polat-wroclaw",
@@ -225,7 +225,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.ue.wroc.pl/",
-    notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69666."
+    notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69666. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-polat-porto",
@@ -273,7 +273,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.utms.edu.mk/en/",
-    notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Accordo ERA69660."
+    notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Accordo ERA69660. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
     id: "sap-polat-hradec",
