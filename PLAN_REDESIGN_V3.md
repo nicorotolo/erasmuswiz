@@ -1413,38 +1413,392 @@ scrittori del profilo e i file dati (solo il campo `tipo`).
 
 ### V5 — Retention 🔴 prima che esca il bando (novembre)
 
+> 🧊 **Specifica congelata il 2026-07-29**, come per §V0, §V2, §V4 e §V3. Le sei
+> decisioni qui sotto sono di Nicola, prese **dopo misura sul codice e sui
+> dati**, non delegate al costruttore. Ciò che segue è un ordine di lavoro:
+> dove dice «si fa così» non c'è una scelta residua da prendere.
+
 Niente account, niente email, notifiche PWA fuori perimetro: se uno esplora ad
 agosto e il bando esce a dicembre, ci sono **quattro mesi di silenzio**.
 
-**Passi.**
-1. **`VALARM` a −7 giorni e −1 giorno** in ogni evento (`scaricaICSScadenza()`,
-   app.js:1341). È **l'unica notifica ottenibile senza account**. Oggi l'evento
-   è muto.
-2. **Un solo file con tutte le date** invece di uno per scadenza.
-3. **L'evento «Controlla se è uscito il bando»** — nello stato pre-bando è
-   **l'unica data futura esistente**, e quindi l'unico gancio. Un `DTSTART`
-   richiede **un giorno preciso**: «fra dicembre e gennaio» non è una data. Nei
-   dati per-ateneo si salva `BANDO_INFO.finestraAttesa = { inizio: "2026-12-01",
-   fonte: "…", stato: "atteso" }` e l'evento cade sull'**inizio finestra**. Il
-   titolo dice *«Controlla se è uscito»*, **non** finge una data di
-   pubblicazione: la differenza è fra un promemoria onesto e una data inventata.
-4. **Fonte, data di verifica e disclaimer dentro l'evento e dentro la sveglia**:
-   un `.ics` importato **non si aggiorna** se la scadenza cambia. Va detto nel
-   file, non solo nella pagina — è il framing obbligatorio di
-   `PROGETTO_ERASMUS.md`.
-5. **Il momento**: alla fine dell'entrata, quando lo studente ha appena investito
-   le risposte. Non un bottone da cercare dopo.
-6. **Invito all'installazione, con matrice per piattaforma**: `beforeinstallprompt`
-   non esiste su iOS/Safari → istruzioni manuali; rilevamento via `display-mode`
-   e `appinstalled`; un rifiuto **rinvia**, non nasconde per sempre.
-7. Il disclaimer dei dati diventa **l'argomento dell'installazione**: *«Niente
-   iscrizione: i tuoi dati restano su questo telefono. Aggiungi ErasmusWiz alla
-   schermata home per ritrovarli.»*
+#### §0. Le tre correzioni misurate che cambiano il progetto
 
-**Criterio di uscita.** Il `.ics` si apre in Google Calendar **e** Apple Calendar
-**con la sveglia attiva**; un solo file contiene tutte le date future; l'evento
-atteso è visibilmente etichettato come tale; l'invito segue la matrice su
-Android, iOS e desktop.
+**(a) La data della finestra attesa non esiste, e la prova sì.** §V5 (rev. 6)
+dava per scontato `BANDO_INFO.finestraAttesa`: misurato il 2026-07-29,
+**zero occorrenze** nel repo. Oggi la frase vive come **stringa fissa** in
+`finestraAttesaBando()` (`app.js:467`) — viola la prima regola d'oro ed è
+**per-sito, non per-ateneo**. Cercando la prova, però, si è trovata, e per
+entrambi gli atenei: la data d'uscita del bando precedente è documentata in
+repo con il decreto che la emana — **Sapienza 16/12/2025** (Decreto n.
+3613/2025, Prot. 0183341; già presente come voce `sap-bando` in
+`dati-scadenze.js`) e **Ca' Foscari 14/01/2026** (DR 13/2026, citato
+nell'intestazione di `dati-bando.js`). Sono **due date diverse**: la frase
+«di solito fra dicembre e gennaio» è l'unione delle due, cioè esattamente il
+sintomo di una copia per-sito.
+
+**(b) Oggi non esiste nessuna data futura, quindi oggi il gancio non esiste.**
+Misurato: l'ultima scadenza di Ca' Foscari è il **15/07/2026**, l'ultima della
+Sapienza il **01/06/2026**. Entrambe passate. In pre-bando la guardia di V4
+(`app.js:1686` e il bottone disabilitato a `app.js:1836`) spegne **tutti** i
+bottoni «Aggiungi al calendario». Conseguenza: senza D‑V5.1 questa fase non
+consegna niente allo studente fino a dicembre — il `VALARM` andrebbe su un
+insieme vuoto.
+
+**(c) Il verde della compatibilità è irraggiungibile, e la colpa non è
+dell'entrata.** Misurato su tutte le mete con studente triennale e **inglese B2
+dichiarato**: `punteggio = lingua + livello + posti`, dove la lingua vale **25**
+se dichiarata al livello richiesto e **50** solo se `certificata: true`
+(`puro.js:592-605`), il livello 30 e i posti al massimo 20. Massimo raggiungibile
+**75**, soglia del ✅ **80** (`puro.js:825`).
+
+| | Ca' Foscari (392) | Sapienza (1.595) |
+|---|---|---|
+| oggi | ✅ **0** · ⚠️ 278 · 🔒 114 | ✅ **0** · ⚠️ 1.217 · 🔒 378 |
+| se la lingua dichiarata vale 40 | ✅ 82 | ✅ 160 |
+| se la lingua dichiarata vale 50 | ✅ **184** · ⚠️ 173 · 🔒 35 | ✅ **643** · ⚠️ 690 · 🔒 262 |
+
+Non è un difetto dell'entrata che «dimentica una casella»: riguarda **chiunque
+non abbia un certificato, ovunque nel sito**. E i 25 punti mancanti sono la
+penalità per una cosa che **il bando non chiede**, come i nostri stessi dati
+citano alla lettera (`dati-bando.js`, voce `cf-lingua`, Art. 2 c. 9):
+
+> «Le studentesse e gli studenti selezionati dovranno presentare **eventuale**
+> prova del livello linguistico **solamente in fase successiva alla
+> selezione**…»
+
+e la nostra traduzione, già a schermo: *«Per candidarti non carichi nessun
+certificato»*. Il motore contraddice il contenuto del sito.
+
+#### §1. D‑V5.1 — La finestra attesa **nasce nei dati**, per ateneo, con la prova accanto
+
+In `js/atenei/<ateneo>/dati-bando.js`, dentro `BANDO_INFO`:
+
+```js
+finestraAttesa: {
+  inizio: "2027-01-14",              // il giorno del promemoria (scelta umana)
+  precedente: {                       // la PROVA su cui poggia
+    ciclo: "2026/2027",
+    data: "2026-01-14",
+    fonte: "DR 13/2026 del 14/01/2026 — Bando Erasmus+ studio (Europa) 2026/2027"
+  },
+  stato: "atteso"                     // mai "confermato" finché il bando non esce
+}
+```
+
+- **Ca' Foscari**: `precedente.data` = `2026-01-14`, `inizio` = `2027-01-14`.
+- **Sapienza**: `precedente.data` = `2025-12-16` (Decreto 3613/2025, Prot.
+  0183341 del 16/12/2025 — la stessa data che `dati-scadenze.js` porta già come
+  `sap-bando`), `inizio` = `2026-12-16`.
+
+**Perché due campi e non uno.** `precedente` è un fatto verificabile e non si
+tocca; `inizio` è la scelta di quando suonare. Tenerli separati impedisce che
+la scelta si travesta da prova. La `fonte` è obbligatoria: **senza fonte il
+campo si considera assente**.
+
+**Regole vincolanti.**
+1. `finestraAttesa` **non è una scadenza**: non entra in `SCADENZE_CAFOSCARI`,
+   non entra nel countdown, non entra nella missione, non entra nella
+   checklist, non passa da `prossimaScadenzaAzionabile()`. Se ci entrasse,
+   riaprirebbe in pre-bando il contatore che V4 ha appena chiuso.
+2. `stato` vale `"atteso"`. Nessun testo a schermo o dentro l'`.ics` può
+   affermare che il bando **esce** quel giorno: si dice sempre e solo
+   *«controlla se è uscito»*.
+3. **Assenza = silenzio.** Se un ateneo non ha `finestraAttesa` (o ha
+   `precedente.fonte` vuota), non si offre nessuna sveglia sul bando e la frase
+   pre-bando **non nomina nessun mese**: dice solo che il bando non è ancora
+   uscito. Nessun mese di ripiego, mai. È la stessa regola del limite ignoto di
+   §V6 («meglio non offrire una consegna che offrirne una col numero sbagliato»).
+4. `titoloPreBando()` e `finestraAttesaBando()` restano la **copia unica** del
+   testo pre-bando: `finestraAttesaBando()` smette di essere una stringa fissa e
+   diventa un lettore dei dati. **Tutti** i suoi lettori cambiano insieme — sono
+   tre, misurati: `app.js:1492` (missione della home), `app.js:4987`
+   (conclusione dell'entrata) e il nuovo punto di §2. Nessun quarto punto scrive
+   quella frase per conto suo.
+5. Formulazione, derivata dai dati e non inventata:
+   *«Il bando precedente è uscito il 14 gennaio 2026: quello nuovo è atteso in
+   un periodo simile.»* Con `finestraAttesa` assente: *«Il bando non è ancora
+   uscito.»* e basta.
+
+**Prova che la data non invecchi in silenzio** (è la lezione di V4, dove uno
+stato agganciato a un interruttore del 2027 sarebbe passato con le suite verdi):
+un test unitario per ateneo verifica che `inizio` sia **nel futuro** e cada
+**entro ±45 giorni** dall'anniversario di `precedente.data`. Quando il 2027/28
+sarà uscito, quel test diventerà rosso e costringerà ad aggiornare il dato
+invece di lasciar suonare una sveglia scaduta.
+
+#### §2. D‑V5.2 — L'offerta della sveglia è **una schermata sola**, in coda all'entrata, e **resta in home**
+
+**Dove.** Dopo la risposta sulle mete, cioè dentro `benvConcludiConEsito()`
+(`app.js:5017`) e **prima** di restituire lo studente alla home. Una schermata,
+una domanda: *«Ti avviso quando esce il bando?»*, con due bottoni — «Sì,
+mettimelo in calendario» e «No, grazie» — e sotto, in una riga sola, il perché
+(*«Il tuo telefono ti avvisa da solo: noi non ti chiediamo né mail né
+iscrizione»*).
+
+**Non** si aggiunge come quarta cosa alla schermata di esito: lì ci sono già il
+conteggio delle mete, la frase sul bando e tre bottoni.
+
+**Il vincolo tecnico che questa scelta impone, e come si rispetta.**
+`aggiornaModoEntrata()` (`app.js:572`) è l'**unico scrittore** della classe
+`modo-entrata`, e oggi decide con `!ZAINO.onboardingFatto && tabCorrente() ===
+"oggi"`. A quel punto del flusso `onboardingFatto` **è già `true`**
+(`app.js:4960`): senza intervento la cornice dell'entrata cadrebbe a metà
+schermata. Quindi:
+
+- si aggiunge **una sola** condizione, dentro `aggiornaModoEntrata()` e in
+  nessun altro posto: `(!ZAINO.onboardingFatto || codaEntrataAttiva()) &&
+  tabCorrente() === "oggi"`;
+- `codaEntrataAttiva()` legge una variabile **in memoria** del modulo, **non**
+  `localStorage` e **non** `sessionStorage`. La ragione è precisa: se lo
+  studente abbandona la schermata e ricarica, deve trovare la home, non la
+  domanda — è il «mai più» di D‑V3.4. La memoria si perde al ricaricamento, ed
+  è esattamente il comportamento voluto. (V3 usò `sessionStorage` per il motivo
+  opposto: lì lo stato **doveva** sopravvivere al `location.reload()` del
+  cambio ateneo.)
+- la coda si spegne alla risposta (sì o no), e **si spegne anche** se lo
+  studente naviga altrove: qualunque `vaiA()` la chiude, perché
+  `aggiornaModoEntrata()` è già chiamato da `vaiA()` (`app.js:661`).
+
+**Il posto permanente.** Nella missione della home, ramo `case "pre-bando"`
+(`app.js:1488`), il secondo bottone `#btn-come` **oggi è esplicitamente
+nascosto** (`app.js:1503-1506`): quello slot è libero e diventa *«Avvisami
+quando esce»*. Serve a chi l'entrata l'ha già fatta ieri — cioè a tutti gli
+utenti esistenti, che altrimenti non vedrebbero mai l'offerta.
+
+> ⚠️ Questo è un **emendamento dichiarato all'inventario della home di §V4 §5**:
+> la home in pre-bando guadagna un secondo bottone. È ammesso perché rispetta la
+> regola vincolante di V4 — *solo ciò che è vero adesso E ha un'azione*: la
+> finestra attesa è vera adesso, e l'azione è mettere la sveglia. L'inventario
+> di §V4 §5 va aggiornato nello stesso commit, o la prossima sessione lo leggerà
+> come una violazione.
+
+Se `finestraAttesa` è assente (regola 3 di §1), **nessuna delle due offerte
+compare**: né la schermata in coda all'entrata, né il bottone in home.
+
+#### §3. D‑V5.3 — **Un solo file**, codice evento stabile, sveglia a −7 e −1 giorno
+
+**Il difetto misurato.** Oggi `scaricaICSScadenza()` (`app.js:1683`) costruisce
+`UID:${scad.id}-${dtStart}@erasmuswiz`: **la data è dentro il codice
+identificativo**. Se una scadenza si sposta, il file nuovo porta un UID nuovo,
+il calendario lo tratta come un evento diverso e **la data vecchia sopravvive
+accanto a quella giusta**, su Google come su Apple. E l'evento è muto: nessun
+`VALARM`.
+
+**Come si fa.**
+1. **UID stabile**: `UID:${scad.id}@erasmuswiz` per le scadenze,
+   `UID:bando-atteso-${ateneo}@erasmuswiz` per l'evento della finestra attesa.
+   La data esce dal codice.
+2. **`SEQUENCE`** presente su ogni `VEVENT`, derivato in modo deterministico
+   dalla `dataVerificaDati` del file dati (giorni trascorsi da `2020-01-01`).
+   Cambiando i dati il numero cresce, ed è la condizione perché un calendario
+   accetti l'aggiornamento invece di duplicare.
+3. **Due sveglie per evento**, `TRIGGER:-P7D` e `TRIGGER:-P1D`, ognuna con
+   `ACTION:DISPLAY` e una `DESCRIPTION` non vuota (senza `DESCRIPTION` alcuni
+   client scartano il `VALARM`).
+4. **Un solo file** con **tutte** le date future: `erasmuswiz-date.ics`, un
+   `VCALENDAR` con più `VEVENT`. Oggi, misurato, conterrà **un solo evento** —
+   quello del bando atteso — perché non esiste nessuna scadenza futura; dopo G2
+   ne conterrà sette. Le date **passate non entrano mai** nel file.
+5. **I bottoni per singola scadenza restano** e usano lo **stesso UID**: chi
+   scarica prima il file grande e poi il singolo non ottiene un doppione.
+6. **L'evento della finestra attesa è un evento a orario**, non «tutto il
+   giorno»: `DTSTART` alle **09:00** locali, `DTEND` alle 09:30. Motivo: sugli
+   eventi di un giorno intero Google e Apple applicano regole d'allarme
+   proprie e diverse, e questa fase non può provarle. `SUMMARY:Controlla se è
+   uscito il bando Erasmus <ateneo>` — mai «Esce il bando».
+7. **Il disclaimer sta dentro il file**, non solo nella pagina, in ogni
+   `DESCRIPTION`: cosa è (data attesa, non confermata), la **fonte** e la
+   **data di verifica**, il link alla pagina ufficiale, e la frase che chiude il
+   punto 4 del piano: *«Questo promemoria non si aggiorna da solo: se la data
+   cambia, riscaricalo dal sito.»*
+8. La guardia di V4 resta intatta: in pre-bando una scadenza passata non
+   diventa un evento (`app.js:1686`), e il file unico non la contiene.
+
+#### §4. D‑V5.4 — L'invito all'installazione: **la prova la fa Nicola**, su Android e iPhone
+
+Scelta di Nicola contro la raccomandazione di Claude, che proponeva di
+riscrivere il criterio su una funzione pura (come il budget prestazionale di
+V3). Il criterio resta quello del piano: **l'invito segue la matrice su
+Android, iOS e desktop, verificato su dispositivi veri**.
+
+Perché la sessione non può sostituirsi: `beforeinstallprompt` **non esiste** su
+iOS/Safari, e non c'è modo di simularlo in modo credibile né in jsdom né in
+Playwright.
+
+**Quindi il lavoro si divide in due.**
+
+- **Provabile in sessione, e obbligatorio**: una funzione pura in `js/puro.js`,
+  `invitoInstallazione(ambiente)`, che riceve un oggetto descrittivo
+  (`{ promptDisponibile, standalone, iOS, safari, desktop, rinviatoFino }`) e
+  restituisce **quale invito mostrare** (`"prompt"`, `"istruzioni-ios"`,
+  `"niente"`) e il testo. Nessun accesso a `window`, `navigator` o
+  `localStorage` là dentro: l'ambiente glielo passa il chiamante. Ogni riga
+  della matrice è un caso di prova.
+- **Non provabile in sessione, e la prova la fa Nicola**: l'invito reale su un
+  Android (Chrome) e su un iPhone (Safari). Il report finale del costruttore
+  **non può dichiarare superato** questo criterio: lo dichiara **in attesa**, e
+  la sessione si chiude solo quando Nicola ha provato e detto com'è andata.
+
+**Regole di comportamento**, che valgono per entrambe le metà:
+- già installata (`display-mode: standalone` oppure `navigator.standalone`) →
+  **niente invito**, mai;
+- un rifiuto **rinvia**, non nasconde per sempre: si registra una data di
+  ripresa e prima di allora non si richiede nulla;
+- questo stato **non entra nello zaino**: lo zaino è per-ateneo, l'installazione
+  è per-dispositivo. Va in una chiave `localStorage` propria e dichiarata,
+  accanto a `erasmuswiz_ateneo` che segue già questa stessa logica;
+- l'argomento dell'invito è quello del piano, ed è il disclaimer dei dati
+  girato dalla parte giusta: *«Niente iscrizione: i tuoi dati restano su questo
+  telefono. Aggiungi ErasmusWiz alla schermata home per ritrovarli.»*
+
+#### §5. D‑V5.5 — Il certificato **smette di togliere punti**, e dove la meta lo cita **si segnala**
+
+Decisione di Nicola, presa sui numeri del §0(c). Claude raccomandava di tenerla
+fuori da V5 (tocca il motore di V0); Nicola l'ha voluta dentro, e ha aggiunto la
+contropartita: *«nel momento in cui selezionano lo dobbiamo ricordare… senza il
+certificato non basta nei casi in cui serve»*.
+
+1. **In `puro.js`, `valutaFoglia()`**: con `diff >= 0` il punteggio è **50**, che
+   `certificata` sia `true` o `false`. Sparisce il ramo da 25 punti e sparisce
+   il motivo «lingua non certificata» da `motivoMancanzaCompatibilita()`. I rami
+   da 12 (un livello sotto) e da 0 **non si toccano**. **Le soglie 80/40 non si
+   toccano**: si toglie una penalità, non si abbassa un'asticella.
+2. **Il verde non promette più di quel che sa.** Il `dettaglio` del ✅ diventa:
+   *«Hai i requisiti principali. Il livello lo dichiari tu: la prova, se
+   richiesta, si presenta dopo la selezione.»*
+3. **L'avviso del certificato, guidato dai dati e senza classificare.** Misurato:
+   **43 mete a Ca' Foscari e 135 alla Sapienza** citano un certificato dentro il
+   requisito di lingua — ma **8 e 28** di quelle dicono l'esatto contrario
+   (*«certificato non richiesto»*, *«il certificato non è normalmente
+   richiesto»*). Una regola che leggesse la parola e concludesse «serve» direbbe
+   il falso su 36 mete: è la trappola di V0 ripetuta. Quindi la funzione pura
+   `citaCertificato(meta)` **rileva la citazione e non ne giudica il senso**, e
+   l'avviso rimanda al testo che il sito **già mostra** (`app.js:1946` stampa la
+   `condizione` accanto al requisito):
+   > *«Questa destinazione parla di un certificato: leggi la condizione qui
+   > sopra. Per candidarti basta dichiarare il livello; la prova, se richiesta,
+   > arriva dopo la selezione.»*
+   Riusa `.banner-stato stato-riserve`, la variante che il design system ha già.
+4. **A chi si mostra**: solo a chi **non** ha spuntato `certificata` per la
+   lingua che soddisfa quel requisito. Chi il certificato l'ha dichiarato non
+   ha bisogno del promemoria.
+5. **La casella «certificata» resta nel Profilo** (`index.html:402`) e resta
+   scritta nello zaino: non pesa più sul punteggio, spegne l'avviso del punto 4.
+   **L'entrata non guadagna nessuna casella nuova**: continua a scrivere
+   `certificata: false` (ora innocuo) e **resta a quattro passi**. Nessuna
+   modifica al numero o all'ordine dei passi dell'entrata di V3.
+6. **Ciò che non cambia**, e va verificato che non cambi: `rootPresunta`
+   continua a impedire il ✅ anche a 100 punti (`puro.js:807`); la deroga di
+   prodotto di V0 sui corsi resta com'è; `linguaCopertaPerFiltro()` continua a
+   guardare `punteggio === 50` e quindi si allarga insieme al resto — è
+   voluto e va scritto nel report, non scoperto dopo.
+
+> ⚠️ **Onestà della prova.** La citazione che giustifica tutto questo è **solo di
+> Ca' Foscari** (Art. 2 c. 9). Nel bando Sapienza in repo non c'è nessuna frase
+> sui certificati, né a favore né contro: la regola le si applica per analogia,
+> e questo va scritto nel piano e non dimenticato. Se il bando Sapienza dovesse
+> dire il contrario, la correzione è per-ateneo e il punto 1 va rifatto come
+> lettura di un campo dei dati.
+
+#### §6. D‑V5.6 — I due conteggi dell'entrata dicono **lo stesso numero**
+
+Misurato: al passo 3 la frase dice «58 mete per Economia» contando
+`m.dipartimentoCf === dip` (`app.js:4908`); una schermata dopo dice «Per te ci
+sono 39 mete a Economia» contando `m.areeDisciplinari.some(a => a.codice ===
+area)` (`app.js:4974`). Due criteri diversi a due secondi di distanza.
+
+Si adotta **il conteggio per dipartimento** in entrambe le frasi, perché è
+quello con cui l'entrata ha appena filtrato la mappa che lo studente ha davanti.
+Una riga, e un caso di prova che le due frasi non possano più divergere.
+
+#### §7. Vincoli scritti, non dedotti
+
+1. `aggiornaModoEntrata()` è l'**unico scrittore** di `modo-entrata`: la
+   schermata nuova passa da lì e da nessun altro posto (§2).
+2. `titoloPreBando()` e `finestraAttesaBando()` sono la **copia unica** del
+   testo pre-bando: se la frase va nei dati, ci va **per tutti e tre** i lettori
+   (§1, regola 4).
+3. **`js/atenei/*/dati-mete-*.js` non si tocca**: li riscrive l'automazione
+   notturna sull'altro PC. `dati-bando.js` sì, ed è lì che nasce
+   `finestraAttesa`.
+4. **`statoBando()`, `modoCiclo()` e `inPreBando()` non si modificano**: sono il
+   contratto congelato di V4. La finestra attesa **non è** un quinto stato.
+5. **Il router e le rotte di V1 non si toccano**; nessuna rotta nuova. La
+   schermata della sveglia **non ha un indirizzo proprio**: è una coda
+   dell'entrata, e un indirizzo la renderebbe raggiungibile a freddo, cioè
+   riaprirebbe l'entrata a chi l'ha già chiusa.
+6. Nessuna modifica alle soglie 80/40 di `presentaCompatibilita()` (§5.1).
+7. Nessun processo persistente, nessun server oltre quello di `npm run test:ui`.
+
+#### §8. Criterio di uscita
+
+**Prove automatiche (unitarie, `node --test`)**
+1. `finestraAttesa` di **ogni** ateneo: `inizio` nel futuro ed entro ±45 giorni
+   dall'anniversario di `precedente.data`; `precedente.fonte` non vuota.
+2. Ateneo **senza** `finestraAttesa`: nessun evento generato, e la frase
+   pre-bando **non nomina nessun mese**.
+3. Il testo dell'`.ics`: UID **senza data dentro**, `SEQUENCE` presente, due
+   `VALARM` (−7g e −1g) ognuno con `DESCRIPTION` non vuota, `SUMMARY` che dice
+   *«Controlla se è uscito»* e **mai** «esce il bando», disclaimer + fonte +
+   data di verifica dentro ogni `DESCRIPTION`, **nessuna data passata** nel
+   file, terminazione di riga `CRLF`.
+4. `invitoInstallazione(ambiente)`: un caso per ogni riga della matrice, incluso
+   «già installata → niente» e «rifiutato → rinviato, non spento».
+5. Compatibilità (§5): con inglese B2 **dichiarato e non certificato**, su Ca'
+   Foscari le mete ✅ passano da **0 a 184** e su Sapienza da **0 a 643**;
+   una `rootPresunta` resta non-✅ anche a 100 punti; una lingua **un livello
+   sotto** resta a 12 punti; le soglie restano 80 e 40.
+6. `citaCertificato(meta)`: vero su una meta che nomina un certificato, vero
+   **anche** su una che dice «certificato non richiesto» (rileva, non giudica),
+   falso su una che non lo nomina.
+7. I due conteggi dell'entrata (§6) coincidono.
+
+**Prove d'interfaccia (Playwright)** — le scrive il costruttore, **le esegue il
+revisore**: la suite dura ~340 s e il limite per comando di Codex è 240 s.
+8. Entrata completa → dopo la risposta sulle mete compare **la schermata della
+   sveglia**, e la cornice `modo-entrata` è **ancora attiva**.
+9. Rispondendo «no» si arriva alla home; **ricaricando** la pagina la schermata
+   della sveglia **non ricompare** (il «mai più» di D‑V3.4).
+10. Abbandonando la schermata dalla nav (Mete), `modo-entrata` **si spegne** e le
+    mete si vedono per intero: è la regressione di V3, e va riprovata **anche**
+    arrivando a freddo da `#mete`.
+11. **Ciò che non deve intercettare**: uno studente con `onboardingFatto: true`
+    che apre `#oggi`, `#mete` e `#percorso` non vede **mai** la schermata della
+    sveglia; la nav resta raggiungibile in ogni schermata; i rami `bando-chiuso`,
+    `selezionato` e `in-attesa` della missione restano **identici** a prima (è la
+    trappola di V4: un ramo nuovo messo troppo in alto spegne i vecchi).
+12. In home, in pre-bando, `#btn-come` dice «Avvisami quando esce» e apre
+    l'offerta; **fuori** dal pre-bando `#btn-come` torna a dire quello che
+    diceva prima.
+13. Il bottone «Aggiungi tutte le date» produce **un** file con **un** evento
+    oggi (nessuna scadenza futura esiste), e i bottoni per singola scadenza sono
+    ancora al loro posto.
+
+**Prove di mutazione.** Ogni regola nuova si rompe deliberatamente e la prova
+corrispondente deve diventare rossa, con **ancore univoche**: una sostituzione
+della prima occorrenza ha già misurato la riga sbagliata e prodotto un falso
+verde (sessione V3). Se una stringa da mutare compare più volte, si muta con
+il numero di riga o con un contesto che compaia una sola volta.
+
+**Prove non delegabili.**
+14. **Il sito guardato**, con uno zaino vero: cinque sessioni su cinque i difetti
+    veri sono usciti lì e non dalle suite.
+15. **L'invito all'installazione su Android e su iPhone**: la prova la fa Nicola
+    (§4). Fino ad allora il criterio è **in attesa**, non superato.
+16. **L'`.ics` importato davvero** in Google Calendar **e** in Apple Calendar,
+    con la sveglia che risulta attiva: è il criterio del piano e non si può
+    misurare in sessione.
+
+> 🔻 **Se V5 si delega con `/codex-build`, questi divieti vanno in cima al
+> prompt** (hanno funzionato da V1 in poi): **non invocare `codex` né alcuna
+> procedura di delega**; **non terminare processi** (`Stop-Process`, `kill`,
+> `taskkill`); **non toccare `.git/`**; **nessun processo persistente** —
+> l'unico server ammesso è quello di `npm run test:ui`. E cinque divieti
+> specifici di V5: **non modificare `statoBando()`, `modoCiclo()` né
+> `inPreBando()`**; **non toccare `js/atenei/*/dati-mete-*.js`**; **non
+> cambiare le soglie 80/40** di `presentaCompatibilita()`; **non aggiungere
+> rotte** al router di V1; **non aggiungere passi all'entrata** di V3 (la
+> schermata della sveglia è una coda, non un quinto passo).
 
 ### V6 — Mete e le 5 scelte (novembre – dicembre)
 
