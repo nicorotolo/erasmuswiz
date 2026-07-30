@@ -1351,9 +1351,12 @@ chiude. Senza azione collegata, non entra.
 riassunti delle altre sezioni. Su telefono i due bottoni **uno sotto l'altro**.
 
 **In pre-bando la home dice tre cose, in quest'ordine**: che il bando 2027/28
-non è ancora uscito · la finestra attesa (dicembre–gennaio) · l'unica azione
-sensata — esplorare le mete, e **farsi avvisare**, che è **V5**. La barra di
-avanzamento resta: misura il percorso dello studente, non il bando.
+non è ancora uscito · la finestra attesa derivata dai dati · le due azioni
+sensate: **«Esplora le mete»** e, per emendamento D‑V5.2,
+**«Avvisami quando esce»**. Il secondo bottone apre l'offerta del calendario
+solo quando `BANDO_INFO.finestraAttesa` è documentata; in assenza del dato
+resta nascosto. La barra di avanzamento resta: misura il percorso dello
+studente, non il bando.
 
 **Chi torna già selezionato** apre sulla stessa home, con la tappa corrente e la
 mossa **calcolate da `CHECKLIST_POST`** (V2), non fissate sul LA — e adesso col
@@ -1454,8 +1457,16 @@ se dichiarata al livello richiesto e **50** solo se `certificata: true`
 | | Ca' Foscari (392) | Sapienza (1.595) |
 |---|---|---|
 | oggi | ✅ **0** · ⚠️ 278 · 🔒 114 | ✅ **0** · ⚠️ 1.217 · 🔒 378 |
-| se la lingua dichiarata vale 40 | ✅ 82 | ✅ 160 |
-| se la lingua dichiarata vale 50 | ✅ **184** · ⚠️ 173 · 🔒 35 | ✅ **643** · ⚠️ 690 · 🔒 262 |
+| se la lingua dichiarata vale 50 | ✅ **182** · ⚠️ 175 · 🔒 35 | ✅ **600** · ⚠️ 733 · 🔒 262 |
+
+> ✏️ **Numeri corretti in revisione (2026-07-29), e vale la pena dire perché.**
+> La stima scritta prima del build diceva **184 e 643**: era misurata cambiando
+> il **punteggio** della foglia senza cambiarne l'**esito**, quindi non faceva
+> scattare la prudenza su `rootPresunta`, che declassa a ⚠️ una radice
+> soddisfatta ma non revisionata. Col codice vero i verdi sono **182 e 600** —
+> **53 mete in meno**, tutte radici presunte che devono restare non verdi. La
+> correzione l'ha misurata l'esecutore e l'ha dichiarata come scostamento: è la
+> direzione giusta dell'errore, perché sbaglia per prudenza.
 
 Non è un difetto dell'entrata che «dimentica una casella»: riguarda **chiunque
 non abbia un certificato, ovunque nel sito**. E i 25 punti mancanti sono la
@@ -1745,7 +1756,7 @@ Una riga, e un caso di prova che le due frasi non possano più divergere.
 4. `invitoInstallazione(ambiente)`: un caso per ogni riga della matrice, incluso
    «già installata → niente» e «rifiutato → rinviato, non spento».
 5. Compatibilità (§5): con inglese B2 **dichiarato e non certificato**, su Ca'
-   Foscari le mete ✅ passano da **0 a 184** e su Sapienza da **0 a 643**;
+   Foscari le mete ✅ passano da **0 a 182** e su Sapienza da **0 a 600**;
    una `rootPresunta` resta non-✅ anche a 100 punti; una lingua **un livello
    sotto** resta a 12 punti; le soglie restano 80 e 40.
 6. `citaCertificato(meta)`: vero su una meta che nomina un certificato, vero

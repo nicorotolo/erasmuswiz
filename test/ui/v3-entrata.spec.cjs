@@ -127,6 +127,14 @@ test("V3 §8.1: la tastiera completa P1→P4→E senza attraversare i pin", asyn
 
   await tabFinoAlTesto(page, "Sì: le cerco e le metto in ordine");
   await page.keyboard.press("Enter");
+
+  // V5 (D‑V5.2) interpone UNA schermata fra l'esito e l'uscita: l'offerta
+  // della sveglia. Lo smistamento di D‑V3.4 non è sparito, avviene un passo
+  // dopo — e la coda si attraversa da tastiera come tutto il resto.
+  await expect(page.locator("[data-sveglia='no']")).toBeVisible();
+  await tabFinoAlTesto(page, "No, grazie");
+  await page.keyboard.press("Enter");
+
   await expect(page).toHaveURL(/#mete$/);
   await expect(entrata).not.toBeVisible();
 });

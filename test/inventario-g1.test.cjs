@@ -33,7 +33,9 @@ const APP = fs.readFileSync(path.join(RADICE, "js", "app.js"), "utf8");
 // ------------------------------------------------------------
 // §1 dell'inventario: i campi dipendenti dal ciclo.
 // ------------------------------------------------------------
-const CAMPI_BANDO_INFO   = ["annoAccademico", "titolo", "linkUfficiale", "dataVerificaDati"];
+const CAMPI_BANDO_INFO   = [
+  "annoAccademico", "titolo", "linkUfficiale", "dataVerificaDati", "finestraAttesa"
+];
 const CAMPI_SCADENZE_INFO = ["annoAccademico", "fineCiclo"];
 // I sei campi testuali di REQUISITI_BANDO che possono contenere il ciclo.
 const CAMPI_REQUISITO = ["valore", "descrizione", "spiegazione", "azione", "citazione", "fonte"];
@@ -278,8 +280,10 @@ test("G1/T5: in pre-bando ciascuno dei 19 punti dichiara il ciclo o resta invari
 
     // 5 — nessuna falsa prossima scadenza.
     assert.ok(
-      dettaglioPreBando.includes("La prossima data certa è l’uscita del bando, di solito fra dicembre e gennaio"),
-      "#5 la prossima data deve essere l'uscita attesa del nuovo bando"
+      dettaglioPreBando.includes(
+        "Il bando precedente è uscito il 14 gennaio 2026: quello nuovo è atteso in un periodo simile"
+      ),
+      "#5 la finestra attesa deve derivare dal dato documentato dell'ateneo"
     );
 
     // 6 — la porta in-attesa non dipende dal ciclo e resta intatta.
@@ -298,7 +302,7 @@ test("G1/T5: in pre-bando ciascuno dei 19 punti dichiara il ciclo o resta invari
     w.completaOnboarding("L", []);
     assert.ok(
       w.document.querySelector(".benvenuto-landing-dettaglio").textContent.includes(
-        `Il bando ${cicloPercorso} non è ancora uscito. La prossima data certa è l’uscita del bando`
+        `Il bando ${cicloPercorso} non è ancora uscito. Il bando precedente è uscito il 14 gennaio 2026`
       ),
       "#7 il benvenuto deve riusare il testo canonico del pre-bando"
     );
@@ -346,7 +350,7 @@ test("G1/T5: in pre-bando ciascuno dei 19 punti dichiara il ciclo o resta invari
     badgeSintetico.remove();
 
     // 13 — export .ics visibile, disabilitato e motivato.
-    const bottoniIcs = [...w.document.querySelectorAll(".cand-btn-ics")];
+    const bottoniIcs = [...w.document.querySelectorAll(".cand-btn-ics:not(.cand-btn-ics-tutte)")];
     const motiviIcs = [...w.document.querySelectorAll(".cand-ics-motivo")];
     assert.ok(
       bottoniIcs.length > 0 &&

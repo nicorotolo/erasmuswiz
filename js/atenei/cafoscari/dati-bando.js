@@ -20,7 +20,18 @@ var BANDO_INFO = {
   annoAccademico: "2026/2027",
   titolo: "Bando Erasmus+ per studio (Europa) a.a. 2026/2027 — Ca' Foscari",
   linkUfficiale: "https://www.unive.it/erasmus-studio",
-  dataVerificaDati: "2026-06-10" // ultima volta che questi dati sono stati controllati sul bando
+  dataVerificaDati: "2026-06-10", // ultima volta che questi dati sono stati controllati sul bando
+  // La data precedente e' la prova; `inizio` e' soltanto il giorno scelto
+  // per ricordare allo studente di controllare, non una data confermata.
+  finestraAttesa: {
+    inizio: "2027-01-14",
+    precedente: {
+      ciclo: "2026/2027",
+      data: "2026-01-14",
+      fonte: "DR 13/2026 del 14/01/2026 — Bando Erasmus+ studio (Europa) 2026/2027"
+    },
+    stato: "atteso"
+  }
 };
 
 // Ogni requisito ha, oltre a id/titolo/valore/descrizione (testo attuale,

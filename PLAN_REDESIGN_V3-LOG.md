@@ -1060,3 +1060,176 @@ profilo», in entrambi i casi con la cornice onesta del pre-bando.
 
 **G1 è superato**: T1–T5 verdi, nessuno `skip`, T5 provato per mutazione.
 Cade il blocco su **V3** (🔴 online entro il 15 novembre) e su **V5**.
+---
+
+## Act 3 — Build V5 (2026-07-29)
+
+**Spec congelata prima di delegare** (`cded7ac`). §V5 conteneva quattro
+decisioni non prese, più due verità di prodotto misurate il giorno prima e mai
+corrette. Le decisioni sono di Nicola, dopo misura sul codice **e sui dati**:
+
+- **D‑V5.1** la finestra attesa nasce in `dati-bando.js` per ateneo, con la
+  prova accanto: `precedente` è il fatto documentato, `inizio` è la scelta di
+  quando suonare. Assenza del dato = nessuna sveglia e **nessun mese nominato**.
+- **D‑V5.2** l'offerta è una schermata sola in coda all'entrata, più lo slot
+  `#btn-come` che in pre-bando era nascosto. La coda vive **in memoria**: al
+  ricaricamento lo studente trova la home, non la domanda.
+- **D‑V5.3** un solo `.ics`, UID senza la data dentro, `SEQUENCE`, sveglie a
+  −7 e −1 giorno, fonte e disclaimer **dentro il file**.
+- **D‑V5.4** la prova dell'invito all'installazione **la fa Nicola** su Android
+  e iPhone — scelta sua **contro** la raccomandazione di Claude, che proponeva
+  di riscrivere il criterio su una funzione pura come per il budget di V3.
+- **D‑V5.5** il certificato smette di togliere punti — **dentro V5, contro la
+  raccomandazione di Claude**, che la voleva fuori perché tocca il motore di
+  V0. Nicola ha aggiunto la contropartita: dove la meta un certificato lo cita,
+  si segnala.
+- **D‑V5.6** i due conteggi dell'entrata dicono lo stesso numero.
+
+> ⛔ **La misura che ha giustificato la sessione.** Il piano dava per scontato
+> `BANDO_INFO.finestraAttesa`: **zero occorrenze** nel repo, e la frase viveva
+> come stringa fissa in `finestraAttesaBando()` — per-sito, non per-ateneo.
+> Cercando la prova si è trovata, e per **entrambi** gli atenei: Sapienza
+> 16/12/2025 (Decreto 3613/2025, già in `dati-scadenze.js`), Ca' Foscari
+> 14/01/2026 (DR 13/2026). Sono **due date diverse**: «fra dicembre e gennaio»
+> era l'unione delle due, cioè il sintomo esatto di una copia per-sito.
+> E senza quel dato la fase non avrebbe avuto **niente** da mettere in
+> calendario: misurato, l'ultima scadenza esistente è il 15/07/2026.
+
+> ⛔ **La seconda misura, che ha cambiato una decisione di prodotto.** Il verde
+> della compatibilità era irraggiungibile per **chiunque non avesse un
+> certificato**: massimo 75 punti contro una soglia di 80, cioè **0 mete verdi
+> su 392** a Ca' Foscari e **0 su 1.595** alla Sapienza. E i 25 punti mancanti
+> erano la penalità per una cosa che il bando **non chiede** — lo citano alla
+> lettera i nostri stessi dati (`cf-lingua`, Art. 2 c. 9: *«dovranno presentare
+> eventuale prova del livello linguistico solamente in fase successiva alla
+> selezione»*). Il motore contraddiceva il contenuto del sito.
+
+### Round 1 — Codex build
+
+Codex `gpt-5.6-sol` (effort high), thread `019fae67`, otto divieti in cima al
+prompt. Consegnato in un colpo: `finestraAttesa` nei due file dati,
+`creaCalendarioICS()` puro, la coda dell'entrata dentro l'unico scrittore di
+`modo-entrata`, la matrice d'installazione come funzione pura, la penalità del
+certificato rimossa e i due conteggi allineati. **108/108 unit, 18 mutazioni,
+banco verde.** Prove Playwright **scritte e non eseguite**, come da contratto:
+la suite dura 340 s e il limite per comando di Codex è 240.
+
+### Verdetto di Claude — la suite UI, eseguita dal revisore, era 40/6
+
+**Una regressione di prodotto vera**, e l'ha trovata una prova **di V3**
+diventata rossa: la coda della sveglia **aveva spento lo smistamento finale**
+dell'entrata. Chi rispondeva «sì, ho già in mente le mete» restava sulla home
+invece di arrivare alle Mete — e poiché la coda compare in pre-bando, valeva
+**per ogni studente da oggi a dicembre**. È la trappola scritta in §7 della
+spec: *un ramo nuovo messo troppo in alto spegne i rami vecchi*. Le sei prove
+nuove non l'hanno vista perché chiudevano **sempre con «salta»**, mai con «sì».
+
+Più due rilievi di qualità e quattro errori nelle prove scritte alla cieca:
+
+1. **L'invito all'installazione era un `window.confirm()`** — e su iPhone le
+   istruzioni sparivano proprio quando servivano, cioè mentre si esegue il
+   gesto che descrivono. Rifatto come banner in pagina, nel contenitore da cui
+   è partito il download, con i componenti del design system.
+2. **`citaCertificato()` copriva 36 mete su 43** (e 126 su 135): mancavano
+   quelle che il documento lo nominano per nome — *«equivalente a IELTS 6.5 /
+   TOEFL 90»* — senza mai scrivere «certificato».
+3. Prove: `[data-fase='esplorando']` non era univoco (pesca anche il toggle del
+   Percorso), la nav ha **3** voci con `data-tab` e non 4, i bottoni `.ics`
+   singoli sono **4** e non 7 (i capitoli senza voci collegate non si rendono).
+
+### Round 2 — correzioni, stessa sessione
+
+Chiuse tutte e cinque, con SHA-256 dei ripristini dopo le mutazioni.
+**111/111 unit.** Poi **subentro del revisore** su tre cose:
+
+- le due prove UI ancora rosse, entrambe legittime: quella di V3 pretendeva
+  `#mete` **subito** dopo «sì», mentre ora in mezzo c'è la sveglia per
+  decisione della spec — aggiornata per attraversare la coda **da tastiera**,
+  che la rende più forte di prima; e quella del calendario cliccava un bottone
+  dentro una fisarmonica chiusa;
+- **le righe del file `.ics`**, trovate guardando il file vero: la
+  `DESCRIPTION` arrivava a ~340 caratteri, mentre lo standard (RFC 5545 §3.1)
+  vuole righe da 75 ottetti. Google perdona, Apple molto meno — ed è
+  **esattamente la prova che tocca a Nicola**. Aggiunta la piegatura, che conta
+  ottetti e non caratteri e non spezza mai un carattere multibyte, con una
+  prova che verifica anche che srotolando il testo torni intero. Verificata per
+  mutazione con ancora univoca.
+
+**Esito finale: 112/112 unit (zero skip) + 47/47 UI + banco verde.**
+
+### Verifiche di Claude, non delegate
+
+Diff letto per intero; tutte e tre le suite rieseguite in proprio; e **il sito
+guardato**, con uno zaino vero, che è dove è emerso il difetto delle righe:
+
+- il contatore dell'entrata, che diceva **sempre «0 compatibili»**, con inglese
+  B2 dichiarato dice ora **«58 mete per Economia: 38 compatibili»**;
+- i due conteggi divergenti dicono entrambi **58**;
+- la frase pre-bando arriva dai dati: *«Il bando precedente è uscito il 14
+  gennaio 2026: quello nuovo è atteso in un periodo simile»*;
+- lo smistamento è integro: `#mete`, fuoco su `#cerca-mete`, entrata chiusa;
+- l'avviso del certificato compare su 22 mete di Economia, e **non giudica**:
+  36 delle 178 che lo nominano dicono che **non** serve.
+
+> ✏️ **Codex ha corretto il revisore, non solo il contrario.** La spec diceva
+> che i verdi sarebbero passati a **184 e 643**: sono **182 e 600**. La stima
+> era stata fatta cambiando il *punteggio* della foglia senza cambiarne
+> l'*esito*, quindi non faceva scattare la prudenza su `rootPresunta`, che
+> declassa a ⚠️ una radice non revisionata. 53 mete in meno, e l'errore
+> sbagliava **per eccesso di promessa**: la direzione peggiore. Corretta la
+> spec, non il codice.
+
+### Il difetto del telefono, e le tre volte in cui la prova è stata verde per la ragione sbagliata
+
+Misurato a 375×812: mostrata la domanda della sveglia, il codice rimandava la
+pagina **in cima** (`scrollTo(0, 0)`), e i due bottoni finivano **sotto il
+bordo dello schermo** — «No, grazie» a **916px su 812**. Si leggeva la domanda
+e non le risposte. Nicola ha chiesto di correggerlo.
+
+**La correzione** è `portaAVistaScelte()`: porta a schermo il blocco delle
+scelte **solo se serve** (su desktop ci sta già) e col comportamento di
+scorrimento della rotta, che rispetta `prefers-reduced-motion` (F5 di V1).
+
+**Ma la prova che doveva dimostrarlo è stata verde tre volte per tre ragioni
+diverse, tutte sbagliate**, ed è la parte che vale la pena ricordare:
+
+1. **La mutazione non si applicava.** L'espressione di sostituzione cercava
+   `\n` mentre `js/app.js` usa **CRLF**: `String.replace` non fallisce quando
+   non trova, quindi «mutato» veniva stampato e il codice restava intatto. La
+   regola delle *ancore univoche* non basta: va verificato che la mutazione
+   sia **avvenuta**, non solo che l'ancora sia unica.
+2. **La prova saltava le lingue.** Con «Salta per ora» non compare la legenda
+   della compatibilità, la pagina è più corta e il difetto **non si riproduce**.
+   Una prova che non ricrea la condizione misurata è verde a vuoto.
+3. **La prova misurava a scorrimento in volo.** Subito dopo il clic, `scrollY`
+   valeva 384 invece di 0: si leggeva un fotogramma intermedio, non ciò che lo
+   studente vede. Ora la prova aspetta che `scrollY` smetta di cambiare.
+
+Sistemate le tre cose, la mutazione la rende rossa con il numero esatto:
+*«No, grazie» a 916px su 812px*.
+
+> ✏️ **E qui il revisore ha corretto sé stesso.** Aveva scritto che la
+> schermata di esito di V3 era «anche peggio», a 896 e 1016: **falso**, era un
+> artefatto della sonda, che forzava la pagina in cima prima di misurare. Nel
+> flusso vero il suo ultimo bottone sta a **646 su 812** e non è mai stato un
+> difetto. Delle due schermate ne era rotta **una sola**, quella nuova. La
+> regola è stata lasciata anche sull'esito, dove oggi si spegne da sola, ma la
+> prova ne misura la posizione: se un domani si allunga, diventa rossa.
+
+> ⚠️ **Il banco prestazionale è instabile al tetto assoluto, e non si tocca.**
+> Su 8 esecuzioni: 6 verdi, 2 rosse. Le rosse **non** sono la soglia di
+> velocità — le mediane restano a 2,1–2,8× contro un ammesso di 3,0× e le
+> invarianti I1–I3 sono sempre uguali — ma il **singolo campione peggiore**
+> contro `TETTO_MS = 150`: in un giro rosso valeva **167,1 ms** mentre gli
+> altri campioni dello stesso giro stavano a 20–29 ms. È il rumore della
+> macchina che la sessione V3 aveva già misurato (3,8→73,5 ms a codice
+> identico) e che il banco ha corretto **per le mediane** ma non per il tetto.
+> **V5 non tocca una riga della mappa** (verificato sul diff), quindi la
+> soglia resta com'è: alzarla per far passare il verde sarebbe esattamente la
+> disonestà che V3 ha respinto quando ha rifiutato di alzare un limite fino a
+> farlo passare.
+
+**Restano in attesa, e non sono delegabili**: l'invito all'installazione
+provato su un Android e su un iPhone veri (D‑V5.4, criterio dichiarato **in
+attesa**, non superato) e l'importazione dell'`.ics` in Google Calendar **e**
+Apple Calendar con la sveglia attiva.

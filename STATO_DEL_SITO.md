@@ -21,7 +21,100 @@
 
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-07-29 — Claude Code (sessione V3).
+**Ultimo aggiornamento:** 2026-07-29 — Claude Code (sessione V5).
+
+**(SESSIONE 2026-07-29 QUATER — V5 RETENTION: SPEC CONGELATA, COSTRUITA,
+RIVISTA. Nel working tree, in attesa delle due prove di Nicola.)** Prima
+`cded7ac`: §V5 riscritta come **specifica congelabile** (da 35 a ~390 righe),
+con **sei** decisioni prese da Nicola dopo misura — quattro che il piano
+lasciava aperte più le due verità di prodotto misurate il 29/07 e mai corrette.
+Poi il build delegato a Codex `gpt-5.6-sol` con `/codex-build`, un giro di
+correzione delegato e un subentro del revisore.
+
+**Cosa fa ora il sito che prima non faceva.** Chi finisce l'entrata si sente
+chiedere *«Ti avviso quando esce il bando?»*: una schermata sola, in coda
+all'entrata, dopo la domanda sulle mete. Se dice sì, il telefono scarica un
+promemoria per il **14 gennaio 2027** (Ca' Foscari) o il **16 dicembre 2026**
+(Sapienza) — le date in cui è uscito il bando precedente, con il decreto a
+dimostrarlo — con la **sveglia a −7 e −1 giorno**. Chi l'entrata l'ha già fatta
+trova la stessa offerta in Home, nello slot `#btn-come` che in pre-bando era
+nascosto. È il **primo modo che il sito abbia mai avuto** di richiamare uno
+studente che ha chiuso la scheda, e non chiede né mail né iscrizione.
+
+**Le sei decisioni.** **D‑V5.1** la finestra attesa nasce in `dati-bando.js`
+per ateneo, con due campi distinti: `precedente` è il fatto documentato,
+`inizio` è la scelta di quando suonare — così la scelta non si traveste da
+prova; **assenza del dato = nessuna sveglia e nessun mese nominato**.
+**D‑V5.2** l'offerta è una schermata sola, e la coda vive **in memoria**: al
+ricaricamento lo studente trova la home, non la domanda (è il «mai più» di
+D‑V3.4). **D‑V5.3** un solo `.ics`, UID **senza la data dentro** (prima la
+conteneva: ogni cambio di data creava un doppione e la data vecchia
+sopravviveva), `SEQUENCE`, fonte e disclaimer dentro il file. **D‑V5.4** la
+prova dell'invito all'installazione **la fa Nicola** su Android e iPhone —
+scelta sua contro la raccomandazione di Claude. **D‑V5.5** il certificato
+smette di togliere punti — **dentro V5, contro la raccomandazione di Claude**,
+con la contropartita chiesta da Nicola: dove la meta un certificato lo cita, si
+segnala. **D‑V5.6** i due conteggi dell'entrata dicono lo stesso numero.
+
+> ⛔ **Le due misure che hanno giustificato la sessione.** (1) `finestraAttesa`
+> aveva **zero occorrenze** nel repo e la frase viveva come stringa fissa in
+> `finestraAttesaBando()` — per-sito, non per-ateneo. La prova però esisteva,
+> per entrambi gli atenei: Sapienza 16/12/2025 (Decreto 3613/2025), Ca' Foscari
+> 14/01/2026 (DR 13/2026). Sono **due date diverse**, ed è per questo che il
+> sito diceva «fra dicembre e gennaio»: era l'unione delle due. Senza quel dato
+> la fase non avrebbe avuto **niente** da mettere in calendario — l'ultima
+> scadenza esistente è il 15/07/2026, già passata. (2) Il verde della
+> compatibilità era **irraggiungibile per chiunque non avesse un certificato**:
+> massimo 75 punti contro una soglia di 80, cioè **0 mete verdi su 392** a Ca'
+> Foscari e **0 su 1.595** alla Sapienza. E i 25 punti mancanti erano la
+> penalità per una cosa che il bando **non chiede**, come citano alla lettera i
+> nostri stessi dati (`cf-lingua`, Art. 2 c. 9). Ora: **182 e 600**.
+
+**I difetti trovati in revisione, che le suite verdi non vedevano.** Il primo
+è di prodotto: la coda della sveglia **spegneva lo smistamento finale
+dell'entrata** — chi rispondeva «sì, ho già in mente le mete» restava sulla
+home invece di arrivare alle Mete — e poiché la coda compare in pre-bando
+valeva **per ogni studente da oggi a dicembre**. L'ha trovato una prova di V3
+diventata rossa quando il revisore ha eseguito la suite, che Codex non può
+eseguire (dura ~340 s, il suo limite per comando è 240). Il secondo è emerso
+**guardando il file `.ics` vero**: la `DESCRIPTION` arrivava a ~340 caratteri
+mentre lo standard vuole righe da 75 ottetti — Google perdona, Apple molto
+meno, ed è esattamente la prova che tocca a Nicola. Il terzo, chiesto da
+Nicola: a 375×812 i bottoni della sveglia finivano **a 916px su uno schermo di
+812**. Più due scelte rifatte su richiesta del revisore: l'invito
+all'installazione era un `window.confirm()` nativo (su iPhone le istruzioni
+sparivano proprio mentre servivano) ed è ora un banner che resta in pagina; e
+l'avviso del certificato copriva 36 mete su 43, perché cercava solo la parola
+«certificato» e non i nomi dei documenti (*«equivalente a IELTS 6.5 / TOEFL
+90»*).
+
+**Prove finali: 112/112 unit (zero skip, erano 90) + 48/48 UI (erano 40).**
+Ogni regola nuova verificata per mutazione con ancora univoca. Nessun
+`dati-mete-*` toccato, nessuna funzione congelata di V0/V4 modificata, nessuna
+rotta nuova, nessun passo in più nell'entrata, nessun CSS.
+
+> ✏️ **Due correzioni del revisore a sé stesso, entrambe scritte nel LOG.**
+> I verdi sono **182 e 600**, non 184/643 come diceva la spec: la stima
+> cambiava il *punteggio* della foglia senza cambiarne l'*esito*, quindi non
+> faceva scattare la prudenza su `rootPresunta`. E la schermata di esito di V3
+> **non** aveva il difetto dei bottoni fuori schermo: quei numeri erano un
+> artefatto della sonda, che forzava la pagina in cima prima di misurare.
+> Delle due schermate ne era rotta una sola, quella nuova.
+
+> ⚠️ **Il banco prestazionale è instabile al tetto assoluto.** Su 8 esecuzioni:
+> 6 verdi, 2 rosse — ma **non** per la soglia di velocità (mediane 2,1–2,8×
+> contro 3,0× ammesso, invarianti I1–I3 sempre uguali): per il **singolo
+> campione peggiore** contro `TETTO_MS = 150`, che in un giro rosso valeva
+> 167,1 ms mentre gli altri campioni dello stesso giro stavano a 20–29 ms. È il
+> rumore che V3 aveva già misurato e corretto **per le mediane** ma non per il
+> tetto. **V5 non tocca una riga della mappa**, verificato sul diff: la soglia
+> resta com'è, perché alzarla per far passare il verde sarebbe la disonestà che
+> V3 ha respinto.
+
+> 🔴 **Due prove restano aperte e non sono delegabili, sono di Nicola:**
+> l'invito all'installazione su un **Android** e su un **iPhone** veri (D‑V5.4,
+> criterio dichiarato **in attesa**, non superato) e l'importazione dell'`.ics`
+> in **Google Calendar e Apple Calendar** con la sveglia attiva.
 
 **(SESSIONE 2026-07-29 TER — V3 ENTRATA A TUTTA PAGINA: SPEC CONGELATA,
 COSTRUITA, RIVISTA E ONLINE.)** Prima `cda51f6`: §V3 riscritta come specifica
@@ -3789,6 +3882,7 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **REDESIGN v3 — V2: stepper a 6 tappe, tre porte, migrazione zaino v2→v3** | Sei tappe (Requisiti · Mete e le 5 scelte · Candidatura e scadenze · Esito · Learning Agreement · Zaino), il ponte Mete sempre visibile; tre porte (`esplorando` · `in-attesa` · `selezionato`) con `impostaFaseViaggio()` come unico writer — sparito il click sintetico di `app.js:1265`; migrazione v2→v3 **pura** in `js/puro.js` (conserva i campi sconosciuti, dati corrotti in `recuperoLegacy`, idempotente); `cicloPercorso`/`cicloDati`; la porta `selezionato` calcola la prima azione incompleta dalla checklist reale; la porta `in-attesa` consuma `ATTESA_INFO` | ✅ **Implementata, revisionata e online** (2026-07-28) — costruita da Codex `gpt-5.6-sol` con `/codex-build`, un giro di correzione più subentro del revisore. 61/61 unit + 25/25 UI. ⚠︎ **Scostamento dichiarato**: le matrici A/B di reset/archivia/conserva **non** sono implementate (ci sono i campi, non l'evento che le applica) — rinviate a **G2**. CSS e file dati non toccati |
 | **REDESIGN v3 — V4: Home «Adesso» + stato pre-bando** | `modoCiclo()` puro + lettore unico `inPreBando()`; 19 punti storicizzati senza cancellare contenuti; Home ridotta all'inventario ammesso; checklist post-selezione con denominatore personale, avvertenze senza checkbox, opzioni fuori conteggio; due risposte profilo a tre valori | ✅ **Implementata e verificata nel working tree** (2026-07-29). G1 superato: T5 senza skip, 19 asserzioni DOM, mutazione #9 rossa e ripristino verde. Review bis: saluto personalizzato e invito al profilo in pre-bando coperti da due nuove prove, entrambe verificate per mutazione; codice morto della vecchia mappa Home rimosso. 90/90 unit + 33/33 UI; baseline esistente invariata |
 | **REDESIGN v3 — V3: Entrata a tutta pagina** | Scena a tutta pagina (velo + claim + **un solo** bottone, zero scorrimento a 390×844), poi quattro passi — P1 porta d'ingresso · P2 ateneo · P3 dipartimento+livello · P4 lingue — più la schermata di esito che smista alle Mete. La mappa reagisce a ogni risposta: si centra, filtra, poi colora per compatibilità con **forma oltre che colore**, con legenda. I pin escono dall'ordine di Tab **dentro l'entrata** (nelle Mete restano attraversabili). Cambio ateneo: resta il `location.reload()`, e lo stato dell'entrata vive in una chiave di `sessionStorage` — **mai nello zaino**, che è per-ateneo: una risposta data prima di scegliere l'ateneo finirebbe nello zaino sbagliato. La domanda «hai già in mente le mete?» si pone una volta sola (`wizardMete`). Tre ottimizzazioni della mappa a comportamento invariato, con le invarianti I1–I8 verificate prima e dopo. Banco prestazionale `test/perf-mappa.cjs` (`npm run test:perf`) | ✅ **Implementata, revisionata e online** (`6ed11a5`, 2026-07-29) — spec congelata prima di delegare (`cda51f6`), costruita da Codex `gpt-5.6-sol` con `/codex-build` in due giri, entrambi fermati dal limite di 240 s per comando (la suite UI dura 5,7 min), poi finita dal revisore. **90/90 unit + 40/40 UI** (+7 nuove, ognuna verificata per mutazione). ⚠︎ **Dichiarato**: la griglia a celle è una **pessimizzazione misurata** — rende il raggruppamento **1,84–2,53× più lento** della ricerca lineare che sostituisce, perché con 385 città e ~44 gruppi scorrere 44 elementi costa meno che indicizzare una griglia — ed è tenuta per decisione di Nicola in previsione di più atenei: `PEGGIORAMENTO_MAX_CLUSTER = 3.0` nel banco è la forma scritta di quella scelta. ⚠︎ **Il banco non giudica il disegno**: a codice invariato il rapporto va da 0,61× a 1,68×, quindi sotto ±40% non discrimina; il disegno resta sorvegliato dalle invarianti I1–I3, che sono deterministiche. Nessun file dati toccato, nessuna funzione congelata da V0/V4 modificata |
+| **REDESIGN v3 — V5: Retention** | Sveglia calendario sul bando atteso nella coda dell'entrata e nella Home; `.ics` unico con UID stabili, due allarmi e provenienza; invito PWA per piattaforma; compatibilità senza penalità per certificato non ancora posseduto; conteggi entrata coerenti | ✅ **Implementata e corretta dopo la prima review UI** (2026-07-29). Regressione dello smistamento V3 chiusa; invito PWA reso persistente in pagina; documenti di prova 43/135. 111/111 unit e `test:perf` verde; 7 prove Playwright attendono il revisore. ⚠︎ Conteggi verdi reali 182/600 anziché 184/643: i file mete sono vietati e le radici presunte restano prudentemente non verdi |
 | **A11y — fuoco sui filtri delle Mete** | Il punto 1 delle cose trovate fuori checklist in F4. `renderMete()` ricostruisce `#filtri-mete-chip`: il chip a fuoco veniva distrutto e il fuoco cadeva su `<body>`, così da tastiera il Tab ripartiva dall'inizio della pagina. Ora prima del re-render si registra l'**indice** del chip a fuoco (solo se `document.activeElement` è davvero un `.chip-filtro` di quel contenitore) e dopo lo si ridà al nodo nuovo con `focus({ preventScroll: true })`. Indice e non un `data-filtro` nuovo: i 5 chip sono una lista fissa, e l'attributo renderebbe bugiardo il commento R21 poche righe sotto. Solo `js/app.js`; `index.html` e `css/style.css` intatti | ✅ Fatta e verificata (2026-07-26) — nel browser sulla 8123: fuoco sul chip corrispondente invece che su `BODY`, **Tab reale successivo → chip seguente**, scroll invariato, col mouse `:focus-visible = false` (nessun anello), fuoco in `#cerca-mete` non rubato, nessuna eccezione senza profilo. ⚠︎ L'Invio da tastiera non è confermabile con l'automazione (stesso limite del punto 5 di F4): attivazione riprodotta con `chip.click()`, Tab reali |
 
 **Nav (R3, definitiva — gate R1 chiuso):** Mete → **Home** (centrale su
@@ -3840,7 +3934,7 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 
 | File | Tipo | A cosa serve |
 |------|------|--------------|
-| `PLAN_REDESIGN_V3.md` | doc | **⭐ Sessione 2026-07-27 — l'ordine operativo del cantiere SITO da agosto 2026 a marzo 2027.** Prevale su `PLAN_REDESIGN_V2.md` (chiuso). 9 fasi V0-V8 + 2 gate (G1 «niente contenuto vecchio spacciato per attuale», G2 «dati 2027/28 validati»), 22 decisioni tabellate con l'alternativa scartata, criteri di uscita misurabili e dipendenze esplicite. **Apre con «Stato reale del codice»**, la sezione che elenca ciò che ESISTE GIÀ (router, entrata mappa-hero, LA Workspace, footer dinamico, PWA) — nata perché la rev. 1 conteneva due fasi intere costruite su premesse false. **Da leggere PRIMA di progettare qualunque cosa** |
+| `PLAN_REDESIGN_V3.md` | doc | **⭐ Sessione 2026-07-27 — l'ordine operativo del cantiere SITO da agosto 2026 a marzo 2027.** Prevale su `PLAN_REDESIGN_V2.md` (chiuso). 9 fasi V0-V8 + 2 gate (G1 «niente contenuto vecchio spacciato per attuale», G2 «dati 2027/28 validati»), 22 decisioni tabellate con l'alternativa scartata, criteri di uscita misurabili e dipendenze esplicite. **V5:** inventario Home V4 emendato con le due azioni pre-bando e la finestra letta dai dati. **Da leggere PRIMA di progettare qualunque cosa** |
 | `PLAN_REDESIGN_V3-LOG.md` | doc | **Sessione 2026-07-27**: le 10 domande del grill con le risposte di Nicola, i 5 round di revisione del piano e, da V0, il diario Act 3 dell'implementazione e del riesame avversariale. Registra anche la deroga di prodotto sulle condizioni dei corsi e il disclaimer scelto come contropartita. È l'artefatto che spiega *perché* il piano e il codice sono così |
 | `PLAN_REDESIGN_V2.md` | doc | **Sessione 2026-07-25**: piano di implementazione del redesign v2 in 4 fasi (F0 preparazione · F1 token+gutter+griglia · F2 componenti §04 · F3 timeline+stato vuoto · F4 checklist) con 2 gate umani. Rev. 5, sopravvissuto a 5 round di Codex. **Da leggere prima di toccare `css/style.css`** |
 | `PLAN_REDESIGN_V2-LOG.md` | doc | **Sessione 2026-07-25**: 357 righe, l'intera revisione avversariale round per round, con le motivazioni di ciò che è stato respinto. È l'artefatto che spiega *perché* il piano è così |
@@ -3850,8 +3944,8 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 | `design/redesign-2026-07/GATE2-revisione-guidata.md` | doc | ⚠︎ **STORICO — mai eseguito fino in fondo.** Il 27/07 la revisione è stata interrotta alla prima schermata e assorbita in v3 (vedi `PLAN_REDESIGN_V3.md`). **Creato il 26/07**: il copione della revisione d'insieme rimandata da Nicola. Preparazione (server + stato di prova + le 3 larghezze), cosa NON riguardare perché già misurato, le **4 decisioni aperte** con raccomandazione e costo di ciascuna (`--fs-hero`, i 9 filetti di stato, oro→indaco, le emoji), il giro dei 4 tab × 3 larghezze con 3 domande a tab, tabella dei verdetti. Pensato per essere eseguito **guidati da Claude** in una chat nuova |
 | `index.html` | codice | Struttura v2. **V1:** le 4 section del contratto hanno `tabindex="-1"` e `aria-labelledby`, senza nodi o testi nuovi. **V2:** sei stazioni rinumerate, ponte Mete sempre visibile, toggle a tre porte, contenitore `#attesa-info`, caricamento esplicito di `js/puro.js`. **V4:** Home ripulita secondo l'inventario «Adesso»; aggiunte al form le due domande `extraUE` e `ricercaTesi`. **V3:** stepper a 4 voci e legenda forme/compatibilità dell'entrata |
 | `css/style.css` | codice | Design system responsive. **V4:** cartellini di ciclo, motivazione `.ics` disabilitata, riquadri «Da sapere prima»/«Se ti riguarda», invito profilo e Home 390×844 con sola tappa corrente. **Review V4:** rimossi soltanto i selettori orfani della card mappa Home; `.mappa-compatta` e gli stili della mappa Mete restano. **V3:** scena a tutta pagina (mobile a un piano, desktop velo a sinistra e mappa a destra), forme dei pin, legenda |
-| `js/app.js` | codice | Logica v2. **V1–V2:** router, sei tappe, tre porte, prima azione post-selezione e pannello attesa. **V4:** lettore unico `inPreBando()`, copy canonico e protezioni sui 19 render; Home «Adesso»; `vociPostApplicabili()`/denominatore personale; due scrittori profilo corretti. **Review V4:** saluto legato alla classe stabile, azione profilo prioritaria nel pre-bando e rimozione del render mappa Home orfano. `statoBando()` è rimasta intatta. **V3:** macchina P1–P4–E dell'entrata, ripresa in `sessionStorage`, pin fuori dal Tab, tre ottimizzazioni della mappa, e `aggiornaModoEntrata()` come **unico** scrittore di `modo-entrata` (senza, chi arrivava da un link profondo vedeva due schermate impilate) |
-| `js/puro.js` | codice puro | **V0–V2:** motore lingua, router e migrazione zaino. **V4:** esporta `modoCiclo({stato,cicloDati,cicloPercorso})`, senza DOM/storage/orologio |
+| `js/app.js` | codice | Logica v2. **V1–V4:** router, entrata, Home e stato pre-bando. `statoBando()` è rimasta intatta. **V3:** `aggiornaModoEntrata()` unico scrittore di `modo-entrata`. **V5:** coda transitoria della sveglia, offerta Home, download calendario completo, invito PWA per dispositivo, avviso certificato e conteggio coerente; il rinvio installazione usa una chiave propria, fuori dallo zaino |
+| `js/puro.js` | codice puro | **V0–V4:** motore lingua, router, migrazione zaino e `modoCiclo()`. **V5:** finestra attesa, generazione `.ics`, matrice invito installazione e avviso certificato; nessun accesso a DOM, storage o orologio globale |
 | `package.json` · `package-lock.json` | test/infra | Dipendenze fissate (`jsdom@22.1.0`, `@playwright/test@1.62.0`) e comandi distinti. **V1:** `test:ui` esegue Playwright; `test:a11y` e `test:visual` restano segnaposto V2/V3. **V3:** aggiunto `test:perf`, senza dipendenze nuove; `test:a11y` e `test:visual` restano i segnaposto dichiarati che sono |
 | `test/compatibilita-lingua.test.cjs` · `test/pipeline-lingue.test.mjs` · `test/onboarding-lingue.test.cjs` | test | **V0 (27/07)**: i 10 casi golden, icone effettive per i casi che parlano di colore, assenza posti nel ramo condizionato, precedenza `rootPresunta`, tabella ANY/ALL, pipeline, prova jsdom di Italiano C2 e banner di dettaglio; `node --test`, uscita non zero su errore |
 | `test/router.test.cjs` | test unitario | **V1:** 5 prove pure su hash nudi/alias, Learning Agreement con ateneo, due livelli futuri e input malformati |
@@ -3866,6 +3960,8 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 | `test/checklist-post.test.cjs` | test unitario | Contratto della checklist post-selezione. **V4:** classificazione esatta delle 18 voci condizionali |
 | `test/ui/porte-v2.spec.cjs` | test UI | Porte e tappe V2. **V4:** denominatore personale sui due atenei e tre valori, avvertenze senza checkbox, conservazione dei due scrittori e gate visuale 390×844 |
 | `test/ui/v4-regressioni.spec.cjs` | test UI | **Review V4:** prova il saluto con e senza nome e la mossa pre-bando con e senza profilo; entrambe le regole sono state rotte e ripristinate separatamente per verificare che la prova diventi rossa |
+| `test/v5-retention.test.cjs` | test unitario | **V5 + review:** 21 prove su date attese, calendario, invito PWA, compatibilità, 43/135 documenti di prova, conteggi e conservazione dello smistamento V3 |
+| `test/ui/v5-retention.spec.cjs` | test UI | **V5 + review:** 7 prove Playwright per coda, smistamento verso ricerca Mete, abbandono/reload/nav, utenti già entrati, Home pre-bando e calendario completo. Corrette le ipotesi DOM misurate dal revisore; non eseguite da Codex |
 | `scripts/conta-anomalie-lingua.mjs` | automazione di sola lettura | **V0 (27/07)**: rigenera per ateneo mete/requisiti/occorrenze/valori distinti, lista `daVerificare`, `rootPresunta` residue, confronto deterministico prima/dopo e impatto della deroga sui corsi |
 | `js/atenei/registro.js` | **dati** | **R1.5 (56)**: anagrafica atenei che il sito conosce PRIMA di caricare i dati — label, URL, `disponibile` (dichiarato, non più dedotto contando le mete), elenco file. **Aggiungere un ateneo o una Facoltà = toccare SOLO questo file** |
 | `js/carica-atenei.js` | codice | Decide quali atenei servono ed emette i tag in modo sincrono. **V1:** valida l'ateneo finale dell'hash prima dei dati e lo usa per il solo caricamento corrente, senza persisterlo |
@@ -3875,7 +3971,7 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 | `guide/` | codice | Pagine statiche indicizzabili: 2 guide SEO (OP5) + `come-funziona.html` (pagina fiducia, C5). URL con canonical, JSON-LD FAQPage, GoatCounter |
 | `img/logo-mark.svg` · `img/icon-star.svg` · `img/icon-sparkle.svg` | asset | Copiati da `design/assets/` in BR0; logo-mark usato nell'header desktop (`.nav-brand`) e come favicon |
 | `js/atenei/` | **dati** | Dati per ateneo (multi-ateneo). Sottocartelle `cafoscari/` e `sapienza/`; vedi `js/atenei/README.md` |
-| `js/atenei/cafoscari/dati-bando.js` | **dati** | Requisiti del bando Ca' Foscari (Idoneità) — `var BANDO_INFO`, `var REQUISITI_BANDO` |
+| `js/atenei/cafoscari/dati-bando.js` | **dati** | Requisiti del bando Ca' Foscari + **V5 `finestraAttesa`** (14/01/2027, precedente e fonte) — `var BANDO_INFO`, `var REQUISITI_BANDO` |
 | `js/atenei/cafoscari/dati-borse.js` · `js/atenei/sapienza/dati-borse.js` | **dati** | OP4 (08/07): stima borsa UE per gruppo-paese + integrazione minori opportunità (ISEE a fasce per Sapienza, top-up flat per Ca' Foscari) — `var BORSE_INFO` |
 | `js/atenei/cafoscari/dati-mete.js` | **dati** | Mete — Economia (58, `var METE`) |
 | `js/atenei/cafoscari/dati-mete-management.js` | **dati** | Mete — Management (76) |
@@ -3894,7 +3990,7 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 | `js/atenei/sapienza/dati-mete-{farmacia,comunicazione,scienze-sociali,psicologia}.js` | **dati** | Mete Farmacia (62), Comunicazione (59), Scienze Sociali (68), Psicologia (97) — in arricchimento Codex |
 | `js/atenei/sapienza/dati-mete-{scienze-politiche,inge-elettronica,polo-latina,scienze-statistiche,informatica,inge-informatica-gestionale,medicina-odontoiatria,ingegneria-civile,scienze-mfn,lettere-filosofia}.js` | **dati** | Le ULTIME 10 Facoltà Sapienza (1.126 mete, seed 04/07): in coda per setup+arricchimento Codex |
 | `js/atenei/sapienza/dati-scadenze.js` | **dati** | Scadenze bando Sapienza 26/27 (REALI) |
-| `js/atenei/sapienza/dati-bando.js` · `dati-checklist.js` | **dati** | Idoneità e checklist Sapienza (**PROVVISORI**, `inVerifica: true`, da validare sul bando) |
+| `js/atenei/sapienza/dati-bando.js` · `dati-checklist.js` | **dati** | Idoneità e checklist Sapienza (**PROVVISORI**, `inVerifica: true`, da validare sul bando); **V5:** `dati-bando.js` contiene `finestraAttesa` 16/12/2026 con precedente e fonte |
 | `js/atenei/<ateneo>/dati-postselezione.js` | **dati** | Checklist post-selezione. Ca' Foscari **20 voci**; Sapienza **31, validate il 28/07** sulle *Informazioni generali outgoing A.A. 2025/26* del Settore Erasmus. ⚠︎ L'asimmetria si è **invertita**: ora sono le 20 di Ca' Foscari a meritare una rilettura |
 | `js/atenei/<ateneo>/dati-attesa.js` | **dati** | **V2 (28/07)**: `ATTESA_INFO`, il contenuto della porta «in attesa» — `tappe[]`, `intanto[]`, `attenzione[]`. Per-ateneo perché le procedure divergono davvero (Ca' Foscari: graduatoria unica, riserve, ripescaggi; Sapienza: provvisoria + definitiva e seconda finestra). Le date del ciclo stanno confinate in `esempioCiclo` e **non** sono mostrabili come attuali (gate G1) |
 | `js/atenei/sapienza/dati-mete.js` | **dati** | Deprecato (vuoto; sostituito dai file per Facoltà) |
@@ -3956,16 +4052,22 @@ La review V4 non ha riscritto alcun contenuto validato o dato: ha ripristinato
 il saluto col nome e rende raggiungibile il profilo per un nuovo visitatore
 anche durante il pre-bando.
 
-**V3 non tocca alcun contenuto né alcun file dati** — nemmeno una riga di
-`js/atenei/*/dati-*.js`. Ma **rende visibile un difetto di contenuto che
-esisteva già**: alla fine dell'entrata il contatore dichiara sempre
-*«0 compatibili»*. Misurato il 29/07: su tutte le **392 mete di Ca' Foscari** il
-punteggio massimo raggiungibile è **75**, mentre la soglia per «compatibile» è
-**80**; a 100 si arriva **solo** dichiarando la lingua `certificata`, e
-l'entrata salva sempre `certificata: false` perché quella domanda non la fa
-nessuno. Finché resta così, la forma verde della legenda **non si accende mai**
-e lo studente legge un numero che non descrive la realtà: è la stessa famiglia
-del difetto lingue chiuso da V0. Decisione rinviata (vedi §8).
+**V5 aggiunge solo due fatti di calendario ai contenuti:** la finestra attesa
+del nuovo bando è il 14/01/2027 per Ca' Foscari e il 16/12/2026 per Sapienza,
+sempre accompagnata dalla data e dalla fonte del bando precedente. Il
+calendario le presenta esplicitamente come stime da verificare, non come
+scadenze confermate, e ricorda che il file importato non si aggiorna da solo.
+I requisiti e le scadenze 2026/27 non sono stati riscritti.
+
+**V5 chiude il verde irraggiungibile:** possedere il livello vale 50 punti
+anche senza certificato, mentre le soglie 80/40 restano intatte. Sui dati
+correnti un profilo Inglese B2 non certificato produce **182 verdi Ca'
+Foscari e 600 Sapienza**. Le 6/47 mete aggiuntive che superano 80 ma hanno una
+radice `rootPresunta` restano prudentemente non verdi; per questo i conteggi
+non coincidono con i 184/643 scritti nella specifica congelata.
+Il promemoria sul certificato rileva senza giudicare sia la parola
+«certificato» sia i nomi delle prove di livello: copertura misurata
+**43 mete Ca' Foscari e 135 Sapienza**.
 
 **Debito lingua V0, rimisurato il 28/07 dopo la coda deterministica.**
 I dati non sono stati riscritti: restano **71 radici `ANY` presunte** da
@@ -4111,33 +4213,34 @@ piano operativo del cantiere SITO da agosto 2026 a marzo 2027 è
    90/90 unit + 40/40 UI. **Debito dichiarato**: la griglia a celle resta pur essendo
    più lenta (scelta di Nicola, scritta nel banco); il banco **non giudica** il tempo di
    disegno perché non sa discriminarlo.
-5. ▶ **V5 Retention** — 🔴 **prima che esca il bando** (dicembre-gennaio): è il prossimo.
-   Stessa metodica: **congelare §V5 prima di delegare**. Quattro cose che il piano lascia
-   aperte: (a) la data della finestra attesa **non esiste nei dati** — `finestraAttesa` ha
-   zero occorrenze nel repo e la frase vive come stringa fissa dentro
-   `finestraAttesaBando()`, quindi va deciso dove nasce e su quale **prova**, perché un
-   `DTSTART` è un giorno preciso e «fra dicembre e gennaio» non lo è; (b) **dove** entra
-   l'offerta della sveglia, ora che la fine dell'entrata è già occupata dalla domanda sulle
-   mete; (c) un solo `.ics` o uno per scadenza, e cosa succede a chi ha già importato i
-   vecchi (un `.ics` importato non si aggiorna); (d) l'invito all'installazione ha una
-   matrice per piattaforma **non verificabile in sessione** (`beforeinstallprompt` non
-   esiste su iOS): stesso problema del budget di V3, o la prova la fa Nicola o il criterio
-   va riscritto.
-6. **V6a Mete** (wishlist e riordino) · **G2** all'uscita del bando 2027/28 · **V6b** schedina ufficiale · **V7** Learning Agreement · **V8** rifiniture.
-   **V6b** schedina ufficiale · **V7** Learning Agreement · **V8** rifiniture.
+5. ✅ **V5 Retention COMPLETATA e RIVISTA** (29/07), spec congelata `cded7ac`.
+   Sveglia `.ics` nei due punti previsti, invito all'installazione, verde della
+   compatibilità finalmente raggiungibile (0 → **182** Ca' Foscari, 0 → **600**
+   Sapienza) e conteggi dell'entrata coerenti. **112/112 unit (zero skip) +
+   48/48 UI**, suite rieseguite dal revisore, sito guardato con uno zaino vero.
+   **Chiusi in revisione**: la regressione dello smistamento dell'entrata
+   (trovata da una prova di V3 diventata rossa), le righe del `.ics` più lunghe
+   di quanto lo standard consenta, i bottoni fuori schermo a 375×812, il
+   `confirm()` nativo dell'invito e la copertura dell'avviso certificato
+   (36→43 mete).
+6. ▶ **V6a Mete** (wishlist e riordino) è il prossimo blocco · **G2**
+   all'uscita del bando 2027/28 · **V6b** schedina ufficiale · **V7**
+   Learning Agreement · **V8** rifiniture.
 
-> ⚠︎ **DUE COSE MISURATE IL 29/07 E NON CORRETTE — decidere se entrano in V5.**
-> **(1) Il contatore dell'entrata dice sempre «0 compatibili».** Misurato: su tutte le
-> **392 mete di Ca' Foscari** il punteggio massimo raggiungibile è **75**, e la soglia per
-> «compatibile» è **80**; si arriva a 100 **solo** dichiarando la lingua `certificata`, e
-> l'entrata salva sempre `certificata: false` perché la domanda non la fa nessuno.
-> **Preesiste a V3**, che però l'ha reso visibile e quantificato a ogni studente, con una
-> legenda verde che non si accende mai. È la stessa famiglia del difetto lingue di V0: il
-> sito dice allo studente qualcosa che non è vero.
-> **(2) Due conteggi diversi a una schermata di distanza**: «58 mete accese per Economia»
-> al passo 3, «Per te ci sono 39 mete a Economia» subito dopo — uno per `dipartimentoCf`,
-> l'altro per area disciplinare. Anche questo preesiste, ma prima i due numeri non erano
-> mai stati vicini.
+> 🔴 **LE DUE PROVE DI NICOLA, APERTE.** Non sono delegabili e non sono state
+> simulate: **(a)** l'invito all'installazione su un **Android** e su un
+> **iPhone** veri — su iPhone il meccanismo `beforeinstallprompt` non esiste e
+> la sessione non può simularlo, quindi il criterio D‑V5.4 è dichiarato **in
+> attesa**, non superato; **(b)** l'importazione dell'`.ics` in **Google
+> Calendar e Apple Calendar** con la sveglia attiva. Il file rispetta la
+> piegatura delle righe a 75 ottetti aggiunta in revisione proprio per questa
+> prova.
+
+> ⚠︎ **Il banco prestazionale è instabile al tetto assoluto**: 6 verdi e 2
+> rosse su 8 esecuzioni, sempre per il **singolo campione peggiore** contro
+> `TETTO_MS = 150` (167,1 ms in un giro dove gli altri campioni stavano a
+> 20–29 ms), mai per le mediane né per le invarianti. V5 non tocca la mappa: la
+> soglia **non è stata alzata**, perché sarebbe la disonestà che V3 ha respinto.
 
 **Restano aperte, dichiarate nel piano:** il filetto di stato a sinistra (9
 selettori — si ridiscute ora che V4 è chiusa); le emoji; la guida al Learning

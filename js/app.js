@@ -21,6 +21,19 @@ const VERSIONE_ZAINO = ErasmusWizPuro.VERSIONE_CONTENITORE_ZAINO;
 // Bandierina letta da js/carica-atenei.js: "al prossimo avvio caricali tutti".
 // Il nome e' condiviso con il caricatore: cambiarlo qui vuol dire cambiarlo li'.
 const CHIAVE_CARICA_TUTTI = "erasmuswiz_carica_tutti";
+// L'installazione riguarda il dispositivo, non l'ateneo: per questo il rinvio
+// vive accanto alla scelta d'ateneo e non dentro lo zaino per-ateneo.
+const CHIAVE_INSTALLAZIONE_RINVIATA = "erasmuswiz_installazione_rinviata_fino";
+let _promptInstallazione = null;
+
+window.addEventListener("beforeinstallprompt", evento => {
+  evento.preventDefault();
+  _promptInstallazione = evento;
+});
+window.addEventListener("appinstalled", () => {
+  _promptInstallazione = null;
+  try { localStorage.removeItem(CHIAVE_INSTALLAZIONE_RINVIATA); } catch (e) {}
+});
 
 function cicloDatiAttivo() {
   return String(window.BANDO_INFO?.annoAccademico || "");
@@ -465,7 +478,11 @@ function titoloPreBando() {
 // È il testo canonico della finestra attesa: missione, prossima data e
 // conclusione dell'onboarding non ne mantengono tre copie divergenti.
 function finestraAttesaBando() {
-  return "La prossima data certa è l’uscita del bando, di solito fra dicembre e gennaio.";
+  return ErasmusWizPuro.fraseFinestraAttesaBando(window.BANDO_INFO);
+}
+
+function finestraAttesaDisponibile() {
+  return ErasmusWizPuro.finestraAttesaValida(window.BANDO_INFO);
 }
 
 function countdownConCiclo(data) {
@@ -569,9 +586,28 @@ function dipingiTab(nome) {
 // tolta a mano da `benvScena()`: altrimenti sopravviveva alla navigazione e su
 // telefono nascondeva la nav mentre lo studente era già sulle Mete.
 // La sorgente di verità della scena resta `#home-benvenuto.modo-scena`.
+let _codaEntrata = false;
+let _esitoMetePendente = null;
+
+function codaEntrataAttiva() {
+  return _codaEntrata;
+}
+
+function preparaUscitaCodaEntrata() {
+  if (!_codaEntrata) return;
+  _codaEntrata = false;
+  const zona = document.getElementById("benvenuto-scelte");
+  if (zona) delete zona.dataset.codaSveglia;
+  renderHome();
+  renderMete();
+  renderMissione();
+}
+
 function aggiornaModoEntrata() {
   const benv = document.getElementById("home-benvenuto");
-  const entrata = !ZAINO.onboardingFatto && tabCorrente() === "oggi";
+  const entrata =
+    (!ZAINO.onboardingFatto || codaEntrataAttiva()) &&
+    tabCorrente() === "oggi";
   document.body.classList.toggle("modo-entrata", entrata);
   document.body.classList.toggle(
     "modo-scena-entrata",
@@ -654,6 +690,9 @@ function vaiA(dest, opzioni = {}) {
   if (!tab) return false;
   const { storia = "push", scroll = true, forzaFuoco = false } = opzioni;
 
+  // La coda e' deliberatamente solo in memoria: qualunque navigazione la
+  // chiude e ripristina le viste normali prima di cambiare schermata.
+  preparaUscitaCodaEntrata();
   const cambia = tab !== tabCorrente();
   dipingiTab(tab);
   // La schermata è cambiata: `modo-entrata` va ricalcolato qui, perché
@@ -670,6 +709,11 @@ function vaiA(dest, opzioni = {}) {
     if (scroll) {
       window.scrollTo({ top: 0, behavior: comportamentoScrollRotta() });
     }
+  }
+  if (tab === "mete" && _esitoMetePendente) {
+    const esito = _esitoMetePendente;
+    _esitoMetePendente = null;
+    applicaEsitoWizardMete(esito);
   }
   return true;
 }
@@ -1454,6 +1498,41 @@ function calcolaMissione() {
   return                                    { tipo: "completo",  fatti, totale };
 }
 
+function apriOffertaSvegliaHome() {
+  const card = document.getElementById("missione-card");
+  if (!card || !finestraAttesaDisponibile()) return;
+  card.querySelector("[data-offerta-sveglia-home]")?.remove();
+
+  const offerta = crea("div", "banner-stato stato-riserve");
+  offerta.dataset.offertaSvegliaHome = "true";
+  offerta.setAttribute("role", "region");
+  offerta.setAttribute("aria-label", "Promemoria per il nuovo bando");
+  offerta.appendChild(crea("span", "banner-stato-icona", "⏰"));
+  const contenuto = crea("div");
+  contenuto.appendChild(crea("strong", "banner-stato-titolo", "Ti avviso quando esce il bando?"));
+  contenuto.appendChild(crea(
+    "p",
+    null,
+    "Il tuo telefono ti avvisa da solo: noi non ti chiediamo né mail né iscrizione."
+  ));
+  const riga = crea("div", "benvenuto-scelte-riga");
+  const si = crea("button", "benvenuto-scelta", "Sì, mettimelo in calendario");
+  si.type = "button";
+  si.addEventListener("click", () => {
+    scaricaCalendarioCompleto(card);
+    offerta.remove();
+  });
+  const no = crea("button", "benvenuto-scelta", "No, grazie");
+  no.type = "button";
+  no.addEventListener("click", () => offerta.remove());
+  riga.appendChild(si);
+  riga.appendChild(no);
+  contenuto.appendChild(riga);
+  offerta.appendChild(contenuto);
+  card.appendChild(offerta);
+  si.focus();
+}
+
 function renderMissione() {
   const m        = calcolaMissione();
   const card     = document.getElementById("missione-card");
@@ -1464,6 +1543,7 @@ function renderMissione() {
   const btnCome  = document.getElementById("btn-come");
   if (!card) return;
 
+  card.querySelector("[data-offerta-sveglia-home]")?.remove();
   card.classList.remove("missione-urgente");
 
   if (scad) {
@@ -1501,8 +1581,17 @@ function renderMissione() {
         setBtn(btnFatto, "Esplora le mete", "mete");
       }
       if (btnCome) {
-        btnCome.style.display = "none";
-        btnCome.onclick = null;
+        if (finestraAttesaDisponibile()) {
+          btnCome.style.display = "";
+          btnCome.textContent = "Avvisami quando esce";
+          btnCome.onclick = e => {
+            e.preventDefault();
+            apriOffertaSvegliaHome();
+          };
+        } else {
+          btnCome.style.display = "none";
+          btnCome.onclick = null;
+        }
       }
       break;
     }
@@ -1670,47 +1759,161 @@ function creaVoceChecklist(voce, prossimaVoceId) {
 }
 
 // ---- Export .ics lato client (DISEGNO_UX.md §6, gancio di retention) ----
-function formattaDataICS(dataTecnica) {
-  const d = new Date(dataTecnica);
-  const pad = n => String(n).padStart(2, "0");
-  return `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`;
+function rinvioInstallazioneAttivo() {
+  try {
+    const valore = localStorage.getItem(CHIAVE_INSTALLAZIONE_RINVIATA);
+    if (!valore) return null;
+    if (new Date(valore) > new Date()) return valore;
+    localStorage.removeItem(CHIAVE_INSTALLAZIONE_RINVIATA);
+  } catch (e) {}
+  return null;
 }
 
-function escapaTestoICS(testo) {
-  return String(testo || "").replace(/([,;])/g, "\\$1").replace(/\n/g, "\\n");
+function rinviaInstallazione() {
+  const ripresa = new Date();
+  ripresa.setDate(ripresa.getDate() + 30);
+  try {
+    localStorage.setItem(CHIAVE_INSTALLAZIONE_RINVIATA, ripresa.toISOString());
+  } catch (e) {}
 }
 
-function scaricaICSScadenza(scad) {
-  // Guardia V4: anche una chiamata programmatica non può esportare nel
-  // calendario una scadenza storica del ciclo precedente.
-  if (inPreBando() && scadenzaPassata(scad)) return false;
-  const dtStamp = formattaDataICS(new Date().toISOString());
-  const dtStart = formattaDataICS(scad.data);
-  const uid = `${scad.id || "ew-scadenza"}-${dtStart}@erasmuswiz`;
-  const ics = [
-    "BEGIN:VCALENDAR",
-    "VERSION:2.0",
-    "PRODID:-//ErasmusWiz//Candidatura//IT",
-    "BEGIN:VEVENT",
-    `UID:${uid}`,
-    `DTSTAMP:${dtStamp}`,
-    `DTSTART:${dtStart}`,
-    `SUMMARY:${escapaTestoICS(scad.cosa)}`,
-    `DESCRIPTION:${escapaTestoICS(scad.descrizione)}\\n\\nErasmusWiz: https://nicorotolo.github.io/erasmuswiz/`,
-    "END:VEVENT",
-    "END:VCALENDAR",
-  ].join("\r\n");
+function ambienteInstallazione() {
+  const ua = navigator.userAgent || "";
+  const iOS = /iPad|iPhone|iPod/.test(ua) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  const mobile = iOS || /Android|Mobile/i.test(ua);
+  return {
+    promptDisponibile: !!_promptInstallazione,
+    standalone: !!(
+      window.matchMedia?.("(display-mode: standalone)").matches ||
+      navigator.standalone
+    ),
+    iOS,
+    safari: iOS && /Safari/i.test(ua) && !/CriOS|FxiOS|EdgiOS/i.test(ua),
+    desktop: !mobile,
+    rinviatoFino: rinvioInstallazioneAttivo(),
+  };
+}
 
+function offriInstallazione(contenitore, alTermine) {
+  // Le istruzioni iOS devono restare leggibili mentre lo studente usa il
+  // menu Condividi. Per questo l'invito vive nel punto da cui e' partito il
+  // download: senza un contenitore reale non mostriamo un ripiego globale.
+  if (!contenitore) return false;
+  const invito = ErasmusWizPuro.invitoInstallazione(ambienteInstallazione());
+  if (invito.tipo === "niente") return false;
+
+  contenitore.querySelector("[data-invito-installazione]")?.remove();
+  const banner = crea("div", "banner-stato stato-riserve");
+  banner.dataset.invitoInstallazione = invito.tipo;
+  banner.setAttribute("role", "region");
+  banner.setAttribute("aria-label", "Installa ErasmusWiz");
+  banner.appendChild(crea("span", "banner-stato-icona", "📲"));
+  const contenuto = crea("div");
+  contenuto.appendChild(crea(
+    "strong",
+    "banner-stato-titolo",
+    invito.tipo === "prompt"
+      ? "Aggiungi ErasmusWiz al telefono"
+      : "Aggiungi ErasmusWiz da Safari"
+  ));
+  contenuto.appendChild(crea("p", null, invito.testo));
+  const riga = crea("div", "benvenuto-scelte-riga");
+  let concluso = false;
+  function chiudiInvito(daRinviare) {
+    if (concluso) return;
+    concluso = true;
+    if (daRinviare) rinviaInstallazione();
+    banner.remove();
+    if (typeof alTermine === "function") alTermine();
+  }
+
+  if (invito.tipo === "prompt") {
+    const installa = crea(
+      "button",
+      "benvenuto-scelta",
+      "Aggiungi alla schermata Home"
+    );
+    installa.type = "button";
+    installa.addEventListener("click", () => {
+      const evento = _promptInstallazione;
+      if (!evento) {
+        chiudiInvito(true);
+        return;
+      }
+      _promptInstallazione = null;
+      installa.disabled = true;
+      evento.prompt();
+      Promise.resolve(evento.userChoice).then(esito => {
+        chiudiInvito(!esito || esito.outcome !== "accepted");
+      });
+    });
+    const nonOra = crea("button", "benvenuto-scelta", "Non ora");
+    nonOra.type = "button";
+    nonOra.addEventListener("click", () => chiudiInvito(true));
+    riga.appendChild(installa);
+    riga.appendChild(nonOra);
+  } else {
+    const capito = crea("button", "benvenuto-scelta", "Ho capito");
+    capito.type = "button";
+    capito.addEventListener("click", () => chiudiInvito(true));
+    riga.appendChild(capito);
+  }
+  contenuto.appendChild(riga);
+  banner.appendChild(contenuto);
+  contenitore.appendChild(banner);
+  riga.querySelector("button")?.focus();
+  return true;
+}
+
+function testoCalendario(scadenze, includiFinestra = true) {
+  return ErasmusWizPuro.creaCalendarioICS({
+    ateneo: ateneoAttivo(),
+    etichettaAteneo: window.ATENEO_LABEL,
+    bandoInfo: window.BANDO_INFO,
+    scadenze,
+    includiFinestra,
+    ora: new Date(),
+  });
+}
+
+function scaricaTestoICS(ics, nomeFile, contenitoreInstallazione, alTermine) {
+  if (!ics) return false;
   const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
   const url  = URL.createObjectURL(blob);
   const a    = document.createElement("a");
   a.href     = url;
-  a.download = `erasmuswiz-${(scad.id || "scadenza")}.ics`;
+  a.download = nomeFile;
   document.body.appendChild(a);
   a.click();
   a.remove();
   URL.revokeObjectURL(url);
+  const invitoMostrato = offriInstallazione(
+    contenitoreInstallazione,
+    alTermine
+  );
+  if (!invitoMostrato && typeof alTermine === "function") alTermine();
   return true;
+}
+
+function scaricaICSScadenza(scad, contenitoreInstallazione) {
+  // Guardia V4: anche una chiamata programmatica non può esportare nel
+  // calendario una scadenza storica del ciclo precedente.
+  if (inPreBando() && scadenzaPassata(scad)) return false;
+  return scaricaTestoICS(
+    testoCalendario([scad], false),
+    `erasmuswiz-${(scad.id || "scadenza")}.ics`,
+    contenitoreInstallazione
+  );
+}
+
+function scaricaCalendarioCompleto(contenitoreInstallazione, alTermine) {
+  return scaricaTestoICS(
+    testoCalendario(SCADENZE_CAFOSCARI || [], true),
+    "erasmuswiz-date.ics",
+    contenitoreInstallazione,
+    alTermine
+  );
 }
 
 // ---- "Ora tocca a te" (BR5, 5b): le prime 3 voci non spuntate in
@@ -1768,6 +1971,19 @@ function renderChecklist() {
       "cartellino-ciclo cartellino-ciclo-sezione",
       `Calendario del bando ${cartellinoCicloDati()} (concluso)`
     ));
+  }
+
+  // Il file unico contiene soltanto eventi futuri: oggi e' la sveglia del
+  // nuovo bando; quando G2 aggiungera' le nuove scadenze entreranno da sole.
+  if (testoCalendario(SCADENZE_CAFOSCARI || [], true)) {
+    const btnTutte = crea(
+      "button",
+      "cand-btn-ics cand-btn-ics-tutte",
+      "🗓 Aggiungi tutte le date"
+    );
+    btnTutte.type = "button";
+    btnTutte.addEventListener("click", () => scaricaCalendarioCompleto(cont));
+    cont.appendChild(btnTutte);
   }
 
   // R2.6: fonte raggiungibile e data di verifica per le date mostrate.
@@ -1846,7 +2062,7 @@ function renderChecklist() {
         motivo.id = motivoId;
         card.appendChild(motivo);
       } else {
-        btnIcs.addEventListener("click", () => scaricaICSScadenza(scad));
+        btnIcs.addEventListener("click", () => scaricaICSScadenza(scad, card));
         card.appendChild(btnIcs);
       }
     }
@@ -1953,7 +2169,7 @@ function lingueInFrase(lingue) {
   return `${lingue.slice(0, -1).join(", ")} o ${lingue[lingue.length - 1]}`;
 }
 
-function avvisiRequisitoLingua(requisito) {
+function avvisiRequisitoLingua(requisito, meta, profilo) {
   const avvisi = [];
   const foglie = foglieRequisitoLingua(requisito);
   const lingueCondizionate = [...new Set(foglie
@@ -1973,6 +2189,12 @@ function avvisiRequisitoLingua(requisito) {
     avvisi.push({
       classe: "banner-stato stato-verifica",
       testo: "Questa meta indica più lingue senza dichiarare se ne basti una o se servano tutte: verifica la scheda ufficiale."
+    });
+  }
+  if (motorePuro().certificatoDaRicordare(meta, profilo)) {
+    avvisi.push({
+      classe: "banner-stato stato-riserve",
+      testo: "Questa destinazione parla di un certificato: leggi la condizione qui sopra. Per candidarti basta dichiarare il livello; la prova, se richiesta, arriva dopo la selezione."
     });
   }
   return avvisi;
@@ -2655,7 +2877,7 @@ function apriDettaglioMeta(meta) {
     ulL.appendChild(crea("li", "dett-vuoto", "Non indicato nella lista ufficiale: controlla la scheda PDF."));
   }
   contenutoLingua.appendChild(ulL);
-  avvisiRequisitoLingua(requisitoLingua).forEach(avviso => {
+  avvisiRequisitoLingua(requisitoLingua, meta, ZAINO.profilo).forEach(avviso => {
     const banner = crea("div", avviso.classe);
     banner.setAttribute("role", "note");
     banner.appendChild(crea("span", "banner-stato-icona", "⚠️"));
@@ -4614,6 +4836,26 @@ function benvMostraLegenda(mostra) {
   if (legenda) legenda.hidden = !mostra;
 }
 
+// Revisione V5 (Nicola, 2026-07-29). Misurato a 375×812: nelle due schermate
+// finali dell'entrata la domanda cadeva a fondo schermo e i bottoni di
+// risposta FINIVANO SOTTO IL BORDO — si leggeva la domanda e non le risposte.
+// Nessuna prova lo vedeva, perché il `click()` di Playwright scorre da solo.
+// Si porta a schermo il blocco delle scelte SOLO se serve davvero (su desktop
+// ci sta già) e con il comportamento di scorrimento della rotta, che rispetta
+// `prefers-reduced-motion` (contratto F5 di V1).
+function portaAVistaScelte() {
+  const zona = document.getElementById("benvenuto-scelte");
+  if (!zona) return;
+  const riquadro = zona.getBoundingClientRect();
+  if (riquadro.top >= 0 && riquadro.bottom <= window.innerHeight) return;
+  zona.scrollIntoView({
+    // Se il blocco ci sta tutto si allinea in basso, così restano visibili
+    // insieme domanda e bottoni; se è più alto dello schermo vince la domanda.
+    block: riquadro.height <= window.innerHeight ? "end" : "start",
+    behavior: comportamentoScrollRotta(),
+  });
+}
+
 function benvTestoPorta(fase) {
   return document.querySelector(`.toggle-fase-btn[data-fase="${fase}"]`)
     ?.textContent.trim() || "";
@@ -4971,7 +5213,7 @@ function completaOnboarding(livello, lingue) {
   // dalla nav si ritrova la domanda a schermo: il flag era giusto, la vista no.
   renderWizardMete();
 
-  const nMete = (METE || []).filter(m => m.areeDisciplinari.some(a => a.codice === area)).length;
+  const nMete = (METE || []).filter(m => m.dipartimentoCf === dip).length;
   const prossima = prossimaScadenzaInfo();
   benvSetPasso(5); // E non è un quinto passo: i quattro risultano conclusi.
   benvFumetto("Fatto! Il tuo percorso è pronto.", "saluto");
@@ -5012,15 +5254,103 @@ function completaOnboarding(livello, lingue) {
     riga.appendChild(btn);
   });
   zona.appendChild(riga);
+  portaAVistaScelte();
+}
+
+function terminaCodaEntrata() {
+  _codaEntrata = false;
+  const zona = document.getElementById("benvenuto-scelte");
+  if (zona) delete zona.dataset.codaSveglia;
+  renderHome();
+  renderMete();
+  renderMissione();
+  // La coda non sostituisce lo smistamento V3: ricerca e mappa devono
+  // arrivare alle Mete, dove vaiA() consuma l'esito e porta il fuoco nel
+  // punto scelto. Solo "salta" conserva il comportamento storico sulla Home.
+  if (_esitoMetePendente && _esitoMetePendente !== "salta") {
+    vaiA("mete");
+    return;
+  }
+  if (_esitoMetePendente) {
+    const pendente = _esitoMetePendente;
+    _esitoMetePendente = null;
+    applicaEsitoWizardMete(pendente);
+  }
+  aggiornaModoEntrata();
+  window.scrollTo(0, 0);
+}
+
+function benvMostraOffertaSveglia() {
+  benvSetPasso(5);
+  benvFumetto("Il percorso è pronto. Manca solo una sveglia.", "clessidra");
+  benvMostraLegenda(false);
+  const zona = document.getElementById("benvenuto-scelte");
+  if (!zona) {
+    terminaCodaEntrata();
+    return;
+  }
+  zona.innerHTML = "";
+  zona.dataset.codaSveglia = "true";
+  zona.appendChild(crea(
+    "h2",
+    "benvenuto-landing-titolo",
+    "Ti avviso quando esce il bando?"
+  ));
+  zona.appendChild(crea(
+    "p",
+    "benvenuto-landing-dettaglio",
+    finestraAttesaBando()
+  ));
+  const riga = crea("div", "benvenuto-scelte-riga");
+  const si = crea("button", "benvenuto-scelta", "Sì, mettimelo in calendario");
+  si.type = "button";
+  si.dataset.sveglia = "si";
+  si.addEventListener("click", () => {
+    // Il download parte mentre il gesto dell'utente e' ancora attivo. Su
+    // telefono l'eventuale banner installazione resta qui; la navigazione
+    // riprende quando lo studente lo chiude. Su desktop prosegue subito.
+    if (!scaricaCalendarioCompleto(zona, terminaCodaEntrata)) {
+      terminaCodaEntrata();
+    }
+  });
+  const no = crea("button", "benvenuto-scelta", "No, grazie");
+  no.type = "button";
+  no.dataset.sveglia = "no";
+  no.addEventListener("click", terminaCodaEntrata);
+  riga.appendChild(si);
+  riga.appendChild(no);
+  zona.appendChild(riga);
+  zona.appendChild(crea(
+    "p",
+    "benvenuto-sotto-domanda",
+    "Il tuo telefono ti avvisa da solo: noi non ti chiediamo né mail né iscrizione."
+  ));
+  si.focus();
 }
 
 function benvConcludiConEsito(esito) {
+  chiudiWizardMete();
+  _esitoMetePendente = esito;
+  if (inPreBando() && finestraAttesaDisponibile()) {
+    _codaEntrata = true;
+    benvMostraOffertaSveglia();
+    aggiornaModoEntrata();
+    // Non `scrollTo(0, 0)`: rimandava in cima e i due bottoni finivano sotto
+    // il bordo dello schermo — annullando anche lo scorrimento che `focus()`
+    // aveva appena fatto sul primo bottone.
+    portaAVistaScelte();
+    return;
+  }
   renderHome();
   renderMete();
   renderMissione();
   window.scrollTo(0, 0);
   if (esito !== "salta") vaiA("mete");
-  applicaEsitoWizardMete(esito);
+  if (_esitoMetePendente) {
+    const pendente = _esitoMetePendente;
+    _esitoMetePendente = null;
+    applicaEsitoWizardMete(pendente);
+  }
 }
 
 // ============================================================

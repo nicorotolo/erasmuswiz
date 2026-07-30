@@ -589,7 +589,7 @@
     }
 
     var diff = indicePosseduto - indiceRichiesto;
-    if (diff >= 0 && posseduta.certificata) {
+    if (diff >= 0) {
       return risultatoBase(
         foglia.condizionatoCorsi ? ESITI_LINGUA.CONDIZIONATO : ESITI_LINGUA.SODDISFATTO,
         50,
@@ -598,11 +598,6 @@
           motivi: foglia.condizionatoCorsi ? ["verifica i corsi scelti"] : []
         }
       );
-    }
-    if (diff >= 0) {
-      return risultatoBase(ESITI_LINGUA.NON_SODDISFATTO, 25, {
-        motivi: ["lingua non certificata"]
-      });
     }
     if (diff === -1) {
       return risultatoBase(ESITI_LINGUA.NON_SODDISFATTO, 12, {
@@ -746,6 +741,256 @@
       risultato.punteggio === 50;
   }
 
+  // V5 — questi sono nomi di DOCUMENTI o prove di livello, non la lista di
+  // lingue vietata dal progetto. Sono solo segnali che invitano a leggere il
+  // dato: non deduciamo mai se la prova serva, perche' alcune condizioni
+  // scrivono proprio "certificato non richiesto".
+  function citaCertificato(meta) {
+    function visita(valore) {
+      if (typeof valore === "string") {
+        return /certificat|certificate|attestat|IELTS|TOEFL|DELF|DELE|TestDaF|CELI|Goethe|Cambridge/i.test(valore);
+      }
+      if (Array.isArray(valore)) return valore.some(visita);
+      if (!valore || typeof valore !== "object") return false;
+      return Object.keys(valore).some(function (chiave) {
+        return visita(valore[chiave]);
+      });
+    }
+    return visita(meta && meta.requisitoLingua);
+  }
+
+  function certificatoDaRicordare(meta, profilo) {
+    if (!citaCertificato(meta) || !profilo) return false;
+    var foglie = foglieRequisitoLingua(requisitiLinguaNormalizzati(meta));
+    var lingue = Array.isArray(profilo.lingue) ? profilo.lingue : [];
+    return foglie.some(function (foglia) {
+      if (!fogliaApplicabile(foglia, profilo) || foglia.daVerificare || foglia.livelloAmbiguo) {
+        return false;
+      }
+      var indiceRichiesto = SCALA_CEFR.indexOf(foglia.livello);
+      if (indiceRichiesto < 0) return false;
+      return lingue.some(function (lingua) {
+        return chiaveLingua(lingua && lingua.lingua) === chiaveLingua(foglia.lingua) &&
+          SCALA_CEFR.indexOf(livelloCefr(lingua && lingua.livello)) >= indiceRichiesto &&
+          !lingua.certificata;
+      });
+    });
+  }
+
+  function finestraAttesaValida(bandoInfo) {
+    var finestra = bandoInfo && bandoInfo.finestraAttesa;
+    return finestra &&
+      finestra.stato === "atteso" &&
+      /^\d{4}-\d{2}-\d{2}$/.test(testo(finestra.inizio)) &&
+      finestra.precedente &&
+      /^\d{4}-\d{2}-\d{2}$/.test(testo(finestra.precedente.data)) &&
+      !!testo(finestra.precedente.fonte)
+      ? finestra
+      : null;
+  }
+
+  function fraseFinestraAttesaBando(bandoInfo) {
+    var finestra = finestraAttesaValida(bandoInfo);
+    if (!finestra) return "Il bando non è ancora uscito.";
+    var data = new Date(finestra.precedente.data + "T12:00:00Z");
+    var dataItaliana = data.toLocaleDateString("it-IT", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      timeZone: "UTC"
+    });
+    return "Il bando precedente è uscito il " + dataItaliana +
+      ": quello nuovo è atteso in un periodo simile.";
+  }
+
+  var TESTO_INSTALLAZIONE =
+    "Niente iscrizione: i tuoi dati restano su questo telefono. " +
+    "Aggiungi ErasmusWiz alla schermata home per ritrovarli.";
+
+  function invitoInstallazione(ambiente) {
+    var a = ambiente || {};
+    if (a.standalone || a.rinviatoFino || a.desktop) {
+      return { tipo: "niente", testo: "" };
+    }
+    if (a.promptDisponibile) {
+      return { tipo: "prompt", testo: TESTO_INSTALLAZIONE };
+    }
+    if (a.iOS && a.safari) {
+      return {
+        tipo: "istruzioni-ios",
+        testo: TESTO_INSTALLAZIONE +
+          " In Safari tocca Condividi, poi «Aggiungi alla schermata Home»."
+      };
+    }
+    return { tipo: "niente", testo: "" };
+  }
+
+  function escapaTestoICS(testoDaEscapare) {
+    return testo(testoDaEscapare)
+      .replace(/\\/g, "\\\\")
+      .replace(/\r?\n/g, "\\n")
+      .replace(/([,;])/g, "\\$1");
+  }
+
+  function dataOraICS(data) {
+    var valore = testo(data);
+    var parti = valore.match(
+      /^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2})(?::(\d{2}))?)?$/
+    );
+    if (!parti) return "";
+    return parti[1] + parti[2] + parti[3] + "T" +
+      (parti[4] || "00") + (parti[5] || "00") + (parti[6] || "00");
+  }
+
+  function dataOraPiuMinuti(data, minuti) {
+    var d = new Date(data);
+    if (Number.isNaN(d.getTime())) return "";
+    d.setMinutes(d.getMinutes() + minuti);
+    function due(n) { return String(n).padStart(2, "0"); }
+    return d.getFullYear() + "-" + due(d.getMonth() + 1) + "-" + due(d.getDate()) +
+      "T" + due(d.getHours()) + ":" + due(d.getMinutes()) + ":" + due(d.getSeconds());
+  }
+
+  function dtStampICS(data) {
+    var d = new Date(data);
+    if (Number.isNaN(d.getTime())) d = new Date(0);
+    function due(n) { return String(n).padStart(2, "0"); }
+    return d.getUTCFullYear() + due(d.getUTCMonth() + 1) + due(d.getUTCDate()) +
+      "T" + due(d.getUTCHours()) + due(d.getUTCMinutes()) + due(d.getUTCSeconds()) + "Z";
+  }
+
+  function sequenzaDaVerifica(dataVerifica) {
+    var d = new Date(testo(dataVerifica) + "T00:00:00Z");
+    var origine = new Date("2020-01-01T00:00:00Z");
+    if (Number.isNaN(d.getTime())) return 0;
+    return Math.max(0, Math.floor((d - origine) / 86400000));
+  }
+
+  // RFC 5545 §3.1: una riga di un .ics non può superare i 75 ottetti, e la
+  // continuazione comincia con uno spazio. Non è pedanteria: la DESCRIPTION
+  // di questi eventi porta fonte, data di verifica, link e disclaimer e
+  // arriva a ~340 caratteri. Google tollera le righe lunghe, altri client no,
+  // e il criterio di uscita di V5 chiede che il file si apra ANCHE su Apple.
+  // Si conta in OTTETTI, non in caratteri: «è» ne occupa due e spezzarlo a
+  // metà produrrebbe un file corrotto.
+  function ottettiUtf8(carattere) {
+    var punto = carattere.codePointAt(0);
+    return punto < 0x80 ? 1 : punto < 0x800 ? 2 : punto < 0x10000 ? 3 : 4;
+  }
+
+  function piegaRigaICS(riga) {
+    var valore = String(riga);
+    var piegate = [];
+    var corrente = "";
+    var ottetti = 0;
+    for (var i = 0; i < valore.length; i++) {
+      var carattere = valore[i];
+      // Le coppie surrogate (emoji) non si spezzano mai a metà.
+      if (carattere.charCodeAt(0) >= 0xd800 && carattere.charCodeAt(0) <= 0xdbff &&
+          i + 1 < valore.length) {
+        carattere += valore[i + 1];
+        i++;
+      }
+      var costo = ottettiUtf8(carattere);
+      if (ottetti + costo > 75) {
+        piegate.push(corrente);
+        corrente = " ";
+        ottetti = 1;
+      }
+      corrente += carattere;
+      ottetti += costo;
+    }
+    piegate.push(corrente);
+    return piegate;
+  }
+
+  function righeAllarme(descrizione) {
+    return [
+      "BEGIN:VALARM",
+      "TRIGGER:-P7D",
+      "ACTION:DISPLAY",
+      "DESCRIPTION:" + escapaTestoICS(descrizione),
+      "END:VALARM",
+      "BEGIN:VALARM",
+      "TRIGGER:-P1D",
+      "ACTION:DISPLAY",
+      "DESCRIPTION:" + escapaTestoICS(descrizione),
+      "END:VALARM"
+    ];
+  }
+
+  function creaCalendarioICS(opzioni) {
+    var o = opzioni || {};
+    var bandoInfo = o.bandoInfo || {};
+    var ora = new Date(o.ora || Date.now());
+    var sequenza = sequenzaDaVerifica(bandoInfo.dataVerificaDati);
+    var ateneo = testo(o.ateneo) || "ateneo";
+    var etichettaAteneo = testo(o.etichettaAteneo) || ateneo;
+    var fonteComune = testo(bandoInfo.titolo) || "Bando Erasmus dell'ateneo";
+    var link = testo(bandoInfo.linkUfficiale);
+    var verificatiIl = testo(bandoInfo.dataVerificaDati);
+    var notaAggiornamento =
+      "Questo promemoria non si aggiorna da solo: se la data cambia, riscaricalo dal sito.";
+    var eventi = [];
+
+    function aggiungiEvento(dati) {
+      var inizio = new Date(dati.data);
+      if (Number.isNaN(inizio.getTime()) || inizio <= ora) return;
+      var descrizione = dati.descrizione + " Fonte: " + dati.fonte +
+        ". Dati verificati il " + verificatiIl + ". " + link + ". " + notaAggiornamento;
+      var allarme = "Promemoria ErasmusWiz: " + dati.summary;
+      eventi.push([
+        "BEGIN:VEVENT",
+        "UID:" + dati.uid + "@erasmuswiz",
+        "SEQUENCE:" + sequenza,
+        "DTSTAMP:" + dtStampICS(ora),
+        "DTSTART:" + dataOraICS(dati.data),
+        "DTEND:" + dataOraICS(dataOraPiuMinuti(dati.data, 30)),
+        "SUMMARY:" + escapaTestoICS(dati.summary),
+        "DESCRIPTION:" + escapaTestoICS(descrizione)
+      ].concat(righeAllarme(allarme), ["END:VEVENT"]));
+    }
+
+    if (o.includiFinestra !== false) {
+      var finestra = finestraAttesaValida(bandoInfo);
+      if (finestra) {
+        aggiungiEvento({
+          uid: "bando-atteso-" + ateneo,
+          data: finestra.inizio + "T09:00:00",
+          summary: "Controlla se è uscito il bando Erasmus " + etichettaAteneo,
+          descrizione: "Data attesa, non confermata, ricavata dal periodo del bando precedente.",
+          fonte: testo(finestra.precedente.fonte)
+        });
+      }
+    }
+
+    (Array.isArray(o.scadenze) ? o.scadenze : []).forEach(function (scadenza) {
+      aggiungiEvento({
+        uid: testo(scadenza.id) || "ew-scadenza",
+        data: testo(scadenza.data),
+        summary: testo(scadenza.cosa),
+        descrizione: testo(scadenza.descrizione) ||
+          "Promemoria per una data del bando Erasmus.",
+        fonte: fonteComune
+      });
+    });
+
+    if (!eventi.length) return "";
+    var righe = [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "PRODID:-//ErasmusWiz//Date Erasmus//IT",
+      "CALSCALE:GREGORIAN"
+    ];
+    eventi.forEach(function (evento) {
+      righe = righe.concat(evento);
+    });
+    righe.push("END:VCALENDAR");
+    return righe.reduce(function (accumulate, riga) {
+      return accumulate.concat(piegaRigaICS(riga));
+    }, []).join("\r\n") + "\r\n";
+  }
+
   function presentazioneLinguaSconosciuta(valutazione) {
     if (!valutazione || valutazione.esito !== ESITI_LINGUA.SCONOSCIUTO) return null;
     // Il colore e il testo sono parte dello stesso contratto: così l'app non
@@ -764,7 +1009,6 @@
       return !motivo.startsWith("radice ANY") && motivo !== "verifica i corsi scelti";
     });
     if (motiviLingua.length) motivi = motivi.concat(motiviLingua);
-    else if (pLingua === 25) motivi.push("lingua non certificata");
     else if (pLingua === 12) motivi.push("un livello sotto il richiesto");
     else if (pLingua === 0) motivi.push("requisito linguistico non soddisfatto");
     return motivi.length
@@ -828,7 +1072,7 @@
         ordine: totale,
         icona: "✅",
         stato: "Compatibile",
-        dettaglio: "Hai i requisiti principali."
+        dettaglio: "Hai i requisiti principali. Il livello lo dichiari tu: la prova, se richiesta, si presenta dopo la selezione."
       };
     }
     var dettaglio = motivoMancanzaCompatibilita(
@@ -872,6 +1116,12 @@
     punteggioLinguaSingola: punteggioLinguaSingola,
     punteggioLingua: punteggioLingua,
     linguaCopertaPerFiltro: linguaCopertaPerFiltro,
+    citaCertificato: citaCertificato,
+    certificatoDaRicordare: certificatoDaRicordare,
+    finestraAttesaValida: finestraAttesaValida,
+    fraseFinestraAttesaBando: fraseFinestraAttesaBando,
+    invitoInstallazione: invitoInstallazione,
+    creaCalendarioICS: creaCalendarioICS,
     presentazioneLinguaSconosciuta: presentazioneLinguaSconosciuta,
     presentaCompatibilita: presentaCompatibilita
   });

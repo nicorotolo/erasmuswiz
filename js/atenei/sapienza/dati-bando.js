@@ -46,7 +46,18 @@ var BANDO_INFO = {
   annoAccademico: "2026/2027",
   titolo: "Bando Erasmus+ per studio 2026/2027 — Sapienza Università di Roma",
   linkUfficiale: "https://www.uniroma1.it/it/pagina/bando-erasmus-2026-2027-studio",
-  dataVerificaDati: "2026-07-28"
+  dataVerificaDati: "2026-07-28",
+  // Il decreto precedente documenta il periodo; la sveglia invita soltanto
+  // a controllare, perche' il nuovo bando non e' ancora confermato.
+  finestraAttesa: {
+    inizio: "2026-12-16",
+    precedente: {
+      ciclo: "2026/2027",
+      data: "2025-12-16",
+      fonte: "Decreto 3613/2025, Prot. 0183341 del 16/12/2025 — Bando Erasmus+ studio 2026/2027"
+    },
+    stato: "atteso"
+  }
   // inVerifica rimosso il 2026-07-28: i requisiti sono stati validati sul
   // testo ufficiale del bando. Il banner "dati in corso di verifica"
   // (app.js:3957) non deve più comparire per la Sapienza.

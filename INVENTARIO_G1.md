@@ -38,6 +38,7 @@ ma che portano date a schermo allo stesso modo (§1.5 e §1.6).
 | `titolo` | contiene `2026/2027` | contiene `2026/2027` | stringa mostrata in chiaro |
 | `linkUfficiale` | `unive.it/erasmus-studio` (stabile) | `…/bando-erasmus-2026-2027-studio` | **l'URL Sapienza contiene l'anno**: a G2 muore |
 | `dataVerificaDati` | `"2026-06-10"` | `"2026-07-28"` | data di verifica del ciclo |
+| `finestraAttesa` | precedente `14/01/2026`, sveglia `14/01/2027` | precedente `16/12/2025`, sveglia `16/12/2026` | aggiunta da V5: separa la prova storica dal giorno scelto per controllare il nuovo bando |
 | `inVerifica` | assente | assente (rimosso il 28/07) | flag del banner provvisorietà |
 
 ### 1.2 `REQUISITI_BANDO[]` — stessi file

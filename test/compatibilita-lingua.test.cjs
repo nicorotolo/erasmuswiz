@@ -307,7 +307,7 @@ test("golden 9 — livello richiesto superiore a quello posseduto: non soddisfat
   assert.equal(esito.punteggio, 12);
 });
 
-test("golden 10 — livello sufficiente ma non certificato: riserva, non verde", () => {
+test("V5 — livello sufficiente ma non certificato: 50 punti e requisito soddisfatto", () => {
   const meta = {
     requisitoLingua: [{ lingua: "Inglese", livello: "B2", condizione: "richiesto" }],
   };
@@ -315,9 +315,9 @@ test("golden 10 — livello sufficiente ma non certificato: riserva, non verde",
     meta,
     profilo([{ lingua: "Inglese", livello: "C1", certificata: false }])
   );
-  assert.equal(esito.esito, ESITI_LINGUA.NON_SODDISFATTO);
-  assert.equal(esito.punteggio, 25);
-  assert.match(esito.motivi.join(" "), /non certificata/);
+  assert.equal(esito.esito, ESITI_LINGUA.SODDISFATTO);
+  assert.equal(esito.punteggio, 50);
+  assert.doesNotMatch(esito.motivi.join(" "), /non certificata/);
 });
 
 // Regressione trovata da Claude in revisione, dopo la deroga di prodotto.
