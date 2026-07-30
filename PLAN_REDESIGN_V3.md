@@ -1811,75 +1811,466 @@ il numero di riga o con un contesto che compaia una sola volta.
 > rotte** al router di V1; **non aggiungere passi all'entrata** di V3 (la
 > schermata della sveglia è una coda, non un quinto passo).
 
-### V6 — Mete e le 5 scelte (novembre – dicembre)
+### V6a — La lista delle mete: illimitata, ordinabile, senza promesse (novembre)
 
-**Scollegare le due liste.** `schedinaIds()` (app.js:2057) tiene allineati
-`metePreferite` e `schedina`, e app.js:2163 **blocca alla quinta stellina**: in
-pratica esiste una sola lista di 5.
+> **SPECIFICA CONGELATA il 2026-07-30.** Otto decisioni prese da Nicola dopo
+> misura sul codice. Sotto §V6a non resta niente da decidere: chi costruisce
+> esegue. Ciò che riguarda la **schedina ufficiale** è in §V6b e **non si
+> costruisce adesso**.
 
-**Gli invarianti, da formalizzare PRIMA della UI:** `schedina ⊆ preferiti` · una
-meta sparita dai dati diventa **orfana** e va segnalata, non persa in silenzio ·
-se il massimo **diminuisce**, l'eccedenza si mostra · migrazione delle liste
-esistenti.
+#### §0 — Lo stato reale, misurato il 2026-07-30
 
-**Togliere la stella a una meta che è già fra le 5 non è un'operazione
-silenziosa.** L'invariante impone di rimuoverla dalle caselle, ma così **un tocco
-accidentale distrugge una decisione e il suo ordine**. Quindi: conferma
-esplicita, **oppure** annullamento immediato («rimossa dalle tue 5 · annulla»).
-La seconda è preferibile — non interrompe chi sta esplorando.
+I numeri di riga della rev. precedente erano morti (`schedinaIds()` dato a 2057,
+sta a 2684; la quinta stellina data a 2163, sta a 2787). **Qui non si cita più
+una riga: si cita un frammento** — §8 è l'elenco delle ancore. Cinque misure
+cambiano la forma della fase:
 
-> ⚠️ **Prima di G2 esiste solo la wishlist.** A novembre il massimo di Ca'
-> Foscari verrebbe ancora dal bando **2026/27**: un numero valorizzato ma
-> **storico**, che il controllo «limite ignoto → disattiva» non intercetta,
-> perché il limite *c'è*. La **schedina ufficiale si attiva solo dopo G2**, cioè
-> quando mete e limite del 2027/28 sono entrambi validati. Fino ad allora
-> l'ordinamento resta disponibile come **strumento personale**, dichiarato tale,
-> senza chiamarlo «le 5 che invii».
+1. **Il divieto di V6a è già violato dal sito online.** La schedina esiste da BR4
+   e promette una consegna in **quattro** punti: l'intestazione `Le tue 5 scelte
+   (n/5)`; l'invito a schedina vuota *«Massimo 5: l'ordine conta, sono le mete
+   che porterai alla riunione di assegnazione»*; il suggerimento *«l'ordine conta
+   per la riunione di assegnazione»*; il rifiuto alla sesta stella *«Il bando ne
+   ammette al massimo 5»*. **V6a non aggiunge una riga sottile: toglie una
+   promessa che oggi è a schermo**, fatta con un numero preso dal bando 2026/27.
+2. **Il riordino esiste già.** Le frecce `▲`/`▼` e `spostaSchedina()` sono in
+   produzione. Ciò che manca è che `spostaSchedina()` chiama `renderPreferite()`,
+   che ricostruisce la lista da capo: **il fuoco cade su `<body>`**. È lo stesso
+   difetto dei chip dei filtri chiuso il 26/07, stessa famiglia, stesso rimedio.
+3. **Non esistono due liste: ne esiste una e una permutazione.** `metePreferite`
+   è già tappata a 5; `schedina` ne è soltanto l'ordine, che `schedinaIds()`
+   ricalcola a ogni render. **Conseguenza: la migrazione è vuota** — e va
+   dimostrata vuota, non dichiarata tale (§4).
+4. **`BANDO_INFO.massimoDestinazioni`: zero occorrenze** in entrambi i
+   `dati-bando.js`. Stessa identica situazione di `finestraAttesa` prima di V5,
+   quindi stessa soluzione (§2).
+5. **La rotta cade per un motivo preciso, e ne ha un secondo che il piano non
+   nominava.** Primo: `destDaHash()` in `puro.js` restituisce `destinazione:
+   null` perché `"mete/scelte"` non è in `TAB_VALIDI`, quindi `vaiA()` torna
+   `false` e si finisce su Oggi. Secondo: **`scriviHash()` scrive `#${tab}` e
+   basta** — registrare la rotta senza toccarlo cancellerebbe sotto-segmento e
+   ateneo alla prima navigazione.
 
-**Il numero 5 viene dal bando** — *«fino a un massimo di 5 destinazioni, elencate
-in ordine di priorità»*, **Art. 7 comma 4** — e oggi **non esiste come campo
-leggibile**: va creato `BANDO_INFO.massimoDestinazioni`, con fonte e stato di
-verifica, per ateneo.
+Sesta misura, che è un difetto vivo: in `renderPreferite()` la riga
+`const meta = (METE||[]).find(...); if (!meta) return;` **scarta in silenzio** una
+meta sparita dai dati. È esattamente l'orfana che l'invariante vieta di perdere.
 
-**Limite ignoto — è il caso reale della Sapienza**, finché il suo bando non è
-verificato, e va deciso adesso: **wishlist illimitata, schedina ufficiale
-disattivata** con la spiegazione (*«il numero di destinazioni del bando Sapienza
-non è ancora verificato: intanto raccogli quelle che ti interessano»*). Meglio
-non offrire una consegna che offrirne una col numero sbagliato.
-**Limite che diminuisce**: l'eccedenza si **mostra**, marcata, e si chiede
-all'utente di correggerla. Mai troncata dal codice.
+#### §1 — Le otto decisioni
 
-**Un solo gesto**: stella = «mi interessa» (illimitato); casella = decisione (5),
-nello spazio `#mete/scelte/<ateneo>` — **l'ateneo sta in tutte le rotte che
-dipendono dal dataset**, non solo nel Learning Agreement: anche questa schermata,
-aperta a freddo da un link condiviso da Sapienza, caricherebbe altrimenti Ca'
-Foscari.
+- **D‑V6.1 — Una lista sola, illimitata e ordinabile.** La stella raccoglie e la
+  meta compare subito in fondo all'elenco numerato; nessun tetto, nessun secondo
+  gesto. *Ragione:* prima di G2 chiedere «quali sono quelle che contano» è
+  chiedere una decisione su niente — nessuna delle due liste viene consegnata a
+  nessuno. I due campi dello zaino (`metePreferite`, `schedina`) **restano
+  separati**, così a dicembre la lista ufficiale nasce senza una seconda
+  migrazione.
+- **D‑V6.2 — `massimoDestinazioni` nasce nei dati e in V6a non vincola nulla.**
+  Valore, ciclo, fonte, citazione e stato, per ateneo. **Assenza del campo =
+  silenzio**: nessun numero nominato, nessuna frase, nessun comportamento
+  diverso. Il tetto si accende in V6b modificando **solo** `dati-bando.js`.
+- **D‑V6.3 — Il nome: «preferite» per la raccolta, «in ordine di priorità» per
+  l'elenco.** *Scelta di Nicola contro la raccomandazione di Claude*, che temeva
+  che «priorità» si leggesse come una graduatoria da consegnare. La forma accolta
+  riprende alla lettera il bando (Art. 7 c. 4) ed è più precisa; **la
+  contropartita è un vincolo di codice**, non un'intenzione: la locuzione non può
+  MAI comparire accanto a un totale (`n di 5`) né accanto a un verbo di consegna
+  (§7).
+- **D‑V6.4 — La rimozione si annulla in loco, senza timer.** Lo slot della meta
+  rimossa diventa sul posto una riga «rimossa · Annulla»; **niente conto alla
+  rovescia** (un timer è una trappola per chi legge piano o usa uno screen
+  reader); il fuoco si sposta **sul bottone Annulla**, cioè dov'era la mano.
+- **D‑V6.5 — `#mete/scelte/<ateneo>` è una rotta registrata dentro il tab Mete,
+  non una schermata nuova.** L'indirizzo funziona a freddo, si condivide e
+  l'ateneo governa il caricamento; ma dipinge `#tab-mete` e porta il fuoco
+  sull'elenco. *Ragione:* prima di G2 quella lista non è una candidatura e non
+  merita uno schermo suo — che a dicembre andrebbe rifatto.
+- **D‑V6.6 — Il perimetro di «Altro»**, alla lettera: riga sottile al posto del
+  blocco · ricerca sopra i filtri · via il riquadro «hai già in mente le
+  destinazioni?» e con esso «✨ Ripensa le rotte» · su telefono ricerca → filtri
+  → elenco con la mappa sotto, **senza pannello**. Restano **fuori**: il banner di
+  profilo unico e il trascinamento.
+- **D‑V6.7 — L'interruttore elenco↔mappa in stile Booking è una fase sua**, fuori
+  da V6a. *Ragione misurata:* metà del meccanismo esiste già (i pin aprono la
+  scheda, la mappa è già sincronizzata con ricerca e filtri, un solo render);
+  manca una modalità a piena altezza. Ma è l'unica parte del sito il cui banco
+  prestazionale è **instabile al tetto** (rosso 2 volte su 8), e V5 ha
+  deliberatamente non toccato una riga di mappa. Scollegare due liste **e** rifare
+  la mappa nello stesso diff rende i due lavori indistinguibili se qualcosa rompe.
+- **D‑V6.8 — Gli invarianti nascono in `puro.js` e sono provati PRIMA della UI**,
+  compreso quello che in V6a non ha ancora interfaccia (§3).
 
-**Riordino**: **frecce ↑↓ sempre visibili come meccanismo**, trascinamento come
-lusso dove il dispositivo lo permette. Scambio animato (FLIP), immediato sotto
-`prefers-reduced-motion`. **Il fuoco resta sul controllo spostato** e lo
-spostamento è **annunciato** («spostata in posizione 2 di 5»): oggi la schedina
-si ricostruisce da capo e il fuoco si perderebbe. Provare primo, ultimo e
-movimento oltre i limiti.
+#### §2 — Il dato: `BANDO_INFO.massimoDestinazioni`
 
-**Altro**: un solo banner di profilo · **ricerca sopra i filtri** · riga sottile
-«3 di 5 scelte · ordina →» al posto del blocco giallo · su telefono ricerca →
-filtri → elenco, mappa in un pannello · via il riquadro «hai già in mente le
-destinazioni?» (migrato in V3).
+Stessa forma esatta di `finestraAttesa`: il fatto documentato e la sua fonte
+accanto, così una scelta non può travestirsi da prova.
 
-**Criteri di uscita, separati come le due sottofasi.**
+**Ca' Foscari** (`js/atenei/cafoscari/dati-bando.js`), dentro `BANDO_INFO`:
 
-**V6a (personale, prima di G2)** — ogni invariante ha un caso di prova; si
-stellano più di 5 mete; riordino da tastiera con annuncio e fuoco conservato;
-l'ordine sopravvive al ricaricamento; `#mete/scelte/<ateneo>` apre l'ateneo
-giusto **a `localStorage` vuoto** e **con un ateneo salvato in conflitto**.
-⛔ **Nessun testo che prometta una consegna**: niente «3 di 5», niente «le mete
-che invierai». La lista è tua, non è ancora una candidatura.
+```js
+massimoDestinazioni: {
+  valore: 5,
+  ciclo: "2026/2027",
+  citazione: "fino a un massimo di 5 destinazioni, elencate in ordine di priorità",
+  fonte: "Art. 7 c. 4 — Bando Erasmus+ studio (Europa) 2026/2027, DR 13/2026",
+  stato: "storico"
+}
+```
 
-**V6b (ufficiale, dopo G2)** — il massimo cambia modificando **solo**
-`dati-bando.js`; con limite ignoto la schedina è disattivata con la spiegazione;
-con limite ridotto l'eccedenza è mostrata e non troncata; **solo qui** compare il
-copy «le 5 che invii».
+**Sapienza** (`js/atenei/sapienza/dati-bando.js`): **il campo non si scrive.**
+Non `null`, non `0`, non `valore: null` — **assente**. La prova non esiste e un
+campo vuoto inviterebbe qualcuno a riempirlo con un default.
+
+`stato` ha due valori e uno solo è ammesso in V6a:
+- `"storico"` — il numero viene da un ciclo precedente. **Unico valore ammesso
+  prima di G2.**
+- `"vigente"` — validato sul bando del ciclo corrente. Lo scrive G2, e **solo
+  allora** V6b può farlo vincolare.
+
+**Il lettore è puro**, in `js/puro.js`, sul modello di `finestraAttesaDisponibile()`:
+
+- `massimoDestinazioniBando(bandoInfo)` → `{ presente: false }` se il campo manca
+  o è malformato (valore non intero positivo, `stato` fuori dai due ammessi);
+  altrimenti `{ presente: true, valore, ciclo, citazione, fonte, stato }`.
+- `frasePassatoMassimo(info)` → la frase al passato, o `null` se `presente` è
+  falso. **È l'unico punto del sito autorizzato a nominare il numero in V6a**, e
+  la forma è quella di D‑V4.2 «riscrittura al passato»:
+  *«Il bando 2026/2027 ne ammetteva al massimo 5, elencate in ordine di priorità
+  (Art. 7 c. 4).»*
+
+**Regola vincolante:** in V6a nessun ramo di codice legge `valore` per limitare,
+contare, disabilitare, troncare o colorare. `massimoDestinazioniBando()` ha in
+V6a **un solo consumatore**, `frasePassatoMassimo()`, e quella frase **un solo
+punto di render** (§7). Un secondo consumatore è uno scostamento da dichiarare.
+
+#### §3 — Gli invarianti, prima della UI
+
+Funzioni pure in `js/puro.js`, con prove unitarie proprie, **scritte prima di
+toccare il render**. Nessuna legge il DOM, `localStorage` o l'orologio.
+
+- **I‑V6.1 — `schedina ⊆ metePreferite`.** Ogni id dell'ordine è fra le
+  preferite. Chi non c'è più esce dall'ordine; chi è nuovo entra **in coda**, mai
+  in testa (l'ordine è dello studente: il codice non lo riscrive).
+- **I‑V6.2 — nessun duplicato** in nessuna delle due liste, e stessa cardinalità
+  dopo la normalizzazione (D‑V6.1: le due liste hanno gli stessi elementi, e
+  differiscono solo nell'ordine).
+- **I‑V6.3 — orfane: si mostrano, non si perdono.** Un id presente nelle liste ma
+  **assente da `METE`** resta nello zaino **e** compare a schermo come riga
+  marcata, con il suo posto nell'ordine e il suo pulsante di rimozione. Oggi il
+  render lo scarta in silenzio: è il difetto misurato in §0.6.
+- **I‑V6.4 — eccedenza: si mostra, non si tronca.** Se esiste un massimo e la
+  lista lo supera, gli elementi oltre il massimo sono **marcati e visibili**, e
+  si chiede allo studente di correggere. **Il codice non taglia mai.** In V6a
+  questo invariante **non ha interfaccia** — nessun massimo vincola nulla — ma la
+  funzione pura esiste ed è provata: è ciò che V6b accende senza riscriverla.
+- **I‑V6.5 — la stella è l'unico ingresso e l'unica uscita.** Mettere la stella
+  aggiunge in coda all'ordine; toglierla rimuove da entrambe le liste. Non esiste
+  un terzo gesto che tocchi solo una delle due.
+
+Ogni invariante ha almeno **un caso di prova che lo viola**: una prova che passa
+su dati già conformi non prova niente.
+
+#### §4 — La migrazione dello zaino: è vuota, e va dimostrata vuota
+
+`VERSIONE_CONTENITORE_ZAINO` **non si tocca**: nessun campo nasce, nessuno cambia
+tipo. `creaZainoV3()` e `normalizzaZainoV3()` restano come sono — entrambe già
+creano e normalizzano `metePreferite` e `schedina` come array.
+
+Ciò che cambia non è la forma dei dati ma **una regola che stava nel codice**: il
+tetto di 5 viveva dentro `togglePreferita()`, non nello zaino. Toglierlo non
+richiede di riscrivere niente di salvato.
+
+**Va però provato, perché «non serve migrazione» è esattamente il genere di frase
+che si scopre falsa in produzione.** Prova obbligatoria, unitaria:
+
+> Uno zaino reale di chi usa il sito da mesi — `metePreferite` con 5 id,
+> `schedina` con gli stessi 5 in ordine diverso, più `checklist`, `autoverifica`
+> e `la.bozzePerMeta` popolati — passa da `normalizzaZainoV3()` e ne esce con le
+> due liste **identiche elemento per elemento e nello stesso ordine**, e con
+> tutti gli altri campi intatti. Confronto sull'oggetto intero, non sulle due
+> liste soltanto.
+
+Secondo caso: uno zaino in cui `schedina` contiene un id **non** presente in
+`metePreferite` (stato che il codice odierno non produce ma che un backup
+manuale può contenere): I‑V6.1 lo rimuove dall'ordine, **e non lo cancella dalle
+preferite**.
+
+`schedinaCiclo` e `storico` restano intoccati: sono di G2.
+
+#### §5 — Il comportamento a schermo
+
+**La stella.** Nessun tetto. `togglePreferita()` perde il ramo che rifiuta la
+sesta e perde il messaggio che lo accompagna. Aggiungendo, la meta entra **in
+coda** all'ordine. La mappa continua a ricevere le stellate come oggi: con la
+lista illimitata compariranno più stelle, ed è voluto.
+
+**L'elenco.** Ogni riga porta: il numero di posizione, il nome, lo stato di
+compatibilità se c'è un profilo, e tre controlli — su, giù, rimuovi. Le frecce
+restano il meccanismo; **il trascinamento non entra in V6a**.
+
+**Il fuoco nel riordino.** `renderPreferite()` ricostruisce la lista: si registra
+**l'indice**, esattamente come per i chip dei filtri, e lo si restituisce al nodo
+nuovo corrispondente con `focus({ preventScroll: true })`.
+
+> ⛔ **Si registra l'INDICE, non un attributo nuovo.** Il commento accanto ai chip
+> dichiara che `data-filtro` non esiste; introdurre qui un attributo-identità
+> creerebbe due grammatiche per lo stesso problema nello stesso file. E
+> attenzione: l'indice da restituire **è quello di destinazione**, non quello di
+> partenza — il fuoco segue la meta che si è spostata, non la posizione lasciata.
+
+**L'annuncio.** Il sito non ha una regione di annuncio riutilizzabile (l'unica
+`aria-live` è `#benvenuto-scelte`, dentro l'entrata). Ne nasce **una sola**,
+dentro la sezione dell'elenco, `role="status"` / `aria-live="polite"`, riusata da
+riordino e rimozione. Messaggio del riordino:
+
+> «{nome università} spostata in posizione 2 di 7.»
+
+Il «di 7» è la **lunghezza attuale della lista**, non una quota: è un fatto sulla
+lista, non una promessa sul bando. Il divieto di §7 riguarda i totali che vengono
+dal bando, non la posizione in un elenco.
+
+**La rimozione e l'annullamento.** Togliendo la stella a una meta che è
+nell'elenco, lo slot **non sparisce**: diventa in loco una riga
+«{nome} — rimossa dalle tue preferite · **Annulla**», che
+
+- **non ha timer** e resta finché non si fa altro;
+- si chiude da sola alla prima navigazione di rotta, al cambio di ateneo e a un
+  nuovo render dell'elenco causato da un'altra azione;
+- riceve **il fuoco sul bottone Annulla** al momento della rimozione;
+- annuncia la rimozione dalla regione `role="status"`;
+- **Annulla ripristina la meta nella posizione che aveva**, non in coda. La
+  posizione va conservata nel gesto: è la decisione che l'annullamento esiste per
+  proteggere.
+
+Se lo studente naviga altrove senza annullare, la rimozione è definitiva: nessuna
+coda persistita, nessun «cestino». Lo stato dell'annullamento vive **in memoria**,
+come la coda della sveglia di V5 (D‑V5.2): al ricaricamento non esiste.
+
+**Le orfane.** Riga marcata, testo esplicito, posizione conservata e pulsante di
+rimozione attivo. Il testo non accusa i dati e non promette il ritorno della meta.
+
+#### §6 — La rotta e il contratto di fuoco
+
+**Registrazione senza rompere i quattro tab.** `TAB_VALIDI` **non si allunga**:
+`dipingiTab()` mappa il nome su `#tab-${nome}` e una voce `"mete/scelte"` cercherebbe
+un pane inesistente. Nasce invece un registro separato:
+
+```js
+const ROTTE_PROFONDE = {
+  "mete/scelte": { tab: "mete", fuoco: "sezione-preferite" }
+};
+```
+
+`destDaHash()` di `app.js` passa a `puro.js` come `destinazioniValide` l'unione di
+`TAB_VALIDI` e delle chiavi di `ROTTE_PROFONDE`, e restituisce alla chiamante
+**la rotta canonica**, non più il solo tab. `vaiA()` risolve la rotta nel tab da
+dipingere. **`puro.js` non cambia**: sa già leggere due livelli più un ateneo.
+
+**`scriviHash()` va corretto o cancella la rotta.** Oggi scrive `#${tab}`. Deve
+comporre i segmenti effettivi: `#mete/scelte` e, **solo se l'ateneo era
+nell'hash in arrivo**, `#mete/scelte/<ateneo>`. Resta vera la decisione di V1:
+**l'ateneo nell'hash governa il caricamento e non si scrive mai in
+`erasmuswiz_ateneo`**. Toccare la nav Mete porta a `#mete` nudo, come oggi.
+
+**Il contratto di fuoco.** F1–F9 restano validi. La rotta profonda aggiunge una
+riga alla tabella per-rotta e **un'estensione dichiarata di F2**:
+
+> **F2‑bis — una rotta profonda porta il fuoco sul proprio blocco**, non sulla
+> `<section>` del tab. Il blocco riceve `tabindex="-1"` e `aria-labelledby` sul
+> titolo dell'elenco, che in V6a **esiste già** perché lo scrive `renderPreferite()`.
+> Nessun nodo nuovo oltre l'attributo.
+
+| Rotta | Il fuoco va su | Nome annunciato | Scroll |
+|---|---|---|---|
+| `#mete/scelte` e `#mete/scelte/<ateneo>` | il blocco dell'elenco | «Le tue preferite, in ordine di priorità» | al blocco, non in cima |
+
+**F8 non cambia**: nessun `<title>` nuovo, perché D‑V6.5 non crea una schermata.
+
+**Va provato anche ciò che NON deve essere intercettato**, ed è la trappola
+scritta in §9: `#learning-agreement/sapienza` e qualunque altra rotta a due
+livelli non registrata **devono continuare** a cadere su Oggi, e i quattro tab
+devono continuare a scrivere l'hash nudo.
+
+#### §7 — Il perimetro, alla lettera
+
+**Esce dal sito — quattro frasi, tutte oggi in produzione:**
+
+| Dove | Frase | Che fine fa |
+|---|---|---|
+| intestazione | `Le tue 5 scelte (n/5)` | sostituita |
+| elenco vuoto | «Massimo 5: l'ordine conta, sono le mete che **porterai alla riunione di assegnazione**» | sostituita |
+| suggerimento | «Puoi aggiungerne altre N… l'ordine conta **per la riunione di assegnazione**» | rimossa |
+| rifiuto sesta stella | «Il **bando ne ammette al massimo 5**. Rimuovi una meta…» | rimossa col tetto |
+
+**Entra — e vive in UN SOLO POSTO.** Un oggetto `COPY_SCELTE` immediatamente
+sopra la sezione dell'elenco in `app.js`, con **una chiave per frase**. Dopo V6a
+non esiste **nessun altro letterale** che nomini preferite, ordine o priorità in
+quella sezione: chi ne aggiunge uno rompe la regola di D‑V6.3.
+
+- riga sottile: **«3 preferite, in ordine di priorità · riordina →»**
+- elenco vuoto: «☆ Tocca la stellina su una meta per aggiungerla qui. L'ordine è
+  tuo: lo cambi quando vuoi.»
+- fatto storico (**solo** se `massimoDestinazioni` esiste): la frase di
+  `frasePassatoMassimo()`, al passato, con la fonte.
+- rimozione, annuncio, orfana: come in §5.
+
+**⛔ I divieti, verificabili.** In V6a nessun testo reso a schermo può contenere:
+- un totale che venga dal bando — `n di 5`, `n/5`, «restano 2» —, mentre **è
+  ammessa** la posizione in un elenco («posizione 2 di 7»);
+- un verbo di consegna al futuro o al presente: «invierai», «che invii»,
+  «porterai», «consegni», «riunione di assegnazione», «candidatura»;
+- la parola «schedina» a schermo. Resta come nome interno di `ZAINO.schedina` e
+  delle classi CSS, che non si rinominano (rinominarle sarebbe un refactor
+  travestito da copy).
+
+**Le altre voci del perimetro.**
+- **Ricerca sopra i filtri**: `#filtri-mete-chip` e `.cerca-mete-barra` si
+  scambiano in `index.html`. Zero logica. Va provato che i chip continuino a
+  filtrare e che il fuoco dei chip regga.
+- **Via il riquadro `#wizard-mete`** e il suo `initWizardMete()`. ⛔ **Restano
+  `applicaEsitoWizardMete()` e `chiudiWizardMete()`**: sono il contratto
+  condiviso con lo smistamento finale dell'entrata (`benvConcludiConEsito`), che
+  V5 ha già spento una volta per una sessione intera. Sparisce anche
+  **«✨ Ripensa le rotte»** e la variabile `_wizardMeteForzato`, che senza il
+  riquadro non hanno bersaglio.
+- **Ordine su telefono**: ricerca → filtri → elenco, con la mappa sotto. Solo
+  ordine dei blocchi, nessun pannello, nessuna modalità.
+- **`test/ui/router.spec.cjs` dichiara l'ordine dei blocchi del tab Mete**: le tre
+  voci qui sopra la fanno diventare rossa. **Si aggiorna nella spec, non si
+  aggiusta dopo il verde.**
+
+#### §8 — Le ancore (frammenti, non righe)
+
+I numeri di riga sono già morti due volte. Chi costruisce cerca **questi
+frammenti**, e se non li trova si ferma e lo dice:
+
+| Ancora | Frammento da cercare |
+|---|---|
+| ordine ↔ preferite | `function schedinaIds()` |
+| render dell'elenco | `function renderPreferite(msg)` |
+| lo scarto silenzioso delle orfane | `if (!meta) return;` dentro `renderPreferite` |
+| riordino | `function spostaSchedina(indice, direzione)` |
+| il tetto da togliere | `ZAINO.metePreferite.length >= 5` |
+| rimedio del fuoco da imitare | il blocco `indiceFuoco` in `renderMete()` |
+| contratto degli hash | `const TAB_VALIDI` e `function scriviHash(` |
+| lettura dell'hash | `function destDaHash(grezzo)` in `app.js` |
+| smistamento dell'entrata | `function applicaEsitoWizardMete(esito)` |
+| modello del dato | `finestraAttesa:` nei due `dati-bando.js` |
+
+**Non si tocca:** `js/atenei/*/dati-mete-*.js` (li riscrive l'automazione
+notturna) · `statoBando()` · `modoCiclo()` · `inPreBando()` ·
+`aggiornaModoEntrata()` · nessuna riga del motore della mappa (§9).
+
+#### §9 — Le trappole
+
+1. **Un ramo nuovo messo troppo in alto spegne i rami vecchi.** È il difetto di
+   V5, valeva per ogni studente da qui a dicembre. Vale qui per la rotta
+   profonda: **provare anche ciò che non deve essere intercettato** (§6).
+2. **Una regola CSS troppo generica spegne il router.** Lo scambio ricerca/filtri
+   e l'ordine su telefono toccano il tab Mete: verificare che la nav e le altre
+   rotte restino intatte a 390, 768 e 1280.
+3. **Ancore univoche NON BASTANO.** `js/app.js` è **CRLF**: una regex con `\n`
+   non trova nulla e `String.replace` non fallisce quando non trova — «mutato»
+   viene stampato e il codice resta intatto. Ogni mutazione dichiara **SHA‑256
+   prima, dopo la mutazione e dopo il ripristino**, e le tre devono essere
+   rispettivamente diverse, diverse, uguali.
+4. **La prova deve ricreare la condizione misurata.** In V5 la stessa prova è
+   stata verde tre volte per tre ragioni sbagliate: mutazione non applicata,
+   condizione non ricreata (saltare le lingue accorcia la pagina e il difetto
+   sparisce), misura presa **a scorrimento in volo**. Chi misura una posizione
+   aspetta che `scrollY` smetta di cambiare.
+5. **Il banco prestazionale è rosso 2 volte su 8** per un singolo campione
+   impazzito (167 ms contro un tetto di 150, gli altri a 20–29). Un rosso **si
+   riesegue prima di crederci**, e **la soglia non si alza**. V6a non tocca la
+   mappa: va verificato **sul diff**, non affermato.
+6. **Codex non può eseguire la suite UI** (~340 s contro il suo limite di 240):
+   le prove Playwright le **scrive** e non le esegue; le esegue il revisore. In
+   V5 è così che è uscito il difetto peggiore.
+
+#### §10 — Come si prova
+
+**Unitarie (`npm run test:unit`), su `puro.js`:**
+1. `massimoDestinazioniBando()` — campo presente e ben formato · campo assente
+   (Sapienza) → `{presente:false}` · valore non intero, negativo, zero · `stato`
+   fuori dai due ammessi. `frasePassatoMassimo()` → `null` quando assente.
+2. I‑V6.1 … I‑V6.5, **ciascuno con un caso che lo viola**.
+3. La migrazione vuota di §4, sui due zaini descritti, confronto sull'oggetto
+   intero.
+4. `destDaHash()` — `mete/scelte`, `mete/scelte/cafoscari`, `mete/scelte/sapienza`
+   registrate; **`learning-agreement/sapienza` ancora non registrata**; i quattro
+   tab e i tre alias invariati; hash sconosciuto invariato.
+5. Composizione dell'hash: quattro tab → hash nudo; rotta profonda con e senza
+   ateneo.
+
+**UI (`npm run test:ui`, Playwright), eseguite dal revisore:**
+6. `#mete/scelte/cafoscari` **a `localStorage` vuoto**: dataset giusto, elenco a
+   video, `document.activeElement` sul blocco, nessun errore di console.
+7. `#mete/scelte/sapienza` **con Ca' Foscari salvato in conflitto**: carica
+   Sapienza e **`erasmuswiz_ateneo` resta invariato**.
+8. Si stellano **più di 5** mete: nessun rifiuto, elenco lungo 6+, ordine
+   coerente, e sopravvive al ricaricamento.
+9. Riordino **da tastiera**: fuoco sul controllo spostato, annuncio letto dalla
+   regione `role="status"`, e i tre casi limite — primo, ultimo, movimento oltre
+   il bordo.
+10. Rimozione con annullamento: la riga «rimossa · Annulla» compare al posto
+    giusto, il fuoco è su Annulla, **Annulla ripristina la posizione**, e una
+    navigazione senza annullare rende la rimozione definitiva.
+11. Orfana: una meta il cui id non è più in `METE` **compare** marcata.
+12. Nessuna delle frasi vietate di §7 è presente nel DOM del tab Mete, a profilo
+    pieno e a profilo vuoto.
+13. Ordine dei blocchi del tab Mete aggiornato in `router.spec.cjs`, verificato a
+    390, 768 e 1280.
+
+**Mutazioni.** Ogni regola nuova ha una mutazione che la rende rossa, con le tre
+SHA‑256 di §9.3. Una prova che non diventa rossa non è una prova.
+
+**Banco.** `test/perf-mappa.cjs` rieseguito; un rosso si riesegue; la soglia resta.
+
+#### §11 — Criteri di uscita di V6a
+
+- **D‑V6a.1** Si stellano più di 5 mete e l'ordine sopravvive al ricaricamento.
+- **D‑V6a.2** Ogni invariante I‑V6.1…I‑V6.5 ha un caso di prova che lo viola.
+- **D‑V6a.3** Riordino da tastiera con fuoco conservato e spostamento annunciato.
+- **D‑V6a.4** La rimozione si annulla, da tastiera, e ripristina la posizione.
+- **D‑V6a.5** `#mete/scelte/<ateneo>` apre l'ateneo giusto a `localStorage` vuoto
+  **e** con un ateneo salvato in conflitto; le rotte non registrate cadono ancora
+  su Oggi.
+- **D‑V6a.6** ⛔ **Nessun testo che prometta una consegna**, con la verifica
+  automatica di §10.12. Le quattro frasi di §7 non esistono più.
+- **D‑V6a.7** Migrazione dimostrata vuota su uno zaino reale.
+- **D‑V6a.8** Nessun file `dati-mete-*` toccato, nessuna funzione congelata
+  modificata, nessuna riga di motore mappa nel diff.
+- **D‑V6a.9** Il sito **guardato**, con uno zaino vero e mete già stellate, a
+  390px e a 1280px. Le suite dicono che il codice fa ciò che la prova chiede, non
+  che il prodotto dica allo studente la verità.
+
+### V6b — La schedina ufficiale (dopo G2)
+
+Non si costruisce adesso e non si specifica adesso: senza i dati 2027/28 il
+limite verrebbe dal bando vecchio.
+
+> ⚠️ **Perché V6b non può anticipare.** A novembre il massimo di Ca' Foscari
+> verrebbe ancora dal bando **2026/27**: un numero valorizzato ma **storico**, che
+> il controllo «limite ignoto → disattiva» non intercetta, perché il limite
+> *c'è*. Per questo `stato: "storico"` esiste già nel dato (§2) e per questo in
+> V6a non vincola nulla.
+
+Quando G2 sarà passato, V6b: promuove `stato` a `"vigente"` modificando **solo**
+`dati-bando.js` · accende il tetto e I‑V6.4 (eccedenza mostrata, **mai** troncata)
+· introduce il secondo gesto (la casella) e con esso la seconda lista vera ·
+disattiva la schedina con la spiegazione dove il campo manca — **è il caso reale
+della Sapienza** (*«il numero di destinazioni del bando Sapienza non è ancora
+verificato: intanto raccogli quelle che ti interessano»*) · e **solo qui** compare
+il copy «le 5 che invii».
+
+### V6c — L'interruttore elenco↔mappa (fase sua, dopo V6a)
+
+Rinviata con D‑V6.7, **con la misura già fatta perché la prossima sessione non
+riparta da capo**: i pin sono già interattivi (un pin con una sola meta apre la
+scheda, un pin raggruppato apre l'elenco), e la mappa è già sincronizzata con
+ricerca e filtri con un solo render (R3.2). **Non manca l'interazione: manca una
+modalità** — mappa a piena altezza su telefono e un interruttore elenco↔mappa,
+in stile Booking. Vincolo da rispettare quando si aprirà: è l'unica parte del
+sito con il banco prestazionale instabile al tetto, quindi la fase nasce con un
+budget dichiarato e prove a tre viewport.
 
 ### V7 — Learning Agreement libero (gennaio – febbraio 2027)
 
