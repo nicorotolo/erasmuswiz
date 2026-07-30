@@ -21,7 +21,7 @@
 
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-07-29 — Claude Code (sessione V5).
+**Ultimo aggiornamento:** 2026-07-30 — Claude Code (sessione V5, iniziata la sera del 29/07 e chiusa il mattino dopo: il commit `f688a6b` porta la data del 30).
 
 **(SESSIONE 2026-07-29 QUATER — V5 RETENTION: SPEC CONGELATA, COSTRUITA,
 RIVISTA. Nel working tree, in attesa delle due prove di Nicola.)** Prima
