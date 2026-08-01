@@ -21,7 +21,37 @@
 
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-07-30 — Claude Code (sessione V5, iniziata la sera del 29/07 e chiusa il mattino dopo: il commit `f688a6b` porta la data del 30).
+**Ultimo aggiornamento:** 2026-08-01 — Claude Code (sessione fuori cantiere:
+**Salento Quest**, un mini-progetto a sé nella cartella `salento/`).
+
+**(SESSIONE 2026-08-01 — SALENTO QUEST. Fuori dal cantiere ErasmusWiz: non
+tocca una riga del sito.)** Richiesta di Nicola: una mappa-gioco pixelata delle
+tappe di un viaggio in Salento (partenza da Roma, base a Torre Pali), da mandare
+agli amici su WhatsApp come link. Prima è stata installata la skill di progetto
+`/grill-me` (in `.claude/skills/`, non esisteva nel marketplace), poi usata per
+fissare i requisiti in due giri di domande.
+
+**Cosa è stato costruito.** `salento/` — sito statico indipendente, mobile-first,
+pubblicato sullo stesso GitHub Pages all'indirizzo `/erasmuswiz/salento/`. La
+mappa **non è un'immagine**: la costa del Salento è un elenco di punti lat/lon in
+`js/mappa.js`, il terreno viene rasterizzato a caselle e disegnato su canvas, e
+le 20 tappe si posizionano da sole dalle loro coordinate vere. Sette giornate
+con un colore ciascuna, sentiero puntinato colorato per giornata, casetta del
+quartier generale, omino scelto al primo avvio che resta sull'ultima tappa
+fatta. Scheda per tappa (cosa si fa, consiglio locale, colonna sonora) con
+effetto macchina da scrivere, spunta «fatta», foto e sette badge.
+
+**Due scelte tecniche che vale la pena ricordare.** (1) I segnaposti troppo
+vicini (Gallipoli e Baia Verde distano due chilometri) vengono allontanati da un
+piccolo passaggio di separazione a schermo, con uno scarto massimo di 22px per
+non mentire sulla posizione. (2) **Le foto stanno in IndexedDB, non in
+localStorage**: il dominio è lo stesso di ErasmusWiz e i due si dividerebbero
+gli stessi ~5MB — nello zaino `salento_quest_v1` resta solo il conteggio.
+
+Verificato con Chromium headless a 390×844: nessun errore in console, foto
+compressa da 1600px a 16KB, progressi e foto ritrovati dopo il ricaricamento.
+
+**Ultimo aggiornamento precedente:** 2026-07-30 — Claude Code (sessione V5, iniziata la sera del 29/07 e chiusa il mattino dopo: il commit `f688a6b` porta la data del 30).
 
 **(SESSIONE 2026-07-29 QUATER — V5 RETENTION: SPEC CONGELATA, COSTRUITA,
 RIVISTA. Nel working tree, in attesa delle due prove di Nicola.)** Prima
@@ -4029,6 +4059,8 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 | `fonti/caso-bruno/` | **fonti (PRIVATE, mai su GitHub)** | Percorso Erasmus reale di Bruno: `DOSSIER_CASO_BRUNO.md` (ground truth strutturata), `LISTA_MATERIALI_BRUNO.md` (materiali da consegnare + mail ufficio Erasmus), pagina Relint (MD+video), INFORMAZIONI GENERALI 25/26, certificati e polizze |
 | `BRIEF_claude_code_fase1.md` | guida | Brief iniziale Fase 1 (storico) |
 | `DISEGNO_DATI_erasmus.md` | guida | Struttura dati validata + logica compatibilità |
+| `salento/` | **progetto a sé** | **Salento Quest** (01/08): mappa-gioco pixelata del viaggio in Salento, sito statico indipendente pubblicato su `/erasmuswiz/salento/`. Non condivide codice, CSS né dati con ErasmusWiz: sta qui solo per la pubblicazione. Tutte le tappe si cambiano in `salento/js/dati-tappe.js`; istruzioni in `salento/README.md` |
+| `.claude/skills/grill-me/` | skill | **Skill di progetto `/grill-me`** (01/08): interroga con domande mirate (`AskUserQuestion`) prima di costruire, fino a una specifica breve con le assunzioni. `.gitignore` ora ignora `.claude/*` **tranne** `.claude/skills/`, così le skill restano versionate e le impostazioni locali no |
 
 ## 5. LOGICA DI COMPATIBILITÀ (già implementata)
 
@@ -4182,6 +4214,19 @@ python -m http.server 8001
 poi aprire **http://localhost:8001**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
+
+### Salento Quest (progetto a sé, cartella `salento/`)
+
+Struttura finita e online. Restano solo cose da riempire, non da costruire:
+
+1. **Decidere le tappe vere** e sostituirle in `salento/js/dati-tappe.js`. Le 20
+   attuali sono posti veri con coordinate vere, ma sono un'impalcatura: vanno
+   cambiate quando il programma è deciso. Nessun'altra riga da toccare.
+2. **Rigenerare `salento/img/anteprima.png`** (l'immagine che WhatsApp mostra
+   sul link) dopo aver cambiato le tappe: `salento/_cover.html`.
+3. **Se un giorno servissero progressi condivisi** fra gli amici — oggi ognuno
+   ha la sua partita sul suo telefono — serve un servizio esterno tipo Firebase
+   e il sito smette di essere statico. Decisione di Nicola, non fatta.
 
 ### Cantiere SITO (Claude Code) — numerazione 49→61
 
