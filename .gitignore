@@ -9,7 +9,8 @@ fonti/*
 !fonti/INDICE.md
 
 # File di lavoro locali
-.claude/
+.claude/*
+!.claude/skills/
 *.txt
 
 # Pipeline mappatura: file effimeri (INPUT/OUTPUT/bozza Gemini). Le FONTI-*.json si committano.
