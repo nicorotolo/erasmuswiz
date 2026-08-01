@@ -31,8 +31,12 @@ agli amici su WhatsApp come link. Prima è stata installata la skill di progetto
 `/grill-me` (in `.claude/skills/`, non esisteva nel marketplace), poi usata per
 fissare i requisiti in due giri di domande.
 
-**Cosa è stato costruito.** `salento/` — sito statico indipendente, mobile-first,
-pubblicato sullo stesso GitHub Pages all'indirizzo `/erasmuswiz/salento/`. La
+**Dove è finito.** Costruito qui in `salento/`, poi **spostato in una repository
+sua** (`nicorotolo/salento-quest`) sempre nella stessa sessione, su richiesta di
+Nicola. Da questo repo è stato rimosso: quanto segue resta come storia.
+
+**Cosa è stato costruito.** Sito statico indipendente, mobile-first, pubblicato
+su GitHub Pages. La
 mappa **non è un'immagine**: la costa del Salento è un elenco di punti lat/lon in
 `js/mappa.js`, il terreno viene rasterizzato a caselle e disegnato su canvas, e
 le 20 tappe si posizionano da sole dalle loro coordinate vere. Sette giornate
@@ -4059,7 +4063,7 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 | `fonti/caso-bruno/` | **fonti (PRIVATE, mai su GitHub)** | Percorso Erasmus reale di Bruno: `DOSSIER_CASO_BRUNO.md` (ground truth strutturata), `LISTA_MATERIALI_BRUNO.md` (materiali da consegnare + mail ufficio Erasmus), pagina Relint (MD+video), INFORMAZIONI GENERALI 25/26, certificati e polizze |
 | `BRIEF_claude_code_fase1.md` | guida | Brief iniziale Fase 1 (storico) |
 | `DISEGNO_DATI_erasmus.md` | guida | Struttura dati validata + logica compatibilità |
-| `salento/` | **progetto a sé** | **Salento Quest** (01/08): mappa-gioco pixelata del viaggio in Salento, sito statico indipendente pubblicato su `/erasmuswiz/salento/`. Non condivide codice, CSS né dati con ErasmusWiz: sta qui solo per la pubblicazione. Tutte le tappe si cambiano in `salento/js/dati-tappe.js`; istruzioni in `salento/README.md` |
+| ~~`salento/`~~ | **spostato fuori** | **Salento Quest** (01/08): mappa-gioco pixelata di un viaggio in Salento. Nato qui, **spostato subito in una repository sua** su richiesta di Nicola: `github.com/nicorotolo/salento-quest`, online su `nicorotolo.github.io/salento-quest/`. In questo repo non c'è più nulla: resta solo nella storia del branch `claude/salento-trip-interactive-map-xdbkmp`. Nota per il futuro: repository separate **non** vuol dire storage separato — su GitHub Pages tutti i progetti stanno su `nicorotolo.github.io` e `localStorage` è per dominio |
 | `.claude/skills/grill-me/` | skill | **Skill di progetto `/grill-me`** (01/08): interroga con domande mirate (`AskUserQuestion`) prima di costruire, fino a una specifica breve con le assunzioni. `.gitignore` ora ignora `.claude/*` **tranne** `.claude/skills/`, così le skill restano versionate e le impostazioni locali no |
 
 ## 5. LOGICA DI COMPATIBILITÀ (già implementata)
@@ -4215,18 +4219,11 @@ poi aprire **http://localhost:8001**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
 
-### Salento Quest (progetto a sé, cartella `salento/`)
+### Salento Quest — SPOSTATO, non si lavora più da qui
 
-Struttura finita e online. Restano solo cose da riempire, non da costruire:
-
-1. **Decidere le tappe vere** e sostituirle in `salento/js/dati-tappe.js`. Le 20
-   attuali sono posti veri con coordinate vere, ma sono un'impalcatura: vanno
-   cambiate quando il programma è deciso. Nessun'altra riga da toccare.
-2. **Rigenerare `salento/img/anteprima.png`** (l'immagine che WhatsApp mostra
-   sul link) dopo aver cambiato le tappe: `salento/_cover.html`.
-3. **Se un giorno servissero progressi condivisi** fra gli amici — oggi ognuno
-   ha la sua partita sul suo telefono — serve un servizio esterno tipo Firebase
-   e il sito smette di essere statico. Decisione di Nicola, non fatta.
+Il progetto vive in `github.com/nicorotolo/salento-quest`. I suoi prossimi passi
+(scegliere le tappe vere, rigenerare l'anteprima, abilitare Pages) stanno nel
+README di quella repository, non qui.
 
 ### Cantiere SITO (Claude Code) — numerazione 49→61
 
