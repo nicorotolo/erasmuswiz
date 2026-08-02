@@ -21,7 +21,82 @@
 
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-07-30 — Claude Code (sessione V5, iniziata la sera del 29/07 e chiusa il mattino dopo: il commit `f688a6b` porta la data del 30).
+**Ultimo aggiornamento:** 2026-07-30 — Claude Code (sessione V6a: spec congelata `596574c`, build e revisione `3d86900`, **online**).
+
+**(SESSIONE 2026-07-30 — V6a LA LISTA DELLE METE: SPEC CONGELATA,
+COSTRUITA, RIVISTA E ONLINE.)** Prima `596574c`: §V6 riscritta come
+**specifica congelabile** (da 70 a ~460 righe), con **otto** decisioni prese
+da Nicola dopo misura. Poi `3d86900`: build delegato a Codex `gpt-5.6-sol`
+con `/codex-build`, un giro di correzione delegato, revisione e prove del
+revisore. **126/126 unit (zero skip, erano 112) + 58/58 UI (erano 48)**,
+banco mappa verde al primo giro.
+
+**Cosa fa ora il sito che prima non faceva.** Le mete salvate non hanno più
+un tetto: se ne stellano quante si vuole. L'elenco si riordina **anche solo
+da tastiera**, senza perdere il fuoco e annunciando lo spostamento a chi usa
+uno screen reader. Togliere una stella per sbaglio non distrugge più una
+decisione: al posto della riga compare «rimossa · **Annulla**», senza timer,
+e l'annullamento rimette la meta **nella posizione che aveva**. L'indirizzo
+`#mete/scelte/<ateneo>` è registrato: funziona a freddo, si condivide e
+carica l'ateneo giusto anche a chi ne ha un altro salvato.
+
+> ⛔ **La misura che ha giustificato la sessione: il divieto di V6a era già
+> violato dal sito ONLINE.** La schedina prometteva una consegna in **quattro**
+> punti — «Le tue 5 scelte (n/5)», «le mete che **porterai alla riunione di
+> assegnazione**», «l'ordine conta **per la riunione di assegnazione**», «il
+> **bando ne ammette al massimo 5**» — con un numero preso dal bando 2026/27,
+> che non è più attuale. **V6a non aggiunge una riga sottile: toglie una
+> promessa.** Codex ne ha trovata una **quinta** che la spec non aveva
+> catalogato. Ora una prova automatica le tiene fuori, a profilo pieno e vuoto.
+
+**Le otto decisioni.** **D‑V6.1** una lista sola, illimitata e ordinabile: la
+stella raccoglie e la meta compare subito in fondo all'elenco — prima di G2 un
+secondo gesto chiederebbe una decisione su niente. **D‑V6.2**
+`massimoDestinazioni` nasce nei dati (valore, ciclo, citazione, fonte, stato)
+e **non vincola nulla** in V6a; **assenza del campo = silenzio**, che è il caso
+reale della Sapienza. **D‑V6.3** il nome: «preferite» per la raccolta, «in
+ordine di priorità» per l'elenco — **scelta di Nicola contro la
+raccomandazione di Claude**, con la contropartita scritta come vincolo di
+codice (mai accanto a un totale del bando, mai accanto a un verbo di
+consegna). **D‑V6.4** la rimozione si annulla in loco, senza timer, col fuoco
+sull'Annulla. **D‑V6.5** la rotta è registrata **dentro** il tab Mete, non è
+una schermata nuova. **D‑V6.6** il perimetro di «Altro» alla lettera.
+**D‑V6.7** l'interruttore elenco↔mappa è **fase sua** (V6c). **D‑V6.8** gli
+invarianti nascono in `puro.js` e si provano prima della UI.
+
+**I due difetti di prodotto trovati in revisione, che le suite verdi non
+vedevano.** Il primo: **le frecce di bordo dirottavano il tasto**. Spostando
+una meta in fondo, il fuoco atterrava su ▲ invece che su ▼ — chi usa la
+tastiera premeva Invio credendo di scendere e la meta **risaliva**. Perdere il
+fuoco era il difetto da chiudere; questo era peggio, perché il fuoco c'era ma
+su un altro comando. E un bottone `disabled` non riceve il fuoco, quindi il
+tasto arriva a chi il fuoco ce l'ha ancora: da qui l'ordine che si rimescolava
+da solo nella prova. Rimedio: `aria-disabled`, e via il ramo di ripiego. Il
+secondo: **l'annuncio non annunciava**. La regione `role="status"` viveva
+dentro il nodo che `renderPreferite()` azzera, quindi veniva distrutta e
+ricreata **già piena di testo** a ogni spostamento — forma che gli screen
+reader non leggono in modo affidabile. La prova la vedeva nel DOM; la persona
+cieca non sentiva niente. Ora è permanente in `index.html`.
+
+> ⛔ **Delle cinque prove rosse, TRE erano sbagliate le prove.** L'impalcatura
+> Playwright usava `addInitScript` con `localStorage.clear()`, che rigira a
+> ogni navigazione e quindi anche al `reload()`: **cancellava lo zaino che
+> doveva verificare**. È la lezione di V3 in versione speculare — allora una
+> prova era verde a vuoto, qui era rossa a vuoto. L'ordine dei blocchi
+> misurava `#filtri-mete-chip` **senza profilo**, cioè un elemento non
+> disegnato. E una prova V3 cercava «Ripensa le rotte», tolto per decisione
+> presa. Una **quarta, verde, non provava più niente**: `not.toBeVisible()` su
+> un elemento rimosso passa sempre.
+
+> ✏️ **Due correzioni del revisore a sé stesso.** La riga sottile diceva
+> «· riordina →» — errore **della spec**, non dell'esecutore: nel piano quella
+> freccia puntava a una schermata separata che D‑V6.5 ha tolto, e a schermo
+> era uno `<span>` non cliccabile che prometteva un comando inesistente.
+> Nessuna prova poteva vederlo. E l'annuncio, misurato nel riquadro del
+> browser di sessione, risultava sempre vuoto: **`requestAnimationFrame` non
+> scatta lì**, perché quel riquadro non compone fotogrammi. La prova valida è
+> quella Playwright, eseguita dal revisore. In V5 lo stesso genere di errore
+> aveva fatto *inventare* un difetto.
 
 **(SESSIONE 2026-07-29 QUATER — V5 RETENTION: SPEC CONGELATA, COSTRUITA,
 RIVISTA. Nel working tree, in attesa delle due prove di Nicola.)** Prima
@@ -3883,6 +3958,7 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **REDESIGN v3 — V4: Home «Adesso» + stato pre-bando** | `modoCiclo()` puro + lettore unico `inPreBando()`; 19 punti storicizzati senza cancellare contenuti; Home ridotta all'inventario ammesso; checklist post-selezione con denominatore personale, avvertenze senza checkbox, opzioni fuori conteggio; due risposte profilo a tre valori | ✅ **Implementata e verificata nel working tree** (2026-07-29). G1 superato: T5 senza skip, 19 asserzioni DOM, mutazione #9 rossa e ripristino verde. Review bis: saluto personalizzato e invito al profilo in pre-bando coperti da due nuove prove, entrambe verificate per mutazione; codice morto della vecchia mappa Home rimosso. 90/90 unit + 33/33 UI; baseline esistente invariata |
 | **REDESIGN v3 — V3: Entrata a tutta pagina** | Scena a tutta pagina (velo + claim + **un solo** bottone, zero scorrimento a 390×844), poi quattro passi — P1 porta d'ingresso · P2 ateneo · P3 dipartimento+livello · P4 lingue — più la schermata di esito che smista alle Mete. La mappa reagisce a ogni risposta: si centra, filtra, poi colora per compatibilità con **forma oltre che colore**, con legenda. I pin escono dall'ordine di Tab **dentro l'entrata** (nelle Mete restano attraversabili). Cambio ateneo: resta il `location.reload()`, e lo stato dell'entrata vive in una chiave di `sessionStorage` — **mai nello zaino**, che è per-ateneo: una risposta data prima di scegliere l'ateneo finirebbe nello zaino sbagliato. La domanda «hai già in mente le mete?» si pone una volta sola (`wizardMete`). Tre ottimizzazioni della mappa a comportamento invariato, con le invarianti I1–I8 verificate prima e dopo. Banco prestazionale `test/perf-mappa.cjs` (`npm run test:perf`) | ✅ **Implementata, revisionata e online** (`6ed11a5`, 2026-07-29) — spec congelata prima di delegare (`cda51f6`), costruita da Codex `gpt-5.6-sol` con `/codex-build` in due giri, entrambi fermati dal limite di 240 s per comando (la suite UI dura 5,7 min), poi finita dal revisore. **90/90 unit + 40/40 UI** (+7 nuove, ognuna verificata per mutazione). ⚠︎ **Dichiarato**: la griglia a celle è una **pessimizzazione misurata** — rende il raggruppamento **1,84–2,53× più lento** della ricerca lineare che sostituisce, perché con 385 città e ~44 gruppi scorrere 44 elementi costa meno che indicizzare una griglia — ed è tenuta per decisione di Nicola in previsione di più atenei: `PEGGIORAMENTO_MAX_CLUSTER = 3.0` nel banco è la forma scritta di quella scelta. ⚠︎ **Il banco non giudica il disegno**: a codice invariato il rapporto va da 0,61× a 1,68×, quindi sotto ±40% non discrimina; il disegno resta sorvegliato dalle invarianti I1–I3, che sono deterministiche. Nessun file dati toccato, nessuna funzione congelata da V0/V4 modificata |
 | **REDESIGN v3 — V5: Retention** | Sveglia calendario sul bando atteso nella coda dell'entrata e nella Home; `.ics` unico con UID stabili, due allarmi e provenienza; invito PWA per piattaforma; compatibilità senza penalità per certificato non ancora posseduto; conteggi entrata coerenti | ✅ **Implementata e corretta dopo la prima review UI** (2026-07-29). Regressione dello smistamento V3 chiusa; invito PWA reso persistente in pagina; documenti di prova 43/135. 111/111 unit e `test:perf` verde; 7 prove Playwright attendono il revisore. ⚠︎ Conteggi verdi reali 182/600 anziché 184/643: i file mete sono vietati e le radici presunte restano prudentemente non verdi |
+| **REDESIGN v3 — V6a: la lista delle mete** | Una lista sola, illimitata e ordinabile: via il tetto di 5 e via le quattro promesse di consegna che erano a schermo. `BANDO_INFO.massimoDestinazioni` nasce nei dati con fonte e stato `storico` e **non vincola nulla** (assenza = silenzio: Sapienza tace). Riordino con fuoco conservato e spostamento annunciato; rimozione annullabile in loco senza timer, con la posizione ripristinata; mete sparite dai dati mostrate come **orfane** invece che scartate in silenzio. Rotta `#mete/scelte/<ateneo>` registrata dentro il tab Mete via `ROTTE_PROFONDE`, con `scriviHash()` che non cancella più sotto-segmento e ateneo. Cinque invarianti puri in `puro.js`, provati **prima** della UI. Ricerca sopra i filtri, riquadro wizard rimosso (ma `applicaEsitoWizardMete()` conservato: è lo smistamento dell'entrata), mappa in fondo su telefono | ✅ **Implementata, revisionata e ONLINE** (`3d86900`, 2026-07-30) — spec congelata prima di delegare (`596574c`), costruita da Codex `gpt-5.6-sol` con `/codex-build`, un giro di correzione, revisione del revisore. **126/126 unit (zero skip) + 58/58 UI**, banco mappa verde al primo giro (cluster 2,25× contro 3,00× ammesso). **Due difetti di prodotto chiusi in revisione**: le frecce di bordo che dirottavano il tasto su un altro comando, e la regione di annuncio distrutta e ricreata a ogni render (la prova la vedeva, lo screen reader no). **Tre delle cinque prove rosse erano sbagliate le prove**, non il codice. Nessuna riga di motore mappa, nessuna funzione congelata, nessun `dati-mete-*` |
 | **A11y — fuoco sui filtri delle Mete** | Il punto 1 delle cose trovate fuori checklist in F4. `renderMete()` ricostruisce `#filtri-mete-chip`: il chip a fuoco veniva distrutto e il fuoco cadeva su `<body>`, così da tastiera il Tab ripartiva dall'inizio della pagina. Ora prima del re-render si registra l'**indice** del chip a fuoco (solo se `document.activeElement` è davvero un `.chip-filtro` di quel contenitore) e dopo lo si ridà al nodo nuovo con `focus({ preventScroll: true })`. Indice e non un `data-filtro` nuovo: i 5 chip sono una lista fissa, e l'attributo renderebbe bugiardo il commento R21 poche righe sotto. Solo `js/app.js`; `index.html` e `css/style.css` intatti | ✅ Fatta e verificata (2026-07-26) — nel browser sulla 8123: fuoco sul chip corrispondente invece che su `BODY`, **Tab reale successivo → chip seguente**, scroll invariato, col mouse `:focus-visible = false` (nessun anello), fuoco in `#cerca-mete` non rubato, nessuna eccezione senza profilo. ⚠︎ L'Invio da tastiera non è confermabile con l'automazione (stesso limite del punto 5 di F4): attivazione riprodotta con `chip.click()`, Tab reali |
 
 **Nav (R3, definitiva — gate R1 chiuso):** Mete → **Home** (centrale su
@@ -3942,13 +4018,16 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 | `design/redesign-2026-07/` | doc/asset | **Creata in F0 (25/07)**: il canvas `Redesign ErasmusWiz.dc.html` + `support.js` + `redesign-erasmuswiz.html` + `img/` + `uploads/` (escl. `_ds/`). È la fonte-di-verità del redesign — verificata: renderizza, `uploads/style.css` è byte-identico a `css/style.css` |
 | `design/redesign-2026-07/baseline/` | doc | **F0 (25/07)**: `probe-invarianti.js` (misura le 6 invarianti R29 + inventario touch R12 dal DOM, riusabile a F3/F4 con `__confronta`) e `README.md` (la "lista prima": invarianti verdi, touch <44px = 145/173/176 per viewport) |
 | `design/redesign-2026-07/GATE2-revisione-guidata.md` | doc | ⚠︎ **STORICO — mai eseguito fino in fondo.** Il 27/07 la revisione è stata interrotta alla prima schermata e assorbita in v3 (vedi `PLAN_REDESIGN_V3.md`). **Creato il 26/07**: il copione della revisione d'insieme rimandata da Nicola. Preparazione (server + stato di prova + le 3 larghezze), cosa NON riguardare perché già misurato, le **4 decisioni aperte** con raccomandazione e costo di ciascuna (`--fs-hero`, i 9 filetti di stato, oro→indaco, le emoji), il giro dei 4 tab × 3 larghezze con 3 domande a tab, tabella dei verdetti. Pensato per essere eseguito **guidati da Claude** in una chat nuova |
-| `index.html` | codice | Struttura v2. **V1:** le 4 section del contratto hanno `tabindex="-1"` e `aria-labelledby`, senza nodi o testi nuovi. **V2:** sei stazioni rinumerate, ponte Mete sempre visibile, toggle a tre porte, contenitore `#attesa-info`, caricamento esplicito di `js/puro.js`. **V4:** Home ripulita secondo l'inventario «Adesso»; aggiunte al form le due domande `extraUE` e `ricercaTesi`. **V3:** stepper a 4 voci e legenda forme/compatibilità dell'entrata |
+| `index.html` | codice | Struttura v2. **V1:** le 4 section del contratto hanno `tabindex="-1"` e `aria-labelledby`, senza nodi o testi nuovi. **V2:** sei stazioni rinumerate, ponte Mete sempre visibile, toggle a tre porte, contenitore `#attesa-info`, caricamento esplicito di `js/puro.js`. **V4:** Home ripulita secondo l'inventario «Adesso»; aggiunte al form le due domande `extraUE` e `ricercaTesi`. **V3:** stepper a 4 voci e legenda forme/compatibilità dell'entrata. **V6a:** riquadro `#wizard-mete` rimosso, ricerca spostata sopra i filtri, `#sezione-preferite` con `tabindex="-1"` e `aria-labelledby`, e la regione di annuncio permanente `#annunci-scelte` **fuori** dal blocco che si ricostruisce |
 | `css/style.css` | codice | Design system responsive. **V4:** cartellini di ciclo, motivazione `.ics` disabilitata, riquadri «Da sapere prima»/«Se ti riguarda», invito profilo e Home 390×844 con sola tappa corrente. **Review V4:** rimossi soltanto i selettori orfani della card mappa Home; `.mappa-compatta` e gli stili della mappa Mete restano. **V3:** scena a tutta pagina (mobile a un piano, desktop velo a sinistra e mappa a destra), forme dei pin, legenda |
-| `js/app.js` | codice | Logica v2. **V1–V4:** router, entrata, Home e stato pre-bando. `statoBando()` è rimasta intatta. **V3:** `aggiornaModoEntrata()` unico scrittore di `modo-entrata`. **V5:** coda transitoria della sveglia, offerta Home, download calendario completo, invito PWA per dispositivo, avviso certificato e conteggio coerente; il rinvio installazione usa una chiave propria, fuori dallo zaino |
-| `js/puro.js` | codice puro | **V0–V4:** motore lingua, router, migrazione zaino e `modoCiclo()`. **V5:** finestra attesa, generazione `.ics`, matrice invito installazione e avviso certificato; nessun accesso a DOM, storage o orologio globale |
+| `js/app.js` | codice | Logica v2. **V1–V4:** router, entrata, Home e stato pre-bando. `statoBando()` è rimasta intatta. **V3:** `aggiornaModoEntrata()` unico scrittore di `modo-entrata`. **V5:** coda transitoria della sveglia, offerta Home, download calendario completo, invito PWA per dispositivo, avviso certificato e conteggio coerente; il rinvio installazione usa una chiave propria, fuori dallo zaino. **V6a:** `COPY_SCELTE` (il copy della lista in un posto solo), lista senza tetto, riordino con fuoco e annuncio, annullamento della rimozione, orfane mostrate, registro `ROTTE_PROFONDE` e `scriviHash()` che compone i segmenti. `sincronizzaDaUrl({primoAvvio:true})` si è spostato in fondo a `init()` — **scostamento dichiarato**: una rotta profonda deve trovare il blocco già dipinto |
+| `js/puro.js` | codice puro | **V0–V4:** motore lingua, router, migrazione zaino e `modoCiclo()`. **V5:** finestra attesa, generazione `.ics`, matrice invito installazione e avviso certificato; nessun accesso a DOM, storage o orologio globale. **V6a:** `massimoDestinazioniBando()` e `frasePassatoMassimo()` (sul modello di `finestraAttesa`), i cinque invarianti I‑V6.1…I‑V6.5 e `componiHash()`. `normalizzaZainoV3()` applica ora l'invariante del sottoinsieme al caricamento — **scostamento dichiarato** rispetto a §4 della spec |
 | `package.json` · `package-lock.json` | test/infra | Dipendenze fissate (`jsdom@22.1.0`, `@playwright/test@1.62.0`) e comandi distinti. **V1:** `test:ui` esegue Playwright; `test:a11y` e `test:visual` restano segnaposto V2/V3. **V3:** aggiunto `test:perf`, senza dipendenze nuove; `test:a11y` e `test:visual` restano i segnaposto dichiarati che sono |
 | `test/compatibilita-lingua.test.cjs` · `test/pipeline-lingue.test.mjs` · `test/onboarding-lingue.test.cjs` | test | **V0 (27/07)**: i 10 casi golden, icone effettive per i casi che parlano di colore, assenza posti nel ramo condizionato, precedenza `rootPresunta`, tabella ANY/ALL, pipeline, prova jsdom di Italiano C2 e banner di dettaglio; `node --test`, uscita non zero su errore |
-| `test/router.test.cjs` | test unitario | **V1:** 5 prove pure su hash nudi/alias, Learning Agreement con ateneo, due livelli futuri e input malformati |
+| `test/router.test.cjs` | test unitario | **V1:** 5 prove pure su hash nudi/alias, Learning Agreement con ateneo, due livelli futuri e input malformati. **V6a:** registrazione di `mete/scelte` e composizione dell'hash con e senza ateneo, più la verifica che le rotte a due livelli **non** registrate continuino a cadere su Oggi |
+| `test/v6a-scelte.test.cjs` | test unitario | **V6a (nuovo, 215 righe):** dato storico presente/assente e malformato, i cinque invarianti **ciascuno con un caso che lo viola**, migrazione vuota confrontata sull'oggetto intero, e le tre prove nate dalla revisione (bordi focalizzabili col fuoco che non cambia comando · regione annunci permanente · la prova V3 che verifica lo stato e non il riquadro rimosso) |
+| `test/ui/v6a-scelte.spec.cjs` | test UI | **V6a (nuovo, 281 righe):** 10 prove Playwright — rotta a freddo e con ateneo in conflitto, più di 5 stelle che sopravvivono al ricaricamento, riordino da tastiera con fuoco/annuncio/bordi, annullamento con posizione ripristinata, orfana visibile, **copy vietato assente a profilo pieno e vuoto**, ordine dei blocchi misurato **geometricamente** a 390/768/1280, hash nudi e rotte non intercettate. Scritte da Codex, **corrette e tutte eseguite dal revisore** |
+| `design/redesign-2026-07/baseline/probe-invarianti.js` | test/baseline | **F0**; **V6a:** la rilevazione «testo tagliato» esclude ora gli elementi nascosti con la tecnica visually-hidden, riconosciuti **dalla geometria e dagli stili effettivi** e non da un nome di classe. Guardia aggiornata, non allentata: le altre cinque invarianti restano intatte |
 | `test/perf-mappa.cjs` | test/performance | **V3 (nuovo)**: banco Chromium 390×844 con CPU rallentata 4×, dataset Sapienza integrale, contenitore a larghezza **dichiarata** (340px). Misura vecchio e nuovo algoritmo **alternati nella stessa esecuzione**, mediane su 41 giri: il giudizio è **relativo**, perché la soglia assoluta misurava il computer (7 esecuzioni dello stesso codice: da 3,8 a 73,5 ms). Confronta automaticamente le invarianti I1–I3 e si ferma senza uccidere nessuno se la porta 8123 è occupata |
 | `test/ui/v3-entrata.spec.cjs` | test UI | **V3 (nuovo)**: 7 prove — tastiera che completa P1→P4→E senza attraversare i pin; ripresa dal cambio ateneo più i 4 casi sporchi (chiave assente, JSON illeggibile, passo fuori intervallo, porta sconosciuta); entrata non rivista; `wizardMete` chiuso, rilanciabile, e **non rivisto da chi abbandona l'esito**; invarianti I4–I8 delle Mete. Tutte verificate per mutazione |
 | `playwright.config.cjs` | test/infra | **V1:** un solo progetto Chromium, un worker e `webServer` sulla 8123 con `reuseExistingServer:false` |
@@ -4068,6 +4147,16 @@ non coincidono con i 184/643 scritti nella specifica congelata.
 Il promemoria sul certificato rileva senza giudicare sia la parola
 «certificato» sia i nomi delle prove di livello: copertura misurata
 **43 mete Ca' Foscari e 135 Sapienza**.
+
+**V6a aggiunge un solo fatto ai contenuti, e ne toglie cinque.** Ca' Foscari
+dichiara in `dati-bando.js` che il bando 2026/27 ammetteva al massimo 5
+destinazioni (Art. 7 c. 4), con `stato: "storico"`: **non limita, non conta,
+non colora e non tronca niente**, e compare solo come frase al passato con la
+fonte. **Alla Sapienza il campo non esiste** — non `null`, non `0`: assente,
+perché la prova non c'è e un campo vuoto inviterebbe qualcuno a riempirlo con
+un default. Tolte invece le cinque frasi che promettevano una consegna,
+sostituite da un copy che vive **in un solo posto** (`COPY_SCELTE`) e da una
+prova automatica che le tiene fuori.
 
 **Debito lingua V0, rimisurato il 28/07 dopo la coda deterministica.**
 I dati non sono stati riscritti: restano **71 radici `ANY` presunte** da
@@ -4223,18 +4312,46 @@ piano operativo del cantiere SITO da agosto 2026 a marzo 2027 è
    di quanto lo standard consenta, i bottoni fuori schermo a 375×812, il
    `confirm()` nativo dell'invito e la copertura dell'avviso certificato
    (36→43 mete).
-6. ▶ **V6a Mete** (wishlist e riordino) è il prossimo blocco · **G2**
-   all'uscita del bando 2027/28 · **V6b** schedina ufficiale · **V7**
-   Learning Agreement · **V8** rifiniture.
+6. ✅ **V6a — La lista delle mete COMPLETATA e ONLINE** (`3d86900`, 30/07),
+   spec congelata `596574c`. Lista illimitata e ordinabile, riordino da
+   tastiera con fuoco e annuncio, rimozione annullabile, orfane mostrate,
+   rotta `#mete/scelte/<ateneo>` registrata, e le **cinque promesse di
+   consegna tolte** dal sito. **126/126 unit (zero skip) + 58/58 UI**, banco
+   verde al primo giro. **Debito dichiarato**: `massimoDestinazioni` esiste
+   solo per Ca' Foscari — quello della Sapienza va trovato per V6b.
+7. ▶ **Il prossimo blocco è una scelta**, non una sequenza obbligata: **G2**
+   scatta all'uscita del bando 2027/28 (dicembre-gennaio) e sblocca **V6b**;
+   **V7** Learning Agreement e **V6c** non dipendono da G2 e si possono fare
+   prima. Restano **V8** rifiniture.
 
-> 🔴 **LE DUE PROVE DI NICOLA, APERTE.** Non sono delegabili e non sono state
-> simulate: **(a)** l'invito all'installazione su un **Android** e su un
-> **iPhone** veri — su iPhone il meccanismo `beforeinstallprompt` non esiste e
-> la sessione non può simularlo, quindi il criterio D‑V5.4 è dichiarato **in
-> attesa**, non superato; **(b)** l'importazione dell'`.ics` in **Google
-> Calendar e Apple Calendar** con la sveglia attiva. Il file rispetta la
-> piegatura delle righe a 75 ottetti aggiunta in revisione proprio per questa
-> prova.
+> 💡 **NUOVO, chiesto da Nicola il 30/07 — un aiuto alla SCELTA delle mete.**
+> È nato togliendo «✨ Ripensa le rotte»: quel bottone riapriva una domanda,
+> e la domanda giusta è un'altra. L'idea è un meccanismo che **consigli**
+> — non che riordini soltanto — a chi non sa quali destinazioni valgano per
+> lui. Non è specificato e non è una fase del piano: va deciso cosa
+> significhi «consigliare» quando i dati che abbiamo sono lingua, livello,
+> posti e dipartimento. Da aprire con `/grill-me` prima di qualunque codice.
+
+> 💡 **V6c — l'interruttore elenco↔mappa in stile Booking**, rinviato con
+> D‑V6.7 e **già scritto nel piano con la misura fatta**, così la prossima
+> sessione non riparte da zero: i pin sono **già** interattivi (uno singolo
+> apre la scheda, uno raggruppato apre l'elenco) e la mappa è **già**
+> sincronizzata con ricerca e filtri con un solo render. Non manca
+> l'interazione: manca una **modalità** a piena altezza. Vincolo: è l'unica
+> parte del sito col banco prestazionale instabile al tetto, quindi la fase
+> nasce con un budget dichiarato e prove a tre viewport.
+
+> 🟡 **LE DUE PROVE DI NICOLA: FATTE A METÀ (aggiornato il 30/07).**
+> **(a)** L'invito all'installazione è stato provato **su Android** — su
+> **iPhone no**, e su iPhone il meccanismo `beforeinstallprompt` non esiste,
+> quindi nessuna sessione può simularlo: il criterio D‑V5.4 resta **in
+> attesa**, non superato. **(b)** L'`.ics` è stato importato **in Google
+> Calendar** — in **Apple Calendar no**. ⚠︎ È la metà che conta di più:
+> Google perdona le righe più lunghe di 75 ottetti, **Apple molto meno**, ed
+> è esattamente il difetto corretto in revisione durante V5. **Decisione da
+> prendere:** se un iPhone non è raggiungibile, il criterio va **riscritto**
+> su una funzione pura (come V3 fece col budget prestazionale) invece di
+> restare atteso per sempre.
 
 > ⚠︎ **Il banco prestazionale è instabile al tetto assoluto**: 6 verdi e 2
 > rosse su 8 esecuzioni, sempre per il **singolo campione peggiore** contro
