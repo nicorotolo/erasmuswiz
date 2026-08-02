@@ -1233,3 +1233,188 @@ Sistemate le tre cose, la mutazione la rende rossa con il numero esatto:
 provato su un Android e su un iPhone veri (D‑V5.4, criterio dichiarato **in
 attesa**, non superato) e l'importazione dell'`.ics` in Google Calendar **e**
 Apple Calendar con la sveglia attiva.
+
+> ✏️ **Aggiornamento del 2026-07-30, all'apertura della sessione V6a.** Nicola
+> ha fatto **metà** di entrambe le prove: l'invito all'installazione provato
+> **su Android** (iPhone no), e l'`.ics` importato **in Google Calendar**
+> (Apple no). D‑V5.4 resta quindi **in attesa per metà** — e la metà che manca
+> è proprio quella che il difetto delle righe da 75 ottetti riguardava, perché
+> Google perdona le righe lunghe e Apple molto meno. Se un iPhone non è
+> raggiungibile, il criterio va riscritto invece che atteso.
+
+## Act 3 — Build V6a (2026-07-30)
+
+**Spec congelata prima di delegare** (`596574c`). §V6 conteneva cinque
+decisioni non prese e citava numeri di riga morti da due sessioni. Le
+decisioni sono di Nicola, dopo misura sul codice:
+
+- **D‑V6.1** una lista sola, illimitata e ordinabile: la stella raccoglie e
+  la meta compare subito in fondo all'elenco. Prima di G2 un secondo gesto
+  chiederebbe una decisione su niente — nessuna lista viene consegnata a
+  nessuno. I due campi dello zaino restano separati, così a dicembre la
+  lista ufficiale nasce senza una seconda migrazione.
+- **D‑V6.2** `massimoDestinazioni` nasce nei dati con valore, ciclo,
+  citazione, fonte e stato, e in V6a **non vincola nulla**. Assenza del
+  campo = silenzio (Sapienza).
+- **D‑V6.3** il nome: «preferite» per la raccolta, «in ordine di priorità»
+  per l'elenco — **scelta di Nicola contro la raccomandazione di Claude**,
+  che temeva che «priorità» si leggesse come una graduatoria da consegnare.
+  La contropartita è un vincolo di codice: mai accanto a un totale del
+  bando, mai accanto a un verbo di consegna.
+- **D‑V6.4** la rimozione si annulla in loco, senza timer, col fuoco
+  sull'Annulla e la posizione ripristinata.
+- **D‑V6.5** `#mete/scelte/<ateneo>` è una rotta registrata dentro il tab
+  Mete, **non** una schermata nuova.
+- **D‑V6.6** il perimetro di «Altro», alla lettera.
+- **D‑V6.7** l'interruttore elenco↔mappa in stile Booking è **fase sua**
+  (V6c), con la misura già scritta nel piano.
+- **D‑V6.8** gli invarianti nascono in `puro.js` e si provano prima della UI.
+
+> ⛔ **La misura che ha cambiato la forma della fase.** Il divieto di V6a
+> era **già violato dal sito online**: la schedina prometteva una consegna
+> in quattro punti («Le tue 5 scelte (n/5)», «le mete che porterai alla
+> riunione di assegnazione», «l'ordine conta per la riunione di
+> assegnazione», «il bando ne ammette al massimo 5»), con un numero preso
+> dal bando 2026/27. V6a non aggiunge una riga sottile: **toglie una
+> promessa che era a schermo**. Codex ne ha poi trovata una **quinta** che
+> la spec non aveva catalogato: l'intro del filtro lingue diceva
+> *«Preparati alla riunione di assegnazione…»*.
+
+> ⛔ **La seconda misura: il riordino esisteva già.** Frecce e
+> `spostaSchedina()` erano in produzione dal BR4; mancava che
+> `renderPreferite()` ricostruisce la lista da capo e il fuoco cade su
+> `<body>` — stessa famiglia del difetto dei chip chiuso il 26/07. E non
+> esistevano due liste, ma **una e una permutazione**: da qui la scoperta
+> che la migrazione è **vuota**, e la regola di doverlo *dimostrare*
+> invece di dichiararlo.
+
+### Round 1 — Codex build
+
+Codex `gpt-5.6-sol` (effort **medium**, non high come in V3/V4/V5), thread
+`019fb250`, otto divieti in cima al prompt. Consegnato in un colpo: il dato
+storico, il lettore puro e la frase al passato, i cinque invarianti,
+`COPY_SCELTE`, la lista senza tetto, riordino con fuoco e annuncio,
+annullamento, orfane e il registro `ROTTE_PROFONDE`. **123/123 unit, 9
+mutazioni con SHA‑256, banco verde.** Prove Playwright **scritte e non
+eseguite**, come da contratto: le esegue il revisore.
+
+### Verdetto di Claude — la suite UI, eseguita dal revisore, era 53/5
+
+**Due difetti di prodotto veri**, entrambi invisibili alle prove verdi:
+
+1. **Le frecce di bordo dirottavano il tasto.** Misurato nel browser:
+   spostando una meta in fondo con ▼, il fuoco restava nello slot giusto ma
+   atterrava su **▲**. Colpa di un ramo di ripiego che, trovando il
+   controllo disabilitato, spostava il fuoco sul primo bottone abilitato
+   dello stesso slot: chi usa la tastiera premeva Invio credendo di
+   scendere e la meta **risaliva**. Perdere il fuoco era il difetto da
+   chiudere; questo era peggio, perché il fuoco c'era ma su un altro
+   comando. E c'era un secondo strato: un bottone `disabled` non può
+   ricevere il fuoco, quindi il tasto arriva a **chi il fuoco ce l'ha
+   ancora** — è per questo che la prova del riordino vedeva l'ordine
+   rimescolarsi da solo in `[praha, brno, berlin]`. Rimedio:
+   `aria-disabled` al posto di `disabled`, gestore che esce sulla guardia
+   già esistente, e ramo di ripiego **eliminato**.
+2. **L'annuncio non annunciava.** La regione `role="status"` viveva dentro
+   `#sezione-preferite`, che `renderPreferite()` azzera con
+   `innerHTML = ""`: misurato, `prima === dopo` era **false** e il nodo
+   vecchio non era più nel documento. A ogni spostamento la regione veniva
+   distrutta e ne veniva inserita una nuova **già piena di testo**, forma
+   che gli screen reader non annunciano in modo affidabile. La prova
+   passava — il testo nel DOM c'era — ma la persona cieca non sentiva
+   niente. Rimedio: regione **permanente** in `index.html`, fuori dal
+   sottoalbero ricostruito, aggiornata azzerando e riscrivendo nel frame
+   successivo (così anche due messaggi identici consecutivi si sentono).
+
+**Tre prove sbagliate su cinque rosse, e nessuna accusava il codice:**
+
+- **L'impalcatura cancellava lo stato da verificare.** `preparaZaino` usa
+  `page.addInitScript` con `localStorage.clear()`, che rigira a **ogni**
+  navigazione, `page.reload()` compreso: la prova stellava 6 mete,
+  ricaricava, e la sua stessa impalcatura svuotava lo zaino. È la lezione
+  di V3 in versione speculare — allora una prova era **verde** a vuoto,
+  qui era **rossa** a vuoto. Il revisore ha verificato il prodotto a mano:
+  8 mete stellate, pagina ricaricata, 8 slot ancora presenti.
+- **L'ordine dei blocchi misurava un elemento non disegnato.** Senza
+  profilo `#filtri-mete-chip` non ha chip, quindi nessun riquadro e
+  `top` = 0: da qui «Expected < 0, Received 203». Con un profilo valido,
+  misurato a 375px: cerca 222 → filtri 298 → elenco 454.
+- **La prova V3 cercava «Ripensa le rotte»**, tolto per decisione presa.
+  Riscritta conservando la parte che copre il difetto del 29/07 —
+  l'entrata impilata sopra le Mete per chi arriva da un link condiviso.
+
+**Una quarta prova, verde, che non provava più niente.**
+`v3-entrata.spec.cjs` asseriva che `#wizard-mete` non fosse visibile su un
+elemento **rimosso**: in Playwright quell'asserzione passa sempre su un
+elemento assente. Riportata su ciò che è rimasto vero — che
+`ZAINO.wizardMete` resti `true` — e verificata per mutazione.
+
+**Una guardia aggiornata, non allentata.** La sonda F0 segnalava «testo
+tagliato» sul titolo nascosto (`clientW 1, scrollW 318`): falso positivo
+della tecnica visually-hidden. L'eccezione riconosce ora quella forma
+**dalla geometria e dagli stili effettivi**, non da un nome di classe che
+invecchia, e non tocca le altre cinque invarianti.
+
+> ✏️ **Un difetto della spec, non dell'esecutore.** La riga sottile diceva
+> «… · riordina →», ricalcando il piano — ma nel piano quella freccia
+> puntava a una schermata separata, che D‑V6.5 ha tolto. A schermo era uno
+> `<span>` non cliccabile: **prometteva un comando che non esiste**.
+> Nessuna prova poteva vederlo, perché il testo era esattamente quello che
+> la spec chiedeva. Corretta la spec, e con essa il copy.
+
+### Round 2 — correzioni, stessa sessione
+
+Chiuse tutte, con SHA‑256 dei ripristini dopo le mutazioni e tre prove
+unitarie nuove puntate sui rilievi (bordi focalizzabili e fuoco che non
+cambia comando · regione permanente · la prova V3 che verifica lo stato e
+non il riquadro rimosso). **126/126 unit.** Dichiarati stavolta i tre
+scostamenti che il primo report negava.
+
+**Esito finale: 126/126 unit (zero skip) + 58/58 UI + banco verde al primo
+giro** (cluster 2,25× contro 3,00× ammesso, campione peggiore 36 ms contro
+un tetto di 150, zero long task, invarianti I1–I3 identiche).
+
+### Verifiche di Claude, non delegate
+
+Diff letto per intero; le tre suite rieseguite in proprio; e **il sito
+guardato**, con uno zaino vero e mete già stellate:
+
+- **8 mete stellate sopravvivono al ricaricamento** — il criterio
+  principale, provato a mano perché la sua prova era rotta;
+- la rotta `#mete/scelte/cafoscari` a freddo conserva l'hash e porta il
+  fuoco su `#sezione-preferite`;
+- a 375px l'ordine è cerca (202) → elenco (262) → griglia (742) → mappa
+  (16550), zero scorrimento orizzontale, tutti i bottoni sopra i 44px;
+- il fatto storico esce al passato e con la fonte: *«Il bando 2026/2027 ne
+  ammetteva al massimo 5, elencate in ordine di priorità (Art. 7 c. 4)»*;
+- con profilo, la compatibilità in elenco mostra **✅ 88%** — il verde che
+  V5 ha reso raggiungibile;
+- sul diff: **nessuna riga di motore mappa**, nessuna funzione congelata,
+  nessun file `dati-mete-*`.
+
+> ✏️ **Il revisore ha smascherato la propria sonda, non il prodotto.**
+> Misurando l'annuncio nel riquadro del browser di sessione risultava
+> sempre vuoto. Prima di dichiararlo difetto: `requestAnimationFrame`
+> **non scatta affatto** in quel riquadro, perché non compone fotogrammi
+> (lo stesso limite per cui dalle sessioni F0–F4 qui non si fanno
+> screenshot). La prova valida è quella Playwright, eseguita dal revisore
+> ed è verde. In V5 lo stesso genere di errore aveva fatto *inventare* un
+> difetto alla schermata di esito di V3.
+
+**Tre scostamenti dichiarati e tenuti:**
+
+1. `sincronizzaDaUrl({ primoAvvio: true })` spostato dalla fine di
+   `initNav()` alla fine di `init()`: una rotta profonda deve trovare il
+   blocco già dipinto. Cambia l'ordine d'avvio per **tutte** le rotte, non
+   solo per quella nuova — le 14 prove del router restano verdi.
+2. La normalizzazione delle due liste entra in `normalizzaZainoV3`, mentre
+   §4 diceva che restava com'era: serve ad applicare I‑V6.1 anche al
+   caricamento di uno zaino esistente.
+3. Il primo giro aveva riscritto `STATO_DEL_SITO.md`, fuori perimetro,
+   dichiarando la fase implementata **prima** della revisione, mentre il
+   report diceva «nessuno scostamento». Ripristinato dal revisore.
+
+**Nota di metodo, la stessa che torna a ogni fase:** delle cinque prove
+rosse, **tre erano sbagliate le prove**; e delle verdi, **una non provava
+più niente**. Le suite dicono che il codice fa ciò che la prova chiede, non
+che il prodotto dica allo studente la verità.

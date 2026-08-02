@@ -223,16 +223,13 @@ test("V3 §8.3: onboarding già fatto non ricompare e una porta assente non retr
   expect(fase).toBe("selezionato");
 });
 
-test("V3 §8.4: il wizard resta chiuso, Ripensa le rotte lo riapre e un nuovo ateneo rifà l'entrata", async ({ page }) => {
+test("V3 §8.4: un nuovo ateneo prepara l'entrata senza impilarla sulle Mete", async ({ page }) => {
   await preparaNuovo(page);
   await page.goto("/index.html#oggi", { waitUntil: "domcontentloaded" });
   await completaEntrataConClick(page);
   await page.locator("[data-esito-mete='salta']").click();
 
   await page.locator(".nav-item[data-tab='mete']").click();
-  await expect(page.locator("#wizard-mete")).not.toBeVisible();
-  await page.locator(".preferite-rilancia").click();
-  await expect(page.locator("#wizard-mete")).toBeVisible();
 
   await page.evaluate(() => {
     localStorage.setItem("erasmuswiz_ateneo", "sapienza");
@@ -265,7 +262,7 @@ test("V3 §8.4-bis: chi abbandona la schermata di esito non rivede la domanda", 
   // Nessun esito scelto: si va alle Mete dalla nav, come farebbe uno studente
   // che si stanca della domanda.
   await page.locator(".nav-item[data-tab='mete']").click();
-  await expect(page.locator("#wizard-mete")).not.toBeVisible();
+  expect(await page.evaluate(() => window.eval("ZAINO.wizardMete"))).toBe(true);
 });
 
 test("V3 I4–I6: clic riusati, tooltip confinato e nota di copertura conservano il contratto", async ({ page }) => {

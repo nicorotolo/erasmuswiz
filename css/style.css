@@ -1420,12 +1420,47 @@ body {
   transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
 }
 .schedina-rimuovi { background: var(--red-bg); color: var(--red); }
-.schedina-freccia:disabled { color: var(--border-strong); cursor: not-allowed; }
-.schedina-freccia:hover:not(:disabled) { background: var(--border); color: var(--text-dark); }
+.schedina-freccia[aria-disabled="true"] { color: var(--border-strong); cursor: not-allowed; }
+.schedina-freccia:hover:not([aria-disabled="true"]) { background: var(--border); color: var(--text-dark); }
 .schedina-rimuovi:hover { background: #fbdada; }
+.schedina-annulla {
+  min-height: 44px; padding: 0 var(--space-3);
+  border: 1px solid var(--gold-border); border-radius: var(--radius-pill);
+  background: var(--bg-card); color: var(--gold-dark);
+  font: 700 var(--fs-sm) var(--font-body); cursor: pointer;
+}
+.schedina-slot-rimosso { border-style: dashed; }
+.schedina-rimossa { color: var(--text-muted); font-size: var(--fs-sm); }
+.schedina-slot-orfano { border-style: dashed; }
+.preferite-fatto-storico {
+  margin: 0 0 var(--space-3);
+  color: var(--text-muted); font-size: var(--fs-xs);
+}
+.solo-lettori {
+  position: absolute !important;
+  width: 1px !important; height: 1px !important;
+  padding: 0 !important; margin: -1px !important;
+  overflow: hidden !important; clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important; border: 0 !important;
+}
 @media (max-width: 480px) {
   .schedina-slot { flex-wrap: wrap; }
   .schedina-azioni { width: 100%; justify-content: flex-end; margin-top: 4px; }
+}
+
+/* V6a — sul telefono l'esplorazione viene prima della mappa: ricerca,
+   filtri, elenco salvato e card; la mappa scende in fondo senza introdurre
+   una seconda modalità di navigazione. */
+@media (max-width: 767px) {
+  #tab-mete.attivo { display: flex; flex-direction: column; }
+  #tab-mete > .sezione-header { order: 0; }
+  #tab-mete > #profilo-strip { order: 1; }
+  #tab-mete > #banner-lingue-mete { order: 2; }
+  #tab-mete > .cerca-mete-barra { order: 3; }
+  #tab-mete > #filtri-mete-chip { order: 4; }
+  #tab-mete > #sezione-preferite { order: 5; }
+  #tab-mete > #griglia-mete-v2 { order: 6; }
+  #tab-mete > #card-mappa-mete { order: 7; }
 }
 
 /* ================================================================

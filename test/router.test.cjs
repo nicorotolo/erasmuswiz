@@ -1,6 +1,6 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
-const { destDaHash } = require("../js/puro.js");
+const { destDaHash, componiHash } = require("../js/puro.js");
 
 const configurazioneV1 = {
   destinazioniValide: ["oggi", "mete", "percorso", "profilo"],
@@ -10,6 +10,14 @@ const configurazioneV1 = {
     idoneita: "percorso",
   },
   ateneiValidi: ["cafoscari", "sapienza"],
+};
+
+const configurazioneV6a = {
+  ...configurazioneV1,
+  destinazioniValide: [
+    ...configurazioneV1.destinazioniValide,
+    "mete/scelte",
+  ],
 };
 
 test("router V1 — conserva hash nudi e normalizza gli alias registrati", () => {
@@ -60,6 +68,32 @@ test("router V1 — una futura registrazione abilita la rotta senza cambiare par
   assert.equal(
     destDaHash("#mete/scelte/sapienza", futura).destinazione,
     "mete/scelte"
+  );
+});
+
+test("router V6a — registra l'elenco con e senza ateneo", () => {
+  for (const [hash, ateneo] of [
+    ["#mete/scelte", null],
+    ["#mete/scelte/cafoscari", "cafoscari"],
+    ["#mete/scelte/sapienza", "sapienza"],
+  ]) {
+    assert.deepEqual(destDaHash(hash, configurazioneV6a), {
+      rotta: "mete/scelte",
+      segmenti: ["mete", "scelte"],
+      ateneo,
+      destinazione: "mete/scelte",
+    });
+  }
+});
+
+test("router V6a — compone hash nudi per i tab e conserva l'ateneo solo sulla rotta profonda", () => {
+  for (const tab of configurazioneV1.destinazioniValide) {
+    assert.equal(componiHash(tab), `#${tab}`);
+  }
+  assert.equal(componiHash("mete/scelte"), "#mete/scelte");
+  assert.equal(
+    componiHash("mete/scelte", "sapienza"),
+    "#mete/scelte/sapienza"
   );
 });
 

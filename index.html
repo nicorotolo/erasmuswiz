@@ -181,25 +181,11 @@
       </div>
       <div id="profilo-strip"></div>
       <div id="banner-lingue-mete"></div>
-      <!-- Wizard prima visita (R3.1, PLAN.md §5.4): compare senza rotte
-           salvate, è sempre saltabile e si rilancia con "Ripensa le rotte"
-           dalla schedina. Gli stati vivono nello zaino (wizardMete). -->
-      <div class="wizard-mete" id="wizard-mete" style="display:none">
-        <img src="img/mascotte/wiz-pensieroso.webp" alt="" class="wiz-mascot wizard-mete-wiz">
-        <div class="wizard-mete-testi">
-          <p class="wizard-mete-domanda">Hai già in mente le tue destinazioni?</p>
-          <div class="wizard-mete-scelte">
-            <button type="button" class="benvenuto-scelta" id="wizard-mete-si">Sì: le cerco e le metto in ordine</button>
-            <button type="button" class="benvenuto-scelta" id="wizard-mete-no">No: aiutami a esplorare</button>
-            <button type="button" class="wizard-mete-salta" id="wizard-mete-salta">Salta per ora</button>
-          </div>
-        </div>
-      </div>
-      <div id="filtri-mete-chip" class="filtri-mete-chip"></div>
       <div class="cerca-mete-barra">
         <input id="cerca-mete" type="search" placeholder="Cerca per università, città o paese…" autocomplete="off">
         <span id="conta-mete"></span>
       </div>
+      <div id="filtri-mete-chip" class="filtri-mete-chip"></div>
       <!-- Mappa del tab Mete (R3.2): SINCRONIZZATA con ricerca e filtri —
            mostra le stesse mete dell'elenco qui sotto, stelline comprese.
            Stesso motore delle altre mappe (mappaCostruisci/RenderPins):
@@ -208,7 +194,10 @@
         <div class="mappa mappa-compatta" id="mappa-mete"></div>
         <p class="mappa-nota" id="mappa-nota-mete" hidden></p>
       </div>
-      <div id="sezione-preferite"></div>
+      <div id="sezione-preferite" tabindex="-1"
+           aria-labelledby="titolo-elenco-preferite"></div>
+      <div id="annunci-scelte" class="solo-lettori"
+           role="status" aria-live="polite"></div>
       <div id="griglia-mete-v2" class="griglia-mete-v2"></div>
     </section>
 

@@ -2105,7 +2105,16 @@ sopra la sezione dell'elenco in `app.js`, con **una chiave per frase**. Dopo V6a
 non esiste **nessun altro letterale** che nomini preferite, ordine o priorità in
 quella sezione: chi ne aggiunge uno rompe la regola di D‑V6.3.
 
-- riga sottile: **«3 preferite, in ordine di priorità · riordina →»**
+- riga sottile: **«3 preferite, in ordine di priorità»**
+
+> ✏️ **Correzione della spec, trovata guardando il sito** (2026-07-30). La riga
+> diceva «… · riordina →», ricalcando il «3 di 5 scelte · ordina →» del piano.
+> Ma nel piano quella freccia puntava a una **schermata separata**, e D‑V6.5 la
+> schermata l'ha tolta: `.preferite-label` è uno `<span>` non cliccabile, quindi
+> la freccia prometteva un comando che non esiste. Le frecce di riordino stanno
+> due centimetri sotto e si spiegano da sole. **L'errore era del revisore, non
+> dell'esecutore**, ed è emerso solo a schermo: nessuna prova poteva vederlo,
+> perché il testo era esattamente quello che la spec chiedeva.
 - elenco vuoto: «☆ Tocca la stellina su una meta per aggiungerla qui. L'ordine è
   tuo: lo cambi quando vuoi.»
 - fatto storico (**solo** se `massimoDestinazioni` esiste): la frase di

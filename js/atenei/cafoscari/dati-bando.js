@@ -31,6 +31,13 @@ var BANDO_INFO = {
       fonte: "DR 13/2026 del 14/01/2026 — Bando Erasmus+ studio (Europa) 2026/2027"
     },
     stato: "atteso"
+  },
+  massimoDestinazioni: {
+    valore: 5,
+    ciclo: "2026/2027",
+    citazione: "fino a un massimo di 5 destinazioni, elencate in ordine di priorità",
+    fonte: "Art. 7 c. 4 — Bando Erasmus+ studio (Europa) 2026/2027, DR 13/2026",
+    stato: "storico"
   }
 };
 

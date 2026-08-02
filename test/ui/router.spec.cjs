@@ -338,11 +338,11 @@ test("diff visivo nullo sulle sei invarianti DOM della baseline", async ({ page 
     mete: [
       "div.sezione-header",
       "div#profilo-strip",
-      "div#wizard-mete",
-      "div#filtri-mete-chip",
       "div.cerca-mete-barra",
+      "div#filtri-mete-chip",
       "div#card-mappa-mete",
       "div#sezione-preferite",
+      "div#annunci-scelte",
       "div#griglia-mete-v2",
     ],
     percorso: ["div.sezione-header", "ol.stazioni"],

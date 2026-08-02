@@ -529,6 +529,9 @@ function postiInParole(posto) {
 // "profilo" resta un tab raggiungibile dal drawer, non dalla nav.
 const TAB_VALIDI      = ["oggi", "mete", "percorso", "profilo"];
 const TAB_PREDEFINITO = "oggi";
+const ROTTE_PROFONDE = {
+  "mete/scelte": { tab: "mete", fuoco: "sezione-preferite" }
+};
 
 // Alias realmente supportati (PLAN.md §5.6: si dichiarano e si testano, non si
 // promettono "per sempre"). Tutti e tre hanno una prova alle spalle:
@@ -545,11 +548,19 @@ const ALIAS_HASH = { timeline: "percorso", checklist: "percorso", idoneita: "per
 // con un ateneo finale; qui registriamo ancora soltanto i quattro tab V1.
 function destDaHash(grezzo) {
   const analizzata = ErasmusWizPuro.destDaHash(grezzo, {
-    destinazioniValide: TAB_VALIDI,
+    destinazioniValide: [...TAB_VALIDI, ...Object.keys(ROTTE_PROFONDE)],
     aliasHash: ALIAS_HASH,
     ateneiValidi: Object.keys(window.ATENEI_REGISTRO || {})
   });
   return analizzata ? analizzata.destinazione : null;
+}
+
+function analizzaDestinazione(grezzo) {
+  return ErasmusWizPuro.destDaHash(grezzo, {
+    destinazioniValide: [...TAB_VALIDI, ...Object.keys(ROTTE_PROFONDE)],
+    aliasHash: ALIAS_HASH,
+    ateneiValidi: Object.keys(window.ATENEI_REGISTRO || {})
+  });
 }
 
 // La verità su dove siamo la tiene il DOM, non una variabile parallela che
@@ -615,9 +626,9 @@ function aggiornaModoEntrata() {
   );
 }
 
-function scriviHash(tab, storia) {
+function scriviHash(rotta, storia, ateneoHash = null) {
   if (storia === "nessuna") return;
-  const nuovo = `#${tab}`;
+  const nuovo = ErasmusWizPuro.componiHash(rotta, ateneoHash);
   if (location.hash === nuovo) return; // già giusto: non si sporca la cronologia
   if (storia === "push") history.pushState(null, "", nuovo);
   else                   history.replaceState(null, "", nuovo);
@@ -651,13 +662,16 @@ function aggiornaNomeTabOggi() {
   );
 }
 
-function portaFuocoAllaSezione(tab) {
+function portaFuocoAllaSezione(tab, rotta = tab) {
   if (tab === "oggi") aggiornaNomeTabOggi();
-  const sezione = document.getElementById(`tab-${tab}`);
-  if (!sezione) return;
+  const profonda = ROTTE_PROFONDE[rotta];
+  const bersaglio = profonda
+    ? document.getElementById(profonda.fuoco)
+    : document.getElementById(`tab-${tab}`);
+  if (!bersaglio) return;
   // preventScroll separa le due responsabilita': prima si annuncia la nuova
   // sezione, poi un solo comando decide se e come muovere la pagina.
-  sezione.focus({ preventScroll: true });
+  bersaglio.focus({ preventScroll: true });
 }
 
 function comportamentoScrollRotta() {
@@ -686,28 +700,45 @@ function comportamentoScrollRotta() {
  * @returns {boolean} false se la destinazione non è nel contratto.
  */
 function vaiA(dest, opzioni = {}) {
-  const tab = destDaHash(dest);
-  if (!tab) return false;
+  const analizzata = analizzaDestinazione(dest);
+  const rotta = analizzata && analizzata.destinazione;
+  if (!rotta) return false;
+  const tab = ROTTE_PROFONDE[rotta]?.tab || rotta;
   const { storia = "push", scroll = true, forzaFuoco = false } = opzioni;
 
   // La coda e' deliberatamente solo in memoria: qualunque navigazione la
   // chiude e ripristina le viste normali prima di cambiare schermata.
   preparaUscitaCodaEntrata();
-  const cambia = tab !== tabCorrente();
+  chiudiAnnullamentoPreferita();
+  const corrente = analizzaDestinazione(location.hash);
+  const cambia = tab !== tabCorrente() ||
+    rotta !== (corrente && corrente.destinazione);
   dipingiTab(tab);
   // La schermata è cambiata: `modo-entrata` va ricalcolato qui, perché
   // `renderHome()` non gira a ogni navigazione (vedi aggiornaModoEntrata).
   aggiornaModoEntrata();
   // Un push per un tab che non cambia sarebbe un Indietro che non fa niente:
   // il tasto Indietro deve sempre spostare qualcosa.
-  scriviHash(tab, storia === "push" && !cambia ? "replace" : storia);
+  scriviHash(
+    rotta,
+    storia === "push" && !cambia ? "replace" : storia,
+    analizzata.ateneo
+  );
   // Un riclic sulla schermata attiva non sposta ne' fuoco ne' pagina. Il
   // primo avvio e' diverso: l'HTML parte gia' su Oggi, ma il fuoco non puo'
   // restare sul body, quindi sincronizzaDaUrl chiede esplicitamente l'avvio.
   if (cambia || forzaFuoco) {
-    portaFuocoAllaSezione(tab);
+    portaFuocoAllaSezione(tab, rotta);
     if (scroll) {
-      window.scrollTo({ top: 0, behavior: comportamentoScrollRotta() });
+      const profonda = ROTTE_PROFONDE[rotta];
+      if (profonda) {
+        document.getElementById(profonda.fuoco)?.scrollIntoView({
+          block: "start",
+          behavior: comportamentoScrollRotta()
+        });
+      } else {
+        window.scrollTo({ top: 0, behavior: comportamentoScrollRotta() });
+      }
     }
   }
   if (tab === "mete" && _esitoMetePendente) {
@@ -721,14 +752,14 @@ function vaiA(dest, opzioni = {}) {
 // L'URL comanda: primo avvio, Indietro/Avanti, hash scritto a mano.
 function sincronizzaDaUrl({ primoAvvio = false } = {}) {
   const grezzo = location.hash.replace(/^#/, "");
-  const tab    = destDaHash(grezzo);
+  const rotta  = destDaHash(grezzo);
 
-  if (tab) {
+  if (rotta) {
     // storia "replace": se era un alias (`#timeline`) l'URL si normalizza sul
     // nome canonico; se era già canonico, scriviHash esce subito.
-    vaiA(tab, {
+    vaiA(grezzo, {
       storia: "replace",
-      scroll: !primoAvvio,
+      scroll: !primoAvvio || !!ROTTE_PROFONDE[rotta],
       forzaFuoco: primoAvvio
     });
     return;
@@ -778,7 +809,6 @@ function initNav() {
   window.addEventListener("popstate",   () => sincronizzaDaUrl());
   window.addEventListener("hashchange", () => sincronizzaDaUrl());
 
-  sincronizzaDaUrl({ primoAvvio: true });
 }
 
 // ============================================================
@@ -2313,33 +2343,13 @@ function borsaSintesi(meta) {
   return gruppo ? `💶 ~€${gruppo.importoMensile}/mese` : null;
 }
 
-// ============================================================
-// WIZARD PRIMA VISITA DELLE METE (R3.1, PLAN.md §5.4)
-// ------------------------------------------------------------
-// "Hai già in mente le tue destinazioni?" — compare SOLO senza rotte
-// salvate e finché non ha avuto risposta (ZAINO.wizardMete). Sempre
-// saltabile; rilanciabile con "Ripensa le rotte" dalla schedina (il
-// rilancio forza la comparsa anche con rotte già salvate).
-// ============================================================
-let _wizardMeteForzato = false;
-
-function renderWizardMete() {
-  const box = document.getElementById("wizard-mete");
-  if (!box) return;
-  const mostra = !ZAINO.wizardMete &&
-    (((ZAINO.metePreferite || []).length === 0) || _wizardMeteForzato);
-  box.style.display = mostra ? "" : "none";
-}
-
 function chiudiWizardMete() {
   ZAINO.wizardMete = true;
-  _wizardMeteForzato = false;
   salvaZaino(ZAINO);
-  renderWizardMete();
 }
 
-// Un solo contratto per i tre esiti. V3 lo richiama dalla schermata finale
-// dell'entrata; il vecchio riquadro Mete continua a usare le stesse azioni.
+// Il riquadro nel tab Mete non esiste più, ma l'entrata continua a passare da
+// questo contratto: ricerca e mappa devono conservare il loro smistamento.
 function applicaEsitoWizardMete(esito) {
   chiudiWizardMete();
   if (esito === "si") {
@@ -2357,15 +2367,6 @@ function applicaEsitoWizardMete(esito) {
       : document.getElementById("filtri-mete-chip");
     dest?.scrollIntoView({ block: "center", behavior: comportamentoScrollRotta() });
   }
-}
-
-function initWizardMete() {
-  const si    = document.getElementById("wizard-mete-si");
-  const no    = document.getElementById("wizard-mete-no");
-  const salta = document.getElementById("wizard-mete-salta");
-  if (si) si.addEventListener("click", () => applicaEsitoWizardMete("si"));
-  if (no) no.addEventListener("click", () => applicaEsitoWizardMete("no"));
-  if (salta) salta.addEventListener("click", () => applicaEsitoWizardMete("salta"));
 }
 
 // ============================================================
@@ -2533,7 +2534,7 @@ function renderMete() {
     // Il filtro usa lo stesso esito a tre valori del punteggio. Un requisito
     // sconosciuto resta visibile: l'ambiguità non deve diventare un'esclusione.
     elenco = elenco.filter(({ meta }) => motorePuro().linguaCopertaPerFiltro(meta, profilo));
-    if (intro) intro.textContent = "Preparati alla riunione di assegnazione: queste sono le mete che le tue lingue coprono davvero.";
+    if (intro) intro.textContent = "Queste sono le mete che le tue lingue coprono davvero.";
   } else if (profilo && filtroMeteAttivo !== "tutte") {
     elenco = elenco.filter(({ comp }) => categoriaCompat(comp) === filtroMeteAttivo);
   }
@@ -2550,9 +2551,8 @@ function renderMete() {
   const conta = document.getElementById("conta-mete");
   if (conta) conta.textContent = elenco.length + (elenco.length === 1 ? " meta" : " mete");
 
-  // R3.1 + R3.2: wizard prima visita, e mappa sincronizzata con l'ELENCO
-  // FILTRATO — una sola fonte per lista e mappa, mai due filtri diversi.
-  renderWizardMete();
+  // La mappa resta sincronizzata con l'ELENCO FILTRATO: una sola fonte per
+  // lista e mappa, mai due filtri diversi.
   renderMappaMete(elenco.map(e => e.meta));
 
   // ⚠️ I due `return` sono obbligatori: senza, la lista vuota e lo stato
@@ -2675,66 +2675,156 @@ function creaCardMeta(meta, comp) {
 }
 
 // ============================================================
-// SCHEDINA — "Le tue 5 scelte" (BR4)
+// ELENCO DELLE METE SALVATE (V6a)
 // ============================================================
-// Ordine persistito in ZAINO.schedina; le preferite restano il meccanismo di
-// raccolta (togglePreferita) — questa funzione sincronizza le due liste:
-// mantiene l'ordine salvato per le mete ancora preferite, aggiunge in coda
-// le preferite non ancora ordinate, scarta chi non è più tra le preferite.
+// Il copy che descrive raccolta e priorità vive qui soltanto: tenerlo in un
+// oggetto impedisce che un futuro ritocco riintroduca quote o promesse in un
+// punto secondario della stessa sezione.
+const COPY_SCELTE = Object.freeze({
+  titoloElenco: "Le tue preferite, in ordine di priorità",
+  rigaSottile: n => `${n} ${n === 1 ? "preferita" : "preferite"}, in ordine di priorità`,
+  vuoto: "☆ Tocca la stellina su una meta per aggiungerla qui. L'ordine è tuo: lo cambi quando vuoi.",
+  rimuovi: "Rimuovi dalle tue preferite",
+  rimossa: nome => `${nome} — rimossa dalle tue preferite`,
+  annulla: "Annulla",
+  annuncioRimozione: nome => `${nome} rimossa dalle tue preferite.`,
+  ripristinata: nome => `${nome} ripristinata nella posizione precedente.`,
+  orfanaNome: id => `Destinazione salvata (${id})`,
+  orfanaNota: "Questa destinazione non è più disponibile nell’elenco corrente.",
+  spostata: (nome, posizione, totale) =>
+    `${nome} spostata in posizione ${posizione} di ${totale}.`
+});
+
+let _rimozionePreferita = null;
+
+function chiudiAnnullamentoPreferita() {
+  if (!_rimozionePreferita) return;
+  _rimozionePreferita = null;
+  renderPreferite();
+}
+
+function annunciaScelte(testoAnnuncio) {
+  const annunci = document.getElementById("annunci-scelte");
+  if (!annunci) return;
+  // La regione esiste già nel DOM: si cambia il suo contenuto in un frame
+  // successivo, così anche due messaggi uguali consecutivi sono annunciati.
+  annunci.textContent = "";
+  if (!testoAnnuncio) return;
+  requestAnimationFrame(() => {
+    if (annunci.isConnected) annunci.textContent = testoAnnuncio;
+  });
+}
+
+// Ordine persistito in ZAINO.schedina; la normalizzazione pura mantiene
+// l'ordine salvato, aggiunge le nuove in coda e rimuove solo riferimenti che
+// non appartengono più alla raccolta.
 function schedinaIds() {
-  const preferite = ZAINO.metePreferite || [];
-  const salvata    = Array.isArray(ZAINO.schedina) ? ZAINO.schedina : [];
-  const esistenti  = salvata.filter(id => preferite.includes(id));
-  const nuove      = preferite.filter(id => !esistenti.includes(id));
-  ZAINO.schedina = [...esistenti, ...nuove];
+  const stato = ErasmusWizPuro.normalizzaListeScelte(
+    ZAINO.metePreferite,
+    ZAINO.schedina
+  );
+  ZAINO.metePreferite = stato.metePreferite;
+  ZAINO.schedina = stato.schedina;
   return ZAINO.schedina;
 }
 
 function renderPreferite(msg) {
   const cont = document.getElementById("sezione-preferite");
   if (!cont) return;
+  if (!msg?.mantieniRimozione) _rimozionePreferita = null;
   cont.innerHTML = "";
 
   const ids = schedinaIds();
   salvaZaino(ZAINO);
 
   const header = crea("div", "preferite-header");
-  header.appendChild(crea("span", "preferite-label", `Le tue 5 scelte (${ids.length}/5)`));
-  // R3.1: il wizard della prima visita si può sempre rilanciare da qui.
-  const rilancia = crea("button", "preferite-rilancia", "✨ Ripensa le rotte");
-  rilancia.type = "button";
-  rilancia.addEventListener("click", () => {
-    ZAINO.wizardMete = false;
-    _wizardMeteForzato = true;
-    salvaZaino(ZAINO);
-    renderWizardMete();
-    document.getElementById("wizard-mete")?.scrollIntoView({ block: "center", behavior: "smooth" });
-  });
-  header.appendChild(rilancia);
+  const titolo = crea("h3", "solo-lettori", COPY_SCELTE.titoloElenco);
+  titolo.id = "titolo-elenco-preferite";
+  header.appendChild(titolo);
+  const etichetta = crea("span", "preferite-label", COPY_SCELTE.rigaSottile(ids.length));
+  etichetta.setAttribute("aria-hidden", "true");
+  header.appendChild(etichetta);
   cont.appendChild(header);
 
-  if (msg) cont.appendChild(crea("p", "msg-preferite", msg));
+  annunciaScelte(msg?.annuncio || "");
 
-  // Schedina vuota = invito compatto di UNA riga (P1.4): prima 5 slot vuoti
-  // a piena larghezza occupavano ~1,5 schermate mobile PRIMA della lista mete.
-  if (ids.length === 0) {
-    cont.appendChild(crea("p", "schedina-invito-vuota",
-      "☆ Tocca la stellina su una meta per aggiungerla. Massimo 5: l'ordine conta, sono le mete che porterai alla riunione di assegnazione."));
+  const fattoStorico = ErasmusWizPuro.frasePassatoMassimo(
+    ErasmusWizPuro.massimoDestinazioniBando(window.BANDO_INFO)
+  );
+  if (fattoStorico) {
+    cont.appendChild(crea("p", "preferite-fatto-storico", fattoStorico));
+  }
+
+  if (ids.length === 0 && !_rimozionePreferita) {
+    cont.appendChild(crea("p", "schedina-invito-vuota", COPY_SCELTE.vuoto));
     return;
   }
 
-  // Si mostrano solo gli slot pieni; i posti rimanenti diventano una riga
-  // compatta sotto, non slot vuoti a scaffale.
   const lista = crea("div", "schedina-lista");
-  ids.forEach((id, i) => {
-    const meta = (METE || []).find(m => m.id === id);
-    if (!meta) return;
+  const righe = ErasmusWizPuro.righeScelteConOrfane(ids, METE || []);
+  if (_rimozionePreferita) {
+    righe.splice(
+      Math.min(_rimozionePreferita.indice, righe.length),
+      0,
+      { rimozione: _rimozionePreferita }
+    );
+  }
+
+  righe.forEach((riga, i) => {
     const slot = crea("div", "schedina-slot");
     slot.appendChild(crea("span", "schedina-numero", String(i + 1)));
 
+    if (riga.rimozione) {
+      slot.classList.add("schedina-slot-rimosso");
+      slot.appendChild(crea(
+        "div",
+        "schedina-corpo schedina-rimossa",
+        COPY_SCELTE.rimossa(riga.rimozione.nome)
+      ));
+      const annulla = crea("button", "schedina-annulla", COPY_SCELTE.annulla);
+      annulla.type = "button";
+      annulla.addEventListener("click", () => {
+        const rimossa = _rimozionePreferita;
+        if (!rimossa) return;
+        const stato = ErasmusWizPuro.applicaStellaScelte(
+          ZAINO.metePreferite,
+          ZAINO.schedina,
+          rimossa.id,
+          true
+        );
+        stato.schedina = stato.schedina.filter(id => id !== rimossa.id);
+        stato.schedina.splice(
+          Math.min(rimossa.indice, stato.schedina.length),
+          0,
+          rimossa.id
+        );
+        ZAINO.metePreferite = stato.metePreferite;
+        ZAINO.schedina = stato.schedina;
+        _rimozionePreferita = null;
+        salvaZaino(ZAINO);
+        renderPreferite({
+          annuncio: COPY_SCELTE.ripristinata(rimossa.nome),
+          indiceFuoco: rimossa.indice,
+          controlloFuoco: 2
+        });
+        renderMete();
+        renderMissione();
+      });
+      slot.appendChild(annulla);
+      lista.appendChild(slot);
+      return;
+    }
+
+    const { id, meta } = riga;
     const corpo = crea("div", "schedina-corpo");
-    corpo.appendChild(crea("span", "schedina-nome", nomeUniversita(meta.universita)));
-    if (ZAINO.profilo) {
+    const nome = meta
+      ? nomeUniversita(meta.universita)
+      : COPY_SCELTE.orfanaNome(id);
+    corpo.appendChild(crea("span", "schedina-nome", nome));
+    if (riga.orfana) {
+      slot.classList.add("schedina-slot-orfano");
+      corpo.appendChild(crea("span", "schedina-stato", COPY_SCELTE.orfanaNota));
+    } else if (ZAINO.profilo) {
       const comp = calcolaCompatibilita(meta, ZAINO.profilo);
       corpo.appendChild(crea("span", "schedina-stato",
         `${comp.icona} ${comp.totale !== null ? comp.totale + "%" : comp.stato}`));
@@ -2743,13 +2833,15 @@ function renderPreferite(msg) {
 
     const azioni = crea("div", "schedina-azioni");
     const su = crea("button", "schedina-freccia", "▲");
-    su.type = "button"; su.title = "Sposta su"; su.disabled = i === 0;
-    su.addEventListener("click", () => spostaSchedina(i, -1));
+    su.type = "button"; su.title = "Sposta su";
+    su.setAttribute("aria-disabled", riga.indice === 0 ? "true" : "false");
+    su.addEventListener("click", () => spostaSchedina(riga.indice, -1));
     const giu = crea("button", "schedina-freccia", "▼");
-    giu.type = "button"; giu.title = "Sposta giù"; giu.disabled = i === ids.length - 1;
-    giu.addEventListener("click", () => spostaSchedina(i, 1));
+    giu.type = "button"; giu.title = "Sposta giù";
+    giu.setAttribute("aria-disabled", riga.indice === ids.length - 1 ? "true" : "false");
+    giu.addEventListener("click", () => spostaSchedina(riga.indice, 1));
     const rimuovi = crea("button", "schedina-rimuovi", "✕");
-    rimuovi.type = "button"; rimuovi.title = "Rimuovi dalla schedina";
+    rimuovi.type = "button"; rimuovi.title = COPY_SCELTE.rimuovi;
     rimuovi.addEventListener("click", () => togglePreferita(id));
     azioni.appendChild(su); azioni.appendChild(giu); azioni.appendChild(rimuovi);
     slot.appendChild(azioni);
@@ -2758,12 +2850,13 @@ function renderPreferite(msg) {
   });
   cont.appendChild(lista);
 
-  if (ids.length < 5) {
-    const restanti = 5 - ids.length;
-    cont.appendChild(crea("p", "preferite-hint",
-      restanti === 1
-        ? "Puoi aggiungerne ancora una dalla lista qui sotto — l'ordine conta per la riunione di assegnazione."
-        : `Puoi aggiungerne altre ${restanti} dalla lista qui sotto — l'ordine conta per la riunione di assegnazione.`));
+  if (msg?.fuocoAnnulla) {
+    lista.querySelector(".schedina-annulla")?.focus({ preventScroll: true });
+  } else if (Number.isInteger(msg?.indiceFuoco)) {
+    const slotFuoco = lista.children[msg.indiceFuoco];
+    const controlli = slotFuoco?.querySelectorAll(".schedina-azioni button");
+    const controllo = controlli?.[msg.controlloFuoco];
+    controllo?.focus({ preventScroll: true });
   }
 }
 
@@ -2771,23 +2864,63 @@ function spostaSchedina(indice, direzione) {
   const ids   = ZAINO.schedina;
   const nuovo = indice + direzione;
   if (nuovo < 0 || nuovo >= ids.length) return;
+  const attivo = document.activeElement;
+  const azioni = attivo?.closest(".schedina-azioni");
+  const controlloFuoco = azioni
+    ? Array.prototype.indexOf.call(azioni.children, attivo)
+    : 0;
   [ids[indice], ids[nuovo]] = [ids[nuovo], ids[indice]];
   salvaZaino(ZAINO);
-  renderPreferite();
+  const meta = (METE || []).find(m => m.id === ids[nuovo]);
+  const nome = meta
+    ? nomeUniversita(meta.universita)
+    : COPY_SCELTE.orfanaNome(ids[nuovo]);
+  renderPreferite({
+    indiceFuoco: nuovo,
+    controlloFuoco,
+    annuncio: COPY_SCELTE.spostata(nome, nuovo + 1, ids.length)
+  });
 }
 
 function togglePreferita(id) {
   const idx = ZAINO.metePreferite.indexOf(id);
   if (idx !== -1) {
-    ZAINO.metePreferite.splice(idx, 1);
+    const ordine = schedinaIds().slice();
+    const indiceOrdine = ordine.indexOf(id);
+    const meta = (METE || []).find(m => m.id === id);
+    const nome = meta
+      ? nomeUniversita(meta.universita)
+      : COPY_SCELTE.orfanaNome(id);
+    _rimozionePreferita = {
+      id,
+      indice: indiceOrdine < 0 ? idx : indiceOrdine,
+      nome
+    };
+    const stato = ErasmusWizPuro.applicaStellaScelte(
+      ZAINO.metePreferite,
+      ZAINO.schedina,
+      id,
+      false
+    );
+    ZAINO.metePreferite = stato.metePreferite;
+    ZAINO.schedina = stato.schedina;
     salvaZaino(ZAINO);
-    renderPreferite();
+    renderPreferite({
+      mantieniRimozione: true,
+      fuocoAnnulla: true,
+      annuncio: COPY_SCELTE.annuncioRimozione(nome)
+    });
     renderMete();
     renderMissione(); // le preferite spostano la tappa corrente: si riallinea tutto
-  } else if (ZAINO.metePreferite.length >= 5) {
-    renderPreferite("Il bando ne ammette al massimo 5. Rimuovi una meta per aggiungerne un'altra.");
   } else {
-    ZAINO.metePreferite.push(id);
+    const stato = ErasmusWizPuro.applicaStellaScelte(
+      ZAINO.metePreferite,
+      ZAINO.schedina,
+      id,
+      true
+    );
+    ZAINO.metePreferite = stato.metePreferite;
+    ZAINO.schedina = stato.schedina;
     salvaZaino(ZAINO);
     renderPreferite();
     renderMete();
@@ -3528,7 +3661,7 @@ function renderLA() {
     });
     sel.appendChild(og);
   }
-  aggiungiGruppo("Le tue 5 scelte", inSchedina);
+  aggiungiGruppo("Mete salvate", inSchedina);
   aggiungiGruppo(ZAINO.profilo && ZAINO.profilo.dipartimento
     ? `Mete di ${ZAINO.profilo.dipartimento}` : "Mete della tua area", delDipartimento);
   aggiungiGruppo("Altre tue bozze", orfane);
@@ -5207,12 +5340,6 @@ function completaOnboarding(livello, lingue) {
   // Il form del Profilo si precompila all'avvio: dopo l'onboarding va
   // riallineato, o mostrerebbe campi vuoti fino al prossimo reload.
   precompilaFormV2();
-  // Stessa ragione, e vale per il «mai più» di D-V3.4: il riquadro del tab
-  // Mete è stato reso all'avvio, quando `wizardMete` era ancora false. Senza
-  // questo, chi lascia la schermata di esito senza rispondere e va alle Mete
-  // dalla nav si ritrova la domanda a schermo: il flag era giusto, la vista no.
-  renderWizardMete();
-
   const nMete = (METE || []).filter(m => m.dipartimentoCf === dip).length;
   const prossima = prossimaScadenzaInfo();
   benvSetPasso(5); // E non è un quinto passo: i quattro risultano conclusi.
@@ -5232,22 +5359,18 @@ function completaOnboarding(livello, lingue) {
     dett = `Il bando ${anno} è chiuso. Il prossimo esce in genere tra dicembre e gennaio. Intanto puoi esplorare le mete con calma.`;
   }
   if (dett) zona.appendChild(crea("p", "benvenuto-landing-dettaglio", dett));
-  const domanda = document.querySelector("#wizard-mete .wizard-mete-domanda");
-  if (domanda) {
-    zona.appendChild(crea(
-      "h2",
-      "benvenuto-landing-titolo",
-      domanda.textContent.trim()
-    ));
-  }
+  zona.appendChild(crea(
+    "h2",
+    "benvenuto-landing-titolo",
+    "Hai già in mente le tue destinazioni?"
+  ));
   const riga = crea("div", "benvenuto-scelte-riga benvenuto-esiti");
   [
-    ["si", document.getElementById("wizard-mete-si")],
-    ["no", document.getElementById("wizard-mete-no")],
-    ["salta", document.getElementById("wizard-mete-salta")],
-  ].forEach(([esito, sorgente]) => {
-    if (!sorgente) return;
-    const btn = crea("button", "benvenuto-scelta", sorgente.textContent.trim());
+    ["si", "Sì: le cerco e le metto in ordine"],
+    ["no", "No: aiutami a esplorare"],
+    ["salta", "Salta per ora"],
+  ].forEach(([esito, testoBottone]) => {
+    const btn = crea("button", "benvenuto-scelta", testoBottone);
     btn.type = "button";
     btn.dataset.esitoMete = esito;
     btn.addEventListener("click", () => benvConcludiConEsito(esito));
@@ -5631,7 +5754,6 @@ function init() {
   renderChecklist();
   renderChecklistPost();
   renderPreferite();
-  initWizardMete();
   renderMete();
   initDettaglioMeta();
   // Debounce ~150ms sulla ricerca (P2.15): ogni keystroke rifaceva l'intera
@@ -5654,6 +5776,10 @@ function init() {
   renderPercorso({ apri: true });
   renderLA();
   initOnboarding();
+  // Il router parte dopo i render iniziali: una rotta profonda deve misurare
+  // e raggiungere il blocco nella sua posizione finale, con mappa ed elenco
+  // già dipinti sopra di lui.
+  sincronizzaDaUrl({ primoAvvio: true });
   setInterval(aggiornaCountdownV2, 30000); // i countdown non mostrano più i secondi
 }
 

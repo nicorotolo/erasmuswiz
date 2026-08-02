@@ -206,6 +206,12 @@
     zaino.cicloPercorso = cicloPercorso;
     if (!Array.isArray(zaino.metePreferite)) zaino.metePreferite = [];
     if (!Array.isArray(zaino.schedina)) zaino.schedina = [];
+    var scelteNormalizzate = normalizzaListeScelte(
+      zaino.metePreferite,
+      zaino.schedina
+    );
+    zaino.metePreferite = scelteNormalizzate.metePreferite;
+    zaino.schedina = scelteNormalizzate.schedina;
     if (!oggettoSemplice(zaino.checklist)) zaino.checklist = {};
     if (!oggettoSemplice(zaino.checklistPost)) zaino.checklistPost = {};
     if (!oggettoSemplice(zaino.autoverifica)) zaino.autoverifica = {};
@@ -789,6 +795,127 @@
       : null;
   }
 
+  // V6a — il massimo documentato resta un fatto storico, non un limite
+  // dell'interfaccia. Se manca anche un solo pezzo non inventiamo default:
+  // l'assenza del dato deve produrre silenzio.
+  function massimoDestinazioniBando(bandoInfo) {
+    var massimo = bandoInfo && bandoInfo.massimoDestinazioni;
+    var stato = testo(massimo && massimo.stato);
+    var valore = massimo && massimo.valore;
+    if (!massimo ||
+        !Number.isInteger(valore) ||
+        valore <= 0 ||
+        ["storico", "vigente"].indexOf(stato) < 0 ||
+        !testo(massimo.ciclo) ||
+        !testo(massimo.citazione) ||
+        !testo(massimo.fonte)) {
+      return { presente: false };
+    }
+    return {
+      presente: true,
+      valore: valore,
+      ciclo: testo(massimo.ciclo),
+      citazione: testo(massimo.citazione),
+      fonte: testo(massimo.fonte),
+      stato: stato
+    };
+  }
+
+  function componiHash(rotta, ateneo) {
+    var segmenti = [testo(rotta)];
+    if (!segmenti[0]) return "";
+    if (testo(ateneo)) segmenti.push(testo(ateneo));
+    return "#" + segmenti.join("/");
+  }
+
+  function frasePassatoMassimo(info) {
+    if (!info || info.presente !== true) return null;
+    var riferimento = testo(info.fonte).split("—")[0].trim();
+    return "Il bando " + testo(info.ciclo) + " ne ammetteva al massimo " +
+      info.valore + ", elencate in ordine di priorità (" + riferimento + ").";
+  }
+
+  function valoriUnici(lista) {
+    var risultato = [];
+    (Array.isArray(lista) ? lista : []).forEach(function (id) {
+      if (risultato.indexOf(id) < 0) risultato.push(id);
+    });
+    return risultato;
+  }
+
+  // I-V6.1 e I-V6.2 — l'ordine contiene solo preferite, senza duplicati;
+  // le nuove preferite entrano in coda per non riscrivere le scelte fatte.
+  function normalizzaListeScelte(metePreferite, schedina) {
+    var preferite = valoriUnici(metePreferite);
+    var ordine = valoriUnici(schedina).filter(function (id) {
+      return preferite.indexOf(id) >= 0;
+    });
+    preferite.forEach(function (id) {
+      if (ordine.indexOf(id) < 0) ordine.push(id);
+    });
+    return { metePreferite: preferite, schedina: ordine };
+  }
+
+  function schedinaSottoinsiemePreferite(metePreferite, schedina) {
+    var preferite = Array.isArray(metePreferite) ? metePreferite : [];
+    return (Array.isArray(schedina) ? schedina : []).every(function (id) {
+      return preferite.indexOf(id) >= 0;
+    });
+  }
+
+  function scelteSenzaDuplicatiECorrispondenti(metePreferite, schedina) {
+    var preferite = Array.isArray(metePreferite) ? metePreferite : [];
+    var ordine = Array.isArray(schedina) ? schedina : [];
+    return valoriUnici(preferite).length === preferite.length &&
+      valoriUnici(ordine).length === ordine.length &&
+      preferite.length === ordine.length &&
+      schedinaSottoinsiemePreferite(preferite, ordine);
+  }
+
+  // I-V6.3 — la riga nasce dall'id salvato, non dalla presenza nel catalogo:
+  // una meta rimossa dai dati resta quindi visibile e rimovibile.
+  function righeScelteConOrfane(schedina, mete) {
+    var catalogo = Array.isArray(mete) ? mete : [];
+    return (Array.isArray(schedina) ? schedina : []).map(function (id, indice) {
+      var meta = catalogo.find(function (candidata) {
+        return candidata && candidata.id === id;
+      }) || null;
+      return { id: id, indice: indice, meta: meta, orfana: !meta };
+    });
+  }
+
+  // I-V6.4 — marcare significa aggiungere informazione alle righe, mai
+  // tagliarle. V6a prova questa regola ma non mostra ancora l'eccedenza.
+  function marcaEccedenzeScelte(righe, massimo) {
+    var elenco = Array.isArray(righe) ? righe : [];
+    var limite = Number.isInteger(massimo) && massimo > 0 ? massimo : null;
+    return elenco.map(function (riga, indice) {
+      return Object.assign({}, riga, {
+        eccedente: limite !== null && indice >= limite
+      });
+    });
+  }
+
+  // I-V6.5 — la stella aggiorna sempre entrambe le rappresentazioni della
+  // stessa lista. L'aggiunta va in coda; la rimozione esce da entrambe.
+  function applicaStellaScelte(metePreferite, schedina, id, accesa) {
+    var stato = normalizzaListeScelte(metePreferite, schedina);
+    if (accesa) {
+      if (stato.metePreferite.indexOf(id) < 0) {
+        stato.metePreferite.push(id);
+        stato.schedina.push(id);
+      }
+    } else {
+      stato.metePreferite = stato.metePreferite.filter(function (voce) {
+        return voce !== id;
+      });
+      stato.schedina = stato.schedina.filter(function (voce) {
+        return voce !== id;
+      });
+    }
+    return stato;
+  }
+
   function fraseFinestraAttesaBando(bandoInfo) {
     var finestra = finestraAttesaValida(bandoInfo);
     if (!finestra) return "Il bando non è ancora uscito.";
@@ -1100,6 +1227,7 @@
     SCALA_CEFR: SCALA_CEFR,
     ESITI_LINGUA: ESITI_LINGUA,
     destDaHash: destDaHash,
+    componiHash: componiHash,
     VERSIONE_CONTENITORE_ZAINO: VERSIONE_CONTENITORE_ZAINO,
     FASI_VIAGGIO: FASI_VIAGGIO,
     cicloSuccessivo: cicloSuccessivo,
@@ -1120,6 +1248,14 @@
     certificatoDaRicordare: certificatoDaRicordare,
     finestraAttesaValida: finestraAttesaValida,
     fraseFinestraAttesaBando: fraseFinestraAttesaBando,
+    massimoDestinazioniBando: massimoDestinazioniBando,
+    frasePassatoMassimo: frasePassatoMassimo,
+    normalizzaListeScelte: normalizzaListeScelte,
+    schedinaSottoinsiemePreferite: schedinaSottoinsiemePreferite,
+    scelteSenzaDuplicatiECorrispondenti: scelteSenzaDuplicatiECorrispondenti,
+    righeScelteConOrfane: righeScelteConOrfane,
+    marcaEccedenzeScelte: marcaEccedenzeScelte,
+    applicaStellaScelte: applicaStellaScelte,
     invitoInstallazione: invitoInstallazione,
     creaCalendarioICS: creaCalendarioICS,
     presentazioneLinguaSconosciuta: presentazioneLinguaSconosciuta,

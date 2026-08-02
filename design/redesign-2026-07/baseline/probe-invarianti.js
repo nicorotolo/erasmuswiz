@@ -80,9 +80,22 @@ window.__baseline = function () {
     }
   }
 
-  // invariante: nessun testo tagliato
+  // La tecnica visually-hidden taglia intenzionalmente un testo in un
+  // riquadro 1×1: non è un difetto di layout. La riconosciamo dalla geometria
+  // e dagli stili effettivi, non da una classe che potrebbe essere rinominata.
+  const nascostoSoloLettori = (el) => {
+    const stile = getComputedStyle(el);
+    const r = el.getBoundingClientRect();
+    return stile.position === 'absolute' &&
+      r.width <= 1 && r.height <= 1 &&
+      stile.overflow === 'hidden' &&
+      stile.whiteSpace === 'nowrap';
+  };
+
+  // invariante: nessun testo tagliato accidentalmente
   const tagliati = [...document.querySelectorAll('h1,h2,h3,h4,p,span,a,button,li,label,td,th')]
     .filter(vis)
+    .filter((el) => !nascostoSoloLettori(el))
     .filter((el) => el.scrollWidth > el.clientWidth + 1 && getComputedStyle(el).overflow !== 'visible')
     .slice(0, 15)
     .map((el) => ({ sel: sel(el), scrollW: el.scrollWidth, clientW: el.clientWidth, txt: el.textContent.trim().slice(0, 40) }));
