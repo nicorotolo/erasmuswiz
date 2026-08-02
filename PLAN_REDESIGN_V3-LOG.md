@@ -1234,7 +1234,7 @@ provato su un Android e su un iPhone veri (D‑V5.4, criterio dichiarato **in
 attesa**, non superato) e l'importazione dell'`.ics` in Google Calendar **e**
 Apple Calendar con la sveglia attiva.
 
-> ✏️ **Aggiornamento del 2026-07-30, all'apertura della sessione V6a.** Nicola
+> ✏️ **Aggiornamento del 2026-08-02, all'apertura della sessione V6a.** Nicola
 > ha fatto **metà** di entrambe le prove: l'invito all'installazione provato
 > **su Android** (iPhone no), e l'`.ics` importato **in Google Calendar**
 > (Apple no). D‑V5.4 resta quindi **in attesa per metà** — e la metà che manca
@@ -1242,9 +1242,9 @@ Apple Calendar con la sveglia attiva.
 > Google perdona le righe lunghe e Apple molto meno. Se un iPhone non è
 > raggiungibile, il criterio va riscritto invece che atteso.
 
-## Act 3 — Build V6a (2026-07-30)
+## Act 3 — Build V6a (spec 2026-07-30, build e revisione 2026-08-02)
 
-**Spec congelata prima di delegare** (`596574c`). §V6 conteneva cinque
+**Spec congelata prima di delegare** (`596574c`, 30/07). §V6 conteneva cinque
 decisioni non prese e citava numeri di riga morti da due sessioni. Le
 decisioni sono di Nicola, dopo misura sul codice:
 

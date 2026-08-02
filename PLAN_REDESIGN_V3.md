@@ -2107,7 +2107,7 @@ quella sezione: chi ne aggiunge uno rompe la regola di D‑V6.3.
 
 - riga sottile: **«3 preferite, in ordine di priorità»**
 
-> ✏️ **Correzione della spec, trovata guardando il sito** (2026-07-30). La riga
+> ✏️ **Correzione della spec, trovata guardando il sito** (2026-08-02). La riga
 > diceva «… · riordina →», ricalcando il «3 di 5 scelte · ordina →» del piano.
 > Ma nel piano quella freccia puntava a una **schermata separata**, e D‑V6.5 la
 > schermata l'ha tolta: `.preferite-label` è uno `<span>` non cliccabile, quindi
