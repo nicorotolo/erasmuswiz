@@ -32,6 +32,9 @@
 </head>
 <body>
 
+  <div id="storage-failure-banner" class="storage-failure-banner"
+       role="alert" aria-live="assertive" hidden></div>
+
   <!-- Contenuto principale -->
   <main class="main-content">
 
@@ -166,6 +169,9 @@
             <div class="prep-barra-fill" id="prep-fill" style="width:0%"></div>
           </div>
         </div>
+        <a class="la-link-rapido" data-la-route href="#learning-agreement/cafoscari">
+          📚 Apri il dossier Learning Agreement →
+        </a>
       </div>
 
     </section>
@@ -178,6 +184,9 @@
       <div class="sezione-header">
         <h2 class="sezione-titolo">🗺️ Mete disponibili</h2>
         <p class="sezione-sottotitolo" id="intro-mete-v2">Compila il profilo per vedere le mete ordinate per compatibilità.</p>
+        <a class="la-link-rapido" data-la-route href="#learning-agreement/cafoscari">
+          Confronta queste mete nel Learning Agreement →
+        </a>
       </div>
       <div id="profilo-strip"></div>
       <div id="banner-lingue-mete"></div>
@@ -320,8 +329,8 @@
             </summary>
             <div class="stazione-corpo">
               <p class="stazione-testo">Il Learning Agreement ufficiale si compila nei sistemi del tuo ateneo (OLA/EWP o piattaforma interna), dopo la selezione. Qui prepari la <strong>bozza di lavoro</strong>: gli esami di casa da riconoscere, i corsi dell'ospitante e le corrispondenze — con le versioni, così quando un corso salta non perdi il lavoro fatto.</p>
-              <a class="dett-link" href="guide/come-fare-learning-agreement-sapienza.html">Guida: il Learning Agreement alla Sapienza ↗</a>
-              <div id="la-workspace" class="la-workspace"></div>
+              <a class="btn-primary la-apri-dossier" data-la-route
+                 href="#learning-agreement/cafoscari">Apri il dossier Learning Agreement →</a>
             </div>
           </details>
         </li>
@@ -343,6 +352,20 @@
           </details>
         </li>
       </ol>
+    </section>
+
+    <!-- Learning Agreement v2: schermata app-first indipendente dal tab
+         Percorso. Tutto il contenuto dinamico è prodotto da renderLAV2(). -->
+    <section id="tab-learning-agreement" class="tab-pane nascosto la-page"
+             tabindex="-1" aria-labelledby="la-page-title">
+      <header class="la-page-header">
+        <p class="la-page-kicker">Dossier personale · solo su questo dispositivo</p>
+        <h1 id="la-page-title">Learning Agreement</h1>
+        <p id="la-page-intro"></p>
+        <a class="la-back-link" href="#percorso" data-goto="percorso">← Torna al percorso</a>
+      </header>
+      <div id="la-v2-app" class="la-v2-app" aria-live="polite"></div>
+      <input id="la-restore-file" type="file" accept="application/json,.json" hidden>
     </section>
 
     <!-- ====================================================
@@ -589,6 +612,10 @@
        restano "senza posizione" (mai nascoste in silenzio). -->
   <script src="js/dati-mappa-europa.js"></script>
   <script src="js/dati-coordinate.js"></script>
+
+  <!-- Dati statici del dossier: devono esistere prima del render in app.js. -->
+  <script src="js/la-regole.js"></script>
+  <script src="js/la-suggerimenti.js"></script>
 
   <script src="js/app.js"></script>
 

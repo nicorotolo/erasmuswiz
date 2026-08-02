@@ -146,7 +146,8 @@
       haChiavi(zaino.checklist) ||
       haChiavi(zaino.checklistPost) ||
       haChiavi(zaino.autoverifica) ||
-      haChiavi(zaino.la && zaino.la.bozzePerMeta)
+      haChiavi(zaino.la && zaino.la.bozzePerMeta) ||
+      haChiavi(zaino.la && zaino.la.dossiersById)
     );
   }
 
@@ -168,7 +169,7 @@
       autoverifica: {},
       zainoCelebrato: false,
       wizardMete: false,
-      la: { metaAperta: null, bozzePerMeta: {} },
+      la: creaLaV2(),
       cicloPercorso: cicloPercorso,
       cicloDati: cicloDati,
       storico: {},
@@ -224,16 +225,9 @@
       zaino.zainoCelebrato = originale.fase === "selezionato";
     }
     if (typeof zaino.wizardMete !== "boolean") zaino.wizardMete = false;
-    if (!oggettoSemplice(zaino.la)) zaino.la = {};
-    if (!oggettoSemplice(zaino.la.bozzePerMeta)) zaino.la.bozzePerMeta = {};
-    if (zaino.la.metaAperta === undefined) zaino.la.metaAperta = null;
-    Object.keys(zaino.la.bozzePerMeta).forEach(function (metaId) {
-      var bozza = zaino.la.bozzePerMeta[metaId];
-      if (!oggettoSemplice(bozza)) return;
-      if (!testo(bozza.ciclo)) bozza.ciclo = zaino.cicloPercorso;
-      if (!testo(bozza.ateneo) && testo(opzioni.ateneo)) {
-        bozza.ateneo = testo(opzioni.ateneo);
-      }
+    zaino.la = normalizzaLaV2(zaino.la, {
+      ateneo: testo(opzioni.ateneo),
+      ciclo: zaino.cicloPercorso
     });
 
     if (!valido && grezzo !== undefined && grezzo !== null) {
@@ -1223,6 +1217,1013 @@
     };
   }
 
+  // ================================================================
+  // LEARNING AGREEMENT v2 — modello e regole pure
+  // ================================================================
+  var LA_SCHEMA_VERSION = 2;
+  var LA_STATI_ESAME = Object.freeze([
+    "da-sostenere", "gia-sostenuto", "fuori-piano"
+  ]);
+  var LA_PREFLIGHT = Object.freeze([
+    "course-data-checked", "credits-compared", "mapping-reviewed"
+  ]);
+  var LA_PASSI_ESTERNI = Object.freeze([
+    "sent-home", "entered-portal", "student-signed",
+    "home-approved", "host-approved"
+  ]);
+  var LA_FATTI_LIFECYCLE = Object.freeze([
+    "mobilityStartedAt", "returnedAt", "recognitionRecordedAt"
+  ]);
+
+  function oraIso(valore) {
+    var data = valore ? new Date(valore) : new Date();
+    return Number.isNaN(data.getTime()) ? new Date(0).toISOString() : data.toISOString();
+  }
+
+  function numeroPositivo(valore) {
+    if (typeof valore === "string") valore = valore.replace(",", ".");
+    var numero = Number(valore);
+    return Number.isFinite(numero) && numero > 0 ? numero : null;
+  }
+
+  function slugLA(valore) {
+    var base = testo(valore).toLocaleLowerCase("it");
+    try { base = base.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); } catch (e) {}
+    return base
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "") || "sconosciuto";
+  }
+
+  function creaLaV2() {
+    return {
+      schemaVersion: LA_SCHEMA_VERSION,
+      nextId: 1,
+      examLibrary: {},
+      dossiersById: {},
+      openDossierId: null,
+      assignedDossierIdByCycle: {}
+    };
+  }
+
+  function statoEsameLA(valore) {
+    return LA_STATI_ESAME.indexOf(valore) >= 0 ? valore : "da-sostenere";
+  }
+
+  function statoCorsoHostLA(valore) {
+    var ammessi = [
+      "da-verificare", "disponibile", "non-disponibile", "sostituito",
+      "available", "unavailable", "unknown"
+    ];
+    return ammessi.indexOf(valore) >= 0 ? valore : "da-verificare";
+  }
+
+  function corsoHostAttivoLA(corso) {
+    var stato = statoCorsoHostLA(corso && (corso.availabilityState || corso.stato));
+    return stato !== "non-disponibile" && stato !== "sostituito" && stato !== "unavailable";
+  }
+
+  function normalizzaEsameLibreriaLA(esame, idFallback) {
+    var originale = oggettoSemplice(esame) ? copiaPersistibile(esame) : {};
+    var id = testo(originale.id) || idFallback;
+    return Object.assign({}, originale, {
+      id: id,
+      codice: testo(originale.codice),
+      nome: testo(originale.nome),
+      cfu: numeroPositivo(originale.cfu) || originale.cfu || "",
+      stato: statoEsameLA(originale.stato)
+    });
+  }
+
+  function normalizzaSnapshotCasaLA(esame, idFallback) {
+    var originale = oggettoSemplice(esame) ? copiaPersistibile(esame) : {};
+    var id = testo(originale.snapshotId || originale.id) || idFallback;
+    var risultato = Object.assign({}, originale, {
+      snapshotId: id,
+      codice: testo(originale.codice),
+      nome: testo(originale.nome),
+      cfu: numeroPositivo(originale.cfu) || originale.cfu || "",
+      stato: statoEsameLA(originale.stato)
+    });
+    delete risultato.id;
+    if (testo(originale.sourceExamId)) risultato.sourceExamId = testo(originale.sourceExamId);
+    else delete risultato.sourceExamId;
+    return risultato;
+  }
+
+  function normalizzaSnapshotHostLA(corso, idFallback) {
+    var originale = oggettoSemplice(corso) ? copiaPersistibile(corso) : {};
+    var id = testo(originale.snapshotId || originale.id) || idFallback;
+    var risultato = Object.assign({}, originale, {
+      snapshotId: id,
+      codice: testo(originale.codice),
+      nome: testo(originale.nome),
+      ects: numeroPositivo(originale.ects) || originale.ects || "",
+      lingua: testo(originale.lingua),
+      semestre: testo(originale.semestre),
+      officialUrl: testo(originale.officialUrl || originale.link),
+      availabilityState: statoCorsoHostLA(
+        originale.availabilityState || originale.stato
+      ),
+      verifiedAt: testo(originale.verifiedAt || originale.verificataIl),
+      sourceDate: testo(originale.sourceDate)
+    });
+    delete risultato.id;
+    delete risultato.link;
+    delete risultato.stato;
+    delete risultato.verificataIl;
+    return risultato;
+  }
+
+  function normalizzaMappaturaLA(gruppo, idFallback) {
+    var originale = oggettoSemplice(gruppo) ? copiaPersistibile(gruppo) : {};
+    var casa = Array.isArray(originale.homeExamSnapshotIds)
+      ? originale.homeExamSnapshotIds : (Array.isArray(originale.esami) ? originale.esami : []);
+    var host = Array.isArray(originale.hostCourseSnapshotIds)
+      ? originale.hostCourseSnapshotIds : (Array.isArray(originale.corsi) ? originale.corsi : []);
+    var risultato = Object.assign({}, originale, {
+      mappingId: testo(originale.mappingId || originale.id) || idFallback,
+      homeExamSnapshotIds: casa.map(testo).filter(Boolean),
+      hostCourseSnapshotIds: host.map(testo).filter(Boolean)
+    });
+    delete risultato.id;
+    delete risultato.esami;
+    delete risultato.corsi;
+    return risultato;
+  }
+
+  function normalizzaVersioneLA(versione, dossierId, indice) {
+    var originale = oggettoSemplice(versione) ? copiaPersistibile(versione) : {};
+    var numero = Number(originale.number || originale.numero || indice + 1);
+    if (!Number.isInteger(numero) || numero < 1) numero = indice + 1;
+    var versionId = testo(originale.versionId) || dossierId + ":v" + numero;
+    var esami = Array.isArray(originale.homeExamSnapshots)
+      ? originale.homeExamSnapshots : (Array.isArray(originale.esamiCasa) ? originale.esamiCasa : []);
+    var corsi = Array.isArray(originale.hostCourseSnapshots)
+      ? originale.hostCourseSnapshots : (Array.isArray(originale.corsiHost) ? originale.corsiHost : []);
+    var gruppi = Array.isArray(originale.mappings)
+      ? originale.mappings : (Array.isArray(originale.gruppi) ? originale.gruppi : []);
+    var preflightGrezzo = oggettoSemplice(originale.preflight)
+      ? originale.preflight : (oggettoSemplice(originale.preInvio) ? originale.preInvio : {});
+    var preflight = Object.assign({}, preflightGrezzo);
+    // Le due attestazioni della bozza v0 non bastano a dichiarare il nuovo
+    // controllo molti-a-molti: la migrazione resta volutamente prudente.
+    if (Object.prototype.hasOwnProperty.call(preflightGrezzo, "linkAperti")) {
+      preflight["course-data-checked"] = !!preflightGrezzo.linkAperti;
+    }
+    if (Object.prototype.hasOwnProperty.call(preflightGrezzo, "ectsConfrontati")) {
+      preflight["credits-compared"] = !!preflightGrezzo.ectsConfrontati;
+    }
+    LA_PREFLIGHT.forEach(function (chiave) {
+      preflight[chiave] = !!preflight[chiave];
+    });
+    delete preflight.linkAperti;
+    delete preflight.ectsConfrontati;
+
+    var risultato = Object.assign({}, originale, {
+      versionId: versionId,
+      number: numero,
+      createdAt: testo(originale.createdAt || originale.creataIl) || new Date(0).toISOString(),
+      reason: testo(originale.reason || originale.motivo),
+      note: testo(originale.note || originale.notaMotivo),
+      homeExamSnapshots: esami.map(function (esame, i) {
+        return normalizzaSnapshotCasaLA(esame, versionId + ":home-" + (i + 1));
+      }),
+      hostCourseSnapshots: corsi.map(function (corso, i) {
+        return normalizzaSnapshotHostLA(corso, versionId + ":host-" + (i + 1));
+      }),
+      mappings: gruppi.map(function (gruppo, i) {
+        return normalizzaMappaturaLA(gruppo, versionId + ":map-" + (i + 1));
+      }),
+      preflight: preflight
+    });
+    delete risultato.numero;
+    delete risultato.creataIl;
+    delete risultato.motivo;
+    delete risultato.notaMotivo;
+    delete risultato.esamiCasa;
+    delete risultato.corsiHost;
+    delete risultato.gruppi;
+    delete risultato.preInvio;
+    if (testo(originale.lockedAt)) risultato.lockedAt = testo(originale.lockedAt);
+    if (testo(originale.lockReason)) risultato.lockReason = testo(originale.lockReason);
+    return risultato;
+  }
+
+  function normalizzaDossierLA(dossier, idFallback, configurazione) {
+    var originale = oggettoSemplice(dossier) ? copiaPersistibile(dossier) : {};
+    var id = testo(originale.id) || idFallback;
+    var metaOriginale = oggettoSemplice(originale.meta) ? originale.meta : {};
+    var metaId = testo(originale.metaId || metaOriginale.id);
+    var versioniGrezze = Array.isArray(originale.versions)
+      ? originale.versions : (Array.isArray(originale.versioni) ? originale.versioni : []);
+    var versioni = versioniGrezze.map(function (versione, indice) {
+      return normalizzaVersioneLA(versione, id, indice);
+    });
+    var currentVersionId = testo(originale.currentVersionId);
+    if (!versioni.some(function (versione) { return versione.versionId === currentVersionId; })) {
+      currentVersionId = versioni.length ? versioni[versioni.length - 1].versionId : null;
+    }
+    var risultato = Object.assign({}, originale, {
+      id: id,
+      metaId: metaId,
+      meta: Object.assign({}, metaOriginale, {
+        id: metaId,
+        universita: testo(metaOriginale.universita || originale.metaName),
+        citta: testo(metaOriginale.citta),
+        paese: testo(metaOriginale.paese)
+      }),
+      university: testo(originale.university || originale.ateneo || configurazione.ateneo),
+      cycle: testo(originale.cycle || originale.ciclo || configurazione.ciclo),
+      createdAt: testo(originale.createdAt || originale.creataIl) || new Date(0).toISOString(),
+      updatedAt: testo(originale.updatedAt || originale.aggiornatoIl || originale.createdAt || originale.creataIl) || new Date(0).toISOString(),
+      versions: versioni,
+      currentVersionId: currentVersionId,
+      confirmationsByVersion: oggettoSemplice(originale.confirmationsByVersion)
+        ? copiaPersistibile(originale.confirmationsByVersion) : {},
+      lifecycle: oggettoSemplice(originale.lifecycle)
+        ? copiaPersistibile(originale.lifecycle) : {}
+    });
+    delete risultato.ateneo;
+    delete risultato.ciclo;
+    delete risultato.creataIl;
+    delete risultato.aggiornatoIl;
+    delete risultato.versioni;
+    delete risultato.versioneCorrente;
+    delete risultato.prossimoId;
+    if (testo(originale.archivedAt)) risultato.archivedAt = testo(originale.archivedAt);
+    if (oggettoSemplice(originale.recognition)) {
+      var riconoscimento = copiaPersistibile(originale.recognition);
+      riconoscimento.approvedVersionId = testo(riconoscimento.approvedVersionId);
+      riconoscimento.hostCourses = (Array.isArray(riconoscimento.hostCourses)
+        ? riconoscimento.hostCourses : []).filter(oggettoSemplice).map(function (riga) {
+          var stato = ["passed", "failed", "absent"].indexOf(riga.transcriptStatus) >= 0
+            ? riga.transcriptStatus : "absent";
+          return Object.assign({}, riga, {
+            hostCourseSnapshotId: testo(riga.hostCourseSnapshotId),
+            transcriptStatus: stato,
+            transcriptTitle: testo(riga.transcriptTitle),
+            transcriptCredits: numeroPositivo(riga.transcriptCredits) || ""
+          });
+        });
+      riconoscimento.homeExams = (Array.isArray(riconoscimento.homeExams)
+        ? riconoscimento.homeExams : []).filter(oggettoSemplice).map(function (riga) {
+          var stato = ["pending", "recognized", "not-recognized"].indexOf(riga.status) >= 0
+            ? riga.status : "pending";
+          return Object.assign({}, riga, {
+            homeExamSnapshotId: testo(riga.homeExamSnapshotId),
+            status: stato
+          });
+        });
+      risultato.recognition = riconoscimento;
+    }
+    return risultato;
+  }
+
+  function idLegacyBaseLA(ateneo, ciclo, metaId) {
+    return "legacy:" + slugLA(ateneo) + ":" + slugLA(ciclo) + ":" + slugLA(metaId);
+  }
+
+  function bozzaLegacyValidaLA(bozza) {
+    return oggettoSemplice(bozza) && Array.isArray(bozza.versioni) && bozza.versioni.length > 0;
+  }
+
+  function migraLaLegacyV2(grezzo, configurazione) {
+    var originale = oggettoSemplice(grezzo) ? copiaPersistibile(grezzo) : {};
+    var sconosciuti = {};
+    Object.keys(originale).forEach(function (chiave) {
+      if (chiave !== "metaAperta" && chiave !== "bozzePerMeta") {
+        sconosciuti[chiave] = copiaPersistibile(originale[chiave]);
+      }
+    });
+    var risultato = Object.assign(creaLaV2(), sconosciuti);
+    var bozze = oggettoSemplice(originale.bozzePerMeta) ? originale.bozzePerMeta : {};
+    var corrotti = {};
+    if (Object.prototype.hasOwnProperty.call(originale, "bozzePerMeta") &&
+        !oggettoSemplice(originale.bozzePerMeta)) {
+      corrotti.__bozzePerMeta = copiaPersistibile(originale.bozzePerMeta);
+    }
+    var usati = {};
+    var metaAperta = testo(originale.metaAperta);
+
+    Object.keys(bozze).sort(function (a, b) {
+      return a.localeCompare(b, "it", { sensitivity: "variant" });
+    }).forEach(function (metaId) {
+      var bozza = bozze[metaId];
+      if (!bozzaLegacyValidaLA(bozza)) {
+        corrotti[metaId] = copiaPersistibile(bozza);
+        return;
+      }
+      var ateneo = testo(bozza.ateneo || configurazione.ateneo);
+      var ciclo = testo(bozza.ciclo || configurazione.ciclo);
+      var base = idLegacyBaseLA(ateneo, ciclo, metaId);
+      var collisione = (usati[base] || 0) + 1;
+      usati[base] = collisione;
+      var id = collisione === 1 ? base : base + "-" + collisione;
+      var dossier = normalizzaDossierLA(bozza, id, {
+        ateneo: ateneo,
+        ciclo: ciclo
+      });
+      dossier.id = id;
+      dossier.metaId = testo(metaId);
+      dossier.meta.id = testo(metaId);
+      dossier.versions = dossier.versions.map(function (versione, indice) {
+        var numero = Number(versione.number) || indice + 1;
+        versione.versionId = id + ":v" + numero;
+        return versione;
+      });
+      dossier.currentVersionId = dossier.versions[dossier.versions.length - 1].versionId;
+      risultato.dossiersById[id] = dossier;
+      if (metaId === metaAperta) risultato.openDossierId = id;
+    });
+    risultato.nextId = Object.keys(risultato.dossiersById).length + 1;
+    risultato.recovery = Object.assign({}, risultato.recovery, {
+      legacyRecovery: originale
+    });
+    if (Object.keys(corrotti).length) risultato.recovery.legacyCorrupt = corrotti;
+    return risultato;
+  }
+
+  function normalizzaLaV2(grezzo, configurazione) {
+    var opzioni = configurazione || {};
+    var originale = oggettoSemplice(grezzo) ? copiaPersistibile(grezzo) : {};
+    var eV2 = Number(originale.schemaVersion) === LA_SCHEMA_VERSION ||
+      oggettoSemplice(originale.dossiersById);
+    if (!eV2 && (Object.prototype.hasOwnProperty.call(originale, "bozzePerMeta") ||
+                 Object.prototype.hasOwnProperty.call(originale, "metaAperta"))) {
+      return migraLaLegacyV2(originale, opzioni);
+    }
+
+    var risultato = Object.assign(creaLaV2(), originale);
+    risultato.schemaVersion = LA_SCHEMA_VERSION;
+    var nextId = Number(risultato.nextId);
+    risultato.nextId = Number.isInteger(nextId) && nextId > 0 ? nextId : 1;
+    var libreria = oggettoSemplice(risultato.examLibrary) ? risultato.examLibrary : {};
+    risultato.examLibrary = {};
+    Object.keys(libreria).sort().forEach(function (id) {
+      risultato.examLibrary[id] = normalizzaEsameLibreriaLA(libreria[id], id);
+    });
+    var dossierGrezzi = oggettoSemplice(risultato.dossiersById) ? risultato.dossiersById : {};
+    risultato.dossiersById = {};
+    Object.keys(dossierGrezzi).sort().forEach(function (id) {
+      risultato.dossiersById[id] = normalizzaDossierLA(dossierGrezzi[id], id, opzioni);
+    });
+    if (!risultato.dossiersById[testo(risultato.openDossierId)]) risultato.openDossierId = null;
+    var assegnati = oggettoSemplice(risultato.assignedDossierIdByCycle)
+      ? risultato.assignedDossierIdByCycle : {};
+    risultato.assignedDossierIdByCycle = {};
+    Object.keys(assegnati).forEach(function (ciclo) {
+      var id = testo(assegnati[ciclo]);
+      var dossier = risultato.dossiersById[id];
+      if (dossier && !dossier.archivedAt && dossier.cycle === ciclo) {
+        risultato.assignedDossierIdByCycle[ciclo] = id;
+      }
+    });
+    if (risultato.recovery !== undefined && !oggettoSemplice(risultato.recovery)) {
+      risultato.recovery = { legacyCorrupt: copiaPersistibile(risultato.recovery) };
+    }
+    return risultato;
+  }
+
+  function laRichiedeMigrazioneV2(grezzo) {
+    return oggettoSemplice(grezzo) &&
+      Number(grezzo.schemaVersion) !== LA_SCHEMA_VERSION &&
+      (Object.prototype.hasOwnProperty.call(grezzo, "bozzePerMeta") ||
+       Object.prototype.hasOwnProperty.call(grezzo, "metaAperta"));
+  }
+
+  function contaContenutoLA(la) {
+    var normalizzata = normalizzaLaV2(la);
+    var dossier = Object.keys(normalizzata.dossiersById).length;
+    var versioni = 0;
+    var esami = 0;
+    var corsi = 0;
+    Object.keys(normalizzata.dossiersById).forEach(function (id) {
+      var d = normalizzata.dossiersById[id];
+      versioni += d.versions.length;
+      d.versions.forEach(function (v) {
+        esami += v.homeExamSnapshots.length;
+        corsi += v.hostCourseSnapshots.length;
+      });
+    });
+    return { dossier: dossier, versioni: versioni, esami: esami, corsi: corsi };
+  }
+
+  function verificaRecoveryLegacyLA(la, configurazione) {
+    if (!oggettoSemplice(la) || !oggettoSemplice(la.recovery) ||
+        !oggettoSemplice(la.recovery.legacyRecovery)) return false;
+    var opzioni = configurazione || {};
+    var attuale = normalizzaLaV2(la, opzioni);
+    var attesa = normalizzaLaV2(
+      migraLaLegacyV2(la.recovery.legacyRecovery, opzioni), opzioni
+    );
+    // La sola differenza autorizzata è la copia di sicurezza che il secondo
+    // salvataggio deve rimuovere. legacyCorrupt e qualunque campo futuro
+    // partecipano invece al confronto e non possono sparire in silenzio.
+    delete attuale.recovery.legacyRecovery;
+    delete attesa.recovery.legacyRecovery;
+
+    function equivalenti(a, b) {
+      if (a === b) return true;
+      if (Array.isArray(a) || Array.isArray(b)) {
+        if (!Array.isArray(a) || !Array.isArray(b) || a.length !== b.length) return false;
+        return a.every(function (valore, indice) { return equivalenti(valore, b[indice]); });
+      }
+      if (!oggettoSemplice(a) || !oggettoSemplice(b)) return false;
+      var chiaviA = Object.keys(a).sort();
+      var chiaviB = Object.keys(b).sort();
+      if (chiaviA.length !== chiaviB.length || chiaviA.some(function (chiave, indice) {
+        return chiave !== chiaviB[indice];
+      })) return false;
+      return chiaviA.every(function (chiave) { return equivalenti(a[chiave], b[chiave]); });
+    }
+
+    return equivalenti(attuale, attesa);
+  }
+
+  function rimuoviRecoveryLegacyLA(la) {
+    var copia = normalizzaLaV2(la);
+    if (oggettoSemplice(copia.recovery)) {
+      delete copia.recovery.legacyRecovery;
+      if (!Object.keys(copia.recovery).length) delete copia.recovery;
+    }
+    return copia;
+  }
+
+  function chiaveDuplicatoEsameLA(esame) {
+    var codice = slugLA(esame && esame.codice);
+    if (testo(esame && esame.codice)) return "codice:" + codice;
+    var nome = slugLA(esame && esame.nome);
+    var cfu = numeroPositivo(esame && esame.cfu);
+    return nome && cfu ? "nome-cfu:" + nome + ":" + cfu : "";
+  }
+
+  function parsePianoStudiLA(input, examLibrary) {
+    var righe = String(input == null ? "" : input).split(/\r?\n/);
+    var libreria = oggettoSemplice(examLibrary) ? examLibrary : {};
+    var duplicati = {};
+    Object.keys(libreria).forEach(function (id) {
+      var chiave = chiaveDuplicatoEsameLA(libreria[id]);
+      if (chiave && !duplicati[chiave]) duplicati[chiave] = id;
+    });
+    var risultato = [];
+    var indiceDati = 0;
+    righe.forEach(function (riga, indice) {
+      if (!riga.trim()) return;
+      var separatore = riga.indexOf(";") >= 0 ? ";" : (riga.indexOf("\t") >= 0 ? "\t" : null);
+      var celle = separatore ? riga.split(separatore).map(testo) : [testo(riga)];
+      var intestazione = indiceDati === 0 && celle.length >= 3 &&
+        /codice/i.test(celle[0]) && /(nome|esame|insegnamento)/i.test(celle[1]) && /cfu|credit/i.test(celle[2]);
+      indiceDati += 1;
+      if (intestazione) return;
+      var esame = {
+        codice: celle[0] || "",
+        nome: celle[1] || "",
+        cfu: numeroPositivo(celle[2]),
+        stato: "da-sostenere"
+      };
+      var problemi = [];
+      if (!separatore || celle.length !== 3) problemi.push("ambiguous-columns");
+      if (!esame.nome) problemi.push("missing-name");
+      if (!esame.cfu) problemi.push("invalid-credits");
+      var chiave = chiaveDuplicatoEsameLA(esame);
+      var duplicateExamId = chiave ? duplicati[chiave] || null : null;
+      if (duplicateExamId) problemi.push("duplicate");
+      risultato.push({
+        rowId: "row-" + (indice + 1),
+        line: indice + 1,
+        raw: riga,
+        values: esame,
+        issues: problemi,
+        duplicateExamId: duplicateExamId,
+        requiresDecision: problemi.length > 0
+      });
+      if (chiave && !duplicati[chiave]) duplicati[chiave] = "preview:" + (indice + 1);
+    });
+    return {
+      rows: risultato,
+      unresolvedCount: risultato.filter(function (riga) { return riga.requiresDecision; }).length
+    };
+  }
+
+  function finalizzaImportPianoLA(preview, decisions) {
+    var righe = preview && Array.isArray(preview.rows) ? preview.rows : [];
+    var scelte = oggettoSemplice(decisions) ? decisions : {};
+    var importabili = [];
+    var irrisolte = [];
+    righe.forEach(function (riga) {
+      var decisione = scelte[riga.rowId];
+      if (!riga.requiresDecision) {
+        importabili.push(Object.assign({}, copiaPersistibile(riga.values), {
+          cfu: numeroPositivo(riga.values.cfu),
+          importRowId: riga.rowId
+        }));
+        return;
+      }
+      if (!oggettoSemplice(decisione) || ["exclude", "confirm", "keep-separate", "merge"].indexOf(decisione.action) < 0) {
+        irrisolte.push(copiaPersistibile(riga));
+        return;
+      }
+      if (decisione.action === "exclude") return;
+      if (decisione.action === "merge") {
+        var valoriMerge = oggettoSemplice(decisione.values)
+          ? Object.assign({}, riga.values, decisione.values) : copiaPersistibile(riga.values);
+        var cfuMerge = numeroPositivo(valoriMerge.cfu);
+        if (!testo(valoriMerge.nome) || !cfuMerge) {
+          irrisolte.push(copiaPersistibile(riga));
+          return;
+        }
+        importabili.push(Object.assign({}, valoriMerge, {
+          cfu: cfuMerge,
+          mergeIntoExamId: testo(decisione.examId || riga.duplicateExamId),
+          importRowId: riga.rowId
+        }));
+        return;
+      }
+      var valori = oggettoSemplice(decisione.values)
+        ? Object.assign({}, riga.values, decisione.values) : copiaPersistibile(riga.values);
+      if (!testo(valori.nome) || !numeroPositivo(valori.cfu)) {
+        irrisolte.push(copiaPersistibile(riga));
+        return;
+      }
+      importabili.push(Object.assign({}, valori, {
+        cfu: numeroPositivo(valori.cfu),
+        importRowId: riga.rowId
+      }));
+    });
+    return { exams: importabili, unresolvedRows: irrisolte };
+  }
+
+  function versioneCorrenteLA(dossier) {
+    if (!oggettoSemplice(dossier) || !Array.isArray(dossier.versions)) return null;
+    return dossier.versions.find(function (v) {
+      return v.versionId === dossier.currentVersionId;
+    }) || dossier.versions[dossier.versions.length - 1] || null;
+  }
+
+  function filtraRegoleLA(regole, contesto) {
+    var opzioni = contesto || {};
+    var oggi = new Date(opzioni.asOf || new Date().toISOString());
+    var maxAgeDays = Number(opzioni.maxAgeDays || 400);
+    var universita = testo(opzioni.university);
+    var ciclo = testo(opzioni.cycle);
+    var scope = testo(opzioni.scope || "all");
+    var pertinenti = (Array.isArray(regole) ? regole : []).filter(function (regola) {
+      if (!oggettoSemplice(regola) || testo(regola.university) !== universita ||
+          testo(regola.cycle) !== ciclo) return false;
+      var ambiti = Array.isArray(regola.scope) ? regola.scope : [regola.scope || "all"];
+      if (ambiti.indexOf("all") < 0 && ambiti.indexOf(scope) < 0) return false;
+      if (testo(regola.stage) && testo(regola.stage) !== testo(opzioni.stage)) return false;
+      return true;
+    });
+    var invalida = pertinenti.some(function (regola) {
+      if (["block", "warning", "info"].indexOf(regola.severity) < 0 ||
+          !testo(regola.id) || !testo(regola.title) || !testo(regola.verifiedAt)) return true;
+      var fonti = Array.isArray(regola.sources) ? regola.sources : [];
+      if (!fonti.length || fonti.some(function (fonte) {
+        return !oggettoSemplice(fonte) || !/^https:\/\//.test(testo(fonte.url)) || !testo(fonte.title);
+      })) return true;
+      var verificata = new Date(regola.verifiedAt);
+      return Number.isNaN(verificata.getTime()) || verificata > oggi ||
+        (oggi - verificata) / 86400000 > maxAgeDays;
+    });
+    return pertinenti.length && !invalida
+      ? { state: "verified", rules: pertinenti.map(copiaPersistibile) }
+      : { state: "verify", rules: [], message: "Procedura da verificare" };
+  }
+
+  function calcolaScadenzaRelativaLA(regola, lifecycle) {
+    if (!oggettoSemplice(regola) || !oggettoSemplice(regola.relativeDeadline) ||
+        !oggettoSemplice(lifecycle)) return null;
+    var giorni = Number(regola.relativeDeadline.days);
+    var base = testo(regola.relativeDeadline.baseEvent);
+    if (!Number.isFinite(giorni) || giorni <= 0 || !base || !testo(lifecycle[base])) return null;
+    var data = new Date(lifecycle[base]);
+    if (Number.isNaN(data.getTime())) return null;
+    data.setUTCDate(data.getUTCDate() + giorni);
+    return data.toISOString();
+  }
+
+  function regolaBloccaDossierLA(regola, versione) {
+    if (!regola || regola.severity !== "block") return false;
+    var esami = versione.homeExamSnapshots || [];
+    if (regola.check === "home-not-passed") {
+      return esami.some(function (esame) { return statoEsameLA(esame.stato) === "gia-sostenuto"; });
+    }
+    if (regola.check === "home-code-required") {
+      return esami.some(function (esame) { return !testo(esame.codice); });
+    }
+    return regola.applies === true;
+  }
+
+  function valutaProntezzaLA(dossier, versione, regoleApplicabili) {
+    var mancanti = [];
+    var d = oggettoSemplice(dossier) ? dossier : {};
+    var v = oggettoSemplice(versione) ? versione : {};
+    if (!testo(d.metaId) || !oggettoSemplice(d.meta)) mancanti.push("missing-meta");
+    if (!testo(d.cycle)) mancanti.push("missing-cycle");
+    var casa = Array.isArray(v.homeExamSnapshots) ? v.homeExamSnapshots : [];
+    var hostTutti = Array.isArray(v.hostCourseSnapshots) ? v.hostCourseSnapshots : [];
+    var host = hostTutti.filter(corsoHostAttivoLA);
+    if (!casa.length) mancanti.push("no-home-course");
+    if (!host.length) mancanti.push("no-host-course");
+    if (casa.some(function (esame) { return !testo(esame.nome); })) mancanti.push("missing-home-name");
+    if (host.some(function (corso) { return !testo(corso.nome); })) mancanti.push("missing-host-name");
+    if (casa.some(function (esame) { return !numeroPositivo(esame.cfu); })) mancanti.push("invalid-home-credits");
+    if (host.some(function (corso) { return !numeroPositivo(corso.ects); })) mancanti.push("invalid-host-credits");
+    var casaIds = new Set(casa.map(function (esame) { return esame.snapshotId; }));
+    var hostIds = new Set(hostTutti.map(function (corso) { return corso.snapshotId; }));
+    var hostAttiviIds = new Set(host.map(function (corso) { return corso.snapshotId; }));
+    var casaMappati = new Set();
+    var hostMappati = new Set();
+    var orfana = false;
+    (Array.isArray(v.mappings) ? v.mappings : []).forEach(function (gruppo) {
+      var casaPresenti = (gruppo.homeExamSnapshotIds || []).filter(function (id) {
+        if (!casaIds.has(id)) { orfana = true; return false; }
+        return true;
+      });
+      var hostAttiviPresenti = (gruppo.hostCourseSnapshotIds || []).filter(function (id) {
+        if (!hostIds.has(id)) { orfana = true; return false; }
+        return hostAttiviIds.has(id);
+      });
+      // Un gruppo esprime una relazione molti-a-molti soltanto se collega
+      // davvero almeno un elemento esistente per ciascun lato. Due gruppi
+      // monchi non possono completarsi a vicenda.
+      if (casaPresenti.length && hostAttiviPresenti.length) {
+        casaPresenti.forEach(function (id) { casaMappati.add(id); });
+        hostAttiviPresenti.forEach(function (id) { hostMappati.add(id); });
+      }
+    });
+    if (casa.some(function (esame) { return !casaMappati.has(esame.snapshotId); })) mancanti.push("unmapped-home");
+    if (host.some(function (corso) { return !hostMappati.has(corso.snapshotId); })) mancanti.push("unmapped-host");
+    if (orfana) mancanti.push("orphan-reference");
+    if (Array.isArray(v.unresolvedImportRows) && v.unresolvedImportRows.length) mancanti.push("unresolved-import");
+    LA_PREFLIGHT.forEach(function (chiave) {
+      if (!oggettoSemplice(v.preflight) || !v.preflight[chiave]) mancanti.push("preflight:" + chiave);
+    });
+    (Array.isArray(regoleApplicabili) ? regoleApplicabili : []).forEach(function (regola) {
+      if (regolaBloccaDossierLA(regola, v)) mancanti.push("rule:" + regola.id);
+    });
+    var unici = mancanti.filter(function (codice, indice) {
+      return mancanti.indexOf(codice) === indice;
+    });
+    return { state: unici.length ? "incomplete" : "ready", missingCodes: unici };
+  }
+
+  function derivaFaseLA(la, ciclo) {
+    var stato = normalizzaLaV2(la);
+    var id = stato.assignedDossierIdByCycle[testo(ciclo)];
+    var dossier = id ? stato.dossiersById[id] : null;
+    if (!dossier || dossier.archivedAt) return "exploration";
+    var fatti = oggettoSemplice(dossier.lifecycle) ? dossier.lifecycle : {};
+    if (testo(fatti.recognitionRecordedAt)) return "closed";
+    if (testo(fatti.returnedAt)) return "recognition";
+    if (testo(fatti.mobilityStartedAt)) return "mobility";
+    if (testo(fatti.firstExternalAt)) return "approval";
+    return "preparation";
+  }
+
+  function clonaNuovaVersioneLA(dossier, opzioni) {
+    var copia = copiaPersistibile(dossier);
+    var corrente = versioneCorrenteLA(copia);
+    if (!corrente) return copia;
+    var numeri = copia.versions.map(function (v) { return Number(v.number) || 0; });
+    var numero = Math.max.apply(Math, numeri.concat([0])) + 1;
+    var nuova = copiaPersistibile(corrente);
+    nuova.number = numero;
+    nuova.versionId = copia.id + ":v" + numero;
+    nuova.createdAt = oraIso(opzioni && opzioni.at);
+    nuova.reason = testo(opzioni && opzioni.reason) || "change";
+    nuova.note = testo(opzioni && opzioni.note);
+    delete nuova.lockedAt;
+    delete nuova.lockReason;
+    nuova.preflight = {};
+    LA_PREFLIGHT.forEach(function (chiave) { nuova.preflight[chiave] = false; });
+    copia.versions.push(nuova);
+    copia.currentVersionId = nuova.versionId;
+    copia.updatedAt = nuova.createdAt;
+    return copia;
+  }
+
+  function preparaModificaVersioneLA(dossier, opzioni) {
+    var copia = copiaPersistibile(dossier);
+    var corrente = versioneCorrenteLA(copia);
+    if (!corrente) return copia;
+    // La storia del dossier non blocca automaticamente la bozza corrente:
+    // soltanto il lockedAt della versione esatta impone il clone.
+    return testo(corrente.lockedAt) ? clonaNuovaVersioneLA(copia, opzioni) : copia;
+  }
+
+  function haFattiEsterniLA(dossier) {
+    if (!oggettoSemplice(dossier)) return false;
+    var lifecycle = oggettoSemplice(dossier.lifecycle) ? dossier.lifecycle : {};
+    if (testo(lifecycle.firstExternalAt) || LA_FATTI_LIFECYCLE.some(function (chiave) {
+      return testo(lifecycle[chiave]);
+    })) return true;
+    var conferme = oggettoSemplice(dossier.confirmationsByVersion)
+      ? dossier.confirmationsByVersion : {};
+    if (Object.keys(conferme).some(function (versioneId) {
+      return oggettoSemplice(conferme[versioneId]) && Object.keys(conferme[versioneId]).length > 0;
+    })) return true;
+    return Array.isArray(dossier.versions) && dossier.versions.some(function (versione) {
+      return testo(versione && versione.lockedAt);
+    });
+  }
+
+  function registraFattoEsternoLA(dossier, stepKey, record) {
+    if (LA_PASSI_ESTERNI.indexOf(stepKey) < 0) return { ok: false, error: "unknown-step" };
+    var copia = copiaPersistibile(dossier);
+    var versione = versioneCorrenteLA(copia);
+    if (!versione) return { ok: false, error: "missing-version" };
+    var data = oraIso(record && record.markedAt);
+    if (!testo(versione.lockedAt)) {
+      versione.lockedAt = data;
+      versione.lockReason = stepKey;
+    }
+    if (!oggettoSemplice(copia.confirmationsByVersion)) copia.confirmationsByVersion = {};
+    if (!oggettoSemplice(copia.confirmationsByVersion[versione.versionId])) {
+      copia.confirmationsByVersion[versione.versionId] = {};
+    }
+    copia.confirmationsByVersion[versione.versionId][stepKey] = {
+      versionId: versione.versionId,
+      markedAt: data,
+      subject: testo(record && record.subject) || stepKey,
+      note: testo(record && record.note)
+    };
+    if (!oggettoSemplice(copia.lifecycle)) copia.lifecycle = {};
+    if (!testo(copia.lifecycle.firstExternalAt)) copia.lifecycle.firstExternalAt = data;
+    copia.updatedAt = data;
+    return { ok: true, dossier: copia, versionId: versione.versionId };
+  }
+
+  function registraFattoLifecycleLA(dossier, factKey, record) {
+    if (LA_FATTI_LIFECYCLE.indexOf(factKey) < 0) {
+      return { ok: false, error: "unknown-lifecycle-fact" };
+    }
+    var copia = copiaPersistibile(dossier);
+    var versione = versioneCorrenteLA(copia);
+    if (!versione) return { ok: false, error: "missing-version" };
+    var data = oraIso(record && record.markedAt);
+    if (!oggettoSemplice(copia.lifecycle)) copia.lifecycle = {};
+    var primo = !haFattiEsterniLA(copia);
+    copia.lifecycle[factKey] = data;
+    if (!testo(copia.lifecycle.firstExternalAt)) copia.lifecycle.firstExternalAt = data;
+    if (!testo(versione.lockedAt)) {
+      versione.lockedAt = data;
+      versione.lockReason = factKey;
+    }
+    copia.updatedAt = data;
+    return {
+      ok: true,
+      dossier: copia,
+      versionId: versione.versionId,
+      firstExternal: primo
+    };
+  }
+
+  function assegnaDossierLA(la, dossierId, ciclo, opzioni) {
+    var stato = normalizzaLaV2(la);
+    var id = testo(dossierId);
+    var d = stato.dossiersById[id];
+    var cycle = testo(ciclo);
+    if (!d || d.archivedAt || d.cycle !== cycle) return { ok: false, error: "invalid-dossier" };
+    var precedenteId = stato.assignedDossierIdByCycle[cycle];
+    if (precedenteId && precedenteId !== id) {
+      var precedente = stato.dossiersById[precedenteId];
+      var haEvento = haFattiEsterniLA(precedente);
+      if (haEvento && !(opzioni && opzioni.strongConfirmation)) {
+        return { ok: false, error: "strong-confirmation-required", previousDossierId: precedenteId };
+      }
+      if (haEvento) precedente.archivedAt = oraIso(opzioni && opzioni.at);
+    }
+    stato.assignedDossierIdByCycle[cycle] = id;
+    stato.openDossierId = id;
+    stato.backupReminder = { reason: "assignment", dueAt: oraIso(opzioni && opzioni.at) };
+    return { ok: true, la: stato, previousDossierId: precedenteId || null };
+  }
+
+  function creaDossierLA(la, dati) {
+    var stato = normalizzaLaV2(la);
+    var metaId = testo(dati && dati.metaId);
+    var ciclo = testo(dati && dati.cycle);
+    var esistente = Object.keys(stato.dossiersById).map(function (id) {
+      return stato.dossiersById[id];
+    }).find(function (d) {
+      return d.metaId === metaId && d.cycle === ciclo && !d.archivedAt;
+    });
+    if (esistente) {
+      stato.openDossierId = esistente.id;
+      return { created: false, la: stato, dossierId: esistente.id };
+    }
+    var id = "la-" + stato.nextId;
+    while (stato.dossiersById[id]) { stato.nextId += 1; id = "la-" + stato.nextId; }
+    stato.nextId += 1;
+    var data = oraIso(dati && dati.at);
+    var versionId = id + ":v1";
+    var meta = oggettoSemplice(dati && dati.meta) ? copiaPersistibile(dati.meta) : {};
+    var dossier = {
+      id: id,
+      metaId: metaId,
+      meta: {
+        id: metaId,
+        universita: testo(meta.universita),
+        citta: testo(meta.citta),
+        paese: testo(meta.paese)
+      },
+      university: testo(dati && dati.university),
+      cycle: ciclo,
+      createdAt: data,
+      updatedAt: data,
+      versions: [{
+        versionId: versionId,
+        number: 1,
+        createdAt: data,
+        reason: "initial",
+        note: "",
+        homeExamSnapshots: [],
+        hostCourseSnapshots: [],
+        mappings: [],
+        preflight: {
+          "course-data-checked": false,
+          "credits-compared": false,
+          "mapping-reviewed": false
+        }
+      }],
+      currentVersionId: versionId,
+      confirmationsByVersion: {},
+      lifecycle: {}
+    };
+    stato.dossiersById[id] = dossier;
+    stato.openDossierId = id;
+    return { created: true, la: stato, dossierId: id };
+  }
+
+  function duplicaDossierNuovoCicloLA(la, dossierId, nuovoCiclo, dati) {
+    var stato = normalizzaLaV2(la);
+    var origine = stato.dossiersById[testo(dossierId)];
+    if (!origine) return { ok: false, error: "missing-dossier" };
+    var creato = creaDossierLA(stato, {
+      metaId: origine.metaId,
+      meta: origine.meta,
+      university: origine.university,
+      cycle: testo(nuovoCiclo),
+      at: dati && dati.at
+    });
+    if (!creato.created) {
+      return { ok: true, created: false, la: creato.la, dossierId: creato.dossierId };
+    }
+    var nuovo = creato.la.dossiersById[creato.dossierId];
+    var versione = versioneCorrenteLA(nuovo);
+    Object.keys(creato.la.examLibrary).forEach(function (id) {
+      var esame = creato.la.examLibrary[id];
+      versione.homeExamSnapshots.push(normalizzaSnapshotCasaLA({
+        snapshotId: versione.versionId + ":home-" + (versione.homeExamSnapshots.length + 1),
+        sourceExamId: id,
+        codice: esame.codice,
+        nome: esame.nome,
+        cfu: esame.cfu,
+        stato: esame.stato
+      }));
+    });
+    return { ok: true, created: true, la: creato.la, dossierId: creato.dossierId };
+  }
+
+  function confrontaRiconoscimentoLA(dossier, riconoscimento) {
+    var versioneId = testo(riconoscimento && riconoscimento.approvedVersionId);
+    var versione = dossier && Array.isArray(dossier.versions)
+      ? dossier.versions.find(function (v) { return v.versionId === versioneId; }) : null;
+    var conferme = dossier && dossier.confirmationsByVersion && dossier.confirmationsByVersion[versioneId];
+    if (!versione || !oggettoSemplice(conferme) || !conferme["home-approved"]) {
+      return { valid: false, error: "approved-version-not-confirmed", mismatches: [] };
+    }
+    var differenze = [];
+    var hostRows = Array.isArray(riconoscimento.hostCourses) ? riconoscimento.hostCourses : [];
+    versione.hostCourseSnapshots.forEach(function (corso) {
+      var riga = hostRows.find(function (r) { return r.hostCourseSnapshotId === corso.snapshotId; });
+      if (!riga) {
+        differenze.push({ type: "missing-host-activity", snapshotId: corso.snapshotId });
+        return;
+      }
+      if (riga.transcriptStatus === "absent") {
+        differenze.push({ type: "missing-host-activity", snapshotId: corso.snapshotId });
+        return;
+      }
+      if (riga.transcriptStatus === "passed") {
+        if (!testo(riga.transcriptTitle)) {
+          differenze.push({ type: "missing-transcript-title", snapshotId: corso.snapshotId });
+        } else if (slugLA(riga.transcriptTitle) !== slugLA(corso.nome)) {
+          differenze.push({ type: "title", snapshotId: corso.snapshotId });
+        }
+        var crediti = numeroPositivo(riga.transcriptCredits);
+        if (!crediti || crediti !== numeroPositivo(corso.ects)) {
+          differenze.push({ type: "credits", snapshotId: corso.snapshotId });
+        }
+      }
+    });
+    var homeRows = Array.isArray(riconoscimento.homeExams) ? riconoscimento.homeExams : [];
+    versione.homeExamSnapshots.forEach(function (esame) {
+      if (!homeRows.some(function (r) { return r.homeExamSnapshotId === esame.snapshotId; })) {
+        differenze.push({ type: "missing-home-outcome", snapshotId: esame.snapshotId });
+      }
+    });
+    return { valid: true, versionId: versioneId, mismatches: differenze };
+  }
+
+  function creaBackupLA(dati) {
+    return {
+      format: "erasmuswiz-la-backup",
+      schemaVersion: LA_SCHEMA_VERSION,
+      university: testo(dati && dati.university),
+      cycle: testo(dati && dati.cycle),
+      exportedAt: oraIso(dati && dati.exportedAt),
+      payload: normalizzaLaV2(dati && dati.payload, {
+        ateneo: testo(dati && dati.university),
+        ciclo: testo(dati && dati.cycle)
+      }),
+      privacyWarning: "Contiene dati accademici inseriti da te. Conservalo in un luogo privato: ErasmusWiz non lo carica online."
+    };
+  }
+
+  function analizzaBackupLA(input, universitaNote) {
+    var dato;
+    try { dato = typeof input === "string" ? JSON.parse(input) : copiaPersistibile(input); }
+    catch (e) { return { ok: false, error: "malformed-json" }; }
+    if (!oggettoSemplice(dato) || dato.format !== "erasmuswiz-la-backup") {
+      return { ok: false, error: "unknown-format" };
+    }
+    if (Number(dato.schemaVersion) > LA_SCHEMA_VERSION) return { ok: false, error: "future-schema" };
+    if (Number(dato.schemaVersion) !== LA_SCHEMA_VERSION) return { ok: false, error: "unsupported-schema" };
+    var university = testo(dato.university);
+    if ((universitaNote || []).indexOf(university) < 0) return { ok: false, error: "unknown-university" };
+    var cycle = testo(dato.cycle);
+    if (!/^\d{4}\/\d{2}$/.test(cycle)) return { ok: false, error: "invalid-cycle" };
+    var exportedAt = testo(dato.exportedAt);
+    if (!exportedAt || Number.isNaN(new Date(exportedAt).getTime())) {
+      return { ok: false, error: "invalid-exported-at" };
+    }
+    if (!oggettoSemplice(dato.payload)) return { ok: false, error: "missing-payload" };
+    var payload = normalizzaLaV2(dato.payload, {
+      ateneo: university,
+      ciclo: cycle
+    });
+    return {
+      ok: true,
+      university: university,
+      cycle: cycle,
+      exportedAt: exportedAt,
+      payload: payload,
+      counts: contaContenutoLA(payload)
+    };
+  }
+
+  function filtraSuggerimentiLA(voci, contesto) {
+    var opzioni = contesto || {};
+    var oggi = new Date(opzioni.asOf || new Date().toISOString());
+    return (Array.isArray(voci) ? voci : []).filter(function (voce) {
+      if (!oggettoSemplice(voce) || voce.university !== "sapienza" ||
+          voce.scope !== "giurisprudenza" || opzioni.university !== "sapienza" ||
+          testo(opzioni.scope) !== "giurisprudenza" || !voce.humanReviewed ||
+          !testo(voce.reviewer) || !testo(voce.cycle) ||
+          typeof voce.reusable !== "boolean") return false;
+      if (voce.cycle !== testo(opzioni.cycle) && voce.reusable !== true) return false;
+      var verificata = new Date(voce.verifiedAt);
+      if (Number.isNaN(verificata.getTime()) || verificata > oggi ||
+          (oggi - verificata) / 86400000 > 365) return false;
+      var fonti = voce.sources;
+      if (!oggettoSemplice(fonti) || [fonti.home, fonti.host].some(function (fonte) {
+        return !oggettoSemplice(fonte) || !/^https:\/\//.test(testo(fonte.url)) ||
+          !testo(fonte.title) || fonte.official !== true ||
+          fonte.accessible !== true || fonte.stable !== true;
+      })) return false;
+      var r = voce.rationale;
+      return oggettoSemplice(r) && ["contents", "credits", "semester", "language", "missingData"]
+        .every(function (campo) { return testo(r[campo]); });
+    }).map(copiaPersistibile);
+  }
+
+  function scegliCtaLA(dati) {
+    var opzioni = dati || {};
+    if (opzioni.saveError) return { code: "recover-unsaved", label: "Scarica il recupero delle modifiche" };
+    var prontezza = opzioni.readiness || { state: "incomplete", missingCodes: [] };
+    if (prontezza.state !== "ready" && prontezza.missingCodes.length) {
+      return { code: "fix:" + prontezza.missingCodes[0], label: "Completa: " + prontezza.missingCodes[0] };
+    }
+    if (opzioni.needsResubmission) {
+      return { code: "resubmit-current", label: "Completa e reinvia la nuova versione" };
+    }
+    var perFase = {
+      exploration: ["choose-destination", "Confronta e scegli una meta"],
+      preparation: ["record-sent", "Segna l'invio al referente"],
+      approval: ["continue-approval", "Continua approvazione e firme"],
+      mobility: ["review-changes", "Controlla le modifiche durante la mobilità"],
+      recognition: ["record-recognition", "Registra la convalida"],
+      closed: ["review-closed", "Rivedi il dossier chiuso"]
+    };
+    var azione = perFase[opzioni.phase] || perFase.exploration;
+    if (opzioni.phaseActionDue !== false) return { code: azione[0], label: azione[1] };
+    if (opzioni.backupDue) return { code: "backup-due", label: "Scarica ora una copia di sicurezza" };
+    return { code: azione[0], label: azione[1] };
+  }
+
   return Object.freeze({
     SCALA_CEFR: SCALA_CEFR,
     ESITI_LINGUA: ESITI_LINGUA,
@@ -1259,6 +2260,39 @@
     invitoInstallazione: invitoInstallazione,
     creaCalendarioICS: creaCalendarioICS,
     presentazioneLinguaSconosciuta: presentazioneLinguaSconosciuta,
-    presentaCompatibilita: presentaCompatibilita
+    presentaCompatibilita: presentaCompatibilita,
+    LA_SCHEMA_VERSION: LA_SCHEMA_VERSION,
+    LA_STATI_ESAME: LA_STATI_ESAME,
+    LA_PREFLIGHT: LA_PREFLIGHT,
+    LA_PASSI_ESTERNI: LA_PASSI_ESTERNI,
+    LA_FATTI_LIFECYCLE: LA_FATTI_LIFECYCLE,
+    creaLaV2: creaLaV2,
+    normalizzaLaV2: normalizzaLaV2,
+    laRichiedeMigrazioneV2: laRichiedeMigrazioneV2,
+    contaContenutoLA: contaContenutoLA,
+    verificaRecoveryLegacyLA: verificaRecoveryLegacyLA,
+    rimuoviRecoveryLegacyLA: rimuoviRecoveryLegacyLA,
+    parsePianoStudiLA: parsePianoStudiLA,
+    finalizzaImportPianoLA: finalizzaImportPianoLA,
+    chiaveDuplicatoEsameLA: chiaveDuplicatoEsameLA,
+    corsoHostAttivoLA: corsoHostAttivoLA,
+    versioneCorrenteLA: versioneCorrenteLA,
+    filtraRegoleLA: filtraRegoleLA,
+    calcolaScadenzaRelativaLA: calcolaScadenzaRelativaLA,
+    valutaProntezzaLA: valutaProntezzaLA,
+    derivaFaseLA: derivaFaseLA,
+    clonaNuovaVersioneLA: clonaNuovaVersioneLA,
+    preparaModificaVersioneLA: preparaModificaVersioneLA,
+    haFattiEsterniLA: haFattiEsterniLA,
+    registraFattoEsternoLA: registraFattoEsternoLA,
+    registraFattoLifecycleLA: registraFattoLifecycleLA,
+    assegnaDossierLA: assegnaDossierLA,
+    creaDossierLA: creaDossierLA,
+    duplicaDossierNuovoCicloLA: duplicaDossierNuovoCicloLA,
+    confrontaRiconoscimentoLA: confrontaRiconoscimentoLA,
+    creaBackupLA: creaBackupLA,
+    analizzaBackupLA: analizzaBackupLA,
+    filtraSuggerimentiLA: filtraSuggerimentiLA,
+    scegliCtaLA: scegliCtaLA
   });
 });

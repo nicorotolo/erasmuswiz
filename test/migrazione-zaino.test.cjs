@@ -18,7 +18,17 @@ function ramoLA(presente) {
     ? {
         metaAperta: "meta-prova",
         bozzePerMeta: {
-          "meta-prova": { titolo: "Bozza da non perdere" },
+          "meta-prova": {
+            meta: { id: "meta-prova", universita: "Università prova" },
+            titolo: "Bozza da non perdere",
+            versioni: [{
+              numero: 1,
+              esamiCasa: [{ id: "e1", nome: "Diritto", cfu: 6 }],
+              corsiHost: [{ id: "c1", nome: "Law", ects: 6 }],
+              gruppi: [{ id: "g1", esami: ["e1"], corsi: ["c1"] }],
+              preInvio: { linkAperti: true, ectsConfrontati: true },
+            }],
+          },
         },
       }
     : undefined;
@@ -97,20 +107,18 @@ for (const tipo of TIPI) {
         assert.equal(zaino.cicloPercorso, "2026/27");
         assert.equal(zaino.marcatoreFixture, tipo);
         assert.ok(zaino.la && typeof zaino.la === "object");
-        assert.ok(
-          zaino.la.bozzePerMeta &&
-          typeof zaino.la.bozzePerMeta === "object"
-        );
+        assert.equal(zaino.la.schemaVersion, 2);
+        assert.ok(zaino.la.dossiersById && typeof zaino.la.dossiersById === "object");
 
         if (conLA && tipo !== "corrotto") {
-          assert.equal(
-            zaino.la.bozzePerMeta["meta-prova"].titolo,
-            "Bozza da non perdere"
-          );
-          assert.equal(zaino.la.bozzePerMeta["meta-prova"].ciclo, "2026/27");
-          assert.equal(zaino.la.bozzePerMeta["meta-prova"].ateneo, ateneo);
+          const dossier = Object.values(zaino.la.dossiersById)[0];
+          assert.equal(dossier.titolo, "Bozza da non perdere");
+          assert.equal(dossier.cycle, "2026/27");
+          assert.equal(dossier.university, ateneo);
+          assert.equal(dossier.versions[0].versionId, `${dossier.id}:v1`);
+          assert.ok(zaino.la.recovery.legacyRecovery);
         } else {
-          assert.deepEqual(zaino.la.bozzePerMeta, {});
+          assert.deepEqual(zaino.la.dossiersById, {});
         }
 
         if (tipo === "corrotto") {
@@ -118,6 +126,9 @@ for (const tipo of TIPI) {
           assert.deepEqual(zaino.metePreferite, []);
           if (conLA) {
             assert.equal(zaino.la.residuoDaConservare, "presente");
+            assert.ok(Object.prototype.hasOwnProperty.call(
+              zaino.la.recovery.legacyCorrupt, "__bozzePerMeta"
+            ));
           }
           const altro = ATENEI.find(chiave => chiave !== ateneo);
           assert.equal(

@@ -43,10 +43,10 @@ const avviiFreddi = [
   { nome: "alias #timeline", hash: "#timeline", tab: "percorso", canonico: "#percorso" },
   { nome: "hash sconosciuto", hash: "#non-esiste", tab: "oggi", canonico: "#oggi" },
   {
-    nome: "rotta futura #learning-agreement/sapienza",
+    nome: "rotta LA #learning-agreement/sapienza",
     hash: "#learning-agreement/sapienza",
-    tab: "oggi",
-    canonico: "#oggi",
+    tab: "learning-agreement",
+    canonico: "#learning-agreement/sapienza",
   },
 ];
 
@@ -72,7 +72,7 @@ test("la rotta Sapienza carica Sapienza senza cambiare l'ateneo salvato", async 
   await page.goto(`${PAGINA}#learning-agreement/sapienza`, {
     waitUntil: "domcontentloaded",
   });
-  await attendiSezione(page, "oggi", "#oggi");
+  await attendiSezione(page, "learning-agreement", "#learning-agreement/sapienza");
 
   const stato = await page.evaluate(() => ({
     ateneoAttivo: window.ATENEO_ATTIVO,

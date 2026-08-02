@@ -25,6 +25,7 @@ const CHIAVE_CARICA_TUTTI = "erasmuswiz_carica_tutti";
 // vive accanto alla scelta d'ateneo e non dentro lo zaino per-ateneo.
 const CHIAVE_INSTALLAZIONE_RINVIATA = "erasmuswiz_installazione_rinviata_fino";
 let _promptInstallazione = null;
+var ERRORE_PERSISTENZA = null;
 
 window.addEventListener("beforeinstallprompt", evento => {
   evento.preventDefault();
@@ -45,6 +46,7 @@ function configurazioneZaino() {
     cicloDati,
     cicloPercorsoLegacy: cicloDati,
     cicloPercorsoNuovo: ErasmusWizPuro.cicloSuccessivo(cicloDati) || cicloDati,
+    ateneo: ateneoAttivo(),
   };
 }
 
@@ -235,14 +237,70 @@ function rinviaMigrazioneERicarica() {
   return true;
 }
 
+function aggiornaBannerPersistenza() {
+  const banner = document.getElementById("storage-failure-banner");
+  if (!banner) return;
+  banner.hidden = !ERRORE_PERSISTENZA;
+  if (ERRORE_PERSISTENZA) {
+    banner.textContent = "Modifiche non salvate: il browser non riesce a scrivere i dati. " +
+      "Nel Learning Agreement puoi scaricare subito un file di recupero.";
+  }
+}
+
 function salvaContenitore(c) {
-  if (CARICO_INCOMPLETO) return;
-  try { localStorage.setItem(CHIAVE_ZAINO, JSON.stringify(c)); } catch (e) {}
+  if (CARICO_INCOMPLETO) return false;
+  try {
+    const serializzato = JSON.stringify(c);
+    localStorage.setItem(CHIAVE_ZAINO, serializzato);
+    if (localStorage.getItem(CHIAVE_ZAINO) !== serializzato) {
+      throw new Error("verifica lettura dopo il salvataggio non riuscita");
+    }
+    ERRORE_PERSISTENZA = null;
+    aggiornaBannerPersistenza();
+    return true;
+  } catch (e) {
+    ERRORE_PERSISTENZA = e || new Error("salvataggio non disponibile");
+    aggiornaBannerPersistenza();
+    return false;
+  }
+}
+
+function leggiContenitorePersistito() {
+  try {
+    const grezzo = localStorage.getItem(CHIAVE_ZAINO);
+    return grezzo ? JSON.parse(grezzo) : null;
+  } catch (e) { return null; }
+}
+
+// Migrazione LA: il primo salvataggio conserva la copia legacy. Soltanto una
+// rilettura verificata autorizza il secondo salvataggio, che toglie quella
+// copia. Se una scrittura fallisce, la recovery resta sul disco.
+function finalizzaRecoveryLADopoPrimaScrittura(contenitore) {
+  const riletto = leggiContenitorePersistito();
+  if (!riletto || !riletto.zaini) return contenitore;
+  let daPulire = false;
+  const pulito = JSON.parse(JSON.stringify(riletto));
+  Object.keys(pulito.zaini).forEach(ateneo => {
+    const zaino = pulito.zaini[ateneo];
+    const la = zaino && zaino.la;
+    if (!la?.recovery?.legacyRecovery) return;
+    if (!ErasmusWizPuro.verificaRecoveryLegacyLA(la, {
+      ateneo,
+      ciclo: zaino.cicloPercorso,
+    })) return;
+    zaino.la = ErasmusWizPuro.rimuoviRecoveryLegacyLA(la);
+    daPulire = true;
+  });
+  if (!daPulire) return riletto;
+  return salvaContenitore(pulito) ? pulito : riletto;
 }
 
 function caricaContenitore() {
   let grezzo = null;
-  try { grezzo = localStorage.getItem(CHIAVE_ZAINO); } catch (e) {}
+  try { grezzo = localStorage.getItem(CHIAVE_ZAINO); }
+  catch (e) {
+    ERRORE_PERSISTENZA = e || new Error("lettura localStorage non disponibile");
+  }
   if (!grezzo) return { v: VERSIONE_ZAINO, zaini: {} };
   let dato;
   try { dato = JSON.parse(grezzo); } catch (e) { return { v: VERSIONE_ZAINO, zaini: {} }; }
@@ -262,8 +320,10 @@ function caricaContenitore() {
     atenei: Object.keys(window.ATENEI_REGISTRO || {}),
     migraPiatto: migraZainoLegacy,
   });
-  salvaContenitore(migrato);
-  return migrato;
+  const primoSalvataggio = salvaContenitore(migrato);
+  return primoSalvataggio
+    ? finalizzaRecoveryLADopoPrimaScrittura(migrato)
+    : migrato;
 }
 
 let CONTENITORE = caricaContenitore();
@@ -275,8 +335,11 @@ function caricaZaino() {
 }
 
 function salvaZaino(zaino) {
-  CONTENITORE.zaini[ateneoAttivo()] = zaino;
-  salvaContenitore(CONTENITORE);
+  const candidato = JSON.parse(JSON.stringify(CONTENITORE));
+  candidato.zaini[ateneoAttivo()] = zaino;
+  if (!salvaContenitore(candidato)) return false;
+  CONTENITORE = candidato;
+  return true;
 }
 
 let ZAINO = caricaZaino();
@@ -530,7 +593,8 @@ function postiInParole(posto) {
 const TAB_VALIDI      = ["oggi", "mete", "percorso", "profilo"];
 const TAB_PREDEFINITO = "oggi";
 const ROTTE_PROFONDE = {
-  "mete/scelte": { tab: "mete", fuoco: "sezione-preferite" }
+  "mete/scelte": { tab: "mete", fuoco: "sezione-preferite" },
+  "learning-agreement": { tab: "learning-agreement", fuoco: "tab-learning-agreement" }
 };
 
 // Alias realmente supportati (PLAN.md §5.6: si dichiarano e si testano, non si
@@ -644,7 +708,8 @@ function preparaNomiTab() {
     ["#tab-oggi .home-saluto", "titolo-tab-oggi-home"],
     ["#tab-mete .sezione-titolo", "titolo-tab-mete"],
     ["#tab-percorso .sezione-titolo", "titolo-tab-percorso"],
-    ["#tab-profilo .sezione-titolo", "titolo-tab-profilo"]
+    ["#tab-profilo .sezione-titolo", "titolo-tab-profilo"],
+    ["#tab-learning-agreement h1", "la-page-title"]
   ];
   titoli.forEach(([selettore, id]) => {
     const titolo = document.querySelector(selettore);
@@ -746,6 +811,7 @@ function vaiA(dest, opzioni = {}) {
     _esitoMetePendente = null;
     applicaEsitoWizardMete(esito);
   }
+  if (rotta === "learning-agreement") laAnalyticsUnaVolta("la-open");
   return true;
 }
 
@@ -1294,14 +1360,15 @@ function renderPercorso(opzioni = {}) {
       stato: selezionato ? "fatto" : tappa === "esiti" ? "attivo" : "futuro",
       conta: selezionato ? "selezionato" : inAttesa ? "in attesa" : "",
     },
-    // La stazione LA non ha un "fatto" misurabile (nessuno può approvare la
-    // bozza al posto dell'ateneo): mostra solo quante bozze esistono (R4).
+    // La stazione LA non deduce mai un'approvazione: mostra soltanto quanti
+    // dossier non archiviati lo studente ha creato nel ramo v2.
     la: {
       numero: "5",
       stato: tappa === "la" ? "attivo" : laFatto ? "fatto" : selezionato ? "futuro" : "info",
       conta: (() => {
-        const n = Object.keys((ZAINO.la && ZAINO.la.bozzePerMeta) || {}).length;
-        return n ? `${n} ${n === 1 ? "bozza" : "bozze"}` : "";
+        const n = Object.values((ZAINO.la && ZAINO.la.dossiersById) || {})
+          .filter(dossier => dossier && !dossier.archivedAt).length;
+        return n ? `${n} dossier` : "";
       })(),
     },
     partenza: {
@@ -3072,6 +3139,11 @@ function apriDettaglioMeta(meta) {
     ls.href = meta.linkSito; ls.target = "_blank"; ls.rel = "noopener";
     boxLink.appendChild(ls);
   }
+  const laLink = crea("button", "dett-link la-destination-action", "Prepara il Learning Agreement per questa meta →");
+  laLink.type = "button";
+  laLink.dataset.laDestinationId = meta.id;
+  laLink.addEventListener("click", () => apriLAContestualeMeta(meta));
+  boxLink.appendChild(laLink);
   corpo.appendChild(boxLink);
 
   // --- Nota onestà ---
@@ -3372,1156 +3444,1203 @@ function initCelebrazioneZaino() {
   });
 }
 
+// LEARNING AGREEMENT v2 — dossier app-first
 // ============================================================
-// LA WORKSPACE v0 — stazione 4 del Percorso (R4, PLAN.md §6)
-// ------------------------------------------------------------
-// Bozza di lavoro MANUAL-FIRST del Learning Agreement: il LA ufficiale
-// resta nei sistemi dell'ateneo (OLA/EWP) e questo microcopy accompagna
-// ogni superficie del Workspace. I dati della pipeline (linkCatalogo,
-// notaDisponibilita) si PROPONGONO solo dove esistono davvero (§6.2):
-// dove mancano lo si dice, senza fingere una copertura che non c'è.
-//
-// SCHEMA (R4.1) — ramo additivo per-ateneo ZAINO.la (PLAN.md §6.4):
-//   la: {
-//     metaAperta: "id-meta" | null,      // ultima bozza aperta qui
-//     bozzePerMeta: {
-//       [metaId]: {
-//         meta: { id, universita, citta, paese },  // fotografata alla
-//                // creazione: la bozza resta leggibile anche se la meta
-//                // sparisse dai dati (mai un id orfano illeggibile)
-//         ciclo, ateneo,                   // mobilita' a cui appartiene
-//         creataIl, aggiornatoIl,        // ISO
-//         versioneCorrente,              // numero dell'ULTIMA versione
-//         prossimoId,                    // contatore per id stabili e/c/g
-//         versioni: [{
-//           numero, creataIl,            // ISO
-//           motivo,                      // null (v1) | chiave di LA_MOTIVI
-//           notaMotivo,                  // testo libero facoltativo
-//           esamiCasa: [{ id:"e1", nome, codice, cfu, nota }],
-//           corsiHost: [{ id:"c2", nome, ects, lingua, semestre, link,
-//                         stato, verificataIl }],
-//              // stato: "da-verificare"|"disponibile"|"non-disponibile"|
-//              //        "sostituito" — niente codici corso obbligatori
-//              //        (nel LA reale di Bruno erano "000", §6.3)
-//           gruppi: [{ id:"g3", corsi:["c2"], esami:["e1"] }],
-//              // molti-a-molti: un corso copre più esami e viceversa
-//           preInvio: { linkAperti, ectsConfrontati }   // checklist §6.3
-//         }]
-//       }
-//     }
-//   }
-// REGOLE: si modifica SOLO l'ultima versione (la copia di lavoro); le
-// precedenti sono fotografie congelate. "Sostituisci" e "Salva nuova
-// versione" creano una versione nuova con motivo dichiarato — mai una
-// modifica che cancella la storia (§6.3: sostituzione senza perdere la
-// versione precedente). Gli zaini senza `la` valgono "nessuna bozza"
-// (normalizzaZaino, migrazione additiva).
-// ============================================================
-const LA_MOTIVI = [
-  ["non-disponibile",    "Corso non disponibile"],
-  ["lingua",             "Lingua diversa dal previsto"],
-  ["richiesta-ospitante", "Richiesta dell'università ospitante"],
-  ["conflitto-orario",   "Conflitto d'orario"],
-  ["scelta-personale",   "Scelta personale"],
-  ["altro",              "Altro"],
-];
+let _laImportPreview = null;
+let _laRestorePreview = null;
+let _laVolatileRecovery = null;
+let _laSaveErrorMessage = "";
+let _laAnalyticsSent = new Set();
 
-const LA_STATI_CORSO = [
-  ["da-verificare",   "🟡 Da verificare"],
-  ["disponibile",     "✅ Disponibile"],
-  ["non-disponibile", "🚫 Non disponibile"],
-  ["sostituito",      "↷ Sostituito"],
-];
+const LA_EVENTI_ANALYTICS = new Set([
+  "la-open", "la-plan-confirmed", "la-ready", "la-version-created",
+  "la-recognition-closed", "la-suggestion-used",
+]);
 
-const LA_SEMESTRI = ["", "1º semestre", "2º semestre", "annuale"];
-
-function laEtichettaMotivo(chiave) {
-  const voce = LA_MOTIVI.find(([k]) => k === chiave);
-  return voce ? voce[1] : (chiave || "");
-}
-
-function laEtichettaStato(chiave) {
-  const voce = LA_STATI_CORSO.find(([k]) => k === chiave);
-  return voce ? voce[1] : "🟡 Da verificare";
-}
-
-// Stato UI del Workspace (non persistito, come filtroMeteAttivo):
-// il pannello-motivo in corso e i messaggi transitori tra un render e l'altro.
-let _laPending = null;    // { tipo: "versione" } | { tipo: "sostituzione", corsoId }
-let _laMessaggio = null;  // testo mostrato una volta al prossimo render
-let _laFocusId = null;    // id DOM da rifocalizzare dopo un render strutturale
-let _laStoriaAperta = false;
-
-function laBozze() { return ZAINO.la.bozzePerMeta; }
-
-function laBozzaAperta() {
-  const id = ZAINO.la.metaAperta;
-  const bozza = id ? laBozze()[id] : null;
-  if (!bozza) return null;
-  // Guardia leggera su bozze scritte da versioni future/imprevisti: i campi
-  // strutturali devono esserci, o il render non deve fidarsi.
-  if (!Array.isArray(bozza.versioni) || !bozza.versioni.length) return null;
-  return bozza;
-}
-
-function laVersioneCorrente(bozza) {
-  return bozza.versioni[bozza.versioni.length - 1];
-}
-
-function laId(bozza, prefisso) {
-  if (typeof bozza.prossimoId !== "number") bozza.prossimoId = 1;
-  return prefisso + (bozza.prossimoId++);
-}
-
-function laTocca(bozza) {
-  bozza.aggiornatoIl = new Date().toISOString();
-  salvaZaino(ZAINO);
-}
-
-function laNuovaBozza(meta) {
-  const ora = new Date().toISOString();
-  return {
-    meta: { id: meta.id, universita: meta.universita, citta: meta.citta || "", paese: meta.paese || "" },
-    ciclo: ZAINO.cicloPercorso,
-    ateneo: ateneoAttivo(),
-    creataIl: ora, aggiornatoIl: ora,
-    versioneCorrente: 1, prossimoId: 1,
-    versioni: [{
-      numero: 1, creataIl: ora, motivo: null, notaMotivo: "",
-      esamiCasa: [], corsiHost: [], gruppi: [],
-      preInvio: { linkAperti: false, ectsConfrontati: false },
-    }],
-  };
-}
-
-// Nuova versione = fotografia della corrente + motivo dichiarato. La
-// checklist pre-invio riparte da zero: la bozza nuova non è stata ricontrollata.
-function laNuovaVersione(bozza, motivo, notaMotivo) {
-  const copia = JSON.parse(JSON.stringify(laVersioneCorrente(bozza)));
-  copia.numero = laVersioneCorrente(bozza).numero + 1;
-  copia.creataIl = new Date().toISOString();
-  copia.motivo = motivo;
-  copia.notaMotivo = notaMotivo || "";
-  copia.preInvio = { linkAperti: false, ectsConfrontati: false };
-  bozza.versioni.push(copia);
-  bozza.versioneCorrente = copia.numero;
-  laTocca(bozza);
-  return copia;
-}
-
-// ---- Totali ECTS/CFU (R4.4): sempre visibili, mai un'approvazione ----
-// Nei totali contano solo i corsi ancora nel piano: quelli marcati
-// "non disponibile" o "sostituito" restano in bozza (storia onesta) ma
-// non gonfiano i numeri.
-function laCorsoAttivo(c) {
-  return c.stato !== "non-disponibile" && c.stato !== "sostituito";
-}
-
-function laNumeroDa(v) {
-  const n = parseFloat(String(v === undefined || v === null ? "" : v).replace(",", "."));
-  return isNaN(n) ? 0 : n;
-}
-
-function laFormattaNumero(n) {
-  return (Math.round(n * 100) / 100).toLocaleString("it-IT");
-}
-
-function laTotali(vers, soloIds) {
-  const corsi = vers.corsiHost.filter(c => (!soloIds || soloIds.corsi.includes(c.id)));
-  const esami = vers.esamiCasa.filter(e => (!soloIds || soloIds.esami.includes(e.id)));
-  const ects = corsi.filter(laCorsoAttivo).reduce((s, c) => s + laNumeroDa(c.ects), 0);
-  const cfu  = esami.reduce((s, e) => s + laNumeroDa(e.cfu), 0);
-  return { ects, cfu };
-}
-
-// Segnalazione PRUDENTE delle soglie (§6.3): si mostra la differenza e si
-// ricorda chi decide. Mai "approvato", mai un semaforo verde automatico.
-function laFraseSoglie(t) {
-  if (t.ects === 0 && t.cfu === 0) return "";
-  const diff = Math.round((t.ects - t.cfu) * 100) / 100;
-  if (diff === 0) return "I totali coincidono. Non è un'approvazione: sul riconoscimento decide sempre il tuo ateneo.";
-  const verso = diff > 0 ? "in più sul lato host" : "in meno sul lato host";
-  return `Differenza di ${laFormattaNumero(Math.abs(diff))} tra ECTS e CFU (${verso}). Non è per forza un errore: le regole di conversione le decide il tuo ateneo — confrontala col tuo regolamento.`;
-}
-
-// La data di "oggi" per verificataIl: quella LOCALE dello studente, non
-// l'UTC di toISOString — alle prime ore del mattino italiano segnerebbe
-// il giorno prima (stessa disciplina Europe/Rome del vincolo §10.6).
 function laOggiISO() {
-  const d = new Date();
-  const pad = n => String(n).padStart(2, "0");
-  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+  const data = new Date();
+  const due = numero => String(numero).padStart(2, "0");
+  return `${data.getFullYear()}-${due(data.getMonth() + 1)}-${due(data.getDate())}`;
 }
 
-function laDataBreve(iso) {
-  if (!iso) return "";
-  const d = new Date(iso);
-  if (isNaN(d)) return "";
-  return d.toLocaleDateString("it-IT", { day: "numeric", month: "short", year: "numeric" });
-}
-
-// Un link inserito a mano si rende cliccabile solo se è un URL http(s):
-// qualunque altra cosa resta testo (vincolo §10.7, niente HTML arbitrario).
-function laLinkSicuro(url) {
-  return /^https?:\/\//i.test(String(url || "").trim()) ? String(url).trim() : null;
-}
-
-let analyticsLAInviato = false;
-function segnalaLAUsato() {
-  if (analyticsLAInviato) return;
-  analyticsLAInviato = true;
-  window.goatcounter?.count({ path: "la-workspace-usato", event: true });
-}
-
-// ---- Le mete proponibili nel selettore bozza ----
-// Prima le rotte della schedina (il caso vero: la meta assegnata è quasi
-// sempre lì), poi le mete del dipartimento del profilo, più le bozze già
-// esistenti qualunque cosa sia successo a preferite/profilo (una bozza non
-// diventa MAI irraggiungibile). Niente elenco completo dell'ateneo: 1.595
-// opzioni in una tendina non aiutano nessuno — per il resto c'è il tab Mete.
-function laGruppiSelettore() {
-  const bozze = laBozze();
-  const inSchedina = schedinaIds()
-    .map(id => (METE || []).find(m => m.id === id)).filter(Boolean);
-  const idsVisti = new Set(inSchedina.map(m => m.id));
-
-  const p = ZAINO.profilo;
-  const delDipartimento = !p ? [] : (METE || [])
-    .filter(m => (p.dipartimento
-      ? m.dipartimentoCf === p.dipartimento
-      : (m.areeDisciplinari || []).some(a => a.codice === p.area)))
-    .filter(m => !idsVisti.has(m.id))
-    .sort((a, b) => (a.universita || "").localeCompare(b.universita || "", "it"));
-  delDipartimento.forEach(m => idsVisti.add(m.id));
-
-  // Bozze la cui meta non compare nei gruppi sopra (profilo cambiato, mete
-  // tolte dalle preferite, dati mutati): si elencano col nome fotografato.
-  const orfane = Object.keys(bozze)
-    .filter(id => !idsVisti.has(id))
-    .map(id => ({ id, universita: (bozze[id].meta && bozze[id].meta.universita) || id }));
-
-  return { inSchedina, delDipartimento, orfane };
-}
-
-// ============================================================
-// RENDER DEL WORKSPACE — tutto passa da qui. Le digitazioni aggiornano il
-// modello su "change" e SOLO i totali a schermo (laAggiornaTotali): il
-// render completo è per i cambi strutturali (righe, gruppi, versioni).
-// ============================================================
-function renderLA() {
-  const cont = document.getElementById("la-workspace");
-  if (!cont) return;
-  cont.innerHTML = "";
-
-  // Microcopy costante (§6.3): su OGNI superficie del Workspace.
-  cont.appendChild(crea("p", "la-disclaimer",
-    "🧪 Bozza di lavoro: il Learning Agreement ufficiale resta nel sistema del tuo ateneo (OLA/EWP)."));
-
-  if (_laMessaggio) {
-    cont.appendChild(crea("p", "la-messaggio", _laMessaggio));
-    _laMessaggio = null;
-  }
-
-  const { inSchedina, delDipartimento, orfane } = laGruppiSelettore();
-
-  if (!inSchedina.length && !delDipartimento.length && !orfane.length) {
-    const vuoto = crea("div", "la-vuoto");
-    vuoto.appendChild(crea("p", "stazione-testo",
-      "Per iniziare una bozza scegli prima la meta: esplora le mete e salva le tue preferite."));
-    const btn = crea("button", "btn-secondary", "🗺️ Vai alle mete");
-    btn.type = "button";
-    btn.setAttribute("data-goto", "mete");
-    vuoto.appendChild(btn);
-    cont.appendChild(vuoto);
+function apriLAContestualeMeta(meta) {
+  const naviga = () => {
+    chiudiDettaglioMeta();
+    vaiA(`#learning-agreement/${ateneoAttivo()}`, { storia: "push" });
+  };
+  const haPiano = Object.keys(ZAINO.la?.examLibrary || {}).length > 0;
+  if (!haPiano) {
+    naviga();
     return;
   }
-
-  // --- Selettore della meta ---
-  const scelta = crea("div", "la-scelta-meta");
-  const lbl = crea("label", "la-scelta-label", "La bozza per");
-  lbl.setAttribute("for", "la-select-meta");
-  scelta.appendChild(lbl);
-  const sel = document.createElement("select");
-  sel.id = "la-select-meta";
-  const optVuota = document.createElement("option");
-  optVuota.value = "";
-  optVuota.textContent = "— scegli la meta —";
-  sel.appendChild(optVuota);
-
-  function aggiungiGruppo(label, mete, conBozza) {
-    if (!mete.length) return;
-    const og = document.createElement("optgroup");
-    og.label = label;
-    mete.forEach(m => {
-      const o = document.createElement("option");
-      o.value = m.id;
-      const suffisso = laBozze()[m.id] ? " · bozza ✎" : "";
-      o.textContent = nomeUniversita(m.universita) + suffisso;
-      og.appendChild(o);
+  const salvato = laTransazione("creazione del dossier dalla destinazione", la => {
+    const esito = ErasmusWizPuro.creaDossierLA(la, {
+      metaId: meta.id,
+      meta: {
+        id: meta.id,
+        universita: meta.universita,
+        citta: meta.citta,
+        paese: meta.paese,
+      },
+      university: ateneoAttivo(),
+      cycle: laCicloAttivo(),
+      at: new Date().toISOString(),
     });
-    sel.appendChild(og);
-  }
-  aggiungiGruppo("Mete salvate", inSchedina);
-  aggiungiGruppo(ZAINO.profilo && ZAINO.profilo.dipartimento
-    ? `Mete di ${ZAINO.profilo.dipartimento}` : "Mete della tua area", delDipartimento);
-  aggiungiGruppo("Altre tue bozze", orfane);
-
-  if (ZAINO.la.metaAperta && [...sel.options].some(o => o.value === ZAINO.la.metaAperta)) {
-    sel.value = ZAINO.la.metaAperta;
-  }
-  sel.addEventListener("change", () => {
-    ZAINO.la.metaAperta = sel.value || null;
-    _laPending = null;
-    salvaZaino(ZAINO);
-    renderLA();
+    return esito.la;
   });
-  scelta.appendChild(sel);
-  cont.appendChild(scelta);
-
-  const metaId = ZAINO.la.metaAperta;
-  if (!metaId) return;
-
-  const bozza = laBozzaAperta();
-
-  // --- Meta scelta ma senza bozza: si crea qui, v1 vuota ---
-  if (!bozza) {
-    const meta = (METE || []).find(m => m.id === metaId);
-    if (!meta) return; // id non più nei dati e senza bozza: niente da mostrare
-    const box = crea("div", "la-vuoto");
-    box.appendChild(crea("p", "stazione-testo",
-      `Nessuna bozza per ${nomeUniversita(meta.universita)}: creala e inserisci esami di casa e corsi host. Tutto resta su questo dispositivo.`));
-    const btn = crea("button", "btn-primary", "＋ Crea la bozza");
-    btn.type = "button";
-    btn.addEventListener("click", () => {
-      laBozze()[metaId] = laNuovaBozza(meta);
-      salvaZaino(ZAINO);
-      segnalaLAUsato();
-      window.goatcounter?.count({ path: "la-bozza-creata", event: true });
-      renderPercorso();
-      renderLA();
-    });
-    box.appendChild(btn);
-    cont.appendChild(box);
-    laRenderPropostaDati(cont, meta);
-    return;
-  }
-
-  laRenderBozza(cont, bozza);
+  if (salvato) naviga();
 }
 
-// ---- R4.3: proposte dai dati SOLO dove verificate ----
-// linkCatalogo/notaDisponibilita arrivano dalla pipeline (PLAN §3, Livello B).
-// Dove mancano non si finge: lo si dichiara e si offre il sito dell'ateneo.
-function laRenderPropostaDati(cont, meta) {
-  const box = crea("div", "la-dati-meta");
-  if (!meta) {
-    box.appendChild(crea("p", "la-dati-nota",
-      "Questa meta non è più nei dati del sito: la bozza resta tua e continua a funzionare."));
-    cont.appendChild(box);
-    return;
-  }
-  const catalogo = laLinkSicuro(meta.linkCatalogo);
-  if (catalogo) {
-    const riga = crea("p", "la-dati-riga");
-    riga.appendChild(document.createTextNode("📚 Catalogo corsi per studenti in scambio: "));
-    const a = crea("a", "la-dati-link", "apri il catalogo ↗");
-    a.href = catalogo; a.target = "_blank"; a.rel = "noopener";
-    riga.appendChild(a);
-    box.appendChild(riga);
-  } else {
-    const riga = crea("p", "la-dati-nota",
-      "Il catalogo corsi di questa meta non è ancora mappato: cerca i corsi sul sito dell'ospitante e inseriscili qui a mano. ");
-    const sito = laLinkSicuro(meta.linkSito);
-    if (sito) {
-      const a = crea("a", "la-dati-link", "Sito dell'università ↗");
-      a.href = sito; a.target = "_blank"; a.rel = "noopener";
-      riga.appendChild(a);
-    }
-    box.appendChild(riga);
-  }
-  if (meta.notaDisponibilita) {
-    box.appendChild(crea("p", "la-dati-avviso", `⚠️ ${meta.notaDisponibilita}`));
-  }
-  cont.appendChild(box);
+function laDataBreve(valore) {
+  const data = new Date(valore);
+  return Number.isNaN(data.getTime()) ? "" : data.toLocaleDateString("it-IT", {
+    day: "numeric", month: "short", year: "numeric",
+  });
 }
 
-// ---- Il corpo della bozza: versione corrente + sezioni ----
-function laRenderBozza(cont, bozza) {
-  const vers = laVersioneCorrente(bozza);
-  const meta = (METE || []).find(m => m.id === bozza.meta.id) || null;
-
-  // Testa: versione, date, azioni di versione
-  const testa = crea("div", "la-testa");
-  const titolo = crea("div", "la-testa-testi");
-  titolo.appendChild(crea("span", "la-testa-versione", `Versione ${vers.numero}`));
-  const dettagli = [`creata il ${laDataBreve(vers.creataIl)}`];
-  if (bozza.aggiornatoIl && bozza.aggiornatoIl !== vers.creataIl) {
-    dettagli.push(`ultima modifica ${laDataBreve(bozza.aggiornatoIl)}`);
-  }
-  if (vers.motivo) dettagli.push(`motivo: ${laEtichettaMotivo(vers.motivo)}`);
-  titolo.appendChild(crea("span", "la-testa-sub", dettagli.join(" · ")));
-  testa.appendChild(titolo);
-
-  const azioni = crea("div", "la-testa-azioni");
-  const btnVersione = crea("button", "btn-secondary la-btn-piccolo", "📌 Salva nuova versione");
-  btnVersione.type = "button";
-  btnVersione.addEventListener("click", () => {
-    _laPending = { tipo: "versione" };
-    renderLA();
-  });
-  azioni.appendChild(btnVersione);
-  const btnElimina = crea("button", "la-btn-elimina", "🗑 Elimina bozza");
-  btnElimina.type = "button";
-  btnElimina.addEventListener("click", () => {
-    const quante = bozza.versioni.length;
-    const ok = window.confirm(
-      `Eliminare la bozza per ${nomeUniversita(bozza.meta.universita)}? ` +
-      `Si perdono TUTTE le versioni (${quante}): questa operazione non si annulla.`);
-    if (!ok) return;
-    delete laBozze()[bozza.meta.id];
-    ZAINO.la.metaAperta = null;
-    salvaZaino(ZAINO);
-    renderPercorso();
-    renderLA();
-  });
-  azioni.appendChild(btnElimina);
-  testa.appendChild(azioni);
-  cont.appendChild(testa);
-
-  // Pannello-motivo (nuova versione / sostituzione): inline, mai un prompt.
-  if (_laPending) laRenderPannelloMotivo(cont, bozza, vers);
-
-  laRenderPropostaDati(cont, meta);
-
-  // Totali sempre visibili (§6.3) — aggiornati vivi da laAggiornaTotali.
-  const totali = crea("div", "la-totali");
-  totali.id = "la-totali";
-  cont.appendChild(totali);
-
-  // --- Corsi host ---
-  cont.appendChild(laRenderSezioneCorsi(bozza, vers));
-  // --- Esami di casa ---
-  cont.appendChild(laRenderSezioneEsami(bozza, vers));
-  // --- Corrispondenze molti-a-molti ---
-  cont.appendChild(laRenderSezioneGruppi(bozza, vers));
-  // --- Checklist pre-invio ---
-  cont.appendChild(laRenderPreInvio(bozza, vers));
-  // --- Export ---
-  cont.appendChild(laRenderExport(bozza, vers));
-  // --- Versioni precedenti ---
-  laRenderStoria(cont, bozza);
-
-  laAggiornaTotali(vers);
-  laAggiornaOrfani(vers);
-
-  // Focus richiesto da un'azione strutturale (es. riga appena aggiunta).
-  if (_laFocusId) {
-    document.getElementById(_laFocusId)?.focus();
-    _laFocusId = null;
-  }
+function laAnalytics(nome) {
+  if (!LA_EVENTI_ANALYTICS.has(nome)) return;
+  // Anche il payload è fisso: nessun ateneo, id, corso o testo dello studente.
+  window.goatcounter?.count({ path: nome, event: true });
 }
 
-function laRenderPannelloMotivo(cont, bozza, vers) {
-  const box = crea("div", "la-motivo");
-  const sostituzione = _laPending.tipo === "sostituzione";
-  const corso = sostituzione ? vers.corsiHost.find(c => c.id === _laPending.corsoId) : null;
-  box.appendChild(crea("p", "la-motivo-titolo", sostituzione
-    ? `Stai sostituendo «${(corso && corso.nome) || "corso senza nome"}»: si salva una nuova versione, quella attuale resta nella storia.`
-    : "Salva la bozza attuale come nuova versione: quella attuale resta nella storia, non si perde niente."));
-
-  const riga = crea("div", "la-motivo-riga");
-  const sel = document.createElement("select");
-  sel.id = "la-motivo-select";
-  sel.setAttribute("aria-label", "Motivo della modifica");
-  LA_MOTIVI.forEach(([valore, label]) => {
-    const o = document.createElement("option");
-    o.value = valore; o.textContent = label;
-    sel.appendChild(o);
-  });
-  if (sostituzione) sel.value = "non-disponibile";
-  riga.appendChild(sel);
-  const nota = document.createElement("input");
-  nota.type = "text";
-  nota.placeholder = "Nota facoltativa (es. cosa ti hanno scritto)";
-  nota.maxLength = 200;
-  nota.setAttribute("aria-label", "Nota sul motivo");
-  riga.appendChild(nota);
-  box.appendChild(riga);
-
-  const azioni = crea("div", "la-motivo-azioni");
-  const conferma = crea("button", "btn-primary la-btn-piccolo", sostituzione ? "Sostituisci e salva versione" : "Salva versione");
-  conferma.type = "button";
-  conferma.addEventListener("click", () => {
-    const nuova = laNuovaVersione(bozza, sel.value, nota.value.trim());
-    if (sostituzione) {
-      const c = nuova.corsiHost.find(x => x.id === _laPending.corsoId);
-      if (c) {
-        c.stato = "sostituito";
-        c.verificataIl = laOggiISO();
-      }
-      laTocca(bozza);
-      _laMessaggio = `Versione ${nuova.numero} creata: il corso è marcato «sostituito». Aggiungi ora il corso sostitutivo tra i corsi host.`;
-    } else {
-      _laMessaggio = `Versione ${nuova.numero} creata. Da qui in poi modifichi questa; la ${nuova.numero - 1} resta nella storia.`;
-    }
-    _laPending = null;
-    renderLA();
-  });
-  azioni.appendChild(conferma);
-  const annulla = crea("button", "btn-secondary la-btn-piccolo", "Annulla");
-  annulla.type = "button";
-  annulla.addEventListener("click", () => { _laPending = null; renderLA(); });
-  azioni.appendChild(annulla);
-  box.appendChild(azioni);
-  cont.appendChild(box);
+function laAnalyticsUnaVolta(nome) {
+  if (_laAnalyticsSent.has(nome)) return;
+  _laAnalyticsSent.add(nome);
+  laAnalytics(nome);
 }
 
-// ---- Sezione corsi host (R4.2): campi del §6.2, stato + data verifica ----
-function laRenderSezioneCorsi(bozza, vers) {
-  const sez = crea("section", "la-sezione");
-  sez.appendChild(crea("h3", "la-sezione-titolo", "Corsi che seguirai all'estero (host)"));
+function laClone(valore) {
+  return JSON.parse(JSON.stringify(valore));
+}
 
-  if (!vers.corsiHost.length) {
-    sez.appendChild(crea("p", "la-sezione-vuota",
-      "Nessun corso ancora: aggiungi quelli che pensi di seguire dall'offerta dell'ospitante."));
+function laCicloAttivo() {
+  return cicloBreve(ZAINO.cicloPercorso || ZAINO.cicloDati || "2026/27");
+}
+
+function laScopeAttivo() {
+  const dip = String(ZAINO.profilo?.dipartimento || "").toLocaleLowerCase("it");
+  return dip.includes("giurisprudenza") ? "giurisprudenza" : "all";
+}
+
+function laRegoleAttive(ciclo = laCicloAttivo(), fase = "exploration") {
+  return ErasmusWizPuro.filtraRegoleLA(window.ERASMUSWIZ_LA_REGOLE || [], {
+    university: ateneoAttivo(),
+    cycle: ciclo,
+    scope: laScopeAttivo(),
+    stage: fase === "recognition" || fase === "closed" ? "recognition" : fase,
+  });
+}
+
+function laNomeAteneo(chiave = ateneoAttivo()) {
+  return window.ATENEI_REGISTRO?.[chiave]?.label || chiave;
+}
+
+function laEventoDopoSuccesso(nome) {
+  if (nome) laAnalytics(nome);
+  renderPercorso();
+  renderMissione();
+  renderLAV2();
+}
+
+// Tutte le modifiche LA passano da qui. Il candidato resta separato dallo
+// stato visibile finché localStorage non conferma la stessa stringa scritta.
+function laTransazione(descrizione, mutatore, eventoAnalytics) {
+  const candidato = ErasmusWizPuro.normalizzaLaV2(laClone(ZAINO.la), {
+    ateneo: ateneoAttivo(), ciclo: laCicloAttivo(),
+  });
+  let sostituto;
+  try { sostituto = mutatore(candidato); }
+  catch (errore) {
+    _laSaveErrorMessage = `${descrizione}: i dati non sono validi.`;
+    renderLAV2();
+    return false;
   }
-
-  vers.corsiHost.forEach(c => sez.appendChild(laRigaCorso(bozza, vers, c)));
-
-  const aggiungi = crea("button", "btn-secondary la-btn-aggiungi", "＋ Aggiungi corso host");
-  aggiungi.type = "button";
-  aggiungi.addEventListener("click", () => {
-    const nuovo = {
-      id: laId(bozza, "c"), nome: "", ects: "", lingua: "", semestre: "",
-      link: "", stato: "da-verificare", verificataIl: "",
+  const prossimoLA = sostituto && sostituto.schemaVersion === 2 ? sostituto : candidato;
+  const prossimoZaino = laClone(ZAINO);
+  prossimoZaino.la = prossimoLA;
+  const prossimoContenitore = laClone(CONTENITORE);
+  prossimoContenitore.zaini[ateneoAttivo()] = prossimoZaino;
+  if (!salvaContenitore(prossimoContenitore)) {
+    _laVolatileRecovery = {
+      payload: prossimoLA,
+      university: ateneoAttivo(),
+      cycle: laCicloAttivo(),
     };
-    vers.corsiHost.push(nuovo);
-    laTocca(bozza);
-    segnalaLAUsato();
-    _laFocusId = `la-corso-nome-${nuovo.id}`;
-    renderLA();
-  });
-  sez.appendChild(aggiungi);
-  return sez;
+    _laSaveErrorMessage = `Modifiche non salvate (${descrizione}). Lo stato precedente resta attivo.`;
+    renderLAV2();
+    return false;
+  }
+  CONTENITORE = prossimoContenitore;
+  ZAINO = prossimoZaino;
+  _laVolatileRecovery = null;
+  _laSaveErrorMessage = "";
+  laEventoDopoSuccesso(eventoAnalytics);
+  return true;
 }
 
-function laRigaCorso(bozza, vers, corso) {
-  const riga = crea("div", "la-riga" + (laCorsoAttivo(corso) ? "" : " la-riga-esclusa"));
+function laDossierAperto() {
+  return ZAINO.la?.openDossierId
+    ? ZAINO.la.dossiersById?.[ZAINO.la.openDossierId] || null
+    : null;
+}
 
-  const testaRiga = crea("div", "la-riga-testa");
-  const nome = document.createElement("input");
-  nome.type = "text";
-  nome.id = `la-corso-nome-${corso.id}`;
-  nome.value = corso.nome || "";
-  nome.placeholder = "Nome del corso host";
-  nome.maxLength = 120;
-  nome.setAttribute("aria-label", "Nome del corso host");
-  nome.addEventListener("change", () => { corso.nome = nome.value.trim(); laTocca(bozza); });
-  testaRiga.appendChild(nome);
+function laVersione(dossier) {
+  return ErasmusWizPuro.versioneCorrenteLA(dossier);
+}
 
-  const stato = document.createElement("select");
-  stato.className = "la-select-stato";
-  stato.setAttribute("aria-label", "Stato del corso");
-  LA_STATI_CORSO.forEach(([valore, label]) => {
-    const o = document.createElement("option");
-    o.value = valore; o.textContent = label;
-    stato.appendChild(o);
-  });
-  stato.value = corso.stato || "da-verificare";
-  stato.addEventListener("change", () => {
-    corso.stato = stato.value;
-    // Dichiarare uno stato È una verifica: la data si aggiorna a oggi se
-    // manca (resta modificabile a mano qui sotto).
-    if (!corso.verificataIl) corso.verificataIl = laOggiISO();
-    laTocca(bozza);
-    renderLA();
-  });
-  testaRiga.appendChild(stato);
-
-  const sostituisci = crea("button", "la-btn-riga", "↷ Sostituisci");
-  sostituisci.type = "button";
-  sostituisci.title = "Sostituisci questo corso salvando una nuova versione";
-  sostituisci.addEventListener("click", () => {
-    _laPending = { tipo: "sostituzione", corsoId: corso.id };
-    renderLA();
-    document.getElementById("la-motivo-select")?.focus();
-  });
-  testaRiga.appendChild(sostituisci);
-
-  const rimuovi = crea("button", "la-btn-riga la-btn-rimuovi", "✕");
-  rimuovi.type = "button";
-  rimuovi.title = "Rimuovi dalla bozza corrente";
-  rimuovi.setAttribute("aria-label", "Rimuovi questo corso dalla bozza corrente");
-  rimuovi.addEventListener("click", () => {
-    if (corso.nome && !window.confirm(`Rimuovere «${corso.nome}» dalla bozza corrente? Le versioni salvate non cambiano.`)) return;
-    vers.corsiHost = vers.corsiHost.filter(x => x.id !== corso.id);
-    vers.gruppi.forEach(g => { g.corsi = g.corsi.filter(id => id !== corso.id); });
-    laTocca(bozza);
-    renderLA();
-  });
-  testaRiga.appendChild(rimuovi);
-  riga.appendChild(testaRiga);
-
-  const campi = crea("div", "la-riga-campi");
-  campi.appendChild(laCampo("ECTS", () => {
-    const inp = document.createElement("input");
-    inp.type = "number"; inp.step = "0.5"; inp.min = "0"; inp.inputMode = "decimal";
-    inp.value = corso.ects === "" || corso.ects === undefined ? "" : corso.ects;
-    inp.addEventListener("change", () => {
-      corso.ects = inp.value === "" ? "" : laNumeroDa(inp.value);
-      laTocca(bozza);
-      laAggiornaTotali(vers);
+function laModificaDossier(dossierId, descrizione, mutatore) {
+  let creataVersione = false;
+  const successo = laTransazione(descrizione, la => {
+    const originale = la.dossiersById[dossierId];
+    if (!originale || originale.archivedAt) throw new Error("dossier assente");
+    const prima = originale.currentVersionId;
+    const modificabile = ErasmusWizPuro.preparaModificaVersioneLA(originale, {
+      reason: "change", at: new Date().toISOString(),
     });
-    return inp;
-  }));
-  campi.appendChild(laCampo("Lingua", () => {
-    const inp = document.createElement("input");
-    inp.type = "text"; inp.maxLength = 40;
-    inp.placeholder = "es. Inglese";
-    inp.value = corso.lingua || "";
-    inp.addEventListener("change", () => { corso.lingua = inp.value.trim(); laTocca(bozza); });
-    return inp;
-  }));
-  campi.appendChild(laCampo("Semestre", () => {
-    const s = document.createElement("select");
-    LA_SEMESTRI.forEach(v => {
-      const o = document.createElement("option");
-      o.value = v; o.textContent = v || "—";
-      s.appendChild(o);
-    });
-    s.value = LA_SEMESTRI.includes(corso.semestre) ? corso.semestre : "";
-    s.addEventListener("change", () => { corso.semestre = s.value; laTocca(bozza); });
-    return s;
-  }));
-  campi.appendChild(laCampo("Verificato il", () => {
-    const inp = document.createElement("input");
-    inp.type = "date";
-    inp.value = corso.verificataIl || "";
-    inp.addEventListener("change", () => { corso.verificataIl = inp.value; laTocca(bozza); });
-    return inp;
-  }));
-  campi.appendChild(laCampo("Link ufficiale", () => {
-    const inp = document.createElement("input");
-    inp.type = "url"; inp.placeholder = "https://…";
-    inp.value = corso.link || "";
-    inp.addEventListener("change", () => { corso.link = inp.value.trim(); laTocca(bozza); });
-    return inp;
-  }, "la-campo-largo"));
-  riga.appendChild(campi);
-
-  return riga;
+    creataVersione = modificabile.currentVersionId !== prima;
+    const versione = ErasmusWizPuro.versioneCorrenteLA(modificabile);
+    mutatore(modificabile, versione);
+    modificabile.updatedAt = new Date().toISOString();
+    la.dossiersById[dossierId] = modificabile;
+    if (creataVersione) {
+      la.backupReminder = { reason: "new-version", dueAt: new Date().toISOString() };
+    }
+  }, creataVersione ? "la-version-created" : null);
+  // Il nome evento dipende dal clone prodotto dentro il mutatore e viene
+  // inviato qui, soltanto dopo il salvataggio riuscito.
+  if (successo && creataVersione) laAnalytics("la-version-created");
+  return successo;
 }
 
-// ---- Sezione esami di casa (R4.2): nome, codice facoltativo, CFU, nota ----
-function laRenderSezioneEsami(bozza, vers) {
-  const sez = crea("section", "la-sezione");
-  sez.appendChild(crea("h3", "la-sezione-titolo", "Esami di casa da riconoscere"));
-  sez.appendChild(crea("p", "la-sezione-sub",
-    "Il tuo piano di studi non è nei dati del sito: inserisci a mano gli esami che vuoi farti riconoscere."));
+function laElemento(tag, classe, testo) {
+  const nodo = document.createElement(tag);
+  if (classe) nodo.className = classe;
+  if (testo !== undefined) nodo.textContent = testo;
+  return nodo;
+}
 
-  if (!vers.esamiCasa.length) {
-    sez.appendChild(crea("p", "la-sezione-vuota", "Nessun esame ancora."));
-  }
+function laBottone(testo, classe, azione) {
+  const btn = laElemento("button", classe || "btn-secondary", testo);
+  btn.type = "button";
+  btn.addEventListener("click", azione);
+  return btn;
+}
 
-  vers.esamiCasa.forEach(e => sez.appendChild(laRigaEsame(bozza, vers, e)));
+function laScaricaJson(nome, dato) {
+  const blob = new Blob([JSON.stringify(dato, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = nome;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 0);
+}
 
-  const aggiungi = crea("button", "btn-secondary la-btn-aggiungi", "＋ Aggiungi esame di casa");
-  aggiungi.type = "button";
-  aggiungi.addEventListener("click", () => {
-    const nuovo = { id: laId(bozza, "e"), nome: "", codice: "", cfu: "", nota: "" };
-    vers.esamiCasa.push(nuovo);
-    laTocca(bozza);
-    segnalaLAUsato();
-    _laFocusId = `la-esame-nome-${nuovo.id}`;
-    renderLA();
+function laBackupEnvelope(payload = ZAINO.la, university = ateneoAttivo(), ciclo = laCicloAttivo()) {
+  return ErasmusWizPuro.creaBackupLA({
+    university, cycle: ciclo, payload, exportedAt: new Date().toISOString(),
   });
-  sez.appendChild(aggiungi);
-  return sez;
 }
 
-function laRigaEsame(bozza, vers, esame) {
-  const riga = crea("div", "la-riga");
-  const testaRiga = crea("div", "la-riga-testa");
-  const nome = document.createElement("input");
-  nome.type = "text";
-  nome.id = `la-esame-nome-${esame.id}`;
-  nome.value = esame.nome || "";
-  nome.placeholder = "Nome dell'esame di casa";
-  nome.maxLength = 120;
-  nome.setAttribute("aria-label", "Nome dell'esame di casa");
-  nome.addEventListener("change", () => { esame.nome = nome.value.trim(); laTocca(bozza); });
-  testaRiga.appendChild(nome);
-
-  const rimuovi = crea("button", "la-btn-riga la-btn-rimuovi", "✕");
-  rimuovi.type = "button";
-  rimuovi.title = "Rimuovi dalla bozza corrente";
-  rimuovi.setAttribute("aria-label", "Rimuovi questo esame dalla bozza corrente");
-  rimuovi.addEventListener("click", () => {
-    if (esame.nome && !window.confirm(`Rimuovere «${esame.nome}» dalla bozza corrente? Le versioni salvate non cambiano.`)) return;
-    vers.esamiCasa = vers.esamiCasa.filter(x => x.id !== esame.id);
-    vers.gruppi.forEach(g => { g.esami = g.esami.filter(id => id !== esame.id); });
-    laTocca(bozza);
-    renderLA();
-  });
-  testaRiga.appendChild(rimuovi);
-  riga.appendChild(testaRiga);
-
-  const campi = crea("div", "la-riga-campi");
-  campi.appendChild(laCampo("Codice (facolt.)", () => {
-    const inp = document.createElement("input");
-    inp.type = "text"; inp.maxLength = 20;
-    inp.value = esame.codice || "";
-    inp.addEventListener("change", () => { esame.codice = inp.value.trim(); laTocca(bozza); });
-    return inp;
-  }));
-  campi.appendChild(laCampo("CFU", () => {
-    const inp = document.createElement("input");
-    inp.type = "number"; inp.step = "0.5"; inp.min = "0"; inp.inputMode = "decimal";
-    inp.value = esame.cfu === "" || esame.cfu === undefined ? "" : esame.cfu;
-    inp.addEventListener("change", () => {
-      esame.cfu = inp.value === "" ? "" : laNumeroDa(inp.value);
-      laTocca(bozza);
-      laAggiornaTotali(vers);
-    });
-    return inp;
-  }));
-  campi.appendChild(laCampo("Nota (facolt.)", () => {
-    const inp = document.createElement("input");
-    inp.type = "text"; inp.maxLength = 120;
-    inp.placeholder = "es. da sostenere al 2º anno";
-    inp.value = esame.nota || "";
-    inp.addEventListener("change", () => { esame.nota = inp.value.trim(); laTocca(bozza); });
-    return inp;
-  }, "la-campo-largo"));
-  riga.appendChild(campi);
-  return riga;
+function laScaricaBackup(payload, university, ciclo, prefisso = "erasmuswiz-la") {
+  const envelope = laBackupEnvelope(payload, university, ciclo);
+  laScaricaJson(`${prefisso}-${university || ateneoAttivo()}-${String(ciclo || laCicloAttivo()).replace("/", "-")}.json`, envelope);
 }
 
-// Campo etichettato compatto (label + controllo), per le righe del Workspace.
-function laCampo(etichetta, costruisci, classeExtra) {
-  const label = crea("label", "la-campo" + (classeExtra ? " " + classeExtra : ""));
-  label.appendChild(crea("span", "la-campo-label", etichetta));
-  label.appendChild(costruisci());
-  return label;
+function laScaricaRecuperoVolatile() {
+  if (!_laVolatileRecovery) return;
+  laScaricaBackup(
+    _laVolatileRecovery.payload,
+    _laVolatileRecovery.university,
+    _laVolatileRecovery.cycle,
+    "erasmuswiz-la-recupero"
+  );
 }
 
-// ---- Corrispondenze molti-a-molti (R4.4) ----
-function laRenderSezioneGruppi(bozza, vers) {
-  const sez = crea("section", "la-sezione");
-  sez.appendChild(crea("h3", "la-sezione-titolo", "Corrispondenze: quali corsi coprono quali esami"));
-  sez.appendChild(crea("p", "la-sezione-sub",
-    "Un corso host può coprire più esami di casa, e un esame può richiedere più corsi. Le corrispondenze le decide il tuo ateneo: qui le prepari."));
-
-  if (!vers.corsiHost.length || !vers.esamiCasa.length) {
-    sez.appendChild(crea("p", "la-sezione-vuota",
-      "Le corrispondenze si creano quando hai almeno un corso host e un esame di casa."));
-    return sez;
+function laEtichettaBlocco(codice) {
+  const note = {
+    "missing-meta": "scegli la destinazione",
+    "missing-cycle": "indica il ciclo accademico",
+    "no-home-course": "aggiungi almeno un esame di casa",
+    "no-host-course": "aggiungi almeno un corso host disponibile",
+    "missing-home-name": "completa il nome degli esami di casa",
+    "missing-host-name": "completa il nome dei corsi host",
+    "invalid-home-credits": "inserisci CFU positivi",
+    "invalid-host-credits": "inserisci ECTS positivi",
+    "unmapped-home": "collega tutti gli esami di casa",
+    "unmapped-host": "collega tutti i corsi host attivi",
+    "orphan-reference": "ripara una corrispondenza orfana",
+    "unresolved-import": "risolvi tutte le righe importate",
+    "preflight:course-data-checked": "conferma di aver controllato i dati dei corsi",
+    "preflight:credits-compared": "conferma di aver confrontato i crediti",
+    "preflight:mapping-reviewed": "conferma di aver rivisto le corrispondenze",
+  };
+  if (codice.startsWith("rule:")) {
+    const id = codice.slice(5);
+    const regola = (window.ERASMUSWIZ_LA_REGOLE || []).find(r => r.id === id);
+    return regola?.title || "risolvi una regola dell'ateneo";
   }
-
-  vers.gruppi.forEach((g, i) => sez.appendChild(laRigaGruppo(bozza, vers, g, i)));
-
-  // Onestà sui non collegati: niente sparisce in silenzio da una bozza.
-  // L'elemento c'è sempre e si aggiorna VIVO al click sulle checkbox
-  // (laAggiornaOrfani), come i totali: mai una nota stantia a schermo.
-  // Il primo riempimento lo fa laRenderBozza DOPO l'append: qui la sezione
-  // non è ancora nel documento e getElementById non la vedrebbe.
-  const orfani = crea("p", "la-gruppo-orfani");
-  orfani.id = "la-gruppo-orfani";
-  orfani.hidden = true;
-  sez.appendChild(orfani);
-
-  const aggiungi = crea("button", "btn-secondary la-btn-aggiungi", "＋ Nuova corrispondenza");
-  aggiungi.type = "button";
-  aggiungi.addEventListener("click", () => {
-    vers.gruppi.push({ id: laId(bozza, "g"), corsi: [], esami: [] });
-    laTocca(bozza);
-    renderLA();
-  });
-  sez.appendChild(aggiungi);
-  return sez;
+  return note[codice] || codice;
 }
 
-function laRigaGruppo(bozza, vers, gruppo, indice) {
-  const box = crea("div", "la-gruppo");
-  const testaGruppo = crea("div", "la-gruppo-testa");
-  testaGruppo.appendChild(crea("span", "la-gruppo-titolo", `Corrispondenza ${indice + 1}`));
-  const rimuovi = crea("button", "la-btn-riga la-btn-rimuovi", "✕");
-  rimuovi.type = "button";
-  rimuovi.title = "Elimina questa corrispondenza (corsi ed esami restano in bozza)";
-  rimuovi.setAttribute("aria-label", `Elimina la corrispondenza ${indice + 1}`);
-  rimuovi.addEventListener("click", () => {
-    vers.gruppi = vers.gruppi.filter(g => g.id !== gruppo.id);
-    laTocca(bozza);
-    renderLA();
-  });
-  testaGruppo.appendChild(rimuovi);
-  box.appendChild(testaGruppo);
-
-  const cols = crea("div", "la-gruppo-cols");
-
-  function colonna(titolo, voci, selezionati, etichettaVoce) {
-    const fs = document.createElement("fieldset");
-    fs.className = "la-gruppo-col";
-    const leg = document.createElement("legend");
-    leg.textContent = titolo;
-    fs.appendChild(leg);
-    voci.forEach(v => {
-      const lbl = crea("label", "la-gruppo-voce");
-      const cb = document.createElement("input");
-      cb.type = "checkbox";
-      cb.checked = selezionati.includes(v.id);
-      cb.addEventListener("change", () => {
-        if (cb.checked) { if (!selezionati.includes(v.id)) selezionati.push(v.id); }
-        else {
-          const idx = selezionati.indexOf(v.id);
-          if (idx !== -1) selezionati.splice(idx, 1);
-        }
-        laTocca(bozza);
-        laAggiornaTotali(vers);
-        laAggiornaTotaliGruppo(box, vers, gruppo);
-        laAggiornaOrfani(vers);
-      });
-      lbl.appendChild(cb);
-      lbl.appendChild(crea("span", null, etichettaVoce(v)));
-      fs.appendChild(lbl);
-    });
-    return fs;
-  }
-
-  cols.appendChild(colonna("Corsi host", vers.corsiHost, gruppo.corsi,
-    c => (c.nome || "corso senza nome") + (laCorsoAttivo(c) ? "" : ` (${laEtichettaStato(c.stato).replace(/^\S+\s/, "")})`)));
-  cols.appendChild(colonna("Esami di casa", vers.esamiCasa, gruppo.esami,
-    e => e.nome || "esame senza nome"));
-  box.appendChild(cols);
-
-  const totaliEl = crea("p", "la-gruppo-totali");
-  totaliEl.className += " la-gruppo-totali-" + gruppo.id;
-  box.appendChild(totaliEl);
-  laAggiornaTotaliGruppo(box, vers, gruppo);
-  return box;
-}
-
-// Chi non è ancora in nessuna corrispondenza, riscritto in place.
-function laAggiornaOrfani(vers) {
-  const el = document.getElementById("la-gruppo-orfani");
-  if (!el) return;
-  const inGruppi = { corsi: new Set(), esami: new Set() };
-  vers.gruppi.forEach(g => {
-    g.corsi.forEach(id => inGruppi.corsi.add(id));
-    g.esami.forEach(id => inGruppi.esami.add(id));
-  });
-  const corsiSoli = vers.corsiHost.filter(c => laCorsoAttivo(c) && !inGruppi.corsi.has(c.id) && c.nome);
-  const esamiSoli = vers.esamiCasa.filter(e => !inGruppi.esami.has(e.id) && e.nome);
-  if (!corsiSoli.length && !esamiSoli.length) { el.hidden = true; return; }
-  const pezzi = [];
-  if (corsiSoli.length) pezzi.push(`corsi host: ${corsiSoli.map(c => c.nome).join(", ")}`);
-  if (esamiSoli.length) pezzi.push(`esami di casa: ${esamiSoli.map(e => e.nome).join(", ")}`);
-  el.textContent = `Non ancora in una corrispondenza — ${pezzi.join(" · ")}.`;
-  el.hidden = false;
-}
-
-function laAggiornaTotaliGruppo(box, vers, gruppo) {
-  const el = box.querySelector(".la-gruppo-totali");
-  if (!el) return;
-  const t = laTotali(vers, gruppo);
-  if (!gruppo.corsi.length && !gruppo.esami.length) {
-    el.textContent = "Seleziona almeno un corso e un esame.";
-    return;
-  }
-  el.textContent = `${laFormattaNumero(t.ects)} ECTS ↔ ${laFormattaNumero(t.cfu)} CFU. ${laFraseSoglie(t)}`;
-}
-
-// I totali globali della versione corrente, riscritti senza rifare il DOM.
-function laAggiornaTotali(vers) {
-  const el = document.getElementById("la-totali");
-  if (!el) return;
-  el.innerHTML = "";
-  const t = laTotali(vers);
-  const riga = crea("div", "la-totali-riga");
-  riga.appendChild(crea("span", "la-totali-numero", `${laFormattaNumero(t.ects)} ECTS`));
-  riga.appendChild(crea("span", "la-totali-vs", "↔"));
-  riga.appendChild(crea("span", "la-totali-numero", `${laFormattaNumero(t.cfu)} CFU`));
-  el.appendChild(riga);
-  const esclusi = vers.corsiHost.filter(c => !laCorsoAttivo(c)).length;
-  const note = [];
-  if (esclusi) note.push(`${esclusi} ${esclusi === 1 ? "corso escluso" : "corsi esclusi"} dal totale (non disponibili o sostituiti)`);
-  const soglie = laFraseSoglie(t);
-  if (soglie) note.push(soglie);
-  if (note.length) el.appendChild(crea("p", "la-totali-nota", note.join(". ")));
-}
-
-// ---- Checklist pre-invio (R4.6) ----
-function laRenderPreInvio(bozza, vers) {
-  const sez = crea("section", "la-sezione");
-  sez.appendChild(crea("h3", "la-sezione-titolo", "Prima di inviarla al referente"));
-  if (!vers.preInvio || typeof vers.preInvio !== "object") {
-    vers.preInvio = { linkAperti: false, ectsConfrontati: false };
-  }
-  const voci = [
-    ["linkAperti", "Ho aperto i link dei corsi host: esistono ancora e dicono quello che ho scritto qui."],
-    ["ectsConfrontati", "Ho confrontato gli ECTS di ogni corso con la fonte ufficiale dell'ospitante."],
+function laRenderFasi(contenitore, fase) {
+  const nomi = [
+    ["plan", "Il mio piano"], ["compare", "Confronta le mete"],
+    ["prepare", "Prepara la proposta"], ["approval", "Approva e modifica"],
+    ["recognition", "Convalida"],
   ];
-  voci.forEach(([chiave, testo]) => {
-    const lbl = crea("label", "voce-checklist-v2" + (vers.preInvio[chiave] ? " fatta" : ""));
-    const cb = document.createElement("input");
-    cb.type = "checkbox";
-    cb.checked = !!vers.preInvio[chiave];
-    cb.addEventListener("change", () => {
-      vers.preInvio[chiave] = cb.checked;
-      laTocca(bozza);
-      lbl.classList.toggle("fatta", cb.checked);
+  const nav = laElemento("ol", "la-stage-list");
+  const attiva = fase === "exploration" ? 1 : fase === "preparation" ? 2
+    : ["approval", "mobility"].includes(fase) ? 3 : 4;
+  nomi.forEach(([id, nome], indice) => {
+    const li = laElemento("li", `la-stage ${indice === attiva ? "attiva" : ""}`);
+    li.dataset.stage = id;
+    li.appendChild(laElemento("span", "la-stage-num", String(indice + 1)));
+    li.appendChild(laElemento("span", null, nome));
+    nav.appendChild(li);
+  });
+  contenitore.appendChild(nav);
+}
+
+function laRenderGuida(contenitore, ciclo, fase) {
+  const filtro = laRegoleAttive(ciclo, fase);
+  const sezione = laElemento("section", "la-panel la-guide");
+  sezione.id = "la-guide";
+  sezione.appendChild(laElemento("h2", "la-panel-title", `Procedura ${laNomeAteneo()}`));
+  sezione.appendChild(laElemento("p", "la-muted",
+    "ErasmusWiz prepara e conserva il lavoro. Invio, firma e approvazione restano nei sistemi ufficiali dell'ateneo."));
+  if (filtro.state !== "verified") {
+    sezione.appendChild(laElemento("p", "la-warning", `Procedura da verificare per il ciclo ${ciclo}. Non riutilizziamo regole di un ciclo precedente.`));
+  } else {
+    const lista = laElemento("ul", "la-rule-list");
+    filtro.rules.forEach(regola => {
+      const li = laElemento("li", `la-rule la-rule-${regola.severity}`);
+      li.appendChild(laElemento("strong", null, regola.title + ". "));
+      li.appendChild(document.createTextNode(regola.message));
+      const fonti = laElemento("span", "la-rule-sources", " ");
+      regola.sources.forEach((fonte, i) => {
+        const a = laElemento("a", null, i ? `fonte ${i + 1} ↗` : "fonte ufficiale ↗");
+        a.href = fonte.url; a.target = "_blank"; a.rel = "noopener";
+        fonti.appendChild(a);
+        if (i < regola.sources.length - 1) fonti.appendChild(document.createTextNode(" · "));
+      });
+      li.appendChild(fonti);
+      lista.appendChild(li);
     });
-    lbl.appendChild(cb);
-    lbl.appendChild(crea("span", null, testo));
-    sez.appendChild(lbl);
-  });
-  sez.appendChild(crea("p", "la-sezione-sub",
-    "Questa checklist non approva la bozza: serve a non mandare al referente link morti o numeri sbagliati."));
-  return sez;
-}
-
-// ---- Export (R4.7): stampa/PDF + testo ordinato ----
-function laRenderExport(bozza, vers) {
-  const sez = crea("section", "la-sezione la-export");
-  sez.appendChild(crea("h3", "la-sezione-titolo", "Porta la bozza fuori di qui"));
-  const azioni = crea("div", "la-export-azioni");
-
-  const stampa = crea("button", "btn-primary la-btn-piccolo", "🖨 Stampa / salva PDF");
-  stampa.type = "button";
-  stampa.addEventListener("click", () => {
-    window.goatcounter?.count({ path: "la-export-stampa", event: true });
-    laStampa(bozza, vers);
-  });
-  azioni.appendChild(stampa);
-
-  const copia = crea("button", "btn-secondary la-btn-piccolo", "📋 Copia il testo per il referente");
-  copia.type = "button";
-  copia.addEventListener("click", () => {
-    window.goatcounter?.count({ path: "la-export-testo", event: true });
-    laCopiaTesto(laTestoExport(bozza, vers), copia);
-  });
-  azioni.appendChild(copia);
-  sez.appendChild(azioni);
-  sez.appendChild(crea("p", "la-sezione-sub",
-    "Il testo è pensato per una mail al referente/docente (RAM). La stampa è la stessa bozza, ordinata."));
-  return sez;
-}
-
-function laDescriviCorso(c, indice) {
-  const pezzi = [`${indice + 1}. ${c.nome}`];
-  if (c.ects !== "" && c.ects !== undefined && c.ects !== null) pezzi.push(`${laFormattaNumero(laNumeroDa(c.ects))} ECTS`);
-  if (c.lingua) pezzi.push(c.lingua);
-  if (c.semestre) pezzi.push(c.semestre);
-  pezzi.push(laEtichettaStato(c.stato).replace(/^\S+\s/, ""));
-  if (c.verificataIl) pezzi.push(`verificato il ${laDataBreve(c.verificataIl)}`);
-  let testo = pezzi.join(" — ");
-  if (laLinkSicuro(c.link)) testo += `\n   ${c.link.trim()}`;
-  return testo;
-}
-
-function laDescriviEsame(e, indice) {
-  const pezzi = [`${indice + 1}. ${e.nome}`];
-  if (e.codice) pezzi.push(`cod. ${e.codice}`);
-  if (e.cfu !== "" && e.cfu !== undefined && e.cfu !== null) pezzi.push(`${laFormattaNumero(laNumeroDa(e.cfu))} CFU`);
-  if (e.nota) pezzi.push(e.nota);
-  return pezzi.join(" — ");
-}
-
-function laTestoExport(bozza, vers) {
-  const m = bozza.meta;
-  const corsi = vers.corsiHost.filter(c => c.nome);
-  const esami = vers.esamiCasa.filter(e => e.nome);
-  const t = laTotali(vers);
-  const righe = [];
-  righe.push("LEARNING AGREEMENT — BOZZA DI LAVORO (non ufficiale)");
-  righe.push(`Meta: ${nomeUniversita(m.universita)}${m.citta ? ` — ${m.citta} (${m.paese})` : ""}`);
-  righe.push(`Ateneo di casa: ${window.ATENEO_LABEL || ""}`);
-  righe.push(`Versione ${vers.numero} del ${laDataBreve(vers.creataIl)}` +
-    (vers.motivo ? ` — motivo: ${laEtichettaMotivo(vers.motivo)}${vers.notaMotivo ? ` (${vers.notaMotivo})` : ""}` : ""));
-  righe.push("");
-  righe.push("CORSI ALL'ESTERO (host)");
-  righe.push(corsi.length ? corsi.map(laDescriviCorso).join("\n") : "(nessuno)");
-  righe.push("");
-  righe.push("ESAMI DI CASA DA RICONOSCERE");
-  righe.push(esami.length ? esami.map(laDescriviEsame).join("\n") : "(nessuno)");
-  righe.push("");
-  const gruppiPieni = vers.gruppi.filter(g => g.corsi.length || g.esami.length);
-  if (gruppiPieni.length) {
-    righe.push("CORRISPONDENZE PROPOSTE");
-    gruppiPieni.forEach((g, i) => {
-      const nomiCorsi = g.corsi.map(id => (vers.corsiHost.find(c => c.id === id) || {}).nome).filter(Boolean);
-      const nomiEsami = g.esami.map(id => (vers.esamiCasa.find(e => e.id === id) || {}).nome).filter(Boolean);
-      const tg = laTotali(vers, g);
-      righe.push(`${i + 1}. ${nomiCorsi.join(" + ") || "—"}  ⇢  ${nomiEsami.join(" + ") || "—"}  (${laFormattaNumero(tg.ects)} ECTS ↔ ${laFormattaNumero(tg.cfu)} CFU)`);
-    });
-    righe.push("");
+    sezione.appendChild(lista);
+    sezione.appendChild(laElemento("p", "la-verified", "Fonti verificate il 2 agosto 2026. Verifica sempre eventuali aggiornamenti sulla fonte ufficiale."));
   }
-  righe.push(`TOTALI: ${laFormattaNumero(t.ects)} ECTS ↔ ${laFormattaNumero(t.cfu)} CFU` +
-    (vers.corsiHost.some(c => !laCorsoAttivo(c)) ? " (esclusi i corsi non disponibili o sostituiti)" : ""));
-  righe.push("");
-  righe.push("Bozza preparata con ErasmusWiz (https://nicorotolo.github.io/erasmuswiz/).");
-  righe.push("Il Learning Agreement ufficiale resta nel sistema dell'ateneo (OLA/EWP).");
-  righe.push("Verifica sempre corsi, ECTS e disponibilità sulle fonti ufficiali dell'ospitante.");
+  contenitore.appendChild(sezione);
+}
+
+function laAggiungiEsami(importazione) {
+  return laTransazione("importazione del piano", la => {
+    const nuoviPerRiga = {};
+    importazione.exams.forEach(esame => {
+      const riferimentoAnteprima = String(esame.mergeIntoExamId || "").match(/^preview:(\d+)$/);
+      const destinazione = riferimentoAnteprima
+        ? nuoviPerRiga[`row-${riferimentoAnteprima[1]}`]
+        : esame.mergeIntoExamId;
+      const pulito = {
+        codice: String(esame.codice || "").trim(),
+        nome: String(esame.nome || "").trim(), cfu: Number(esame.cfu),
+        stato: esame.stato || "da-sostenere",
+      };
+      if (destinazione && la.examLibrary[destinazione]) {
+        la.examLibrary[destinazione] = Object.assign(
+          {}, la.examLibrary[destinazione], pulito,
+          { id: destinazione }
+        );
+        nuoviPerRiga[esame.importRowId] = destinazione;
+        return;
+      }
+      let id = `exam-${la.nextId++}`;
+      while (la.examLibrary[id]) id = `exam-${la.nextId++}`;
+      la.examLibrary[id] = Object.assign({ id }, pulito);
+      nuoviPerRiga[esame.importRowId] = id;
+    });
+  }, "la-plan-confirmed");
+}
+
+function laRenderImportPreview(sezione) {
+  if (!_laImportPreview) return;
+  const box = laElemento("div", "la-import-preview");
+  box.appendChild(laElemento("h3", null, "Anteprima — nessuna riga viene scartata da sola"));
+  _laImportPreview.rows.forEach(riga => {
+    const row = laElemento("div", `la-import-row ${riga.requiresDecision ? "ambigua" : ""}`);
+    row.dataset.rowId = riga.rowId;
+    row.appendChild(laElemento("span", "la-import-line", `Riga ${riga.line}`));
+    ["codice", "nome", "cfu"].forEach(campo => {
+      const input = document.createElement("input");
+      input.dataset.field = campo;
+      input.value = riga.values[campo] || "";
+      input.placeholder = campo.toUpperCase();
+      input.setAttribute("aria-label", `${campo} riga ${riga.line}`);
+      row.appendChild(input);
+    });
+    const select = document.createElement("select");
+    select.dataset.decision = "true";
+    select.setAttribute("aria-label", `Decisione riga ${riga.line}`);
+    const opzioni = riga.requiresDecision
+      ? [["", "Scegli cosa fare"], ["confirm", "Conferma/correggi"], ["exclude", "Escludi esplicitamente"]]
+      : [["confirm", "Importa"]];
+    if (riga.duplicateExamId) {
+      opzioni.splice(1, 0, ["merge", "Unisci al duplicato"], ["keep-separate", "Mantieni separato"]);
+    }
+    opzioni.forEach(([value, label]) => {
+      const option = document.createElement("option"); option.value = value; option.textContent = label;
+      select.appendChild(option);
+    });
+    row.appendChild(select);
+    if (riga.issues.length) row.appendChild(laElemento("small", "la-import-issues", riga.issues.join(" · ")));
+    box.appendChild(row);
+  });
+  const conferma = laBottone("Conferma il piano", "btn-secondary", () => {
+    const decisions = {};
+    box.querySelectorAll(".la-import-row").forEach(row => {
+      const originale = _laImportPreview.rows.find(r => r.rowId === row.dataset.rowId);
+      const action = row.querySelector("select").value;
+      if (!originale.requiresDecision && !action) return;
+      const values = {};
+      row.querySelectorAll("input[data-field]").forEach(input => { values[input.dataset.field] = input.value; });
+      decisions[row.dataset.rowId] = {
+        action: action || "confirm", values,
+        examId: originale.duplicateExamId,
+      };
+    });
+    const finale = ErasmusWizPuro.finalizzaImportPianoLA(_laImportPreview, decisions);
+    if (finale.unresolvedRows.length) {
+      _laSaveErrorMessage = `Restano ${finale.unresolvedRows.length} righe da decidere: correggile, confermale o escludile.`;
+      renderLAV2();
+      return;
+    }
+    if (laAggiungiEsami(finale)) _laImportPreview = null;
+  });
+  box.appendChild(conferma);
+  sezione.appendChild(box);
+}
+
+function laRenderPiano(contenitore) {
+  const sezione = laElemento("section", "la-panel");
+  sezione.id = "la-plan";
+  sezione.appendChild(laElemento("h2", "la-panel-title", "1. Il mio piano"));
+  sezione.appendChild(laElemento("p", "la-muted", "Incolla una riga per esame nel formato codice; nome; CFU. Accettiamo anche tab, intestazione, decimali con virgola o punto e righe vuote."));
+  const esami = Object.values(ZAINO.la.examLibrary || {});
+  if (!esami.length) {
+    sezione.appendChild(laElemento("p", "la-empty-primary", "Parti dal tuo piano di studi italiano"));
+  }
+  if (esami.length) {
+    const lista = laElemento("div", "la-exam-library");
+    esami.forEach(esame => {
+      const row = laElemento("div", "la-exam-row");
+      [["codice", "Codice"], ["nome", "Nome dell'esame"], ["cfu", "CFU"]].forEach(([campo, label]) => {
+        const input = document.createElement("input");
+        input.value = esame[campo] || "";
+        input.placeholder = label;
+        input.setAttribute("aria-label", `${label} in libreria`);
+        input.addEventListener("change", () => laTransazione("modifica dell'esame", la => {
+          const valore = campo === "cfu" ? Number(String(input.value).replace(",", ".")) : input.value.trim();
+          if (campo === "cfu" && (!Number.isFinite(valore) || valore <= 0)) throw new Error("CFU non positivi");
+          if (campo === "nome" && !valore) throw new Error("nome mancante");
+          la.examLibrary[esame.id][campo] = valore;
+        }));
+        row.appendChild(input);
+      });
+      const stato = document.createElement("select");
+      [["da-sostenere", "Da sostenere"], ["gia-sostenuto", "Già sostenuto"], ["fuori-piano", "Fuori piano"]].forEach(([v, l]) => {
+        const o = document.createElement("option"); o.value = v; o.textContent = l; stato.appendChild(o);
+      });
+      stato.value = esame.stato;
+      stato.setAttribute("aria-label", `Stato di ${esame.nome}`);
+      stato.addEventListener("change", () => laTransazione("modifica dell'esame", la => {
+        la.examLibrary[esame.id].stato = stato.value;
+      }));
+      row.appendChild(stato);
+      row.appendChild(laBottone("Rimuovi", "la-text-button", () => {
+        if (!confirm(`Rimuovere ${esame.nome} dalla libreria? Le fotografie già nei dossier restano intatte.`)) return;
+        laTransazione("rimozione dell'esame", la => { delete la.examLibrary[esame.id]; });
+      }));
+      lista.appendChild(row);
+    });
+    sezione.appendChild(lista);
+  }
+  const textarea = document.createElement("textarea");
+  textarea.id = "la-plan-paste";
+  textarea.rows = 5;
+  textarea.placeholder = "CODICE; Nome dell'esame; 6\nALTRO01; Secondo esame; 9";
+  textarea.setAttribute("aria-label", "Piano di studi da importare");
+  sezione.appendChild(textarea);
+  sezione.appendChild(laBottone("Mostra anteprima", "btn-secondary", () => {
+    _laImportPreview = ErasmusWizPuro.parsePianoStudiLA(textarea.value, ZAINO.la.examLibrary);
+    _laSaveErrorMessage = _laImportPreview.rows.length ? "" : "Non ci sono righe da mostrare.";
+    renderLAV2();
+  }));
+  sezione.appendChild(laBottone("Aggiungi un esame a mano", "btn-secondary", () => {
+    _laImportPreview = ErasmusWizPuro.parsePianoStudiLA("; ; ", ZAINO.la.examLibrary);
+    renderLAV2();
+  }));
+  laRenderImportPreview(sezione);
+  contenitore.appendChild(sezione);
+}
+
+function laMeteCandidabili() {
+  const viste = new Set();
+  const preferite = (ZAINO.schedina || []).map(id => (METE || []).find(m => m.id === id)).filter(Boolean);
+  preferite.forEach(m => viste.add(m.id));
+  const profilo = ZAINO.profilo;
+  const pertinenti = (METE || []).filter(m => {
+    if (!profilo) return false;
+    return profilo.dipartimento ? m.dipartimentoCf === profilo.dipartimento
+      : (m.areeDisciplinari || []).some(a => a.codice === profilo.area);
+  }).filter(m => !viste.has(m.id)).slice(0, 150);
+  return preferite.concat(pertinenti);
+}
+
+function laRenderConfronto(contenitore, ciclo) {
+  const sezione = laElemento("section", "la-panel");
+  sezione.id = "la-compare";
+  sezione.appendChild(laElemento("h2", "la-panel-title", "2. Confronta le mete"));
+  const dossier = Object.values(ZAINO.la.dossiersById || {}).filter(d => !d.archivedAt);
+  if (dossier.length) {
+    const griglia = laElemento("div", "la-dossier-grid");
+    dossier.forEach(d => {
+      const card = laElemento("article", `la-dossier-card ${d.id === ZAINO.la.assignedDossierIdByCycle?.[d.cycle] ? "assigned" : ""}`);
+      card.appendChild(laElemento("h3", null, nomeUniversita(d.meta.universita) || d.metaId));
+      card.appendChild(laElemento("p", "la-muted", `${d.meta.citta || ""} · ciclo ${d.cycle}`));
+      card.appendChild(laElemento("p", "la-status-line", d.id === ZAINO.la.assignedDossierIdByCycle?.[d.cycle] ? "Meta operativa assegnata" : "Dossier esplorativo"));
+      card.appendChild(laBottone("Apri dossier", "btn-secondary", () => {
+        laTransazione("apertura del dossier", la => { la.openDossierId = d.id; });
+      }));
+      griglia.appendChild(card);
+    });
+    sezione.appendChild(griglia);
+  } else {
+    sezione.appendChild(laElemento("p", "la-muted", "Crea più dossier per confrontare le proposte. Nessuna meta viene assegnata automaticamente."));
+  }
+  const archiviati = Object.values(ZAINO.la.dossiersById || {}).filter(d => d.archivedAt);
+  if (archiviati.length) {
+    const archivio = document.createElement("details");
+    const summary = document.createElement("summary");
+    summary.textContent = `Dossier archiviati (${archiviati.length}) — storia conservata`;
+    archivio.appendChild(summary);
+    archiviati.forEach(d => {
+      archivio.appendChild(laElemento("p", "la-muted",
+        `${nomeUniversita(d.meta.universita) || d.metaId} · ${d.cycle} · ${d.versions.length} versioni · archiviato il ${laDataBreve(d.archivedAt)}`));
+    });
+    sezione.appendChild(archivio);
+  }
+  const mete = laMeteCandidabili();
+  if (mete.length) {
+    const riga = laElemento("div", "la-create-dossier");
+    const select = document.createElement("select"); select.id = "la-meta-select";
+    mete.forEach(meta => {
+      const o = document.createElement("option"); o.value = meta.id;
+      o.textContent = `${nomeUniversita(meta.universita)} — ${meta.citta || meta.paese || ""}`;
+      select.appendChild(o);
+    });
+    const cycleInput = document.createElement("input");
+    cycleInput.id = "la-cycle-input"; cycleInput.value = ciclo;
+    cycleInput.pattern = "\\d{4}/\\d{2}"; cycleInput.setAttribute("aria-label", "Ciclo accademico");
+    riga.append(select, cycleInput);
+    riga.appendChild(laBottone("Crea o apri dossier", "btn-secondary", () => {
+      const meta = (METE || []).find(m => m.id === select.value);
+      const cycle = cycleInput.value.trim();
+      if (!meta || !/^\d{4}\/\d{2}$/.test(cycle)) {
+        _laSaveErrorMessage = "Indica un ciclo nel formato 2026/27."; renderLAV2(); return;
+      }
+      laTransazione("creazione del dossier", la => ErasmusWizPuro.creaDossierLA(la, {
+        metaId: meta.id,
+        meta: { id: meta.id, universita: meta.universita, citta: meta.citta, paese: meta.paese },
+        university: ateneoAttivo(), cycle, at: new Date().toISOString(),
+      }).la);
+    }));
+    sezione.appendChild(riga);
+  } else {
+    const a = laElemento("a", "btn-secondary la-inline-button", "Scegli prima le mete →");
+    a.href = "#mete"; a.dataset.goto = "mete"; sezione.appendChild(a);
+  }
+  contenitore.appendChild(sezione);
+}
+
+function laRenderHomeSnapshots(sezione, dossier, versione) {
+  const box = laElemento("div", "la-subsection");
+  box.appendChild(laElemento("h3", null, "Esami di casa"));
+  versione.homeExamSnapshots.forEach(esame => {
+    const row = laElemento("div", "la-edit-row");
+    [["codice", "Codice"], ["nome", "Nome"], ["cfu", "CFU"]].forEach(([campo, label]) => {
+      const input = document.createElement("input"); input.value = esame[campo] || ""; input.placeholder = label;
+      input.setAttribute("aria-label", `${label} esame di casa`);
+      input.addEventListener("change", () => laModificaDossier(dossier.id, "modifica esame di casa", (d, v) => {
+        const target = v.homeExamSnapshots.find(x => x.snapshotId === esame.snapshotId);
+        target[campo] = campo === "cfu" ? Number(input.value.replace(",", ".")) : input.value.trim();
+      }));
+      row.appendChild(input);
+    });
+    const stato = document.createElement("select");
+    [["da-sostenere", "Da sostenere"], ["gia-sostenuto", "Già sostenuto"], ["fuori-piano", "Fuori piano"]]
+      .forEach(([value, label]) => {
+        const option = document.createElement("option"); option.value = value; option.textContent = label;
+        stato.appendChild(option);
+      });
+    stato.value = esame.stato || "da-sostenere";
+    stato.setAttribute("aria-label", "Stato esame di casa nel dossier");
+    stato.addEventListener("change", () => laModificaDossier(dossier.id, "stato esame di casa", (d, v) => {
+      v.homeExamSnapshots.find(x => x.snapshotId === esame.snapshotId).stato = stato.value;
+    }));
+    row.appendChild(stato);
+    row.appendChild(laBottone("Rimuovi", "la-text-button", () => laModificaDossier(dossier.id, "rimozione esame", (d, v) => {
+      v.homeExamSnapshots = v.homeExamSnapshots.filter(x => x.snapshotId !== esame.snapshotId);
+      v.mappings.forEach(m => { m.homeExamSnapshotIds = m.homeExamSnapshotIds.filter(id => id !== esame.snapshotId); });
+    })));
+    box.appendChild(row);
+  });
+  box.appendChild(laBottone("Copia gli esami mancanti dal mio piano", "btn-secondary", () => laModificaDossier(dossier.id, "copia del piano nel dossier", (d, v) => {
+    const presenti = new Set(v.homeExamSnapshots.map(e => e.sourceExamId).filter(Boolean));
+    Object.values(ZAINO.la.examLibrary).forEach(esame => {
+      if (presenti.has(esame.id)) return;
+      v.homeExamSnapshots.push({
+        snapshotId: `${v.versionId}:home-${v.homeExamSnapshots.length + 1}`,
+        sourceExamId: esame.id, codice: esame.codice, nome: esame.nome,
+        cfu: esame.cfu, stato: esame.stato,
+      });
+    });
+  })));
+  sezione.appendChild(box);
+}
+
+function laRenderHostSnapshots(sezione, dossier, versione) {
+  const box = laElemento("div", "la-subsection");
+  box.appendChild(laElemento("h3", null, "Corsi dell'università ospitante"));
+  versione.hostCourseSnapshots.forEach(corso => {
+    const row = laElemento("div", "la-edit-row la-host-row");
+    [["codice", "Codice facoltativo"], ["nome", "Nome"], ["ects", "ECTS"], ["lingua", "Lingua"], ["semestre", "Semestre"], ["officialUrl", "URL ufficiale"], ["verifiedAt", "Verificato il"], ["sourceDate", "Data della fonte"]]
+      .forEach(([campo, label]) => {
+        const input = document.createElement("input"); input.value = corso[campo] || ""; input.placeholder = label;
+        input.setAttribute("aria-label", `${label} corso host`);
+        input.addEventListener("change", () => laModificaDossier(dossier.id, "modifica corso host", (d, v) => {
+          const target = v.hostCourseSnapshots.find(x => x.snapshotId === corso.snapshotId);
+          target[campo] = campo === "ects" ? Number(input.value.replace(",", ".")) : input.value.trim();
+        }));
+        row.appendChild(input);
+      });
+    const stato = document.createElement("select");
+    [["da-verificare", "Da verificare"], ["disponibile", "Disponibile"], ["non-disponibile", "Non disponibile"], ["sostituito", "Sostituito"]]
+      .forEach(([v, l]) => { const o = document.createElement("option"); o.value = v; o.textContent = l; stato.appendChild(o); });
+    stato.value = corso.availabilityState;
+    stato.setAttribute("aria-label", "Disponibilità del corso host");
+    stato.addEventListener("change", () => laModificaDossier(dossier.id, "stato corso host", (d, v) => {
+      const target = v.hostCourseSnapshots.find(x => x.snapshotId === corso.snapshotId);
+      target.availabilityState = stato.value; target.verifiedAt = laOggiISO();
+    }));
+    row.appendChild(stato);
+    row.appendChild(laBottone("Rimuovi", "la-text-button", () => laModificaDossier(dossier.id, "rimozione corso host", (d, v) => {
+      v.hostCourseSnapshots = v.hostCourseSnapshots.filter(x => x.snapshotId !== corso.snapshotId);
+      v.mappings.forEach(m => { m.hostCourseSnapshotIds = m.hostCourseSnapshotIds.filter(id => id !== corso.snapshotId); });
+    })));
+    box.appendChild(row);
+  });
+  box.appendChild(laBottone("Aggiungi corso host", "btn-secondary", () => laModificaDossier(dossier.id, "aggiunta corso host", (d, v) => {
+    v.hostCourseSnapshots.push({
+      snapshotId: `${v.versionId}:host-${v.hostCourseSnapshots.length + 1}`,
+      codice: "", nome: "", ects: "", lingua: "", semestre: "",
+      officialUrl: "", availabilityState: "da-verificare", verifiedAt: "", sourceDate: "",
+    });
+  })));
+  sezione.appendChild(box);
+}
+
+function laRenderMappings(sezione, dossier, versione) {
+  const box = laElemento("div", "la-subsection");
+  box.appendChild(laElemento("h3", null, "Corrispondenze molti-a-molti"));
+  box.appendChild(laElemento("p", "la-muted", "Una corrispondenza può contenere più corsi host e più esami di casa. Non afferma equivalenza automatica."));
+  versione.mappings.forEach((mapping, indice) => {
+    const fieldset = document.createElement("fieldset"); fieldset.className = "la-mapping";
+    const legend = document.createElement("legend"); legend.textContent = `Corrispondenza ${indice + 1}`; fieldset.appendChild(legend);
+    const cols = laElemento("div", "la-mapping-cols");
+    [["homeExamSnapshotIds", versione.homeExamSnapshots, "snapshotId", "Esami casa"],
+     ["hostCourseSnapshotIds", versione.hostCourseSnapshots, "snapshotId", "Corsi host"]].forEach(([campo, voci, idCampo, titolo]) => {
+      const col = laElemento("div", null); col.appendChild(laElemento("strong", null, titolo));
+      voci.forEach(voce => {
+        const label = laElemento("label", "la-check-row");
+        const cb = document.createElement("input"); cb.type = "checkbox"; cb.checked = mapping[campo].includes(voce[idCampo]);
+        cb.addEventListener("change", () => laModificaDossier(dossier.id, "modifica corrispondenza", (d, v) => {
+          const m = v.mappings.find(x => x.mappingId === mapping.mappingId);
+          if (cb.checked && !m[campo].includes(voce[idCampo])) m[campo].push(voce[idCampo]);
+          if (!cb.checked) m[campo] = m[campo].filter(id => id !== voce[idCampo]);
+        }));
+        label.append(cb, document.createTextNode(voce.nome || "Senza nome")); col.appendChild(label);
+      });
+      cols.appendChild(col);
+    });
+    fieldset.appendChild(cols);
+    fieldset.appendChild(laBottone("Elimina corrispondenza", "la-text-button", () => laModificaDossier(dossier.id, "eliminazione corrispondenza", (d, v) => {
+      v.mappings = v.mappings.filter(x => x.mappingId !== mapping.mappingId);
+    })));
+    box.appendChild(fieldset);
+  });
+  box.appendChild(laBottone("Nuova corrispondenza", "btn-secondary", () => laModificaDossier(dossier.id, "nuova corrispondenza", (d, v) => {
+    v.mappings.push({
+      mappingId: `${v.versionId}:map-${v.mappings.length + 1}`,
+      homeExamSnapshotIds: [], hostCourseSnapshotIds: [],
+    });
+  })));
+  sezione.appendChild(box);
+}
+
+function laRenderPreflight(sezione, dossier, versione) {
+  const box = laElemento("div", "la-subsection");
+  box.appendChild(laElemento("h3", null, "Controlli prima dell'invio"));
+  const voci = {
+    "course-data-checked": "Ho ricontrollato nomi, disponibilità e fonti ufficiali dei corsi.",
+    "credits-compared": "Ho confrontato ECTS e CFU senza presumere che debbano coincidere.",
+    "mapping-reviewed": "Ho rivisto tutte le corrispondenze con il referente.",
+  };
+  Object.entries(voci).forEach(([chiave, labelText]) => {
+    const label = laElemento("label", "la-check-row");
+    const cb = document.createElement("input"); cb.type = "checkbox"; cb.checked = !!versione.preflight[chiave];
+    cb.addEventListener("change", () => laModificaDossier(dossier.id, "controllo pre-invio", (d, v) => { v.preflight[chiave] = cb.checked; }));
+    label.append(cb, document.createTextNode(labelText)); box.appendChild(label);
+  });
+  sezione.appendChild(box);
+}
+
+function laTestoVersione(dossier, versione) {
+  const righe = [`LEARNING AGREEMENT — proposta di lavoro`, `${dossier.meta.universita} · ciclo ${dossier.cycle}`, `Versione ${versione.number}`];
+  righe.push("", "ESAMI DI CASA");
+  versione.homeExamSnapshots.forEach(e => righe.push(`${e.codice || "—"}; ${e.nome}; ${e.cfu} CFU`));
+  righe.push("", "CORSI HOST");
+  versione.hostCourseSnapshots.filter(ErasmusWizPuro.corsoHostAttivoLA).forEach(c => righe.push(`${c.codice || "—"}; ${c.nome}; ${c.ects} ECTS; ${c.officialUrl || "senza link"}`));
+  righe.push("", "Bozza non ufficiale. Invio, firma e approvazione restano nei sistemi dell'ateneo.");
   return righe.join("\n");
 }
 
-function laCopiaTesto(testo, btn) {
-  const fatto = () => {
-    const originale = btn.textContent;
-    btn.textContent = "✅ Copiato!";
-    setTimeout(() => { btn.textContent = originale; }, 2200);
-  };
-  const fallback = () => {
-    const ta = document.createElement("textarea");
-    ta.value = testo;
-    ta.setAttribute("readonly", "");
-    ta.style.position = "fixed";
-    ta.style.opacity = "0";
-    document.body.appendChild(ta);
-    ta.select();
-    let ok = false;
-    try { ok = document.execCommand("copy"); } catch (e) {}
-    ta.remove();
-    if (ok) fatto();
-    else window.prompt("Copia il testo qui sotto (Ctrl+C):", testo);
-  };
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(testo).then(fatto).catch(fallback);
-  } else fallback();
+function laCopia(testo, bottone) {
+  const fatto = () => { bottone.textContent = "Copiato"; setTimeout(() => { bottone.textContent = "Copia"; }, 1500); };
+  if (navigator.clipboard?.writeText) navigator.clipboard.writeText(testo).then(fatto).catch(() => window.prompt("Copia:", testo));
+  else window.prompt("Copia:", testo);
 }
 
-// Stampa: finestra dedicata costruita con API sicure (textContent), niente
-// HTML arbitrario. Chi vuole il PDF usa "Salva come PDF" del browser.
-function laStampa(bozza, vers) {
-  const w = window.open("", "_blank");
-  if (!w) {
-    _laMessaggio = "Il browser ha bloccato la finestra di stampa: consenti i popup per questo sito e riprova.";
-    renderLA();
+function laStampaV2(dossier, versione) {
+  const finestra = window.open("", "_blank");
+  if (!finestra) {
+    _laSaveErrorMessage = "Il browser ha bloccato la finestra di stampa. Consenti i popup e riprova.";
+    renderLAV2();
     return;
   }
-  const d = w.document;
-  d.title = "Learning Agreement — bozza di lavoro (non ufficiale)";
-  const metaCharset = d.createElement("meta");
-  metaCharset.setAttribute("charset", "utf-8");
-  d.head.appendChild(metaCharset);
-  const style = d.createElement("style");
-  style.textContent = [
-    "body { font: 14px/1.5 'Plus Jakarta Sans', system-ui, sans-serif; color: #1E1B2E; margin: 32px; }",
-    "h1 { font-size: 20px; margin: 0 0 2px; }",
-    "h2 { font-size: 15px; margin: 22px 0 8px; border-bottom: 1px solid #D6D1EA; padding-bottom: 4px; }",
-    ".sub { color: #4B4560; margin: 0 0 4px; }",
-    ".avviso { background: #FEF3C7; border: 1px solid #FDE68A; padding: 8px 12px; border-radius: 8px; margin: 14px 0; }",
-    "table { border-collapse: collapse; width: 100%; }",
-    "th, td { border: 1px solid #D6D1EA; padding: 6px 8px; text-align: left; font-size: 13px; vertical-align: top; }",
-    "th { background: #F3F1FA; }",
-    ".fine { color: #4B4560; font-size: 12px; margin-top: 24px; }",
-  ].join("\n");
-  d.head.appendChild(style);
-
-  const el = (tag, testo, cls) => {
-    const e = d.createElement(tag);
-    if (testo) e.textContent = testo;
-    if (cls) e.className = cls;
-    return e;
-  };
-
-  const m = bozza.meta;
-  d.body.appendChild(el("h1", "Learning Agreement — bozza di lavoro"));
-  d.body.appendChild(el("p", `${nomeUniversita(m.universita)}${m.citta ? ` — ${m.citta} (${m.paese})` : ""} · Ateneo di casa: ${window.ATENEO_LABEL || ""}`, "sub"));
-  d.body.appendChild(el("p", `Versione ${vers.numero} del ${laDataBreve(vers.creataIl)}` +
-    (vers.motivo ? ` — motivo: ${laEtichettaMotivo(vers.motivo)}${vers.notaMotivo ? ` (${vers.notaMotivo})` : ""}` : ""), "sub"));
-  d.body.appendChild(el("p", "⚠️ Documento NON ufficiale: è una bozza di lavoro. Il Learning Agreement ufficiale resta nel sistema dell'ateneo (OLA/EWP).", "avviso"));
-
-  function tabella(titolo, intestazioni, righe) {
-    d.body.appendChild(el("h2", titolo));
-    if (!righe.length) { d.body.appendChild(el("p", "(nessuna voce)", "sub")); return; }
-    const t = d.createElement("table");
-    const tr = d.createElement("tr");
-    intestazioni.forEach(h => tr.appendChild(el("th", h)));
-    t.appendChild(tr);
-    righe.forEach(cells => {
-      const r = d.createElement("tr");
-      cells.forEach(c => r.appendChild(el("td", c)));
-      t.appendChild(r);
-    });
-    d.body.appendChild(t);
-  }
-
-  tabella("Corsi all'estero (host)",
-    ["Corso", "ECTS", "Lingua", "Semestre", "Stato", "Verificato il", "Link"],
-    vers.corsiHost.filter(c => c.nome).map(c => [
-      c.nome,
-      c.ects === "" || c.ects === undefined ? "" : laFormattaNumero(laNumeroDa(c.ects)),
-      c.lingua || "", c.semestre || "",
-      laEtichettaStato(c.stato).replace(/^\S+\s/, ""),
-      c.verificataIl ? laDataBreve(c.verificataIl) : "",
-      laLinkSicuro(c.link) || "",
-    ]));
-
-  tabella("Esami di casa da riconoscere",
-    ["Esame", "Codice", "CFU", "Nota"],
-    vers.esamiCasa.filter(e => e.nome).map(e => [
-      e.nome, e.codice || "",
-      e.cfu === "" || e.cfu === undefined ? "" : laFormattaNumero(laNumeroDa(e.cfu)),
-      e.nota || "",
-    ]));
-
-  const gruppiPieni = vers.gruppi.filter(g => g.corsi.length || g.esami.length);
-  tabella("Corrispondenze proposte",
-    ["Corsi host", "Esami di casa", "ECTS ↔ CFU"],
-    gruppiPieni.map(g => {
-      const nomiCorsi = g.corsi.map(id => (vers.corsiHost.find(c => c.id === id) || {}).nome).filter(Boolean).join(" + ");
-      const nomiEsami = g.esami.map(id => (vers.esamiCasa.find(e => e.id === id) || {}).nome).filter(Boolean).join(" + ");
-      const tg = laTotali(vers, g);
-      return [nomiCorsi || "—", nomiEsami || "—", `${laFormattaNumero(tg.ects)} ↔ ${laFormattaNumero(tg.cfu)}`];
-    }));
-
-  const t = laTotali(vers);
-  d.body.appendChild(el("h2", "Totali"));
-  d.body.appendChild(el("p", `${laFormattaNumero(t.ects)} ECTS ↔ ${laFormattaNumero(t.cfu)} CFU` +
-    (vers.corsiHost.some(c => !laCorsoAttivo(c)) ? " (esclusi i corsi non disponibili o sostituiti)" : "")));
-  const soglie = laFraseSoglie(t);
-  if (soglie) d.body.appendChild(el("p", soglie, "sub"));
-
-  d.body.appendChild(el("p",
-    `Bozza preparata con ErasmusWiz il ${laDataBreve(new Date().toISOString())}. ` +
-    "Verifica sempre corsi, ECTS e disponibilità sulle fonti ufficiali dell'ospitante.", "fine"));
-
-  w.focus();
-  w.print();
+  const documento = finestra.document;
+  documento.title = "Learning Agreement — proposta di lavoro";
+  const charset = documento.createElement("meta"); charset.setAttribute("charset", "utf-8");
+  documento.head.appendChild(charset);
+  const stile = documento.createElement("style");
+  stile.textContent = "body{font:14px/1.55 system-ui,sans-serif;color:#1e1b2e;margin:32px;max-width:900px}h1{font-size:22px}pre{white-space:pre-wrap;font:13px/1.55 ui-monospace,monospace;border:1px solid #d6d1ea;padding:16px}.nota{background:#fef3c7;padding:10px}";
+  documento.head.appendChild(stile);
+  const h1 = documento.createElement("h1"); h1.textContent = "Learning Agreement — proposta di lavoro";
+  const nota = documento.createElement("p"); nota.className = "nota";
+  nota.textContent = "Documento non ufficiale: ErasmusWiz non invia, firma o approva il Learning Agreement.";
+  const pre = documento.createElement("pre"); pre.textContent = laTestoVersione(dossier, versione);
+  documento.body.append(h1, nota, pre);
+  finestra.focus(); finestra.print();
 }
 
-// ---- Versioni precedenti (R4.5): fotografie congelate, in sola lettura ----
-function laRenderStoria(cont, bozza) {
-  const precedenti = bozza.versioni.slice(0, -1);
-  if (!precedenti.length) return;
-  const det = document.createElement("details");
-  det.className = "la-storia";
-  det.open = _laStoriaAperta;
-  det.addEventListener("toggle", () => { _laStoriaAperta = det.open; });
-  const sum = document.createElement("summary");
-  sum.className = "la-storia-toggle";
-  sum.textContent = `Versioni precedenti (${precedenti.length}) ▸`;
-  det.appendChild(sum);
-
-  precedenti.slice().reverse().forEach(v => {
-    const box = crea("div", "la-storia-versione");
-    const testa = crea("p", "la-storia-testa",
-      `Versione ${v.numero} — ${laDataBreve(v.creataIl)}` +
-      (v.motivo ? ` — ${laEtichettaMotivo(v.motivo)}${v.notaMotivo ? ` (${v.notaMotivo})` : ""}` : " — prima bozza"));
-    box.appendChild(testa);
-    const corsi = v.corsiHost.filter(c => c.nome);
-    const esami = v.esamiCasa.filter(e => e.nome);
-    if (corsi.length) box.appendChild(crea("p", "la-storia-dett",
-      "Corsi host: " + corsi.map(c => `${c.nome} (${laEtichettaStato(c.stato).replace(/^\S+\s/, "")})`).join(" · ")));
-    if (esami.length) box.appendChild(crea("p", "la-storia-dett",
-      "Esami di casa: " + esami.map(e => e.nome).join(" · ")));
-    const t = laTotali(v);
-    box.appendChild(crea("p", "la-storia-dett",
-      `Totali: ${laFormattaNumero(t.ects)} ECTS ↔ ${laFormattaNumero(t.cfu)} CFU`));
-    det.appendChild(box);
+function laRenderExportV2(sezione, dossier, versione) {
+  const details = document.createElement("details"); details.className = "la-export-v2";
+  const summary = document.createElement("summary"); summary.textContent = "Condividi o esporta"; details.appendChild(summary);
+  details.appendChild(laElemento("p", "la-muted", "Azioni secondarie sulla sola versione corrente. Nessun file viene inviato a ErasmusWiz."));
+  const copia = laBottone("Copia", "btn-secondary", () => laCopia(laTestoVersione(dossier, versione), copia));
+  details.appendChild(copia);
+  const campi = laElemento("div", "la-copy-fields");
+  const aggiungiCampo = (etichetta, valore) => {
+    if (!String(valore || "").trim()) return;
+    const riga = laElemento("div", "la-copy-field");
+    riga.appendChild(laElemento("span", null, `${etichetta}: ${valore}`));
+    const btn = laBottone(`Copia ${etichetta}`, "la-text-button", () => laCopia(String(valore), btn));
+    riga.appendChild(btn); campi.appendChild(riga);
+  };
+  versione.homeExamSnapshots.forEach((esame, indice) => {
+    aggiungiCampo(`esame ${indice + 1}`, `${esame.codice || "—"}; ${esame.nome}; ${esame.cfu} CFU`);
   });
-  cont.appendChild(det);
+  versione.hostCourseSnapshots.filter(ErasmusWizPuro.corsoHostAttivoLA).forEach((corso, indice) => {
+    aggiungiCampo(`corso host ${indice + 1}`, `${corso.codice || "—"}; ${corso.nome}; ${corso.ects} ECTS`);
+    aggiungiCampo(`URL corso host ${indice + 1}`, corso.officialUrl);
+  });
+  details.appendChild(campi);
+  details.appendChild(laBottone("Stampa / salva PDF", "btn-secondary", () => laStampaV2(dossier, versione)));
+  sezione.appendChild(details);
+}
+
+function laConfermaFattoReale(prontezza, azione) {
+  if (prontezza?.state === "ready") return true;
+  const primo = prontezza?.missingCodes?.[0];
+  const motivo = primo ? ` (${laEtichettaBlocco(primo)})` : "";
+  return confirm(`Attenzione: la proposta è ancora incompleta${motivo}. La prontezza non può cancellare un fatto reale, ma registrare ${azione} congelerà la versione corrente. Vuoi continuare?`);
+}
+
+function laRegistraFattoLifecycleUI(dossier, factKey, descrizione, prontezza) {
+  if (!laConfermaFattoReale(prontezza, descrizione)) return;
+  laTransazione(descrizione, la => {
+    const esito = ErasmusWizPuro.registraFattoLifecycleLA(
+      la.dossiersById[dossier.id],
+      factKey,
+      { markedAt: new Date().toISOString() }
+    );
+    if (!esito.ok) throw new Error(esito.error);
+    la.dossiersById[dossier.id] = esito.dossier;
+    if (esito.firstExternal) {
+      la.backupReminder = { reason: "first-external", dueAt: new Date().toISOString() };
+    }
+  });
+}
+
+function laRenderWorkflow(sezione, dossier, versione, prontezza, fase) {
+  const box = laElemento("div", "la-subsection"); box.id = "la-workflow";
+  box.appendChild(laElemento("h3", null, "Eventi reali, segnati da te"));
+  box.appendChild(laElemento("p", "la-warning", "ErasmusWiz non rileva invii, firme o approvazioni. Registra un evento solo se è già successo davvero."));
+  if (dossier.university === "sapienza") {
+    const percorso = document.createElement("select");
+    [["", "Percorso non ancora scelto"], ["ewp", "EWP / Online Learning Agreement"], ["traditional", "Percorso tradizionale indicato dall'ateneo"]]
+      .forEach(([value, label]) => {
+        const option = document.createElement("option"); option.value = value; option.textContent = label;
+        percorso.appendChild(option);
+      });
+    percorso.value = dossier.lifecycle.officialRoute || "";
+    percorso.setAttribute("aria-label", "Percorso ufficiale usato per la pratica");
+    percorso.addEventListener("change", () => laTransazione("percorso ufficiale", la => {
+      la.dossiersById[dossier.id].lifecycle.officialRoute = percorso.value;
+    }));
+    box.append(laElemento("label", "la-field-label", "Annota il percorso realmente usato (EWP o tradizionale)"), percorso);
+  }
+  const conferme = dossier.confirmationsByVersion?.[versione.versionId] || {};
+  const etichette = {
+    "sent-home": "inviata al referente", "entered-portal": "inserita nel portale ufficiale",
+    "student-signed": "firmata dallo studente", "home-approved": "approvata dall'ateneo di casa",
+    "host-approved": "approvata dall'ateneo ospitante",
+  };
+  Object.entries(etichette).forEach(([chiave, label]) => {
+    if (conferme[chiave]) {
+      box.appendChild(laElemento("p", "la-confirmed", `Segnato da te come ${label} il ${laDataBreve(conferme[chiave].markedAt)} — versione ${versione.number}.`));
+      return;
+    }
+    box.appendChild(laBottone(`Segna come ${label}`, "btn-secondary", () => {
+      if (!laConfermaFattoReale(prontezza, label)) return;
+      let primo = false;
+      laTransazione("registrazione dell'evento esterno", la => {
+        const d = la.dossiersById[dossier.id];
+        primo = !d.lifecycle.firstExternalAt;
+        const esito = ErasmusWizPuro.registraFattoEsternoLA(d, chiave, {
+          markedAt: new Date().toISOString(), subject: label,
+        });
+        if (!esito.ok) throw new Error(esito.error);
+        la.dossiersById[dossier.id] = esito.dossier;
+        if (primo) la.backupReminder = { reason: "first-external", dueAt: new Date().toISOString() };
+      });
+    }));
+  });
+  if (["approval", "preparation"].includes(fase)) {
+    box.appendChild(laBottone("Segna l'inizio della mobilità", "btn-secondary", () => {
+      laRegistraFattoLifecycleUI(dossier, "mobilityStartedAt", "l'inizio della mobilità", prontezza);
+    }));
+  }
+  if (fase === "mobility") {
+    const dataLezioni = document.createElement("input"); dataLezioni.type = "date";
+    dataLezioni.value = String(dossier.lifecycle.classesStartedAt || "").slice(0, 10);
+    dataLezioni.setAttribute("aria-label", "Data di inizio lezioni inserita da te");
+    dataLezioni.addEventListener("change", () => laTransazione("data inizio lezioni", la => {
+      la.dossiersById[dossier.id].lifecycle.classesStartedAt = dataLezioni.value;
+    }));
+    box.append(laElemento("label", "la-field-label", "Inizio lezioni inserito da te (serve al promemoria Ca' Foscari di 30 giorni)"), dataLezioni);
+    const regola30 = (window.ERASMUSWIZ_LA_REGOLE || []).find(r => r.id === "cf-change-30-days");
+    const scadenza30 = ErasmusWizPuro.calcolaScadenzaRelativaLA(regola30, dossier.lifecycle);
+    if (scadenza30) {
+      box.appendChild(laElemento("p", "la-warning", `Promemoria calcolato dalla data inserita da te: controlla le modifiche entro il ${new Date(scadenza30).toLocaleDateString("it-IT")}.`));
+    }
+    box.appendChild(laBottone("Segna il rientro", "btn-secondary", () => {
+      laRegistraFattoLifecycleUI(dossier, "returnedAt", "il rientro dalla mobilità", prontezza);
+    }));
+  }
+  sezione.appendChild(box);
+}
+
+function laInizializzaRiconoscimento(dossier, versioneId) {
+  const versione = dossier.versions.find(v => v.versionId === versioneId);
+  return {
+    approvedVersionId: versioneId,
+    hostCourses: versione.hostCourseSnapshots.map(c => ({
+      hostCourseSnapshotId: c.snapshotId, transcriptStatus: "absent",
+      transcriptTitle: "", transcriptCredits: "",
+    })),
+    homeExams: versione.homeExamSnapshots.map(e => ({
+      homeExamSnapshotId: e.snapshotId, status: "pending",
+    })),
+  };
+}
+
+function laRenderRiconoscimento(sezione, dossier, fase) {
+  if (!["recognition", "closed"].includes(fase)) return;
+  const box = laElemento("div", "la-subsection la-recognition");
+  box.appendChild(laElemento("h3", null, "Convalida al rientro"));
+  const approvate = dossier.versions.filter(v => dossier.confirmationsByVersion?.[v.versionId]?.["home-approved"]);
+  if (!approvate.length) {
+    box.appendChild(laElemento("p", "la-warning", "Prima indica quale versione hai segnato come approvata dall'ateneo di casa."));
+    sezione.appendChild(box); return;
+  }
+  let rec = dossier.recognition;
+  if (!rec || !approvate.some(v => v.versionId === rec.approvedVersionId)) rec = laInizializzaRiconoscimento(dossier, approvate[approvate.length - 1].versionId);
+  const select = document.createElement("select"); select.setAttribute("aria-label", "Versione approvata da convalidare");
+  approvate.forEach(v => { const o = document.createElement("option"); o.value = v.versionId; o.textContent = `Versione ${v.number}`; select.appendChild(o); });
+  select.value = rec.approvedVersionId;
+  select.addEventListener("change", () => laTransazione("scelta versione approvata", la => {
+    const d = la.dossiersById[dossier.id]; d.recognition = laInizializzaRiconoscimento(d, select.value);
+  }));
+  box.appendChild(select);
+  const versione = dossier.versions.find(v => v.versionId === rec.approvedVersionId);
+  rec.hostCourses.forEach(riga => {
+    const corso = versione.hostCourseSnapshots.find(c => c.snapshotId === riga.hostCourseSnapshotId);
+    const row = laElemento("div", "la-rec-row"); row.appendChild(laElemento("strong", null, corso?.nome || riga.hostCourseSnapshotId));
+    const stato = document.createElement("select");
+    [["passed", "Superato"], ["failed", "Non superato"], ["absent", "Assente dal Transcript"]].forEach(([v, l]) => { const o = document.createElement("option"); o.value = v; o.textContent = l; stato.appendChild(o); });
+    stato.value = riga.transcriptStatus;
+    const titolo = document.createElement("input"); titolo.placeholder = "Titolo nel Transcript (vuoto = non trascritto)"; titolo.value = riga.transcriptTitle || "";
+    const crediti = document.createElement("input"); crediti.placeholder = "Crediti nel Transcript"; crediti.value = riga.transcriptCredits || "";
+    [stato, titolo, crediti].forEach(controllo => controllo.addEventListener("change", () => laTransazione("dato Transcript", la => {
+      const numeroCrediti = crediti.value ? Number(crediti.value.replace(",", ".")) : "";
+      if (numeroCrediti !== "" && (!Number.isFinite(numeroCrediti) || numeroCrediti <= 0)) {
+        _laSaveErrorMessage = "I crediti del Transcript, se presenti, devono essere positivi.";
+        throw new Error("crediti transcript non positivi");
+      }
+      const d = la.dossiersById[dossier.id];
+      if (!d.recognition) d.recognition = laClone(rec);
+      const target = d.recognition.hostCourses.find(r => r.hostCourseSnapshotId === riga.hostCourseSnapshotId);
+      target.transcriptStatus = stato.value; target.transcriptTitle = titolo.value.trim();
+      target.transcriptCredits = numeroCrediti;
+    })));
+    row.append(stato, titolo, crediti); box.appendChild(row);
+  });
+  rec.homeExams.forEach(riga => {
+    const esame = versione.homeExamSnapshots.find(e => e.snapshotId === riga.homeExamSnapshotId);
+    const label = laElemento("label", "la-rec-row"); label.appendChild(laElemento("strong", null, esame?.nome || riga.homeExamSnapshotId));
+    const stato = document.createElement("select");
+    [["pending", "In attesa"], ["recognized", "Riconosciuto"], ["not-recognized", "Non riconosciuto"]].forEach(([v, l]) => { const o = document.createElement("option"); o.value = v; o.textContent = l; stato.appendChild(o); });
+    stato.value = riga.status;
+    stato.addEventListener("change", () => laTransazione("esito convalida", la => {
+      const d = la.dossiersById[dossier.id]; if (!d.recognition) d.recognition = laClone(rec);
+      d.recognition.homeExams.find(r => r.homeExamSnapshotId === riga.homeExamSnapshotId).status = stato.value;
+    }));
+    label.appendChild(stato); box.appendChild(label);
+  });
+  const confronto = ErasmusWizPuro.confrontaRiconoscimentoLA(dossier, rec);
+  if (confronto.valid && confronto.mismatches.length) {
+    box.appendChild(laElemento("p", "la-warning", `Controlla ${confronto.mismatches.length} discrepanze tra attività, titoli o crediti.`));
+    const tipi = {
+      "missing-host-activity": "attività host assente dal confronto",
+      "missing-transcript-title": "titolo mancante nel Transcript",
+      title: "titolo diverso dal Learning Agreement approvato",
+      credits: "crediti diversi dal Learning Agreement approvato",
+      "missing-home-outcome": "esito dell'esame di casa non registrato",
+    };
+    const lista = laElemento("ul", "la-mismatch-list");
+    confronto.mismatches.forEach(differenza => {
+      lista.appendChild(laElemento("li", null, tipi[differenza.type] || differenza.type));
+    });
+    box.appendChild(lista);
+  }
+  if (fase !== "closed") {
+    box.appendChild(laBottone("Segna la convalida come registrata dall'università", "btn-secondary", () => {
+      if (!confirm("Confermi di aver verificato che la convalida è stata registrata dall'università? ErasmusWiz non può verificarlo.")) return;
+      laTransazione("chiusura convalida", la => {
+        const d = la.dossiersById[dossier.id];
+        if (!d.recognition) d.recognition = laClone(rec);
+        const verifica = ErasmusWizPuro.confrontaRiconoscimentoLA(d, d.recognition);
+        if (!verifica.valid) throw new Error(verifica.error);
+        const esito = ErasmusWizPuro.registraFattoLifecycleLA(d, "recognitionRecordedAt", {
+          markedAt: new Date().toISOString(),
+        });
+        if (!esito.ok) throw new Error(esito.error);
+        la.dossiersById[dossier.id] = esito.dossier;
+        la.backupReminder = {
+          reason: esito.firstExternal ? "first-external" : "recognition-closed",
+          dueAt: new Date().toISOString(),
+        };
+      }, "la-recognition-closed");
+    }));
+  } else {
+    box.appendChild(laElemento("p", "la-confirmed", `Segnato da te come registrato dall'università il ${laDataBreve(dossier.lifecycle.recognitionRecordedAt)}.`));
+  }
+  sezione.appendChild(box);
+}
+
+function laRenderDossier(contenitore, dossier, ciclo) {
+  const sezione = laElemento("section", "la-panel la-open-dossier");
+  sezione.id = "la-dossier";
+  const versione = laVersione(dossier);
+  if (!versione) return;
+  const assegnatoId = ZAINO.la.assignedDossierIdByCycle?.[dossier.cycle];
+  const operativo = assegnatoId === dossier.id;
+  const fase = operativo ? ErasmusWizPuro.derivaFaseLA(ZAINO.la, dossier.cycle) : "exploration";
+  const regole = laRegoleAttive(dossier.cycle, fase);
+  const prontezza = ErasmusWizPuro.valutaProntezzaLA(dossier, versione, regole.rules);
+  if (prontezza.state === "ready") laAnalyticsUnaVolta("la-ready");
+  sezione.appendChild(laElemento("h2", "la-panel-title", `${nomeUniversita(dossier.meta.universita)} · versione ${versione.number}`));
+  sezione.appendChild(laElemento("p", "la-muted", `${dossier.meta.citta || dossier.meta.paese || ""} · ciclo ${dossier.cycle} · ${operativo ? `fase ${fase}` : "dossier esplorativo, non ancora operativo"}`));
+  if (versione.lockedAt) sezione.appendChild(laElemento("p", "la-locked", `Questa fotografia è bloccata dal primo evento esterno. Una modifica creerà automaticamente la versione ${versione.number + 1}.`));
+  const cta = ErasmusWizPuro.scegliCtaLA({
+    saveError: !!_laVolatileRecovery, readiness: prontezza, phase: fase,
+    backupDue: !!ZAINO.la.backupReminder,
+    needsResubmission: !!dossier.lifecycle.firstExternalAt && versione.number > 1 &&
+      !dossier.confirmationsByVersion?.[versione.versionId]?.["sent-home"] &&
+      !dossier.confirmationsByVersion?.[versione.versionId]?.["entered-portal"],
+  });
+  const primary = laBottone(cta.label.replace(/^Completa: /, "Completa: ").replace(cta.code.startsWith("fix:") ? cta.code.slice(4) : "\0", cta.code.startsWith("fix:") ? laEtichettaBlocco(cta.code.slice(4)) : ""), "btn-primary la-primary-cta", () => {
+    if (cta.code === "recover-unsaved") laScaricaRecuperoVolatile();
+    else if (cta.code === "backup-due") laScaricaBackup();
+    else {
+      const bersaglio = cta.code.startsWith("fix:") ? "la-prepare"
+        : cta.code === "choose-destination" ? "la-compare"
+        : ["record-recognition", "review-closed"].includes(cta.code) ? "la-dossier"
+        : "la-workflow";
+      document.getElementById(bersaglio)?.scrollIntoView({ behavior: "smooth" });
+    }
+  });
+  sezione.appendChild(primary);
+  if (prontezza.state === "ready") sezione.appendChild(laElemento("p", "la-ready", "Proposta pronta secondo i controlli inseriti. Non equivale ad approvazione ufficiale."));
+  else sezione.appendChild(laElemento("p", "la-warning", `Primo punto da completare: ${laEtichettaBlocco(prontezza.missingCodes[0])}.`));
+
+  if (!assegnatoId) {
+    sezione.appendChild(laBottone("Assegna questa meta al ciclo", "btn-secondary", () => laTransazione("assegnazione della meta", la => {
+      const esito = ErasmusWizPuro.assegnaDossierLA(la, dossier.id, dossier.cycle, { at: new Date().toISOString() });
+      if (!esito.ok) throw new Error(esito.error); return esito.la;
+    })));
+  } else if (!operativo) {
+    sezione.appendChild(laBottone("Rendi questa la meta operativa", "btn-secondary", () => {
+      const precedenteId = ZAINO.la.assignedDossierIdByCycle[dossier.cycle];
+      const precedente = ZAINO.la.dossiersById[precedenteId];
+      const forte = ErasmusWizPuro.haFattiEsterniLA(precedente);
+      if (forte && !confirm("La meta attuale ha già eventi esterni. Continuando verrà archiviata con tutta la sua storia. Confermi il cambio operativo?")) return;
+      laTransazione("cambio della meta operativa", la => {
+        const esito = ErasmusWizPuro.assegnaDossierLA(la, dossier.id, dossier.cycle, {
+          at: new Date().toISOString(), strongConfirmation: forte,
+        });
+        if (!esito.ok) throw new Error(esito.error); return esito.la;
+      });
+    }));
+  }
+  const prepara = laElemento("div", null); prepara.id = "la-prepare";
+  laRenderHomeSnapshots(prepara, dossier, versione);
+  laRenderHostSnapshots(prepara, dossier, versione);
+  laRenderMappings(prepara, dossier, versione);
+  laRenderPreflight(prepara, dossier, versione);
+  sezione.appendChild(prepara);
+  if (operativo) {
+    laRenderWorkflow(sezione, dossier, versione, prontezza, fase);
+    laRenderRiconoscimento(sezione, dossier, fase);
+  } else {
+    sezione.appendChild(laElemento("p", "la-message la-exploratory-note", "Questo dossier resta esplorativo: puoi prepararlo e controllarne la prontezza, ma gli eventi reali e la convalida si attivano solo dopo l'assegnazione al ciclo."));
+  }
+  laRenderExportV2(sezione, dossier, versione);
+  const secondarie = laElemento("div", "la-secondary-actions");
+  secondarie.appendChild(laBottone("Crea nuova versione", "btn-secondary", () => laTransazione("nuova versione", la => {
+    la.dossiersById[dossier.id] = ErasmusWizPuro.clonaNuovaVersioneLA(la.dossiersById[dossier.id], {
+      reason: "manual", at: new Date().toISOString(),
+    });
+    la.backupReminder = { reason: "new-version", dueAt: new Date().toISOString() };
+  }, "la-version-created")));
+  const nuovoCiclo = ErasmusWizPuro.cicloSuccessivo(dossier.cycle);
+  if (nuovoCiclo) {
+    secondarie.appendChild(laBottone(`Duplica nel ciclo ${nuovoCiclo}`, "btn-secondary", () => laTransazione("duplicazione nel nuovo ciclo", la => {
+      const esito = ErasmusWizPuro.duplicaDossierNuovoCicloLA(la, dossier.id, nuovoCiclo, {
+        at: new Date().toISOString(),
+      });
+      if (!esito.ok) throw new Error(esito.error);
+      return esito.la;
+    })));
+  }
+  secondarie.appendChild(laBottone("Archivia dossier", "la-text-button", () => {
+    if (!confirm("Archiviare questo dossier? La storia resta conservata e potrai creare un nuovo dossier per la stessa meta e ciclo.")) return;
+    laTransazione("archiviazione del dossier", la => {
+      const d = la.dossiersById[dossier.id]; d.archivedAt = new Date().toISOString();
+      if (la.assignedDossierIdByCycle[d.cycle] === d.id) delete la.assignedDossierIdByCycle[d.cycle];
+      la.openDossierId = null;
+    });
+  }));
+  sezione.appendChild(secondarie);
+  contenitore.appendChild(sezione);
+}
+
+function laRenderRestorePreview(sezione) {
+  if (!_laRestorePreview) return;
+  const box = laElemento("div", "la-restore-preview");
+  if (!_laRestorePreview.ok) {
+    box.appendChild(laElemento("p", "la-error", `File rifiutato: ${_laRestorePreview.error}. Nessun dato è stato modificato.`));
+    sezione.appendChild(box); return;
+  }
+  const p = _laRestorePreview;
+  box.appendChild(laElemento("p", "la-warning", `Anteprima: ${laNomeAteneo(p.university)}, ciclo ${p.cycle || "non indicato"}, ${p.counts.dossier} dossier e ${p.counts.versioni} versioni.`));
+  const zainoTarget = CONTENITORE.zaini[p.university];
+  box.appendChild(laBottone("Prima scarica lo stato attuale", "btn-secondary", () => laScaricaBackup(zainoTarget?.la || ErasmusWizPuro.creaLaV2(), p.university, p.cycle, "erasmuswiz-la-prima-del-ripristino")));
+  box.appendChild(laBottone("Conferma e sostituisci solo il Learning Agreement", "btn-secondary", () => {
+    if (!confirm(`Sostituire soltanto il Learning Agreement di ${laNomeAteneo(p.university)}? Profilo, mete e checklist non cambiano.`)) return;
+    const candidato = laClone(CONTENITORE);
+    if (!candidato.zaini[p.university]) {
+      candidato.zaini[p.university] = ErasmusWizPuro.creaZainoV3({
+        cicloDati: cicloDatiAttivo(), cicloPercorso: p.cycle, ateneo: p.university,
+      });
+    }
+    candidato.zaini[p.university].la = p.payload;
+    if (!salvaContenitore(candidato)) {
+      _laVolatileRecovery = {
+        payload: p.payload,
+        university: p.university,
+        cycle: p.cycle,
+      };
+      _laSaveErrorMessage = "Ripristino non salvato: scarica il file di recupero.";
+      renderLAV2(); return;
+    }
+    CONTENITORE = candidato;
+    if (p.university === ateneoAttivo()) ZAINO = candidato.zaini[p.university];
+    _laRestorePreview = null;
+    _laSaveErrorMessage = p.university === ateneoAttivo()
+      ? "Ripristino completato."
+      : `Ripristino completato in ${laNomeAteneo(p.university)} senza cambiare l'ateneo attivo.`;
+    renderLAV2();
+  }));
+  if (p.university !== ateneoAttivo()) {
+    const apri = laElemento("a", "btn-secondary la-inline-button", `Apri ${laNomeAteneo(p.university)} →`);
+    apri.href = `#learning-agreement/${p.university}`; box.appendChild(apri);
+  }
+  sezione.appendChild(box);
+}
+
+function laRenderBackupRestore(contenitore) {
+  const sezione = laElemento("section", "la-panel la-backup");
+  sezione.appendChild(laElemento("h2", "la-panel-title", "Copia di sicurezza e ripristino"));
+  sezione.appendChild(laElemento("p", "la-muted", "Non c'è sincronizzazione tra dispositivi. Se cancelli i dati del browser puoi perdere il dossier. Il file contiene dati accademici: conservalo in privato."));
+  if (ZAINO.la.backupReminder) {
+    sezione.appendChild(laElemento("p", "la-warning", "È consigliata una nuova copia di sicurezza dopo questo passaggio importante."));
+  }
+  sezione.appendChild(laBottone("Scarica backup LA (.json)", "btn-secondary", () => {
+    laScaricaBackup();
+    if (ZAINO.la.backupReminder) laTransazione("promemoria backup completato", la => { delete la.backupReminder; });
+  }));
+  sezione.appendChild(laBottone("Ripristina da backup", "btn-secondary", () => document.getElementById("la-restore-file")?.click()));
+  laRenderRestorePreview(sezione);
+  if (_laVolatileRecovery) {
+    sezione.appendChild(laBottone("Scarica recupero delle modifiche non salvate", "btn-secondary", laScaricaRecuperoVolatile));
+  }
+  const corrotti = ZAINO.la.recovery?.legacyCorrupt;
+  if (corrotti && Object.keys(corrotti).length) {
+    sezione.appendChild(laElemento("p", "la-warning", `${Object.keys(corrotti).length} bozze legacy non leggibili sono conservate e recuperabili: non sono state eliminate.`));
+    sezione.appendChild(laBottone("Scarica le bozze legacy da recuperare", "btn-secondary", () => {
+      laScaricaJson("erasmuswiz-la-legacy-corrotto.json", corrotti);
+    }));
+  }
+  contenitore.appendChild(sezione);
+}
+
+function renderLAV2() {
+  const cont = document.getElementById("la-v2-app");
+  if (!cont) return;
+  ZAINO.la = ErasmusWizPuro.normalizzaLaV2(ZAINO.la, {
+    ateneo: ateneoAttivo(), ciclo: laCicloAttivo(),
+  });
+  cont.innerHTML = "";
+  document.querySelectorAll("[data-la-route]").forEach(link => {
+    link.href = `#learning-agreement/${ateneoAttivo()}`;
+  });
+  const intro = document.getElementById("la-page-intro");
+  if (intro) intro.textContent = `Prepara, confronta e conserva il dossier per ${laNomeAteneo()}. Non è il portale ufficiale e non invia nulla.`;
+  aggiornaBannerPersistenza();
+  if (_laSaveErrorMessage) {
+    cont.appendChild(laElemento("div", _laVolatileRecovery ? "la-error" : "la-message", _laSaveErrorMessage));
+  }
+  const ciclo = laDossierAperto()?.cycle || laCicloAttivo();
+  const apertoCorrente = laDossierAperto();
+  const fase = apertoCorrente && ZAINO.la.assignedDossierIdByCycle?.[apertoCorrente.cycle] !== apertoCorrente.id
+    ? "exploration"
+    : ErasmusWizPuro.derivaFaseLA(ZAINO.la, ciclo);
+  laRenderFasi(cont, fase);
+  if (!laDossierAperto()) {
+    const haPiano = Object.keys(ZAINO.la.examLibrary || {}).length > 0;
+    cont.appendChild(laBottone(
+      _laVolatileRecovery ? "Scarica il recupero delle modifiche" : (haPiano ? "Confronta le mete" : "Inserisci il tuo piano"),
+      "btn-primary la-primary-cta",
+      () => _laVolatileRecovery
+        ? laScaricaRecuperoVolatile()
+        : document.getElementById(haPiano ? "la-compare" : "la-plan")?.scrollIntoView({ behavior: "smooth" })
+    ));
+  }
+  laRenderGuida(cont, ciclo, fase);
+  laRenderPiano(cont);
+  if (Object.keys(ZAINO.la.examLibrary || {}).length) {
+    laRenderConfronto(cont, ciclo);
+    const aperto = laDossierAperto();
+    if (aperto && !aperto.archivedAt) laRenderDossier(cont, aperto, ciclo);
+  }
+  // Il gate viene eseguito anche col dataset vuoto; senza voci valide non si
+  // crea alcun contenitore UI e il pilota resta realmente nascosto.
+  const suggerimenti = ErasmusWizPuro.filtraSuggerimentiLA(window.ERASMUSWIZ_LA_SUGGERIMENTI || [], {
+    university: ateneoAttivo(), scope: laScopeAttivo(), cycle: ciclo,
+  });
+  if (suggerimenti.length) {
+    const box = laElemento("section", "la-panel la-suggestions");
+    box.appendChild(laElemento("h2", "la-panel-title", "Corsi da valutare"));
+    const dossier = laDossierAperto();
+    suggerimenti.forEach((voce, indice) => {
+      const id = String(voce.id || `suggestion-${indice + 1}`);
+      const card = laElemento("article", "la-suggestion-card");
+      card.appendChild(laElemento("strong", null, "Corso da valutare"));
+      const casa = voce.homeCourse?.name || voce.homeCourseName || "corso di casa indicato nella fonte";
+      const host = voce.hostCourse?.name || voce.hostCourseName || "corso ospitante indicato nella fonte";
+      card.appendChild(laElemento("p", null, `${casa} ↔ ${host}`));
+      card.appendChild(laElemento("p", "la-muted", "Somiglianza revisionata da una persona: non è un'equivalenza né un'approvazione."));
+      const fonti = laElemento("p", "la-rule-sources");
+      [["Programma di casa", voce.sources?.home?.url], ["Programma host", voce.sources?.host?.url]].forEach(([label, url]) => {
+        const a = laElemento("a", null, `${label} ↗`); a.href = url; a.target = "_blank"; a.rel = "noopener";
+        fonti.appendChild(a); fonti.appendChild(document.createTextNode(" "));
+      });
+      card.appendChild(fonti);
+      const decisione = dossier?.suggestionDecisions?.[id]?.decision;
+      if (decisione) {
+        card.appendChild(laElemento("p", "la-confirmed", decisione === "accepted" ? "Suggerimento accettato da te." : "Suggerimento ignorato da te."));
+      } else if (dossier) {
+        card.appendChild(laBottone("Accetta come spunto", "btn-secondary", () => laTransazione("accettazione del suggerimento", la => {
+          const d = la.dossiersById[dossier.id];
+          if (!d.suggestionDecisions) d.suggestionDecisions = {};
+          d.suggestionDecisions[id] = { decision: "accepted", markedAt: new Date().toISOString() };
+        }, "la-suggestion-used")));
+        card.appendChild(laBottone("Ignora", "la-text-button", () => laTransazione("scarto del suggerimento", la => {
+          const d = la.dossiersById[dossier.id];
+          if (!d.suggestionDecisions) d.suggestionDecisions = {};
+          d.suggestionDecisions[id] = { decision: "ignored", markedAt: new Date().toISOString() };
+        })));
+      } else {
+        card.appendChild(laElemento("p", "la-muted", "Apri un dossier per accettare o ignorare questo spunto."));
+      }
+      box.appendChild(card);
+    });
+    cont.appendChild(box);
+  }
+  laRenderBackupRestore(cont);
+}
+
+// Nome mantenuto perché init() e alcuni contratti storici invocano renderLA.
+function renderLA() { renderLAV2(); }
+
+function initLAV2() {
+  document.querySelectorAll("[data-la-route]").forEach(link => {
+    link.href = `#learning-agreement/${ateneoAttivo()}`;
+  });
+  const input = document.getElementById("la-restore-file");
+  input?.addEventListener("change", async () => {
+    const file = input.files?.[0];
+    if (!file) return;
+    let testoFile = "";
+    try { testoFile = await file.text(); }
+    catch (e) { _laRestorePreview = { ok: false, error: "unreadable-file" }; renderLAV2(); return; }
+    _laRestorePreview = ErasmusWizPuro.analizzaBackupLA(
+      testoFile, Object.keys(window.ATENEI_REGISTRO || {})
+    );
+    input.value = "";
+    renderLAV2();
+  });
 }
 
 // ============================================================
@@ -5774,6 +5893,7 @@ function init() {
   renderMissione();
   // All'avvio la stazione corrente parte aperta, le altre chiuse (R3).
   renderPercorso({ apri: true });
+  initLAV2();
   renderLA();
   initOnboarding();
   // Il router parte dopo i render iniziali: una rotta profonda deve misurare

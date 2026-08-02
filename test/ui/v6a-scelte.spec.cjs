@@ -264,7 +264,7 @@ test("V6a ordine blocchi: ricerca precede filtri; sul telefono la mappa è sotto
   }
 });
 
-test("V6a router: i tab scrivono hash nudi e una rotta a due livelli ignota cade su Oggi", async ({ page }) => {
+test("V6a router: i tab scrivono hash nudi e la nuova rotta LA resta isolata", async ({ page }) => {
   await preparaZaino(page);
   await page.goto(`${PAGINA}#mete/scelte/cafoscari`, {
     waitUntil: "domcontentloaded",
@@ -276,6 +276,6 @@ test("V6a router: i tab scrivono hash nudi e una rotta a due livelli ignota cade
   await page.goto(`${PAGINA}#learning-agreement/sapienza`, {
     waitUntil: "domcontentloaded",
   });
-  await expect(page.locator("#tab-oggi")).toBeVisible();
-  await expect.poll(() => page.evaluate(() => location.hash)).toBe("#oggi");
+  await expect(page.locator("#tab-learning-agreement")).toBeVisible();
+  await expect.poll(() => page.evaluate(() => location.hash)).toBe("#learning-agreement/sapienza");
 });

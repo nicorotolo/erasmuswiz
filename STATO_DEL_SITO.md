@@ -21,7 +21,50 @@
 
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-08-02 — Claude Code (sessione V6a: spec congelata `596574c` il 30/07, build e revisione `3d86900` il 02/08, **online**).
+**Ultimo aggiornamento:** 2026-08-02 — Codex (V7 Learning Agreement v2 corretto dopo la review indipendente e la revisione finale del diff; non committato, non pubblicato, validazione studenti ancora da svolgere).
+
+**(SESSIONE 2026-08-02 — V7 LEARNING AGREEMENT COME DOSSIER VIVO.)**
+Implementata la specifica congelata `PLAN_LEARNING_AGREEMENT_V7.md`: schermata
+dedicata e rotta per ateneo, piano di studi riusabile con importazione prudente,
+dossier per più mete e assegnazione esplicita, versioni bloccate ai fatti esterni,
+procedure 2026/27 separate per Sapienza e Ca' Foscari, convalida manuale,
+salvataggio transazionale, recupero, backup/ripristino e analytics senza dati
+accademici. La migrazione dal vecchio ramo LA conserva recovery e campi futuri.
+Il dataset del pilota matching è intenzionalmente vuoto: nessun suggerimento è
+mostrato o inventato. Prove finali: **153/153 unit**, **75/75 UI**, banco
+prestazionale **VERDE**, quattro controlli sintattici verdi. Restano obbligatorie
+prima del rilascio quattro validazioni umane: uno studente rientrato e uno alla
+prima compilazione per ciascuno dei due atenei.
+
+**(REVIEW INDIPENDENTE V7 — GIRO 1, 2026-08-02.)** Corrette tre aree senza
+ampliare il perimetro: una bozza già sbloccata mantiene versione e identificativo
+fra modifiche successive; il recupero legacy autorizza la seconda scrittura solo
+se i contenuti migrati sono equivalenti, ignorando esclusivamente il marcatore
+del recupero; è stata rimossa la regola Sapienza di pratica preliminare per
+Giurisprudenza perché la fonte generale non dimostra quell'affermazione. Il
+filtro per ambito resta provato con una regola sintetica, non mostrata nel
+prodotto. I conteggi delle suite non cambiano: sono state aggiunte asserzioni a
+prove esistenti.
+
+**(REVIEW INDIPENDENTE V7 — GIRO 2, 2026-08-02.)** Corretti i fatti reali di
+mobilità/rientro/convalida affinché congelino la versione esatta e attivino il
+primo evento senza inventare approvazioni; i dossier non assegnati restano
+esplicitamente esplorativi; readiness richiede gruppi molti-a-molti completi;
+la duplicazione di ciclo è idempotente; il gate matching richiede fonti
+ufficiali, titolate, stabili e accessibili; i gate runtime usano la data
+corrente. Aggiunto il passaggio contestuale dal dettaglio meta e corretto il
+recupero cross-ateneo con payload, ateneo e ciclo effettivi. Gli avvisi forti
+precedono inizio mobilità e rientro senza impedire di registrare fatti reali.
+Prove finali indipendenti: **152/152 unit**, **75/75 UI**, performance
+**VERDE**, quattro controlli sintattici con exit code 0.
+
+**(REVISIONE FINALE DEL DIFF, 2026-08-02.)** Il controllo manuale successivo
+ha chiuso due casi limite: i CFU corretti o inseriti con la virgola vengono
+normalizzati a numero prima del salvataggio; un backup privo di ciclo o data di
+esportazione viene rifiutato come incompleto. Aggiunta una regressione pura:
+il conteggio unit finale sale a **153/153**; UI e performance restano invariati.
+
+**Ultimo aggiornamento precedente:** 2026-08-02 — Claude Code (sessione V6a: spec congelata `596574c` il 30/07, build e revisione `3d86900` il 02/08, **online**).
 
 **(SESSIONE 2026-08-02 — V6a LA LISTA DELLE METE: SPEC CONGELATA,
 COSTRUITA, RIVISTA E ONLINE.)** Prima `596574c`: §V6 riscritta come
@@ -3959,6 +4002,7 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **REDESIGN v3 — V3: Entrata a tutta pagina** | Scena a tutta pagina (velo + claim + **un solo** bottone, zero scorrimento a 390×844), poi quattro passi — P1 porta d'ingresso · P2 ateneo · P3 dipartimento+livello · P4 lingue — più la schermata di esito che smista alle Mete. La mappa reagisce a ogni risposta: si centra, filtra, poi colora per compatibilità con **forma oltre che colore**, con legenda. I pin escono dall'ordine di Tab **dentro l'entrata** (nelle Mete restano attraversabili). Cambio ateneo: resta il `location.reload()`, e lo stato dell'entrata vive in una chiave di `sessionStorage` — **mai nello zaino**, che è per-ateneo: una risposta data prima di scegliere l'ateneo finirebbe nello zaino sbagliato. La domanda «hai già in mente le mete?» si pone una volta sola (`wizardMete`). Tre ottimizzazioni della mappa a comportamento invariato, con le invarianti I1–I8 verificate prima e dopo. Banco prestazionale `test/perf-mappa.cjs` (`npm run test:perf`) | ✅ **Implementata, revisionata e online** (`6ed11a5`, 2026-07-29) — spec congelata prima di delegare (`cda51f6`), costruita da Codex `gpt-5.6-sol` con `/codex-build` in due giri, entrambi fermati dal limite di 240 s per comando (la suite UI dura 5,7 min), poi finita dal revisore. **90/90 unit + 40/40 UI** (+7 nuove, ognuna verificata per mutazione). ⚠︎ **Dichiarato**: la griglia a celle è una **pessimizzazione misurata** — rende il raggruppamento **1,84–2,53× più lento** della ricerca lineare che sostituisce, perché con 385 città e ~44 gruppi scorrere 44 elementi costa meno che indicizzare una griglia — ed è tenuta per decisione di Nicola in previsione di più atenei: `PEGGIORAMENTO_MAX_CLUSTER = 3.0` nel banco è la forma scritta di quella scelta. ⚠︎ **Il banco non giudica il disegno**: a codice invariato il rapporto va da 0,61× a 1,68×, quindi sotto ±40% non discrimina; il disegno resta sorvegliato dalle invarianti I1–I3, che sono deterministiche. Nessun file dati toccato, nessuna funzione congelata da V0/V4 modificata |
 | **REDESIGN v3 — V5: Retention** | Sveglia calendario sul bando atteso nella coda dell'entrata e nella Home; `.ics` unico con UID stabili, due allarmi e provenienza; invito PWA per piattaforma; compatibilità senza penalità per certificato non ancora posseduto; conteggi entrata coerenti | ✅ **Implementata e corretta dopo la prima review UI** (2026-07-29). Regressione dello smistamento V3 chiusa; invito PWA reso persistente in pagina; documenti di prova 43/135. 111/111 unit e `test:perf` verde; 7 prove Playwright attendono il revisore. ⚠︎ Conteggi verdi reali 182/600 anziché 184/643: i file mete sono vietati e le radici presunte restano prudentemente non verdi |
 | **REDESIGN v3 — V6a: la lista delle mete** | Una lista sola, illimitata e ordinabile: via il tetto di 5 e via le quattro promesse di consegna che erano a schermo. `BANDO_INFO.massimoDestinazioni` nasce nei dati con fonte e stato `storico` e **non vincola nulla** (assenza = silenzio: Sapienza tace). Riordino con fuoco conservato e spostamento annunciato; rimozione annullabile in loco senza timer, con la posizione ripristinata; mete sparite dai dati mostrate come **orfane** invece che scartate in silenzio. Rotta `#mete/scelte/<ateneo>` registrata dentro il tab Mete via `ROTTE_PROFONDE`, con `scriviHash()` che non cancella più sotto-segmento e ateneo. Cinque invarianti puri in `puro.js`, provati **prima** della UI. Ricerca sopra i filtri, riquadro wizard rimosso (ma `applicaEsitoWizardMete()` conservato: è lo smistamento dell'entrata), mappa in fondo su telefono | ✅ **Implementata, revisionata e ONLINE** (`3d86900`, 2026-08-02) — spec congelata prima di delegare (`596574c`, 30/07), costruita da Codex `gpt-5.6-sol` con `/codex-build`, un giro di correzione, revisione del revisore. **126/126 unit (zero skip) + 58/58 UI**, banco mappa verde al primo giro (cluster 2,25× contro 3,00× ammesso). **Due difetti di prodotto chiusi in revisione**: le frecce di bordo che dirottavano il tasto su un altro comando, e la regione di annuncio distrutta e ricreata a ogni render (la prova la vedeva, lo screen reader no). **Tre delle cinque prove rosse erano sbagliate le prove**, non il codice. Nessuna riga di motore mappa, nessuna funzione congelata, nessun `dati-mete-*` |
+| **REDESIGN v3 — V7: Learning Agreement dossier vivo** | Ramo `ZAINO.la` schema 2 per ateneo: libreria piano, dossier esplorativi multi-meta, una meta operativa per ciclo, versioni e conferme immutabili, readiness e fase derivate, procedure separate Sapienza/Ca' Foscari, cambi durante la mobilità, convalida manuale, backup/ripristino e recupero degli errori di persistenza. Matching predisposto ma nascosto perché il dataset verificato è vuoto | ✅ **Implementata e verificata nel working tree** (2026-08-02), non committata né pubblicata. Due giri di review indipendente più revisione finale del diff: versioni legate al lock della fotografia corrente; fatti lifecycle prudenti; isolamento esplorativo; readiness molti-a-molti; duplicazione idempotente; gate fonti/date; link contestuale meta; recovery cross-ateneo; CFU con virgola e backup incompleti. **153/153 unit + 75/75 UI + performance VERDE**. ⛔ Rilascio bloccato finché non avvengono le quattro validazioni studenti previste dalla specifica |
 | **A11y — fuoco sui filtri delle Mete** | Il punto 1 delle cose trovate fuori checklist in F4. `renderMete()` ricostruisce `#filtri-mete-chip`: il chip a fuoco veniva distrutto e il fuoco cadeva su `<body>`, così da tastiera il Tab ripartiva dall'inizio della pagina. Ora prima del re-render si registra l'**indice** del chip a fuoco (solo se `document.activeElement` è davvero un `.chip-filtro` di quel contenitore) e dopo lo si ridà al nodo nuovo con `focus({ preventScroll: true })`. Indice e non un `data-filtro` nuovo: i 5 chip sono una lista fissa, e l'attributo renderebbe bugiardo il commento R21 poche righe sotto. Solo `js/app.js`; `index.html` e `css/style.css` intatti | ✅ Fatta e verificata (2026-07-26) — nel browser sulla 8123: fuoco sul chip corrispondente invece che su `BODY`, **Tab reale successivo → chip seguente**, scroll invariato, col mouse `:focus-visible = false` (nessun anello), fuoco in `#cerca-mete` non rubato, nessuna eccezione senza profilo. ⚠︎ L'Invio da tastiera non è confermabile con l'automazione (stesso limite del punto 5 di F4): attivazione riprodotta con `chip.click()`, Tab reali |
 
 **Nav (R3, definitiva — gate R1 chiuso):** Mete → **Home** (centrale su
@@ -4023,6 +4067,12 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 | `js/app.js` | codice | Logica v2. **V1–V4:** router, entrata, Home e stato pre-bando. `statoBando()` è rimasta intatta. **V3:** `aggiornaModoEntrata()` unico scrittore di `modo-entrata`. **V5:** coda transitoria della sveglia, offerta Home, download calendario completo, invito PWA per dispositivo, avviso certificato e conteggio coerente; il rinvio installazione usa una chiave propria, fuori dallo zaino. **V6a:** `COPY_SCELTE` (il copy della lista in un posto solo), lista senza tetto, riordino con fuoco e annuncio, annullamento della rimozione, orfane mostrate, registro `ROTTE_PROFONDE` e `scriviHash()` che compone i segmenti. `sincronizzaDaUrl({primoAvvio:true})` si è spostato in fondo a `init()` — **scostamento dichiarato**: una rotta profonda deve trovare il blocco già dipinto |
 | `js/puro.js` | codice puro | **V0–V4:** motore lingua, router, migrazione zaino e `modoCiclo()`. **V5:** finestra attesa, generazione `.ics`, matrice invito installazione e avviso certificato; nessun accesso a DOM, storage o orologio globale. **V6a:** `massimoDestinazioniBando()` e `frasePassatoMassimo()` (sul modello di `finestraAttesa`), i cinque invarianti I‑V6.1…I‑V6.5 e `componiHash()`. `normalizzaZainoV3()` applica ora l'invariante del sottoinsieme al caricamento — **scostamento dichiarato** rispetto a §4 della spec |
 | `package.json` · `package-lock.json` | test/infra | Dipendenze fissate (`jsdom@22.1.0`, `@playwright/test@1.62.0`) e comandi distinti. **V1:** `test:ui` esegue Playwright; `test:a11y` e `test:visual` restano segnaposto V2/V3. **V3:** aggiunto `test:perf`, senza dipendenze nuove; `test:a11y` e `test:visual` restano i segnaposto dichiarati che sono |
+| `PLAN_LEARNING_AGREEMENT_V7.md` | doc | Copia tracciabile e testualmente identica della specifica congelata del Learning Agreement v2; aggiunta in V7, senza modificare i piani di redesign |
+| `js/la-regole.js` | dati | Regole procedurali 2026/27 separate per Sapienza e Ca' Foscari, con ambito, fase, severità, fonte ufficiale e data di verifica 2026-08-02 |
+| `js/la-suggerimenti.js` | dati | Contratto dati del pilota matching; array verificato attualmente vuoto, quindi nessuna UI di suggerimento viene mostrata |
+| `index.html` · `css/style.css` · `js/app.js` · `js/puro.js` · `sw.js` | codice V7 | Schermata/rotta LA, stile responsive, transazioni e workflow, funzioni pure di schema/migrazione/readiness/riconoscimento, e shell offline aggiornata. Il resto del sito e il contratto V6a restano coperti dalle suite di regressione |
+| `test/la-v2.test.cjs` · `test/ui/la-v2.spec.cjs` | test V7 | 26 prove pure LA e 17 flussi Playwright: importazione, migrazione, readiness molti-a-molti, lifecycle, versioni, assegnazione, due atenei, dossier esplorativi, link contestuale meta, convalida, quota, backup/restore cross-ateneo, offline, mobile e analytics |
+| `test/migrazione-zaino.test.cjs` · `test/router.test.cjs` · `test/ui/router.spec.cjs` · `test/v6a-scelte.test.cjs` · `test/ui/v6a-scelte.spec.cjs` | regressione V7 | Aspettative aggiornate per lo schema LA v2 e la nuova rotta profonda, senza allentare isolamento per ateneo, storia/fuoco o invarianti della lista mete |
 | `test/compatibilita-lingua.test.cjs` · `test/pipeline-lingue.test.mjs` · `test/onboarding-lingue.test.cjs` | test | **V0 (27/07)**: i 10 casi golden, icone effettive per i casi che parlano di colore, assenza posti nel ramo condizionato, precedenza `rootPresunta`, tabella ANY/ALL, pipeline, prova jsdom di Italiano C2 e banner di dettaglio; `node --test`, uscita non zero su errore |
 | `test/router.test.cjs` | test unitario | **V1:** 5 prove pure su hash nudi/alias, Learning Agreement con ateneo, due livelli futuri e input malformati. **V6a:** registrazione di `mete/scelte` e composizione dell'hash con e senza ateneo, più la verifica che le rotte a due livelli **non** registrate continuino a cadere su Oggi |
 | `test/v6a-scelte.test.cjs` | test unitario | **V6a (nuovo, 215 righe):** dato storico presente/assente e malformato, i cinque invarianti **ciascuno con un caso che lo viola**, migrazione vuota confrontata sull'oggetto intero, e le tre prove nate dalla revisione (bordi focalizzabili col fuoco che non cambia comando · regione annunci permanente · la prova V3 che verifica lo stato e non il riquadro rimosso) |
@@ -4157,6 +4207,28 @@ perché la prova non c'è e un campo vuoto inviterebbe qualcuno a riempirlo con
 un default. Tolte invece le cinque frasi che promettevano una consegna,
 sostituite da un copy che vive **in un solo posto** (`COPY_SCELTE`) e da una
 prova automatica che le tiene fuori.
+
+**V7 aggiunge procedure Learning Agreement verificate solo per il 2026/27.**
+Le regole Sapienza provengono dalla guida Erasmus+ studio 2026/27; quelle Ca'
+Foscari dalla pagina di procedura e dalle FAQ OLA ufficiali indicate nella
+specifica. Ogni regola porta ateneo, ciclo, ambito/fase, severità, fonte e
+`verifiedAt: 2026-08-02`; se ciclo, ambito o metadati non sono validi la UI
+mostra «Procedura da verificare» e non riusa un ciclo precedente. Il promemoria
+Ca' Foscari dei 30 giorni nasce solo dalla data di inizio lezioni inserita dallo
+studente. Il dataset `js/la-suggerimenti.js` è **vuoto**: non esiste ancora una
+matrice di programmi revisionata da una persona, quindi il matching resta
+nascosto e non è stata inventata alcuna copertura. Documenti firmati, Transcript,
+voti ed equivalenze ufficiali non vengono acquisiti né prodotti.
+La prima review indipendente ha rimosso la regola di pratica preliminare
+specifica per Giurisprudenza: la guida generale Sapienza non basta a provarla e
+non è stata sostituita con una fonte non ufficiale. Il filtro delle regole per
+ambito continua a essere verificato solo con un caso sintetico nei test.
+Il secondo giro ha reso il gate del matching ancora più prudente: entrambi i
+programmi devono avere URL HTTPS, titolo non vuoto e metadati espliciti
+`official`, `stable` e `accessible`. Il dataset resta vuoto e la UI resta
+nascosta. Le date 2026-08-02 restano nei dati come data di verifica, mentre i
+gate runtime confrontano sempre la data corrente e fanno decadere contenuti
+stale invece di mantenerli validi per sempre.
 
 **Debito lingua V0, rimisurato il 28/07 dopo la coda deterministica.**
 I dati non sono stati riscritti: restano **71 radici `ANY` presunte** da
@@ -4319,10 +4391,26 @@ piano operativo del cantiere SITO da agosto 2026 a marzo 2027 è
    consegna tolte** dal sito. **126/126 unit (zero skip) + 58/58 UI**, banco
    verde al primo giro. **Debito dichiarato**: `massimoDestinazioni` esiste
    solo per Ca' Foscari — quello della Sapienza va trovato per V6b.
-7. ▶ **Il prossimo blocco è una scelta**, non una sequenza obbligata: **G2**
-   scatta all'uscita del bando 2027/28 (dicembre-gennaio) e sblocca **V6b**;
-   **V7** Learning Agreement e **V6c** non dipendono da G2 e si possono fare
-   prima. Restano **V8** rifiniture.
+7. ✅ **V7 — Learning Agreement dossier vivo IMPLEMENTATA E VERIFICATA nel
+   working tree** (02/08), non committata né pubblicata. Schema LA v2, import,
+   dossier multi-meta, assegnazione per ciclo, versioni, regole dei due atenei,
+   convalida, persistenza transazionale, backup/restore e offline coperti da
+   **153/153 unit + 75/75 UI + performance VERDE**. Il matching resta nascosto:
+   il dataset verificato è vuoto. Review indipendente giro 1 chiusa: le modifiche
+   ripetute alla stessa bozza non creano altre versioni, la verifica del recovery
+   confronta i contenuti e la regola Sapienza Giurisprudenza priva di prova
+   ufficiale è stata rimossa. Il secondo giro ha inoltre chiuso lifecycle,
+   isolamento esplorativo, readiness molti-a-molti, duplicazione, gate fonti e
+   date, link contestuale meta, recovery cross-ateneo e avvisi sui fatti reali.
+   La revisione finale ha inoltre normalizzato i CFU con virgola prima del
+   salvataggio e reso obbligatori ciclo e data nell'envelope di backup.
+8. ⛔ **Prima di un rilascio V7 servono quattro validazioni esterne reali:**
+   uno studente rientrato Sapienza, uno rientrato Ca' Foscari e uno studente alla
+   prima compilazione per ciascun ateneo. Non esiste evidenza nel repository e
+   nessuna di queste prove è stata dichiarata come svolta.
+9. ▶ **Il prossimo blocco tecnico resta una scelta:** **G2** scatta all'uscita
+   del bando 2027/28 (dicembre-gennaio) e sblocca **V6b**; **V6c** non dipende
+   da G2. Restano **V8** rifiniture.
 
 > 💡 **NUOVO, chiesto da Nicola il 02/08 — un aiuto alla SCELTA delle mete.**
 > È nato togliendo «✨ Ripensa le rotte»: quel bottone riapriva una domanda,

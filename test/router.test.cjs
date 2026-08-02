@@ -20,6 +20,14 @@ const configurazioneV6a = {
   ],
 };
 
+const configurazioneV7 = {
+  ...configurazioneV6a,
+  destinazioniValide: [
+    ...configurazioneV6a.destinazioniValide,
+    "learning-agreement",
+  ],
+};
+
 test("router V1 — conserva hash nudi e normalizza gli alias registrati", () => {
   assert.deepEqual(destDaHash("#oggi", configurazioneV1), {
     rotta: "oggi",
@@ -94,6 +102,19 @@ test("router V6a — compone hash nudi per i tab e conserva l'ateneo solo sulla 
   assert.equal(
     componiHash("mete/scelte", "sapienza"),
     "#mete/scelte/sapienza"
+  );
+});
+
+test("router V7 — registra il Learning Agreement isolato per ateneo", () => {
+  assert.deepEqual(destDaHash("#learning-agreement/sapienza", configurazioneV7), {
+    rotta: "learning-agreement",
+    segmenti: ["learning-agreement"],
+    ateneo: "sapienza",
+    destinazione: "learning-agreement",
+  });
+  assert.equal(
+    componiHash("learning-agreement", "cafoscari"),
+    "#learning-agreement/cafoscari"
   );
 });
 

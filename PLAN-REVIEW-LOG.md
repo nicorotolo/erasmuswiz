@@ -436,3 +436,34 @@ Non emergono nuovi conflitti sostanziali nel planner o con i dati esistenti.
 
 VERDICT: APPROVED
 **Convergenza addendum PLANNER: APPROVED al Round 4 di 5. 14 rilievi totali (10+3+1), 14 accolti. Piano finale in PLAN.md.**
+
+---
+
+## Act 3 — Build e review Learning Agreement v2 (2026-08-02)
+
+**Specifica congelata:** `.git/codex-build-la/PLAN_LEARNING_AGREEMENT_V7.md`, copiata senza modifiche in `PLAN_LEARNING_AGREEMENT_V7.md` alla radice. Confronto finale normalizzato CRLF/LF: `SPEC_EQUAL=true`.
+
+**Builder:** Codex CLI `gpt-5.6-sol`, thread `019fc22f-b242-7a71-a9a2-8b5cb2a18826`. Nessun commit, push, deploy o pacchetto installato.
+
+**Review e correzioni:** due giri di correzione nello stesso thread, poi verifica indipendente nel working tree. Chiusi i rilievi su riuso della stessa bozza sbloccata, equivalenza della doppia scrittura di migrazione, lock della fotografia esatta ai fatti lifecycle senza conferme inventate, distinzione tra dossier esplorativi e operativo, readiness molti-a-molti, duplicazione idempotente per nuovo ciclo, gate prudente delle fonti matching, uso della data corrente nei gate runtime, collegamento dal dettaglio meta, recovery cross-ateneo e avvisi forti prima dei fatti reali. La regola Sapienza sulla proposta preliminare libera è stata rimossa: la fonte generale non prova quella prassi specifica di Giurisprudenza e non è stata sostituita con una fonte non ufficiale.
+
+**Revisione finale del diff:** normalizzati a numero i CFU corretti o inseriti con la virgola prima del salvataggio; i backup privi di ciclo o data di esportazione vengono ora rifiutati come incompleti. Entrambi i casi sono coperti da regressione.
+
+**Prova finale indipendente:**
+
+- `node --check js/app.js` — exit 0, nessun output.
+- `node --check js/puro.js` — exit 0, nessun output.
+- `node --check js/la-regole.js` — exit 0, nessun output.
+- `node --check js/la-suggerimenti.js` — exit 0, nessun output.
+- `npm run test:unit` — 153 test, 153 pass, 0 fail, 0 cancelled, 0 skipped, 0 todo; exit 0.
+- `npm run test:ui` — 75 passed in 1.6m; exit 0.
+- `npm run test:perf` — cluster 2.09× contro limite dichiarato 3.00×, render 1.02× informativo, 0 long task oltre 50 ms, esito VERDE; exit 0.
+- `git diff --check` — pulito.
+
+**Dati prudenti:** il dataset verificato di matching resta vuoto e la relativa interfaccia resta nascosta. Non sono state dichiarate approvazioni ufficiali, equivalenze, fonti di syllabus, firme o validazioni umane inesistenti.
+
+**Validazione esterna ancora obbligatoria:** uno studente rientrato e uno alla prima compilazione per ciascuno tra Sapienza e Ca' Foscari. Queste quattro verifiche non risultano svolte e bloccano il rilascio V7.
+
+**Deviazioni dalla specifica congelata:** nessuna.
+
+**Verdetto tecnico:** implementazione completa nel working tree e suite richieste verdi; non committata, non pubblicata e non validata esternamente.

@@ -7,16 +7,19 @@
 // I dati per-ateneo (js/atenei/**) NON si pre-cachiano: sono grandi e ne serve
 // solo uno; entrano in cache la prima volta che vengono scaricati (runtime).
 // Cambiare CACHE_NOME a ogni modifica di questo file o della shell (cache bump).
-const CACHE_NOME = "erasmuswiz-v3";
+const CACHE_NOME = "erasmuswiz-v4";
 const FILE_DA_CACHE = [
   "./",
   "./index.html",
   "./manifest.json",
   "./css/style.css",
   "./js/atenei/registro.js",
+  "./js/puro.js",
   "./js/carica-atenei.js",
   "./js/dati-mappa-europa.js",
   "./js/dati-coordinate.js",
+  "./js/la-regole.js",
+  "./js/la-suggerimenti.js",
   "./js/app.js",
   "./img/logo-mark.svg",
   "./img/icon-192.png",

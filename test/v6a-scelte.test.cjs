@@ -138,7 +138,7 @@ test("I-V6.5: una stella che aggiornasse una lista sola violerebbe il contratto"
   });
 });
 
-test("V6a migrazione vuota: uno zaino reale conforme resta identico per intero", () => {
+test("V6a migrazione LA v2: lo zaino resta identico fuori dal ramo LA", () => {
   const zaino = {
     profilo: { area: "0311", livello: "L" },
     checklist: { uno: true },
@@ -161,10 +161,13 @@ test("V6a migrazione vuota: uno zaino reale conforme resta identico per intero",
     storico: { prova: true },
     schedinaCiclo: { prova: ["a"] },
   };
-  assert.deepEqual(
-    puro.normalizzaZainoV3(zaino, { ateneo: "cafoscari" }),
-    zaino
-  );
+  const normalizzato = puro.normalizzaZainoV3(zaino, { ateneo: "cafoscari" });
+  const { la, ...restoNormalizzato } = normalizzato;
+  const { la: laLegacy, ...restoOriginale } = zaino;
+  assert.deepEqual(restoNormalizzato, restoOriginale);
+  assert.equal(la.schemaVersion, 2);
+  assert.deepEqual(la.dossiersById, {});
+  assert.deepEqual(la.recovery.legacyCorrupt.a, laLegacy.bozzePerMeta.a);
 });
 
 test("V6a migrazione difensiva: l'id estraneo esce solo dall'ordine", () => {
