@@ -858,7 +858,12 @@ function initNav() {
   document.querySelectorAll(".nav-item[data-tab]").forEach(tab => {
     tab.addEventListener("click", e => {
       e.preventDefault();
-      vaiA(tab.dataset.tab);
+      // La rotta LA è profonda e porta l'ateneo in coda (contratto V7): la
+      // voce di nav non può navigare al nome nudo, o l'indirizzo mentirebbe
+      // su quale zaino si sta guardando.
+      vaiA(tab.dataset.tab === "learning-agreement"
+        ? `learning-agreement/${ateneoAttivo()}`
+        : tab.dataset.tab);
     });
   });
 
@@ -3519,8 +3524,35 @@ function laCicloAttivo() {
 }
 
 function laScopeAttivo() {
+  // ⚠️ Tranche 1 pre-Bruno (PLAN.md §4): un'etichetta MANUALE non deriva
+  // regole di facoltà. "Giurisprudenza internazionale" scritta a mano non
+  // attiva le regole specifiche di Giurisprudenza: restano attive solo le
+  // regole generali verificate dell'ateneo di partenza.
+  if (ErasmusWizPuro.eIdManualeLA(ZAINO.profilo?.dipartimentoId)) return "all";
   const dip = String(ZAINO.profilo?.dipartimento || "").toLocaleLowerCase("it");
   return dip.includes("giurisprudenza") ? "giurisprudenza" : "all";
+}
+
+// UN SOLO risolutore di contesto LA (PLAN.md §9): intestazione, regole,
+// guida, controlli e creazione leggono da qui, non ognuno per conto suo.
+function laContesto() {
+  return ErasmusWizPuro.contestoLAAttivo(ZAINO.la, {
+    university: ateneoAttivo(),
+    cycle: laCicloAttivo(),
+  });
+}
+
+// L'ambito della ricerca destinazioni: dipartimento del profilo, oppure area.
+// Con etichetta manuale non c'è ambito, quindi non c'è alcun accordo da
+// proporre (PLAN.md §5).
+function laAmbitoAttivo() {
+  const profilo = ZAINO.profilo || {};
+  return {
+    dipartimento: profilo.dipartimento || "",
+    dipartimentoId: profilo.dipartimentoId || "",
+    area: profilo.area || "",
+    manuale: ErasmusWizPuro.eIdManualeLA(profilo.dipartimentoId),
+  };
 }
 
 function laRegoleAttive(ciclo = laCicloAttivo(), fase = "exploration") {
@@ -3883,16 +3915,22 @@ function laRenderPiano(contenitore) {
   contenitore.appendChild(sezione);
 }
 
+// Tranche 1 pre-Bruno (PLAN.md §5): le mete proposte devono appartenere al
+// dipartimento/area selezionati. Un'università omonima presente in un ALTRO
+// accordo non viene presentata come valida — è il caso UCP (l'accordo di
+// Psicologia non sostituisce quello mancante di Giurisprudenza).
 function laMeteCandidabili() {
+  const ambito = laAmbitoAttivo();
+  const inAmbito = ErasmusWizPuro.meteInAmbitoLA(METE || [], ambito);
+  const idInAmbito = new Set(inAmbito.map(m => m.id));
   const viste = new Set();
-  const preferite = (ZAINO.schedina || []).map(id => (METE || []).find(m => m.id === id)).filter(Boolean);
+  // Le preferite valgono solo se sono anche in ambito: una stella messa in
+  // un altro momento non trasforma un accordo estraneo in una meta valida.
+  const preferite = (ZAINO.schedina || [])
+    .map(id => (METE || []).find(m => m.id === id))
+    .filter(m => m && idInAmbito.has(m.id));
   preferite.forEach(m => viste.add(m.id));
-  const profilo = ZAINO.profilo;
-  const pertinenti = (METE || []).filter(m => {
-    if (!profilo) return false;
-    return profilo.dipartimento ? m.dipartimentoCf === profilo.dipartimento
-      : (m.areeDisciplinari || []).some(a => a.codice === profilo.area);
-  }).filter(m => !viste.has(m.id)).slice(0, 150);
+  const pertinenti = inAmbito.filter(m => !viste.has(m.id)).slice(0, 150);
   return preferite.concat(pertinenti);
 }
 
@@ -3929,37 +3967,241 @@ function laRenderConfronto(contenitore, ciclo) {
     });
     sezione.appendChild(archivio);
   }
-  const mete = laMeteCandidabili();
-  if (mete.length) {
-    const riga = laElemento("div", "la-create-dossier");
-    const select = document.createElement("select"); select.id = "la-meta-select";
-    mete.forEach(meta => {
-      const o = document.createElement("option"); o.value = meta.id;
-      o.textContent = `${nomeUniversita(meta.universita)} — ${meta.citta || meta.paese || ""}`;
-      select.appendChild(o);
+  laRenderSceltaMeta(sezione, ciclo);
+  contenitore.appendChild(sezione);
+}
+
+// Una sola porta per far nascere un dossier: qui si valida il ciclo, si crea
+// (o riapre) il dossier e, se lo studente stava arrivando dall'onboarding,
+// si chiude l'intento in corso — tutto nella STESSA transazione, così un
+// salvataggio fallito non lascia l'intento a metà (PLAN.md §9).
+function laCreaDossierDaMeta(meta, cycle) {
+  if (!meta || !/^\d{4}\/\d{2}$/.test(cycle)) {
+    _laSaveErrorMessage = "Indica un ciclo nel formato 2026/27.";
+    renderLAV2();
+    return false;
+  }
+  // Senza piano di studi il dossier NON nasce ancora: la meta scelta resta
+  // nell'intento e non si perde (PLAN.md §9). Nessun dossier vuoto in
+  // anticipo, nessuna scelta buttata via.
+  if (!Object.keys(ZAINO.la.examLibrary || {}).length) {
+    const contesto = laContesto();
+    return laTransazione("scelta della destinazione", la => {
+      const esito = ErasmusWizPuro.impostaPendingIntentLA(la, {
+        university: ateneoAttivo(),
+        cycle,
+        work: contesto.work || "primo",
+        meta,
+        at: new Date().toISOString(),
+      });
+      if (!esito.ok) throw new Error("intento non valido");
+      return esito.la;
     });
-    const cycleInput = document.createElement("input");
-    cycleInput.id = "la-cycle-input"; cycleInput.value = ciclo;
-    cycleInput.pattern = "\\d{4}/\\d{2}"; cycleInput.setAttribute("aria-label", "Ciclo accademico");
+  }
+  return laTransazione("creazione del dossier", la => {
+    const esito = ErasmusWizPuro.creaDossierLA(la, {
+      metaId: meta.id,
+      meta: {
+        id: meta.id,
+        universita: meta.universita,
+        citta: meta.citta,
+        paese: meta.paese,
+      },
+      university: ateneoAttivo(),
+      cycle,
+      at: new Date().toISOString(),
+    });
+    if (!la.pendingIntent) return esito.la;
+    const chiuso = ErasmusWizPuro.completaPendingIntentLA(esito.la, esito.dossierId);
+    if (!chiuso.ok) throw new Error("dossier non rileggibile");
+    return chiuso.la;
+  });
+}
+
+// Pannello dell'intento in corso (PLAN.md §9). Dice a chiare lettere che cosa
+// si sta preparando, permette di annullare senza perdere il dossier che era
+// aperto prima, e completa la creazione appena il piano esiste.
+function laRenderIntento(contenitore, contesto) {
+  if (contesto.source !== "pending-intent") return;
+  const box = laElemento("section", "la-panel la-intento");
+  box.id = "la-intento";
+  const lavoro = contesto.work === "modifica"
+    ? "Modifica di un Learning Agreement già preparato"
+    : "Primo Learning Agreement";
+  box.appendChild(laElemento("h2", "la-panel-title", contesto.meta
+    ? `Stai preparando il dossier per ${contesto.meta.universita}`
+    : "Stai preparando un nuovo dossier"));
+  const dettaglio = [lavoro, `ciclo ${contesto.cycle}`];
+  if (contesto.meta && (contesto.meta.citta || contesto.meta.paese)) {
+    dettaglio.splice(1, 0, [contesto.meta.citta, contesto.meta.paese].filter(Boolean).join(", "));
+  }
+  box.appendChild(laElemento("p", "la-muted", dettaglio.join(" · ")));
+  if (contesto.manualMeta) {
+    box.appendChild(laElemento("p", "la-avviso-manuale", ErasmusWizPuro.LA_AVVISO_META_MANUALE));
+  }
+
+  const haPiano = Object.keys(ZAINO.la.examLibrary || {}).length > 0;
+  if (!contesto.meta) {
+    box.appendChild(laElemento("p", "la-status-line",
+      "Manca la destinazione: scegliela qui sotto, oppure inseriscila a mano."));
+  } else if (!haPiano) {
+    box.appendChild(laElemento("p", "la-status-line",
+      "Manca il piano di studi. Inseriscilo qui sopra: la destinazione che hai " +
+      "scelto resta salvata e il dossier nasce quando confermi."));
+  } else {
+    box.appendChild(laBottone(
+      `Crea il dossier per ${contesto.meta.universita}`,
+      "btn-primary la-primary-cta",
+      () => laCreaDossierDaMeta(contesto.meta, contesto.cycle)
+    ));
+  }
+  box.appendChild(laBottone("Annulla", "la-text-button", () => {
+    laTransazione("annullamento della preparazione", la => {
+      const esito = ErasmusWizPuro.annullaPendingIntentLA(la);
+      if (!esito.ok) throw new Error("nessun intento da annullare");
+      return esito.la;
+    });
+  }));
+  contenitore.appendChild(box);
+}
+
+function laRenderSceltaMeta(sezione, ciclo) {
+  const ambito = laAmbitoAttivo();
+  const mete = laMeteCandidabili();
+  const box = laElemento("div", "la-scelta-meta");
+  box.appendChild(laElemento("h3", null, "Scegli la destinazione"));
+
+  const cycleInput = document.createElement("input");
+  cycleInput.id = "la-cycle-input";
+  cycleInput.value = ciclo;
+  cycleInput.pattern = "\\d{4}/\\d{2}";
+  cycleInput.setAttribute("aria-label", "Ciclo accademico");
+
+  if (mete.length) {
+    box.appendChild(laElemento("p", "la-muted",
+      ambito.dipartimento
+        ? `${mete.length} destinazioni negli accordi di ${ambito.dipartimento}. ` +
+          "Gli accordi di altri dipartimenti non valgono per te e non compaiono qui."
+        : `${mete.length} destinazioni compatibili con la tua area.`));
+    const cerca = document.createElement("input");
+    cerca.type = "search";
+    cerca.id = "la-meta-cerca";
+    cerca.placeholder = "Cerca per università o città…";
+    cerca.setAttribute("aria-label", "Cerca una destinazione fra i tuoi accordi");
+    const select = document.createElement("select");
+    select.id = "la-meta-select";
+    const avvisoOmonime = laElemento("p", "la-avviso-ambito", "");
+    avvisoOmonime.hidden = true;
+    avvisoOmonime.id = "la-avviso-fuori-ambito";
+
+    const riempi = filtro => {
+      const testo = String(filtro || "").trim().toLocaleLowerCase("it");
+      select.innerHTML = "";
+      const visibili = mete.filter(meta => !testo ||
+        `${nomeUniversita(meta.universita)} ${meta.citta || ""} ${meta.paese || ""}`
+          .toLocaleLowerCase("it").includes(testo));
+      visibili.forEach(meta => {
+        const o = document.createElement("option");
+        o.value = meta.id;
+        o.textContent = `${nomeUniversita(meta.universita)} — ${meta.citta || meta.paese || ""}`;
+        select.appendChild(o);
+      });
+      if (!visibili.length) {
+        const o = document.createElement("option");
+        o.value = ""; o.textContent = "Nessuna destinazione nei tuoi accordi";
+        select.appendChild(o);
+      }
+      // L'omonima fuori ambito si DICHIARA, non si propone come valida:
+      // altrimenti l'accordo di un altro dipartimento sembrerebbe tuo.
+      const fuori = testo
+        ? ErasmusWizPuro.omonimeFuoriAmbitoLA(METE || [], ambito, filtro)
+        : [];
+      if (fuori.length) {
+        const altri = [...new Set(fuori.map(m => m.dipartimentoCf).filter(Boolean))].join(", ");
+        avvisoOmonime.textContent =
+          `“${nomeUniversita(fuori[0].universita)}” esiste` +
+          (altri ? ` negli accordi di ${altri}` : " in un altro accordo") +
+          `, non in quelli ${ambito.dipartimento ? `di ${ambito.dipartimento}` : "del tuo ambito"}. ` +
+          "Non posso trattarlo come un accordo tuo: se la tua destinazione è questa, inseriscila a mano qui sotto.";
+        avvisoOmonime.hidden = false;
+      } else {
+        avvisoOmonime.hidden = true;
+      }
+    };
+    riempi("");
+    cerca.addEventListener("input", () => riempi(cerca.value));
+
+    const riga = laElemento("div", "la-create-dossier");
     riga.append(select, cycleInput);
     riga.appendChild(laBottone("Crea o apri dossier", "btn-secondary", () => {
       const meta = (METE || []).find(m => m.id === select.value);
-      const cycle = cycleInput.value.trim();
-      if (!meta || !/^\d{4}\/\d{2}$/.test(cycle)) {
-        _laSaveErrorMessage = "Indica un ciclo nel formato 2026/27."; renderLAV2(); return;
-      }
-      laTransazione("creazione del dossier", la => ErasmusWizPuro.creaDossierLA(la, {
-        metaId: meta.id,
-        meta: { id: meta.id, universita: meta.universita, citta: meta.citta, paese: meta.paese },
-        university: ateneoAttivo(), cycle, at: new Date().toISOString(),
-      }).la);
+      laCreaDossierDaMeta(meta, cycleInput.value.trim());
     }));
-    sezione.appendChild(riga);
+    box.append(cerca, avvisoOmonime, riga);
   } else {
-    const a = laElemento("a", "btn-secondary la-inline-button", "Scegli prima le mete →");
-    a.href = "#mete"; a.dataset.goto = "mete"; sezione.appendChild(a);
+    box.appendChild(laElemento("p", "la-muted", ambito.manuale
+      ? "Hai indicato il corso a mano: non conosco i tuoi accordi, quindi la destinazione la inserisci tu qui sotto."
+      : "Non ho accordi da proporti per il tuo ambito. Puoi inserire la destinazione a mano qui sotto."));
+    box.appendChild(cycleInput);
   }
-  contenitore.appendChild(sezione);
+
+  box.appendChild(laRenderMetaManuale(cycleInput));
+  sezione.appendChild(box);
+}
+
+// Destinazione manuale con identità stabile (PLAN.md §6-§8): id opaco nel
+// namespace `manual:`, campi normalizzati e limitati, nessuna fusione
+// automatica con record futuri del catalogo.
+function laRenderMetaManuale(cycleInput) {
+  const box = document.createElement("details");
+  box.className = "la-meta-manuale";
+  const summary = document.createElement("summary");
+  summary.textContent = "La tua destinazione non è nell'elenco?";
+  box.appendChild(summary);
+  box.appendChild(laElemento("p", "la-muted",
+    "Inseriscila tu. Il dossier funziona lo stesso: ti segnalo sempre che i " +
+    "dati dell'ospitante sono da verificare. Le regole del tuo ateneo di " +
+    "partenza restano valide."));
+
+  const campi = {};
+  [
+    ["universita", "Università ospitante", ErasmusWizPuro.LA_LIMITI_MANUALI.universita, true],
+    ["citta", "Città", ErasmusWizPuro.LA_LIMITI_MANUALI.citta, false],
+    ["paese", "Paese", ErasmusWizPuro.LA_LIMITI_MANUALI.paese, false],
+  ].forEach(([chiave, etichetta, massimo, obbligatorio]) => {
+    const input = document.createElement("input");
+    input.type = "text";
+    input.id = `la-meta-manuale-${chiave}`;
+    input.maxLength = massimo;
+    input.placeholder = etichetta + (obbligatorio ? "" : " (facoltativo)");
+    input.setAttribute("aria-label", etichetta);
+    campi[chiave] = input;
+    box.appendChild(input);
+  });
+
+  const errore = laElemento("p", "la-error", "");
+  errore.hidden = true;
+  errore.setAttribute("role", "alert");
+  errore.id = "la-meta-manuale-errore";
+  box.appendChild(errore);
+
+  box.appendChild(laBottone("Usa questa destinazione", "btn-secondary", () => {
+    const meta = ErasmusWizPuro.metaManualeLA({
+      uuid: nuovoUuidManuale(),
+      universita: campi.universita.value,
+      citta: campi.citta.value,
+      paese: campi.paese.value,
+    });
+    if (!meta) {
+      errore.textContent = "Scrivi almeno il nome dell'università ospitante.";
+      errore.hidden = false;
+      campi.universita.focus();
+      return;
+    }
+    errore.hidden = true;
+    laCreaDossierDaMeta(meta, cycleInput.value.trim());
+  }));
+  return box;
 }
 
 function laRenderHomeSnapshots(sezione, dossier, versione) {
@@ -4106,6 +4348,12 @@ function laRenderPreflight(sezione, dossier, versione) {
 
 function laTestoVersione(dossier, versione) {
   const righe = [`LEARNING AGREEMENT — proposta di lavoro`, `${dossier.meta.universita} · ciclo ${dossier.cycle}`, `Versione ${versione.number}`];
+  // L'avviso viaggia con il dossier: anche nel testo copiato e nella stampa
+  // (PLAN.md §7). Chi legge questa pagina fuori da ErasmusWiz deve sapere che
+  // la destinazione l'ha scritta lo studente.
+  if (ErasmusWizPuro.metaManualeAttivaLA(dossier)) {
+    righe.push(ErasmusWizPuro.LA_AVVISO_META_MANUALE);
+  }
   righe.push("", "ESAMI DI CASA");
   versione.homeExamSnapshots.forEach(e => righe.push(`${e.codice || "—"}; ${e.nome}; ${e.cfu} CFU`));
   righe.push("", "CORSI HOST");
@@ -4138,7 +4386,14 @@ function laStampaV2(dossier, versione) {
   const nota = documento.createElement("p"); nota.className = "nota";
   nota.textContent = "Documento non ufficiale: ErasmusWiz non invia, firma o approva il Learning Agreement.";
   const pre = documento.createElement("pre"); pre.textContent = laTestoVersione(dossier, versione);
-  documento.body.append(h1, nota, pre);
+  documento.body.append(h1, nota);
+  if (ErasmusWizPuro.metaManualeAttivaLA(dossier)) {
+    const manuale = documento.createElement("p");
+    manuale.className = "nota";
+    manuale.textContent = ErasmusWizPuro.LA_AVVISO_META_MANUALE + ".";
+    documento.body.appendChild(manuale);
+  }
+  documento.body.appendChild(pre);
   finestra.focus(); finestra.print();
 }
 
@@ -4381,6 +4636,18 @@ function laRenderDossier(contenitore, dossier, ciclo) {
   if (prontezza.state === "ready") laAnalyticsUnaVolta("la-ready");
   sezione.appendChild(laElemento("h2", "la-panel-title", `${nomeUniversita(dossier.meta.universita)} · versione ${versione.number}`));
   sezione.appendChild(laElemento("p", "la-muted", `${dossier.meta.citta || dossier.meta.paese || ""} · ciclo ${dossier.cycle} · ${operativo ? `fase ${fase}` : "dossier esplorativo, non ancora operativo"}`));
+  // Avviso che viaggia con il dossier (PLAN.md §7): compare nel dossier, in
+  // ogni versione storica, nel testo copiato, in stampa, nel backup e
+  // nell'anteprima di ripristino. Lo stato manuale si deriva dal namespace
+  // dell'id, non da un booleano che qualcuno può spegnere.
+  if (ErasmusWizPuro.metaManualeAttivaLA(dossier)) {
+    const avviso = laElemento("p", "la-avviso-manuale", ErasmusWizPuro.LA_AVVISO_META_MANUALE);
+    avviso.dataset.avvisoManuale = "dossier";
+    sezione.appendChild(avviso);
+    sezione.appendChild(laElemento("p", "la-muted",
+      "Le regole del tuo ateneo di partenza restano valide: sospesi sono solo " +
+      "i dati specifici di questa destinazione."));
+  }
   if (versione.lockedAt) sezione.appendChild(laElemento("p", "la-locked", `Questa fotografia è bloccata dal primo evento esterno. Una modifica creerà automaticamente la versione ${versione.number + 1}.`));
   const cta = ErasmusWizPuro.scegliCtaLA({
     saveError: !!_laVolatileRecovery, readiness: prontezza, phase: fase,
@@ -4469,11 +4736,25 @@ function laRenderRestorePreview(sezione) {
   if (!_laRestorePreview) return;
   const box = laElemento("div", "la-restore-preview");
   if (!_laRestorePreview.ok) {
-    box.appendChild(laElemento("p", "la-error", `File rifiutato: ${_laRestorePreview.error}. Nessun dato è stato modificato.`));
+    // Un backup incoerente sullo stato manuale non si importa "aggiustandolo"
+    // in silenzio: si ferma e si dice perché (PLAN.md §7).
+    const spiegazione = _laRestorePreview.error === "manual-source-mismatch"
+      ? "il file dichiara una destinazione inserita a mano su un identificativo " +
+        "di catalogo. Non posso decidere io quale delle due cose sia vera, " +
+        "quindi non importo nulla."
+      : `${_laRestorePreview.error}.`;
+    box.appendChild(laElemento("p", "la-error", `File rifiutato: ${spiegazione} Nessun dato è stato modificato.`));
     sezione.appendChild(box); return;
   }
   const p = _laRestorePreview;
   box.appendChild(laElemento("p", "la-warning", `Anteprima: ${laNomeAteneo(p.university)}, ciclo ${p.cycle || "non indicato"}, ${p.counts.dossier} dossier e ${p.counts.versioni} versioni.`));
+  // L'avviso manuale sopravvive al giro backup → ripristino: si vede PRIMA
+  // di confermare, non dopo.
+  if (p.manualWarning) {
+    const avviso = laElemento("p", "la-avviso-manuale", `${p.manualWarning} (${p.manualMetas.length}).`);
+    avviso.dataset.avvisoManuale = "ripristino";
+    box.appendChild(avviso);
+  }
   const zainoTarget = CONTENITORE.zaini[p.university];
   box.appendChild(laBottone("Prima scarica lo stato attuale", "btn-secondary", () => laScaricaBackup(zainoTarget?.la || ErasmusWizPuro.creaLaV2(), p.university, p.cycle, "erasmuswiz-la-prima-del-ripristino")));
   box.appendChild(laBottone("Conferma e sostituisci solo il Learning Agreement", "btn-secondary", () => {
@@ -4551,12 +4832,17 @@ function renderLAV2() {
   if (_laSaveErrorMessage) {
     cont.appendChild(laElemento("div", _laVolatileRecovery ? "la-error" : "la-message", _laSaveErrorMessage));
   }
-  const ciclo = laDossierAperto()?.cycle || laCicloAttivo();
+  // Tranche 1 pre-Bruno (PLAN.md §9): il ciclo lo decide UN SOLO risolutore.
+  // Intestazione, regole, guida e creazione usano lo stesso, così un ciclo
+  // storico non riceve le regole del ciclo corrente.
+  const contesto = laContesto();
+  const ciclo = contesto.cycle || laCicloAttivo();
   const apertoCorrente = laDossierAperto();
   const fase = apertoCorrente && ZAINO.la.assignedDossierIdByCycle?.[apertoCorrente.cycle] !== apertoCorrente.id
     ? "exploration"
     : ErasmusWizPuro.derivaFaseLA(ZAINO.la, ciclo);
   laRenderFasi(cont, fase);
+  laRenderIntento(cont, contesto);
   if (!laDossierAperto()) {
     const haPiano = Object.keys(ZAINO.la.examLibrary || {}).length > 0;
     cont.appendChild(laBottone(
@@ -4569,7 +4855,10 @@ function renderLAV2() {
   }
   laRenderGuida(cont, ciclo, fase);
   laRenderPiano(cont);
-  if (Object.keys(ZAINO.la.examLibrary || {}).length) {
+  // Con un intento in corso la scelta della destinazione deve essere
+  // raggiungibile anche PRIMA del piano: è tutto il punto di §9. Un link
+  // profondo a freddo, che non ha né piano né intento, resta invece com'era.
+  if (Object.keys(ZAINO.la.examLibrary || {}).length || contesto.source === "pending-intent") {
     laRenderConfronto(cont, ciclo);
     const aperto = laDossierAperto();
     if (aperto && !aperto.archivedAt) laRenderDossier(cont, aperto, ciclo);
@@ -4753,9 +5042,80 @@ function renderIdoneita() {
 // ============================================================
 // ONBOARDING — 4 passi + valore immediato (V3)
 // ============================================================
-// La ripresa vive nella sessione, non nello zaino per-ateneo: P1 viene
-// risposto prima di sapere in quale zaino andrebbe scritto.
-const CHIAVE_ONBOARDING_RIPRESA = "ew-onboarding-ripresa";
+// La ripresa vive fuori dallo zaino per-ateneo: le prime risposte arrivano
+// prima di sapere in quale zaino andrebbero scritte.
+//
+// Tranche 1 pre-Bruno (PLAN.md §10) — la bozza diventa VERSIONATA e NON
+// DISTRUTTIVA: sopravvive al reload, non si consuma alla lettura e si cancella
+// soltanto dopo un salvataggio riletto con successo. Il marcatore di sessione
+// distingue la ripresa automatica (reload deliberato, es. cambio ateneo) da
+// quella da proporre esplicitamente a chi torna più tardi.
+// ⚠️ Sono chiavi NUOVE e separate: la chiave e la versione della memoria
+// generale (`CHIAVE_ZAINO`) non vengono toccate in questa build.
+const CHIAVE_ONBOARDING_BOZZA = "ew-onboarding-bozza";
+const CHIAVE_ONBOARDING_CONTINUA = "ew-onboarding-continua";
+
+function salvaBozzaOnboarding(dati) {
+  const bozza = ErasmusWizPuro.creaBozzaOnboarding(Object.assign({
+    branch: window._onboardingRamo,
+    fase: window._onboardingPorta,
+    university: window.ATENEO_ATTIVO,
+    cycle: window._onboardingCiclo,
+    dipartimento: window._onboardingDipartimento,
+    dipartimentoId: window._onboardingDipartimentoId,
+    livello: window._onboardingLivello,
+    work: window._onboardingLavoro,
+  }, dati || {}));
+  try {
+    localStorage.setItem(CHIAVE_ONBOARDING_BOZZA, JSON.stringify(bozza));
+    return true;
+  } catch (e) {
+    // Una bozza non salvabile non blocca il percorso: si continua in memoria,
+    // e il salvataggio finale ha comunque la sua verifica.
+    return false;
+  }
+}
+
+// NON consuma: leggere due volte deve dare lo stesso risultato.
+function leggiBozzaOnboarding() {
+  let grezzo = null;
+  try { grezzo = localStorage.getItem(CHIAVE_ONBOARDING_BOZZA); }
+  catch (e) { return null; }
+  return ErasmusWizPuro.normalizzaBozzaOnboarding(grezzo);
+}
+
+function cancellaBozzaOnboarding() {
+  try { localStorage.removeItem(CHIAVE_ONBOARDING_BOZZA); } catch (e) {}
+  try { sessionStorage.removeItem(CHIAVE_ONBOARDING_CONTINUA); } catch (e) {}
+}
+
+function marcaRipresaAutomatica() {
+  try { sessionStorage.setItem(CHIAVE_ONBOARDING_CONTINUA, "1"); } catch (e) {}
+}
+
+function consumaRipresaAutomatica() {
+  let valore = null;
+  try {
+    valore = sessionStorage.getItem(CHIAVE_ONBOARDING_CONTINUA);
+    sessionStorage.removeItem(CHIAVE_ONBOARDING_CONTINUA);
+  } catch (e) { return false; }
+  return valore === "1";
+}
+
+// Rimette in memoria le risposte già date, senza toccare la bozza salvata.
+function applicaBozzaOnboarding(bozza) {
+  window._onboardingRamo = bozza.branch;
+  window._onboardingPorta = bozza.fase;
+  window._onboardingLavoro = bozza.work || null;
+  window._onboardingCiclo = bozza.cycle || null;
+  window._onboardingLivello = bozza.livello || null;
+  window._onboardingDipartimento = bozza.dipartimento || null;
+  window._onboardingDipartimentoId = bozza.dipartimentoId || null;
+  // Un'etichetta manuale non porta con sé un'area: resta esplicitamente nulla.
+  window._onboardingArea = bozza.dipartimento && !ErasmusWizPuro.eIdManualeLA(bozza.dipartimentoId)
+    ? areaDominanteDipartimento(bozza.dipartimento)
+    : null;
+}
 
 function areaDominanteDipartimento(dipartimento) {
   const conteggi = {};
@@ -5140,6 +5500,10 @@ function benvPassoPorta() {
     btn.dataset.fase = fase;
     btn.addEventListener("click", () => {
       window._onboardingPorta = fase;
+      // Tranche 1 pre-Bruno (PLAN.md §2): la risposta smista DAVVERO. Da qui
+      // in poi i tre rami hanno passi e uscite diverse.
+      window._onboardingRamo = ErasmusWizPuro.ramoOnboarding(fase);
+      salvaBozzaOnboarding({ step: "ateneo" });
       benvPassoAteneo();
     });
     riga.appendChild(btn);
@@ -5204,33 +5568,83 @@ function benvPassoAteneo() {
 
 function benvScegliAteneo(k) {
   if (k !== window.ATENEO_ATTIVO) {
-    // I dati sono per-ateneo: si salva la scelta e si ricarica al P3. Porta,
-    // dipartimento e livello sono ancora transitori, fuori dallo zaino.
+    // I dati sono per-ateneo: si salva la scelta e si ricarica. Fase, ramo,
+    // dipartimento e livello sono ancora transitori, fuori dallo zaino, e
+    // viaggiano nella bozza versionata.
     let ateneoSalvato = false;
     try {
       localStorage.setItem("erasmuswiz_ateneo", k);
       ateneoSalvato = true;
     } catch (e) {}
     if (ateneoSalvato) {
-      try {
-        sessionStorage.setItem(CHIAVE_ONBOARDING_RIPRESA, JSON.stringify({
-          passo: 3,
-          porta: window._onboardingPorta,
-          dipartimento: null,
-          livello: null,
-        }));
-      } catch (e) {}
+      salvaBozzaOnboarding({ step: benvPassoDopoAteneo(), university: k });
+      // Questo reload è deliberato: la ripresa deve essere automatica, non
+      // una domanda a chi ha appena risposto.
+      marcaRipresaAutomatica();
     }
     location.reload();
     return;
   }
-  benvPassoFacolta();
+  salvaBozzaOnboarding({ step: benvPassoDopoAteneo(), university: k });
+  benvVaiAlPasso(benvPassoDopoAteneo());
+}
+
+// Dopo l'ateneo i tre rami divergono: chi è stato selezionato dichiara prima
+// quale dei due lavori deve fare (PLAN.md §3), gli altri proseguono con
+// corso/facoltà.
+function benvPassoDopoAteneo() {
+  return window._onboardingRamo === "learning-agreement" ? "lavoro" : "facolta";
+}
+
+// Un solo punto porta a un passo: la bozza salva un nome, e quel nome deve
+// riportare esattamente dove si era rimasti.
+function benvVaiAlPasso(passo) {
+  if (passo === "ateneo") return benvPassoAteneo();
+  if (passo === "lavoro") return benvPassoLavoro();
+  if (passo === "facolta") return benvPassoFacolta();
+  if (passo === "livello") return benvPassoLivello(window._onboardingDipartimento);
+  if (passo === "ciclo") return benvPassoCicloLA();
+  if (passo === "lingue") return benvPassoLingue(window._onboardingLivello);
+  return benvPassoPorta();
+}
+
+// Tranche 1 pre-Bruno (PLAN.md §3): due soli lavori concreti. Il
+// riconoscimento al rientro resta dentro il dossier e NON diventa un terzo
+// ingresso iniziale.
+function benvPassoLavoro() {
+  benvSetPasso(3);
+  benvMostraLegenda(false);
+  benvFumetto("Bene! Cosa devi fare adesso?", "pensieroso");
+  benvDisegnaAtenei(window.ATENEO_ATTIVO);
+  const zona = document.getElementById("benvenuto-scelte");
+  zona.innerHTML = "";
+  zona.appendChild(crea(
+    "p",
+    "benvenuto-sotto-domanda",
+    "Ti porto dritto al punto giusto del dossier."
+  ));
+  const riga = crea("div", "benvenuto-scelte-riga");
+  [
+    ["primo", "Preparare il mio primo Learning Agreement"],
+    ["modifica", "Modificare un Learning Agreement già preparato"],
+  ].forEach(([lavoro, testoBottone]) => {
+    const btn = crea("button", "benvenuto-scelta", testoBottone);
+    btn.type = "button";
+    btn.dataset.lavoro = lavoro;
+    btn.addEventListener("click", () => {
+      window._onboardingLavoro = lavoro;
+      salvaBozzaOnboarding({ step: "facolta" });
+      benvPassoFacolta();
+    });
+    riga.appendChild(btn);
+  });
+  zona.appendChild(riga);
 }
 
 function benvPassoFacolta() {
   benvSetPasso(3);
   benvMostraLegenda(false);
-  benvFumetto("Bene! E cosa studi?", "pensieroso");
+  benvFumetto("E cosa studi?", "pensieroso");
   // Dopo la risposta P2 resta acceso il solo ateneo scelto: la mappa ha
   // reagito alla risposta senza fingere di conoscere già il dipartimento.
   benvDisegnaAtenei(window.ATENEO_ATTIVO);
@@ -5251,12 +5665,79 @@ function benvPassoFacolta() {
     btn.type = "button";
     btn.addEventListener("click", () => {
       window._onboardingDipartimento = dip;
+      window._onboardingDipartimentoId = null;
       window._onboardingArea = areaDominanteDipartimento(dip);
+      salvaBozzaOnboarding({ step: "livello" });
       benvPassoLivello(dip);
     });
     riga.appendChild(btn);
   });
   zona.appendChild(riga);
+  zona.appendChild(benvBloccoFacoltaManuale());
+}
+
+// Tranche 1 pre-Bruno (PLAN.md §4): il dossier non può dipendere dalla
+// completezza della mappatura del corso di partenza. L'etichetta manuale è
+// deliberatamente povera: NON deriva area, compatibilità o regole di facoltà.
+function benvBloccoFacoltaManuale() {
+  const box = document.createElement("details");
+  box.className = "benvenuto-manuale";
+  const summary = document.createElement("summary");
+  summary.textContent = "Non trovi il tuo corso o la tua facoltà?";
+  box.appendChild(summary);
+  box.appendChild(crea(
+    "p",
+    "benvenuto-sotto-domanda",
+    "Scrivilo tu. Il percorso funziona lo stesso, ma non calcolo compatibilità " +
+    "né regole di facoltà: te lo segnalo sempre."
+  ));
+  const input = document.createElement("input");
+  input.type = "text";
+  input.id = "benvenuto-facolta-manuale";
+  input.maxLength = ErasmusWizPuro.LA_LIMITI_MANUALI.corso;
+  input.placeholder = "Es. Giurisprudenza";
+  input.setAttribute("aria-label", "Corso o facoltà di partenza");
+  box.appendChild(input);
+  const errore = crea("p", "benvenuto-errore-manuale", "");
+  errore.hidden = true;
+  errore.setAttribute("role", "alert");
+  box.appendChild(errore);
+  const conferma = crea("button", "benvenuto-scelta", "Usa questa etichetta");
+  conferma.type = "button";
+  conferma.dataset.facoltaManuale = "conferma";
+  conferma.addEventListener("click", () => {
+    const corso = ErasmusWizPuro.corsoManualeLA({
+      uuid: nuovoUuidManuale(),
+      etichetta: input.value,
+    });
+    if (!corso) {
+      errore.textContent = "Scrivi il nome del corso o della facoltà.";
+      errore.hidden = false;
+      input.focus();
+      return;
+    }
+    errore.hidden = true;
+    window._onboardingDipartimento = corso.etichetta;
+    window._onboardingDipartimentoId = corso.id;
+    window._onboardingArea = null; // nessuna area dedotta da un'etichetta
+    salvaBozzaOnboarding({ step: "livello" });
+    benvPassoLivello(corso.etichetta);
+  });
+  box.appendChild(conferma);
+  return box;
+}
+
+// Id opaco per meta e facoltà manuali. `randomUUID` quando c'è; altrimenti
+// una stringa casuale della stessa forma. In nessun caso deriva dal testo.
+function nuovoUuidManuale() {
+  try {
+    if (window.crypto?.randomUUID) return window.crypto.randomUUID();
+    const numeri = new Uint8Array(16);
+    window.crypto.getRandomValues(numeri);
+    return Array.from(numeri, n => n.toString(16).padStart(2, "0")).join("");
+  } catch (e) {
+    return `${Date.now().toString(16)}-${Math.random().toString(16).slice(2, 10)}`;
+  }
 }
 
 function benvPassoLivello(dip) {
@@ -5264,31 +5745,106 @@ function benvPassoLivello(dip) {
   benvSetPasso(3);
   benvMostraLegenda(false);
   window._onboardingDipartimento = dip;
-  window._onboardingArea = areaDominanteDipartimento(dip);
+  // ⚠️ Con un'etichetta manuale l'area NON si ricalcola: resta nulla, e con
+  // lei restano spente compatibilità e regole di facoltà (PLAN.md §4).
+  const manuale = ErasmusWizPuro.eIdManualeLA(window._onboardingDipartimentoId);
+  if (!manuale) window._onboardingArea = areaDominanteDipartimento(dip);
   // Le mete della facoltà si ACCENDONO sulla mappa (il momento-firma).
-  const mete = (METE || []).filter(m => m.dipartimentoCf === dip);
-  benvFumetto(`${mete.length} mete ti aspettano. Guarda la mappa!`, "esulta");
-  if (_mappaBenv && _mappaBenv.layer) {
-    _mappaBenv.mete = mete;
-    _mappaBenv.opts = { evidenzia: true, fuoriTab: true };
-    mappaRenderPins(_mappaBenv.layer, mete, _mappaBenv.opts);
-  }
-  mappaNotaCopertura(document.getElementById("mappa-nota-benvenuto"), mete);
+  const mete = manuale ? [] : (METE || []).filter(m => m.dipartimentoCf === dip);
   const zona = document.getElementById("benvenuto-scelte");
   zona.innerHTML = "";
-  zona.appendChild(crea("p", "benvenuto-sotto-domanda",
-    `${mete.length} mete accese per ${dip}. Tocca un puntino per l’anteprima, poi scegli il livello.`));
+  if (manuale) {
+    benvFumetto("Va bene così. Ora dimmi il livello.", "pensieroso");
+    benvDisegnaAtenei(window.ATENEO_ATTIVO);
+    zona.appendChild(crea("p", "benvenuto-sotto-domanda",
+      `Hai scritto “${dip}”. Non conosco gli accordi di questo corso, quindi ` +
+      "non ordino le mete per compatibilità: la destinazione la indicherai tu."));
+  } else {
+    benvFumetto(`${mete.length} mete ti aspettano. Guarda la mappa!`, "esulta");
+    if (_mappaBenv && _mappaBenv.layer) {
+      _mappaBenv.mete = mete;
+      _mappaBenv.opts = { evidenzia: true, fuoriTab: true };
+      mappaRenderPins(_mappaBenv.layer, mete, _mappaBenv.opts);
+    }
+    mappaNotaCopertura(document.getElementById("mappa-nota-benvenuto"), mete);
+    zona.appendChild(crea("p", "benvenuto-sotto-domanda",
+      `${mete.length} mete accese per ${dip}. Tocca un puntino per l’anteprima, poi scegli il livello.`));
+  }
   const wrap = crea("div", "benvenuto-scelte-riga");
   [["L", "Triennale"], ["LM", "Magistrale"]].forEach(([liv, label]) => {
     const btn = crea("button", "benvenuto-scelta", label);
     btn.type = "button";
     btn.addEventListener("click", () => {
       window._onboardingLivello = liv;
+      // Tranche 1 pre-Bruno (PLAN.md §2): i tre rami finiscono in tre posti
+      // diversi. Chi è stato selezionato non passa da lingue e Mete.
+      if (window._onboardingRamo === "learning-agreement") {
+        salvaBozzaOnboarding({ step: "ciclo" });
+        benvPassoCicloLA();
+        return;
+      }
+      salvaBozzaOnboarding({ step: "lingue" });
       benvPassoLingue(liv);
     });
     wrap.appendChild(btn);
   });
   zona.appendChild(wrap);
+}
+
+// Tranche 1 pre-Bruno (PLAN.md §2 e §9): i cicli storici si scelgono soltanto
+// qui, sulla via del dossier. Se il ciclo non è quello dei dati verificati (né
+// il successivo pre-bando), la Home resta neutra e il ciclo vive solo nel
+// contesto LA.
+function benvCicliSelezionabiliLA() {
+  const dati = cicloBreve(ZAINO.cicloDati || "2026/27");
+  const cicli = [dati];
+  const successivo = ErasmusWizPuro.cicloSuccessivo(dati);
+  if (successivo) cicli.push(successivo);
+  let precedente = dati;
+  for (let i = 0; i < 3; i += 1) {
+    const anno = Number(String(precedente).slice(0, 4)) - 1;
+    if (!Number.isFinite(anno)) break;
+    precedente = `${anno}/${String(anno + 1).slice(-2)}`;
+    cicli.push(precedente);
+  }
+  return cicli;
+}
+
+function benvPassoCicloLA() {
+  benvSetPasso(4);
+  benvMostraLegenda(false);
+  benvFumetto("Ultima cosa: di quale anno è il tuo Erasmus?", "pensieroso");
+  const zona = document.getElementById("benvenuto-scelte");
+  zona.innerHTML = "";
+  zona.appendChild(crea(
+    "p",
+    "benvenuto-sotto-domanda",
+    "Serve per mostrarti le procedure giuste. Puoi indicare anche un anno passato."
+  ));
+  const cicliDati = cicloBreve(ZAINO.cicloDati || "2026/27");
+  const riga = crea("div", "benvenuto-scelte-riga");
+  benvCicliSelezionabiliLA().forEach(ciclo => {
+    const ammesso = ErasmusWizPuro.cicloAmmessoHome({
+      cicloDati: cicliDati, ciclo, modo: inPreBando() ? "pre-bando" : "corrente",
+    });
+    const btn = crea("button", "benvenuto-scelta", ciclo);
+    btn.type = "button";
+    btn.dataset.ciclo = ciclo;
+    btn.dataset.storico = String(!ammesso.ammesso);
+    btn.addEventListener("click", () => {
+      window._onboardingCiclo = ciclo;
+      salvaBozzaOnboarding({ step: "fine" });
+      completaOnboardingLA(window._onboardingLivello, ciclo);
+    });
+    riga.appendChild(btn);
+  });
+  zona.appendChild(riga);
+  zona.appendChild(crea(
+    "p",
+    "benvenuto-conseguenza-salto",
+    `Per gli anni diversi da ${cicliDati} non ho scadenze verificate: la Home ` +
+    "resta neutra e nel dossier ti mostro solo quello che posso dimostrare."
+  ));
 }
 
 // P4 — lingue e livello CEFR, SALTABILE. Le lingue
@@ -5426,17 +5982,27 @@ function benvPassoLingue(livello) {
   aggiornaCompatibilita();
 }
 
-function completaOnboarding(livello, lingue) {
+// Scrive il profilo e chiude l'onboarding. Ritorna false se il salvataggio
+// non è andato a buon fine: in quel caso la bozza NON si cancella e il passo
+// non viene dichiarato concluso (PLAN.md §10).
+function scriviProfiloOnboarding(livello, lingue) {
   const area = window._onboardingArea;
   const dip  = window._onboardingDipartimento;
+  const dipId = window._onboardingDipartimentoId;
+  const manuale = ErasmusWizPuro.eIdManualeLA(dipId);
   const profiloPrecedente = ZAINO.profilo || {};
+  const zainoPrecedente = laClone(ZAINO);
   // La facoltà scelta si salva nel profilo (P1.5): lo strip del tab Mete la
   // mostra al posto del codice ISCED grezzo. Zaini vecchi senza questo campo
   // hanno il fallback sul nome dell'area (nomeAreaProfilo).
   ZAINO.profilo = {
     nome: profiloPrecedente.nome,
-    area,
+    // Un'etichetta manuale non porta con sé un'area: senza area non nascono
+    // compatibilità né regole di facoltà inventate (PLAN.md §4).
+    area: manuale ? null : area,
     dipartimento: dip,
+    dipartimentoId: manuale ? dipId : undefined,
+    dipartimentoSource: manuale ? "manual" : undefined,
     livello,
     lingue: lingue || [],
     extraUE: profiloPrecedente.extraUE === true
@@ -5455,10 +6021,98 @@ function completaOnboarding(livello, lingue) {
   // La domanda sulle mete viene posta qui, una volta sola: il vecchio
   // riquadro del tab Mete resta cablato per il rilancio deliberato.
   ZAINO.wizardMete = true;
-  salvaZaino(ZAINO);
+  if (!salvaZaino(ZAINO)) {
+    ZAINO = zainoPrecedente;
+    return false;
+  }
+  // La bozza si cancella soltanto ORA: prima il read-back, poi l'oblio.
+  cancellaBozzaOnboarding();
   // Il form del Profilo si precompila all'avvio: dopo l'onboarding va
   // riallineato, o mostrerebbe campi vuoti fino al prossimo reload.
   precompilaFormV2();
+  return true;
+}
+
+// Salvataggio fallito: lo stato precedente resta attivo, la bozza resta al suo
+// posto e il passo si può ritentare. Nessuna schermata dichiara "fatto".
+function benvErroreSalvataggio(riprova) {
+  const zona = document.getElementById("benvenuto-scelte");
+  if (!zona) return;
+  zona.innerHTML = "";
+  benvFumetto("Non sono riuscito a salvare. Riproviamo?", "pensieroso");
+  const avviso = crea("p", "benvenuto-errore-manuale",
+    "Le tue risposte non sono state salvate su questo dispositivo. " +
+    "Sono ancora qui: riprova, oppure libera spazio nel browser e riprova.");
+  avviso.setAttribute("role", "alert");
+  avviso.id = "benvenuto-errore-salvataggio";
+  zona.appendChild(avviso);
+  const riga = crea("div", "benvenuto-scelte-riga");
+  const btn = crea("button", "benvenuto-scelta", "Riprova");
+  btn.type = "button";
+  btn.dataset.riprovaOnboarding = "1";
+  btn.addEventListener("click", riprova);
+  riga.appendChild(btn);
+  zona.appendChild(riga);
+  portaAVistaScelte();
+}
+
+// Ramo "sono stato selezionato" (PLAN.md §2-§3, §9): niente lingue, niente
+// esplorazione Mete. L'intento in corso conserva ateneo, ciclo e lavoro
+// scelto finché il dossier non nasce davvero.
+function completaOnboardingLA(livello, ciclo) {
+  if (!scriviProfiloOnboarding(livello, [])) {
+    benvErroreSalvataggio(() => completaOnboardingLA(livello, ciclo));
+    return;
+  }
+  const intento = laTransazione("apertura del Learning Agreement", la => {
+    const esito = ErasmusWizPuro.impostaPendingIntentLA(la, {
+      university: ateneoAttivo(),
+      cycle: ciclo,
+      work: window._onboardingLavoro || "primo",
+      at: new Date().toISOString(),
+    });
+    if (!esito.ok) throw new Error("intento non valido");
+    return esito.la;
+  });
+  if (!intento) {
+    benvErroreSalvataggio(() => completaOnboardingLA(livello, ciclo));
+    return;
+  }
+  document.body.classList.remove("modo-entrata", "modo-scena-entrata");
+  renderHome();
+  renderMete();
+  renderMissione();
+  window.scrollTo(0, 0);
+  vaiA(`learning-agreement/${ateneoAttivo()}`);
+}
+
+// Ramo "ho fatto domanda e aspetto": si arriva alla Home, senza la domanda
+// sulle destinazioni, che appartiene all'esplorazione.
+function completaOnboardingAttesa(livello, lingue) {
+  if (!scriviProfiloOnboarding(livello, lingue)) {
+    benvErroreSalvataggio(() => completaOnboardingAttesa(livello, lingue));
+    return;
+  }
+  chiudiWizardMete();
+  document.body.classList.remove("modo-entrata", "modo-scena-entrata");
+  renderHome();
+  renderMete();
+  renderMissione();
+  window.scrollTo(0, 0);
+  vaiA("oggi", { storia: "replace" });
+  aggiornaModoEntrata();
+}
+
+function completaOnboarding(livello, lingue) {
+  if (window._onboardingRamo === "attesa") {
+    completaOnboardingAttesa(livello, lingue);
+    return;
+  }
+  if (!scriviProfiloOnboarding(livello, lingue)) {
+    benvErroreSalvataggio(() => completaOnboarding(livello, lingue));
+    return;
+  }
+  const dip = window._onboardingDipartimento;
   const nMete = (METE || []).filter(m => m.dipartimentoCf === dip).length;
   const prossima = prossimaScadenzaInfo();
   benvSetPasso(5); // E non è un quinto passo: i quattro risultano conclusi.
@@ -5669,34 +6323,54 @@ function benvScena() {
   }, { once: true });
 }
 
-function leggiRipresaOnboarding() {
-  let grezzo = null;
-  try {
-    grezzo = sessionStorage.getItem(CHIAVE_ONBOARDING_RIPRESA);
-    sessionStorage.removeItem(CHIAVE_ONBOARDING_RIPRESA);
-  } catch (e) {
-    return null;
-  }
-  if (!grezzo) return null;
-  try {
-    const ripresa = JSON.parse(grezzo);
-    const passiValidi = [2, 3, 4];
-    if (
-      !ripresa ||
-      !passiValidi.includes(ripresa.passo) ||
-      !ErasmusWizPuro.FASI_VIAGGIO.includes(ripresa.porta)
-    ) return null;
-    if (
-      ripresa.passo === 4 &&
-      (
-        typeof ripresa.dipartimento !== "string" ||
-        !["L", "LM"].includes(ripresa.livello)
-      )
-    ) return null;
-    return ripresa;
-  } catch (e) {
-    return null;
-  }
+// Offerta esplicita a chi torna più tardi (PLAN.md §10): la bozza NON viene
+// consumata dalla lettura, quindi qui si può ancora scegliere. "Ricomincia"
+// è l'unico punto che la cancella prima del salvataggio finale.
+function benvOffriRipresa(bozza) {
+  benvSetPasso(1);
+  benvMostraLegenda(false);
+  benvFumetto("Bentornato! Riprendiamo da dove eri rimasto?", "saluto");
+  const zona = document.getElementById("benvenuto-scelte");
+  zona.innerHTML = "";
+  zona.dataset.ripresaOnboarding = "true";
+  const descrizioni = {
+    ateneo: "avevi detto a che punto sei",
+    lavoro: "avevi scelto l'ateneo",
+    facolta: "avevi scelto l'ateneo",
+    livello: `avevi indicato ${bozza.dipartimento || "il tuo corso"}`,
+    ciclo: "avevi indicato corso e livello",
+    lingue: "avevi indicato corso e livello",
+    fine: "avevi risposto a tutto",
+  };
+  zona.appendChild(crea(
+    "p",
+    "benvenuto-sotto-domanda",
+    `Le tue risposte sono ancora qui: ${descrizioni[bozza.step] || "avevi già iniziato"}.`
+  ));
+  const riga = crea("div", "benvenuto-scelte-riga");
+  const riprendi = crea("button", "benvenuto-scelta", "Riprendi");
+  riprendi.type = "button";
+  riprendi.dataset.ripresa = "riprendi";
+  riprendi.addEventListener("click", () => {
+    delete zona.dataset.ripresaOnboarding;
+    applicaBozzaOnboarding(bozza);
+    benvVaiAlPasso(bozza.step === "fine" ? "ciclo" : bozza.step);
+  });
+  const ricomincia = crea("button", "benvenuto-scelta", "Ricomincia da capo");
+  ricomincia.type = "button";
+  ricomincia.dataset.ripresa = "ricomincia";
+  ricomincia.addEventListener("click", () => {
+    delete zona.dataset.ripresaOnboarding;
+    cancellaBozzaOnboarding();
+    window._onboardingRamo = null;
+    window._onboardingLavoro = null;
+    window._onboardingCiclo = null;
+    window._onboardingDipartimentoId = null;
+    benvPassoPorta();
+  });
+  riga.append(riprendi, ricomincia);
+  zona.appendChild(riga);
+  riprendi.focus();
 }
 
 function initOnboarding() {
@@ -5706,26 +6380,20 @@ function initOnboarding() {
   if (!layer) return; // dati mappa assenti: restano le scelte testuali
   _mappaBenv = { layer };
 
-  const ripresa = leggiRipresaOnboarding();
-  // Chi torna dal cambio ateneo stava GIÀ rispondendo: niente scena, si
-  // riprende dal passo dichiarato con le risposte transitorie già in memoria.
-  if (!ripresa) {
+  const bozza = leggiBozzaOnboarding();
+  const automatica = consumaRipresaAutomatica();
+  if (!bozza) {
     benvScena();
     return;
   }
-  window._onboardingPorta = ripresa.porta;
-  if (ripresa.passo === 2) {
-    benvPassoAteneo();
+  // Chi torna da un reload deliberato (cambio ateneo) stava GIÀ rispondendo:
+  // niente domanda, si riprende dal passo dichiarato.
+  if (automatica) {
+    applicaBozzaOnboarding(bozza);
+    benvVaiAlPasso(bozza.step === "fine" ? "ciclo" : bozza.step);
     return;
   }
-  if (ripresa.passo === 3) {
-    benvPassoFacolta();
-    return;
-  }
-  window._onboardingDipartimento = ripresa.dipartimento;
-  window._onboardingArea = areaDominanteDipartimento(ripresa.dipartimento);
-  window._onboardingLivello = ripresa.livello;
-  benvPassoLingue(ripresa.livello);
+  benvOffriRipresa(bozza);
 }
 
 // ============================================================

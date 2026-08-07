@@ -269,10 +269,20 @@ test("V6a router: i tab scrivono hash nudi e la nuova rotta LA resta isolata", a
   await page.goto(`${PAGINA}#mete/scelte/cafoscari`, {
     waitUntil: "domcontentloaded",
   });
-  for (const tab of ["oggi", "mete", "percorso"]) {
+  // Tranche 1 pre-Bruno: la barra è Mete · Home · Learning Agreement. I due
+  // tab semplici continuano a scrivere hash nudi; Percorso, che ora vive nel
+  // Menu, scrive lo stesso hash di prima.
+  for (const tab of ["oggi", "mete"]) {
     await page.locator(`.nav-item[data-tab="${tab}"]`).click();
     await expect.poll(() => page.evaluate(() => location.hash)).toBe(`#${tab}`);
   }
+  await page.locator("#btn-drawer").click();
+  await page.locator('[data-drawer-goto="percorso"]').click();
+  await expect.poll(() => page.evaluate(() => location.hash)).toBe("#percorso");
+  // La voce di nav LA porta invece l'ateneo attivo in coda alla rotta.
+  await page.locator('.nav-item[data-tab="learning-agreement"]').click();
+  await expect.poll(() => page.evaluate(() => location.hash))
+    .toBe("#learning-agreement/cafoscari");
   await page.goto(`${PAGINA}#learning-agreement/sapienza`, {
     waitUntil: "domcontentloaded",
   });

@@ -135,12 +135,19 @@ test("V5 §8.11: un utente completato non viene intercettato e i vecchi rami res
   await preparaCompletato(page);
   await page.goto("/index.html#oggi", { waitUntil: "domcontentloaded" });
 
-  for (const tab of ["oggi", "mete", "percorso"]) {
+  // Tranche 1 pre-Bruno: la barra resta di TRE voci, ma la terza è ora il
+  // Learning Agreement. Percorso non è sparito — si raggiunge dal Menu, e
+  // la prova lo attraversa comunque.
+  for (const tab of ["oggi", "mete", "learning-agreement"]) {
     await page.locator(`.nav-item[data-tab='${tab}']`).click();
     await expect(page.locator(`#tab-${tab}`)).toBeVisible();
     await expect(page.locator("[data-coda-sveglia='true']")).not.toBeVisible();
     await expect(page.locator(".nav-item[data-tab]")).toHaveCount(3);
   }
+  await page.locator("#btn-drawer").click();
+  await page.locator('[data-drawer-goto="percorso"]').click();
+  await expect(page.locator("#tab-percorso")).toBeVisible();
+  await expect(page.locator("[data-coda-sveglia='true']")).not.toBeVisible();
 
   const tipi = await page.evaluate(() => {
     const risultato = {};

@@ -1,0 +1,292 @@
+{
+  "format": "erasmuswiz-la-backup",
+  "schemaVersion": 2,
+  "university": "sapienza",
+  "cycle": "2025/26",
+  "exportedAt": "2026-08-07T12:00:00.000Z",
+  "privacyWarning": "Caso storico anonimizzato per una prova moderata. Non contiene dati personali o approvazioni rilevate da ErasmusWiz.",
+  "payload": {
+    "schemaVersion": 2,
+    "nextId": 2,
+    "examLibrary": {
+      "home-1": {
+        "id": "home-1",
+        "codice": "1031426",
+        "nome": "Fondamenti del diritto europeo",
+        "cfu": 6,
+        "stato": "da-sostenere"
+      },
+      "home-2": {
+        "id": "home-2",
+        "codice": "1009233",
+        "nome": "Diritto dell'Unione europea",
+        "cfu": 9,
+        "stato": "da-sostenere"
+      },
+      "home-3": {
+        "id": "home-3",
+        "codice": "1022647",
+        "nome": "Diritto privato comparato",
+        "cfu": 9,
+        "stato": "da-sostenere"
+      },
+      "home-4": {
+        "id": "home-4",
+        "codice": "1034522",
+        "nome": "Analisi e verifica di impatto della regolamentazione",
+        "cfu": 9,
+        "stato": "da-sostenere"
+      },
+      "home-5": {
+        "id": "home-5",
+        "codice": "1009302",
+        "nome": "Diritto internazionale",
+        "cfu": 6,
+        "stato": "da-sostenere"
+      },
+      "home-6": {
+        "id": "home-6",
+        "codice": "1031419",
+        "nome": "Diritto pubblico dell'economia",
+        "cfu": 6,
+        "stato": "da-sostenere"
+      }
+    },
+    "dossiersById": {
+      "caso-storico-lisbona": {
+        "id": "caso-storico-lisbona",
+        "metaId": "storico-p-lisboa01",
+        "meta": {
+          "id": "storico-p-lisboa01",
+          "universita": "Universidade Católica Portuguesa",
+          "citta": "Lisbona",
+          "paese": "Portogallo"
+        },
+        "university": "sapienza",
+        "cycle": "2025/26",
+        "createdAt": "2025-05-30T16:59:00.000Z",
+        "updatedAt": "2025-11-05T12:02:47.000Z",
+        "versions": [
+          {
+            "versionId": "caso-storico-lisbona:v1",
+            "number": 1,
+            "createdAt": "2025-05-30T16:59:00.000Z",
+            "reason": "initial",
+            "note": "Ricostruzione anonima del Learning Agreement iniziale. La disponibilità effettiva dei corsi non era stata confermata.",
+            "lockedAt": "2025-05-30T16:59:00.000Z",
+            "lockReason": "sent-home",
+            "homeExamSnapshots": [
+              {
+                "snapshotId": "caso-storico-lisbona:v1:home-1",
+                "sourceExamId": "home-1",
+                "codice": "1031426",
+                "nome": "Fondamenti del diritto europeo",
+                "cfu": 6,
+                "stato": "da-sostenere"
+              },
+              {
+                "snapshotId": "caso-storico-lisbona:v1:home-2",
+                "sourceExamId": "home-2",
+                "codice": "1009233",
+                "nome": "Diritto dell'Unione europea",
+                "cfu": 9,
+                "stato": "da-sostenere"
+              },
+              {
+                "snapshotId": "caso-storico-lisbona:v1:home-3",
+                "sourceExamId": "home-3",
+                "codice": "1022647",
+                "nome": "Diritto privato comparato",
+                "cfu": 9,
+                "stato": "da-sostenere"
+              },
+              {
+                "snapshotId": "caso-storico-lisbona:v1:home-4",
+                "sourceExamId": "home-4",
+                "codice": "1034522",
+                "nome": "Analisi e verifica di impatto della regolamentazione",
+                "cfu": 9,
+                "stato": "da-sostenere"
+              },
+              {
+                "snapshotId": "caso-storico-lisbona:v1:home-5",
+                "sourceExamId": "home-5",
+                "codice": "1009302",
+                "nome": "Diritto internazionale",
+                "cfu": 6,
+                "stato": "da-sostenere"
+              },
+              {
+                "snapshotId": "caso-storico-lisbona:v1:home-6",
+                "sourceExamId": "home-6",
+                "codice": "1031419",
+                "nome": "Diritto pubblico dell'economia",
+                "cfu": 6,
+                "stato": "da-sostenere"
+              }
+            ],
+            "hostCourseSnapshots": [
+              {
+                "snapshotId": "caso-storico-lisbona:v1:host-1",
+                "codice": "000",
+                "nome": "Private International Law",
+                "ects": 8,
+                "lingua": "English",
+                "semestre": "II",
+                "officialUrl": "https://fd.lisboa.ucp.pt/sobre-fd/gabinetes-de-apoio/relacoes-internacionais/transnational-law-curriculum",
+                "availabilityState": "da-verificare",
+                "verifiedAt": "2025-06-04",
+                "sourceDate": "2025-06-04"
+              },
+              {
+                "snapshotId": "caso-storico-lisbona:v1:host-2",
+                "codice": "000",
+                "nome": "Law of the European Union A/B/C/D",
+                "ects": 6,
+                "lingua": "English",
+                "semestre": "II",
+                "officialUrl": "https://fd.lisboa.ucp.pt/sobre-fd/gabinetes-de-apoio/relacoes-internacionais/transnational-law-curriculum",
+                "availabilityState": "da-verificare",
+                "verifiedAt": "2025-06-04",
+                "sourceDate": "2025-06-04"
+              },
+              {
+                "snapshotId": "caso-storico-lisbona:v1:host-3",
+                "codice": "000",
+                "nome": "Introduction to Global Law",
+                "ects": 6,
+                "lingua": "English",
+                "semestre": "II",
+                "officialUrl": "https://fd.lisboa.ucp.pt/sobre-fd/gabinetes-de-apoio/relacoes-internacionais/transnational-law-curriculum",
+                "availabilityState": "da-verificare",
+                "verifiedAt": "2025-06-04",
+                "sourceDate": "2025-06-04"
+              },
+              {
+                "snapshotId": "caso-storico-lisbona:v1:host-4",
+                "codice": "000",
+                "nome": "Public Finance",
+                "ects": 4,
+                "lingua": "English",
+                "semestre": "I",
+                "officialUrl": "https://fd.lisboa.ucp.pt/sobre-fd/gabinetes-de-apoio/relacoes-internacionais/transnational-law-curriculum",
+                "availabilityState": "da-verificare",
+                "verifiedAt": "2025-06-04",
+                "sourceDate": "2025-06-04"
+              },
+              {
+                "snapshotId": "caso-storico-lisbona:v1:host-5",
+                "codice": "000",
+                "nome": "Performance and Non-Performance of Obligation",
+                "ects": 6,
+                "lingua": "English",
+                "semestre": "I",
+                "officialUrl": "https://fd.lisboa.ucp.pt/sobre-fd/gabinetes-de-apoio/relacoes-internacionais/transnational-law-curriculum",
+                "availabilityState": "da-verificare",
+                "verifiedAt": "2025-06-04",
+                "sourceDate": "2025-06-04"
+              },
+              {
+                "snapshotId": "caso-storico-lisbona:v1:host-6",
+                "codice": "000",
+                "nome": "European Fundamental and Human Rights Law",
+                "ects": 4,
+                "lingua": "English",
+                "semestre": "I",
+                "officialUrl": "https://fd.lisboa.ucp.pt/sobre-fd/gabinetes-de-apoio/relacoes-internacionais/transnational-law-curriculum",
+                "availabilityState": "da-verificare",
+                "verifiedAt": "2025-06-04",
+                "sourceDate": "2025-06-04"
+              },
+              {
+                "snapshotId": "caso-storico-lisbona:v1:host-7",
+                "codice": "000",
+                "nome": "Administrative Litigation A/B/C/D",
+                "ects": 6,
+                "lingua": "English",
+                "semestre": "I",
+                "officialUrl": "https://fd.lisboa.ucp.pt/sobre-fd/gabinetes-de-apoio/relacoes-internacionais/transnational-law-curriculum",
+                "availabilityState": "da-verificare",
+                "verifiedAt": "2025-06-04",
+                "sourceDate": "2025-06-04"
+              },
+              {
+                "snapshotId": "caso-storico-lisbona:v1:host-8",
+                "codice": "000",
+                "nome": "International Law of the Sea",
+                "ects": 4,
+                "lingua": "English",
+                "semestre": "I",
+                "officialUrl": "https://fd.lisboa.ucp.pt/sobre-fd/gabinetes-de-apoio/relacoes-internacionais/transnational-law-curriculum",
+                "availabilityState": "da-verificare",
+                "verifiedAt": "2025-06-04",
+                "sourceDate": "2025-06-04"
+              }
+            ],
+            "mappings": [
+              {
+                "mappingId": "caso-storico-lisbona:v1:map-1",
+                "label": "Paniere complessivo del Learning Agreement iniziale",
+                "homeExamSnapshotIds": [
+                  "caso-storico-lisbona:v1:home-1",
+                  "caso-storico-lisbona:v1:home-2",
+                  "caso-storico-lisbona:v1:home-3",
+                  "caso-storico-lisbona:v1:home-4",
+                  "caso-storico-lisbona:v1:home-5",
+                  "caso-storico-lisbona:v1:home-6"
+                ],
+                "hostCourseSnapshotIds": [
+                  "caso-storico-lisbona:v1:host-1",
+                  "caso-storico-lisbona:v1:host-2",
+                  "caso-storico-lisbona:v1:host-3",
+                  "caso-storico-lisbona:v1:host-4",
+                  "caso-storico-lisbona:v1:host-5",
+                  "caso-storico-lisbona:v1:host-6",
+                  "caso-storico-lisbona:v1:host-7",
+                  "caso-storico-lisbona:v1:host-8"
+                ]
+              }
+            ],
+            "preflight": {
+              "course-data-checked": true,
+              "credits-compared": true,
+              "mapping-reviewed": true
+            }
+          }
+        ],
+        "currentVersionId": "caso-storico-lisbona:v1",
+        "confirmationsByVersion": {
+          "caso-storico-lisbona:v1": {
+            "sent-home": {
+              "versionId": "caso-storico-lisbona:v1",
+              "markedAt": "2025-05-30T16:59:00.000Z",
+              "subject": "Prospetto inviato alla facoltà",
+              "note": "Fatto storico segnato nel caso di test, non rilevato automaticamente."
+            },
+            "home-approved": {
+              "versionId": "caso-storico-lisbona:v1",
+              "markedAt": "2025-09-11T15:16:50.000Z",
+              "subject": "Approvazione dell'istituzione di provenienza",
+              "note": "Fatto storico segnato nel caso di test, non rilevato automaticamente."
+            },
+            "host-approved": {
+              "versionId": "caso-storico-lisbona:v1",
+              "markedAt": "2025-11-05T12:02:47.000Z",
+              "subject": "Approvazione dell'istituzione ospitante",
+              "note": "Fatto storico segnato nel caso di test, non rilevato automaticamente."
+            }
+          }
+        },
+        "lifecycle": {
+          "firstExternalAt": "2025-05-30T16:59:00.000Z",
+          "mobilityStartedAt": "2025-09-13T00:00:00.000Z"
+        }
+      }
+    },
+    "openDossierId": "caso-storico-lisbona",
+    "assignedDossierIdByCycle": {
+      "2025/26": "caso-storico-lisbona"
+    }
+  }
+}
+

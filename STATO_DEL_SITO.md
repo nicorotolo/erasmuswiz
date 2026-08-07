@@ -21,7 +21,121 @@
 
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-08-02 — Codex (V7 Learning Agreement v2 corretto dopo la review indipendente e la revisione finale del diff; non committato, non pubblicato, validazione studenti ancora da svolgere).
+**Ultimo aggiornamento:** 2026-08-07 — Claude (tranche 1 pre-Bruno
+**implementata in locale e collaudata**: navigazione primaria
+`Mete · Home · Learning Agreement`, Menu fisso in alto a destra, onboarding che
+smista davvero, meta e facoltà manuali nel namespace `manual:`, intento in corso
+che non perde la meta. Prove: **176/176 unit**, **96/96 UI**, performance
+**VERDE**, sei controlli sintattici verdi, `git diff --check` pulito. Tranche 2
+**non iniziata**. Nulla è stato committato, pubblicato o messo online: le
+modifiche vivono nel working tree e attendono la firma di Nicola. Storage
+generale, PWA e service worker **non toccati**).
+
+**(SESSIONE 2026-08-07 — TRANCHE 1 PRE-BRUNO, IMPLEMENTAZIONE LOCALE.)**
+Implementati tutti e undici i punti obbligatori dell'addendum di `PLAN.md`:
+
+1. La barra principale diventa `Mete · Home · Learning Agreement`. `Altro`
+   esce dalla barra e diventa `Menu`, fisso in alto a destra a ogni larghezza.
+   `Percorso` non sparisce: resta nella Home (scorciatoia accanto al dossier) e
+   nel Menu, con rotta, alias storici, tasto Indietro e fuoco intatti.
+2. La domanda «A che punto sei?» produce tre rami reali: esplorazione (profilo,
+   lingue, Mete), attesa (Home), selezionato (ramo Learning Agreement).
+3. Il ramo selezionato chiede subito quale dei due lavori serve — primo LA o
+   modifica di un LA già preparato. Il riconoscimento resta nel dossier.
+4. Il ramo LA raccoglie ateneo, ciclo, corso/facoltà e livello, senza obbligare
+   a lingue o Mete. Se il corso non compare, si accetta un'etichetta manuale
+   che **non** deriva area, compatibilità o regole di facoltà.
+5. Le mete proposte appartengono solo al dipartimento/area scelti. Il caso UCP
+   è coperto: l'accordo di Psicologia non viene mai presentato come valido per
+   Giurisprudenza; l'omonima fuori ambito si dichiara e si rimanda all'inserimento
+   manuale.
+6. Le destinazioni manuali nascono con id opaco `manual:<uuid>` non derivato dal
+   testo: due omonime restano due dossier distinti e nessuna fusione automatica
+   con il catalogo.
+7. L'avviso `Destinazione inserita da te — dati dell'ospitante da verificare`
+   viaggia con il dossier: schermata, testo copiato, stampa, backup e anteprima
+   di ripristino. Lo stato manuale si deriva **sempre** dal namespace dell'id;
+   un backup che dichiara `manual` su un id di catalogo viene rifiutato.
+8. I campi manuali sono normalizzati (controlli, spazi, forma unicode) e
+   limitati: 200 caratteri per università e corso, 100 per città e Paese.
+9. La meta scelta senza piano di studi non evapora e non crea un dossier vuoto:
+   vive in `pendingIntent`, mutuamente esclusivo con il dossier aperto, che si
+   chiude solo dopo creazione e rilettura riuscite, oppure per annullamento.
+   Un solo risolutore (`contestoLAAttivo`) governa intestazione, regole, guida
+   e creazione, così un ciclo storico non riceve le regole del ciclo corrente.
+10. L'onboarding interrotto sopravvive in una bozza locale versionata e non
+    distruttiva, con ripresa e annullamento espliciti; si cancella soltanto
+    dopo un salvataggio riletto. Un salvataggio fallito non dichiara concluso
+    il passaggio e offre `Riprova`.
+11. Nessun utente esistente ripete l'onboarding: profilo, preferite, schedina,
+    checklist, autoverifiche e dossier restano intatti. Ateneo e ciclo non sono
+    campi di profilo rivedibili.
+
+Le analytics restano nomi fissi: nessun ateneo, corso, destinazione o testo
+dello studente. Il protocollo del test è stato aggiornato con una **Parte 0**
+separata (prova a freddo dell'ingresso, massimo 3 minuti, finestre private
+chiuse e sessione nuova prima del caso storico); i due esiti non si mescolano.
+
+**Non fatto, dichiarato:** la tranche 2 (importazione multipla con anteprima,
+ricostruzione storica e blocco delle fotografie) non è stata iniziata. È un
+blocco separato che richiede il proprio gate completo; lasciarla a metà avrebbe
+peggiorato la base stabile che serve a Bruno. Restano fuori, come da piano,
+migrazione storage/PWA, coordinamento multi-scheda e pubblicazione.
+
+**(SESSIONE 2026-08-07 — PIANO PRE-BRUNO, GRILL + REVIEW AVVERSARIALE.)**
+Concordata una tranche 1 locale che porta il Learning Agreement nella
+navigazione primaria, sposta il Menu in alto a destra, trasforma la domanda
+iniziale sulla fase in uno smistamento reale, distingue primo LA/modifica,
+conserva la meta scelta e consente meta e corso di partenza manuali con avvisi
+prudenti. Tranche 2 opzionale soltanto dopo gate verde: importazione multipla,
+fotografia storica e versioni legate ai fatti dichiarati, senza equivalenze
+automatiche o lettura PDF. `PLAN.md` aggiornato senza cancellare il piano
+storico; argomentazione completa append-only in `PLAN-REVIEW-LOG.md`.
+
+Codex CLI 0.144.5, modello `gpt-5.6-sol`, ha riesaminato il piano nello stesso
+thread read-only per 5 round: rilievi materiali **18 → 8 → 4 → 4 → 2**. Il cap
+è terminato con `REVISE`, quindi nessuna falsa approvazione. I due punti aperti
+riguardano solo la pubblicazione futura: una vecchia PWA che continua a salvare
+nella memoria v3 e l'idempotenza di una scrittura riuscita ma non riletta.
+Nicola ha confermato la separazione: il piano pre-Bruno è firmato per la sola
+implementazione locale; storage pubblico e pubblicazione restano bloccati fino
+a un nuovo piano post-Bruno. Nessun codice è stato scritto.
+
+**(FOLLOW-UP 2026-08-07 — UCP LISBONA: ACCORDO ATTIVO, CONFLITTO TRA FONTI.)**
+La Universidade Católica Portuguesa (`P LISBOA01`) compare nell'elenco PDF di
+Giurisprudenza collegato dalla pagina del bando Sapienza 2026/27: validità fino
+al 2028/29, 3 posti e 10 mesi. Compare inoltre nel bando 2026/27 della European
+Law School. Non è quindi un accordo terminato. Il Search Tool ufficiale
+`Go Erasmus+`, filtrato oggi su Giurisprudenza, restituisce invece 56 accordi e
+non contiene né UCP né `LISBOA01`; il file del sito ne riproduce 55 perché
+esclude soltanto il duplicato riservato a PhD. Il popolamento è stato fedele alla
+fonte scelta, ma quella fonte non copre l'intero elenco: il PDF contiene 88
+righe, con duplicati/accordi particolari ancora da riconciliare. Classificazione:
+**gap di copertura della mappatura causato da fonti Sapienza incoerenti**, non
+bug dell'interfaccia e non cessazione dell'accordo. Prima di aggiungere UCP come
+meta ordinaria va verificata la ripartizione dei 3 posti tra Erasmus generale e
+European Law School; nel 2025/26 due posti risultavano ELS. Correzione di metodo:
+PDF/Excel allegato al bando come fonte primaria di inclusione, Search Tool come
+fonte di dettaglio, con confronto automatico delle differenze prima del merge.
+
+**(SESSIONE 2026-08-07 — PREPARAZIONE TEST BRUNO V7.)** Preparato un test
+moderato di 45-60 minuti sul caso storico Sapienza Giurisprudenza → Universidade
+Católica Portuguesa. Il punto di partenza anonimo ricostruisce il LA iniziale
+(8 corsi host/44 ECTS; 6 esami casa/45 CFU); la prova consegna progressivamente
+il problema reale dei 6 corsi non disponibili e deve arrivare a una nuova
+versione con 12 corsi host attivi/53 ECTS e 8 esami casa/57 CFU. Sono pronti:
+protocollo, scheda risultati, backup importabile senza dati personali e due
+regressioni automatiche — importazione pura e ripristino nell'interfaccia. Il
+gate è deliberatamente severo: perdita della prima versione, totale accademico
+sbagliato o falsa approvazione fermano il test prospettico successivo. Bruno può
+validare la solidità del flusso e raccontare fonti/tempi reali; non può, da solo,
+validare la domanda di mercato perché ha già contribuito alla scoperta del
+problema. La meta storica non è stata aggiunta al dataset pubblico 2026/27,
+dal quale risulta assente: vive soltanto nel fixture di prova. Nessun file del
+prodotto è stato modificato. Sequenza decisa: test Bruno → sole correzioni P0/P1
+→ caso vivo Sapienza Economia → ISEG → 3-5 studenti indipendenti. Collaudo
+finale del pacchetto: **154/154 unit** e **76/76 UI**, contro 153/153 e 75/75
+prima dell'aggiunta delle due regressioni del caso.
 
 **(SESSIONE 2026-08-02 — V7 LEARNING AGREEMENT COME DOSSIER VIVO.)**
 Implementata la specifica congelata `PLAN_LEARNING_AGREEMENT_V7.md`: schermata
@@ -3985,6 +4099,7 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **PERCORSO — R2.1: scena d'ingresso** | **Decisione Nicola 16/07: scena CON CTA "Inizia il tuo percorso"** (§5.1). Primo contatto = scena a inchiostro (`.modo-scena`), missione in chiaro, mappa notte senza pin, 6 rotte d'oro lente da città geocodificate NEI DATI, CTA nel primo viewport mobile; al clic parte il flusso a 3 domande (focus sulla prima scelta). `prefers-reduced-motion` + Page Visibility rispettati; H1/title/description invariati. **R2 così è tutta implementata** (resta solo la validazione a video del punto 7) | ✅ Implementata e QA browser superato (2026-07-16, sessione 59); **pubblicata col push del 17/07** (sessione 60) |
 | **PERCORSO — R4 COMPLETA: LA Workspace v0** | Ramo additivo `ZAINO.la` (bozze per meta, versioni con motivo e timestamp, meta fotografata alla creazione); stazione 4 del Percorso = Workspace manual-first: esami di casa + corsi host (stato a 4 valori, data verifica locale), corrispondenze molti-a-molti con totali ECTS/CFU sticky e soglie prudenti (mai "approvato"), sostituzione senza perdita (nuova versione col motivo, storia congelata), checklist pre-invio per versione, export stampa/PDF + testo per il referente, proposte dai dati solo dove verificate (`linkCatalogo`/`notaDisponibilita`). **Gate R4 SUPERATO**: banco vm 33 scenari verdi + ricostruzione REALE del caso Bruno — v1 44 ECTS/45 CFU, v2 53/57, identici a LA e Change Form ufficiali | ✅ Implementata, QA interno superato e **PUBBLICATA + verificata sull'URL** (2026-07-17, sessione 60, commit «LA iniziale») — "validata" coi tester (R5); schema `la` da ratificare da Nicola |
 | **PERCORSO — R6 (parte eseguibile): asset, sw, misura A/B, QA core** | R6.5 asset in direzione giorno (logo-mark ai token Direzione C, icone PWA 192/512 rigenerate dal logo su `--bg-deep`, via il placeholder "EW"; OG/manifest già a posto); R6.6 sw `v3` con shell offline esplicita (bootstrap pre-ateneo completo), fallback navigazione su index, cache runtime solo same-origin, niente push; R6.1/R6.2 Livello A/B **misurati** (gap al cantiere dati: 0% fonte/verificataIl per-meta, 469 mete Sapienza senza link, ~406 lingue mute, Livello B starter 0% su linkCatalogo/notaDisponibilita); R6.7 regressione core verde (pulito+legacy, cambio ateneo, hash, 3 larghezze, console pulita) | ✅ Implementata, QA interno superato (2026-07-17, sessione 61) — da pubblicare; R6.3/R6.4 bloccate su azioni umane; R5 resta il gate dei tester |
+| **PRE-BRUNO — nuovo ingresso LA** | Addendum in `PLAN.md`: nav LA primaria, onboarding a rami, meta/facoltà manuali prudenti, continuità della meta; import multiplo opzionale dopo gate verde | ▶ Piano firmato da Nicola per implementazione locale: tranche 1 obbligatoria, tranche 2 solo dopo gate verde. Review 5 round senza APPROVED sul futuro storage pubblico, ora separato. Nessun codice iniziato |
 | **Pubblicazione — guasto Pages** | Source su "GitHub Actions" senza workflow di deploy: sito fermo al commit del 3/7, **171 commit (125 sul sito) invisibili per 12 giorni** (C2, C3, C4, R1.1-R1.4). Risolto con `.github/workflows/deploy-pages.yml` (Static HTML, niente Jekyll, guardia `node --check`); online verificato per hash contro `origin/main` | ✅ Chiuso (2026-07-15, sessione 56) — resta da rendere vera la riga "Online e locale coincidono" di `PUBBLICA.bat` |
 | **Pipeline dati T0→T3 — Gemini + Codex** | Copertura complessiva: **1.987 mete, 73% lingua, 79% scadenze**. Al 17/07: 315 run completati, 45 batch in coda; ultimo lotto reale pubblicato il 16/07 alle 13:08 | ⚠️ La schedulazione ogni 3 ore sull'altro PC non sta producendo commit/PR/branch su GitHub; controllare cronologia e ultimo risultato dell'attività pianificata sul PC remoto |
 | **REDESIGN v2 — F0: Preparazione** | Spec versionata in `design/redesign-2026-07/` (canvas + baseline invarianti/touch, vedi §4). Nessun file di produzione toccato. Commit `ac7c1c9`, pushato | ✅ Fatta (2026-07-25) |
@@ -4003,6 +4118,7 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **REDESIGN v3 — V5: Retention** | Sveglia calendario sul bando atteso nella coda dell'entrata e nella Home; `.ics` unico con UID stabili, due allarmi e provenienza; invito PWA per piattaforma; compatibilità senza penalità per certificato non ancora posseduto; conteggi entrata coerenti | ✅ **Implementata e corretta dopo la prima review UI** (2026-07-29). Regressione dello smistamento V3 chiusa; invito PWA reso persistente in pagina; documenti di prova 43/135. 111/111 unit e `test:perf` verde; 7 prove Playwright attendono il revisore. ⚠︎ Conteggi verdi reali 182/600 anziché 184/643: i file mete sono vietati e le radici presunte restano prudentemente non verdi |
 | **REDESIGN v3 — V6a: la lista delle mete** | Una lista sola, illimitata e ordinabile: via il tetto di 5 e via le quattro promesse di consegna che erano a schermo. `BANDO_INFO.massimoDestinazioni` nasce nei dati con fonte e stato `storico` e **non vincola nulla** (assenza = silenzio: Sapienza tace). Riordino con fuoco conservato e spostamento annunciato; rimozione annullabile in loco senza timer, con la posizione ripristinata; mete sparite dai dati mostrate come **orfane** invece che scartate in silenzio. Rotta `#mete/scelte/<ateneo>` registrata dentro il tab Mete via `ROTTE_PROFONDE`, con `scriviHash()` che non cancella più sotto-segmento e ateneo. Cinque invarianti puri in `puro.js`, provati **prima** della UI. Ricerca sopra i filtri, riquadro wizard rimosso (ma `applicaEsitoWizardMete()` conservato: è lo smistamento dell'entrata), mappa in fondo su telefono | ✅ **Implementata, revisionata e ONLINE** (`3d86900`, 2026-08-02) — spec congelata prima di delegare (`596574c`, 30/07), costruita da Codex `gpt-5.6-sol` con `/codex-build`, un giro di correzione, revisione del revisore. **126/126 unit (zero skip) + 58/58 UI**, banco mappa verde al primo giro (cluster 2,25× contro 3,00× ammesso). **Due difetti di prodotto chiusi in revisione**: le frecce di bordo che dirottavano il tasto su un altro comando, e la regione di annuncio distrutta e ricreata a ogni render (la prova la vedeva, lo screen reader no). **Tre delle cinque prove rosse erano sbagliate le prove**, non il codice. Nessuna riga di motore mappa, nessuna funzione congelata, nessun `dati-mete-*` |
 | **REDESIGN v3 — V7: Learning Agreement dossier vivo** | Ramo `ZAINO.la` schema 2 per ateneo: libreria piano, dossier esplorativi multi-meta, una meta operativa per ciclo, versioni e conferme immutabili, readiness e fase derivate, procedure separate Sapienza/Ca' Foscari, cambi durante la mobilità, convalida manuale, backup/ripristino e recupero degli errori di persistenza. Matching predisposto ma nascosto perché il dataset verificato è vuoto | ✅ **Implementata e verificata nel working tree** (2026-08-02), non committata né pubblicata. Due giri di review indipendente più revisione finale del diff: versioni legate al lock della fotografia corrente; fatti lifecycle prudenti; isolamento esplorativo; readiness molti-a-molti; duplicazione idempotente; gate fonti/date; link contestuale meta; recovery cross-ateneo; CFU con virgola e backup incompleti. **153/153 unit + 75/75 UI + performance VERDE**. ⛔ Rilascio bloccato finché non avvengono le quattro validazioni studenti previste dalla specifica |
+| **Tranche 1 pre-Bruno — ingresso, navigazione e dossier indipendente dalla mappatura** | Barra primaria `Mete · Home · Learning Agreement` con Menu fisso in alto a destra e `Percorso` da Home e Menu; la domanda sulla fase smista in tre rami reali; il ramo selezionato distingue primo LA e modifica; corso/facoltà e destinazione inseribili a mano nel namespace `manual:*`, con avviso prudente in dossier, testo copiato, stampa, backup e anteprima di ripristino; ricerca destinazioni limitata all'ambito (caso UCP coperto); `pendingIntent` che conserva la meta senza creare dossier vuoti; bozza di onboarding versionata e non distruttiva; utenti esistenti intatti | ✅ **Implementata e collaudata nel working tree** (2026-08-07), non committata né pubblicata. **176/176 unit + 96/96 UI + performance VERDE**, sei `node --check` verdi, `git diff --check` pulito; prove manuali a 375/390/768/1280 px, due atenei, tastiera, Indietro, rotte dirette, ripresa dopo reload, errore di salvataggio e offline. ⛔ Tranche 2 non iniziata; storage generale, PWA e service worker non toccati |
 | **A11y — fuoco sui filtri delle Mete** | Il punto 1 delle cose trovate fuori checklist in F4. `renderMete()` ricostruisce `#filtri-mete-chip`: il chip a fuoco veniva distrutto e il fuoco cadeva su `<body>`, così da tastiera il Tab ripartiva dall'inizio della pagina. Ora prima del re-render si registra l'**indice** del chip a fuoco (solo se `document.activeElement` è davvero un `.chip-filtro` di quel contenitore) e dopo lo si ridà al nodo nuovo con `focus({ preventScroll: true })`. Indice e non un `data-filtro` nuovo: i 5 chip sono una lista fissa, e l'attributo renderebbe bugiardo il commento R21 poche righe sotto. Solo `js/app.js`; `index.html` e `css/style.css` intatti | ✅ Fatta e verificata (2026-07-26) — nel browser sulla 8123: fuoco sul chip corrispondente invece che su `BODY`, **Tab reale successivo → chip seguente**, scroll invariato, col mouse `:focus-visible = false` (nessun anello), fuoco in `#cerca-mete` non rubato, nessuna eccezione senza profilo. ⚠︎ L'Invio da tastiera non è confermabile con l'automazione (stesso limite del punto 5 di F4): attivazione riprodotta con `chip.click()`, Tab reali |
 
 **Nav (R3, definitiva — gate R1 chiuso):** Mete → **Home** (centrale su
@@ -4072,7 +4188,14 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 | `js/la-suggerimenti.js` | dati | Contratto dati del pilota matching; array verificato attualmente vuoto, quindi nessuna UI di suggerimento viene mostrata |
 | `index.html` · `css/style.css` · `js/app.js` · `js/puro.js` · `sw.js` | codice V7 | Schermata/rotta LA, stile responsive, transazioni e workflow, funzioni pure di schema/migrazione/readiness/riconoscimento, e shell offline aggiornata. Il resto del sito e il contratto V6a restano coperti dalle suite di regressione |
 | `test/la-v2.test.cjs` · `test/ui/la-v2.spec.cjs` | test V7 | 26 prove pure LA e 17 flussi Playwright: importazione, migrazione, readiness molti-a-molti, lifecycle, versioni, assegnazione, due atenei, dossier esplorativi, link contestuale meta, convalida, quota, backup/restore cross-ateneo, offline, mobile e analytics |
-| `test/migrazione-zaino.test.cjs` · `test/router.test.cjs` · `test/ui/router.spec.cjs` · `test/v6a-scelte.test.cjs` · `test/ui/v6a-scelte.spec.cjs` | regressione V7 | Aspettative aggiornate per lo schema LA v2 e la nuova rotta profonda, senza allentare isolamento per ateneo, storia/fuoco o invarianti della lista mete |
+| `validazione/TEST_BRUNO_WEEKEND.md` | validazione V7 | Copione completo per il test moderato retrospettivo: preparazione, domande senza prodotto, tre consegne progressive, risultato atteso e criteri superato/correggere/blocco critico |
+| `validazione/BUSTE_TEST_BRUNO.md` | validazione V7 | Tre consegne stampabili e separabili per il tester: problema, sostituzioni ospitanti e nuovi esami Sapienza, senza rivelare i totali finali |
+| `validazione/RISULTATI_TEST_BRUNO.md` | validazione V7 | Scheda da compilare durante e subito dopo la sessione: tempi, suggerimenti, errori accademici, fiducia, parole incomprese, decisione e priorità P0/P1/P2/backlog |
+| `validazione/fixture-la-lisbona-iniziale.json` | fixture V7 | Backup LA storico anonimizzato e importabile: Sapienza 2025/26, UCP Lisbona, versione 1 con 8 corsi host/44 ECTS e 6 esami casa/45 CFU; nessun dato personale e nessuna meta storica aggiunta ai dati pubblici correnti |
+| `test/validazione-bruno.test.cjs` · `test/ui/validazione-bruno.spec.cjs` | test kit Bruno | Regressioni dedicate: struttura, totali, fase e assenza di identificativi nel fixture; importazione reale dall'interfaccia con dossier, ciclo e conteggi corretti |
+| `test/pre-bruno.test.cjs` | test tranche 1 | **NUOVO (07/08):** 22 prove pure dell'addendum pre-Bruno: limiti e normalizzazione dei campi manuali, identità opaca `manual:*`, avviso derivato dal namespace, backup incoerente bloccato, intento in corso e sua esclusività col dossier aperto, risolutore di contesto, ambito delle mete e omonime fuori ambito, smistamento dei tre rami, cicli ammessi dalla Home, bozza di onboarding versionata, whitelist di revisione, idempotenza |
+| `test/ui/pre-bruno.spec.cjs` | test tranche 1 | **NUOVO (07/08):** 20 flussi Playwright: nav a tre voci e Menu in alto a destra a 375/390/768/1280, Percorso da Home e Menu, tastiera e fuoco, tre rami dell'onboarding, ciclo storico nell'intento, facoltà manuale senza area, caso UCP fuori ambito, meta catalogata, meta manuale con avviso in dossier e testo copiato, omonime distinte, backup/ripristino e file incoerente, ripresa dopo reload, annullamento, salvataggio fallito, utente esistente intatto, separazione atenei, analytics |
+| `test/migrazione-zaino.test.cjs` · `test/router.test.cjs` · `test/ui/router.spec.cjs` · `test/v6a-scelte.test.cjs` · `test/ui/v6a-scelte.spec.cjs` · `test/ui/v5-retention.spec.cjs` | regressione V7 e tranche 1 | Aspettative aggiornate per lo schema LA v2 e la nuova rotta profonda, senza allentare isolamento per ateneo, storia/fuoco o invarianti della lista mete. **07/08:** le tre prove che cliccavano la voce di nav `Percorso` ora la raggiungono dal Menu e verificano la nuova terza voce `Learning Agreement` con l'ateneo in coda alla rotta |
 | `test/compatibilita-lingua.test.cjs` · `test/pipeline-lingue.test.mjs` · `test/onboarding-lingue.test.cjs` | test | **V0 (27/07)**: i 10 casi golden, icone effettive per i casi che parlano di colore, assenza posti nel ramo condizionato, precedenza `rootPresunta`, tabella ANY/ALL, pipeline, prova jsdom di Italiano C2 e banner di dettaglio; `node --test`, uscita non zero su errore |
 | `test/router.test.cjs` | test unitario | **V1:** 5 prove pure su hash nudi/alias, Learning Agreement con ateneo, due livelli futuri e input malformati. **V6a:** registrazione di `mete/scelte` e composizione dell'hash con e senza ateneo, più la verifica che le rotte a due livelli **non** registrate continuino a cadere su Oggi |
 | `test/v6a-scelte.test.cjs` | test unitario | **V6a (nuovo, 215 righe):** dato storico presente/assente e malformato, i cinque invarianti **ciascuno con un caso che lo viola**, migrazione vuota confrontata sull'oggetto intero, e le tre prove nate dalla revisione (bordi focalizzabili col fuoco che non cambia comando · regione annunci permanente · la prova V3 che verifica lo stato e non il riquadro rimosso) |
@@ -4181,6 +4304,24 @@ La review V4 non ha riscritto alcun contenuto validato o dato: ha ripristinato
 il saluto col nome e rende raggiungibile il profilo per un nuovo visitatore
 anche durante il pre-bando.
 
+**L'addendum pre-Bruno non modifica ancora contenuti o dataset.** UCP resta
+assente dall'elenco Giurisprudenza pubblico; il piano evita che questa lacuna
+blocchi il dossier consentendo una destinazione manuale marcata e mantenendo
+separate le regole verificate dell'ateneo di partenza dai dati non verificati
+dell'ospitante. Nessuna equivalenza accademica viene proposta.
+
+**La tranche 1 implementata (07/08) conferma questa scelta nel codice, senza
+toccare un solo dato.** Nessuna riga è stata aggiunta a `js/atenei/**` né alla
+pipeline di mappatura: UCP continua a non esistere fra le mete di Giurisprudenza
+e il prodotto lo **dichiara** invece di nasconderlo — l'omonima registrata per
+Psicologia viene mostrata come fuori ambito e mai proposta come accordo valido.
+La destinazione che manca si inserisce a mano, con id opaco e avviso che la
+segue ovunque. Le regole verificate dell'ateneo di partenza restano attive anche
+su una meta manuale: si sospendono soltanto i dati specifici dell'ospitante. Un
+corso/facoltà scritto a mano non attiva regole di facoltà per assonanza (una
+`Giurisprudenza internazionale` manuale non eredita le regole di Giurisprudenza)
+e non produce alcun punteggio di compatibilità.
+
 **V5 aggiunge solo due fatti di calendario ai contenuti:** la finestra attesa
 del nuovo bando è il 14/01/2027 per Ca' Foscari e il 16/12/2026 per Sapienza,
 sempre accompagnata dalla data e dalla fonte del bando precedente. Il
@@ -4229,6 +4370,17 @@ programmi devono avere URL HTTPS, titolo non vuoto e metadati espliciti
 nascosta. Le date 2026-08-02 restano nei dati come data di verifica, mentre i
 gate runtime confrontano sempre la data corrente e fanno decadere contenuti
 stale invece di mantenerli validi per sempre.
+
+**Caso Bruno pronto per la validazione umana, non ancora validato.** Il kit del
+07/08 usa soltanto i dati accademici necessari del LA iniziale e del Change
+Form, senza nome, data di nascita, matricola, email, firme o referenti. La prova
+serve anche a recuperare due fatti mancanti dal dossier: come furono trovati i
+corsi iniziali e quando/come emerse l'indisponibilità di 6 corsi su 8. Transcript
+of Records e convalida finale non sono disponibili: il test deve fermarsi alla
+proposta di modifica e non inventare il riconoscimento conclusivo. Il risultato
+corretto è 12 corsi host attivi/53 ECTS e 8 esami casa/57 CFU, con la versione
+iniziale conservata. Superare il test con Bruno non prova la domanda di mercato;
+abilita soltanto il successivo caso vivo e le prove indipendenti.
 
 **Debito lingua V0, rimisurato il 28/07 dopo la coda deterministica.**
 I dati non sono stati riscritti: restano **71 radici `ANY` presunte** da
@@ -4308,7 +4460,7 @@ interamente da G5/pipeline, non dall'app.
 | **21 mete Studi Umanistici** (`dati-mete-umanistici.js`) | **REALI** 2026/27; **18/21 lingua**, **21/21 scadenze**; coda `window.METE.push` rimossa il 15/07 (raddoppiava l'array a 42) ✅ | 3 lingue in linguaNonTrovabile |
 | **❓ "Sciences Po Grenoble UGA" ×2 in area 0312** | **NON è un doppione del bug**: sono due record distinti (id `21-f-grenobl23-0312-…` e `22-f-grenobl23-0312-…`), due righe separate del bando per lo stesso ateneo e dipartimento. Tutti i 392 id sono unici | **Decide Nicola**: due card o una sola? È una scelta sui dati, non sul codice |
 | **⚠️ EUTOPIA (46 accordi)** | non mappati | Cross-dipartimentali, richiede logica filtro speciale; task futura |
-| **❓ Meta reale del caso Bruno (UCP Lisbona, P LISBOA01)** | NON presente tra le 55 mete Giurisprudenza 26/27 (verificato in sessione 60: nessun match Lisboa/Católica nel file). L'accordo di Bruno era del ciclo 25/26 | **Decidere (Nicola/pipeline)**: accordo assente dalla lista 26/27 o gap di mappatura? Rilevante per il pilota OP6 (la ground truth punta a una meta che il sito non elenca) |
+| **⚠️ Meta reale del caso Bruno (UCP Lisbona, P LISBOA01)** | **ACCORDO NON TERMINATO.** Il PDF Giurisprudenza collegato dal bando 26/27 la elenca con validità 2028/29, 3 posti e 10 mesi; anche il bando European Law School 26/27 include UCP. Manca invece dal Search Tool Giurisprudenza (56 risultati) usato come sorgente dal sito (55 dopo l'esclusione PhD) | **Gap di copertura mappatura / conflitto tra fonti ufficiali.** Verificare quanti dei 3 posti siano ordinari e quanti ELS; poi aggiungere la meta. Riconciliare tutte le 88 righe del PDF con i 56 risultati Search Tool prima di considerare Giurisprudenza completa |
 | **Sapienza — 13 Facoltà avviate** (incluse Scienze Politiche, DIET, Polo di Latina, Scienze Statistiche, Informatica e DIAG) | REALI da Go Erasmus+; Informatica: 27/50 completate per riuso e 3 sotto-batch da 8; DIAG: 21/58 e 4 sotto-batch da 8 | Codex chiude i follow-up |
 | **Sapienza — ULTIME 4 Facoltà** | REALI dall'export ufficiale; lingua/scadenze vuote nel repo, ma al setup Codex il RIUSO ne pre-compila ~metà | Codex: 4 setup + batch di ricerca |
 | → posti/livello/area/coordinatore/codice Erasmus | reali, dalla lista | ok |
@@ -4343,6 +4495,30 @@ python -m http.server 8001
 poi aprire **http://localhost:8001**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
+
+### ⇢ In cima a tutto, dopo la tranche 1 (aggiornato 2026-08-07)
+
+1. **Guardare il sito con i propri occhi** (Nicola). Le modifiche sono nel
+   working tree, non committate: `RUN-SITO.bat`, poi provare l'ingresso da
+   finestra pulita e il dossier. Finché non le vedi, non si committa nulla.
+2. **Firmare o correggere**, poi decidere se committare. Nessun commit, push o
+   pubblicazione è stato fatto: servono una tua parola e una nuova istruzione.
+3. **Test con Bruno**, con il protocollo aggiornato: prima la **Parte 0** a
+   freddo (massimo 3 minuti, ci si ferma quando raggiunge il dossier), poi
+   chiudere **tutte** le finestre private, aprirne una nuova verificata vuota,
+   importare la fixture e svolgere il caso storico. I due esiti non si mescolano.
+4. **Tranche 2** (importazione multipla con anteprima, ricostruzione storica,
+   blocco delle fotografie): **non iniziata**. È il blocco successivo, con il
+   proprio gate completo. Se non entra prima di Bruno, lui usa la tranche 1
+   stabile e i corsi host si inseriscono a mano — come previsto dal piano.
+5. **Correzioni P0/P1** emerse dal test, prima di qualunque altro caso.
+6. **Piano storage post-Bruno** (bloccante per la pubblicazione): migrazione
+   con chiave isolata, handshake delle vecchie PWA, transazioni asincrone dentro
+   un lock globale e id di transazione idempotenti. Il revisore non ha approvato
+   questo gate e non lo si presume: **pubblicazione e migrazione restano
+   bloccate** finché non esiste un piano dedicato e riesaminato.
+7. **Le quattro validazioni studenti previste da V7** restano aperte: Bruno vale
+   solo per modifica e versionamento Sapienza, non per il rientro.
 
 ### Cantiere SITO (Claude Code) — numerazione 49→61
 
@@ -4391,8 +4567,9 @@ piano operativo del cantiere SITO da agosto 2026 a marzo 2027 è
    consegna tolte** dal sito. **126/126 unit (zero skip) + 58/58 UI**, banco
    verde al primo giro. **Debito dichiarato**: `massimoDestinazioni` esiste
    solo per Ca' Foscari — quello della Sapienza va trovato per V6b.
-7. ✅ **V7 — Learning Agreement dossier vivo IMPLEMENTATA E VERIFICATA nel
-   working tree** (02/08), non committata né pubblicata. Schema LA v2, import,
+7. ✅ **V7 — Learning Agreement dossier vivo IMPLEMENTATA, VERIFICATA E
+   COMMITTATA** (`001b46e`, 02/08; `main` allineato a `origin/main`). La
+   pubblicazione online non è stata riverificata il 07/08. Schema LA v2, import,
    dossier multi-meta, assegnazione per ciclo, versioni, regole dei due atenei,
    convalida, persistenza transazionale, backup/restore e offline coperti da
    **153/153 unit + 75/75 UI + performance VERDE**. Il matching resta nascosto:
@@ -4404,11 +4581,19 @@ piano operativo del cantiere SITO da agosto 2026 a marzo 2027 è
    date, link contestuale meta, recovery cross-ateneo e avvisi sui fatti reali.
    La revisione finale ha inoltre normalizzato i CFU con virgola prima del
    salvataggio e reso obbligatori ciclo e data nell'envelope di backup.
-8. ⛔ **Prima di un rilascio V7 servono quattro validazioni esterne reali:**
-   uno studente rientrato Sapienza, uno rientrato Ca' Foscari e uno studente alla
-   prima compilazione per ciascun ateneo. Non esiste evidenza nel repository e
-   nessuna di queste prove è stata dichiarata come svolta.
-9. ▶ **Il prossimo blocco tecnico resta una scelta:** **G2** scatta all'uscita
+8. ▶ **Piano pre-Bruno firmato: prossimo passo, implementazione con Claude.**
+   Costruire la tranche 1 e superare tutto il gate locale; solo allora, se resta
+   tempo, affrontare la tranche 2 come blocco separato. Non modificare storage
+   generale/PWA e non pubblicare: handshake dei client legacy e idempotenza
+   delle transazioni avranno un piano dedicato dopo Bruno.
+9. 🟡 **Validazione umana avviata, ma nessun test ancora svolto.** Nel weekend
+   va eseguito il test retrospettivo con Bruno usando il kit in `validazione/`.
+   Se emergono P0/P1 si correggono prima del caso vivo Sapienza Economia → ISEG;
+   P2 e idee nuove aspettano. Dopo questi due beachhead servono **3-5 studenti
+   indipendenti**, includendo almeno Ca' Foscari e una seconda disciplina, per
+   verificare che il valore non dipenda dalla famiglia o da chi ha già aiutato
+   a progettare il prodotto. Il gate esterno di rilascio resta quindi aperto.
+10. ▶ **Il successivo blocco tecnico di roadmap resta una scelta:** **G2** scatta all'uscita
    del bando 2027/28 (dicembre-gennaio) e sblocca **V6b**; **V6c** non dipende
    da G2. Restano **V8** rifiniture.
 
@@ -4627,9 +4812,11 @@ finito e online; la revisione d'insieme non si farà come sessione a sé:**
    `js/app.js`): definito in sessione seguendo PLAN §6.2-6.4 in forza del
    mandato "procedi a chunk senza fermarti". Se Nicola vuole cambiare
    qualcosa, ORA costa poco: le bozze vivono solo nei localStorage.
-3. **Gap dati da decidere:** la meta reale di Bruno (UCP Lisbona,
-   P LISBOA01) non è tra le 55 Giurisprudenza 26/27 (vedi §6) — buco di
-   lista bando o di pipeline? Rilevante per il pilota OP6.
+3. **Gap dati UCP diagnosticato:** l'accordo `P LISBOA01` è attivo almeno fino
+   al 2028/29, ma manca dal Search Tool Giurisprudenza usato dalla pipeline.
+   Prima del merge: chiarire la quota dei 3 posti riservata alla European Law
+   School e riconciliare l'intero PDF ufficiale (88 righe) con i 56 risultati
+   del Search Tool. Non basta aggiungere a mano la sola meta di Bruno.
 4. **R5 (test utenti) è il prossimo blocco R e NON è eseguibile da
    Claude:** servono Bruno + 2 studenti Sapienza + 3 Ca' Foscari se
    reperibili, telefono prima del desktop (PLAN §7/R5). Il compito 4 dei

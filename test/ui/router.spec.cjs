@@ -97,6 +97,12 @@ async function navigaDallInterfaccia(page, tab) {
     await page.locator("#btn-drawer").click();
     await expect(page.locator("#drawer")).toBeVisible();
     await page.locator('[data-drawer-goto="profilo"]').click();
+  } else if (tab === "percorso") {
+    // Tranche 1 pre-Bruno: Percorso lascia la barra principale e resta
+    // raggiungibile dal Menu (e dalla Home). La rotta non cambia.
+    await page.locator("#btn-drawer").click();
+    await expect(page.locator("#drawer")).toBeVisible();
+    await page.locator('[data-drawer-goto="percorso"]').click();
   } else {
     await page.locator(`.nav-item[data-tab="${tab}"]`).click();
   }

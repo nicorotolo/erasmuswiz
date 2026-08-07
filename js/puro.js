@@ -1254,6 +1254,136 @@
       .replace(/^-+|-+$/g, "") || "sconosciuto";
   }
 
+  // ----------------------------------------------------------
+  // TRANCHE 1 pre-Bruno — identità manuale (PLAN.md addendum §7-§8).
+  // Lo stato "manuale" NON è un booleano che qualcuno può alterare in un
+  // backup: si deriva sempre dal namespace riservato dell'id. Un id
+  // `manual:*` impone `source:"manual"`; `source:"manual"` su un id di
+  // catalogo è invece un'incoerenza, e va fermata prima dell'importazione.
+  // ----------------------------------------------------------
+  var LA_PREFISSO_MANUALE = "manual:";
+  var LA_LIMITI_MANUALI = Object.freeze({
+    universita: 200,
+    corso: 200,
+    citta: 100,
+    paese: 100
+  });
+
+  // Campi manuali piccoli e normalizzati: via i caratteri di controllo (anche
+  // quelli che spezzerebbero una riga in un testo copiato o in un backup),
+  // spazi compressi, forma unicode stabile, lunghezza massima dichiarata.
+  function testoManualeLA(valore, massimo) {
+    var base = valore == null ? "" : String(valore);
+    try { base = base.normalize("NFC"); } catch (e) {}
+    // Caratteri di controllo C0/C1, separatori invisibili, marcatori di
+    // direzione e BOM diventano uno spazio: non devono sopravvivere in
+    // dossier, testo copiato, stampa o backup.
+    base = base.replace(
+      /[\u0000-\u001f\u007f-\u009f\u00ad\u200b-\u200f\u2028\u2029\u202a-\u202e\u2060-\u2064\ufeff]/g,
+      " "
+    );
+    base = base.replace(/\s+/g, " ").trim();
+    var limite = Number(massimo);
+    if (Number.isFinite(limite) && limite > 0 && base.length > limite) {
+      base = base.slice(0, limite).trim();
+    }
+    return base;
+  }
+
+  function eIdManualeLA(id) {
+    return testo(id).indexOf(LA_PREFISSO_MANUALE) === 0 &&
+      testo(id).length > LA_PREFISSO_MANUALE.length;
+  }
+
+  // L'id è opaco e NON deriva dal testo: due destinazioni scritte allo stesso
+  // modo restano due dossier distinti, e una correzione del nome non cambia
+  // l'identità di quello già creato.
+  function creaIdManualeLA(uuid) {
+    var pulito = testo(uuid).toLocaleLowerCase("it").replace(/[^a-z0-9-]/g, "");
+    if (!pulito) return "";
+    return LA_PREFISSO_MANUALE + pulito.slice(0, 64);
+  }
+
+  function metaManualeLA(dati) {
+    var opzioni = oggettoSemplice(dati) ? dati : {};
+    var id = eIdManualeLA(opzioni.id) ? testo(opzioni.id) : creaIdManualeLA(opzioni.uuid);
+    if (!id) return null;
+    var universita = testoManualeLA(opzioni.universita, LA_LIMITI_MANUALI.universita);
+    if (!universita) return null;
+    return {
+      id: id,
+      source: "manual",
+      universita: universita,
+      citta: testoManualeLA(opzioni.citta, LA_LIMITI_MANUALI.citta),
+      paese: testoManualeLA(opzioni.paese, LA_LIMITI_MANUALI.paese)
+    };
+  }
+
+  // Etichetta manuale di corso/facoltà di partenza: identità stabile, nessuna
+  // area disciplinare e nessuna regola di facoltà dedotte dal testo.
+  function corsoManualeLA(dati) {
+    var opzioni = oggettoSemplice(dati) ? dati : {};
+    var id = eIdManualeLA(opzioni.id) ? testo(opzioni.id) : creaIdManualeLA(opzioni.uuid);
+    var etichetta = testoManualeLA(
+      opzioni.etichetta || opzioni.label || opzioni.nome,
+      LA_LIMITI_MANUALI.corso
+    );
+    if (!id || !etichetta) return null;
+    return { id: id, source: "manual", etichetta: etichetta };
+  }
+
+  // Il namespace è l'autorità. Nessun altro punto del codice decide se una
+  // meta è manuale: si chiede qui, sempre.
+  function normalizzaMetaLA(meta, metaId) {
+    var originale = oggettoSemplice(meta) ? copiaPersistibile(meta) : {};
+    var id = testo(metaId || originale.id);
+    var manuale = eIdManualeLA(id);
+    var risultato = Object.assign({}, originale, {
+      id: id,
+      universita: testoManualeLA(originale.universita, LA_LIMITI_MANUALI.universita),
+      citta: testoManualeLA(originale.citta, LA_LIMITI_MANUALI.citta),
+      paese: testoManualeLA(originale.paese, LA_LIMITI_MANUALI.paese)
+    });
+    if (manuale) risultato.source = "manual";
+    else delete risultato.source;
+    return risultato;
+  }
+
+  function metaManualeAttivaLA(dossier) {
+    return !!dossier && eIdManualeLA(dossier.metaId || (dossier.meta && dossier.meta.id));
+  }
+
+  var LA_AVVISO_META_MANUALE =
+    "Destinazione inserita da te — dati dell'ospitante da verificare";
+
+  // Incoerenze che un file di backup non può risolvere da solo: `source`
+  // manuale su un id di catalogo. Bloccano l'importazione finché lo studente
+  // non sceglie esplicitamente; il caso opposto (id manuale senza `source`) si
+  // corregge invece da solo, perché il namespace basta a dimostrarlo.
+  function incoerenzeManualiLA(la) {
+    var stato = oggettoSemplice(la) ? la : {};
+    var dossier = oggettoSemplice(stato.dossiersById) ? stato.dossiersById : {};
+    var problemi = [];
+    Object.keys(dossier).sort().forEach(function (id) {
+      var d = oggettoSemplice(dossier[id]) ? dossier[id] : {};
+      var meta = oggettoSemplice(d.meta) ? d.meta : {};
+      var metaId = testo(d.metaId || meta.id);
+      if (!eIdManualeLA(metaId) && (meta.source === "manual" || d.source === "manual")) {
+        problemi.push({ dossierId: id, metaId: metaId, kind: "manual-source-mismatch" });
+      }
+    });
+    var intento = oggettoSemplice(stato.pendingIntent) ? stato.pendingIntent : null;
+    var metaIntento = intento && oggettoSemplice(intento.meta) ? intento.meta : null;
+    if (metaIntento && !eIdManualeLA(metaIntento.id) && metaIntento.source === "manual") {
+      problemi.push({
+        dossierId: null,
+        metaId: testo(metaIntento.id),
+        kind: "manual-source-mismatch"
+      });
+    }
+    return problemi;
+  }
+
   function creaLaV2() {
     return {
       schemaVersion: LA_SCHEMA_VERSION,
@@ -1426,12 +1556,11 @@
     var risultato = Object.assign({}, originale, {
       id: id,
       metaId: metaId,
-      meta: Object.assign({}, metaOriginale, {
-        id: metaId,
-        universita: testo(metaOriginale.universita || originale.metaName),
-        citta: testo(metaOriginale.citta),
-        paese: testo(metaOriginale.paese)
-      }),
+      // `source` non viene copiato alla cieca: normalizzaMetaLA lo deriva dal
+      // namespace dell'id, così l'avviso manuale non si può spegnere a mano.
+      meta: normalizzaMetaLA(Object.assign({}, metaOriginale, {
+        universita: metaOriginale.universita || originale.metaName
+      }), metaId),
       university: testo(originale.university || originale.ateneo || configurazione.ateneo),
       cycle: testo(originale.cycle || originale.ciclo || configurazione.ciclo),
       createdAt: testo(originale.createdAt || originale.creataIl) || new Date(0).toISOString(),
@@ -1450,6 +1579,9 @@
     delete risultato.versioni;
     delete risultato.versioneCorrente;
     delete risultato.prossimoId;
+    // Un `source` manuale appiccicato al dossier (non alla meta) non è una
+    // seconda autorità: vale sempre e solo il namespace dell'id.
+    if (!eIdManualeLA(metaId) && risultato.source === "manual") delete risultato.source;
     if (testo(originale.archivedAt)) risultato.archivedAt = testo(originale.archivedAt);
     if (oggettoSemplice(originale.recognition)) {
       var riconoscimento = copiaPersistibile(originale.recognition);
@@ -1580,6 +1712,15 @@
     });
     if (risultato.recovery !== undefined && !oggettoSemplice(risultato.recovery)) {
       risultato.recovery = { legacyCorrupt: copiaPersistibile(risultato.recovery) };
+    }
+    // Intento in corso e dossier aperto sono mutuamente esclusivi: finché lo
+    // studente sta scegliendo, nessun dossier risulta già aperto sotto.
+    var intento = normalizzaPendingIntentLA(risultato.pendingIntent, risultato.dossiersById);
+    if (intento) {
+      risultato.pendingIntent = intento;
+      risultato.openDossierId = null;
+    } else {
+      delete risultato.pendingIntent;
     }
     return risultato;
   }
@@ -2023,12 +2164,10 @@
     var dossier = {
       id: id,
       metaId: metaId,
-      meta: {
-        id: metaId,
-        universita: testo(meta.universita),
-        citta: testo(meta.citta),
-        paese: testo(meta.paese)
-      },
+      // normalizzaMetaLA applica limiti dei campi manuali e deriva `source`
+      // dal namespace dell'id: il dossier nasce già coerente, e il backup che
+      // ne uscirà porta l'avviso con sé (PLAN.md §7-§8).
+      meta: normalizzaMetaLA(meta, metaId),
       university: testo(dati && dati.university),
       cycle: ciclo,
       createdAt: data,
@@ -2161,9 +2300,28 @@
       return { ok: false, error: "invalid-exported-at" };
     }
     if (!oggettoSemplice(dato.payload)) return { ok: false, error: "missing-payload" };
+    // `source:"manual"` su un id di catalogo non è correggibile in silenzio:
+    // il file è incoerente e l'importazione resta bloccata fino a una scelta
+    // esplicita. Il caso opposto (id `manual:*` senza `source`) lo ripara la
+    // normalizzazione, perché il namespace lo dimostra da solo.
+    var incoerenze = incoerenzeManualiLA(dato.payload);
+    if (incoerenze.length) {
+      return { ok: false, error: "manual-source-mismatch", issues: incoerenze };
+    }
     var payload = normalizzaLaV2(dato.payload, {
       ateneo: university,
       ciclo: cycle
+    });
+    // L'avviso viaggia con il file: l'anteprima di ripristino sa già quali
+    // destinazioni sono state inserite a mano.
+    var manuali = Object.keys(payload.dossiersById).filter(function (id) {
+      return metaManualeAttivaLA(payload.dossiersById[id]);
+    }).map(function (id) {
+      return {
+        dossierId: id,
+        metaId: payload.dossiersById[id].metaId,
+        universita: payload.dossiersById[id].meta.universita
+      };
     });
     return {
       ok: true,
@@ -2171,7 +2329,9 @@
       cycle: cycle,
       exportedAt: exportedAt,
       payload: payload,
-      counts: contaContenutoLA(payload)
+      counts: contaContenutoLA(payload),
+      manualMetas: manuali,
+      manualWarning: manuali.length ? LA_AVVISO_META_MANUALE : ""
     };
   }
 
@@ -2198,6 +2358,262 @@
       return oggettoSemplice(r) && ["contents", "credits", "semester", "language", "missingData"]
         .every(function (campo) { return testo(r[campo]); });
     }).map(copiaPersistibile);
+  }
+
+  // ----------------------------------------------------------
+  // TRANCHE 1 pre-Bruno — intento in corso e contesto unico (PLAN.md §9).
+  // Quando lo studente sceglie la meta ma non ha ancora il piano di studi,
+  // la scelta non può evaporare né far nascere un dossier vuoto in anticipo:
+  // vive in `pendingIntent`, mutuamente esclusivo con `openDossierId`.
+  // ----------------------------------------------------------
+  var LA_LAVORI = Object.freeze(["primo", "modifica"]);
+
+  function cicloValidoLA(ciclo) {
+    return /^\d{4}\/\d{2}$/.test(testo(ciclo));
+  }
+
+  function normalizzaPendingIntentLA(grezzo, dossiersById) {
+    if (!oggettoSemplice(grezzo)) return null;
+    var originale = copiaPersistibile(grezzo);
+    var lavoro = testo(originale.work);
+    if (LA_LAVORI.indexOf(lavoro) < 0) return null;
+    var ciclo = testo(originale.cycle);
+    if (!cicloValidoLA(ciclo)) return null;
+    var ateneo = testo(originale.university);
+    if (!ateneo) return null;
+    var meta = null;
+    if (oggettoSemplice(originale.meta) && testo(originale.meta.id)) {
+      meta = normalizzaMetaLA(originale.meta);
+    }
+    var precedente = testo(originale.returnOpenDossierId);
+    var dossier = oggettoSemplice(dossiersById) ? dossiersById : {};
+    if (!dossier[precedente]) precedente = null;
+    return Object.assign({}, originale, {
+      university: ateneo,
+      cycle: ciclo,
+      work: lavoro,
+      meta: meta,
+      createdAt: oraIso(originale.createdAt),
+      returnOpenDossierId: precedente
+    });
+  }
+
+  // Entrare nel flusso mette da parte il dossier aperto invece di perderlo:
+  // annullare lo restituisce, completare apre quello nuovo.
+  function impostaPendingIntentLA(la, dati) {
+    var stato = normalizzaLaV2(la);
+    var opzioni = oggettoSemplice(dati) ? dati : {};
+    var candidato = normalizzaPendingIntentLA({
+      university: opzioni.university,
+      cycle: opzioni.cycle,
+      work: opzioni.work,
+      meta: opzioni.meta,
+      createdAt: opzioni.at,
+      returnOpenDossierId: Object.prototype.hasOwnProperty.call(opzioni, "returnOpenDossierId")
+        ? opzioni.returnOpenDossierId
+        : (oggettoSemplice(stato.pendingIntent)
+            ? stato.pendingIntent.returnOpenDossierId
+            : stato.openDossierId)
+    }, stato.dossiersById);
+    if (!candidato) return { ok: false, error: "invalid-intent", la: stato };
+    stato.pendingIntent = candidato;
+    stato.openDossierId = null;
+    return { ok: true, la: stato };
+  }
+
+  function annullaPendingIntentLA(la) {
+    var stato = normalizzaLaV2(la);
+    var intento = oggettoSemplice(stato.pendingIntent) ? stato.pendingIntent : null;
+    if (!intento) return { ok: false, error: "no-intent", la: stato };
+    var precedente = testo(intento.returnOpenDossierId);
+    delete stato.pendingIntent;
+    stato.openDossierId = stato.dossiersById[precedente] ? precedente : null;
+    return { ok: true, la: stato };
+  }
+
+  function completaPendingIntentLA(la, dossierId) {
+    var stato = normalizzaLaV2(la);
+    var id = testo(dossierId);
+    if (!stato.dossiersById[id]) return { ok: false, error: "missing-dossier", la: stato };
+    delete stato.pendingIntent;
+    stato.openDossierId = id;
+    return { ok: true, la: stato };
+  }
+
+  // UN SOLO risolutore. Intestazione, regole, guida, controlli e creazione
+  // leggono da qui: così un ciclo storico non riceve le regole del ciclo
+  // corrente solo perché la Home ne conosce un altro.
+  function contestoLAAttivo(la, configurazione) {
+    var opzioni = configurazione || {};
+    var stato = normalizzaLaV2(la);
+    var ateneoDefault = testo(opzioni.university);
+    var cicloDefault = testo(opzioni.cycle);
+    var intento = oggettoSemplice(stato.pendingIntent) ? stato.pendingIntent : null;
+    if (intento) {
+      return {
+        source: "pending-intent",
+        university: intento.university || ateneoDefault,
+        cycle: intento.cycle,
+        work: intento.work,
+        metaId: intento.meta ? testo(intento.meta.id) : "",
+        meta: intento.meta ? copiaPersistibile(intento.meta) : null,
+        manualMeta: !!(intento.meta && eIdManualeLA(intento.meta.id)),
+        dossierId: null
+      };
+    }
+    var aperto = stato.dossiersById[testo(stato.openDossierId)];
+    if (aperto) {
+      return {
+        source: "open-dossier",
+        university: testo(aperto.university) || ateneoDefault,
+        cycle: testo(aperto.cycle) || cicloDefault,
+        work: null,
+        metaId: testo(aperto.metaId),
+        meta: copiaPersistibile(aperto.meta),
+        manualMeta: metaManualeAttivaLA(aperto),
+        dossierId: aperto.id
+      };
+    }
+    return {
+      source: "default",
+      university: ateneoDefault,
+      cycle: cicloDefault,
+      work: null,
+      metaId: "",
+      meta: null,
+      manualMeta: false,
+      dossierId: null
+    };
+  }
+
+  // ----------------------------------------------------------
+  // TRANCHE 1 pre-Bruno — ambito della ricerca destinazioni (PLAN.md §5).
+  // Un'università omonima presente in un ALTRO accordo non è una meta valida:
+  // il caso UCP (Psicologia ≠ Giurisprudenza) è la regressione nota.
+  // ----------------------------------------------------------
+  function meteInAmbitoLA(mete, ambito) {
+    var opzioni = oggettoSemplice(ambito) ? ambito : {};
+    var dipartimento = testo(opzioni.dipartimento);
+    var area = testo(opzioni.area);
+    // Un ambito manuale non attribuisce accordi: nessuna meta è "in ambito".
+    if (opzioni.manuale === true || eIdManualeLA(opzioni.dipartimentoId)) return [];
+    if (!dipartimento && !area) return [];
+    return (Array.isArray(mete) ? mete : []).filter(function (meta) {
+      if (!oggettoSemplice(meta)) return false;
+      if (dipartimento) return testo(meta.dipartimentoCf) === dipartimento;
+      return (Array.isArray(meta.areeDisciplinari) ? meta.areeDisciplinari : [])
+        .some(function (voce) { return oggettoSemplice(voce) && testo(voce.codice) === area; });
+    });
+  }
+
+  // Fuori ambito non significa "non esiste": significa che quell'accordo non
+  // vale per questo studente e la destinazione va inserita a mano.
+  function omonimeFuoriAmbitoLA(mete, ambito, nome) {
+    var cercato = slugLA(nome);
+    if (!cercato || cercato === "sconosciuto") return [];
+    var inAmbito = meteInAmbitoLA(mete, ambito).map(function (meta) { return meta.id; });
+    return (Array.isArray(mete) ? mete : []).filter(function (meta) {
+      return oggettoSemplice(meta) && inAmbito.indexOf(meta.id) < 0 &&
+        slugLA(meta.universita).indexOf(cercato) >= 0;
+    }).map(copiaPersistibile);
+  }
+
+  // ----------------------------------------------------------
+  // TRANCHE 1 pre-Bruno — smistamento iniziale (PLAN.md §2-§3) e cicli
+  // ammessi dalla Home (§2: niente scadenze di un ciclo che non è il suo).
+  // ----------------------------------------------------------
+  var LA_RAMI_ONBOARDING = Object.freeze(["esplora", "attesa", "learning-agreement"]);
+
+  function ramoOnboarding(fase) {
+    if (fase === "selezionato") return "learning-agreement";
+    if (fase === "in-attesa") return "attesa";
+    return "esplora";
+  }
+
+  // Esplorazione e attesa usano soltanto il ciclo dei dati verificati oppure
+  // il successivo esplicitamente marcato pre-bando. Un ciclo storico non
+  // eredita mai le scadenze di un altro: la Home resta neutra.
+  function cicloAmmessoHome(configurazione) {
+    var opzioni = configurazione || {};
+    var cicloDati = testo(opzioni.cicloDati);
+    var candidato = testo(opzioni.ciclo);
+    if (!cicloDati || !candidato) return { ammesso: false, motivo: "ciclo-sconosciuto" };
+    if (candidato === cicloDati) return { ammesso: true, motivo: "ciclo-dati" };
+    if (opzioni.modo === "pre-bando" && candidato === cicloSuccessivo(cicloDati)) {
+      return { ammesso: true, motivo: "pre-bando" };
+    }
+    return { ammesso: false, motivo: "ciclo-storico" };
+  }
+
+  // ----------------------------------------------------------
+  // TRANCHE 1 pre-Bruno — bozza di onboarding versionata e NON distruttiva
+  // (PLAN.md §10): sopravvive al reload, non si consuma alla lettura, si
+  // cancella soltanto dopo un salvataggio riletto con successo.
+  // ----------------------------------------------------------
+  var BOZZA_ONBOARDING_VERSIONE = 1;
+
+  function creaBozzaOnboarding(dati) {
+    var opzioni = oggettoSemplice(dati) ? dati : {};
+    return {
+      version: BOZZA_ONBOARDING_VERSIONE,
+      branch: LA_RAMI_ONBOARDING.indexOf(testo(opzioni.branch)) >= 0
+        ? testo(opzioni.branch) : "esplora",
+      step: testo(opzioni.step),
+      fase: faseViaggioV3(opzioni.fase),
+      university: testo(opzioni.university),
+      cycle: testo(opzioni.cycle),
+      dipartimento: testoManualeLA(opzioni.dipartimento, LA_LIMITI_MANUALI.corso),
+      dipartimentoId: testo(opzioni.dipartimentoId),
+      livello: ["L", "LM"].indexOf(testo(opzioni.livello)) >= 0 ? testo(opzioni.livello) : "",
+      work: LA_LAVORI.indexOf(testo(opzioni.work)) >= 0 ? testo(opzioni.work) : "",
+      updatedAt: oraIso(opzioni.at)
+    };
+  }
+
+  function normalizzaBozzaOnboarding(grezzo) {
+    var dato;
+    try { dato = typeof grezzo === "string" ? JSON.parse(grezzo) : copiaPersistibile(grezzo); }
+    catch (e) { return null; }
+    if (!oggettoSemplice(dato)) return null;
+    // Una bozza di un'altra versione non si interpreta e non si distrugge:
+    // semplicemente non guida più il flusso.
+    if (Number(dato.version) !== BOZZA_ONBOARDING_VERSIONE) return null;
+    if (!testo(dato.step)) return null;
+    if (LA_RAMI_ONBOARDING.indexOf(testo(dato.branch)) < 0) return null;
+    return creaBozzaOnboarding(Object.assign({}, dato, { at: dato.updatedAt }));
+  }
+
+  // `Rivedi il percorso iniziale` applica soltanto questa whitelist, e solo
+  // dopo conferma finale: ateneo e ciclo NON sono campi di profilo.
+  var CAMPI_RIVEDIBILI_ONBOARDING = Object.freeze([
+    "fase", "dipartimento", "dipartimentoId", "dipartimentoSource", "area", "livello"
+  ]);
+
+  function applicaRevisioneOnboarding(zaino, modifiche) {
+    var base = oggettoSemplice(zaino) ? copiaPersistibile(zaino) : {};
+    var richieste = oggettoSemplice(modifiche) ? modifiche : {};
+    var profilo = oggettoSemplice(base.profilo) ? copiaPersistibile(base.profilo) : {};
+    var ignorati = [];
+    Object.keys(richieste).forEach(function (campo) {
+      if (CAMPI_RIVEDIBILI_ONBOARDING.indexOf(campo) < 0) {
+        ignorati.push(campo);
+        return;
+      }
+      if (campo === "fase") {
+        base.fase = faseViaggioV3(richieste.fase);
+        return;
+      }
+      profilo[campo] = richieste[campo];
+    });
+    // Un'etichetta manuale non deve portarsi dietro un'area inventata.
+    if (eIdManualeLA(profilo.dipartimentoId)) {
+      profilo.dipartimentoSource = "manual";
+      profilo.area = null;
+    } else if (profilo.dipartimentoSource === "manual") {
+      delete profilo.dipartimentoSource;
+    }
+    base.profilo = profilo;
+    return { zaino: base, ignored: ignorati };
   }
 
   function scegliCtaLA(dati) {
@@ -2293,6 +2709,33 @@
     creaBackupLA: creaBackupLA,
     analizzaBackupLA: analizzaBackupLA,
     filtraSuggerimentiLA: filtraSuggerimentiLA,
-    scegliCtaLA: scegliCtaLA
+    scegliCtaLA: scegliCtaLA,
+    // Tranche 1 pre-Bruno
+    LA_PREFISSO_MANUALE: LA_PREFISSO_MANUALE,
+    LA_LIMITI_MANUALI: LA_LIMITI_MANUALI,
+    LA_AVVISO_META_MANUALE: LA_AVVISO_META_MANUALE,
+    LA_LAVORI: LA_LAVORI,
+    LA_RAMI_ONBOARDING: LA_RAMI_ONBOARDING,
+    CAMPI_RIVEDIBILI_ONBOARDING: CAMPI_RIVEDIBILI_ONBOARDING,
+    BOZZA_ONBOARDING_VERSIONE: BOZZA_ONBOARDING_VERSIONE,
+    testoManualeLA: testoManualeLA,
+    eIdManualeLA: eIdManualeLA,
+    creaIdManualeLA: creaIdManualeLA,
+    metaManualeLA: metaManualeLA,
+    corsoManualeLA: corsoManualeLA,
+    normalizzaMetaLA: normalizzaMetaLA,
+    metaManualeAttivaLA: metaManualeAttivaLA,
+    incoerenzeManualiLA: incoerenzeManualiLA,
+    impostaPendingIntentLA: impostaPendingIntentLA,
+    annullaPendingIntentLA: annullaPendingIntentLA,
+    completaPendingIntentLA: completaPendingIntentLA,
+    contestoLAAttivo: contestoLAAttivo,
+    meteInAmbitoLA: meteInAmbitoLA,
+    omonimeFuoriAmbitoLA: omonimeFuoriAmbitoLA,
+    ramoOnboarding: ramoOnboarding,
+    cicloAmmessoHome: cicloAmmessoHome,
+    creaBozzaOnboarding: creaBozzaOnboarding,
+    normalizzaBozzaOnboarding: normalizzaBozzaOnboarding,
+    applicaRevisioneOnboarding: applicaRevisioneOnboarding
   });
 });

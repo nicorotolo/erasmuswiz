@@ -272,14 +272,74 @@ body {
 }
 .nav-icon  { font-size: 17px; line-height: 1; opacity: .75; }
 .nav-item.attivo .nav-icon { opacity: 1; }
-.nav-label { font-size: 11px; font-weight: 700; letter-spacing: .02em; }
+/* `Learning Agreement` è l'etichetta del contratto (tranche 1 pre-Bruno) e
+   su telefono va a capo: interlinea stretta e testo centrato, così le due
+   righe restano leggibili. Le tre voci si allineano con `stretch` qui sotto:
+   senza, la voce alta di due righe rendeva la barra a scalini. */
+.nav-label {
+  font-size: 11px; font-weight: 700; letter-spacing: .02em;
+  line-height: 1.15; text-align: center; text-wrap: balance;
+}
 .nav-item.attivo .nav-label { font-weight: 800; }
+/* Solo su telefono: su desktop le voci sono in riga dentro una barra da
+   64px e `stretch` allungherebbe la campitura della voce attiva. */
+@media (max-width: 767px) {
+  .nav-bottom { align-items: stretch; }
+}
 
 /* Il trigger del drawer è un <button>: azzera lo stile nativo e prende
    quello delle voci di nav (che sono <a>). `font: inherit` serve anche
    per l'altezza: senza, il button non eredita line-height e il target
    scende a 42px, sotto i 44px richiesti (PLAN.md §5.6). */
 .nav-item-btn { background: none; border: none; font: inherit; cursor: pointer; }
+
+/* ================================================================
+   MENU IN ALTO A DESTRA (tranche 1 pre-Bruno, PLAN.md §1)
+   Non è più la quarta voce della barra: ha un posto suo, lo STESSO a
+   ogni larghezza. Su mobile galleggia sopra il contenuto (che riceve
+   il padding superiore corrispondente); su desktop si allinea alla
+   barra alta da 64px, che gli lascia lo spazio a destra.
+================================================================ */
+.barra-alto {
+  position: fixed;
+  top: 0; right: 0;
+  z-index: 250;
+  padding: var(--space-2) var(--gutter);
+  display: flex;
+  justify-content: flex-end;
+  pointer-events: none;                     /* solo il bottone è cliccabile */
+}
+.menu-trigger {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;                         /* touch — F2.0 */
+  padding: 0 var(--space-3);
+  border: 1px solid var(--night-border);
+  border-radius: var(--radius-md);
+  background: var(--night-bg);
+  color: var(--night-text);
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(16, 27, 63, 0.18);
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+.menu-trigger:hover { color: var(--gold); }
+.menu-trigger[aria-expanded="true"] { color: var(--gold); }
+.menu-trigger-icona { font-size: 16px; line-height: 1; }
+
+/* Lo spazio che il Menu si prende in cima NON si aggiunge qui con un
+   padding-top sparso: la banda mobile di .main-content è uno shorthand
+   completo e vincerebbe comunque (vedi il commento su .main-content).
+   Si scrive quindi là. Qui resta solo la regola del primo velo. */
+@media (max-width: 767px) {
+  /* Stessa scelta già fatta per la nav: il primo velo dell'entrata è a
+     tutta pagina e non ospita comandi. */
+  body.modo-scena-entrata .barra-alto { display: none; }
+}
 
 .nav-brand { display: none; align-items: center; gap: 8px; margin-right: auto; }
 .nav-logo { height: 26px; width: auto; display: block; }
@@ -297,12 +357,18 @@ body {
     top: 0; bottom: auto;
     border-top: none;
     border-bottom: 1px solid var(--night-border);
-    padding: 0 var(--gutter);
+    /* Il gutter di destra cresce per lasciare al Menu il suo posto fisso
+       (tranche 1 pre-Bruno): le voci non ci finiscono sotto. */
+    padding: 0 calc(var(--gutter) + 116px) 0 var(--gutter);
     height: 64px;
     justify-content: flex-end;
     gap: var(--space-1);
     box-shadow: 0 8px 24px rgba(16, 27, 63, 0.18);
   }
+  /* Il Menu si allinea alla barra alta: stessa riga, stesso respiro. */
+  .barra-alto { height: 64px; align-items: center; padding: 0 var(--gutter); }
+  .menu-trigger { box-shadow: none; background: none; border-color: transparent; }
+  .menu-trigger:hover { border-color: var(--night-border); }
   .nav-brand { display: flex; }
   .nav-item {
     flex: none;
@@ -409,9 +475,14 @@ body {
   z-index: 1;
   max-width: 680px;
   margin: 0 auto;
-  /* il fondo è lo spazio sotto la nav fissa: se cala, l'ultima riga di
+  /* In cima si riserva lo spazio del Menu fisso in alto a destra (tranche 1
+     pre-Bruno): senza, la prima riga della schermata gli finisce sotto.
+     ⚠️ 36px, non 44: è il minimo che tiene la prima riga sotto il bottone
+     (misurato a 390×844) senza rubare il primo schermo alla mossa
+     principale, che su telefono sta SOTTO il modulo del progresso.
+     Il fondo è lo spazio sotto la nav fissa: se cala, l'ultima riga di
      checklist finisce sotto la barra. */
-  padding: var(--space-5) var(--gutter) calc(80px + env(safe-area-inset-bottom, 0px));
+  padding: calc(var(--space-5) + 36px) var(--gutter) calc(80px + env(safe-area-inset-bottom, 0px));
 }
 @media (min-width: 768px) {
   .main-content {
@@ -1961,6 +2032,31 @@ body {
 .benvenuto-scelta:hover { border-color: var(--primary); transform: translateY(-1px); box-shadow: var(--shadow-card-hover); }
 .benvenuto-scelta:active { transform: scale(.97); }
 .benvenuto-sotto-domanda { font-weight: 700; font-size: .92rem; color: var(--text-muted); margin-bottom: 10px; }
+
+/* Fallback manuale del corso/facoltà di partenza (tranche 1 pre-Bruno,
+   PLAN.md §4). È deliberatamente una via secondaria: si apre solo se le
+   opzioni del catalogo non bastano. */
+.benvenuto-manuale {
+  margin-top: 14px; padding: 12px 14px;
+  background: var(--bg-card); border: 1px dashed var(--border);
+  border-radius: var(--radius-md); max-width: 46ch;
+}
+.benvenuto-manuale > summary {
+  cursor: pointer; font-weight: 700; font-size: .9rem; color: var(--text-dark);
+  min-height: 24px;
+}
+.benvenuto-manuale .benvenuto-sotto-domanda { margin: 10px 0; font-weight: 500; }
+.benvenuto-manuale input[type="text"] {
+  width: 100%; min-height: 44px; padding: 10px 12px; margin-bottom: 10px;
+  border: 1px solid var(--border); border-radius: var(--radius-md);
+  font-family: var(--font-body); font-size: .95rem; color: var(--text-dark);
+  background: var(--bg-page);
+}
+.benvenuto-errore-manuale {
+  font-size: .85rem; font-weight: 700; color: var(--red);
+  margin: 0 0 10px; max-width: 52ch;
+}
+
 /* Onboarding = personalizzazione locale onesta (PLAN §5.2) */
 .benvenuto-kicker {
   font-size: .78rem; font-weight: 800; letter-spacing: .07em;
@@ -2776,6 +2872,11 @@ body.modo-entrata .modo-scena .mappa svg {
 }
 .storage-failure-banner[hidden] { display: none; }
 .la-link-rapido { display: inline-flex; margin-top: 10px; color: var(--primary); font-weight: 700; font-size: .86rem; }
+/* Le due scorciatoie della Home su una riga sola: il modulo del progresso sta
+   SOPRA la mossa principale sul telefono, quindi ogni riga in più qui spinge
+   l'azione fuori dal primo schermo (contratto misurato a 390×844). */
+.scorciatoie-home { display: flex; flex-wrap: wrap; gap: var(--space-4); }
+.scorciatoie-home .la-link-rapido { margin-top: 10px; }
 .la-apri-dossier { display: inline-flex; margin-top: 10px; text-decoration: none; }
 .la-page { min-width: 0; }
 .la-page-header {
@@ -2827,6 +2928,37 @@ body.modo-entrata .modo-scena .mappa svg {
 .la-import-issues { grid-column: 1 / -1; color: var(--amber); }
 .la-text-button { min-height: 44px; border: 0; background: transparent; color: var(--primary); font-weight: 700; cursor: pointer; }
 .la-create-dossier { display: grid; grid-template-columns: minmax(180px, 1fr) 110px auto; gap: 8px; margin-top: 14px; }
+
+/* ---- Tranche 1 pre-Bruno: intento in corso, ambito e meta manuale ---- */
+.la-intento { border-color: var(--primary); }
+/* L'avviso sulla destinazione manuale è un giallo di ATTENZIONE, non un
+   errore: la destinazione è valida, sono i dati dell'ospitante a non essere
+   verificati (PLAN.md §7). */
+.la-avviso-manuale {
+  padding: 10px 12px; border-radius: var(--radius-md);
+  background: var(--amber-bg); border: 1px solid var(--amber-border);
+  color: var(--amber); font-size: .82rem; font-weight: 700; line-height: 1.45;
+  margin: 8px 0;
+}
+.la-avviso-ambito {
+  padding: 10px 12px; border-radius: var(--radius-md);
+  background: var(--amber-bg); border: 1px solid var(--amber-border);
+  color: var(--amber); font-size: .82rem; line-height: 1.45; margin: 8px 0;
+}
+.la-scelta-meta { margin-top: 16px; }
+.la-scelta-meta h3 { margin: 0 0 6px; font-family: var(--font-display); font-size: 1rem; }
+.la-scelta-meta > input[type="search"] { width: 100%; margin-top: 10px; }
+.la-meta-manuale {
+  margin-top: 14px; padding: 12px 14px;
+  border: 1px dashed var(--border-strong); border-radius: var(--radius-md);
+}
+.la-meta-manuale > summary { cursor: pointer; font-weight: 700; font-size: .9rem; min-height: 24px; }
+.la-meta-manuale input[type="text"] { display: block; width: 100%; margin: 8px 0; }
+/* A 375px la griglia a tre colonne della creazione dossier non ci sta:
+   diventa una colonna sola, con i bersagli interi. */
+@media (max-width: 520px) {
+  .la-create-dossier { grid-template-columns: 1fr; }
+}
 .la-dossier-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; }
 .la-dossier-card { padding: 14px; border: 1px solid var(--border); border-radius: var(--radius-md); min-width: 0; }
 .la-dossier-card.assigned { border-color: var(--primary); background: var(--bg-card-hover); }

@@ -467,3 +467,230 @@ VERDICT: APPROVED
 **Deviazioni dalla specifica congelata:** nessuna.
 
 **Verdetto tecnico:** implementazione completa nel working tree e suite richieste verdi; non committata, non pubblicata e non validata esternamente.
+
+---
+
+## Act 1 — Tranche pre-Bruno Learning Agreement (2026-08-07)
+
+**Plan summary:** rendere il Learning Agreement un ingresso primario prima del
+test con Bruno, correggere la perdita della meta e disaccoppiare la creazione
+del dossier dalla completezza della mappatura. Il lavoro è diviso in una
+tranche 1 obbligatoria e stabile e una tranche 2 opzionale per l'importazione
+massiva della versione esistente.
+
+**Act 1 (grill) complete — plan locked with the user. MAX_ROUNDS=5.**
+
+Decisioni confermate:
+
+1. Nav primaria `Mete · Home · Learning Agreement`; Menu persistente in alto a
+   destra; Percorso secondario ma non rimosso.
+2. La domanda iniziale sulla fase smista davvero i percorsi; il ramo selezionato
+   offre primo LA o modifica di un LA esistente.
+3. Il ramo LA non obbliga a lingue o esplorazione Mete.
+4. Destinazione ricercabile e, se assente, inseribile manualmente con avviso di
+   verifica; UCP è il caso di regressione noto.
+5. La meta scelta resta pendente durante l'inserimento del piano e genera il
+   dossier soltanto alla conferma.
+6. Nessun nuovo onboarding forzato agli utenti esistenti.
+7. Tranche 1 obbligatoria; tranche 2 parte solo dopo gate verde e solo se resta
+   tempo.
+8. La tranche 2 importa righe, non equivalenze; ambiguità e duplicati richiedono
+   scelta esplicita.
+9. Bozze modificabili nella stessa versione; versioni inviate/approvate
+   conservate e duplicate senza trasferire conferme.
+10. Nessun matching automatico, lettura PDF, redesign generale o pubblicazione
+    prima della prova locale.
+11. Bruno prova prima l'orientamento per massimo 3 minuti, poi il caso storico
+    in una finestra separata. Il suo esito non vale da solo come validazione di
+    mercato.
+
+**Review status:** pending Act 2 adversarial review.
+
+## Round 1 — Codex
+
+Il piano non è ancora implementabile in sicurezza. I problemi materiali sono questi:
+
+1. **Conflitto sullo schema LA.** L’addendum dichiara invariato il resto di `PLAN.md`, ma lo stesso file descrive ancora `bozzePerMeta`, mentre codice e specifica V7 usano `schemaVersion: 2` e `dossiersById`.
+   Fix — Dichiarare esplicitamente V7 e lo schema attuale come autorità, marcando §6.4/R4 di `PLAN.md` come storico e superato.
+2. **La destinazione manuale non ha un’identità definita.** Il codice riapre un dossier in base a `metaId + ciclo`; senza un `metaId` manuale stabile, due destinazioni possono collidere oppure tutte riaprire lo stesso dossier.
+   Fix — Salvare ogni meta manuale con ID opaco nel namespace `manual:*`, `source:"manual"` e fotografia immutabile di nome, città e Paese.
+3. **L’avviso sulla meta manuale non è garantito negli output.** Il piano lo richiede nel dossier, ma non in versioni storiche, stampa, testo copiato, backup e ripristino.
+   Fix — Rendere il flag manuale persistente e mostrare l’avviso in UI, storia, stampa, copia, backup e anteprima di ripristino.
+4. **“Procedure da verificare” confonde due fonti diverse.** Le regole ufficiali dell’ateneo di partenza restano valide anche con una meta manuale; devono essere sospesi soltanto i dati specifici dell’ospitante.
+   Fix — Separare esplicitamente regole verificate dell’ateneo di partenza e dati della destinazione.
+5. **La ricerca può proporre l’accordo sbagliato.** UCP esiste già nei dati Sapienza per Psicologia, ma non nell’elenco Giurisprudenza: una ricerca globale per nome potrebbe trattare quell’accordo come valido per Bruno.
+   Fix — Cercare soltanto negli accordi compatibili con dipartimento/area selezionati e trattare gli omonimi fuori ambito come meta manuale.
+6. **La “meta pendente” non ha uno stato persistente.** L’addendum promette continuità ma non specifica dove salvarla, per quale ciclo o quando cancellarla.
+   Fix — Aggiungere nel ramo LA un `pendingIntent` per ateneo e ciclo, salvato transazionalmente e rimosso solo dopo creazione riuscita o annullamento esplicito.
+7. **Il ramo “domanda presentata” non stabilisce i dati necessari.** Senza scelta dell’ateneo può mostrare scadenze dell’ateneo predefinito sbagliato.
+   Fix — Far scegliere almeno ateneo e ciclo prima di qualunque Home personalizzata.
+8. **Il LA resta dipendente dalla mappatura del corso di partenza.** Il fallback manuale riguarda soltanto la destinazione.
+   Fix — Aggiungere “Non trovi il tuo corso/facoltà?” con etichetta manuale prudente e senza derivare area, regole specifiche o compatibilità inventate.
+9. **Ripresa e salvataggio dell’onboarding non sono sicuri.** Lo stato intermedio viene consumato e il completamento può ignorare il fallimento del salvataggio.
+   Fix — Usare una bozza versionata non distruttiva, conservarla fino al commit verificato e mostrare errore/riprova.
+10. **“Rivedi il percorso iniziale” può alterare utenti esistenti.** Non è definito quali campi possa cambiare né cosa accada annullando.
+    Fix — Applicare solo una whitelist esplicita di campi dopo conferma finale, senza azzerare preferenze, checklist, dossier o wizard Mete.
+11. **La fotografia storica viene bloccata troppo presto.** La tranche 2 chiede lo stato subito dopo l’importazione, prima delle equivalenze.
+    Fix — Completare importazione, corrispondenze e controllo della fotografia prima di registrare lo stato storico.
+12. **Gli stati storici non mappano lo schema V7.** Non sono definite le corrispondenze con `sent-home`, `home-approved`, `host-approved`, né le date.
+    Fix — Definire una mappatura cumulativa esplicita e chiedere la data dichiarata dall’utente per ogni fatto, senza dedurre passaggi intermedi.
+13. **Il bersaglio dell’importazione è ambiguo.** La libreria globale e gli snapshot di versione hanno semantiche diverse.
+    Fix — Specificare un’unica transazione che aggiorna `examLibrary`, crea snapshot casa/host e collega `sourceExamId` senza toccare fotografie precedenti.
+14. **Formato e dimensioni dell’importazione non sono chiusi.** Manca un formato esatto e limiti preventivi.
+    Fix — Definire i formati ammessi e imporre limiti a byte, righe e lunghezza dei campi prima del parsing.
+15. **Esiste una race condition tra schede.** Due schede aperte possono sovrascrivere reciprocamente modifiche valide.
+    Fix — Aggiungere una revisione persistita con controllo anti-stato-obsoleto e conflitto recuperabile.
+16. **La “seconda finestra pulita” non è necessariamente pulita.** Due finestre private della stessa sessione possono condividere storage.
+    Fix — Chiudere tutte le finestre private prima del secondo test e verificarne l’assenza.
+17. **Il gate di pubblicazione è contraddittorio.** L’addendum cita Bruno più un solo studente, mentre V7 richiede quattro validazioni distinte.
+    Fix — Dichiarare il nuovo gate aggiuntivo a V7 o motivare esplicitamente una soglia diversa.
+18. **Il gate tecnico è troppo vago.** I test accessibilità/visuale sono segnaposto e il controllo manuale era limitato a 390 px.
+    Fix — Elencare comandi e matrice obbligatoria su sintassi, unit, UI, performance, offline, tastiera, storage e viewport.
+
+VERDICT: REVISE
+
+### Codex's response (Round 1)
+
+Accolti 18/18. Il piano ora:
+
+- dichiara V7 e `dossiersById` autorità corrente e marca §6.4/§6.5 come storici;
+- definisce identità, scope, avvisi e persistenza di facoltà/meta manuali;
+- rende onboarding e pending intent riprendibili, verificati e annullabili;
+- ordina la ricostruzione storica prima dei fatti esterni e mappa ogni fatto
+  separatamente con data dichiarata;
+- chiude formato, limiti e transazione dell'importazione;
+- isola davvero le due prove con Bruno e ripristina il gate V7 a quattro
+  validazioni;
+- esplicita i comandi e la matrice manuale, chiarendo che i test a11y/visual
+  attuali sono segnaposto;
+- colloca il controllo anti-concorrenza tra schede nel gate obbligatorio prima
+  della pubblicazione: il test locale pre-Bruno resta dichiaratamente a scheda
+  singola, mentre il pubblico non può partire senza protezione anti-stato-obsoleto.
+
+## Round 2 — Codex
+
+La revisione risolve bene quasi tutti i rilievi precedenti. Restano però otto
+problemi materiali:
+
+1. Il ciclo scelto può mostrare scadenze del ciclo sbagliato. Fix: limitare
+   esplorazione/attesa al ciclo dati corrente o successivo pre-bando e riservare
+   i cicli storici al dossier LA.
+2. Cambiare ateneo o ciclo da `Rivedi il percorso` non è una semplice modifica
+   di profilo. Fix: il cambio ateneo apre lo zaino separato; il cambio ciclo
+   archivia i campi legati al vecchio ciclo e inizializza contenitori nuovi.
+3. Un fatto storico senza data non blocca la versione. Fix: salvare `markedAt`
+   come momento della dichiarazione, `occurredOn` facoltativo, e bloccare la
+   fotografia confermata.
+4. Un semplice contatore di revisione non elimina la race tra schede. Fix:
+   serializzare con Web Lock esclusivo e rendere sola lettura una scheda quando
+   il lock non è disponibile e non può provare di essere l'unica scrivente.
+5. Bruno non può essere contato automaticamente come validazione completa del
+   rientro, perché il protocollo non testa Transcript e riconoscimento. Fix:
+   contarlo soltanto per modifica/versionamento.
+6. `Versione scelta` è ambiguo nell'importazione. Fix: importare soltanto nella
+   versione corrente modificabile e clonarla una volta se bloccata.
+7. Il gate reintroduce il tema notte fuori scope. Fix: controllare tema giorno,
+   superfici a inchiostro e contrasto, senza tema notte.
+8. Mancano limiti per meta/facoltà manuali. Fix: normalizzare e limitare tutti i
+   campi manuali anche fuori dall'importazione.
+
+VERDICT: REVISE
+
+### Codex's response (Round 2)
+
+Accolti 8/8. Il piano ora limita i cicli usati dalla Home ed esclude ateneo e
+ciclo dal comando `Rivedi` (soluzione più semplice del creare un nuovo archivio
+per-ciclo), registra fatti senza inventarne la data, definisce una
+serializzazione reale delle scritture prima del pubblico, lascia aperta la
+validazione Sapienza di riconoscimento, chiude il bersaglio dell'importazione,
+elimina il tema notte dal gate e limita/normalizza tutti i campi manuali.
+
+## Round 3 — Codex
+
+Il Round 2 è stato recepito quasi interamente. Restano quattro rischi materiali:
+
+1. Il lock per ateneo protegge l'oggetto sbagliato: tutti gli zaini sono nella
+   stessa chiave. Fix: lock e revisione globali per `erasmuswiz-zaino`.
+2. I fatti storici non sono atomici: il primo può creare una nuova versione e
+   spostare lì i successivi. Fix: applicarli insieme allo stesso
+   `snapshotVersionId`, bloccare e clonare una volta sola.
+3. Il ciclo del `pendingIntent` non governa ancora tutta l'interfaccia. Fix: un
+   resolver unico con precedenza dossier aperto, pending intent, default.
+4. Il disclaimer manuale può sparire da un backup incoerente. Fix: derivarlo
+   dal namespace `manual:*` e rifiutare/correggere esplicitamente incoerenze.
+
+VERDICT: REVISE
+
+### Codex's response (Round 3)
+
+Accolti 4/4. Il piano ora usa un lock globale sulla chiave realmente scritta,
+registra i fatti storici in batch sulla stessa fotografia, impone un solo
+resolver di contesto LA e rende il namespace dell'id l'autorità non alterabile
+per lo stato manuale.
+
+## Round 4 — Codex
+
+Le correzioni precedenti sono presenti. Restano quattro problemi materiali:
+
+1. Il lock protegge il salvataggio, ma il codice modifica lo zaino prima di
+   ottenerlo. Fix: transazione asincrona che acquisisce il lock, rilegge, applica
+   il mutatore e aggiorna la UI soltanto dopo read-back.
+2. Una vecchia scheda PWA non conosce il lock e può continuare a scrivere nella
+   stessa chiave. Fix: protocollo versionato e nuova chiave storage isolata, con
+   prova esplicita della vecchia pagina aperta.
+3. `dossier aperto → pendingIntent` è errato quando entrambi esistono. Fix:
+   renderli mutuamente esclusivi durante creazione/ripresa o dare precedenza
+   contestuale all'intento.
+4. Il fallback senza Web Locks non è un protocollo verificabile. Fix: sola
+   lettura oppure lease/fencing completo.
+
+VERDICT: REVISE
+
+### Codex's response (Round 4)
+
+Accolti 4/4. Il gate pubblico ora richiede transazioni asincrone che mutano
+l'ultima copia riletta dentro il lock, una chiave v4 separata dalla vecchia PWA,
+pending intent e dossier aperto mutuamente esclusivi, e modalità sola lettura
+quando Web Locks non è disponibile. Il test locale pre-Bruno resta a scheda
+singola e non viene appesantito dalla migrazione pubblica.
+
+## Round 5 — Codex
+
+Le quattro correzioni sono sostanzialmente presenti. Restano due soli blocchi:
+
+1. Una vecchia PWA può ancora salvare dati destinati a rimanere nella v3 senza
+   ricevere automaticamente `Aggiornamento necessario`; l'utente può vedere
+   sparire quelle modifiche al reload. Fix proposto: handshake di versione con
+   tutti i client del service worker e blocco della v4 finché ogni pagina legacy
+   non è stata chiusa o ricaricata.
+2. Se `setItem` riesce ma il read-back fallisce, `Riprova` può applicare due
+   volte un mutatore non idempotente. Fix proposto: id stabile per ogni
+   transazione, persistito e controllato prima di qualunque replay.
+
+VERDICT: REVISE
+
+### Resolution — MAX_ROUNDS reached
+
+Il ciclo termina al limite obbligatorio di 5 round senza falsa convergenza. I
+due rilievi non contestano la tranche locale pre-Bruno; riguardano soltanto la
+successiva migrazione multi-scheda/PWA necessaria prima della pubblicazione.
+
+**Posizione di Codex:** non ampliare ora il lavoro pre-Bruno. Spostare l'intero
+gate storage pubblico in un piano dedicato post-test, dove handshake dei client
+legacy e idempotenza delle transazioni possano essere progettati e provati senza
+mettere a rischio onboarding e prova con Bruno.
+
+**Decisione richiesta a Nicola:** separare il gate pubblico (raccomandato) oppure
+ampliare subito il piano corrente con i due meccanismi richiesti dal revisore.
+
+### Tie-break di Nicola — 2026-08-07
+
+Nicola ha confermato l'opzione raccomandata: implementare in locale la tranche
+1 e affrontare la tranche 2 soltanto se il primo gate è completamente verde.
+L'intero problema storage pubblico — migrazione, vecchie PWA, concorrenza tra
+schede e idempotenza delle transazioni — passa a un piano separato post-Bruno.
+
+**Esito finale del processo:** piano autorizzato dal proprietario per una build
+locale a perimetro ridotto. Non esiste un `APPROVED` del revisore sul futuro
+storage pubblico e non lo si presume: pubblicazione e relativa migrazione
+restano bloccate fino a un nuovo piano riesaminato.

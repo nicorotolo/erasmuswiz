@@ -169,9 +169,18 @@
             <div class="prep-barra-fill" id="prep-fill" style="width:0%"></div>
           </div>
         </div>
-        <a class="la-link-rapido" data-la-route href="#learning-agreement/cafoscari">
-          📚 Apri il dossier Learning Agreement →
-        </a>
+        <!-- Le due scorciatoie stanno su UNA riga: impilate rubavano al
+             telefono l'altezza che serve alla mossa principale (misurato a
+             390×844). Percorso esce dalla barra principale (tranche 1
+             pre-Bruno, PLAN.md §1) ma resta a un tocco da qui e dal Menu. -->
+        <div class="scorciatoie-home">
+          <a class="la-link-rapido" data-la-route href="#learning-agreement/cafoscari">
+            📚 Learning Agreement →
+          </a>
+          <a class="la-link-rapido percorso-link-rapido" href="#percorso" data-goto="percorso">
+            🧭 Percorso →
+          </a>
+        </div>
       </div>
 
     </section>
@@ -468,10 +477,23 @@
     </div>
   </footer>
 
+  <!-- Menu — persistente in alto a destra a OGNI larghezza (tranche 1
+       pre-Bruno, PLAN.md §1). Non è più una quarta voce di nav: la barra
+       principale resta di tre voci e il menu ha un posto suo, sempre lo
+       stesso. L'id resta #btn-drawer: è il contratto di initDrawer(). -->
+  <div class="barra-alto" id="barra-alto">
+    <button class="menu-trigger" id="btn-drawer" type="button"
+            aria-controls="drawer" aria-expanded="false" aria-haspopup="dialog">
+      <span class="menu-trigger-icona" aria-hidden="true">☰</span>
+      <span class="menu-trigger-label">Menu</span>
+    </button>
+  </div>
+
   <!-- Navigazione principale — in basso su mobile, in alto su desktop.
-       Le TRE voci del contratto (R3, PLAN.md §5.6): Mete · Home · Percorso,
-       con la Home centrale su mobile. "Altro" non è una voce di nav: apre
-       il drawer. Etichette STABILI: chiude il gate R1 "navigazione stabile". -->
+       Le TRE voci del contratto, aggiornate dalla tranche 1 pre-Bruno
+       (PLAN.md §1): Mete · Home · Learning Agreement, con la Home centrale
+       su mobile. `Percorso` non sparisce: resta raggiungibile dalla Home e
+       dal Menu. Etichette STABILI: chiude il gate R1 "navigazione stabile". -->
   <nav class="nav-bottom" aria-label="Navigazione principale">
     <div class="nav-brand" aria-hidden="true">
       <img src="img/logo-mark.svg" alt="" class="nav-logo">
@@ -485,15 +507,12 @@
       <span class="nav-icon">🏠</span>
       <span class="nav-label">Home</span>
     </a>
-    <a href="#" class="nav-item" data-tab="percorso">
-      <span class="nav-icon">🧭</span>
-      <span class="nav-label">Percorso</span>
+    <!-- La rotta LA porta sempre l'ateneo in coda: l'href viene riscritto
+         da renderLAV2()/initLAV2() come per gli altri collegamenti LA. -->
+    <a href="#learning-agreement/cafoscari" class="nav-item" data-tab="learning-agreement" data-la-route>
+      <span class="nav-icon">📚</span>
+      <span class="nav-label">Learning Agreement</span>
     </a>
-    <button class="nav-item nav-item-btn" id="btn-drawer" type="button"
-            aria-controls="drawer" aria-expanded="false" aria-haspopup="dialog">
-      <span class="nav-icon" aria-hidden="true">☰</span>
-      <span class="nav-label">Altro</span>
-    </button>
   </nav>
 
   <!-- Drawer da destra (R1.2, PLAN.md §5.6): Profilo, Cambia ateneo, Guide,
@@ -502,10 +521,19 @@
   <aside class="drawer" id="drawer" role="dialog" aria-modal="true"
          aria-labelledby="drawer-titolo" hidden>
     <div class="drawer-testa">
-      <h2 class="drawer-titolo" id="drawer-titolo">Altro</h2>
+      <h2 class="drawer-titolo" id="drawer-titolo">Menu</h2>
       <button class="drawer-chiudi" id="drawer-chiudi" type="button" aria-label="Chiudi il menu">✕</button>
     </div>
     <nav class="drawer-voci" aria-label="Menu secondario">
+      <!-- Percorso lascia la barra principale ma NON il prodotto: è qui e
+           sulla Home (tranche 1 pre-Bruno, PLAN.md §1). -->
+      <button class="drawer-voce" type="button" data-drawer-goto="percorso">
+        <span class="drawer-voce-icona" aria-hidden="true">🧭</span>
+        <span class="drawer-voce-testi">
+          <span class="drawer-voce-titolo">Percorso</span>
+          <span class="drawer-voce-sub">Requisiti, scadenze e tappe della candidatura</span>
+        </span>
+      </button>
       <button class="drawer-voce" type="button" data-drawer-goto="profilo">
         <span class="drawer-voce-icona" aria-hidden="true">👤</span>
         <span class="drawer-voce-testi">

@@ -12,6 +12,273 @@ modificabili sulla base di prove reali._
 > torna valida la roadmap di lungo periodo, da riallineare agli esiti del
 > pilota di settembre.
 
+## Addendum operativo 2026-08-07 — Prima di Bruno
+
+_Piano concordato da Nicola e Codex tramite grill decisionale. Questo addendum
+prevale sulle parti del piano luglio-settembre che riguardano navigazione,
+onboarding e Learning Agreement. Per dati, persistenza e lifecycle l'autorità
+corrente è `PLAN_LEARNING_AGREEMENT_V7.md` con `schemaVersion: 2` e
+`dossiersById`; le precedenti sezioni §6.4/R4 basate su `bozzePerMeta` sono
+storiche e superate. `PROGETTO_ERASMUS.md` resta la bussola strategica._
+
+### Goal
+
+Rendere ErasmusWiz più utile prima dell'incontro con Bruno, intervenendo sui
+problemi già dimostrati senza anticipare le risposte del test. Lo studente deve
+capire subito se deve scegliere una meta, preparare il primo Learning Agreement
+o modificarne uno esistente. Il dossier non deve dipendere dalla completezza
+della mappatura della destinazione o del corso di partenza.
+
+Il risultato pre-Bruno è una versione locale stabile, non ancora pubblicata,
+che consente a Bruno di provare separatamente l'intuitività dell'ingresso e il
+compito storico di modifica con il dossier anonimo già preparato.
+
+### Approach
+
+Il lavoro è diviso in due tranche. La seconda può iniziare soltanto dopo che la
+prima ha superato tutti i controlli. Se resta incompleta, Bruno usa la tranche 1
+stabile. Nessun ramo nuovo scrive dati accademici negli eventi analytics.
+
+#### Tranche 1 — Obbligatoria prima di Bruno
+
+1. **Gerarchia primaria.** La navigazione diventa `Mete · Home · Learning
+   Agreement`. `Altro` esce dalla barra e diventa `Menu`, persistente in alto a
+   destra. `Percorso` resta raggiungibile dalla Home e dal Menu. Rotte profonde,
+   tasto Indietro, focus e collegamenti storici continuano a funzionare.
+2. **Onboarding che smista davvero.** La domanda «A che punto sei?» produce tre
+   rami diversi. Tutti scelgono almeno l'ateneo di partenza. Esplorazione e
+   attesa usano soltanto il ciclo per cui l'ateneo possiede dati correnti
+   verificati, oppure il ciclo successivo esplicitamente marcato `pre-bando`:
+   non accettano un ciclo storico e non riusano scadenze di un altro ciclo. I
+   cicli storici sono selezionabili soltanto dentro il dossier LA e la Home
+   resta neutra (`Scadenze non disponibili per questo ciclo`). Chi esplora
+   prosegue verso profilo, lingue e Mete; chi ha presentato domanda arriva a
+   Home/attesa; chi è stato selezionato entra nel ramo Learning Agreement.
+3. **Due lavori concreti.** Il ramo selezionato domanda «Cosa devi fare adesso?»
+   e offre soltanto `Preparare il mio primo Learning Agreement` o `Modificare un
+   Learning Agreement già preparato`. Il riconoscimento finale resta nel
+   dossier e non diventa un terzo ingresso iniziale.
+4. **Profilo minimo e fallback prudente.** Il ramo LA raccoglie ateneo, ciclo,
+   corso/facoltà e livello, ma non obbliga a lingue o esplorazione Mete. Se il
+   corso/facoltà non compare, accetta un'etichetta manuale con
+   `source: "manual"`: non deriva area, compatibilità o regole di facoltà. Le
+   regole generali verificate dell'ateneo di partenza restano attive; quelle
+   specifiche si mostrano solo quando ciclo e ambito coincidono davvero.
+5. **Ricerca della destinazione limitata all'ambito.** Le mete proposte devono
+   appartenere al dipartimento/area selezionati. Un'università omonima presente
+   in un altro accordo non viene presentata come valida. Nel caso noto UCP,
+   l'accordo di Psicologia non può sostituire quello mancante di
+   Giurisprudenza.
+6. **Destinazione manuale con identità stabile.** Se la meta non compare, lo
+   studente inserisce nome, città e Paese. Alla prima conferma nasce un id opaco
+   stabile `manual:<uuid>`, non derivato dal testo, con `source: "manual"` e
+   fotografia immutabile dei campi. Non viene fuso automaticamente con record
+   futuri del catalogo. Soltanto i dati specifici dell'ospitante restano
+   `da verificare`; le regole valide dell'ateneo di partenza non vengono spente.
+7. **Avviso che viaggia con il dossier.** Il flag manuale è persistito e
+   l'avviso `Destinazione inserita da te — dati dell'ospitante da verificare`
+   compare in dossier, versioni storiche, testo copiato, stampa, backup e
+   anteprima di ripristino. Nessuna fonte, procedura o approvazione viene
+   inventata. Lo stato manuale si deriva sempre dal namespace riservato
+   `manual:` dell'id, non da un booleano alterabile. Al ripristino, id `manual:*`
+   forza `source: "manual"` con avviso; `source: "manual"` su un id non manuale
+   rende il backup incoerente e ne blocca l'importazione fino a scelta esplicita.
+8. **Campi manuali piccoli e normalizzati.** Prima del salvataggio rimuovere i
+   caratteri di controllo, normalizzare e comprimere gli spazi e applicare
+   `maxlength`: 200 caratteri per università e corso/facoltà, 100 per città e
+   Paese. I limiti valgono in UI, normalizzatori puri, backup e ripristino; il
+   rendering continua a usare nodi testuali, mai HTML proveniente dall'utente.
+9. **Continuità transazionale della meta.** Se manca il piano di studi, il ramo
+   LA salva un `pendingIntent` per ateneo e ciclo con lavoro scelto e fotografia
+   della meta. Mostra `Stai preparando il dossier per…`; rimuove l'intento solo
+   dopo creazione e rilettura riuscita del dossier oppure dopo annullamento
+   esplicito. Un errore di salvataggio conserva la bozza e offre `Riprova` senza
+   dichiarare concluso il passaggio. Nessun dossier vuoto nasce in anticipo.
+   Entrare o riprendere questo flusso rende `pendingIntent` e `openDossierId`
+   mutuamente esclusivi: l'intento conserva l'eventuale dossier precedente in
+   `returnOpenDossierId` e imposta l'apertura a `null`; annullare ripristina il
+   precedente, completare apre il nuovo. Un resolver puro `contestoLAAttivo`
+   usa quindi `pendingIntent` durante il flusso, altrimenti `dossier aperto`,
+   infine ciclo dello zaino/default. Lo stesso contesto governa intestazione,
+   regole, guida, controlli e creazione, così un ciclo storico non riceve regole
+   del ciclo corrente.
+10. **Ripresa sicura dell'onboarding.** Lo stato intermedio vive in una bozza
+   locale versionata, non distruttiva, che sopravvive al reload e non viene
+   consumata alla lettura. Il commit finale usa la stessa disciplina di
+   salvataggio verificato di V7; la bozza si cancella soltanto dopo read-back
+   riuscito. Sono disponibili ripresa e annullamento esplicito.
+11. **Utenti esistenti intatti e cambi separati.** Nessuno ripete
+    automaticamente l'onboarding. `Rivedi il percorso iniziale` lavora su una
+    copia e applica, solo dopo conferma finale, una whitelist di fase e campi
+    profilo mostrati; annullare non modifica nulla. Non può cambiare ateneo o
+    ciclo: `Cambia ateneo` continua ad aprire lo zaino separato esistente e il
+    ciclo corrente di esplorazione/attesa continua a derivare dai dati ufficiali
+    caricati. I cicli storici si scelgono solo dentro il dossier LA. In questo
+    addendum non nasce quindi una nuova migrazione per-ciclo di checklist o
+    autoverifiche.
+
+#### Gate tra le tranche
+
+La tranche 1 si chiude solo con:
+
+- `node --check` su ogni JavaScript toccato;
+- `npm run test:unit`, `npm run test:ui`, `npm run test:perf` e
+  `git diff --check` verdi;
+- prove manuali a 375, 390, 768 e 1280 px, per Sapienza e Ca' Foscari, su
+  tastiera/focus, tema giorno, superfici a inchiostro e contrasto di sistema,
+  offline/service worker, rotte/Indietro, reload, quota/salvataggio fallito e
+  separazione degli zaini;
+- nessuna perdita dati, falsa approvazione, meta sbagliata, avviso manuale
+  assente o testo accademico/destinazione inviato alle analytics.
+
+`test:a11y` e `test:visual` non valgono come prova finché restano segnaposto:
+accessibilità e confronto visivo sono quindi controlli manuali espliciti. Solo
+dopo questo gate si valuta il tempo residuo per la tranche 2.
+
+#### Tranche 2 — Opzionale prima di Bruno
+
+1. **Formato chiuso e limitato.** Per esami casa e corsi host accettare
+   `Nome;Crediti`, `;Nome;Crediti` o `Codice;Nome;Crediti`, oltre agli stessi
+   campi separati da tab. La virgola resta disponibile per i decimali e non è
+   un separatore di colonna. Prima del parsing rifiutare oltre 200 righe, oltre
+   100 KiB complessivi, campi testuali oltre 500 caratteri e URL oltre 2.048.
+2. **Anteprima senza perdite silenziose.** Distinguere righe valide, incomplete,
+   ambigue e duplicate. Ogni riga problematica deve essere corretta o esclusa
+   esplicitamente; input e decisioni restano disponibili dopo un errore.
+3. **Una sola transazione coerente sulla versione modificabile.** L'import è
+   consentito soltanto nella versione corrente modificabile. Se il dossier è
+   bloccato, crea una sola nuova versione e applica lì atomicamente l'intero
+   import; selezionare una versione storica non la modifica. La transazione
+   aggiorna `examLibrary`, crea snapshot casa/host, collega i `sourceExamId` e
+   verifica conteggi e identità al read-back.
+4. **Prima la fotografia, poi i fatti storici.** Dopo l'importazione lo studente
+   completa manualmente le corrispondenze, controlla righe/totali/fonti e
+   conferma una fotografia riepilogativa. Solo allora dichiara che cosa è
+   realmente accaduto a quella versione.
+5. **Fatti indipendenti e cronologia onesta.** `Bozza` significa nessun fatto
+   esterno. Le
+   altre scelte mappano separatamente `sent-home`, `home-approved` e
+   `host-approved`; una scelta non ne inventa un'altra. Per ogni fatto lo
+   studente può inserire `occurredOn`, la data reale dichiarata. Il sistema
+   salva sempre `markedAt` come momento in cui lo studente ha registrato il
+   fatto e blocca la fotografia anche se `occurredOn` è ignoto; l'interfaccia
+   distingue chiaramente `data dell'evento non ricordata` dalla data della
+   dichiarazione. Tutti i fatti della ricostruzione vengono raccolti prima e
+   applicati con una sola funzione pura/transazione allo stesso
+   `snapshotVersionId`: validazione completa, scrittura all-or-nothing, un solo
+   blocco della fotografia e al massimo una nuova versione di lavoro. Nessun
+   fatto può scivolare sulla versione appena creata.
+6. **Versioni aderenti ai fatti.** Una bozza resta modificabile nella stessa
+   versione. Dopo almeno un fatto esterno la fotografia viene bloccata e nasce
+   una nuova versione di lavoro. Le conferme non vengono trasferite.
+7. **Nessuna equivalenza automatica.** L'importazione crea righe, non
+   corrispondenze. Gli elementi scollegati restano evidenziati finché lo
+   studente non li collega manualmente.
+
+### Acceptance e prova con Bruno
+
+- Prima prova in una sessione privata pulita: «Sei stato selezionato e devi
+  modificare il Learning Agreement. Da dove inizieresti?». Fermarsi all'ingresso
+  del dossier. Supera se entro 3 minuti e senza aiuti Bruno sceglie il ramo,
+  trova o inserisce UCP, arriva al punto corretto e distingue ErasmusWiz dal
+  portale/approvazione ufficiale.
+- Dopo la prima prova chiudere **tutte** le finestre private. Aprire una nuova
+  sessione, verificare che storage e service worker della sessione precedente
+  non siano presenti, importare la fixture e controllare 8 corsi host/44 ECTS,
+  6 esami casa/45 CFU prima di iniziare il test storico.
+- Un suggerimento rende l'onboarding da correggere; l'impossibilità di arrivare
+  al dossier blocca la pubblicazione. Il test storico mantiene buste, criteri e
+  caso anonimo in `validazione/`; si annota l'esposizione all'onboarding.
+- Le regressioni automatiche coprono almeno: primo LA; modifica LA; meta
+  catalogata; UCP manuale; omonimo fuori ambito; facoltà manuale; pendingIntent
+  per ateneo/ciclo; reload/ripresa/annullamento; salvataggio fallito; utente
+  esistente; output/backup/restore manuale; separazione atenei; limiti import;
+  versione bloccata; analytics prive di dati accademici e destinazioni.
+- Bruno valida modifica e versionamento Sapienza, ma non il riconoscimento al
+  rientro perché Transcript e convalida non fanno parte del test. Restano quindi
+  aperti il caso Sapienza di prima compilazione, un caso Sapienza di
+  rientro/riconoscimento con materiali sufficienti, e i corrispondenti due casi
+  Ca' Foscari, oltre alla correzione di tutti i P0/P1.
+
+#### Blocco separato post-Bruno — escluso da questa build
+
+Il test locale usa una sola scheda attiva e non autorizza la pubblicazione. Per
+decisione di Nicola del 2026-08-07, questa build **non modifica** chiave o
+versione dello storage, funzioni generali di salvataggio, service worker,
+gestione multi-scheda o compatibilità con vecchie PWA.
+
+Prima di qualunque rilascio pubblico servirà un nuovo piano dedicato, bloccato e
+riesaminato, che definisca e provi insieme:
+
+1. transazioni asincrone che rileggono e modificano l'ultima copia dentro un
+   lock globale;
+2. chiave isolata, migrazione recuperabile e comportamento dei client legacy;
+3. id di transazione persistenti, per non duplicare un'operazione quando la
+   scrittura riesce ma il controllo successivo è incerto;
+4. comportamento senza Web Locks, due schede, due atenei e vecchie PWA.
+
+Questi punti restano **bloccanti per la pubblicazione**, ma non fanno parte
+della tranche 1 né della tranche 2 locale pre-Bruno.
+
+### Key decisions and tradeoffs
+
+- **Learning Agreement in primo piano:** accesso diretto al lavoro più costoso;
+  `Percorso` perde il posto primario ma resta disponibile.
+- **Fallback manuali casa/destinazione:** il dossier funziona con mappatura
+  incompleta; compatibilità e dati specifici non verificati vengono sospesi.
+- **Due tranche:** si protegge una base testabile; se manca tempo,
+  l'importazione resta manuale ma il test con fixture non è compromesso.
+- **Versioni basate su fatti reali:** niente false approvazioni; la ricostruzione
+  richiede un controllo esplicito prima di bloccare la fotografia.
+- **Locale prima del pubblico:** il test non aspetta la gestione multi-scheda;
+  la pubblicazione richiederà un piano tecnico separato.
+
+### Risks and open questions
+
+1. La tranche 2 può non entrare prima di Bruno: un nuovo utente senza backup
+   inserirà ancora i corsi host manualmente.
+2. Bruno valida il flusso di modifica e offre un segnale sull'intuitività, ma
+   non dimostra da solo interesse di mercato o generalizzabilità.
+3. Facoltà e mete manuali ricevono meno automazione: è una rinuncia intenzionale
+   per non attribuire accordi o regole sbagliati.
+4. La pipeline di mappatura resta separata. UCP prova un conflitto tra fonti e
+   ambiti, non giustifica una riga aggiunta a mano al dataset pubblico.
+5. Il gate V7 completo richiede ancora un caso Sapienza di riconoscimento e i
+   due tester Ca' Foscari non identificati.
+6. Migrazione storage, vecchie PWA e idempotenza restano requisiti di
+   pubblicazione, da progettare in un piano separato dopo Bruno.
+
+### Review status
+
+Il riesame avversariale ha raggiunto `MAX_ROUNDS=5` senza approvazione formale.
+Restano due soli nodi, entrambi nel futuro gate pubblico e non nelle tranche
+locali:
+
+1. impedire che una vecchia PWA continui a salvare nella v3 dopo la migrazione
+   senza rendere visibile all'utente che quelle modifiche non entreranno in v4;
+2. rendere idempotente il replay di una transazione quando la scrittura potrebbe
+   essere riuscita ma il read-back è incerto.
+
+**Decisione di Nicola, 2026-08-07:** confermata l'opzione (a). Il piano è
+congelato e autorizzato **soltanto per l'implementazione locale** della tranche
+1 e, dopo il suo gate verde, della tranche 2 opzionale. Il revisore non ha
+approvato il futuro gate storage: esso è stato rimosso da questa build e resta
+un blocco esplicito alla pubblicazione.
+
+### Out of scope
+
+- matching o equivalenza automatica tra corsi;
+- agenti o intelligenza artificiale nel prodotto durante l'uso;
+- lettura automatica di PDF, OLA, Transcript o Change Form;
+- caricamento di documenti firmati o dati personali;
+- riparazione completa della pipeline e copertura di tutte le mete;
+- redesign generale di colori, mascotte, card, animazioni o identità;
+- account, backend, sync cloud, invio, firma o approvazione ufficiale;
+- merge automatico tra modifiche di due schede;
+- modifiche a chiave/versione storage, salvataggio globale, service worker,
+  coordinamento multi-scheda o migrazione di vecchie PWA;
+- commit, push, deploy o pubblicazione senza una nuova istruzione di Nicola.
+
 ## 1. Obiettivo vero entro settembre
 
 Portare ErasmusWiz a una versione **pilot-ready**: non una collezione di
@@ -305,6 +572,12 @@ Niente codici corso host obbligatori: nel LA reale di Bruno erano “000”.
 
 ### 6.4 Persistenza
 
+> **Storico e superato dal Learning Agreement V7 (2026-08-02).** Lo schema
+> corrente è `schemaVersion: 2` con `dossiersById`, definito in
+> `PLAN_LEARNING_AGREEMENT_V7.md`. Il blocco `bozzePerMeta` seguente documenta
+> soltanto la prima ipotesi R4 e non deve essere implementato o migrato come
+> destinazione corrente.
+
 Nuovo ramo additivo nello zaino per-ateneo:
 
 ```text
@@ -323,6 +596,10 @@ Lo schema dettagliato viene definito prima dell’UI. Gli zaini senza `la`
 valgono “nessuna bozza”; nessuna perdita dei dati precedenti.
 
 ### 6.5 Gate di pubblicazione
+
+> **Storico.** Il gate di rilascio corrente è quello V7, integrato
+> dall'addendum 2026-08-07: quattro validazioni esterne distinte, non soltanto
+> Bruno e uno scenario sintetico.
 
 - Il Workspace può essere usato manualmente da tutti.
 - L’esperienza arricchita da dati/cataloghi viene dichiarata solo per le mete
@@ -764,7 +1041,9 @@ Ogni checkpoint risponde a tre domande:
 - **Confermata:** direzione giorno cartografica.
 - **Confermata:** niente account.
 - **Modificata:** “iscrizione” → personalizzazione locale onesta.
-- **Confermata:** nav Mete · Home · Percorso.
+- **Superata dall'addendum 2026-08-07:** nav Mete · Home · Percorso. La nuova
+  gerarchia proposta è Mete · Home · Learning Agreement, con Menu in alto a
+  destra e Percorso come accesso secondario.
 - **Confermata:** mappa mobile decorativa e pulita; interattività progressiva.
 - **Modificata:** Home da sette moduli equivalenti a quattro livelli principali.
 - **Modificata:** Generator completo → LA Workspace v0 manual-first, versionato.
