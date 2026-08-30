@@ -51,3 +51,24 @@ test("estrae pulito un secondo PDF universitario vero", () => {
 test("rifiuta un PDF vero con font a codifica proprietaria", () => {
   assert.equal(testoFixture("font-illeggibile.pdf"), null);
 });
+
+// I numeri sparivano. Dentro un TJ i numeri sono spostamenti di crenatura e si
+// buttano, ma una stringa fatta di sole cifre e' TESTO: appiattendo entrambi a
+// stringa, ogni pezzo numerico veniva scambiato per crenatura e cancellato.
+// Misurato il 30/08 su quattro PDF universitari veri appena scaricati: 509
+// cifre su 781 sopravvivevano, e "Rechbauerstrasse 12, A-8010 Graz" usciva
+// "Rechbauerstrasse 2, A- Graz" — non solo monco, ALTERATO. Un dato del genere
+// passa il cancello della citazione, perche' il modello cita cio' che gli
+// mandiamo, e arriva sbagliato allo studente.
+test("i pezzi di sole cifre sono testo, non crenatura", () => {
+  const riempi = "Testo di contorno lungo abbastanza da superare il minimo dell estrattore. ".repeat(3);
+  const testo = testoDaPdf(pdf(`BT (${riempi}) Tj [(Nomination deadline: ) -12 (15) -12 ( April ) -12 (2027)] TJ ET`));
+  assert.match(testo, /Nomination deadline: 15 April 2027/, "una scadenza senza giorno e' peggio di una scadenza mancante");
+});
+
+test("su una factsheet vera i numeri restano attaccati alle parole", () => {
+  const testo = testoFixture("factsheet-vera.pdf");
+  assert.match(testo, /BRUGG02/, "il codice Erasmus si spezzava in BRUGG e 02, e il 02 spariva");
+  assert.match(testo, /4600 Olten/, "il codice postale si spezzava dal nome della citta");
+  assert.match(testo, /900 students/);
+});

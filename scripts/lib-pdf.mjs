@@ -47,16 +47,30 @@ function tokensPdf(testo) {
 
 function testoFlusso(flusso) {
   const token = tokensPdf(flusso); const out = []; let pila = [];
+  const letterale = (x) => x && x.tipo === "letterale";
+  // La differenza fra una stringa letterale e un numero va conservata FINO a
+  // qui. Dentro un TJ i numeri sono spostamenti di crenatura e vanno buttati,
+  // ma "(2027)" e' testo: appiattendo tutto a stringa, ogni pezzo fatto di
+  // sole cifre spariva. Misurato il 30/08 su PDF universitari veri:
+  // "Nomination deadline: 15 April 2027" usciva "Nomination deadline: April",
+  // e una scadenza senza giorno passa il cancello della citazione (il modello
+  // cita cio' che gli mandiamo) per arrivare sbagliata allo studente.
   for (let i = 0; i < token.length; i++) {
     const t = token[i];
-    if (t.tipo === "testo") { pila.push(t.valore); continue; }
-    if (t.tipo === "[") { pila.push("["); continue; }
-    if (t.tipo === "]") { pila.push("]"); continue; }
+    if (t.tipo === "testo") { pila.push({ tipo: "letterale", valore: t.valore }); continue; }
+    if (t.tipo === "[" || t.tipo === "]") { pila.push({ tipo: t.tipo }); continue; }
     const op = t.valore;
-    if (op === "Tj" || op === "'" || op === "\"") { const v = [...pila].reverse().find((x) => typeof x === "string" && x !== "["); if (v) out.push(v); if (op !== "Tj") out.push("\n"); pila = []; continue; }
-    if (op === "TJ") { let spazio = false; for (const x of pila) { if (x === "[" || x === "]") continue; if (typeof x === "string") { if (/^-?\d+(?:\.\d+)?$/.test(x)) spazio ||= Number(x) < -100; else { if (spazio) out.push(" "); out.push(x); spazio = false; } } } pila = []; continue; }
+    if (op === "Tj" || op === "'" || op === "\"") { const v = [...pila].reverse().find(letterale); if (v) out.push(v.valore); if (op !== "Tj") out.push("\n"); pila = []; continue; }
+    if (op === "TJ") {
+      let spazio = false;
+      for (const x of pila) {
+        if (letterale(x)) { if (spazio) out.push(" "); out.push(x.valore); spazio = false; }
+        else if (x.tipo === "numero") spazio ||= Number(x.valore) < -100;
+      }
+      pila = []; continue;
+    }
     if (["Td", "TD", "T*"].includes(op)) { out.push("\n"); pila = []; continue; }
-    if (/^-?\d+(?:\.\d+)?$/.test(op)) { pila.push(op); continue; }
+    if (/^-?\d+(?:\.\d+)?$/.test(op)) { pila.push({ tipo: "numero", valore: op }); continue; }
     pila = [];
   }
   return out.join("");
