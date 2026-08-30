@@ -24,6 +24,14 @@ limitatore prendeva un posto e non lo restituiva quando l'indirizzo non era un
 URL assoluto, e dopo sei perdite si bloccava per sempre. Corretto, con il caso
 costruito. **212 prove verdi.**
 
+Poi l'estrattore PDF, che stamattina era stato dichiarato chiuso, ha mostrato un
+difetto nuovo: guardando il testo di quattro PDF veri appena scaricati si vedeva
+che **cancellava i numeri**, e alcuni li alterava — "Rechbauerstrasse 12" usciva
+"Rechbauerstrasse 2". Corretto e provato: **214 prove verdi**. Vale la pena che
+tu lo sappia, perche' e' la lezione che riguarda anche questa consegna: quel
+difetto non si vedeva nel codice ne' nelle prove, si vedeva **guardando il
+dato**.
+
 ## Il compito, in una riga
 
 `scripts/leggi-partner.mjs`: per ogni partner con campi mancanti e pagine gia'
@@ -178,7 +186,7 @@ lettura che `leggi-partner.mjs` ha davvero prodotto e **passalo a
 brano inviato, la prova deve diventare rossa. Se resta verde, la prova non
 prova niente e va rifatta.
 
-- `npm run test:unit` resta verde. Oggi sono **212** prove.
+- `npm run test:unit` resta verde. Oggi sono **214** prove.
 - **Non** lanciare `npm run test:ui`: dura oltre 300 secondi e verrebbe
   troncato.
 
@@ -189,7 +197,7 @@ prova niente e va rifatta.
    e va letto da un umano prima della passata vera;
 3. l'esito di ogni prova prima (rossa) e dopo, e **che cosa hai rotto** per
    ciascuna;
-4. il numero di prove prima (212) e dopo;
+4. il numero di prove prima (214) e dopo;
 5. come si lancia la passata vera, con gli argomenti esatti;
 6. tutto cio' su cui ti sei fermato o che hai trovato ambiguo.
 
