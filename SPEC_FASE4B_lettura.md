@@ -5,8 +5,10 @@
 > Contesto: `DISEGNO_PIPELINE_DATI.md` (pipeline V2), `SPEC_FASE4A_raccolta.md`
 > (la fase precedente, gia' eseguita).
 >
-> **Perimetro: tre script nuovi, un modulo nuovo, due correzioni a uno script
-> esistente.** Niente altro. In particolare **non** si scrive l'orchestratore
+> **Perimetro: tre script nuovi, due moduli nuovi, e tre ritocchi a script
+> esistenti** (due `export` in `lib-output-batch.mjs`, una funzione spostata da
+> `verifica-link.mjs`, due correzioni a `raccogli-partner.mjs`).
+> Niente altro. In particolare **non** si scrive l'orchestratore
 > `esegui-partner.mjs`: incatenare i pezzi e' Fase 5, e i tre si lanciano in
 > sequenza a mano.
 >
@@ -24,8 +26,8 @@ c'erano. Leggere questi file **prima** di progettare qualunque cosa:
 | File | Cosa fa gia' | Regola |
 |---|---|---|
 | `scripts/lib-mete.mjs` | `caricaMete`, `valoreCampo`, `impostaCampo`, `spanTutteMete`, `serializza`, e **l'unica definizione di "campo vuoto"**: `statoCampo`, `campoVuoto`, `campoVuotoValore`, `copertoDavvero` | usare queste. **Non** scriverne un'altra: ce n'erano cinque e il 30/08 sono state unificate apposta |
-| `scripts/lib-output-batch.mjs` | valida gia' **tutto lo schema di uscita**: albero lingua ANY/ALL, livelli CEFR ammessi, `scadenzeOspitante`, URL, e `validaFonte()` (url + citazione + `verificataIl`) | **riusare `validaFonte` e `validaNodoLingua` cosi' come sono.** E' la parte davvero riusabile dell'impianto V1 |
-| `scripts/verifica-link.mjs` | controlla via HTTP che un URL risponda | riusare per il cancello 2 |
+| `scripts/lib-output-batch.mjs` | valida gia' **tutto lo schema di uscita**: albero lingua ANY/ALL, livelli CEFR ammessi, `scadenzeOspitante`, URL, e `validaFonte()` (url + citazione + `verificataIl`) | **riusare, non riscrivere.** Ma vedi §2 bis: due delle funzioni che servono non sono esportate, e vanno esportate |
+| `scripts/verifica-link.mjs` | controlla via HTTP che un URL risponda, con il ripiego HEAD→GET per i siti universitari che rifiutano HEAD | non e' importabile com'e': vedi §2 bis |
 | `scripts/verifica-completezza.mjs` | scarica i 18 export ufficiali in `fonti/sapienza/goerasmus/<AMBITO>.csv` | riusare la cache; **non** riscrivere il download |
 | `scripts/raccogli-partner.mjs` | Fase 4a: costruisce `raccolta/partner.json` e scarica le pagine in `raccolta/pagine/<CODICE>/` | si tocca **solo** per le due correzioni del §5 |
 | `scripts/applica-batch.mjs` | applica un lotto V1 a **un** file di **un** dipartimento | **non riusabile**: e' legato a `mappatura-stato.json` e al modello un-lotto-un-file. Un partner tocca fino a 14 file. Non modificarlo, non romperlo, non chiamarlo |
@@ -85,6 +87,49 @@ contare, e non se ne creano di nuovi.
 
 **D8. Zero dipendenze nuove.** Solo Node 22 e la sua libreria standard. Vale
 anche per il PDF: `node:zlib` c'e' gia', un pacchetto no.
+
+---
+
+## 2 bis. DUE OSTACOLI REALI, E COME SI SUPERANO
+
+> Aggiunto il 2026-08-30, **dopo** che l'esecutore si e' fermato a segnalarli.
+> Aveva ragione: la prima versione di questa spec diceva di riusare cose che
+> dall'esterno non sono raggiungibili. E' un difetto della spec, non suo.
+
+**Ostacolo 1 — due funzioni di `lib-output-batch.mjs` non sono esportate.**
+Sono esportate solo `validaFonte`, `validaContenitoreOutput` e
+`leggiEValidaOutput`; `validaNodoLingua` (riga 24) e `validaValore` (riga 69)
+sono private.
+
+**Si autorizza esplicitamente ad aggiungere `export`** davanti a
+`validaNodoLingua` e `validaValore`. Non e' una riscrittura: il corpo non si
+tocca, nessun chiamante cambia, `validaContenitoreOutput` continua a usarle
+identiche. "Non riscriverla" non ha mai voluto dire "non renderla
+raggiungibile". **Duplicarne la logica resta vietato.**
+
+*Prova di non-regressione richiesta*: `test/pipeline-lingue.test.mjs` copre gia'
+questo modulo e deve restare verde senza essere modificato.
+
+**Ostacolo 2 — `verifica-link.mjs` non e' importabile.** E' uno script da riga
+di comando: non esporta niente, fa lavoro al livello piu' esterno del file, e
+se manca `batch/SGROSSATURA.json` esce con codice 1. Importarlo lo farebbe
+partire. (E `batch/SGROSSATURA.json` oggi non esiste.)
+
+Rimedio: creare **`scripts/lib-link.mjs`** — la convenzione `lib-*` per il
+codice condiviso esiste gia' nel progetto — spostandoci dentro la funzione
+`statoLink(url)` **senza cambiarne una riga**, e facendola importare da
+`verifica-link.mjs`. Una definizione sola, come per `statoCampo()`. E' una
+modifica per sottrazione: si sposta, non si duplica.
+
+*Perche' e' sicuro*: `verifica-link.mjs` non e' importato da nessuno. L'unico
+che lo usa e' `esegui-lotto-automatico.mjs`, che lo lancia come **processo
+separato** (righe 145 e 280). Da riga di comando continua a comportarsi
+identico.
+
+*Prova di non-regressione richiesta*: costruire un `batch/SGROSSATURA.json`
+finto con un URL vivo e uno morto, eseguire `node scripts/verifica-link.mjs`
+prima e dopo lo spostamento, e mostrare che l'esito e' lo stesso. Poi cancellare
+il file finto.
 
 ---
 
@@ -233,12 +278,28 @@ Requisiti sulla citazione: almeno **20 caratteri** dopo la normalizzazione
 passerebbe) e non piu' di **35 parole**. Fuori da questi limiti:
 `citazioneFuoriMisura`.
 
-**Cancello 2 — l'URL risponde** (`urlMorto`).
-Ogni `fonte.url`, e ogni valore dei campi `linkSito`/`linkCatalogo`, deve
-rispondere 200 (redirect seguiti). Riusare `verifica-link.mjs`, con la stessa
-cortesia della Fase 4a: una richiesta per dominio alla volta, 1 secondo di
-pausa. L'URL della fonte dev'essere **una delle pagine inviate**, altrimenti
-`fonteNonInviata`: il modello non puo' citare una pagina che non ha ricevuto.
+**Cancello 2 — l'URL risponde** (`urlMorto`, `urlInconcludente`).
+
+Prima, gratis e senza rete: l'URL della fonte dev'essere **una delle pagine
+inviate**, altrimenti `fonteNonInviata`. Il modello non puo' citare una pagina
+che non ha ricevuto.
+
+Poi, e **solo** sui valori dei campi `linkSito` e `linkCatalogo`: devono
+rispondere. Usare `statoLink()` da `lib-link.mjs` (§2 bis), con la cortesia
+della Fase 4a: una richiesta per dominio alla volta, 1 secondo di pausa.
+- `morto` (404/410) → si scarta, causa `urlMorto`;
+- `inconcludente` (timeout, errore di rete, 5xx) → **si ritenta una volta** dopo
+  due secondi; se resta inconcludente si scarta con causa `urlInconcludente`,
+  contata a parte perche' dice quanto stiamo perdendo per rumore di rete e non
+  per link davvero rotti.
+
+**Gli URL delle fonti NON si ricontrollano, ed e' voluto.** Sono pagine che
+abbiamo scaricato noi in Fase 4a, con esito 200, e che il cancello
+`fonteNonInviata` garantisce essere fra quelle mandate al modello. Ricontrollarle
+significherebbe centinaia di richieste per riscoprire cio' che sappiamo gia', e
+per giunta buttare dati buoni ogni volta che un sito ha un momento storto. I
+valori di `linkSito`/`linkCatalogo` sono un'altra cosa: quelli il modello li ha
+**copiati dal testo**, non li abbiamo mai aperti, e vanno verificati.
 
 **Cancello 3 — la forma del dato** (`formaNonValida`).
 Passare ogni campo attraverso `validaValore`/`validaNodoLingua`/`validaFonte`
@@ -397,7 +458,7 @@ riferimento, e va riportata cosi':
 |---|---|
 | Campi **proposti** dal modello | per campo (i cinque), su quanti richiesti |
 | Campi **approvati** | per campo |
-| Campi **scartati** | per campo **e per causa**, con le parole del §3.3: `citazioneAssente`, `citazioneFuoriMisura`, `urlMorto`, `fonteNonInviata`, `formaNonValida`, `livelloFacolta`, `codiceSconosciuto` |
+| Campi **scartati** | per campo **e per causa**, con le parole del §3.3: `citazioneAssente`, `citazioneFuoriMisura`, `fonteNonInviata`, `urlMorto`, `urlInconcludente`, `formaNonValida`, `livelloFacolta`, `codiceSconosciuto` |
 | `nonTrovabile` scritti | per campo |
 | Disaccordi (campo gia' pieno, valore diverso) | numero |
 | PDF | quanti riscaricati, quanti letti, quanti falliti |
@@ -442,6 +503,9 @@ riferimento, e va riportata cosi':
 - Non introdurre una nuova definizione di "campo vuoto".
 - Non aggiungere dipendenze, nemmeno "solo per leggere i PDF".
 - Non toccare `applica-batch.mjs`, `propaga-tutto.mjs`, `mappatura-stato.json`.
+- Di `lib-output-batch.mjs` e `verifica-link.mjs` si tocca **soltanto** quanto
+  dice il §2 bis: aggiungere due `export`, e spostare una funzione. Nessun
+  corpo di funzione cambia, nessun comportamento cambia.
 - Non scrivere `esegui-partner.mjs`: e' Fase 5.
 - Non attivare la fatturazione sul progetto Gemini, e non proporlo.
 - Non fare commit, push o rami.

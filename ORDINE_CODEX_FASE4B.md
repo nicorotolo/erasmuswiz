@@ -19,12 +19,20 @@ chiedi per le decisioni di **progetto**, non per lo stato del repo.
 Esattamente questo, niente di piu':
 
 1. `scripts/lib-pdf.mjs` — estrattore PDF senza dipendenze (spec §3.1)
-2. `scripts/leggi-partner.mjs` — una chiamata Gemini per partner (spec §3.2)
-3. `scripts/cancelli.mjs` — i cinque cancelli deterministici (spec §3.3)
-4. `scripts/applica-partner.mjs` — scrittura nei file dati (spec §3.4)
-5. due correzioni a `scripts/raccogli-partner.mjs` (spec §4), **una alla volta,
+2. `scripts/lib-link.mjs` — `statoLink` spostata da `verifica-link.mjs`, che la
+   importa (spec §2 bis, ostacolo 2)
+3. i due `export` mancanti in `scripts/lib-output-batch.mjs` (spec §2 bis,
+   ostacolo 1)
+4. `scripts/leggi-partner.mjs` — una chiamata Gemini per partner (spec §3.2)
+5. `scripts/cancelli.mjs` — i cinque cancelli deterministici (spec §3.3)
+6. `scripts/applica-partner.mjs` — scrittura nei file dati (spec §3.4)
+7. due correzioni a `scripts/raccogli-partner.mjs` (spec §4), **una alla volta,
    misurando prima e dopo ciascuna separatamente**
-6. le prove unitarie nuove elencate nella spec §6.1
+8. le prove unitarie nuove elencate nella spec §6.1
+
+I punti 2 e 3 sono i due ostacoli che avevi segnalato tu fermandoti: avevi
+ragione, la spec ora li risolve esplicitamente al **§2 bis**. Leggi quel
+paragrafo per primo, insieme alle due prove di non-regressione che chiede.
 
 **Non** scrivere `esegui-partner.mjs`. **Non** toccare `applica-batch.mjs`,
 `propaga-tutto.mjs`, `mappatura-stato.json`. **Non** fare commit, push o rami.
