@@ -21,17 +21,48 @@
 
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-08-30 — Claude e Codex (**Fase 4b, Consegne 1,
-2a e 2b-1**, nessuna riga del sito toccata). Il nuovo
-`scripts/riscarica-pdf.mjs` riprende i PDF gia' censiti con `testo: null`,
-rispetta robots.txt e la cortesia della raccolta, salva il testo leggibile nella
-pagina e marca in modo permanente i fallimenti; non e' stata lanciata alcuna
-passata sulla cache reale mentre la raccolta continua. Le sei prove senza rete
-sono state viste rosse rompendole una alla volta e poi verdi, e le rotture sono
-state rifatte da Claude scegliendone altre sei: tutte rosse. Durante la raccolta
-di controllo e emerso un difetto della Fase 4a — il limitatore perdeva un posto
-quando l indirizzo non era un URL assoluto, e dopo sei perdite si bloccava per
-sempre (uscita 13) — corretto con la prova costruita. Totale **212/212**.
+**Ultimo aggiornamento:** 2026-08-30 (sera) — Claude e Codex (**Fase 4b,
+Consegne 2b-1 e 2b-2**, nessuna riga del sito toccata). **217/217 prove verdi.**
+
+La 4b è stata spezzata in **tre** ordini invece di due (spec §2 quinquies),
+perché misurando si è visto che riscaricare 879 PDF e chiamare il modello sono
+due lavori che non si somigliano. **2b-1 chiusa e verificata**:
+`riscarica-pdf.mjs` riprende i PDF che la Fase 4a aveva censito senza byte,
+rispetta robots.txt e la cortesia della raccolta, mette il testo in cache dentro
+la pagina e marca i fallimenti in modo permanente. Le sei prove sono state viste
+rosse **due volte**: con le rotture di chi ha scritto il codice, e con altre sei
+scelte da chi lo ha riletto. **2b-2 consegnata da Codex**
+(`leggi-partner.mjs`, tre prove che impacchettano i sette requisiti, e le due
+critiche attraversano davvero `applicaCancelli`): nessuna chiave usata, nessuna
+chiamata reale, nessun dato toccato — ⚠︎ **ma la rilettura del diff e del prompt
+non è ancora stata fatta**, ed è il primo passo della prossima sessione.
+
+**Tre difetti chiusi, tutti trovati costruendo il caso, nessuno rileggendo il
+codice.** (1) La raccolta di controllo è morta con uscita 13: il limitatore
+prendeva un posto e non lo restituiva quando l'indirizzo non era un URL
+assoluto, e dopo sei perdite si bloccava per sempre, con la rete già ferma.
+Corretto; il rilancio ha poi retto **5.058 richieste** dove prima moriva a
+1.200. (2) **L'estrattore PDF, dichiarato chiuso la mattina, cancellava i
+numeri** — e alcuni li alterava: `Rechbauerstrasse 12` usciva
+`Rechbauerstrasse 2`. Dentro un `TJ` i numeri sono spostamenti di crenatura e
+vanno buttati, ma una stringa di sole cifre è testo, e le due cose erano
+appiattite in una sola. Trovato **guardando il dato**, non il codice: nel testo
+estratto si leggeva `Fact Sheet 2026/,`. Misura su quattro PDF veri che chi ha
+corretto non aveva mai visto: cifre **509 → 781 (+53%)**. È la classe di errore
+che questa architettura non intercetta da sola, perché un dato **alterato passa**
+il cancello della citazione: il modello cita ciò che gli mandiamo noi.
+(3) L'ordine dei cancelli (E3) resta aperto: è materiale della 2b-3.
+
+**Il campo, misurato stasera.** Raccolta portata a **305 cartelle, 246 partner
+raggiunti, 5.555 pagine**: due volte e mezzo la soglia dei 100 che il §6.2
+chiede. Riscarico PDF: **870 riscaricati, 417 letti**; dopo di esso i partner
+con almeno una pagina leggibile sono **244 su 246**, e i PDF valgono il **15,3%**
+del testo disponibile. I 419 falliti sono stati divisi per causa su 40
+riscaricati apposta: 32 hanno il testo dentro ma con font a codifica propria,
+5 sono scansioni, 3 non hanno flussi leggibili. Il rifiuto è quindi onesto, ma
+circa **335 file hanno il testo dentro** e la mappa per decodificarlo la porta
+il PDF stesso: candidato per la Fase 5, registrato in spec §2 quinquies E8.
+
 L'estrattore PDF non sporca piu' il testo
 con gli operatori interni del file, e dichiara `null` invece di produrre
 spazzatura quando il font ha una codifica propria. **Verificato su 14 PDF
@@ -4156,7 +4187,8 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **PRE-BRUNO — nuovo ingresso LA** | Addendum in `PLAN.md`: nav LA primaria, onboarding a rami, meta/facoltà manuali prudenti, continuità della meta; import multiplo opzionale dopo gate verde | ▶ Piano firmato da Nicola per implementazione locale: tranche 1 obbligatoria, tranche 2 solo dopo gate verde. Review 5 round senza APPROVED sul futuro storage pubblico, ora separato. Nessun codice iniziato |
 | **Pubblicazione — guasto Pages** | Source su "GitHub Actions" senza workflow di deploy: sito fermo al commit del 3/7, **171 commit (125 sul sito) invisibili per 12 giorni** (C2, C3, C4, R1.1-R1.4). Risolto con `.github/workflows/deploy-pages.yml` (Static HTML, niente Jekyll, guardia `node --check`); online verificato per hash contro `origin/main` | ✅ Chiuso (2026-07-15, sessione 56) — resta da rendere vera la riga "Online e locale coincidono" di `PUBBLICA.bat` |
 | **Pipeline dati T0→T3 — Gemini + Codex** | Copertura complessiva: **1.987 mete, 73% lingua, 79% scadenze**. Al 17/07: 315 run completati, 45 batch in coda; ultimo lotto reale pubblicato il 16/07 alle 13:08 | ⚠️ La schedulazione ogni 3 ore sull'altro PC non sta producendo commit/PR/branch su GitHub; controllare cronologia e ultimo risultato dell'attività pianificata sul PC remoto |
-| **Pipeline dati — Fase 4b, Consegne 1 + 2a + 2b-1** | Cancelli deterministici e riscarico PDF: citazione nel solo brano inviato (impronta SHA-256), pagina mutata, forma, URL, livello e codici; i PDF vengono riscaricati con le regole Fase 4a, letti e messi in cache, o marcati con il motivo del fallimento | ✅ Chiuse e provate il 30/08: **212/212 unit**. `riscarica-pdf` ha sei regressioni senza rete, viste rosse due volte: con le rotture di chi ha scritto il codice e con altre sei scelte da chi lo ha riletto. In piu il limitatore della raccolta non perde piu il posto sugli indirizzi malformati (difetto Fase 4a, provato costruendo il caso). Resta la 2b-2 (lettura) e la 2b-3 (applicazione) |
+| **Pipeline dati — Fase 4b, Consegne 1 + 2a + 2b-1** | Cancelli deterministici e riscarico PDF: citazione nel solo brano inviato (impronta SHA-256), pagina mutata, forma, URL, livello e codici; i PDF vengono riscaricati con le regole Fase 4a, letti e messi in cache, o marcati col motivo del fallimento | ✅ Chiuse e verificate il 30/08. Sei regressioni senza rete viste rosse **due volte** (rotture dell'esecutore + altre sei del revisore). Corretti in rilettura due difetti che le prove verdi non vedevano: il limitatore della raccolta perdeva un posto sugli indirizzi malformati e si bloccava per sempre; l'estrattore PDF **cancellava i numeri e ne alterava alcuni**. Sul campo: 870 PDF riscaricati, 417 letti, 244 partner leggibili su 246 |
+| **Pipeline dati — Fase 4b, Consegna 2b-2** | `leggi-partner.mjs`: una sola chiamata al modello per partner sulle pagine gia' in cache, con impronta SHA-256 e titolo di ogni brano inviato, `nonTrovati` per la copertura onesta, tetti 40k/pagina e 250k/partner, arresto pulito sul 429 | ⚠︎ Consegnata da Codex il 30/08 sera, **non ancora riletta**: 217/217 unit, modello iniettabile, nessuna chiave usata e nessuna chiamata reale. Prima di lanciarla vanno letti il diff e **il prompt**, che nessuna prova puo' giudicare |
 | **REDESIGN v2 — F0: Preparazione** | Spec versionata in `design/redesign-2026-07/` (canvas + baseline invarianti/touch, vedi §4). Nessun file di produzione toccato. Commit `ac7c1c9`, pushato | ✅ Fatta (2026-07-25) |
 | **REDESIGN v2 — F1: Token, ritmo, gutter, griglia** | Token §2.1–2.3 (`--bg-app #FAF8F3`, `--night-bg #211E42`, `--space-*`/`--fs-*`/`--gutter`/`--stack`/`--container:1140px`/`--shadow-gold`, due `@media :root`); ritmo verticale con `> * + *` e i tre antidoti; **gutter a un solo proprietario** (`.main-content`): 18 margini legacy in 3 misure + 5 padding-gutter + blocco ≤480px + `#banner-wiz` inline, tutto in un diff; `.griglia-mete-v2` 1→2→auto-fill; creato `/*__PROD_END__*/`. Solo `css/style.css` (+238/−48), `index.html` e `js/app.js` intatti. **Due correzioni al canvas, misurate:** `.percorso-wrap` conserva `grid-row: 1/6` (senza, 337px di buco e sticky a corsa zero) e il hero torna full-bleed sotto i 768px | ✅ Fatta e verificata (2026-07-25) — commit `ce0d5a8`, **pushato il 25/07 insieme a F2** (decisione di Nicola: il piano lo collocava a F4). 4/4 controlli gutter, controllo browser 13 esecuzioni tutte vuote, invarianti F0 verdi ai 3 viewport |
 | **REDESIGN v2 — 🚦 GATE 1** | Nicola conferma le tre default: **P-A** su `modo-benvenuto` (R3), **`!important`** su `#banner-wiz` (R38, `index.html` non si tocca), **full-bleed conservato** per il hero. In più: **F2 riassegnata a Claude Code** invece di Codex (D4 rivista) | ✅ Passato (2026-07-25) |
@@ -4316,7 +4348,8 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 | `scripts/gemini-sgrossatura.mjs` · `scripts/verifica-link.mjs` | automazione | Sgrossatura T1 via Gemini API con Google Search + controllo HTTP preliminare delle fonti |
 | `scripts/cancelli.mjs` · `scripts/lib-link.mjs` · `scripts/lib-pdf.mjs` · `scripts/riscarica-pdf.mjs` | pipeline dati Fase 4b | Cancellano le proposte non verificabili e recuperano i PDF: il riscarico usa le regole condivise della raccolta, salva solo il testo estratto e non ritenta i fallimenti |
 | `test/fixtures/pdf/*.pdf` | prove pipeline Fase 4b | Tre PDF universitari **veri** (648 KB): una factsheet che deve uscire integra, un file sporco di operatori, uno a font proprietario che deve tornare `null`. Sono nel repo apposta: una prova che dipende dalla rete non è ripetibile, ed è la prova finta e pulita che aveva lasciato passare il difetto |
-| `test/cancelli-integrazione.test.mjs` · `test/cancello-citazione.test.mjs` · `test/cancello-livello.test.mjs` · `test/lib-pdf.test.mjs` · `test/raccogli-partner.test.mjs` · `test/riscarica-pdf.test.mjs` | test pipeline Fase 4b | Regressioni su citazione, pagina cambiata, titolo di facoltà, codice Ca' Foscari, iniezione senza rete, PDF, paese del CSV e riscarico permanente dei PDF |
+| `scripts/leggi-partner.mjs` | pipeline dati Fase 4b | La lettura: una chiamata al modello per partner sulle pagine in cache, con impronta e titolo di ogni brano inviato. ⚠︎ consegnata, non ancora riletta |
+| `test/cancelli-integrazione.test.mjs` · `test/cancello-citazione.test.mjs` · `test/cancello-livello.test.mjs` · `test/lib-pdf.test.mjs` · `test/leggi-partner.test.mjs` · `test/raccogli-partner.test.mjs` · `test/riscarica-pdf.test.mjs` | test pipeline Fase 4b | Regressioni su citazione, pagina cambiata, titolo di facoltà, codice Ca' Foscari, iniezione senza rete, PDF, paese del CSV e riscarico permanente dei PDF |
 | `scripts/lib-mete.mjs` | automazione | Utilità condivise: scanner/serializzazione + inserimento sicuro dei nuovi campi mappabili |
 | `scripts/lib-output-batch.mjs` · `scripts/valida-output-batch.mjs` | automazione | Contratto e validatore dell'OUTPUT: batch corretto, soli campi richiesti, formato dati e prove ufficiali obbligatorie |
 | `scripts/test-pipeline-gemini.mjs` | test | Suite isolata della pipeline: inserimento campi, anti-output residuo, evidenze, setup/riuso e merge |
@@ -4385,6 +4418,33 @@ ora prove permanenti: due restituiscono testo pulito e citabile, quello a font
 con codifica proprietaria ritorna correttamente `null`. La soglia sui caratteri
 di controllo è 10%: i due leggibili misurano 0,15% e 6,1%; il falso successo
 originario misurava 38,3%.
+
+**Fase 4b, Consegne 2b-1 e 2b-2, la sera del 30/08.** La cache di lettura vale
+ora **305 cartelle, 246 partner raggiunti, 5.555 pagine**, e dopo il riscarico
+dei PDF **244 partner su 246 hanno almeno una pagina leggibile**: la prova sul
+campo del §6.2 chiede 100 partner, e ce ne sono due volte e mezzo tanti. I PDF
+valgono il 15,3% del testo disponibile — non un dettaglio, perché è lì che
+stanno le factsheet con lingua e scadenze.
+
+**La lezione della sera, che vale oltre questa fase: le prove verdi non vedono
+un dato alterato.** L'estrattore PDF era stato dichiarato chiuso la mattina, con
+205 prove verdi e tre PDF reali come banco. La sera, guardando il **testo
+estratto** invece del codice, si leggeva `Fact Sheet 2026/,` e
+`Rechbauerstrasse 2, A- Graz`: cancellava i numeri, e il civico 12 era diventato
+2. Un dato così **passa il cancello della citazione**, perché il modello cita
+ciò che gli mandiamo noi, e arriverebbe sbagliato allo studente — una scadenza
+senza giorno è peggio di una scadenza mancante. Recupero misurato su quattro PDF
+veri che chi ha corretto non aveva mai visto: cifre 509 → 781 (+53%). Regola
+operativa che si aggiunge alle altre: *dopo ogni estrazione, leggi il testo
+estratto con gli occhi, non solo le asserzioni*.
+
+**I falliti si dividono per causa, sempre.** Dei 419 PDF illeggibili, un
+campione di 40 riscaricati apposta dice: 32 hanno il testo dentro ma con font a
+codifica propria, 5 sono scansioni, 3 non hanno flussi leggibili. Il rifiuto è
+onesto — nessun PDF leggibile è stato buttato per un difetto nostro — ma quattro
+quinti hanno il testo dentro, e la mappa per decodificarlo la porta il PDF
+stesso: è il giacimento più grosso trovato finora, ed è materiale della Fase 5
+(spec §2 quinquies E8).
 
 **Fase 1 fatta il 30/08 (`0f87ade`).** I 183 codici Erasmus inventati (`SAP-*`)
 sono diventati codici veri, verificati con l'incrocio di più prove — città
@@ -4671,13 +4731,23 @@ portatile può anche chiudersi.
    il cancello della citazione era aggirabile — chiuso e verificato costruendo
    il caso. La **Consegna 2a** (`lib-pdf.mjs`) è chiusa il 30/08: 205/205 prove
    verdi, due PDF reali estratti puliti e quello a font proprietario respinto.
-   La **Consegna 2b-1** (`riscarica-pdf.mjs`) è chiusa il 30/08: 212/212 prove
-   verdi, riscarico con robots.txt, pausa e ritentativo condivisi, tetto 8 MB e
-   checkpoint permanente. Restano la **2b-2** (`leggi-partner.mjs`), la
-   **2b-3** (`applica-partner.mjs`), la prima lettura con Gemini, la prova su
-   100 partner e il campione umano.
+   La **Consegna 2b-1** (`riscarica-pdf.mjs`) è chiusa il 30/08 sera: 870 PDF
+   riscaricati, 417 letti, 244 partner leggibili su 246. La **2b-2**
+   (`leggi-partner.mjs`) è consegnata ma ⚠︎ **non riletta**.
+   **I prossimi passi, nell'ordine:**
+   1. rileggere il diff della 2b-2 e soprattutto **il prompt**, che nessuna
+      prova può giudicare, e rifare le prove di persona rompendo il codice;
+   2. lanciare la **prima passata vera** con la chiave — la lancia Claude, non
+      l'esecutore — e **misurare il tetto giornaliero**, che nessuno conosce:
+      le fonti pubbliche dicono fra 250 e 1.500 chiamate;
+   3. il **campione umano dei 30 campi**: la tabella la prepara Claude con un
+      verdetto motivato per ciascuno, l'arbitrato è di Nicola (spec §2
+      quinquies E6). Sotto il 95% ci si ferma e lo si dice;
+   4. scrivere la **2b-3** (`applica-partner.mjs`) e con essa la correzione E3
+      dell'ordine dei cancelli;
+   5. **non** scrivere `esegui-partner.mjs`: incatenare i pezzi è Fase 5.
    Dettaglio:
-   `DISEGNO_PIPELINE_DATI.md` e `SPEC_FASE4B_lettura.md` §2 quater.
+   `DISEGNO_PIPELINE_DATI.md` e `SPEC_FASE4B_lettura.md` §2 quater e §2 quinquies.
 
 ### ⇢ In cima a tutto, dopo la tranche 1 (aggiornato 2026-08-07)
 
