@@ -338,6 +338,29 @@ di natura diversa — alterava il dato — ed e' per questo che e' stato corrett
 subito. Questi due restano materiale per la Fase 5, e il campione umano dei 30
 campi (E6) e' il posto dove si accorgerebbero di eventuali danni.
 
+**E8. Il riscarico PDF, misurato sul campo il 30/08 sera.** 870 PDF riscaricati:
+**417 letti**, 419 illeggibili, 22 oltre gli 8 MB, 12 non erano PDF, 3 vietati
+da robots.txt. 1.062 richieste HTTP. Dopo il riscarico i partner raggiunti con
+almeno una pagina leggibile sono **244 su 246**, e i PDF valgono il **15,3%**
+del testo disponibile.
+
+I 419 falliti sono stati **divisi per causa** su un campione di 40 riscaricati
+apposta per l'analisi:
+
+| Causa | Su 40 | Cosa vuol dire |
+|---|---:|---|
+| Font a codifica propria | 32 | il testo **c'e'** nel file, ma senza la mappa dei caratteri non si decodifica |
+| Nessun operatore di testo | 5 | scansione: e' un'immagine, e il §3.1 dice di rifiutarla |
+| Nessun flusso `FlateDecode` | 3 | compressione diversa, o file rotto |
+
+**Il rifiuto e' quindi onesto**: nessuno di questi e' un PDF leggibile buttato
+via per un difetto nostro. Ma quattro quinti dei falliti — circa **335 file** —
+hanno il testo dentro, e la mappa per decodificarlo (`/ToUnicode`) e' una tabella
+che **il PDF stesso porta con se'**: leggerla non e' OCR, non e' una libreria e
+non e' indovinare, cioe' non e' nessuna delle tre cose che il §3.1 vieta.
+**Non e' stato fatto**, ed e' fuori dal perimetro della 4b: e' un candidato per
+la Fase 5, con un guadagno potenziale gia' misurato.
+
 **I numeri di partenza della 2b, misurati il 30/08 sera in questa cartella:**
 
 | Cosa | Misura |
