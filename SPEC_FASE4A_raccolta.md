@@ -155,13 +155,22 @@ i PDF sono materiale per la Fase 4b, che decidera' come leggerli.
 
 ### 2.5 Il dizionario e il punteggio
 
-Un link vale la somma dei punti delle parole che compaiono nel suo testo o nel
-suo URL (senza accenti, minuscolo):
+Un link vale la somma dei punti delle **radici** che compaiono nel suo testo o
+nel suo URL (senza accenti, minuscolo).
 
-- **+4** ingresso: `incoming`, `exchange student`, `erasmus`, `study abroad`,
-  `studenti in scambio`, `austauschstudierende`, `etudiants en echange`,
-  `estudiantes de intercambio`, `estudantes de intercambio`, `wymiana`,
-  `değişim`, `degisim`, `csereprogram`, `schimb`, `utbytesstudent`;
+> ⚠️ **Corretto il 2026-08-30, dopo la misura sul campo.** La prima versione di
+> questo elenco usava parole intere, e perdeva ingressi che esistevano:
+> `internazionalità` non conteneva `internazionale`, `Studentenaustausch` non
+> conteneva `austauschstudierende`, e `student exchange` — la forma piu' comune
+> in inglese — non conteneva `exchange student`. Due regole che ne derivano:
+> **si usano radici, non parole flesse**, e **due radici non devono contenersi
+> a vicenda**, altrimenti lo stesso testo viene contato due volte e il
+> punteggio si gonfia senza motivo.
+
+- **+4** ingresso: `incoming`, `exchange student`, `student exchange`,
+  `erasmus`, `study abroad`, `studenti in scambio`, `austausch`,
+  `etudiants en echange`, `intercambio`, `wymiana`, `değişim`, `degisim`,
+  `csereprogram`, `schimb`, `utbytesstudent`;
 - **+3** catalogo: `course catalog(ue)`, `module catalog`, `programme
   catalogue`, `vorlesungsverzeichnis`, `modulhandbuch`, `studienangebot`,
   `catalogue de cours`, `offre de formation`, `oferta academica`, `guia
@@ -171,9 +180,8 @@ suo URL (senza accenti, minuscolo):
   langue`, `requisitos de idioma`, `language of instruction`, `cefr`;
 - **+2** scadenze: `deadline`, `nomination`, `application period`, `frist`,
   `bewerbungsschluss`, `date limite`, `plazo`, `termin`, `son basvuru`;
-- **+1** generico: `international`, `internazionale`, `internacional`,
-  `internationaal`, `nemzetkozi`, `mezinarodni`, `uluslararasi`, `mobility`,
-  `mobilita`, `movilidad`, `mobilite`;
+- **+1** generico: `internation`, `internazional`, `internacional`,
+  `nemzetkozi`, `mezinarodni`, `uluslararasi`, `mobilit`, `movilidad`;
 - **−3** rumore: `news`, `notizie`, `alumni`, `press`, `vacancies`, `research`,
   `phd`, `doctoral`, `outgoing`, `staff mobility`, `summer school`.
 
