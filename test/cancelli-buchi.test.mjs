@@ -7,7 +7,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
-import { applicaCancelli, applicaCancelloLivello, livelliCitati } from "../scripts/cancelli.mjs";
+import { applicaCancelli, applicaCancelloLivello, lingueCitate, livelliCitati, livelloAmbiguo } from "../scripts/cancelli.mjs";
 
 const URL_PAGINA = "https://esempio.test/incoming";
 const CITAZIONE = "Incoming exchange students need English at B2 level before arrival.";
@@ -15,7 +15,10 @@ const CITAZIONE = "Incoming exchange students need English at B2 level before ar
 // serve a far arrivare il caso fino al cancello dei livelli, invece di vederlo
 // fermare prima come citazione assente.
 const SENZA_LIVELLO = "The medium of instruction at this university is English.";
-const TESTO = `${CITAZIONE} ${SENZA_LIVELLO} ${"contorno ".repeat(60)}`;
+// Dice il livello ma non la lingua, e una forma ambigua: due frasi vere, due difetti diversi.
+const SENZA_LINGUA = "Proof of language proficiency at B2 level is required from all applicants.";
+const AMBIGUO = "It is advisable to have a language level equivalent to, at least, A2/B1 here.";
+const TESTO = `${CITAZIONE} ${SENZA_LIVELLO} ${SENZA_LINGUA} ${AMBIGUO} ${"contorno ".repeat(60)}`;
 const impronta = (t) => createHash("sha256").update(t, "utf8").digest("hex");
 const PAGINA = { n: 1, file: "001.json", url: URL_PAGINA, titolo: "Incoming exchange",
   caratteri: TESTO.length, tagliata: false, impronta: impronta(TESTO) };
@@ -128,6 +131,78 @@ test("basta UNA lingua col livello non citato per scartare tutto l'albero", () =
   const annidato = { op: "ALL", figli: [{ op: "ANY", figli: [{ lingua: "Tedesco", livello: "A2" }] }] };
   assert.equal(livelliCitati(annidato, cit).causa, "livelloNonCitato");
   assert.equal(livelliCitati(annidato, "A2 is enough for everyone here.").ok, true);
+});
+
+// ---------------------------------------------------------------- buco 4
+test("un livello ambiguo nella citazione non si traduce: si scarta", async (t) => {
+  // E MADRID05: la pagina diceva "at least, A2/B1" e il modello ne ha fatto due
+  // foglie, Spagnolo A2 e Spagnolo B1. Il cancello dei livelli citati non lo
+  // ferma - A2 e B1 ci sono entrambi - ma la spec vieta di tradurre le forme
+  // ambigue: si omette il campo, non si sceglie per conto della pagina.
+  const radice = radiceFinta(t);
+  const e = await applicaCancelli([lettura({ requisitoLingua: {
+    valore: { op: "ANY", figli: [{ lingua: "Inglese", livello: "A2" }, { lingua: "Inglese", livello: "B1" }],
+      fonte: URL_PAGINA, verificatoIl: "2026-08-30" },
+    livello: "ateneo", ambito: null, paginaCitata: 1, fonte: fonte(AMBIGUO) } })],
+    { radice, codici: new Set(["TEST 01"]), statoLink: async () => ({ stato: "vivo" }) });
+  assert.deepEqual(e.scartati.map((s) => s.causa), ["livelloAmbiguo"]);
+});
+
+test("le forme ambigue si riconoscono, quelle sane no", () => {
+  const ambigue = [
+    "at least, A2/B1", "Studenten brauchen B1-B2 Deutsch", "Niveau B2.1", "Level B1 - B2 required",
+    // La congiunzione conta quanto la barra, e la pagina la scrive nella sua lingua.
+    "krefjast B1 eda B2 kunnattu i ensku", "Students need B1 or B2 English", "Niveau B1 oder B2 Deutsch",
+  ];
+  for (const c of ambigue) assert.equal(livelloAmbiguo(c).causa, "livelloAmbiguo", `doveva essere ambiguo: ${c}`);
+
+  const sane = [
+    "We require a B2 English Language Level",
+    "Deadline 15 April for B2 students",
+    // Il caso di D ERFURT05: due requisiti VERI e distinti, non un'alternativa.
+    // Il separatore dev'essere l'unica cosa fra i due livelli, o questa cade.
+    "Fur Kurse auf Deutsch brauchen Sie mindestens B1. Fur Kurse auf Englisch brauchen Sie mindestens B2.",
+  ];
+  for (const c of sane) assert.equal(livelloAmbiguo(c).ok, true, `non doveva essere ambiguo: ${c}`);
+});
+
+test("le radici delle lingue coprono i falsi positivi gia' pagati", () => {
+  // Ogni radice qui sotto e' stata aggiunta DOPO aver visto il cancello
+  // scartare un dato buono, mai per prudenza.
+  const albero = (lingua) => ({ op: "ALL", figli: [{ lingua, livello: "B2" }] });
+  assert.equal(lingueCitate(albero("Francese"), "Pour les etudiants non francophones natifs, un niveau minimum (B2) est requis").ok,
+    true, "F ALES02: 'francophones' e' il francese");
+  assert.equal(lingueCitate(albero("Inglese"), "namskeid sem kennd eru a ensku krefjast B2 kunnattu").ok,
+    true, "IS AKUREYR01: 'ensku' e' l'inglese in islandese");
+});
+
+// ---------------------------------------------------------------- buco 5
+test("una lingua che la citazione non nomina viene scartata", async (t) => {
+  // F PARIS063 leggeva "la langue des cours choisi (B2 recommande)" e proponeva
+  // Inglese; TR ERZURUM01 leggeva "Dil sinavi" (esame di lingua) e proponeva
+  // Turco. Il livello c'era, la lingua no.
+  const radice = radiceFinta(t);
+  const e = await applicaCancelli([lettura({ requisitoLingua: {
+    valore: { op: "ALL", figli: [{ lingua: "Inglese", livello: "B2" }],
+      fonte: URL_PAGINA, verificatoIl: "2026-08-30" },
+    livello: "ateneo", ambito: null, paginaCitata: 1, fonte: fonte(SENZA_LINGUA) } })],
+    { radice, codici: new Set(["TEST 01"]), statoLink: async () => ({ stato: "vivo" }) });
+  assert.deepEqual(e.scartati.map((s) => s.causa), ["linguaNonCitata"]);
+});
+
+test("la lingua si riconosce anche quando la pagina la nomina in un'altra lingua", () => {
+  const albero = (lingua) => ({ op: "ALL", figli: [{ lingua, livello: "B2" }] });
+  // La citazione e' sempre nella lingua del sito, mai in italiano.
+  assert.equal(lingueCitate(albero("Inglese"), "un niveau B2 en anglais").ok, true);
+  assert.equal(lingueCitate(albero("Tedesco"), "Fur Kurse auf Deutsch").ok, true);
+  assert.equal(lingueCitate(albero("Spagnolo"), "nivel B1 de espanol").ok, true);
+  assert.equal(lingueCitate(albero("Turco"), "Turkce B1 seviyesi").ok, true);
+  assert.equal(lingueCitate(albero("Inglese"), "proof of language proficiency").causa, "linguaNonCitata");
+  // Basta una lingua non nominata per fermare tutto l'albero.
+  const due = { op: "ANY", figli: [{ lingua: "Tedesco", livello: "B1" }, { lingua: "Inglese", livello: "B2" }] };
+  assert.deepEqual(lingueCitate(due, "Deutschkenntnisse B1 erforderlich").assenti, ["inglese"]);
+  // Una lingua fuori tabella non viene bloccata: meglio un dato raro che un falso scarto.
+  assert.equal(lingueCitate(albero("Islandese"), "some requirement at B2").ok, true);
 });
 
 test("un livello dichiarato bene continua a funzionare", () => {

@@ -28,6 +28,80 @@ export function citazioneValida(citazione, testoInviato) {
 // e ci attacca un livello di sua iniziativa - che e' esattamente la traduzione
 // di valori ambigui che il progetto vieta. Dirlo nel prompt non e' bastato:
 // una regola e' un suggerimento, un cancello e' legge.
+// "A2/B1", "B1-B2", "B2.1" sono ambigui e il progetto vieta di tradurli: si
+// omette il campo, non si sceglie per conto della pagina. Misurato il 30/08
+// sera: E MADRID05 leggeva "advisable to have a Spanish language level
+// equivalent to, at least, A2/B1" e proponeva DUE foglie, Spagnolo A2 e
+// Spagnolo B1, sotto una radice ANY. Il cancello dei livelli citati non lo
+// ferma, perche' sia A2 sia B1 compaiono davvero nella citazione: e' proprio
+// la forma ambigua a doverlo fermare.
+// Non solo "A2/B1": anche "B1 o B2" scritto a parole e' una forma ambigua, e la
+// pagina puo' dirlo in qualunque lingua. Visto su IS AKUREYR01: "B1 eda B2
+// kunnattu i ensku". Il separatore dev'essere l'UNICA cosa fra i due livelli,
+// altrimenti "B1. Fur Kurse auf Englisch ... B2" - due requisiti distinti e
+// legittimi, visti su D ERFURT05 - verrebbe scambiato per un'ambiguita'.
+const CEFR_SEP = "[/\\-–—]|\\b(?:or|oder|ou|o|e[ðd]a|eller|of|veya|lub|vagy|nebo|alebo|sau|ili)\\b";
+const CEFR_AMBIGUO = new RegExp(`\\b[ABC][12]\\s*(?:${CEFR_SEP})\\s*[ABC][12]\\b|\\b[ABC][12]\\.[0-9]`, "i");
+
+export function livelloAmbiguo(citazione) {
+  return CEFR_AMBIGUO.test(norm(citazione)) ? { ok: false, causa: "livelloAmbiguo" } : { ok: true };
+}
+
+// Anche la LINGUA dev'essere scritta nella citazione, non dedotta. Misurato il
+// 30/08 sera: F PARIS063 leggeva "une bonne connaissance de la langue des cours
+// choisi (B2 recommande)" e proponeva Inglese; TR ERZURUM01 leggeva
+// "Yapilacak olan Dil sinavindan en az B1 duzeyi" (esame di lingua) e proponeva
+// Turco. In entrambi i casi la pagina dice il livello ma NON quale lingua.
+// La citazione e' nella lingua del sito, quindi non basta cercare la parola
+// italiana: si cercano le radici con cui quella lingua si scrive in giro.
+// Una lingua che non compare in questa tabella NON viene bloccata: meglio
+// lasciar passare una lingua rara che scartare un dato buono.
+const RADICI_LINGUA = {
+  // 'ensk' e' l'islandese (enska/ensku), visto su IS AKUREYR01: senza, il
+  // cancello scartava un dato buono. Le radici si allargano solo davanti a un
+  // falso positivo misurato, mai per prudenza.
+  inglese: /ingl|engl|angl|ensk|ingiliz|αγγλ/i,
+  tedesco: /tedesc|german|deutsch|allemand|aleman|duits|tysk|saksa|niemieck|nemeck|almanca|γερμαν/i,
+  // 'francoph' copre "etudiants non francophones", visto su F ALES02.
+  francese: /frances|french|franzos|francais|francoph|frans|ransk|francuz|franciao|fransizca|γαλλ/i,
+  spagnolo: /spagnol|spanish|spanisch|espagnol|espanol|spaans|spansk|espanja|hiszpan|spanyol|ispanyolca|ισπαν/i,
+  italiano: /italian|italien|italiaans|wlosk|ιταλ/i,
+  portoghese: /portug|portekiz|πορτογαλ/i,
+  olandese: /olandes|dutch|nederland|niederland|neerland|hollan/i,
+  svedese: /svedes|swedish|svensk|schwedisch|ruotsi/i,
+  finlandese: /finland|finnish|suomi|finnisch/i,
+  danese: /danes|danish|dansk|danisch/i,
+  norvegese: /norveg|norwegian|norsk|norwegisch/i,
+  polacco: /polacc|polish|polski|polnisch|polsk/i,
+  ceco: /cec|czech|cesk|tschech/i,
+  slovacco: /slovacc|slovak|slowak/i,
+  ungherese: /unghere|hungarian|magyar|ungarisch/i,
+  rumeno: /rumen|romanian|romana|romanisch/i,
+  bulgaro: /bulgar|blgarski/i,
+  greco: /grec|greek|hellenic|ellinik|griech|ελλην/i,
+  turco: /turc|turkish|turkce|turkisch|τουρκ/i,
+  croato: /croat|hrvat|kroat/i,
+  sloveno: /sloven/i,
+  lituano: /lituan|lithuanian|lietuv|litauisch/i,
+  lettone: /letton|latvian|latvie|lettisch/i,
+  estone: /eston|eesti/i,
+  catalano: /catalan|catala|katalan/i,
+};
+
+export function lingueCitate(valore, citazione) {
+  if (!valore || typeof valore !== "object") return { ok: true };
+  const c = norm(citazione);
+  const lingue = new Set();
+  const gira = (nodo) => {
+    if (!nodo || typeof nodo !== "object") return;
+    if (Array.isArray(nodo.figli)) nodo.figli.forEach(gira);
+    else if (typeof nodo.lingua === "string") lingue.add(nodo.lingua.trim().toLowerCase());
+  };
+  gira(valore);
+  const assenti = [...lingue].filter((l) => RADICI_LINGUA[l] && !RADICI_LINGUA[l].test(c));
+  return assenti.length ? { ok: false, causa: "linguaNonCitata", assenti } : { ok: true };
+}
+
 export function livelliCitati(valore, citazione) {
   if (!valore || typeof valore !== "object") return { ok: true };
   const c = norm(citazione);
@@ -118,7 +192,11 @@ export async function applicaCancelli(letture, { radice = RADICE, codici = codic
         if (esito.stato === "inconcludente") causa = "urlInconcludente";
       }
       if (!causa) try { validaValore(campo, proposta.valore, campo); validaFonte(proposta.fonte, `${campo}.fonte`); } catch { causa = "formaNonValida"; }
-      if (!causa && campo === "requisitoLingua") causa = livelliCitati(proposta.valore, proposta.fonte?.citazione).causa;
+      if (!causa && campo === "requisitoLingua") {
+        causa = livelloAmbiguo(proposta.fonte?.citazione).causa
+          || livelliCitati(proposta.valore, proposta.fonte?.citazione).causa
+          || lingueCitate(proposta.valore, proposta.fonte?.citazione).causa;
+      }
       // E3: il codice si valuta PRIMA che il campo devii in riconciliazione, ma
       // resta l'ultimo a dare la causa, cosi' il resoconto per causa del §6.2
       // resta confrontabile. Senza questo, un partner con codice inventato e un
