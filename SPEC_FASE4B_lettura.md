@@ -245,6 +245,98 @@ rifatta: attesi **0** partner con il paese tutto maiuscolo.
 
 ---
 
+## 2 quinquies. LE DECISIONI DEL 30/08 SERA (Consegna 2b)
+
+> Prese dopo la chiusura della 2a, misurando nella cartella invece che
+> rileggendo i documenti. Non riaprono niente del §2: completano dove taceva.
+
+**La 2b si consegna in TRE ordini, non in uno.** Il §2 ter l'aveva gia' divisa
+in due perche' la consegna unica era troppo grande; misurando si e' visto che
+anche la 2b da sola contiene due lavori che non si somigliano: riscaricare 315
+PDF con le regole di cortesia verso i siti altrui, e chiamare il modello. Il
+primo non usa la chiave e si prova senza rete.
+
+- **2b-1 — i PDF tornano leggibili.** `scripts/riscarica-pdf.mjs`: riscarica i
+  PDF gia' elencati negli indici, li legge con `lib-pdf.mjs` (chiuso in 2a) e
+  riscrive il testo dentro il file JSON della pagina. Nessuna chiave.
+- **2b-2 — la lettura.** `leggi-partner.mjs`. E' qui che si usa la chiave.
+- **2b-3 — la scrittura.** `applica-partner.mjs` e la correzione E3 qui sotto.
+
+**E1. Chi consuma la chiave: non l'esecutore.** Una passata vera su 100 partner
+e' un'ora di chiamate, e l'esecutore si taglia a 240 secondi per comando: non
+potrebbe finirla comunque, e i suoi tentativi brucerebbero la quota giornaliera,
+che e' **la misura che la Fase 5 aspetta**. Quindi l'esecutore scrive il codice
+e lo prova **con un modello finto**; la passata vera la lancia Claude dopo aver
+letto il diff.
+*Conseguenza sulla forma del codice, non negoziabile*: `leggi-partner.mjs` deve
+accettare **la funzione che chiama il modello come parametro**, con quella vera
+come valore predefinito. E' la stessa tecnica gia' usata per `statoLink` nei
+cancelli, ed e' l'unico modo di provare la lettura senza rete e in modo
+ripetibile.
+
+**E2. Ostacolo 3 — quattro funzioni di `raccogli-partner.mjs` non sono
+esportate.** Servono per riscaricare i PDF con la cortesia della Fase 4a:
+`Limitatore` (una richiesta per dominio, un secondo pieno di pausa), `scarica`
+(un solo ritentativo), `regoleRobots` e `consentitoDaRobots`.
+**Si autorizza ad aggiungere `export`** davanti a queste quattro, senza toccarne
+i corpi. E' sicuro: il file ha gia' in fondo la guardia che lo fa partire solo
+quando e' lanciato da riga di comando, quindi importarlo non lo esegue.
+Stessa autorizzazione e stesso limite del §2 bis: **duplicare la logica resta
+vietato.** Le regole di cortesia verso i siti altrui hanno una definizione sola.
+*Prova di non-regressione richiesta*: `test/raccogli-partner.test.mjs` resta
+verde senza essere modificato.
+
+**E3. L'ordine dei cancelli: il codice si controlla prima della deviazione.**
+Oggi il cancello 4 devia un campo di facolta' in
+`raccolta/riconciliazione/facolta.json` **prima** che il cancello 5 guardi se il
+codice esiste: un partner con codice inventato e un campo di facolta' finisce
+in riconciliazione invece che negli scarti, ed entra come materiale della Fase 6
+un dato che non ha nemmeno un partner vero a cui appartenere.
+*Rimedio scelto*: il cancello 5 resta **l'ultimo a dare la causa** — chi sbaglia
+la citazione continua a chiamarsi `citazioneAssente`, cosi' il resoconto per
+causa del §6.2 resta confrontabile — ma **si valuta prima** che il cancello 4
+devii. La scelta alternativa, controllare il codice una volta per partner
+all'inizio, e' stata scartata: nasconderebbe come si e' comportato il modello su
+quel partner.
+*Prova richiesta, costruita da un capo all'altro e non sulla sola funzione*: una
+lettura di un partner con codice inventato, con un campo `requisitoLingua` di
+livello `facolta` che supera tutti gli altri cancelli, deve finire negli
+**scartati** con causa `codiceSconosciuto`, e `riconciliazione/facolta.json`
+deve restare **vuoto**. Rimettendo l'ordine sbagliato, la prova diventa rossa.
+
+**E4. Il modello, misurato invece che supposto.** L'elenco dei modelli della
+chiave e' stato chiesto il 30/08: il Flash-Lite piu' recente disponibile e'
+**`gemini-3.5-flash-lite`**, ed e' il valore predefinito di `GEMINI_MODEL`.
+Esistono anche `gemini-3.6-flash` e `gemini-3.7-flash`, che Lite non sono.
+Questo non toglie niente al §3.2: lo script rilegge l'elenco a ogni avvio e lo
+scrive nel resoconto, perche' questa misura invecchia.
+
+**E5. La cache si porta oltre 100 partner prima della prova sul campo.**
+Misurato il 30/08 sera: 107 cartelle, **86 raggiunti**, di cui **84 con almeno
+una pagina di testo leggibile**, uno leggibile solo attraverso i suoi PDF e uno
+muto. Il §6.2 chiede almeno 100 partner, quindi
+`raccogli-partner.mjs --limite=200` e' stato lanciato la sera del 30/08: e'
+gratis, non usa la chiave e gira mentre si scrive il codice.
+
+**E6. Il campione umano dei 30 campi (§6.2, correttezza >= 95%).** La tabella la
+prepara Claude — link, citazione, valore proposto e un verdetto gia' motivato
+per ciascuno — ma il **giudizio finale resta di Nicola**, che apre almeno i casi
+dubbi. Il numero che si riporta e' quello **dopo** l'arbitrato, non quello
+proposto. Claude non firma da solo la correttezza della lettura di un altro
+modello sulle stesse pagine.
+
+**I numeri di partenza della 2b, misurati il 30/08 sera in questa cartella:**
+
+| Cosa | Misura |
+|---|---:|
+| Prove unitarie verdi | 205 |
+| Partner in cache / raggiunti | 107 / 86 |
+| Partner con almeno una pagina leggibile | 84 |
+| PDF con `testo: null` e senza byte | 315, su 57 partner |
+| Partner con campi mancanti (su 615) | 603 |
+
+---
+
 ## 3. IL PERIMETRO, PEZZO PER PEZZO
 
 ### 3.1 `scripts/lib-pdf.mjs` — l'estrattore PDF *(nuovo)*
