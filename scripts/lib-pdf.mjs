@@ -1,14 +1,4 @@
 // scripts/lib-pdf.mjs
-// ATTENZIONE — NON ANCORA UTILIZZABILE. Provato il 2026-08-30 su otto PDF veri
-// presi dalla cache: sette letti, e tutti e sette sporchi degli operatori
-// interni del PDF ("qreWnq/GS0gscm", "Fact] Sheet] Student]"), due
-// praticamente illeggibili. La prova unitaria e' verde perche' costruisce un
-// PDF minimo e pulito, che non somiglia a quelli veri.
-// Non e' un difetto estetico: il cancello della citazione confronta con questo
-// testo, quindi una citazione giusta verrebbe scartata.
-// Cause e come si prova: SPEC_FASE4B_lettura.md, §2 quater, difetto 7.
-// Correggerlo e' la PRIMA voce della Consegna 2. Fino ad allora nessuno lo usa.
-
 import { inflateSync } from "node:zlib";
 
 function decodificaLetterale(s) {
@@ -64,9 +54,10 @@ function testoFlusso(flusso) {
     if (t.tipo === "]") { pila.push("]"); continue; }
     const op = t.valore;
     if (op === "Tj" || op === "'" || op === "\"") { const v = [...pila].reverse().find((x) => typeof x === "string" && x !== "["); if (v) out.push(v); if (op !== "Tj") out.push("\n"); pila = []; continue; }
-    if (op === "TJ") { let spazio = false; for (const x of pila) { if (x === "[") continue; if (typeof x === "string") { if (/^-?\d+(?:\.\d+)?$/.test(x)) spazio ||= Number(x) < -100; else { if (spazio) out.push(" "); out.push(x); spazio = false; } } } pila = []; continue; }
+    if (op === "TJ") { let spazio = false; for (const x of pila) { if (x === "[" || x === "]") continue; if (typeof x === "string") { if (/^-?\d+(?:\.\d+)?$/.test(x)) spazio ||= Number(x) < -100; else { if (spazio) out.push(" "); out.push(x); spazio = false; } } } pila = []; continue; }
     if (["Td", "TD", "T*"].includes(op)) { out.push("\n"); pila = []; continue; }
-    pila.push(op);
+    if (/^-?\d+(?:\.\d+)?$/.test(op)) { pila.push(op); continue; }
+    pila = [];
   }
   return out.join("");
 }
@@ -82,5 +73,5 @@ export function testoDaPdf(buffer) {
   }
   testo = testo.replace(/\s+/g, " ").trim();
   const nonStampabili = [...testo].filter((c) => c.charCodeAt(0) < 32 && !/\s/.test(c)).length;
-  return testo.length >= 200 && nonStampabili * 2 <= testo.length ? testo : null;
+  return testo.length >= 200 && nonStampabili * 10 <= testo.length ? testo : null;
 }

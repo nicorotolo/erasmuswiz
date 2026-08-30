@@ -21,8 +21,17 @@
 
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-08-30 — Claude (**revisione del piano di
-mappatura e Fase 4b, Consegna 1**, nessuna riga di sito toccata). I cancelli
+**Ultimo aggiornamento:** 2026-08-30 — Claude e Codex (**Fase 4b, Consegne 1 e
+2a**, nessuna riga del sito toccata). L'estrattore PDF non sporca piu' il testo
+con gli operatori interni del file, e dichiara `null` invece di produrre
+spazzatura quando il font ha una codifica propria. **Verificato su 14 PDF
+universitari che chi ha scritto la correzione non aveva mai visto**, scaricati
+una volta sola e passati a entrambe le versioni: prima **8 letti su 8 sporchi**,
+dopo **7 letti e solo 2 con residui** (0,1-0,3%), con gli operatori spazzatura
+da 1.606 a 36 e da 5.538 a 54. Serviva quel confronto e non le sole prove: tre
+file di prova sono anche il banco su cui si ottimizza, e "funziona sui tre che
+aveva davanti" non e' un risultato. 205/205 prove verdi; rimettendo
+l'estrattore difettoso ne diventano rosse quattro. I cancelli
 sono in casa: la citazione si verifica sul **solo brano davvero inviato** al
 modello, riconosciuto per impronta SHA-256, e una pagina cambiata sotto blocca
 il campo invece di indovinare. Il difetto che questa consegna doveva chiudere
@@ -32,8 +41,9 @@ controllo dei codici (ora include Ca' Foscari, e si ferma se l'elenco è vuoto
 invece di spegnersi in silenzio) e la regressione del paese maiuscolo
 (**536 → 0**). `raccogli-partner.mjs`: città sbagliate **500 → 0**, cache degli
 export in `fonti/`, seconda esecuzione a **0 richieste HTTP**. Prove: 201/201,
-e reintroducendo il difetto originale due diventano rosse. **Resta aperto
-l'estrattore PDF**, difettoso su file veri (vedi Consegna 2). Misurato che la
+e reintroducendo il difetto originale due diventano rosse. **Chiusa anche la
+Consegna 2a dell'estrattore PDF**; resta la 2b (lettura e applicazione).
+Misurato che la
 pipeline dati è
 **ferma dal 29/07** (ultimo lotto `20260729-092017`) e che la copertura vera,
 contata per partner e non per meta, è: lingua 67%, scadenze 77%, sito 64%,
@@ -4136,7 +4146,7 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **PRE-BRUNO — nuovo ingresso LA** | Addendum in `PLAN.md`: nav LA primaria, onboarding a rami, meta/facoltà manuali prudenti, continuità della meta; import multiplo opzionale dopo gate verde | ▶ Piano firmato da Nicola per implementazione locale: tranche 1 obbligatoria, tranche 2 solo dopo gate verde. Review 5 round senza APPROVED sul futuro storage pubblico, ora separato. Nessun codice iniziato |
 | **Pubblicazione — guasto Pages** | Source su "GitHub Actions" senza workflow di deploy: sito fermo al commit del 3/7, **171 commit (125 sul sito) invisibili per 12 giorni** (C2, C3, C4, R1.1-R1.4). Risolto con `.github/workflows/deploy-pages.yml` (Static HTML, niente Jekyll, guardia `node --check`); online verificato per hash contro `origin/main` | ✅ Chiuso (2026-07-15, sessione 56) — resta da rendere vera la riga "Online e locale coincidono" di `PUBBLICA.bat` |
 | **Pipeline dati T0→T3 — Gemini + Codex** | Copertura complessiva: **1.987 mete, 73% lingua, 79% scadenze**. Al 17/07: 315 run completati, 45 batch in coda; ultimo lotto reale pubblicato il 16/07 alle 13:08 | ⚠️ La schedulazione ogni 3 ore sull'altro PC non sta producendo commit/PR/branch su GitHub; controllare cronologia e ultimo risultato dell'attività pianificata sul PC remoto |
-| **Pipeline dati — Fase 4b, Consegna 1** | Cancelli deterministici sulle letture: citazione nel solo brano inviato (impronta SHA-256), pagina cambiata, forma, URL, livello di lettura, codici Sapienza + Ca' Foscari; `raccogli-partner.mjs` corretto (città 500→0, paese 536→0 maiuscoli, cache export) | ✅ Cancelli fatti e verificati in modo indipendente (30/08): 201/201 unit, completezza e stato verdi, difetto reintrodotto = 2 prove rosse. ⚠️ `lib-pdf.mjs` **non regge sui PDF veri** (7 su 8 sporchi di operatori): è la prima voce della Consegna 2, e finché non è corretto nessuno lo usa |
+| **Pipeline dati — Fase 4b, Consegne 1 + 2a** | Cancelli deterministici sulle letture e estrattore PDF: citazione nel solo brano inviato (impronta SHA-256), pagina cambiata, forma, URL, livello, codici; sui PDF elimina operatori/parentesi e rifiuta estrazioni a font proprietario | ✅ Chiuse e provate il 30/08: 205/205 unit. Su due PDF universitari veri: frasi integre e 0 operatori/parentesi spurie; sul terzo PDF, illeggibile per codifica, `null`. Prove viste rosse prima della correzione. Resta la Consegna 2b |
 | **REDESIGN v2 — F0: Preparazione** | Spec versionata in `design/redesign-2026-07/` (canvas + baseline invarianti/touch, vedi §4). Nessun file di produzione toccato. Commit `ac7c1c9`, pushato | ✅ Fatta (2026-07-25) |
 | **REDESIGN v2 — F1: Token, ritmo, gutter, griglia** | Token §2.1–2.3 (`--bg-app #FAF8F3`, `--night-bg #211E42`, `--space-*`/`--fs-*`/`--gutter`/`--stack`/`--container:1140px`/`--shadow-gold`, due `@media :root`); ritmo verticale con `> * + *` e i tre antidoti; **gutter a un solo proprietario** (`.main-content`): 18 margini legacy in 3 misure + 5 padding-gutter + blocco ≤480px + `#banner-wiz` inline, tutto in un diff; `.griglia-mete-v2` 1→2→auto-fill; creato `/*__PROD_END__*/`. Solo `css/style.css` (+238/−48), `index.html` e `js/app.js` intatti. **Due correzioni al canvas, misurate:** `.percorso-wrap` conserva `grid-row: 1/6` (senza, 337px di buco e sticky a corsa zero) e il hero torna full-bleed sotto i 768px | ✅ Fatta e verificata (2026-07-25) — commit `ce0d5a8`, **pushato il 25/07 insieme a F2** (decisione di Nicola: il piano lo collocava a F4). 4/4 controlli gutter, controllo browser 13 esecuzioni tutte vuote, invarianti F0 verdi ai 3 viewport |
 | **REDESIGN v2 — 🚦 GATE 1** | Nicola conferma le tre default: **P-A** su `modo-benvenuto` (R3), **`!important`** su `#banner-wiz` (R38, `index.html` non si tocca), **full-bleed conservato** per il hero. In più: **F2 riassegnata a Claude Code** invece di Codex (D4 rivista) | ✅ Passato (2026-07-25) |
@@ -4346,6 +4356,12 @@ Contata **per partner** (codice Erasmus), che è l'unità di lavoro vera: le
 residua: 44 lotti / 256 mete, tutti `scadenze+lingua`, **niente di programmato
 per i 696 partner senza catalogo**. Il piano di rientro è
 `DISEGNO_PIPELINE_DATI.md` **V2**.
+
+**Fase 4b, Consegna 2a chiusa il 30/08.** I tre PDF universitari reali sono
+ora prove permanenti: due restituiscono testo pulito e citabile, quello a font
+con codifica proprietaria ritorna correttamente `null`. La soglia sui caratteri
+di controllo è 10%: i due leggibili misurano 0,15% e 6,1%; il falso successo
+originario misurava 38,3%.
 
 **Fase 1 fatta il 30/08 (`0f87ade`).** I 183 codici Erasmus inventati (`SAP-*`)
 sono diventati codici veri, verificati con l'incrocio di più prove — città
@@ -4630,10 +4646,11 @@ portatile può anche chiudersi.
    pezzo che usa davvero la chiave Gemini. **Consegna 1 (i cancelli) è fatta il
    30/08:** nessuna chiave usata, 201/201 prove verdi, e il difetto bloccante —
    il cancello della citazione era aggirabile — chiuso e verificato costruendo
-   il caso. **Consegna 2** comprende, in quest'ordine: correggere
-   `lib-pdf.mjs` (sporca il testo con gli operatori del PDF: 7 file veri su 8),
-   poi `leggi-partner.mjs`, `applica-partner.mjs`, la prima lettura con Gemini,
-   la prova su 100 partner e il campione umano. Dettaglio:
+   il caso. La **Consegna 2a** (`lib-pdf.mjs`) è chiusa il 30/08: 205/205 prove
+   verdi, due PDF reali estratti puliti e quello a font proprietario respinto.
+   Resta la **Consegna 2b**: `leggi-partner.mjs`, `applica-partner.mjs`, la
+   prima lettura con Gemini, la prova su 100 partner e il campione umano.
+   Dettaglio:
    `DISEGNO_PIPELINE_DATI.md` e `SPEC_FASE4B_lettura.md` §2 quater.
 
 ### ⇢ In cima a tutto, dopo la tranche 1 (aggiornato 2026-08-07)
