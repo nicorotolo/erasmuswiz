@@ -8,6 +8,9 @@
 fonti/*
 !fonti/INDICE.md
 
+# Raccolta locale della pipeline: contiene copie di pagine dei partner.
+raccolta/
+
 # File di lavoro locali
 .claude/
 *.txt

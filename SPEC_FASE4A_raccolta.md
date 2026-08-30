@@ -223,10 +223,28 @@ tutti passano.
    `outgoing` va sotto zero; il confronto ignora accenti e maiuscole. La prova
    va verificata **rompendola** (invertire il segno del punteggio deve farla
    diventare rossa) e il fatto va scritto nel resoconto.
-2. **Prova sul campo, 20 partner** (`--limite=20`, presi a intervalli regolari
-   dall'elenco, non i primi 20 che sono tutti austriaci): almeno **16 su 20**
-   devono chiudersi `raggiunto`. Riportare l'elenco dei non raggiunti con il
-   motivo.
+2. **Prova sul campo, almeno 100 partner** (`--limite=100`, presi a intervalli
+   regolari dall'elenco, non i primi che sono tutti austriaci).
+
+   > ⚠️ **Correzione del 2026-08-30.** Questo criterio diceva "16 su 20", ed era
+   > mal posto: su venti casi l'incertezza e' di circa ±9 punti, quindi 14/20 e
+   > 16/20 non sono distinguibili. Con una soglia cosi' si finisce a ritoccare
+   > il crawler finche' un numero rumoroso non la supera, cioe' a costruire
+   > qualcosa che funziona su quei venti siti e basta.
+
+   Soglia: almeno il **75% dei partner CHE HANNO UN INDIRIZZO** nell'accordo.
+   Quelli senza indirizzo si contano a parte: non c'e' niente da scaricare, e
+   non sono un difetto della raccolta.
+
+   Riportare sempre i non raggiunti **divisi per causa** (irraggiungibile,
+   nega 403/404, vietato da robots, raggiungibile ma nessun candidato, nessun
+   indirizzo noto): e' quella divisione che dice se resta un difetto da
+   correggere o se si e' arrivati al limite di cio' che si puo' scaricare.
+
+   **Riferimento misurato il 2026-08-30**: **80 raggiunti su 100**, cioe' 80 su
+   96 fra quelli con indirizzo. Non raggiunti: 6 raggiungibili ma senza
+   candidati, 5 irraggiungibili, 4 senza indirizzo, 4 che negano, 1 altro.
+   Chi tocca questo script rimisura e confronta con questi numeri.
 3. **Ripartenza**: rilanciando subito lo stesso comando, zero richieste HTTP
    nuove e stesso esito.
 4. **Interruzione**: interrotto a meta' (Ctrl-C) e rilanciato, riprende senza
