@@ -63,28 +63,36 @@ const linkHtml = (html, base) => [...html.matchAll(/<a\b[^>]*?href\s*=\s*(["'])(
 const locSitemap = (xml) => [...xml.matchAll(/<loc>([\s\S]*?)<\/loc>/gi)].map((m) => pulisciUrl(m[1].trim())).filter(Boolean);
 const pausa = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-class Limitatore {
+export class Limitatore {
   constructor(paralleli) { this.paralleli = paralleli; this.attivi = 0; this.attese = []; this.ultime = new Map(); this.catene = new Map(); this.richieste = 0; this.minimo = Infinity; }
   async esegui(url, fn) {
     await new Promise((resolve) => { const entra = () => this.attivi < this.paralleli ? (this.attivi++, resolve()) : this.attese.push(entra); entra(); });
-    const dominio = new URL(url).hostname.toLowerCase();
-    const precedente = this.catene.get(dominio) || Promise.resolve(); let libera;
-    const miaCoda = new Promise((resolve) => { libera = resolve; }); this.catene.set(dominio, miaCoda);
-    await precedente;
-    const ultima = this.ultime.get(dominio);
-    // Una sola attesa non basta: setTimeout puo' svegliarsi qualche millesimo
-    // in anticipo, e infatti l'intervallo minimo misurato risultava 996-1004 ms
-    // contro il secondo pieno che ci siamo imposti. Si riprova finche' il tempo
-    // trascorso e' davvero passato: e' un vincolo verso siti altrui, e "quasi"
-    // non e' la stessa cosa.
-    if (ultima) {
-      let intervallo = Date.now() - ultima;
-      while (intervallo < 1000) { await pausa(1000 - intervallo); intervallo = Date.now() - ultima; }
-      this.minimo = Math.min(this.minimo, intervallo);
-    }
-    this.ultime.set(dominio, Date.now()); this.richieste++;
-    try { return await fn(); }
-    finally { libera(); this.attivi--; this.attese.shift()?.(); }
+    // Il posto preso qui sopra va restituito QUALUNQUE cosa succeda sotto.
+    // Prima non era cosi': un indirizzo malformato faceva fallire la lettura
+    // dell'URL fuori da ogni try, e il posto restava occupato per sempre. Dopo
+    // tanti errori quanti sono i posti il limitatore si blocca, e non resta in
+    // coda niente che possa svegliarlo: e' l'uscita con codice 13 ("unsettled
+    // top-level await") vista nella raccolta del 30/08.
+    let libera;
+    try {
+      const dominio = new URL(url).hostname.toLowerCase();
+      const precedente = this.catene.get(dominio) || Promise.resolve();
+      const miaCoda = new Promise((resolve) => { libera = resolve; }); this.catene.set(dominio, miaCoda);
+      await precedente;
+      const ultima = this.ultime.get(dominio);
+      // Una sola attesa non basta: setTimeout puo' svegliarsi qualche millesimo
+      // in anticipo, e infatti l'intervallo minimo misurato risultava 996-1004 ms
+      // contro il secondo pieno che ci siamo imposti. Si riprova finche' il tempo
+      // trascorso e' davvero passato: e' un vincolo verso siti altrui, e "quasi"
+      // non e' la stessa cosa.
+      if (ultima) {
+        let intervallo = Date.now() - ultima;
+        while (intervallo < 1000) { await pausa(1000 - intervallo); intervallo = Date.now() - ultima; }
+        this.minimo = Math.min(this.minimo, intervallo);
+      }
+      this.ultime.set(dominio, Date.now()); this.richieste++;
+      return await fn();
+    } finally { libera?.(); this.attivi--; this.attese.shift()?.(); }
   }
 }
 
@@ -104,7 +112,7 @@ async function scaricaUnaVolta(url, limitatore) {
   } catch (errore) { return { errore: errore.name === "TimeoutError" ? "timeout" : errore.message }; }
 }
 
-async function scarica(url, limitatore) {
+export async function scarica(url, limitatore) {
   const primo = await scaricaUnaVolta(url, limitatore);
   if (!primo.errore) return primo;
   return await scaricaUnaVolta(url, limitatore);
@@ -116,7 +124,7 @@ async function scarica(url, limitatore) {
 // dominio. La cache per host evita di richiederlo a ogni partner che lo
 // condivide e per ogni sottodominio gia' visto.
 const robotsPerHost = new Map();
-async function regoleRobots(base, limitatore) {
+export async function regoleRobots(base, limitatore) {
   const host = new URL(base).origin;
   if (robotsPerHost.has(host)) return robotsPerHost.get(host);
   const robots = await scarica(new URL("/robots.txt", base).href, limitatore);
@@ -135,7 +143,7 @@ async function regoleRobots(base, limitatore) {
   robotsPerHost.set(host, esito);
   return esito;
 }
-const consentitoDaRobots = (url, regole) => !regole.some((r) => new URL(url).pathname.startsWith(r));
+export const consentitoDaRobots = (url, regole) => !regole.some((r) => new URL(url).pathname.startsWith(r));
 
 function leggiCsv(testo) {
   return testo.split(/\r?\n/).slice(1).filter((riga) => riga.trim()).map((riga) => {
