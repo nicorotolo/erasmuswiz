@@ -21,8 +21,72 @@
 
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-08-30 (sera) — Claude e Codex (**Fase 4b,
-Consegne 2b-1 e 2b-2**, nessuna riga del sito toccata). **217/217 prove verdi.**
+**Ultimo aggiornamento:** 2026-08-30 (notte) — Claude (**Fase 4b, Consegna 2b-2
+riletta, corretta ed ESEGUITA sul campo**, nessuna riga del sito toccata).
+**238/238 prove verdi.**
+
+### La prima lettura vera: 244 partner, e il tetto non è quello che si credeva
+
+**Il tetto giornaliero della chiave gratuita non è mai stato raggiunto.** La
+passata ha letto **244 partner** con **zero chiamate fallite** e
+`quota429: false`. Il vincolo vero è un altro, ed è il numero che la Fase 5
+aspettava: **250.000 token in ingresso al minuto**
+(`GenerateContentInputTokensPerModelPerMinute-FreeTier`), che con una mediana di
+125.000 caratteri per partner si satura ogni 5 chiamate. La passata ha atteso
+**38 volte**, per **31 minuti** complessivi, e poi è arrivata in fondo. La leva
+per la Fase 5 non è chiedere più quota: è **mandare meno testo**.
+
+Il §3.2 dava per scontato che ogni 429 fosse il tetto del giorno, e il codice si
+fermava al primo: si sarebbero letti **5 partner al giorno invece di 245**. Ora
+i due casi si distinguono da `quotaId`, e sul limite al minuto si aspetta il
+`retryDelay` che il server stesso dichiara.
+
+### Il resoconto del §6.2, prima esecuzione (stabilisce il riferimento)
+
+Su 244 partner, **703 campi richiesti**: 237 proposti, **156 approvati**, 21 in
+riconciliazione, 491 `nonTrovabile`. Invenzioni (`citazioneAssente`): **9,7%**,
+sotto la soglia del 20%. **La correttezza del campione umano resta sotto il 95%:
+il lavoro si ferma lì, come prescritto, e non si aggiusta il prompt finché non
+passa.**
+
+### La 2b-2 NON ha passato la rilettura, ed è stata corretta
+
+Le 217 prove erano verdi, ma alla prima chiamata vera il modello proponeva
+**4 campi e i cancelli ne approvavano 0**. Il prompt aveva compresso in prosa le
+90 righe di `gemini-sgrossatura.mjs` perdendo la forma esatta della risposta:
+chiavi in inglese (`level`), `paginaCitata` come stringa, albero delle lingue
+inventato (`{radice, foglie}`), la lingua sparita. **Sei rotture su tredici
+restavano verdi**, compresa la più grave: si potevano cancellare *tutte* le
+regole del prompt senza far fallire una sola prova. Corretto una cosa alla
+volta e misurato su A GRAZ02: 0 → 2 → 3 campi salvati su 4.
+
+**L'esempio JSON risolve la forma ma contamina il contenuto**: sette
+alberi-lingua su 36 copiavano parola per parola `Inglese B2, "per i corsi in
+inglese"`. Ora l'esempio usa valori volutamente assurdi (Esperanto A1, Latino
+A2). Ma rifacendo i sette si è visto che il difetto era un altro: il modello
+**inventa il livello a prescindere** — smesso di copiare B2, ha cominciato a
+inventare B1.
+
+### Cinque buchi dei cancelli, tutti trovati guardando le letture vere
+
+Nessuno faceva fallire una prova. Le regole nel prompt non bastavano: **una
+regola è un suggerimento, un cancello è legge.**
+
+| # | Difetto | Caso che l'ha rivelato |
+|---|---|---|
+| 1 | livello non dichiarato valeva `ateneo` | `S GOTEBOR01` scriveva `level`: un dato di dipartimento entrava nel sito |
+| 2 | **E3**, ordine dei cancelli (era aperto) | codice inventato finiva in riconciliazione invece che negli scarti |
+| 3 | livello CEFR inventato (18% dei casi) | `IELTS 6.0` → `B2`; `"medium of instruction is English"` → `B1` |
+| 4 | livello ambiguo tradotto | `"at least, A2/B1"` → due foglie; `"B1 eða B2"` in islandese |
+| 5 | lingua dedotta | `"la langue des cours choisi"` → Inglese; `"Dil sınavı"` → Turco |
+
+Nuove cause: `livelloNonCitato`, `livelloAmbiguo`, `linguaNonCitata`.
+
+**Due degli otto scarti erano falsi positivi miei**, visti solo guardandoli:
+`F ALES02` ("étudiants non francophones") e `IS AKUREYR01` ("kennd eru á
+ensku"). Le radici delle lingue si allargano solo davanti a un falso positivo
+misurato, mai per prudenza. `requisitoLingua`: 33 proposti, da 24 approvati a
+**10**, e i dieci superstiti nominano tutti lingua e livello nella citazione.
 
 La 4b è stata spezzata in **tre** ordini invece di due (spec §2 quinquies),
 perché misurando si è visto che riscaricare 879 PDF e chiamare il modello sono
@@ -4733,19 +4797,30 @@ portatile può anche chiudersi.
    verdi, due PDF reali estratti puliti e quello a font proprietario respinto.
    La **Consegna 2b-1** (`riscarica-pdf.mjs`) è chiusa il 30/08 sera: 870 PDF
    riscaricati, 417 letti, 244 partner leggibili su 246. La **2b-2**
-   (`leggi-partner.mjs`) è consegnata ma ⚠︎ **non riletta**.
+   (`leggi-partner.mjs`) è stata **riletta, bocciata, corretta ed eseguita** la
+   notte del 30/08: vedi l'intestazione di questo file per i numeri.
+   ✅ Fatti: la rilettura del prompt, la prima passata vera (244 partner), il
+   resoconto del §6.2, la correzione E3 e altri quattro buchi dei cancelli.
    **I prossimi passi, nell'ordine:**
-   1. rileggere il diff della 2b-2 e soprattutto **il prompt**, che nessuna
-      prova può giudicare, e rifare le prove di persona rompendo il codice;
-   2. lanciare la **prima passata vera** con la chiave — la lancia Claude, non
-      l'esecutore — e **misurare il tetto giornaliero**, che nessuno conosce:
-      le fonti pubbliche dicono fra 250 e 1.500 chiamate;
-   3. il **campione umano dei 30 campi**: la tabella la prepara Claude con un
-      verdetto motivato per ciascuno, l'arbitrato è di Nicola (spec §2
-      quinquies E6). Sotto il 95% ci si ferma e lo si dice;
-   4. scrivere la **2b-3** (`applica-partner.mjs`) e con essa la correzione E3
-      dell'ordine dei cancelli;
-   5. **non** scrivere `esegui-partner.mjs`: incatenare i pezzi è Fase 5.
+   1. ⏳ **L'arbitrato dei 30 campi è di Nicola** e non è ancora fatto. La
+      tabella è pronta, con fonte, citazione, valore e un verdetto motivato per
+      ciascuno. Il mio conteggio provvisorio è **sotto il 95%**: finché non
+      arbitri, il lavoro resta fermo lì — e il prompt non si tocca per farlo
+      passare (spec §2 quinquies E6);
+   2. ⏳ la **2b-3** (`applica-partner.mjs`): l'ordine è congelato in
+      `ORDINE_CODEX_2B3.md`, la consegna è di Codex, la rilettura del diff e le
+      prove rifatte a mano sono di Claude;
+   3. ⏳ **due decisioni di prodotto**, non tecniche: (a) 3 `scadenzeOspitante`
+      su 45 citano un anno già passato (`F NANCY38` 2025, `P EVORA01` e
+      `TR ISTANBU09` 2024) — scartarle o annotarle come faceva la V1?
+      (b) il §3.3 devia in riconciliazione solo i tre campi stretti, mentre il
+      vincolo generale dice che *nessun* dato di facoltà entra nel sito: un
+      `linkCatalogo` di facoltà oggi viene approvato;
+   4. **non** scrivere `esegui-partner.mjs`: incatenare i pezzi è Fase 5.
+   **Per la Fase 5, misurato:** il collo di bottiglia è il testo inviato, non la
+   quota. 33 milioni di caratteri in 245 chiamate, mediana 125.000. Ridurre il
+   testo riduce insieme attese, costo e rumore. E i ~335 PDF con font a codifica
+   propria (E8) restano il guadagno potenziale più grande.
    Dettaglio:
    `DISEGNO_PIPELINE_DATI.md` e `SPEC_FASE4B_lettura.md` §2 quater e §2 quinquies.
 
