@@ -53,30 +53,34 @@ FORMA ESATTA DELLA RISPOSTA. Usa queste chiavi in italiano, alla lettera: "level
 {
   "campi": {
     "requisitoLingua": {
-      "valore": { "op": "ANY", "figli": [ { "lingua": "Tedesco", "livello": "B2" }, { "lingua": "Inglese", "livello": "B2", "condizione": "per i corsi in inglese" } ], "fonte": "https://esempio/pagina-3", "verificatoIl": "${oggi}" },
+      "valore": { "op": "ANY", "figli": [ { "lingua": "Esperanto", "livello": "A1" }, { "lingua": "Latino", "livello": "A2", "condizione": "LA-CONDIZIONE-CHE-LEGGI" } ], "fonte": "https://esempio/pagina-3", "verificatoIl": "${oggi}" },
       "livello": "ateneo", "ambito": null, "paginaCitata": 3,
-      "fonte": { "url": "https://esempio/pagina-3", "citazione": "frase copiata dalla pagina", "verificataIl": "${oggi}" }
+      "fonte": { "url": "https://esempio/pagina-3", "citazione": "LA-FRASE-COPIATA-CHE-NOMINA-LE-LINGUE-E-DICE-A1-E-A2", "verificataIl": "${oggi}" }
     },
     "scadenzeOspitante": {
-      "valore": [ { "cosa": "Nomination (autunno)", "periodo": "entro il 10 aprile" } ],
+      "valore": [ { "cosa": "CHE-SCADENZA-E", "periodo": "QUANDO-SCADE" } ],
       "livello": "ateneo", "ambito": null, "paginaCitata": 16,
-      "fonte": { "url": "https://esempio/pagina-16", "citazione": "frase copiata dalla pagina", "verificataIl": "${oggi}" }
+      "fonte": { "url": "https://esempio/pagina-16", "citazione": "LA-FRASE-COPIATA-DALLA-PAGINA", "verificataIl": "${oggi}" }
     },
     "linkCatalogo": {
       "valore": "https://esempio/catalogo",
       "livello": "ateneo", "ambito": null, "paginaCitata": 23,
-      "fonte": { "url": "https://esempio/pagina-23", "citazione": "frase copiata dalla pagina", "verificataIl": "${oggi}" }
+      "fonte": { "url": "https://esempio/pagina-23", "citazione": "LA-FRASE-COPIATA-DALLA-PAGINA", "verificataIl": "${oggi}" }
     }
   },
   "nonTrovati": { "linkSito": 1 },
   "note": []
 }
 
+TUTTI i valori qui sopra sono finti, e alcuni sono volutamente assurdi (nessun ateneo chiede l'Esperanto): l'esempio mostra soltanto DOVE va ogni cosa. Non copiarne nemmeno uno - ne' le lingue, ne' i livelli, ne' gli indirizzi "esempio", ne' i numeri di pagina 3, 16 e 23, ne' le parole in MAIUSCOLO. Ogni valore che scrivi dev'essere letto sulle pagine allegate.
+
 ALBERO DELLE LINGUE (solo per requisitoLingua)
 - La radice ha SEMPRE quattro chiavi: "op" ("ANY" se basta una qualunque delle lingue, "ALL" se servono tutte, e ALL anche quando c'e' una sola foglia), "figli", "fonte" (l'URL della pagina citata) e "verificatoIl" (la data).
 - Ogni foglia ha SOLO le chiavi "lingua", "livello" e, se serve, "condizione" (stringa) e "quando" ({"livello":"L"} per la triennale, {"livello":"LM"} per la magistrale). Nessun'altra chiave e' ammessa.
 - "lingua" e' UNA lingua sola, scritta in italiano (Inglese, Tedesco, Francese, Spagnolo...). Mai "Tedesco o Inglese", mai "Francese/Inglese", mai "Non specificata": se la pagina dice "tedesco o inglese", scrivi due foglie sotto una radice ANY.
 - "livello" e' SOLO A1, A2, B1, B2, C1 o C2. Valori come B1/B2, B1-B2, B2.1 o "almeno B2" sono ambigui: ometti requisitoLingua invece di tradurli.
+- REGOLA PIU' IMPORTANTE DI TUTTE su questo campo: la sigla del livello (A1...C2) deve comparire ALLA LETTERA dentro la citazione che copi. Se la pagina dice quale lingua si usa ma non dice a che livello - per esempio "la lingua di insegnamento e' l'inglese", oppure "i corsi sono in inglese e spagnolo" - allora il livello NON esiste sulla pagina: ometti requisitoLingua e mettilo in nonTrovati. Non dedurlo, non stimarlo, non metterci il livello piu' comune. Un livello inventato e' l'errore piu' grave che puoi fare qui.
+- Allo stesso modo, la LINGUA dev'essere nominata nella citazione. Se la pagina chiede "un certificato di lingua di livello B1" senza dire quale lingua, ometti il campo.
 
 LA CITAZIONE
 - Va COPIATA carattere per carattere dalla pagina allegata, senza correggere refusi, accenti o spazi, senza tradurla e senza riassumerla.

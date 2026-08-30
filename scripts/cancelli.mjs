@@ -21,10 +21,38 @@ export function citazioneValida(citazione, testoInviato) {
   return norm(testoInviato).includes(c) ? { ok: true } : { ok: false, causa: "citazioneAssente" };
 }
 
+// Il cancello della citazione garantisce che la FRASE esista, non che il DATO
+// ci sia dentro. Misurato il 30/08 sera sulle 244 letture vere: 6 requisitoLingua
+// su 33 (18%) proponevano un livello CEFR che nella citazione non compariva.
+// Il modello legge "fluent in English", "Good command of English", "IELTS 6.0"
+// e ci attacca un livello di sua iniziativa - che e' esattamente la traduzione
+// di valori ambigui che il progetto vieta. Dirlo nel prompt non e' bastato:
+// una regola e' un suggerimento, un cancello e' legge.
+export function livelliCitati(valore, citazione) {
+  if (!valore || typeof valore !== "object") return { ok: true };
+  const c = norm(citazione);
+  const livelli = new Set();
+  const gira = (nodo) => {
+    if (!nodo || typeof nodo !== "object") return;
+    if (Array.isArray(nodo.figli)) nodo.figli.forEach(gira);
+    else if (typeof nodo.livello === "string") livelli.add(nodo.livello.trim().toUpperCase());
+  };
+  gira(valore);
+  const assenti = [...livelli].filter((l) => !c.includes(l.toLowerCase()));
+  return assenti.length ? { ok: false, causa: "livelloNonCitato", assenti } : { ok: true };
+}
+
 export function applicaCancelloLivello(campo, proposta, pagina = {}) {
-  const declassato = proposta.livello === "ateneo" && PAROLE_FACOLTA.test(`${proposta.fonte?.url || ""} ${pagina.titolo || proposta.titoloPagina || ""}`);
-  const livello = declassato || proposta.livello === "facolta" ? "facolta" : "ateneo";
-  return { ...proposta, livello, declassato, approvato: !(CAMPI_STRETTI.has(campo) && livello === "facolta") };
+  // Un livello che non e' ne' "ateneo" ne' "facolta" NON e' un livello di
+  // ateneo. Misurato il 30/08 sera: S GOTEBOR01 scriveva "level" invece di
+  // "livello" e dichiarava "facolta" con ambito "Institutionen for svenska";
+  // leggendo la chiave giusta il cancello trovava undefined e lo trattava come
+  // "ateneo", quindi un dato di dipartimento sarebbe entrato nei file del sito.
+  // Il dubbio va sempre verso il livello piu' stretto (§3.2 punto 3).
+  const dichiarato = proposta.livello === "ateneo" || proposta.livello === "facolta" ? proposta.livello : null;
+  const declassato = dichiarato === "ateneo" && PAROLE_FACOLTA.test(`${proposta.fonte?.url || ""} ${pagina.titolo || proposta.titoloPagina || ""}`);
+  const livello = dichiarato === "ateneo" && !declassato ? "ateneo" : "facolta";
+  return { ...proposta, livello, dichiarato, declassato, approvato: !(CAMPI_STRETTI.has(campo) && livello === "facolta") };
 }
 
 function fileMete(radice) {
@@ -90,11 +118,19 @@ export async function applicaCancelli(letture, { radice = RADICE, codici = codic
         if (esito.stato === "inconcludente") causa = "urlInconcludente";
       }
       if (!causa) try { validaValore(campo, proposta.valore, campo); validaFonte(proposta.fonte, `${campo}.fonte`); } catch { causa = "formaNonValida"; }
+      if (!causa && campo === "requisitoLingua") causa = livelliCitati(proposta.valore, proposta.fonte?.citazione).causa;
+      // E3: il codice si valuta PRIMA che il campo devii in riconciliazione, ma
+      // resta l'ultimo a dare la causa, cosi' il resoconto per causa del §6.2
+      // resta confrontabile. Senza questo, un partner con codice inventato e un
+      // campo di facolta' finiva in riconciliazione invece che negli scarti, ed
+      // entrava nel materiale della Fase 6 un dato senza un partner vero a cui
+      // appartenere.
+      const codiceIgnoto = !codici.has(normCodice(lettura.codiceNorm));
       if (!causa) {
         proposta = applicaCancelloLivello(campo, proposta, pagina);
-        if (!proposta.approvato) { facolta.push({ codiceNorm: lettura.codiceNorm, campo, ...proposta }); continue; }
+        if (!proposta.approvato && !codiceIgnoto) { facolta.push({ codiceNorm: lettura.codiceNorm, campo, ...proposta }); continue; }
       }
-      if (!causa && !codici.has(normCodice(lettura.codiceNorm))) causa = "codiceSconosciuto";
+      if (!causa && codiceIgnoto) causa = "codiceSconosciuto";
       (causa ? scartati : approvati).push({ codiceNorm: lettura.codiceNorm, campo, ...(causa ? { causa, proposta } : proposta) });
     }
   }

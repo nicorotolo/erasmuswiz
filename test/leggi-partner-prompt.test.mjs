@@ -23,9 +23,9 @@ const PARTNER = {
   codiceNorm: "TEST 01", ateneo: "UNIVERSITA DI PROVA", citta: "Graz", paese: "Austria",
   campiMancanti: ["requisitoLingua", "scadenzeOspitante", "linkCatalogo", "notaDisponibilita"],
 };
-// La citazione dell'esempio e' "frase copiata dalla pagina": la mettiamo dentro
-// il testo delle pagine finte, cosi' l'esempio non va ritoccato in niente.
-const TESTO = `Prima della frase copiata dalla pagina viene un po di contorno. ${"contorno ".repeat(60)}`;
+// La citazione dell'esempio e' un segnaposto: lo mettiamo dentro il testo delle
+// pagine finte, cosi' l'esempio non va ritoccato in niente.
+const TESTO = `Prima di LA-FRASE-COPIATA-DALLA-PAGINA e di LA-FRASE-COPIATA-CHE-NOMINA-LE-LINGUE-E-DICE-A1-E-A2 viene un po di contorno. ${"contorno ".repeat(60)}`;
 const impronta = (t) => createHash("sha256").update(t, "utf8").digest("hex");
 const PAGINE = [3, 16, 23].map((n) => ({
   n, file: `${String(n).padStart(3, "0")}.json`, url: `https://esempio/pagina-${n}`,
@@ -130,9 +130,33 @@ test("il prompt dice al modello le cose che i cancelli poi pretendono", () => {
     ["il titolo della pagina", "TITOLO: Incoming exchange 3"],
     ["linkCatalogo non e' linkSito", "NON e' la stessa cosa di linkSito"],
     ["i campi richiesti", '["requisitoLingua","scadenzeOspitante","linkCatalogo","notaDisponibilita"]'],
-    ["il testo della pagina", "frase copiata dalla pagina"],
+    ["il testo della pagina", "LA-FRASE-COPIATA-DALLA-PAGINA"],
+    ["che il livello CEFR dev'essere scritto nella citazione", "deve comparire ALLA LETTERA dentro la citazione"],
+    ["che i valori dell'esempio sono finti", "TUTTI i valori qui sopra sono finti"],
   ];
   for (const [cosa, atteso] of deve) assert.ok(p.includes(atteso), `il prompt non dice piu': ${cosa}`);
+});
+
+test("l'esempio non offre al modello valori plausibili da copiare", () => {
+  // Il 30/08 sera l'esempio diceva 'Inglese B2, condizione: per i corsi in
+  // inglese'. Sette atenei su trentasei l'hanno copiato parola per parola,
+  // compresi due in cui la pagina non nominava alcun livello: il B2 era
+  // inventato. Un esempio deve insegnare la FORMA senza suggerire il CONTENUTO.
+  const albero = esempio().campi.requisitoLingua.valore;
+  const foglie = [];
+  const gira = (n) => (n.figli ? n.figli.forEach(gira) : foglie.push(n));
+  gira(albero);
+
+  const COMUNI = ["inglese", "tedesco", "francese", "spagnolo", "italiano", "portoghese", "olandese", "english", "deutsch"];
+  for (const f of foglie) {
+    assert.ok(!COMUNI.includes(String(f.lingua).toLowerCase()),
+      `l'esempio propone "${f.lingua}", una lingua che il modello copierebbe come se l'avesse letta: usarne una implausibile`);
+    assert.ok(!["B1", "B2", "C1"].includes(f.livello),
+      `l'esempio propone "${f.livello}", il livello piu' comune nella realta': una copia sarebbe indistinguibile da una lettura vera`);
+  }
+  // E il prompt deve dire a chiare lettere che quei valori non si riusano.
+  const p = costruisciPrompt(PARTNER, PAGINE, "2026-08-30");
+  assert.ok(/non copiarne nemmeno uno/i.test(p), "il prompt non vieta piu' di riusare i valori dell'esempio");
 });
 
 test("il modello si sceglie per numero di versione, non in ordine alfabetico", () => {
