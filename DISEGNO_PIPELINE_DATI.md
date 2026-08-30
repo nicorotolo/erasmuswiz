@@ -171,6 +171,45 @@ modello, non meno.
 propagazione restano quelli che sono: funzionano e sono la parte migliore
 dell'impianto attuale.
 
+### Dove gira (deciso il 2026-08-30)
+
+**Sul PC personale, in una cartella dedicata: `C:\erasmuswiz-mappatura`.**
+
+Il PC aziendale era stato scelto perche' Codex aveva bisogno di un login
+ChatGPT e di una macchina sempre accesa. Con la V2 nessuna delle due cose
+serve piu': la pipeline vuole solo Node, una chiave Gemini gratuita e la rete.
+Il suo Task Scheduler **va disattivato**, altrimenti due processi lavorano lo
+stesso `origin` e prima o poi si scontrano sullo stesso ramo.
+
+La cartella pero' resta separata da `C:\erasmuswiz`, e non e' pignoleria: la
+pipeline **committa e pusha da sola su `main`**, e nella cartella di sviluppo
+troverebbe regolarmente lavoro non ancora committato (e' il caso oggi stesso).
+Stessa macchina, due cartelle, stesso `origin`.
+
+### Niente piu' limiti di tempo sul run (e i due che restano)
+
+I limiti che tagliavano i run erano due, e spariscono entrambi con la V2:
+
+- i **240 secondi per comando** erano un limite di Codex, che esce dal ciclo;
+- il **timeout di 300s** su Gemini esisteva perche' la ricerca "grounded" su un
+  intero lotto superava i 180s e faceva morire la pipeline (successo il 22/07,
+  ed e' il motivo per cui il ragionamento era stato forzato a LOW). Leggendo
+  pagine gia' scaricate, una chiamata dura pochi secondi.
+
+**Regola nuova: nessun limite di tempo sul run.** Gira finche' serve, ore o
+giorni. A renderlo possibile non e' la pazienza ma il **checkpoint per
+partner**: ogni partner completato viene salvato su disco, quindi il processo
+si puo' fermare in qualunque momento — chiusura del portatile compresa — e
+riprendere da li'. E' questo che manda in pensione il requisito "PC sempre
+acceso".
+
+Due limiti restano, e sono giusti:
+
+1. **timeout sulla singola pagina** (15-20s): se un sito universitario non
+   risponde, non si aspetta all'infinito — si passa oltre e il partner va a L4;
+2. **ritardo fra le richieste allo stesso dominio**: non e' un limite nostro,
+   e' educazione verso i siti che stiamo leggendo, e serve a non farsi bloccare.
+
 ---
 
 ## 4. QUANTO COSTA E QUANTO DURA (conti, non speranze)
@@ -199,12 +238,25 @@ il collo di bottiglia**, perche' Codex non sta piu' nel ciclo.
 Ogni fase ha un criterio di uscita misurabile. Non si passa alla successiva
 senza.
 
-### Fase 0 — Riaccendere e capire perche' si e' fermata *(mezz'ora, PC aziendale)*
-Guardare i log in `%LOCALAPPDATA%\ErasmusWiz\logs` dal 29/07 in poi e lanciare
-a mano il preflight. Serve sapere se e' stato Codex (credito), la rete, o il
-Task Scheduler.
-**Uscita:** una riga scritta qui che dice cos'era. Anche se la V2 togliera'
-Codex dal ciclo, la causa va conosciuta: se e' il Task Scheduler, si ripete.
+### Fase 0 — Trasloco su questo PC *(20 minuti)*
+Non serve piu' andare a diagnosticare il fermo del 29/07: delle tre cause
+possibili (credito Codex, rete, Task Scheduler di quella macchina) la V2 ne
+elimina due e la terza se ne va con la macchina. Al suo posto:
+
+1. **Cartella di lavoro**: `C:\erasmuswiz-mappatura`, gia' creata, allineata a
+   `origin/main`. Da qui in avanti la pipeline gira solo li'.
+2. **Chiave Gemini su questo PC** — la fa Nicola, non io. In AI Studio, progetto
+   **senza fatturazione attiva** (altrimenti non e' piu' piano gratuito), poi
+   da PowerShell su una riga:
+   `[Environment]::SetEnvironmentVariable('GEMINI_API_KEY','LA-TUA-CHIAVE','User')`
+   Chiudere e riaprire il terminale. Mai dentro un file del repo.
+3. **Spegnere il Task Scheduler sul PC aziendale**, o due processi lavoreranno
+   lo stesso `origin`.
+4. **Allarme di silenzio**: se non arriva un avanzamento per 48 ore, deve
+   comparire una notifica. E' il difetto che ha fatto perdere un mese.
+
+**Uscita:** `node --version` e chiave presente nella cartella nuova; il task
+sull'altro PC disattivato.
 
 ### Fase 1 — Bonifica dei codici finti *(una sessione)*
 Sostituire i 183 `SAP-*` con i codici veri dell'export ufficiale.
@@ -325,14 +377,13 @@ volonta' di un modello.
 
 ---
 
-## 10. LA PRIMA COSA, DOMATTINA
+## 10. LA PRIMA COSA
 
-Sul PC aziendale, nella cartella del repo:
+**Due cose che deve fare Nicola, e nessun altro puo' fare al posto suo:**
 
-```
-node scripts/esegui-lotto-automatico.mjs --preflight --online
-```
+1. Creare la chiave Gemini su questo PC (AI Studio, progetto senza
+   fatturazione), e salvarla come variabile utente — vedi Fase 0, punto 2.
+2. Disattivare il task pianificato sul PC aziendale.
 
-Serve a sapere **perche' si e' fermata il 29 luglio**. E' l'unica cosa da fare
-prima di costruire qualsiasi pezzo della V2: se la causa e' il Task Scheduler o
-la rete, tornera' a mordere anche la pipeline nuova.
+Fatte queste, si parte dalla **Fase 1** (bonifica dei 183 codici finti), che
+non richiede ne' chiave ne' rete e sblocca tutto il resto.

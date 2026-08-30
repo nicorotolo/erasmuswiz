@@ -4543,12 +4543,20 @@ poi aprire **http://localhost:8001**. (Dettagli e alternative nel `README.md`.)
 
 ### ⇢ Cantiere DATI — riavvio della mappatura (aggiornato 2026-08-30)
 
-Corre in parallelo al cantiere sito e non gli ruba sessioni: le prime due voci
-si fanno sul **PC aziendale**, non qui.
+**Deciso il 30/08: la mappatura torna su questo PC**, in una cartella dedicata
+`C:\erasmuswiz-mappatura` (già creata, allineata a `origin/main`). Il PC
+aziendale serviva per il login Codex e per stare sempre acceso: con la V2 non
+serve nessuna delle due cose. Cartella separata da `C:\erasmuswiz` perché la
+pipeline committa e pusha da sola su `main`. **Nessun limite di tempo sul run**:
+il checkpoint per partner lo rende interrompibile e ripartibile, quindi il
+portatile può anche chiudersi.
 
-0. **Capire perché si è fermata il 29 luglio**: log in
-   `%LOCALAPPDATA%\ErasmusWiz\logs` e `node scripts/esegui-lotto-automatico.mjs
-   --preflight --online`. Prima di ogni altra cosa, anche prima della V2.
+0. **Due cose che deve fare Nicola**: (a) creare la chiave Gemini su questo PC —
+   AI Studio, progetto **senza fatturazione attiva**, poi
+   `[Environment]::SetEnvironmentVariable('GEMINI_API_KEY','...','User')`;
+   (b) **disattivare il task pianificato sul PC aziendale**, o due processi
+   lavorano lo stesso `origin`. Il fermo del 29/07 non si diagnostica più: delle
+   tre cause possibili la V2 ne elimina due e la terza se ne va con la macchina.
 1. **Fase 1 della V2 — bonifica dei 183 codici `SAP-*`**: 170 su 183 si
    abbinano automaticamente all'export ufficiale, 13 a mano. Guadagno misurato:
    26 lingue e 23 scadenze si riversano su partner oggi vuoti.
