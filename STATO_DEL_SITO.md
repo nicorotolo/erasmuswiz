@@ -4597,9 +4597,23 @@ portatile può anche chiudersi.
    **Resta da fare (cantiere SITO, dopo la tranche 2):** mostrarlo davvero allo
    studente — «cercato, non pubblicato dall'ateneo» invece di un campo vuoto.
    Vive in `js/app.js` e `js/puro.js`, dove c'è lavoro non committato.
-4. **Fase 4 — crawler + lettore + cancelli**, da consegnare a Codex come spec
-   congelata. Le fasi 5-7 (passata completa, riconciliazione, campione umano)
-   seguono. Dettaglio, criteri di uscita e costi: `DISEGNO_PIPELINE_DATI.md`.
+4. ✅ **Fase 4a — la raccolta: FATTA il 30/08** (`c7b6ce0`). La Fase 4 è stata
+   spezzata in due: 4a scarica e mette in cache le pagine dei siti partner (né
+   modello né chiave), 4b farà lettura, cancelli e applicazione ai dati.
+   `scripts/raccogli-partner.mjs` costruito da Codex su spec congelata
+   (`SPEC_FASE4A_raccolta.md`), verificato e corretto da Claude.
+   **80 partner raggiunti su 100** — 80 su 96 fra quelli che hanno un indirizzo
+   nell'accordo. Si partiva da 71: la differenza è un difetto solo, il confronto
+   "stesso ateneo" fatto sull'indirizzo di partenza invece che su quello di
+   arrivo, che scartava per intero i siti degli atenei che hanno cambiato
+   dominio (`uni-karlsruhe.de` → KIT, `uni-salzburg.at` → `plus.ac.at`).
+   Nove difetti corretti in tutto; 191 test verdi nel repo pulito.
+   ⚠️ Il criterio d'uscita della spec ("16 su 20") era **mal posto**: su venti
+   casi 14 e 16 non sono distinguibili. Corretto in 75% su almeno 100 partner,
+   con i falliti divisi per causa.
+5. **Fase 4b — lettura, cancelli, applicazione**: da specificare. È il primo
+   pezzo che usa davvero la chiave Gemini. Poi le fasi 5-7 (passata completa,
+   riconciliazione, campione umano). Dettaglio: `DISEGNO_PIPELINE_DATI.md`.
 
 ### ⇢ In cima a tutto, dopo la tranche 1 (aggiornato 2026-08-07)
 
