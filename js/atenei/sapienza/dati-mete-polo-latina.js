@@ -56,6 +56,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://brest-bs.com/",
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69657. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -100,6 +102,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.th-nuernberg.de/",
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Accordo ERA69641. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -119,6 +123,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.th-nuernberg.de/",
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69642. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -138,6 +144,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.tu-clausthal.de/",
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69639. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -157,6 +165,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://eng.wseiz.pl/",
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69664. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -206,6 +216,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://eng.wseiz.pl/",
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69665. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -225,6 +237,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.ue.wroc.pl/",
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69666. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -273,6 +287,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.utms.edu.mk/en/",
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Accordo ERA69660. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -292,6 +308,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.uhk.cz/",
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69638. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -388,6 +406,9 @@ var METE = [
     linkSito: "https://www.ucv.ro/",
     linkCatalogo: "http://www.ucv.ro/international/programe/programe_europene/studenti_incoming.php",
 
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
+
     notePratiche: "Posti dell'accordo: 1. Accordo ERA69674. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -439,6 +460,9 @@ var METE = [
     linkSito: "http://unitbv.ro",
     linkCatalogo: "https://www.unitbv.ro/en/prospective-students/academic-programmes.html",
 
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA69667. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -464,6 +488,9 @@ var METE = [
       ],
     linkSito: "http://www..uniba.sk",
     linkCatalogo: "https://uniba.sk/en/international-relations/eninternational-relationserasmus/incoming-students/",
+
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
 
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69675. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
@@ -559,6 +586,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.upct.es/",
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA69650. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -681,6 +710,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.upct.es/",
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69651. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -728,6 +759,9 @@ var METE = [
 
     notaDisponibilita: "Gli studenti Erasmus incoming possono scegliere corsi di qualsiasi dipartimento, purché approvati dall'università di provenienza.",
 
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69677. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -747,6 +781,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.atauni.edu.tr/",
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69678. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -766,6 +802,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.atauni.edu.tr/",
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69679. || Lingua: CEFR non trovato dopo ricerca approfondita"
   }
 ];

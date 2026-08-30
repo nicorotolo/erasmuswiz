@@ -41,6 +41,44 @@ export const CAMPI_CONTESTO = [
   "codiceErasmus", "universita", "citta", "paese", "linkPdf", "linkSito",
 ];
 
+// --- "completo": una definizione sola, usata da tutti gli script -----------
+//
+// La pipeline V2 (DISEGNO_PIPELINE_DATI.md §6) dice che un campo e' coperto se
+// ha il dato CON fonte, OPPURE se e' dichiarato non trovabile CON la fonte
+// tentata e la data. Un campo cercato invano e uno mai cercato non sono la
+// stessa cosa, e finora sul sito erano indistinguibili: entrambi vuoti.
+//
+// Forma del campo su una meta:
+//   nonTrovabile: {
+//     requisitoLingua: { cercatoIl: "2026-09-01", fonte: "https://..." }
+//   }
+//
+// Quattro stati possibili:
+//   "dato"           il valore c'e';
+//   "nonTrovabile"   cercato, l'ateneo non lo pubblica, e lo possiamo provare;
+//   "daRiconfermare" dichiarato non trovabile ma SENZA fonte ne' data. E' il
+//                    caso dei 153 ereditati dalla pipeline V1, che non teneva
+//                    traccia dei tentativi falliti. Non e' copertura: e' un
+//                    promemoria. Contarlo come coperto gonfierebbe i numeri
+//                    senza che nessuno abbia verificato niente;
+//   "vuoto"          mai cercato.
+export function statoCampo(meta, campo) {
+  const valore = meta?.[campo];
+  const haValore = Array.isArray(valore) ? valore.length > 0
+    : valore && typeof valore === "object" ? Object.keys(valore).length > 0
+      : typeof valore === "string" ? valore.trim().length > 0 && !/^da verificare/i.test(valore.trim())
+        : false;
+  if (haValore) return "dato";
+  const nt = meta?.nonTrovabile?.[campo];
+  if (!nt) return "vuoto";
+  return nt.fonte && nt.cercatoIl ? "nonTrovabile" : "daRiconfermare";
+}
+
+// Vero solo per gli stati che contano davvero come copertura.
+export function copertoDavvero(stato) {
+  return stato === "dato" || stato === "nonTrovabile";
+}
+
 export function leggiStato(path = "mappatura-stato.json") {
   return JSON.parse(fs.readFileSync(path, "utf8"));
 }

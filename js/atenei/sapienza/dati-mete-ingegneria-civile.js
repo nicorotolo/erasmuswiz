@@ -1196,6 +1196,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
       ],
     linkSito: "http://www.upatras.gr/",
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69264. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato in mappature precedenti"
   },
   {
@@ -1219,6 +1221,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
       ],
     linkSito: "http://www.upatras.gr/",
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69265. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato in mappature precedenti"
   },
   {
@@ -2963,6 +2967,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
     linkSito: "http://www.ege.edu.tr",
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti dell'accordo: 1. Accordo ERA69342. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato in mappature precedenti"
   },
   {
@@ -3031,6 +3037,8 @@ var METE = [
         { cosa: "Richiesta alloggio on-campus (primavera)", periodo: "~7 dicembre - 8 gennaio" }
       ],
     linkSito: "https://w3.bilkent.edu.tr/bilkent/",
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69338. || Lingua: serve una lettera di competenza in inglese dell'universita di provenienza, senza livello CEFR esplicito - da verificare. Navette gratuite campus-centro; corsi di turco base (5 ECTS). [Fonte: scheda destinazione] || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato in mappature precedenti"
   },
   {

@@ -1222,6 +1222,8 @@ var METE = [
         { cosa: "Nomination (autunno)", periodo: "entro 30 maggio" },
         { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" }
       ],
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1272,6 +1274,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 7 novembre" }
       ],
     linkSito: "HTTP://WWW.UNIZAR.ES",
+
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26 || Lingua: CEFR non trovato dopo ricerca approfondita"
   },

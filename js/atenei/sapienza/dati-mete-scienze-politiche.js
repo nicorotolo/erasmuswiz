@@ -89,6 +89,9 @@ var METE = [
 
     notaDisponibilita: "Lo status di studente in scambio è rivolto esclusivamente a studenti di livello Master e Dottorato.",
 
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
+
     notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70105. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -109,6 +112,9 @@ var METE = [
     scadenzeOspitante: [],
     linkSito: "https://www.sciencespo-aix.fr/",
     linkCatalogo: "https://www.sciencespo-aix.fr/international/etudier-a-sciences-po-aix/cours/",
+
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
 
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70094. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
@@ -155,6 +161,9 @@ var METE = [
     notaDisponibilita: "Almeno il 70% dei corsi selezionati deve appartenere all'area di studio coperta dall'accordo bilaterale.",
 
     linkCatalogo: "https://www.univ-nantes.fr/international/venir-a-nantes/incoming-exchange-students-class-catalog",
+
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
 
     notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70098. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
@@ -231,6 +240,8 @@ var METE = [
         { cosa: "Application (semestre invernale)", periodo: "da meta maggio al 15 luglio" }
       ],
     linkSito: "https://www.tu-chemnitz.de/",
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70061. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -309,6 +320,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.euv-frankfurt-o.de",
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70065. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -328,6 +341,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.akademia.mil.pl/",
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71533. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -350,6 +365,8 @@ var METE = [
         { cosa: "Application (semestre estivo)", periodo: "entro 30 novembre" }
       ],
     linkSito: "https://www.us.edu.pl/en/",
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70124. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -581,6 +598,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://uni.sze.hu",
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71532. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -600,6 +619,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.pte.hu",
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70115. || Lingua: CEFR non trovato dopo ricerca approfondita"
   }
 ];

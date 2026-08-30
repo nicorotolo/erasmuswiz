@@ -30,6 +30,8 @@ var METE = [
         { cosa: "Nomination (autunno)", periodo: "entro 1 maggio" },
         { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" }
       ],
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -550,6 +552,8 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "entro 21 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
       ],
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -571,6 +575,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "dal 1 marzo al 15 luglio" },
         { cosa: "Application (primavera)", periodo: "dal 1 settembre al 15 dicembre" }
       ],
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -726,6 +732,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 30 luglio" },
         { cosa: "Application (primavera)", periodo: "entro 31 dicembre" }
       ],
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2023/24"
   },
   {
@@ -857,6 +865,8 @@ var METE = [
       ],
     linkSito: "http://www.uemc.edu",
 
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -881,6 +891,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
     linkSito: "https://www.ehu.eus/en/en-home",
+
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
@@ -1103,6 +1115,8 @@ var METE = [
       ],
     linkSito: "http://www.usc.es",
 
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1152,6 +1166,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
     linkSito: "http://www.uemc.edu",
+
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
@@ -1274,6 +1290,8 @@ var METE = [
         { cosa: "Nomination/Application (autunno)", periodo: "2 marzo - 30 giugno 2026" },
         { cosa: "Nomination/Application (primavera)", periodo: "15 settembre - 29 novembre" }
       ],
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26 || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1380,6 +1398,8 @@ var METE = [
       ],
     linkSito: "http://erasmus.istanbul.edu.tr/en/",
 
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1459,6 +1479,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "1 settembre - 15 dicembre" },
         { cosa: "Application (primavera)", periodo: "entro 1 gennaio" }
       ],
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2023/24 || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {

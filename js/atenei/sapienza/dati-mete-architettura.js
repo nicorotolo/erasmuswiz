@@ -327,6 +327,8 @@ var METE = [
         { cosa: "Nomination/Application (autunno)", periodo: "entro 1 maggio" },
         { cosa: "Nomination/Application (primavera)", periodo: "entro 15 ottobre" }
       ],
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -348,6 +350,8 @@ var METE = [
         { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
         { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" }
       ],
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1078,6 +1082,8 @@ var METE = [
       ],
     linkSito: "https://www.uni-kassel.de/uni/en/study/before-the-application/study-guide-for-international-students/exchange-studies-at-the-university-of-kassel.html",
 
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. Ulteriore accordo distinto con lo stesso ateneo (promotore Federica Dal Falco). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1198,6 +1204,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
     linkSito: "https://www.hawk.de/de",
+
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
@@ -1695,6 +1703,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 30 settembre" },
         { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
       ],
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2024/25 || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1739,6 +1749,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "dal 1 aprile al 21 maggio" },
         { cosa: "Application (primavera)", periodo: "dal 1 settembre al 15 ottobre" }
       ],
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Fabio Quici). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1764,6 +1776,8 @@ var METE = [
       ],
     linkSito: "HTTP://WWW.UEVORA.PT",
 
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2023/24"
   },
   {
@@ -1785,6 +1799,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "dal 1 aprile al 21 maggio" },
         { cosa: "Application (primavera)", periodo: "dal 1 settembre al 15 ottobre" }
       ],
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Romeo Di Pietro). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1830,6 +1846,8 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "entro 31 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 2. Solo livello Magistrale. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1933,6 +1951,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 luglio" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1956,6 +1976,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "1 aprile - 30 giugno" },
         { cosa: "Application (primavera)", periodo: "1 settembre - 10 novembre" }
       ],
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Alessandra Capanna). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1979,6 +2001,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "1 aprile - 30 giugno" },
         { cosa: "Application (primavera)", periodo: "1 settembre - 10 novembre" }
       ],
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. Ulteriore accordo distinto con lo stesso ateneo (promotore Carmela Mariano). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -2101,6 +2125,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 luglio" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 1. Solo livello triennale. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -2321,6 +2347,8 @@ var METE = [
       ],
     linkSito: "http://www.udg.edu",
 
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -2345,6 +2373,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "1 settembre - 6 novembre 2026" }
       ],
     linkSito: "HTTP://WWW.UNIZAR.ES",
+
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
@@ -2444,6 +2474,8 @@ var METE = [
         { cosa: "Nomination (autunno)", periodo: "entro 30 maggio" },
         { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" }
       ],
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -2493,6 +2525,8 @@ var METE = [
       ],
     linkSito: "https://www.uvic.cat/en",
 
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale. Ulteriore accordo distinto con lo stesso ateneo (promotore Angela Giambattista). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -2517,6 +2551,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 25 ottobre" }
       ],
     linkSito: "https://www.uvic.cat/en",
+
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Angela Giambattista). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
@@ -2696,6 +2732,8 @@ var METE = [
       ],
     linkSito: "http://www.gazi.edu.tr",
 
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -2802,6 +2840,8 @@ var METE = [
         { cosa: "Nomination/Application (autunno)", periodo: "entro 30 giugno" },
         { cosa: "Nomination/Application (primavera)", periodo: "entro 30 dicembre" }
       ],
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -2825,6 +2865,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "1 settembre - 30 novembre" },
         { cosa: "Application (primavera)", periodo: "1 settembre - 30 novembre" }
       ],
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {

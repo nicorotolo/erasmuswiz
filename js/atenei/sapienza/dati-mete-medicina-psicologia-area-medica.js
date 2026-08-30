@@ -43,6 +43,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 29 maggio 2026" },
         { cosa: "Application (primavera)", periodo: "entro 27 novembre 2026" }
       ],
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 3. Solo livello Magistrale. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -209,6 +211,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 1 novembre per studenti Erasmus" }
       ],
     linkSito: "https://www.comillas.edu/",
+
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
     notePratiche: "Posti totali dell'accordo: 1. Solo livello triennale. Secondo accordo distinto con lo stesso ateneo (promotore Maria Chiara Vulpiani, vedi anche sap-medic2-comillas-b con promotore Flavia Pantaleo). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
@@ -379,6 +383,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 1 novembre 2026 per studenti Erasmus" }
       ],
     linkSito: "https://www.comillas.edu/",
+
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
     notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale. Secondo accordo distinto con lo stesso ateneo (promotore Flavia Pantaleo, vedi anche sap-medic2-comillas-a con promotore Maria Chiara Vulpiani). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   }

@@ -55,6 +55,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://imt-lille-douai.fr/",
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Accordo ERA68248. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -74,6 +76,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://imt-lille-douai.fr/",
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Accordo ERA68247. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -328,6 +332,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.unipi.gr/",
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA68293. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -609,6 +615,9 @@ var METE = [
     linkSito: "http://www.supsi.ch/international/",
     linkCatalogo: "https://exchange.supsi.ch/en/incoming-students",
 
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA68131. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -652,6 +661,8 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://msu.edu.tr/eng/default",
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti dell'accordo: 1. Accordo ERA68366. || Lingua: CEFR non trovato dopo ricerca approfondita"
   }
 ];

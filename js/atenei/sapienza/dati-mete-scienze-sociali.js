@@ -1011,6 +1011,8 @@ var METE = [
       ],
     linkSito: "http://www.unibuc.ro",
 
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1034,6 +1036,8 @@ var METE = [
       ],
     linkSito: "http://www.unibuc.ro",
 
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1056,6 +1060,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 30 ottobre" }
       ],
     linkSito: "http://www.unibuc.ro",
+
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
@@ -1365,6 +1371,8 @@ var METE = [
         { cosa: "Application/documenti piattaforma (autunno/anno intero)", periodo: "entro 31 luglio" },
         { cosa: "Application/documenti piattaforma (primavera)", periodo: "entro 30 gennaio" }
       ],
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1672,6 +1680,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 aprile" },
         { cosa: "Application (primavera)", periodo: "entro 1 ottobre" }
       ],
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1694,6 +1704,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 aprile" },
         { cosa: "Application (primavera)", periodo: "entro 1 ottobre" }
       ],
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
