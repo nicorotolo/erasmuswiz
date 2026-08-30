@@ -33,7 +33,7 @@ var METE = [
     universita: "Leopold-Franzens-Universität Innsbruck",
     citta: "Innsbruck",
     paese: "Austria",
-    codiceErasmus: "SAP-ARCHI-INNSBRUCK",
+    codiceErasmus: "A  INNSBRU01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Romeo Di Pietro",
@@ -52,6 +52,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
         { cosa: "Application (primavera)", periodo: "entro 15 dicembre" }
       ],
+    linkSito: "https://www.uibk.ac.at/en/international-relations-office/student-mobility/incoming/mobility-programmes/erasmus-studmob/",
+
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -59,7 +61,7 @@ var METE = [
     universita: "Université Libre de Bruxelles",
     citta: "Bruxelles",
     paese: "Belgio",
-    codiceErasmus: "SAP-ARCHI-ULB-BXL",
+    codiceErasmus: "B  BRUXEL04",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Francesca Giofrè",
@@ -77,6 +79,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
       ],
+    linkSito: "https://www.ulb.be/",
+
     notePratiche: "Posti totali dell'accordo: 8. Solo livello Magistrale. Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -84,7 +88,7 @@ var METE = [
     universita: "University of Mons",
     citta: "Mons",
     paese: "Belgio",
-    codiceErasmus: "SAP-ARCHI-MONS",
+    codiceErasmus: "B  MONS21",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Fabrizio Tucci",
@@ -110,7 +114,7 @@ var METE = [
     universita: "Université Catholique de Louvain",
     citta: "Louvain-la-Neuve",
     paese: "Belgio",
-    codiceErasmus: "SAP-ARCHI-UCLOUVAIN",
+    codiceErasmus: "B  LOUVAIN01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Pisana Posocco",
@@ -132,7 +136,7 @@ var METE = [
     universita: "Université de Liège",
     citta: "Liegi",
     paese: "Belgio",
-    codiceErasmus: "SAP-ARCHI-LIEGE",
+    codiceErasmus: "B  LIEGE01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Fabio Di Carlo",
@@ -156,7 +160,7 @@ var METE = [
     universita: "Katholieke Universiteit Leuven",
     citta: "Lovanio",
     paese: "Belgio",
-    codiceErasmus: "SAP-ARCHI-KULEUVEN",
+    codiceErasmus: "B  LEUVEN01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Spartaco Paris",
@@ -178,7 +182,7 @@ var METE = [
     universita: "Universitet po Architectura, Stroitelstvo i Geodesia",
     citta: "Sofia",
     paese: "Bulgaria",
-    codiceErasmus: "SAP-ARCHI-UACEG-SOFIA",
+    codiceErasmus: "BG SOFIA04",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Nicoletta Trasi",
@@ -203,7 +207,7 @@ var METE = [
     universita: "Panepistimio Kyprou",
     citta: "Nicosia",
     paese: "Cipro",
-    codiceErasmus: "SAP-ARCHI-NICOSIA",
+    codiceErasmus: "CY NICOSIA01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Barbara Pizzo",
@@ -228,7 +232,7 @@ var METE = [
     universita: "Sveučilište u Zagrebu",
     citta: "Zagabria",
     paese: "Croazia",
-    codiceErasmus: "SAP-ARCHI-ZAGABRIA-A",
+    codiceErasmus: "HR ZAGREB01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Francesca Giofrè",
@@ -244,6 +248,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "dal 1 marzo al 15 maggio" },
         { cosa: "Application (primavera)", periodo: "dal 1 settembre al 15 novembre" }
       ],
+    linkSito: "http://international.unizg.hr/relations",
+
     notePratiche: "Posti totali dell'accordo: 1. Solo livello Magistrale. Ulteriore accordo distinto con lo stesso ateneo (promotore Francesca Giofrè)."
   },
   {
@@ -251,7 +257,7 @@ var METE = [
     universita: "Sveučilište u Zagrebu",
     citta: "Zagabria",
     paese: "Croazia",
-    codiceErasmus: "SAP-ARCHI-ZAGABRIA-B",
+    codiceErasmus: "HR ZAGREB01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Carlo Martino",
@@ -268,6 +274,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "dal 1 marzo al 15 maggio" },
         { cosa: "Application (primavera)", periodo: "dal 1 settembre al 15 novembre" }
       ],
+    linkSito: "http://international.unizg.hr/relations",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. Ulteriore accordo distinto con lo stesso ateneo (promotore Carlo Martino)."
   },
   {
@@ -275,7 +283,7 @@ var METE = [
     universita: "Tallinna Tehnikaülikool",
     citta: "Tallinn",
     paese: "Estonia",
-    codiceErasmus: "SAP-ARCHI-TALTECH",
+    codiceErasmus: "EE TALLINN04",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Barbara Pizzo",
@@ -292,6 +300,12 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 1 novembre 2026" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre 2026" }
       ],
+    linkSito: "https://taltech.ee/en/tallinn-university-of-technolog",
+
+    linkCatalogo: "https://taltech.ee/en/courses-english",
+
+    notaDisponibilita: "I corsi scelti devono corrispondere per circa il 70% al curriculum e al livello di studi dell'università d'origine. Non è possibile discutere la tesi finale a TalTech e il lavoro individuale non è consentito salvo supervisione confermata.",
+
     notePratiche: "Posti totali dell'accordo: 3. Solo livello Magistrale. Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -299,7 +313,7 @@ var METE = [
     universita: "Eesti Kunstiakadeemia",
     citta: "Tallinn",
     paese: "Estonia",
-    codiceErasmus: "SAP-ARCHI-EKA-TALLINN",
+    codiceErasmus: "EE TALLINN01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Barbara Pizzo",
@@ -320,7 +334,7 @@ var METE = [
     universita: "Ecole d'Architecture de Lille et Régions Nord",
     citta: "Lille",
     paese: "Francia",
-    codiceErasmus: "SAP-ARCHI-LILLE",
+    codiceErasmus: "F  LILLE25",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Carola Clemente",
@@ -341,7 +355,7 @@ var METE = [
     universita: "Ecole Nationale Supérieure d'Architecture de Montpellier",
     citta: "Montpellier",
     paese: "Francia",
-    codiceErasmus: "SAP-ARCHI-MONTPELLIER",
+    codiceErasmus: "F  MONTPEL14",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Carola Clemente",
@@ -364,7 +378,7 @@ var METE = [
     universita: "Ecole d'Architecture de Saint-Étienne",
     citta: "Saint-Étienne",
     paese: "Francia",
-    codiceErasmus: "SAP-ARCHI-SAINT-ETIENNE",
+    codiceErasmus: "F  ST-ETIE08",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Carola Clemente",
@@ -389,7 +403,7 @@ var METE = [
     universita: "L'Ecole de Design Nantes Atlantique",
     citta: "Nantes",
     paese: "Francia",
-    codiceErasmus: "SAP-ARCHI-NANTES-DESIGN",
+    codiceErasmus: "F  NANTES43",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Federica Dal Falco",
@@ -412,7 +426,7 @@ var METE = [
     universita: "Université de Vincennes Saint-Denis (Paris VIII)",
     citta: "Saint-Denis (Parigi)",
     paese: "Francia",
-    codiceErasmus: "SAP-ARCHI-PARIS8",
+    codiceErasmus: "F  PARIS008",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Federica Dal Falco",
@@ -435,7 +449,7 @@ var METE = [
     universita: "Ecole d'Architecture de Grenoble",
     citta: "Grenoble",
     paese: "Francia",
-    codiceErasmus: "SAP-ARCHI-GRENOBLE-A",
+    codiceErasmus: "F  GRENOBL16",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Federica Dal Falco",
@@ -460,7 +474,7 @@ var METE = [
     universita: "Université Gustave Eiffel",
     citta: "Champs-sur-Marne (Parigi)",
     paese: "Francia",
-    codiceErasmus: "SAP-ARCHI-GUSTAVE-EIFFEL",
+    codiceErasmus: "F  PARIS483",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Romeo Di Pietro",
@@ -487,7 +501,7 @@ var METE = [
     universita: "Ecole Nationale Supérieure d'Architecture de Lyon",
     citta: "Lione",
     paese: "Francia",
-    codiceErasmus: "SAP-ARCHI-LYON",
+    codiceErasmus: "F  LYON25",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Nicoletta Trasi",
@@ -511,7 +525,7 @@ var METE = [
     universita: "Ecole Nationale Supérieure d'Architecture de Normandie",
     citta: "Rouen",
     paese: "Francia",
-    codiceErasmus: "SAP-ARCHI-ROUEN",
+    codiceErasmus: "F  ROUEN19",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Nicoletta Trasi",
@@ -536,7 +550,7 @@ var METE = [
     universita: "Ecole Nationale Supérieure d'Architecture de Paris-La Villette",
     citta: "Parigi",
     paese: "Francia",
-    codiceErasmus: "SAP-ARCHI-PARIS-LAVILLETTE",
+    codiceErasmus: "F  PARIS126",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Nicoletta Trasi",
@@ -560,7 +574,7 @@ var METE = [
     universita: "Ecole d'Architecture de la Ville et des Territoires à Marne-la-Vallée",
     citta: "Marne-la-Vallée (Parigi)",
     paese: "Francia",
-    codiceErasmus: "SAP-ARCHI-EAVT-MARNE",
+    codiceErasmus: "F  PARIS318",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Nicoletta Trasi",
@@ -584,7 +598,7 @@ var METE = [
     universita: "Ecole Nationale Supérieure d'Architecture de Bretagne",
     citta: "Rennes",
     paese: "Francia",
-    codiceErasmus: "SAP-ARCHI-RENNES",
+    codiceErasmus: "F  RENNES16",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Fabrizio Tucci",
@@ -609,7 +623,7 @@ var METE = [
     universita: "Ecole Nationale Supérieure d'Architecture de Nancy",
     citta: "Nancy",
     paese: "Francia",
-    codiceErasmus: "SAP-ARCHI-NANCY",
+    codiceErasmus: "F  NANCY38",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Fabrizio Tucci",
@@ -632,7 +646,7 @@ var METE = [
     universita: "Ecole Nationale Supérieure d'Architecture de Nantes",
     citta: "Nantes",
     paese: "Francia",
-    codiceErasmus: "SAP-ARCHI-NANTES-ARCHI",
+    codiceErasmus: "F  NANTES13",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Fabrizio Tucci",
@@ -655,7 +669,7 @@ var METE = [
     universita: "Ecole d'Architecture de Grenoble",
     citta: "Grenoble",
     paese: "Francia",
-    codiceErasmus: "SAP-ARCHI-GRENOBLE-B",
+    codiceErasmus: "F  GRENOBL16",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Barbara Pizzo",
@@ -678,7 +692,7 @@ var METE = [
     universita: "Sorbonne Université",
     citta: "Parigi",
     paese: "Francia",
-    codiceErasmus: "SAP-ARCHI-SORBONNE",
+    codiceErasmus: "F  PARIS468",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Barbara Pizzo",
@@ -704,7 +718,7 @@ var METE = [
     universita: "Ecole Nationale Supérieure de Paysage de Versailles",
     citta: "Versailles",
     paese: "Francia",
-    codiceErasmus: "SAP-ARCHI-VERSAILLES-PAYSAGE",
+    codiceErasmus: "F  VERSAIL03",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Fabio Di Carlo",
@@ -731,7 +745,7 @@ var METE = [
     universita: "Ecole Nationale Supérieure d'Architecture de Toulouse",
     citta: "Tolosa",
     paese: "Francia",
-    codiceErasmus: "SAP-ARCHI-TOULOUSE",
+    codiceErasmus: "F  TOULOUS24",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Giacinto Donvito",
@@ -755,7 +769,7 @@ var METE = [
     universita: "Ecole Nationale Supérieure d'Architecture de Marseille-Luminy",
     citta: "Marsiglia",
     paese: "Francia",
-    codiceErasmus: "SAP-ARCHI-MARSEILLE",
+    codiceErasmus: "F  MARSEIL17",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Giacinto Donvito",
@@ -781,7 +795,7 @@ var METE = [
     universita: "Ecole d'Architecture de Versailles",
     citta: "Versailles",
     paese: "Francia",
-    codiceErasmus: "SAP-ARCHI-VERSAILLES-ARCHI",
+    codiceErasmus: "F  VERSAIL05",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Giacinto Donvito",
@@ -808,7 +822,7 @@ var METE = [
     universita: "Ecole Nationale Supérieure d'Architecture et de Paysage de Bordeaux",
     citta: "Bordeaux",
     paese: "Francia",
-    codiceErasmus: "SAP-ARCHI-BORDEAUX-PAYSAGE",
+    codiceErasmus: "F  BORDEAU16",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Spartaco Paris",
@@ -833,7 +847,7 @@ var METE = [
     universita: "Universität Stuttgart",
     citta: "Stoccarda",
     paese: "Germania",
-    codiceErasmus: "SAP-ARCHI-UNI-STUTTGART",
+    codiceErasmus: "D  STUTTGA01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Alessandra Battisti",
@@ -863,7 +877,7 @@ var METE = [
     universita: "RWTH Aachen University",
     citta: "Aquisgrana",
     paese: "Germania",
-    codiceErasmus: "SAP-ARCHI-AACHEN",
+    codiceErasmus: "D  AACHEN01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Alessandra Battisti",
@@ -884,6 +898,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
         { cosa: "Application (primavera)", periodo: "dal 1 novembre al 31 dicembre" }
       ],
+    linkSito: "http://www.rwth-aachen.de",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -891,7 +907,7 @@ var METE = [
     universita: "Fachhochschule Köln",
     citta: "Colonia",
     paese: "Germania",
-    codiceErasmus: "SAP-ARCHI-KOLN-A",
+    codiceErasmus: "D  KOLN04",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Alessandra Battisti",
@@ -909,6 +925,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
       ],
+    linkSito: "http://www.fh-koeln.de",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Alessandra Battisti)."
   },
   {
@@ -916,7 +934,7 @@ var METE = [
     universita: "Bauhaus-Universität Weimar",
     citta: "Weimar",
     paese: "Germania",
-    codiceErasmus: "SAP-ARCHI-WEIMAR",
+    codiceErasmus: "D  WEIMAR01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Alessandra Battisti",
@@ -940,7 +958,7 @@ var METE = [
     universita: "Hochschule Darmstadt",
     citta: "Darmstadt",
     paese: "Germania",
-    codiceErasmus: "SAP-ARCHI-HS-DARMSTADT",
+    codiceErasmus: "D  DARMSTA02",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Rosalba Belibani",
@@ -966,7 +984,7 @@ var METE = [
     universita: "Universität Kassel",
     citta: "Kassel",
     paese: "Germania",
-    codiceErasmus: "SAP-ARCHI-KASSEL-A",
+    codiceErasmus: "D  KASSEL01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Roberto Cherubini",
@@ -983,6 +1001,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 30 novembre" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
+    linkSito: "https://www.uni-kassel.de/uni/en/study/before-the-application/study-guide-for-international-students/exchange-studies-at-the-university-of-kassel.html",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Roberto Cherubini). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -990,7 +1010,7 @@ var METE = [
     universita: "Technische Universität Darmstadt",
     citta: "Darmstadt",
     paese: "Germania",
-    codiceErasmus: "SAP-ARCHI-TU-DARMSTADT",
+    codiceErasmus: "D  DARMSTA01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Roberto Cherubini",
@@ -1016,7 +1036,7 @@ var METE = [
     universita: "Hochschule Bremen",
     citta: "Brema",
     paese: "Germania",
-    codiceErasmus: "SAP-ARCHI-BREMEN",
+    codiceErasmus: "D  BREMEN04",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Roberto Cherubini",
@@ -1042,7 +1062,7 @@ var METE = [
     universita: "Universität Kassel",
     citta: "Kassel",
     paese: "Germania",
-    codiceErasmus: "SAP-ARCHI-KASSEL-B",
+    codiceErasmus: "D  KASSEL01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Federica Dal Falco",
@@ -1056,6 +1076,8 @@ var METE = [
         { cosa: "Nomination e application (autunno)", periodo: "entro 31 maggio" },
         { cosa: "Nomination e application (primavera)", periodo: "entro 30 novembre" }
       ],
+    linkSito: "https://www.uni-kassel.de/uni/en/study/before-the-application/study-guide-for-international-students/exchange-studies-at-the-university-of-kassel.html",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. Ulteriore accordo distinto con lo stesso ateneo (promotore Federica Dal Falco). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1063,7 +1085,7 @@ var METE = [
     universita: "Hochschule für Technik Stuttgart",
     citta: "Stoccarda",
     paese: "Germania",
-    codiceErasmus: "SAP-ARCHI-HFT-STUTTGART-A",
+    codiceErasmus: "D  STUTTGA05",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Federica Dal Falco",
@@ -1087,7 +1109,7 @@ var METE = [
     universita: "Hochschule Mainz",
     citta: "Magonza",
     paese: "Germania",
-    codiceErasmus: "SAP-ARCHI-MAINZ",
+    codiceErasmus: "D  MAINZ08",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Fabrizio De Cesaris",
@@ -1109,7 +1131,7 @@ var METE = [
     universita: "Hochschule Weihenstephan-Triesdorf",
     citta: "Freising",
     paese: "Germania",
-    codiceErasmus: "SAP-ARCHI-FREISING",
+    codiceErasmus: "D  FREISIN01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Romeo Di Pietro",
@@ -1124,6 +1146,10 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "15 maggio - 15 giugno per il semestre invernale" },
         { cosa: "Application (primavera)", periodo: "1 novembre - 1 dicembre per il semestre estivo" }
       ],
+    linkSito: "https://www.hswt.de/",
+
+    linkCatalogo: "https://www.hswt.de/en/study/study-offer",
+
     notePratiche: "Posti totali dell'accordo: 2. Solo livello Magistrale."
   },
   {
@@ -1131,7 +1157,7 @@ var METE = [
     universita: "Brandenburgische Technische Universität Cottbus-Senftenberg",
     citta: "Cottbus",
     paese: "Germania",
-    codiceErasmus: "SAP-ARCHI-COTTBUS",
+    codiceErasmus: "D  COTTBUS03",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Romeo Di Pietro",
@@ -1155,7 +1181,7 @@ var METE = [
     universita: "HAWK Hochschule Hildesheim",
     citta: "Hildesheim",
     paese: "Germania",
-    codiceErasmus: "SAP-ARCHI-HILDESHEIM",
+    codiceErasmus: "D  HILDESH02",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Barbara Pizzo",
@@ -1171,6 +1197,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "https://www.hawk.de/de",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1178,7 +1206,7 @@ var METE = [
     universita: "Gottfried Wilhelm Leibniz Universität Hannover",
     citta: "Hannover",
     paese: "Germania",
-    codiceErasmus: "SAP-ARCHI-HANNOVER",
+    codiceErasmus: "D  HANNOVE01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Giacinto Donvito",
@@ -1196,6 +1224,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
+    linkSito: "http://www.uni-hannover.de",
+
     notePratiche: "Posti totali dell'accordo: 1. Solo livello Magistrale. Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -1203,7 +1233,7 @@ var METE = [
     universita: "Frankfurt University of Applied Sciences",
     citta: "Francoforte sul Meno",
     paese: "Germania",
-    codiceErasmus: "SAP-ARCHI-FRANKFURT",
+    codiceErasmus: "D  FRANKFU04",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Alfonso Ippolito",
@@ -1226,7 +1256,7 @@ var METE = [
     universita: "Karlsruhe Institute of Technology",
     citta: "Karlsruhe",
     paese: "Germania",
-    codiceErasmus: "SAP-ARCHI-KARLSRUHE",
+    codiceErasmus: "D  KARLSRU01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Alfonso Ippolito",
@@ -1247,6 +1277,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
         { cosa: "Application (primavera)", periodo: "entro 1 dicembre" }
       ],
+    linkSito: "http://www.uni-karlsruhe.de",
+
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli)."
   },
   {
@@ -1254,7 +1286,7 @@ var METE = [
     universita: "Hochschule für Technik Stuttgart",
     citta: "Stoccarda",
     paese: "Germania",
-    codiceErasmus: "SAP-ARCHI-HFT-STUTTGART-B",
+    codiceErasmus: "D  STUTTGA05",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Alfonso Ippolito",
@@ -1278,7 +1310,7 @@ var METE = [
     universita: "Fachhochschule Köln",
     citta: "Colonia",
     paese: "Germania",
-    codiceErasmus: "SAP-ARCHI-KOLN-B",
+    codiceErasmus: "D  KOLN04",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Angela Giambattista",
@@ -1296,6 +1328,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
       ],
+    linkSito: "http://www.fh-koeln.de",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Angela Giambattista)."
   },
   {
@@ -1303,7 +1337,7 @@ var METE = [
     universita: "Technische Universität München",
     citta: "Monaco di Baviera",
     paese: "Germania",
-    codiceErasmus: "SAP-ARCHI-TUM-A",
+    codiceErasmus: "D  MUNCHEN02",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Alessandra Battisti, Eliana Cangelli",
@@ -1322,6 +1356,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "da meta settembre a 17 ottobre" },
         { cosa: "Application (primavera)", periodo: "da meta settembre a 31 ottobre" }
       ],
+    linkSito: "http://www.tum.de/international",
+
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Alessandra Battisti, Eliana Cangelli)."
   },
   {
@@ -1329,7 +1365,7 @@ var METE = [
     universita: "Technische Universität München",
     citta: "Monaco di Baviera",
     paese: "Germania",
-    codiceErasmus: "SAP-ARCHI-TUM-B",
+    codiceErasmus: "D  MUNCHEN02",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Benedetta Di Donato",
@@ -1348,6 +1384,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "da meta settembre a 17 ottobre" },
         { cosa: "Application (primavera)", periodo: "da meta settembre a 31 ottobre" }
       ],
+    linkSito: "http://www.tum.de/international",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Benedetta Di Donato)."
   },
   {
@@ -1355,7 +1393,7 @@ var METE = [
     universita: "Technische Universität Braunschweig",
     citta: "Braunschweig",
     paese: "Germania",
-    codiceErasmus: "SAP-ARCHI-BRAUNSCHWEIG",
+    codiceErasmus: "D  BRAUNSC01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Fabio Balducci",
@@ -1381,7 +1419,7 @@ var METE = [
     universita: "Landbúnaðarháskóli Íslands",
     citta: "Hvanneyri",
     paese: "Islanda",
-    codiceErasmus: "SAP-ARCHI-HVANNEYRI",
+    codiceErasmus: "IS BORGARN02",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Fabio Di Carlo",
@@ -1404,7 +1442,7 @@ var METE = [
     universita: "Rīgas Tehniskā Universitāte",
     citta: "Riga",
     paese: "Lettonia",
-    codiceErasmus: "SAP-ARCHI-RIGA",
+    codiceErasmus: "LV RIGA02",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Barbara Pizzo",
@@ -1422,6 +1460,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
         { cosa: "Application (primavera)", periodo: "15 ottobre - 15 novembre" }
       ],
+    linkSito: "http://www.rtu.lv/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Scadenze: basate su 2025/26"
   },
   {
@@ -1429,7 +1469,7 @@ var METE = [
     universita: "Vilniaus Gedimino Technikos Universitetas",
     citta: "Vilnius",
     paese: "Lituania",
-    codiceErasmus: "SAP-ARCHI-VILNIUS",
+    codiceErasmus: "LT VILNIUS02",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Donatella Scatena",
@@ -1447,6 +1487,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "http://www.vgtu.lt",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1454,7 +1496,7 @@ var METE = [
     universita: "University of Malta",
     citta: "Msida",
     paese: "Malta",
-    codiceErasmus: "SAP-ARCHI-MALTA",
+    codiceErasmus: "MT MALTA01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Alessandra Capanna",
@@ -1477,7 +1519,7 @@ var METE = [
     universita: "Christelijke Hogeschool Windesheim",
     citta: "Zwolle",
     paese: "Olanda",
-    codiceErasmus: "SAP-ARCHI-ZWOLLE",
+    codiceErasmus: "NL ZWOLLE05",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Loredana Di Lucchio",
@@ -1502,7 +1544,7 @@ var METE = [
     universita: "Landbouwuniversiteit Wageningen",
     citta: "Wageningen",
     paese: "Olanda",
-    codiceErasmus: "SAP-ARCHI-WAGENINGEN",
+    codiceErasmus: "NL WAGENIN01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Fabio Di Carlo",
@@ -1524,6 +1566,8 @@ var METE = [
         { cosa: "Nomination (primavera, studenti UE/EFTA)", periodo: "entro 1 ottobre" },
         { cosa: "Application (primavera, studenti UE/EFTA)", periodo: "entro 15 ottobre" }
       ],
+    linkSito: "https://www.wur.nl/en/Education-Programmes/Study-Abroad-and-Exchange-Students.htm",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1531,7 +1575,7 @@ var METE = [
     universita: "Politechnika Poznańska",
     citta: "Poznań",
     paese: "Polonia",
-    codiceErasmus: "SAP-ARCHI-POZNAN",
+    codiceErasmus: "PL POZNAN02",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Alessandra Capanna",
@@ -1549,6 +1593,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "http://www.put.poznan.pl",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -1556,7 +1602,7 @@ var METE = [
     universita: "Politechnika Warszawska",
     citta: "Varsavia",
     paese: "Polonia",
-    codiceErasmus: "SAP-ARCHI-PW-WARSZAWA",
+    codiceErasmus: "PL WARSZAW02",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Alessandra Capanna",
@@ -1574,6 +1620,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
         { cosa: "Application (primavera)", periodo: "2-30 novembre" }
       ],
+    linkSito: "http://www.arch.pw.edu.pl",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1581,7 +1629,7 @@ var METE = [
     universita: "Politechnika Lubelska",
     citta: "Lublino",
     paese: "Polonia",
-    codiceErasmus: "SAP-ARCHI-LUBLIN",
+    codiceErasmus: "PL LUBLIN03",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Davide Benarnardini",
@@ -1606,7 +1654,7 @@ var METE = [
     universita: "Universidade da Beira Interior",
     citta: "Covilhã",
     paese: "Portogallo",
-    codiceErasmus: "SAP-ARCHI-COVILHA",
+    codiceErasmus: "P  COVILHA01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Rosalba Belibani",
@@ -1631,7 +1679,7 @@ var METE = [
     universita: "Instituto Politécnico de Viana do Castelo",
     citta: "Viana do Castelo",
     paese: "Portogallo",
-    codiceErasmus: "SAP-ARCHI-VIANA-CASTELO",
+    codiceErasmus: "P  VIANA-D01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Federica Dal Falco",
@@ -1654,7 +1702,7 @@ var METE = [
     universita: "Universidade da Madeira",
     citta: "Funchal",
     paese: "Portogallo",
-    codiceErasmus: "SAP-ARCHI-MADEIRA",
+    codiceErasmus: "P  FUNCHAL03",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Federica Dal Falco",
@@ -1677,7 +1725,7 @@ var METE = [
     universita: "Universidade do Porto",
     citta: "Porto",
     paese: "Portogallo",
-    codiceErasmus: "SAP-ARCHI-PORTO-A",
+    codiceErasmus: "P  PORTO02",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Fabio Quici",
@@ -1698,7 +1746,7 @@ var METE = [
     universita: "Universidade de Évora",
     citta: "Évora",
     paese: "Portogallo",
-    codiceErasmus: "SAP-ARCHI-EVORA",
+    codiceErasmus: "P  EVORA01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Romeo Di Pietro",
@@ -1714,6 +1762,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 31 luglio" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
+    linkSito: "HTTP://WWW.UEVORA.PT",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2023/24"
   },
   {
@@ -1721,7 +1771,7 @@ var METE = [
     universita: "Universidade do Porto",
     citta: "Porto",
     paese: "Portogallo",
-    codiceErasmus: "SAP-ARCHI-PORTO-B",
+    codiceErasmus: "P  PORTO02",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Romeo Di Pietro",
@@ -1742,7 +1792,7 @@ var METE = [
     universita: "Universidade Lusíada",
     citta: "Lisbona",
     paese: "Portogallo",
-    codiceErasmus: "SAP-ARCHI-LUSIADA-LISBOA",
+    codiceErasmus: "P  LISBOA12",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Massimo Zammerini",
@@ -1765,7 +1815,7 @@ var METE = [
     universita: "Universidade de Aveiro",
     citta: "Aveiro",
     paese: "Portogallo",
-    codiceErasmus: "SAP-ARCHI-AVEIRO",
+    codiceErasmus: "P  AVEIRO01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Angela Giambattista",
@@ -1787,7 +1837,7 @@ var METE = [
     universita: "Universitatea Politehnica din Timișoara",
     citta: "Timișoara",
     paese: "Romania",
-    codiceErasmus: "SAP-ARCHI-TIMISOARA-A",
+    codiceErasmus: "RO TIMISOA04",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Federica Dal Falco",
@@ -1806,6 +1856,8 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "entro 18 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 10 dicembre" }
       ],
+    linkSito: "http://www.upt.ro/",
+
     notePratiche: "Posti totali dell'accordo: 3. Solo livello triennale. Ulteriore accordo distinto con lo stesso ateneo (promotore Federica Dal Falco). || Scadenze: basate su 2025/26"
   },
   {
@@ -1813,7 +1865,7 @@ var METE = [
     universita: "Universitatea Politehnica din Timișoara",
     citta: "Timișoara",
     paese: "Romania",
-    codiceErasmus: "SAP-ARCHI-TIMISOARA-B",
+    codiceErasmus: "RO TIMISOA04",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Daniela Esposito",
@@ -1833,6 +1885,8 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "entro 18 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 10 dicembre" }
       ],
+    linkSito: "http://www.upt.ro/",
+
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Daniela Esposito). || Scadenze: basate su 2025/26"
   },
   {
@@ -1840,7 +1894,7 @@ var METE = [
     universita: "Universitatea de Arhitectură și Urbanism \"Ion Mincu\"",
     citta: "Bucarest",
     paese: "Romania",
-    codiceErasmus: "SAP-ARCHI-ION-MINCU-BUCAREST",
+    codiceErasmus: "RO BUCURES07",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Alessandra Capanna",
@@ -1865,7 +1919,7 @@ var METE = [
     universita: "Universitatea Tehnică din Cluj-Napoca",
     citta: "Cluj-Napoca",
     paese: "Romania",
-    codiceErasmus: "SAP-ARCHI-CLUJ-NAPOCA",
+    codiceErasmus: "RO CLUJNAP05",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Augusto Roca De Amicis",
@@ -1886,7 +1940,7 @@ var METE = [
     universita: "Slovenská Technická Univerzita v Bratislave",
     citta: "Bratislava",
     paese: "Slovacchia",
-    codiceErasmus: "SAP-ARCHI-STU-BRATISLAVA-A",
+    codiceErasmus: "SK BRATISL01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Alessandra Capanna",
@@ -1909,7 +1963,7 @@ var METE = [
     universita: "Slovenská Technická Univerzita v Bratislave",
     citta: "Bratislava",
     paese: "Slovacchia",
-    codiceErasmus: "SAP-ARCHI-STU-BRATISLAVA-B",
+    codiceErasmus: "SK BRATISL01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Carmela Mariano",
@@ -1932,7 +1986,7 @@ var METE = [
     universita: "Univerza v Ljubljani",
     citta: "Lubiana",
     paese: "Slovenia",
-    codiceErasmus: "SAP-ARCHI-LJUBLJANA",
+    codiceErasmus: "SI LJUBLJA01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Spartaco Paris",
@@ -1948,6 +2002,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "http://www.uni-lj.si",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -1955,7 +2011,7 @@ var METE = [
     universita: "Universidad de Alcalá",
     citta: "Alcalá de Henares",
     paese: "Spagna",
-    codiceErasmus: "SAP-ARCHI-ALCALA",
+    codiceErasmus: "E  ALCAL-H01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Alessandra Battisti",
@@ -1974,6 +2030,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 31 maggio 2026" },
         { cosa: "Application (primavera)", periodo: "entro 31 ottobre 2026" }
       ],
+    linkSito: "http://www.uah.es",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1981,7 +2039,7 @@ var METE = [
     universita: "Universidad Católica San Antonio de Murcia",
     citta: "Murcia",
     paese: "Spagna",
-    codiceErasmus: "SAP-ARCHI-UCAM-MURCIA",
+    codiceErasmus: "E  MURCIA05",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Rosalba Belibani",
@@ -2004,7 +2062,7 @@ var METE = [
     universita: "Universidad Católica de Valencia \"San Vicente Mártir\"",
     citta: "Valencia",
     paese: "Spagna",
-    codiceErasmus: "SAP-ARCHI-UC-VALENCIA",
+    codiceErasmus: "E  VALENCI11",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Federica Dal Falco",
@@ -2030,7 +2088,7 @@ var METE = [
     universita: "Universidad Camilo José Cela",
     citta: "Madrid",
     paese: "Spagna",
-    codiceErasmus: "SAP-ARCHI-UCJC-MADRID",
+    codiceErasmus: "E  MADRID33",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Federica Dal Falco",
@@ -2050,7 +2108,7 @@ var METE = [
     universita: "Universidad Politécnica de Valencia",
     citta: "Valencia",
     paese: "Spagna",
-    codiceErasmus: "SAP-ARCHI-UPV-VALENCIA-A",
+    codiceErasmus: "E  VALENCI02",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Federica Dal Falco",
@@ -2068,6 +2126,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
       ],
+    linkSito: "http://www.upv.es",
+
     notePratiche: "Posti totali dell'accordo: 3. Solo livello triennale. Ulteriore accordo distinto con lo stesso ateneo (promotore Federica Dal Falco)."
   },
   {
@@ -2075,7 +2135,7 @@ var METE = [
     universita: "Universidad Politécnica de Valencia",
     citta: "Valencia",
     paese: "Spagna",
-    codiceErasmus: "SAP-ARCHI-UPV-VALENCIA-B",
+    codiceErasmus: "E  VALENCI02",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Federica Dal Falco",
@@ -2093,6 +2153,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
       ],
+    linkSito: "http://www.upv.es",
+
     notePratiche: "Posti totali dell'accordo: 2. Solo livello Magistrale. Disponibile anche per PhD/Specializzandi. Ulteriore accordo distinto con lo stesso ateneo (promotore Federica Dal Falco)."
   },
   {
@@ -2100,7 +2162,7 @@ var METE = [
     universita: "Universidad Francisco de Vitoria",
     citta: "Madrid",
     paese: "Spagna",
-    codiceErasmus: "SAP-ARCHI-UFV-MADRID",
+    codiceErasmus: "E  MADRID28",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Fabrizio De Cesaris",
@@ -2119,6 +2181,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "21 settembre - 24 ottobre 2026" },
         { cosa: "Application (primavera)", periodo: "21 settembre - 30 ottobre 2026" }
       ],
+    linkSito: "http://www.ufvinternational.com/",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -2126,7 +2190,7 @@ var METE = [
     universita: "Universidad de Navarra",
     citta: "Pamplona",
     paese: "Spagna",
-    codiceErasmus: "SAP-ARCHI-UNAV-PAMPLONA",
+    codiceErasmus: "E  PAMPLON01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Francesca Giofrè",
@@ -2145,6 +2209,10 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 settembre 2026" },
         { cosa: "Application (primavera)", periodo: "entro 15 ottobre 2026" }
       ],
+    linkSito: "http://www.unav.es",
+
+    linkCatalogo: "https://www.unav.edu/estudiantes/programas-de-intercambio/incoming#courses",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -2152,7 +2220,7 @@ var METE = [
     universita: "Universidad Politécnica de Cartagena",
     citta: "Cartagena",
     paese: "Spagna",
-    codiceErasmus: "SAP-ARCHI-UPCT-CARTAGENA",
+    codiceErasmus: "E  MURCIA04",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Fabio Quici",
@@ -2171,6 +2239,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "https://www.upct.es/",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -2178,7 +2248,7 @@ var METE = [
     universita: "Universidad de La Coruña",
     citta: "La Coruña",
     paese: "Spagna",
-    codiceErasmus: "SAP-ARCHI-CORUNA",
+    codiceErasmus: "E  LA-CORU01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Fabio Quici",
@@ -2196,6 +2266,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
         { cosa: "Application (primavera)", periodo: "1 ottobre - 15 novembre" }
       ],
+    linkSito: "http://www.udc.es",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -2203,7 +2275,7 @@ var METE = [
     universita: "Universidad Politécnica de Valencia",
     citta: "Valencia",
     paese: "Spagna",
-    codiceErasmus: "SAP-ARCHI-UPV-VALENCIA-C",
+    codiceErasmus: "E  VALENCI02",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Emanuela Chiavoni",
@@ -2222,6 +2294,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "1 giugno - 30 settembre" },
         { cosa: "Application (primavera)", periodo: "1 settembre - 15 ottobre" }
       ],
+    linkSito: "http://www.upv.es",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Emanuela Chiavoni)."
   },
   {
@@ -2229,7 +2303,7 @@ var METE = [
     universita: "Universitat de Girona",
     citta: "Girona",
     paese: "Spagna",
-    codiceErasmus: "SAP-ARCHI-GIRONA",
+    codiceErasmus: "E  GIRONA02",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Pisana Posocco",
@@ -2245,6 +2319,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 1 giugno 2026" },
         { cosa: "Application (primavera)", periodo: "entro 1 novembre 2026" }
       ],
+    linkSito: "http://www.udg.edu",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -2252,7 +2328,7 @@ var METE = [
     universita: "Universidad de Zaragoza",
     citta: "Saragozza",
     paese: "Spagna",
-    codiceErasmus: "SAP-ARCHI-ZARAGOZA",
+    codiceErasmus: "E  ZARAGOZ01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Simona Salvo",
@@ -2268,6 +2344,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "16 febbraio - 19 giugno 2026" },
         { cosa: "Application (primavera)", periodo: "1 settembre - 6 novembre 2026" }
       ],
+    linkSito: "HTTP://WWW.UNIZAR.ES",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -2275,7 +2353,7 @@ var METE = [
     universita: "Universidad de Valladolid",
     citta: "Valladolid",
     paese: "Spagna",
-    codiceErasmus: "SAP-ARCHI-VALLADOLID",
+    codiceErasmus: "E  VALLADO01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Giacinto Donvito",
@@ -2302,7 +2380,7 @@ var METE = [
     universita: "Universitas Nebrissensis (Universidad Nebrija)",
     citta: "Madrid",
     paese: "Spagna",
-    codiceErasmus: "SAP-ARCHI-NEBRIJA-MADRID",
+    codiceErasmus: "E  MADRID12",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Giacinto Donvito",
@@ -2328,7 +2406,7 @@ var METE = [
     universita: "Universidad de Málaga",
     citta: "Malaga",
     paese: "Spagna",
-    codiceErasmus: "SAP-ARCHI-MALAGA",
+    codiceErasmus: "E  MALAGA01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Giacinto Donvito",
@@ -2352,7 +2430,7 @@ var METE = [
     universita: "Universidad de Castilla-La Mancha",
     citta: "Ciudad Real (sede principale)",
     paese: "Spagna",
-    codiceErasmus: "SAP-ARCHI-UCLM-CIUDADREAL",
+    codiceErasmus: "E  CIUDA-R01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Laura Ricci",
@@ -2373,7 +2451,7 @@ var METE = [
     universita: "Universidad Alfonso X el Sabio",
     citta: "Villanueva de la Cañada (Madrid)",
     paese: "Spagna",
-    codiceErasmus: "SAP-ARCHI-UAX-MADRID",
+    codiceErasmus: "E  MADRID17",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Luca Ribichini",
@@ -2398,7 +2476,7 @@ var METE = [
     universita: "Universitat de Vic",
     citta: "Vic",
     paese: "Spagna",
-    codiceErasmus: "SAP-ARCHI-VIC-A",
+    codiceErasmus: "E  VIC01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Angela Giambattista",
@@ -2413,6 +2491,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 25 ottobre" }
       ],
+    linkSito: "https://www.uvic.cat/en",
+
     notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale. Ulteriore accordo distinto con lo stesso ateneo (promotore Angela Giambattista). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -2420,7 +2500,7 @@ var METE = [
     universita: "Universitat de Vic",
     citta: "Vic",
     paese: "Spagna",
-    codiceErasmus: "SAP-ARCHI-VIC-B",
+    codiceErasmus: "E  VIC01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Angela Giambattista",
@@ -2436,6 +2516,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 25 ottobre" }
       ],
+    linkSito: "https://www.uvic.cat/en",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Angela Giambattista). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -2443,7 +2525,7 @@ var METE = [
     universita: "Linnéuniversitetet",
     citta: "Växjö",
     paese: "Svezia",
-    codiceErasmus: "SAP-ARCHI-VAXJO",
+    codiceErasmus: "S  VAXJO03",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Lorenzo Imbesi",
@@ -2468,7 +2550,7 @@ var METE = [
     universita: "Umeå University",
     citta: "Umeå",
     paese: "Svezia",
-    codiceErasmus: "SAP-ARCHI-UMEA",
+    codiceErasmus: "S  UMEA01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Alessandra Capanna",
@@ -2493,7 +2575,7 @@ var METE = [
     universita: "Haute Ecole Spécialisée de Suisse Occidentale (HES-SO)",
     citta: "Losanna (rete multi-sede)",
     paese: "Svizzera",
-    codiceErasmus: "SAP-ARCHI-HESSO",
+    codiceErasmus: "CH DELEMON02",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Marc'Antonio Liotta",
@@ -2514,6 +2596,10 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "dal 1 settembre al 31 ottobre" },
         { cosa: "Application (primavera, candidati con visto)", periodo: "dal 1 settembre al 30 settembre" }
       ],
+    linkSito: "https://www.hes-so.ch/accueil",
+
+    notaDisponibilita: "I corsi di livello Master sono accessibili solo agli studenti selezionati in base a un accordo specifico per il Master of Science.",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -2521,7 +2607,7 @@ var METE = [
     universita: "Özyeğin Üniversitesi",
     citta: "Istanbul",
     paese: "Turchia",
-    codiceErasmus: "SAP-ARCHI-OZYEGIN-ISTANBUL",
+    codiceErasmus: "TR ISTANBU31",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Rosalba Belibani",
@@ -2546,7 +2632,7 @@ var METE = [
     universita: "TOBB Ekonomi ve Teknoloji Üniversitesi",
     citta: "Ankara",
     paese: "Turchia",
-    codiceErasmus: "SAP-ARCHI-TOBB-ANKARA",
+    codiceErasmus: "TR ANKARA10",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Federica Dal Falco",
@@ -2571,7 +2657,7 @@ var METE = [
     universita: "Ankara Yıldırım Beyazıt Üniversitesi",
     citta: "Ankara",
     paese: "Turchia",
-    codiceErasmus: "SAP-ARCHI-AYBU-ANKARA",
+    codiceErasmus: "TR ANKARA15",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Francesca Giofrè",
@@ -2594,7 +2680,7 @@ var METE = [
     universita: "Gazi Üniversitesi",
     citta: "Ankara",
     paese: "Turchia",
-    codiceErasmus: "SAP-ARCHI-GAZI-ANKARA",
+    codiceErasmus: "TR ANKARA02",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Francesca Giofrè",
@@ -2608,6 +2694,8 @@ var METE = [
         { cosa: "Nomination (autunno)", periodo: "1 maggio - 20 giugno" },
         { cosa: "Nomination (primavera)", periodo: "1 ottobre - 20 novembre" }
       ],
+    linkSito: "http://www.gazi.edu.tr",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -2615,7 +2703,7 @@ var METE = [
     universita: "Mimar Sinan Güzel Sanatlar Üniversitesi",
     citta: "Istanbul",
     paese: "Turchia",
-    codiceErasmus: "SAP-ARCHI-MSGSU-ISTANBUL-A",
+    codiceErasmus: "TR ISTANBU06",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Romeo Di Pietro",
@@ -2634,6 +2722,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 1 dicembre" }
       ],
+    linkSito: "https://msgsu.edu.tr/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Romeo Di Pietro). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -2641,7 +2731,7 @@ var METE = [
     universita: "Istanbul Teknik Üniversitesi",
     citta: "Istanbul",
     paese: "Turchia",
-    codiceErasmus: "SAP-ARCHI-ITU-ISTANBUL",
+    codiceErasmus: "TR ISTANBU04",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Loredana Di Lucchio",
@@ -2659,6 +2749,10 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "entro 1 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 1 dicembre" }
       ],
+    linkSito: "https://www.itu.edu.tr/",
+
+    linkCatalogo: "https://global.itu.edu.tr/students/international-programs/global-exchange-students",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -2666,7 +2760,7 @@ var METE = [
     universita: "Mimar Sinan Güzel Sanatlar Üniversitesi",
     citta: "Istanbul",
     paese: "Turchia",
-    codiceErasmus: "SAP-ARCHI-MSGSU-ISTANBUL-B",
+    codiceErasmus: "TR ISTANBU06",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Loredana Di Lucchio",
@@ -2685,6 +2779,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 1 dicembre" }
       ],
+    linkSito: "https://msgsu.edu.tr/",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. Ulteriore accordo distinto con lo stesso ateneo (promotore Loredana Di Lucchio). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -2692,7 +2788,7 @@ var METE = [
     universita: "İzmir Ekonomi Üniversitesi",
     citta: "Smirne (Izmir)",
     paese: "Turchia",
-    codiceErasmus: "SAP-ARCHI-IZMIR-EKONOMI",
+    codiceErasmus: "TR IZMIR04",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Lorenzo Imbesi",
@@ -2713,7 +2809,7 @@ var METE = [
     universita: "Uludağ Üniversitesi",
     citta: "Bursa",
     paese: "Turchia",
-    codiceErasmus: "SAP-ARCHI-BURSA",
+    codiceErasmus: "TR BURSA01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Alessandra Capanna",
@@ -2736,7 +2832,7 @@ var METE = [
     universita: "Pécsi Tudományegyetem",
     citta: "Pécs",
     paese: "Ungheria",
-    codiceErasmus: "SAP-ARCHI-PECS",
+    codiceErasmus: "HU PECS01",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Federica Dal Falco",
@@ -2754,6 +2850,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "1 ottobre - 1 novembre 2026" },
         { cosa: "Application (primavera)", periodo: "15 ottobre - 15 novembre 2026" }
       ],
+    linkSito: "https://www.pte.hu",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -2761,7 +2859,7 @@ var METE = [
     universita: "Budapesti Műszaki és Gazdaságtudományi Egyetem",
     citta: "Budapest",
     paese: "Ungheria",
-    codiceErasmus: "SAP-ARCHI-BME-BUDAPEST",
+    codiceErasmus: "HU BUDAPES02",
     dipartimentoCf: "Architettura",
     areeDisciplinari: [{ codice: "0731", nome: "Architecture and town planning" }],
     coordinatoreCf: "Donatella Scatena",

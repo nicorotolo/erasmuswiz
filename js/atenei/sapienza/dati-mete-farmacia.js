@@ -104,6 +104,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
       ],
+    linkSito: "https://www.ulb.be/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -149,6 +151,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 1 dicembre" }
       ],
+    linkSito: "https://mu-sofia.bg/en/",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -198,6 +202,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "http://international.unizg.hr/relations",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -224,6 +230,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre; possibile estensione al 22 novembre" }
       ],
+    linkSito: "https://www.unios.hr/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Scadenze: basate su 2023/24"
   },
   {
@@ -247,6 +255,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
         { cosa: "Application (primavera)", periodo: "entro 10 novembre" }
       ],
+    linkSito: "https://uniri.hr/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -273,6 +283,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre; possibile estensione al 22 novembre" }
       ],
+    linkSito: "https://www.unios.hr/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Scadenze: basate su 2023/24"
   },
   {
@@ -399,6 +411,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 1 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
       ],
+    linkSito: "http://www.univ-fcomte.fr/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita || Scadenze: basate su 2024/25"
   },
   {
@@ -423,6 +437,8 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "entro 1 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
       ],
+    linkSito: "https://www.u-picardie.fr/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -449,6 +465,8 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "1 aprile - 31 maggio" },
         { cosa: "Application (primavera)", periodo: "15 ottobre - 15 novembre" }
       ],
+    linkSito: "HTTP://WWW.UNIV-POITIERS.FR",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -472,6 +490,8 @@ var METE = [
         { cosa: "Application (autunno/anno intero, ISPB farmacia)", periodo: "entro 2 giugno" },
         { cosa: "Application (primavera, ISPB farmacia)", periodo: "entro 3 novembre" }
       ],
+    linkSito: "https://www.univ-lyon1.fr/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Scadenze: basate su 2025/26"
   },
   {
@@ -561,6 +581,8 @@ var METE = [
     scadenzeOspitante: [
         { cosa: "Application (autunno)", periodo: "entro 30 maggio" }
       ],
+    linkSito: "http://www.ensc-rennes.fr/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -609,6 +631,8 @@ var METE = [
         { cosa: "Application (autunno/anno intero, ISPB farmacia)", periodo: "entro 2 giugno" },
         { cosa: "Application (primavera, ISPB farmacia)", periodo: "entro 3 novembre" }
       ],
+    linkSito: "https://www.univ-lyon1.fr/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Scadenze: basate su 2025/26"
   },
   {
@@ -630,6 +654,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "dal 1 aprile al 31 maggio 2026" },
         { cosa: "Application (primavera)", periodo: "dal 1 ottobre al 31 ottobre 2026" }
       ],
+    linkSito: "http://www.u-cergy.fr",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -654,6 +680,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "dal 15 marzo al 15 maggio 2026" },
         { cosa: "Application tardiva (autunno)", periodo: "dal 16 maggio al 25 giugno 2026" }
       ],
+    linkSito: "http://www.univ-angers.fr/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -677,6 +705,8 @@ var METE = [
         { cosa: "Application (autunno/anno intero, ISPB farmacia)", periodo: "entro 2 giugno" },
         { cosa: "Application (primavera, ISPB farmacia)", periodo: "entro 3 novembre" }
       ],
+    linkSito: "https://www.univ-lyon1.fr/",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Scadenze: basate su 2025/26"
   },
   {
@@ -724,6 +754,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "dal 1 aprile al 31 maggio 2026" },
         { cosa: "Application (primavera)", periodo: "dal 1 ottobre al 31 ottobre 2026" }
       ],
+    linkSito: "http://www.u-cergy.fr",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -794,6 +826,8 @@ var METE = [
         { cosa: "Application (autunno/anno)", periodo: "entro 20 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
       ],
+    linkSito: "http://www.upatras.gr/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -843,6 +877,8 @@ var METE = [
         { cosa: "Application (autunno/anno)", periodo: "entro 20 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
       ],
+    linkSito: "http://www.upatras.gr/",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -936,6 +972,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 1 novembre 2026" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre 2026" }
       ],
+    linkSito: "https://www.ulisboa.pt/",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -1028,6 +1066,8 @@ var METE = [
         { cosa: "Application/registration (autunno/anno)", periodo: "entro 30 giugno" },
         { cosa: "Application/registration (primavera)", periodo: "entro 30 ottobre" }
       ],
+    linkSito: "http://www.unibuc.ro",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1051,6 +1091,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 1 luglio" },
         { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
       ],
+    linkSito: "https://www.ubbcluj.ro/ro/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1077,6 +1119,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 25 novembre" }
       ],
+    linkSito: "http://www.bg.ac.rs/en/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Scadenze: basate su 2024/25"
   },
   {
@@ -1101,6 +1145,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "http://www.uni-lj.si",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1151,6 +1197,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
         { cosa: "Application (primavera)", periodo: "dal 1 al 31 ottobre" }
       ],
+    linkSito: "https://www.ugr.es/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1173,6 +1221,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "http://www.usc.es",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26 || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1274,6 +1324,8 @@ var METE = [
         { cosa: "Nomination (autunno)", periodo: "entro 15 maggio" },
         { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "http://www.usj.es",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1296,6 +1348,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "http://www.usc.es",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26 || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1345,6 +1399,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "15 settembre - 15 novembre" },
         { cosa: "Application (primavera)", periodo: "1 ottobre - 30 novembre" }
       ],
+    linkSito: "https://www.uloyola.es/",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {

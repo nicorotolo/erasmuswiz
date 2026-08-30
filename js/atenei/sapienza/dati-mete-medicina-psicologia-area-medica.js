@@ -30,7 +30,7 @@ var METE = [
     universita: "Medizinische Universität Innsbruck",
     citta: "Innsbruck",
     paese: "Austria",
-    codiceErasmus: "SAP-MEDIC2-INNSBRUCK",
+    codiceErasmus: "A  INNSBRU21",
     dipartimentoCf: "Medicina e Psicologia - Area medica e professioni sanitarie",
     areeDisciplinari: [{ codice: "0912", nome: "Medicine" }],
     coordinatoreCf: "Giovanni Battista Orsi",
@@ -50,7 +50,7 @@ var METE = [
     universita: "Universität zu Lübeck",
     citta: "Lubecca",
     paese: "Germania",
-    codiceErasmus: "SAP-MEDIC2-LUEBECK",
+    codiceErasmus: "D  LUBECK01",
     dipartimentoCf: "Medicina e Psicologia - Area medica e professioni sanitarie",
     areeDisciplinari: [{ codice: "0912", nome: "Medicine" }],
     coordinatoreCf: "Giovanni Battista Orsi",
@@ -65,6 +65,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "https://www.uni-luebeck.de/universitaet/universitaet.html",
+
     notePratiche: "Posti totali dell'accordo: 2. Solo livello Magistrale."
   },
   {
@@ -72,7 +74,7 @@ var METE = [
     universita: "Ruhr-Universität Bochum",
     citta: "Bochum",
     paese: "Germania",
-    codiceErasmus: "SAP-MEDIC2-BOCHUM",
+    codiceErasmus: "D  BOCHUM01",
     dipartimentoCf: "Medicina e Psicologia - Area medica e professioni sanitarie",
     areeDisciplinari: [{ codice: "0912", nome: "Medicine" }],
     coordinatoreCf: "Marco Salvetti",
@@ -97,7 +99,7 @@ var METE = [
     universita: "University of Malta",
     citta: "Msida",
     paese: "Malta",
-    codiceErasmus: "SAP-MEDIC2-MALTA",
+    codiceErasmus: "MT MALTA01",
     dipartimentoCf: "Medicina e Psicologia - Area medica e professioni sanitarie",
     areeDisciplinari: [{ codice: "0912", nome: "Medicine" }],
     coordinatoreCf: "Mario Vetrano",
@@ -119,7 +121,7 @@ var METE = [
     universita: "Universidade Nova de Lisboa",
     citta: "Lisbona",
     paese: "Portogallo",
-    codiceErasmus: "SAP-MEDIC2-LISBOA",
+    codiceErasmus: "P  LISBOA03",
     dipartimentoCf: "Medicina e Psicologia - Area medica e professioni sanitarie",
     areeDisciplinari: [{ codice: "0912", nome: "Medicine" }],
     coordinatoreCf: "Giovanni Battista Orsi",
@@ -142,7 +144,7 @@ var METE = [
     universita: "Universidad San Pablo-CEU",
     citta: "Madrid",
     paese: "Spagna",
-    codiceErasmus: "SAP-MEDIC2-SANPABLOCEU-A",
+    codiceErasmus: "E  MADRID21",
     dipartimentoCf: "Medicina e Psicologia - Area medica e professioni sanitarie",
     areeDisciplinari: [{ codice: "0912", nome: "Medicine" }],
     coordinatoreCf: "Daniele De Nuzzo",
@@ -168,7 +170,7 @@ var METE = [
     universita: "Universidad de Alicante",
     citta: "Alicante",
     paese: "Spagna",
-    codiceErasmus: "SAP-MEDIC2-ALICANTE",
+    codiceErasmus: "E  ALICANT01",
     dipartimentoCf: "Medicina e Psicologia - Area medica e professioni sanitarie",
     areeDisciplinari: [{ codice: "0912", nome: "Medicine" }],
     coordinatoreCf: "Daniele De Nuzzo",
@@ -193,7 +195,7 @@ var METE = [
     universita: "Universidad Pontificia Comillas",
     citta: "Madrid",
     paese: "Spagna",
-    codiceErasmus: "SAP-MEDIC2-COMILLAS-A",
+    codiceErasmus: "E  MADRID02",
     dipartimentoCf: "Medicina e Psicologia - Area medica e professioni sanitarie",
     areeDisciplinari: [{ codice: "0912", nome: "Medicine" }],
     coordinatoreCf: "Maria Chiara Vulpiani",
@@ -206,6 +208,8 @@ var METE = [
         { cosa: "Nomination (autunno)", periodo: "entro 1 giugno per studenti Erasmus" },
         { cosa: "Nomination (primavera)", periodo: "entro 1 novembre per studenti Erasmus" }
       ],
+    linkSito: "https://www.comillas.edu/",
+
     notePratiche: "Posti totali dell'accordo: 1. Solo livello triennale. Secondo accordo distinto con lo stesso ateneo (promotore Maria Chiara Vulpiani, vedi anche sap-medic2-comillas-b con promotore Flavia Pantaleo). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -213,7 +217,7 @@ var METE = [
     universita: "Universidad de Salamanca",
     citta: "Salamanca",
     paese: "Spagna",
-    codiceErasmus: "SAP-MEDIC2-SALAMANCA",
+    codiceErasmus: "E  SALAMAN02",
     dipartimentoCf: "Medicina e Psicologia - Area medica e professioni sanitarie",
     areeDisciplinari: [{ codice: "0912", nome: "Medicine" }],
     coordinatoreCf: "Maria Chiara Vulpiani",
@@ -237,7 +241,7 @@ var METE = [
     universita: "Universidad San Pablo-CEU",
     citta: "Madrid",
     paese: "Spagna",
-    codiceErasmus: "SAP-MEDIC2-SANPABLOCEU-B",
+    codiceErasmus: "E  MADRID21",
     dipartimentoCf: "Medicina e Psicologia - Area medica e professioni sanitarie",
     areeDisciplinari: [{ codice: "0912", nome: "Medicine" }],
     coordinatoreCf: "Maria Chiara Vulpiani",
@@ -262,7 +266,7 @@ var METE = [
     universita: "Universidad Católica de Valencia \"San Vicente Mártir\"",
     citta: "Valencia",
     paese: "Spagna",
-    codiceErasmus: "SAP-MEDIC2-VALENCIA",
+    codiceErasmus: "E  VALENCI11",
     dipartimentoCf: "Medicina e Psicologia - Area medica e professioni sanitarie",
     areeDisciplinari: [{ codice: "0912", nome: "Medicine" }],
     coordinatoreCf: "Franco Giubilei",
@@ -288,7 +292,7 @@ var METE = [
     universita: "Universidad Alfonso X El Sabio",
     citta: "Madrid",
     paese: "Spagna",
-    codiceErasmus: "SAP-MEDIC2-ALFONSOX",
+    codiceErasmus: "E  MADRID17",
     dipartimentoCf: "Medicina e Psicologia - Area medica e professioni sanitarie",
     areeDisciplinari: [{ codice: "0912", nome: "Medicine" }],
     coordinatoreCf: "Mario Vetrano",
@@ -313,7 +317,7 @@ var METE = [
     universita: "Universidad de La Coruña",
     citta: "La Coruña",
     paese: "Spagna",
-    codiceErasmus: "SAP-MEDIC2-CORUNA",
+    codiceErasmus: "E  LA-CORU01",
     dipartimentoCf: "Medicina e Psicologia - Area medica e professioni sanitarie",
     areeDisciplinari: [{ codice: "0912", nome: "Medicine" }],
     coordinatoreCf: "Mario Vetrano",
@@ -329,6 +333,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
         { cosa: "Application (autunno)", periodo: "1 aprile - 31 maggio" }
       ],
+    linkSito: "http://www.udc.es",
+
     notePratiche: "Posti totali dell'accordo: 3. Solo livello triennale. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -336,7 +342,7 @@ var METE = [
     universita: "Universidad de Barcelona",
     citta: "Barcellona",
     paese: "Spagna",
-    codiceErasmus: "SAP-MEDIC2-BARCELONA",
+    codiceErasmus: "E  BARCELO01",
     dipartimentoCf: "Medicina e Psicologia - Area medica e professioni sanitarie",
     areeDisciplinari: [{ codice: "0912", nome: "Medicine" }],
     coordinatoreCf: "Flavia Pantaleo",
@@ -357,7 +363,7 @@ var METE = [
     universita: "Universidad Pontificia Comillas",
     citta: "Madrid",
     paese: "Spagna",
-    codiceErasmus: "SAP-MEDIC2-COMILLAS-B",
+    codiceErasmus: "E  MADRID02",
     dipartimentoCf: "Medicina e Psicologia - Area medica e professioni sanitarie",
     areeDisciplinari: [{ codice: "0912", nome: "Medicine" }],
     coordinatoreCf: "Flavia Pantaleo",
@@ -372,6 +378,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 1 giugno 2026 per studenti Erasmus" },
         { cosa: "Application (primavera)", periodo: "entro 1 novembre 2026 per studenti Erasmus" }
       ],
+    linkSito: "https://www.comillas.edu/",
+
     notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale. Secondo accordo distinto con lo stesso ateneo (promotore Flavia Pantaleo, vedi anche sap-medic2-comillas-a con promotore Maria Chiara Vulpiani). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   }
 ];

@@ -56,6 +56,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
+    linkSito: "https://www.uni-salzburg.at",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -106,6 +108,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "15 marzo - 15 aprile" },
         { cosa: "Application (primavera)", periodo: "1 ottobre - 1 novembre" }
       ],
+    linkSito: "https://ut.ee/en",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -154,6 +158,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 5 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
       ],
+    linkSito: "https://www.univ-lyon2.fr/",
+
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli)."
   },
   {
@@ -176,6 +182,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
       ],
+    linkSito: "http:/www.uhb.fr",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -199,6 +207,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 5 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
       ],
+    linkSito: "https://www.univ-lyon2.fr/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -252,6 +262,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "1 ottobre - 15 novembre" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
+    linkSito: "http://www.uni-augsburg.de",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -350,6 +362,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "http://www.rtu.lv/",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -583,6 +597,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 30 settembre" },
         { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
       ],
+    linkSito: "http://www.ulusofona.pt",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -609,6 +625,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 30 settembre" },
         { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
       ],
+    linkSito: "http://www.ulusofona.pt",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -660,6 +678,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 30 settembre" },
         { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
       ],
+    linkSito: "http://www.ulusofona.pt",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -732,6 +752,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 30 settembre" },
         { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
       ],
+    linkSito: "http://www.ulusofona.pt",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -782,6 +804,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 30 ottobre" }
       ],
+    linkSito: "http://www.unibuc.ro",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -808,6 +832,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 30 ottobre" }
       ],
+    linkSito: "http://www.unibuc.ro",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -829,6 +855,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 20 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
+    linkSito: "http://www.uemc.edu",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -852,6 +880,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
+    linkSito: "https://www.ehu.eus/en/en-home",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -948,6 +978,8 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "dal 15 marzo al 31 maggio" },
         { cosa: "Application (primavera)", periodo: "dal 1 settembre al 31 ottobre" }
       ],
+    linkSito: "http://internacional.uvigo.es",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -1069,6 +1101,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "http://www.usc.es",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1094,6 +1128,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
         { cosa: "Application (primavera)", periodo: "1 ottobre - 15 novembre" }
       ],
+    linkSito: "http://www.udc.es",
+
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli)."
   },
   {
@@ -1115,6 +1151,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 20 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
+    linkSito: "http://www.uemc.edu",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1261,6 +1299,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "http://www.relint.usi.ch",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1288,6 +1328,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 settembre" },
         { cosa: "Application (primavera)", periodo: "entro 30 settembre" }
       ],
+    linkSito: "https://www.unifr.ch/home/fr/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1313,6 +1355,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 settembre" },
         { cosa: "Application (primavera)", periodo: "entro 30 settembre" }
       ],
+    linkSito: "https://www.unibe.ch/",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1334,6 +1378,8 @@ var METE = [
         { cosa: "Nomination (autunno)", periodo: "entro 15 giugno" },
         { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "http://erasmus.istanbul.edu.tr/en/",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1360,6 +1406,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
         { cosa: "Application (primavera)", periodo: "entro 15 dicembre" }
       ],
+    linkSito: "http://akts.hacettepe.edu.tr/",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1386,6 +1434,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
         { cosa: "Application (primavera)", periodo: "entro 15 dicembre" }
       ],
+    linkSito: "http://akts.hacettepe.edu.tr/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1432,6 +1482,8 @@ var METE = [
         { cosa: "Nomination e application (autunno/anno intero)", periodo: "1 aprile - 1 giugno" },
         { cosa: "Nomination e application (primavera, seconda call)", periodo: "1 settembre - 1 novembre" }
       ],
+    linkSito: "https://oip.ku.edu.tr/mobility-programs/incoming/",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   }
 ];

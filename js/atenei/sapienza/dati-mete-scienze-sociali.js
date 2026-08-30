@@ -34,6 +34,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
+    linkSito: "https://www.uni-salzburg.at",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -59,6 +61,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
+    linkSito: "https://www.uni-salzburg.at",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -136,6 +140,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 1 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
       ],
+    linkSito: "https://www.ulb.be/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -161,6 +167,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 1 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
       ],
+    linkSito: "https://www.ulb.be/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -230,6 +238,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 5 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
       ],
+    linkSito: "https://www.univ-lyon2.fr/",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -282,6 +292,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 30 ottobre" }
       ],
+    linkSito: "HTTP://WWW.UNIV-POITIERS.FR",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Scadenze: basate su 2025/26"
   },
   {
@@ -332,6 +344,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
         { cosa: "Application (primavera)", periodo: "entro 10 novembre" }
       ],
+    linkSito: "http://www.ehess.fr/fr/international/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -581,6 +595,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 1 dicembre" }
       ],
+    linkSito: "https://www.uni-bamberg.de/en/studies/exchange-students-eg-erasmus/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -607,6 +623,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 31 dicembre" }
       ],
+    linkSito: "http://www.rwth-aachen.de",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -657,6 +675,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 novembre 2026" },
         { cosa: "Application (primavera)", periodo: "entro 15 gennaio 2027" }
       ],
+    linkSito: "http://www.leuphana.de/en/services/io.html",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -989,6 +1009,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 30 ottobre" }
       ],
+    linkSito: "http://www.unibuc.ro",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1010,6 +1032,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 30 ottobre" }
       ],
+    linkSito: "http://www.unibuc.ro",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1031,6 +1055,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 30 ottobre" }
       ],
+    linkSito: "http://www.unibuc.ro",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1108,6 +1134,8 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "16 febbraio - 19 giugno 2026" },
         { cosa: "Application (primavera)", periodo: "1 settembre - 6 novembre 2026" }
       ],
+    linkSito: "HTTP://WWW.UNIZAR.ES",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -1133,6 +1161,8 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "1 maggio - 31 maggio" },
         { cosa: "Application (primavera)", periodo: "1 novembre - 30 novembre" }
       ],
+    linkSito: "https://www.ehu.eus/en/en-home",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1159,6 +1189,8 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "1 maggio - 31 maggio" },
         { cosa: "Application (primavera)", periodo: "1 novembre - 30 novembre" }
       ],
+    linkSito: "https://www.ehu.eus/en/en-home",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1234,6 +1266,8 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "entro 30 giugno 2026" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre 2026" }
       ],
+    linkSito: "HTTP://WWW.ULL.ES",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1258,6 +1292,8 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "entro 15 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
       ],
+    linkSito: "https://www.ugr.es/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2024/25"
   },
   {
@@ -1354,6 +1390,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "dal 1 aprile al 31 maggio" },
         { cosa: "Application (primavera)", periodo: "dal 1 ottobre al 15 novembre" }
       ],
+    linkSito: "http://www.udc.es",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -1379,6 +1417,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
+    linkSito: "https://www.uhu.es/",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Scadenze: basate su 2025/26"
   },
   {
@@ -1404,6 +1444,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
+    linkSito: "https://www.uhu.es/",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Scadenze: basate su 2025/26"
   },
   {
@@ -1555,6 +1597,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "4 - 15 maggio" },
         { cosa: "Application (primavera)", periodo: "2 - 13 novembre" }
       ],
+    linkSito: "https://www.deusto.es/en/home/we-are-deusto/faculties/social-human-sciences",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -1673,6 +1717,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 15 dicembre" }
       ],
+    linkSito: "http://akts.hacettepe.edu.tr/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {

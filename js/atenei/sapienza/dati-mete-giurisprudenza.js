@@ -37,7 +37,7 @@ var METE = [
     universita: "Paris Lodron Universität Salzburg",
     citta: "Salisburgo",
     paese: "Austria",
-    codiceErasmus: "SAP-IUS-SALZBURG",
+    codiceErasmus: "A  SALZBUR01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -56,6 +56,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
+    linkSito: "https://www.uni-salzburg.at",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -63,7 +65,7 @@ var METE = [
     universita: "Leopold-Franzens-Universität Innsbruck",
     citta: "Innsbruck",
     paese: "Austria",
-    codiceErasmus: "SAP-IUS-INNSBRUCK",
+    codiceErasmus: "A  INNSBRU01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -82,6 +84,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 luglio" },
         { cosa: "Application (primavera)", periodo: "entro 15 dicembre" }
       ],
+    linkSito: "https://www.uibk.ac.at/en/international-relations-office/student-mobility/incoming/mobility-programmes/erasmus-studmob/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -89,7 +93,7 @@ var METE = [
     universita: "Université Libre de Bruxelles",
     citta: "Bruxelles",
     paese: "Belgio",
-    codiceErasmus: "SAP-IUS-ULB-BXL",
+    codiceErasmus: "B  BRUXEL04",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -108,6 +112,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 1 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
       ],
+    linkSito: "https://www.ulb.be/",
+
     notePratiche: "Posti totali dell'accordo: 8 (condivisi tra i livelli)."
   },
   {
@@ -115,7 +121,7 @@ var METE = [
     universita: "Sofiiki Universitet \"Sveti Kliment Ohridski\"",
     citta: "Sofia",
     paese: "Bulgaria",
-    codiceErasmus: "SAP-IUS-SOFIA",
+    codiceErasmus: "BG SOFIA06",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -134,6 +140,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "http://www.uni-sofia.bg",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Scadenze: basate su 2025/26"
   },
   {
@@ -141,7 +149,7 @@ var METE = [
     universita: "Université Panthéon-Assas (Paris II)",
     citta: "Parigi",
     paese: "Francia",
-    codiceErasmus: "SAP-IUS-ASSAS-P2",
+    codiceErasmus: "F  PARIS002",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -166,7 +174,7 @@ var METE = [
     universita: "Aix-Marseille Université (AMU)",
     citta: "Aix-en-Provence / Marsiglia",
     paese: "Francia",
-    codiceErasmus: "SAP-IUS-AMU",
+    codiceErasmus: "F  MARSEIL84",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -192,7 +200,7 @@ var METE = [
     universita: "Université de Bordeaux",
     citta: "Bordeaux",
     paese: "Francia",
-    codiceErasmus: "SAP-IUS-BORDEAUX",
+    codiceErasmus: "F  BORDEAU58",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -216,7 +224,7 @@ var METE = [
     universita: "Ludwig-Maximilians-Universität München",
     citta: "Monaco di Baviera",
     paese: "Germania",
-    codiceErasmus: "SAP-IUS-LMU-MUC",
+    codiceErasmus: "D  MUNCHEN01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -242,7 +250,7 @@ var METE = [
     universita: "Humboldt-Universität zu Berlin",
     citta: "Berlino",
     paese: "Germania",
-    codiceErasmus: "SAP-IUS-HU-BERLIN",
+    codiceErasmus: "D  BERLIN13",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -266,7 +274,7 @@ var METE = [
     universita: "Eberhard-Karls-Universität Tübingen",
     citta: "Tubinga",
     paese: "Germania",
-    codiceErasmus: "SAP-IUS-TUBINGEN",
+    codiceErasmus: "D  TUBINGE01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -290,7 +298,7 @@ var METE = [
     universita: "Universität zu Köln",
     citta: "Colonia",
     paese: "Germania",
-    codiceErasmus: "SAP-IUS-KOLN",
+    codiceErasmus: "D  KOLN01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -313,7 +321,7 @@ var METE = [
     universita: "University of Warsaw",
     citta: "Varsavia",
     paese: "Polonia",
-    codiceErasmus: "SAP-IUS-WARSAW",
+    codiceErasmus: "PL WARSZAW01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -338,7 +346,7 @@ var METE = [
     universita: "Universidade do Porto",
     citta: "Porto",
     paese: "Portogallo",
-    codiceErasmus: "SAP-IUS-PORTO",
+    codiceErasmus: "P  PORTO02",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -362,7 +370,7 @@ var METE = [
     universita: "Universidade de Coimbra",
     citta: "Coimbra",
     paese: "Portogallo",
-    codiceErasmus: "SAP-IUS-COIMBRA",
+    codiceErasmus: "P  COIMBRA01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -387,7 +395,7 @@ var METE = [
     universita: "Universitatea din Bucuresti",
     citta: "Bucarest",
     paese: "Romania",
-    codiceErasmus: "SAP-IUS-BUCURESTI",
+    codiceErasmus: "RO BUCURES09",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -405,6 +413,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 1 luglio" },
         { cosa: "Application (primavera)", periodo: "entro 1 dicembre" }
       ],
+    linkSito: "http://www.unibuc.ro",
+
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -412,7 +422,7 @@ var METE = [
     universita: "Univerza v Ljubljani (University of Ljubljana)",
     citta: "Lubiana",
     paese: "Slovenia",
-    codiceErasmus: "SAP-IUS-LJUBLJANA",
+    codiceErasmus: "SI LJUBLJA01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -428,6 +438,8 @@ var METE = [
         { cosa: "Application (autunno/anno)", periodo: "entro 15 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "http://www.uni-lj.si",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -435,7 +447,7 @@ var METE = [
     universita: "Univerzita Palackého v Olomouci",
     citta: "Olomouc",
     paese: "Repubblica Ceca",
-    codiceErasmus: "SAP-IUS-OLOMOUC",
+    codiceErasmus: "CZ OLOMOUC01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -460,7 +472,7 @@ var METE = [
     universita: "Universidad Complutense de Madrid",
     citta: "Madrid",
     paese: "Spagna",
-    codiceErasmus: "SAP-IUS-COMPLUTENSE",
+    codiceErasmus: "E  MADRID03",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -485,7 +497,7 @@ var METE = [
     universita: "Universidad Autónoma de Madrid",
     citta: "Madrid",
     paese: "Spagna",
-    codiceErasmus: "SAP-IUS-UAM-MADRID",
+    codiceErasmus: "E  MADRID04",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -510,7 +522,7 @@ var METE = [
     universita: "Stockholms Universitet",
     citta: "Stoccolma",
     paese: "Svezia",
-    codiceErasmus: "SAP-IUS-STOCKHOLM",
+    codiceErasmus: "S  STOCKHO01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -534,7 +546,7 @@ var METE = [
     universita: "Université Jean Monnet Saint-Étienne",
     citta: "Saint-Étienne",
     paese: "Francia",
-    codiceErasmus: "SAP-IUS-STETIENNE",
+    codiceErasmus: "F  ST-ETIE01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -557,7 +569,7 @@ var METE = [
     universita: "Université Polytechnique Hauts-de-France",
     citta: "Valenciennes",
     paese: "Francia",
-    codiceErasmus: "SAP-IUS-UPHF",
+    codiceErasmus: "F  VALENCI01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -576,6 +588,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "https://www.uphf.fr/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2023/24"
   },
   {
@@ -583,7 +597,7 @@ var METE = [
     universita: "Université Le Havre Normandie",
     citta: "Le Havre",
     paese: "Francia",
-    codiceErasmus: "SAP-IUS-LEHAVRE",
+    codiceErasmus: "F  LE-HAVR11",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -607,7 +621,7 @@ var METE = [
     universita: "Université de Tours",
     citta: "Tours",
     paese: "Francia",
-    codiceErasmus: "SAP-IUS-TOURS",
+    codiceErasmus: "F  TOURS01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -625,6 +639,8 @@ var METE = [
         { cosa: "Application / pre-registrazione (autunno / anno accademico)", periodo: "31 marzo 2025 - 6 giugno 2025" },
         { cosa: "Application / pre-registrazione (primavera)", periodo: "6 ottobre 2025 - 21 novembre 2025" }
       ],
+    linkSito: "https://international.univ-tours.fr/",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26"
   },
   {
@@ -632,7 +648,7 @@ var METE = [
     universita: "Université Jean Moulin (Lyon III)",
     citta: "Lione",
     paese: "Francia",
-    codiceErasmus: "SAP-IUS-LYON3",
+    codiceErasmus: "F  LYON03",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -651,6 +667,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 17 luglio" },
         { cosa: "Application (primavera)", periodo: "entro 18 dicembre" }
       ],
+    linkSito: "https://www.univ-lyon3.fr/exchange-students",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -658,7 +676,7 @@ var METE = [
     universita: "Université de Rouen Normandie",
     citta: "Rouen",
     paese: "Francia",
-    codiceErasmus: "SAP-IUS-ROUEN",
+    codiceErasmus: "F  ROUEN01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -683,7 +701,7 @@ var METE = [
     universita: "Université de Lille",
     citta: "Lille",
     paese: "Francia",
-    codiceErasmus: "SAP-IUS-LILLE",
+    codiceErasmus: "F  LILLE103",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -709,7 +727,7 @@ var METE = [
     universita: "Universität Greifswald",
     citta: "Greifswald",
     paese: "Germania",
-    codiceErasmus: "SAP-IUS-GREIFSWALD",
+    codiceErasmus: "D  GREIFS01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -735,7 +753,7 @@ var METE = [
     universita: "Albert-Ludwigs-Universität Freiburg",
     citta: "Friburgo",
     paese: "Germania",
-    codiceErasmus: "SAP-IUS-FREIBURG",
+    codiceErasmus: "D  FREIBUR01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -760,7 +778,7 @@ var METE = [
     universita: "Gottfried Wilhelm Leibniz Universität Hannover",
     citta: "Hannover",
     paese: "Germania",
-    codiceErasmus: "SAP-IUS-HANNOVER",
+    codiceErasmus: "D  HANNOVE01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -777,6 +795,8 @@ var METE = [
         { cosa: "Nomination (autunno)", periodo: "entro 30 aprile" },
         { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" }
       ],
+    linkSito: "http://www.uni-hannover.de",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -784,7 +804,7 @@ var METE = [
     universita: "Universität des Saarlandes",
     citta: "Saarbrücken",
     paese: "Germania",
-    codiceErasmus: "SAP-IUS-SAARLAND",
+    codiceErasmus: "D  SAARBRU01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -809,7 +829,7 @@ var METE = [
     universita: "Universität Regensburg",
     citta: "Ratisbona",
     paese: "Germania",
-    codiceErasmus: "SAP-IUS-REGENSBURG",
+    codiceErasmus: "D  REGENSB01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -828,6 +848,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
         { cosa: "Application (primavera)", periodo: "1 settembre - 15 novembre" }
       ],
+    linkSito: "http://www.uni-regensburg.de",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -835,7 +857,7 @@ var METE = [
     universita: "Universität Bremen",
     citta: "Brema",
     paese: "Germania",
-    codiceErasmus: "SAP-IUS-BREMEN",
+    codiceErasmus: "D  BREMEN01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -861,7 +883,7 @@ var METE = [
     universita: "Philipps-Universität Marburg",
     citta: "Marburgo",
     paese: "Germania",
-    codiceErasmus: "SAP-IUS-MARBURG",
+    codiceErasmus: "D  MARBURG01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -880,6 +902,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 1 dicembre" },
         { cosa: "Application (primavera)", periodo: "entro 10 gennaio" }
       ],
+    linkSito: "https://www.uni-marburg.de/en",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -887,7 +911,7 @@ var METE = [
     universita: "National and Kapodistrian University of Athens (NKUA)",
     citta: "Atene",
     paese: "Grecia",
-    codiceErasmus: "SAP-IUS-ATHENS",
+    codiceErasmus: "G  ATHINE01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -913,7 +937,7 @@ var METE = [
     universita: "Panepistimio Pireos (University of Piraeus)",
     citta: "Pireo",
     paese: "Grecia",
-    codiceErasmus: "SAP-IUS-PIRAEUS",
+    codiceErasmus: "G  PIREAS01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -931,6 +955,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 dicembre" },
         { cosa: "Application (primavera)", periodo: "entro 15 gennaio" }
       ],
+    linkSito: "http://www.unipi.gr/",
+
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). || Scadenze: basate su 2025/26"
   },
   {
@@ -938,7 +964,7 @@ var METE = [
     universita: "Vilniaus Gedimino Technikos Universitetas (VGTU)",
     citta: "Vilnius",
     paese: "Lituania",
-    codiceErasmus: "SAP-IUS-VGTU-VILNIUS",
+    codiceErasmus: "LT VILNIUS02",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -956,6 +982,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "http://www.vgtu.lt",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -963,7 +991,7 @@ var METE = [
     universita: "Uniwersytet Gdanski",
     citta: "Danzica",
     paese: "Polonia",
-    codiceErasmus: "SAP-IUS-GDANSK",
+    codiceErasmus: "PL GDANSK01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -981,6 +1009,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 30 novembre 2026" },
         { cosa: "Application (primavera)", periodo: "entro 15 dicembre 2026" }
       ],
+    linkSito: "http://www.2.univ.gda.pl",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -988,7 +1018,7 @@ var METE = [
     universita: "Uniwersytet Jagiellonski",
     citta: "Cracovia",
     paese: "Polonia",
-    codiceErasmus: "SAP-IUS-JAGIELLONSKI",
+    codiceErasmus: "PL KRAKOW01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -1014,7 +1044,7 @@ var METE = [
     universita: "Uniwersytet Wroclawski",
     citta: "Breslavia",
     paese: "Polonia",
-    codiceErasmus: "SAP-IUS-WROCLAW",
+    codiceErasmus: "PL WROCLAW01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -1032,6 +1062,10 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
       ],
+    linkSito: "http://www.uni.wroc.pl",
+
+    linkCatalogo: "https://international.uni.wroc.pl/en/incoming-exchange-students/university-guidelines-all-exchange-students#timetabes-for-2024-2025-academic-year",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -1039,7 +1073,7 @@ var METE = [
     universita: "Uniwersytet Warminsko-Mazurski w Olsztynie",
     citta: "Olsztyn",
     paese: "Polonia",
-    codiceErasmus: "SAP-IUS-OLSZTYN",
+    codiceErasmus: "PL OLSZTYN01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -1064,7 +1098,7 @@ var METE = [
     universita: "Academia de Studii Economice din Bucuresti",
     citta: "Bucarest",
     paese: "Romania",
-    codiceErasmus: "SAP-IUS-ASE-BUCURESTI",
+    codiceErasmus: "RO BUCURES04",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -1085,6 +1119,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 1 dicembre" },
         { cosa: "Application (primavera)", periodo: "entro 15 dicembre" }
       ],
+    linkSito: "HTTP://WWW.ASE.RO",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -1092,7 +1128,7 @@ var METE = [
     universita: "Paneuropska Vysoka Skola",
     citta: "Bratislava",
     paese: "Slovacchia",
-    codiceErasmus: "SAP-IUS-PANEUROPSKA",
+    codiceErasmus: "SK BRATISL08",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -1117,7 +1153,7 @@ var METE = [
     universita: "Fundación Universidad San Jorge",
     citta: "Saragozza",
     paese: "Spagna",
-    codiceErasmus: "SAP-IUS-SANJORGE",
+    codiceErasmus: "E  ZARAGOZ07",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -1136,6 +1172,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
         { cosa: "Application (primavera)", periodo: "entro 15 dicembre" }
       ],
+    linkSito: "http://www.usj.es",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -1143,7 +1181,7 @@ var METE = [
     universita: "Universidad Católica de Ávila \"Santa Teresa de Jesús\"",
     citta: "Ávila",
     paese: "Spagna",
-    codiceErasmus: "SAP-IUS-AVILA",
+    codiceErasmus: "E  AVILA01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -1161,6 +1199,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 31 ottobre" },
         { cosa: "Documentazione (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "https://www.ucavila.es/",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -1168,7 +1208,7 @@ var METE = [
     universita: "Universidad de Castilla-La Mancha",
     citta: "Ciudad Real",
     paese: "Spagna",
-    codiceErasmus: "SAP-IUS-UCLM",
+    codiceErasmus: "E  CIUDA-R01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -1189,7 +1229,7 @@ var METE = [
     universita: "Universidad Pública de Navarra (UPNA)",
     citta: "Pamplona",
     paese: "Spagna",
-    codiceErasmus: "SAP-IUS-UPNA",
+    codiceErasmus: "E  PAMPLON02",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -1215,7 +1255,7 @@ var METE = [
     universita: "Universidad de Zaragoza",
     citta: "Saragozza",
     paese: "Spagna",
-    codiceErasmus: "SAP-IUS-ZARAGOZA",
+    codiceErasmus: "E  ZARAGOZ01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -1231,6 +1271,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 16 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 7 novembre" }
       ],
+    linkSito: "HTTP://WWW.UNIZAR.ES",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26 || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1238,7 +1280,7 @@ var METE = [
     universita: "Universidad de Valladolid",
     citta: "Valladolid",
     paese: "Spagna",
-    codiceErasmus: "SAP-IUS-VALLADOLID",
+    codiceErasmus: "E  VALLADO01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -1264,7 +1306,7 @@ var METE = [
     universita: "Universidad de Málaga",
     citta: "Málaga",
     paese: "Spagna",
-    codiceErasmus: "SAP-IUS-MALAGA",
+    codiceErasmus: "E  MALAGA01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -1286,7 +1328,7 @@ var METE = [
     universita: "Universidad de Salamanca",
     citta: "Salamanca",
     paese: "Spagna",
-    codiceErasmus: "SAP-IUS-SALAMANCA",
+    codiceErasmus: "E  SALAMAN02",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -1308,7 +1350,7 @@ var METE = [
     universita: "Universidad de León",
     citta: "León",
     paese: "Spagna",
-    codiceErasmus: "SAP-IUS-LEON",
+    codiceErasmus: "E  LEON01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -1327,6 +1369,8 @@ var METE = [
         { cosa: "Application/registrazione (autunno)", periodo: "entro 15 giugno" },
         { cosa: "Application/registrazione (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "https://www.unileon.es/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -1334,7 +1378,7 @@ var METE = [
     universita: "Universidad de Granada",
     citta: "Granada",
     paese: "Spagna",
-    codiceErasmus: "SAP-IUS-GRANADA",
+    codiceErasmus: "E  GRANADA01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -1349,6 +1393,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "dal 1 aprile al 15 maggio" },
         { cosa: "Application (primavera)", periodo: "dal 1 al 31 ottobre" }
       ],
+    linkSito: "https://www.ugr.es/",
+
     notePratiche: "Posti totali dell'accordo: 3. Solo livello triennale."
   },
   {
@@ -1356,7 +1402,7 @@ var METE = [
     universita: "Universidad de Las Palmas de Gran Canaria",
     citta: "Las Palmas de Gran Canaria",
     paese: "Spagna",
-    codiceErasmus: "SAP-IUS-LASPALMAS",
+    codiceErasmus: "E  LAS-PAL01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
@@ -1381,7 +1427,7 @@ var METE = [
     universita: "Universidad de Cádiz",
     citta: "Cadice",
     paese: "Spagna",
-    codiceErasmus: "SAP-IUS-CADIZ",
+    codiceErasmus: "E  CADIZ01",
     dipartimentoCf: "Giurisprudenza",
     areeDisciplinari: [{ codice: "0421", nome: "Law" }],
     coordinatoreCf: "Scarchillo Gianluca",
