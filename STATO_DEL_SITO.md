@@ -4305,6 +4305,7 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 | `scripts/esegui-lotto-pianificato.ps1` | automazione | Wrapper per Task Scheduler; esegue un lotto e salva i log fuori dal repository in `%LOCALAPPDATA%\ErasmusWiz\logs` |
 | `scripts/gemini-sgrossatura.mjs` · `scripts/verifica-link.mjs` | automazione | Sgrossatura T1 via Gemini API con Google Search + controllo HTTP preliminare delle fonti |
 | `scripts/cancelli.mjs` · `scripts/lib-link.mjs` · `scripts/lib-pdf.mjs` | pipeline dati Fase 4b | Cancellano le proposte non verificabili: citazione nel brano con impronta SHA-256, pagina mutata, forma, livello e codice; controllo URL condiviso e lettura PDF senza dipendenze |
+| `test/fixtures/pdf/*.pdf` | prove pipeline Fase 4b | Tre PDF universitari **veri** (648 KB): una factsheet che deve uscire integra, un file sporco di operatori, uno a font proprietario che deve tornare `null`. Sono nel repo apposta: una prova che dipende dalla rete non è ripetibile, ed è la prova finta e pulita che aveva lasciato passare il difetto |
 | `test/cancelli-integrazione.test.mjs` · `test/cancello-citazione.test.mjs` · `test/cancello-livello.test.mjs` · `test/lib-pdf.test.mjs` · `test/raccogli-partner.test.mjs` | test pipeline Fase 4b | Regressioni su citazione, pagina cambiata, titolo di facoltà, codice Ca' Foscari, iniezione senza rete, PDF e paese del CSV |
 | `scripts/lib-mete.mjs` | automazione | Utilità condivise: scanner/serializzazione + inserimento sicuro dei nuovi campi mappabili |
 | `scripts/lib-output-batch.mjs` · `scripts/valida-output-batch.mjs` | automazione | Contratto e validatore dell'OUTPUT: batch corretto, soli campi richiesti, formato dati e prove ufficiali obbligatorie |
@@ -4356,6 +4357,18 @@ Contata **per partner** (codice Erasmus), che è l'unità di lavoro vera: le
 residua: 44 lotti / 256 mete, tutti `scadenze+lingua`, **niente di programmato
 per i 696 partner senza catalogo**. Il piano di rientro è
 `DISEGNO_PIPELINE_DATI.md` **V2**.
+
+**La lezione di metodo del 30/08, che vale oltre questa fase.** Due difetti su
+due sono stati trovati **costruendo il caso**, non rileggendo il codice, e
+tutti e due avevano le prove verdi. Il cancello della citazione era aggirabile
+perché le prove coprivano la funzione e non chi la chiamava (196 verdi, e il
+vincolo non negoziabile passava); l'estrattore PDF sporcava il testo perché il
+PDF di prova era costruito a mano, minimale e pulito. In più: **le prove
+dell'esecutore girano anche sul banco su cui ha ottimizzato**, quindi una
+correzione va confrontata su un campione che lui non ha visto — sui PDF quel
+confronto ha dato 8 sporchi su 8 prima e 2 su 7 dopo, ed è l'unico numero che
+dimostri che la correzione generalizza. Regola operativa: *nel dubbio non
+rileggere, costruisci il caso che dovrebbe fallire e guarda cosa succede.*
 
 **Fase 4b, Consegna 2a chiusa il 30/08.** I tre PDF universitari reali sono
 ora prove permanenti: due restituiscono testo pulito e citabile, quello a font
