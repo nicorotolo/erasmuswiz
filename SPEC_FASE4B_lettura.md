@@ -325,6 +325,19 @@ dubbi. Il numero che si riporta e' quello **dopo** l'arbitrato, non quello
 proposto. Claude non firma da solo la correttezza della lettura di un altro
 modello sulle stesse pagine.
 
+**E7. Due limiti noti dell'estrattore PDF, misurati e NON corretti stasera.**
+Si scrivono qui perche' non vadano perduti, non perche' vadano risolti subito.
+(a) `testoDaPdf` legge solo i flussi `/FlateDecode`: nella factsheet di prova
+ne salta 8 su 34, sei dei quali sono immagini JPEG (giusto: niente OCR, §3.1)
+ma **due sono flussi non compressi**, che potrebbero contenere testo.
+(b) Nel testo estratto dalla factsheet si legge "the degree programmes are
+mainly taught in German and we B2 level": manca un pezzo di frase.
+Sono **perdite**, non alterazioni, e falliscono dalla parte giusta: un campo
+che non si puo' citare viene omesso, non sbagliato. Il difetto delle cifre era
+di natura diversa — alterava il dato — ed e' per questo che e' stato corretto
+subito. Questi due restano materiale per la Fase 5, e il campione umano dei 30
+campi (E6) e' il posto dove si accorgerebbero di eventuali danni.
+
 **I numeri di partenza della 2b, misurati il 30/08 sera in questa cartella:**
 
 | Cosa | Misura |
