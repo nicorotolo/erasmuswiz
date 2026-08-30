@@ -47,6 +47,12 @@ l'unita' di lavoro. Oggi ci sono **1.987 mete** e **745 codici distinti**:
 | **linkCatalogo** | **49 (7%)** | **696** |
 | notaDisponibilita | 40 (5%) | 705 |
 
+> Stato dei difetti dopo la Fase 1 del 30/08: **1 e 5 sono chiusi**, il 4 e'
+> stato misurato per esteso (418 disaccordi, non solo 117) e ha rivelato che
+> parte di essi non sono errori ma requisiti diversi per facolta' (vedi D1).
+> Le percentuali qui sotto sono quelle di partenza, contate su 745 codici; dopo
+> la bonifica i partner veri sono 615 e l'indirizzo del sito e' salito all'82%.
+
 Otto difetti, in ordine di gravita'.
 
 1. **I codici finti non sono mai stati sanati.** La V1 dichiarava il 14/07
@@ -95,10 +101,28 @@ Otto difetti, in ordine di gravita'.
 ### D1 — L'unita' di lavoro e' il PARTNER, una volta sola
 
 Non la meta (1.987), non il dipartimento. Dopo la bonifica dei codici finti
-restano **circa 610 partner veri**. Un partner si visita **una volta**, si
-raccolgono **tutti e cinque i campi**, e il risultato vale per tutte le mete
-che lo condividono, in ogni dipartimento e in ogni ateneo. Non esistono piu'
+restano **615 partner veri** (misurato, Fase 1 fatta). Un partner si visita
+**una volta**, si raccolgono **tutti e cinque i campi**. Non esistono piu'
 "lotti per Facolta'": esiste una lista di partner.
+
+**Ma non tutti i cinque campi valgono per tutto l'ateneo, e questo e' l'unico
+punto in cui la V1 aveva ragione ad avere paura.** Scoperto il 30/08 lavorando:
+
+- `linkSito` e `linkCatalogo` valgono per l'ateneo: si possono condividere.
+- `requisitoLingua`, `scadenzeOspitante` e `notaDisponibilita` **possono
+  cambiare da facolta' a facolta' dello stesso ateneo**. Aix-Marseille chiede
+  francese B1 in generale, B2 alla Facolta' di Giurisprudenza e C1 al
+  dipartimento di francese: sono tutti veri insieme. E il caso peggiore non
+  si vede nemmeno leggendo: `F LILLE11` e' la IESEG School of Management, che
+  insegna in gran parte in inglese, e aveva ricevuto "francese B1/B2, la
+  maggior parte dei corsi e' in francese" - vero per l'Universite Catholique
+  de Lille, falso per quella scuola, e senza una parola che lo tradisse.
+
+Conseguenza per la Fase 4: **ogni dato deve portare scritto a che livello e'
+stato letto** - pagina d'ateneo o pagina di facolta'. Solo i dati letti a
+livello d'ateneo si condividono automaticamente. Finche' quel dato non c'e',
+`propaga-tutto.mjs` propaga solo indirizzi e cataloghi (comportamento
+predefinito) e lingua/scadenze restano ferme dove sono state raccolte.
 
 ### D2 — "Scarica, poi leggi" al posto di "chiedi all'AI di cercare"
 
@@ -258,15 +282,24 @@ elimina due e la terza se ne va con la macchina. Al suo posto:
 **Uscita:** `node --version` e chiave presente nella cartella nuova; il task
 sull'altro PC disattivato.
 
-### Fase 1 — Bonifica dei codici finti *(una sessione)*
-Sostituire i 183 `SAP-*` con i codici veri dell'export ufficiale.
-**Gia' provato: un abbinamento automatico per nome riconosce 170 casi su 183
-(93%); i 13 restanti sono riconoscibili a occhio** (Gustave Eiffel, Sorbonne,
-RWTH Aachen, Koln, Hildesheim, Greifswald, Lubecca...).
-Guadagno immediato misurato: 26 requisiti di lingua e 23 scadenze si riversano
-su partner oggi vuoti, 105 link sito tornano indietro, e 183 mete rientrano
-nella rete di propagazione.
-**Uscita:** zero `SAP-` nei file dati; i partner scendono da 745 a circa 610.
+### Fase 1 — Bonifica dei codici finti — ✅ FATTA il 2026-08-30 (`0f87ade`)
+`scripts/bonifica-codici-sintetici.mjs` + `scripts/propaga-tutto.mjs`.
+
+L'abbinamento per NOME, che sembrava bastare, **sbagliava**: dava a Hochschule
+Mainz il codice di Darmstadt, a Politechnika Lubelska quello di Poznan, a
+Uludag quello di Ozyegin. Serve l'accordo di piu' prove indipendenti - citta'
+ricavata dal codice Erasmus, coordinatore dell'accordo, mesi e posti, area
+ISCED - e quando il paese non torna o il secondo candidato e' vicino, non si
+decide. Esito: 178 risolti dalle prove, 5 a mano leggendo l'atto ufficiale,
+0 rimasti. Regola dello script: o si bonifica tutto, o non si scrive niente.
+
+Risultati misurati:
+- codici ufficiali assenti dal sito: **59 → 0**
+- codici sul sito inesistenti nell'ufficiale: **183 → 0**
+- partner distinti: **745 → 615** (la differenza erano fantasmi)
+- propagazione prudente: 209 blocchi riempiti (202 indirizzi, 5 cataloghi,
+  2 note); copertura sito 72% → 82%
+- 209 test verdi, stato coerente, nessun test modificato.
 
 ### Fase 2 — Il cancello di completezza *(mezza sessione)*
 Script che scarica i 18 export ufficiali e confronta con il pubblicato:
@@ -294,10 +327,23 @@ citazioni che non compaiono nella pagina scaricata.
 **Uscita:** catalogo ≥70%, lingua ≥90%, scadenze ≥90% — contando come coperto
 anche il `nonTrovabile` onesto.
 
-### Fase 6 — Riconciliazione dei 117 conflitti *(una sessione + campione umano)*
-Dove lo stesso partner ha requisiti diversi, vince la fonte piu' recente e piu'
-specifica; i casi ambigui li guarda Nicola con Gemini (Google AI Plus).
-**Uscita:** zero partner con requisiti di lingua contraddittori.
+### Fase 6 — Riconciliazione dei disaccordi *(una sessione + campione umano)*
+Misurato il 30/08 con `node scripts/propaga-tutto.mjs --disaccordi`:
+**418 casi** in cui due dipartimenti dicono cose diverse sullo stesso partner —
+154 scadenze, 140 requisiti di lingua, 124 indirizzi di sito. Non sono tutti
+errori: parecchi sono la stessa verita' scritta in modo diverso (`http://.../en`
+contro `https://.../`) e parecchi sono requisiti **legittimamente diversi per
+facolta'**. Vanno separati, non appiattiti.
+
+Piu' urgente e piu' piccolo: i **10 partner** che portano lo **stesso**
+requisito di lingua su scuole diverse dello stesso ateneo (su 302 partner
+condivisi, 64 con scuole distinte). Quelli sono i candidati veri a un dato
+copiato dove non valeva: si guardano a mano.
+
+**Uscita:** i 10 verificati uno per uno; i 418 classificati in "stessa cosa
+detta diversamente" (si unifica), "diverso per facolta'" (si tiene separato e
+si annota il livello di lettura) e "uno dei due e' sbagliato" (si ricontrolla
+alla fonte).
 
 ### Fase 7 — Campione umano e firma *(mezza giornata)*
 5% estratto a caso (~30 partner), confronto dato-fonte a mano.

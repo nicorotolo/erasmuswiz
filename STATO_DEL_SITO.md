@@ -4329,13 +4329,31 @@ Contata **per partner** (codice Erasmus), che è l'unità di lavoro vera: le
 
 **La pipeline è ferma dal 29/07/2026** e nessun allarme lo ha segnalato. Coda
 residua: 44 lotti / 256 mete, tutti `scadenze+lingua`, **niente di programmato
-per i 696 partner senza catalogo**. Quattro difetti strutturali censiti oggi:
-183 codici sintetici `SAP-*` ancora vivi (Architettura 113, Giurisprudenza 55,
-Medicina-Psicologia 15), 117 partner con requisito di lingua contraddittorio
-fra dipartimenti, `nonTrovabile` assente dai dati pubblicati (153 casi vivono
-solo in `mappatura-stato.json`), nessun confronto automatico con l'export
-ufficiale Sapienza (59 codici ufficiali non sono sul sito). Il piano di
-rientro è `DISEGNO_PIPELINE_DATI.md` **V2**.
+per i 696 partner senza catalogo**. Il piano di rientro è
+`DISEGNO_PIPELINE_DATI.md` **V2**.
+
+**Fase 1 fatta il 30/08 (`0f87ade`).** I 183 codici Erasmus inventati (`SAP-*`)
+sono diventati codici veri, verificati con l'incrocio di più prove — città
+ricavata dal codice, coordinatore, mesi e posti, area ISCED — perché
+l'abbinamento sul solo nome sbagliava (dava a Mainz il codice di Darmstadt).
+Misurato: codici ufficiali assenti dal sito **59 → 0**, codici fantasma
+**183 → 0**, partner distinti **745 → 615**, copertura `linkSito` **72% → 82%**.
+209 test verdi.
+
+**Difetti ancora aperti:** `nonTrovabile` assente dai dati pubblicati (153 casi
+vivono solo in `mappatura-stato.json`, quindi "completo" non è verificabile);
+**418 disaccordi** fra dipartimenti sullo stesso partner (154 scadenze, 140
+lingue, 124 indirizzi), di cui 10 sono il caso davvero sospetto (stesso
+requisito di lingua su scuole diverse dello stesso ateneo); catalogo corsi
+ancora all'8% dei partner.
+
+**Scoperta di prodotto del 30/08:** requisito di lingua, scadenze e note di
+disponibilità **possono cambiare da facoltà a facoltà dello stesso ateneo** —
+Aix-Marseille chiede francese B1 in generale, B2 a Giurisprudenza, C1 al
+dipartimento di francese. Un test rosso ha intercettato il caso limite: IESEG
+School of Management (`F LILLE11`), che insegna in gran parte in inglese, aveva
+ricevuto per propagazione "francese B1/B2" dell'ateneo madre. Per questo la
+propagazione predefinita ora condivide solo indirizzi e cataloghi.
 
 Il CODICE è pronto. Le mete ora sono **REALI** (dalla lista ufficiale del bando
 2026/27). Resta da completare lingua e dettagli-scheda, e validare bando/checklist.
@@ -4557,9 +4575,10 @@ portatile può anche chiudersi.
    (b) **disattivare il task pianificato sul PC aziendale**, o due processi
    lavorano lo stesso `origin`. Il fermo del 29/07 non si diagnostica più: delle
    tre cause possibili la V2 ne elimina due e la terza se ne va con la macchina.
-1. **Fase 1 della V2 — bonifica dei 183 codici `SAP-*`**: 170 su 183 si
-   abbinano automaticamente all'export ufficiale, 13 a mano. Guadagno misurato:
-   26 lingue e 23 scadenze si riversano su partner oggi vuoti.
+1. ✅ **Fase 1 — bonifica dei 183 codici `SAP-*`: FATTA il 30/08** (`0f87ade`).
+   Due script nuovi: `scripts/bonifica-codici-sintetici.mjs` (rifiuta di
+   scrivere se anche un solo caso resta irrisolto) e `scripts/propaga-tutto.mjs`
+   (riempie solo i vuoti, non sceglie quando due dipartimenti dissentono).
 2. **Fase 2 — cancello di completezza** contro l'export ufficiale (18 ambiti,
    endpoint pubblico): da qui in poi «manca una meta» ha una risposta
    automatica.
