@@ -33,6 +33,7 @@ export function punteggioLink(testo, url = "") {
 }
 
 const norm = (valore) => String(valore || "").replace(/\s+/g, " ").trim().toUpperCase();
+export const normalizzaPaese = (valore) => String(valore || "").trim().toLocaleLowerCase("it-IT").replace(/(^|[\s-])(\p{L})/gu, (_, prima, lettera) => prima + lettera.toLocaleUpperCase("it-IT"));
 const nomeCartella = (codice) => norm(codice).replace(/\s+/g, "");
 const senzaAccenti = (s) => String(s || "").normalize("NFD").replace(/\p{Diacritic}/gu, "");
 const pulisciUrl = (grezzo, base) => {
@@ -156,8 +157,9 @@ async function caricaCsvSapienza() {
       if (!risposta.ok) throw new Error(`${ambito}: HTTP ${risposta.status}`);
       testo = await risposta.text();
       if (!/Codice erasmus/i.test(testo)) throw new Error(`${ambito}: risposta inattesa`);
+      fs.mkdirSync(cartella, { recursive: true }); fs.writeFileSync(file, testo);
     }
-    risultati.push(...leggiCsv(testo).filter((c) => /Laurea/i.test(c[7] || "")).map((c) => ({ codice: c[3], ateneo: c[2], citta: c[9], paese: c[10], sito: c[11] })));
+    risultati.push(...leggiCsv(testo).filter((c) => /Laurea/i.test(c[7] || "")).map((c) => ({ codice: c[3], ateneo: c[2], citta: c[10], paese: normalizzaPaese(c[1]), sito: c[11], areeIsced: c[9] })));
   }
   return risultati;
 }
@@ -172,9 +174,10 @@ async function costruisciPartner() {
   const mappa = new Map();
   const aggiungi = (dati) => {
     const codiceNorm = norm(dati.codice); if (!codiceNorm) return;
-    const p = mappa.get(codiceNorm) || { codice: dati.codice || codiceNorm, codiceNorm, ateneo: "", citta: "", paese: "", siti: [], mete: 0, _mete: [] };
+    const p = mappa.get(codiceNorm) || { codice: dati.codice || codiceNorm, codiceNorm, ateneo: "", citta: "", paese: "", siti: [], areeIsced: [], mete: 0, _mete: [] };
     for (const chiave of ["ateneo", "citta", "paese"]) if (!p[chiave] && dati[chiave]) p[chiave] = String(dati[chiave]).trim();
     if (dati.sito) { const sito = pulisciUrl(dati.sito); if (sito && !p.siti.includes(sito)) p.siti.push(sito); }
+    if (dati.areeIsced && !p.areeIsced.includes(dati.areeIsced)) p.areeIsced.push(dati.areeIsced);
     if (dati.meta) { p.mete++; p._mete.push(dati.meta); }
     mappa.set(codiceNorm, p);
   };

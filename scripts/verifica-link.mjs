@@ -17,29 +17,8 @@
 // Uso:  node scripts/verifica-link.mjs
 
 import fs from "node:fs";
-
-const TIMEOUT_MS = 10000;
+import { statoLink } from "./lib-link.mjs";
 const GROUNDING_RE = /^https?:\/\/vertexaisearch\.cloud\.google\.com\/grounding-api-redirect\//;
-
-async function statoLink(url) {
-  const controller = new AbortController();
-  const t = setTimeout(() => controller.abort(), TIMEOUT_MS);
-  try {
-    let res = await fetch(url, { method: "HEAD", redirect: "follow", signal: controller.signal });
-    if (res.status === 405 || res.status === 403 || res.status === 501) {
-      // Alcuni siti universitari rifiutano HEAD: riprova con GET.
-      res = await fetch(url, { method: "GET", redirect: "follow", signal: controller.signal });
-    }
-    const urlFinale = res.url || url;
-    if (res.ok) return { stato: "vivo", urlFinale };
-    if (res.status === 404 || res.status === 410) return { stato: "morto", urlFinale };
-    return { stato: "inconcludente", urlFinale };
-  } catch {
-    return { stato: "inconcludente", urlFinale: url };
-  } finally {
-    clearTimeout(t);
-  }
-}
 
 const path = "batch/SGROSSATURA.json";
 if (!fs.existsSync(path)) {

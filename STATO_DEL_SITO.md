@@ -21,8 +21,20 @@
 
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-08-30 — Claude (**revisione completa del piano di
-mappatura**, nessuna riga di sito toccata). Misurato che la pipeline dati è
+**Ultimo aggiornamento:** 2026-08-30 — Claude (**revisione del piano di
+mappatura e Fase 4b, Consegna 1**, nessuna riga di sito toccata). I cancelli
+sono in casa: la citazione si verifica sul **solo brano davvero inviato** al
+modello, riconosciuto per impronta SHA-256, e una pagina cambiata sotto blocca
+il campo invece di indovinare. Il difetto che questa consegna doveva chiudere
+era proprio lì: il cancello confrontava col file intero, e una citazione oltre
+il taglio passava — dimostrato costruendo il caso, non dedotto. Chiusi anche il
+controllo dei codici (ora include Ca' Foscari, e si ferma se l'elenco è vuoto
+invece di spegnersi in silenzio) e la regressione del paese maiuscolo
+(**536 → 0**). `raccogli-partner.mjs`: città sbagliate **500 → 0**, cache degli
+export in `fonti/`, seconda esecuzione a **0 richieste HTTP**. Prove: 201/201,
+e reintroducendo il difetto originale due diventano rosse. **Resta aperto
+l'estrattore PDF**, difettoso su file veri (vedi Consegna 2). Misurato che la
+pipeline dati è
 **ferma dal 29/07** (ultimo lotto `20260729-092017`) e che la copertura vera,
 contata per partner e non per meta, è: lingua 67%, scadenze 77%, sito 64%,
 **catalogo 7%**, disponibilità 5% su 745 codici. Trovati quattro difetti
@@ -4124,6 +4136,7 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **PRE-BRUNO — nuovo ingresso LA** | Addendum in `PLAN.md`: nav LA primaria, onboarding a rami, meta/facoltà manuali prudenti, continuità della meta; import multiplo opzionale dopo gate verde | ▶ Piano firmato da Nicola per implementazione locale: tranche 1 obbligatoria, tranche 2 solo dopo gate verde. Review 5 round senza APPROVED sul futuro storage pubblico, ora separato. Nessun codice iniziato |
 | **Pubblicazione — guasto Pages** | Source su "GitHub Actions" senza workflow di deploy: sito fermo al commit del 3/7, **171 commit (125 sul sito) invisibili per 12 giorni** (C2, C3, C4, R1.1-R1.4). Risolto con `.github/workflows/deploy-pages.yml` (Static HTML, niente Jekyll, guardia `node --check`); online verificato per hash contro `origin/main` | ✅ Chiuso (2026-07-15, sessione 56) — resta da rendere vera la riga "Online e locale coincidono" di `PUBBLICA.bat` |
 | **Pipeline dati T0→T3 — Gemini + Codex** | Copertura complessiva: **1.987 mete, 73% lingua, 79% scadenze**. Al 17/07: 315 run completati, 45 batch in coda; ultimo lotto reale pubblicato il 16/07 alle 13:08 | ⚠️ La schedulazione ogni 3 ore sull'altro PC non sta producendo commit/PR/branch su GitHub; controllare cronologia e ultimo risultato dell'attività pianificata sul PC remoto |
+| **Pipeline dati — Fase 4b, Consegna 1** | Cancelli deterministici sulle letture: citazione nel solo brano inviato (impronta SHA-256), pagina cambiata, forma, URL, livello di lettura, codici Sapienza + Ca' Foscari; `raccogli-partner.mjs` corretto (città 500→0, paese 536→0 maiuscoli, cache export) | ✅ Cancelli fatti e verificati in modo indipendente (30/08): 201/201 unit, completezza e stato verdi, difetto reintrodotto = 2 prove rosse. ⚠️ `lib-pdf.mjs` **non regge sui PDF veri** (7 su 8 sporchi di operatori): è la prima voce della Consegna 2, e finché non è corretto nessuno lo usa |
 | **REDESIGN v2 — F0: Preparazione** | Spec versionata in `design/redesign-2026-07/` (canvas + baseline invarianti/touch, vedi §4). Nessun file di produzione toccato. Commit `ac7c1c9`, pushato | ✅ Fatta (2026-07-25) |
 | **REDESIGN v2 — F1: Token, ritmo, gutter, griglia** | Token §2.1–2.3 (`--bg-app #FAF8F3`, `--night-bg #211E42`, `--space-*`/`--fs-*`/`--gutter`/`--stack`/`--container:1140px`/`--shadow-gold`, due `@media :root`); ritmo verticale con `> * + *` e i tre antidoti; **gutter a un solo proprietario** (`.main-content`): 18 margini legacy in 3 misure + 5 padding-gutter + blocco ≤480px + `#banner-wiz` inline, tutto in un diff; `.griglia-mete-v2` 1→2→auto-fill; creato `/*__PROD_END__*/`. Solo `css/style.css` (+238/−48), `index.html` e `js/app.js` intatti. **Due correzioni al canvas, misurate:** `.percorso-wrap` conserva `grid-row: 1/6` (senza, 337px di buco e sticky a corsa zero) e il hero torna full-bleed sotto i 768px | ✅ Fatta e verificata (2026-07-25) — commit `ce0d5a8`, **pushato il 25/07 insieme a F2** (decisione di Nicola: il piano lo collocava a F4). 4/4 controlli gutter, controllo browser 13 esecuzioni tutte vuote, invarianti F0 verdi ai 3 viewport |
 | **REDESIGN v2 — 🚦 GATE 1** | Nicola conferma le tre default: **P-A** su `modo-benvenuto` (R3), **`!important`** su `#banner-wiz` (R38, `index.html` non si tocca), **full-bleed conservato** per il hero. In più: **F2 riassegnata a Claude Code** invece di Codex (D4 rivista) | ✅ Passato (2026-07-25) |
@@ -4281,6 +4294,8 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 | `scripts/esegui-lotto-automatico.mjs` | automazione | Orchestratore indurito: preflight, lock atomico, pulizia output, setup seed esistenti, validazione, staging ristretto, push e verifica pubblicazione |
 | `scripts/esegui-lotto-pianificato.ps1` | automazione | Wrapper per Task Scheduler; esegue un lotto e salva i log fuori dal repository in `%LOCALAPPDATA%\ErasmusWiz\logs` |
 | `scripts/gemini-sgrossatura.mjs` · `scripts/verifica-link.mjs` | automazione | Sgrossatura T1 via Gemini API con Google Search + controllo HTTP preliminare delle fonti |
+| `scripts/cancelli.mjs` · `scripts/lib-link.mjs` · `scripts/lib-pdf.mjs` | pipeline dati Fase 4b | Cancellano le proposte non verificabili: citazione nel brano con impronta SHA-256, pagina mutata, forma, livello e codice; controllo URL condiviso e lettura PDF senza dipendenze |
+| `test/cancelli-integrazione.test.mjs` · `test/cancello-citazione.test.mjs` · `test/cancello-livello.test.mjs` · `test/lib-pdf.test.mjs` · `test/raccogli-partner.test.mjs` | test pipeline Fase 4b | Regressioni su citazione, pagina cambiata, titolo di facoltà, codice Ca' Foscari, iniezione senza rete, PDF e paese del CSV |
 | `scripts/lib-mete.mjs` | automazione | Utilità condivise: scanner/serializzazione + inserimento sicuro dei nuovi campi mappabili |
 | `scripts/lib-output-batch.mjs` · `scripts/valida-output-batch.mjs` | automazione | Contratto e validatore dell'OUTPUT: batch corretto, soli campi richiesti, formato dati e prove ufficiali obbligatorie |
 | `scripts/test-pipeline-gemini.mjs` | test | Suite isolata della pipeline: inserimento campi, anti-output residuo, evidenze, setup/riuso e merge |
@@ -4612,8 +4627,14 @@ portatile può anche chiudersi.
    casi 14 e 16 non sono distinguibili. Corretto in 75% su almeno 100 partner,
    con i falliti divisi per causa.
 5. **Fase 4b — lettura, cancelli, applicazione**: da specificare. È il primo
-   pezzo che usa davvero la chiave Gemini. Poi le fasi 5-7 (passata completa,
-   riconciliazione, campione umano). Dettaglio: `DISEGNO_PIPELINE_DATI.md`.
+   pezzo che usa davvero la chiave Gemini. **Consegna 1 (i cancelli) è fatta il
+   30/08:** nessuna chiave usata, 201/201 prove verdi, e il difetto bloccante —
+   il cancello della citazione era aggirabile — chiuso e verificato costruendo
+   il caso. **Consegna 2** comprende, in quest'ordine: correggere
+   `lib-pdf.mjs` (sporca il testo con gli operatori del PDF: 7 file veri su 8),
+   poi `leggi-partner.mjs`, `applica-partner.mjs`, la prima lettura con Gemini,
+   la prova su 100 partner e il campione umano. Dettaglio:
+   `DISEGNO_PIPELINE_DATI.md` e `SPEC_FASE4B_lettura.md` §2 quater.
 
 ### ⇢ In cima a tutto, dopo la tranche 1 (aggiornato 2026-08-07)
 

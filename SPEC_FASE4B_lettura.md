@@ -201,6 +201,35 @@ e' l'unione degli export **e** dei codici presenti nei file
 `js/atenei/**/dati-mete*.js`; e se l'elenco risulta vuoto lo script **si ferma
 con errore**, invece di lasciar passare tutto.
 
+**Difetto 7 (trovato il 2026-08-30 provando su PDF veri) — l'estrattore PDF
+sporca il testo con i comandi interni del file.** Il test costruisce un PDF
+minimo e pulito, e passa; su otto PDF veri presi dalla cache, **sette sono stati
+letti e tutti e sette sono sporchi**, due praticamente illeggibili. Campioni:
+
+    qreWnq/GS0gscm/Im0DoQQ...Erasmus Erklarung zur Hochschulpolitik
+    EMC/PBDC/TT1TfTcTwTmFact] Sheet] Student] Exchange] Programme]
+
+Non e' un difetto estetico: **il cancello della citazione confronta con questo
+testo**. Un modello che cita "Fact Sheet Student Exchange Programme" non
+trovera' mai `Fact] Sheet] Student]`, e un campo giusto verrebbe scartato.
+
+Tre cause distinte, tutte identificate leggendo `testoFlusso`:
+1. nel ramo `TJ` il token `]` non viene saltato (`[` si', `]` no) e finisce nel
+   testo: sono le parentesi quadre nei campioni qui sopra;
+2. ogni operatore non riconosciuto viene messo nella pila (`pila.push(op)`), e
+   il `Tj` successivo puo' pescare **quello** invece della stringa: sono i
+   `qreWn`, `BT`, `Tf`, `Tm`, `/GS0gs`;
+3. la soglia che dovrebbe rifiutare le estrazioni fallite chiede che i caratteri
+   di controllo siano **meno della meta'**: troppo permissiva. Un PDF con font a
+   codifica propria produce ` E...` misto a lettere e
+   passa, quando dovrebbe tornare `null`.
+
+*Come si prova*: la prova non puo' essere un altro PDF costruito a mano. Ne
+servono di veri, salvati come materiale di prova (pochi e piccoli), e
+l'asserzione dev'essere che il testo estratto **non contiene** operatori PDF e
+che una frase leggibile nota si ritrova intera. I due PDF illeggibili devono
+tornare `null`.
+
 **Regressione da correggere — il paese e' diventato maiuscolo.** Misurato: dopo
 la Correzione A, `paese` vale `"AUSTRIA"` invece di `"Austria"` su **536
 partner su 615**, perche' ora arriva dal CSV (che scrive in maiuscolo) e non

@@ -66,7 +66,7 @@ export function validaFonte(fonte, contesto = "fonte") {
   };
 }
 
-function validaValore(campo, valore, contesto) {
+export function validaValore(campo, valore, contesto) {
   if (campo === "requisitoLingua") {
     validaNodoLingua(valore, contesto, { radice: true });
     return;
