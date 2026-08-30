@@ -146,9 +146,16 @@ chiave.** `lib-pdf.mjs`, `lib-link.mjs`, i due `export`, `cancelli.mjs`, le
 due correzioni a `raccogli-partner.mjs`, e tutte le prove del §6.1 e §6.3 che
 non richiedono il modello. **Si chiude e si committa prima di passare oltre.**
 
-**Consegna 2 — la lettura e la scrittura.** `leggi-partner.mjs` e
+**Consegna 1 — chiusa e committata il 2026-08-30** (`7571680`).
+
+**Consegna 2a — l'estrattore PDF.** Correggere `lib-pdf.mjs` (§2 quater,
+difetto 7). Nessuna rete, nessuna chiave: si prova sui tre PDF veri salvati in
+`test/fixtures/pdf/`. Viene prima di tutto il resto perche' `leggi-partner.mjs`
+lo usa, e un estrattore che sporca il testo fa scartare citazioni giuste.
+
+**Consegna 2b — la lettura e la scrittura.** `leggi-partner.mjs` e
 `applica-partner.mjs`, la prova sul campo su 100 partner, il campione umano.
-Parte solo a Consegna 1 committata.
+Parte solo a 2a chiusa.
 
 I cancelli si provano **senza** la lettura, con letture finte costruite nel
 test: e' piu' severo, non meno, perche' il caso lo sceglie chi prova e non chi
