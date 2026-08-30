@@ -352,12 +352,33 @@ Due cose imparate, scritte perche' non si ripetano:
   tolta una destinazione segnala 1 mancante, cambiato un numero di posti esce
   con codice 1, rimesso a posto torna verde.
 
-### Fase 3 — Il campo che manca: `nonTrovabile` *(mezza sessione)*
-Aggiungere ai dati il campo che oggi vive solo nel file di stato, con la fonte
-tentata e la data. Il sito deve poter dire *"cercato, non pubblicato
-dall'ateneo"*, che e' un'informazione onesta e utile, diversa da un vuoto.
-**Uscita:** i 153 casi gia' accertati sono nei dati; "completo" diventa
-verificabile con uno script.
+### Fase 3 — Il campo che manca: `nonTrovabile` — ✅ FATTA il 2026-08-30 (`8dc87d3`)
+`scripts/importa-non-trovabile.mjs`, `statoCampo()` in `lib-mete.mjs`, report
+riscritto, `test/stato-campo.test.mjs`.
+
+"Completo" ora e' definito in **un posto solo** e ha quattro stati: *dato*,
+*non trovabile con fonte e data*, *da riconfermare*, *mai cercato*.
+
+**I 153 ereditati dalla V1 entrano senza fonte e senza data, quindi NON
+contano come copertura.** La V1 non teneva traccia dei tentativi falliti: lo
+storico dei lotti ha una voce su 362 run, e i 282 file di fonti in `batch/`
+elencano solo cio' che e' stato *trovato*. Farli contare avrebbe alzato le
+percentuali senza che nessuno avesse verificato niente. Sono la coda della
+Fase 5, che li riprovera' col metodo nuovo — e vale la pena riprovarli, perche'
+la V1 li cercava con la ricerca web, che su questi campi rende poco.
+
+Importate 168 mete (15 avevano gia' il dato: lasciate stare), zero
+contraddizioni. Il quadro vero, per mete: **lingua** 1.529 col dato, 168 da
+riconfermare, 290 mai cercate; **catalogo** 120 col dato, 1.867 mai cercate.
+Cinque prove nuove, verificate rompendole: facendo contare i "da riconfermare"
+come copertura, una diventa rossa. 214 test verdi.
+
+### Fase 3-bis — Dirlo allo studente *(cantiere SITO, non pipeline)*
+Il dato c'e', ma il sito non lo mostra ancora: serve far comparire *"cercato,
+non pubblicato dall'ateneo"* al posto di un campo vuoto muto. Vive in
+`js/app.js` e `js/puro.js`, che al 30/08 contengono lavoro non ancora
+committato: si fa **dopo** che la tranche 2 e' stata firmata, insieme al resto
+del cantiere sito. Piccola, ma e' quella che l'utente vede.
 
 ### Fase 4 — Costruire crawler, lettore e cancelli *(2 sessioni, a Codex come specifica congelata)*
 Tre script nuovi (`raccogli-partner.mjs`, `leggi-partner.mjs`, `cancelli.mjs`)

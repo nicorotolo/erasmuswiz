@@ -4587,8 +4587,16 @@ portatile può anche chiudersi.
    prima di pubblicare. **Ritmo deciso: la passata di mappatura gira in
    continuo, non un lotto a notte** — prima si scaricano tutte le pagine (poche
    ore, in parallelo, gratis), poi si legge alla velocità che la quota consente.
-3. **Fase 3 — campo `nonTrovabile` nei dati**, senza il quale "completo" non è
-   verificabile e il sito non sa distinguere «cercato invano» da «mai cercato».
+3. ✅ **Fase 3 — campo `nonTrovabile` nei dati: FATTA il 30/08** (`8dc87d3`).
+   "Completo" ora è definito in un posto solo (`statoCampo()` in
+   `scripts/lib-mete.mjs`) con quattro stati. I 153 ereditati dalla V1 entrano
+   **senza contare come copertura**, perché la V1 non registrava dove aveva
+   cercato né quando: sono un promemoria per la Fase 5, non un risultato.
+   Quadro vero per mete: lingua 1.529 col dato / 168 da riconfermare / 290 mai
+   cercate; catalogo 120 col dato / 1.867 mai cercate. 214 test verdi.
+   **Resta da fare (cantiere SITO, dopo la tranche 2):** mostrarlo davvero allo
+   studente — «cercato, non pubblicato dall'ateneo» invece di un campo vuoto.
+   Vive in `js/app.js` e `js/puro.js`, dove c'è lavoro non committato.
 4. **Fase 4 — crawler + lettore + cancelli**, da consegnare a Codex come spec
    congelata. Le fasi 5-7 (passata completa, riconciliazione, campione umano)
    seguono. Dettaglio, criteri di uscita e costi: `DISEGNO_PIPELINE_DATI.md`.
