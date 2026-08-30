@@ -37,6 +37,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import vm from "node:vm";
+import { caricaMete } from "./lib-mete.mjs";
 
 const APPLICA = process.argv.includes("--applica");
 const CARTELLA_FONTI = "fonti/sapienza/goerasmus";
@@ -228,30 +229,62 @@ let sostituzioni = 0;
 const perFile = {};
 for (const d of decisioni) (perFile[d.file] ||= []).push(d);
 
+// Si prepara tutto in memoria e si salva solo alla fine: salvare file per file
+// significherebbe che una throw sul terzo lascia i primi due gia' riscritti, il
+// che contraddice l'"o tutto o niente" dichiarato qui sopra.
+const daSalvare = new Map();
 for (const [file, ds] of Object.entries(perFile)) {
   let testo = fs.readFileSync(file, "utf8");
   for (const d of ds) {
     const cerca = `codiceErasmus: "${d.sap}"`;
-    if (!testo.includes(cerca)) throw new Error(`${file}: non trovo ${cerca}`);
+    if (!testo.includes(cerca)) {
+      console.error(`ERRORE: ${file} non contiene ${cerca}. Niente e' stato scritto.`);
+      process.exit(1);
+    }
     testo = testo.split(cerca).join(`codiceErasmus: "${d.codice}"`);
     sostituzioni++;
   }
-  fs.writeFileSync(file, testo);
-  console.log(`${file}: ${ds.length} codici sostituiti`);
+  try { caricaMete(testo); }
+  catch (e) {
+    console.error(`ERRORE: ${file} non sarebbe JS valido. Niente e' stato scritto.`);
+    console.error(e.message);
+    process.exit(1);
+  }
+  daSalvare.set(file, testo);
 }
 
 // Anche il file di stato cita i codici inventati (linguaNonTrovabile, pending,
 // batch in coda): se restassero li', punterebbero a mete che non esistono piu'.
-let stato = fs.readFileSync(STATO, "utf8");
+const stato = JSON.parse(fs.readFileSync(STATO, "utf8"));
+let testoStato = JSON.stringify(stato, null, 2);
 let inStato = 0;
 for (const d of decisioni) {
   const cerca = `"${d.sap}"`;
-  if (!stato.includes(cerca)) continue;
-  inStato += stato.split(cerca).length - 1;
-  stato = stato.split(cerca).join(`"${d.codice}"`);
+  if (!testoStato.includes(cerca)) continue;
+  inStato += testoStato.split(cerca).length - 1;
+  testoStato = testoStato.split(cerca).join(`"${d.codice}"`);
 }
-fs.writeFileSync(STATO, stato);
-console.log(`${STATO}: ${inStato} riferimenti aggiornati`);
+// Due codici inventati diversi possono diventare lo STESSO codice reale
+// (SAP-ARCHI-VIC-A e -B sono entrambi "E  VIC01"): senza questo passaggio gli
+// elenchi dello stato restano con voci doppie, e chi li scorre lavora due volte
+// sullo stesso ateneo.
+const statoNuovo = JSON.parse(testoStato);
+let doppioniTolti = 0;
+for (const info of Object.values(statoNuovo.statoDipartimenti || {})) {
+  for (const elenco of ["linguaNonTrovabile", "pendingLingua", "pendingScadenze"]) {
+    if (!Array.isArray(info[elenco])) continue;
+    const unici = [...new Set(info[elenco])];
+    doppioniTolti += info[elenco].length - unici.length;
+    info[elenco] = unici;
+  }
+}
+
+for (const [file, testo] of daSalvare) {
+  fs.writeFileSync(file, testo);
+  console.log(`${file}: ${perFile[file].length} codici sostituiti`);
+}
+fs.writeFileSync(STATO, `${JSON.stringify(statoNuovo, null, 2)}\n`);
+console.log(`${STATO}: ${inStato} riferimenti aggiornati, ${doppioniTolti} doppioni rimossi`);
 
 const rimasti = Object.values(FILES).reduce((n, f) => n + (fs.readFileSync(f, "utf8").match(/codiceErasmus: "SAP-/g) || []).length, 0);
 console.log(`\nFatto: ${sostituzioni} codici sostituiti. Codici inventati rimasti: ${rimasti}`);

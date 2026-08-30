@@ -22,7 +22,7 @@ import fs from "node:fs";
 import { execSync } from "node:child_process";
 import {
   CAMPI_RIEMPIBILI, leggiStato, caricaMete, spanTutteMete,
-  valoreCampo, campoVuoto, impostaCampo,
+  valoreCampo, campoVuoto, campoVuotoValore, impostaCampo,
 } from "./lib-mete.mjs";
 
 const APPLICA = process.argv.includes("--applica");
@@ -56,7 +56,17 @@ const CAMPI_ATTIVI = new Set(
     : campoArg ? campoArg.slice("--campi=".length).split(",").map((s) => s.trim()).filter(Boolean)
       : CAMPI_PRUDENTI
 );
-const PAROLE_DI_FACOLTA = /\b(facolt|faculty|facultad|facult[ée]|fakult|dipartiment|department|departament|school of|corso di laurea|degree in|philolog|filolog|law|medicin|engineering|psicolog|psycholog|architett|architect)/i;
+// Attenzione ai confini di parola: le voci del primo gruppo sono PREFISSI
+// voluti (medicin -> medicine/medicina, architett -> architettura), il secondo
+// gruppo sono parole intere. Senza il \b di chiusura "law" agganciava
+// "Lawrence", e il filtro tratteneva dati d'ateneo perfettamente propagabili.
+const PAROLE_DI_FACOLTA = new RegExp(
+  "\\b(facolt|faculty|facultad|facult[ée]|fakult|dipartiment|department|departament" +
+  "|school of|corso di laurea|degree in|philolog|filolog|medicin|psicolog|psycholog" +
+  "|architett|architect)" +
+  "|\\b(law|engineering|business school)\\b",
+  "i"
+);
 
 function riferitoAUnaFacolta(valore) {
   return PAROLE_DI_FACOLTA.test(JSON.stringify(valore));
@@ -82,9 +92,7 @@ for (const file of files) {
     if (!codice) continue;
     for (const campo of CAMPI_RIEMPIBILI) {
       const valore = meta[campo];
-      const vuoto = valore == null || (Array.isArray(valore) && !valore.length) ||
-        (typeof valore === "string" && (!valore.trim() || /^da verificare/i.test(valore.trim())));
-      if (vuoto) continue;
+      if (campoVuotoValore(valore)) continue;
       const chiave = `${codice}|${campo}`;
       const json = JSON.stringify(valore);
       if (!conosciuto.has(chiave)) conosciuto.set(chiave, new Map());
@@ -145,6 +153,7 @@ if (MOSTRA_DISACCORDI) {
 let riempiti = 0;
 const perCampoRiempiti = {};
 const modificati = [];
+const daSalvare = new Map();   // file -> testo nuovo, salvato solo a fine controlli
 
 for (const file of files) {
   let testo = fs.readFileSync(file, "utf8");
@@ -179,16 +188,31 @@ for (const file of files) {
   }
   if (!cambiato) continue;
 
-  if (APPLICA) {
-    fs.writeFileSync(file, testo);
+  // Si controlla ADESSO, in memoria, e si salva solo alla fine (vedi sotto):
+  // salvare file per file e controllare dopo lascerebbe l'albero a meta' se il
+  // decimo file risultasse rotto, e questo script gira dentro un run che poi
+  // committa e pubblica da solo.
+  try { caricaMete(testo); }
+  catch (e) {
+    console.error(`\nERRORE: ${file} non sarebbe JS valido dopo la propagazione. Niente e' stato scritto.`);
+    console.error(e.message);
+    process.exit(1);
+  }
+  daSalvare.set(file, testo);
+  modificati.push(file);
+}
+
+// Tutti i file sono validi: ora si salva, e solo ora.
+if (APPLICA) {
+  for (const [file, testo] of daSalvare) fs.writeFileSync(file, testo);
+  for (const file of daSalvare.keys()) {
     try { execSync(`node --check "${file}"`, { stdio: "pipe" }); }
     catch (e) {
-      console.error(`\nERRORE: ${file} non e' JS valido dopo la propagazione.`);
+      console.error(`\nERRORE: ${file} non e' JS valido su disco.`);
       console.error(e.stderr?.toString() || e.message);
       process.exit(1);
     }
   }
-  modificati.push(file);
 }
 
 // --- 4) Ricalcolo dello stato -----------------------------------------------
@@ -196,8 +220,8 @@ for (const file of files) {
 // la propagazione ha appena riempito: la coda tornerebbe a cercare dati che
 // abbiamo gia'. Stessa logica di ricalcolaDip() in applica-batch.mjs.
 if (APPLICA) {
-  const vuoto = (v) => v == null || (Array.isArray(v) && !v.length) ||
-    (typeof v === "string" && (!v.trim() || /^da verificare/i.test(v.trim())));
+  const primaDelRicalcolo = JSON.stringify(stato.statoDipartimenti || {});
+  const vuoto = campoVuotoValore;
   let dipRicalcolati = 0;
   for (const info of Object.values(stato.statoDipartimenti || {})) {
     if (!info.fileJs || !fs.existsSync(info.fileJs)) continue;
@@ -213,16 +237,28 @@ if (APPLICA) {
       if (blocchi.some((b) => vuoto(b.requisitoLingua))) senzaLingua.add(cod);
       if (blocchi.some((b) => vuoto(b.scadenzeOspitante))) senzaScadenze.add(cod);
     }
+    // Deduplica: dopo la bonifica dei codici inventati due voci diverse
+    // possono essere diventate lo stesso ateneo (SAP-ARCHI-VIC-A e -B sono
+    // entrambi "E  VIC01"), e chi itera questi elenchi lavorerebbe due volte
+    // sullo stesso partner.
     const nonTrovabile = new Set(info.linguaNonTrovabile || []);
+    info.linguaNonTrovabile = [...nonTrovabile];
     info.pendingLingua = [...senzaLingua].filter((c) => !nonTrovabile.has(c));
     info.pendingScadenze = [...senzaScadenze];
     info.completate = meteD.filter((m) => !vuoto(m.requisitoLingua) && !vuoto(m.scadenzeOspitante)).length;
     info.totale = meteD.length;
     dipRicalcolati++;
   }
-  stato.aggiornato = new Date().toISOString().slice(0, 10);
-  fs.writeFileSync("mappatura-stato.json", `${JSON.stringify(stato, null, 2)}\n`);
-  console.log(`\nstato ricalcolato per ${dipRicalcolati} dipartimenti`);
+  // Si riscrive SOLO se qualcosa e' davvero cambiato: nella pipeline V2 questo
+  // script gira dentro ogni run, e un salvataggio a vuoto produrrebbe commit
+  // che dichiarano aggiornamenti mai avvenuti, spostando ogni volta la data.
+  if (JSON.stringify(stato.statoDipartimenti || {}) !== primaDelRicalcolo) {
+    stato.aggiornato = new Date().toISOString().slice(0, 10);
+    fs.writeFileSync("mappatura-stato.json", `${JSON.stringify(stato, null, 2)}\n`);
+    console.log(`\nstato ricalcolato per ${dipRicalcolati} dipartimenti`);
+  } else {
+    console.log(`\nstato gia' allineato: non riscritto`);
+  }
 }
 
 console.log(`\n--- RIEMPIMENTI ---`);

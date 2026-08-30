@@ -866,7 +866,6 @@
       },
       "linguaNonTrovabile": [
         "A  INNSBRU21",
-        "E  MADRID02",
         "E  MADRID02"
       ],
       "ateneo": "Sapienza Roma"
@@ -907,16 +906,13 @@
         "P  FUNCHAL03",
         "P  PORTO02",
         "P  EVORA01",
-        "P  PORTO02",
         "P  AVEIRO01",
         "RO CLUJNAP05",
-        "SK BRATISL01",
         "SK BRATISL01",
         "E  MADRID33",
         "E  GIRONA02",
         "E  ZARAGOZ01",
         "E  CIUDA-R01",
-        "E  VIC01",
         "E  VIC01",
         "TR ANKARA02",
         "TR IZMIR04",

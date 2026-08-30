@@ -191,7 +191,14 @@ if (JSON_OUT) {
 } else {
   console.log(`\n--- ESITO ---`);
   console.log(`destinazioni ufficiali NON pubblicate: ${rapporto.mancanti.length}`);
-  for (const m of rapporto.mancanti.slice(0, 25)) console.log(`  ! ${m.dipartimento}: ${m.codice} ${m.ateneo || m.motivo || ""}`);
+  for (const m of rapporto.mancanti.slice(0, 25)) {
+    // Il ramo "file dati assente" non ha un codice: stamparlo lo faceva
+    // comparire come "undefined", e chi legge il log andava a cercare un codice
+    // Erasmus inesistente invece di accorgersi che manca un intero file.
+    console.log(m.codice
+      ? `  ! ${m.dipartimento}: ${m.codice} ${m.ateneo || ""}`
+      : `  ! ${m.dipartimento} (${m.ambito}): ${m.motivo}`);
+  }
   if (rapporto.mancanti.length > 25) console.log(`  ... e altre ${rapporto.mancanti.length - 25}`);
 
   console.log(`destinazioni pubblicate NON piu ufficiali: ${rapporto.inPiu.length}`);

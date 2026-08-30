@@ -13,11 +13,14 @@ import fs from "node:fs";
 import { execSync } from "node:child_process";
 import {
   leggiStato, spanTutteMete, valoreCampo, caricaMete,
-  CAMPI_RIEMPIBILI, impostaCampo, datoStrutturatoVuoto,
+  CAMPI_RIEMPIBILI, impostaCampo, campoVuoto, campoVuotoValore,
 } from "./lib-mete.mjs";
 import { leggiEValidaOutput } from "./lib-output-batch.mjs";
 
-const vuoto = datoStrutturatoVuoto;
+// Una definizione sola di "vuoto", condivisa con lib-mete (vedi il commento
+// sopra campoVuotoValore). Prima qui c'era una copia locale che poteva
+// discordare da quella usata da chi legge i dati.
+const vuoto = campoVuotoValore;
 const DIM_BATCH = 8; // mete per batch di follow-up (era 5)
 const norm = (c) => String(c).replace(/\s+/g, " ").trim().toUpperCase();
 
@@ -45,7 +48,7 @@ function applicaPatchBlocco(blocco, patch, soloVuoti = false) {
   for (const campo of CAMPI_RIEMPIBILI) {
     if (!(campo in patch)) continue;
     const raw = valoreCampo(blocco, campo);
-    if (soloVuoti && raw != null && !(raw.trim() === "[]" || raw.trim() === '""' || raw.trim() === "''" || /^"?da verificare/i.test(raw.trim()))) continue;
+    if (soloVuoti && raw != null && !campoVuoto(raw)) continue;
     const risultato = impostaCampo(blocco, campo, patch[campo], { soloSeVuoto: soloVuoti });
     blocco = risultato.blocco;
     if (risultato.modificato) aggiunti.push(campo);

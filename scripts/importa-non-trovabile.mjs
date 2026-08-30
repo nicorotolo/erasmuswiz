@@ -25,7 +25,7 @@
 
 import fs from "node:fs";
 import { execSync } from "node:child_process";
-import { leggiStato, caricaMete, spanTutteMete, valoreCampo, impostaCampo, statoCampo } from "./lib-mete.mjs";
+import { leggiStato, caricaMete, spanTutteMete, valoreCampo, valoreParsato, campoVuoto, impostaCampo, statoCampo } from "./lib-mete.mjs";
 
 const APPLICA = process.argv.includes("--applica");
 const stato = leggiStato();
@@ -48,6 +48,11 @@ for (const [dipartimento, info] of Object.entries(stato.statoDipartimenti || {})
     const daFare = blocchi.filter((m) => statoCampo(m, "requisitoLingua") === "vuoto").length;
     giaPresenti += blocchi.length - conValore - daFare;
     if (!daFare) continue;
+    // Un codice puo' comparire due volte in linguaNonTrovabile: dopo la
+    // bonifica, due codici inventati diversi possono essere diventati lo stesso
+    // ateneo. Contarlo due volte faceva promettere alla prova a vuoto piu' mete
+    // di quante lo scrittore ne facesse davvero, senza spiegare la differenza.
+    if (daScrivere.some((d) => d.fileJs === info.fileJs && d.codice === codice)) continue;
     daScrivere.push({ fileJs: info.fileJs, dipartimento, codice, mete: daFare });
   }
 }
@@ -74,29 +79,55 @@ const perFile = {};
 for (const d of daScrivere) (perFile[d.fileJs] ||= []).push(d);
 
 let scritte = 0;
+const daSalvare = new Map();   // file -> testo nuovo, salvato solo a fine controlli
+
 for (const [fileJs, elenco] of Object.entries(perFile)) {
   let testo = fs.readFileSync(fileJs, "utf8");
   for (const { codice } of elenco) {
     const spans = spanTutteMete(testo, codice).sort((a, b) => b.start - a.start);
     for (const { start, end } of spans) {
       const blocco = testo.slice(start, end);
-      // Solo dove la lingua e' davvero assente e non c'e' gia' un nonTrovabile.
+      // Solo dove la lingua e' davvero assente.
       const rawLingua = valoreCampo(blocco, "requisitoLingua");
-      if (rawLingua && rawLingua.trim() !== "[]") continue;
-      const rawNt = valoreCampo(blocco, "nonTrovabile");
-      if (rawNt && /requisitoLingua/.test(rawNt)) continue;
+      if (!campoVuoto(rawLingua)) continue;
 
-      const valore = { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } };
+      // Si FONDE con quello che c'e' gia', non si sostituisce: se una meta
+      // dichiara gia' non trovabile un altro campo - con fonte e data, che e'
+      // l'unica forma che conta come copertura - riscrivere l'oggetto intero
+      // cancellerebbe quella prova senza dirlo a nessuno.
+      const esistente = valoreParsato(valoreCampo(blocco, "nonTrovabile")) || {};
+      if (esistente.requisitoLingua) continue;
+      const valore = {
+        ...esistente,
+        requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" },
+      };
       const r = impostaCampo(blocco, "nonTrovabile", valore, { soloSeVuoto: false });
       if (!r.modificato) continue;
       testo = testo.slice(0, start) + r.blocco + testo.slice(end);
       scritte++;
     }
   }
+  try { caricaMete(testo); }
+  catch (e) {
+    console.error(`\nERRORE: ${fileJs} non sarebbe JS valido. Niente e' stato scritto.`);
+    console.error(e.message);
+    process.exit(1);
+  }
+  daSalvare.set(fileJs, testo);
+}
+
+// Il conto promesso dalla prova a vuoto deve tornare: e' l'unica garanzia che
+// questo script dichiara di dare, e prima non veniva mai verificata.
+if (scritte !== totaleMete) {
+  console.error(`\nERRORE: la prova a vuoto prometteva ${totaleMete} mete, ne risultano ${scritte}. Niente e' stato scritto.`);
+  process.exit(1);
+}
+
+for (const [fileJs, testo] of daSalvare) {
   fs.writeFileSync(fileJs, testo);
   try { execSync(`node --check "${fileJs}"`, { stdio: "pipe" }); }
   catch (e) {
-    console.error(`\nERRORE: ${fileJs} non e' JS valido.`);
+    console.error(`\nERRORE: ${fileJs} non e' JS valido su disco.`);
     console.error(e.stderr?.toString() || e.message);
     process.exit(1);
   }

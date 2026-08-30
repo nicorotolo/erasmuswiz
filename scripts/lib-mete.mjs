@@ -63,15 +63,36 @@ export const CAMPI_CONTESTO = [
 //                    senza che nessuno abbia verificato niente;
 //   "vuoto"          mai cercato.
 export function statoCampo(meta, campo) {
-  const valore = meta?.[campo];
-  const haValore = Array.isArray(valore) ? valore.length > 0
-    : valore && typeof valore === "object" ? Object.keys(valore).length > 0
-      : typeof valore === "string" ? valore.trim().length > 0 && !/^da verificare/i.test(valore.trim())
-        : false;
-  if (haValore) return "dato";
+  if (!campoVuotoValore(meta?.[campo])) return "dato";
   const nt = meta?.nonTrovabile?.[campo];
   if (!nt) return "vuoto";
   return nt.fonte && nt.cercatoIl ? "nonTrovabile" : "daRiconfermare";
+}
+
+// L'UNICA definizione di "questo valore non c'e'", su un valore gia' letto.
+// Prima ce n'erano cinque leggermente diverse (qui, in campoVuoto, in
+// datoStrutturatoVuoto, e due copie locali in applica-batch e propaga-tutto), e
+// bastava che due non fossero d'accordo perche' un campo diventasse
+// inarrivabile: chi legge lo dichiara da fare, chi scrive lo salta perche' lo
+// crede pieno, e nessuno lo riempie piu'.
+// Attenzione al caso che aveva fatto scattare la revisione: l'albero
+// { op: "ANY", figli: [] } ha tre chiavi ma NON e' un dato, ed e' proprio la
+// forma che il modello restituisce quando non trova il requisito di lingua.
+export function campoVuotoValore(valore) {
+  if (valore == null) return true;
+  if (typeof valore === "string") {
+    const v = valore.trim();
+    return !v || /^da verificare/i.test(v);
+  }
+  if (typeof valore === "object") return datoStrutturatoVuoto(valore);
+  return true;
+}
+
+// Valuta il testo grezzo di un campo (stessa tecnica di caricaMete).
+// Ritorna undefined se non e' un valore JS leggibile.
+export function valoreParsato(raw) {
+  try { return Function(`"use strict"; return (${raw});`)(); }
+  catch { return undefined; }
 }
 
 // Vero solo per gli stati che contano davvero come copertura.
@@ -157,10 +178,18 @@ export function valoreCampo(blocco, campo) {
 }
 
 // Vero se il campo e vuoto/segnaposto e quindi va riempito.
+// Lavora sul TESTO grezzo, ma la decisione la prende campoVuotoValore: prima
+// riconosceva solo la stringa esatta "[]", quindi un array vuoto scritto su
+// due righe risultava "pieno" a chi scrive e "vuoto" a chi legge, e quel campo
+// non lo riempiva piu' nessuno.
 export function campoVuoto(raw) {
   if (raw == null) return true;
   const v = raw.trim();
-  return v === "[]" || v === '""' || v === "''" || /^"?da verificare/i.test(v);
+  if (!v) return true;
+  if (/^"?da verificare/i.test(v)) return true;
+  const parsato = valoreParsato(v);
+  if (parsato !== undefined) return campoVuotoValore(parsato);
+  return v === "[]" || v === '""' || v === "''";
 }
 
 // Imposta un campo esistente oppure, per i campi introdotti dopo la creazione
