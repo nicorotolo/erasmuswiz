@@ -1,220 +1,338 @@
-# DISEGNO PIPELINE DATI — mappatura mete, definitiva
+# DISEGNO PIPELINE DATI — V2 "scarica, poi leggi"
 
-> **Il documento che chiude la questione pipeline.** Scritto il 2026-07-07
-> (sessione 32) con Nicola. Sostituisce, per la parte operativa, le sezioni
-> di metodo di `PIANO_MAPPATURA_SAPIENZA.md` (che resta valido per la coda
-> e le azioni manuali già elencate). Da leggere insieme a `ROADMAP.md`
-> (OP9/OP12) e `DISEGNO_OPERATIONS.md`.
+> Riscritto il **2026-08-30**. Sostituisce integralmente la V1 del 2026-07-07
+> (metodo T1 Gemini-cerca + T2 Codex-verifica) e manda in archivio
+> `AUTOMAZIONE_GEMINI.md` e le sezioni di metodo di
+> `PIANO_MAPPATURA_SAPIENZA.md`. Tutti i numeri qui sotto sono **misurati oggi**
+> sul repo e sul web, non stimati: dove c'e' un numero, c'e' stato un conto.
 >
-> Vincoli scelti da Nicola: budget ZERO oltre gli abbonamenti esistenti
-> (ChatGPT Plus con Codex; Claude); operatore unico Nicola; obiettivo
-> COPERTURA COMPLETA per febbraio 2027.
+> Obiettivo invariato: **copertura completa e precisa delle mete entro
+> febbraio 2027**. Cambia il come, perche' il come precedente si e' fermato.
 
 ---
 
-## 1. OBIETTIVO E DEFINIZIONE DI "COMPLETO"
+## 0. PERCHE' SERVE UNA V2
 
-Ogni meta pubblicata deve avere, per febbraio 2027: requisito lingua
-(CEFR), scadenze ospitante, link scheda/fonte, link catalogo corsi
-(`linkCatalogo`, serve al LA Generator L2) e nota disponibilità incoming
-dove la fonte la dà.
+Tre fatti nuovi rispetto al 7 luglio.
 
-**"Completo" significa: ogni campo ha il dato CON fonte e data, OPPURE è
-marcato esplicitamente "non trovabile" con la fonte tentata.** Un campo
-"non trovabile" onesto È copertura completa; un campo riempito senza fonte
-è un difetto grave (rischio n.1 della bussola: un dato sbagliato costa un
-anno a uno studente). Mai riempire per completismo.
+1. **La pipeline e' ferma da un mese.** L'ultimo lotto pubblicato e'
+   `mappatura/lotto-20260729-092017`, del **29 luglio**. Nei giorni buoni
+   giravano 4-5 lotti al giorno; dal 30 luglio, zero. Nessuno se n'e' accorto
+   perche' niente avvisa quando l'automazione smette di girare.
+2. **Gemini CLI gratuito non esiste piu'.** Dal **18 giugno 2026** Google ha
+   smesso di servire Gemini CLI e Code Assist agli account individuali
+   (gratuiti, AI Pro e AI Ultra) e ha spostato tutti su Antigravity CLI, che
+   **non ha una modalita' non interattiva** e ha quote settimanali. Quella
+   strada, che sembrava la scorciatoia ovvia, e' chiusa: non va nemmeno
+   tentata.
+3. **Google AI Plus Student e' attivo** (dal 30/08/2026, gratis per 12 mesi).
+   Va detto chiaro per non costruirci sopra un'illusione: **e' l'app Gemini
+   per persone, non l'API**. Non da' chiavi, non da' quota automatizzabile,
+   non entra nella pipeline notturna. Serve — ed e' prezioso — per il
+   **controllo umano a campione** e per i casi difficili, dove un modello
+   forte guidato a mano vale piu' di dieci run automatici.
 
-## 2. I NUMERI (misurati sul repo, 07/07/2026)
+---
 
-- **1.987 mete** totali nei file `js/atenei/**/dati-mete*.js`.
-- **~856 codici partner unici** → **l'unità di lavoro è il PARTNER
-  (codice Erasmus), non la meta**: mappato un partner, la propagazione
-  (`applica-batch.mjs`) copia il dato su tutte le mete che lo condividono,
-  anche tra atenei. Il lavoro vero è meno della metà di quel che sembra.
-- Al 04/07: ~530/1.126 mete delle nuove Facoltà complete col solo riuso;
-  ~408 codici da ricercare in ~57 batch; 6 batch follow-up residui.
-- ⚠️ **Difetto dati da sanare** (scoperto oggi): alcuni seed usano codici
-  SINTETICI (es. `SAP-IUS-SALZBURG` invece del reale `A SALZBUR01`).
-  Ogni codice sintetico è un partner che il riuso NON riconosce → lavoro
-  duplicato. Fix in §6, passo 0.
+## 1. DIAGNOSI MISURATA (30/08/2026)
 
-## 3. PRINCIPI NON NEGOZIABILI
+**Copertura vera, contata per partner** — non per meta, perche' e' il partner
+l'unita' di lavoro. Oggi ci sono **1.987 mete** e **745 codici distinti**:
 
-1. **Un'AI non "sa": trova e cita.** Ogni dato prodotto da qualsiasi
-   modello deve avere URL della fonte + citazione testuale. Senza URL
-   funzionante → `nonTrovabile`, mai una stima.
-2. **Tutto ciò che può fare uno script non lo fa un'AI.** Gli script sono
-   gratis, deterministici e instancabili: riuso, propagazione, validazione
-   formati, e (nuovo) verifica link via HTTP.
-3. **I modelli deboli raccolgono, i modelli forti verificano, gli umani
-   campionano.** La qualità non dipende dal modello più debole della
-   catena ma dal controllo a valle.
-4. **Una visita per partner, tutti i campi.** Quando si ricerca un partner
-   si raccolgono INSIEME lingua, scadenze, link scheda, linkCatalogo e
-   disponibilità — mai tornare due volte sullo stesso sito.
-5. **Claude NON fa mappatura di massa.** I token Claude di Nicola sono la
-   risorsa più scarsa e vanno solo su sviluppo/spec/strategia (le sessioni
-   OP). La ricerca dati vive su Gemini free + Codex.
+| Campo | Partner con il dato | Partner vuoti |
+|---|---:|---:|
+| requisitoLingua | 498 (67%) | 247 |
+| scadenzeOspitante | 571 (77%) | 174 |
+| linkSito | 480 (64%) | 265 |
+| **linkCatalogo** | **49 (7%)** | **696** |
+| notaDisponibilita | 40 (5%) | 705 |
 
-## 4. I QUATTRO LIVELLI
+Otto difetti, in ordine di gravita'.
+
+1. **I codici finti non sono mai stati sanati.** La V1 dichiarava il 14/07
+   «codici sintetici sanati/verificati». Non e' vero: **183 mete** portano
+   ancora codici inventati `SAP-*`, in tre file (Architettura 113,
+   Giurisprudenza 55, Medicina-Psicologia area medica 15). Ogni codice finto
+   e' un partner che il riuso non riconosce: sono 183 mete fuori dalla rete di
+   propagazione, mappate a parte e mai riconciliate.
+2. **Il catalogo corsi non arriva, e non e' colpa della coda.** Il campo
+   `linkCatalogo` viene chiesto a ogni lotto — verificato in
+   `prepara-batch.mjs`: i campi vuoti finiscono sempre in `campiDaRiempire`.
+   Torna vuoto lo stesso: la resa reale della ricerca web sul catalogo e' fra
+   il **5% e il 29%** a seconda della Facolta'. Il campo che serve al Learning
+   Agreement e' proprio quello che il metodo attuale sa trovare meno.
+3. **"Non trovabile" non esiste nei dati pubblicati.** Zero occorrenze in
+   tutti i file dati. I 153 casi accertati vivono solo dentro
+   `mappatura-stato.json`. Conseguenza: la definizione di "completo" scritta
+   nella V1 — *ogni campo ha il dato con fonte, oppure e' marcato non
+   trovabile* — **non e' verificabile sul sito**, e allo studente un campo
+   cercato invano e un campo mai cercato appaiono identici.
+4. **117 partner hanno un requisito di lingua diverso da un dipartimento
+   all'altro.** Esempi reali: `D GOTTING01` e' "B1/B2 raccomandato" in un file
+   e "B2 per corsi di Psicologia" in un altro; `CZ PRAHA07` e' vuoto in uno e
+   pieno nell'altro. La propagazione scrive solo sui campi vuoti e non
+   sovrascrive mai: chi arriva primo vince, nessuno riconcilia. E' questa la
+   "imprecisione" percepita, ed e' strutturale.
+5. **Nessun confronto con la fonte ufficiale.** Confrontando oggi il sito con
+   l'export ufficiale Sapienza: **59 codici ufficiali non sono sul sito** (in
+   larga parte gli stessi atenei nascosti dietro i codici finti) e **183
+   codici sul sito non esistono nell'ufficiale**. Nessun controllo se ne
+   accorge: se l'ufficio Erasmus aggiunge o toglie una destinazione, il sito
+   non lo sa.
+6. **La coda residua e' piccola e parziale.** 44 lotti, 256 mete, **tutti di
+   tipo `scadenze+lingua`**: ~213 mete in attesa di lingua, ~211 di scadenze.
+   Nulla di programmato per i 696 partner senza catalogo.
+7. **Ogni lotto dipende da Codex.** Codex e' l'anello a credito, a limite
+   orario, che chiede approvazioni e puo' restare appeso. E' anche l'anello
+   che si e' rotto il 29 luglio. Un anello del genere non puo' stare *dentro*
+   il ciclo che deve girare 700 volte.
+8. **Nessun allarme.** Un mese di fermo senza che nulla lo segnalasse.
+
+---
+
+## 2. LE TRE DECISIONI DELLA V2
+
+### D1 — L'unita' di lavoro e' il PARTNER, una volta sola
+
+Non la meta (1.987), non il dipartimento. Dopo la bonifica dei codici finti
+restano **circa 610 partner veri**. Un partner si visita **una volta**, si
+raccolgono **tutti e cinque i campi**, e il risultato vale per tutte le mete
+che lo condividono, in ogni dipartimento e in ogni ateneo. Non esistono piu'
+"lotti per Facolta'": esiste una lista di partner.
+
+### D2 — "Scarica, poi leggi" al posto di "chiedi all'AI di cercare"
+
+Oggi si chiede a un modello di *cercare sul web* e di riportare cosa ha
+trovato. E' il compito in cui i modelli sono piu' deboli, e i numeri lo
+confermano (catalogo al 7%).
+
+Nella V2 il lavoro si divide in due, e **la parte difficile diventa un
+programma, non un modello**:
+
+- **un programma scarica** le pagine del sito ufficiale del partner (gratis,
+  illimitato, ripetibile);
+- **un modello legge soltanto quelle pagine** ed estrae i cinque campi.
+  Leggere una pagina che ha davanti e' il compito in cui anche il modello piu'
+  economico e' affidabile.
+
+Che il programma ce la faccia e' stato verificato, non supposto. Su un
+campione casuale di **40 partner** presi dall'elenco ufficiale, l'ingresso
+giusto (pagina Erasmus/incoming) si trova **senza nessuna AI** in tre modi che
+si sommano:
+
+| Segnale | Da solo |
+|---|---:|
+| Link nella homepage ufficiale | 58% |
+| `sitemap.xml` del sito | 45% |
+| Sottodominio `international.` / `erasmus.` | 30% |
+| **Unione dei tre** | **80%** |
+
+Il **20% che resta** (8 partner su 40: siti irraggiungibili, homepage senza
+link utili, portali in sola lingua locale) va alla **ricerca web con
+grounding**, che a quel punto e' un'eccezione da ~120 casi e non la regola da
+700: sta comodamente dentro le **5.000 ricerche gratuite al mese** incluse sia
+nel piano gratuito sia in quello a pagamento.
+
+### D3 — La verifica non e' un secondo modello: e' uno script
+
+Qui esce Codex dal ciclo. Oggi Codex serve a controllare che il dato del primo
+modello sia vero, riaprendo i link. Ma se **siamo noi ad aver scaricato la
+pagina**, il controllo diventa deterministico e gratuito:
+
+1. la **citazione** deve comparire davvero, lettera per lettera, nel testo che
+   abbiamo scaricato (normalizzando spazi e accenti). Se non c'e', il modello
+   se l'e' inventata e il campo viene scartato;
+2. l'**URL** deve rispondere 200 (`verifica-link.mjs` c'e' gia');
+3. il **livello CEFR** deve essere uno dei sei validi, o una forma dichiarata
+   — questo chiude anche il difetto gia' noto dei livelli tipo "B1/B2";
+4. **coerenza fra dipartimenti**: se lo stesso partner risulta con lingue
+   diverse, il caso non viene pubblicato ma finisce in una lista di
+   riconciliazione;
+5. **coerenza con la fonte ufficiale**: il codice deve esistere nell'export.
+
+Uno script che confronta stringhe non si stanca, non consuma credito, non
+chiede approvazioni e non inventa. E' **piu' severo** del controllo di un
+modello, non meno.
+
+---
+
+## 3. ARCHITETTURA NUOVA
 
 | Livello | Chi | Cosa fa | Costo |
 |---|---|---|---|
-| **T0 — Script** | `scripts/*.mjs` | Riuso, propagazione, validazione schema, **link-checker HTTP** (nuovo), report copertura | zero |
-| **T1 — Sgrossatura** | **Gemini (AI Studio, free tier)** operato da Nicola | Per ogni partner: trova URL catalogo/incoming, CEFR, scadenze — output in formato batch con evidenze | zero (rate-limited) |
-| **T2 — Verifica** | **Codex (ChatGPT Plus)** | Verifica i batch sgrossati (apre i link, controlla le citazioni), corregge, produce `OUTPUT.json` definitivo | incluso in Plus |
-| **T3 — Campione umano** | Nicola (10% random) + Bruno (Giurisprudenza) | Controllo a campione: il dato sul sito corrisponde alla fonte? | tempo |
+| **L0 — Fonte** | script | Scarica i **18 export ufficiali Sapienza** (endpoint pubblico, senza login) e costruisce l'elenco partner: codice vero, ateneo, citta', sito ufficiale. **Il 99% dei partner ha gia' il sito ufficiale qui dentro.** | zero |
+| **L1 — Raccolta** | script (crawler) | Per ogni partner: homepage + sitemap + sottodomini, poi discesa guidata da un dizionario multilingue (incoming/exchange/erasmus/catalogue in 12 lingue), max ~25 pagine, cache su disco | zero |
+| **L2 — Lettura** | Gemini Flash-Lite via API | **Una chiamata per partner**, con dentro il testo delle pagine migliori. Estrae i 5 campi + citazione testuale | ~zero (vedi §4) |
+| **L3 — Cancelli** | script | Citazione presente nel testo, URL 200, CEFR valido, coerenza fra dipartimenti, coerenza con l'ufficiale | zero |
+| **L4 — Riserva** | ricerca con grounding | Solo per i partner che L1 non ha saputo raggiungere (~20%) | dentro le 5.000 gratis/mese |
+| **L5 — Campione umano** | Nicola, con **Google AI Plus** | 5% estratto a caso + tutti i casi di riconciliazione | tempo |
 
-Perché così: **verificare è 3-5 volte più veloce che cercare.** Spostando
-la ricerca su Gemini (gratis) e lasciando a Codex solo la verifica, la
-capacità di Codex si moltiplica senza spendere. Il free tier di Gemini
-(via aistudio.google.com) è oggi il più generoso — limiti di richieste/
-minuto ma non di token; verificare i limiti correnti al primo uso.
+`applica-batch.mjs`, `valida-stato.mjs`, `verifica-pubblicazione.mjs` e la
+propagazione restano quelli che sono: funzionano e sono la parte migliore
+dell'impianto attuale.
 
-### Risposta alla domanda "ne va della qualità?"
+---
 
-Sì e no, e la distinzione è tutto:
-- **Ricerca con giudizio** (qual è la pagina giusta? questo B2 vale per
-  tutti i corsi o solo per legge?): i modelli deboli/gratuiti sbagliano di
-  più e — peggio — inventano con sicurezza. Per questo il loro output non
-  va MAI diretto nei dati: è una proposta con evidenze.
-- **Estrazione da pagina data** (leggi questa pagina e dimmi il CEFR): la
-  differenza tra modelli è quasi nulla.
-- La qualità finale la fanno T2 e T3, non T1. Con questo disegno si può
-  usare il modello gratuito più debole in T1 senza toccare la qualità
-  pubblicata — al costo di qualche batch rimbalzato in più.
+## 4. QUANTO COSTA E QUANTO DURA (conti, non speranze)
 
-## 5. PROTOCOLLO T1 — LA SGROSSATURA SU GEMINI (per Nicola)
+**Scaricare le pagine**: gratis. E' solo banda.
 
-Routine per un batch (~8 partner, 30-40 minuti):
+**Leggere le pagine**: una chiamata per partner, ~8 pagine di testo pulito
+dentro, ~50.000 token in ingresso, risposta breve. Per 610 partner:
 
-1. `node scripts/prepara-batch.mjs` → produce `batch/INPUT.json`.
-2. Apri Gemini (AI Studio) e incolla il PROMPT SGROSSATURA (sotto) +
-   il contenuto di `INPUT.json`.
-3. Salva la risposta in `batch/SGROSSATURA.json` (nuovo file di lavoro,
-   già in gitignore con gli altri file batch/*).
-4. Lancia il link-checker: `node scripts/verifica-link.mjs` (da creare,
-   §6) — scarta subito le righe con link morti/reindirizzati.
-5. Passa il file pulito a Codex col prompt di verifica (aggiornamento di
-   `automazioni/PROMPT_CODEX_mappatura.md`, §6): Codex controlla e
-   produce `batch/OUTPUT.json`.
-6. `node scripts/applica-batch.mjs` → fonde + propaga + valida.
+- **Piano gratuito** (la chiave che esiste gia'): il limite e' il numero di
+  richieste al giorno, non i token. 610 richieste → **circa 3 giorni** di
+  macchina, **costo zero**.
+- **A pagamento, se si vuole finire in un pomeriggio**: Flash-Lite costa 0,30 $
+  per milione di token in ingresso, e la modalita' batch costa la meta'. 610
+  partner × ~50k token ≈ 30 milioni di token ≈ **4-9 dollari una tantum**.
 
-### PROMPT SGROSSATURA (da incollare in Gemini, testo pronto)
+E' questo il punto economico della V2: **la mappatura che manca costa zero
+euro e tre giorni, oppure meno di dieci dollari e un pomeriggio.** Il costo
+non e' piu' una variabile da difendere. E **il credito Codex smette di essere
+il collo di bottiglia**, perche' Codex non sta piu' nel ciclo.
+
+---
+
+## 5. LE FASI, IN ORDINE
+
+Ogni fase ha un criterio di uscita misurabile. Non si passa alla successiva
+senza.
+
+### Fase 0 — Riaccendere e capire perche' si e' fermata *(mezz'ora, PC aziendale)*
+Guardare i log in `%LOCALAPPDATA%\ErasmusWiz\logs` dal 29/07 in poi e lanciare
+a mano il preflight. Serve sapere se e' stato Codex (credito), la rete, o il
+Task Scheduler.
+**Uscita:** una riga scritta qui che dice cos'era. Anche se la V2 togliera'
+Codex dal ciclo, la causa va conosciuta: se e' il Task Scheduler, si ripete.
+
+### Fase 1 — Bonifica dei codici finti *(una sessione)*
+Sostituire i 183 `SAP-*` con i codici veri dell'export ufficiale.
+**Gia' provato: un abbinamento automatico per nome riconosce 170 casi su 183
+(93%); i 13 restanti sono riconoscibili a occhio** (Gustave Eiffel, Sorbonne,
+RWTH Aachen, Koln, Hildesheim, Greifswald, Lubecca...).
+Guadagno immediato misurato: 26 requisiti di lingua e 23 scadenze si riversano
+su partner oggi vuoti, 105 link sito tornano indietro, e 183 mete rientrano
+nella rete di propagazione.
+**Uscita:** zero `SAP-` nei file dati; i partner scendono da 745 a circa 610.
+
+### Fase 2 — Il cancello di completezza *(mezza sessione)*
+Script che scarica i 18 export ufficiali e confronta con il pubblicato:
+destinazioni ufficiali mancanti, destinazioni pubblicate non piu' ufficiali,
+differenze di posti/mesi/livello. Gira ogni notte.
+**Uscita:** il report esiste ed e' a zero differenze non spiegate. Da qui in
+avanti «manca una meta» e' una domanda con risposta automatica.
+
+### Fase 3 — Il campo che manca: `nonTrovabile` *(mezza sessione)*
+Aggiungere ai dati il campo che oggi vive solo nel file di stato, con la fonte
+tentata e la data. Il sito deve poter dire *"cercato, non pubblicato
+dall'ateneo"*, che e' un'informazione onesta e utile, diversa da un vuoto.
+**Uscita:** i 153 casi gia' accertati sono nei dati; "completo" diventa
+verificabile con uno script.
+
+### Fase 4 — Costruire crawler, lettore e cancelli *(2 sessioni, a Codex come specifica congelata)*
+Tre script nuovi (`raccogli-partner.mjs`, `leggi-partner.mjs`, `cancelli.mjs`)
+piu' un `esegui-partner.mjs` che li incatena. Riuso quasi integrale di
+`applica-batch.mjs` e `valida-*.mjs`.
+**Uscita:** su 20 partner di prova, ≥80% raggiunto senza ricerca web e zero
+citazioni che non compaiono nella pagina scaricata.
+
+### Fase 5 — La passata completa *(3-5 giorni di macchina)*
+610 partner, cinque campi, una visita ciascuno.
+**Uscita:** catalogo ≥70%, lingua ≥90%, scadenze ≥90% — contando come coperto
+anche il `nonTrovabile` onesto.
+
+### Fase 6 — Riconciliazione dei 117 conflitti *(una sessione + campione umano)*
+Dove lo stesso partner ha requisiti diversi, vince la fonte piu' recente e piu'
+specifica; i casi ambigui li guarda Nicola con Gemini (Google AI Plus).
+**Uscita:** zero partner con requisiti di lingua contraddittori.
+
+### Fase 7 — Campione umano e firma *(mezza giornata)*
+5% estratto a caso (~30 partner), confronto dato-fonte a mano.
+**Uscita:** ≥95% di corrispondenza. Sotto, si torna alla Fase 5.
+
+### Fase 8 — Refresh del bando 27/28 *(dicembre-febbraio)*
+Con l'impianto sopra, il refresh e' una passata di aggiornamento sulle
+scadenze, non una nuova mappatura.
+
+**Calendario realistico:** Fasi 0-4 entro meta' settembre, Fase 5 entro fine
+settembre, Fasi 6-7 entro meta' ottobre. **Quattro mesi di margine** sulla
+scadenza di febbraio.
+
+---
+
+## 6. COSA VUOL DIRE "COMPLETO", ADESSO CHE E' VERIFICABILE
+
+Un partner e' completo quando, per ognuno dei cinque campi, vale una di due
+cose:
+
+- c'e' il **dato**, con URL della fonte, citazione testuale **presente nella
+  pagina scaricata** e data di verifica; oppure
+- c'e' **`nonTrovabile`**, con l'URL della pagina dove e' stato cercato e la
+  data.
+
+Un campo riempito senza citazione verificabile non e' un dato: e' un rischio.
+Resta il principio numero uno del progetto — un dato sbagliato costa un anno a
+uno studente — solo che adesso e' uno script a farlo rispettare, non la buona
+volonta' di un modello.
+
+---
+
+## 7. COSA ESCE DI SCENA
+
+- **Codex dentro il ciclo per-lotto.** Resta utile per costruire gli script
+  (Fase 4, con specifica congelata, come sempre) e per revisioni a campione.
+  Non deve piu' essere attraversato 700 volte.
+- **`AUTOMAZIONE_GEMINI.md`**: archiviato; descrive il flusso Gemini-cerca +
+  Codex-verifica che qui viene sostituito.
+- **La coda per Facolta' in `mappatura-stato.json`**: sostituita dall'elenco
+  partner. Il file resta come stato e come storico.
+- **Gemini CLI**: mai adottato, e ora impossibile. Antigravity CLI non serve a
+  questo lavoro (niente modalita' automatica).
+
+---
+
+## 8. RISCHI, E COSA FARE
+
+- **Siti che si difendono dai bot (403/429).** Un ritardo fra le richieste, un
+  solo dominio alla volta, rispetto di `robots.txt`. Se un sito respinge, il
+  partner va alla riserva L4.
+- **Pagine costruite in JavaScript** (il testo non c'e' nell'HTML).
+  Riconoscibili perche' la pagina scaricata e' quasi vuota: vanno anche loro a L4.
+- **PDF.** Molte factsheet vivono in PDF; il crawler li raccoglie e il testo si
+  estrae come per l'HTML. Sono spesso la fonte migliore.
+- **L'ateneo cambia sito.** Le date di verifica sono gia' nei dati: si
+  ricontrolla cio' che e' piu' vecchio di N mesi, partendo dai partner piu' usati.
+- **Un altro mese di silenzio.** Serve un allarme: se non arrivano lotti per 48
+  ore, deve arrivare una notifica. Costo: dieci righe.
+- **Ca' Foscari non ha un export pubblico equivalente.** I suoi 392 posti
+  restano sul flusso attuale; la lettura L2 vale comunque anche per loro,
+  perche' parte dal sito del partner, non dall'export.
+
+---
+
+## 9. COSA NON FARE
+
+- Non rimettere un modello a **cercare** cio' che un programma puo' **scaricare**.
+- Non far dipendere il ciclo da uno strumento a credito o a limite orario.
+- Non pubblicare un dato la cui citazione non compare nella pagina scaricata,
+  per nessun motivo e da nessun modello.
+- Non usare Claude per la mappatura di massa: resta su specifica, revisione e
+  sviluppo.
+- Non contare su Google AI Plus per l'automazione: **e' l'app, non l'API**.
+- Non aggiungere campi allo schema: i cinque bastano, e tre sono ancora sotto
+  il 10%.
+
+---
+
+## 10. LA PRIMA COSA, DOMATTINA
+
+Sul PC aziendale, nella cartella del repo:
 
 ```
-Sei un assistente di ricerca dati. Per ciascuna università partner
-nell'elenco JSON qui sotto devi trovare SOLO informazioni verificabili
-online, per studenti Erasmus INCOMING. Per ogni partner cerca:
-
-1. "linkCatalogo": URL della pagina col catalogo corsi offerti agli
-   studenti Erasmus/incoming (preferisci la pagina incoming/exchange
-   alla pagina corsi generale).
-2. "requisitoLingua": lingua e livello CEFR richiesti agli incoming
-   (es. "Inglese B2"), con eventuale condizione.
-3. "scadenzeOspitante": scadenze di nomination e application per
-   incoming (semestre 1 e 2 se distinte).
-4. "notaDisponibilita": se la fonte dice quali corsi/facoltà sono
-   aperti agli Erasmus (o esclusi), riportalo.
-
-REGOLE FERREE:
-- Per OGNI dato indica: "fonte" (URL esatto della pagina, non la home)
-  e "citazione" (frase testuale copiata dalla pagina, nella lingua
-  originale).
-- Se non trovi un dato con una fonte precisa, scrivi "nonTrovato" nel
-  campo. NON dedurre, NON stimare, NON usare la tua memoria: solo ciò
-  che leggi ora su una pagina raggiungibile.
-- Non confondere i requisiti per DEGREE STUDENTS con quelli per
-  ERASMUS/EXCHANGE: se la pagina non distingue, segnala il dubbio nel
-  campo "note".
-- Rispondi SOLO con un array JSON, un oggetto per partner, stessi
-  "codiceErasmus" dell'input, senza testo attorno.
-
-Ecco l'elenco: [INCOLLA QUI batch/INPUT.json]
+node scripts/esegui-lotto-automatico.mjs --preflight --online
 ```
 
-Note d'uso: se Gemini risponde con dati senza citazione, rimbalza tu con
-"mancano le citazioni per X e Y, correggile o segna nonTrovato" — stessa
-disciplina che l'ufficio Erasmus ha usato con Bruno. Se il rate limit ti
-ferma, il batch riprende dopo: nessun danno.
-
-## 6. LAVORI UNA-TANTUM PRIMA DI RIPRENDERE I BATCH (in ordine)
-
-0. ✅ **Codici Erasmus sintetici sanati/verificati (14/07/2026)**: il controllo
-   corrente sui file Sapienza non trova piu' codici `SAP-*`.
-   Metodo originale:
-   censire i `codiceErasmus` non conformi al formato reale (es.
-   `SAP-IUS-*`), recuperare i codici veri (sono nell'export goerasmus in
-   `fonti/` e nella tabella 28/03 del caso-Bruno per Giurisprudenza),
-   sostituirli, rilanciare il riuso: partner già mappati verranno
-   riconosciuti gratis. Misurare quante mete si completano solo con
-   questo.
-1. ✅ **Schema esteso (14/07/2026)**: campi `linkCatalogo` e
-   `notaDisponibilita`, con evidenza `{url,citazione,verificataIl}`, in `lib-mete.mjs`,
-   `prepara-batch.mjs`, `applica-batch.mjs`, `setup-dipartimento.mjs`
-   (riuso e propagazione anche sui campi nuovi).
-2. ✅ **Script `verifica-link.mjs` pronto**: prende un file batch, fa una
-   richiesta HTTP a ogni URL, marca 200/redirect/errore. (Gli script
-   girano sul computer di Nicola: nessun vincolo di sandbox.)
-3. ✅ **Prompt T2 pronto in `automazioni/PROMPT_CODEX_verifica.md`**: il compito di
-   Codex diventa VERIFICA della sgrossatura (aprire i link, confrontare
-   le citazioni, correggere, completare i buchi facili) e non più ricerca
-   da zero; ricerca da zero solo se `SGROSSATURA.json` manca. Il prompt viene
-   letto dal disco a ogni run e non va incollato nell'app Codex.
-4. ✅ **Report copertura** (`scripts/report-copertura-mappatura.mjs`): una riga per
-   Facoltà — % lingua, % scadenze, % catalogo, % nonTrovabile — per
-   sapere sempre a che punto siamo senza contare a mano.
-
-## 7. ORDINE DI LAVORO E CALENDARIO
-
-| Fase | Cosa | Quando |
-|---|---|---|
-| A | Chiudere i 6 batch follow-up residui (Codex, vecchio flusso) | subito |
-| B | Lavori una-tantum §6 (passi 0-4) | luglio |
-| C | **Giurisprudenza**: validare lingua contro la tabella 28/03 (caso-Bruno) + linkCatalogo per i ~55 partner — il beachhead si chiude qui | luglio-agosto |
-| D | Ca' Foscari: lingue residue (~30) + linkCatalogo | agosto |
-| E | Le 10 Facoltà nuove: ~408 codici in ~57 batch col flusso T1→T2 | agosto-ottobre |
-| F | Backfill `linkCatalogo` sui partner già mappati prima del campo nuovo | ottobre-novembre |
-| G | **Refresh bando 27/28** (= OP12): diff scadenze sui partner noti, molto più leggero della mappatura | novembre-febbraio |
-
-**Capacità realistica** (da verificare dopo le prime 2 settimane, non è
-una promessa): 4 batch/sera × 8 partner = ~32 partner a sera di
-sgrossatura; i ~408 codici della fase E = ~13 serate di T1 + run Codex di
-verifica distribuiti. Con 3 serate/settimana la fase E sta in ~5-6
-settimane. Se dopo 2 settimane il ritmo reale è la metà, si ridiscute la
-copertura (il fallback è già deciso: beachhead completo, resto
-best-effort) — MEGLIO tagliare la copertura che la qualità o il sonno.
-
-## 8. CADENZA SETTIMANALE (sostenibile per un operatore solo)
-
-- 2-3 sere: sgrossatura T1 (30-40 min l'una, si può fare a pezzi).
-- 1 lancio Codex/giorno nei giorni di lavoro: verifica di 1-2 batch
-  (Codex su Plus ha limiti orari: pianificare i lanci, non aspettarsi
-  un cron — reality-check già documentato).
-- Weekend: `applica-batch`, report copertura, 10 minuti di campionamento
-  T3 (3 dati a caso confrontati con la fonte).
-- Claude: ZERO sessioni per la pipeline salvo i lavori una-tantum di §6.
-
-## 9. COSA NON FARE (per non riaprire la questione)
-
-- NON usare Claude per la ricerca dati di massa (principio 5).
-- NON pagare API "per andare più veloce" prima di aver misurato il ritmo
-  reale del flusso gratuito per 2 settimane (decisione presa: budget zero;
-  si riapre solo con dati alla mano).
-- NON accettare in `OUTPUT.json` righe senza fonte+citazione, da nessun
-  modello, per nessun motivo.
-- NON aggiungere altri campi allo schema "già che ci siamo": i 2 nuovi
-  (§6.1) bastano per LA Generator L2; ogni campo in più allunga la coda.
-- NON fare girare la sgrossatura su ChatGPT free (10 msg/giorno non
-  bastano) né su strumenti che non mostrano le fonti.
-
-## 10. LEGAME COL LEARNING AGREEMENT (perché questa pipeline conta doppio)
-
-Il campo `linkCatalogo` + `notaDisponibilita` è il dato L2 del LA
-Generator (OP9): la stessa passata che completa le mete costruisce la
-killer feature. Il Change Form di Bruno (6 corsi su 8 saltati per NON
-disponibilità) dice che questo è il dato che salva i piani di studio:
-nella sgrossatura, la pagina INCOMING vale più del catalogo generale.
-Giurisprudenza per prima (fase C) = il pilota L3 e il beachhead hanno i
-dati migliori al più presto.
+Serve a sapere **perche' si e' fermata il 29 luglio**. E' l'unica cosa da fare
+prima di costruire qualsiasi pezzo della V2: se la causa e' il Task Scheduler o
+la rete, tornera' a mordere anche la pipeline nuova.

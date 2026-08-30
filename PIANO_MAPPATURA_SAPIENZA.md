@@ -1,3 +1,8 @@
+> ARCHIVIATO il 2026-08-30 per la parte di METODO e di CODA (la coda per
+> Facolta' e' sostituita dall'elenco partner della V2). Resta valido come
+> storico del seeding delle 17 Facolta'. Il piano vivo e' DISEGNO_PIPELINE_DATI.md.
+> NOTA: il punto "codici sintetici sanati" era ed e' FALSO, vedi V2 §1.1.
+
 # Piano di mappatura Sapienza — COMPLETO (2026-07-04)
 
 > Documento operativo: cosa è in coda per Codex, come funziona il meccanismo

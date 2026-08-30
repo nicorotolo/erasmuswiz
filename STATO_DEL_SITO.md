@@ -21,7 +21,29 @@
 
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-08-07 — Claude (tranche 1 pre-Bruno
+**Ultimo aggiornamento:** 2026-08-30 — Claude (**revisione completa del piano di
+mappatura**, nessuna riga di sito toccata). Misurato che la pipeline dati è
+**ferma dal 29/07** (ultimo lotto `20260729-092017`) e che la copertura vera,
+contata per partner e non per meta, è: lingua 67%, scadenze 77%, sito 64%,
+**catalogo 7%**, disponibilità 5% su 745 codici. Trovati quattro difetti
+strutturali mai registrati: **183 codici sintetici `SAP-*` ancora vivi** (la V1
+li dichiarava sanati il 14/07 — falso), **117 partner con requisito di lingua
+contraddittorio** fra dipartimenti, **`nonTrovabile` assente dai dati
+pubblicati** (esiste solo nel file di stato: la definizione di "completo" non
+era verificabile), e **nessun confronto con la fonte ufficiale** (59 codici
+ufficiali assenti dal sito). Scritto il piano nuovo in
+`DISEGNO_PIPELINE_DATI.md` **V2 "scarica, poi leggi"**: l'unità di lavoro
+diventa il partner (~610), un programma scarica le pagine e il modello legge
+solo quelle, la verifica diventa uno script (la citazione deve comparire nella
+pagina scaricata) e Codex esce dal ciclo per-lotto. Costo della mappatura
+residua: **zero euro e ~3 giorni** sul piano gratuito, oppure ~4-9 $ una
+tantum. Ipotesi verificate sul campo, non stimate: su 40 partner casuali
+l'ingresso giusto si trova senza AI nell'**80%** dei casi. Google AI Plus
+Student (attivo dal 30/08) è l'app, **non** l'API: non entra nell'automazione.
+`AUTOMAZIONE_GEMINI.md` e il metodo di `PIANO_MAPPATURA_SAPIENZA.md` sono
+archiviati.
+
+**Ultimo aggiornamento precedente:** 2026-08-07 — Claude (tranche 1 pre-Bruno
 **implementata in locale e collaudata**: navigazione primaria
 `Mete · Home · Learning Agreement`, Menu fisso in alto a destra, onboarding che
 smista davvero, meta e facoltà manuali nel namespace `manual:`, intento in corso
@@ -4292,6 +4314,29 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 
 ## 6. ⚠️ STATO DEI CONTENUTI (il vero lavoro che resta)
 
+### Mappatura mete — fotografia misurata il 2026-08-30
+
+Contata **per partner** (codice Erasmus), che è l'unità di lavoro vera: le
+1.987 mete pubblicate stanno su **745 codici distinti**, di cui 183 finti.
+
+| Campo | Partner con il dato | Partner vuoti |
+|---|---:|---:|
+| requisitoLingua | 498 (67%) | 247 |
+| scadenzeOspitante | 571 (77%) | 174 |
+| linkSito | 480 (64%) | 265 |
+| **linkCatalogo** (serve al Learning Agreement) | **49 (7%)** | **696** |
+| notaDisponibilita | 40 (5%) | 705 |
+
+**La pipeline è ferma dal 29/07/2026** e nessun allarme lo ha segnalato. Coda
+residua: 44 lotti / 256 mete, tutti `scadenze+lingua`, **niente di programmato
+per i 696 partner senza catalogo**. Quattro difetti strutturali censiti oggi:
+183 codici sintetici `SAP-*` ancora vivi (Architettura 113, Giurisprudenza 55,
+Medicina-Psicologia 15), 117 partner con requisito di lingua contraddittorio
+fra dipartimenti, `nonTrovabile` assente dai dati pubblicati (153 casi vivono
+solo in `mappatura-stato.json`), nessun confronto automatico con l'export
+ufficiale Sapienza (59 codici ufficiali non sono sul sito). Il piano di
+rientro è `DISEGNO_PIPELINE_DATI.md` **V2**.
+
 Il CODICE è pronto. Le mete ora sono **REALI** (dalla lista ufficiale del bando
 2026/27). Resta da completare lingua e dettagli-scheda, e validare bando/checklist.
 
@@ -4495,6 +4540,26 @@ python -m http.server 8001
 poi aprire **http://localhost:8001**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
+
+### ⇢ Cantiere DATI — riavvio della mappatura (aggiornato 2026-08-30)
+
+Corre in parallelo al cantiere sito e non gli ruba sessioni: le prime due voci
+si fanno sul **PC aziendale**, non qui.
+
+0. **Capire perché si è fermata il 29 luglio**: log in
+   `%LOCALAPPDATA%\ErasmusWiz\logs` e `node scripts/esegui-lotto-automatico.mjs
+   --preflight --online`. Prima di ogni altra cosa, anche prima della V2.
+1. **Fase 1 della V2 — bonifica dei 183 codici `SAP-*`**: 170 su 183 si
+   abbinano automaticamente all'export ufficiale, 13 a mano. Guadagno misurato:
+   26 lingue e 23 scadenze si riversano su partner oggi vuoti.
+2. **Fase 2 — cancello di completezza** contro l'export ufficiale (18 ambiti,
+   endpoint pubblico): da qui in poi «manca una meta» ha una risposta
+   automatica.
+3. **Fase 3 — campo `nonTrovabile` nei dati**, senza il quale "completo" non è
+   verificabile e il sito non sa distinguere «cercato invano» da «mai cercato».
+4. **Fase 4 — crawler + lettore + cancelli**, da consegnare a Codex come spec
+   congelata. Le fasi 5-7 (passata completa, riconciliazione, campione umano)
+   seguono. Dettaglio, criteri di uscita e costi: `DISEGNO_PIPELINE_DATI.md`.
 
 ### ⇢ In cima a tutto, dopo la tranche 1 (aggiornato 2026-08-07)
 

@@ -1,3 +1,7 @@
+> ARCHIVIATO il 2026-08-30. Descrive il flusso Gemini-cerca + Codex-verifica,
+> sostituito da DISEGNO_PIPELINE_DATI.md V2 ("scarica, poi leggi"). Resta come
+> storia: gli script citati esistono ancora e servono fino alla Fase 4 della V2.
+
 # AUTOMAZIONE GEMINI + CODEX — pipeline mappatura in un unico processo automatico
 
 > Scritto il 2026-07-09 con Claude, rivisto lo stesso giorno dopo la
