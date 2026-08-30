@@ -133,6 +133,82 @@ il file finto.
 
 ---
 
+## 2 ter. LA FASE 4b SI CONSEGNA IN DUE PEZZI
+
+> Deciso il 2026-08-30 **dopo la prima revisione**. La consegna unica ha
+> prodotto `leggi-partner.mjs` in 21 righe e `applica-partner.mjs` in 17, per
+> compiti che ne richiedono centinaia (`raccogli-partner.mjs`, lavoro
+> paragonabile, ne ha 327), e le prove obbligatorie non sono state eseguite.
+> Non e' un difetto di esecuzione: e' una consegna troppo grande.
+
+**Consegna 1 — quello che regge il vincolo, e si prova senza rete e senza
+chiave.** `lib-pdf.mjs`, `lib-link.mjs`, i due `export`, `cancelli.mjs`, le
+due correzioni a `raccogli-partner.mjs`, e tutte le prove del §6.1 e §6.3 che
+non richiedono il modello. **Si chiude e si committa prima di passare oltre.**
+
+**Consegna 2 — la lettura e la scrittura.** `leggi-partner.mjs` e
+`applica-partner.mjs`, la prova sul campo su 100 partner, il campione umano.
+Parte solo a Consegna 1 committata.
+
+I cancelli si provano **senza** la lettura, con letture finte costruite nel
+test: e' piu' severo, non meno, perche' il caso lo sceglie chi prova e non chi
+esegue.
+
+## 2 quater. I SEI DIFETTI DELLA PRIMA REVISIONE
+
+> Trovati il 2026-08-30 leggendo il diff e rifacendo le prove. Il primo e' stato
+> **dimostrato costruendo il caso**, non dedotto.
+
+**Difetto 1 (bloccante) — il cancello della citazione confronta con il file
+intero, non con il testo inviato.** Prova costruita: una pagina in cui la frase
+sta al carattere 50.000, mentre al modello ne arrivano 40.000. La citazione e'
+passata (l'esito e' stato `codiceSconosciuto`, non `citazioneAssente`). Cosi'
+com'e', un modello che inventa puo' essere fortunato e passare — cioe' il
+vincolo dichiarato non negoziabile e' aggirabile.
+
+*Rimedio, e non e' salvare una seconda copia del testo.* In `pagineInviate`
+ogni voce porta `caratteri` (quanti ne sono stati mandati) e **`impronta`**: lo
+SHA-256 (`node:crypto`, gia' nella libreria standard) del testo effettivamente
+inviato. Il cancello ricostruisce il pezzo inviato prendendo i primi
+`caratteri` caratteri del file della pagina, **verifica che l'impronta
+coincida**, e solo allora ci cerca dentro la citazione. Se l'impronta non
+coincide, il campo si scarta con causa `paginaCambiata`: vuol dire che il file
+non e' piu' quello che il modello ha letto, e il cancello non deve indovinare.
+
+**Difetto 2 (bloccante) — il prompt e' una riga generica.** Mancano le regole
+CEFR, il formato dell'albero `ANY`/`ALL`, il formato di `scadenzeOspitante`, la
+distinzione fra studenti di laurea e di scambio, e "ometti se non sei sicuro".
+Vale quanto gia' scritto al §3.2: **si riusa quasi per intero il prompt di
+`gemini-sgrossatura.mjs`**, che quelle regole le ha tutte. (Consegna 2.)
+
+**Difetto 3 (bloccante) — `nonTrovabile` non viene mai scritto.** La D7 e il
+§3.4 lo richiedono, e non c'e' una riga che lo faccia. (Consegna 2.)
+
+**Difetto 4 — le fonti non si registrano.** Il codice cercava un campo `fonti`
+**dentro** il blocco meta: verificato, non esiste in nessun file dati, quindi
+non faceva niente e non lo diceva. `applica-batch.mjs` le scrive in un file a
+fianco, `batch/FONTI-<id>.json` (riga 254): imitare **quello**. (Consegna 2.)
+
+**Difetto 5 — meta' del cancello sul livello e' morta.** Legge
+`proposta.titoloPagina`, che nessuno produce mai. *Rimedio*: ogni voce di
+`pagineInviate` porta anche `titolo`, copiato dal campo `titolo` del file della
+pagina, e il cancello 4 guarda quello.
+
+**Difetto 6 — il cancello sul codice ufficiale scarterebbe tutti i partner
+Ca' Foscari**, che negli export Sapienza non ci sono, e **si spegne da solo in
+silenzio** se la cartella `fonti/` manca. *Rimedio*: l'elenco dei codici validi
+e' l'unione degli export **e** dei codici presenti nei file
+`js/atenei/**/dati-mete*.js`; e se l'elenco risulta vuoto lo script **si ferma
+con errore**, invece di lasciar passare tutto.
+
+**Regressione da correggere — il paese e' diventato maiuscolo.** Misurato: dopo
+la Correzione A, `paese` vale `"AUSTRIA"` invece di `"Austria"` su **536
+partner su 615**, perche' ora arriva dal CSV (che scrive in maiuscolo) e non
+piu' dai file mete. Va normalizzato a Iniziale Maiuscola, e la misura va
+rifatta: attesi **0** partner con il paese tutto maiuscolo.
+
+---
+
 ## 3. IL PERIMETRO, PEZZO PER PEZZO
 
 ### 3.1 `scripts/lib-pdf.mjs` — l'estrattore PDF *(nuovo)*
@@ -261,11 +337,18 @@ porta scritta la **causa**, con una parola sola fra quelle elencate qui:
 serve a dividere i falliti per causa nel resoconto, e senza questa divisione il
 numero finale non dice niente.
 
-**Cancello 1 — la citazione c'e' davvero** (`citazioneAssente`).
+**Cancello 1 — la citazione c'e' davvero** (`citazioneAssente`,
+`paginaCambiata`).
 La citazione dev'essere una **sottostringa** del testo che abbiamo davvero
 mandato al modello per quella pagina (**non** del file intero: se una pagina e'
 stata tagliata, il modello non ha visto il resto, e una citazione che viene da
 li' e' fortuna, non lettura).
+
+Come si ricostruisce quel testo, senza tenerne una seconda copia: si prendono i
+primi `caratteri` caratteri del file della pagina e **si verifica che lo
+SHA-256 coincida con l'`impronta`** registrata in `pagineInviate`. Se non
+coincide il campo si scarta con causa `paginaCambiata` (§2 quater, difetto 1).
+Il confronto della citazione avviene **solo** su quel pezzo verificato.
 
 Normalizzazione, uguale sui due lati e in quest'ordine esatto:
 1. `String.normalize("NFD")` e via i segni diacritici (`\p{M}`);
@@ -287,6 +370,9 @@ che non ha ricevuto.
 Poi, e **solo** sui valori dei campi `linkSito` e `linkCatalogo`: devono
 rispondere. Usare `statoLink()` da `lib-link.mjs` (§2 bis), con la cortesia
 della Fase 4a: una richiesta per dominio alla volta, 1 secondo di pausa.
+La funzione che applica i cancelli deve **accettare `statoLink` come
+parametro**, con quello vero come valore predefinito: e' l'unico modo di
+provare questo cancello senza rete, e senza rete le prove sono ripetibili.
 - `morto` (404/410) → si scarta, causa `urlMorto`;
 - `inconcludente` (timeout, errore di rete, 5xx) → **si ritenta una volta** dopo
   due secondi; se resta inconcludente si scarta con causa `urlInconcludente`,
@@ -308,7 +394,8 @@ inventati tipo "B1/B2".
 
 **Cancello 4 — il livello di lettura** (`livelloFacolta`).
 Il livello dichiarato dal modello si puo' solo **abbassare, mai alzare**. Se
-l'URL della fonte o il titolo della pagina contiene una parola del dizionario
+l'URL della fonte oppure il **`titolo`** registrato in `pagineInviate` per la
+pagina citata (§2 quater, difetto 5) contiene una parola del dizionario
 di facolta' (`faculty`, `fakultat`, `faculte`, `facolta`, `facultad`,
 `department`, `departement`, `dipartiment`, `institut`, `school of`, `wydzial`,
 `kar`, `fakulteta`) e il modello ha dichiarato `ateneo`, il campo viene
@@ -319,9 +406,12 @@ livello `facolta` **non vanno negli approvati**: finiscono in
 `linkSito` e `linkCatalogo` passano a qualunque livello (D3).
 
 **Cancello 5 — il codice esiste nell'ufficiale** (`codiceSconosciuto`).
-Il `codiceNorm` dev'essere fra quelli degli export in
-`fonti/sapienza/goerasmus/`, oppure fra i partner Ca' Foscari presenti nei file
-mete. Riusare la normalizzazione degli altri script.
+L'elenco dei codici validi e' **l'unione** di due fonti: i codici degli export
+in `fonti/sapienza/goerasmus/` **e** i codici presenti nei file
+`js/atenei/**/dati-mete*.js` (e' li' che vivono i partner Ca' Foscari, che negli
+export Sapienza non ci sono). Riusare la normalizzazione degli altri script.
+Se l'elenco risulta **vuoto**, lo script si ferma con errore: un cancello che si
+spegne da solo in silenzio e' peggio di nessun cancello (§2 quater, difetto 6).
 
 ### 3.4 `scripts/applica-partner.mjs` — l'applicazione *(nuovo)*
 
@@ -375,7 +465,15 @@ l'accordo, ed e' esattamente cio' che servira' alla Fase 6 per capire a quale
 facolta' dell'ospitante appartiene un dato letto a livello di facolta'.
 **Non entra nei file dati del sito.**
 
-Misura da riportare: quanti partner cambiano `citta`, e quanti restano senza.
+Il `paese` va **normalizzato a Iniziale Maiuscola**: il CSV scrive `AUSTRIA`,
+i file mete scrivono `Austria`, e senza normalizzazione il campo cambia sotto
+i piedi a 536 partner (§2 quater, regressione).
+
+Misure da riportare, separate: quanti partner cambiano `citta`, quanti restano
+senza, quanti hanno `areeIsced`, e quanti hanno il paese tutto maiuscolo
+(attesi **0**).
+**Riferimento misurato il 2026-08-30**: citta' sbagliata **500 -> 0**, partner
+con citta' cambiata **536**, senza citta' **0**, con `areeIsced` **536**.
 
 **Correzione B — gli export ufficiali non finiscono in cache.**
 Oggi `caricaCsvSapienza()` scarica i 18 CSV e li tiene **solo in memoria**,
