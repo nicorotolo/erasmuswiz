@@ -234,6 +234,39 @@ Due limiti restano, e sono giusti:
 2. **ritardo fra le richieste allo stesso dominio**: non e' un limite nostro,
    e' educazione verso i siti che stiamo leggendo, e serve a non farsi bloccare.
 
+### A che ritmo gira (deciso il 2026-08-30)
+
+**In continuo, non un lotto a notte.** La cadenza notturna serviva a spalmare
+il consumo di credito Codex; senza Codex non ha piu' senso rallentare.
+
+Ma "al massimo" e' una domanda di **progetto**, non di orario, perche' i due
+mestieri della pipeline hanno colli di bottiglia diversi e non vanno mescolati:
+
+- **Scaricare (L1)** e' limitato solo dalla cortesia verso un singolo sito. Ma
+  i 615 partner stanno su 615 domini diversi: si scaricano **in parallelo**,
+  6-8 alla volta, aspettando fra una richiesta e l'altra *allo stesso* sito e
+  mai fra siti diversi. Tutto l'archivio si raccoglie in **poche ore**, gratis,
+  in un unico giro. Le pagine restano su disco: si rilegge senza riscaricare.
+- **Leggere (L2)** e' limitato dalla **quota giornaliera** del piano gratuito.
+  Qui accelerare a forza non serve: le richieste in piu' vengono rifiutate.
+  Il modo di andare piu' veloce e' spendere **meno richieste**, ed e' gia' nel
+  disegno: una chiamata per partner invece di una per campo.
+
+Quindi la sequenza efficiente non e' "un partner alla volta dall'inizio alla
+fine", ma **prima si scarica tutto, poi si legge il piu' in fretta che la quota
+consente**. Se la lettura resta indietro, il lavoro fatto non si perde: le
+pagine sono gia' in cache.
+
+⚠️ **Da misurare al primo giorno della Fase 5:** quante richieste al giorno
+concede davvero la chiave gratuita. Le fonti pubbliche danno numeri diversi
+(fra 250 e 1.500 al giorno secondo il modello): e' quel numero a decidere se la
+passata dura **un giorno o tre**, ed e' la prima cosa da guardare invece di
+stimarla. Se il tetto e' basso e si vuole finire subito, la modalita' a
+pagamento in batch costa **4-9 dollari una tantum** e toglie il tetto.
+
+Il controllo di completezza (Fase 2) invece **non** va messo a orario: dura
+pochi secondi, e il posto giusto e' *dentro* ogni run, prima di pubblicare.
+
 ---
 
 ## 4. QUANTO COSTA E QUANTO DURA (conti, non speranze)
@@ -301,12 +334,23 @@ Risultati misurati:
   2 note); copertura sito 72% → 82%
 - 209 test verdi, stato coerente, nessun test modificato.
 
-### Fase 2 — Il cancello di completezza *(mezza sessione)*
-Script che scarica i 18 export ufficiali e confronta con il pubblicato:
-destinazioni ufficiali mancanti, destinazioni pubblicate non piu' ufficiali,
-differenze di posti/mesi/livello. Gira ogni notte.
-**Uscita:** il report esiste ed e' a zero differenze non spiegate. Da qui in
-avanti «manca una meta» e' una domanda con risposta automatica.
+### Fase 2 — Il cancello di completezza — ✅ FATTA il 2026-08-30 (`27d971c`)
+`scripts/verifica-completezza.mjs`. Scarica i 18 export ufficiali e confronta:
+destinazioni ufficiali non pubblicate, destinazioni pubblicate non piu'
+ufficiali, differenze di posti e mesi. **Esito: 0, 0 e 0 su tutti i 17
+dipartimenti.** Blocca (uscita 1) su qualunque scostamento.
+
+Non va messo a orario: dura pochi secondi e il posto giusto e' *dentro* ogni
+run, prima di pubblicare.
+
+Due cose imparate, scritte perche' non si ripetano:
+- la prima versione segnalava **755 false differenze** sui posti. Colpa del
+  metro, non dei dati: il sito scrive "4 posti aperti a L e LM" come due voci
+  da 4, e sommarle raddoppia. Con il massimo per meta il sito coincide con
+  l'ufficiale in 517 casi su 517.
+- il controllo e' stato **provato rompendolo**, non solo guardandolo verde:
+  tolta una destinazione segnala 1 mancante, cambiato un numero di posti esce
+  con codice 1, rimesso a posto torna verde.
 
 ### Fase 3 — Il campo che manca: `nonTrovabile` *(mezza sessione)*
 Aggiungere ai dati il campo che oggi vive solo nel file di stato, con la fonte
@@ -322,8 +366,11 @@ piu' un `esegui-partner.mjs` che li incatena. Riuso quasi integrale di
 **Uscita:** su 20 partner di prova, ≥80% raggiunto senza ricerca web e zero
 citazioni che non compaiono nella pagina scaricata.
 
-### Fase 5 — La passata completa *(3-5 giorni di macchina)*
-610 partner, cinque campi, una visita ciascuno.
+### Fase 5 — La passata completa *(in continuo, non a lotti)*
+615 partner, cinque campi, una visita ciascuno. Due tempi, per le ragioni
+spiegate in "A che ritmo gira": **prima si scarica tutto** (poche ore, in
+parallelo su domini diversi, gratis), **poi si legge** alla velocita' che la
+quota consente. Prima cosa da misurare: il tetto giornaliero vero della chiave.
 **Uscita:** catalogo ≥70%, lingua ≥90%, scadenze ≥90% — contando come coperto
 anche il `nonTrovabile` onesto.
 

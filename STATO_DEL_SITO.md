@@ -4579,9 +4579,14 @@ portatile può anche chiudersi.
    Due script nuovi: `scripts/bonifica-codici-sintetici.mjs` (rifiuta di
    scrivere se anche un solo caso resta irrisolto) e `scripts/propaga-tutto.mjs`
    (riempie solo i vuoti, non sceglie quando due dipartimenti dissentono).
-2. **Fase 2 — cancello di completezza** contro l'export ufficiale (18 ambiti,
-   endpoint pubblico): da qui in poi «manca una meta» ha una risposta
-   automatica.
+2. ✅ **Fase 2 — cancello di completezza: FATTA il 30/08** (`27d971c`).
+   `scripts/verifica-completezza.mjs` confronta il sito con i 18 export
+   ufficiali: **0 destinazioni mancanti, 0 in più, 0 differenze di posti** su
+   tutti e 17 i dipartimenti. Blocca su qualunque scostamento, ed è stato
+   provato rompendolo di proposito. Non va messo a orario: sta dentro ogni run,
+   prima di pubblicare. **Ritmo deciso: la passata di mappatura gira in
+   continuo, non un lotto a notte** — prima si scaricano tutte le pagine (poche
+   ore, in parallelo, gratis), poi si legge alla velocità che la quota consente.
 3. **Fase 3 — campo `nonTrovabile` nei dati**, senza il quale "completo" non è
    verificabile e il sito non sa distinguere «cercato invano» da «mai cercato».
 4. **Fase 4 — crawler + lettore + cancelli**, da consegnare a Codex come spec
