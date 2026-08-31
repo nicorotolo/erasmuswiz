@@ -15,7 +15,7 @@
 |---|---|
 | `scripts/applica-batch.mjs` | **Il modello da imitare.** Scrittura nei file dati, `node --check`, tutto-o-niente, sidecar delle fonti. Leggerlo per intero. |
 | `scripts/lib-mete.mjs` | `spanTutteMete`, `impostaCampo`, `valoreCampo`, `campoVuoto`, `statoCampo`, `caricaMete`, `serializza`. **Usare queste, non riscriverle.** |
-| `scripts/cancelli.mjs` | Produce l'ingresso: `raccolta/approvati.json`. |
+| `scripts/cancelli.mjs` | Produce l'ingresso: `raccolta/approvati.json`. Esporta anche **`fileMete(radice)`**, che trova tutti i `dati-mete*.js`: **usala, non riscriverla.** |
 | `scripts/bonifica-codici-sintetici.mjs` | La regola del tutto-o-niente, già scritta lì. |
 | `SPEC_FASE4B_lettura.md` §3.4 | La specifica di questo file. **Prevale su questo ordine se divergono.** |
 

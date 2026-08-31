@@ -129,7 +129,9 @@ export function applicaCancelloLivello(campo, proposta, pagina = {}) {
   return { ...proposta, livello, dichiarato, declassato, approvato: !(CAMPI_STRETTI.has(campo) && livello === "facolta") };
 }
 
-function fileMete(radice) {
+// Esportata per applica-partner.mjs: cercare i file dati e' una cosa sola e ha
+// una definizione sola. Stessa autorizzazione di E2, e il corpo non si tocca.
+export function fileMete(radice) {
   const trovati = [];
   const visita = (cartella) => {
     if (!fs.existsSync(cartella)) return;
