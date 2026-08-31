@@ -77,7 +77,11 @@ const linkHtml = (html, base) => [...html.matchAll(/<a\b[^>]*?href\s*=\s*(["'])(
 export const linkSalvati = (html, base) => {
   const visti = new Map();
   for (const l of linkHtml(html, base)) {
-    const testo = l.testo.slice(0, 160);
+    // Le stesse tre entita' che decodifica testoVisibile, e per lo stesso
+    // motivo: il modello cita il TESTO del link, e il cancello della citazione
+    // lo ricerca dentro il testo della pagina. Se le due decodifiche non
+    // coincidono la citazione non si ritrova e il dato buono viene scartato.
+    const testo = l.testo.replace(/&nbsp;/gi, " ").replace(/&amp;/gi, "&").replace(/&quot;/gi, '"').replace(/\s+/g, " ").trim().slice(0, 160);
     // A parita' di indirizzo si tiene il testo piu' lungo: lo stesso link
     // compare spesso due volte, una come icona muta e una con la sua etichetta.
     if (!visti.has(l.url) || visti.get(l.url).length < testo.length) visti.set(l.url, testo);
@@ -364,7 +368,16 @@ async function main() {
   let partner;
   try { const file = path.join(RACCOLTA, "partner.json"); partner = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, "utf8")) : await costruisciPartner(); }
   catch (errore) { console.error(`Impossibile costruire l'elenco partner: ${errore.message}`); process.exitCode = 1; return; }
-  const daRaccogliere = partner.filter((p) => p.campiMancanti.length);
+  // --codici=A GRAZ02,D WEIMAR01 raccoglie SOLO quei partner. Serve a rimisurare
+  // una correzione sugli stessi casi su cui e' stata trovata, invece che su un
+  // campione nuovo ogni volta.
+  const chiesti = (process.argv.find((a) => a.startsWith("--codici=")) || "").split("=").slice(1).join("=");
+  const soloQuesti = chiesti ? new Set(chiesti.split(",").map((c) => c.trim().replace(/s+/g, "").toUpperCase()).filter(Boolean)) : null;
+  const daRaccogliere = partner.filter((p) => p.campiMancanti.length && (!soloQuesti || soloQuesti.has(String(p.codiceNorm).replace(/s+/g, "").toUpperCase())));
+  if (soloQuesti && daRaccogliere.length < soloQuesti.size) {
+    const trovati = new Set(daRaccogliere.map((p) => String(p.codiceNorm).replace(/s+/g, "").toUpperCase()));
+    console.error(`Codici chiesti e non trovati fra i partner con campi mancanti: ${[...soloQuesti].filter((c) => !trovati.has(c)).join(", ")}`);
+  }
   // Il centro di ogni intervallo evita che il campione dipenda dal primo partner
   // ordinato alfabeticamente, senza trasformare la prova in una scelta comoda.
   const scelti = limite >= daRaccogliere.length ? daRaccogliere : Array.from({ length: limite }, (_, i) => daRaccogliere[Math.floor((i + 0.5) * daRaccogliere.length / limite)]);

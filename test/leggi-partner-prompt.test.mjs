@@ -17,7 +17,7 @@ import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 import { applicaCancelli } from "../scripts/cancelli.mjs";
-import { costruisciPrompt, scegliFlashLite } from "../scripts/leggi-partner.mjs";
+import { branoPagina, costruisciPrompt, scegliFlashLite } from "../scripts/leggi-partner.mjs";
 
 const PARTNER = {
   codiceNorm: "TEST 01", ateneo: "UNIVERSITA DI PROVA", citta: "Graz", paese: "Austria",
@@ -27,10 +27,15 @@ const PARTNER = {
 // pagine finte, cosi' l'esempio non va ritoccato in niente.
 const TESTO = `Prima di LA-FRASE-COPIATA-DALLA-PAGINA e di LA-FRASE-COPIATA-CHE-NOMINA-LE-LINGUE-E-DICE-A1-E-A2 viene un po di contorno. ${"contorno ".repeat(60)}`;
 const impronta = (t) => createHash("sha256").update(t, "utf8").digest("hex");
+// Dal 31/08 al modello arrivano anche i LINK della pagina, e l'indirizzo di
+// linkCatalogo deve venire da li'. Il brano davvero inviato e' quindi testo
+// PIU' link, ed e' su quello che si calcola l'impronta: se la prova firmasse
+// il solo testo, il cancello direbbe "paginaCambiata" e non lo vedrebbe nessuno.
+const LINK = [{ testo: "IL-TESTO-DEL-LINK-COPIATO", url: "https://esempio/elenco-dei-corsi" }];
 const PAGINE = [3, 16, 23].map((n) => ({
   n, file: `${String(n).padStart(3, "0")}.json`, url: `https://esempio/pagina-${n}`,
-  titolo: `Incoming exchange ${n}`, caratteri: TESTO.length, tagliata: false,
-  impronta: impronta(TESTO), testo: TESTO,
+  titolo: `Incoming exchange ${n}`, caratteri: TESTO.length, tagliata: false, link: LINK,
+  impronta: impronta(branoPagina(TESTO, LINK)), testo: branoPagina(TESTO, LINK),
 }));
 
 // Ritaglia dal prompt l'oggetto JSON di esempio contando le graffe: e' proprio
@@ -129,6 +134,10 @@ test("il prompt dice al modello le cose che i cancelli poi pretendono", () => {
     ["le pagine numerate col loro URL", "[PAGINA 3] URL: https://esempio/pagina-3"],
     ["il titolo della pagina", "TITOLO: Incoming exchange 3"],
     ["linkCatalogo non e' linkSito", "NON e' la stessa cosa di linkSito"],
+    ["che gli indirizzi si prendono dai link", "Il testo di una pagina NON contiene i suoi indirizzi"],
+    ["che la pagina che parla del catalogo non e' il catalogo", "LA PAGINA CHE PARLA DEL CATALOGO NON E' IL CATALOGO"],
+    ["che per un link la citazione e' il testo del link", "la \"citazione\" e' il TESTO di quel link"],
+    ["i link allegati alla pagina", "LINK DI QUESTA PAGINA"],
     ["i campi richiesti", '["requisitoLingua","scadenzeOspitante","linkCatalogo","notaDisponibilita"]'],
     ["il testo della pagina", "LA-FRASE-COPIATA-DALLA-PAGINA"],
     ["che il livello CEFR dev'essere scritto nella citazione", "deve comparire ALLA LETTERA dentro la citazione"],

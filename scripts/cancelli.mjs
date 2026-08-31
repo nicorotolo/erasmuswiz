@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import { caricaMete } from "./lib-mete.mjs";
 import { validaFonte, validaValore } from "./lib-output-batch.mjs";
 import { statoLink as statoLinkVero } from "./lib-link.mjs";
+import { branoPagina } from "./leggi-partner.mjs";
 
 const RADICE = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const PAROLE_FACOLTA = /faculty|fakultat|faculte|facolta|facultad|department|departement|dipartiment|institut|school of|wydzial|kar|fakulteta/i;
@@ -171,8 +172,40 @@ function testoVerificato(lettura, pagina, radice) {
   const file = path.join(radice, "raccolta", "pagine", lettura.codiceNorm.replace(/\s+/g, ""), pagina.file);
   if (!fs.existsSync(file) || !Number.isInteger(pagina.caratteri) || pagina.caratteri < 0 || typeof pagina.impronta !== "string") return { causa: "paginaCambiata" };
   const testo = JSON.parse(fs.readFileSync(file, "utf8")).testo;
-  const inviato = String(testo || "").slice(0, pagina.caratteri);
+  // Il brano inviato e' testo PIU' i link allegati, e l'impronta copre tutto.
+  // Su una lettura vecchia pagina.link e' assente, branoPagina rende il solo
+  // testo e l'impronta di allora torna a combaciare: le letture gia' in cache
+  // restano verificabili.
+  const inviato = branoPagina(String(testo || "").slice(0, pagina.caratteri), pagina.link || []);
   return impronta(inviato) === pagina.impronta ? { testo: inviato } : { causa: "paginaCambiata" };
+}
+
+// Da dove puo' venire un indirizzo. Il modello ha davanti tre sole sorgenti
+// di URL: i link allegati alla pagina, l'intestazione [PAGINA n] e gli
+// indirizzi scritti per esteso dentro il testo. Un valore che non viene da
+// nessuna delle tre se l'e' inventato: e' il caso della home di Tecnocampus,
+// che nel materiale inviato non compariva da nessuna parte.
+const normUrl = (u) => {
+  try {
+    const x = new URL(String(u));
+    const h = x.hostname.toLowerCase();
+    const host = h.startsWith("www.") ? h.slice(4) : h;
+    let p = x.pathname;
+    while (p.length > 1 && p.endsWith("/")) p = p.slice(0, -1);
+    return host + p + x.search;
+  } catch { return String(u || "").trim().toLowerCase(); }
+};
+const stessoUrl = (a, b) => Boolean(a) && Boolean(b) && normUrl(a) === normUrl(b);
+
+export function linkCitato(valore, pagina) {
+  return ((pagina && pagina.link) || []).find((l) => stessoUrl(l.url, valore)) || null;
+}
+
+export function origineIndirizzo(valore, pagina, testoInviato) {
+  if (linkCitato(valore, pagina)) return "link";
+  if (stessoUrl(valore, pagina && pagina.url)) return "pagina";
+  if (String(testoInviato || "").includes(String(valore))) return "testo";
+  return null;
 }
 
 export async function applicaCancelli(letture, { radice = RADICE, codici = codiciValidi(radice), statoLink = statoLinkVero, attendi = pausa } = {}) {
@@ -185,12 +218,30 @@ export async function applicaCancelli(letture, { radice = RADICE, codici = codic
       let causa;
       const pagina = inviati.get(proposta.paginaCitata);
       if (!pagina || proposta.fonte?.url !== pagina.url) causa = "fonteNonInviata";
+      let verifica = {};
       if (!causa) {
-        const verifica = testoVerificato(lettura, pagina, radice);
+        verifica = testoVerificato(lettura, pagina, radice);
         if (verifica.causa) causa = verifica.causa;
+      }
+      const campoIndirizzo = ["linkSito", "linkCatalogo"].includes(campo);
+      let origine = null;
+      if (!causa && campoIndirizzo) {
+        // Le tre sole sorgenti di URL che il modello aveva davanti. Fuori da
+        // quelle il valore e' inventato, e nessun altro cancello lo vedrebbe:
+        // un indirizzo inventato che risponde 200 passa il controllo del link.
+        origine = origineIndirizzo(proposta.valore, pagina, verifica.testo);
+        if (!origine) causa = "indirizzoInventato";
+      }
+      if (!causa) {
+        // Per un indirizzo preso da un link la prova non e' una frase ma la
+        // coppia (testo del link -> indirizzo), che e' piu' forte: la
+        // citazione dev'essere quel testo alla lettera. "Course Catalogue"
+        // sono 16 caratteri e la regola dei 20 lo rifiuterebbe.
+        const link = origine === "link" ? linkCitato(proposta.valore, pagina) : null;
+        if (link) causa = norm(proposta.fonte?.citazione) === norm(link.testo) ? undefined : "citazioneNonDelLink";
         else causa = citazioneValida(proposta.fonte?.citazione, verifica.testo).causa;
       }
-      if (!causa && ["linkSito", "linkCatalogo"].includes(campo)) {
+      if (!causa && campoIndirizzo) {
         let esito = await statoLink(proposta.valore);
         if (esito.stato === "inconcludente") { await attendi(2000); esito = await statoLink(proposta.valore); }
         if (esito.stato === "morto") causa = "urlMorto";

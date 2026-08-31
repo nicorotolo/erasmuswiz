@@ -7,7 +7,8 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
-import { applicaCancelli, applicaCancelloLivello, lingueCitate, livelliCitati, livelloAmbiguo } from "../scripts/cancelli.mjs";
+import { applicaCancelli, applicaCancelloLivello, lingueCitate, livelliCitati, livelloAmbiguo, origineIndirizzo } from "../scripts/cancelli.mjs";
+import { branoPagina } from "../scripts/leggi-partner.mjs";
 
 const URL_PAGINA = "https://esempio.test/incoming";
 const CITAZIONE = "Incoming exchange students need English at B2 level before arrival.";
@@ -41,7 +42,10 @@ test("un livello non dichiarato vale 'facolta', non 'ateneo'", async (t) => {
   // ambito "Institutionen for svenska". Il cancello leggeva undefined e lo
   // trattava come "ateneo": un dato di dipartimento sarebbe finito nel sito.
   const radice = radiceFinta(t);
-  const campo = { valore: "https://esempio.test/catalogo", level: "facolta",
+    // L'indirizzo e' quello della pagina stessa: dal 31/08 un valore che non
+  // viene ne' da un link, ne' dalla pagina, ne' dal testo e' "indirizzoInventato",
+  // e la prova morirebbe per un motivo che non c'entra col livello.
+  const campo = { valore: URL_PAGINA, level: "facolta",
     ambito: "Institutionen for svenska", paginaCitata: 1, fonte: fonte() };
   const e = await applicaCancelli([lettura({ linkCatalogo: campo })],
     { radice, codici: new Set(["TEST 01"]), statoLink: async () => ({ stato: "vivo" }) });
@@ -215,4 +219,55 @@ test("un livello dichiarato bene continua a funzionare", () => {
     { livello: "ateneo", fonte: { url: "https://esempio.test/faculty-of-law" } }, {});
   assert.equal(declassato.livello, "facolta");
   assert.equal(declassato.declassato, true, "il declassamento per URL deve restare visibile nel resoconto");
+});
+
+// ------------------------------------------------- il buco del 31/08
+// Misura sui 53 linkCatalogo in cache: 17 puntavano alla pagina che PARLA del
+// catalogo, e uno (E MATARO01, la home di Tecnocampus) non compariva da
+// nessuna parte nel materiale inviato. Nessun cancello lo vedeva: un indirizzo
+// inventato che risponde 200 supera il controllo del link.
+const LINK_CATALOGO = { testo: "Course Catalogue", url: "https://esempio.test/elenco-corsi" };
+const PAGINA_CON_LINK = { ...PAGINA, link: [LINK_CATALOGO], impronta: impronta(branoPagina(TESTO, [LINK_CATALOGO])) };
+const letturaLink = (campi) => ({ codiceNorm: "TEST 01", lettoIl: "2026-08-30T00:00:00.000Z", modello: "finto",
+  pagineInviate: [PAGINA_CON_LINK], campi, nonTrovati: {}, note: [] });
+
+test("un indirizzo che non viene ne' dai link, ne' dalla pagina, ne' dal testo e' inventato", async (t) => {
+  const radice = radiceFinta(t);
+  const campo = { valore: "https://tecnocampus.example/", livello: "ateneo", ambito: null, paginaCitata: 1,
+    fonte: { url: URL_PAGINA, citazione: CITAZIONE, verificataIl: "2026-08-30" } };
+  const e = await applicaCancelli([letturaLink({ linkCatalogo: campo })],
+    { radice, codici: new Set(["TEST 01"]), statoLink: async () => ({ stato: "vivo" }) });
+  assert.equal(e.approvati.length, 0, "un indirizzo inventato non puo' essere approvato");
+  assert.equal(e.scartati[0].causa, "indirizzoInventato");
+});
+
+test("un indirizzo preso da un link passa, e la citazione e' il testo del link", async (t) => {
+  const radice = radiceFinta(t);
+  const campo = { valore: LINK_CATALOGO.url, livello: "ateneo", ambito: null, paginaCitata: 1,
+    fonte: { url: URL_PAGINA, citazione: LINK_CATALOGO.testo, verificataIl: "2026-08-30" } };
+  const e = await applicaCancelli([letturaLink({ linkCatalogo: campo })],
+    { radice, codici: new Set(["TEST 01"]), statoLink: async () => ({ stato: "vivo" }) });
+  // "Course Catalogue" sono 16 caratteri: la regola generale dei 20 lo
+  // rifiuterebbe, ma qui la prova e' la coppia testo-del-link -> indirizzo.
+  assert.equal(e.scartati.length, 0, JSON.stringify(e.scartati));
+  assert.equal(e.approvati.length, 1);
+});
+
+test("una citazione che non e' il testo del link scelto viene scartata", async (t) => {
+  const radice = radiceFinta(t);
+  // La frase e' vera e sta nella pagina: senza questo cancello passerebbe,
+  // e il link approvato non avrebbe piu' niente che lo dimostri.
+  const campo = { valore: LINK_CATALOGO.url, livello: "ateneo", ambito: null, paginaCitata: 1,
+    fonte: { url: URL_PAGINA, citazione: CITAZIONE, verificataIl: "2026-08-30" } };
+  const e = await applicaCancelli([letturaLink({ linkCatalogo: campo })],
+    { radice, codici: new Set(["TEST 01"]), statoLink: async () => ({ stato: "vivo" }) });
+  assert.equal(e.scartati[0].causa, "citazioneNonDelLink");
+});
+
+test("le tre origini lecite, e la differenza fra www e non-www non conta", () => {
+  const pagina = { url: "https://esempio.test/incoming", link: [LINK_CATALOGO] };
+  assert.equal(origineIndirizzo("https://www.esempio.test/elenco-corsi/", pagina, ""), "link");
+  assert.equal(origineIndirizzo("https://esempio.test/incoming", pagina, ""), "pagina");
+  assert.equal(origineIndirizzo("https://terzo.test/x", pagina, "vedi https://terzo.test/x qui"), "testo");
+  assert.equal(origineIndirizzo("https://terzo.test/x", pagina, "niente"), null);
 });

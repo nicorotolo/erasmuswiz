@@ -91,3 +91,15 @@ test("l'indirizzo di un link viene decodificato, non copiato con le entita'", ()
   const [numerico] = linkSalvati(`<a href="/a?x=1&#38;y=2">x</a>`, "https://x.edu/");
   assert.equal(numerico.url, "https://x.edu/a?x=1&y=2");
 });
+
+// Il modello cita il TESTO del link e il cancello della citazione lo cerca
+// dentro il testo della pagina, che testoVisibile ha gia' ripulito. Se le due
+// decodifiche divergono, la citazione non si ritrova e il dato buono viene
+// scartato: un errore che nessuno vedrebbe, perche' somiglia a un no del modello.
+test("il testo del link e' decodificato come il testo della pagina", () => {
+  const html = `<a href="/c">Cours &amp; s&eacute;minaires&nbsp;2026</a>`;
+  const [link] = linkSalvati(html, "https://x.edu/");
+  assert.equal(link.testo, "Cours & s&eacute;minaires 2026");
+  assert.ok(!link.testo.includes("&amp;"), "la e commerciale va decodificata");
+  assert.ok(!link.testo.includes("&nbsp;"), "lo spazio unificatore va decodificato");
+});

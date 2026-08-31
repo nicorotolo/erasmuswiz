@@ -57,7 +57,9 @@ test("i codici Ca' Foscari sono validi e un elenco vuoto blocca il cancello", as
 test("il cancello usa lo statoLink passato dal test, senza chiamare la rete", async (t) => {
   const { radice, lettura, codice } = ambiente();
   t.after(() => fs.rmSync(radice, { recursive: true, force: true }));
-  lettura.campi = { linkSito: { ...lettura.campi.notaDisponibilita, valore: "https://example.test/nuovo-link", fonte: { ...lettura.campi.notaDisponibilita.fonte, citazione: "A".repeat(20) } } };
+  lettura.campi = { linkSito: { ...lettura.campi.notaDisponibilita, // Deve essere un indirizzo con un'origine lecita (qui: la pagina stessa),
+  // altrimenti il cancello lo ferma prima e statoLink non viene mai chiamato.
+  valore: "https://example.test/incoming", fonte: { ...lettura.campi.notaDisponibilita.fonte, citazione: "A".repeat(20) } } };
   let chiamate = 0;
   const esito = await applicaCancelli([lettura], { radice, codici: new Set([codice]), statoLink: async () => { chiamate++; return { stato: "morto" }; } });
   assert.equal(chiamate, 1);

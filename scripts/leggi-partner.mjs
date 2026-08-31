@@ -13,15 +13,52 @@ export function tagliaParole(testo, massimo = 40000) {
   return { testo: pezzo.slice(0, fine > 0 ? fine : massimo), tagliata: true };
 }
 
+// Il testo di una pagina non contiene i suoi indirizzi: testoVisibile cancella
+// i tag. Fino al 31/08 il modello leggeva "Course Catalogue here" e non sapeva
+// dove portasse "here", quindi restituiva l'unico indirizzo che avesse - quello
+// della pagina stessa. Misurato sui 53 linkCatalogo in cache: 16 errori su 17
+// nascevano da li'. Ora la raccolta salva i link e la lettura ne allega una
+// scelta. Il dizionario e' volutamente largo e NON contiene i nomi propri dei
+// sistemi visti nel campione (BISON, courseleaf, qisserver): se li contenesse,
+// la misura sui casi da cui e' nato tornerebbe buona per costruzione.
+const PAROLE_CATALOGO = /(catalog|katalog|course|cours|kurs|kurz|curs|modul|curricul|syllabus|sylabus|subject|study guide|studiengang|studienangebot|lehrveranstaltung|vorlesungsverzeichnis|offre de formation|enseignement|asignatur|oferta acad|plan de estudios|guia docente|materias|insegnament|offerta formativa|piano di studi|disciplina|unidade curricular|cursus|studiegids|onderwijscatalogus|przedmiot|predmet|kolegij|ders|bologna|ects|opinto|kursutbud|studiehandbok|emne|tantargy|kurzus)/i;
+
+// Quanti link allegare: 25 per pagina e 30.000 caratteri in tutto, contro i
+// 250.000 del testo. Su Weimar una sola passata ne ha salvati 2.156: mandarli
+// tutti costerebbe piu' del testo che dovrebbero spiegare.
+export function linkPertinenti(link, tetto = 25) {
+  const visti = new Set(); const scelti = [];
+  for (const l of link || []) {
+    if (!l || !l.url || visti.has(l.url)) continue;
+    if (!PAROLE_CATALOGO.test(`${l.testo || ""} ${l.url}`)) continue;
+    visti.add(l.url); scelti.push({ testo: String(l.testo || "").slice(0, 120), url: l.url });
+    if (scelti.length >= tetto) break;
+  }
+  return scelti;
+}
+
+// Il brano allegato per una pagina e' testo PIU' link: e' questo che viene
+// inviato, quindi e' questo che l'impronta SHA-256 deve coprire. Se coprisse
+// il solo testo, una citazione presa dal testo di un link non sarebbe
+// verificabile, e il vincolo "citazione nel brano davvero inviato" salterebbe.
+export const INTESTAZIONE_LINK = "LINK DI QUESTA PAGINA (testo cliccabile -> indirizzo):";
+export function branoPagina(testo, link) {
+  const elenco = (link || []).map((l) => `- "${l.testo}" -> ${l.url}`).join("\n");
+  return elenco ? `${testo}\n\n${INTESTAZIONE_LINK}\n${elenco}` : testo;
+}
+
 export function scegliPagine(indice, cartella) {
-  let resto = 250000, n = 0; const scelte = [];
+  let resto = 250000, restoLink = 30000, n = 0; const scelte = [];
   for (const riga of [...(indice.pagine || [])].sort((a, b) => b.punteggio - a.punteggio)) {
     if (resto < 200) break;
     const pagina = JSON.parse(fs.readFileSync(path.join(cartella, riga.file), "utf8"));
     if (typeof pagina.testo !== "string" || pagina.testo.length < 200) continue;
     const taglio = tagliaParole(pagina.testo, Math.min(40000, resto));
     if (taglio.testo.length < 200) continue;
-    scelte.push({ n: ++n, file: riga.file, url: pagina.url, titolo: pagina.titolo, caratteri: taglio.testo.length, tagliata: taglio.tagliata, impronta: hash(taglio.testo), testo: taglio.testo });
+    const link = restoLink > 0 ? linkPertinenti(pagina.link) : [];
+    const brano = branoPagina(taglio.testo, link);
+    restoLink -= brano.length - taglio.testo.length;
+    scelte.push({ n: ++n, file: riga.file, url: pagina.url, titolo: pagina.titolo, caratteri: taglio.testo.length, tagliata: taglio.tagliata, link, impronta: hash(brano), testo: brano });
     resto -= taglio.testo.length;
   }
   return scelte;
@@ -46,7 +83,7 @@ COSA SIGNIFICA OGNI CAMPO
 - requisitoLingua: le lingue e i livelli richiesti agli studenti in scambio.
 - scadenzeOspitante: le scadenze di nomination e application per gli incoming (autunno e primavera se distinte).
 - linkSito: l'URL della pagina ufficiale incoming/exchange dell'ateneo.
-- linkCatalogo: l'URL del catalogo dei corsi aperto agli studenti in scambio. NON e' la stessa cosa di linkSito: se trovi solo la pagina informativa, ometti linkCatalogo.
+- linkCatalogo: l'URL del catalogo dei corsi aperto agli studenti in scambio, cioe' l'indirizzo dove si LEGGONO i corsi. NON e' la stessa cosa di linkSito: se trovi solo la pagina informativa, ometti linkCatalogo.
 - notaDisponibilita: facolta, corsi o livelli aperti o esclusi agli incoming.
 
 FORMA ESATTA DELLA RISPOSTA. Usa queste chiavi in italiano, alla lettera: "level" non esiste, si scrive "livello". "paginaCitata" e' un NUMERO JSON, non una stringa. Ogni campo trovato, senza eccezioni, e' un oggetto con tutte e cinque le chiavi valore/livello/ambito/paginaCitata/fonte: anche scadenzeOspitante, il cui array va DENTRO "valore" e non al posto dell'oggetto. Copia la struttura, non i contenuti:
@@ -63,9 +100,9 @@ FORMA ESATTA DELLA RISPOSTA. Usa queste chiavi in italiano, alla lettera: "level
       "fonte": { "url": "https://esempio/pagina-16", "citazione": "LA-FRASE-COPIATA-DALLA-PAGINA", "verificataIl": "${oggi}" }
     },
     "linkCatalogo": {
-      "valore": "https://esempio/catalogo",
+      "valore": "https://esempio/elenco-dei-corsi",
       "livello": "ateneo", "ambito": null, "paginaCitata": 23,
-      "fonte": { "url": "https://esempio/pagina-23", "citazione": "LA-FRASE-COPIATA-DALLA-PAGINA", "verificataIl": "${oggi}" }
+      "fonte": { "url": "https://esempio/pagina-23", "citazione": "IL-TESTO-DEL-LINK-COPIATO", "verificataIl": "${oggi}" }
     }
   },
   "nonTrovati": { "linkSito": 1 },
@@ -81,6 +118,12 @@ ALBERO DELLE LINGUE (solo per requisitoLingua)
 - "livello" e' SOLO A1, A2, B1, B2, C1 o C2. Valori come B1/B2, B1-B2, B2.1 o "almeno B2" sono ambigui: ometti requisitoLingua invece di tradurli.
 - REGOLA PIU' IMPORTANTE DI TUTTE su questo campo: la sigla del livello (A1...C2) deve comparire ALLA LETTERA dentro la citazione che copi. Se la pagina dice quale lingua si usa ma non dice a che livello - per esempio "la lingua di insegnamento e' l'inglese", oppure "i corsi sono in inglese e spagnolo" - allora il livello NON esiste sulla pagina: ometti requisitoLingua e mettilo in nonTrovati. Non dedurlo, non stimarlo, non metterci il livello piu' comune. Un livello inventato e' l'errore piu' grave che puoi fare qui.
 - Allo stesso modo, la LINGUA dev'essere nominata nella citazione. Se la pagina chiede "un certificato di lingua di livello B1" senza dire quale lingua, ometti il campo.
+
+GLI INDIRIZZI (linkSito e linkCatalogo)
+- Il testo di una pagina NON contiene i suoi indirizzi. Dopo il testo trovi i suoi LINK, nella forma "testo cliccabile" -> indirizzo. Un indirizzo puoi prenderlo SOLO da li', oppure dall'intestazione [PAGINA n]. Non comporlo, non indovinarlo, non completarlo a memoria.
+- Quando il valore lo prendi da un link, la "citazione" e' il TESTO di quel link copiato alla lettera, e "fonte.url" resta l'URL della pagina che lo conteneva.
+- linkCatalogo dev'essere UNA di queste due cose: l'indirizzo di un link che porta all'elenco dei corsi, oppure l'URL della pagina stessa quando e' quella pagina a ESSERE l'elenco dei corsi.
+- LA PAGINA CHE PARLA DEL CATALOGO NON E' IL CATALOGO. Se la pagina dice "il catalogo lo trovi qui" ma fra i suoi LINK non c'e' nessun indirizzo che ci porti, allora il catalogo non ce l'hai: metti linkCatalogo in nonTrovati. Una pagina di scadenze, una di candidatura, la pagina internazionale dell'ateneo e la sua home non sono MAI un catalogo, per quanto lo nominino.
 
 LA CITAZIONE
 - Va COPIATA carattere per carattere dalla pagina allegata, senza correggere refusi, accenti o spazi, senza tradurla e senza riassumerla.
@@ -150,13 +193,18 @@ export function attesaDa429(messaggio = "") {
   return { giornaliero, attesaMs: Number.isFinite(secondi) ? Math.round(secondi * 1000) + 5000 : 60000 };
 }
 
+const insieme = (filtro) => new Set(String(filtro).split(",").map((c) => c.trim().replace(/s+/g, "").toUpperCase()).filter(Boolean));
+
 export async function leggiPartner({ radice = RADICE, limite = Infinity, partner: filtro, chiamaModello = chiamaGeminiVero, elencaModelli = elencaModelliVeri, attendi = (ms) => new Promise((r) => setTimeout(r, ms)), maxAttese = 3 } = {}) {
   const raccolta = path.join(radice, "raccolta"), letture = path.join(raccolta, "letture"); fs.mkdirSync(letture, { recursive: true });
   const modelli = await elencaModelli(); const modello = process.env.GEMINI_MODEL || scegliFlashLite(modelli);
   if (!modello || !modelli.includes(modello) || !/flash-lite/i.test(modello)) throw new Error("Nessun modello Flash-Lite disponibile: non avvio la lettura.");
   const esito = { partnerLetti: 0, chiamateRiuscite: 0, chiamateFallite: {}, campiProposti: {}, nonTrovati: {}, caratteriInviati: { mediana: 0, massimo: 0 }, modelli, modello, quota429: false }, dimensioni = [];
   for (const p of JSON.parse(fs.readFileSync(path.join(raccolta, "partner.json"), "utf8"))) {
-    if (esito.partnerLetti >= limite || (filtro && filtro !== p.codiceNorm) || !(p.campiMancanti || []).length) continue;
+    // --partner accetta anche un elenco separato da virgole: serve a rileggere
+    // gli STESSI casi su cui una correzione e' stata trovata, invece di un
+    // campione nuovo a ogni giro.
+    if (esito.partnerLetti >= limite || (filtro && !insieme(filtro).has(String(p.codiceNorm).replace(/s+/g, "").toUpperCase())) || !(p.campiMancanti || []).length) continue;
     const dir = path.join(raccolta, "pagine", nome(p.codiceNorm)), indiceFile = path.join(dir, "indice.json"), fuori = path.join(letture, `${nome(p.codiceNorm)}.json`);
     if (fs.existsSync(fuori) || !fs.existsSync(indiceFile)) continue;
     const indice = JSON.parse(fs.readFileSync(indiceFile, "utf8")); if (indice.esito !== "raggiunto") continue;
