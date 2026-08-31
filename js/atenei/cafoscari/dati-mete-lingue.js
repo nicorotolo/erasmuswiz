@@ -534,6 +534,8 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/13944996",
     linkSito: "https://www.ucc.ie/en/international/studyatucc/incomingerasmusstudents/",
+    notaDisponibilita: "Students must enroll and study within the subject area covered by the Erasmus agreement established with their home university.",
+
     notePratiche: "Aperta a: Dipartimento di Studi sull'Asia e sull'Africa Mediterranea [Dati ufficiali bando 2026/27] ciclo/posti: 1 x 9 L. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {

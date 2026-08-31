@@ -207,7 +207,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "10. April" },
+        { cosa: "Nomination (primavera)", periodo: "16. Oktober" }
+      ],
     linkSito: "https://www.tugraz.at",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70670."
   },
@@ -1304,8 +1307,15 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (semestre di primavera)", periodo: "31 ottobre" },
+        { cosa: "Application (semestre di primavera)", periodo: "31 ottobre" },
+        { cosa: "Nomination (semestre d'autunno o anno completo)", periodo: "30 aprile" },
+        { cosa: "Application (semestre d'autunno o anno completo)", periodo: "30 avril" }
+      ],
     linkSito: "https://www.chimieparistech.psl.eu/",
+    notaDisponibilita: "Veuillez noter qu'il n'y a absolument aucune possibilité de combiner différents cours de différents diplômes et même entre différentes mentions au sein des diplômes.",
+
     notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70816."
   },
   {
@@ -2528,6 +2538,8 @@ var METE = [
         { cosa: "Application (sem. estivo)", periodo: "entro 15 gennaio" }
       ],
     linkSito: "http://www.tu-dresden.de",
+    notaDisponibilita: "Für nicht aufgelistete Fachrichtungen informieren Sie sich bitte auf der Homepage der jeweiligen Fakultät.",
+
     notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70700."
   },
   {
@@ -3128,7 +3140,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination / Application Deadlines - winter semester", periodo: "June 15" },
+        { cosa: "Nomination / Application Deadlines - spring semester", periodo: "December 15" }
+      ],
     linkSito: "https://hmu.gr//",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70836."
   },
@@ -3775,7 +3790,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Candidaturas (1ª Fase - Para semestre ímpar e ano letivo de 2024/25)", periodo: "05/fev/2024 até 26/fev/2024" },
+        { cosa: "Candidaturas (2ª Fase - Para semestre par de 2024/25)", periodo: "06/mai/2024 até 03/jun/2024" }
+      ],
     linkSito: "HTTP://WWW.UEVORA.PT",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70862."
   },
@@ -3820,7 +3838,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Candidaturas (1ª Fase - Para semestre ímpar e ano letivo de 2024/25)", periodo: "05/fev/2024 até 26/fev/2024" },
+        { cosa: "Candidaturas (2ª Fase - Para semestre par de 2024/25)", periodo: "06/mai/2024 até 03/jun/2024" }
+      ],
     linkSito: "HTTP://WWW.UEVORA.PT",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70858."
   },
@@ -3838,7 +3859,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Candidaturas (1ª Fase - Para semestre ímpar e ano letivo de 2024/25)", periodo: "05/fev/2024 até 26/fev/2024" },
+        { cosa: "Candidaturas (2ª Fase - Para semestre par de 2024/25)", periodo: "06/mai/2024 até 03/jun/2024" }
+      ],
     linkSito: "HTTP://WWW.UEVORA.PT",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70864."
   },
@@ -3882,7 +3906,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Candidaturas (1ª Fase - Para semestre ímpar e ano letivo de 2024/25)", periodo: "05/fev/2024 até 26/fev/2024" },
+        { cosa: "Candidaturas (2ª Fase - Para semestre par de 2024/25)", periodo: "06/mai/2024 até 03/jun/2024" }
+      ],
     linkSito: "HTTP://WWW.UEVORA.PT",
     notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70863."
   },
@@ -3900,7 +3927,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Candidaturas (1ª Fase - Para semestre ímpar e ano letivo de 2024/25)", periodo: "05/fev/2024 até 26/fev/2024" },
+        { cosa: "Candidaturas (2ª Fase - Para semestre par de 2024/25)", periodo: "06/mai/2024 até 03/jun/2024" }
+      ],
     linkSito: "HTTP://WWW.UEVORA.PT",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70861."
   },
@@ -3919,7 +3949,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Candidaturas (1ª Fase - Para semestre ímpar e ano letivo de 2024/25)", periodo: "05/fev/2024 até 26/fev/2024" },
+        { cosa: "Candidaturas (2ª Fase - Para semestre par de 2024/25)", periodo: "06/mai/2024 até 03/jun/2024" }
+      ],
     linkSito: "HTTP://WWW.UEVORA.PT",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70860."
   },
@@ -3938,7 +3971,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Candidaturas (1ª Fase - Para semestre ímpar e ano letivo de 2024/25)", periodo: "05/fev/2024 até 26/fev/2024" },
+        { cosa: "Candidaturas (2ª Fase - Para semestre par de 2024/25)", periodo: "06/mai/2024 até 03/jun/2024" }
+      ],
     linkSito: "HTTP://WWW.UEVORA.PT",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70859."
   },
@@ -4007,6 +4043,8 @@ var METE = [
         { cosa: "Nomination/application (primavera)", periodo: "entro 15 settembre" }
       ],
     linkSito: "http://www.cuni.cz/cuni/ruk/zahran/",
+    notaDisponibilita: "Students are obliged to select at least 51 % of the courses from their host faculty.",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70688. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -4245,6 +4283,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "1 ottobre - 31 ottobre" }
       ],
     linkSito: "https://www.ugr.es/",
+    notaDisponibilita: "Ten en cuenta que pueden encontrarse restricciones en algunas áreas de CC.Salud, Medicina, Odontología, Psicología y para Bellas Artes se pueden exigir conocimientos previos o portfolio. Consulta con la facultad correspondiente.",
+
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70752. || Scadenze: UGR Faculty of Economics and Business fact sheet 2026/27, nomination 1/4-30/4 e 1/10-31/10, application 1/4-15/5 e 1/10-31/10 || Lingua: spagnolo B1 per corsi in spagnolo; inglese B1 per corsi in inglese || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2024/25"
   },
   {
@@ -4348,6 +4388,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "1 ottobre - 31 ottobre" }
       ],
     linkSito: "https://www.ugr.es/",
+    notaDisponibilita: "Ten en cuenta que pueden encontrarse restricciones en algunas áreas de CC.Salud, Medicina, Odontología, Psicología y para Bellas Artes se pueden exigir conocimientos previos o portfolio. Consulta con la facultad correspondiente.",
+
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70754. || Scadenze: UGR Faculty of Economics and Business fact sheet 2026/27, nomination 1/4-30/4 e 1/10-31/10, application 1/4-15/5 e 1/10-31/10 || Lingua: spagnolo B1 per corsi in spagnolo; inglese B1 per corsi in inglese || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2024/25"
   },
   {
@@ -4440,7 +4482,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "full academic year or for the first semester", periodo: "June 1st" },
+        { cosa: "second semester", periodo: "December 1st" }
+      ],
     linkSito: "https://www.upm.es/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70760."
   },
@@ -4647,6 +4692,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "1 ottobre - 31 ottobre" }
       ],
     linkSito: "https://www.ugr.es/",
+    notaDisponibilita: "Ten en cuenta que pueden encontrarse restricciones en algunas áreas de CC.Salud, Medicina, Odontología, Psicología y para Bellas Artes se pueden exigir conocimientos previos o portfolio. Consulta con la facultad correspondiente.",
+
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70751. || Scadenze: UGR Faculty of Economics and Business fact sheet 2026/27, nomination 1/4-30/4 e 1/10-31/10, application 1/4-15/5 e 1/10-31/10 || Lingua: spagnolo B1 per corsi in spagnolo; inglese B1 per corsi in inglese || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2024/25"
   },
   {
@@ -4772,6 +4819,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "1 ottobre - 31 ottobre" }
       ],
     linkSito: "https://www.ugr.es/",
+    notaDisponibilita: "Ten en cuenta que pueden encontrarse restricciones en algunas áreas de CC.Salud, Medicina, Odontología, Psicología y para Bellas Artes se pueden exigir conocimientos previos o portfolio. Consulta con la facultad correspondiente.",
+
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70755. || Scadenze: UGR Faculty of Economics and Business fact sheet 2026/27, nomination 1/4-30/4 e 1/10-31/10, application 1/4-15/5 e 1/10-31/10 || Lingua: spagnolo B1 per corsi in spagnolo; inglese B1 per corsi in inglese || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2024/25"
   },
   {
@@ -5464,7 +5513,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Autumn semester (from September to January) and whole academic year (from September to June)", periodo: "15 April" },
+        { cosa: "Spring semester (from January to June)", periodo: "15 October" }
+      ],
     linkSito: "https://www.uvic.cat/en",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70791."
   },
@@ -5533,7 +5585,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Autumn semester (from September to January) and whole academic year (from September to June)", periodo: "15 April" },
+        { cosa: "Spring semester (from January to June)", periodo: "15 October" }
+      ],
     linkSito: "https://www.uvic.cat/en",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70790."
   },
@@ -5847,6 +5902,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 30 settembre" }
       ],
     linkSito: "https://www.uzh.ch/de.html",
+    notaDisponibilita: "You can book at most two ETH courses, however bear in mind that these may count for no more than one third of your overall ECTS points.",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70684."
   },
   {
@@ -5961,7 +6018,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Applications and nominations (Fall Term)", periodo: "from May to end of the June every year" },
+        { cosa: "Applications and nominations (Spring Term)", periodo: "from October to end of the December every year" }
+      ],
     linkSito: "https://www.istinye.edu.tr/en",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71490."
   },
@@ -6039,7 +6099,12 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination Deadline Fall Term", periodo: "15th of May" },
+        { cosa: "Nomination Deadline Spring Term", periodo: "15th November" },
+        { cosa: "Application Deadline Fall Term", periodo: "1st of June" },
+        { cosa: "Application Deadline Spring Term", periodo: "1st of December" }
+      ],
     linkSito: "http://bsy.marmara.edu.tr",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70892."
   },
@@ -6057,7 +6122,12 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination Deadline Fall Term", periodo: "15th of May" },
+        { cosa: "Nomination Deadline Spring Term", periodo: "15th November" },
+        { cosa: "Application Deadline Fall Term", periodo: "1st of June" },
+        { cosa: "Application Deadline Spring Term", periodo: "1st of December" }
+      ],
     linkSito: "http://bsy.marmara.edu.tr",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70893."
   },
@@ -6132,7 +6202,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Applications and nominations (Fall Term)", periodo: "from May to end of the June every year" },
+        { cosa: "Applications and nominations (Spring Term)", periodo: "from October to end of the December every year" }
+      ],
     linkSito: "https://www.istinye.edu.tr/en",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70895."
   },

@@ -118,7 +118,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Winter Semester", periodo: "by June 15th 2026" },
+        { cosa: "Summer Semester", periodo: "by November 10th 2026" }
+      ],
     linkSito: "http://www.ue-varna.bg/en/",
     linkCatalogo: "https://ue-varna.bg/en/p/8629/exchange-opportunities/erasmus/incoming-students",
 
@@ -441,7 +444,12 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (winter semester)", periodo: "15 May" },
+        { cosa: "Nomination (summer semester)", periodo: "1 November" },
+        { cosa: "Application (winter semester)", periodo: "15 May - 15 June" },
+        { cosa: "Application (summer semester)", periodo: "1 November - 1 December" }
+      ],
     linkSito: "https://www.hswt.de/",
     linkCatalogo: "https://www.hswt.de/en/study/study-offer",
 
@@ -647,7 +655,10 @@ var METE = [
         { lingua: "Inglese", livello: "B1", condizione: "livello minimo per gli studenti con lingua madre diversa dall'inglese" }
       ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination deadlines", periodo: "April 15th for autumn semester/ full academic year, October 15th for spring semester" },
+        { cosa: "Application deadlines", periodo: "15 May for the autumn semester or full academic year, 15 November for the spring semester" }
+      ],
     linkSito: "http://www.lu.lv/eng/",
     linkCatalogo: "https://www.lu.lv/en/admission/for-international-students/exchange-studies/",
 
@@ -1042,6 +1053,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "1 ottobre - 30 novembre" }
       ],
     linkSito: "https://www.uloyola.es/",
+    notaDisponibilita: "Exchange students can take courses in both English and Spanish, as well as mix courses from our different undergraduate degrees and different years.",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA68183."
   },
   {

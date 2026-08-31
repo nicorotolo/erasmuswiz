@@ -91,7 +91,6 @@ var METE = [
 
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
-
     notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70105. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -109,12 +108,16 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (first semester or full year)", periodo: "At the latest by 1 May" },
+        { cosa: "Nomination (second semester)", periodo: "At the latest on 1October" },
+        { cosa: "Application (first semester or full year)", periodo: "By 15 May at the latest" },
+        { cosa: "Application (second semester)", periodo: "By 15 October at the latest" }
+      ],
     linkSito: "https://www.sciencespo-aix.fr/",
     linkCatalogo: "https://www.sciencespo-aix.fr/international/etudier-a-sciences-po-aix/cours/",
 
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
-
 
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70094. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
@@ -163,7 +166,6 @@ var METE = [
     linkCatalogo: "https://www.univ-nantes.fr/international/venir-a-nantes/incoming-exchange-students-class-catalog",
 
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
-
 
     notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70098. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
@@ -242,6 +244,8 @@ var METE = [
     linkSito: "https://www.tu-chemnitz.de/",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    notaDisponibilita: "Erasmus/exchange students are not required to provide a language certificate.",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70061. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -318,7 +322,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Winter semester (fall)", periodo: "15.07. f or EU - students (31.05. recommended f or n on- EU - students)" },
+        { cosa: "Summer semester (spring)", periodo: "15.01. f or EU - students (30.11. recommended f or n on- EU - students)" }
+      ],
     linkSito: "http://www.euv-frankfurt-o.de",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
@@ -391,7 +398,6 @@ var METE = [
     notaDisponibilita: "I moduli partono a condizione che vi siano almeno 3 studenti iscritti. Gli studenti incoming devono scegliere un modulo completo da 30 ECTS.",
 
     linkCatalogo: "https://bwm.uken.krakow.pl/incoming/modules-2025-2026/",
-
 
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70126."
   },

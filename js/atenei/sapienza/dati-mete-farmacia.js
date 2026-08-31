@@ -55,6 +55,10 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "dal 1 marzo al 31 maggio" },
         { cosa: "Application (primavera)", periodo: "dal 1 ottobre al 15 novembre" }
       ],
+    linkSito: "https://www.international.uliege.be/cms/c_17661588/fr/international-exchange-student",
+
+    notaDisponibilita: "La plupart des cours sont dispensés en français, mais certains sont disponibles en anglais.",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -130,6 +134,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
       ],
+    linkSito: "https://www.uantwerpen.be/en/study/erasmus-and-exchange-students/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1199,6 +1205,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 30 settembre 2026" },
         { cosa: "Application (primavera)", periodo: "entro 15 ottobre 2026" }
       ],
+    linkSito: "https://www.uspceu.com/internacional/estudios-extranjero/movilidad-incoming",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1224,6 +1232,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "dal 1 al 31 ottobre" }
       ],
     linkSito: "https://www.ugr.es/",
+
+    notaDisponibilita: "Ten en cuenta que pueden encontrarse restricciones en algunas áreas de CC.Salud, Medicina, Odontología, Psicología y para Bellas Artes se pueden exigir conocimientos previos o portfolio. Consulta con la facultad correspondiente.",
 
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
@@ -1327,6 +1337,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre per alcuni centri; entro 1 novembre per gli altri centri" },
         { cosa: "Application / documentazione (primavera)", periodo: "entro 31 ottobre per alcuni centri; entro 15 novembre per gli altri centri" }
       ],
+    linkSito: "https://www.cett.es/en/incoming-exchange",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Scadenze: basate su 2025/26"
   },
   {
@@ -1431,6 +1443,8 @@ var METE = [
       ],
     linkSito: "https://www.uloyola.es/",
 
+    notaDisponibilita: "Exchange students can take courses in both English and Spanish, as well as mix courses from our different undergraduate degrees and different years.",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -1504,6 +1518,8 @@ var METE = [
         { cosa: "Application (autunno/annuale)", periodo: "entro 20 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
+    linkSito: "https://uib.iku.edu.tr/en/erasmus-international-exchange-and-cooperations/exchange-programs/bilateral-exchange/incoming",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1555,7 +1571,6 @@ var METE = [
     linkSito: "https://www.yyu.edu.tr/Birimler/67",
 
     linkCatalogo: "http://bilgipaketi.yyu.edu.tr/DereceProgramlari/0",
-
 
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },

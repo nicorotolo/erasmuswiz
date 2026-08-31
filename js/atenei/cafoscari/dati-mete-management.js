@@ -279,7 +279,7 @@ var METE = [
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29533799",
-    linkSito: "",
+    linkSito: "https://www.uni-hamburg.de/internationales/studierende/incoming/austausch-gaststudium.html",
     notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM; studenti: 3; mesi: 5. Periodo vincolato: SI - Solo 1� semestre/YES - First semester only Specifiche: The cross-over course choice is possible for Bachelor students, so they have a wider offer of English taught courses. In this case they should choose at least 50% (usually 3 courses) from their Faculty of enrollment and 2 from the other Faculty. On the Master level at the moment it is not possible. For modules where the language of instruction is �German/English.� , it means that professors ask during the first week of semester if there are any participants who are not fluent in German and in case students prefer the course in English � they talk in English. The literature is also in English. Following the link you will find the list of courses for both faculties, available in both English and German: https://www.wiso.uni-hamburg.de/internationales/international-office/study-with-us/studying-at-uhh/course-choice.html || Scadenze e lingua: fact sheet WiSo/UHH; certificato B2 in tedesco e/o inglese"
   },
   {
@@ -647,6 +647,8 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254457",
     linkSito: "http://www.uah.es",
+    notaDisponibilita: "La admisión del estudiante no garantiza que se pueda matricular de todas las asignaturas solicitadas, ya que algunas tienen un número limitado de plazas.",
+
     notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 4; mesi: 5. Specifiche: Master programs we teach are fully in Spanish, and require a B2 level of Spanish. With regards to the undergraduate modules, we require a mandatory B1 level of Spanish. We do accept a letter of confirmation from the home university or an official certificate. || Scadenze: UAH fact sheet/procedura Erasmus, nomination 1/3-30/4 e 15/9-15/10, application 1/5-31/5 e 1/10-31/10 || Lingua: spagnolo B2 standard; Faculty of Economics richiede minimo B1 spagnolo, inglese B2 per corsi in inglese"
   },
   {
@@ -707,6 +709,8 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254489",
     linkSito: "https://www.ugr.es/",
+    notaDisponibilita: "Ten en cuenta que pueden encontrarse restricciones en algunas áreas de CC.Salud, Medicina, Odontología, Psicología y para Bellas Artes se pueden exigir conocimientos previos o portfolio. Consulta con la facultad correspondiente.",
+
     notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 5. || Scadenze: UGR Faculty of Economics and Business fact sheet 2026/27, nomination 1/4-30/4 e 1/10-31/10, application 1/4-15/5 e 1/10-31/10 || Lingua: spagnolo B1 per corsi in spagnolo; inglese B1 per corsi in inglese"
   },
   {
@@ -736,7 +740,7 @@ var METE = [
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254507",
-    linkSito: "",
+    linkSito: "https://www.uam.es/uam/international/incoming/estudiantes-intercambio",
     notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 4; mesi: 5. || Scadenze: UAM fact sheet 2026/27, nomination 1/4-30/4 e 1/9-30/9, application 1/5-31/5 e 1/10-31/10 || Lingua: spagnolo B2 obbligatorio per Faculty of Economics and Business; inglese B2 per corsi in inglese"
   },
   {
@@ -1679,7 +1683,7 @@ var METE = [
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29139263",
-    linkSito: "",
+    linkSito: "https://www.tcd.ie/global/mobility/inbound/how-to-apply/eu-and-erasmus-exchange/",
     notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 4; mesi: 5. Specifiche: TBS modules are available here: https://www.tcd.ie/business/programmes/undergraduate/study-abroad/module-outlines/ Student will take 50% in TBS. They may take modules in other school pending acceptance by the other school at time of application. See here: https://www.tcd.ie/students/orientation/visiting-exchange/module-enrolment.php || Scadenze: Trinity Erasmus exchange 2026/27 e fact sheet 2026/27 || Lingua: Trinity Business School raccomanda inglese B2"
   },
   {
@@ -1943,6 +1947,8 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29516653",
     linkSito: "",
+    notaDisponibilita: "Exchange students can choose courses from all Schools of Tilburg University.",
+
     notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM; studenti: 5; mesi: 5. || Scadenze e lingua: Tilburg exchange application; application 15 maggio/15 ottobre; partner nomina prima dell invito; inglese B2 bachelor e C1 master, certificato non richiesto agli exchange nominati"
   },
   {
@@ -2000,7 +2006,7 @@ var METE = [
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/28286278",
-    linkSito: "",
+    linkSito: "https://www.iscte-iul.pt/internacional/mobilidade-2039/estudantes-incoming",
     notePratiche: "Aperta a: Laurea Magistrale in Global Accounting and Finance [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 6; mesi: 5. Specifiche: Students are allowed to select modules from the Master in Accounting and Management Control only. || Scadenze e lingua: Iscte Business School fact sheet/procedure; nomination 1 giugno/1 novembre; enrolment 30 giugno/30 novembre; livello B2 CEFR nella lingua di insegnamento, inglese o portoghese"
   },
   {

@@ -66,9 +66,16 @@ function aggiungiNonTrovabile(blocco, campo, lettura) {
   return impostaCampo(blocco, "nonTrovabile", nonTrovabile);
 }
 
-export async function applicaPartner({ radice = RADICE, approvati, letture, prova = false, cancelliDiSistema = cancelliDiSistemaVeri } = {}) {
+// `campi` limita l'applicazione ad alcuni campi soltanto, e non e' un dettaglio
+// tecnico: il 31/08 l'arbitrato umano dei 30 campi ha promosso linkSito,
+// scadenzeOspitante e notaDisponibilita (16 su 16) e bocciato linkCatalogo
+// (7 su 10) e requisitoLingua. Si applica cio' di cui ci si fida, il resto
+// resta in cache e aspetta una lettura migliore: non si butta niente.
+export async function applicaPartner({ radice = RADICE, approvati, letture, campi, prova = false, cancelliDiSistema = cancelliDiSistemaVeri } = {}) {
   const raccolta = path.join(radice, "raccolta");
-  const proposte = approvati || leggiJson(path.join(raccolta, "approvati.json"));
+  const ammessi = campi && campi.length ? new Set(campi) : null;
+  const tutteProposte = approvati || leggiJson(path.join(raccolta, "approvati.json"));
+  const proposte = ammessi ? tutteProposte.filter((p) => ammessi.has(p.campo)) : tutteProposte;
   const tutteLetture = letture || lettureDaCartella(radice);
   const originali = new Map(fileMete(radice).map((file) => [file, fs.readFileSync(file, "utf8")]));
   const pronti = new Map(originali);
@@ -151,7 +158,11 @@ export async function applicaPartner({ radice = RADICE, approvati, letture, prov
 
 async function main() {
   const prova = process.argv.includes("--prova");
-  const esito = await applicaPartner({ prova });
+  const campi = (process.argv.find((a) => a.startsWith("--campi=")) || "").slice(8).split(",").filter(Boolean);
+  // Senza letture non si scrive nessun nonTrovabile: e' una scelta a parte
+  // rispetto all'applicare i valori, e va poterla fare separatamente.
+  const letture = process.argv.includes("--niente-non-trovabile") ? [] : undefined;
+  const esito = await applicaPartner({ prova, campi, letture });
   console.log(`${prova ? "Anteprima" : "Applicazione"}: ${esito.scritti} campi scritti, ${esito.nonTrovabili} nonTrovabile, ${esito.nonTrovabileSaltatiPieni} nonTrovabile saltati per campo pieno, ${esito.disaccordi.length} disaccordi.`);
 }
 

@@ -520,6 +520,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "https://www.lmu.de/de/studium/studienangebot/angebote-fuer-internationale-gast-und-austauschstudierende/erasmus-und-lmuexchange/",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -862,6 +864,8 @@ var METE = [
         { cosa: "Application (anno intero)", periodo: "entro 17 maggio 2026" },
         { cosa: "Application (primavera)", periodo: "entro 1 novembre 2026" }
       ],
+    linkSito: "https://csm.agh.edu.pl/en/erasmus",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -887,6 +891,8 @@ var METE = [
         { cosa: "Nomination (anno intero)", periodo: "entro 1 giugno" },
         { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" }
       ],
+    linkSito: "https://www.iscte-iul.pt/internacional/mobilidade-2039/estudantes-incoming",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -915,6 +921,8 @@ var METE = [
         { cosa: "Application (anno intero)", periodo: "entro 30 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 30 dicembre" }
       ],
+    linkSito: "https://autonoma.pt/erasmus/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1222,6 +1230,8 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "entro 29 maggio 2026" },
         { cosa: "Application (primavera)", periodo: "entro 29 ottobre 2026" }
       ],
+    linkSito: "https://erasmusmi.um.es/erasmusmi/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1299,6 +1309,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
       ],
     linkSito: "https://www.ugr.es/",
+
+    notaDisponibilita: "Ten en cuenta que pueden encontrarse restricciones en algunas áreas de CC.Salud, Medicina, Odontología, Psicología y para Bellas Artes se pueden exigir conocimientos previos o portfolio. Consulta con la facultad correspondiente.",
 
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2024/25"
   },
@@ -1657,6 +1669,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "1 - 31 maggio" },
         { cosa: "Application (primavera)", periodo: "1 - 31 ottobre" }
       ],
+    linkSito: "https://www.uam.es/uam/international/incoming/estudiantes-intercambio",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1682,6 +1696,8 @@ var METE = [
       ],
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkSito: "https://www.su.se/english/education/exchange-students",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1705,6 +1721,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 1 ottobre" }
       ],
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
+    linkSito: "https://www.su.se/english/education/exchange-students",
 
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },

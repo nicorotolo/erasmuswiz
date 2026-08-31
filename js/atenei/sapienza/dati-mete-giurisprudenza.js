@@ -243,6 +243,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "https://www.lmu.de/de/studium/studienangebot/angebote-fuer-internationale-gast-und-austauschstudierende/erasmus-und-lmuexchange/",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -515,6 +517,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "1-31 maggio" },
         { cosa: "Application (primavera)", periodo: "1-31 ottobre" }
       ],
+    linkSito: "https://www.uam.es/uam/international/incoming/estudiantes-intercambio",
+
     notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale (esiste un accordo separato per PhD)."
   },
   {
@@ -539,6 +543,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 1 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 1 ottobre" }
       ],
+    linkSito: "https://www.su.se/english/education/exchange-students",
+
     notePratiche: "Posti totali dell'accordo: 1. Solo livello triennale. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -562,6 +568,8 @@ var METE = [
         { cosa: "Nomination (autunno e primavera)", periodo: "entro 20 maggio" },
         { cosa: "Application / registrazione MoveOn (autunno e primavera)", periodo: "entro 15 giugno" }
       ],
+    linkSito: "https://www.univ-st-etienne.fr/fr/international-1-1/etudiant-international-incoming-student.html",
+
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -876,6 +884,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 30 novembre" },
         { cosa: "Application (primavera)", periodo: "15 ottobre - 15 novembre" }
       ],
+    linkSito: "http://www.uni-bremen.de/Erasmus",
+
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -1120,6 +1130,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 dicembre" }
       ],
     linkSito: "HTTP://WWW.ASE.RO",
+
+    notaDisponibilita: "From our perspective you can choose any courses, from any faculty, year and cycle of studies",
 
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
@@ -1375,6 +1387,8 @@ var METE = [
       ],
     linkSito: "https://www.unileon.es/",
 
+    notaDisponibilita: "Titulaciones de Grado Titulaciones de Posgrado Subjects in English // Subjects in English Friendly Bachelor/Degree subjects Master subjects",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -1398,6 +1412,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "dal 1 al 31 ottobre" }
       ],
     linkSito: "https://www.ugr.es/",
+
+    notaDisponibilita: "Ten en cuenta que pueden encontrarse restricciones en algunas áreas de CC.Salud, Medicina, Odontología, Psicología y para Bellas Artes se pueden exigir conocimientos previos o portfolio. Consulta con la facultad correspondiente.",
 
     notePratiche: "Posti totali dell'accordo: 3. Solo livello triennale."
   },

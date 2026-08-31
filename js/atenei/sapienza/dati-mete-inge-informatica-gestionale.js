@@ -108,8 +108,15 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autumn term or throughout the academic year)", periodo: "April 30" },
+        { cosa: "Nomination (spring term)", periodo: "October 15" },
+        { cosa: "Admission application (autumn term or throughout the academic year)", periodo: "May 15" },
+        { cosa: "Admission application (spring term)", periodo: "October 31" }
+      ],
     linkSito: "https://www.unamur.be/en",
+    notaDisponibilita: "In general, all courses are open to exchange students, with the exception of first-year courses, Master's thesis-related courses and some laboratories.",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA68120."
   },
   {
@@ -127,7 +134,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Winter Semester", periodo: "by June 15th 2026" },
+        { cosa: "Summer Semester", periodo: "by November 10th 2026" }
+      ],
     linkSito: "http://www.ue-varna.bg/en/",
     linkCatalogo: "https://ue-varna.bg/en/p/8629/exchange-opportunities/erasmus/incoming-students",
 
@@ -780,7 +790,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Wintersemester (Oktober bis Februar)", periodo: "15. Mai" },
+        { cosa: "Sommersemester (April bis Juli)", periodo: "15. November" }
+      ],
     linkSito: "http://www.tu-dortmund.de",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68148."
   },
@@ -1028,6 +1041,8 @@ var METE = [
     linkSito: "https://www.rau.ro/",
     linkCatalogo: "https://www.rau.ro/wp-content/mydocuments/erasmus/INCOMING%20students/Course%20Catalogue%202021-22%20FINAL.pdf",
 
+    notaDisponibilita: "Students may choose ONLY courses for their cycle (Bachelor / Master)",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA68346."
   },
   {
@@ -1125,6 +1140,8 @@ var METE = [
         { cosa: "Application (semestre primaverile)", periodo: "entro 15 dicembre" }
       ],
     linkSito: "HTTP://WWW.ASE.RO",
+    notaDisponibilita: "From our perspective you can choose any courses, from any faculty, year and cycle of studies",
+
     notePratiche: "Posti dell'accordo: 1. Accordo ERA68345."
   },
   {

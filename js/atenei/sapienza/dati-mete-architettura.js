@@ -153,6 +153,10 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "dal 1 marzo al 31 maggio" },
         { cosa: "Application (primavera)", periodo: "dal 1 ottobre al 15 novembre" }
       ],
+    linkSito: "https://www.international.uliege.be/cms/c_17661588/fr/international-exchange-student",
+
+    notaDisponibilita: "La plupart des cours sont dispensés en français, mais certains sont disponibles en anglais.",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -423,6 +427,8 @@ var METE = [
         { cosa: "Nomination e application (autunno)", periodo: "entro 10 maggio" },
         { cosa: "Nomination e application (primavera)", periodo: "entro 10 novembre" }
       ],
+    linkSito: "https://lecolededesign.com/en/international/coming-nantes-exchange-student",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -471,6 +477,8 @@ var METE = [
         { cosa: "Application (autunno o anno intero)", periodo: "entro 1 giugno 2026" },
         { cosa: "Application (primavera)", periodo: "entro 30 ottobre 2026" }
       ],
+    linkSito: "https://www.grenoble.archi.fr/venir-a-grenoble/",
+
     notePratiche: "Posti totali dell'accordo: 2. Solo livello Magistrale. Ulteriore accordo distinto con lo stesso ateneo (promotore Federica Dal Falco)."
   },
   {
@@ -643,6 +651,10 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 2 maggio 2025" },
         { cosa: "Application (primavera)", periodo: "entro 9 ottobre 2025" }
       ],
+    linkSito: "https://www.nancy.archi.fr/fr/international.html",
+
+    notaDisponibilita: "Les cours d'encadrement ou de suivi des MFE et PFE ne sont pas accessibles puisque les étudiants passeront leur mémoire ou projet de fin d'année dans leur université d'origine.",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). || Scadenze: basate su 2025/26"
   },
   {
@@ -689,6 +701,8 @@ var METE = [
         { cosa: "Application (autunno o anno intero)", periodo: "entro 1 giugno 2026" },
         { cosa: "Application (primavera)", periodo: "entro 30 ottobre 2026" }
       ],
+    linkSito: "https://www.grenoble.archi.fr/venir-a-grenoble/",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Barbara Pizzo)."
   },
   {
@@ -766,6 +780,10 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 10 giugno 2025" },
         { cosa: "Application (primavera)", periodo: "entro 20 ottobre 2025" }
       ],
+    linkSito: "https://www.toulouse.archi.fr/fr/international/venir-a-lecole",
+
+    notaDisponibilita: "25 étudiants sont accueillis cette année universitaire 2025/26 en Licence 3 et en Master",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Scadenze: basate su 2025/26"
   },
   {
@@ -874,6 +892,10 @@ var METE = [
         { cosa: "Application/registrazione Mobility-Online (primavera)", periodo: "entro 1 novembre" },
         { cosa: "Application C@MPUS (primavera)", periodo: "entro 1 dicembre" }
       ],
+    linkSito: "https://www.uni-stuttgart.de/studium/bewerbung/international-non-degree/erasmus/",
+
+    notaDisponibilita: "Englischsprachige Bachelor-Kurse sind selten. Die Teilnahme an englischsprachigen internationalen MSc-Kursen ist nur nach Anfrage möglich.",
+
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli)."
   },
   {
@@ -955,6 +977,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "1 aprile - 15 maggio" },
         { cosa: "Application (primavera)", periodo: "1 ottobre - 15 novembre" }
       ],
+    linkSito: "https://www.uni-weimar.de/en/university/international/to-weimar/exchange-studies/",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -1130,6 +1154,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "https://www.hs-mainz.de/en/international/study/incoming-exchange-students/",
+
     notePratiche: "Posti totali dell'accordo: 4. Solo livello triennale."
   },
   {
@@ -1930,6 +1956,8 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "entro 1 luglio" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "https://www.uauim.ro/universitatea/relatii-internationale/erasmus/incoming/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -2055,6 +2083,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 31 ottobre 2026" }
       ],
     linkSito: "http://www.uah.es",
+
+    notaDisponibilita: "La admisión del estudiante no garantiza que se pueda matricular de todas las asignaturas solicitadas, ya que algunas tienen un número limitado de plazas.",
 
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
@@ -2429,6 +2459,10 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "documentazione entro 15 maggio 2026" },
         { cosa: "Application (primavera)", periodo: "documentazione entro 1 settembre 2026" }
       ],
+    linkSito: "https://www.nebrija.com/en/international-programmes/nebrija-your-destination/",
+
+    notaDisponibilita: "Programas Integrados de Ciencias Sociales, Comunicación y Artes, Politécnica, Lenguas y Educación",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -2661,6 +2695,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 giorni prima della deadline application" },
         { cosa: "Application (primavera)", periodo: "entro 2 novembre" }
       ],
+    linkSito: "https://www.ozyegin.edu.tr/en/international-exchange-and-partnership-programs/erasmus-international-credit-mobility-ka171/incoming",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -2686,6 +2722,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 30 ottobre" }
       ],
+    linkSito: "https://www.etu.edu.tr/en/uluslararasi/sayfa/erasmus-mobility-ka131",
+
     notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale."
   },
   {
@@ -2842,6 +2880,10 @@ var METE = [
       ],
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkSito: "https://www.ieu.edu.tr/international/en/gelen-uluslararasi-degisim-ogrencileri",
+
+    notaDisponibilita: "The medium of instruction at IUE is English. However, some faculties such as Law, Health Sciences and Vocational School are taught in Turkish.",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -2866,6 +2908,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "1 settembre - 30 novembre" }
       ],
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
+    linkSito: "https://ukey.uludag.edu.tr/erasmus/incoming",
 
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },

@@ -65,6 +65,8 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/28243380",
     linkSito: "https://www.th-bingen.de/en/how-to-apply/exchange-students",
+    notaDisponibilita: "Bachelor and master exchange students can also choose courses from the master degree programmes Environ-mental Sustainability and Informatics / Computer Science.",
+
     notePratiche: "Aperta a: Dipartimento di Scienze Ambientali, Informatica e Statistica [Dati ufficiali bando 2026/27] ciclo/posti: 1 x 6 LM, solo primo semestre. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -274,6 +276,8 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26984371",
     linkSito: "https://www.isthia.fr/en/en-isthia/",
+    notaDisponibilita: "Pour les étudiants des programmes PEF, AEL ou Doubles Diplômes, certaines restrictions peuvent s'appliquer, veuillez prendre contact auprès de votre coordinateur ou coordinatrice pédagogique pour toutes les questions concernant votre choix de cours",
+
     notePratiche: "Aperta a: Dipartimento di Scienze Ambientali, Informatica e Statistica [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 6 L. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -575,6 +579,8 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29532888",
     linkSito: "https://www.tilburguniversity.edu/about/schools/tshd",
+    notaDisponibilita: "Exchange students can choose courses from all Schools of Tilburg University.",
+
     notePratiche: "Aperta a: Dipartimento di Scienze Ambientali, Informatica e Statistica [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5 L e LM. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -660,6 +666,8 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/19805643",
     linkSito: "https://web.centria.fi/en",
+    notaDisponibilita: "Four of Centria’s Bachelor-level programmes taught in English are open for exchange students. These programmes are: Degree programme in Business Administration in Kokkola Degree programme in Chemical Engineering in Kokkola Degree programme in Information Technology in Kokkola and Degree programme in Industrial Management in Kokkola",
+
     notePratiche: "Aperta a: Dipartimento di Scienze Ambientali, Informatica e Statistica [Dati ufficiali bando 2026/27] ciclo/posti: 1 x 5 L. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {

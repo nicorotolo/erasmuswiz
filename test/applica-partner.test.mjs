@@ -138,6 +138,31 @@ test("un campo non scritto non lascia la sua fonte nel file affiancato", async (
   assert.deepEqual(fonti, {});
 });
 
+test("con 'campi' si applica solo cio' di cui ci si fida, il resto resta fuori", async (t) => {
+  // L'arbitrato del 31/08 ha promosso tre campi e bocciato linkCatalogo: si
+  // applica quello che ha passato il controllo umano, il resto aspetta.
+  const radice = radiceFinta(t, 1);
+  fs.writeFileSync(file(radice, 1), `const METE = [{\n  id: "TEST 01",\n  codiceErasmus: "TEST 01",\n  linkCatalogo: "",\n  linkSito: "",\n  notePratiche: []\n}];\n`);
+  const esito = await applicaPartner({ radice, letture: [], campi: ["linkSito"], approvati: [
+    { codiceNorm: "TEST 01", campo: "linkCatalogo", valore: "https://esempio.test/catalogo", fonte },
+    { codiceNorm: "TEST 01", campo: "linkSito", valore: "https://esempio.test/sito", fonte },
+  ] });
+  const dopo = fs.readFileSync(file(radice, 1), "utf8");
+  assert.match(dopo, /linkSito: "https:\/\/esempio.test\/sito"/, "il campo promosso deve entrare");
+  assert.match(dopo, /linkCatalogo: ""/, "il campo bocciato deve restare vuoto");
+  assert.equal(esito.scritti, 1);
+  const fonti = JSON.parse(fs.readFileSync(path.join(radice, "raccolta", "FONTI-partner.json"), "utf8"));
+  assert.deepEqual(fonti, { "TEST 01": { linkSito: fonte.url } }, "niente fonte per un campo non applicato");
+});
+
+test("senza letture non si scrive nessun nonTrovabile", async (t) => {
+  const radice = radiceFinta(t, 1);
+  const prima = fs.readFileSync(file(radice, 1), "utf8");
+  const esito = await applicaPartner({ radice, approvati: [], letture: [] });
+  assert.equal(fs.readFileSync(file(radice, 1), "utf8"), prima);
+  assert.equal(esito.nonTrovabili, 0);
+});
+
 test("prova scrive solo l anteprima e lascia i file dati identici", async (t) => {
   const radice = radiceFinta(t); const prima = [1, 2, 3].map((n) => fs.readFileSync(file(radice, n), "utf8"));
   await applicaPartner({ radice, approvati: [proposta()], letture: [], prova: true });

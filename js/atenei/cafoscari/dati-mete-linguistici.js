@@ -126,6 +126,8 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "https://www.uloyola.es/",
+    notaDisponibilita: "Exchange students can take courses in both English and Spanish, as well as mix courses from our different undergraduate degrees and different years.",
+
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 4 x 6 LM. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -2433,6 +2435,8 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "https://www.unileon.es/",
+    notaDisponibilita: "Titulaciones de Grado Titulaciones de Posgrado Subjects in English // Subjects in English Friendly Bachelor/Degree subjects Master subjects",
+
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 6 L e LM. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -2691,6 +2695,8 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "https://cuni.cz/UKEN-145.html",
+    notaDisponibilita: "Students are obliged to select at least 51 % of the courses from their host faculty.",
+
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 4 x 5. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -3131,6 +3137,8 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "https://www.tilburguniversity.edu/education/exchange-programs",
+    notaDisponibilita: "Exchange students can choose courses from all Schools of Tilburg University.",
+
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 3 x 5 LM. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {

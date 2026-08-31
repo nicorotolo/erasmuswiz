@@ -338,6 +338,8 @@ var METE = [
     linkSito: "https://www.rau.ro/",
     linkCatalogo: "https://www.rau.ro/wp-content/mydocuments/erasmus/INCOMING%20students/Course%20Catalogue%202021-22%20FINAL.pdf",
 
+    notaDisponibilita: "Students may choose ONLY courses for their cycle (Bachelor / Master)",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA69672."
   },
   {
@@ -408,7 +410,6 @@ var METE = [
 
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
-
     notePratiche: "Posti dell'accordo: 1. Accordo ERA69674. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -436,6 +437,8 @@ var METE = [
     linkSito: "https://www.rau.ro/",
     linkCatalogo: "https://www.rau.ro/wp-content/mydocuments/erasmus/INCOMING%20students/Course%20Catalogue%202021-22%20FINAL.pdf",
 
+    notaDisponibilita: "Students may choose ONLY courses for their cycle (Bachelor / Master)",
+
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69673."
   },
   {
@@ -461,7 +464,6 @@ var METE = [
     linkCatalogo: "https://www.unitbv.ro/en/prospective-students/academic-programmes.html",
 
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
-
 
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA69667. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
@@ -490,7 +492,6 @@ var METE = [
     linkCatalogo: "https://uniba.sk/en/international-relations/eninternational-relationserasmus/incoming-students/",
 
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
-
 
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69675. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
@@ -760,7 +761,6 @@ var METE = [
     notaDisponibilita: "Gli studenti Erasmus incoming possono scegliere corsi di qualsiasi dipartimento, purché approvati dall'università di provenienza.",
 
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
-
 
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69677. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },

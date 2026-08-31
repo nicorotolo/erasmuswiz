@@ -165,6 +165,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 30 settembre" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "https://www.uspceu.com/internacional/estudios-extranjero/movilidad-incoming",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Secondo accordo distinto con lo stesso ateneo (promotore Daniele De Nuzzo, vedi anche sap-medic2-sanpabloceu-b). || Scadenze: basate su 2025/26"
   },
   {
@@ -263,6 +265,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 30 settembre" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "https://www.uspceu.com/internacional/estudios-extranjero/movilidad-incoming",
+
     notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale. Secondo accordo distinto con lo stesso ateneo (promotore Maria Chiara Vulpiani, vedi anche sap-medic2-sanpabloceu-a con promotore Daniele De Nuzzo). || Scadenze: basate su 2025/26"
   },
   {
@@ -360,6 +364,8 @@ var METE = [
     scadenzeOspitante: [
         { cosa: "Application (autunno)", periodo: "dal 6 marzo al 28 aprile 2026" }
       ],
+    linkSito: "https://www.cett.es/en/incoming-exchange",
+
     notePratiche: "Posti totali dell'accordo: 4. Solo livello triennale."
   },
   {

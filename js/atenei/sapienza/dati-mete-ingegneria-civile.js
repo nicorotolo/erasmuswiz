@@ -908,6 +908,8 @@ var METE = [
         { cosa: "Application Mobility-Online (primavera)", periodo: "entro 1 novembre" }
       ],
     linkSito: "https://www.uni-stuttgart.de/",
+    notaDisponibilita: "Englischsprachige Bachelor-Kurse sind selten. Die Teilnahme an englischsprachigen internationalen MSc-Kursen ist nur nach Anfrage möglich.",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69165."
   },
   {
@@ -960,6 +962,8 @@ var METE = [
         { cosa: "Application (sem. estivo)", periodo: "entro 15 gennaio" }
       ],
     linkSito: "http://www.tu-dresden.de",
+    notaDisponibilita: "Für nicht aufgelistete Fachrichtungen informieren Sie sich bitte auf der Homepage der jeweiligen Fakultät.",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69156."
   },
   {
@@ -1038,6 +1042,8 @@ var METE = [
         { cosa: "Application (sem. estivo)", periodo: "entro 15 gennaio" }
       ],
     linkSito: "http://www.tu-dresden.de",
+    notaDisponibilita: "Für nicht aufgelistete Fachrichtungen informieren Sie sich bitte auf der Homepage der jeweiligen Fakultät.",
+
     notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69157."
   },
   {
@@ -1054,7 +1060,12 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (winter semester)", periodo: "15 May" },
+        { cosa: "Nomination (summer semester)", periodo: "1 November" },
+        { cosa: "Application (winter semester)", periodo: "15 May - 15 June" },
+        { cosa: "Application (summer semester)", periodo: "1 November - 1 December" }
+      ],
     linkSito: "https://www.hswt.de/",
     linkCatalogo: "https://www.hswt.de/en/study/study-offer",
 
@@ -1085,6 +1096,8 @@ var METE = [
         { cosa: "Application Mobility-Online (primavera)", periodo: "entro 1 novembre" }
       ],
     linkSito: "https://www.uni-stuttgart.de/",
+    notaDisponibilita: "Englischsprachige Bachelor-Kurse sind selten. Die Teilnahme an englischsprachigen internationalen MSc-Kursen ist nur nach Anfrage möglich.",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA69164."
   },
   {
@@ -1584,7 +1597,12 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination deadlines", periodo: "April 1st to April 30th for a winter semester and whole academic year" },
+        { cosa: "Nomination deadlines", periodo: "August 15th to September 20th for a summer semester" },
+        { cosa: "Application deadlines", periodo: "May 4th to May 31st for a winter semester and whole academic year" },
+        { cosa: "Application deadlines", periodo: "October 1st to November 15th for a summer semester" }
+      ],
     linkSito: "http://pk.edu.pl",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69312."
   },
@@ -2158,7 +2176,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "full academic year or for the first semester", periodo: "June 1st" },
+        { cosa: "second semester", periodo: "December 1st" }
+      ],
     linkSito: "https://www.upm.es/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69192."
   },
@@ -2393,7 +2414,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "full academic year or for the first semester", periodo: "June 1st" },
+        { cosa: "second semester", periodo: "December 1st" }
+      ],
     linkSito: "https://www.upm.es/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69193."
   },
@@ -2447,6 +2471,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
     linkSito: "https://www.unileon.es/",
+    notaDisponibilita: "Titulaciones de Grado Titulaciones de Posgrado Subjects in English // Subjects in English Friendly Bachelor/Degree subjects Master subjects",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA69183."
   },
   {
@@ -2534,7 +2560,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "full academic year or for the first semester", periodo: "June 1st" },
+        { cosa: "second semester", periodo: "December 1st" }
+      ],
     linkSito: "https://www.upm.es/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69197."
   },
@@ -2676,7 +2705,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "full academic year or for the first semester", periodo: "June 1st" },
+        { cosa: "second semester", periodo: "December 1st" }
+      ],
     linkSito: "https://www.upm.es/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69194."
   },
@@ -2816,7 +2848,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "full academic year or for the first semester", periodo: "June 1st" },
+        { cosa: "second semester", periodo: "December 1st" }
+      ],
     linkSito: "https://www.upm.es/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69196."
   },

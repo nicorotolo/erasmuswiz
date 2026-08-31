@@ -354,7 +354,10 @@ var METE = [
         { lingua: "Polacco", livello: "B1", condizione: "almeno B1+" }
       ],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "AUTUMN semester 2026/2027", periodo: "August 31st 2026" },
+        { cosa: "SPRING semester 2026/2027", periodo: "January 31st 2027" }
+      ],
     linkSito: "http://www.pcz.pl/",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Accordo ERA71656."
   },
@@ -485,6 +488,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "1 ottobre - 31 ottobre" }
       ],
     linkSito: "https://www.ugr.es/",
+    notaDisponibilita: "Ten en cuenta que pueden encontrarse restricciones en algunas áreas de CC.Salud, Medicina, Odontología, Psicología y para Bellas Artes se pueden exigir conocimientos previos o portfolio. Consulta con la facultad correspondiente.",
+
     notePratiche: "Posti dell'accordo: 3. Accordo ERA68185. || Scadenze: UGR Faculty of Economics and Business fact sheet 2026/27, nomination 1/4-30/4 e 1/10-31/10, application 1/4-15/5 e 1/10-31/10 || Lingua: spagnolo B1 per corsi in spagnolo; inglese B1 per corsi in inglese || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2024/25"
   },
   {
@@ -511,6 +516,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "1 ottobre - 31 ottobre" }
       ],
     linkSito: "https://www.ugr.es/",
+    notaDisponibilita: "Ten en cuenta que pueden encontrarse restricciones en algunas áreas de CC.Salud, Medicina, Odontología, Psicología y para Bellas Artes se pueden exigir conocimientos previos o portfolio. Consulta con la facultad correspondiente.",
+
     notePratiche: "Posti dell'accordo: 2. Accordo ERA68186. || Scadenze: UGR Faculty of Economics and Business fact sheet 2026/27, nomination 1/4-30/4 e 1/10-31/10, application 1/4-15/5 e 1/10-31/10 || Lingua: spagnolo B1 per corsi in spagnolo; inglese B1 per corsi in inglese || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2024/25"
   },
   {
@@ -616,7 +623,6 @@ var METE = [
     linkCatalogo: "https://exchange.supsi.ch/en/incoming-students",
 
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
-
 
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA68131. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },

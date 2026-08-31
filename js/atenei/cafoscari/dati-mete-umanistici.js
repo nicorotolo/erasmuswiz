@@ -353,6 +353,8 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29512665",
     linkSito: "https://www.tilburguniversity.edu/education/exchange-programs",
+    notaDisponibilita: "Exchange students can choose courses from all Schools of Tilburg University.",
+
     notePratiche: "Aperta a: Dipartimento di Studi Umanistici [Dati ufficiali bando 2026/27] ciclo/posti: 3 x 5 LM. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {

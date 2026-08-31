@@ -61,6 +61,8 @@ var METE = [
     linkSito: "http://www.cuni.cz",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    notaDisponibilita: "Students are obliged to select at least 51 % of the courses from their host faculty.",
+
     notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 10 L e LM. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -328,6 +330,8 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29533977",
     linkSito: "https://www.infocom.uliege.be/cms/c_4577304/fr/infocom-accueil-erasmus-in",
+    notaDisponibilita: "La plupart des cours sont dispensés en français, mais certains sont disponibles en anglais.",
+
     notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 3 x 5 LM. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -655,6 +659,8 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254368",
     linkSito: "http://www.ulg.ac.be/en/erasmus/in",
+    notaDisponibilita: "La plupart des cours sont dispensés en français, mais certains sont disponibles en anglais.",
+
     notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 1 x 5. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -1837,6 +1843,8 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/25783083",
     linkSito: "https://www.student.uni-stuttgart.de/",
+    notaDisponibilita: "Englischsprachige Bachelor-Kurse sind selten. Die Teilnahme an englischsprachigen internationalen MSc-Kursen ist nur nach Anfrage möglich.",
+
     notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 2x6 solo 1° sem. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {

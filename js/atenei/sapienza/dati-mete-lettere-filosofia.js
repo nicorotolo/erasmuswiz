@@ -636,6 +636,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "dal 1 ottobre al 15 novembre" }
       ],
     linkSito: "https://www.ulg.ac.be",
+    notaDisponibilita: "La plupart des cours sont dispensés en français, mais certains sont disponibles en anglais.",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71072. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -1839,6 +1841,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro l'11 ottobre 2026" }
       ],
     linkSito: "http://www.univ-tlse2.fr",
+    notaDisponibilita: "Pour les étudiants des programmes PEF, AEL ou Doubles Diplômes, certaines restrictions peuvent s'appliquer, veuillez prendre contact auprès de votre coordinateur ou coordinatrice pédagogique pour toutes les questions concernant votre choix de cours",
+
     notePratiche: "Posti dell'accordo: 1. Accordo ERA71357."
   },
   {
@@ -2828,6 +2832,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro l'11 ottobre 2026" }
       ],
     linkSito: "http://www.univ-tlse2.fr",
+    notaDisponibilita: "Pour les étudiants des programmes PEF, AEL ou Doubles Diplômes, certaines restrictions peuvent s'appliquer, veuillez prendre contact auprès de votre coordinateur ou coordinatrice pédagogique pour toutes les questions concernant votre choix de cours",
+
     notePratiche: "Posti dell'accordo: 1. Accordo ERA71293."
   },
   {
@@ -3055,6 +3061,8 @@ var METE = [
         { cosa: "Application (sem. estivo)", periodo: "entro 15 gennaio" }
       ],
     linkSito: "http://www.tu-dresden.de",
+    notaDisponibilita: "Für nicht aufgelistete Fachrichtungen informieren Sie sich bitte auf der Homepage der jeweiligen Fakultät.",
+
     notePratiche: "Posti dell'accordo: 3. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70918."
   },
   {
@@ -3231,7 +3239,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Wintersemester (Oktober bis Februar)", periodo: "15. Mai" },
+        { cosa: "Sommersemester (April bis Juli)", periodo: "15. November" }
+      ],
     linkSito: "http://www.tu-dortmund.de",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70917."
   },
@@ -3675,6 +3686,8 @@ var METE = [
         { cosa: "Application Mobility-Online (primavera)", periodo: "entro 1 novembre" }
       ],
     linkSito: "https://www.uni-stuttgart.de/",
+    notaDisponibilita: "Englischsprachige Bachelor-Kurse sind selten. Die Teilnahme an englischsprachigen internationalen MSc-Kursen ist nur nach Anfrage möglich.",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Accordo ERA71088."
   },
   {
@@ -3899,7 +3912,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Winter semester (fall)", periodo: "15.07. f or EU - students (31.05. recommended f or n on- EU - students)" },
+        { cosa: "Summer semester (spring)", periodo: "15.01. f or EU - students (30.11. recommended f or n on- EU - students)" }
+      ],
     linkSito: "http://www.euv-frankfurt-o.de",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71152."
   },
@@ -5711,7 +5727,6 @@ var METE = [
 
     linkCatalogo: "https://bwm.uken.krakow.pl/incoming/modules-2025-2026/",
 
-
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71364."
   },
   {
@@ -6454,6 +6469,8 @@ var METE = [
         { cosa: "Nomination/application (primavera)", periodo: "entro 15 settembre" }
       ],
     linkSito: "http://www.cuni.cz/cuni/ruk/zahran/",
+    notaDisponibilita: "Students are obliged to select at least 51 % of the courses from their host faculty.",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70911. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -7948,6 +7965,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
     linkSito: "https://www.unileon.es/",
+    notaDisponibilita: "Titulaciones de Grado Titulaciones de Posgrado Subjects in English // Subjects in English Friendly Bachelor/Degree subjects Master subjects",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71179."
   },
   {
@@ -8000,6 +8019,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "1 ottobre - 31 ottobre" }
       ],
     linkSito: "https://www.ugr.es/",
+    notaDisponibilita: "Ten en cuenta que pueden encontrarse restricciones en algunas áreas de CC.Salud, Medicina, Odontología, Psicología y para Bellas Artes se pueden exigir conocimientos previos o portfolio. Consulta con la facultad correspondiente.",
+
     notePratiche: "Posti dell'accordo: 1. Accordo ERA71176. || Scadenze: UGR Faculty of Economics and Business fact sheet 2026/27, nomination 1/4-30/4 e 1/10-31/10, application 1/4-15/5 e 1/10-31/10 || Lingua: spagnolo B1 per corsi in spagnolo; inglese B1 per corsi in inglese || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2024/25"
   },
   {
@@ -8647,6 +8668,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "1 ottobre - 31 ottobre" }
       ],
     linkSito: "http://www.uah.es",
+    notaDisponibilita: "La admisión del estudiante no garantiza que se pueda matricular de todas las asignaturas solicitadas, ya que algunas tienen un número limitado de plazas.",
+
     notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71162. || Scadenze: UAH fact sheet/procedura Erasmus, nomination 1/3-30/4 e 15/9-15/10, application 1/5-31/5 e 1/10-31/10 || Lingua: spagnolo B2 standard; Faculty of Economics richiede minimo B1 spagnolo, inglese B2 per corsi in inglese"
   },
   {
@@ -9611,6 +9634,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 30 settembre" }
       ],
     linkSito: "https://www.uzh.ch/de.html",
+    notaDisponibilita: "You can book at most two ETH courses, however bear in mind that these may count for no more than one third of your overall ECTS points.",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70905."
   },
   {
@@ -9691,6 +9716,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 30 settembre" }
       ],
     linkSito: "https://www.uzh.ch/de.html",
+    notaDisponibilita: "You can book at most two ETH courses, however bear in mind that these may count for no more than one third of your overall ECTS points.",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA71321."
   },
   {
@@ -10233,7 +10260,12 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination (autunno)", periodo: "July 1, 2024" },
+        { cosa: "Application (autunno)", periodo: "July 30, 2024" },
+        { cosa: "Nomination (primavera)", periodo: "October 28, 2024" },
+        { cosa: "Application (primavera)", periodo: "November 29, 2024" }
+      ],
     linkSito: "https://www.beykent.edu.tr/en/",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71466."
   },

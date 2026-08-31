@@ -196,6 +196,10 @@ var METE = [
         { cosa: "Application (autunno/anno accademico)", periodo: "dal 1 marzo al 31 maggio" },
         { cosa: "Application (primavera)", periodo: "dal 1 ottobre al 15 novembre" }
       ],
+    linkSito: "https://www.international.uliege.be/cms/c_17661588/fr/international-exchange-student",
+
+    notaDisponibilita: "La plupart des cours sont dispensés en français, mais certains sont disponibles en anglais.",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -448,6 +452,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
       ],
+    linkSito: "https://www.ucly.fr/en/admissions/exchange-students-mobility-program/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -1035,6 +1041,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 1 settembre" },
         { cosa: "Application (primavera)", periodo: "entro 1 marzo" }
       ],
+    linkSito: "https://www.uni-hamburg.de/internationales/studierende/incoming/austausch-gaststudium.html",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1184,6 +1192,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 31 maggio 2026" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre 2026" }
       ],
+    linkSito: "https://www.mruni.eu/erasmus-studijos-2/",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1233,6 +1243,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 23 maggio 2026" },
         { cosa: "Application (primavera)", periodo: "entro 23 novembre 2026" }
       ],
+    linkSito: "https://www.ru.nl/ioss/incoming-students/",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1752,6 +1764,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 30 settembre" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "https://www.uspceu.com/internacional/estudios-extranjero/movilidad-incoming",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Scadenze: basate su 2025/26"
   },
   {
@@ -1851,6 +1865,8 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "entro 30 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
+    linkSito: "https://www.uniovi.es/estudia/movilidad/extranjeros",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -1899,6 +1915,8 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "entro 30 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
+    linkSito: "https://www.uniovi.es/estudia/movilidad/extranjeros",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1926,6 +1944,8 @@ var METE = [
         { cosa: "Nomination (primavera, Psicologia)", periodo: "entro 16 ottobre 2026" },
         { cosa: "Application (primavera, Psicologia)", periodo: "entro 30 ottobre 2026" }
       ],
+    linkSito: "https://www.cett.es/en/incoming-exchange",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -2128,6 +2148,8 @@ var METE = [
       ],
     linkSito: "https://www.ugr.es/",
 
+    notaDisponibilita: "Ten en cuenta que pueden encontrarse restricciones en algunas áreas de CC.Salud, Medicina, Odontología, Psicología y para Bellas Artes se pueden exigir conocimientos previos o portfolio. Consulta con la facultad correspondiente.",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -2155,6 +2177,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "dal 1 ottobre al 31 ottobre" }
       ],
     linkSito: "https://www.ugr.es/",
+
+    notaDisponibilita: "Ten en cuenta que pueden encontrarse restricciones en algunas áreas de CC.Salud, Medicina, Odontología, Psicología y para Bellas Artes se pueden exigir conocimientos previos o portfolio. Consulta con la facultad correspondiente.",
 
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
@@ -2205,6 +2229,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 1 settembre 2026" },
         { cosa: "Application (primavera)", periodo: "entro 1 ottobre 2026" }
       ],
+    linkSito: "https://www.su.se/english/education/exchange-students",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -2230,6 +2256,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 1 settembre 2026" },
         { cosa: "Application (primavera)", periodo: "entro 1 ottobre 2026" }
       ],
+    linkSito: "https://www.su.se/english/education/exchange-students",
+
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -2280,6 +2308,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 30 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
+    linkSito: "https://www.fhnw.ch/de/studium/international/incoming",
+
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -2307,6 +2337,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 30 settembre" }
       ],
     linkSito: "https://www.uzh.ch/de.html",
+
+    notaDisponibilita: "You can book at most two ETH courses, however bear in mind that these may count for no more than one third of your overall ECTS points.",
 
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
@@ -2484,6 +2516,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 30 dicembre" }
       ],
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
+    linkSito: "https://international.yeditepe.edu.tr/index.php/en/international/erasmus-incoming-students",
 
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26 || Lingua: CEFR non trovato dopo ricerca approfondita"
   }

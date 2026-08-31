@@ -487,7 +487,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Wintersemester (Oktober bis Februar)", periodo: "15. Mai" },
+        { cosa: "Sommersemester (April bis Juli)", periodo: "15. November" }
+      ],
     linkSito: "http://www.tu-dortmund.de",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Accordo ERA68147."
   },
@@ -555,7 +558,12 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nominierung Wintersemester", periodo: "01.06.2026" },
+        { cosa: "Bewerbung Wintersemester", periodo: "01.04. - 15.06.2026" },
+        { cosa: "Nominierung Sommersemester", periodo: "15.11.2026" },
+        { cosa: "Bewerbung Sommersemester", periodo: "01.10. - 30.11.2026" }
+      ],
     linkSito: "http://www.uni-erfurt.de/foreign",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68149."
   },
@@ -884,7 +892,12 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nominations AUTUMN and Full Year", periodo: "1 April" },
+        { cosa: "Nominations SPRING", periodo: "1 November" },
+        { cosa: "Application AUTUMN and Full Year", periodo: "15 May" },
+        { cosa: "Application SPRING", periodo: "1 December" }
+      ],
     linkSito: "https://msgsu.edu.tr/",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68364."
   },

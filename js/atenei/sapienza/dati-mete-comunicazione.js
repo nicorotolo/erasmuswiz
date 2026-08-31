@@ -316,6 +316,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "https://www.lmu.de/de/studium/studienangebot/angebote-fuer-internationale-gast-und-austauschstudierende/erasmus-und-lmuexchange/",
+
     notePratiche: "Posti totali dell'accordo: 6 (condivisi tra i livelli)."
   },
   {
@@ -506,6 +508,8 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "entro 30 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 30 dicembre" }
       ],
+    linkSito: "https://autonoma.pt/erasmus/",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -786,6 +790,10 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 settembre" },
         { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
       ],
+    linkSito: "https://cuni.cz/UKEN-145.html",
+
+    notaDisponibilita: "Students are obliged to select at least 51 % of the courses from their host faculty.",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -918,6 +926,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "dal 1 aprile al 15 giugno" },
         { cosa: "Application (primavera)", periodo: "dal 1 ottobre al 30 novembre" }
       ],
+    linkSito: "https://erasmusmi.um.es/erasmusmi/",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -966,6 +976,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
         { cosa: "Application (primavera)", periodo: "entro 1 dicembre" }
       ],
+    linkSito: "https://www.universidadunie.com/unie-community/erasmus",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1065,6 +1077,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
         { cosa: "Application (primavera)", periodo: "entro 1 dicembre" }
       ],
+    linkSito: "https://www.universidadunie.com/unie-community/erasmus",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1090,6 +1104,8 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "entro 1 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
       ],
+    linkSito: "https://www.cett.es/en/incoming-exchange",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1243,6 +1259,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
         { cosa: "Application (primavera)", periodo: "entro 1 dicembre" }
       ],
+    linkSito: "https://www.universidadunie.com/unie-community/erasmus",
+
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1480,6 +1498,8 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 1 gennaio" }
       ],
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+
+    linkSito: "https://international.yeditepe.edu.tr/index.php/en/international/erasmus-incoming-students",
 
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2023/24 || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
