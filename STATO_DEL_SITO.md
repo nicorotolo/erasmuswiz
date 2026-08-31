@@ -21,15 +21,15 @@
 
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-08-31 — Claude e Codex (**Fase 4b COMPLETA: 2b-2
-riletta, corretta ed eseguita sul campo; 2b-3 scritta da Codex e riletta in due
-giri**, nessuna riga del sito toccata). **251/251 prove verdi.**
+**Ultimo aggiornamento:** 2026-08-31 — Claude e Codex (**Fase 4b CHIUSA, e i
+primi dati letti da un modello sono nel sito**: 176 campi in 23 file).
+**253/253 prove verdi.**
 
-> ⏳ **Il lavoro è fermo su Nicola, e non per un intoppo tecnico.** La
-> correttezza del campione umano è **sotto il 95%**, e la regola dice di
-> fermarsi e dirlo invece di ritoccare il prompt finché non passa. Servono:
-> (1) l'arbitrato dei 30 campi, (2) il via libera ad applicare 348 campi e 1.433
-> `nonTrovabile` in 25 file, (3) le decisioni di prodotto elencate al §8.
+> ✅ **L'arbitrato è stato fatto il 31/08, e ha deciso lui la rotta.** 85,2%
+> complessivo — sotto il 95%, quindi non si applica tutto. Ma per campo:
+> **16 su 16** su scadenze, pagina scambi e nota disponibilità; 7 su 10 sul
+> catalogo dei corsi; bocciata la lingua. **Applicati solo i tre promossi: 176
+> campi in 23 file** (`c6eef20`). I 63 valori bocciati restano in cache.
 
 ### La Consegna 2b-3 e il difetto che solo i dati veri hanno mostrato
 
@@ -4487,7 +4487,32 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 
 ## 6. ⚠️ STATO DEI CONTENUTI (il vero lavoro che resta)
 
-### Mappatura mete — fotografia misurata il 2026-08-30
+### Mappatura mete — fotografia del 2026-08-31, DOPO la prima applicazione
+
+Contata **per meta** (le 1.987 pubblicate). È la prima volta che dati letti da
+un modello entrano nel sito: 176 campi, e solo dai tre che l'arbitrato umano ha
+promosso 16 su 16.
+
+| Campo | Mete col dato, prima | dopo | In attesa in cache |
+|---|---:|---:|---:|
+| scadenzeOspitante | 1705 | **1744** | — |
+| linkSito | 1636 | **1701** | — |
+| notaDisponibilita | 94 | **166** | — |
+| **linkCatalogo** (serve al Learning Agreement) | 120 | 120 | **53 valori, bocciati** |
+| requisitoLingua | 1529 | 1529 | **10 valori, bocciati** |
+
+**I due campi fermi sono fermi apposta.** L'arbitrato del 31/08 ha dato 85,2%
+complessivo, ma il numero aggregato nascondeva la cosa utile: guardando per
+campo, i primi tre fanno **16 su 16** e tutti i problemi stanno negli altri due.
+`linkCatalogo` sta a 7 su 10, e tre dei cinque casi problematici erano di
+livello **facoltà** — il catalogo di un dipartimento, non dell'ateneo.
+Non si butta niente: i 63 valori restano in cache e aspettano una lettura
+migliore.
+
+Restano inoltre **1.433 voci `nonTrovabile`** calcolate e non scritte: è una
+decisione a sé, non ancora presa.
+
+### Fotografia precedente, per partner — misurata il 2026-08-30
 
 Contata **per partner** (codice Erasmus), che è l'unità di lavoro vera: le
 1.987 mete pubblicate stanno su **745 codici distinti**, di cui 183 finti.
@@ -4841,29 +4866,38 @@ portatile può anche chiudersi.
    notte del 30/08: vedi l'intestazione di questo file per i numeri.
    ✅ Fatti: la rilettura del prompt, la prima passata vera (244 partner), il
    resoconto del §6.2, la correzione E3 e altri quattro buchi dei cancelli.
+   ✅ **Arbitrato fatto e dati applicati il 31/08** (`c6eef20`): 176 campi in 23
+   file, i tre promossi dall'arbitrato. La Fase 4b è **chiusa**.
+
    **I prossimi passi, nell'ordine:**
-   1. ⏳ **L'arbitrato dei 30 campi è di Nicola** e non è ancora fatto. La
-      tabella è pronta, con fonte, citazione, valore e un verdetto motivato per
-      ciascuno. Il mio conteggio provvisorio è **sotto il 95%**: finché non
-      arbitri, il lavoro resta fermo lì — e il prompt non si tocca per farlo
-      passare (spec §2 quinquies E6);
-   2. ✅ la **2b-3** (`applica-partner.mjs`) è **chiusa** (`f0c8d3e`): scritta
-      da Codex, riletta in due giri, 251 prove verdi. ⏳ Resta il **via libera
-      di Nicola ad applicarla davvero**: 348 campi e 1.433 `nonTrovabile` in 25
-      file. Finora solo `--prova` e una verifica su copia isolata; i file dati
-      del sito non sono mai stati toccati;
-   3. ⏳ **tre decisioni di prodotto**, non tecniche: (a) 3 `scadenzeOspitante`
+   1. ⏳ **Il catalogo dei corsi** — il campo che serve al Learning Agreement, e
+      l'unico bocciato dall'arbitrato (7 su 10). **53 valori aspettano in
+      cache.** La causa è nota e ripetuta: il modello propone la pagina che
+      *parla* del catalogo invece del catalogo (Bamberga dava la pagina delle
+      scadenze; Atene la pagina internazionale). Tre dei cinque casi
+      problematici erano di livello **facoltà**. È il lavoro che dà più valore
+      per meta: si va da 120 mete coperte a un potenziale 282;
+   2. ⏳ **Il requisito di lingua** — 10 valori in cache. Il caso bocciato
+      (`TR ISTANBU09`) mostra che i valori erano giusti ma la **relazione** no:
+      da una tabella appiattita ("ENGLISH B2 / TURKISH … B2") il modello ha
+      dedotto `ANY`, cioè "basta una delle due", mentre la lingua dipende dal
+      dipartimento. Nessun cancello vede questo tipo di errore;
+   3. ⏳ **I 1.433 `nonTrovabile`**, calcolati e non scritti: decisione a sé;
+   4. ⏳ **Due decisioni di prodotto ancora aperte** (la terza l'ha risolta
+      l'arbitrato: i cataloghi di facoltà non entrano): (a) 3 `scadenzeOspitante`
       su 45 citano un anno già passato (`F NANCY38` 2025, `P EVORA01` e
       `TR ISTANBU09` 2024) — scartarle o annotarle come faceva la V1?
-      (b) il §3.3 devia in riconciliazione solo i tre campi stretti, mentre il
-      vincolo generale dice che *nessun* dato di facoltà entra nel sito: un
-      `linkCatalogo` di facoltà oggi viene approvato;
-      (c) le voci `nonTrovabile` della pipeline V1 dicono "cercato senza esito,
+      (b) le voci `nonTrovabile` della pipeline V1 dicono "cercato senza esito,
       fonte e data non registrate", e per questo `statoCampo` le marca **da
-      riconfermare**: noi ora abbiamo fonte e data vere. Oggi restano intatte
-      (scelta prudente), ma promuoverle sarebbe una riga ed è esattamente lo
-      scopo di D7. Riguarda 165 mete su `requisitoLingua`;
-   4. **non** scrivere `esegui-partner.mjs`: incatenare i pezzi è Fase 5.
+      riconfermare**: noi ora abbiamo fonte e data vere. Restano intatte per
+      prudenza, ma promuoverle è una riga ed è lo scopo di D7. Riguarda 165 mete;
+   5. ⏳ **Un difetto noto in `lib-mete.mjs`, non corretto**: `impostaCampo`
+      inserisce con `\n` dentro file che usano `\r\n`, lasciando righe con
+      fine-riga misto e righe vuote doppie. Il 31/08 ne ha prodotte 269 e 33,
+      ripulite a posteriori confrontando l'array METE prima e dopo. Nessun dato
+      alterato, ma il difetto è a monte e lo usa anche `applica-batch.mjs`: va
+      corretto lì, con la sua misura, non toccato alla cieca;
+   6. **non** scrivere `esegui-partner.mjs`: incatenare i pezzi è Fase 5.
    **Per la Fase 5, misurato:** il collo di bottiglia è il testo inviato, non la
    quota. 33 milioni di caratteri in 245 chiamate, mediana 125.000. Ridurre il
    testo riduce insieme attese, costo e rumore. E i ~335 PDF con font a codifica
