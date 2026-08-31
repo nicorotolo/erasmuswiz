@@ -6,9 +6,12 @@ test("un URL di facolta declassa senza mai alzare il livello", () => {
   const lingua = { livello: "ateneo", fonte: { url: "https://example.edu/faculty-of-law", citazione: "A sufficiently long citation for this test", verificataIl: "2026-08-30" } };
   assert.equal(applicaCancelloLivello("requisitoLingua", lingua).livello, "facolta");
   assert.equal(applicaCancelloLivello("requisitoLingua", lingua).approvato, false);
+  // Dal 31/08 linkCatalogo e' un campo stretto: un catalogo di facolta' non
+  // passa piu'. Prima di questa riga il campo era largo e questa stessa prova
+  // pretendeva approvato === true.
   const catalogo = applicaCancelloLivello("linkCatalogo", lingua);
   assert.equal(catalogo.livello, "facolta");
-  assert.equal(catalogo.approvato, true);
+  assert.equal(catalogo.approvato, false);
   const giaStretto = applicaCancelloLivello("requisitoLingua", { ...lingua, livello: "facolta", fonte: { ...lingua.fonte, url: "https://example.edu/incoming" } });
   assert.equal(giaStretto.livello, "facolta");
   assert.equal(giaStretto.approvato, false);

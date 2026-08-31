@@ -36,9 +36,14 @@ const norm = (valore) => String(valore || "").replace(/\s+/g, " ").trim().toUppe
 export const normalizzaPaese = (valore) => String(valore || "").trim().toLocaleLowerCase("it-IT").replace(/(^|[\s-])(\p{L})/gu, (_, prima, lettera) => prima + lettera.toLocaleUpperCase("it-IT"));
 const nomeCartella = (codice) => norm(codice).replace(/\s+/g, "");
 const senzaAccenti = (s) => String(s || "").normalize("NFD").replace(/\p{Diacritic}/gu, "");
+// Un indirizzo dentro l'HTML (e dentro un sitemap XML) ha la e commerciale
+// scritta come entita': "?a=1&amp;b=2". Fino al 31/08 non veniva decodificata e
+// l'indirizzo restava rotto: 142 delle 5.555 pagine sono state scaricate cosi',
+// e il catalogo approvato di Dresda porta ancora "&amp;" dentro il valore.
+const decodificaEntita = (grezzo) => String(grezzo).replace(/&(?:amp|#0*38|#[xX]0*26);/g, "&");
 const pulisciUrl = (grezzo, base) => {
   try {
-    const u = new URL(grezzo, base);
+    const u = new URL(decodificaEntita(grezzo), base);
     if (!/^https?:$/.test(u.protocol)) return null;
     u.hash = "";
     for (const chiave of [...u.searchParams.keys()]) if (/^(utm_|fbclid$|gclid$)/i.test(chiave)) u.searchParams.delete(chiave);
@@ -60,6 +65,25 @@ const titoloPagina = (html) => (/<title\b[^>]*>([\s\S]*?)<\/title>/i.exec(html)?
 const linkHtml = (html, base) => [...html.matchAll(/<a\b[^>]*?href\s*=\s*(["'])(.*?)\1[^>]*>([\s\S]*?)<\/a\s*>/gi)]
   .map((m) => ({ url: pulisciUrl(m[2], base), testo: m[3].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim() }))
   .filter((x) => x.url && !NON_TESTUALI.test(new URL(x.url).pathname));
+// I link della pagina si SALVANO, non si buttano. Fino al 31/08 di ogni pagina
+// restava solo il testo, e i tag - href compresi - venivano cancellati da
+// testoVisibile: il modello leggeva \"Course Catalogue here\" senza sapere dove
+// portasse \"here\", e l'unico indirizzo che poteva restituire era quello della
+// pagina che aveva in mano. E' la causa misurata di 16 errori su 17 in
+// linkCatalogo. Qui NON si filtra per punteggio ne' per dominio: il catalogo
+// spesso sta su un altro host (Cork: courseleaf.com) e il suo testo vale zero
+// punti (\"Book of Modules\"). Chi filtra e' la lettura, che puo' cambiare idea
+// senza rifare la raccolta.
+export const linkSalvati = (html, base) => {
+  const visti = new Map();
+  for (const l of linkHtml(html, base)) {
+    const testo = l.testo.slice(0, 160);
+    // A parita' di indirizzo si tiene il testo piu' lungo: lo stesso link
+    // compare spesso due volte, una come icona muta e una con la sua etichetta.
+    if (!visti.has(l.url) || visti.get(l.url).length < testo.length) visti.set(l.url, testo);
+  }
+  return [...visti].slice(0, 400).map(([url, testo]) => ({ testo, url }));
+};
 const locSitemap = (xml) => [...xml.matchAll(/<loc>([\s\S]*?)<\/loc>/gi)].map((m) => pulisciUrl(m[1].trim())).filter(Boolean);
 const pausa = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -287,6 +311,21 @@ async function candidatiPartner(partner, limitatore) {
   return { candidati: [...candidati].sort((a, b) => b[1] - a[1]).slice(0, 8), note };
 }
 
+// Il 31/08 una rottura di prova ha mostrato che togliere "link" dal punto di
+// scrittura non faceva fallire niente: la prova copriva linkSalvati e non chi
+// la chiamava - la stessa lacuna dei cancelli il 30/08. Ora la forma della
+// pagina salvata sta qui, in una funzione provata, non nel corpo del ciclo.
+export const paginaSalvata = (pagina, risposta, html, pdf, quando) => ({
+  url: pagina.url,
+  urlFinale: risposta.urlFinale,
+  stato: risposta.stato,
+  tipo: pdf ? "pdf" : "html",
+  titolo: pdf ? "" : titoloPagina(html),
+  testo: pdf ? null : testoVisibile(html),
+  link: pdf ? [] : linkSalvati(html, risposta.urlFinale),
+  scaricataIl: quando,
+});
+
 async function raccogliUnPartner(partner, limitatore, riprendiTutto) {
   const cartella = path.join(RACCOLTA, "pagine", nomeCartella(partner.codiceNorm));
   const indiceFile = path.join(cartella, "indice.json");
@@ -308,7 +347,7 @@ async function raccogliUnPartner(partner, limitatore, riprendiTutto) {
     const pdf = /application\/pdf/i.test(risposta.tipo) || /\.pdf(?:$|\?)/i.test(new URL(risposta.urlFinale).pathname);
     const file = `${String(indice.pagine.length + 1).padStart(3, "0")}.json`;
     const html = pdf ? "" : risposta.corpo.toString("utf8");
-    fs.writeFileSync(path.join(cartella, file), JSON.stringify({ url: pagina.url, urlFinale: risposta.urlFinale, stato: risposta.stato, tipo: pdf ? "pdf" : "html", titolo: pdf ? "" : titoloPagina(html), testo: pdf ? null : testoVisibile(html), scaricataIl: new Date().toISOString() }, null, 2) + "\n");
+    fs.writeFileSync(path.join(cartella, file), JSON.stringify(paginaSalvata(pagina, risposta, html, pdf, new Date().toISOString()), null, 2) + "\n");
     indice.pagine.push({ file, url: pagina.url, punteggio: pagina.punteggio, profondita: pagina.profondita });
     if (!pdf && pagina.profondita < 3) for (const l of linkHtml(html, risposta.urlFinale)) { const punti = punteggioLink(l.testo, l.url); if (punti > 0 && stessoAteneo(pagina.url, l.url)) coda.push({ url: l.url, punteggio: punti, profondita: pagina.profondita + 1 }); }
   }

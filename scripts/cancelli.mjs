@@ -8,7 +8,10 @@ import { statoLink as statoLinkVero } from "./lib-link.mjs";
 
 const RADICE = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const PAROLE_FACOLTA = /faculty|fakultat|faculte|facolta|facultad|department|departement|dipartiment|institut|school of|wydzial|kar|fakulteta/i;
-const CAMPI_STRETTI = new Set(["requisitoLingua", "scadenzeOspitante", "notaDisponibilita"]);
+// linkCatalogo e' entrato fra i campi stretti il 31/08: l'arbitrato ha deciso che
+// il catalogo di un dipartimento non e' il catalogo dell'ateneo, e la misura sui
+// 53 valori in cache ne ha trovati 8 di livello facolta' che passavano.
+const CAMPI_STRETTI = new Set(["requisitoLingua", "scadenzeOspitante", "notaDisponibilita", "linkCatalogo"]);
 
 const norm = (s) => String(s || "").normalize("NFD").replace(/\p{M}/gu, "").toLowerCase().replace(/[“”]/g, '"').replace(/[‘’]/g, "'").replace(/[–—]/g, "-").replace(/\s+/g, " ").trim();
 const normCodice = (s) => String(s || "").replace(/\s+/g, " ").trim().toUpperCase();
