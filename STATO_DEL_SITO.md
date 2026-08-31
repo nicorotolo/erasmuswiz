@@ -21,9 +21,49 @@
 
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-08-30 (notte) — Claude (**Fase 4b, Consegna 2b-2
-riletta, corretta ed ESEGUITA sul campo**, nessuna riga del sito toccata).
-**238/238 prove verdi.**
+**Ultimo aggiornamento:** 2026-08-31 — Claude e Codex (**Fase 4b COMPLETA: 2b-2
+riletta, corretta ed eseguita sul campo; 2b-3 scritta da Codex e riletta in due
+giri**, nessuna riga del sito toccata). **251/251 prove verdi.**
+
+> ⏳ **Il lavoro è fermo su Nicola, e non per un intoppo tecnico.** La
+> correttezza del campione umano è **sotto il 95%**, e la regola dice di
+> fermarsi e dirlo invece di ritoccare il prompt finché non passa. Servono:
+> (1) l'arbitrato dei 30 campi, (2) il via libera ad applicare 348 campi e 1.433
+> `nonTrovabile` in 25 file, (3) le decisioni di prodotto elencate al §8.
+
+### La Consegna 2b-3 e il difetto che solo i dati veri hanno mostrato
+
+`applica-partner.mjs` è stato scritto da Codex sull'ordine congelato
+`ORDINE_CODEX_2B3.md` e corretto in due giri. Le sue sei prove erano verdi anche
+rifacendole, ma **su undici rotture del revisore quattro restavano verdi**, e
+tre nascevano dalla stessa lacuna: nessuna prova metteva due blocchi dello
+stesso codice nello stesso file — il caso per cui `spanTutteMete` esiste.
+
+Poi l'anteprima sui dati veri ha mostrato il difetto peggiore, che nessuna prova
+vedeva perché nessuna guardava i dati **esistenti**: `statoCampo` ha quattro
+esiti e il codice ne confrontava uno, quindi su `"dato"` proseguiva e scriveva
+`nonTrovabile` su un campo pieno. Misurato: **437 casi su 1.912 (22,9%)**, fra
+cui i `linkSito` di TU Berlin, Gottinga, Siviglia e Paris 3 — link veri e
+pubblicati, dichiarati introvabili. Il modello elenca ciò che non ha trovato
+*nelle pagine che gli mandiamo noi*, e non sa cosa c'è già nei nostri dati: quel
+confronto tocca a noi, e mancava.
+
+### Copertura, prima e dopo — misurata su una copia isolata
+
+| Campo | Ha il dato | → dopo | Non trovabile (con fonte) |
+|---|---:|---:|---:|
+| requisitoLingua | 1529 | 1539 | 89 |
+| scadenzeOspitante | 1705 | 1744 | 54 |
+| linkSito | 1636 | 1701 | 73 |
+| **linkCatalogo** | **120** | **282** | **671** |
+| notaDisponibilita | 94 | 166 | 546 |
+
+⚠️ **Il totale di `linkCatalogo` passerebbe dal 6% al 48%, e quel numero
+inganna**: il salto è quasi tutto "non trovabile con fonte", che il report conta
+come coperto. I dati **veri** vanno da 120 a 282 mete, cioè dal 6% al 14%. Ed è
+proprio il campo che il campione umano ha mostrato meno affidabile: 4 su 12
+pienamente corretti, perché `linkCatalogo` punta spesso alla pagina che *parla*
+del catalogo invece che al catalogo.
 
 ### La prima lettura vera: 244 partner, e il tetto non è quello che si credeva
 
@@ -4807,15 +4847,22 @@ portatile può anche chiudersi.
       ciascuno. Il mio conteggio provvisorio è **sotto il 95%**: finché non
       arbitri, il lavoro resta fermo lì — e il prompt non si tocca per farlo
       passare (spec §2 quinquies E6);
-   2. ⏳ la **2b-3** (`applica-partner.mjs`): l'ordine è congelato in
-      `ORDINE_CODEX_2B3.md`, la consegna è di Codex, la rilettura del diff e le
-      prove rifatte a mano sono di Claude;
-   3. ⏳ **due decisioni di prodotto**, non tecniche: (a) 3 `scadenzeOspitante`
+   2. ✅ la **2b-3** (`applica-partner.mjs`) è **chiusa** (`f0c8d3e`): scritta
+      da Codex, riletta in due giri, 251 prove verdi. ⏳ Resta il **via libera
+      di Nicola ad applicarla davvero**: 348 campi e 1.433 `nonTrovabile` in 25
+      file. Finora solo `--prova` e una verifica su copia isolata; i file dati
+      del sito non sono mai stati toccati;
+   3. ⏳ **tre decisioni di prodotto**, non tecniche: (a) 3 `scadenzeOspitante`
       su 45 citano un anno già passato (`F NANCY38` 2025, `P EVORA01` e
       `TR ISTANBU09` 2024) — scartarle o annotarle come faceva la V1?
       (b) il §3.3 devia in riconciliazione solo i tre campi stretti, mentre il
       vincolo generale dice che *nessun* dato di facoltà entra nel sito: un
       `linkCatalogo` di facoltà oggi viene approvato;
+      (c) le voci `nonTrovabile` della pipeline V1 dicono "cercato senza esito,
+      fonte e data non registrate", e per questo `statoCampo` le marca **da
+      riconfermare**: noi ora abbiamo fonte e data vere. Oggi restano intatte
+      (scelta prudente), ma promuoverle sarebbe una riga ed è esattamente lo
+      scopo di D7. Riguarda 165 mete su `requisitoLingua`;
    4. **non** scrivere `esegui-partner.mjs`: incatenare i pezzi è Fase 5.
    **Per la Fase 5, misurato:** il collo di bottiglia è il testo inviato, non la
    quota. 33 milioni di caratteri in 245 chiamate, mediana 125.000. Ridurre il
