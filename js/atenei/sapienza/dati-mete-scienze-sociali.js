@@ -523,6 +523,7 @@ var METE = [
       ],
     linkSito: "https://www.lmu.de/de/studium/studienangebot/angebote-fuer-internationale-gast-und-austauschstudierende/erasmus-und-lmuexchange/",
 
+    notaDisponibilita: "Erasmus+, UK/SEMP-Studierende müssen mindestens 60% ihrer Kurse in dem Fachbereich des Erasmus+/UK/SEMP-Austauschabkommens belegen.",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1238,6 +1239,7 @@ var METE = [
     linkSito: "https://erasmusmi.um.es/erasmusmi/",
 
     linkCatalogo: "https://erasmusmi.um.es/erasmusmi/erasmusmi.public.academicoffer.do?i_p=clear&t_m=clear",
+    notaDisponibilita: "Interested applicants must apply for one of the offers included in the Academic Catalogue , according to their profile (Bachelor's, Master's, PhD, administrative staff, or academic staff.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1599,6 +1601,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 24 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 14 novembre" }
       ],
+    linkSito: "https://www.unavarra.es/en/sites/international/internacionalizacion-cooperacion.html",
+    notaDisponibilita: "The mobility in materia di doctorado, tanto de estudiantes de la UPNA, como de los procedentes de otras instituciones de educación superior, nacionales o extranjeras, que sean aceptados por la UPNA , será competencia de la Escuela de Doctorado de la Navarra (EDONA)",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {

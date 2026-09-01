@@ -167,6 +167,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 30 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
+    notaDisponibilita: "En tant qu'étudiant en programme d'échange, vous avez accès à des matières allant de la 1re à la 4e année d'études (1re, 2e, 3e année de licence et 1re année de master).",
     notePratiche: "Posti totali dell'accordo: 2. Solo livello Magistrale."
   },
   {
@@ -245,6 +246,7 @@ var METE = [
       ],
     linkSito: "https://www.lmu.de/de/studium/studienangebot/angebote-fuer-internationale-gast-und-austauschstudierende/erasmus-und-lmuexchange/",
 
+    notaDisponibilita: "Erasmus+, UK/SEMP-Studierende müssen mindestens 60% ihrer Kurse in dem Fachbereich des Erasmus+/UK/SEMP-Austauschabkommens belegen.",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -807,6 +809,7 @@ var METE = [
       ],
     linkSito: "http://www.uni-hannover.de",
 
+    notaDisponibilita: "Research projects can only be carried out and included in your Learning Agreement if you have found a supervisor at Leibniz University Hannover beforehand.",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -1266,6 +1269,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 14 novembre" }
       ],
+    linkSito: "https://www.unavarra.es/en/sites/international/internacionalizacion-cooperacion.html",
+    notaDisponibilita: "The mobility in materia di doctorado, tanto de estudiantes de la UPNA, como de los procedentes de otras instituciones de educación superior, nacionales o extranjeras, que sean aceptados por la UPNA , será competencia de la Escuela de Doctorado de la Navarra (EDONA)",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {

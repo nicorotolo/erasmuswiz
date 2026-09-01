@@ -136,6 +136,7 @@ var METE = [
       ],
     linkSito: "https://www.uantwerpen.be/en/study/erasmus-and-exchange-students/",
 
+    notaDisponibilita: "You may only select courses within one faculty , unless stated otherwise on the faculty’s webpage.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1529,6 +1530,7 @@ var METE = [
       ],
     linkSito: "https://uib.iku.edu.tr/en/erasmus-international-exchange-and-cooperations/exchange-programs/bilateral-exchange/incoming",
 
+    notaDisponibilita: "Please keep in mind that at IKU each inter-institutional agreement is assigned to a specific department. Nominations outside the agreed department are not possible.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1604,6 +1606,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "1-20 maggio" },
         { cosa: "Application (primavera)", periodo: "1-20 ottobre" }
       ],
+    linkSito: "https://semmelweis.hu/english/education/erasmus/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   }
 ];

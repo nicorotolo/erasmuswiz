@@ -241,6 +241,7 @@ var METE = [
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
     linkCatalogo: "https://ue.e-sylabus.pl/ForStudents",
+    notaDisponibilita: "Participation is limited to free slots in existing groups for regular WUEB students.",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69666. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -742,6 +743,7 @@ var METE = [
       ],
     linkSito: "http://www.um.es/internacionales",
     linkCatalogo: "https://erasmusmi.um.es/erasmusmi/erasmusmi.public.academicoffer.do?i_p=clear&t_m=clear",
+    notaDisponibilita: "Interested applicants must apply for one of the offers included in the Academic Catalogue , according to their profile (Bachelor's, Master's, PhD, administrative staff, or academic staff.",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA69649. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -784,7 +786,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Başvuruların Açılması", periodo: "25 Mart 2026" },
+        { cosa: "Başvuruların Son günü", periodo: "13 Nisan 2026" }
+      ],
     linkSito: "https://www.atauni.edu.tr/",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
@@ -805,7 +810,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Başvuruların Açılması", periodo: "25 Mart 2026" },
+        { cosa: "Başvuruların Son günü", periodo: "13 Nisan 2026" }
+      ],
     linkSito: "https://www.atauni.edu.tr/",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 

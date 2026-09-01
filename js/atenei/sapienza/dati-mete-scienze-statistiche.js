@@ -391,6 +391,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 ottobre 2026" }
       ],
     linkSito: "http:/www.univ-paris1.fr",
+    notaDisponibilita: "Il n’est pas possible de vous inscrire à Paris 1 Panthéon-Sorbonne pour un semestre, ni en échange, ni en mobilité individuelle. Les admissions des candidatures en mobilité individuelle ne sont valables que pour une année universitaire entière",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68260. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -567,6 +568,7 @@ var METE = [
       ],
     linkSito: "http://www.uni-erfurt.de/foreign",
     linkCatalogo: "https://sulwww.uni-erfurt.de/PublicServices/Veranstaltungsverzeichnis/",
+    notaDisponibilita: "Die Bachelorstudiengänge in Art , Sports and Music are generally not open to exchange students. Admission to the Master's programme in Public Policy is excluded .",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68149."
   },
   {

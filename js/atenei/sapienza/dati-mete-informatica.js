@@ -453,6 +453,7 @@ var METE = [
     linkSito: "https://www.hswt.de/",
     linkCatalogo: "https://www.hswt.de/en/study/study-offer",
 
+    notaDisponibilita: "Du kannst Lehrveranstaltungen nur an einem der beiden HSWT Standorte besuchen.",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA71677."
   },
   {
@@ -662,6 +663,7 @@ var METE = [
     linkSito: "http://www.lu.lv/eng/",
     linkCatalogo: "https://www.lu.lv/en/admission/for-international-students/exchange-studies/",
 
+    notaDisponibilita: "Each application is considered individually by the relevant UL faculty.",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA68297."
   },
   {
@@ -1030,6 +1032,7 @@ var METE = [
       ],
     linkSito: "http://www.um.es/internacionales",
     linkCatalogo: "https://erasmusmi.um.es/erasmusmi/erasmusmi.public.academicoffer.do?i_p=clear&t_m=clear",
+    notaDisponibilita: "Interested applicants must apply for one of the offers included in the Academic Catalogue , according to their profile (Bachelor's, Master's, PhD, administrative staff, or academic staff.",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Accordo ERA68207. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {

@@ -312,6 +312,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/16635981",
     linkSito: "https://international.yeditepe.edu.tr/en/international/erasmus-incoming-students",
+    notaDisponibilita: "They are required to take at least 50% of the total credit from the department, which they are nominated for.",
     notePratiche: "Aperta a: Dipartimento di Studi sull'Asia e sull'Africa Mediterranea [Dati ufficiali bando 2026/27] ciclo/posti: 3x4 L e 1x4 LM. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -402,6 +403,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254437",
     linkSito: "https://www.lmu.de/en/study/all-degrees-and-programs/programs-for-international-visiting-students/erasmus-and-lmuexchange/how-to-apply/",
+    notaDisponibilita: "Erasmus+, UK/SEMP-Studierende müssen mindestens 60% ihrer Kurse in dem Fachbereich des Erasmus+/UK/SEMP-Austauschabkommens belegen.",
     notePratiche: "Aperta a: Dipartimento di Studi sull'Asia e sull'Africa Mediterranea [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5 solo 1° sem.. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {

@@ -67,6 +67,7 @@ var METE = [
     linkPdf: "",
     linkSito: "https://www.ntnu.edu/studies/exchange",
     linkCatalogo: "https://www.ntnu.edu/studies/courses",
+    notaDisponibilita: "Courses whose numeric parts start with number 6 (e.g. VB6125, MDV6120, etc). are not available to exchange students. These courses belong to the Center for Continuing Education and Professional Development and are intended primarily for working professionals.",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5 LM. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -444,6 +445,7 @@ var METE = [
     linkPdf: "",
     linkSito: "http://www.um.es/",
     linkCatalogo: "https://erasmusmi.um.es/erasmusmi/erasmusmi.public.academicoffer.do?i_p=clear&t_m=clear",
+    notaDisponibilita: "Interested applicants must apply for one of the offers included in the Academic Catalogue , according to their profile (Bachelor's, Master's, PhD, administrative staff, or academic staff.",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 1 x 9 L. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -1552,6 +1554,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "http://www.en.uni-muenchen.de/students/exchange/incomings/austausch_engl/index.html",
+    notaDisponibilita: "Erasmus+, UK/SEMP-Studierende müssen mindestens 60% ihrer Kurse in dem Fachbereich des Erasmus+/UK/SEMP-Austauschabkommens belegen.",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 1 x 5, solo 1° sem.. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -1582,6 +1585,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "https://www.tcd.ie/slscs/",
+    notaDisponibilita: "Please note that only undergraduate modules are available to visiting students with some exceptions. Postgraduates are also prohibited from enrolling in Trinity Electives.",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 4 x 5 L e LM. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -1674,6 +1678,7 @@ var METE = [
     linkPdf: "",
     linkSito: "http://www.ntnu.edu/",
     linkCatalogo: "https://www.ntnu.edu/studies/courses",
+    notaDisponibilita: "Courses whose numeric parts start with number 6 (e.g. VB6125, MDV6120, etc). are not available to exchange students. These courses belong to the Center for Continuing Education and Professional Development and are intended primarily for working professionals.",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 1 x 10. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -2800,6 +2805,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "https://www.tcd.ie/study/study-abroad/inbound/",
+    notaDisponibilita: "Please note that only undergraduate modules are available to visiting students with some exceptions. Postgraduates are also prohibited from enrolling in Trinity Electives.",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 3 x 5. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -3244,6 +3250,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "http://www.en.uni-muenchen.de/students/exchange/incomings/austausch_engl/index.html",
+    notaDisponibilita: "Erasmus+, UK/SEMP-Studierende müssen mindestens 60% ihrer Kurse in dem Fachbereich des Erasmus+/UK/SEMP-Austauschabkommens belegen.",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 1 x 6 solo 1° sem.. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -3301,6 +3308,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "http://www.pantheonsorbonne.fr/international/foreign-students/exchange-student-application-bachelor-master/",
+    notaDisponibilita: "Il n’est pas possible de vous inscrire à Paris 1 Panthéon-Sorbonne pour un semestre, ni en échange, ni en mobilité individuelle. Les admissions des candidatures en mobilité individuelle ne sont valables que pour une année universitaire entière",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {

@@ -1273,6 +1273,7 @@ var METE = [
       ],
     linkSito: "http://www.um.es/internacionales",
     linkCatalogo: "https://erasmusmi.um.es/erasmusmi/erasmusmi.public.academicoffer.do?i_p=clear&t_m=clear",
+    notaDisponibilita: "Interested applicants must apply for one of the offers included in the Academic Catalogue , according to their profile (Bachelor's, Master's, PhD, administrative staff, or academic staff.",
     notePratiche: "Posti dell'accordo: 4. Accordo ERA69382. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -1325,6 +1326,7 @@ var METE = [
       ],
     linkSito: "http://www.um.es/internacionales",
     linkCatalogo: "https://erasmusmi.um.es/erasmusmi/erasmusmi.public.academicoffer.do?i_p=clear&t_m=clear",
+    notaDisponibilita: "Interested applicants must apply for one of the offers included in the Academic Catalogue , according to their profile (Bachelor's, Master's, PhD, administrative staff, or academic staff.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69381. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {

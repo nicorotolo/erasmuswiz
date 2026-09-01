@@ -720,6 +720,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 ottobre 2026" }
       ],
     linkSito: "http:/www.univ-paris1.fr",
+    notaDisponibilita: "Il n’est pas possible de vous inscrire à Paris 1 Panthéon-Sorbonne pour un semestre, ni en échange, ni en mobilité individuelle. Les admissions des candidatures en mobilité individuelle ne sont valables que pour une année universitaire entière",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70813. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -1552,6 +1553,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 ottobre 2026" }
       ],
     linkSito: "http:/www.univ-paris1.fr",
+    notaDisponibilita: "Il n’est pas possible de vous inscrire à Paris 1 Panthéon-Sorbonne pour un semestre, ni en échange, ni en mobilité individuelle. Les admissions des candidatures en mobilité individuelle ne sont valables que pour une année universitaire entière",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70814. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -2201,6 +2203,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
     linkSito: "http://www.lmu.de/international",
+    notaDisponibilita: "Erasmus+, UK/SEMP-Studierende müssen mindestens 60% ihrer Kurse in dem Fachbereich des Erasmus+/UK/SEMP-Austauschabkommens belegen.",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70716. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -2332,6 +2335,7 @@ var METE = [
         { cosa: "Application (estate)", periodo: "entro il 30 novembre" }
       ],
     linkSito: "http://www.uni-hannover.de",
+    notaDisponibilita: "Research projects can only be carried out and included in your Learning Agreement if you have found a supervisor at Leibniz University Hannover beforehand.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70706."
   },
   {
@@ -2452,6 +2456,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
     linkSito: "http://www.lmu.de/international",
+    notaDisponibilita: "Erasmus+, UK/SEMP-Studierende müssen mindestens 60% ihrer Kurse in dem Fachbereich des Erasmus+/UK/SEMP-Austauschabkommens belegen.",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70717. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -3339,6 +3344,7 @@ var METE = [
       ],
     linkSito: "http://www.ntnu.no",
     linkCatalogo: "https://www.ntnu.edu/studies/courses",
+    notaDisponibilita: "Courses whose numeric parts start with number 6 (e.g. VB6125, MDV6120, etc). are not available to exchange students. These courses belong to the Center for Continuing Education and Professional Development and are intended primarily for working professionals.",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA70846."
   },
   {
@@ -3365,6 +3371,7 @@ var METE = [
       ],
     linkSito: "http://www.ntnu.no",
     linkCatalogo: "https://www.ntnu.edu/studies/courses",
+    notaDisponibilita: "Courses whose numeric parts start with number 6 (e.g. VB6125, MDV6120, etc). are not available to exchange students. These courses belong to the Center for Continuing Education and Professional Development and are intended primarily for working professionals.",
     notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70851."
   },
   {
@@ -3391,6 +3398,7 @@ var METE = [
       ],
     linkSito: "http://www.ntnu.no",
     linkCatalogo: "https://www.ntnu.edu/studies/courses",
+    notaDisponibilita: "Courses whose numeric parts start with number 6 (e.g. VB6125, MDV6120, etc). are not available to exchange students. These courses belong to the Center for Continuing Education and Professional Development and are intended primarily for working professionals.",
     notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70848."
   },
   {
@@ -3417,6 +3425,7 @@ var METE = [
       ],
     linkSito: "http://www.ntnu.no",
     linkCatalogo: "https://www.ntnu.edu/studies/courses",
+    notaDisponibilita: "Courses whose numeric parts start with number 6 (e.g. VB6125, MDV6120, etc). are not available to exchange students. These courses belong to the Center for Continuing Education and Professional Development and are intended primarily for working professionals.",
     notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70849."
   },
   {
@@ -4233,7 +4242,12 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Winter semester/full academic year nomination", periodo: "June 30th" },
+        { cosa: "Spring semester nomination", periodo: "December 1st" },
+        { cosa: "Winter semester/full academic year application", periodo: "July 15th" },
+        { cosa: "Spring semester application", periodo: "December 15 th" }
+      ],
     linkSito: "http://www.usamv.ro/",
     linkCatalogo: "https://usamv.ro/wp-content/uploads/2024/09/cours-catalog.pdf",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70883."
@@ -4388,6 +4402,7 @@ var METE = [
       ],
     linkSito: "http://www.um.es/internacionales",
     linkCatalogo: "https://erasmusmi.um.es/erasmusmi/erasmusmi.public.academicoffer.do?i_p=clear&t_m=clear",
+    notaDisponibilita: "Interested applicants must apply for one of the offers included in the Academic Catalogue , according to their profile (Bachelor's, Master's, PhD, administrative staff, or academic staff.",
     notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70765. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -5251,6 +5266,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "dal 1 giugno al 30 settembre" }
       ],
     linkSito: "http://www.upv.es",
+    notaDisponibilita: "La UPV es una universidad pública, sus precios están subvencionados por la administración y son definidos por la Generalitat Valenciana.",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Accordo ERA70789."
   },
   {
@@ -6193,7 +6209,9 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Application Due Date", periodo: "13/04/2026" }
+      ],
     linkSito: "http://www.bingol.edu.tr",
     notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70889."
   },

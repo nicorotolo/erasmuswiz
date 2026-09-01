@@ -32,6 +32,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26940226",
     linkSito: "https://www.tcd.ie/study/study-abroad/inbound/",
+    notaDisponibilita: "Please note that only undergraduate modules are available to visiting students with some exceptions. Postgraduates are also prohibited from enrolling in Trinity Electives.",
     notePratiche: "Aperta a: Dipartimento di Studi Umanistici [Dati ufficiali bando 2026/27] ciclo/posti: 3 x 5. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -440,6 +441,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254439",
     linkSito: "http://www.en.uni-muenchen.de/students/exchange/incomings/austausch_engl/index.html",
+    notaDisponibilita: "Erasmus+, UK/SEMP-Studierende müssen mindestens 60% ihrer Kurse in dem Fachbereich des Erasmus+/UK/SEMP-Austauschabkommens belegen.",
     notePratiche: "Aperta a: Dipartimento di Studi Umanistici [Dati ufficiali bando 2026/27] ciclo/posti: 1 x 6 solo primo semestre. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -494,6 +496,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254585",
     linkSito: "http://www.pantheonsorbonne.fr/international/foreign-students/exchange-student-application-bachelor-master/",
+    notaDisponibilita: "Il n’est pas possible de vous inscrire à Paris 1 Panthéon-Sorbonne pour un semestre, ni en échange, ni en mobilité individuelle. Les admissions des candidatures en mobilité individuelle ne sont valables que pour une année universitaire entière",
     notePratiche: "Aperta a: Dipartimento di Studi Umanistici [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {

@@ -66,6 +66,7 @@ var METE = [
       ],
     linkSito: "https://www.ustp.at/de",
     linkCatalogo: "https://www.ustp.at/de/international/incoming-students/kursangebot-fuer-gaststudierende",
+    notaDisponibilita: "Access to classes taught in study programmes of USTP might be restricted for incoming exchange students.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68111."
   },
   {

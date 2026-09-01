@@ -118,6 +118,7 @@ var METE = [
     linkSito: "https://www.ustp.at/de",
 
     linkCatalogo: "https://www.ustp.at/de/international/incoming-students/kursangebot-fuer-gaststudierende",
+    notaDisponibilita: "Access to classes taught in study programmes of USTP might be restricted for incoming exchange students.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -2535,6 +2536,7 @@ var METE = [
 
     linkSito: "https://international.yeditepe.edu.tr/index.php/en/international/erasmus-incoming-students",
 
+    notaDisponibilita: "They are required to take at least 50% of the total credit from the department, which they are nominated for.",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26 || Lingua: CEFR non trovato dopo ricerca approfondita"
   }
 ];

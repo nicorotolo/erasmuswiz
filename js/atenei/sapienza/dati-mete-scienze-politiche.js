@@ -483,6 +483,7 @@ var METE = [
       ],
     linkSito: "http://www.um.es/internacionales",
     linkCatalogo: "https://erasmusmi.um.es/erasmusmi/erasmusmi.public.academicoffer.do?i_p=clear&t_m=clear",
+    notaDisponibilita: "Interested applicants must apply for one of the offers included in the Academic Catalogue , according to their profile (Bachelor's, Master's, PhD, administrative staff, or academic staff.",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70083. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -534,6 +535,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 30 dicembre" }
       ],
     linkSito: "http://www.yeditepe.edu.tr/en",
+    notaDisponibilita: "They are required to take at least 50% of the total credit from the department, which they are nominated for.",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA70143. || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2023/24 || Scadenze: basate su 2025/26"
   },
   {

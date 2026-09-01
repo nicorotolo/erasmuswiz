@@ -138,6 +138,7 @@ var METE = [
     crediti: "Oltre 330 ECTS di corsi per exchange alla FBE; codici 1xxx = bachelor, 2xxx = master.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254355",
     linkSito: "https://www.uantwerpen.be/internationalexchange",
+    notaDisponibilita: "You may only select courses within one faculty , unless stated otherwise on the faculty’s webpage.",
     notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 1; mesi: 5. || Lingua: UAntwerp richiede prova di inglese adeguata e accetta certificati ufficiali equivalenti a CEFR B2; possibili dichiarazioni sostitutive in casi specifici. Obbligatorio restare fino a fine sessione d'esame (no esami online); presenza agli Orientation Days obbligatoria. [Fonti: scheda destinazione; UAntwerp application documents]"
   },
   {
@@ -740,6 +741,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254516",
     linkSito: "https://www.tecnocampus.cat",
+    notaDisponibilita: "No acceptem estudiants d'intercanvi per als nostres programes de postgrau o màsters.",
     notePratiche: "Aperta a: Laurea Triennale in Commercio Estero e Turismo - [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 6. || Titoli ufficiali della Pompeu Fabra University; Buddy Program per l'integrazione; possibilita di cambiare corsi nelle 2 settimane dopo il Welcome Day. [Fonte: scheda destinazione]"
   },
   {
@@ -830,7 +832,8 @@ var METE = [
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254523",
-    linkSito: "",
+    linkSito: "https://www.unavarra.es/en/sites/international/internacionalizacion-cooperacion.html",
+    notaDisponibilita: "The mobility in materia di doctorado, tanto de estudiantes de la UPNA, como de los procedentes de otras instituciones de educación superior, nacionales o extranjeras, que sean aceptados por la UPNA , será competencia de la Escuela de Doctorado de la Navarra (EDONA)",
     notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L (3 stud. x 9 mesi), PhD (2 stud. x 5 mesi); studenti: 5; mesi: 9."
   },
   {
@@ -1076,6 +1079,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254580",
     linkSito: "https://erasmus.pantheonsorbonne.fr/",
+    notaDisponibilita: "Il n’est pas possible de vous inscrire à Paris 1 Panthéon-Sorbonne pour un semestre, ni en échange, ni en mobilité individuelle. Les admissions des candidatures en mobilité individuelle ne sont valables que pour une année universitaire entière",
     notePratiche: "Aperta a: CdS del Dipartimento di Economia e Laurea Magistrale in Relazioni internazionali comparate - [Dati ufficiali bando 2026/27] ciclo: L, LM, PhD; studenti: 2; mesi: 10."
   },
   {
@@ -1107,6 +1111,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254586",
     linkSito: "https://erasmus.pantheonsorbonne.fr/",
+    notaDisponibilita: "Il n’est pas possible de vous inscrire à Paris 1 Panthéon-Sorbonne pour un semestre, ni en échange, ni en mobilité individuelle. Les admissions des candidatures en mobilité individuelle ne sont valables que pour une année universitaire entière",
     notePratiche: "Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 3; mesi: 5."
   },
   {
@@ -1137,6 +1142,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254586",
     linkSito: "https://erasmus.pantheonsorbonne.fr/",
+    notaDisponibilita: "Il n’est pas possible de vous inscrire à Paris 1 Panthéon-Sorbonne pour un semestre, ni en échange, ni en mobilité individuelle. Les admissions des candidatures en mobilité individuelle ne sont valables que pour une année universitaire entière",
     notePratiche: "Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 4; mesi: 5."
   },
   {
@@ -1169,6 +1175,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/24655186",
     linkSito: "",
+    notaDisponibilita: "En tant qu'étudiant en programme d'échange, vous avez accès à des matières allant de la 1re à la 4e année d'études (1re, 2e, 3e année de licence et 1re année de master).",
     notePratiche: "Aperta a: CdS del Dipartimento di Economia e della Venice School of Management - [Dati ufficiali bando 2026/27] ciclo: L, LM, PhD; studenti: 4; mesi: 6."
   },
   {
@@ -1531,6 +1538,7 @@ var METE = [
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/23271913",
     linkSito: "https://www.ntnu.edu/studies/exchange/how_to_apply",
     linkCatalogo: "https://www.ntnu.edu/studies/courses",
+    notaDisponibilita: "Courses whose numeric parts start with number 6 (e.g. VB6125, MDV6120, etc). are not available to exchange students. These courses belong to the Center for Continuing Education and Professional Development and are intended primarily for working professionals.",
     notePratiche: "Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 3; mesi: 10. || Mobilita di 10 mesi (anno intero). [Fonte: ntnu.edu/studies/exchange/how_to_apply]"
   },
   {

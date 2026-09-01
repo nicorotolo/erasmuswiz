@@ -128,6 +128,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254357",
     linkSito: "https://www.uantwerpen.be/en/education/international/international-students/exchange-students/",
+    notaDisponibilita: "You may only select courses within one faculty , unless stated otherwise on the faculty’s webpage.",
     notePratiche: "Aperta a: Dipartimento di Scienze Ambientali, Informatica e Statistica [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 6. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {

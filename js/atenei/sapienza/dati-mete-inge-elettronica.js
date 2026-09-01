@@ -260,6 +260,7 @@ var METE = [
         { cosa: "Application (estate)", periodo: "entro il 30 novembre" }
       ],
     linkSito: "http://www.uni-hannover.de",
+    notaDisponibilita: "Research projects can only be carried out and included in your Learning Agreement if you have found a supervisor at Leibniz University Hannover beforehand.",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Accordo ERA68155."
   },
   {
@@ -361,6 +362,7 @@ var METE = [
       ],
     linkSito: "http://www.pcz.pl/",
     linkCatalogo: "https://pcz.pl/en/erasmus/english-taught-components-subjects-at-cut",
+    notaDisponibilita: "due to renovation plans in academic year 2026/2027, amount of available rooms in the dormitories is limited",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Accordo ERA71656."
   },
   {
@@ -601,6 +603,7 @@ var METE = [
         { cosa: "Application (term primaverile/estivo)", periodo: "entro 30 ottobre" }
       ],
     linkSito: "https://www.tecnocampus.cat/",
+    notaDisponibilita: "No acceptem estudiants d'intercanvi per als nostres programes de postgrau o màsters.",
     notePratiche: "Posti dell'accordo: 4. Accordo ERA68206."
   },
   {

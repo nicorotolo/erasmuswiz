@@ -429,6 +429,7 @@ var METE = [
       ],
     linkSito: "https://lecolededesign.com/en/international/coming-nantes-exchange-student",
 
+    notaDisponibilita: "Only students from one of our partner schools can join the school as an exchange student.",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -580,6 +581,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 13 novembre 2026" }
       ],
     linkCatalogo: "https://admin.paris-lavillette.archi.fr/wp-content/uploads/2026/04/livret_international_FRA_web_26-27.pdf",
+    notaDisponibilita: "Les étudiants suivent des cours de troisième année de Licence ou du Cycle Master en fonction de leur niveau d’études dans leur université d’origine. Les cours de Licence 1 et 2 ne leur sont pas ouverts.",
     notePratiche: "Posti totali dell'accordo: 2. Solo livello Magistrale."
   },
   {
@@ -1184,6 +1186,7 @@ var METE = [
 
     linkCatalogo: "https://www.hswt.de/en/study/study-offer",
 
+    notaDisponibilita: "Du kannst Lehrveranstaltungen nur an einem der beiden HSWT Standorte besuchen.",
     notePratiche: "Posti totali dell'accordo: 2. Solo livello Magistrale."
   },
   {
@@ -1262,6 +1265,7 @@ var METE = [
       ],
     linkSito: "http://www.uni-hannover.de",
 
+    notaDisponibilita: "Research projects can only be carried out and included in your Learning Agreement if you have found a supervisor at Leibniz University Hannover beforehand.",
     notePratiche: "Posti totali dell'accordo: 1. Solo livello Magistrale. Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -2189,6 +2193,7 @@ var METE = [
       ],
     linkSito: "http://www.upv.es",
 
+    notaDisponibilita: "La UPV es una universidad pública, sus precios están subvencionados por la administración y son definidos por la Generalitat Valenciana.",
     notePratiche: "Posti totali dell'accordo: 3. Solo livello triennale. Ulteriore accordo distinto con lo stesso ateneo (promotore Federica Dal Falco)."
   },
   {
@@ -2216,6 +2221,7 @@ var METE = [
       ],
     linkSito: "http://www.upv.es",
 
+    notaDisponibilita: "La UPV es una universidad pública, sus precios están subvencionados por la administración y son definidos por la Generalitat Valenciana.",
     notePratiche: "Posti totali dell'accordo: 2. Solo livello Magistrale. Disponibile anche per PhD/Specializzandi. Ulteriore accordo distinto con lo stesso ateneo (promotore Federica Dal Falco)."
   },
   {
@@ -2357,6 +2363,7 @@ var METE = [
       ],
     linkSito: "http://www.upv.es",
 
+    notaDisponibilita: "La UPV es una universidad pública, sus precios están subvencionados por la administración y son definidos por la Generalitat Valenciana.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Emanuela Chiavoni)."
   },
   {
@@ -2620,6 +2627,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
       ],
+    linkSito: "https://www.lnu.se/en/student/international-possibilities/study-abroad/",
+    notaDisponibilita: "You can only apply for placements within your faculty or university-wide placements.",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {

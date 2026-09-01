@@ -2384,6 +2384,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 ottobre 2026" }
       ],
     linkSito: "http:/www.univ-paris1.fr",
+    notaDisponibilita: "Il n’est pas possible de vous inscrire à Paris 1 Panthéon-Sorbonne pour un semestre, ni en échange, ni en mobilité individuelle. Les admissions des candidatures en mobilité individuelle ne sont valables que pour une année universitaire entière",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA71347. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -2410,6 +2411,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 ottobre 2026" }
       ],
     linkSito: "http:/www.univ-paris1.fr",
+    notaDisponibilita: "Il n’est pas possible de vous inscrire à Paris 1 Panthéon-Sorbonne pour un semestre, ni en échange, ni en mobilité individuelle. Les admissions des candidatures en mobilité individuelle ne sont valables que pour une année universitaire entière",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA71432. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -2791,6 +2793,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 ottobre 2026" }
       ],
     linkSito: "http:/www.univ-paris1.fr",
+    notaDisponibilita: "Il n’est pas possible de vous inscrire à Paris 1 Panthéon-Sorbonne pour un semestre, ni en échange, ni en mobilité individuelle. Les admissions des candidatures en mobilité individuelle ne sont valables que pour une année universitaire entière",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71290. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -2975,6 +2978,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 ottobre 2026" }
       ],
     linkSito: "http:/www.univ-paris1.fr",
+    notaDisponibilita: "Il n’est pas possible de vous inscrire à Paris 1 Panthéon-Sorbonne pour un semestre, ni en échange, ni en mobilité individuelle. Les admissions des candidatures en mobilité individuelle ne sont valables que pour une année universitaire entière",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA71209. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -3128,6 +3132,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
     linkSito: "http://www.lmu.de/international",
+    notaDisponibilita: "Erasmus+, UK/SEMP-Studierende müssen mindestens 60% ihrer Kurse in dem Fachbereich des Erasmus+/UK/SEMP-Austauschabkommens belegen.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70928. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -3234,6 +3239,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
     linkSito: "http://www.lmu.de/international",
+    notaDisponibilita: "Erasmus+, UK/SEMP-Studierende müssen mindestens 60% ihrer Kurse in dem Fachbereich des Erasmus+/UK/SEMP-Austauschabkommens belegen.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70929. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -5417,7 +5423,9 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Applications for international applicants", periodo: "30th June 2026" }
+      ],
     linkSito: "https://mcast.edu.mt/",
     linkCatalogo: "https://mcast.edu.mt/full-catalogue/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA71449."
@@ -8433,6 +8441,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "dal 1 giugno al 30 settembre" }
       ],
     linkSito: "http://www.upv.es",
+    notaDisponibilita: "La UPV es una universidad pública, sus precios están subvencionados por la administración y son definidos por la Generalitat Valenciana.",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70954."
   },
   {
@@ -8586,6 +8595,7 @@ var METE = [
       ],
     linkSito: "http://www.um.es/internacionales",
     linkCatalogo: "https://erasmusmi.um.es/erasmusmi/erasmusmi.public.academicoffer.do?i_p=clear&t_m=clear",
+    notaDisponibilita: "Interested applicants must apply for one of the offers included in the Academic Catalogue , according to their profile (Bachelor's, Master's, PhD, administrative staff, or academic staff.",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71189. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {

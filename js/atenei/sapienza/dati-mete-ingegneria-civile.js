@@ -820,6 +820,7 @@ var METE = [
         { cosa: "Application (estate)", periodo: "entro il 30 novembre" }
       ],
     linkSito: "http://www.uni-hannover.de",
+    notaDisponibilita: "Research projects can only be carried out and included in your Learning Agreement if you have found a supervisor at Leibniz University Hannover beforehand.",
     notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69160."
   },
   {
@@ -1074,6 +1075,7 @@ var METE = [
     linkSito: "https://www.hswt.de/",
     linkCatalogo: "https://www.hswt.de/en/study/study-offer",
 
+    notaDisponibilita: "Du kannst Lehrveranstaltungen nur an einem der beiden HSWT Standorte besuchen.",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69159."
   },
   {
@@ -2527,6 +2529,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "dal 1 giugno al 30 settembre" }
       ],
     linkSito: "http://www.upv.es",
+    notaDisponibilita: "La UPV es una universidad pública, sus precios están subvencionados por la administración y son definidos por la Generalitat Valenciana.",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Accordo ERA69225."
   },
   {

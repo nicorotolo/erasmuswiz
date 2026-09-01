@@ -1692,6 +1692,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29139263",
     linkSito: "https://www.tcd.ie/global/mobility/inbound/how-to-apply/eu-and-erasmus-exchange/",
+    notaDisponibilita: "Please note that only undergraduate modules are available to visiting students with some exceptions. Postgraduates are also prohibited from enrolling in Trinity Electives.",
     notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 4; mesi: 5. Specifiche: TBS modules are available here: https://www.tcd.ie/business/programmes/undergraduate/study-abroad/module-outlines/ Student will take 50% in TBS. They may take modules in other school pending acceptance by the other school at time of application. See here: https://www.tcd.ie/students/orientation/visiting-exchange/module-enrolment.php || Scadenze: Trinity Erasmus exchange 2026/27 e fact sheet 2026/27 || Lingua: Trinity Business School raccomanda inglese B2"
   },
   {
