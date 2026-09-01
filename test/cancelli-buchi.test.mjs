@@ -253,15 +253,64 @@ test("un indirizzo preso da un link passa, e la citazione e' il testo del link",
   assert.equal(e.approvati.length, 1);
 });
 
-test("una citazione che non e' il testo del link scelto viene scartata", async (t) => {
+// Due prove possibili per un indirizzo, e ne basta una. Il 01/09, misurando
+// sui 53, pretendere l'uguaglianza esatta col testo del link ha buttato via
+// cinque valori giusti: le etichette portano coda ("http://tiss.tuwien.ac.at ,
+// opens an external URL in a new window") e lo stesso indirizzo compare piu'
+// volte con nomi diversi. Ora vale la citazione DENTRO il testo di un link,
+// oppure la regola generale dei 20 caratteri nel brano inviato.
+test("la citazione vale se sta dentro il testo di un link, coda compresa", async (t) => {
   const radice = radiceFinta(t);
-  // La frase e' vera e sta nella pagina: senza questo cancello passerebbe,
-  // e il link approvato non avrebbe piu' niente che lo dimostri.
+  const conCoda = { testo: "Course Catalogue , opens an external URL in a new window", url: "https://esempio.test/elenco-corsi" };
+  const pagina = { ...PAGINA, link: [conCoda], impronta: impronta(branoPagina(TESTO, [conCoda])) };
+  const campo = { valore: conCoda.url, livello: "ateneo", ambito: null, paginaCitata: 1,
+    fonte: { url: URL_PAGINA, citazione: "Course Catalogue", verificataIl: "2026-08-30" } };
+  const e = await applicaCancelli([{ codiceNorm: "TEST 01", lettoIl: "2026-08-30T00:00:00.000Z", modello: "finto",
+    pagineInviate: [pagina], campi: { linkCatalogo: campo }, nonTrovati: {}, note: [] }],
+    { radice, codici: new Set(["TEST 01"]), statoLink: async () => ({ stato: "vivo" }) });
+  assert.equal(e.scartati.length, 0, JSON.stringify(e.scartati));
+  assert.equal(e.approvati.length, 1);
+});
+
+// Su un campo-indirizzo la prova sta nell'indirizzo, che deve esistere nel
+// materiale inviato; alla citazione si chiede solo di essere letterale nel
+// brano. Restano due modi di fallire, e questa prova li tiene fermi entrambi.
+test("una citazione che nel brano non c'e' viene scartata, anche se lunga", async (t) => {
+  const radice = radiceFinta(t);
   const campo = { valore: LINK_CATALOGO.url, livello: "ateneo", ambito: null, paginaCitata: 1,
-    fonte: { url: URL_PAGINA, citazione: CITAZIONE, verificataIl: "2026-08-30" } };
+    fonte: { url: URL_PAGINA, citazione: "Questa frase non compare da nessuna parte nella pagina inviata.", verificataIl: "2026-08-30" } };
   const e = await applicaCancelli([letturaLink({ linkCatalogo: campo })],
     { radice, codici: new Set(["TEST 01"]), statoLink: async () => ({ stato: "vivo" }) });
-  assert.equal(e.scartati[0].causa, "citazioneNonDelLink");
+  assert.equal(e.approvati.length, 0);
+  assert.equal(e.scartati[0].causa, "citazioneAssente");
+});
+
+test("una citazione di meno di otto caratteri viene scartata", async (t) => {
+  const radice = radiceFinta(t);
+  // "need" sta nella pagina, ma quattro caratteri non dimostrano niente.
+  const campo = { valore: LINK_CATALOGO.url, livello: "ateneo", ambito: null, paginaCitata: 1,
+    fonte: { url: URL_PAGINA, citazione: "need", verificataIl: "2026-08-30" } };
+  const e = await applicaCancelli([letturaLink({ linkCatalogo: campo })],
+    { radice, codici: new Set(["TEST 01"]), statoLink: async () => ({ stato: "vivo" }) });
+  assert.equal(e.approvati.length, 0);
+  assert.equal(e.scartati[0].causa, "citazioneFuoriMisura");
+});
+
+// Una citazione corta ma letterale basta per un indirizzo. E' il caso piu'
+// forte di tutti e veniva buttato: Brema, Brno e Stoccolma citavano "Course
+// Catalog" (14 caratteri) - il nome della pagina che E' il catalogo, che
+// testoVisibile lascia in testa al testo - e la regola dei 20 caratteri li
+// scartava tutti e tre. NB: il titolo passa perche' compare nel TESTO della
+// pagina, non perche' il cancello legga il campo titolo: quello non fa parte
+// del brano firmato, e citarlo e basta non sarebbe verificabile.
+test("una citazione corta ma letterale nel brano vale per un indirizzo", async (t) => {
+  const radice = radiceFinta(t);
+  const campo = { valore: URL_PAGINA, livello: "ateneo", ambito: null, paginaCitata: 1,
+    fonte: { url: URL_PAGINA, citazione: "Incoming exchange", verificataIl: "2026-08-30" } };
+  const e = await applicaCancelli([letturaLink({ linkCatalogo: campo })],
+    { radice, codici: new Set(["TEST 01"]), statoLink: async () => ({ stato: "vivo" }) });
+  assert.equal(e.scartati.length, 0, JSON.stringify(e.scartati));
+  assert.equal(e.approvati.length, 1);
 });
 
 test("le tre origini lecite, e la differenza fra www e non-www non conta", () => {

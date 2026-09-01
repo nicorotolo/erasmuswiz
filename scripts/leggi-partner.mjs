@@ -124,6 +124,8 @@ GLI INDIRIZZI (linkSito e linkCatalogo)
 - Quando il valore lo prendi da un link, la "citazione" e' il TESTO di quel link copiato alla lettera, e "fonte.url" resta l'URL della pagina che lo conteneva.
 - linkCatalogo dev'essere UNA di queste due cose: l'indirizzo di un link che porta all'elenco dei corsi, oppure l'URL della pagina stessa quando e' quella pagina a ESSERE l'elenco dei corsi.
 - LA PAGINA CHE PARLA DEL CATALOGO NON E' IL CATALOGO. Se la pagina dice "il catalogo lo trovi qui" ma fra i suoi LINK non c'e' nessun indirizzo che ci porti, allora il catalogo non ce l'hai: metti linkCatalogo in nonTrovati. Una pagina di scadenze, una di candidatura, la pagina internazionale dell'ateneo e la sua home non sono MAI un catalogo, per quanto lo nominino.
+- E il contrario vale altrettanto: se una pagina o un link si chiama proprio "catalogo dei corsi" - course catalogue, course catalog, Vorlesungsverzeichnis, ders katalogu, catalogue de cours, oferta academica, opinto-opas - allora QUELLO E' il catalogo, e va proposto. La regola qui sopra serve a scartare le pagine che ne parlano, non a farti omettere un catalogo che hai davanti: omettere quando ce l'hai e' un errore quanto proporre la pagina sbagliata.
+- Il catalogo della BIBLIOTECA non e' il catalogo dei corsi: library catalogue, Bibliothekskatalog, catalogo della biblioteca, katalog.ub... elencano libri, non insegnamenti. Non proporlo mai.
 
 LA CITAZIONE
 - Va COPIATA carattere per carattere dalla pagina allegata, senza correggere refusi, accenti o spazi, senza tradurla e senza riassumerla.
@@ -193,7 +195,7 @@ export function attesaDa429(messaggio = "") {
   return { giornaliero, attesaMs: Number.isFinite(secondi) ? Math.round(secondi * 1000) + 5000 : 60000 };
 }
 
-const insieme = (filtro) => new Set(String(filtro).split(",").map((c) => c.trim().replace(/s+/g, "").toUpperCase()).filter(Boolean));
+const insieme = (filtro) => new Set(String(filtro).split(",").map((c) => c.trim().replace(/\s+/g, "").toUpperCase()).filter(Boolean));
 
 export async function leggiPartner({ radice = RADICE, limite = Infinity, partner: filtro, chiamaModello = chiamaGeminiVero, elencaModelli = elencaModelliVeri, attendi = (ms) => new Promise((r) => setTimeout(r, ms)), maxAttese = 3 } = {}) {
   const raccolta = path.join(radice, "raccolta"), letture = path.join(raccolta, "letture"); fs.mkdirSync(letture, { recursive: true });
@@ -204,7 +206,7 @@ export async function leggiPartner({ radice = RADICE, limite = Infinity, partner
     // --partner accetta anche un elenco separato da virgole: serve a rileggere
     // gli STESSI casi su cui una correzione e' stata trovata, invece di un
     // campione nuovo a ogni giro.
-    if (esito.partnerLetti >= limite || (filtro && !insieme(filtro).has(String(p.codiceNorm).replace(/s+/g, "").toUpperCase())) || !(p.campiMancanti || []).length) continue;
+    if (esito.partnerLetti >= limite || (filtro && !insieme(filtro).has(String(p.codiceNorm).replace(/\s+/g, "").toUpperCase())) || !(p.campiMancanti || []).length) continue;
     const dir = path.join(raccolta, "pagine", nome(p.codiceNorm)), indiceFile = path.join(dir, "indice.json"), fuori = path.join(letture, `${nome(p.codiceNorm)}.json`);
     if (fs.existsSync(fuori) || !fs.existsSync(indiceFile)) continue;
     const indice = JSON.parse(fs.readFileSync(indiceFile, "utf8")); if (indice.esito !== "raggiunto") continue;

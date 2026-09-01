@@ -197,14 +197,27 @@ const normUrl = (u) => {
 };
 const stessoUrl = (a, b) => Boolean(a) && Boolean(b) && normUrl(a) === normUrl(b);
 
+// Tutti i link della pagina che portano a quell'indirizzo, non il primo: lo
+// stesso indirizzo compare spesso piu' volte con etichette diverse, e
+// fermarsi al primo bocciava valori buoni (CZ BRNO05 aveva due link allo
+// stesso URL, e il primo si chiamava "Extent and Intensity of Courses").
 export function linkCitato(valore, pagina) {
-  return ((pagina && pagina.link) || []).find((l) => stessoUrl(l.url, valore)) || null;
+  return ((pagina && pagina.link) || []).filter((l) => stessoUrl(l.url, valore));
 }
 
-export function origineIndirizzo(valore, pagina, testoInviato) {
-  if (linkCitato(valore, pagina)) return "link";
+// L'indirizzo puo' venire da QUALUNQUE pagina inviata, non solo da quella
+// citata: il modello le aveva tutte davanti. Il 01/09 pretendere che venisse
+// dalla pagina citata ha bocciato quattro valori giusti (KIT, Chemnitz,
+// Cordoba, La Villette), dove il link stava su una pagina e la frase che lo
+// spiegava su un'altra. Il vincolo che conta resta: l'indirizzo deve esistere
+// nel materiale inviato, non essere composto dal modello.
+export function origineIndirizzo(valore, pagina, testoInviato, tutte = []) {
+  if (linkCitato(valore, pagina).length) return "link";
   if (stessoUrl(valore, pagina && pagina.url)) return "pagina";
   if (String(testoInviato || "").includes(String(valore))) return "testo";
+  for (const altra of tutte) {
+    if (linkCitato(valore, altra).length || stessoUrl(valore, altra && altra.url)) return "altraPagina";
+  }
   return null;
 }
 
@@ -229,7 +242,7 @@ export async function applicaCancelli(letture, { radice = RADICE, codici = codic
         // Le tre sole sorgenti di URL che il modello aveva davanti. Fuori da
         // quelle il valore e' inventato, e nessun altro cancello lo vedrebbe:
         // un indirizzo inventato che risponde 200 passa il controllo del link.
-        origine = origineIndirizzo(proposta.valore, pagina, verifica.testo);
+        origine = origineIndirizzo(proposta.valore, pagina, verifica.testo, [...inviati.values()]);
         if (!origine) causa = "indirizzoInventato";
       }
       if (!causa) {
@@ -237,9 +250,26 @@ export async function applicaCancelli(letture, { radice = RADICE, codici = codic
         // coppia (testo del link -> indirizzo), che e' piu' forte: la
         // citazione dev'essere quel testo alla lettera. "Course Catalogue"
         // sono 16 caratteri e la regola dei 20 lo rifiuterebbe.
-        const link = origine === "link" ? linkCitato(proposta.valore, pagina) : null;
-        if (link) causa = norm(proposta.fonte?.citazione) === norm(link.testo) ? undefined : "citazioneNonDelLink";
-        else causa = citazioneValida(proposta.fonte?.citazione, verifica.testo).causa;
+        // Due prove possibili, e ne basta una. La prima e' la piu' forte: la
+        // citazione sta DENTRO il testo di un link che porta proprio a
+        // quell'indirizzo. Non si pretende l'uguaglianza esatta perche' le
+        // etichette portano coda ("http://tiss.tuwien.ac.at , opens an
+        // external URL in a new window"), e pretenderla bocciava valori giusti.
+        // La seconda e' la regola generale: una citazione di almeno 20
+        // caratteri presente nel brano inviato. In entrambi i casi la
+        // citazione e' letterale dentro il brano, che e' il vincolo vero.
+        // Per un campo-indirizzo la prova sta nell'indirizzo stesso, che deve
+        // esistere nel materiale (cancello qui sopra): alla citazione si chiede
+        // solo di essere letterale nel brano inviato. Il minimo di 20 caratteri
+        // serve a impedire che una frase vaga dimostri un CONTENUTO, e su un
+        // indirizzo non serve: il 01/09 ha buttato Brema, Brno e Stoccolma, che
+        // citavano il titolo della pagina ("Course Catalog", 14 caratteri) - il
+        // caso piu' forte di tutti, la pagina che E' il catalogo e lo dice.
+        const citazione = norm(proposta.fonte?.citazione);
+        if (campoIndirizzo) {
+          if (citazione.length < 8) causa = "citazioneFuoriMisura";
+          else if (!norm(verifica.testo).includes(citazione)) causa = "citazioneAssente";
+        } else causa = citazioneValida(proposta.fonte?.citazione, verifica.testo).causa;
       }
       if (!causa && campoIndirizzo) {
         let esito = await statoLink(proposta.valore);

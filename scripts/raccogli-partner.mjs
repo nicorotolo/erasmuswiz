@@ -372,10 +372,10 @@ async function main() {
   // una correzione sugli stessi casi su cui e' stata trovata, invece che su un
   // campione nuovo ogni volta.
   const chiesti = (process.argv.find((a) => a.startsWith("--codici=")) || "").split("=").slice(1).join("=");
-  const soloQuesti = chiesti ? new Set(chiesti.split(",").map((c) => c.trim().replace(/s+/g, "").toUpperCase()).filter(Boolean)) : null;
-  const daRaccogliere = partner.filter((p) => p.campiMancanti.length && (!soloQuesti || soloQuesti.has(String(p.codiceNorm).replace(/s+/g, "").toUpperCase())));
+  const soloQuesti = chiesti ? new Set(chiesti.split(",").map((c) => c.trim().replace(/\s+/g, "").toUpperCase()).filter(Boolean)) : null;
+  const daRaccogliere = partner.filter((p) => p.campiMancanti.length && (!soloQuesti || soloQuesti.has(String(p.codiceNorm).replace(/\s+/g, "").toUpperCase())));
   if (soloQuesti && daRaccogliere.length < soloQuesti.size) {
-    const trovati = new Set(daRaccogliere.map((p) => String(p.codiceNorm).replace(/s+/g, "").toUpperCase()));
+    const trovati = new Set(daRaccogliere.map((p) => String(p.codiceNorm).replace(/\s+/g, "").toUpperCase()));
     console.error(`Codici chiesti e non trovati fra i partner con campi mancanti: ${[...soloQuesti].filter((c) => !trovati.has(c)).join(", ")}`);
   }
   // Il centro di ogni intervallo evita che il campione dipenda dal primo partner
