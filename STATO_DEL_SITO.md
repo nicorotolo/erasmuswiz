@@ -21,9 +21,23 @@
 
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-08-31 — Claude e Codex (**Fase 4b CHIUSA, e i
-primi dati letti da un modello sono nel sito**: 176 campi in 23 file).
-**253/253 prove verdi.**
+**Ultimo aggiornamento:** 2026-09-01 — Claude (**il catalogo dei corsi: causa
+trovata e corretta, dal 62% al 93% di valori giusti**; niente di nuovo ancora
+applicato al sito, restano i 176 campi in 23 file del 31/08).
+**265/265 prove verdi.**
+
+> 🔎 **01/09 — il campo bocciato aveva una causa strutturale, non un modello
+> distratto.** I 53 `linkCatalogo` fermi in cache sono stati guardati uno per
+> uno: 33 giusti, 17 puntavano alla pagina che *parla* del catalogo, 3 erano
+> cataloghi di dipartimento. Dei 17 sbagliati, **in 16 casi il catalogo non era
+> davanti al modello**: `testoVisibile` cancellava i tag e con essi gli `href`,
+> quindi il modello leggeva «Course Catalogue **here**» senza sapere dove
+> portasse «here», e l'unico indirizzo che potesse restituire era quello della
+> pagina che aveva in mano. Il prompt glielo diceva già («se trovi solo la
+> pagina informativa, ometti»): non poteva bastare. Ora la raccolta salva i
+> link, la lettura li allega, e per un campo-indirizzo la prova è la coppia
+> *testo del link → indirizzo*. Rimisurato sugli stessi 53: **41 approvati, 38
+> giusti (93%)**, contro 53 approvati e 33 giusti (62%).
 
 > ✅ **L'arbitrato è stato fatto il 31/08, e ha deciso lui la rotta.** 85,2%
 > complessivo — sotto il 95%, quindi non si applica tutto. Ma per campo:
@@ -4498,7 +4512,7 @@ promosso 16 su 16.
 | scadenzeOspitante | 1705 | **1744** | — |
 | linkSito | 1636 | **1701** | — |
 | notaDisponibilita | 94 | **166** | — |
-| **linkCatalogo** (serve al Learning Agreement) | 120 | 120 | **53 valori, bocciati** |
+| **linkCatalogo** (serve al Learning Agreement) | 120 | 120 | **41 valori nuovi, 93% giusti** |
 | requisitoLingua | 1529 | 1529 | **10 valori, bocciati** |
 
 **I due campi fermi sono fermi apposta.** L'arbitrato del 31/08 ha dato 85,2%
@@ -4511,6 +4525,55 @@ migliore.
 
 Restano inoltre **1.433 voci `nonTrovabile`** calcolate e non scritte: è una
 decisione a sé, non ancora presa.
+
+### Il catalogo dei corsi, 01/09: cos'era davvero e cosa resta
+
+La causa non era quella scritta qui sotto il 31/08 («il modello propone la
+pagina che parla del catalogo»): quello era il **sintomo**. Guardando i 53
+valori uno per uno e poi risalendo, dei 17 sbagliati **16 non potevano essere
+giusti**: il catalogo non era nel materiale inviato. `testoVisibile` teneva il
+testo e buttava i tag, `href` compresi; gli `href` venivano estratti solo per
+decidere dove scendere e poi scartati. Il modello aveva due sole sorgenti di
+indirizzi — le pagine numerate e gli URL scritti per esteso — e in 37 casi su
+53 ha restituito semplicemente la pagina che aveva in mano.
+
+Riscaricando le 12 pagine dei casi «catalogo mai raccolto» **tenendo i link**,
+il catalogo che la citazione stessa nominava era lì: Weimar → BISON, Amiens →
+il PDF con quel nome esatto, Cork → il Book of Modules (su `courseleaf.com`,
+un altro dominio), Praga → «Courses at CU».
+
+**Misura prima/dopo sugli stessi 53, guardati a occhio tutte e tre le volte:**
+
+| | approvati | giusti | quota |
+|---|---:|---:|---:|
+| 31/08, prima di toccare niente | 53 | 33 | 62% |
+| col solo cancello di facoltà | 45 | 31 | 69% |
+| dopo raccolta + lettura + cancelli | **41** | **38** | **93%** |
+
+Gli 8 mandati agli scarti di facoltà sono quelli che l'arbitrato voleva fuori.
+
+**Campione fresco, 25 atenei mai visti** (16 raggiunti dalla raccolta): 5
+cataloghi proposti, 1 fermato come facoltà, e dei 4 restanti **3 giusti**
+(Osnabrück, USAMV Bucarest, Erciyes) e 1 sbagliato — Växjö, dove il modello ha
+preso l'elenco delle **destinazioni** di scambio per un elenco di corsi: lo
+stesso errore di Villanueva. Gli 11 silenzi sono onesti in 10 casi su 11 (nel
+materiale non c'è nessun catalogo); il perso è TR BURDUR01, che aveva 18 link
+«Introduction Catalog». **Quattro casi non dimostrano il 93%**: dicono solo che
+la correzione non è tarata sui casi da cui è nata.
+
+**Difetti trovati guardando, non rileggendo.** (a) `pulisciUrl` non decodificava
+`&amp;`: **142 pagine su 5.555** erano state scaricate con l'indirizzo rotto, e
+il catalogo approvato di Dresda lo portava dentro al valore. (b) Rompendo il
+punto di scrittura della pagina — togliere il campo `link` — le prove restavano
+verdi: la stessa lacuna del 30/08, prove sulla funzione e non su chi la chiama.
+Chiusa spostando la forma della pagina in `paginaSalvata()`.
+
+**E due volte il cancello nuovo ha bocciato valori giusti**, il che si è visto
+solo misurando: pretendere l'uguaglianza esatta col testo del link (le
+etichette portano coda: «http://tiss.tuwien.ac.at , opens an external URL in a
+new window») e il minimo di 20 caratteri sulla citazione, che bocciava il caso
+più forte di tutti — Brema, Brno e Stoccolma citavano «Course Catalog», 14
+caratteri, cioè il nome della pagina che **è** il catalogo.
 
 ### Fotografia precedente, per partner — misurata il 2026-08-30
 
@@ -4870,13 +4933,24 @@ portatile può anche chiudersi.
    file, i tre promossi dall'arbitrato. La Fase 4b è **chiusa**.
 
    **I prossimi passi, nell'ordine:**
-   1. ⏳ **Il catalogo dei corsi** — il campo che serve al Learning Agreement, e
-      l'unico bocciato dall'arbitrato (7 su 10). **53 valori aspettano in
-      cache.** La causa è nota e ripetuta: il modello propone la pagina che
-      *parla* del catalogo invece del catalogo (Bamberga dava la pagina delle
-      scadenze; Atene la pagina internazionale). Tre dei cinque casi
-      problematici erano di livello **facoltà**. È il lavoro che dà più valore
-      per meta: si va da 120 mete coperte a un potenziale 282;
+   1. ✅ **Il catalogo dei corsi — causa trovata e corretta il 01/09** (§6). Non
+      era il modello: la raccolta buttava via gli `href`, quindi il catalogo non
+      era nel materiale in 16 casi sbagliati su 17. Sugli stessi 53: **41
+      approvati, 38 giusti (93%)**, da 33 su 53 (62%).
+      **Cosa resta da decidere, e non l'ho deciso io:**
+      (a) **applicare o no.** 93% è sotto il 95% che l'arbitrato usa come
+      soglia. Serve un arbitrato umano su un campione dei 41, come il 31/08.
+      Finché non è fatto, nel sito non entra niente di nuovo;
+      (b) **rileggere gli altri 191 partner**: hanno le letture vecchie, fatte
+      con la cache senza link. Vanno riraccolti e riletti per avere lo stesso
+      trattamento — è lavoro di rete e di quota, non di codice;
+      (c) l'errore che sopravvive è **l'elenco delle destinazioni preso per un
+      elenco di corsi** (Växjö nel campione fresco, Villanueva prima): un
+      cancello che lo veda non esiste ancora.
+      Attenzione a un effetto collaterale già misurato: riraccogliere azzera il
+      testo dei PDF, quindi dopo ogni riraccolta va rilanciato
+      `scripts/riscarica-pdf.mjs`, o i valori che venivano dai PDF spariscono e
+      sembra una regressione;
    2. ⏳ **Il requisito di lingua** — 10 valori in cache. Il caso bocciato
       (`TR ISTANBU09`) mostra che i valori erano giusti ma la **relazione** no:
       da una tabella appiattita ("ENGLISH B2 / TURKISH … B2") il modello ha
