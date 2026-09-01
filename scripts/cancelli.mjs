@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { caricaMete } from "./lib-mete.mjs";
+import { caricaMete, codiceCanonico } from "./lib-mete.mjs";
 import { validaFonte, validaValore } from "./lib-output-batch.mjs";
 import { statoLink as statoLinkVero } from "./lib-link.mjs";
 import { branoPagina } from "./leggi-partner.mjs";
@@ -15,7 +15,6 @@ const PAROLE_FACOLTA = /faculty|fakultat|faculte|facolta|facultad|department|dep
 const CAMPI_STRETTI = new Set(["requisitoLingua", "scadenzeOspitante", "notaDisponibilita", "linkCatalogo"]);
 
 const norm = (s) => String(s || "").normalize("NFD").replace(/\p{M}/gu, "").toLowerCase().replace(/[“”]/g, '"').replace(/[‘’]/g, "'").replace(/[–—]/g, "-").replace(/\s+/g, " ").trim();
-const normCodice = (s) => String(s || "").replace(/\s+/g, " ").trim().toUpperCase();
 const impronta = (testo) => createHash("sha256").update(testo, "utf8").digest("hex");
 const pausa = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -156,20 +155,20 @@ export function codiciValidi(radice = RADICE) {
     for (const file of fs.readdirSync(dirCsv).filter((nome) => nome.endsWith(".csv"))) {
       for (const riga of fs.readFileSync(path.join(dirCsv, file), "utf8").split(/\r?\n/).slice(1)) {
         const codice = riga.split(";")[3];
-        if (codice) codici.add(normCodice(codice));
+        if (codice) codici.add(codiceCanonico(codice));
       }
     }
   }
   for (const file of fileMete(radice)) {
     for (const meta of caricaMete(fs.readFileSync(file, "utf8"))) {
-      if (meta.codiceErasmus) codici.add(normCodice(meta.codiceErasmus));
+      if (meta.codiceErasmus) codici.add(codiceCanonico(meta.codiceErasmus));
     }
   }
   return codici;
 }
 
 function testoVerificato(lettura, pagina, radice) {
-  const file = path.join(radice, "raccolta", "pagine", lettura.codiceNorm.replace(/\s+/g, ""), pagina.file);
+  const file = path.join(radice, "raccolta", "pagine", codiceCanonico(lettura.codiceNorm), pagina.file);
   if (!fs.existsSync(file) || !Number.isInteger(pagina.caratteri) || pagina.caratteri < 0 || typeof pagina.impronta !== "string") return { causa: "paginaCambiata" };
   const testo = JSON.parse(fs.readFileSync(file, "utf8")).testo;
   // Il brano inviato e' testo PIU' i link allegati, e l'impronta copre tutto.
@@ -222,6 +221,7 @@ export function origineIndirizzo(valore, pagina, testoInviato, tutte = []) {
 }
 
 export async function applicaCancelli(letture, { radice = RADICE, codici = codiciValidi(radice), statoLink = statoLinkVero, attendi = pausa } = {}) {
+  codici = new Set([...codici].map(codiceCanonico));
   if (!codici.size) throw new Error("Nessun codice valido disponibile: il cancello non puo procedere.");
   const approvati = [], scartati = [], facolta = [];
   for (const lettura of letture) {
@@ -289,7 +289,7 @@ export async function applicaCancelli(letture, { radice = RADICE, codici = codic
       // campo di facolta' finiva in riconciliazione invece che negli scarti, ed
       // entrava nel materiale della Fase 6 un dato senza un partner vero a cui
       // appartenere.
-      const codiceIgnoto = !codici.has(normCodice(lettura.codiceNorm));
+      const codiceIgnoto = !codici.has(codiceCanonico(lettura.codiceNorm));
       if (!causa) {
         proposta = applicaCancelloLivello(campo, proposta, pagina);
         if (!proposta.approvato && !codiceIgnoto) { facolta.push({ codiceNorm: lettura.codiceNorm, campo, ...proposta }); continue; }

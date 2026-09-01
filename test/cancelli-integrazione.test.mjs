@@ -49,7 +49,7 @@ test("i codici Ca' Foscari sono validi e un elenco vuoto blocca il cancello", as
     const file = path.join(radice, "js", "atenei", "cafoscari", "dati-mete.js");
     fs.mkdirSync(path.dirname(file), { recursive: true });
     fs.writeFileSync(file, 'var METE = [{ codiceErasmus: "I VENEZIA01" }];');
-    assert.equal(codiciValidi(radice).has("I VENEZIA01"), true);
+    assert.equal(codiciValidi(radice).has("IVENEZIA01"), true);
     await assert.rejects(applicaCancelli([], { radice, codici: new Set() }), /nessun codice valido/i);
   } finally { fs.rmSync(radice, { recursive: true, force: true }); }
 });

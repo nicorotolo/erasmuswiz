@@ -21,10 +21,12 @@
 
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-09-01 — Claude (**il catalogo dei corsi è nel
-sito**: arbitrato umano completo, 103 valori su 103, 76 promossi, **260 mete
-riempite**. Il campo passa da 120 a **380 mete su 1.987**, oltre il triplo).
-**267/267 prove verdi.**
+**Ultimo aggiornamento:** 2026-09-01 — Codex (**Fase 5A chiusa: migrazione
+completa e 321/321 prove verdi**). Le 1.987 mete sono rimaste identiche. La
+migrazione 0g ricostruisce 258 letture: 231 già applicate, 27 nello stato
+`daApplicare` con 29 campi pendenti, 1 collisione isolata e **zero ambigui**.
+`avanzamento.json` è stato creato senza applicare alcun dato. La Consegna B
+(`esegui-partner.mjs`) non è stata iniziata.
 
 > 🔎 **01/09 — il campo bocciato aveva una causa strutturale, non un modello
 > distratto.** I 53 `linkCatalogo` fermi in cache sono stati guardati uno per
@@ -4307,6 +4309,7 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **Pipeline dati T0→T3 — Gemini + Codex** | Copertura complessiva: **1.987 mete, 73% lingua, 79% scadenze**. Al 17/07: 315 run completati, 45 batch in coda; ultimo lotto reale pubblicato il 16/07 alle 13:08 | ⚠️ La schedulazione ogni 3 ore sull'altro PC non sta producendo commit/PR/branch su GitHub; controllare cronologia e ultimo risultato dell'attività pianificata sul PC remoto |
 | **Pipeline dati — Fase 4b, Consegne 1 + 2a + 2b-1** | Cancelli deterministici e riscarico PDF: citazione nel solo brano inviato (impronta SHA-256), pagina mutata, forma, URL, livello e codici; i PDF vengono riscaricati con le regole Fase 4a, letti e messi in cache, o marcati col motivo del fallimento | ✅ Chiuse e verificate il 30/08. Sei regressioni senza rete viste rosse **due volte** (rotture dell'esecutore + altre sei del revisore). Corretti in rilettura due difetti che le prove verdi non vedevano: il limitatore della raccolta perdeva un posto sugli indirizzi malformati e si bloccava per sempre; l'estrattore PDF **cancellava i numeri e ne alterava alcuni**. Sul campo: 870 PDF riscaricati, 417 letti, 244 partner leggibili su 246 |
 | **Pipeline dati — Fase 4b, Consegna 2b-2** | `leggi-partner.mjs`: una sola chiamata al modello per partner sulle pagine gia' in cache, con impronta SHA-256 e titolo di ogni brano inviato, `nonTrovati` per la copertura onesta, tetti 40k/pagina e 250k/partner, arresto pulito sul 429 | ⚠︎ Consegnata da Codex il 30/08 sera, **non ancora riletta**: 217/217 unit, modello iniettabile, nessuna chiave usata e nessuna chiamata reale. Prima di lanciarla vanno letti il diff e **il prompt**, che nessuna prova puo' giudicare |
+| **Pipeline dati — Fase 5A: sette correzioni preliminari** | Codice canonico unico e collisioni isolate; guardie sui veri invarianti; fonti e disaccordi fusi e ricostruiti; partner ricostruibili; tentativi strutturati; anteprima prospettica compatta; migrazione dello stato storico | ✅ **Chiusa con 321/321 unit verdi (01/09)**. `avanzamento.json`: 231 letture applicate, 27 `daApplicare` con 29 campi espliciti, 1 collisione isolata e zero ambigui veri. Consegna B non iniziata |
 | **REDESIGN v2 — F0: Preparazione** | Spec versionata in `design/redesign-2026-07/` (canvas + baseline invarianti/touch, vedi §4). Nessun file di produzione toccato. Commit `ac7c1c9`, pushato | ✅ Fatta (2026-07-25) |
 | **REDESIGN v2 — F1: Token, ritmo, gutter, griglia** | Token §2.1–2.3 (`--bg-app #FAF8F3`, `--night-bg #211E42`, `--space-*`/`--fs-*`/`--gutter`/`--stack`/`--container:1140px`/`--shadow-gold`, due `@media :root`); ritmo verticale con `> * + *` e i tre antidoti; **gutter a un solo proprietario** (`.main-content`): 18 margini legacy in 3 misure + 5 padding-gutter + blocco ≤480px + `#banner-wiz` inline, tutto in un diff; `.griglia-mete-v2` 1→2→auto-fill; creato `/*__PROD_END__*/`. Solo `css/style.css` (+238/−48), `index.html` e `js/app.js` intatti. **Due correzioni al canvas, misurate:** `.percorso-wrap` conserva `grid-row: 1/6` (senza, 337px di buco e sticky a corsa zero) e il hero torna full-bleed sotto i 768px | ✅ Fatta e verificata (2026-07-25) — commit `ce0d5a8`, **pushato il 25/07 insieme a F2** (decisione di Nicola: il piano lo collocava a F4). 4/4 controlli gutter, controllo browser 13 esecuzioni tutte vuote, invarianti F0 verdi ai 3 viewport |
 | **REDESIGN v2 — 🚦 GATE 1** | Nicola conferma le tre default: **P-A** su `modo-benvenuto` (R3), **`!important`** su `#banner-wiz` (R38, `index.html` non si tocca), **full-bleed conservato** per il hero. In più: **F2 riassegnata a Claude Code** invece di Codex (D4 rivista) | ✅ Passato (2026-07-25) |
@@ -4467,7 +4470,8 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 | `scripts/cancelli.mjs` · `scripts/lib-link.mjs` · `scripts/lib-pdf.mjs` · `scripts/riscarica-pdf.mjs` | pipeline dati Fase 4b | Cancellano le proposte non verificabili e recuperano i PDF: il riscarico usa le regole condivise della raccolta, salva solo il testo estratto e non ritenta i fallimenti |
 | `test/fixtures/pdf/*.pdf` | prove pipeline Fase 4b | Tre PDF universitari **veri** (648 KB): una factsheet che deve uscire integra, un file sporco di operatori, uno a font proprietario che deve tornare `null`. Sono nel repo apposta: una prova che dipende dalla rete non è ripetibile, ed è la prova finta e pulita che aveva lasciato passare il difetto |
 | `scripts/leggi-partner.mjs` | pipeline dati Fase 4b | La lettura: una chiamata al modello per partner sulle pagine in cache, con impronta e titolo di ogni brano inviato. ⚠︎ consegnata, non ancora riletta |
-| `test/cancelli-integrazione.test.mjs` · `test/cancello-citazione.test.mjs` · `test/cancello-livello.test.mjs` · `test/lib-pdf.test.mjs` · `test/leggi-partner.test.mjs` · `test/raccogli-partner.test.mjs` · `test/riscarica-pdf.test.mjs` | test pipeline Fase 4b | Regressioni su citazione, pagina cambiata, titolo di facoltà, codice Ca' Foscari, iniezione senza rete, PDF, paese del CSV e riscarico permanente dei PDF |
+| `scripts/migra-avanzamento.mjs` | pipeline dati Fase 5A | Migrazione una-tantum delle 259 letture: richiede un solo esito per ogni coppia codice/campo e prova pubblicazione o disaccordo; scrive gli ambigui e si ferma senza checkpoint se ne trova |
+| `test/cancelli-integrazione.test.mjs` · `test/cancello-citazione.test.mjs` · `test/cancello-livello.test.mjs` · `test/lib-pdf.test.mjs` · `test/leggi-partner.test.mjs` · `test/raccogli-partner.test.mjs` · `test/riscarica-pdf.test.mjs` · `test/migra-avanzamento.test.mjs` | test pipeline Fase 4b/5A | Regressioni su citazione, pagina cambiata, livello, codice canonico, collisioni, guardie partner, tentativi, migrazione storica, PDF e riscarico permanente |
 | `scripts/lib-mete.mjs` | automazione | Utilità condivise: scanner/serializzazione + inserimento sicuro dei nuovi campi mappabili |
 | `scripts/lib-output-batch.mjs` · `scripts/valida-output-batch.mjs` | automazione | Contratto e validatore dell'OUTPUT: batch corretto, soli campi richiesti, formato dati e prove ufficiali obbligatorie |
 | `scripts/test-pipeline-gemini.mjs` | test | Suite isolata della pipeline: inserimento campi, anti-output residuo, evidenze, setup/riuso e merge |
@@ -4500,6 +4504,25 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
   accessibile ora (<40), con spiegazione di cosa manca.
 
 ## 6. ⚠️ STATO DEI CONTENUTI (il vero lavoro che resta)
+
+### Fase 5A — fotografia del 2026-09-01
+
+I dati pubblicati non sono stati modificati: **1.987 mete prima e dopo**, con
+la stessa impronta SHA-256 dell'intero array (`464d88e…e7118bc4`) e 28.997
+campi già pieni invariati. L'elenco partner aggiornato contiene **613 record
+sani**, 591 ancora con campi mancanti, più i due record Aachen isolati in
+`raccolta/collisioni.json`. Le fonti recuperabili passano da 8 a **95 chiavi**;
+107 proposte storiche non ricostruibili sono dichiarate in
+`raccolta/fonti-irrecuperabili.json`. Su 259 letture, dopo la ricostruzione di
+**146 disaccordi unici** (224 occorrenze sui tre campi automatici e 4 sui
+restanti), la migrazione ricostruisce **258 checkpoint** e isola 1 codice
+colliso. Le 27 letture prima chiamate ambigue sono ora correttamente
+`{ fuso: true, applicato: false }`: contengono 29 campi `campiDaApplicare`
+(22 `notaDisponibilita`, 3 `linkSito`, 4 `scadenzeOspitante`). Le altre 231
+sono applicate e gli ambigui veri sono **zero**. `avanzamento.json` è stato
+creato senza scrivere i 29 dati nel sito. L'anteprima su disco pesa 22.772 byte
+anziché 3.239.844 e non duplica i testi delle mete; i 3 PDF di `A GRAZ02`
+hanno di nuovo tutti testo estraibile.
 
 ### Mappatura mete — fotografia del 2026-08-31, DOPO la prima applicazione
 
@@ -4959,6 +4982,15 @@ python -m http.server 8001
 poi aprire **http://localhost:8001**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
+
+### ⇢ Consegna B — orchestratore della pipeline (dopo Fase 5A, 01/09)
+
+1. In una sessione separata implementare `scripts/esegui-partner.mjs` seguendo
+   `PLAN_FASE5.md`: la Fase 5A non lo ha iniziato.
+2. Il primo blocco della Consegna B troverà 27 letture `daApplicare` e 29 campi
+   espliciti. Applicarli solo passando dai cancelli di sistema, dal confronto
+   campo per campo e dalla procedura di commit prevista; nessun campo è stato
+   applicato durante questa migrazione.
 
 ### ⇢ Cantiere DATI — riavvio della mappatura (aggiornato 2026-08-30)
 

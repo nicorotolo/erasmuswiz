@@ -1,6 +1,102 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { normalizzaPaese, Limitatore, linkSalvati, punteggioLink, paginaSalvata } from "../scripts/raccogli-partner.mjs";
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { caricaPartner, costruisciPartner, normalizzaPaese, Limitatore, linkSalvati, punteggioLink, paginaSalvata, registraTentativo, separaCollisioni, validaPartner } from "../scripts/raccogli-partner.mjs";
+import { codiceCanonico } from "../scripts/lib-mete.mjs";
+
+test("0b: una chiave canonica vede Aachen e isola entrambi i record", () => {
+  assert.equal(codiceCanonico(" D Aachen 01 "), "DAACHEN01");
+  assert.equal(codiceCanonico("D AACHEN01"), "DAACHEN01");
+  const a = { codice: "D AACHEN 01", codiceNorm: "D AACHEN 01" };
+  const b = { codice: "D AACHEN01", codiceNorm: "D AACHEN01" };
+  const sano = { codice: "A GRAZ02", codiceNorm: "A GRAZ02" };
+  const esito = separaCollisioni([a, sano, b]);
+  assert.deepEqual(esito.sani, [sano], "i collisi non devono entrare nel lavoro ordinario");
+  assert.equal(esito.collisioni.length, 1);
+  assert.equal(esito.collisioni[0].codiceCanonico, "DAACHEN01");
+  assert.deepEqual(esito.collisioni[0].record, [a, b]);
+});
+
+const elencoPartner = (totale = 615) => Array.from({ length: totale }, (_, i) => ({
+  codice: `TEST ${String(i).padStart(4, "0")}`,
+  codiceNorm: `TEST ${String(i).padStart(4, "0")}`,
+  campiMancanti: [],
+}));
+
+test("0a: un elenco con tutte le mete piene e' valido", () => {
+  assert.equal(validaPartner(elencoPartner()).length, 615);
+});
+
+test("0a: un duplicato non dichiarato viene fermato", () => {
+  const partner = elencoPartner();
+  partner[1] = { ...partner[1], codice: "T EST0000", codiceNorm: "T EST0000" };
+  assert.throws(() => validaPartner(partner), /collisione non dichiarata: TEST0000/);
+});
+
+test("0a: un duplicato dichiarato isola entrambi i record", () => {
+  const partner = elencoPartner();
+  partner[1] = { ...partner[1], codice: "T EST0000", codiceNorm: "T EST0000" };
+  const sani = validaPartner(partner, [{ codiceCanonico: "TEST0000", record: [partner[0], partner[1]] }]);
+  assert.equal(sani.length, 613);
+  assert.equal(sani.some((record) => codiceCanonico(record.codiceNorm) === "TEST0000"), false);
+});
+
+test("0a: un elenco di 400 partner e' corrotto", () => {
+  assert.throws(() => validaPartner(elencoPartner(400)), /400 partner/);
+});
+
+test("0d: la ricostruzione ignora un partner.json vecchio", async (t) => {
+  const radice = fs.mkdtempSync(path.join(os.tmpdir(), "erasmuswiz-partner-"));
+  t.after(() => fs.rmSync(radice, { recursive: true, force: true }));
+  fs.mkdirSync(path.join(radice, "raccolta"), { recursive: true });
+  fs.writeFileSync(path.join(radice, "raccolta", "partner.json"), JSON.stringify([{ codiceNorm: "VECCHIO" }]));
+  const righe = elencoPartner().map((record) => ({ codice: record.codice }));
+  const ricostruiti = await costruisciPartner({ radice, caricaCsv: async () => righe });
+  assert.equal(ricostruiti.length, 615);
+  assert.equal(ricostruiti.some((record) => record.codiceNorm === "VECCHIO"), false);
+  assert.equal(JSON.parse(fs.readFileSync(path.join(radice, "raccolta", "partner.json"))).length, 615);
+});
+
+test("0b: costruisciPartner registra una collisione nuova e prosegue con gli altri", async (t) => {
+  const radice = fs.mkdtempSync(path.join(os.tmpdir(), "erasmuswiz-collisione-nuova-"));
+  t.after(() => fs.rmSync(radice, { recursive: true, force: true }));
+  const righe = elencoPartner().map((record) => ({ codice: record.codice }));
+  righe[1] = { codice: "T EST0000" };
+  const messaggi = [];
+  const partner = await costruisciPartner({ radice, caricaCsv: async () => righe, segnala: (riga) => messaggi.push(riga) });
+  assert.equal(partner.length, 613, "i due collisi sono isolati, gli altri proseguono");
+  const collisioni = JSON.parse(fs.readFileSync(path.join(radice, "raccolta", "collisioni.json")));
+  assert.equal(collisioni.length, 1);
+  assert.equal(collisioni[0].codiceCanonico, "TEST0000");
+  assert.match(messaggi[0], /TEST0000.*TEST 0000.*T EST0000/);
+});
+
+test("0d: il chiamante del flag non riusa la cache esistente", async (t) => {
+  const radice = fs.mkdtempSync(path.join(os.tmpdir(), "erasmuswiz-flag-partner-"));
+  t.after(() => fs.rmSync(radice, { recursive: true, force: true }));
+  fs.mkdirSync(path.join(radice, "raccolta"), { recursive: true });
+  fs.writeFileSync(path.join(radice, "raccolta", "partner.json"), JSON.stringify([{ codiceNorm: "VECCHIO" }]));
+  let chiamate = 0;
+  const nuovi = await caricaPartner({ radice, ricostruisci: true, costruisci: async () => { chiamate++; return [{ codiceNorm: "NUOVO" }]; } });
+  assert.equal(chiamate, 1);
+  assert.deepEqual(nuovi, [{ codiceNorm: "NUOVO" }]);
+});
+
+test("0e: ogni esito usa una causa chiusa e conserva lo stato HTTP", () => {
+  const tentativi = [];
+  registraTentativo(tentativi, "https://x.test/404", { ok: false, stato: 404 });
+  registraTentativo(tentativi, "https://x.test/timeout", { errore: "timeout" });
+  registraTentativo(tentativi, "https://x.test/robots", null, { esito: "saltato", causa: "robots" });
+  registraTentativo(tentativi, "https://x.test/ok", { ok: true, stato: 200 });
+  assert.deepEqual(tentativi.map((x) => [x.esito, x.causa, x.stato]), [
+    ["fallito", "http4xx", 404], ["fallito", "timeout", null],
+    ["saltato", "robots", null], ["riuscito", null, 200],
+  ]);
+  const cause = new Set(["nessunCandidato", "robots", "http4xx", "http5xx", "timeout", "paginaVuota", "dominioCambiato", "sconosciuta", null]);
+  assert.equal(tentativi.every((x) => cause.has(x.causa)), true);
+});
 
 test("raccogli-partner normalizza il paese del CSV senza perdere le parole composte", () => {
   assert.equal(normalizzaPaese("AUSTRIA"), "Austria");

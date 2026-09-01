@@ -4,7 +4,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
-import { applicaPartner } from "../scripts/applica-partner.mjs";
+import { applicaPartner, ricostruisciDisaccordi, ricostruisciFonti } from "../scripts/applica-partner.mjs";
 
 const fonte = { url: "https://esempio.test/fonte", citazione: "Una citazione valida abbastanza lunga.", verificataIl: "2026-08-31" };
 const proposta = (codice = "TEST 01", valore = "https://esempio.test/catalogo") => ({ codiceNorm: codice, campo: "linkCatalogo", valore, fonte });
@@ -45,6 +45,26 @@ test("mai sovrascrivere: conserva i byte e registra il disaccordo", async (t) =>
   await applicaPartner({ radice, approvati: [proposta()], letture: [] });
   assert.equal(fs.readFileSync(file(radice, 1), "utf8"), prima);
   assert.equal(JSON.parse(fs.readFileSync(path.join(radice, "raccolta", "riconciliazione", "disaccordi.json"))).length, 1);
+});
+
+test("disaccordi: due applicazioni su campi diversi conservano la prima prova", async (t) => {
+  const radice = radiceFinta(t, 1);
+  fs.writeFileSync(file(radice, 1), `const METE = [{\n  id: "TEST 01",\n  codiceErasmus: "TEST 01",\n  linkCatalogo: "https://gia.test/catalogo",\n  linkSito: "https://gia.test/sito",\n  notePratiche: []\n}];\n`);
+  await applicaPartner({ radice, approvati: [proposta()], letture: [] });
+  await applicaPartner({ radice, approvati: [{ ...proposta(), campo: "linkSito", valore: "https://nuovo.test/sito" }], letture: [] });
+  const disaccordi = JSON.parse(fs.readFileSync(path.join(radice, "raccolta", "riconciliazione", "disaccordi.json")));
+  assert.deepEqual(disaccordi.map((d) => d.campo).sort(), ["linkCatalogo", "linkSito"]);
+});
+
+test("disaccordi: la ricostruzione misura separatamente automatici e restanti", (t) => {
+  const radice = radiceFinta(t, 1);
+  fs.writeFileSync(file(radice, 1), `const METE = [{\n  id: "TEST 01",\n  codiceErasmus: "TEST 01",\n  linkCatalogo: "gia",\n  linkSito: "gia",\n  notePratiche: []\n}];\n`);
+  const esito = ricostruisciDisaccordi({ radice, approvati: [
+    proposta(), { ...proposta(), campo: "linkSito", valore: "nuovo" },
+  ] });
+  assert.equal(esito.automatici, 1);
+  assert.equal(esito.restanti, 1);
+  assert.equal(esito.disaccordi.length, 2);
 });
 
 test("uguale non e disaccordo e non modifica il file", async (t) => {
@@ -125,7 +145,49 @@ test("le fonti finiscono nel file affiancato, dove il progetto le mette gia'", a
   const radice = radiceFinta(t, 1);
   await applicaPartner({ radice, approvati: [proposta()], letture: [] });
   const fonti = JSON.parse(fs.readFileSync(path.join(radice, "raccolta", "FONTI-partner.json"), "utf8"));
-  assert.deepEqual(fonti, { "TEST 01": { linkCatalogo: fonte.url } });
+  assert.deepEqual(fonti, { TEST01: { linkCatalogo: fonte.url } });
+});
+
+test("0c: due applicazioni consecutive conservano le fonti della prima", async (t) => {
+  const radice = radiceFinta(t, 1);
+  fs.writeFileSync(file(radice, 1), `const METE = [\n${sorgente("TEST 01").match(/\{[\s\S]*\}/)[0]},\n${sorgente("TEST 02").match(/\{[\s\S]*\}/)[0]}\n];\n`);
+  await applicaPartner({ radice, approvati: [proposta("TEST 01")], letture: [] });
+  await applicaPartner({ radice, approvati: [proposta("TEST 02", "https://esempio.test/due")], letture: [] });
+  assert.deepEqual(JSON.parse(fs.readFileSync(path.join(radice, "raccolta", "FONTI-partner.json"))), {
+    TEST01: { linkCatalogo: fonte.url },
+    TEST02: { linkCatalogo: fonte.url },
+  });
+});
+
+test("0c: la ricostruzione separa fonti recuperabili e perdite esplicite", (t) => {
+  const radice = radiceFinta(t, 1);
+  fs.writeFileSync(file(radice, 1), sorgente("TEST 01", '"https://esempio.test/catalogo"'));
+  const esito = ricostruisciFonti({ radice, approvati: [
+    proposta("TEST 01"),
+    { ...proposta("TEST 01", "https://diverso.test/"), campo: "linkSito" },
+  ] });
+  assert.equal(esito.recuperate, 1);
+  assert.deepEqual(esito.fonti, { TEST01: { linkCatalogo: fonte.url } });
+  assert.deepEqual(esito.irrecuperabili, [{ codiceNorm: "TEST 01", codiceCanonico: "TEST01", campo: "linkSito", causa: "valoreNonPubblicato" }]);
+  assert.deepEqual(JSON.parse(fs.readFileSync(path.join(radice, "raccolta", "fonti-irrecuperabili.json"))), esito.irrecuperabili);
+});
+
+test("0c: la ricostruzione NON perde una fonte che non sa ricostruire", (t) => {
+  // Rottura trovata a mano dopo i giri delegati: azzerare la fusione dentro
+  // ricostruisciFonti lasciava la suite verde. E' il difetto 0c dentro la
+  // funzione scritta per ripararlo - la piu' pericolosa dove possa annidarsi,
+  // perche' la si lancia proprio quando le fonti sono gia' fragili. Una fonte
+  // gia' registrata per un campo che le proposte non coprono deve sopravvivere.
+  const radice = radiceFinta(t, 1);
+  fs.writeFileSync(file(radice, 1), sorgente("TEST 01", '"https://esempio.test/catalogo"'));
+  fs.mkdirSync(path.join(radice, "raccolta"), { recursive: true });
+  fs.writeFileSync(path.join(radice, "raccolta", "FONTI-partner.json"),
+    JSON.stringify({ "ALTRO 99": { scadenzeOspitante: "https://storica.test/fonte" } }, null, 2));
+  const esito = ricostruisciFonti({ radice, approvati: [proposta("TEST 01")] });
+  assert.equal(esito.fonti["ALTRO99"]?.scadenzeOspitante, "https://storica.test/fonte");
+  assert.equal(esito.fonti.TEST01?.linkCatalogo, fonte.url);
+  const suDisco = JSON.parse(fs.readFileSync(path.join(radice, "raccolta", "FONTI-partner.json")));
+  assert.equal(suDisco["ALTRO99"]?.scadenzeOspitante, "https://storica.test/fonte");
 });
 
 test("un campo non scritto non lascia la sua fonte nel file affiancato", async (t) => {
@@ -152,7 +214,17 @@ test("con 'campi' si applica solo cio' di cui ci si fida, il resto resta fuori",
   assert.match(dopo, /linkCatalogo: ""/, "il campo bocciato deve restare vuoto");
   assert.equal(esito.scritti, 1);
   const fonti = JSON.parse(fs.readFileSync(path.join(radice, "raccolta", "FONTI-partner.json"), "utf8"));
-  assert.deepEqual(fonti, { "TEST 01": { linkSito: fonte.url } }, "niente fonte per un campo non applicato");
+  assert.deepEqual(fonti, { TEST01: { linkSito: fonte.url } }, "niente fonte per un campo non applicato");
+});
+
+test("0b: un array approvati esplicito non rilegge il file globale coi collisi", async (t) => {
+  const radice = radiceFinta(t, 1);
+  const prima = fs.readFileSync(file(radice, 1), "utf8");
+  fs.mkdirSync(path.join(radice, "raccolta"), { recursive: true });
+  fs.writeFileSync(path.join(radice, "raccolta", "approvati.json"), JSON.stringify([proposta()]));
+  const esito = await applicaPartner({ radice, approvati: [], letture: [] });
+  assert.equal(esito.scritti, 0);
+  assert.equal(fs.readFileSync(file(radice, 1), "utf8"), prima);
 });
 
 test("senza letture non si scrive nessun nonTrovabile", async (t) => {
@@ -165,7 +237,18 @@ test("senza letture non si scrive nessun nonTrovabile", async (t) => {
 
 test("prova scrive solo l anteprima e lascia i file dati identici", async (t) => {
   const radice = radiceFinta(t); const prima = [1, 2, 3].map((n) => fs.readFileSync(file(radice, n), "utf8"));
-  await applicaPartner({ radice, approvati: [proposta()], letture: [], prova: true });
+  const esito = await applicaPartner({ radice, approvati: [proposta()], letture: [], prova: true });
   for (let n = 1; n <= 3; n++) assert.equal(fs.readFileSync(file(radice, n), "utf8"), prima[n - 1]);
-  assert.ok(fs.existsSync(path.join(radice, "raccolta", "anteprima-partner.json")));
+  assert.equal(esito.contenutoProspettico.size, 3);
+  for (const testo of esito.contenutoProspettico.values()) assert.match(testo, /linkCatalogo: "https:\/\/esempio\.test\/catalogo"/);
+  const anteprimaFile = path.join(radice, "raccolta", "anteprima-partner.json");
+  assert.ok(fs.existsSync(anteprimaFile));
+  const testoAnteprima = fs.readFileSync(anteprimaFile, "utf8");
+  const anteprima = JSON.parse(testoAnteprima);
+  assert.equal("contenutoProspettico" in anteprima, false, "il testo completo non va scritto su disco");
+  assert.equal(typeof anteprima.disaccordi, "number", "su disco basta il conteggio; i dettagli restano nel ritorno");
+  assert.equal(anteprima.fileProspettici.length, 3);
+  assert.equal(anteprima.fileProspettici.every((voce) => voce.caratteriCambiati > 0), true);
+  assert.doesNotMatch(testoAnteprima, /const METE/);
+  assert.ok(fs.statSync(anteprimaFile).size < 100_000, "l'anteprima deve restare sotto 100 KB");
 });

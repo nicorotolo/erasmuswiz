@@ -6,7 +6,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { CAMPI_RIEMPIBILI, caricaMete, statoCampo } from "./lib-mete.mjs";
+import { CAMPI_RIEMPIBILI, caricaMete, codiceCanonico, statoCampo } from "./lib-mete.mjs";
 
 const RADICE = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const RACCOLTA = path.join(RADICE, "raccolta");
@@ -34,7 +34,6 @@ export function punteggioLink(testo, url = "") {
 
 const norm = (valore) => String(valore || "").replace(/\s+/g, " ").trim().toUpperCase();
 export const normalizzaPaese = (valore) => String(valore || "").trim().toLocaleLowerCase("it-IT").replace(/(^|[\s-])(\p{L})/gu, (_, prima, lettera) => prima + lettera.toLocaleUpperCase("it-IT"));
-const nomeCartella = (codice) => norm(codice).replace(/\s+/g, "");
 const senzaAccenti = (s) => String(s || "").normalize("NFD").replace(/\p{Diacritic}/gu, "");
 // Un indirizzo dentro l'HTML (e dentro un sitemap XML) ha la e commerciale
 // scritta come entita': "?a=1&amp;b=2". Fino al 31/08 non veniva decodificata e
@@ -140,10 +139,28 @@ async function scaricaUnaVolta(url, limitatore) {
   } catch (errore) { return { errore: errore.name === "TimeoutError" ? "timeout" : errore.message }; }
 }
 
-export async function scarica(url, limitatore) {
+export function registraTentativo(tentativi, url, risposta, extra = {}) {
+  if (!tentativi) return;
+  let causa = null;
+  if (extra.causa) causa = extra.causa;
+  else if (risposta?.errore === "timeout") causa = "timeout";
+  else if (risposta?.stato >= 500) causa = "http5xx";
+  else if (risposta?.stato >= 400) causa = "http4xx";
+  else if (!risposta?.ok) causa = "sconosciuta";
+  const voce = { url: String(url || ""), esito: extra.esito || (causa ? "fallito" : "riuscito"), causa, stato: risposta?.stato ?? null };
+  // Un contenuto vuoto o un cambio dominio qualificano lo STESSO tentativo
+  // HTTP appena registrato: non si aggiunge una seconda riga, altrimenti il
+  // resoconto conterebbe due tentativi dove la rete ne ha eseguito uno.
+  const precedente = tentativi.at(-1);
+  if (extra.esito && precedente?.url === voce.url && precedente.causa == null) tentativi[tentativi.length - 1] = voce;
+  else tentativi.push(voce);
+}
+
+export async function scarica(url, limitatore, tentativi) {
   const primo = await scaricaUnaVolta(url, limitatore);
-  if (!primo.errore) return primo;
-  return await scaricaUnaVolta(url, limitatore);
+  const risposta = primo.errore ? await scaricaUnaVolta(url, limitatore) : primo;
+  registraTentativo(tentativi, url, risposta);
+  return risposta;
 }
 
 // Ritorna anche il TESTO di robots.txt, perche' le righe "Sitemap:" servono
@@ -152,10 +169,10 @@ export async function scarica(url, limitatore) {
 // dominio. La cache per host evita di richiederlo a ogni partner che lo
 // condivide e per ogni sottodominio gia' visto.
 const robotsPerHost = new Map();
-export async function regoleRobots(base, limitatore) {
+export async function regoleRobots(base, limitatore, tentativi) {
   const host = new URL(base).origin;
   if (robotsPerHost.has(host)) return robotsPerHost.get(host);
-  const robots = await scarica(new URL("/robots.txt", base).href, limitatore);
+  const robots = await scarica(new URL("/robots.txt", base).href, limitatore, tentativi);
   let esito = { regole: [], testo: "" };
   if (robots.ok) {
     const testo = robots.corpo.toString("utf8");
@@ -200,13 +217,60 @@ async function caricaCsvSapienza() {
   return risultati;
 }
 
-function fileMete() {
+function fileMete(radice = RADICE) {
   const trovati = [];
   function visita(cartella) { for (const voce of fs.readdirSync(cartella, { withFileTypes: true })) { const p = path.join(cartella, voce.name); if (voce.isDirectory()) visita(p); else if (/^dati-mete.*\.js$/.test(voce.name)) trovati.push(p); } }
-  visita(path.join(RADICE, "js", "atenei")); return trovati;
+  const cartella = path.join(radice, "js", "atenei");
+  if (fs.existsSync(cartella)) visita(cartella);
+  return trovati;
 }
 
-async function costruisciPartner() {
+export function separaCollisioni(partner) {
+  const gruppi = new Map();
+  for (const record of partner) {
+    const chiave = codiceCanonico(record.codiceNorm || record.codice);
+    if (!gruppi.has(chiave)) gruppi.set(chiave, []);
+    gruppi.get(chiave).push(record);
+  }
+  const collisioni = [...gruppi]
+    .filter(([chiave, record]) => chiave && record.length > 1)
+    .map(([chiave, record]) => ({ codiceCanonico: chiave, record }));
+  const collisi = new Set(collisioni.map((voce) => voce.codiceCanonico));
+  return {
+    sani: partner.filter((record) => !collisi.has(codiceCanonico(record.codiceNorm || record.codice))),
+    collisioni,
+  };
+}
+
+export function validaPartner(partner, collisioniDichiarate = []) {
+  // Misura 0a: i partner sono ~615; i buchi possono invece scendere da 603 a
+  // zero quando la pipeline riesce. Controllare i buchi contro 603 faceva
+  // esplodere il lavoro proprio mentre migliorava i dati.
+  if (Math.abs(partner.length - 615) > 31) {
+    throw new Error(`elenco inatteso: ${partner.length} partner`);
+  }
+  const dichiarati = new Set(collisioniDichiarate.map((voce) => codiceCanonico(voce.codiceCanonico)));
+  const gruppi = new Map();
+  for (const record of partner) {
+    const chiave = codiceCanonico(record.codiceNorm || record.codice);
+    if (!chiave) throw new Error("elenco inatteso: codice canonico vuoto");
+    if (!gruppi.has(chiave)) gruppi.set(chiave, []);
+    gruppi.get(chiave).push(record);
+  }
+  const nonDichiarati = [...gruppi].filter(([chiave, record]) => record.length > 1 && !dichiarati.has(chiave));
+  if (nonDichiarati.length) {
+    throw new Error(`collisione non dichiarata: ${nonDichiarati.map(([chiave]) => chiave).join(", ")}`);
+  }
+  const sani = partner.filter((record) => !dichiarati.has(codiceCanonico(record.codiceNorm || record.codice)));
+  const daRaccogliere = sani.filter((record) => (record.campiMancanti || []).length).length;
+  if (daRaccogliere < 0 || daRaccogliere > sani.length) {
+    throw new Error(`elenco inatteso: ${daRaccogliere} da raccogliere su ${sani.length}`);
+  }
+  return sani;
+}
+
+export async function costruisciPartner({ radice = RADICE, caricaCsv = caricaCsvSapienza, segnala = console.warn } = {}) {
+  const raccolta = path.join(radice, "raccolta");
   const mappa = new Map();
   const aggiungi = (dati) => {
     const codiceNorm = norm(dati.codice); if (!codiceNorm) return;
@@ -217,17 +281,35 @@ async function costruisciPartner() {
     if (dati.meta) { p.mete++; p._mete.push(dati.meta); }
     mappa.set(codiceNorm, p);
   };
-  for (const riga of await caricaCsvSapienza()) aggiungi(riga);
-  for (const file of fileMete()) for (const meta of caricaMete(fs.readFileSync(file, "utf8"))) aggiungi({ codice: meta.codiceErasmus, ateneo: meta.universita, citta: meta.citta, paese: meta.paese, sito: meta.linkSito, meta });
-  const partner = [...mappa.values()].map((p) => ({ ...p, campiMancanti: CAMPI_RIEMPIBILI.filter((campo) => p._mete.some((meta) => !["dato", "nonTrovabile"].includes(statoCampo(meta, campo)))) })).map(({ _mete, ...p }) => p).sort((a, b) => a.codiceNorm.localeCompare(b.codiceNorm));
+  for (const riga of await caricaCsv()) aggiungi(riga);
+  for (const file of fileMete(radice)) for (const meta of caricaMete(fs.readFileSync(file, "utf8"))) aggiungi({ codice: meta.codiceErasmus, ateneo: meta.universita, citta: meta.citta, paese: meta.paese, sito: meta.linkSito, meta });
+  const completi = [...mappa.values()].map((p) => ({ ...p, codiceNorm: codiceCanonico(p.codiceNorm), campiMancanti: CAMPI_RIEMPIBILI.filter((campo) => p._mete.some((meta) => !["dato", "nonTrovabile"].includes(statoCampo(meta, campo)))) })).map(({ _mete, ...p }) => p).sort((a, b) => a.codiceNorm.localeCompare(b.codiceNorm));
+  const collisioniFile = path.join(raccolta, "collisioni.json");
+  const collisioniPrecedenti = fs.existsSync(collisioniFile) ? JSON.parse(fs.readFileSync(collisioniFile, "utf8")) : [];
+  const rilevate = separaCollisioni(completi).collisioni;
+  const collisioniPerChiave = new Map(collisioniPrecedenti.map((voce) => [codiceCanonico(voce.codiceCanonico), voce]));
+  for (const voce of rilevate) collisioniPerChiave.set(voce.codiceCanonico, voce);
+  const collisioni = [...collisioniPerChiave.values()];
+  fs.mkdirSync(raccolta, { recursive: true });
+  fs.writeFileSync(collisioniFile, JSON.stringify(collisioni, null, 2) + "\n");
+  // Una collisione nuova non deve fermare per sempre la catena: viene isolata,
+  // ma resta rumorosa a ogni ricostruzione affinche' una persona possa decidere.
+  for (const voce of rilevate) segnala(`Collisione isolata ${voce.codiceCanonico}: ${voce.record.map((record) => record.codice).join(" | ")}`);
+  const partner = validaPartner(completi, collisioni);
   const daRaccogliere = partner.filter((p) => p.campiMancanti.length).length;
-  if (Math.abs(partner.length - 615) > 31 || Math.abs(daRaccogliere - 603) > 31) throw new Error(`elenco inatteso: ${partner.length} partner, ${daRaccogliere} da raccogliere`);
-  fs.mkdirSync(RACCOLTA, { recursive: true }); fs.writeFileSync(path.join(RACCOLTA, "partner.json"), JSON.stringify(partner, null, 2) + "\n");
+  fs.writeFileSync(path.join(raccolta, "partner.json"), JSON.stringify(partner, null, 2) + "\n");
   return partner;
 }
 
+export async function caricaPartner({ radice = RADICE, ricostruisci = false, costruisci = costruisciPartner } = {}) {
+  const file = path.join(radice, "raccolta", "partner.json");
+  return ricostruisci || !fs.existsSync(file)
+    ? costruisci({ radice })
+    : JSON.parse(fs.readFileSync(file, "utf8"));
+}
+
 async function candidatiPartner(partner, limitatore) {
-  const candidati = new Map(), note = [];
+  const candidati = new Map(), note = [], tentativi = [];
   // L'indirizzo dell'accordo ufficiale a volte punta a una pagina profonda che
   // nel frattempo e' sparita: "www.supsi.ch/international/" risponde 404 mentre
   // la radice dello stesso sito risponde 200. La radice va quindi provata come
@@ -241,7 +323,10 @@ async function candidatiPartner(partner, limitatore) {
     } catch { /* indirizzo malformato: lo salta il ciclo sotto */ }
   }
 
-  if (!daProvare.length) note.push("nessun indirizzo noto per questo partner");
+  if (!daProvare.length) {
+    note.push("nessun indirizzo noto per questo partner");
+    registraTentativo(tentativi, "", null, { esito: "fallito", causa: "nessunCandidato" });
+  }
 
   for (const sitoIniziale of daProvare) {
     if (candidati.size) break;   // basta un ingresso buono: non si insiste sugli altri
@@ -253,20 +338,21 @@ async function candidatiPartner(partner, limitatore) {
     // partenza, altrimenti si scarta l'intero sito - e' la causa piu' grossa
     // dei "nessun candidato" misurati il 30/08, quindici su ventinove.
     // Anche sitemap e sottodomini vanno cercati sul dominio d'arrivo.
-    const primaVisita = await scarica(sitoIniziale, limitatore);
+    const primaVisita = await scarica(sitoIniziale, limitatore, tentativi);
     let sito = sitoIniziale;
     if (primaVisita.ok && primaVisita.urlFinale) {
       try {
         const arrivo = new URL(primaVisita.urlFinale).origin + "/";
         if (new URL(arrivo).hostname !== new URL(sitoIniziale).hostname) {
           note.push(`reindirizzato: ${sitoIniziale} -> ${arrivo}`);
+          registraTentativo(tentativi, sitoIniziale, primaVisita, { esito: "reindirizzato", causa: "dominioCambiato" });
           sito = arrivo;
         }
       } catch { /* indirizzo finale illeggibile: si tiene quello di partenza */ }
     }
 
     let robots, testoRobots;
-    try { ({ regole: robots, testo: testoRobots } = await regoleRobots(sito, limitatore)); }
+    try { ({ regole: robots, testo: testoRobots } = await regoleRobots(sito, limitatore, tentativi)); }
     catch { continue; }
 
     // I TRE SEGNALI SONO INDIPENDENTI, non una catena. Prima la homepage che
@@ -276,10 +362,11 @@ async function candidatiPartner(partner, limitatore) {
     // recupera - nella misura sul campo del 30/08 sono tre su otto.
     if (!consentitoDaRobots(sito, robots)) {
       note.push(`robots.txt vieta la homepage: ${sito}`);
+      registraTentativo(tentativi, sito, null, { esito: "saltato", causa: "robots" });
     } else {
       // La pagina e' gia' stata scaricata sopra per scoprire il
       // reindirizzamento: riusarla invece di chiederla una seconda volta.
-      const home = primaVisita.ok ? primaVisita : await scarica(sito, limitatore);
+      const home = primaVisita.ok ? primaVisita : await scarica(sito, limitatore, tentativi);
       if (!home.ok) {
         note.push(`homepage non disponibile: ${sito} (${home.errore || `HTTP ${home.stato}`})`);
       } else {
@@ -291,11 +378,11 @@ async function candidatiPartner(partner, limitatore) {
     const sitemap = [...testoRobots.matchAll(/(?:^|\n)\s*Sitemap:\s*(\S+)/gi)].map((m) => m[1]);
     if (!sitemap.length) sitemap.push(new URL("/sitemap.xml", sito).href);
     for (const sm of sitemap.slice(0, 4)) {
-      const risposta = await scarica(sm, limitatore); if (!risposta.ok) continue;
+      const risposta = await scarica(sm, limitatore, tentativi); if (!risposta.ok) continue;
       let loc = locSitemap(risposta.corpo.toString("utf8"));
       if (loc.some((u) => /\.xml(?:$|\?)/i.test(u))) {
         const figli = loc.filter((u) => /incoming|exchange|erasmus|international|mobility/i.test(senzaAccenti(u))).slice(0, 3);
-        loc = []; for (const figlio of figli) { const r = await scarica(figlio, limitatore); if (r.ok) loc.push(...locSitemap(r.corpo.toString("utf8"))); }
+        loc = []; for (const figlio of figli) { const r = await scarica(figlio, limitatore, tentativi); if (r.ok) loc.push(...locSitemap(r.corpo.toString("utf8"))); }
       }
       for (const u of loc) { const punti = punteggioLink("", u); if (punti > 0 && stessoAteneo(sito, u) && consentitoDaRobots(u, robots)) candidati.set(u, Math.max(candidati.get(u) || -Infinity, punti)); }
     }
@@ -305,14 +392,16 @@ async function candidatiPartner(partner, limitatore) {
     const host = new URL(sito).hostname.replace(/^www\./, "");
     for (const prefisso of ["international", "erasmus", "io", "oia"]) {
       const u = `https://${prefisso}.${host}/`;
-      const r = await scarica(u, limitatore);
-      if (!r.ok || r.corpo.length <= 1500) continue;
-      const { regole: robotsSub } = await regoleRobots(u, limitatore);
-      if (!consentitoDaRobots(u, robotsSub)) continue;
+      const r = await scarica(u, limitatore, tentativi);
+      if (!r.ok) continue;
+      if (r.corpo.length <= 1500) { registraTentativo(tentativi, u, r, { esito: "fallito", causa: "paginaVuota" }); continue; }
+      const { regole: robotsSub } = await regoleRobots(u, limitatore, tentativi);
+      if (!consentitoDaRobots(u, robotsSub)) { registraTentativo(tentativi, u, null, { esito: "saltato", causa: "robots" }); continue; }
       candidati.set(u, Math.max(candidati.get(u) || 0, punteggioLink("international", u)));
     }
   }
-  return { candidati: [...candidati].sort((a, b) => b[1] - a[1]).slice(0, 8), note };
+  if (!candidati.size && daProvare.length) registraTentativo(tentativi, daProvare[0], null, { esito: "fallito", causa: "nessunCandidato" });
+  return { candidati: [...candidati].sort((a, b) => b[1] - a[1]).slice(0, 8), note, tentativi };
 }
 
 // Il 31/08 una rottura di prova ha mostrato che togliere "link" dal punto di
@@ -331,12 +420,12 @@ export const paginaSalvata = (pagina, risposta, html, pdf, quando) => ({
 });
 
 async function raccogliUnPartner(partner, limitatore, riprendiTutto) {
-  const cartella = path.join(RACCOLTA, "pagine", nomeCartella(partner.codiceNorm));
+  const cartella = path.join(RACCOLTA, "pagine", codiceCanonico(partner.codiceNorm));
   const indiceFile = path.join(cartella, "indice.json");
   if (!riprendiTutto && fs.existsSync(indiceFile)) { try { const indice = JSON.parse(fs.readFileSync(indiceFile, "utf8")); if (indice.esito && Date.now() - Date.parse(indice.raccoltoIl) < 30 * 86400_000) return { saltato: true, esito: indice.esito }; } catch {} }
   fs.mkdirSync(cartella, { recursive: true });
   const ingresso = await candidatiPartner(partner, limitatore);
-  const indice = { codice: partner.codice, esito: "nonRaggiunto", raccoltoIl: new Date().toISOString(), candidati: ingresso.candidati.map(([url]) => url), pagine: [], note: ingresso.note };
+  const indice = { codice: partner.codice, esito: "nonRaggiunto", raccoltoIl: new Date().toISOString(), candidati: ingresso.candidati.map(([url]) => url), pagine: [], note: ingresso.note, tentativi: ingresso.tentativi };
   const coda = ingresso.candidati.map(([url, punteggio]) => ({ url, punteggio, profondita: 0 })); const visti = new Set();
   while (coda.length && indice.pagine.length < 25) {
     coda.sort((a, b) => b.punteggio - a.punteggio); const pagina = coda.shift(); if (visti.has(pagina.url)) continue; visti.add(pagina.url);
@@ -344,13 +433,14 @@ async function raccogliUnPartner(partner, limitatore, riprendiTutto) {
     // di partenza, quindi i link scoperti strada facendo venivano scaricati
     // senza guardare robots.txt. Le regole valgono per tutte le richieste, non
     // solo per la prima.
-    const { regole: robotsPagina } = await regoleRobots(pagina.url, limitatore);
-    if (!consentitoDaRobots(pagina.url, robotsPagina)) { indice.note.push(`robots.txt vieta: ${pagina.url}`); continue; }
-    const risposta = await scarica(pagina.url, limitatore);
+    const { regole: robotsPagina } = await regoleRobots(pagina.url, limitatore, indice.tentativi);
+    if (!consentitoDaRobots(pagina.url, robotsPagina)) { indice.note.push(`robots.txt vieta: ${pagina.url}`); registraTentativo(indice.tentativi, pagina.url, null, { esito: "saltato", causa: "robots" }); continue; }
+    const risposta = await scarica(pagina.url, limitatore, indice.tentativi);
     if (!risposta.ok) { indice.note.push(`pagina non disponibile: ${pagina.url} (${risposta.errore || `HTTP ${risposta.stato}`})`); continue; }
     const pdf = /application\/pdf/i.test(risposta.tipo) || /\.pdf(?:$|\?)/i.test(new URL(risposta.urlFinale).pathname);
     const file = `${String(indice.pagine.length + 1).padStart(3, "0")}.json`;
     const html = pdf ? "" : risposta.corpo.toString("utf8");
+    if (!pdf && !testoVisibile(html)) registraTentativo(indice.tentativi, pagina.url, risposta, { esito: "fallito", causa: "paginaVuota" });
     fs.writeFileSync(path.join(cartella, file), JSON.stringify(paginaSalvata(pagina, risposta, html, pdf, new Date().toISOString()), null, 2) + "\n");
     indice.pagine.push({ file, url: pagina.url, punteggio: pagina.punteggio, profondita: pagina.profondita });
     if (!pdf && pagina.profondita < 3) for (const l of linkHtml(html, risposta.urlFinale)) { const punti = punteggioLink(l.testo, l.url); if (punti > 0 && stessoAteneo(pagina.url, l.url)) coda.push({ url: l.url, punteggio: punti, profondita: pagina.profondita + 1 }); }
@@ -366,16 +456,18 @@ async function main() {
   const paralleli = Number((process.argv.find((a) => a.startsWith("--paralleli=")) || "--paralleli=6").split("=")[1]) || 6;
   const riprendiTutto = process.argv.includes("--riprendi-tutto");
   let partner;
-  try { const file = path.join(RACCOLTA, "partner.json"); partner = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, "utf8")) : await costruisciPartner(); }
+  try {
+    partner = await caricaPartner({ ricostruisci: process.argv.includes("--ricostruisci-partner") });
+  }
   catch (errore) { console.error(`Impossibile costruire l'elenco partner: ${errore.message}`); process.exitCode = 1; return; }
   // --codici=A GRAZ02,D WEIMAR01 raccoglie SOLO quei partner. Serve a rimisurare
   // una correzione sugli stessi casi su cui e' stata trovata, invece che su un
   // campione nuovo ogni volta.
   const chiesti = (process.argv.find((a) => a.startsWith("--codici=")) || "").split("=").slice(1).join("=");
-  const soloQuesti = chiesti ? new Set(chiesti.split(",").map((c) => c.trim().replace(/\s+/g, "").toUpperCase()).filter(Boolean)) : null;
-  const daRaccogliere = partner.filter((p) => p.campiMancanti.length && (!soloQuesti || soloQuesti.has(String(p.codiceNorm).replace(/\s+/g, "").toUpperCase())));
+  const soloQuesti = chiesti ? new Set(chiesti.split(",").map(codiceCanonico).filter(Boolean)) : null;
+  const daRaccogliere = partner.filter((p) => p.campiMancanti.length && (!soloQuesti || soloQuesti.has(codiceCanonico(p.codiceNorm))));
   if (soloQuesti && daRaccogliere.length < soloQuesti.size) {
-    const trovati = new Set(daRaccogliere.map((p) => String(p.codiceNorm).replace(/\s+/g, "").toUpperCase()));
+    const trovati = new Set(daRaccogliere.map((p) => codiceCanonico(p.codiceNorm)));
     console.error(`Codici chiesti e non trovati fra i partner con campi mancanti: ${[...soloQuesti].filter((c) => !trovati.has(c)).join(", ")}`);
   }
   // Il centro di ogni intervallo evita che il campione dipenda dal primo partner

@@ -7,10 +7,9 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { isDeepStrictEqual } from "node:util";
 import { fileMete } from "./cancelli.mjs";
-import { campoVuoto, caricaMete, impostaCampo, serializza, spanTutteMete, statoCampo, valoreCampo } from "./lib-mete.mjs";
+import { campoVuoto, caricaMete, codiceCanonico, impostaCampo, serializza, spanTutteMete, statoCampo, valoreCampo } from "./lib-mete.mjs";
 
 const RADICE = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const normCodice = (codice) => String(codice || "").replace(/\s+/g, " ").trim().toUpperCase();
 const leggiJson = (file) => JSON.parse(fs.readFileSync(file, "utf8"));
 const dataLettura = (lettura) => String(lettura?.lettoIl || new Date().toISOString()).slice(0, 10);
 
@@ -26,12 +25,94 @@ function valoreUguale(grezzo, proposto) {
   catch { return grezzo === serializza(proposto); }
 }
 
+function contaCaratteriCambiati(prima, dopo) {
+  let inizio = 0;
+  while (inizio < prima.length && inizio < dopo.length && prima[inizio] === dopo[inizio]) inizio++;
+  let finePrima = prima.length - 1, fineDopo = dopo.length - 1;
+  while (finePrima >= inizio && fineDopo >= inizio && prima[finePrima] === dopo[fineDopo]) { finePrima--; fineDopo--; }
+  return Math.max(finePrima - inizio + 1, fineDopo - inizio + 1);
+}
+
 function lettureDaCartella(radice) {
   const cartella = path.join(radice, "raccolta", "letture");
   if (!fs.existsSync(cartella)) return [];
   return fs.readdirSync(cartella)
     .filter((file) => file.endsWith(".json"))
     .map((file) => leggiJson(path.join(cartella, file)));
+}
+
+function fontiEsistenti(radice) {
+  const file = path.join(radice, "raccolta", "FONTI-partner.json");
+  if (!fs.existsSync(file)) return {};
+  const normalizzate = {};
+  for (const [codice, campi] of Object.entries(leggiJson(file))) {
+    Object.assign(normalizzate[codiceCanonico(codice)] ||= {}, campi);
+  }
+  return normalizzate;
+}
+
+function chiaveDisaccordo(disaccordo) {
+  return [codiceCanonico(disaccordo.codiceNorm), disaccordo.campo, path.resolve(disaccordo.file)].join("\u0000");
+}
+
+function disaccordiEsistenti(radice) {
+  const file = path.join(radice, "raccolta", "riconciliazione", "disaccordi.json");
+  return fs.existsSync(file) ? leggiJson(file) : [];
+}
+
+// Il giro del 01/09 su un solo campo aveva cancellato le prove raccolte dagli
+// altri giri. La chiave comprende codice, campo e file: una prova aggiornata
+// sostituisce la propria versione precedente, senza distruggere le altre.
+export function unisciDisaccordi(esistenti, nuovi) {
+  const uniti = new Map(esistenti.map((voce) => [chiaveDisaccordo(voce), voce]));
+  for (const voce of nuovi) uniti.set(chiaveDisaccordo(voce), voce);
+  return [...uniti.values()];
+}
+
+// La misura 0c parte da 8 chiavi: impedire nuove perdite non recupera quelle
+// gia' avvenute. Una fonte storica torna affidabile solo se il valore della
+// proposta coincide esattamente con quello oggi pubblicato; gli altri casi
+// vengono scritti in chiaro, non nascosti da un file incompleto.
+export function ricostruisciFonti({ radice = RADICE, approvati } = {}) {
+  const raccolta = path.join(radice, "raccolta");
+  const proposte = approvati || leggiJson(path.join(raccolta, "approvati.json"));
+  const fonti = fontiEsistenti(radice);
+  const mete = fileMete(radice).flatMap((file) => caricaMete(fs.readFileSync(file, "utf8")));
+  const irrecuperabili = [];
+  let recuperate = 0;
+  for (const proposta of proposte) {
+    const codice = codiceCanonico(proposta.codiceNorm);
+    const pubblicato = mete.some((meta) => codiceCanonico(meta.codiceErasmus) === codice
+      && isDeepStrictEqual(meta[proposta.campo], proposta.valore));
+    if (pubblicato && proposta.fonte?.url) {
+      const campi = fonti[codice] ||= {};
+      if (!campi[proposta.campo]) recuperate++;
+      campi[proposta.campo] ||= proposta.fonte.url;
+    } else {
+      irrecuperabili.push({ codiceNorm: proposta.codiceNorm, codiceCanonico: codice,
+        campo: proposta.campo, causa: pubblicato ? "fonteAssente" : "valoreNonPubblicato" });
+    }
+  }
+  fs.mkdirSync(raccolta, { recursive: true });
+  fs.writeFileSync(path.join(raccolta, "FONTI-partner.json"), JSON.stringify(fonti, null, 2) + "\n");
+  fs.writeFileSync(path.join(raccolta, "fonti-irrecuperabili.json"), JSON.stringify(irrecuperabili, null, 2) + "\n");
+  return { fonti, recuperate, irrecuperabili };
+}
+
+export function ricostruisciDisaccordi({ radice = RADICE, approvati } = {}) {
+  const raccolta = path.join(radice, "raccolta");
+  const proposte = approvati || leggiJson(path.join(raccolta, "approvati.json"));
+  const originali = new Map(fileMete(radice).map((file) => [file, fs.readFileSync(file, "utf8")]));
+  const automatici = new Set(["scadenzeOspitante", "linkSito", "notaDisponibilita"]);
+  const primoGiro = preparaApplicazione({ originali,
+    proposte: proposte.filter((p) => automatici.has(p.campo)), letture: [] });
+  const secondoGiro = preparaApplicazione({ originali,
+    proposte: proposte.filter((p) => !automatici.has(p.campo)), letture: [] });
+  const disaccordi = unisciDisaccordi(disaccordiEsistenti(radice),
+    [...primoGiro.disaccordi, ...secondoGiro.disaccordi]);
+  fs.mkdirSync(path.join(raccolta, "riconciliazione"), { recursive: true });
+  fs.writeFileSync(path.join(raccolta, "riconciliazione", "disaccordi.json"), JSON.stringify(disaccordi, null, 2) + "\n");
+  return { disaccordi, automatici: primoGiro.disaccordi.length, restanti: secondoGiro.disaccordi.length };
 }
 
 function sostituisciBlocchi(testo, codice, modifica) {
@@ -46,7 +127,7 @@ function sostituisciBlocchi(testo, codice, modifica) {
 
 function codiciNelFile(testo, codiceNorm) {
   return [...new Set(caricaMete(testo)
-    .filter((meta) => normCodice(meta.codiceErasmus) === codiceNorm)
+    .filter((meta) => codiceCanonico(meta.codiceErasmus) === codiceNorm)
     .map((meta) => meta.codiceErasmus))];
 }
 
@@ -66,29 +147,22 @@ function aggiungiNonTrovabile(blocco, campo, lettura) {
   return impostaCampo(blocco, "nonTrovabile", nonTrovabile);
 }
 
-// `campi` limita l'applicazione ad alcuni campi soltanto, e non e' un dettaglio
-// tecnico: il 31/08 l'arbitrato umano dei 30 campi ha promosso linkSito,
-// scadenzeOspitante e notaDisponibilita (16 su 16) e bocciato linkCatalogo
-// (7 su 10) e requisitoLingua. Si applica cio' di cui ci si fida, il resto
-// resta in cache e aspetta una lettura migliore: non si butta niente.
-export async function applicaPartner({ radice = RADICE, approvati, letture, campi, prova = false, cancelliDiSistema = cancelliDiSistemaVeri } = {}) {
-  const raccolta = path.join(radice, "raccolta");
-  const ammessi = campi && campi.length ? new Set(campi) : null;
-  const tutteProposte = approvati || leggiJson(path.join(raccolta, "approvati.json"));
-  const proposte = ammessi ? tutteProposte.filter((p) => ammessi.has(p.campo)) : tutteProposte;
-  const tutteLetture = letture || lettureDaCartella(radice);
-  const originali = new Map(fileMete(radice).map((file) => [file, fs.readFileSync(file, "utf8")]));
-  const pronti = new Map(originali);
+// Funzione pura 0f: riceve testi e decisioni gia' caricati e prepara l'intera
+// applicazione senza leggere o scrivere il disco. Prima --prova restituiva 0
+// contenuti prospettici; ora anteprima e scrittura vera consumano la stessa
+// mappa file -> testo, quindi non possono divergere silenziosamente.
+export function preparaApplicazione({ originali, proposte, letture }) {
+  const fileNuovi = new Map(originali);
   const disaccordi = [];
-  const fonti = {};
+  const fontiNuove = {};
   let scritti = 0, uguali = 0, nonTrovabili = 0, nonTrovatiSaltati = 0, nonTrovabileSaltatiPieni = 0;
 
   for (const proposta of proposte) {
-    const codiceNorm = normCodice(proposta.codiceNorm);
-    for (const [file, iniziale] of originali) {
-      const codici = codiciNelFile(pronti.get(file), codiceNorm);
+    const codiceNorm = codiceCanonico(proposta.codiceNorm);
+    for (const [file] of originali) {
+      const codici = codiciNelFile(fileNuovi.get(file), codiceNorm);
       for (const codice of codici) {
-        pronti.set(file, sostituisciBlocchi(pronti.get(file), codice, (blocco) => {
+        fileNuovi.set(file, sostituisciBlocchi(fileNuovi.get(file), codice, (blocco) => {
           const grezzo = valoreCampo(blocco, proposta.campo);
           if (!campoVuoto(grezzo)) {
             if (valoreUguale(grezzo, proposta.valore)) uguali++;
@@ -99,7 +173,7 @@ export async function applicaPartner({ radice = RADICE, approvati, letture, camp
           const esito = impostaCampo(blocco, proposta.campo, proposta.valore, { soloSeVuoto: true });
           if (esito.modificato) {
             scritti++;
-            ((fonti[proposta.codiceNorm] ||= {})[proposta.campo] = proposta.fonte?.url);
+            ((fontiNuove[codiceNorm] ||= {})[proposta.campo] = proposta.fonte?.url);
           }
           return esito.blocco;
         }));
@@ -107,14 +181,13 @@ export async function applicaPartner({ radice = RADICE, approvati, letture, camp
     }
   }
 
-  for (const lettura of tutteLetture) {
-    const codiceNorm = normCodice(lettura.codiceNorm);
+  for (const lettura of letture) {
+    const codiceNorm = codiceCanonico(lettura.codiceNorm);
     for (const campo of Object.keys(lettura.nonTrovati || {})) {
       for (const [file] of originali) {
-        const codici = codiciNelFile(pronti.get(file), codiceNorm);
+        const codici = codiciNelFile(fileNuovi.get(file), codiceNorm);
         for (const codice of codici) {
-          pronti.set(file, sostituisciBlocchi(pronti.get(file), codice, (blocco) => {
-            // statoCampo e' la definizione condivisa: una voce gia' registrata non si tocca.
+          fileNuovi.set(file, sostituisciBlocchi(fileNuovi.get(file), codice, (blocco) => {
             let meta;
             try { meta = Function(`"use strict"; return (${blocco});`)(); } catch { meta = null; }
             const stato = statoCampo(meta, campo);
@@ -132,11 +205,42 @@ export async function applicaPartner({ radice = RADICE, approvati, letture, camp
     }
   }
 
-  const modificati = [...pronti].filter(([file, testo]) => testo !== originali.get(file));
-  const risultato = { scritti, uguali, nonTrovabili, nonTrovatiSaltati, nonTrovabileSaltatiPieni, disaccordi, fonti, fileToccati: modificati.map(([file]) => file) };
+  const fileToccati = [...fileNuovi].filter(([file, testo]) => testo !== originali.get(file)).map(([file]) => file);
+  return { fileNuovi, scritti, uguali, nonTrovabili, nonTrovatiSaltati,
+    nonTrovabileSaltatiPieni, disaccordi, fontiNuove, fileToccati };
+}
+
+// `campi` limita l'applicazione ad alcuni campi soltanto, e non e' un dettaglio
+// tecnico: il 31/08 l'arbitrato umano dei 30 campi ha promosso linkSito,
+// scadenzeOspitante e notaDisponibilita (16 su 16) e bocciato linkCatalogo
+// (7 su 10) e requisitoLingua. Si applica cio' di cui ci si fida, il resto
+// resta in cache e aspetta una lettura migliore: non si butta niente.
+export async function applicaPartner({ radice = RADICE, approvati, letture, campi, prova = false, cancelliDiSistema = cancelliDiSistemaVeri } = {}) {
+  const raccolta = path.join(radice, "raccolta");
+  const ammessi = campi && campi.length ? new Set(campi) : null;
+  const tutteProposte = approvati || leggiJson(path.join(raccolta, "approvati.json"));
+  const proposte = ammessi ? tutteProposte.filter((p) => ammessi.has(p.campo)) : tutteProposte;
+  const tutteLetture = letture || lettureDaCartella(radice);
+  const originali = new Map(fileMete(radice).map((file) => [file, fs.readFileSync(file, "utf8")]));
+  const fonti = fontiEsistenti(radice);
+  const disaccordi = disaccordiEsistenti(radice);
+  const preparata = preparaApplicazione({ originali, proposte, letture: tutteLetture });
+  for (const [codice, campiFonte] of Object.entries(preparata.fontiNuove)) Object.assign(fonti[codice] ||= {}, campiFonte);
+  const modificati = preparata.fileToccati.map((file) => [file, preparata.fileNuovi.get(file)]);
+  const { fileNuovi, fontiNuove, ...conteggi } = preparata;
+  const risultato = { ...conteggi, fonti, contenutoProspettico: new Map(modificati) };
   if (prova) {
     fs.mkdirSync(raccolta, { recursive: true });
-    fs.writeFileSync(path.join(raccolta, "anteprima-partner.json"), JSON.stringify(risultato, null, 2) + "\n");
+    const { contenutoProspettico, disaccordi, ...riepilogo } = risultato;
+    // Il chiamante ha bisogno dei testi prospettici, il file di consultazione
+    // no: il 01/09 serializzarli lo aveva gonfiato da 5 KB a oltre 3 MB.
+    riepilogo.fileProspettici = [...contenutoProspettico].map(([file, testo]) => ({
+      file, caratteriCambiati: contaCaratteriCambiati(originali.get(file), testo),
+    }));
+    // I dettagli restano nel valore restituito e, nell'applicazione vera, nel
+    // registro dedicato. Duplicarli nell'anteprima superava ancora 100 KB.
+    riepilogo.disaccordi = disaccordi.length;
+    fs.writeFileSync(path.join(raccolta, "anteprima-partner.json"), JSON.stringify(riepilogo, null, 2) + "\n");
     return risultato;
   }
 
@@ -150,13 +254,24 @@ export async function applicaPartner({ radice = RADICE, approvati, letture, camp
   }
 
   fs.mkdirSync(path.join(raccolta, "riconciliazione"), { recursive: true });
-  fs.writeFileSync(path.join(raccolta, "riconciliazione", "disaccordi.json"), JSON.stringify(disaccordi, null, 2) + "\n");
+  const disaccordiUniti = unisciDisaccordi(disaccordi, risultato.disaccordi);
+  fs.writeFileSync(path.join(raccolta, "riconciliazione", "disaccordi.json"), JSON.stringify(disaccordiUniti, null, 2) + "\n");
   fs.writeFileSync(path.join(raccolta, "FONTI-partner.json"), JSON.stringify(fonti, null, 2) + "\n");
 
   return risultato;
 }
 
 async function main() {
+  if (process.argv.includes("--ricostruisci-disaccordi")) {
+    const esito = ricostruisciDisaccordi();
+    console.log(`Disaccordi: ${esito.disaccordi.length} totali; ${esito.automatici} dai tre campi automatici; ${esito.restanti} dai campi restanti.`);
+    return;
+  }
+  if (process.argv.includes("--ricostruisci-fonti")) {
+    const esito = ricostruisciFonti();
+    console.log(`Fonti: ${Object.keys(esito.fonti).length} chiavi; ${esito.recuperate} campi recuperati; ${esito.irrecuperabili.length} proposte irrecuperabili.`);
+    return;
+  }
   const prova = process.argv.includes("--prova");
   const campi = (process.argv.find((a) => a.startsWith("--campi=")) || "").slice(8).split(",").filter(Boolean);
   // Senza letture non si scrive nessun nonTrovabile: e' una scelta a parte

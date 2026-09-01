@@ -2,10 +2,10 @@ import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { codiceCanonico } from "./lib-mete.mjs";
 
 const RADICE = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const hash = (s) => createHash("sha256").update(s, "utf8").digest("hex");
-const nome = (c) => c.replace(/\s+/g, "");
 
 export function tagliaParole(testo, massimo = 40000) {
   if (testo.length <= massimo) return { testo, tagliata: false };
@@ -195,7 +195,7 @@ export function attesaDa429(messaggio = "") {
   return { giornaliero, attesaMs: Number.isFinite(secondi) ? Math.round(secondi * 1000) + 5000 : 60000 };
 }
 
-const insieme = (filtro) => new Set(String(filtro).split(",").map((c) => c.trim().replace(/\s+/g, "").toUpperCase()).filter(Boolean));
+const insieme = (filtro) => new Set(String(filtro).split(",").map(codiceCanonico).filter(Boolean));
 
 export async function leggiPartner({ radice = RADICE, limite = Infinity, partner: filtro, chiamaModello = chiamaGeminiVero, elencaModelli = elencaModelliVeri, attendi = (ms) => new Promise((r) => setTimeout(r, ms)), maxAttese = 3 } = {}) {
   const raccolta = path.join(radice, "raccolta"), letture = path.join(raccolta, "letture"); fs.mkdirSync(letture, { recursive: true });
@@ -206,8 +206,8 @@ export async function leggiPartner({ radice = RADICE, limite = Infinity, partner
     // --partner accetta anche un elenco separato da virgole: serve a rileggere
     // gli STESSI casi su cui una correzione e' stata trovata, invece di un
     // campione nuovo a ogni giro.
-    if (esito.partnerLetti >= limite || (filtro && !insieme(filtro).has(String(p.codiceNorm).replace(/\s+/g, "").toUpperCase())) || !(p.campiMancanti || []).length) continue;
-    const dir = path.join(raccolta, "pagine", nome(p.codiceNorm)), indiceFile = path.join(dir, "indice.json"), fuori = path.join(letture, `${nome(p.codiceNorm)}.json`);
+    if (esito.partnerLetti >= limite || (filtro && !insieme(filtro).has(codiceCanonico(p.codiceNorm))) || !(p.campiMancanti || []).length) continue;
+    const dir = path.join(raccolta, "pagine", codiceCanonico(p.codiceNorm)), indiceFile = path.join(dir, "indice.json"), fuori = path.join(letture, `${codiceCanonico(p.codiceNorm)}.json`);
     if (fs.existsSync(fuori) || !fs.existsSync(indiceFile)) continue;
     const indice = JSON.parse(fs.readFileSync(indiceFile, "utf8")); if (indice.esito !== "raggiunto") continue;
     const pagine = scegliPagine(indice, dir); if (!pagine.length) continue;

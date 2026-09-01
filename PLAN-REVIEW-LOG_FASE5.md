@@ -272,3 +272,97 @@ già in corso** (`FONTI-partner.json`, 8 chiavi per 176+ campi), **una collision
 di codice già attiva** (i due Aachen su una sola cartella), **un errore di
 categoria nei conteggi** che avevo ereditato dal brief (cartelle sottratte a
 record) e **un errore di semantica Git** nel mio piano di ripristino.
+
+---
+
+# Act 3 — Build (Consegna A: le sette correzioni preliminari)
+
+Costruttore: Codex `gpt-5.6-sol` (effort medium, codex-cli 0.144.5), sessione
+`01a05d5f-5856-7300-a8fa-f760b89ab649`. Spec congelata:
+`ORDINE_CODEX_FASE5A.md`. Prova: `npm run test:unit`. Base: `3706938`.
+
+## Round 1 — build
+
+Sei correzioni operative su sette. **0g si è fermata come da specifica** su 63
+letture ambigue, senza inventare `avanzamento.json`. 315/315 verdi.
+
+### Claude's verdict — verificato, non creduto
+
+315/315 rifatte da me; `js/atenei` diff vuoto; i numeri di 0b–0g ricontrollati
+uno per uno sui file di lavoro. Quattro rilievi:
+
+1. **Il gemello di 0c mancato.** `disaccordi.json` ha lo stesso difetto di
+   sovrascrittura che 0c ha corretto sulle fonti. Misurato: il file conteneva
+   `[]` mentre l'anteprima ne contava **224** — distrutti dal giro del 01/09
+   lanciato con `--campi=linkCatalogo`. **Ed è la causa dei 63 ambigui**: tutti
+   e 68 i problemi avevano causa `applicazioneNonProvata`, e la prova mancante
+   era proprio il disaccordo cancellato. 0g non era severa: le avevano tolto le
+   prove.
+2. **`separaCollisioni` era codice morto** — esportata e provata ma mai chiamata
+   da `costruisciPartner`. Una collisione *nuova* faceva lanciare la guardia:
+   il fermo permanente che il §0b escludeva, spostato dalle collisioni note a
+   quelle nuove.
+3. **La trappola dei PDF è scattata su AGRAZ02** (3 PDF, 0 col testo, contro
+   79/82 altrove). **Omissione mia:** la trappola è nel piano ma non l'avevo
+   messa nell'ordine congelato.
+4. **`anteprima-partner.json` da 5 KB a 3,2 MB**, perché `--prova` serializzava
+   su disco il testo intero dei file mete.
+
+## Round 2 — fix
+
+Tutte e quattro corrette. Verificate da me: 318/318, `disaccordi.json` 146 voci
+su 4 campi, ambigui 63 → 27, AGRAZ02 3 PDF su 3 col testo, anteprima 22.772
+byte, `separaCollisioni` collegata.
+
+### Claude's verdict — una diagnosi, non un difetto
+
+I 27 rimasti **non erano ambigui**. Misurato: campo vuoto nel sito, proposta
+approvata presente, nessun disaccordo. Misura indipendente: delle 97 proposte
+approvate sui tre campi automatici, **68 col campo pieno e 29 ancora vuoto** —
+i 29 coincidono. Sono proposte nate dal giro di cancelli del 01/09 e mai
+applicate, perché quel giorno l'applicazione girò con `--campi=linkCatalogo`.
+Alla migrazione mancava lo stato `daApplicare`, che `PLAN_FASE5.md` §2 nomina.
+
+## Round 3 — fix (ultimo delegato)
+
+`avanzamento.json` creato: **258 voci, 231 `applicato:true`, 27 `applicato:false`
+con 29 campi elencati** (22 notaDisponibilita, 3 linkSito, 4 scadenzeOspitante).
+Ambigui: **0**. Nessuno dei 29 campi applicato. 321/321.
+
+## Claude prende in mano — le rotture del revisore
+
+Quattro rotture mie, scelte diverse da quelle dell'esecutore:
+
+| rottura | esito |
+|---|---|
+| A — permettere la sovrascrittura di un campo già pieno | **rossa**, 3 prove |
+| B — nascondere gli ambigui veri (`esitoAssente`/`esitoDuplicato`) | **rossa**, 2 prove |
+| C1 — annullare la fusione delle fonti dentro `applicaPartner` | **rossa**, 1 prova |
+| C2 — annullare la fusione dentro **`ricostruisciFonti`** | **VERDE** ← lacuna |
+
+C2 è il difetto 0c annidato nella funzione scritta per ripararlo — la posizione
+peggiore, perché la si lancia proprio quando le fonti sono già fragili. I giri
+delegati erano esauriti, quindi **l'ho chiusa io**: prova nuova in
+`test/applica-partner.test.mjs`, verificata rossa sulla rottura e verde senza.
+
+## Esito finale, misurato da Claude
+
+- `npm run test:unit`: **322/322 verdi** (da 300 di partenza).
+- Mete **1.987** prima e dopo; SHA-256 dell'array
+  `464d88e67e81e580eeef9a05b842aa85a06640c136c817f15c591427e7118bc4`,
+  **identico** a prima di ogni modifica. `git diff -- js/atenei`: vuoto.
+- `verifica-completezza.mjs`: 0 mancanti, 0 in più, 0 differenze di posti.
+- `valida-stato.mjs`: coerente, i due avvisi non bloccanti già noti.
+- 0 file a fine-riga misto. Nessuna dipendenza nuova. Nessun commit, nessun push.
+
+## Deviazioni dalla spec, dichiarate
+
+1. `STATO_DEL_SITO.md` non era nell'ordine, ma `CLAUDE.md` di progetto lo impone
+   a fine blocco. Codex l'ha aggiornato e ha **sostituito** la riga «Ultimo
+   aggiornamento», che prima parlava del catalogo dei corsi.
+2. Quattro correzioni oltre le sette, tutte da difetti **preesistenti**.
+3. `validaPartner` conserva un controllo che non può mai essere vero
+   (`daRaccogliere < 0 || > sani.length`): viene dalla **mia** specifica. Avevo
+   chiesto di sostituirlo o toglierlo; Codex l'ha lasciato dichiarandolo.
+4. La mia spec diceva 40 file mete: sono **26**. Errore mio, contavo tutto
+   `js/atenei/`.

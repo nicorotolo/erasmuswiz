@@ -5,6 +5,14 @@
 
 import fs from "node:fs";
 
+// Una chiave sola per confronti, cartelle e file della pipeline. Prima tre
+// copie locali divergevano sugli spazi interni: i due record Aachen finivano
+// nella stessa cartella pur restando due partner distinti. La misura 0b parte
+// da 1 collisione silenziosa; ogni consumatore passa da qui per poterla vedere.
+export function codiceCanonico(codice) {
+  return String(codice || "").replace(/\s+/g, "").trim().toUpperCase();
+}
+
 // Contratto V0 per i nuovi dati in ingresso. I dati storici vengono adattati
 // da js/puro.js; la pipeline, invece, deve impedire che il debito cresca.
 export const LIVELLI_CEFR = Object.freeze(["A1", "A2", "B1", "B2", "C1", "C2"]);
