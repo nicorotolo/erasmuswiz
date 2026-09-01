@@ -1196,6 +1196,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "https://www.uibk.ac.at/en/international-relations-office/student-mobility/incoming/mobility-programmes/erasmus-studmob/",
+    notaDisponibilita: "Please note that the UIBK does not have a Faculty of Medicine because there is a separate Medical University of Innsbruck in the city.",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 2X5. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {

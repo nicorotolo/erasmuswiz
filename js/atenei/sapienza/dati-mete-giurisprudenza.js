@@ -86,6 +86,7 @@ var METE = [
       ],
     linkSito: "https://www.uibk.ac.at/en/international-relations-office/student-mobility/incoming/mobility-programmes/erasmus-studmob/",
 
+    notaDisponibilita: "Please note that the UIBK does not have a Faculty of Medicine because there is a separate Medical University of Innsbruck in the city.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
