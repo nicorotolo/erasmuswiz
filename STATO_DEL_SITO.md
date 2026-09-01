@@ -22,8 +22,9 @@
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
 **Ultimo aggiornamento:** 2026-09-01 — Claude (**il catalogo dei corsi: causa
-trovata e corretta, dal 62% al 93% di valori giusti**; niente di nuovo ancora
-applicato al sito, restano i 176 campi in 23 file del 31/08).
+trovata, corretta e riestesa a tutti i partner**: da 53 valori al 62% di giusti
+a **103 valori** al 93% sul campione misurato; niente di nuovo ancora applicato
+al sito, restano i 176 campi in 23 file del 31/08).
 **265/265 prove verdi.**
 
 > 🔎 **01/09 — il campo bocciato aveva una causa strutturale, non un modello
@@ -4512,7 +4513,7 @@ promosso 16 su 16.
 | scadenzeOspitante | 1705 | **1744** | — |
 | linkSito | 1636 | **1701** | — |
 | notaDisponibilita | 94 | **166** | — |
-| **linkCatalogo** (serve al Learning Agreement) | 120 | 120 | **41 valori nuovi, 93% giusti** |
+| **linkCatalogo** (serve al Learning Agreement) | 120 | 120 | **103 valori nuovi, in arbitrato** |
 | requisitoLingua | 1529 | 1529 | **10 valori, bocciati** |
 
 **I due campi fermi sono fermi apposta.** L'arbitrato del 31/08 ha dato 85,2%
@@ -4551,6 +4552,18 @@ un altro dominio), Praga → «Courses at CU».
 | dopo raccolta + lettura + cancelli | **41** | **38** | **93%** |
 
 Gli 8 mandati agli scarti di facoltà sono quelli che l'arbitrato voleva fuori.
+
+**Poi la stessa cura è stata estesa agli altri 191 partner** (riraccolti,
+PDF riestratti, riletti): **84 cataloghi proposti dove prima ce n'erano 19**.
+In tutto la cache ne approva ora **103**, e i 41 già misurati sono rimasti
+identici — nessuna regressione. Dei 62 nuovi ne ho guardati tutti: circa 54
+giusti, quindi **~92 su 103 (89%)** secondo il mio occhio, che non è
+l'arbitrato. Nessun `linkSito` è stato bocciato dai cancelli nuovi: il calo
+di quel campo (38 → 35) viene dal modello, non da loro.
+
+L'errore sistematico che resta si è visto una terza volta: **l'elenco delle
+destinazioni di scambio preso per un elenco di corsi** — UNED Madrid («Anexo I
+Listado de Plazas»), dopo Växjö e Villanueva. Nessun cancello lo vede.
 
 **Campione fresco, 25 atenei mai visti** (16 raggiunti dalla raccolta): 5
 cataloghi proposti, 1 fermato come facoltà, e dei 4 restanti **3 giusti**
@@ -4941,9 +4954,10 @@ portatile può anche chiudersi.
       (a) **applicare o no.** 93% è sotto il 95% che l'arbitrato usa come
       soglia. Serve un arbitrato umano su un campione dei 41, come il 31/08.
       Finché non è fatto, nel sito non entra niente di nuovo;
-      (b) **rileggere gli altri 191 partner**: hanno le letture vecchie, fatte
-      con la cache senza link. Vanno riraccolti e riletti per avere lo stesso
-      trattamento — è lavoro di rete e di quota, non di codice;
+      (b) ✅ **fatto il 01/09: i 191 partner rimasti sono stati riraccolti, i PDF
+      riestratti e le letture rifatte.** 84 cataloghi proposti dove prima ce
+      n'erano 19; la cache ne approva 103 in tutto. La pagina d'arbitrato è
+      pronta e sta fuori dal repo (artifact privato);
       (c) l'errore che sopravvive è **l'elenco delle destinazioni preso per un
       elenco di corsi** (Växjö nel campione fresco, Villanueva prima): un
       cancello che lo veda non esiste ancora.
