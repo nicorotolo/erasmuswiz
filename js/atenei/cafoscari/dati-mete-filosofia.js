@@ -33,6 +33,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254382",
     linkSito: "http://www.cic.muni.cz/erasmus",
+    linkCatalogo: "https://www.czs.muni.cz/en/student-from-abroad/international-student-guide/course-catalogue",
     notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 6 L e LM. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -94,6 +95,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254399",
     linkSito: "https://www.tu.berlin/en/",
+    linkCatalogo: "https://moseskonto.tu-berlin.de/moses/verzeichnis/index.html",
     notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 4x5 L e LM, solo 1° sem. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -1275,6 +1277,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254520",
     linkSito: "http://www.uniovi.es",
+    linkCatalogo: "https://www.uniovi.es/estudia/idiomas/asignaturasingles",
     notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 10 L e LM. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -1634,6 +1637,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254398",
     linkSito: "https://www.tu.berlin/",
+    linkCatalogo: "https://moseskonto.tu-berlin.de/moses/verzeichnis/index.html",
     notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 4x5 L,LM , solo 1° sem. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -1933,6 +1937,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/24628339",
     linkSito: "https://www.u-bordeaux-montaigne.fr/en/preparing-for-your-stay/international-welcome-desk.html",
+    linkCatalogo: "https://formations.u-bordeaux-montaigne.fr/fr/index.html",
     notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 6 x 5. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {

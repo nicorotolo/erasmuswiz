@@ -78,6 +78,7 @@ var METE = [
     linkSito: "https://mu-sofia.bg/en/",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkCatalogo: "https://drive.google.com/file/d/1Eu4SAa2f370D7iCSXkGUnq_-snEs3E6H/view?usp=sharing",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA69350. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato in mappature precedenti"
   },
   {
@@ -485,6 +486,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 1 dicembre" }
       ],
     linkSito: "http://verwaltung.uni-koeln.de/international/content/index_eng.html",
+    linkCatalogo: "https://klips2.uni-koeln.de/co/ee/ui/ca2/app/desktop/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA68432. || Scadenze: Cologne WiSo Fact Sheet 2026/27, nomination 1/5 e 1/11, application 5/6 e 1/12 || Lingua: B2 CEFR in inglese o tedesco"
   },
   {
@@ -1288,6 +1290,7 @@ var METE = [
         { cosa: "Documentazione/application (primavera)", periodo: "entro 15 dicembre" }
       ],
     linkSito: "http://WWW.UNIOVI.ES/",
+    linkCatalogo: "https://www.uniovi.es/estudia/idiomas/asignaturasingles",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69383. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {

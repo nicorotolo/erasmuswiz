@@ -161,6 +161,7 @@ var METE = [
 
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkCatalogo: "https://drive.google.com/file/d/1Eu4SAa2f370D7iCSXkGUnq_-snEs3E6H/view?usp=sharing",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -451,6 +452,7 @@ var METE = [
       ],
     linkSito: "https://www.u-picardie.fr/",
 
+    linkCatalogo: "https://www.u-picardie.fr/formation/tunnel-catalogue-formation",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -826,6 +828,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre 2026" },
         { cosa: "Application (primavera)", periodo: "entro 1 dicembre 2026" }
       ],
+    linkCatalogo: "https://moseskonto.tu-berlin.de/moses/verzeichnis/index.html",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1207,6 +1210,7 @@ var METE = [
       ],
     linkSito: "https://www.uspceu.com/internacional/estudios-extranjero/movilidad-incoming",
 
+    linkCatalogo: "https://www.uspceu.com/Portals/0/docs/internacional/Catalogo_ECTS.pdf",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1235,6 +1239,7 @@ var METE = [
 
     notaDisponibilita: "Ten en cuenta que pueden encontrarse restricciones en algunas áreas de CC.Salud, Medicina, Odontología, Psicología y para Bellas Artes se pueden exigir conocimientos previos o portfolio. Consulta con la facultad correspondiente.",
 
+    linkCatalogo: "https://ugrcat.ugr.es/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {

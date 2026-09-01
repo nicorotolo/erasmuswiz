@@ -443,6 +443,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro fine ottobre" },
         { cosa: "Application (primavera)", periodo: "da meta ottobre a meta novembre" }
       ],
+    linkCatalogo: "http://formations.univ-smb.fr/fr/catalogue.html",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli)."
   },
   {
@@ -548,6 +549,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre 2026" },
         { cosa: "Application (primavera)", periodo: "entro 1 dicembre 2026" }
       ],
+    linkCatalogo: "https://moseskonto.tu-berlin.de/moses/verzeichnis/index.html",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -599,6 +601,7 @@ var METE = [
       ],
     linkSito: "https://www.uni-bamberg.de/en/studies/exchange-students-eg-erasmus/",
 
+    linkCatalogo: "https://www.uni-bamberg.de/studienangebot/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -679,6 +682,7 @@ var METE = [
       ],
     linkSito: "http://www.leuphana.de/en/services/io.html",
 
+    linkCatalogo: "https://www.leuphana.de/services/vorlesungsverzeichnis.html",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1312,6 +1316,7 @@ var METE = [
 
     notaDisponibilita: "Ten en cuenta que pueden encontrarse restricciones en algunas áreas de CC.Salud, Medicina, Odontología, Psicología y para Bellas Artes se pueden exigir conocimientos previos o portfolio. Consulta con la facultad correspondiente.",
 
+    linkCatalogo: "https://ugrcat.ugr.es/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2024/25"
   },
   {

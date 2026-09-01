@@ -978,6 +978,7 @@ var METE = [
       ],
     linkSito: "https://www.universidadunie.com/unie-community/erasmus",
 
+    linkCatalogo: "https://www.universidadunie.com/programas",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1079,6 +1080,7 @@ var METE = [
       ],
     linkSito: "https://www.universidadunie.com/unie-community/erasmus",
 
+    linkCatalogo: "https://www.universidadunie.com/programas",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1261,6 +1263,7 @@ var METE = [
       ],
     linkSito: "https://www.universidadunie.com/unie-community/erasmus",
 
+    linkCatalogo: "https://www.universidadunie.com/programas",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {

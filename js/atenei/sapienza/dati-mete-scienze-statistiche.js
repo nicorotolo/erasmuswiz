@@ -492,6 +492,7 @@ var METE = [
         { cosa: "Sommersemester (April bis Juli)", periodo: "15. November" }
       ],
     linkSito: "http://www.tu-dortmund.de",
+    linkCatalogo: "https://international.tu-dortmund.de/incomings/austauschstudierende/erasmus/kurse/kurskatalog/",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Accordo ERA68147."
   },
   {
@@ -565,6 +566,7 @@ var METE = [
         { cosa: "Bewerbung Sommersemester", periodo: "01.10. - 30.11.2026" }
       ],
     linkSito: "http://www.uni-erfurt.de/foreign",
+    linkCatalogo: "https://sulwww.uni-erfurt.de/PublicServices/Veranstaltungsverzeichnis/",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68149."
   },
   {
@@ -640,6 +642,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 31 dicembre" }
       ],
     linkSito: "https://www.uni-bremen.de/",
+    linkCatalogo: "https://www.uni-bremen.de/en/studies/starting-your-studies/course-catalog",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA68146."
   },
   {
@@ -804,6 +807,7 @@ var METE = [
         { cosa: "Documentazione/application (primavera)", periodo: "entro 15 dicembre" }
       ],
     linkSito: "http://WWW.UNIOVI.ES/",
+    linkCatalogo: "https://www.uniovi.es/estudia/idiomas/asignaturasingles",
     notePratiche: "Posti totali dell'accordo: 5 (condivisi tra i livelli). Accordo ERA68208. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {

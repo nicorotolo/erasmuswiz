@@ -156,6 +156,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254388",
     linkSito: "https://www.uni-bamberg.de/en/studies/exchange-students-eg-erasmus/",
+    linkCatalogo: "https://www.uni-bamberg.de/studienangebot/",
     notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM, PhD; studenti: 6; mesi: 5. Periodo vincolato: SI - Solo 1� semestre/YES - First semester only || Scadenze: information sheet Bamberg 2024/25 e pagina ufficiale How do I apply || Lingua: richiesto almeno B1 tedesco e/o almeno B2 inglese"
   },
   {
@@ -402,6 +403,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254429",
     linkSito: "",
+    linkCatalogo: "https://klips2.uni-koeln.de/co/ee/ui/ca2/app/desktop/",
     notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM, PhD (vedi colonna Note); studenti: 5; mesi: 5. Periodo vincolato: SI - Solo 1� semestre/YES - First semester only || Scadenze: Cologne WiSo Fact Sheet 2026/27, nomination 1/5 e 1/11, application 5/6 e 1/12 || Lingua: B2 CEFR in inglese o tedesco"
   },
   {
@@ -432,6 +434,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26984854",
     linkSito: "http://www.leuphana.de/en/services/io.html",
+    linkCatalogo: "https://www.leuphana.de/services/vorlesungsverzeichnis.html",
     notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 3; mesi: 6. Periodo vincolato: SI - Solo 1� semestre/YES - First semester only || Scadenze: Leuphana Fact Sheet 2025/26, nomination 15/5 e 15/11, application 15/7 e 15/1 || Lingua: B2 inglese per corsi in inglese, B1 tedesco per corsi in tedesco"
   },
   {
@@ -524,6 +527,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26984854",
     linkSito: "http://www.leuphana.de/en/services/io.html",
+    linkCatalogo: "https://www.leuphana.de/services/vorlesungsverzeichnis.html",
     notePratiche: "Aperta a: Laurea Magistrale in Innovation and Management for Culture and Creativity [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 3; mesi: 5. Periodo vincolato: SI - Solo 1� semestre/YES - First semester only || Scadenze: Leuphana Fact Sheet 2025/26, nomination 15/5 e 15/11, application 15/7 e 15/1 || Lingua: B2 inglese per corsi in inglese, B1 tedesco per corsi in tedesco"
   },
   {
@@ -711,6 +715,7 @@ var METE = [
     linkSito: "https://www.ugr.es/",
     notaDisponibilita: "Ten en cuenta que pueden encontrarse restricciones en algunas áreas de CC.Salud, Medicina, Odontología, Psicología y para Bellas Artes se pueden exigir conocimientos previos o portfolio. Consulta con la facultad correspondiente.",
 
+    linkCatalogo: "https://ugrcat.ugr.es/",
     notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 5. || Scadenze: UGR Faculty of Economics and Business fact sheet 2026/27, nomination 1/4-30/4 e 1/10-31/10, application 1/4-15/5 e 1/10-31/10 || Lingua: spagnolo B1 per corsi in spagnolo; inglese B1 per corsi in inglese"
   },
   {
@@ -1011,6 +1016,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254555",
     linkSito: "",
+    linkCatalogo: "http://formations.univ-smb.fr/fr/catalogue.html",
     notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 6. || Scadenze e lingua: information sheet USMB 2026/27"
   },
   {
@@ -1319,6 +1325,7 @@ var METE = [
     linkSito: "https://www.audencia.com/en/our-business-school/an-international-school/erasmus-programs",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkCatalogo: "https://apply.exchangestudents.audencia.com/_portal/course-catalogue",
     notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 10; mesi: 6. Specifiche: Students cannot mix BA and MA modules. MA modules migh have a limited number of spots available. Student must choose a track and cannot mix modules of different tracks. Students can also choose modules offered in the frame of summer and winter programmes. Master's students have the following two options: � attend the 4th year of undergraduate courses (pick and choose, 2 tracks and one main course) � attend the Grande Ecole. Please be aware that the academic offer is more limited in the Spring Semester || Scadenze: Audencia fact sheet 2026/27 || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {

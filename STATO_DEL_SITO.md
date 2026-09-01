@@ -21,11 +21,10 @@
 
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-09-01 — Claude (**il catalogo dei corsi: causa
-trovata, corretta e riestesa a tutti i partner**: da 53 valori al 62% di giusti
-a **103 valori** al 93% sul campione misurato; niente di nuovo ancora applicato
-al sito, restano i 176 campi in 23 file del 31/08).
-**265/265 prove verdi.**
+**Ultimo aggiornamento:** 2026-09-01 — Claude (**il catalogo dei corsi è nel
+sito**: arbitrato umano su 56 valori, 39 promossi, **147 mete riempite**. Il
+campo passa da 120 a **267 mete su 1.987**, più del doppio).
+**267/267 prove verdi.**
 
 > 🔎 **01/09 — il campo bocciato aveva una causa strutturale, non un modello
 > distratto.** I 53 `linkCatalogo` fermi in cache sono stati guardati uno per
@@ -4513,7 +4512,7 @@ promosso 16 su 16.
 | scadenzeOspitante | 1705 | **1744** | — |
 | linkSito | 1636 | **1701** | — |
 | notaDisponibilita | 94 | **166** | — |
-| **linkCatalogo** (serve al Learning Agreement) | 120 | 120 | **103 valori nuovi, in arbitrato** |
+| **linkCatalogo** (serve al Learning Agreement) | 120 | **267** | 47 non ancora arbitrati |
 | requisitoLingua | 1529 | 1529 | **10 valori, bocciati** |
 
 **I due campi fermi sono fermi apposta.** L'arbitrato del 31/08 ha dato 85,2%
@@ -4560,6 +4559,47 @@ identici — nessuna regressione. Dei 62 nuovi ne ho guardati tutti: circa 54
 giusti, quindi **~92 su 103 (89%)** secondo il mio occhio, che non è
 l'arbitrato. Nessun `linkSito` è stato bocciato dai cancelli nuovi: il calo
 di quel campo (38 → 35) viene dal modello, non da loro.
+
+### L'arbitrato del 01/09, e cosa ha insegnato
+
+Nicola ha giudicato **56 valori su 103** aprendoli uno per uno: **40 sì, 7 non
+so, 9 no** — il 71%, molto sotto il 95%. Ma il numero aggregato diceva la cosa
+sbagliata: **quei 40 non sono una stima, sono dato verificato a mano**, e non
+hanno bisogno di nessuna soglia per entrare. Applicati 39 (tolto `CH DELEMON02`,
+il cui catalogo stava sul sito di un altro ateneo): **147 mete riempite**.
+
+**Le nove bocciate, divise per causa** — e la lezione è che nessuna delle due
+idee di cancello che avevo funziona:
+
+| causa | quali | fermabile? |
+|---|---|---|
+| pagina vuota o dietro login | Hannover, Regensburg | **no, misurato** |
+| istruzioni su *come* usare il catalogo | Monaco LMU, Treviri | dal nome del file |
+| consorzio invece dell’ateneo | Monaco TUM → EuroTeQ | in parte |
+| la pagina che *parla* dei corsi | Aquisgrana, Wiesbaden, Loyola, UNED | no |
+
+**Il cancello «pagina leggibile senza credenziali» è stato provato e scartato.**
+Misurato su tutti e 103: prende 13 valori, ma quasi tutti sono cataloghi veri —
+il Book of Modules di Cork (0 caratteri), OSIRIS di Utrecht e Tilburg, il VVZ di
+Zurigo, KLIPS di Colonia. I sistemi di catalogo moderni sono applicazioni che in
+HTML grezzo non mostrano nulla, **esattamente come una pagina di login**: per
+separarli servirebbe aprire davvero la pagina in un browser.
+**E nemmeno la citazione esplicita separa**: quattro dei nove bocciati citavano
+«The course catalogue for all faculties», «Vorlesungsverzeichnis (LSF)».
+
+**La misura a occhio di Claude era ottimista (89% contro 71%), in un modo
+preciso**: giudicavo dal nome dell’indirizzo senza *aprire* le pagine. Hannover
+si chiama `qis.verwaltung…` e sembra un catalogo; aperta, sono nove caratteri e
+un login. È esattamente ciò che l’arbitrato umano vede e la macchina no.
+
+**Difetto §8.5 chiuso, con la sua misura.** Applicando i 39, il diff sembrava
+pulito e conteneva **147 righe a fine-riga misto**, una per campo scritto. La
+causa vera è più sottile del previsto: con il flag `m`, in JavaScript `^`
+combacia **fra il CR e il LF** di un CRLF, quindi `(s*)` catturava un a-capo
+nudo insieme all’indentazione e lo rimetteva nel file — ed è da lì che venivano
+anche le righe vuote doppie del 31/08. Dopo la correzione: **0 file misti**, e
+il confronto strutturale prima/dopo dice 1.987 mete in entrambi i casi, un solo
+campo cambiato (`linkCatalogo`, 147 volte), nessun valore sovrascritto.
 
 L'errore sistematico che resta si è visto una terza volta: **l'elenco delle
 destinazioni di scambio preso per un elenco di corsi** — UNED Madrid («Anexo I
@@ -4950,10 +4990,10 @@ portatile può anche chiudersi.
       era il modello: la raccolta buttava via gli `href`, quindi il catalogo non
       era nel materiale in 16 casi sbagliati su 17. Sugli stessi 53: **41
       approvati, 38 giusti (93%)**, da 33 su 53 (62%).
-      **Cosa resta da decidere, e non l'ho deciso io:**
-      (a) **applicare o no.** 93% è sotto il 95% che l'arbitrato usa come
-      soglia. Serve un arbitrato umano su un campione dei 41, come il 31/08.
-      Finché non è fatto, nel sito non entra niente di nuovo;
+      **Fatto il 01/09:** arbitrato umano su 56 valori, 39 promossi, applicati.
+      Il campo passa da 120 a **267 mete**. **Cosa resta:**
+      (a) **arbitrare i 47 rimasti** — la pagina è pronta e i voti sono salvati
+      nel browser, quindi si riprende da dove ci si era fermati;
       (b) ✅ **fatto il 01/09: i 191 partner rimasti sono stati riraccolti, i PDF
       riestratti e le letture rifatte.** 84 cataloghi proposti dove prima ce
       n'erano 19; la cache ne approva 103 in tutto. La pagina d'arbitrato è
@@ -4979,12 +5019,14 @@ portatile può anche chiudersi.
       fonte e data non registrate", e per questo `statoCampo` le marca **da
       riconfermare**: noi ora abbiamo fonte e data vere. Restano intatte per
       prudenza, ma promuoverle è una riga ed è lo scopo di D7. Riguarda 165 mete;
-   5. ⏳ **Un difetto noto in `lib-mete.mjs`, non corretto**: `impostaCampo`
-      inserisce con `\n` dentro file che usano `\r\n`, lasciando righe con
-      fine-riga misto e righe vuote doppie. Il 31/08 ne ha prodotte 269 e 33,
-      ripulite a posteriori confrontando l'array METE prima e dopo. Nessun dato
-      alterato, ma il difetto è a monte e lo usa anche `applica-batch.mjs`: va
-      corretto lì, con la sua misura, non toccato alla cieca;
+   5. ✅ **Il difetto di `impostaCampo`: corretto il 01/09, con la sua misura.**
+      Applicando i 39 cataloghi ha prodotto **147 righe a fine-riga misto**, una
+      per campo scritto. La causa vera era il flag `m`: in JavaScript `^`
+      combacia **fra il CR e il LF**, quindi l'indentazione catturata conteneva
+      già un a-capo nudo, ed è da lì che venivano anche le righe vuote doppie.
+      Dopo la correzione: 0 file misti, e il confronto strutturale dice 1.987
+      mete prima e dopo, un solo campo cambiato, nessun valore sovrascritto.
+      Ne beneficia anche `applica-batch.mjs`, che usa la stessa funzione;
    6. **non** scrivere `esegui-partner.mjs`: incatenare i pezzi è Fase 5.
    **Per la Fase 5, misurato:** il collo di bottiglia è il testo inviato, non la
    quota. 33 milioni di caratteri in 245 chiamate, mediana 125.000. Ridurre il

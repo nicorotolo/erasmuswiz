@@ -246,6 +246,7 @@ var METE = [
 
     notaDisponibilita: "Erasmus/exchange students are not required to provide a language certificate.",
 
+    linkCatalogo: "https://www.tu-chemnitz.de/international/incoming/erasmus/vlvz.php.en",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70061. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {

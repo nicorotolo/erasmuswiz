@@ -117,6 +117,7 @@ var METE = [
       ],
     linkSito: "https://www.ustp.at/de",
 
+    linkCatalogo: "https://www.ustp.at/de/international/incoming-students/kursangebot-fuer-gaststudierende",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -351,6 +352,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 giugno 2026" },
         { cosa: "Application (primavera)", periodo: "entro 15 dicembre 2026" }
       ],
+    linkCatalogo: "http://formations.univ-brest.fr/fr",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -454,6 +456,7 @@ var METE = [
       ],
     linkSito: "https://www.ucly.fr/en/admissions/exchange-students-mobility-program/",
 
+    linkCatalogo: "https://view.genially.com/67bf0dbfbe22e3142d8fc792",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -1068,6 +1071,7 @@ var METE = [
       ],
     linkSito: "https://www.uni-potsdam.de/de/",
 
+    linkCatalogo: "https://puls.uni-potsdam.de/qisserver/rds?state=wtree&search=1&category=veranstaltung.browse&navigationPosition=lectures%2Clectureindex&recordRequest=true&breadcrumb=lectureindex&subitem=lectureindex&topitem=lectures",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -1093,6 +1097,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 30 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
+    linkCatalogo: "https://klips2.uni-koeln.de/co/ee/ui/ca2/app/desktop/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1766,6 +1771,7 @@ var METE = [
       ],
     linkSito: "https://www.uspceu.com/internacional/estudios-extranjero/movilidad-incoming",
 
+    linkCatalogo: "https://www.uspceu.com/Portals/0/docs/internacional/Catalogo_ECTS.pdf",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Scadenze: basate su 2025/26"
   },
   {
@@ -1867,6 +1873,7 @@ var METE = [
       ],
     linkSito: "https://www.uniovi.es/estudia/movilidad/extranjeros",
 
+    linkCatalogo: "https://www.uniovi.es/estudia/idiomas/asignaturasingles",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -1917,6 +1924,7 @@ var METE = [
       ],
     linkSito: "https://www.uniovi.es/estudia/movilidad/extranjeros",
 
+    linkCatalogo: "https://www.uniovi.es/estudia/idiomas/asignaturasingles",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -2095,6 +2103,7 @@ var METE = [
       ],
     linkSito: "https://www.ucavila.es/",
 
+    linkCatalogo: "https://www.ucavila.es/cursos/?_filtrado_grados=grados",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -2150,6 +2159,7 @@ var METE = [
 
     notaDisponibilita: "Ten en cuenta que pueden encontrarse restricciones en algunas áreas de CC.Salud, Medicina, Odontología, Psicología y para Bellas Artes se pueden exigir conocimientos previos o portfolio. Consulta con la facultad correspondiente.",
 
+    linkCatalogo: "https://ugrcat.ugr.es/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -2180,6 +2190,7 @@ var METE = [
 
     notaDisponibilita: "Ten en cuenta que pueden encontrarse restricciones en algunas áreas de CC.Salud, Medicina, Odontología, Psicología y para Bellas Artes se pueden exigir conocimientos previos o portfolio. Consulta con la facultad correspondiente.",
 
+    linkCatalogo: "https://ugrcat.ugr.es/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -2340,6 +2351,7 @@ var METE = [
 
     notaDisponibilita: "You can book at most two ETH courses, however bear in mind that these may count for no more than one third of your overall ECTS points.",
 
+    linkCatalogo: "https://studentservices.uzh.ch/uzh/anonym/vvz/index.html?sap-language=EN&sap-ui-language=EN",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {

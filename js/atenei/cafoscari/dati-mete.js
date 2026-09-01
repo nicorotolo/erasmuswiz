@@ -351,6 +351,7 @@ var METE = [
     linkSito: "http://www.tu-dresden.de",
     notaDisponibilita: "Für nicht aufgelistete Fachrichtungen informieren Sie sich bitte auf der Homepage der jeweiligen Fakultät.",
 
+    linkCatalogo: "https://tu-dresden.de/studium/im-studium/studienorganisation/lehrangebot/vorlesungsverzeichnis",
     notePratiche: "Periodo vincolato: SI - Solo 1° semestre/YES - First semester only - Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 6; mesi: 5."
   },
   {
@@ -916,6 +917,7 @@ var METE = [
     linkSito: "https://www.iriarteuniversidad.es/inicio/erasmus-students/",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkCatalogo: "https://www.iriarteuniversidad.es/wp-content/uploads/2026/05/SUBJECTS.pdf",
     notePratiche: "Aperta a: CdS del Dipartimento di Economia e Laurea Magistrale in Tourism Management and Sustainability - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 6. || Lingua: nessun requisito CEFR indicato; Iriarte dichiara inglese e spagnolo come lingue ufficiali e corsi/esami preparabili in entrambe. Semestri 2026/27: welcome 4 e 7 settembre, fine 18 dicembre, esami 11-15 gennaio; primavera welcome 21-22 gennaio, fine 13 maggio, esami 17-28 maggio. Nomination tutto l'anno; enrollment all'arrivo. [Fonti: scheda destinazione; Iriarte Erasmus; Iriarte accommodation key dates 26/27] || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -977,6 +979,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare. Corso di francese gratuito per 1 semestre (4 ECTS).",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29137961",
     linkSito: "https://www.univ-smb.fr",
+    linkCatalogo: "http://formations.univ-smb.fr/fr/catalogue.html",
     notePratiche: "Aperta a: Laurea Magistrale in Sviluppo interculturale dei sistemi turistici e Laurea Magistrale in Tourism Management and Sustainability - [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 2; mesi: 5. || Integration week a fine agosto / integration day a fine gennaio. [Fonte: scheda destinazione]"
   },
   {

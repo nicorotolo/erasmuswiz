@@ -329,6 +329,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "https://www.uni-bamberg.de/en/studies/exchange-students-eg-erasmus/",
+    linkCatalogo: "https://www.uni-bamberg.de/studienangebot/",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5, solo 1° sem.. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -857,6 +858,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "http://zib.phil-fak.uni-koeln.de/internationalestudierende.html?&L=1",
+    linkCatalogo: "https://klips2.uni-koeln.de/co/ee/ui/ca2/app/desktop/",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5 L, solo 1° sem.. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -1003,6 +1005,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "https://www.uni-bremen.de/en/",
+    linkCatalogo: "https://www.uni-bremen.de/en/studies/starting-your-studies/course-catalog",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 6 L, solo 1° sem.. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -1157,6 +1160,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "https://czs.muni.cz/en/student-from-abroad/exchange-non-degree-studies/erasmus-europe",
+    linkCatalogo: "https://www.czs.muni.cz/en/student-from-abroad/international-student-guide/course-catalogue",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -1339,6 +1343,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "http://www.uni-koeln.de/",
+    linkCatalogo: "https://klips2.uni-koeln.de/co/ee/ui/ca2/app/desktop/",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5 LM e PhD, solo 1° sem.. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -2375,6 +2380,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "https://www.uni-bamberg.de/en/studies/exchange-students-eg-erasmus/",
+    linkCatalogo: "https://www.uni-bamberg.de/studienangebot/",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 4 x 5 L e LM, solo 1° sem.. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -2404,6 +2410,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "http://www.uni-muenster.de/",
+    linkCatalogo: "https://studium.uni-muenster.de/qisserver/rds?state=wtree&search=1&category=veranstaltung.browse&navigationPosition=lectures%2Clectureindex&breadcrumb=lectureindex&topitem=lectures&subitem=lectureindex&noDBAction=y&init=y",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 6 L e LM, solo 1° sem.. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -2437,6 +2444,7 @@ var METE = [
     linkSito: "https://www.unileon.es/",
     notaDisponibilita: "Titulaciones de Grado Titulaciones de Posgrado Subjects in English // Subjects in English Friendly Bachelor/Degree subjects Master subjects",
 
+    linkCatalogo: "https://www.unileon.es/internacional/estudiantes/movilidad-internacional-entrantes/oferta-academica",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 6 L e LM. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -2466,6 +2474,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "https://www.u-bordeaux-montaigne.fr/en/preparing-for-your-stay/international-welcome-desk.html",
+    linkCatalogo: "https://formations.u-bordeaux-montaigne.fr/fr/index.html",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 10. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -2496,6 +2505,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "https://www.univ-smb.fr/international/venir-a-luniversite/",
+    linkCatalogo: "http://formations.univ-smb.fr/fr/catalogue.html",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {

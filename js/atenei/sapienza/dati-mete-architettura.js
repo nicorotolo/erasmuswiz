@@ -979,6 +979,7 @@ var METE = [
       ],
     linkSito: "https://www.uni-weimar.de/en/university/international/to-weimar/exchange-studies/",
 
+    linkCatalogo: "http://www.uni-weimar.de/qisserver/rds?state=wtree&search=1&category=veranstaltung.browse&topitem=lectures&subitem=lectureindex&breadcrumb=lectureindex",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -1313,6 +1314,7 @@ var METE = [
       ],
     linkSito: "http://www.uni-karlsruhe.de",
 
+    linkCatalogo: "https://campus.studium.kit.edu/events/catalog.php",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli)."
   },
   {
@@ -2561,6 +2563,7 @@ var METE = [
 
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkCatalogo: "https://www.uvic.cat/en/international/exchange-programmes/courses",
     notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale. Ulteriore accordo distinto con lo stesso ateneo (promotore Angela Giambattista). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -2588,6 +2591,7 @@ var METE = [
 
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkCatalogo: "https://www.uvic.cat/en/international/exchange-programmes/courses",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Angela Giambattista). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {

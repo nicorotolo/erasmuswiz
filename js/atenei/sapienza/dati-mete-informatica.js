@@ -926,6 +926,7 @@ var METE = [
         { cosa: "Documentazione/application (primavera)", periodo: "entro 15 dicembre" }
       ],
     linkSito: "http://WWW.UNIOVI.ES/",
+    linkCatalogo: "https://www.uniovi.es/estudia/idiomas/asignaturasingles",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68209. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -976,6 +977,7 @@ var METE = [
         { cosa: "Documentazione/application (primavera)", periodo: "entro 15 dicembre" }
       ],
     linkSito: "http://WWW.UNIOVI.ES/",
+    linkCatalogo: "https://www.uniovi.es/estudia/idiomas/asignaturasingles",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA68211. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -1001,6 +1003,7 @@ var METE = [
         { cosa: "Documentazione/application (primavera)", periodo: "entro 15 dicembre" }
       ],
     linkSito: "http://WWW.UNIOVI.ES/",
+    linkCatalogo: "https://www.uniovi.es/estudia/idiomas/asignaturasingles",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA68210. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {

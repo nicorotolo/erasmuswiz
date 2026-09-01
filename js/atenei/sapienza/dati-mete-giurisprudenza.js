@@ -316,6 +316,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 30 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
+    linkCatalogo: "https://klips2.uni-koeln.de/co/ee/ui/ca2/app/desktop/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -886,6 +887,7 @@ var METE = [
       ],
     linkSito: "http://www.uni-bremen.de/Erasmus",
 
+    linkCatalogo: "https://www.uni-bremen.de/en/studies/starting-your-studies/course-catalog",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -1213,6 +1215,7 @@ var METE = [
       ],
     linkSito: "https://www.ucavila.es/",
 
+    linkCatalogo: "https://www.ucavila.es/cursos/?_filtrado_grados=grados",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -1389,6 +1392,7 @@ var METE = [
 
     notaDisponibilita: "Titulaciones de Grado Titulaciones de Posgrado Subjects in English // Subjects in English Friendly Bachelor/Degree subjects Master subjects",
 
+    linkCatalogo: "https://www.unileon.es/internacional/estudiantes/movilidad-internacional-entrantes/oferta-academica",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -1415,6 +1419,7 @@ var METE = [
 
     notaDisponibilita: "Ten en cuenta que pueden encontrarse restricciones en algunas áreas de CC.Salud, Medicina, Odontología, Psicología y para Bellas Artes se pueden exigir conocimientos previos o portfolio. Consulta con la facultad correspondiente.",
 
+    linkCatalogo: "https://ugrcat.ugr.es/",
     notePratiche: "Posti totali dell'accordo: 3. Solo livello triennale."
   },
   {

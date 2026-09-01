@@ -37,6 +37,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 dicembre" }
       ],
     linkSito: "https://srv03.ai.tuwien.ac.at/international/",
+    linkCatalogo: "https://tiss.tuwien.ac.at/course/courseList.xhtml?dswid=4857&dsrid=236&locale=en&semesterCodeFrom=2017W&semesterCodeTo=2018S",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70673."
   },
   {
@@ -212,6 +213,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "16. Oktober" }
       ],
     linkSito: "https://www.tugraz.at",
+    linkCatalogo: "https://online.tugraz.at/tug_online/wbENLVSuche.wbEnLvSuchePage",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70670."
   },
   {
@@ -1817,6 +1819,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 31 dicembre" }
       ],
     linkSito: "https://www.uni-bremen.de/",
+    linkCatalogo: "https://www.uni-bremen.de/en/studies/starting-your-studies/course-catalog",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70696."
   },
   {
@@ -1843,6 +1846,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 31 dicembre" }
       ],
     linkSito: "https://www.uni-bremen.de/",
+    linkCatalogo: "https://www.uni-bremen.de/en/studies/starting-your-studies/course-catalog",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70697."
   },
   {
@@ -1974,6 +1978,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 1 dicembre 2026" }
       ],
     linkSito: "http://www.tu-berlin.de",
+    linkCatalogo: "https://moseskonto.tu-berlin.de/moses/verzeichnis/index.html",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70691."
   },
   {
@@ -2090,6 +2095,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" }
       ],
     linkSito: "https://www.uni-potsdam.de/de/",
+    linkCatalogo: "https://puls.uni-potsdam.de/qisserver/rds?state=wtree&search=1&category=veranstaltung.browse&navigationPosition=lectures%2Clectureindex&recordRequest=true&breadcrumb=lectureindex&subitem=lectureindex&topitem=lectures",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70726. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -2369,6 +2375,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 1 dicembre" }
       ],
     linkSito: "http://www.uni-muenster.de/",
+    linkCatalogo: "https://studium.uni-muenster.de/qisserver/rds?state=wtree&search=1&category=veranstaltung.browse&navigationPosition=lectures%2Clectureindex&breadcrumb=lectureindex&topitem=lectures&subitem=lectureindex&noDBAction=y&init=y",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70721. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -2540,6 +2547,7 @@ var METE = [
     linkSito: "http://www.tu-dresden.de",
     notaDisponibilita: "Für nicht aufgelistete Fachrichtungen informieren Sie sich bitte auf der Homepage der jeweiligen Fakultät.",
 
+    linkCatalogo: "https://tu-dresden.de/studium/im-studium/studienorganisation/lehrangebot/vorlesungsverzeichnis",
     notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70700."
   },
   {
@@ -2559,6 +2567,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.uni-karlsruhe.de",
+    linkCatalogo: "https://campus.studium.kit.edu/events/catalog.php",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70709."
   },
   {
@@ -2610,6 +2619,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" }
       ],
     linkSito: "https://www.uni-potsdam.de/de/",
+    linkCatalogo: "https://puls.uni-potsdam.de/qisserver/rds?state=wtree&search=1&category=veranstaltung.browse&navigationPosition=lectures%2Clectureindex&recordRequest=true&breadcrumb=lectureindex&subitem=lectureindex&topitem=lectures",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70723. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -2688,6 +2698,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre" }
       ],
     linkSito: "https://www.uni-potsdam.de/de/",
+    linkCatalogo: "https://puls.uni-potsdam.de/qisserver/rds?state=wtree&search=1&category=veranstaltung.browse&navigationPosition=lectures%2Clectureindex&recordRequest=true&breadcrumb=lectureindex&subitem=lectureindex&topitem=lectures",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70725. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -2812,6 +2823,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 31 dicembre" }
       ],
     linkSito: "https://www.uni-bremen.de/",
+    linkCatalogo: "https://www.uni-bremen.de/en/studies/starting-your-studies/course-catalog",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70698."
   },
   {
@@ -2863,6 +2875,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 31 dicembre" }
       ],
     linkSito: "https://www.uni-bremen.de/",
+    linkCatalogo: "https://www.uni-bremen.de/en/studies/starting-your-studies/course-catalog",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA70699."
   },
   {
@@ -2890,6 +2903,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 gennaio" }
       ],
     linkSito: "http://www.leuphana.de/en/services/io.html",
+    linkCatalogo: "https://www.leuphana.de/services/vorlesungsverzeichnis.html",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70712. || Scadenze: Leuphana Fact Sheet 2025/26, nomination 15/5 e 15/11, application 15/7 e 15/1 || Lingua: B2 inglese per corsi in inglese, B1 tedesco per corsi in tedesco"
   },
   {
@@ -4285,6 +4299,7 @@ var METE = [
     linkSito: "https://www.ugr.es/",
     notaDisponibilita: "Ten en cuenta que pueden encontrarse restricciones en algunas áreas de CC.Salud, Medicina, Odontología, Psicología y para Bellas Artes se pueden exigir conocimientos previos o portfolio. Consulta con la facultad correspondiente.",
 
+    linkCatalogo: "https://ugrcat.ugr.es/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70752. || Scadenze: UGR Faculty of Economics and Business fact sheet 2026/27, nomination 1/4-30/4 e 1/10-31/10, application 1/4-15/5 e 1/10-31/10 || Lingua: spagnolo B1 per corsi in spagnolo; inglese B1 per corsi in inglese || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2024/25"
   },
   {
@@ -4311,6 +4326,7 @@ var METE = [
         { cosa: "Documentazione/application (primavera)", periodo: "entro 15 dicembre" }
       ],
     linkSito: "http://WWW.UNIOVI.ES/",
+    linkCatalogo: "https://www.uniovi.es/estudia/idiomas/asignaturasingles",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70766. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -4390,6 +4406,7 @@ var METE = [
     linkSito: "https://www.ugr.es/",
     notaDisponibilita: "Ten en cuenta que pueden encontrarse restricciones en algunas áreas de CC.Salud, Medicina, Odontología, Psicología y para Bellas Artes se pueden exigir conocimientos previos o portfolio. Consulta con la facultad correspondiente.",
 
+    linkCatalogo: "https://ugrcat.ugr.es/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70754. || Scadenze: UGR Faculty of Economics and Business fact sheet 2026/27, nomination 1/4-30/4 e 1/10-31/10, application 1/4-15/5 e 1/10-31/10 || Lingua: spagnolo B1 per corsi in spagnolo; inglese B1 per corsi in inglese || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2024/25"
   },
   {
@@ -4487,6 +4504,7 @@ var METE = [
         { cosa: "second semester", periodo: "December 1st" }
       ],
     linkSito: "https://www.upm.es/",
+    linkCatalogo: "https://www.upm.es/internacional/Students/CourseCatalogInEnglish",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70760."
   },
   {
@@ -4694,6 +4712,7 @@ var METE = [
     linkSito: "https://www.ugr.es/",
     notaDisponibilita: "Ten en cuenta que pueden encontrarse restricciones en algunas áreas de CC.Salud, Medicina, Odontología, Psicología y para Bellas Artes se pueden exigir conocimientos previos o portfolio. Consulta con la facultad correspondiente.",
 
+    linkCatalogo: "https://ugrcat.ugr.es/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70751. || Scadenze: UGR Faculty of Economics and Business fact sheet 2026/27, nomination 1/4-30/4 e 1/10-31/10, application 1/4-15/5 e 1/10-31/10 || Lingua: spagnolo B1 per corsi in spagnolo; inglese B1 per corsi in inglese || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2024/25"
   },
   {
@@ -4793,6 +4812,7 @@ var METE = [
         { cosa: "Documentazione/application (primavera)", periodo: "entro 15 dicembre" }
       ],
     linkSito: "http://WWW.UNIOVI.ES/",
+    linkCatalogo: "https://www.uniovi.es/estudia/idiomas/asignaturasingles",
     notePratiche: "Posti totali dell'accordo: 5 (condivisi tra i livelli). Accordo ERA70768. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -4821,6 +4841,7 @@ var METE = [
     linkSito: "https://www.ugr.es/",
     notaDisponibilita: "Ten en cuenta que pueden encontrarse restricciones en algunas áreas de CC.Salud, Medicina, Odontología, Psicología y para Bellas Artes se pueden exigir conocimientos previos o portfolio. Consulta con la facultad correspondiente.",
 
+    linkCatalogo: "https://ugrcat.ugr.es/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70755. || Scadenze: UGR Faculty of Economics and Business fact sheet 2026/27, nomination 1/4-30/4 e 1/10-31/10, application 1/4-15/5 e 1/10-31/10 || Lingua: spagnolo B1 per corsi in spagnolo; inglese B1 per corsi in inglese || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2024/25"
   },
   {
@@ -5197,6 +5218,7 @@ var METE = [
         { cosa: "Documentazione/application (primavera)", periodo: "entro 15 dicembre" }
       ],
     linkSito: "http://WWW.UNIOVI.ES/",
+    linkCatalogo: "https://www.uniovi.es/estudia/idiomas/asignaturasingles",
     notePratiche: "Posti totali dell'accordo: 5 (condivisi tra i livelli). Accordo ERA70767. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -5518,6 +5540,7 @@ var METE = [
         { cosa: "Spring semester (from January to June)", periodo: "15 October" }
       ],
     linkSito: "https://www.uvic.cat/en",
+    linkCatalogo: "https://www.uvic.cat/en/international/exchange-programmes/courses",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70791."
   },
   {
@@ -5590,6 +5613,7 @@ var METE = [
         { cosa: "Spring semester (from January to June)", periodo: "15 October" }
       ],
     linkSito: "https://www.uvic.cat/en",
+    linkCatalogo: "https://www.uvic.cat/en/international/exchange-programmes/courses",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70790."
   },
   {
@@ -5904,6 +5928,7 @@ var METE = [
     linkSito: "https://www.uzh.ch/de.html",
     notaDisponibilita: "You can book at most two ETH courses, however bear in mind that these may count for no more than one third of your overall ECTS points.",
 
+    linkCatalogo: "https://studentservices.uzh.ch/uzh/anonym/vvz/index.html?sap-language=EN&sap-ui-language=EN",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70684."
   },
   {

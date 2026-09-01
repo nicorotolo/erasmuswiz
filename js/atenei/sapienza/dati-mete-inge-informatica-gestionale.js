@@ -65,6 +65,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
     linkSito: "https://www.ustp.at/de",
+    linkCatalogo: "https://www.ustp.at/de/international/incoming-students/kursangebot-fuer-gaststudierende",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68111."
   },
   {
@@ -292,6 +293,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.ensea.fr/",
+    linkCatalogo: "https://www.ensea.fr/sites/default/files/content/pages/documents/2026-08/FAME_Course%20Description_2027.pdf",
     notePratiche: "Posti dell'accordo: 5. Accordo ERA68241."
   },
   {
@@ -311,6 +313,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.ensea.fr/",
+    linkCatalogo: "https://www.ensea.fr/sites/default/files/content/pages/documents/2026-08/FAME_Course%20Description_2027.pdf",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA68242."
   },
   {
@@ -708,6 +711,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.uni-karlsruhe.de",
+    linkCatalogo: "https://campus.studium.kit.edu/events/catalog.php",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA68158."
   },
   {
@@ -754,6 +758,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.uni-karlsruhe.de",
+    linkCatalogo: "https://campus.studium.kit.edu/events/catalog.php",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA68157."
   },
   {
@@ -795,6 +800,7 @@ var METE = [
         { cosa: "Sommersemester (April bis Juli)", periodo: "15. November" }
       ],
     linkSito: "http://www.tu-dortmund.de",
+    linkCatalogo: "https://international.tu-dortmund.de/incomings/austauschstudierende/erasmus/kurse/kurskatalog/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68148."
   },
   {

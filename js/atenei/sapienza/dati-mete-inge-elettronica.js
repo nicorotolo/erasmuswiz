@@ -286,6 +286,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 dicembre" }
       ],
     linkSito: "https://www.haw-landshut.de/",
+    linkCatalogo: "https://www.haw-landshut.de/studienangebot",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA68161."
   },
   {
@@ -490,6 +491,7 @@ var METE = [
     linkSito: "https://www.ugr.es/",
     notaDisponibilita: "Ten en cuenta que pueden encontrarse restricciones en algunas áreas de CC.Salud, Medicina, Odontología, Psicología y para Bellas Artes se pueden exigir conocimientos previos o portfolio. Consulta con la facultad correspondiente.",
 
+    linkCatalogo: "https://ugrcat.ugr.es/",
     notePratiche: "Posti dell'accordo: 3. Accordo ERA68185. || Scadenze: UGR Faculty of Economics and Business fact sheet 2026/27, nomination 1/4-30/4 e 1/10-31/10, application 1/4-15/5 e 1/10-31/10 || Lingua: spagnolo B1 per corsi in spagnolo; inglese B1 per corsi in inglese || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2024/25"
   },
   {
@@ -518,6 +520,7 @@ var METE = [
     linkSito: "https://www.ugr.es/",
     notaDisponibilita: "Ten en cuenta que pueden encontrarse restricciones en algunas áreas de CC.Salud, Medicina, Odontología, Psicología y para Bellas Artes se pueden exigir conocimientos previos o portfolio. Consulta con la facultad correspondiente.",
 
+    linkCatalogo: "https://ugrcat.ugr.es/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA68186. || Scadenze: UGR Faculty of Economics and Business fact sheet 2026/27, nomination 1/4-30/4 e 1/10-31/10, application 1/4-15/5 e 1/10-31/10 || Lingua: spagnolo B1 per corsi in spagnolo; inglese B1 per corsi in inglese || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2024/25"
   },
   {
@@ -544,6 +547,7 @@ var METE = [
         { cosa: "Documentazione (primavera)", periodo: "entro 15 novembre" }
       ],
     linkSito: "https://www.ucavila.es/",
+    linkCatalogo: "https://www.ucavila.es/cursos/?_filtrado_grados=grados",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA68170."
   },
   {

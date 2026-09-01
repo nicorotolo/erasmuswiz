@@ -110,3 +110,38 @@ test("nei dati pubblicati nessuna meta dichiara insieme il dato e il non trovabi
   }
   assert.deepEqual(contraddizioni, [], "un campo non puo' avere il dato e dirsi non trovabile");
 });
+
+// Il 01/09, applicando 147 cataloghi, il diff sembrava pulito e conteneva 147
+// righe a fine-riga misto: impostaCampo inseriva un a-capo nudo dentro file che
+// usano CRLF. E' il difetto §8.5 di STATO_DEL_SITO, misurato e chiuso qui.
+test("impostaCampo inserisce con il fine-riga che il blocco gia' usa", () => {
+  const CR = String.fromCharCode(13, 10);
+  const blocco = ["{", "    id: 1,", "    notePratiche: 'x',", "}"].join(CR);
+  const esito = impostaCampo(blocco, "linkCatalogo", "https://esempio/catalogo");
+  assert.ok(esito.modificato);
+  assert.ok(esito.blocco.includes("linkCatalogo"));
+  const soloLf = esito.blocco.split(CR).join("").split(String.fromCharCode(10)).length - 1;
+  assert.equal(soloLf, 0, "nel blocco CRLF non deve restare nessun a-capo nudo");
+  // Non basta l'assenza di a-capo nudi: inserendo PRIMA dell'a-capo invece che
+  // dopo, il campo finisce incollato alla riga precedente e nasce una riga
+  // vuota. Nessun a-capo nudo, e il file rovinato lo stesso.
+  const righe = esito.blocco.split(CR);
+  const suaRiga = righe.filter((r) => r.includes("linkCatalogo"));
+  assert.equal(suaRiga.length, 1, "il campo deve stare su una riga sola");
+  assert.ok(suaRiga[0].trim().startsWith("linkCatalogo:"), "il campo non puo' essere incollato alla riga precedente: " + JSON.stringify(suaRiga[0]));
+  assert.equal(righe.filter((r) => r.trim() === "").length, 0, "l'inserimento non deve lasciare righe vuote");
+  // e un blocco a LF resta a LF, senza CR di ritorno
+  const lf = ["{", "    id: 1,", "    notePratiche: 'x',", "}"].join(String.fromCharCode(10));
+  const b2 = impostaCampo(lf, "linkCatalogo", "https://esempio/catalogo").blocco;
+  assert.equal(b2.indexOf(String.fromCharCode(13)), -1, "un blocco LF non deve prendere CR");
+});
+
+// Un array (scadenzeOspitante) va a capo dentro serializza: anche quello.
+test("anche un valore su piu' righe rispetta il fine-riga del blocco", () => {
+  const CR = String.fromCharCode(13, 10);
+  const blocco = ["{", "    id: 1,", "}"].join(CR);
+  const esito = impostaCampo(blocco, "scadenzeOspitante", [{ cosa: "Nomination", periodo: "10 aprile" }]);
+  assert.ok(esito.modificato);
+  const soloLf = esito.blocco.split(CR).join("").split(String.fromCharCode(10)).length - 1;
+  assert.equal(soloLf, 0, "nemmeno l'array serializzato puo' lasciare a-capo nudi");
+});

@@ -67,6 +67,7 @@ var METE = [
     linkSito: "https://www.th-bingen.de/en/how-to-apply/exchange-students",
     notaDisponibilita: "Bachelor and master exchange students can also choose courses from the master degree programmes Environ-mental Sustainability and Informatics / Computer Science.",
 
+    linkCatalogo: "https://www.th-bingen.de/fileadmin/international/Incoming_Infomaterial_Studierende/List_of_English_Modules_02_2026.pdf",
     notePratiche: "Aperta a: Dipartimento di Scienze Ambientali, Informatica e Statistica [Dati ufficiali bando 2026/27] ciclo/posti: 1 x 6 LM, solo primo semestre. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -308,6 +309,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29130906",
     linkSito: "https://www.univ-smb.fr/international/venir-a-luniversite/",
+    linkCatalogo: "http://formations.univ-smb.fr/fr/catalogue.html",
     notePratiche: "Aperta a: Dipartimento di Scienze Ambientali, Informatica e Statistica [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5 L. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -486,6 +488,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254380",
     linkSito: "http://www.cic.muni.cz/erasmus",
+    linkCatalogo: "https://www.czs.muni.cz/en/student-from-abroad/international-student-guide/course-catalogue",
     notePratiche: "Aperta a: Dipartimento di Scienze Ambientali, Informatica e Statistica [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 6 LM e PhD. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -516,6 +519,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/19678844",
     linkSito: "https://www.tuwien.at/studium/international/incoming-austauschstudierende",
+    linkCatalogo: "https://tiss.tuwien.ac.at/course/courseList.xhtml?dswid=4857&dsrid=236&locale=en&semesterCodeFrom=2017W&semesterCodeTo=2018S",
     notePratiche: "Aperta a: Dipartimento di Scienze Ambientali, Informatica e Statistica [Dati ufficiali bando 2026/27] ciclo/posti: 1x6L, 2x6LM,1x3PhD. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {

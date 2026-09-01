@@ -167,6 +167,7 @@ var METE = [
       ],
     linkSito: "https://www.uspceu.com/internacional/estudios-extranjero/movilidad-incoming",
 
+    linkCatalogo: "https://www.uspceu.com/Portals/0/docs/internacional/Catalogo_ECTS.pdf",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Secondo accordo distinto con lo stesso ateneo (promotore Daniele De Nuzzo, vedi anche sap-medic2-sanpabloceu-b). || Scadenze: basate su 2025/26"
   },
   {
@@ -267,6 +268,7 @@ var METE = [
       ],
     linkSito: "https://www.uspceu.com/internacional/estudios-extranjero/movilidad-incoming",
 
+    linkCatalogo: "https://www.uspceu.com/Portals/0/docs/internacional/Catalogo_ECTS.pdf",
     notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale. Secondo accordo distinto con lo stesso ateneo (promotore Maria Chiara Vulpiani, vedi anche sap-medic2-sanpabloceu-a con promotore Daniele De Nuzzo). || Scadenze: basate su 2025/26"
   },
   {

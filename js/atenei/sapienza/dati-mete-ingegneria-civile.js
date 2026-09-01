@@ -937,6 +937,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 1 dicembre 2026" }
       ],
     linkSito: "http://www.tu-berlin.de",
+    linkCatalogo: "https://moseskonto.tu-berlin.de/moses/verzeichnis/index.html",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69153."
   },
   {
@@ -964,6 +965,7 @@ var METE = [
     linkSito: "http://www.tu-dresden.de",
     notaDisponibilita: "Für nicht aufgelistete Fachrichtungen informieren Sie sich bitte auf der Homepage der jeweiligen Fakultät.",
 
+    linkCatalogo: "https://tu-dresden.de/studium/im-studium/studienorganisation/lehrangebot/vorlesungsverzeichnis",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69156."
   },
   {
@@ -1044,6 +1046,7 @@ var METE = [
     linkSito: "http://www.tu-dresden.de",
     notaDisponibilita: "Für nicht aufgelistete Fachrichtungen informieren Sie sich bitte auf der Homepage der jeweiligen Fakultät.",
 
+    linkCatalogo: "https://tu-dresden.de/studium/im-studium/studienorganisation/lehrangebot/vorlesungsverzeichnis",
     notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69157."
   },
   {
@@ -2181,6 +2184,7 @@ var METE = [
         { cosa: "second semester", periodo: "December 1st" }
       ],
     linkSito: "https://www.upm.es/",
+    linkCatalogo: "https://www.upm.es/internacional/Students/CourseCatalogInEnglish",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69192."
   },
   {
@@ -2419,6 +2423,7 @@ var METE = [
         { cosa: "second semester", periodo: "December 1st" }
       ],
     linkSito: "https://www.upm.es/",
+    linkCatalogo: "https://www.upm.es/internacional/Students/CourseCatalogInEnglish",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69193."
   },
   {
@@ -2473,6 +2478,7 @@ var METE = [
     linkSito: "https://www.unileon.es/",
     notaDisponibilita: "Titulaciones de Grado Titulaciones de Posgrado Subjects in English // Subjects in English Friendly Bachelor/Degree subjects Master subjects",
 
+    linkCatalogo: "https://www.unileon.es/internacional/estudiantes/movilidad-internacional-entrantes/oferta-academica",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA69183."
   },
   {
@@ -2565,6 +2571,7 @@ var METE = [
         { cosa: "second semester", periodo: "December 1st" }
       ],
     linkSito: "https://www.upm.es/",
+    linkCatalogo: "https://www.upm.es/internacional/Students/CourseCatalogInEnglish",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69197."
   },
   {
@@ -2642,6 +2649,7 @@ var METE = [
         { cosa: "Documentazione/application (primavera)", periodo: "entro 15 dicembre" }
       ],
     linkSito: "http://WWW.UNIOVI.ES/",
+    linkCatalogo: "https://www.uniovi.es/estudia/idiomas/asignaturasingles",
     notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69207. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -2710,6 +2718,7 @@ var METE = [
         { cosa: "second semester", periodo: "December 1st" }
       ],
     linkSito: "https://www.upm.es/",
+    linkCatalogo: "https://www.upm.es/internacional/Students/CourseCatalogInEnglish",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69194."
   },
   {
@@ -2853,6 +2862,7 @@ var METE = [
         { cosa: "second semester", periodo: "December 1st" }
       ],
     linkSito: "https://www.upm.es/",
+    linkCatalogo: "https://www.upm.es/internacional/Students/CourseCatalogInEnglish",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69196."
   },
   {

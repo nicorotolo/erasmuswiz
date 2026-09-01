@@ -196,6 +196,11 @@ export function campoVuoto(raw) {
 // dei seed, lo inserisce subito prima di notePratiche. Questo permette di
 // estendere lo schema senza riscrivere in massa tutti i file mete esistenti.
 export function impostaCampo(blocco, campo, valore, { soloSeVuoto = false } = {}) {
+  // Il blocco puo' usare CRLF, e inserire un a-capo nudo lascia righe a
+  // fine-riga misto: il 31/08 ne ha prodotte 269, il 01/09 altre 147, una per
+  // campo scritto, tutte invisibili nel diff. Si inserisce con il fine-riga
+  // che il blocco gia' usa.
+  const aCapo = blocco.includes("\r\n") ? "\r\n" : "\n";
   const raw = valoreCampo(blocco, campo);
   if (raw != null) {
     if (soloSeVuoto && !campoVuoto(raw)) return { blocco, modificato: false };
@@ -209,35 +214,41 @@ export function impostaCampo(blocco, campo, valore, { soloSeVuoto = false } = {}
     };
   }
 
-  const nota = /^(\s*)notePratiche\s*:/m.exec(blocco);
+  // Attenzione al flag "m": in JavaScript "^" combacia anche FRA il CR e il
+  // LF di un CRLF, quindi (\s*) catturava un a-capo nudo insieme
+  // all'indentazione, e lo reinseriva nel file. E' da li' che nascevano sia le
+  // righe a fine-riga misto sia le righe vuote doppie. Qui l'a-capo si
+  // riconosce per intero e si inserisce DOPO di esso.
+  const nota = /(^|\r\n|\n|\r)([ \t]*)notePratiche\s*:/.exec(blocco);
   if (nota) {
-    const inserimento = `${nota[1]}${campo}: ${serializza(valore)},\n`;
+    const inizio = nota.index + nota[1].length;
+    const inserimento = `${nota[2]}${campo}: ${serializza(valore, "      ", aCapo)},${aCapo}`;
     return {
-      blocco: blocco.slice(0, nota.index) + inserimento + blocco.slice(nota.index),
+      blocco: blocco.slice(0, inizio) + inserimento + blocco.slice(inizio),
       modificato: true,
     };
   }
 
   const fine = blocco.lastIndexOf("}");
   if (fine === -1) return { blocco, modificato: false };
-  const indent = /\n(\s*)[^\s}][^\n]*$/.exec(blocco.slice(0, fine))?.[1] || "    ";
+  const indent = (/\n([ \t]*)[^\s}][^\n]*$/.exec(blocco.slice(0, fine))?.[1] ?? "    ");
   const prima = blocco.slice(0, fine).trimEnd();
   const separatore = prima.endsWith("{") || prima.endsWith(",") ? "" : ",";
   return {
-    blocco: `${prima}${separatore}\n${indent}${campo}: ${serializza(valore)}\n${blocco.slice(fine)}`,
+    blocco: `${prima}${separatore}${aCapo}${indent}${campo}: ${serializza(valore, "      ", aCapo)}${aCapo}${blocco.slice(fine)}`,
     modificato: true,
   };
 }
 
 // Serializza un valore JS in stile-file (chiavi non quotate).
-export function serializza(val, indent = "      ") {
+export function serializza(val, indent = "      ", aCapo = "\n") {
   if (Array.isArray(val)) {
     if (val.length === 0) return "[]";
-    const items = val.map((x) => indent + "  " + serializza(x, indent + "  "));
-    return "[\n" + items.join(",\n") + "\n" + indent + "]";
+    const items = val.map((x) => indent + "  " + serializza(x, indent + "  ", aCapo));
+    return "[" + aCapo + items.join("," + aCapo) + aCapo + indent + "]";
   }
   if (val && typeof val === "object") {
-    const parts = Object.entries(val).map(([k, v]) => `${k}: ${serializza(v, indent)}`);
+    const parts = Object.entries(val).map(([k, v]) => `${k}: ${serializza(v, indent, aCapo)}`);
     return "{ " + parts.join(", ") + " }";
   }
   return JSON.stringify(val);
