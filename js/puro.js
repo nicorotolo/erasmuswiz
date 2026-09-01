@@ -2037,6 +2037,10 @@
     nuova.note = testo(opzioni && opzioni.note);
     delete nuova.lockedAt;
     delete nuova.lockReason;
+    // Tranche 2 §4/§6: la fotografia riepilogativa vale per la versione che è
+    // stata confermata, non per quella che nasce dopo. Una versione nuova
+    // riparte quindi senza conferma, esattamente come riparte senza preflight.
+    delete nuova.reconstruction;
     nuova.preflight = {};
     LA_PREFLIGHT.forEach(function (chiave) { nuova.preflight[chiave] = false; });
     copia.versions.push(nuova);
@@ -2640,6 +2644,661 @@
     return { code: azione[0], label: azione[1] };
   }
 
+  // ----------------------------------------------------------
+  // TRANCHE 2 pre-Bruno — importazione multipla con anteprima, ricostruzione
+  // storica e blocco delle fotografie (PLAN.md, addendum 2026-08-07).
+  // Tre promesse governano tutto quello che segue:
+  //   · niente perdite silenziose: una riga o si corregge o si esclude a mano;
+  //   · una sola transazione: o entra tutto, o non entra niente;
+  //   · nessuna equivalenza automatica: l'import crea righe, mai collegamenti.
+  // ----------------------------------------------------------
+
+  // §1. I limiti valgono PRIMA del parsing e rifiutano l'incolla per intero:
+  // troncarlo sarebbe la perdita silenziosa che il piano vieta. La virgola
+  // resta separatore decimale e non divide colonne, quindi non compare qui.
+  var LA_IMPORT_LIMITI = Object.freeze({
+    righe: 200,
+    byte: 102400,
+    campo: 500,
+    url: 2048
+  });
+
+  // §5. La ricostruzione storica dichiara soltanto fatti esterni davvero
+  // accaduti a quella versione. `entered-portal` e `student-signed` restano
+  // fuori: appartengono alla pratica corrente, non al racconto del passato.
+  var LA_FATTI_RICOSTRUZIONE = Object.freeze([
+    "sent-home", "home-approved", "host-approved"
+  ]);
+
+  function byteUtf8LA(valore) {
+    var stringa = valore == null ? "" : String(valore);
+    var totale = 0;
+    for (var i = 0; i < stringa.length; i += 1) {
+      var codice = stringa.codePointAt(i);
+      if (codice > 0xffff) { totale += 4; i += 1; }
+      else if (codice > 0x7ff) totale += 3;
+      else if (codice > 0x7f) totale += 2;
+      else totale += 1;
+    }
+    return totale;
+  }
+
+  function eUrlLA(valore) {
+    return /^https?:\/\//i.test(testo(valore));
+  }
+
+  function rifiutoImportLA(codice, dettaglio) {
+    return Object.assign({
+      ok: false,
+      error: codice,
+      rows: [],
+      counts: { valid: 0, incomplete: 0, ambiguous: 0, duplicate: 0 },
+      unresolvedCount: 0
+    }, oggettoSemplice(dettaglio) ? dettaglio : {});
+  }
+
+  function chiaveDuplicatoImportLA(valori) {
+    var dati = oggettoSemplice(valori) ? valori : {};
+    if (testo(dati.codice)) return "codice:" + slugLA(dati.codice);
+    var nome = slugLA(dati.nome);
+    var crediti = numeroPositivo(dati.crediti);
+    return nome && nome !== "sconosciuto" && crediti
+      ? "nome-crediti:" + nome + ":" + crediti : "";
+  }
+
+  function indiceEsistentiImportLA(voci, tipo) {
+    var mappa = {};
+    (Array.isArray(voci) ? voci : []).forEach(function (voce) {
+      if (!oggettoSemplice(voce)) return;
+      var chiave = chiaveDuplicatoImportLA({
+        codice: voce.codice,
+        nome: voce.nome,
+        crediti: tipo === "host" ? voce.ects : voce.cfu
+      });
+      var id = testo(tipo === "host" ? voce.snapshotId || voce.id : voce.id);
+      if (chiave && id && !mappa[chiave]) mappa[chiave] = id;
+    });
+    return mappa;
+  }
+
+  // §1-§2. Formato chiuso: `Nome;Crediti`, `;Nome;Crediti`, `Codice;Nome;Crediti`
+  // e gli stessi campi separati da tab. L'anteprima distingue righe valide,
+  // incomplete, ambigue e duplicate; nessuna sparisce da sola.
+  function parseImportLA(input, opzioni) {
+    var scelte = oggettoSemplice(opzioni) ? opzioni : {};
+    var tipo = scelte.tipo === "host" ? "host" : "casa";
+    var grezzo = input == null ? "" : String(input);
+    var byte = byteUtf8LA(grezzo);
+    if (byte > LA_IMPORT_LIMITI.byte) {
+      return rifiutoImportLA("too-large", { limit: LA_IMPORT_LIMITI.byte, actual: byte, tipo: tipo });
+    }
+    var righePiene = [];
+    grezzo.split(/\r?\n/).forEach(function (riga, indice) {
+      if (!riga.trim()) return;
+      righePiene.push({ raw: riga, line: indice + 1 });
+    });
+    if (righePiene.length > LA_IMPORT_LIMITI.righe) {
+      return rifiutoImportLA("too-many-rows", {
+        limit: LA_IMPORT_LIMITI.righe, actual: righePiene.length, tipo: tipo
+      });
+    }
+    var campiLunghi = [];
+    var urlLunghi = [];
+    var spezzate = righePiene.map(function (voce) {
+      var separatore = voce.raw.indexOf(";") >= 0
+        ? ";" : (voce.raw.indexOf("\t") >= 0 ? "\t" : null);
+      var celle = separatore ? voce.raw.split(separatore).map(testo) : [testo(voce.raw)];
+      celle.forEach(function (cella) {
+        if (eUrlLA(cella)) {
+          if (cella.length > LA_IMPORT_LIMITI.url) urlLunghi.push(voce.line);
+        } else if (cella.length > LA_IMPORT_LIMITI.campo) {
+          campiLunghi.push(voce.line);
+        }
+      });
+      return { raw: voce.raw, line: voce.line, celle: celle, separatore: separatore };
+    });
+    if (campiLunghi.length) {
+      return rifiutoImportLA("field-too-long", {
+        limit: LA_IMPORT_LIMITI.campo, lines: valoriUnici(campiLunghi), tipo: tipo
+      });
+    }
+    if (urlLunghi.length) {
+      return rifiutoImportLA("url-too-long", {
+        limit: LA_IMPORT_LIMITI.url, lines: valoriUnici(urlLunghi), tipo: tipo
+      });
+    }
+
+    var duplicati = indiceEsistentiImportLA(scelte.esistenti, tipo);
+    var righe = [];
+    var primaRigaDati = true;
+    spezzate.forEach(function (voce) {
+      var celle = voce.celle;
+      var intestazione = primaRigaDati && celle.length >= 2 &&
+        /^(codice|code)?$/i.test(celle.length >= 3 ? celle[0] : "") &&
+        /(nome|name|corso|esame|insegnamento|course)/i.test(celle[celle.length - 2]) &&
+        /(cfu|ects|credit)/i.test(celle[celle.length - 1]);
+      primaRigaDati = false;
+      if (intestazione) return;
+      var problemi = [];
+      var valori = { codice: "", nome: "", crediti: "" };
+      if (!voce.separatore) {
+        // Una riga senza `;` né tab non dichiara le colonne: la virgola non è
+        // un separatore, quindi `Nome, 6` resta ambigua e va decisa a mano.
+        problemi.push("ambiguous-columns");
+        valori.nome = celle[0] || "";
+      } else if (celle.length === 2) {
+        valori.nome = celle[0];
+        valori.crediti = celle[1];
+      } else if (celle.length === 3) {
+        valori.codice = celle[0];
+        valori.nome = celle[1];
+        valori.crediti = celle[2];
+      } else {
+        problemi.push("ambiguous-columns");
+        valori.codice = celle[0] || "";
+        valori.nome = celle[1] || "";
+        valori.crediti = celle[2] == null ? "" : celle[2];
+      }
+      var crediti = numeroPositivo(valori.crediti);
+      if (!testo(valori.nome)) problemi.push("missing-name");
+      if (!crediti) problemi.push("invalid-credits");
+      var chiave = chiaveDuplicatoImportLA(valori);
+      var duplicateId = chiave ? duplicati[chiave] || null : null;
+      if (duplicateId) problemi.push("duplicate");
+      var genere = problemi.indexOf("ambiguous-columns") >= 0 ? "ambiguous"
+        : (problemi.indexOf("missing-name") >= 0 || problemi.indexOf("invalid-credits") >= 0
+          ? "incomplete"
+          : (duplicateId ? "duplicate" : "valid"));
+      righe.push({
+        rowId: "row-" + voce.line,
+        line: voce.line,
+        raw: voce.raw,
+        tipo: tipo,
+        kind: genere,
+        values: {
+          codice: testo(valori.codice),
+          nome: testo(valori.nome),
+          crediti: crediti || testo(valori.crediti)
+        },
+        issues: problemi,
+        duplicateId: duplicateId,
+        requiresDecision: problemi.length > 0
+      });
+      if (chiave && !duplicati[chiave]) duplicati[chiave] = "preview:" + voce.line;
+    });
+
+    var conteggi = { valid: 0, incomplete: 0, ambiguous: 0, duplicate: 0 };
+    righe.forEach(function (riga) { conteggi[riga.kind] += 1; });
+    return {
+      ok: true,
+      tipo: tipo,
+      rows: righe,
+      counts: conteggi,
+      unresolvedCount: righe.filter(function (riga) { return riga.requiresDecision; }).length
+    };
+  }
+
+  // §2. Ogni riga problematica esce di qui soltanto corretta o esclusa a mano.
+  // Le righe rimaste senza decisione tornano indietro: non vengono importate,
+  // ma nemmeno perse.
+  function finalizzaImportLA(preview, decisions) {
+    var righe = preview && Array.isArray(preview.rows) ? preview.rows : [];
+    var scelte = oggettoSemplice(decisions) ? decisions : {};
+    var voci = [];
+    var irrisolte = [];
+    var escluse = [];
+    righe.forEach(function (riga) {
+      var decisione = scelte[riga.rowId];
+      var azione = oggettoSemplice(decisione) ? testo(decisione.action) : "";
+      if (riga.requiresDecision &&
+          ["exclude", "confirm", "keep-separate", "merge"].indexOf(azione) < 0) {
+        irrisolte.push(copiaPersistibile(riga));
+        return;
+      }
+      if (azione === "exclude") {
+        escluse.push(copiaPersistibile(riga));
+        return;
+      }
+      var valori = Object.assign({}, riga.values,
+        oggettoSemplice(decisione) && oggettoSemplice(decisione.values) ? decisione.values : {});
+      var crediti = numeroPositivo(valori.crediti);
+      if (!testo(valori.nome) || !crediti) {
+        irrisolte.push(copiaPersistibile(riga));
+        return;
+      }
+      voci.push({
+        tipo: riga.tipo,
+        importRowId: riga.rowId,
+        codice: testo(valori.codice),
+        nome: testo(valori.nome),
+        crediti: crediti,
+        mergeIntoId: azione === "merge"
+          ? testo((oggettoSemplice(decisione) && decisione.targetId) || riga.duplicateId) : ""
+      });
+    });
+    return { items: voci, unresolvedRows: irrisolte, excludedRows: escluse };
+  }
+
+  function contaImportVersioneLA(versione) {
+    return Array.isArray(versione && versione.imports) ? versione.imports.length : 0;
+  }
+
+  function prossimoIdSnapshotLA(esistenti, prefisso) {
+    var usati = {};
+    (Array.isArray(esistenti) ? esistenti : []).forEach(function (voce) {
+      if (oggettoSemplice(voce) && testo(voce.snapshotId)) usati[voce.snapshotId] = true;
+    });
+    var numero = (Array.isArray(esistenti) ? esistenti.length : 0) + 1;
+    while (usati[prefisso + numero]) numero += 1;
+    return prefisso + numero;
+  }
+
+  // §7. Gli elementi che nessun gruppo collega davvero restano scoperti: un
+  // gruppo monco (solo casa o solo host) non vale come corrispondenza.
+  function elementiScollegatiLA(versione) {
+    var v = oggettoSemplice(versione) ? versione : {};
+    var casa = Array.isArray(v.homeExamSnapshots) ? v.homeExamSnapshots : [];
+    var hostTutti = Array.isArray(v.hostCourseSnapshots) ? v.hostCourseSnapshots : [];
+    var host = hostTutti.filter(corsoHostAttivoLA);
+    var casaIds = {};
+    casa.forEach(function (voce) { casaIds[voce.snapshotId] = true; });
+    var hostIds = {};
+    hostTutti.forEach(function (voce) { hostIds[voce.snapshotId] = true; });
+    var hostAttivi = {};
+    host.forEach(function (voce) { hostAttivi[voce.snapshotId] = true; });
+    var casaCollegati = {};
+    var hostCollegati = {};
+    (Array.isArray(v.mappings) ? v.mappings : []).forEach(function (gruppo) {
+      var lati = oggettoSemplice(gruppo) ? gruppo : {};
+      var casaPresenti = (Array.isArray(lati.homeExamSnapshotIds) ? lati.homeExamSnapshotIds : [])
+        .filter(function (id) { return casaIds[id]; });
+      var hostPresenti = (Array.isArray(lati.hostCourseSnapshotIds) ? lati.hostCourseSnapshotIds : [])
+        .filter(function (id) { return hostAttivi[id]; });
+      if (!casaPresenti.length || !hostPresenti.length) return;
+      casaPresenti.forEach(function (id) { casaCollegati[id] = true; });
+      hostPresenti.forEach(function (id) { hostCollegati[id] = true; });
+    });
+    return {
+      home: casa.filter(function (voce) { return !casaCollegati[voce.snapshotId]; })
+        .map(function (voce) { return voce.snapshotId; }),
+      host: host.filter(function (voce) { return !hostCollegati[voce.snapshotId]; })
+        .map(function (voce) { return voce.snapshotId; })
+    };
+  }
+
+  // §4. La fotografia riepilogativa è la cosa che lo studente conferma prima
+  // di dichiarare i fatti: righe, totali e fonti, calcolati una volta sola e
+  // riusati identici da interfaccia e conferma.
+  function riepilogoVersioneLA(versione) {
+    var v = oggettoSemplice(versione) ? versione : {};
+    var casa = Array.isArray(v.homeExamSnapshots) ? v.homeExamSnapshots : [];
+    var hostTutti = Array.isArray(v.hostCourseSnapshots) ? v.hostCourseSnapshots : [];
+    var host = hostTutti.filter(corsoHostAttivoLA);
+    var scollegati = elementiScollegatiLA(v);
+    function somma(voci, campo) {
+      return voci.reduce(function (totale, voce) {
+        return totale + (numeroPositivo(voce[campo]) || 0);
+      }, 0);
+    }
+    return {
+      homeCount: casa.length,
+      homeCredits: somma(casa, "cfu"),
+      hostCount: hostTutti.length,
+      hostActiveCount: host.length,
+      hostCredits: somma(host, "ects"),
+      unlinkedHome: scollegati.home.length,
+      unlinkedHost: scollegati.host.length,
+      hostWithoutSource: host.filter(function (corso) {
+        return !testo(corso.officialUrl) && !testo(corso.sourceDate);
+      }).length
+    };
+  }
+
+  function riepilogoUgualeLA(atteso, calcolato) {
+    if (!oggettoSemplice(atteso)) return true;
+    return ["homeCount", "homeCredits", "hostCount", "hostActiveCount", "hostCredits"]
+      .every(function (campo) {
+        if (atteso[campo] == null) return true;
+        return Number(atteso[campo]) === Number(calcolato[campo]);
+      });
+  }
+
+  // §3. Una sola transazione coerente sulla versione modificabile: se il
+  // dossier è bloccato nasce UNA sola versione nuova e l'import ci finisce
+  // dentro tutto insieme; una versione storica non viene mai toccata.
+  // Al termine si rilegge lo stato normalizzato e si contano le identità: se
+  // manca anche un solo pezzo, non si scrive niente.
+  function applicaImportLA(la, dossierId, dati, opzioni) {
+    var scelte = oggettoSemplice(opzioni) ? opzioni : {};
+    var configurazione = oggettoSemplice(scelte.configurazione) ? scelte.configurazione : {};
+    var stato = normalizzaLaV2(la, configurazione);
+    var id = testo(dossierId);
+    var dossier = stato.dossiersById[id];
+    if (!dossier) return { ok: false, error: "missing-dossier" };
+    if (testo(dossier.archivedAt)) return { ok: false, error: "archived-dossier" };
+    var corrente = versioneCorrenteLA(dossier);
+    if (!corrente) return { ok: false, error: "missing-version" };
+    var richiesta = testo(scelte.targetVersionId);
+    if (richiesta && richiesta !== corrente.versionId) {
+      return { ok: false, error: "historical-version", versionId: corrente.versionId };
+    }
+    var casa = Array.isArray(dati && dati.home) ? dati.home : [];
+    var host = Array.isArray(dati && dati.host) ? dati.host : [];
+    if (!casa.length && !host.length) return { ok: false, error: "empty-import" };
+    var invalide = casa.concat(host).filter(function (voce) {
+      return !oggettoSemplice(voce) || !testo(voce.nome) || !numeroPositivo(voce.crediti);
+    });
+    if (invalide.length) return { ok: false, error: "invalid-row", rows: invalide.length };
+
+    var quando = oraIso(scelte.at);
+    var creataVersione = !!testo(corrente.lockedAt);
+    var prossimo = copiaPersistibile(stato);
+    var lavoro = creataVersione
+      ? clonaNuovaVersioneLA(prossimo.dossiersById[id], { reason: "import", at: quando })
+      : prossimo.dossiersById[id];
+    var versione = versioneCorrenteLA(lavoro);
+    var batchId = versione.versionId + ":import-" + (contaImportVersioneLA(versione) + 1);
+    var attesiCasa = [];
+    var attesiHost = [];
+    var conteggi = { homeAdded: 0, homeMerged: 0, hostAdded: 0, hostMerged: 0 };
+
+    casa.forEach(function (voce) {
+      var pulito = {
+        codice: testo(voce.codice),
+        nome: testo(voce.nome),
+        cfu: numeroPositivo(voce.crediti),
+        stato: statoEsameLA(voce.stato)
+      };
+      var bersaglio = testo(voce.mergeIntoId);
+      var examId = bersaglio && oggettoSemplice(prossimo.examLibrary[bersaglio]) ? bersaglio : "";
+      if (examId) {
+        prossimo.examLibrary[examId] = Object.assign(
+          {}, prossimo.examLibrary[examId], pulito, { id: examId }
+        );
+      } else {
+        examId = "exam-" + prossimo.nextId;
+        prossimo.nextId += 1;
+        while (prossimo.examLibrary[examId]) {
+          examId = "exam-" + prossimo.nextId;
+          prossimo.nextId += 1;
+        }
+        prossimo.examLibrary[examId] = Object.assign({ id: examId }, pulito);
+      }
+      var esistente = versione.homeExamSnapshots.filter(function (snap) {
+        return testo(snap.sourceExamId) === examId;
+      })[0];
+      if (esistente) {
+        Object.assign(esistente, pulito, { importBatchId: batchId });
+        conteggi.homeMerged += 1;
+        attesiCasa.push(esistente.snapshotId);
+        return;
+      }
+      var snapshotId = prossimoIdSnapshotLA(versione.homeExamSnapshots, versione.versionId + ":home-");
+      versione.homeExamSnapshots.push(Object.assign({
+        snapshotId: snapshotId,
+        sourceExamId: examId,
+        importBatchId: batchId
+      }, pulito));
+      conteggi.homeAdded += 1;
+      attesiCasa.push(snapshotId);
+    });
+
+    host.forEach(function (voce) {
+      var pulito = {
+        codice: testo(voce.codice),
+        nome: testo(voce.nome),
+        ects: numeroPositivo(voce.crediti)
+      };
+      var bersaglio = testo(voce.mergeIntoId);
+      var esistente = bersaglio ? versione.hostCourseSnapshots.filter(function (snap) {
+        return snap.snapshotId === bersaglio;
+      })[0] : null;
+      if (esistente) {
+        Object.assign(esistente, pulito, { importBatchId: batchId });
+        conteggi.hostMerged += 1;
+        attesiHost.push(esistente.snapshotId);
+        return;
+      }
+      var snapshotId = prossimoIdSnapshotLA(versione.hostCourseSnapshots, versione.versionId + ":host-");
+      versione.hostCourseSnapshots.push(Object.assign({
+        snapshotId: snapshotId,
+        lingua: "",
+        semestre: "",
+        officialUrl: "",
+        // §7: importare non verifica niente. Il corso nasce da verificare e
+        // senza corrispondenze: i collegamenti li fa lo studente, a mano.
+        availabilityState: "da-verificare",
+        verifiedAt: "",
+        sourceDate: "",
+        importBatchId: batchId
+      }, pulito));
+      conteggi.hostAdded += 1;
+      attesiHost.push(snapshotId);
+    });
+
+    if (!Array.isArray(versione.imports)) versione.imports = [];
+    versione.imports.push({
+      batchId: batchId,
+      at: quando,
+      homeRows: casa.length,
+      hostRows: host.length
+    });
+    // §4: l'import cambia i fatti, quindi invalida la fotografia già confermata.
+    delete versione.reconstruction;
+    lavoro.updatedAt = quando;
+    prossimo.dossiersById[id] = lavoro;
+
+    var riletto = normalizzaLaV2(prossimo, configurazione);
+    var dossierRiletto = riletto.dossiersById[id];
+    var versioneRiletta = dossierRiletto ? versioneCorrenteLA(dossierRiletto) : null;
+    var versioniAttese = dossier.versions.length + (creataVersione ? 1 : 0);
+    if (!versioneRiletta || versioneRiletta.versionId !== versione.versionId ||
+        dossierRiletto.versions.length !== versioniAttese) {
+      return { ok: false, error: "verification-failed" };
+    }
+    var contaId = function (voci, cercato) {
+      return voci.filter(function (voce) { return voce.snapshotId === cercato; }).length;
+    };
+    var identitaOk = attesiCasa.every(function (snapshotId) {
+      return contaId(versioneRiletta.homeExamSnapshots, snapshotId) === 1;
+    }) && attesiHost.every(function (snapshotId) {
+      return contaId(versioneRiletta.hostCourseSnapshots, snapshotId) === 1;
+    });
+    var casaAttesa = corrente.homeExamSnapshots.length + conteggi.homeAdded;
+    var hostAttesa = corrente.hostCourseSnapshots.length + conteggi.hostAdded;
+    if (!identitaOk ||
+        versioneRiletta.homeExamSnapshots.length !== casaAttesa ||
+        versioneRiletta.hostCourseSnapshots.length !== hostAttesa) {
+      return { ok: false, error: "verification-failed" };
+    }
+    var libreriaOk = attesiCasa.every(function (snapshotId) {
+      var snap = versioneRiletta.homeExamSnapshots.filter(function (voce) {
+        return voce.snapshotId === snapshotId;
+      })[0];
+      return snap && oggettoSemplice(riletto.examLibrary[testo(snap.sourceExamId)]);
+    });
+    if (!libreriaOk) return { ok: false, error: "verification-failed" };
+
+    return {
+      ok: true,
+      la: riletto,
+      dossierId: id,
+      versionId: versione.versionId,
+      createdVersion: creataVersione,
+      batchId: batchId,
+      counts: conteggi,
+      summary: riepilogoVersioneLA(versioneRiletta)
+    };
+  }
+
+  // §4. Prima la fotografia, poi i fatti storici. La conferma vale soltanto
+  // per la versione corrente e soltanto se i numeri sono ancora quelli che lo
+  // studente aveva davanti agli occhi.
+  function confermaFotografiaImportLA(la, dossierId, dati) {
+    var scelte = oggettoSemplice(dati) ? dati : {};
+    var configurazione = oggettoSemplice(scelte.configurazione) ? scelte.configurazione : {};
+    var stato = normalizzaLaV2(la, configurazione);
+    var id = testo(dossierId);
+    var dossier = stato.dossiersById[id];
+    if (!dossier) return { ok: false, error: "missing-dossier" };
+    if (testo(dossier.archivedAt)) return { ok: false, error: "archived-dossier" };
+    var corrente = versioneCorrenteLA(dossier);
+    if (!corrente) return { ok: false, error: "missing-version" };
+    var richiesta = testo(scelte.versionId);
+    if (richiesta && richiesta !== corrente.versionId) {
+      return { ok: false, error: "historical-version", versionId: corrente.versionId };
+    }
+    var riepilogo = riepilogoVersioneLA(corrente);
+    if (!riepilogoUgualeLA(scelte.counts, riepilogo)) {
+      return { ok: false, error: "counts-changed", summary: riepilogo };
+    }
+    var quando = oraIso(scelte.at);
+    var prossimo = copiaPersistibile(stato);
+    var versione = versioneCorrenteLA(prossimo.dossiersById[id]);
+    versione.reconstruction = {
+      summaryConfirmedAt: quando,
+      counts: riepilogo
+    };
+    prossimo.dossiersById[id].updatedAt = quando;
+    var riletto = normalizzaLaV2(prossimo, configurazione);
+    var versioneRiletta = versioneCorrenteLA(riletto.dossiersById[id]);
+    if (!versioneRiletta || !oggettoSemplice(versioneRiletta.reconstruction) ||
+        testo(versioneRiletta.reconstruction.summaryConfirmedAt) !== quando) {
+      return { ok: false, error: "verification-failed" };
+    }
+    return {
+      ok: true,
+      la: riletto,
+      versionId: versioneRiletta.versionId,
+      summary: riepilogo
+    };
+  }
+
+  function fotografiaConfermataLA(versione) {
+    return oggettoSemplice(versione) && oggettoSemplice(versione.reconstruction) &&
+      !!testo(versione.reconstruction.summaryConfirmedAt);
+  }
+
+  // §5-§6. I fatti si raccolgono tutti prima e si applicano insieme, alla
+  // stessa versione: validazione completa, scrittura tutto-o-niente, un solo
+  // blocco della fotografia e al massimo una nuova versione di lavoro.
+  // `Bozza` significa nessun fatto esterno: non blocca e non versiona.
+  // `occurredOn` è la data dichiarata dallo studente e può mancare;
+  // `markedAt` è sempre il momento della dichiarazione, e non la sostituisce.
+  function applicaFattiRicostruzioneLA(la, dossierId, dati) {
+    var scelte = oggettoSemplice(dati) ? dati : {};
+    var configurazione = oggettoSemplice(scelte.configurazione) ? scelte.configurazione : {};
+    var stato = normalizzaLaV2(la, configurazione);
+    var id = testo(dossierId);
+    var dossier = stato.dossiersById[id];
+    if (!dossier) return { ok: false, error: "missing-dossier" };
+    if (testo(dossier.archivedAt)) return { ok: false, error: "archived-dossier" };
+    var corrente = versioneCorrenteLA(dossier);
+    if (!corrente) return { ok: false, error: "missing-version" };
+    var richiesta = testo(scelte.snapshotVersionId);
+    if (richiesta && richiesta !== corrente.versionId) {
+      return { ok: false, error: "historical-version", versionId: corrente.versionId };
+    }
+    if (!fotografiaConfermataLA(corrente)) {
+      return { ok: false, error: "summary-not-confirmed", versionId: corrente.versionId };
+    }
+    var fatti = Array.isArray(scelte.facts) ? scelte.facts : [];
+    var chiaviViste = {};
+    var errore = null;
+    var normalizzati = fatti.map(function (fatto) {
+      var voce = oggettoSemplice(fatto) ? fatto : {};
+      var chiave = testo(voce.key);
+      if (LA_FATTI_RICOSTRUZIONE.indexOf(chiave) < 0) errore = errore || "unknown-fact";
+      if (chiaviViste[chiave]) errore = errore || "duplicate-fact";
+      chiaviViste[chiave] = true;
+      var quandoDavvero = testo(voce.occurredOn);
+      if (quandoDavvero && !/^\d{4}-\d{2}-\d{2}$/.test(quandoDavvero)) {
+        errore = errore || "invalid-occurred-on";
+      }
+      return { key: chiave, occurredOn: quandoDavvero, note: testo(voce.note) };
+    });
+    if (errore) return { ok: false, error: errore };
+
+    var quando = oraIso(scelte.markedAt);
+    if (!normalizzati.length) {
+      // Bozza: nessun fatto esterno dichiarato, quindi niente da bloccare.
+      return {
+        ok: true,
+        la: stato,
+        snapshotVersionId: corrente.versionId,
+        locked: false,
+        newVersionId: null,
+        facts: []
+      };
+    }
+
+    var prossimo = copiaPersistibile(stato);
+    var lavoro = prossimo.dossiersById[id];
+    var snapshot = versioneCorrenteLA(lavoro);
+    var snapshotVersionId = snapshot.versionId;
+    if (!oggettoSemplice(lavoro.confirmationsByVersion)) lavoro.confirmationsByVersion = {};
+    if (!oggettoSemplice(lavoro.confirmationsByVersion[snapshotVersionId])) {
+      lavoro.confirmationsByVersion[snapshotVersionId] = {};
+    }
+    normalizzati.forEach(function (fatto) {
+      lavoro.confirmationsByVersion[snapshotVersionId][fatto.key] = {
+        versionId: snapshotVersionId,
+        markedAt: quando,
+        occurredOn: fatto.occurredOn,
+        occurredOnUnknown: !fatto.occurredOn,
+        subject: fatto.key,
+        note: fatto.note
+      };
+    });
+    // Un solo blocco, anche con tre fatti insieme.
+    if (!testo(snapshot.lockedAt)) {
+      snapshot.lockedAt = quando;
+      snapshot.lockReason = "reconstruction";
+    }
+    if (!oggettoSemplice(lavoro.lifecycle)) lavoro.lifecycle = {};
+    if (!testo(lavoro.lifecycle.firstExternalAt)) lavoro.lifecycle.firstExternalAt = quando;
+    // Una sola versione di lavoro nuova, e nessun fatto ci scivola dentro:
+    // le conferme restano legate al versionId della fotografia bloccata.
+    var conVersione = clonaNuovaVersioneLA(lavoro, {
+      reason: "post-reconstruction",
+      at: quando
+    });
+    prossimo.dossiersById[id] = conVersione;
+    prossimo.dossiersById[id].updatedAt = quando;
+
+    var riletto = normalizzaLaV2(prossimo, configurazione);
+    var dossierRiletto = riletto.dossiersById[id];
+    var nuova = dossierRiletto ? versioneCorrenteLA(dossierRiletto) : null;
+    var bloccata = dossierRiletto ? dossierRiletto.versions.filter(function (v) {
+      return v.versionId === snapshotVersionId;
+    })[0] : null;
+    var conferme = dossierRiletto && oggettoSemplice(dossierRiletto.confirmationsByVersion)
+      ? dossierRiletto.confirmationsByVersion : {};
+    var confermeNuova = oggettoSemplice(conferme[nuova && nuova.versionId])
+      ? conferme[nuova.versionId] : {};
+    var tutteScritte = normalizzati.every(function (fatto) {
+      var scritto = oggettoSemplice(conferme[snapshotVersionId])
+        ? conferme[snapshotVersionId][fatto.key] : null;
+      return oggettoSemplice(scritto) && scritto.versionId === snapshotVersionId &&
+        testo(scritto.markedAt) === quando && testo(scritto.occurredOn) === fatto.occurredOn;
+    });
+    if (!nuova || !bloccata || !testo(bloccata.lockedAt) ||
+        nuova.versionId === snapshotVersionId ||
+        dossierRiletto.versions.length !== dossier.versions.length + 1 ||
+        Object.keys(confermeNuova).length > 0 || !tutteScritte) {
+      return { ok: false, error: "verification-failed" };
+    }
+    return {
+      ok: true,
+      la: riletto,
+      snapshotVersionId: snapshotVersionId,
+      locked: true,
+      lockedAt: testo(bloccata.lockedAt),
+      newVersionId: nuova.versionId,
+      facts: normalizzati
+    };
+  }
+
   return Object.freeze({
     SCALA_CEFR: SCALA_CEFR,
     ESITI_LINGUA: ESITI_LINGUA,
@@ -2736,6 +3395,18 @@
     cicloAmmessoHome: cicloAmmessoHome,
     creaBozzaOnboarding: creaBozzaOnboarding,
     normalizzaBozzaOnboarding: normalizzaBozzaOnboarding,
-    applicaRevisioneOnboarding: applicaRevisioneOnboarding
+    applicaRevisioneOnboarding: applicaRevisioneOnboarding,
+    // Tranche 2 pre-Bruno
+    LA_IMPORT_LIMITI: LA_IMPORT_LIMITI,
+    LA_FATTI_RICOSTRUZIONE: LA_FATTI_RICOSTRUZIONE,
+    byteUtf8LA: byteUtf8LA,
+    parseImportLA: parseImportLA,
+    finalizzaImportLA: finalizzaImportLA,
+    applicaImportLA: applicaImportLA,
+    elementiScollegatiLA: elementiScollegatiLA,
+    riepilogoVersioneLA: riepilogoVersioneLA,
+    confermaFotografiaImportLA: confermaFotografiaImportLA,
+    fotografiaConfermataLA: fotografiaConfermataLA,
+    applicaFattiRicostruzioneLA: applicaFattiRicostruzioneLA
   });
 });

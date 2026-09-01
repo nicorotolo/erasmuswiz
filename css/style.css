@@ -2988,12 +2988,27 @@ body.modo-entrata .modo-scena .mappa svg {
 .la-inline-button { display: inline-flex; align-items: center; text-decoration: none; margin-top: 8px; }
 .la-restore-preview { margin-top: 12px; }
 
+/* Tranche 2 pre-Bruno: importazione multipla, fotografia e ricostruzione. */
+.la-import-gruppo { margin: 12px 0; }
+.la-import-gruppo textarea { width: 100%; min-height: 90px; }
+.la-import-preview h4 { margin: 0 0 4px; font-family: var(--font-display); font-size: .9rem; }
+.la-import-row[data-kind="duplicate"] { border-color: var(--primary); }
+.la-import-messaggio { margin-top: 10px; }
+.la-riepilogo { margin: 8px 0; padding-left: 20px; font-size: .86rem; }
+.la-riepilogo li { margin-bottom: 4px; }
+.la-fatto-riga { display: grid; grid-template-columns: minmax(180px, 1fr) 160px; gap: 8px 12px; align-items: center; margin-bottom: 10px; }
+.la-fatto-riga small { grid-column: 1 / -1; margin-top: -4px; }
+/* Un elemento che nessuna corrispondenza collega resta visibile come tale. */
+.la-scollegato { padding: 6px; border-left: 3px solid var(--amber-border); background: var(--amber-bg); border-radius: var(--radius-sm); }
+.la-badge-scollegato { grid-column: 1 / -1; font-size: .72rem; font-weight: 800; color: var(--amber); text-transform: uppercase; letter-spacing: .04em; }
+
 @media (max-width: 767px) {
   .la-stage-list { grid-template-columns: 1fr; }
   .la-stage { padding: 8px 10px; }
   .la-exam-row, .la-import-row, .la-create-dossier, .la-edit-row, .la-host-row, .la-rec-row { grid-template-columns: minmax(0, 1fr); }
   .la-exam-row > *, .la-import-row > *, .la-create-dossier > *, .la-edit-row > *, .la-host-row > *, .la-rec-row > * { width: 100%; }
   .la-import-issues { grid-column: auto; }
+  .la-fatto-riga { grid-template-columns: minmax(0, 1fr); }
   .la-mapping-cols { grid-template-columns: 1fr; }
   .la-page-header { border-radius: 0; }
 }

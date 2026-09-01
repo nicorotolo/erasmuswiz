@@ -3461,6 +3461,11 @@ function initCelebrazioneZaino() {
 // LEARNING AGREEMENT v2 — dossier app-first
 // ============================================================
 let _laImportPreview = null;
+// Tranche 2 pre-Bruno: l'incolla e le decisioni riga per riga sopravvivono a un
+// errore. Se l'importazione fallisce, lo studente ritrova il testo e le scelte
+// che aveva già fatto invece di ricominciare da capo (PLAN.md tranche 2 §2).
+let _laImportMultiplo = null;
+let _laMessaggioRicostruzione = "";
 let _laRestorePreview = null;
 let _laVolatileRecovery = null;
 let _laSaveErrorMessage = "";
@@ -4216,8 +4221,15 @@ function laRenderMetaManuale(cycleInput) {
 function laRenderHomeSnapshots(sezione, dossier, versione) {
   const box = laElemento("div", "la-subsection");
   box.appendChild(laElemento("h3", null, "Esami di casa"));
+  // Tranche 2 §7: quello che nessuna corrispondenza collega davvero resta
+  // segnalato finché non lo collega lo studente. Importare non è collegare.
+  const scollegati = new Set(ErasmusWizPuro.elementiScollegatiLA(versione).home);
   versione.homeExamSnapshots.forEach(esame => {
-    const row = laElemento("div", "la-edit-row");
+    const row = laElemento("div", `la-edit-row ${scollegati.has(esame.snapshotId) ? "la-scollegato" : ""}`);
+    if (scollegati.has(esame.snapshotId)) {
+      row.dataset.scollegato = "home";
+      row.appendChild(laElemento("span", "la-badge-scollegato", "Da collegare a mano"));
+    }
     [["codice", "Codice"], ["nome", "Nome"], ["cfu", "CFU"]].forEach(([campo, label]) => {
       const input = document.createElement("input"); input.value = esame[campo] || ""; input.placeholder = label;
       input.setAttribute("aria-label", `${label} esame di casa`);
@@ -4262,8 +4274,13 @@ function laRenderHomeSnapshots(sezione, dossier, versione) {
 function laRenderHostSnapshots(sezione, dossier, versione) {
   const box = laElemento("div", "la-subsection");
   box.appendChild(laElemento("h3", null, "Corsi dell'università ospitante"));
+  const scollegati = new Set(ErasmusWizPuro.elementiScollegatiLA(versione).host);
   versione.hostCourseSnapshots.forEach(corso => {
-    const row = laElemento("div", "la-edit-row la-host-row");
+    const row = laElemento("div", `la-edit-row la-host-row ${scollegati.has(corso.snapshotId) ? "la-scollegato" : ""}`);
+    if (scollegati.has(corso.snapshotId)) {
+      row.dataset.scollegato = "host";
+      row.appendChild(laElemento("span", "la-badge-scollegato", "Da collegare a mano"));
+    }
     [["codice", "Codice facoltativo"], ["nome", "Nome"], ["ects", "ECTS"], ["lingua", "Lingua"], ["semestre", "Semestre"], ["officialUrl", "URL ufficiale"], ["verifiedAt", "Verificato il"], ["sourceDate", "Data della fonte"]]
       .forEach(([campo, label]) => {
         const input = document.createElement("input"); input.value = corso[campo] || ""; input.placeholder = label;
@@ -4632,6 +4649,338 @@ function laRenderRiconoscimento(sezione, dossier, fase) {
   sezione.appendChild(box);
 }
 
+// ================================================================
+// TRANCHE 2 pre-Bruno — importazione multipla, fotografia riepilogativa e
+// ricostruzione storica (PLAN.md, addendum 2026-08-07, tranche 2 §1-§7).
+// ================================================================
+
+const LA_IMPORT_TIPI = [
+  ["casa", "Esami del mio ateneo", "CASA01; Diritto europeo; 6", "CFU"],
+  ["host", "Corsi dell'università ospitante", "144213; Introduction to Global Law; 6", "ECTS"],
+];
+
+function laStatoImportMultiplo(dossierId) {
+  if (!_laImportMultiplo || _laImportMultiplo.dossierId !== dossierId) {
+    _laImportMultiplo = {
+      dossierId,
+      casa: { testo: "", preview: null, decisions: {} },
+      host: { testo: "", preview: null, decisions: {} },
+      messaggio: "",
+    };
+  }
+  return _laImportMultiplo;
+}
+
+function laMessaggioRifiutoImport(preview, unita) {
+  const limiti = ErasmusWizPuro.LA_IMPORT_LIMITI;
+  if (preview.error === "too-many-rows") {
+    return `Troppe righe: ${preview.actual} invece di massimo ${limiti.righe}. Non ne abbiamo importata nessuna: dividi l'elenco in due incolla.`;
+  }
+  if (preview.error === "too-large") {
+    return `Il testo incollato è troppo grande (${Math.round(preview.actual / 1024)} KB su ${Math.round(limiti.byte / 1024)} KB). Non abbiamo importato niente: incollane una parte per volta.`;
+  }
+  if (preview.error === "field-too-long") {
+    return `Alla riga ${preview.lines.join(", ")} c'è un campo oltre ${limiti.campo} caratteri. Accorcialo: preferiamo fermarci piuttosto che tagliarlo da soli.`;
+  }
+  if (preview.error === "url-too-long") {
+    return `Alla riga ${preview.lines.join(", ")} c'è un indirizzo oltre ${limiti.url} caratteri. Accorcialo o toglilo dall'incolla.`;
+  }
+  return `Non siamo riusciti a leggere l'elenco di ${unita}. Niente è stato importato.`;
+}
+
+function laRenderAnteprimaImport(box, stato, tipo, etichettaCrediti) {
+  const dati = stato[tipo];
+  if (!dati.preview || !dati.preview.ok) return;
+  const anteprima = laElemento("div", "la-import-preview");
+  anteprima.dataset.anteprimaImport = tipo;
+  const c = dati.preview.counts;
+  anteprima.appendChild(laElemento("h4", null,
+    `Anteprima: ${c.valid} pronte · ${c.incomplete} incomplete · ${c.ambiguous} ambigue · ${c.duplicate} già presenti`));
+  anteprima.appendChild(laElemento("p", "la-muted",
+    "Nessuna riga viene scartata da sola: quelle segnalate vanno corrette o escluse a mano."));
+  dati.preview.rows.forEach(riga => {
+    const row = laElemento("div", `la-import-row ${riga.requiresDecision ? "ambigua" : ""}`);
+    row.dataset.rowId = riga.rowId;
+    row.dataset.kind = riga.kind;
+    row.appendChild(laElemento("span", "la-import-line", `Riga ${riga.line}`));
+    [["codice", "Codice"], ["nome", "Nome"], ["crediti", etichettaCrediti]].forEach(([campo, label]) => {
+      const input = document.createElement("input");
+      input.dataset.field = campo;
+      input.value = riga.values[campo] === null || riga.values[campo] === undefined
+        ? "" : String(riga.values[campo]);
+      input.placeholder = label;
+      input.setAttribute("aria-label", `${label} riga ${riga.line}`);
+      input.addEventListener("change", () => {
+        const scelta = dati.decisions[riga.rowId] || { action: "" };
+        scelta.values = Object.assign({}, scelta.values, { [campo]: input.value });
+        dati.decisions[riga.rowId] = scelta;
+      });
+      row.appendChild(input);
+    });
+    const select = document.createElement("select");
+    select.dataset.decision = "true";
+    select.setAttribute("aria-label", `Decisione riga ${riga.line}`);
+    const opzioni = riga.requiresDecision
+      ? [["", "Scegli cosa fare"], ["confirm", "Correggi e importa"], ["exclude", "Escludi questa riga"]]
+      : [["confirm", "Importa"]];
+    if (riga.duplicateId) {
+      opzioni.splice(1, 0, ["keep-separate", "Tienila separata"]);
+      // "Aggiorna quella esistente" ha senso solo se qualcosa esiste davvero:
+      // il gemello trovato dentro lo stesso incolla non è ancora un record.
+      if (!String(riga.duplicateId).startsWith("preview:")) {
+        opzioni.splice(2, 0, ["merge", "Aggiorna quella esistente"]);
+      }
+    }
+    opzioni.forEach(([value, label]) => {
+      const option = document.createElement("option");
+      option.value = value; option.textContent = label;
+      select.appendChild(option);
+    });
+    select.value = (dati.decisions[riga.rowId] || {}).action ||
+      (riga.requiresDecision ? "" : "confirm");
+    select.addEventListener("change", () => {
+      const scelta = dati.decisions[riga.rowId] || {};
+      scelta.action = select.value;
+      scelta.targetId = String(riga.duplicateId || "").startsWith("preview:")
+        ? "" : (riga.duplicateId || "");
+      dati.decisions[riga.rowId] = scelta;
+    });
+    row.appendChild(select);
+    if (riga.issues.length) {
+      const note = {
+        "ambiguous-columns": "colonne non chiare",
+        "missing-name": "manca il nome",
+        "invalid-credits": "crediti non validi",
+        duplicate: "già presente",
+      };
+      row.appendChild(laElemento("small", "la-import-issues",
+        riga.issues.map(codice => note[codice] || codice).join(" · ")));
+    }
+    anteprima.appendChild(row);
+  });
+  box.appendChild(anteprima);
+}
+
+function laRenderImportMultiplo(contenitore, dossier, versione) {
+  const stato = laStatoImportMultiplo(dossier.id);
+  const box = laElemento("div", "la-subsection la-import-multiplo");
+  box.id = "la-import-multiplo";
+  box.appendChild(laElemento("h3", null, "Importa più righe insieme"));
+  box.appendChild(laElemento("p", "la-muted",
+    "Una riga per corso, nel formato Nome; Crediti oppure Codice; Nome; Crediti. " +
+    "Va bene anche il tab al posto del punto e virgola. La virgola serve ai decimali " +
+    `e non separa le colonne. Massimo ${ErasmusWizPuro.LA_IMPORT_LIMITI.righe} righe per incolla.`));
+  if (versione.lockedAt) {
+    box.appendChild(laElemento("p", "la-warning",
+      `Questa fotografia è bloccata: l'importazione creerà la versione ${versione.number + 1} e ci metterà dentro tutte le righe in una volta sola. La versione ${versione.number} resta com'è.`));
+  }
+  LA_IMPORT_TIPI.forEach(([tipo, titolo, esempio, unita]) => {
+    const gruppo = laElemento("div", "la-import-gruppo");
+    gruppo.appendChild(laElemento("label", "la-field-label", titolo));
+    const textarea = document.createElement("textarea");
+    textarea.id = `la-import-${tipo}`;
+    textarea.rows = 4;
+    textarea.value = stato[tipo].testo;
+    textarea.placeholder = esempio;
+    textarea.setAttribute("aria-label", `${titolo} da importare`);
+    textarea.addEventListener("input", () => { stato[tipo].testo = textarea.value; });
+    gruppo.appendChild(textarea);
+    gruppo.appendChild(laBottone(`Mostra anteprima — ${titolo.toLowerCase()}`, "btn-secondary", () => {
+      stato[tipo].testo = textarea.value;
+      stato[tipo].decisions = {};
+      const esistenti = tipo === "casa"
+        ? Object.values(ZAINO.la.examLibrary || {})
+        : versione.hostCourseSnapshots;
+      const preview = ErasmusWizPuro.parseImportLA(stato[tipo].testo, { tipo, esistenti });
+      stato[tipo].preview = preview;
+      stato.messaggio = preview.ok
+        ? (preview.rows.length ? "" : "Non ci sono righe da mostrare.")
+        : laMessaggioRifiutoImport(preview, unita);
+      renderLAV2();
+    }));
+    laRenderAnteprimaImport(gruppo, stato, tipo, unita);
+    box.appendChild(gruppo);
+  });
+  if (stato.messaggio) box.appendChild(laElemento("p", "la-warning la-import-messaggio", stato.messaggio));
+  box.appendChild(laBottone("Importa tutto in una volta", "btn-secondary", () => {
+    const risultati = {};
+    let irrisolte = 0;
+    LA_IMPORT_TIPI.forEach(([tipo]) => {
+      const dati = stato[tipo];
+      if (!dati.preview || !dati.preview.ok) { risultati[tipo] = { items: [] }; return; }
+      const finale = ErasmusWizPuro.finalizzaImportLA(dati.preview, dati.decisions);
+      irrisolte += finale.unresolvedRows.length;
+      risultati[tipo] = finale;
+    });
+    if (irrisolte) {
+      stato.messaggio = `Restano ${irrisolte} righe da decidere: correggile o escludile. Non abbiamo importato niente.`;
+      renderLAV2();
+      return;
+    }
+    const casa = risultati.casa.items || [];
+    const host = risultati.host.items || [];
+    if (!casa.length && !host.length) {
+      stato.messaggio = "Non c'è niente da importare: incolla almeno una riga completa.";
+      renderLAV2();
+      return;
+    }
+    let creataVersione = false;
+    let errore = "";
+    const salvato = laTransazione("importazione multipla", la => {
+      const esito = ErasmusWizPuro.applicaImportLA(la, dossier.id, { home: casa, host }, {
+        at: new Date().toISOString(),
+        targetVersionId: versione.versionId,
+        configurazione: { ateneo: ateneoAttivo(), ciclo: laCicloAttivo() },
+      });
+      if (!esito.ok) { errore = esito.error; throw new Error(esito.error); }
+      creataVersione = esito.createdVersion;
+      if (creataVersione) la.backupReminder = { reason: "new-version", dueAt: new Date().toISOString() };
+      return esito.la;
+    });
+    if (!salvato) {
+      stato.messaggio = errore === "historical-version"
+        ? "La versione è cambiata mentre importavi: ricontrolla l'anteprima prima di riprovare. Non abbiamo scritto niente."
+        : "L'importazione non è andata a buon fine e non ha scritto niente: il testo e le tue decisioni sono ancora qui.";
+      renderLAV2();
+      return;
+    }
+    if (creataVersione) laAnalytics("la-version-created");
+    _laImportMultiplo = null;
+    renderLAV2();
+  }));
+  contenitore.appendChild(box);
+}
+
+// §4. Prima la fotografia, poi i fatti storici: righe, totali e fonti si
+// confermano una volta, e solo dopo si dichiara che cosa è successo davvero.
+function laRenderFotografia(contenitore, dossier, versione) {
+  const box = laElemento("div", "la-subsection la-fotografia");
+  box.id = "la-fotografia";
+  box.appendChild(laElemento("h3", null, "Fotografia riepilogativa"));
+  const riepilogo = ErasmusWizPuro.riepilogoVersioneLA(versione);
+  const lista = laElemento("ul", "la-riepilogo");
+  [
+    [`${riepilogo.homeCount} esami del tuo ateneo`, `${riepilogo.homeCredits} CFU`],
+    [`${riepilogo.hostActiveCount} corsi host attivi`, `${riepilogo.hostCredits} ECTS`],
+  ].forEach(([voce, totale]) => {
+    lista.appendChild(laElemento("li", null, `${voce} — ${totale}`));
+  });
+  box.appendChild(lista);
+  if (riepilogo.hostCount !== riepilogo.hostActiveCount) {
+    box.appendChild(laElemento("p", "la-muted",
+      `${riepilogo.hostCount - riepilogo.hostActiveCount} corsi host non sono più attivi: restano nella fotografia ma non contano nei totali.`));
+  }
+  if (riepilogo.unlinkedHome || riepilogo.unlinkedHost) {
+    box.appendChild(laElemento("p", "la-warning",
+      `Da collegare a mano: ${riepilogo.unlinkedHome} esami di casa e ${riepilogo.unlinkedHost} corsi host. L'importazione crea righe, non corrispondenze.`));
+  }
+  if (riepilogo.hostWithoutSource) {
+    box.appendChild(laElemento("p", "la-warning",
+      `${riepilogo.hostWithoutSource} corsi host non hanno né link ufficiale né data della fonte: controllali prima di confermare.`));
+  }
+  if (ErasmusWizPuro.fotografiaConfermataLA(versione)) {
+    box.appendChild(laElemento("p", "la-confirmed",
+      `Fotografia confermata da te il ${laDataBreve(versione.reconstruction.summaryConfirmedAt)}. Ogni nuova importazione la rimette in discussione.`));
+  } else {
+    box.appendChild(laElemento("p", "la-muted",
+      "Controlla righe, totali e fonti. La conferma non è un'approvazione ufficiale: dice solo che i numeri qui sopra sono quelli che vuoi tenere."));
+    box.appendChild(laBottone("Conferma la fotografia riepilogativa", "btn-secondary", () => {
+      let errore = "";
+      const salvato = laTransazione("conferma della fotografia", la => {
+        const esito = ErasmusWizPuro.confermaFotografiaImportLA(la, dossier.id, {
+          at: new Date().toISOString(),
+          versionId: versione.versionId,
+          counts: riepilogo,
+          configurazione: { ateneo: ateneoAttivo(), ciclo: laCicloAttivo() },
+        });
+        if (!esito.ok) { errore = esito.error; throw new Error(esito.error); }
+        return esito.la;
+      });
+      if (!salvato) {
+        _laSaveErrorMessage = errore === "counts-changed"
+          ? "I numeri sono cambiati da quando li hai letti: ricontrolla il riepilogo e conferma di nuovo."
+          : "La fotografia non è stata confermata e niente è stato scritto.";
+        renderLAV2();
+      }
+    }));
+  }
+  contenitore.appendChild(box);
+}
+
+// §5-§6. I fatti si raccolgono tutti e si applicano insieme alla stessa
+// versione. `Bozza` non è un fatto: non blocca e non crea versioni.
+function laRenderRicostruzione(contenitore, dossier, versione) {
+  if (!ErasmusWizPuro.fotografiaConfermataLA(versione)) return;
+  if (versione.lockedAt) return;
+  const box = laElemento("div", "la-subsection la-ricostruzione");
+  box.id = "la-ricostruzione";
+  box.appendChild(laElemento("h3", null, "Che cosa è successo davvero a questa versione"));
+  box.appendChild(laElemento("p", "la-warning",
+    "ErasmusWiz non rileva invii né approvazioni. Segna solo quello che è già successo davvero."));
+  const etichette = {
+    "sent-home": "L'ho inviata al referente",
+    "home-approved": "L'ateneo di casa l'ha approvata",
+    "host-approved": "L'ateneo ospitante l'ha approvata",
+  };
+  const scelte = {};
+  ErasmusWizPuro.LA_FATTI_RICOSTRUZIONE.forEach(chiave => {
+    const riga = laElemento("div", "la-fatto-riga");
+    const label = laElemento("label", "la-check-row");
+    const cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.dataset.fatto = chiave;
+    label.append(cb, document.createTextNode(etichette[chiave]));
+    riga.appendChild(label);
+    const data = document.createElement("input");
+    data.type = "date";
+    data.dataset.fattoData = chiave;
+    data.setAttribute("aria-label", `Data reale di: ${etichette[chiave]}`);
+    riga.appendChild(data);
+    riga.appendChild(laElemento("small", "la-muted", "Se non ricordi la data, lascia vuoto: registriamo comunque quando l'hai dichiarato."));
+    scelte[chiave] = { cb, data };
+    box.appendChild(riga);
+  });
+  box.appendChild(laElemento("p", "la-muted",
+    "Se non hai ancora fatto niente di tutto questo, lascia tutto vuoto: resta una bozza, modificabile in questa stessa versione."));
+  box.appendChild(laBottone("Registra quello che è successo", "btn-secondary", () => {
+    const fatti = ErasmusWizPuro.LA_FATTI_RICOSTRUZIONE
+      .filter(chiave => scelte[chiave].cb.checked)
+      .map(chiave => ({ key: chiave, occurredOn: scelte[chiave].data.value || "" }));
+    if (!fatti.length) {
+      _laSaveErrorMessage = "";
+      _laMessaggioRicostruzione = "Nessun fatto dichiarato: la versione resta una bozza modificabile.";
+      renderLAV2();
+      return;
+    }
+    if (!confirm(`Stai dichiarando ${fatti.length} fatti già accaduti. La versione ${versione.number} verrà bloccata e nascerà la versione ${versione.number + 1} per il lavoro successivo. Confermi?`)) return;
+    let errore = "";
+    const salvato = laTransazione("registrazione dei fatti storici", la => {
+      const esito = ErasmusWizPuro.applicaFattiRicostruzioneLA(la, dossier.id, {
+        snapshotVersionId: versione.versionId,
+        facts: fatti,
+        markedAt: new Date().toISOString(),
+        configurazione: { ateneo: ateneoAttivo(), ciclo: laCicloAttivo() },
+      });
+      if (!esito.ok) { errore = esito.error; throw new Error(esito.error); }
+      la.backupReminder = { reason: "new-version", dueAt: new Date().toISOString() };
+      return esito.la;
+    });
+    if (!salvato) {
+      _laSaveErrorMessage = errore === "summary-not-confirmed"
+        ? "Prima conferma la fotografia riepilogativa, poi dichiara i fatti."
+        : "I fatti non sono stati registrati e niente è stato scritto.";
+      renderLAV2();
+      return;
+    }
+    _laMessaggioRicostruzione = "";
+    laAnalytics("la-version-created");
+  }));
+  if (_laMessaggioRicostruzione) {
+    box.appendChild(laElemento("p", "la-message la-ricostruzione-messaggio", _laMessaggioRicostruzione));
+  }
+  contenitore.appendChild(box);
+}
+
 function laRenderDossier(contenitore, dossier, ciclo) {
   const sezione = laElemento("section", "la-panel la-open-dossier");
   sezione.id = "la-dossier";
@@ -4702,8 +5051,11 @@ function laRenderDossier(contenitore, dossier, ciclo) {
   const prepara = laElemento("div", null); prepara.id = "la-prepare";
   laRenderHomeSnapshots(prepara, dossier, versione);
   laRenderHostSnapshots(prepara, dossier, versione);
+  laRenderImportMultiplo(prepara, dossier, versione);
   laRenderMappings(prepara, dossier, versione);
   laRenderPreflight(prepara, dossier, versione);
+  laRenderFotografia(prepara, dossier, versione);
+  laRenderRicostruzione(prepara, dossier, versione);
   sezione.appendChild(prepara);
   if (operativo) {
     laRenderWorkflow(sezione, dossier, versione, prontezza, fase);
