@@ -3144,6 +3144,15 @@ function apriDettaglioMeta(meta) {
     ls.href = meta.linkSito; ls.target = "_blank"; ls.rel = "noopener";
     boxLink.appendChild(ls);
   }
+  // Il catalogo sta subito prima del bottone del Learning Agreement perche' e'
+  // il documento da cui si scelgono i corsi da metterci dentro. Il campo era nei
+  // dati dal principio ma nessuna riga di codice lo leggeva: il 01/09, con 380
+  // mete coperte, era ancora invisibile allo studente.
+  if (valoreReale(meta.linkCatalogo)) {
+    const lc = crea("a", "dett-link", "Catalogo dei corsi ↗");
+    lc.href = meta.linkCatalogo; lc.target = "_blank"; lc.rel = "noopener";
+    boxLink.appendChild(lc);
+  }
   const laLink = crea("button", "dett-link la-destination-action", "Prepara il Learning Agreement per questa meta →");
   laLink.type = "button";
   laLink.dataset.laDestinationId = meta.id;

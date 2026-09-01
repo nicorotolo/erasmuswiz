@@ -5034,7 +5034,14 @@ portatile può anche chiudersi.
       approvati, 38 giusti (93%)**, da 33 su 53 (62%).
       ✅ **Chiuso il 01/09:** arbitrato completo su 103 valori, 68 promossi e
       applicati. Il campo passa da 120 a **348 mete**. **Cosa resta:**
-      (a) ✅ **decisa il 01/09: un motore di ricerca dei corsi vale come
+      (a) ✅ **il campo è ora VISIBILE nella scheda della meta** (01/09): fino a
+      oggi `linkCatalogo` era nei dati ma nessuna riga del front-end lo leggeva —
+      valeva anche per i 120 valori vecchi. Aggiunto in `js/app.js` accanto a
+      «Sito dell'università» e subito prima del bottone del Learning Agreement,
+      perché è il documento da cui si scelgono i corsi da metterci dentro.
+      Provato nel browser su una meta vera (Dresda), console pulita, e a 375px
+      il bottone non esce dallo schermo.
+      (b) ✅ **decisa il 01/09: un motore di ricerca dei corsi vale come
       catalogo** (decisione di prodotto di Nicola). Dei 12 dubbi ne sono stati
       applicati **8** — i motori veri (Copenaghen, Murcia, Lione 1, Nancy), i
       pacchetti Bologna navigabili (Hacettepe, Beykent), il Module Bank di
