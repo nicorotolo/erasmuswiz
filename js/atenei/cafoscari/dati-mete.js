@@ -1316,6 +1316,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/26909796",
     linkSito: "https://www.unipu.hr",
+    linkCatalogo: "https://www.unipu.hr/en/visiting-students/course_catalogue_for_incoming_students",
     notePratiche: "Periodo vincolato: SI - Solo 1° semestre/YES - First semester only - Aperta a: Laurea Magistrale in Sviluppo interculturale dei sistemi turistici e Laurea Magistrale in Tourism Management and Sustainability - [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 2; mesi: 6. || Lingua: UNIPU richiede competenze linguistiche equivalenti a B2 CEFR per lettura, scrittura e parlato. Corso di croato gratuito ogni semestre; Student X-card per mense e sconti. [Fonti: scheda destinazione; pagina nomination UNIPU]"
   },
   {
@@ -1528,6 +1529,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/23271913",
     linkSito: "https://www.ntnu.edu/studies/exchange/how_to_apply",
+    linkCatalogo: "https://www.ntnu.edu/studies/courses",
     notePratiche: "Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 3; mesi: 10. || Mobilita di 10 mesi (anno intero). [Fonte: ntnu.edu/studies/exchange/how_to_apply]"
   },
   {
@@ -1745,6 +1747,7 @@ var METE = [
     linkSito: "https://www.nova-uni.si",
     notaDisponibilita: "New University offers Erasmus+ courses at all 3 faculties members: European Faculty of Law, Faculty of Government and European Studies , Faculty of Slovene and International Studies",
 
+    linkCatalogo: "https://www.nova-uni.si/wp-content/uploads/2026/03/NEW-UNIVERSITY-ERASMUS-COURSE-CATALOGUE-2026_2027.pdf",
     notePratiche: "Lingua: la scheda non indica un livello CEFR - da verificare con international@nova-uni.si. Tutti gli incoming Erasmus studiano a Lubiana (non a Nova Gorica). [Fonte: scheda destinazione] || Students are assigned to the Ljubljana Campus. Guide: https://epf.nova-uni.si/wp-content/uploads/2020/05/Study-info-Course-catalogue-with-eUniversity-2020.pdf - Aperta a: CdS del Dipartimento di Economia e Laurea Magistrale in Relazioni internazionali comparate - [Dati ufficiali bando 2026/27] ciclo: L , LM, PHD; studenti: 2; mesi: 5. || Lingua: New University richiede competenza B2 CEFR in inglese o sloveno per incoming Erasmus (Info Package 2024/25)."
   },
   {
@@ -1776,6 +1779,7 @@ var METE = [
     linkSito: "https://exchange.bilkent.edu.tr/",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkCatalogo: "https://stars.bilkent.edu.tr/homepage/academic_units.php",
     notePratiche: "Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L , LM, PHD; studenti: 2; mesi: 6. || Lingua: serve una lettera di competenza in inglese dell'universita di provenienza, senza livello CEFR esplicito - da verificare. Navette gratuite campus-centro; corsi di turco base (5 ECTS). [Fonte: scheda destinazione] || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   }
 ];

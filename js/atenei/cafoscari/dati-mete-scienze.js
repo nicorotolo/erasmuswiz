@@ -279,6 +279,7 @@ var METE = [
     linkSito: "https://www.isthia.fr/en/en-isthia/",
     notaDisponibilita: "Pour les étudiants des programmes PEF, AEL ou Doubles Diplômes, certaines restrictions peuvent s'appliquer, veuillez prendre contact auprès de votre coordinateur ou coordinatrice pédagogique pour toutes les questions concernant votre choix de cours",
 
+    linkCatalogo: "https://international.univ-tlse2.fr/medias/fichier/catalogue-etudiants-en-echange-s1-2026-2027_1778578215656-pdf?ID_FICHE=91622&INLINE=FALSE",
     notePratiche: "Aperta a: Dipartimento di Scienze Ambientali, Informatica e Statistica [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 6 L. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {

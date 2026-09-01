@@ -22,8 +22,8 @@
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
 **Ultimo aggiornamento:** 2026-09-01 — Claude (**il catalogo dei corsi è nel
-sito**: arbitrato umano su 56 valori, 39 promossi, **147 mete riempite**. Il
-campo passa da 120 a **267 mete su 1.987**, più del doppio).
+sito**: arbitrato umano completo, 103 valori su 103, 68 promossi, **228 mete
+riempite**. Il campo passa da 120 a **348 mete su 1.987**, quasi il triplo).
 **267/267 prove verdi.**
 
 > 🔎 **01/09 — il campo bocciato aveva una causa strutturale, non un modello
@@ -4512,7 +4512,7 @@ promosso 16 su 16.
 | scadenzeOspitante | 1705 | **1744** | — |
 | linkSito | 1636 | **1701** | — |
 | notaDisponibilita | 94 | **166** | — |
-| **linkCatalogo** (serve al Learning Agreement) | 120 | **267** | 47 non ancora arbitrati |
+| **linkCatalogo** (serve al Learning Agreement) | 120 | **348** | 12 dubbi, 23 scartati |
 | requisitoLingua | 1529 | 1529 | **10 valori, bocciati** |
 
 **I due campi fermi sono fermi apposta.** L'arbitrato del 31/08 ha dato 85,2%
@@ -4560,7 +4560,49 @@ giusti, quindi **~92 su 103 (89%)** secondo il mio occhio, che non è
 l'arbitrato. Nessun `linkSito` è stato bocciato dai cancelli nuovi: il calo
 di quel campo (38 → 35) viene dal modello, non da loro.
 
-### L'arbitrato del 01/09, e cosa ha insegnato
+### L'arbitrato del 01/09: completo, e il verdetto sui cancelli
+
+Nicola ha giudicato **tutti e 103 i valori** aprendoli uno per uno: **68 sì,
+12 non so, 23 no** — il 66%. Applicati i 68: **228 mete riempite**, il campo
+passa da 120 a 348. Nessuno dei 39 pubblicati nel primo giro è stato ritrattato
+nel secondo.
+
+La coda era peggiore della testa: i primi 56 davano il 71% di sì, i 47 rimasti
+il 60%. Un altro modo in cui una misura parziale inganna.
+
+**LA CONCLUSIONE CHE VALE OLTRE QUESTO CAMPO: per `linkCatalogo` un cancello
+automatico non esiste.** Tre ipotesi, tutte e tre misurate sui casi etichettati
+a mano, tutte e tre bocciate:
+
+| ipotesi | cosa toglie | cosa costa |
+|---|---|---|
+| pagina leggibile senza credenziali | — | prende 13 valori su 103, quasi tutti cataloghi veri (Cork, OSIRIS, VVZ di Zurigo, KLIPS) |
+| la citazione dice «catalogo» | — | 4 dei 9 bocciati citavano «The course catalogue for all faculties», «Vorlesungsverzeichnis (LSF)» |
+| è la porta d'ingresso di un sistema, non la vista del catalogo | 6 errori su 23 | **uccide 7 valori buoni**: Granada, Poznań, Zurigo, il VVZ di Berlino, Akureyri… |
+
+L'ultima è la più istruttiva: `qis.verwaltung.uni-hannover.de/` (sbagliato) e
+`amupie.amu.edu.pl` (giusto) sono entrambi la radice nuda di un sistema, e in
+HTML grezzo sono indistinguibili. **Quindi questo campo non può essere applicato
+senza occhi umani, e la Fase 5 deve trattarlo come una coda di arbitrato, non
+come un campo automatico.** Gli altri campi non hanno questo problema: scadenze,
+pagina scambi e nota disponibilità hanno fatto 16 su 16 il 31/08.
+
+**Le 23 bocciate, per causa** (le prime 9 guardate una per una):
+
+| causa | esempi |
+|---|---|
+| porta d'ingresso o pagina dietro login | Hannover, Regensburg, Tilburg, Kokkola, Kayseri, Nevşehir |
+| istruzioni su *come* usare il catalogo | Monaco LMU, Treviri |
+| consorzio invece dell'ateneo | Monaco TUM → EuroTeQ |
+| la pagina che *parla* dei corsi | Aquisgrana, Wiesbaden, Loyola, Nanterre, Tours, ELTE, ASE Bucarest |
+| elenco delle destinazioni, non dei corsi | UNED Madrid, Växjö |
+
+**La misura a occhio di Claude era ottimista (89% contro 66%), in un modo
+preciso**: giudicavo dal nome dell’indirizzo senza *aprire* le pagine. Hannover
+si chiama `qis.verwaltung…` e sembra un catalogo; aperta, sono nove caratteri e
+un login.
+
+### Il primo giro, e il difetto che ha fatto emergere
 
 Nicola ha giudicato **56 valori su 103** aprendoli uno per uno: **40 sì, 7 non
 so, 9 no** — il 71%, molto sotto il 95%. Ma il numero aggregato diceva la cosa
@@ -4990,10 +5032,12 @@ portatile può anche chiudersi.
       era il modello: la raccolta buttava via gli `href`, quindi il catalogo non
       era nel materiale in 16 casi sbagliati su 17. Sugli stessi 53: **41
       approvati, 38 giusti (93%)**, da 33 su 53 (62%).
-      **Fatto il 01/09:** arbitrato umano su 56 valori, 39 promossi, applicati.
-      Il campo passa da 120 a **267 mete**. **Cosa resta:**
-      (a) **arbitrare i 47 rimasti** — la pagina è pronta e i voti sono salvati
-      nel browser, quindi si riprende da dove ci si era fermati;
+      ✅ **Chiuso il 01/09:** arbitrato completo su 103 valori, 68 promossi e
+      applicati. Il campo passa da 120 a **348 mete**. **Cosa resta:**
+      (a) **i 12 dubbi** — quasi tutti motori di ricerca dei corsi, dove bisogna
+      cercare prima di vedere qualcosa (Copenaghen, Lione, Nancy, Anversa). È una
+      decisione di prodotto, non di dati: un motore di ricerca vale come catalogo
+      per il Learning Agreement? Se sì, sono altri ~12 atenei;
       (b) ✅ **fatto il 01/09: i 191 partner rimasti sono stati riraccolti, i PDF
       riestratti e le letture rifatte.** 84 cataloghi proposti dove prima ce
       n'erano 19; la cache ne approva 103 in tutto. La pagina d'arbitrato è

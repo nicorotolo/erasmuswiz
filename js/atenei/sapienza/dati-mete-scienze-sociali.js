@@ -897,6 +897,7 @@ var METE = [
       ],
     linkSito: "https://www.iscte-iul.pt/internacional/mobilidade-2039/estudantes-incoming",
 
+    linkCatalogo: "https://www.iscte-iul.pt/internacional/mobilidade-2039/estudantes-incoming/unidades-curriculares-para-study-abroad",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1703,6 +1704,7 @@ var METE = [
 
     linkSito: "https://www.su.se/english/education/exchange-students",
 
+    linkCatalogo: "https://www.su.se/english/education/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1729,6 +1731,7 @@ var METE = [
 
     linkSito: "https://www.su.se/english/education/exchange-students",
 
+    linkCatalogo: "https://www.su.se/english/education/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {

@@ -546,6 +546,7 @@ var METE = [
       ],
     linkSito: "https://www.su.se/english/education/exchange-students",
 
+    linkCatalogo: "https://www.su.se/english/education/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 1. Solo livello triennale. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {

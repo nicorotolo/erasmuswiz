@@ -2014,6 +2014,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/28286278",
     linkSito: "https://www.iscte-iul.pt/internacional/mobilidade-2039/estudantes-incoming",
+    linkCatalogo: "https://www.iscte-iul.pt/internacional/mobilidade-2039/estudantes-incoming/unidades-curriculares-para-study-abroad",
     notePratiche: "Aperta a: Laurea Magistrale in Global Accounting and Finance [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 6; mesi: 5. Specifiche: Students are allowed to select modules from the Master in Accounting and Management Control only. || Scadenze e lingua: Iscte Business School fact sheet/procedure; nomination 1 giugno/1 novembre; enrolment 30 giugno/30 novembre; livello B2 CEFR nella lingua di insegnamento, inglese o portoghese"
   },
   {
@@ -2253,6 +2254,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254742",
     linkSito: "https://www.su.se/english/divisions/stockholm-business-school/education/incoming-exchange-students",
+    linkCatalogo: "https://www.su.se/english/education/course-catalogue",
     notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L(3�anno) , LM, PhD; studenti: 8; mesi: 5. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -2313,6 +2315,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/16634521",
     linkSito: "https://intl.bogazici.edu.tr/",
+    linkCatalogo: "https://registration.boun.edu.tr/buis/General/schedule.aspx?p=semester",
     notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L (2 stud. per 5 mesi), LM (2 stud. per 5 mesi), PhD (1 stud. per 3 mesi); studenti: 5; mesi: 5. || Scadenze: basate su 2025/26"
   }
 ];

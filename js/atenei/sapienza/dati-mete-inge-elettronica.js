@@ -360,6 +360,7 @@ var METE = [
         { cosa: "SPRING semester 2026/2027", periodo: "January 31st 2027" }
       ],
     linkSito: "http://www.pcz.pl/",
+    linkCatalogo: "https://pcz.pl/en/erasmus/english-taught-components-subjects-at-cut",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Accordo ERA71656."
   },
   {

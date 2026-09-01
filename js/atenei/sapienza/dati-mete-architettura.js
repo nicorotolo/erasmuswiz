@@ -1904,6 +1904,7 @@ var METE = [
       ],
     linkSito: "http://www.upt.ro/",
 
+    linkCatalogo: "https://international.upt.ro/en/incoming-students/course-catalogue/",
     notePratiche: "Posti totali dell'accordo: 3. Solo livello triennale. Ulteriore accordo distinto con lo stesso ateneo (promotore Federica Dal Falco). || Scadenze: basate su 2025/26"
   },
   {
@@ -1933,6 +1934,7 @@ var METE = [
       ],
     linkSito: "http://www.upt.ro/",
 
+    linkCatalogo: "https://international.upt.ro/en/incoming-students/course-catalogue/",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Daniela Esposito). || Scadenze: basate su 2025/26"
   },
   {
@@ -2674,6 +2676,7 @@ var METE = [
 
     notaDisponibilita: "I corsi di livello Master sono accessibili solo agli studenti selezionati in base a un accordo specifico per il Master of Science.",
 
+    linkCatalogo: "https://virtual-mobilities.univ-smb.fr/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -2888,6 +2891,7 @@ var METE = [
 
     notaDisponibilita: "The medium of instruction at IUE is English. However, some faculties such as Law, Health Sciences and Vocational School are taught in Turkish.",
 
+    linkCatalogo: "http://ects.ieu.edu.tr/new/idari.php?id=57",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {

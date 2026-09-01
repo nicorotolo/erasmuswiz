@@ -547,6 +547,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254743",
     linkSito: "https://www.su.se/department-of-romance-studies-and-classics/education/incoming-exchange-students",
+    linkCatalogo: "https://www.su.se/english/education/course-catalogue",
     notePratiche: "Aperta a: Dipartimento di Studi Umanistici [Dati ufficiali bando 2026/27] ciclo/posti: 1 x 6. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {

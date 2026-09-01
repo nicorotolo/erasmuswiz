@@ -3159,6 +3159,7 @@ var METE = [
         { cosa: "Nomination / Application Deadlines - spring semester", periodo: "December 15" }
       ],
     linkSito: "https://hmu.gr//",
+    linkCatalogo: "https://iro.hmu.gr/all-english-courses/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70836."
   },
   {
@@ -3228,6 +3229,7 @@ var METE = [
     linkSito: "https://www.unak.is/",
     notaDisponibilita: "I corsi master contrassegnati con il codice CRD o CMM non sono offerti presso UNAK ma presso l'University Centre of the Westfjords a Ísafjörður; non possono essere frequentati ad Akureyri e non sono offerti a distanza.",
 
+    linkCatalogo: "https://ugla.unak.is/kennsluskra/index.php?tab=nam&kennsluar=current&flaturlisti=0&lang=en",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70840."
   },
   {
@@ -3335,6 +3337,7 @@ var METE = [
         { cosa: "Application (sem. primaverile)", periodo: "entro 1 ottobre" }
       ],
     linkSito: "http://www.ntnu.no",
+    linkCatalogo: "https://www.ntnu.edu/studies/courses",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA70846."
   },
   {
@@ -3360,6 +3363,7 @@ var METE = [
         { cosa: "Application (sem. primaverile)", periodo: "entro 1 ottobre" }
       ],
     linkSito: "http://www.ntnu.no",
+    linkCatalogo: "https://www.ntnu.edu/studies/courses",
     notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70851."
   },
   {
@@ -3385,6 +3389,7 @@ var METE = [
         { cosa: "Application (sem. primaverile)", periodo: "entro 1 ottobre" }
       ],
     linkSito: "http://www.ntnu.no",
+    linkCatalogo: "https://www.ntnu.edu/studies/courses",
     notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70848."
   },
   {
@@ -3410,6 +3415,7 @@ var METE = [
         { cosa: "Application (sem. primaverile)", periodo: "entro 1 ottobre" }
       ],
     linkSito: "http://www.ntnu.no",
+    linkCatalogo: "https://www.ntnu.edu/studies/courses",
     notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70849."
   },
   {
@@ -3641,6 +3647,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "15 ottobre - 15 dicembre" }
       ],
     linkSito: "http://www.amu.edu.pl",
+    linkCatalogo: "https://amupie.amu.edu.pl",
     notePratiche: "Posti totali dell'accordo: 7 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70877."
   },
   {
@@ -4227,6 +4234,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.usamv.ro/",
+    linkCatalogo: "https://usamv.ro/wp-content/uploads/2024/09/cours-catalog.pdf",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70883."
   },
   {
@@ -5639,6 +5647,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 10 ottobre" }
       ],
     linkSito: "http://www.su.se/english/",
+    linkCatalogo: "https://www.su.se/english/education/course-catalogue",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70216. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -5665,6 +5674,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 10 ottobre" }
       ],
     linkSito: "http://www.su.se/english/",
+    linkCatalogo: "https://www.su.se/english/education/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70220. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -5691,6 +5701,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 10 ottobre" }
       ],
     linkSito: "http://www.su.se/english/",
+    linkCatalogo: "https://www.su.se/english/education/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70219. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -5717,6 +5728,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 10 ottobre" }
       ],
     linkSito: "http://www.su.se/english/",
+    linkCatalogo: "https://www.su.se/english/education/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Accordo ERA70223. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -5743,6 +5755,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 10 ottobre" }
       ],
     linkSito: "http://www.su.se/english/",
+    linkCatalogo: "https://www.su.se/english/education/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Accordo ERA70224. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -5769,6 +5782,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 10 ottobre" }
       ],
     linkSito: "http://www.su.se/english/",
+    linkCatalogo: "https://www.su.se/english/education/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 5 (condivisi tra i livelli). Accordo ERA70225. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -5795,6 +5809,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 10 ottobre" }
       ],
     linkSito: "http://www.su.se/english/",
+    linkCatalogo: "https://www.su.se/english/education/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Accordo ERA70226. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -5820,6 +5835,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 10 ottobre" }
       ],
     linkSito: "http://www.su.se/english/",
+    linkCatalogo: "https://www.su.se/english/education/course-catalogue",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA70227. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -5846,6 +5862,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 10 ottobre" }
       ],
     linkSito: "http://www.su.se/english/",
+    linkCatalogo: "https://www.su.se/english/education/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70230. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -6048,6 +6065,7 @@ var METE = [
         { cosa: "Applications and nominations (Spring Term)", periodo: "from October to end of the December every year" }
       ],
     linkSito: "https://www.istinye.edu.tr/en",
+    linkCatalogo: "https://www.istinye.edu.tr/en/erasmus/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71490."
   },
   {
@@ -6131,6 +6149,7 @@ var METE = [
         { cosa: "Application Deadline Spring Term", periodo: "1st of December" }
       ],
     linkSito: "http://bsy.marmara.edu.tr",
+    linkCatalogo: "https://meobs.marmara.edu.tr/Program/information-on-programmes/undergraduate-900002",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70892."
   },
   {
@@ -6154,6 +6173,7 @@ var METE = [
         { cosa: "Application Deadline Spring Term", periodo: "1st of December" }
       ],
     linkSito: "http://bsy.marmara.edu.tr",
+    linkCatalogo: "https://meobs.marmara.edu.tr/Program/information-on-programmes/undergraduate-900002",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70893."
   },
   {
@@ -6232,6 +6252,7 @@ var METE = [
         { cosa: "Applications and nominations (Spring Term)", periodo: "from October to end of the December every year" }
       ],
     linkSito: "https://www.istinye.edu.tr/en",
+    linkCatalogo: "https://www.istinye.edu.tr/en/erasmus/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70895."
   },
   {

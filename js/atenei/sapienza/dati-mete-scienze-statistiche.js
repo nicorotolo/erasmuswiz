@@ -694,6 +694,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "16 novembre 2026 - 6 gennaio 2027" }
       ],
     linkSito: "https://www.uniwa.gr/en/",
+    linkCatalogo: "https://erasmus.uniwa.gr/en/erasmus/course-catalogue/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA71552."
   },
   {

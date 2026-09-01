@@ -776,6 +776,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.ipleiria.pt/",
+    linkCatalogo: "https://www.ipleiria.pt/en/study/courses/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69418."
   },
   {
@@ -812,6 +813,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.ipleiria.pt/",
+    linkCatalogo: "https://www.ipleiria.pt/en/study/courses/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69417."
   },
   {
@@ -830,6 +832,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.ipleiria.pt/",
+    linkCatalogo: "https://www.ipleiria.pt/en/study/courses/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69416."
   },
   {
@@ -892,6 +895,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.ipleiria.pt/",
+    linkCatalogo: "https://www.ipleiria.pt/en/study/courses/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA68471."
   },
   {
@@ -928,6 +932,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.ipleiria.pt/",
+    linkCatalogo: "https://www.ipleiria.pt/en/study/courses/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69415."
   },
   {
@@ -971,6 +976,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.nottingham.ac.uk/",
+    linkCatalogo: "https://www.nottingham.ac.uk/studywithus/international-applicants/spend-part-of-your-degree-here/approved-modules-for-visiting-students.aspx",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69443."
   },
   {
@@ -989,6 +995,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.nottingham.ac.uk/",
+    linkCatalogo: "https://www.nottingham.ac.uk/studywithus/international-applicants/spend-part-of-your-degree-here/approved-modules-for-visiting-students.aspx",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69444."
   },
   {

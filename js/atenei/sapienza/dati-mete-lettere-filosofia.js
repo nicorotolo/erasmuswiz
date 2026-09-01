@@ -731,6 +731,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "1 - 31 ottobre" }
       ],
     linkSito: "https://www.unipu.hr/",
+    linkCatalogo: "https://www.unipu.hr/en/visiting-students/course_catalogue_for_incoming_students",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA71444. || Lingua: UNIPU richiede competenze linguistiche equivalenti a B2 CEFR per lettura, scrittura e parlato. Corso di croato gratuito ogni semestre; Student X-card per mense e sconti. [Fonti: scheda destinazione; pagina nomination UNIPU]"
   },
   {
@@ -755,6 +756,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "1 - 31 ottobre" }
       ],
     linkSito: "https://www.unipu.hr/",
+    linkCatalogo: "https://www.unipu.hr/en/visiting-students/course_catalogue_for_incoming_students",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA71442. || Lingua: UNIPU richiede competenze linguistiche equivalenti a B2 CEFR per lettura, scrittura e parlato. Corso di croato gratuito ogni semestre; Student X-card per mense e sconti. [Fonti: scheda destinazione; pagina nomination UNIPU]"
   },
   {
@@ -1844,6 +1846,7 @@ var METE = [
     linkSito: "http://www.univ-tlse2.fr",
     notaDisponibilita: "Pour les étudiants des programmes PEF, AEL ou Doubles Diplômes, certaines restrictions peuvent s'appliquer, veuillez prendre contact auprès de votre coordinateur ou coordinatrice pédagogique pour toutes les questions concernant votre choix de cours",
 
+    linkCatalogo: "https://international.univ-tlse2.fr/medias/fichier/catalogue-etudiants-en-echange-s1-2026-2027_1778578215656-pdf?ID_FICHE=91622&INLINE=FALSE",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA71357."
   },
   {
@@ -2839,6 +2842,7 @@ var METE = [
     linkSito: "http://www.univ-tlse2.fr",
     notaDisponibilita: "Pour les étudiants des programmes PEF, AEL ou Doubles Diplômes, certaines restrictions peuvent s'appliquer, veuillez prendre contact auprès de votre coordinateur ou coordinatrice pédagogique pour toutes les questions concernant votre choix de cours",
 
+    linkCatalogo: "https://international.univ-tlse2.fr/medias/fichier/catalogue-etudiants-en-echange-s1-2026-2027_1778578215656-pdf?ID_FICHE=91622&INLINE=FALSE",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA71293."
   },
   {
@@ -5414,6 +5418,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://mcast.edu.mt/",
+    linkCatalogo: "https://mcast.edu.mt/full-catalogue/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA71449."
   },
   {
@@ -5482,6 +5487,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "15 ottobre - 15 dicembre" }
       ],
     linkSito: "http://www.amu.edu.pl",
+    linkCatalogo: "https://amupie.amu.edu.pl",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA71299."
   },
   {
@@ -5555,6 +5561,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "15 ottobre - 15 dicembre" }
       ],
     linkSito: "http://www.amu.edu.pl",
+    linkCatalogo: "https://amupie.amu.edu.pl",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Accordo ERA71009."
   },
   {
@@ -5601,6 +5608,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "15 ottobre - 15 dicembre" }
       ],
     linkSito: "http://www.amu.edu.pl",
+    linkCatalogo: "https://amupie.amu.edu.pl",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71008."
   },
   {
@@ -5717,6 +5725,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "15 ottobre - 15 dicembre" }
       ],
     linkSito: "http://www.amu.edu.pl",
+    linkCatalogo: "https://amupie.amu.edu.pl",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA71365."
   },
   {
@@ -5768,6 +5777,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "15 ottobre - 15 dicembre" }
       ],
     linkSito: "http://www.amu.edu.pl",
+    linkCatalogo: "https://amupie.amu.edu.pl",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA71366."
   },
   {
@@ -5868,6 +5878,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "15 ottobre - 15 dicembre" }
       ],
     linkSito: "http://www.amu.edu.pl",
+    linkCatalogo: "https://amupie.amu.edu.pl",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Accordo ERA71235."
   },
   {
@@ -6088,6 +6099,7 @@ var METE = [
     linkSito: "https://ujk.edu.pl/",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkCatalogo: "https://erasmus.ujk.edu.pl/info-for-incoming-students/courses-in-english/syllabus/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA71059. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato in mappature precedenti"
   },
   {
@@ -7036,6 +7048,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://sapientia.ro/en",
+    linkCatalogo: "https://sapientia.ro/en/international-relations/erasmus/incoming/course-listings",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA71460."
   },
   {
@@ -9524,6 +9537,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 10 ottobre" }
       ],
     linkSito: "http://www.su.se/english/",
+    linkCatalogo: "https://www.su.se/english/education/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Accordo ERA70384. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -9550,6 +9564,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 10 ottobre" }
       ],
     linkSito: "http://www.su.se/english/",
+    linkCatalogo: "https://www.su.se/english/education/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70385. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -9685,6 +9700,7 @@ var METE = [
     linkSito: "https://www.hes-so.ch/accueil",
     notaDisponibilita: "I corsi di livello Master sono accessibili solo agli studenti selezionati in base a un accordo specifico per il Master of Science.",
 
+    linkCatalogo: "https://virtual-mobilities.univ-smb.fr/",
     notePratiche: "Posti dell'accordo: 4. Accordo ERA71143."
   },
   {

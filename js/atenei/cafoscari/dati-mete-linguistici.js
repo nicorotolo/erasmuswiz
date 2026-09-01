@@ -66,6 +66,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "https://www.ntnu.edu/studies/exchange",
+    linkCatalogo: "https://www.ntnu.edu/studies/courses",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5 LM. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -976,6 +977,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "https://www.su.se/english/education/exchange-students",
+    linkCatalogo: "https://www.su.se/english/education/course-catalogue",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 1 x 6 L e LM. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -1670,6 +1672,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "http://www.ntnu.edu/",
+    linkCatalogo: "https://www.ntnu.edu/studies/courses",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 1 x 10. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -3353,6 +3356,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "https://www.su.se/department-of-romance-studies-and-classics/education/incoming-exchange-students",
+    linkCatalogo: "https://www.su.se/english/education/course-catalogue",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 1 x 6. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {

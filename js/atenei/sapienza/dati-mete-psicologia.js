@@ -1301,6 +1301,7 @@ var METE = [
 
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkCatalogo: "https://erasmus.ujk.edu.pl/info-for-incoming-students/courses-in-english/syllabus/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1378,6 +1379,7 @@ var METE = [
       ],
     linkSito: "http://www.amu.edu.pl",
 
+    linkCatalogo: "https://amupie.amu.edu.pl",
     notePratiche: "Posti totali dell'accordo: 6 (condivisi tra i livelli)."
   },
   {
@@ -2242,6 +2244,7 @@ var METE = [
       ],
     linkSito: "https://www.su.se/english/education/exchange-students",
 
+    linkCatalogo: "https://www.su.se/english/education/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -2269,6 +2272,7 @@ var METE = [
       ],
     linkSito: "https://www.su.se/english/education/exchange-students",
 
+    linkCatalogo: "https://www.su.se/english/education/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {

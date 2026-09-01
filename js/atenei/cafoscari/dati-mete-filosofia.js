@@ -778,6 +778,7 @@ var METE = [
     linkSito: "https://oslonyehoyskole.no/english",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkCatalogo: "https://oslonyehoyskole.no/en/studies",
     notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 3 x 5 L solo 1°sem. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -864,6 +865,7 @@ var METE = [
     linkSito: "http://exchange.bilkent.edu.tr/",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkCatalogo: "https://stars.bilkent.edu.tr/homepage/academic_units.php",
     notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 3 x 5 L. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -981,6 +983,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254698",
     linkSito: "https://www.uu.nl/en/education/exchange-and-visiting-students",
+    linkCatalogo: "https://osiris-student.uu.nl/onderwijscatalogus/extern/cursus",
     notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5 L. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -1815,6 +1818,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254644",
     linkSito: "https://www.uniwa.gr/en/studies/xenoglossa-programmata-spoydon/",
+    linkCatalogo: "https://erasmus.uniwa.gr/en/erasmus/course-catalogue/",
     notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 6. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {

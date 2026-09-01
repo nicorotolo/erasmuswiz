@@ -240,6 +240,7 @@ var METE = [
     linkSito: "https://www.ue.wroc.pl/",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkCatalogo: "https://ue.e-sylabus.pl/ForStudents",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69666. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {

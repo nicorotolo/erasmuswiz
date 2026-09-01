@@ -1994,6 +1994,7 @@ var METE = [
         { cosa: "Nomination & Application (Semestre primaverile/estivo)", periodo: "entro 10 dicembre" }
       ],
     linkSito: "http://www.upt.ro/",
+    linkCatalogo: "https://international.upt.ro/en/incoming-students/course-catalogue/",
     notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69325."
   },
   {
@@ -2935,6 +2936,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro il 15 ottobre" }
       ],
     linkSito: "https://www.hv.se/",
+    linkCatalogo: "https://www.hv.se/en/education/exchange-studies/Course-list-autumn-2026/",
     notePratiche: "Posti dell'accordo: 3. Accordo ERA69330."
   },
   {
@@ -3084,6 +3086,7 @@ var METE = [
     linkSito: "https://w3.bilkent.edu.tr/bilkent/",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkCatalogo: "https://stars.bilkent.edu.tr/homepage/academic_units.php",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69338. || Lingua: serve una lettera di competenza in inglese dell'universita di provenienza, senza livello CEFR esplicito - da verificare. Navette gratuite campus-centro; corsi di turco base (5 ECTS). [Fonte: scheda destinazione] || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato in mappature precedenti"
   },
   {

@@ -50,6 +50,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/16634507",
     linkSito: "https://intl.bogazici.edu.tr/application-2",
+    linkCatalogo: "https://registration.boun.edu.tr/buis/General/schedule.aspx?p=semester",
     notePratiche: "Aperta a: Dipartimento di Studi sull'Asia e sull'Africa Mediterranea [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -536,6 +537,7 @@ var METE = [
     linkSito: "https://www.ucc.ie/en/international/studyatucc/incomingerasmusstudents/",
     notaDisponibilita: "Students must enroll and study within the subject area covered by the Erasmus agreement established with their home university.",
 
+    linkCatalogo: "https://ucc-ie-public.courseleaf.com/modules-visiting-student/",
     notePratiche: "Aperta a: Dipartimento di Studi sull'Asia e sull'Africa Mediterranea [Dati ufficiali bando 2026/27] ciclo/posti: 1 x 9 L. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
