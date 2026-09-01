@@ -2535,6 +2535,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
       ],
     linkSito: "https://www.univ-lorraine.fr/en/univ-lorraine/",
+    linkCatalogo: "https://formations.univ-lorraine.fr/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA71431. || Scadenze: Universit� de Lorraine Student Mobility Fact Sheet 2025/2026 || Lingua: CEFR non pubblicato ufficialmente nella scheda IAE Metz; corsi offerti in inglese"
   },
   {
@@ -6391,6 +6392,7 @@ var METE = [
     linkSito: "http://www.exeter.ac.uk/",
     notaDisponibilita: "I moduli di Biomedical Sciences, Drama e Psychology sono disponibili solo per partner di scambio con accordi specifici in queste discipline. Esclusi i moduli di Liberal Arts, College of Medicine and Health, Graduate School of Education.",
 
+    linkCatalogo: "https://www.exeter.ac.uk/study/studyinformation/",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA70479."
   },
   {
@@ -8583,6 +8585,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "1 ottobre - 30 novembre" }
       ],
     linkSito: "http://www.um.es/internacionales",
+    linkCatalogo: "https://erasmusmi.um.es/erasmusmi/erasmusmi.public.academicoffer.do?i_p=clear&t_m=clear",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71189. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -10256,6 +10259,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 dicembre" }
       ],
     linkSito: "http://akts.hacettepe.edu.tr/",
+    linkCatalogo: "https://bilsis.hacettepe.edu.tr/oibs/bologna/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71707. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -10306,6 +10310,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "November 29, 2024" }
       ],
     linkSito: "https://www.beykent.edu.tr/en/",
+    linkCatalogo: "https://obs.beykent.edu.tr/oibs/bologna/",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71466."
   },
   {

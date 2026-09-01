@@ -1029,6 +1029,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "1 ottobre - 30 novembre" }
       ],
     linkSito: "http://www.um.es/internacionales",
+    linkCatalogo: "https://erasmusmi.um.es/erasmusmi/erasmusmi.public.academicoffer.do?i_p=clear&t_m=clear",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Accordo ERA68207. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {

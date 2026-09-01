@@ -22,8 +22,8 @@
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
 **Ultimo aggiornamento:** 2026-09-01 — Claude (**il catalogo dei corsi è nel
-sito**: arbitrato umano completo, 103 valori su 103, 68 promossi, **228 mete
-riempite**. Il campo passa da 120 a **348 mete su 1.987**, quasi il triplo).
+sito**: arbitrato umano completo, 103 valori su 103, 76 promossi, **260 mete
+riempite**. Il campo passa da 120 a **380 mete su 1.987**, oltre il triplo).
 **267/267 prove verdi.**
 
 > 🔎 **01/09 — il campo bocciato aveva una causa strutturale, non un modello
@@ -4512,7 +4512,7 @@ promosso 16 su 16.
 | scadenzeOspitante | 1705 | **1744** | — |
 | linkSito | 1636 | **1701** | — |
 | notaDisponibilita | 94 | **166** | — |
-| **linkCatalogo** (serve al Learning Agreement) | 120 | **348** | 12 dubbi, 23 scartati |
+| **linkCatalogo** (serve al Learning Agreement) | 120 | **380** | 4 dubbi, 23 scartati |
 | requisitoLingua | 1529 | 1529 | **10 valori, bocciati** |
 
 **I due campi fermi sono fermi apposta.** L'arbitrato del 31/08 ha dato 85,2%
@@ -5034,10 +5034,15 @@ portatile può anche chiudersi.
       approvati, 38 giusti (93%)**, da 33 su 53 (62%).
       ✅ **Chiuso il 01/09:** arbitrato completo su 103 valori, 68 promossi e
       applicati. Il campo passa da 120 a **348 mete**. **Cosa resta:**
-      (a) **i 12 dubbi** — quasi tutti motori di ricerca dei corsi, dove bisogna
-      cercare prima di vedere qualcosa (Copenaghen, Lione, Nancy, Anversa). È una
-      decisione di prodotto, non di dati: un motore di ricerca vale come catalogo
-      per il Learning Agreement? Se sì, sono altri ~12 atenei;
+      (a) ✅ **decisa il 01/09: un motore di ricerca dei corsi vale come
+      catalogo** (decisione di prodotto di Nicola). Dei 12 dubbi ne sono stati
+      applicati **8** — i motori veri (Copenaghen, Murcia, Lione 1, Nancy), i
+      pacchetti Bologna navigabili (Hacettepe, Beykent), il Module Bank di
+      Exeter e il libretto dei corsi di Paris La Villette, che porta in prima
+      pagina «OFFRE PÉDAGOGIQUE POUR LES ÉTUDIANTS EN ÉCHANGE». Restano fuori 4
+      che NON sono motori di ricerca ma pagine che *parlano* dei corsi — Anversa,
+      Bilbao, Mataró, Trinity Dublin — cioè la classe di errore già scartata 23
+      volte. Decide Nicola se vuole anche quelle;
       (b) ✅ **fatto il 01/09: i 191 partner rimasti sono stati riraccolti, i PDF
       riestratti e le letture rifatte.** 84 cataloghi proposti dove prima ce
       n'erano 19; la cache ne approva 103 in tutto. La pagina d'arbitrato è

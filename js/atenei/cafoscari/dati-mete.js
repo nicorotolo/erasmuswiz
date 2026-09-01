@@ -468,6 +468,7 @@ var METE = [
     linkSito: "https://studies.ku.dk/study-abroad/erasmus/",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkCatalogo: "http://courses.ku.dk/",
     notePratiche: "Periodo vincolato: SI - Solo 1° semestre/YES - First semester only - Incoming students within the economics-agreement are welcome to register for all Economics-courses and seminars on BSc/MSc-level regardless of which level they are studying. They can also register for courses at other Social Science-departments, if they are admitted to the departments in question. - Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 4; mesi: 5. || Lingua: nessun requisito CEFR generale indicato per Economics; UCPH dice che per la maggior parte delle materie non serve caricare prova di inglese, mentre la prova e richiesta solo per alcune materie specifiche quando si scelgono i corsi. [Fonti: ku.dk/studies/exchange; UCPH Course information] || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {

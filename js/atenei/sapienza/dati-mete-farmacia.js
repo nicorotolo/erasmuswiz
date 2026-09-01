@@ -322,6 +322,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 31 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
       ],
+    linkCatalogo: "https://formations.univ-lorraine.fr/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -506,6 +507,7 @@ var METE = [
       ],
     linkSito: "https://www.univ-lyon1.fr/",
 
+    linkCatalogo: "https://offre-de-formations.univ-lyon1.fr/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Scadenze: basate su 2025/26"
   },
   {
@@ -653,6 +655,7 @@ var METE = [
       ],
     linkSito: "https://www.univ-lyon1.fr/",
 
+    linkCatalogo: "https://offre-de-formations.univ-lyon1.fr/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Scadenze: basate su 2025/26"
   },
   {
@@ -729,6 +732,7 @@ var METE = [
       ],
     linkSito: "https://www.univ-lyon1.fr/",
 
+    linkCatalogo: "https://offre-de-formations.univ-lyon1.fr/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Scadenze: basate su 2025/26"
   },
   {

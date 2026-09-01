@@ -579,6 +579,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre 2026" },
         { cosa: "Application (primavera)", periodo: "entro 13 novembre 2026" }
       ],
+    linkCatalogo: "https://admin.paris-lavillette.archi.fr/wp-content/uploads/2026/04/livret_international_FRA_web_26-27.pdf",
     notePratiche: "Posti totali dell'accordo: 2. Solo livello Magistrale."
   },
   {

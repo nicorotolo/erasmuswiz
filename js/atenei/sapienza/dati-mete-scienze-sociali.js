@@ -1237,6 +1237,7 @@ var METE = [
       ],
     linkSito: "https://erasmusmi.um.es/erasmusmi/",
 
+    linkCatalogo: "https://erasmusmi.um.es/erasmusmi/erasmusmi.public.academicoffer.do?i_p=clear&t_m=clear",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1757,6 +1758,7 @@ var METE = [
       ],
     linkSito: "http://akts.hacettepe.edu.tr/",
 
+    linkCatalogo: "https://bilsis.hacettepe.edu.tr/oibs/bologna/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {

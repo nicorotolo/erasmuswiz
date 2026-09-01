@@ -880,6 +880,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 dicembre" }
       ],
     linkSito: "http://akts.hacettepe.edu.tr/",
+    linkCatalogo: "https://bilsis.hacettepe.edu.tr/oibs/bologna/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA68359. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {

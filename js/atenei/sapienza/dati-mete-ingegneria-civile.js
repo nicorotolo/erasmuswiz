@@ -725,6 +725,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
       ],
     linkSito: "https://www.univ-lorraine.fr/en/univ-lorraine/",
+    linkCatalogo: "https://formations.univ-lorraine.fr/",
     notePratiche: "Posti dell'accordo: 4. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69248. || Scadenze: Universit� de Lorraine Student Mobility Fact Sheet 2025/2026 || Lingua: CEFR non pubblicato ufficialmente nella scheda IAE Metz; corsi offerti in inglese"
   },
   {
@@ -792,6 +793,7 @@ var METE = [
         { cosa: "Application (primavera, ISPB farmacia)", periodo: "entro 3 novembre" }
       ],
     linkSito: "https://www.univ-lyon1.fr/",
+    linkCatalogo: "https://offre-de-formations.univ-lyon1.fr/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA69235. || Scadenze: basate su 2025/26"
   },
   {

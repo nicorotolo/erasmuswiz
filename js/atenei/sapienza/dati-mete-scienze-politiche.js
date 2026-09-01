@@ -482,6 +482,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "1 ottobre - 30 novembre" }
       ],
     linkSito: "http://www.um.es/internacionales",
+    linkCatalogo: "https://erasmusmi.um.es/erasmusmi/erasmusmi.public.academicoffer.do?i_p=clear&t_m=clear",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70083. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -560,6 +561,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 dicembre" }
       ],
     linkSito: "http://akts.hacettepe.edu.tr/",
+    linkCatalogo: "https://bilsis.hacettepe.edu.tr/oibs/bologna/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70140. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {

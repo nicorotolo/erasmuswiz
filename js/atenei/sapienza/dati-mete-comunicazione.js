@@ -928,6 +928,7 @@ var METE = [
       ],
     linkSito: "https://erasmusmi.um.es/erasmusmi/",
 
+    linkCatalogo: "https://erasmusmi.um.es/erasmusmi/erasmusmi.public.academicoffer.do?i_p=clear&t_m=clear",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -1449,6 +1450,7 @@ var METE = [
       ],
     linkSito: "http://akts.hacettepe.edu.tr/",
 
+    linkCatalogo: "https://bilsis.hacettepe.edu.tr/oibs/bologna/",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1477,6 +1479,7 @@ var METE = [
       ],
     linkSito: "http://akts.hacettepe.edu.tr/",
 
+    linkCatalogo: "https://bilsis.hacettepe.edu.tr/oibs/bologna/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {

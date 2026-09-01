@@ -1295,6 +1295,7 @@ var METE = [
     linkSito: "https://iaemetz.univ-lorraine.fr/en/international/internal-exchange",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkCatalogo: "https://formations.univ-lorraine.fr/",
     notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM,PhD; studenti: 5; mesi: 5. || Scadenze: Universit� de Lorraine Student Mobility Fact Sheet 2025/2026 || Lingua: CEFR non pubblicato ufficialmente nella scheda IAE Metz; corsi offerti in inglese || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
