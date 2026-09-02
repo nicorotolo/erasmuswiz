@@ -2429,6 +2429,7 @@ var METE = [
         { cosa: "Application/informazioni su studenti nominati (autunno)", periodo: "entro 30 giugno" },
         { cosa: "Application/informazioni su studenti nominati (primavera)", periodo: "entro 30 novembre" }
       ],
+    linkSito: "https://www.baskent.edu.tr/tr/icerik/idari-birimler/uluslararasi-iliskiler-ve-degisim-programlari-koordinatorlugu/7",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {

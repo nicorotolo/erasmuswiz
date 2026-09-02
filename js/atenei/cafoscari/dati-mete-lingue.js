@@ -266,6 +266,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/16627884",
     linkSito: "https://ico.metu.edu.tr/erasmus-ka131-erasmus-european-mobility-program",
+    notaDisponibilita: "MS/PhD Students: METU will accept graduate students for exchange only if: a) They agree to take courses at our institution. Or, b) They find a Research Supervisor at METU (by themselves)",
     notePratiche: "Aperta a: Dipartimento di Studi sull'Asia e sull'Africa Mediterranea [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 6. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {

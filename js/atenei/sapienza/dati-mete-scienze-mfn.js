@@ -6054,6 +6054,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 31 dicembre" }
       ],
     linkSito: "https://www.metu.edu.tr/tr",
+    notaDisponibilita: "MS/PhD Students: METU will accept graduate students for exchange only if: a) They agree to take courses at our institution. Or, b) They find a Research Supervisor at METU (by themselves)",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70888."
   },
   {
@@ -6269,7 +6270,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Deadline for Fall Semester", periodo: "30th June" },
+        { cosa: "Deadline for Spring Semester", periodo: "30th December" }
+      ],
     linkSito: "https://w3.sdu.edu.tr/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70891."
   },

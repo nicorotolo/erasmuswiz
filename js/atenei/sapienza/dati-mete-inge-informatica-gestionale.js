@@ -1349,7 +1349,9 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "application window", periodo: "mid-March to mid-April and mid-September to mid-October" }
+      ],
     linkSito: "http://www.oru.se/exchange",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA68354."
   },

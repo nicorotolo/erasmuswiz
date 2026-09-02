@@ -3067,7 +3067,12 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination Deadlines: Fall Semester / Full Year", periodo: "01 May" },
+        { cosa: "Nomination Deadlines: Spring Semester", periodo: "01 November" },
+        { cosa: "Application Deadlines: Fall Semester / Full Year", periodo: "01 June" },
+        { cosa: "Application Deadlines: Spring Semester", periodo: "01 December" }
+      ],
     linkSito: "https://www.itu.edu.tr/",
     linkCatalogo: "https://global.itu.edu.tr/students/international-programs/global-exchange-students",
 
