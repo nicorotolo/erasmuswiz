@@ -137,7 +137,13 @@ test("catena: gli stati seguono il primo passo incompleto, non 'mai raccolto'", 
   assert.equal(statoPartner({ radice, partner: p }), "daRaccogliere");
   const cart = path.join(radice, "raccolta", "pagine", "TEST01");
   fs.mkdirSync(cart, { recursive: true });
-  scriviJson(radice, path.join("pagine", "TEST01", "indice.json"), { esito: "raggiunto", pagine: [] });
+  // La pagina deve avere testo VERO: un indice "raggiunto" con zero pagine non
+  // esiste nella raccolta reale (esito e' "raggiunto" solo se pagine.length),
+  // e una finzione impossibile faceva provare uno stato che nessun dato produce.
+  fs.writeFileSync(path.join(cart, "001.json"), JSON.stringify({
+    url: "https://x.test/", tipo: "html", titolo: "", testo: "parole ".repeat(400), link: [] }));
+  scriviJson(radice, path.join("pagine", "TEST01", "indice.json"),
+    { esito: "raggiunto", pagine: [{ file: "001.json", url: "https://x.test/" }] });
   assert.equal(statoPartner({ radice, partner: p }), "daLeggere");
   fs.mkdirSync(path.join(radice, "raccolta", "letture"), { recursive: true });
   fs.writeFileSync(path.join(radice, "raccolta", "letture", "TEST01.json"), "{}");
@@ -145,6 +151,27 @@ test("catena: gli stati seguono il primo passo incompleto, non 'mai raccolto'", 
   assert.equal(statoPartner({ radice, partner: p, avanzamento: { TEST01: { fuso: true, applicato: false } } }), "daApplicare");
   assert.equal(statoPartner({ radice, partner: p, avanzamento: { TEST01: { fuso: true, applicato: true } } }), "fatto");
   assert.equal(statoPartner({ radice, partner: p, collisi: new Set(["TEST01"]) }), "colliso");
+});
+
+test("catena: un partner raggiunto ma senza testo utile ha un CAPOLINEA", (t) => {
+  // "raggiunto" e' largo: basta una pagina, anche vuota. Sei partner veri sono
+  // stati raggiunti con pagine da 32-173 caratteri (siti costruiti in
+  // JavaScript) e restavano `daLeggere` per sempre, ripresi a ogni giro senza
+  // che succedesse niente. Un capolinea mancante non e' lavoro rimasto.
+  const radice = radiceFinta(t);
+  const p = { codiceNorm: "TEST 01", campiMancanti: ["linkSito"], siti: ["https://x.test/"] };
+  const cart = path.join(radice, "raccolta", "pagine", "TEST01");
+  fs.mkdirSync(cart, { recursive: true });
+  fs.writeFileSync(path.join(cart, "001.json"), JSON.stringify({
+    url: "https://x.test/", tipo: "html", titolo: "", testo: "poche parole", link: [] }));
+  scriviJson(radice, path.join("pagine", "TEST01", "indice.json"),
+    { esito: "raggiunto", pagine: [{ file: "001.json", url: "https://x.test/" }] });
+  assert.equal(statoPartner({ radice, partner: p }), "senzaTestoUtile");
+
+  // con una pagina vera torna lavoro da fare
+  fs.writeFileSync(path.join(cart, "001.json"), JSON.stringify({
+    url: "https://x.test/", tipo: "html", titolo: "", testo: "parole ".repeat(400), link: [] }));
+  assert.equal(statoPartner({ radice, partner: p }), "daLeggere");
 });
 
 // ------------------------------------------------------------- fusione

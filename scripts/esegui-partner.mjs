@@ -18,6 +18,7 @@ import { fileURLToPath } from "node:url";
 import { isDeepStrictEqual } from "node:util";
 import { caricaMete, codiceCanonico, statoCampo } from "./lib-mete.mjs";
 import { fileMete } from "./cancelli.mjs";
+import { scegliPagine } from "./leggi-partner.mjs";
 
 const RADICE = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -188,7 +189,17 @@ export function statoPartner({ radice = RADICE, partner, avanzamento = {}, colli
   if (!indice) return "daRaccogliere";
   if (indice.esito !== "raggiunto") return "nonRaggiunto";
   if (!pdfCompleto(radice, codice)) return "daPdf";
-  if (!fs.existsSync(path.join(dir(radice), "letture", `${codice}.json`))) return "daLeggere";
+  if (!fs.existsSync(path.join(dir(radice), "letture", `${codice}.json`))) {
+    // "raggiunto" e' un criterio largo: basta UNA pagina, anche vuota. Sei
+    // partner sono stati raggiunti con pagine da 32-173 caratteri - sono siti
+    // costruiti in JavaScript, il testo non sta nell'HTML - e `scegliPagine`
+    // giustamente non ha niente da mandare al modello. Senza questo stato
+    // restavano `daLeggere` per sempre, ripresi a ogni giro senza che
+    // succedesse nulla: un capolinea mancante, non lavoro rimasto. Vanno alla
+    // riserva L4 come i partner senza indirizzo, ed e' Fase 6.
+    if (!scegliPagine(indice, cartella).length) return "senzaTestoUtile";
+    return "daLeggere";
+  }
   const voce = avanzamento[codice];
   if (!voce?.fuso) return "daFondere";
   if (!voce.applicato) return "daApplicare";
@@ -637,7 +648,7 @@ export async function eseguiPartner({
       : await bloccoZero({ radice, prova, git, applica: iniezioni.applica });
 
     const conStato = partner.map((p) => ({ p, stato: statoPartner({ radice, partner: p, avanzamento, collisi }) }));
-    const daFare = conStato.filter(({ p, stato }) => !["fatto", "colliso", "nonRaggiunto"].includes(stato)
+    const daFare = conStato.filter(({ p, stato }) => !["fatto", "colliso", "nonRaggiunto", "senzaTestoUtile"].includes(stato)
       && (p.siti || []).length
       && (!codiciChiesti || codiciChiesti.has(codiceCanonico(p.codiceNorm))));
     const scelti = daFare.slice(0, Number.isFinite(limite) ? limite : daFare.length);
