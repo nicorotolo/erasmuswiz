@@ -83,6 +83,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
       ],
+    linkSito: "https://www.vub.be/index%2ephp/en/internationalisation-vub/international-relations-what-we-do-how-you-can-reach-us/exchange-erasmus-projects/come-vub-exchange",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -110,6 +111,7 @@ var METE = [
       ],
     linkSito: "https://www.ulb.be/",
 
+    notaDisponibilita: "Please note that our University does not accept free movers.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {

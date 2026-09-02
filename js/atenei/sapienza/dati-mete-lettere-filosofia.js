@@ -405,6 +405,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 2 settimane dallo Starter Pack" }
       ],
     linkSito: "https://www.ulb.be/",
+    notaDisponibilita: "Please note that our University does not accept free movers.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70255. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
@@ -431,6 +432,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 2 settimane dallo Starter Pack" }
       ],
     linkSito: "https://www.ulb.be/",
+    notaDisponibilita: "Please note that our University does not accept free movers.",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70254. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
@@ -456,6 +458,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 2 settimane dallo Starter Pack" }
       ],
     linkSito: "https://www.ulb.be/",
+    notaDisponibilita: "Please note that our University does not accept free movers.",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70256. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
@@ -482,6 +485,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 2 settimane dallo Starter Pack" }
       ],
     linkSito: "https://www.ulb.be/",
+    notaDisponibilita: "Please note that our University does not accept free movers.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70257. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
@@ -508,6 +512,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 2 settimane dallo Starter Pack" }
       ],
     linkSito: "https://www.ulb.be/",
+    notaDisponibilita: "Please note that our University does not accept free movers.",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70258. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
@@ -534,6 +539,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 2 settimane dallo Starter Pack" }
       ],
     linkSito: "https://www.ulb.be/",
+    notaDisponibilita: "Please note that our University does not accept free movers.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70259. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
@@ -560,6 +566,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 2 settimane dallo Starter Pack" }
       ],
     linkSito: "https://www.ulb.be/",
+    notaDisponibilita: "Please note that our University does not accept free movers.",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70406. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
@@ -585,6 +592,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 2 settimane dallo Starter Pack" }
       ],
     linkSito: "https://www.ulb.be/",
+    notaDisponibilita: "Please note that our University does not accept free movers.",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70260. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
@@ -9799,6 +9807,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 30 settembre" }
       ],
     linkSito: "https://www.unifr.ch/home/fr/",
+    notaDisponibilita: "Im Rahmen Ihres Austauschs über ein Abkommen sind Sie von den Immatrikulationsgebühren der Unifr befreit.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71374."
   },
   {
@@ -9881,6 +9890,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 30 settembre" }
       ],
     linkSito: "https://www.unifr.ch/home/fr/",
+    notaDisponibilita: "Im Rahmen Ihres Austauschs über ein Abkommen sind Sie von den Immatrikulationsgebühren der Unifr befreit.",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71254."
   },
   {
@@ -9936,6 +9946,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 30 settembre" }
       ],
     linkSito: "https://www.unifr.ch/home/fr/",
+    notaDisponibilita: "Im Rahmen Ihres Austauschs über ein Abkommen sind Sie von den Immatrikulationsgebühren der Unifr befreit.",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71373."
   },
   {

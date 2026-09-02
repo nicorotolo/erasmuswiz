@@ -89,6 +89,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 31 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
+    linkSito: "https://uclouvain.be/en/universite/international",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -142,6 +143,7 @@ var METE = [
       ],
     linkSito: "https://www.ulb.be/",
 
+    notaDisponibilita: "Please note that our University does not accept free movers.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -169,6 +171,7 @@ var METE = [
       ],
     linkSito: "https://www.ulb.be/",
 
+    notaDisponibilita: "Please note that our University does not accept free movers.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1002,6 +1005,7 @@ var METE = [
         { cosa: "Nomination/Application (autunno)", periodo: "entro 15 maggio" },
         { cosa: "Nomination/Application (primavera)", periodo: "entro 31 ottobre" }
       ],
+    linkSito: "https://international.upol.cz/vymenne-pobyty/jsem-student/studium/erasmus-evropa/",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {

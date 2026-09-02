@@ -265,6 +265,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 2 settimane dallo Starter Pack" }
       ],
     linkSito: "https://www.ulb.be/",
+    notaDisponibilita: "Please note that our University does not accept free movers.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70165. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
@@ -290,6 +291,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 2 settimane dallo Starter Pack" }
       ],
     linkSito: "https://www.ulb.be/",
+    notaDisponibilita: "Please note that our University does not accept free movers.",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA70159. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
@@ -315,6 +317,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 2 settimane dallo Starter Pack" }
       ],
     linkSito: "https://www.ulb.be/",
+    notaDisponibilita: "Please note that our University does not accept free movers.",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA70161. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
@@ -341,6 +344,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 2 settimane dallo Starter Pack" }
       ],
     linkSito: "https://www.ulb.be/",
+    notaDisponibilita: "Please note that our University does not accept free movers.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70162. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
@@ -367,6 +371,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 2 settimane dallo Starter Pack" }
       ],
     linkSito: "https://www.ulb.be/",
+    notaDisponibilita: "Please note that our University does not accept free movers.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70163. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
@@ -393,6 +398,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 2 settimane dallo Starter Pack" }
       ],
     linkSito: "https://www.ulb.be/",
+    notaDisponibilita: "Please note that our University does not accept free movers.",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70164. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
@@ -419,6 +425,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 2 settimane dallo Starter Pack" }
       ],
     linkSito: "https://www.ulb.be/",
+    notaDisponibilita: "Please note that our University does not accept free movers.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70166. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
@@ -445,6 +452,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 2 settimane dallo Starter Pack" }
       ],
     linkSito: "https://www.ulb.be/",
+    notaDisponibilita: "Please note that our University does not accept free movers.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70158. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
@@ -470,6 +478,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 2 settimane dallo Starter Pack" }
       ],
     linkSito: "https://www.ulb.be/",
+    notaDisponibilita: "Please note that our University does not accept free movers.",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70160. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {

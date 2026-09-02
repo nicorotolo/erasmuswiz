@@ -147,6 +147,7 @@ var METE = [
       ],
     linkSito: "https://www.ulb.be/",
 
+    notaDisponibilita: "Please note that our University does not accept free movers.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -175,6 +176,7 @@ var METE = [
       ],
     linkSito: "https://www.ulb.be/",
 
+    notaDisponibilita: "Please note that our University does not accept free movers.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -946,6 +948,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 luglio" },
         { cosa: "Application (primavera)", periodo: "entro 15 gennaio" }
       ],
+    linkSito: "https://www.eh-berlin.de/internationales/incomings-und-international-degree-seeking-students/erasmus-austausch-oder-free-mover-studierende-der-ehb",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1020,6 +1023,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 luglio" },
         { cosa: "Application (primavera)", periodo: "entro 15 gennaio" }
       ],
+    linkSito: "https://www.eh-berlin.de/internationales/incomings-und-international-degree-seeking-students/erasmus-austausch-oder-free-mover-studierende-der-ehb",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {

@@ -116,6 +116,7 @@ var METE = [
       ],
     linkSito: "https://www.ulb.be/",
 
+    notaDisponibilita: "Please note that our University does not accept free movers.",
     notePratiche: "Posti totali dell'accordo: 8 (condivisi tra i livelli)."
   },
   {
@@ -472,6 +473,7 @@ var METE = [
         { cosa: "Application (autunno/anno)", periodo: "entro 31 maggio per studenti senza visto; entro 30 aprile per studenti con visto" },
         { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
       ],
+    linkSito: "https://international.upol.cz/vymenne-pobyty/jsem-student/studium/erasmus-evropa/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {

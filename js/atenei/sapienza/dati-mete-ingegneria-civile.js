@@ -108,6 +108,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 2 settimane dallo Starter Pack" }
       ],
     linkSito: "https://www.ulb.be/",
+    notaDisponibilita: "Please note that our University does not accept free movers.",
     notePratiche: "Posti dell'accordo: 3. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69139. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {

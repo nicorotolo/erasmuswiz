@@ -86,6 +86,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 31 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "https://uclouvain.be/en/universite/international",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli)."
   },
   {
@@ -1372,6 +1373,7 @@ var METE = [
       ],
     linkSito: "https://www.unifr.ch/home/fr/",
 
+    notaDisponibilita: "Im Rahmen Ihres Austauschs über ein Abkommen sind Sie von den Immatrikulationsgebühren der Unifr befreit.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {

@@ -227,7 +227,7 @@ var METE = [
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/19576803",
-    linkSito: "",
+    linkSito: "https://www.ugent.be/bw/en/education/exchange-programme/overview.htm",
     notePratiche: "Mobilities must be carried out during the third year of Bachelor's degree and 120 ECTS must be registered in the study plan at the time of Application - Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L 3° anno (vedi colonna Note); studenti: 4; mesi: 5. || Lingua: UGent richiede per gli exchange buona conoscenza dell'inglese, livello CEF/CEFR B2 o superiore, per comunicare e lavorare in contesto accademico. [Fonti: scheda destinazione; UGent Language Requirements for Exchange Students]"
   },
   {

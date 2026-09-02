@@ -83,6 +83,7 @@ var METE = [
       ],
     linkSito: "https://www.ulb.be/",
 
+    notaDisponibilita: "Please note that our University does not accept free movers.",
     notePratiche: "Posti totali dell'accordo: 8. Solo livello Magistrale. Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -131,6 +132,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 aprile" },
         { cosa: "Application (primavera)", periodo: "entro 31 ottobre per studenti europei; entro 15 ottobre per non europei" }
       ],
+    linkSito: "https://uclouvain.be/en/universite/international",
     notePratiche: "Posti totali dell'accordo: 3. Solo livello Magistrale."
   },
   {

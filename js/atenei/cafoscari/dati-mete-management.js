@@ -95,6 +95,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254358",
     linkSito: "https://www.ulb.be/",
+    notaDisponibilita: "Please note that our University does not accept free movers.",
     notePratiche: "Aperta a: Laurea Magistrale in Economia e gestione delle arti e delle attivit� culturali [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 5; mesi: 5. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
@@ -124,7 +125,7 @@ var METE = [
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29516559",
-    linkSito: "",
+    linkSito: "https://uclouvain.be/en/universite/international",
     notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 4; mesi: 5. || Scadenze: LSM fact sheet 2025/26, da confermare per 2026/27 || Lingua: LSM indica CEFR B2 raccomandato in francese o inglese"
   },
   {
