@@ -21,12 +21,15 @@
 
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-09-01 — Codex (**Fase 5A chiusa: migrazione
-completa e 321/321 prove verdi**). Le 1.987 mete sono rimaste identiche. La
-migrazione 0g ricostruisce 258 letture: 231 già applicate, 27 nello stato
-`daApplicare` con 29 campi pendenti, 1 collisione isolata e **zero ambigui**.
-`avanzamento.json` è stato creato senza applicare alcun dato. La Consegna B
-(`esegui-partner.mjs`) non è stata iniziata.
+**Ultimo aggiornamento:** 2026-09-02 — Claude (**Fase 5 chiusa: la catena
+esiste e ha girato per intero**). `esegui-partner.mjs` ha lavorato **256
+partner in 120 minuti**, 11 blocchi, 10 commit tutti spinti su `origin`.
+**210 raggiunti su 256 (82%)**, sopra il criterio d'uscita del 75%.
+**197 campi-meta scritti**: `notaDisponibilita` da 166 a **359**, `linkSito`
+da 1.701 a **1.771**, `scadenzeOspitante` da 1.744 a **1.775**. Più il blocco
+zero (94 campi) e il primo arbitrato della catena (`linkCatalogo` 380 → **388**).
+Le 1.987 mete restano 1.987, zero campi già pieni toccati, zero file a
+fine-riga misto. **356 prove verdi**, da 300 di ieri.
 
 > 🔎 **01/09 — il campo bocciato aveva una causa strutturale, non un modello
 > distratto.** I 53 `linkCatalogo` fermi in cache sono stati guardati uno per
@@ -4523,6 +4526,69 @@ sono applicate e gli ambigui veri sono **zero**. `avanzamento.json` è stato
 creato senza scrivere i 29 dati nel sito. L'anteprima su disco pesa 22.772 byte
 anziché 3.239.844 e non duplica i testi delle mete; i 3 PDF di `A GRAZ02`
 hanno di nuovo tutti testo estraibile.
+
+### Mappatura mete — fotografia del 2026-09-02, dopo la passata completa
+
+Contata **per meta** (le 1.987 pubblicate). La colonna «prima» è il 31/08, cioè
+lo stato dopo la primissima applicazione; «dopo» è oggi, a passata finita.
+
+| Campo | 31/08 | **02/09** | in coda d'arbitrato |
+|---|---:|---:|---:|
+| scadenzeOspitante | 1.744 | **1.775** | — |
+| linkSito | 1.701 | **1.771** | — |
+| notaDisponibilita | 166 | **359** | — |
+| **linkCatalogo** (serve al Learning Agreement) | 380 | **388** | **76** |
+| requisitoLingua | 1.529 | 1.529 | **9** |
+
+**I due campi fermi sono fermi apposta, e ora lo sono per costruzione.** La
+catena ha un cancello che le vieta `linkCatalogo` e `requisitoLingua`: per
+entrambi è misurato che nessun cancello automatico li separa. L'unica porta è
+`applica-arbitrato.mjs`, e il suo cancello non è la fiducia in chi chiama — è
+l'**impronta del valore**, che deve avere un «sì» nel registro `giudizi.jsonl`.
+Se il valore cambia dopo il giudizio, l'impronta non combacia e quel giudizio
+decade.
+
+**La passata, per numeri.** 256 partner lavorati, 210 raggiunti (82%). I 46 non
+raggiunti hanno una causa strutturata, letta dall'array `tentativi` che la
+Consegna A ha aggiunto all'indice: **44 «nessun candidato»**, 2 sconosciuta.
+277 PDF riestratti, 203 letture. I cancelli hanno approvato 174 proposte e
+mandato 36 a livello facoltà; i 61 scarti si dividono in dieci cause, le tre più
+grosse `citazioneAssente` (16), `urlInconcludente` (14) e `citazioneFuoriMisura`
+(10).
+
+**Dove siamo, per partner:** 478 `fatto`, 111 non raggiunti, 17 ancora da
+raccogliere, 7 da leggere. 467 letture in tutto; 391 proposte in cache.
+
+**Il primo arbitrato passato per la catena.** Quattro cataloghi in coda,
+giudicati a mano: 3 sì e 1 no — 75%, in linea col 66% storico. Il no era Graz, e
+la ragione è istruttiva: `studien.uni-graz.at/de/ordentliche-studien/`
+**reindirizza** a `uni-graz.at`, una pagina di smistamento, e il cancello «URL
+200» l'aveva approvato proprio perché il reindirizzamento risponde 200. È la
+quarta variante della stessa famiglia d'errore: la pagina che *porta* ai corsi
+invece di elencarli.
+
+**Due difetti trovati eseguendo, non rileggendo.** (a) Il blocco zero è FALLITO
+al primo tentativo: la catena ha rifiutato di committare e ha ripristinato tutto,
+segnalando fine-riga misto su 3 file. Il guaio era vero — `impostaCampo` passava
+il fine-riga a `serializza` quando *inserisce* un campo nuovo ma non quando
+**sostituisce** un valore già presente, ed è quel ramo che scatta su
+`scadenzeOspitante: []`. Invisibile finché si scrivono valori di una riga. Da 15
+a-capo nudi in 3 file a zero: è il difetto §8.5 del 01/09, chiuso allora solo a
+metà. (b) La chiave del registro dei giudizi era costruita in due file con due
+separatori diversi, quindi il controllo «esiste già» era sempre falso e gli
+eventi finivano scritti due volte. Lo stato resta corretto perché il registro è
+append-only e l'ultimo evento vince (119 chiavi distinte, 79 `applicato`, 1
+`no`), ed è la struttura ad aver assorbito il difetto.
+
+**Una deriva nota, benigna, da non scambiare per un difetto.** Gli avvisi non
+bloccanti di `valida-stato.mjs` sono passati da 2 a 4: quattro dipartimenti
+hanno `completate` sfasato **di uno** rispetto alle righe davvero complete. Non
+è corruzione: è il contatore dentro `mappatura-stato.json`, file che il
+`DISEGNO_PIPELINE_DATI` ha dichiarato **superato** («sostituito dall'elenco
+partner, resta come storico») e che nessuno aggiorna più dal 30/08. Continuerà a
+scostarsi a ogni passata. Le opzioni sono tre e sono di Nicola: lasciarlo
+derivare sapendolo, ritirare quel solo controllo, o riallineare i contatori una
+volta.
 
 ### Mappatura mete — fotografia del 2026-08-31, DOPO la prima applicazione
 
