@@ -442,6 +442,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/28265759",
     linkSito: "https://www.uni-mannheim.de/io",
+    linkCatalogo: "https://www.uni-mannheim.de/en/academics/coming-to-mannheim/exchange-students/courses/course-catalog/",
     notePratiche: "Nomination tardive non accettate. Corso intensivo di tedesco di 4 settimane (Summer/Winter Academy, ~685 EUR, 6 ECTS). Bachelor's program: https://www.vwl.uni-mannheim.de/en/academics/prospective-students-bsc/about-the-bachelors-programCourse offer: https://www.uni-mannheim.de/courses (Course catalogues from previous semesters are linked at the end of the page.)Courses in Economics: https://www.uni-mannheim.de/en/academics/coming-to-mannheim/exchange-students/courses/course-catalog/economics-all/Exchange students are allowed to take up to half of their courses outside the school of their exchange program. Since the Business School here in Mannheim doesn't belong to the same school than the Department of Economics, this would also apply to students for business courses. If students want to take courses outside of the school of their exchange program, they can take them from the university-wide electives, which do not require any prior knowledge of the subject. As far as business courses are concerned, this rule does not apply so strictly to economic's exchange students. They are allowed to choose from all business courses at undergraduate level that do not have capacity restrictions. - Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 5."
   },
   {
@@ -653,6 +654,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254496",
     linkSito: "http://www.ujaen.es/",
+    linkCatalogo: "https://uvirtual.ujaen.es/pub/es/informacionacademica/catalogofichasdocentesasignaturas/p/patie/2025-26",
     notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, LM, PhD; studenti: 5; mesi: 5."
   },
   {
@@ -712,6 +714,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254513",
     linkSito: "https://www.urjc.es/internacional/erasmus-y-movilidad/252-gestweb",
+    linkCatalogo: "https://servicios.urjc.es/libroasignaturas/",
     notePratiche: "Senza certificato di lingua (o con livello inferiore) l'application non viene accettata. - Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L; studenti: 4; mesi: 5."
   },
   {
@@ -773,6 +776,7 @@ var METE = [
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
     notaDisponibilita: "Entre 3 y 12 meses, según el acuerdo bilateral con la universidad de destino.",
+    linkCatalogo: "https://estudis.uib.es/es/Cursos-i-tallers/",
     notePratiche: "Aperta a: CdS del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 5. || Lingua: la scheda non indica un livello CEFR (corsi prevalentemente in spagnolo/catalano; corsi di lingua per exchange: spagnolo 100 EUR, catalano 25 EUR, 6 ECTS) - da verificare. [Fonte: scheda destinazione] || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -804,6 +808,7 @@ var METE = [
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
     notaDisponibilita: "Entre 3 y 12 meses, según el acuerdo bilateral con la universidad de destino.",
+    linkCatalogo: "https://estudis.uib.es/es/Cursos-i-tallers/",
     notePratiche: "Aperta a: CdS del Dipartimento di Economia e Laurea Magistrale in Tourism Management and Sustainability - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 5. || Lingua: la scheda non indica un livello CEFR (corsi prevalentemente in spagnolo/catalano; corsi di lingua per exchange: spagnolo 100 EUR, catalano 25 EUR, 6 ECTS) - da verificare. [Fonte: scheda destinazione] || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1267,6 +1272,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/28264979",
     linkSito: "https://www.uoc.gr/",
+    linkCatalogo: "https://www.uoc.gr/intrel/en/students-en/courses-catalogue",
     notePratiche: "more info at: www.uoc.gr/intrel/en/students-en/information-and-advicefacebook page \"Accommodation Erasmus in Rethymno\" - Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L,LM; studenti: 3; mesi: 5."
   },
   {
@@ -1479,6 +1485,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254667",
     linkSito: "https://www.ul.ie/global/incoming-students",
+    linkCatalogo: "https://bookofmodules.ul.ie/",
     notePratiche: "Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, LM, PhD; studenti: 2; mesi: 5. || Campus a 5 km da Limerick, 20 km dall'aeroporto di Shannon. [Fonte: scheda destinazione]"
   },
   {
@@ -1509,6 +1516,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254671",
     linkSito: "https://www.vdu.lt/en/international-cooperation/vmu-promotional-materials/vmu-fact-sheet/",
+    linkCatalogo: "https://www.vdu.lt/en/vdu-erasmus-studies/?userLang=en&phrase=",
     notePratiche: "Aperta a: CdS del Dipartimento di Economia e Laurea Magistrale in Relazioni internazionali comparate - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 6; mesi: 5. || Lingua: VMU richiede inglese non inferiore a B2 CEFR; prova linguistica da allegare all'application. Nomination via erasmus@vdu.lt. [Fonte: pagina Incoming Exchange Students VMU]"
   },
   {
@@ -1571,6 +1579,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/23270747",
     linkSito: "https://student.uva.nl/en/categories/study-abroad",
+    linkCatalogo: "https://studiegids.uva.nl/",
     notePratiche: "Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 2; mesi: 5."
   },
   {

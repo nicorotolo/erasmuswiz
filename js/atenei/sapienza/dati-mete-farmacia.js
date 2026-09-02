@@ -112,6 +112,7 @@ var METE = [
     linkSito: "https://www.ulb.be/",
 
     notaDisponibilita: "Please note that our University does not accept free movers.",
+    linkCatalogo: "https://www.ulb.be/en/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -561,6 +562,7 @@ var METE = [
       ],
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkCatalogo: "https://www.univ-catholille.fr/catalogue-de-formations/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -585,6 +587,7 @@ var METE = [
       ],
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkCatalogo: "https://www.univ-catholille.fr/catalogue-de-formations/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1165,6 +1168,7 @@ var METE = [
       ],
     linkSito: "http://www.bg.ac.rs/en/",
 
+    linkCatalogo: "https://www.bg.ac.rs/pretraga-studijskih-programa/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Scadenze: basate su 2024/25"
   },
   {
@@ -1486,6 +1490,7 @@ var METE = [
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
     notaDisponibilita: "Entre 3 y 12 meses, según el acuerdo bilateral con la universidad de destino.",
+    linkCatalogo: "https://estudis.uib.es/es/Cursos-i-tallers/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {

@@ -69,6 +69,7 @@ var METE = [
       ],
     linkSito: "https://www.uni-luebeck.de/universitaet/universitaet.html",
 
+    linkCatalogo: "https://univis.uni-luebeck.de/",
     notePratiche: "Posti totali dell'accordo: 2. Solo livello Magistrale."
   },
   {
@@ -117,6 +118,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 1 ottobre" }
       ],
     linkSito: "https://www.um.edu.mt/studentlife/internationalopportunities/erasmus/incoming/",
+    linkCatalogo: "https://www.um.edu.mt/studentlife/internationalopportunities/courselists/",
     notePratiche: "Posti totali dell'accordo: 3. Solo livello triennale."
   },
   {

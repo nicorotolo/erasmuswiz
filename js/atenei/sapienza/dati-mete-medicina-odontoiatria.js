@@ -55,6 +55,7 @@ var METE = [
       ],
     linkSito: "https://www.ulb.be/",
     notaDisponibilita: "Please note that our University does not accept free movers.",
+    linkCatalogo: "https://www.ulb.be/en/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA69345. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
@@ -433,6 +434,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
     linkSito: "https://www.uni-freiburg.de/go/erasmus",
+    linkCatalogo: "https://uni-freiburg.link/vvz",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Accordo ERA68431. || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26"
   },
   {
@@ -1151,6 +1153,7 @@ var METE = [
         { cosa: "Nomination/Application 2 semestre (UE)", periodo: "entro 30 novembre" }
       ],
     linkSito: "http://www.ujaen.es/",
+    linkCatalogo: "https://uvirtual.ujaen.es/pub/es/informacionacademica/catalogofichasdocentesasignaturas/p/patie/2025-26",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA71641."
   },
   {
@@ -1779,6 +1782,7 @@ var METE = [
         { cosa: "Application (2 semestre)", periodo: "entro 16 dicembre" }
       ],
     linkSito: "http://www.urjc.es",
+    linkCatalogo: "https://servicios.urjc.es/libroasignaturas/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69378."
   },
   {
@@ -1847,6 +1851,7 @@ var METE = [
         { cosa: "Nomination/Application 2 semestre (UE)", periodo: "entro 30 novembre" }
       ],
     linkSito: "http://www.ujaen.es/",
+    linkCatalogo: "https://uvirtual.ujaen.es/pub/es/informacionacademica/catalogofichasdocentesasignaturas/p/patie/2025-26",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA71640."
   },
   {
@@ -1871,6 +1876,7 @@ var METE = [
         { cosa: "Nomination/Application 2 semestre (UE)", periodo: "entro 30 novembre" }
       ],
     linkSito: "http://www.ujaen.es/",
+    linkCatalogo: "https://uvirtual.ujaen.es/pub/es/informacionacademica/catalogofichasdocentesasignaturas/p/patie/2025-26",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA71642."
   },
   {
@@ -2083,6 +2089,7 @@ var METE = [
     linkSito: "http://www.ege.edu.tr",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkCatalogo: "https://ebp.ege.edu.tr/DereceProgramlari/1",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Accordo ERA69441. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato in mappature precedenti"
   },
   {

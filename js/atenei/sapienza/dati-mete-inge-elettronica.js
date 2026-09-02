@@ -233,6 +233,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
     linkSito: "https://www.tu-braunschweig.de/",
+    linkCatalogo: "https://www.tu-braunschweig.de/studium-lehre/im-studium/lehrveranstaltungen",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA68145."
   },
   {
@@ -466,6 +467,7 @@ var METE = [
         { cosa: "Application/documenti (primavera)", periodo: "entro 30 gennaio" }
       ],
     linkSito: "http://www.ulpgc.es",
+    linkCatalogo: "https://internacional.ulpgc.es/wp-content/uploads/2026/06/Courses-taught-in-English_022026-.pdf",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA68189. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -578,6 +580,7 @@ var METE = [
         { cosa: "Application (2 semestre)", periodo: "entro 16 dicembre" }
       ],
     linkSito: "http://www.urjc.es",
+    linkCatalogo: "https://servicios.urjc.es/libroasignaturas/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA68201."
   },
   {

@@ -84,6 +84,7 @@ var METE = [
     linkSito: "https://www.ulb.be/",
 
     notaDisponibilita: "Please note that our University does not accept free movers.",
+    linkCatalogo: "https://www.ulb.be/en/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 8. Solo livello Magistrale. Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -643,6 +644,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 30 novembre 2026" }
       ],
     linkSito: "https://www.rennes.archi.fr/international/mobietudiantes/echanges-internationaux-etudiants-mobilite-entrante/",
+    linkCatalogo: "https://www.rennes.archi.fr/enseignement/programme/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -827,6 +829,7 @@ var METE = [
       ],
     linkSito: "https://www.marseille.archi.fr/international/venir-lensamarseille",
     notaDisponibilita: "Certains enseignements ne sont pas ouverts aux étudiants en mobilité entrante/IN : S5 UE2 : Rapport d’études / méthodologie S6 UE3 : Rapport d’études Vous ne pouvez choisir qu’un seul studio de projet et un seul séminaire par semestre",
+    linkCatalogo: "https://www.marseille.archi.fr/international/venir-lensamarseille",
     notePratiche: "Posti totali dell'accordo: 5 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -1154,6 +1157,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
       ],
     notaDisponibilita: "Aufgrund der Innenstadtlage gibt es keine Unterkunft auf dem Campus der HFT Stuttgart.",
+    linkCatalogo: "https://wiki.hft-stuttgart.de/spaces/HFTInt/pages/72489202/International+Study+Programme+ISP",
     notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale. Ulteriore accordo distinto con lo stesso ateneo (promotore Federica Dal Falco). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -1364,6 +1368,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
       ],
     notaDisponibilita: "Aufgrund der Innenstadtlage gibt es keine Unterkunft auf dem Campus der HFT Stuttgart.",
+    linkCatalogo: "https://wiki.hft-stuttgart.de/spaces/HFTInt/pages/72489202/International+Study+Programme+ISP",
     notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale. Ulteriore accordo distinto con lo stesso ateneo (promotore Alfonso Ippolito). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -1473,6 +1478,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
+    linkCatalogo: "https://www.tu-braunschweig.de/studium-lehre/im-studium/lehrveranstaltungen",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -1574,6 +1580,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 1 ottobre" }
       ],
     linkSito: "https://www.um.edu.mt/studentlife/internationalopportunities/erasmus/incoming/",
+    linkCatalogo: "https://www.um.edu.mt/studentlife/internationalopportunities/courselists/",
     notePratiche: "Posti totali dell'accordo: 4. Solo livello triennale."
   },
   {
@@ -1880,6 +1887,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "31 ottobre - 30 novembre" }
       ],
     linkSito: "https://mobilidade.lis.ulusiada.pt/mobilidade/erasmus43;/incomingstudents.aspx",
+    linkCatalogo: "https://eventos.lis.ulusiada.pt/ECTSpackage",
     notePratiche: "Posti totali dell'accordo: 5 (condivisi tra i livelli)."
   },
   {
@@ -2525,6 +2533,7 @@ var METE = [
       ],
     linkSito: "https://www.uma.es/relaciones-internacionales/cms/menu/erasmus/incoming-students/",
     notaDisponibilita: "50% de tus asignaturas deben ser del centro en el que te nominaron",
+    linkCatalogo: "https://u.uma.es/h8t/oferta/",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {

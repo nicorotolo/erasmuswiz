@@ -451,6 +451,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/28266203",
     linkSito: "https://www.uva.nl/en/programmes/exchange/humanities/humanities-exchange.html?origin=cQrBgcZsRZO%2F6Pm0Q%2F1d8w",
+    linkCatalogo: "https://studiegids.uva.nl/",
     notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 6 LM. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -631,6 +632,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254684",
     linkSito: "http://www.uva.nl/en/programmes/exchange/humanities/humanities-exchange.html?origin=cQrBgcZsRZO%2F6Pm0Q%2F1d8w",
+    linkCatalogo: "https://studiegids.uva.nl/",
     notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5 L. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -1552,6 +1554,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254630",
     linkSito: "http://www.unistra.fr",
+    linkCatalogo: "https://formations.unistra.fr/fr/index.html",
     notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 1 x 5 L ,LM. Lingua e scadenze ospitante da completare nei batch successivi. || Scadenze: basate su 2024/25"
   },
   {
@@ -1614,6 +1617,7 @@ var METE = [
     linkSito: "http://www.uni-freiburg.de",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkCatalogo: "https://uni-freiburg.link/vvz",
     notePratiche: "Aperta a: Dipartimento di Filosofia e Beni Culturali [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 6 , solo 1° sem. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {

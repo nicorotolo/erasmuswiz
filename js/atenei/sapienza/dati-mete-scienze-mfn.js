@@ -266,6 +266,7 @@ var METE = [
       ],
     linkSito: "https://www.ulb.be/",
     notaDisponibilita: "Please note that our University does not accept free movers.",
+    linkCatalogo: "https://www.ulb.be/en/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70165. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
@@ -292,6 +293,7 @@ var METE = [
       ],
     linkSito: "https://www.ulb.be/",
     notaDisponibilita: "Please note that our University does not accept free movers.",
+    linkCatalogo: "https://www.ulb.be/en/course-catalogue",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA70159. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
@@ -318,6 +320,7 @@ var METE = [
       ],
     linkSito: "https://www.ulb.be/",
     notaDisponibilita: "Please note that our University does not accept free movers.",
+    linkCatalogo: "https://www.ulb.be/en/course-catalogue",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA70161. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
@@ -345,6 +348,7 @@ var METE = [
       ],
     linkSito: "https://www.ulb.be/",
     notaDisponibilita: "Please note that our University does not accept free movers.",
+    linkCatalogo: "https://www.ulb.be/en/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70162. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
@@ -372,6 +376,7 @@ var METE = [
       ],
     linkSito: "https://www.ulb.be/",
     notaDisponibilita: "Please note that our University does not accept free movers.",
+    linkCatalogo: "https://www.ulb.be/en/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70163. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
@@ -399,6 +404,7 @@ var METE = [
       ],
     linkSito: "https://www.ulb.be/",
     notaDisponibilita: "Please note that our University does not accept free movers.",
+    linkCatalogo: "https://www.ulb.be/en/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70164. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
@@ -426,6 +432,7 @@ var METE = [
       ],
     linkSito: "https://www.ulb.be/",
     notaDisponibilita: "Please note that our University does not accept free movers.",
+    linkCatalogo: "https://www.ulb.be/en/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70166. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
@@ -453,6 +460,7 @@ var METE = [
       ],
     linkSito: "https://www.ulb.be/",
     notaDisponibilita: "Please note that our University does not accept free movers.",
+    linkCatalogo: "https://www.ulb.be/en/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70158. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
@@ -479,6 +487,7 @@ var METE = [
       ],
     linkSito: "https://www.ulb.be/",
     notaDisponibilita: "Please note that our University does not accept free movers.",
+    linkCatalogo: "https://www.ulb.be/en/course-catalogue",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70160. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
@@ -804,6 +813,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.ens-lyon.fr/",
+    linkCatalogo: "https://www.ens-lyon.fr/formation/catalogue-de-cours/cours-pour-les-etudiants-en-echange",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70808."
   },
   {
@@ -1117,6 +1127,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.ens-lyon.fr/",
+    linkCatalogo: "https://www.ens-lyon.fr/formation/catalogue-de-cours/cours-pour-les-etudiants-en-echange",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70809."
   },
   {
@@ -1353,6 +1364,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.ens-lyon.fr/",
+    linkCatalogo: "https://www.ens-lyon.fr/formation/catalogue-de-cours/cours-pour-les-etudiants-en-echange",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70807."
   },
   {
@@ -1810,6 +1822,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
       ],
     linkSito: "https://www.unistra.fr/fr",
+    linkCatalogo: "https://formations.unistra.fr/fr/index.html",
     notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70832. || Scadenze: EM Strasbourg fact sheet 2025/26 || Lingua: B2 nella lingua di insegnamento fortemente raccomandato; certificato non richiesto || Scadenze: basate su 2024/25"
   },
   {
@@ -1916,6 +1929,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 1 dicembre" }
       ],
     linkSito: "https://www.ku.de/",
+    linkCatalogo: "https://campus.ku.de/studienangebot/EVT_Pages/Brn_Vorlesungsverzeichnis.aspx?node=97edecac-bda4-42fe-be1f-2232c8f81a82",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70701."
   },
   {
@@ -3228,6 +3242,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro il 30 novembre di ogni anno" }
       ],
     linkSito: "https://www.auth.gr/en/",
+    linkCatalogo: "https://qa.auth.gr/en/studyguide",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70838."
   },
   {
@@ -3487,6 +3502,7 @@ var METE = [
         { cosa: "Application (2 semestre)", periodo: "entro 8 ottobre 2026" }
       ],
     linkSito: "http://www.uva.nl/english/index.html",
+    linkCatalogo: "https://studiegids.uva.nl/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70852."
   },
   {
@@ -4286,6 +4302,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.upjs.sk",
+    linkCatalogo: "https://www.upjs.sk/en/information/international-relations/erasmus/calendar-catalogue/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70886."
   },
   {
@@ -4600,6 +4617,7 @@ var METE = [
       ],
     linkSito: "HTTP://WWW.UCA.ES",
     notaDisponibilita: "Movilidad de estudiantes para estudios del programa Erasmus+ para permanecer en la Universidad de Cádiz durante 1 ó 2 semestres.",
+    linkCatalogo: "https://internacional.uca.es/oferta-de-asignaturas/",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70746."
   },
   {
@@ -5133,6 +5151,7 @@ var METE = [
       ],
     linkSito: "http://www.uma.es",
     notaDisponibilita: "50% de tus asignaturas deben ser del centro en el que te nominaron",
+    linkCatalogo: "https://u.uma.es/h8t/oferta/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA70763. || Scadenze: UMA fact sheet 2025/26, nomination via Algoria; application operativa tramite selezione insegnamenti in Algoria || Lingua: spagnolo B1 raccomandato, certificato non richiesto || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -5364,6 +5383,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 novembre 2026" }
       ],
     linkSito: "HTTP://WWW.ULL.ES",
+    linkCatalogo: "https://drive.google.com/drive/folders/160_Dl73aG_YXlk0HJoaugFpDJ8B-XiB7",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA70780."
   },
   {
@@ -5391,6 +5411,7 @@ var METE = [
       ],
     linkSito: "http://www.uma.es",
     notaDisponibilita: "50% de tus asignaturas deben ser del centro en el que te nominaron",
+    linkCatalogo: "https://u.uma.es/h8t/oferta/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70764. || Scadenze: UMA fact sheet 2025/26, nomination via Algoria; application operativa tramite selezione insegnamenti in Algoria || Lingua: spagnolo B1 raccomandato, certificato non richiesto || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -5547,6 +5568,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 novembre 2026" }
       ],
     linkSito: "HTTP://WWW.ULL.ES",
+    linkCatalogo: "https://drive.google.com/drive/folders/160_Dl73aG_YXlk0HJoaugFpDJ8B-XiB7",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA70781."
   },
   {
@@ -6028,6 +6050,7 @@ var METE = [
         { cosa: "Application/registrazione (primavera)", periodo: "entro 10 settembre" }
       ],
     linkSito: "https://www.unige.ch/international/",
+    linkCatalogo: "http://www.unige.ch/progcours.html",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70682."
   },
   {

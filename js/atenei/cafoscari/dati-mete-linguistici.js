@@ -507,6 +507,7 @@ var METE = [
     linkPdf: "",
     linkSito: "http://www.uma.es/",
     notaDisponibilita: "50% de tus asignaturas deben ser del centro en el que te nominaron",
+    linkCatalogo: "https://u.uma.es/h8t/oferta/",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 4 x 9 L e PhD. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -593,6 +594,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "http://www.movilidad.ulpgc.es/",
+    linkCatalogo: "https://internacional.ulpgc.es/wp-content/uploads/2026/06/Courses-taught-in-English_022026-.pdf",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 9 L. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -1229,6 +1231,7 @@ var METE = [
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
     notaDisponibilita: "Entre 3 y 12 meses, según el acuerdo bilateral con la universidad de destino.",
+    linkCatalogo: "https://estudis.uib.es/es/Cursos-i-tallers/",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5 L. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1411,6 +1414,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "http://www.um.edu.mt/int-eu/erasmus",
+    linkCatalogo: "https://www.um.edu.mt/studentlife/internationalopportunities/courselists/",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5 L. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -1859,6 +1863,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "https://www.urjc.es/",
+    linkCatalogo: "https://servicios.urjc.es/libroasignaturas/",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 4 x 5 L. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -1890,6 +1895,7 @@ var METE = [
     linkPdf: "",
     linkSito: "http://www.uca.es/",
     notaDisponibilita: "Movilidad de estudiantes para estudios del programa Erasmus+ para permanecer en la Universidad de Cádiz durante 1 ó 2 semestres.",
+    linkCatalogo: "https://internacional.uca.es/oferta-de-asignaturas/",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 1x5 L, 1x5 LM. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -1977,6 +1983,7 @@ var METE = [
     linkPdf: "",
     linkSito: "https://en.uw.edu.pl/education/exchange-and-guest-students/",
     notaDisponibilita: "Bachelor level (3 years) Master level (2 years; 5 years - only in case of Psychology and Law) Doctoral level (3 or 4 years)",
+    linkCatalogo: "http://informatorects.uw.edu.pl/en/",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5 L e LM. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -2037,6 +2044,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "https://espol-lille.eu/en/",
+    linkCatalogo: "https://www.univ-catholille.fr/catalogue-de-formations/",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 3 x 6 L e LM. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -2552,6 +2560,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "",
     linkSito: "https://www.ul.ie/courses/international-students",
+    linkCatalogo: "https://bookofmodules.ul.ie/",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5 L e LM, solo 2° sem.. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -3401,6 +3410,7 @@ var METE = [
     linkPdf: "",
     linkSito: "http://www.uw.edu.pl/",
     notaDisponibilita: "Bachelor level (3 years) Master level (2 years; 5 years - only in case of Psychology and Law) Doctoral level (3 or 4 years)",
+    linkCatalogo: "http://informatorects.uw.edu.pl/en/",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 1 x 5 LM. Lingua e scadenze ospitante da completare nei batch successivi."
   }
 ];

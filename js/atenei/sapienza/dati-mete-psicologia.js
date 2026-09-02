@@ -148,6 +148,7 @@ var METE = [
     linkSito: "https://www.ulb.be/",
 
     notaDisponibilita: "Please note that our University does not accept free movers.",
+    linkCatalogo: "https://www.ulb.be/en/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -177,6 +178,7 @@ var METE = [
     linkSito: "https://www.ulb.be/",
 
     notaDisponibilita: "Please note that our University does not accept free movers.",
+    linkCatalogo: "https://www.ulb.be/en/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -689,6 +691,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 15 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkCatalogo: "https://uni-freiburg.link/vvz",
     notePratiche: "Posti totali dell'accordo: 6 (condivisi tra i livelli). || Scadenze: basate su 2025/26"
   },
   {
@@ -878,6 +881,7 @@ var METE = [
       ],
     linkSito: "https://www.ku.de/",
 
+    linkCatalogo: "https://campus.ku.de/studienangebot/EVT_Pages/Brn_Vorlesungsverzeichnis.aspx?node=97edecac-bda4-42fe-be1f-2232c8f81a82",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -982,6 +986,7 @@ var METE = [
         { cosa: "Documenti firmati (primavera)", periodo: "entro 15 dicembre" }
       ],
     linkSito: "https://www.uni-hildesheim.de/studium/international/wege-an-die-universitaet/austausch/",
+    linkCatalogo: "https://lsf.uni-hildesheim.de/qisserver/rds?state=wtree&search=1&category=veranstaltung.browse&navigationPosition=lectures%2Clectureindex&breadcrumb=lectureindex&topitem=lectures&subitem=lectureindex&noDBAction=y&init=y",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1235,6 +1240,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 30 ottobre" }
       ],
     linkSito: "https://www.um.edu.mt/studentlife/internationalopportunities/erasmus/incoming/",
+    linkCatalogo: "https://www.um.edu.mt/studentlife/internationalopportunities/courselists/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1287,6 +1293,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
     notaDisponibilita: "Erasmus+ students are allowed to choose courses from the whole offer presented in the Course Catalogue, from different fields of study and levels of study.",
+    linkCatalogo: "https://www.kul.pl/courses-in-english,236.html",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Scadenze: basate su 2025/26"
   },
   {
@@ -1444,6 +1451,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro fine novembre" }
       ],
     linkSito: "https://international.ispa.pt/pagina/course-catalogue",
+    linkCatalogo: "http://en.ispa.pt/cursos/all",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1842,6 +1850,7 @@ var METE = [
       ],
     linkSito: "https://www.uma.es/relaciones-internacionales/cms/menu/erasmus/incoming-students/",
     notaDisponibilita: "50% de tus asignaturas deben ser del centro en el que te nominaron",
+    linkCatalogo: "https://u.uma.es/h8t/oferta/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1921,6 +1930,7 @@ var METE = [
       ],
     linkSito: "https://internacional.uca.es/movilidad-entrante/estudiantes/erasmus-ka103-incoming/",
     notaDisponibilita: "Movilidad de estudiantes para estudios del programa Erasmus+ para permanecer en la Universidad de Cádiz durante 1 ó 2 semestres.",
+    linkCatalogo: "https://internacional.uca.es/oferta-de-asignaturas/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -2240,6 +2250,7 @@ var METE = [
       ],
     linkSito: "https://www.uma.es/relaciones-internacionales/cms/menu/erasmus/incoming-students/",
     notaDisponibilita: "50% de tus asignaturas deben ser del centro en el que te nominaron",
+    linkCatalogo: "https://u.uma.es/h8t/oferta/",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -2322,6 +2333,7 @@ var METE = [
       ],
     linkSito: "https://www.unige.ch/international/",
 
+    linkCatalogo: "http://www.unige.ch/progcours.html",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -2457,6 +2469,7 @@ var METE = [
 
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkCatalogo: "https://ebp.ege.edu.tr/DereceProgramlari/1",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -2482,6 +2495,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 1 dicembre" },
         { cosa: "Application (primavera)", periodo: "entro 1 gennaio" }
       ],
+    linkCatalogo: "https://derskatalogu.deu.edu.tr/",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -2533,6 +2547,7 @@ var METE = [
 
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkCatalogo: "https://ebp.ege.edu.tr/DereceProgramlari/1",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {

@@ -109,6 +109,7 @@ var METE = [
       ],
     linkSito: "https://www.ulb.be/",
     notaDisponibilita: "Please note that our University does not accept free movers.",
+    linkCatalogo: "https://www.ulb.be/en/course-catalogue",
     notePratiche: "Posti dell'accordo: 3. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69139. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
@@ -1147,6 +1148,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
     linkSito: "https://www.tu-braunschweig.de/",
+    linkCatalogo: "https://www.tu-braunschweig.de/studium-lehre/im-studium/lehrveranstaltungen",
     notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69154."
   },
   {
@@ -1685,6 +1687,7 @@ var METE = [
         { cosa: "Application (Primavera)", periodo: "entro il 30 dicembre" }
       ],
     linkSito: "http://www.ipc.pt",
+    linkCatalogo: "https://www.ipc.pt/estudar/cursos/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA69297."
   },
   {
@@ -2026,6 +2029,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 25 novembre" }
       ],
     linkSito: "http://www.bg.ac.rs/en/",
+    linkCatalogo: "https://www.bg.ac.rs/pretraga-studijskih-programa/",
     notePratiche: "Posti dell'accordo: 4. Accordo ERA69326. || Scadenze: basate su 2024/25"
   },
   {
@@ -2288,6 +2292,7 @@ var METE = [
       ],
     linkSito: "HTTP://WWW.UCA.ES",
     notaDisponibilita: "Movilidad de estudiantes para estudios del programa Erasmus+ para permanecer en la Universidad de Cádiz durante 1 ó 2 semestres.",
+    linkCatalogo: "https://internacional.uca.es/oferta-de-asignaturas/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69175."
   },
   {
@@ -2314,6 +2319,7 @@ var METE = [
       ],
     linkSito: "HTTP://WWW.UCA.ES",
     notaDisponibilita: "Movilidad de estudiantes para estudios del programa Erasmus+ para permanecer en la Universidad de Cádiz durante 1 ó 2 semestres.",
+    linkCatalogo: "https://internacional.uca.es/oferta-de-asignaturas/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69176."
   },
   {
@@ -2754,6 +2760,7 @@ var METE = [
       ],
     linkSito: "http://www.uma.es",
     notaDisponibilita: "50% de tus asignaturas deben ser del centro en el que te nominaron",
+    linkCatalogo: "https://u.uma.es/h8t/oferta/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69203. || Scadenze: UMA fact sheet 2025/26, nomination via Algoria; application operativa tramite selezione insegnamenti in Algoria || Lingua: spagnolo B1 raccomandato, certificato non richiesto || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -2803,6 +2810,7 @@ var METE = [
       ],
     linkSito: "HTTP://WWW.UCA.ES",
     notaDisponibilita: "Movilidad de estudiantes para estudios del programa Erasmus+ para permanecer en la Universidad de Cádiz durante 1 ó 2 semestres.",
+    linkCatalogo: "https://internacional.uca.es/oferta-de-asignaturas/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69177."
   },
   {
@@ -3027,6 +3035,7 @@ var METE = [
     linkSito: "http://www.ege.edu.tr",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkCatalogo: "https://ebp.ege.edu.tr/DereceProgramlari/1",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA69342. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato in mappature precedenti"
   },
   {

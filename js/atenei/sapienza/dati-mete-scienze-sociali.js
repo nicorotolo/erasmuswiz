@@ -144,6 +144,7 @@ var METE = [
     linkSito: "https://www.ulb.be/",
 
     notaDisponibilita: "Please note that our University does not accept free movers.",
+    linkCatalogo: "https://www.ulb.be/en/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -172,6 +173,7 @@ var METE = [
     linkSito: "https://www.ulb.be/",
 
     notaDisponibilita: "Please note that our University does not accept free movers.",
+    linkCatalogo: "https://www.ulb.be/en/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -580,6 +582,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkCatalogo: "https://uni-freiburg.link/vvz",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -713,6 +716,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 1 novembre" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkCatalogo: "https://uni-freiburg.link/vvz",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1111,6 +1115,7 @@ var METE = [
       ],
     linkSito: "https://internacional.uca.es/movilidad-entrante/estudiantes/erasmus-ka103-incoming/",
     notaDisponibilita: "Movilidad de estudiantes para estudios del programa Erasmus+ para permanecer en la Universidad de Cádiz durante 1 ó 2 semestres.",
+    linkCatalogo: "https://internacional.uca.es/oferta-de-asignaturas/",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -1301,6 +1306,7 @@ var METE = [
       ],
     linkSito: "HTTP://WWW.ULL.ES",
 
+    linkCatalogo: "https://drive.google.com/drive/folders/160_Dl73aG_YXlk0HJoaugFpDJ8B-XiB7",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1404,6 +1410,7 @@ var METE = [
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
     linkSito: "https://internacional.ulpgc.es/movilidad-incoming/estudiantes-incoming/estudia-en-la-ulpgc-incoming/estudiantes-de-intercambio/",
+    linkCatalogo: "https://internacional.ulpgc.es/wp-content/uploads/2026/06/Courses-taught-in-English_022026-.pdf",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {

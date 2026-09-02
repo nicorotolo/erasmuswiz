@@ -117,6 +117,7 @@ var METE = [
     linkSito: "https://www.ulb.be/",
 
     notaDisponibilita: "Please note that our University does not accept free movers.",
+    linkCatalogo: "https://www.ulb.be/en/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 8 (condivisi tra i livelli)."
   },
   {
@@ -349,6 +350,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
     notaDisponibilita: "Bachelor level (3 years) Master level (2 years; 5 years - only in case of Psychology and Law) Doctoral level (3 or 4 years)",
+    linkCatalogo: "http://informatorects.uw.edu.pl/en/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Scadenze: basate su 2025/26"
   },
   {
@@ -791,6 +793,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 18 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkCatalogo: "https://uni-freiburg.link/vvz",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -1358,6 +1361,7 @@ var METE = [
       ],
     linkSito: "https://www.uma.es/relaciones-internacionales/cms/menu/erasmus/incoming-students/",
     notaDisponibilita: "50% de tus asignaturas deben ser del centro en el que te nominaron",
+    linkCatalogo: "https://u.uma.es/h8t/oferta/",
     notePratiche: "Posti totali dell'accordo: 3. Solo livello triennale."
   },
   {
@@ -1465,6 +1469,7 @@ var METE = [
         { cosa: "Application/documenti (primavera)", periodo: "entro 30 gennaio" }
       ],
     linkSito: "https://internacional.ulpgc.es/movilidad-incoming/estudiantes-incoming/estudia-en-la-ulpgc-incoming/estudiantes-de-intercambio/",
+    linkCatalogo: "https://internacional.ulpgc.es/wp-content/uploads/2026/06/Courses-taught-in-English_022026-.pdf",
     notePratiche: "Posti totali dell'accordo: 5 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -1491,6 +1496,7 @@ var METE = [
       ],
     linkSito: "https://internacional.uca.es/movilidad-entrante/estudiantes/erasmus-ka103-incoming/",
     notaDisponibilita: "Movilidad de estudiantes para estudios del programa Erasmus+ para permanecer en la Universidad de Cádiz durante 1 ó 2 semestres.",
+    linkCatalogo: "https://internacional.uca.es/oferta-de-asignaturas/",
     notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale."
   }
 ];

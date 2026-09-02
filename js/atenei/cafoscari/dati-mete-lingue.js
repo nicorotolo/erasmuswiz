@@ -907,6 +907,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254564",
     linkSito: "http://www.sciencespo-lyon.fr",
+    linkCatalogo: "https://www.sciencespo-lyon.fr/wp-content/uploads/2026/07/EDT-General-S1-2026-27-provisoire.pdf",
     notePratiche: "Aperta a: Dipartimento di Studi sull'Asia e sull'Africa Mediterranea [Dati ufficiali bando 2026/27] ciclo/posti: 2 x 5 L e LM. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {

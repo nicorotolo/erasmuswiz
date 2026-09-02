@@ -83,6 +83,7 @@ var METE = [
       ],
     linkSito: "https://www.ulb.be/",
     notaDisponibilita: "Please note that our University does not accept free movers.",
+    linkCatalogo: "https://www.ulb.be/en/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA68395. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
@@ -575,6 +576,7 @@ var METE = [
         { cosa: "Application (sem. primaverile)", periodo: "entro 15 novembre" }
       ],
     linkSito: "https://www.uoc.gr/",
+    linkCatalogo: "https://www.uoc.gr/intrel/en/students-en/courses-catalogue",
     notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68290."
   },
   {
@@ -626,6 +628,7 @@ var METE = [
       ],
     linkSito: "https://uoi.gr/",
     notaDisponibilita: "Only officially nominated study or placement mobility students may apply for university housing. Cross-department course selection is allowed in exceptional cases and must be approved by the departments involved.",
+    linkCatalogo: "https://uoi.gr/featured/idrymatikos-katalogos-mathimaton/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68289."
   },
   {
@@ -967,6 +970,7 @@ var METE = [
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
     notaDisponibilita: "Entre 3 y 12 meses, según el acuerdo bilateral con la universidad de destino.",
+    linkCatalogo: "https://estudis.uib.es/es/Cursos-i-tallers/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA68212. || Lingua: la scheda non indica un livello CEFR (corsi prevalentemente in spagnolo/catalano; corsi di lingua per exchange: spagnolo 100 EUR, catalano 25 EUR, 6 ECTS) - da verificare. [Fonte: scheda destinazione] || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato in mappature precedenti"
   },
   {
@@ -1127,6 +1131,7 @@ var METE = [
       ],
     linkSito: "HTTP://WWW.UCA.ES",
     notaDisponibilita: "Movilidad de estudiantes para estudios del programa Erasmus+ para permanecer en la Universidad de Cádiz durante 1 ó 2 semestres.",
+    linkCatalogo: "https://internacional.uca.es/oferta-de-asignaturas/",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA68181."
   },
   {
@@ -1153,6 +1158,7 @@ var METE = [
       ],
     linkSito: "HTTP://WWW.UCA.ES",
     notaDisponibilita: "Movilidad de estudiantes para estudios del programa Erasmus+ para permanecer en la Universidad de Cádiz durante 1 ó 2 semestres.",
+    linkCatalogo: "https://internacional.uca.es/oferta-de-asignaturas/",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA70463."
   },
   {

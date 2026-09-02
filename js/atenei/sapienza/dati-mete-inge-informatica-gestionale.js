@@ -598,6 +598,7 @@ var METE = [
         { cosa: "Application (semestre estivo)", periodo: "entro 15 novembre" }
       ],
     linkSito: "https://www.uni-luebeck.de/universitaet/universitaet.html",
+    linkCatalogo: "https://univis.uni-luebeck.de/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA68162."
   },
   {
@@ -622,6 +623,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
     linkSito: "https://www.tu-braunschweig.de/",
+    linkCatalogo: "https://www.tu-braunschweig.de/studium-lehre/im-studium/lehrveranstaltungen",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68144."
   },
   {
@@ -647,6 +649,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
     linkSito: "https://www.uni-freiburg.de/go/erasmus",
+    linkCatalogo: "https://uni-freiburg.link/vvz",
     notePratiche: "Posti dell'accordo: 1. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68154. || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26"
   },
   {
@@ -876,6 +879,7 @@ var METE = [
       ],
     linkSito: "https://uoi.gr/",
     notaDisponibilita: "Only officially nominated study or placement mobility students may apply for university housing. Cross-department course selection is allowed in exceptional cases and must be approved by the departments involved.",
+    linkCatalogo: "https://uoi.gr/featured/idrymatikos-katalogos-mathimaton/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68287."
   },
   {
@@ -976,6 +980,7 @@ var METE = [
       ],
     linkSito: "http://www.bwz.uw.edu.pl",
     notaDisponibilita: "Bachelor level (3 years) Master level (2 years; 5 years - only in case of Psychology and Law) Doctoral level (3 or 4 years)",
+    linkCatalogo: "http://informatorects.uw.edu.pl/en/",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA68342."
   },
   {
@@ -1209,6 +1214,7 @@ var METE = [
       ],
     linkSito: "http://www.uma.es",
     notaDisponibilita: "50% de tus asignaturas deben ser del centro en el que te nominaron",
+    linkCatalogo: "https://u.uma.es/h8t/oferta/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA68203. || Scadenze: UMA fact sheet 2025/26, nomination via Algoria; application operativa tramite selezione insegnamenti in Algoria || Lingua: spagnolo B1 raccomandato, certificato non richiesto || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -1235,6 +1241,7 @@ var METE = [
       ],
     linkSito: "http://www.uma.es",
     notaDisponibilita: "50% de tus asignaturas deben ser del centro en el que te nominaron",
+    linkCatalogo: "https://u.uma.es/h8t/oferta/",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA68205. || Scadenze: UMA fact sheet 2025/26, nomination via Algoria; application operativa tramite selezione insegnamenti in Algoria || Lingua: spagnolo B1 raccomandato, certificato non richiesto || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -1284,6 +1291,7 @@ var METE = [
         { cosa: "Application/documenti (primavera)", periodo: "entro 30 gennaio" }
       ],
     linkSito: "http://www.ulpgc.es",
+    linkCatalogo: "https://internacional.ulpgc.es/wp-content/uploads/2026/06/Courses-taught-in-English_022026-.pdf",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA68188. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -1353,6 +1361,7 @@ var METE = [
         { cosa: "application window", periodo: "mid-March to mid-April and mid-September to mid-October" }
       ],
     linkSito: "http://www.oru.se/exchange",
+    linkCatalogo: "https://www.oru.se/english/study/exchange-studies/courses-for-exchange-students/course-catalogue-for-exchange-students/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA68354."
   },
   {

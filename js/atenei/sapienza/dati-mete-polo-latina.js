@@ -108,6 +108,7 @@ var METE = [
     linkSito: "https://www.th-nuernberg.de/",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkCatalogo: "https://www.th-nuernberg.de/fileadmin/zentrale-einrichtungen/ois/ias_dokumente/Course_Catalogue_WiSe_2026_27.pdf",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Accordo ERA69641. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -132,6 +133,7 @@ var METE = [
     linkSito: "https://www.th-nuernberg.de/",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkCatalogo: "https://www.th-nuernberg.de/fileadmin/zentrale-einrichtungen/ois/ias_dokumente/Course_Catalogue_WiSe_2026_27.pdf",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69642. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {

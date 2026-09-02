@@ -96,6 +96,7 @@ var METE = [
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254358",
     linkSito: "https://www.ulb.be/",
     notaDisponibilita: "Please note that our University does not accept free movers.",
+    linkCatalogo: "https://www.ulb.be/en/course-catalogue",
     notePratiche: "Aperta a: Laurea Magistrale in Economia e gestione delle arti e delle attivit� culturali [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 5; mesi: 5. || Scadenze: factsheet ULB Phisoc 2025/26 || Lingua: Phisoc richiede francese B1; nessun certificato richiesto"
   },
   {
@@ -222,6 +223,7 @@ var METE = [
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254409",
     linkSito: "http://www.uni-erlangen.de",
     notaDisponibilita: "Programm- und Austauschstudierende können nahezu alle Kurse an der FAU besuchen.",
+    linkCatalogo: "https://www.fau.de/studium/studienangebot/alle-studiengaenge/",
     notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 4; mesi: 5. Periodo vincolato: SI - Solo 1� semestre/YES - First semester only || Scadenze: fact sheet FAU per studenti UE/SEE/Svizzera || Lingua: WiSo richiede/recomanda B1 in tedesco o inglese"
   },
   {
@@ -840,6 +842,7 @@ var METE = [
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254514",
     linkSito: "https://www.uma.es/relaciones-internacionales/cms/menu/erasmus/incoming-students/",
     notaDisponibilita: "50% de tus asignaturas deben ser del centro en el que te nominaron",
+    linkCatalogo: "https://u.uma.es/h8t/oferta/",
     notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 6; mesi: 5. || Scadenze: UMA fact sheet 2025/26, nomination via Algoria; application operativa tramite selezione insegnamenti in Algoria || Lingua: spagnolo B1 raccomandato, certificato non richiesto"
   },
   {
@@ -1207,6 +1210,7 @@ var METE = [
     linkSito: "https://www.ieseg.fr/en/international/study-at-ieseg-in-exchange/",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkCatalogo: "https://www.univ-catholille.fr/catalogue-de-formations/",
     notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L,LM; studenti: 6; mesi: 5. || Scadenze: I�SEG Exchange Program Factsheet 2025/2026 || Lingua: CEFR non pubblicato ufficialmente; richiesto working level of English, nessun test ufficiale || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1516,6 +1520,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29573593",
     linkSito: "https://www.unistra.fr/fr/international/notre-engagement-leurope/erasmus",
+    linkCatalogo: "https://formations.unistra.fr/fr/index.html",
     notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM, PhD; studenti: 2; mesi: 6. || Scadenze: EM Strasbourg fact sheet 2025/26 || Lingua: B2 nella lingua di insegnamento fortemente raccomandato; certificato non richiesto"
   },
   {
@@ -1814,6 +1819,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29516624",
     linkSito: "https://www.um.edu.mt/studentlife/internationalopportunities/erasmus/incoming/",
+    linkCatalogo: "https://www.um.edu.mt/studentlife/internationalopportunities/courselists/",
     notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 5. || Scadenze: pagina ufficiale University of Malta incoming/visiting students; nomination richiesta prima dell'application || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -1903,6 +1909,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/23270754",
     linkSito: "https://student.uva.nl/en/categories/study-abroad",
+    linkCatalogo: "https://studiegids.uva.nl/",
     notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 4; mesi: 5. || Scadenze e lingua: UvA Economics and Business exchange; application 22 aprile/8 ottobre; inglese equivalente almeno B2 da punteggi IELTS/TOEFL/Cambridge, Erasmus+ esonerati dal caricamento della prova"
   },
   {
@@ -2201,6 +2208,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254735",
     linkSito: "https://www.sh.se/exchange/",
+    linkCatalogo: "https://www.sh.se/english/sodertorn-university/programmes--courses",
     notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 4; mesi: 5. Specifiche: Students must check very carefully the entry requirements for EACH module they wish to attend. 60 ECTS registered in business studies (management) are required when submitted the application to the host university"
   },
   {

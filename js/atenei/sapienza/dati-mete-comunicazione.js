@@ -441,6 +441,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
       ],
     linkSito: "https://www.kristiania.no/en/study-at-kristiania/exchange-student/",
+    linkCatalogo: "https://www.kristiania.no/en/study-at-kristiania/exchange-student/courses-for-incoming-students/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -489,6 +490,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
     notaDisponibilita: "Bachelor level (3 years) Master level (2 years; 5 years - only in case of Psychology and Law) Doctoral level (3 or 4 years)",
+    linkCatalogo: "http://informatorects.uw.edu.pl/en/",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -1043,6 +1045,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 16 dicembre" }
       ],
     linkSito: "https://www.urjc.es/internacional/erasmus-y-movilidad/252-gestweb",
+    linkCatalogo: "https://servicios.urjc.es/libroasignaturas/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1384,6 +1387,7 @@ var METE = [
     linkSito: "https://www.unifr.ch/home/fr/",
 
     notaDisponibilita: "Im Rahmen Ihres Austauschs über ein Abkommen sind Sie von den Immatrikulationsgebühren der Unifr befreit.",
+    linkCatalogo: "https://www.unifr.ch/timetable/de/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1411,6 +1415,7 @@ var METE = [
       ],
     linkSito: "https://www.unibe.ch/",
 
+    linkCatalogo: "https://www.unibe.ch/studium/studienangebote/bachelor/studienprogramme/index_ger.html",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {

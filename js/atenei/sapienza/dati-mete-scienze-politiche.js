@@ -225,6 +225,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
     linkSito: "https://www.uni-freiburg.de/go/erasmus",
+    linkCatalogo: "https://uni-freiburg.link/vvz",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70066. || Lingua: CEFR non pubblicato ufficialmente || Scadenze: basate su 2025/26"
   },
   {
@@ -380,6 +381,7 @@ var METE = [
     linkSito: "https://www.us.edu.pl/en/",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkCatalogo: "https://informator.us.edu.pl/modules",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70124. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
