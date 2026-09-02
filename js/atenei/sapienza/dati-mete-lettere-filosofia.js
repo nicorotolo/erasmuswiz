@@ -2474,7 +2474,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Semestre di autunno", periodo: "entro il 15 di maggio" },
+        { cosa: "Semestre di primavera", periodo: "entro il 1 de noviembre" }
+      ],
     linkSito: "https://www.uphf.fr/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70974."
   },

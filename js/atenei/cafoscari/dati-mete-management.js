@@ -1515,7 +1515,7 @@ var METE = [
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29573593",
-    linkSito: "",
+    linkSito: "https://www.unistra.fr/fr/international/notre-engagement-leurope/erasmus",
     notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM, PhD; studenti: 2; mesi: 6. || Scadenze: EM Strasbourg fact sheet 2025/26 || Lingua: B2 nella lingua di insegnamento fortemente raccomandato; certificato non richiesto"
   },
   {
@@ -1635,7 +1635,7 @@ var METE = [
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254640",
-    linkSito: "",
+    linkSito: "https://www.aueb.gr/en/erasmus/mobility/content/erasmus-program-information",
     notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 4; mesi: 5. || Scadenze e lingua: AUEB fact sheet 2025/26; corsi disponibili in inglese"
   },
   {

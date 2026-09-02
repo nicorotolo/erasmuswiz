@@ -618,8 +618,14 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Autumn Semester or Full Year nomination", periodo: "15 June" },
+        { cosa: "Spring Semester nomination", periodo: "30 November" },
+        { cosa: "Autumn Semester or Full Year application", periodo: "15 July" },
+        { cosa: "Spring Semester application", periodo: "31 December" }
+      ],
     linkSito: "https://uoi.gr/",
+    notaDisponibilita: "Only officially nominated study or placement mobility students may apply for university housing. Cross-department course selection is allowed in exceptional cases and must be approved by the departments involved.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68289."
   },
   {

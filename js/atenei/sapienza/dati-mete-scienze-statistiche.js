@@ -363,7 +363,12 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination deadline Autumn Semester", periodo: "April the 1st" },
+        { cosa: "Application deadline Autumn Semester", periodo: "June the 30th" },
+        { cosa: "Nomination deadline Spring Semester", periodo: "October the 1st" },
+        { cosa: "Application deadline Spring Semester", periodo: "November the 30th" }
+      ],
     linkSito: "http://www.entpe.fr",
     notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68280."
   },

@@ -409,6 +409,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 1 novembre 2026" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre 2026" }
       ],
+    linkSito: "https://www.st-etienne.archi.fr/echanges-internationaux/",
+    notaDisponibilita: "Exchange students are welcomed in the first or/and second semester of our Master of Architecture (4th year). ... Exchange students are welcomed in the first or/and second semester of our Licence of Architecture (2nd or 3rd year).",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -613,6 +615,8 @@ var METE = [
         { cosa: "Nomination/application (autunno)", periodo: "entro 31 maggio" },
         { cosa: "Nomination/application (primavera)", periodo: "entro 1 ottobre" }
       ],
+    linkSito: "http://www.marnelavallee.archi.fr/international/venir-a-l-ecole",
+    notaDisponibilita: "Attention, les étudiants en échange ne peuvent pas s’inscrire en deuxième semestre du Master 2 car ce semestre est entièrement consacré au diplôme de fin d’études (PFE).",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Scadenze: basate su 2025/26"
   },
   {
@@ -638,6 +642,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 novembre 2026" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre 2026" }
       ],
+    linkSito: "https://www.rennes.archi.fr/international/mobietudiantes/echanges-internationaux-etudiants-mobilite-entrante/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {

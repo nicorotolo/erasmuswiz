@@ -3201,6 +3201,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "http://www.ntua.gr/",
+    notaDisponibilita: "N.T.U.A gives you the opportunity to select courses from various Schools. MAKE SURE to choose at least one course from the study programme of the School you have been originally nominated to.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70835."
   },
   {
