@@ -22,14 +22,17 @@
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
 **Ultimo aggiornamento:** 2026-09-02 — Claude (**Fase 5 chiusa: la catena
-esiste e ha girato per intero**). `esegui-partner.mjs` ha lavorato **256
-partner in 120 minuti**, 11 blocchi, 10 commit tutti spinti su `origin`.
-**210 raggiunti su 256 (82%)**, sopra il criterio d'uscita del 75%.
-**197 campi-meta scritti**: `notaDisponibilita` da 166 a **359**, `linkSito`
-da 1.701 a **1.771**, `scadenzeOspitante` da 1.744 a **1.775**. Più il blocco
-zero (94 campi) e il primo arbitrato della catena (`linkCatalogo` 380 → **388**).
-Le 1.987 mete restano 1.987, zero campi già pieni toccati, zero file a
-fine-riga misto. **356 prove verdi**, da 300 di ieri.
+esiste, ha girato per intero, e il catalogo dei corsi è quasi triplicato**).
+`esegui-partner.mjs` ha lavorato **256 partner in 120 minuti**, 11 blocchi, 10
+commit tutti spinti; **210 raggiunti su 256 (82%)**, sopra il criterio del 75%.
+Poi l'arbitrato umano sui **77 cataloghi in coda**: 51 sì, 15 no, 11 non so —
+**il 66%, identico alla misura storica** su un campione sei volte più grande.
+
+**I campi, dal 31/08 a oggi:** `linkCatalogo` **380 → 574**, `notaDisponibilita`
+**166 → 359**, `linkSito` **1.701 → 1.771**, `scadenzeOspitante` **1.744 →
+1.775**. Le 1.987 mete restano 1.987, zero campi già pieni toccati, zero file a
+fine-riga misto. **369 prove verdi**, da 300 di ieri. Nessun partner resta
+lavorabile dalla catena: la coda d'arbitrato del catalogo è a **zero**.
 
 > 🔎 **01/09 — il campo bocciato aveva una causa strutturale, non un modello
 > distratto.** I 53 `linkCatalogo` fermi in cache sono stati guardati uno per
@@ -4313,6 +4316,8 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **Pipeline dati — Fase 4b, Consegne 1 + 2a + 2b-1** | Cancelli deterministici e riscarico PDF: citazione nel solo brano inviato (impronta SHA-256), pagina mutata, forma, URL, livello e codici; i PDF vengono riscaricati con le regole Fase 4a, letti e messi in cache, o marcati col motivo del fallimento | ✅ Chiuse e verificate il 30/08. Sei regressioni senza rete viste rosse **due volte** (rotture dell'esecutore + altre sei del revisore). Corretti in rilettura due difetti che le prove verdi non vedevano: il limitatore della raccolta perdeva un posto sugli indirizzi malformati e si bloccava per sempre; l'estrattore PDF **cancellava i numeri e ne alterava alcuni**. Sul campo: 870 PDF riscaricati, 417 letti, 244 partner leggibili su 246 |
 | **Pipeline dati — Fase 4b, Consegna 2b-2** | `leggi-partner.mjs`: una sola chiamata al modello per partner sulle pagine gia' in cache, con impronta SHA-256 e titolo di ogni brano inviato, `nonTrovati` per la copertura onesta, tetti 40k/pagina e 250k/partner, arresto pulito sul 429 | ⚠︎ Consegnata da Codex il 30/08 sera, **non ancora riletta**: 217/217 unit, modello iniettabile, nessuna chiave usata e nessuna chiamata reale. Prima di lanciarla vanno letti il diff e **il prompt**, che nessuna prova puo' giudicare |
 | **Pipeline dati — Fase 5A: sette correzioni preliminari** | Codice canonico unico e collisioni isolate; guardie sui veri invarianti; fonti e disaccordi fusi e ricostruiti; partner ricostruibili; tentativi strutturati; anteprima prospettica compatta; migrazione dello stato storico | ✅ **Chiusa con 321/321 unit verdi (01/09)**. `avanzamento.json`: 231 letture applicate, 27 `daApplicare` con 29 campi espliciti, 1 collisione isolata e zero ambigui veri. Consegna B non iniziata |
+| **Pipeline dati — Fase 5B: la catena `esegui-partner.mjs`** | Raccolta → riestrazione PDF → lettura → cancelli → applicazione → commit/push, a blocchi e ripartibile. Lock atomico, transazione con manifesto e `baseHead`, confronto delle mete campo per campo, push per blocco che si ferma senza mai fare merge | ✅ **Chiusa il 02/09.** 256 partner in 120 minuti, 82% raggiunti, 197 campi scritti. Due difetti trovati ESEGUENDO: l'argomento del fine-riga dimenticato in `impostaCampo` (15 a-capo nudi in 3 file, il §8.5 chiuso solo a metà il 01/09) e la chiave del registro costruita in due file con separatori diversi |
+| **Pipeline dati — Fase 5B: arbitrato e riesame** | `applica-arbitrato.mjs` è l'unica porta per cui un `linkCatalogo` entra nei dati, e il suo cancello è l'**impronta del valore**, che deve avere un «sì» nel registro `giudizi.jsonl`. `verifica-riesame.mjs` misura le voci «non so» separando «è vecchio?» da «è un elenco di corsi?» | ✅ **Chiuse il 02/09.** 81 valori applicati in due tornate (`linkCatalogo` 380 → 574). Coda a zero, **11 voci da riesaminare** con il motivo accanto. Il «non so» ha una coda sua: descrive un lavoro, non lo chiude |
 | **REDESIGN v2 — F0: Preparazione** | Spec versionata in `design/redesign-2026-07/` (canvas + baseline invarianti/touch, vedi §4). Nessun file di produzione toccato. Commit `ac7c1c9`, pushato | ✅ Fatta (2026-07-25) |
 | **REDESIGN v2 — F1: Token, ritmo, gutter, griglia** | Token §2.1–2.3 (`--bg-app #FAF8F3`, `--night-bg #211E42`, `--space-*`/`--fs-*`/`--gutter`/`--stack`/`--container:1140px`/`--shadow-gold`, due `@media :root`); ritmo verticale con `> * + *` e i tre antidoti; **gutter a un solo proprietario** (`.main-content`): 18 margini legacy in 3 misure + 5 padding-gutter + blocco ≤480px + `#banner-wiz` inline, tutto in un diff; `.griglia-mete-v2` 1→2→auto-fill; creato `/*__PROD_END__*/`. Solo `css/style.css` (+238/−48), `index.html` e `js/app.js` intatti. **Due correzioni al canvas, misurate:** `.percorso-wrap` conserva `grid-row: 1/6` (senza, 337px di buco e sticky a corsa zero) e il hero torna full-bleed sotto i 768px | ✅ Fatta e verificata (2026-07-25) — commit `ce0d5a8`, **pushato il 25/07 insieme a F2** (decisione di Nicola: il piano lo collocava a F4). 4/4 controlli gutter, controllo browser 13 esecuzioni tutte vuote, invarianti F0 verdi ai 3 viewport |
 | **REDESIGN v2 — 🚦 GATE 1** | Nicola conferma le tre default: **P-A** su `modo-benvenuto` (R3), **`!important`** su `#banner-wiz` (R38, `index.html` non si tocca), **full-bleed conservato** per il hero. In più: **F2 riassegnata a Claude Code** invece di Codex (D4 rivista) | ✅ Passato (2026-07-25) |
@@ -4474,6 +4479,10 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 | `test/fixtures/pdf/*.pdf` | prove pipeline Fase 4b | Tre PDF universitari **veri** (648 KB): una factsheet che deve uscire integra, un file sporco di operatori, uno a font proprietario che deve tornare `null`. Sono nel repo apposta: una prova che dipende dalla rete non è ripetibile, ed è la prova finta e pulita che aveva lasciato passare il difetto |
 | `scripts/leggi-partner.mjs` | pipeline dati Fase 4b | La lettura: una chiamata al modello per partner sulle pagine in cache, con impronta e titolo di ogni brano inviato. ⚠︎ consegnata, non ancora riletta |
 | `scripts/migra-avanzamento.mjs` | pipeline dati Fase 5A | Migrazione una-tantum delle 259 letture: richiede un solo esito per ogni coppia codice/campo e prova pubblicazione o disaccordo; scrive gli ambigui e si ferma senza checkpoint se ne trova |
+| `scripts/esegui-partner.mjs` | pipeline dati Fase 5B | **La catena.** Incatena i cinque passi a blocchi, ripartibile dopo un blackout: lock preso in `wx`, manifesto di transazione con `baseHead`, confronto delle mete campo per campo prima di ogni commit, push per blocco che si ferma senza mai fare merge. Applica da sola SOLO i tre campi promossi dall'arbitrato |
+| `scripts/semina-giudizi.mjs` | pipeline dati Fase 5B | Migrazione una-tantum dell'arbitrato del 01/09, che su disco non esisteva più. Esclude i partner già lavorati dalla catena leggendoli dal diario: seminare una proposta NUOVA la seppellirebbe senza che nessuno l'abbia vista |
+| `scripts/applica-arbitrato.mjs` | pipeline dati Fase 5B | L'unica porta per cui `linkCatalogo` e `requisitoLingua` entrano nei dati. Abbina i verdetti alle proposte per impronta, si ferma se anche uno solo non si abbina, e scrive l'evento `applicato` col commit come fonte solo DOPO che la scrittura è passata |
+| `scripts/verifica-riesame.mjs` | pipeline dati Fase 5B | Misura le voci «non so» separando le due domande: la data si legge dai metadati anche sui PDF illeggibili, i segnali da elenco richiedono il testo. Una `Last-Modified` pari a oggi è dichiarata **non attendibile** invece di essere spacciata per data del documento |
 | `test/cancelli-integrazione.test.mjs` · `test/cancello-citazione.test.mjs` · `test/cancello-livello.test.mjs` · `test/lib-pdf.test.mjs` · `test/leggi-partner.test.mjs` · `test/raccogli-partner.test.mjs` · `test/riscarica-pdf.test.mjs` · `test/migra-avanzamento.test.mjs` | test pipeline Fase 4b/5A | Regressioni su citazione, pagina cambiata, livello, codice canonico, collisioni, guardie partner, tentativi, migrazione storica, PDF e riscarico permanente |
 | `scripts/lib-mete.mjs` | automazione | Utilità condivise: scanner/serializzazione + inserimento sicuro dei nuovi campi mappabili |
 | `scripts/lib-output-batch.mjs` · `scripts/valida-output-batch.mjs` | automazione | Contratto e validatore dell'OUTPUT: batch corretto, soli campi richiesti, formato dati e prove ufficiali obbligatorie |
@@ -4526,6 +4535,101 @@ sono applicate e gli ambigui veri sono **zero**. `avanzamento.json` è stato
 creato senza scrivere i 29 dati nel sito. L'anteprima su disco pesa 22.772 byte
 anziché 3.239.844 e non duplica i testi delle mete; i 3 PDF di `A GRAZ02`
 hanno di nuovo tutti testo estraibile.
+
+### Mappatura mete — fotografia del 2026-09-02, a fine giornata
+
+| Campo | 31/08 | **02/09** | in coda | da riesaminare |
+|---|---:|---:|---:|---:|
+| scadenzeOspitante | 1.744 | **1.775** | — | — |
+| linkSito | 1.701 | **1.771** | — | — |
+| notaDisponibilita | 166 | **359** | — | — |
+| **linkCatalogo** (serve al Learning Agreement) | 380 | **574** | **0** | 11 |
+| requisitoLingua | 1.529 | 1.529 | 9 | — |
+
+**Il catalogo dei corsi è passato da 120 mete a 574 in tre giorni**, e nessuno
+di quei valori è entrato senza che Nicola l'avesse guardato uno per uno.
+
+### L'arbitrato dei 77, e il criterio che ne è uscito
+
+51 sì, 15 no, 11 non so: **il 66%**, identico alla misura del 01/09 su un
+campione sei volte più grande. Ma la cosa che vale oltre questa tornata è il
+**criterio** con cui Nicola ha usato il «non so»: PDF che si apriva, pagina
+vecchia (2024 o prima), oppure impossibilità di capire se fosse un elenco di
+corsi. Misurato sui suoi verdetti, quel criterio **separa** — e separa dove i
+segnali vecchi fallivano:
+
+| esito | n | tratti misurati |
+|---|---:|---|
+| sì | 51 | dominio diverso 20 · radice nuda 4 · **PDF 3** |
+| no | 15 | dominio diverso 10 · radice nuda 2 · **PDF 0** |
+| non so | 11 | **PDF 6** · anno vecchio 4 · nessuno dei due 4 |
+
+**Un PDF non è mai un «no»**: è tre volte un sì sicuro e sei volte un «non
+riesco a dirlo». Non è un valore sbagliato, è un valore che a colpo d'occhio non
+si può verificare. E «dominio diverso» e «radice nuda», che come cancelli sì/no
+non separavano niente, sono **completamente assenti** dai non so: domanda
+diversa, segnale diverso.
+
+### Le 11 voci in riesame, già misurate
+
+`verifica-riesame.mjs` le ha aperte tutte: **4 lette, 3 illeggibili ma comunque
+databili, 4 che non sono PDF affatto.** Quattro casi risolti dai fatti:
+
+- **ENTPE Vaulx**: «INFORMATION SHEET ERASMUS+ 2022-2023» — una scheda
+  informativa, e del 2022. Non è un catalogo per definizione.
+- **Başkent Ankara**: opuscolo istituzionale che comincia con *Preface ·
+  History · Affiliated Units*, benché il file si chiami `university_catalogue.pdf`.
+  Il caso da manuale del «non fidarti del nome dell'indirizzo».
+- **EIVP Parigi**: titolo interno «Urban Engineer Diploma Programme - 2024»,
+  **prodotto con Canva** — un documento di grafica, non un catalogo generato.
+- **Lione 2**: 31.286 caratteri, 12 crediti, 22 semestri, «Cours spécifiques à
+  destination des étudiants internationaux en échange, novembre 2024». Era un
+  **PDF servito senza estensione `.pdf`**, e la verifica a mano l'aveva mancato:
+  guardava l'estensione, lo strumento guarda i byte.
+
+Restano davvero aperti **Gonesse e Cluj** (illeggibili ma del 2025: la metà
+vecchia del dubbio era infondata) e i **quattro «non si capisce se è un elenco»**
+— Siegen, Saint-Étienne, AUEB Atene, Istanbul Gelişim — dove serve leggere, non
+misurare.
+
+### Tre difetti trovati eseguendo, non rileggendo
+
+1. **`impostaCampo` dimenticava il fine-riga in un ramo su tre.** Il blocco zero
+   è FALLITO al primo tentativo: la catena ha rifiutato di committare e ha
+   ripristinato tutto. Passa il fine-riga a `serializza` quando *inserisce* un
+   campo nuovo ma non quando **sostituisce** un valore già presente — ed è quel
+   ramo che scatta su `scadenzeOspitante: []`. Invisibile finché si scrivono
+   valori di una riga. Da 15 a-capo nudi in 3 file a zero: è il §8.5 del 01/09,
+   chiuso allora solo a metà.
+2. **La chiave del registro costruita in due file con separatori diversi**,
+   quindi il controllo «esiste già» era sempre falso e gli eventi finivano
+   scritti due volte. Lo stato resta corretto perché il registro è append-only e
+   l'ultimo evento vince. Stesso errore, due volte in un giorno.
+3. **Una `Last-Modified` pari a oggi presentata come data del documento.** Tre
+   voci su undici. È il server che la genera alla richiesta: un numero che sembra
+   un'informazione senza esserlo. Ora è dichiarata non attendibile.
+
+### Un capolinea che mancava
+
+Sei partner raggiunti avevano pagine da **32-173 caratteri** — siti costruiti in
+JavaScript, il testo non sta nell'HTML — e restavano `daLeggere` per sempre,
+ripresi a ogni giro senza che succedesse niente. Stato nuovo `senzaTestoUtile`,
+terminale. **Un capolinea mancante non è lavoro rimasto: è un difetto che si
+traveste da coda.**
+
+### Dove sono i partner, a fine giornata
+
+| stato | n |
+|---|---:|
+| fatto | **479** |
+| non raggiunti | 111 |
+| senza testo utile (→ L4) | 6 |
+| da raccogliere, **tutti senza indirizzo** (→ L4) | 17 |
+| **lavorabili dalla catena** | **0** |
+
+Registro dei giudizi: **196 valori giudicati** — 130 applicati, 39
+`legacyGiudicato` (l'arbitrato del 01/09 di cui su disco sopravviveva solo metà),
+16 no, 11 non so.
 
 ### Mappatura mete — fotografia del 2026-09-02, dopo la passata completa
 
@@ -5049,14 +5153,43 @@ poi aprire **http://localhost:8001**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
 
-### ⇢ Consegna B — orchestratore della pipeline (dopo Fase 5A, 01/09)
+### ⇢ Cantiere DATI — cosa resta dopo la Fase 5 (aggiornato 2026-09-02)
 
-1. In una sessione separata implementare `scripts/esegui-partner.mjs` seguendo
-   `PLAN_FASE5.md`: la Fase 5A non lo ha iniziato.
-2. Il primo blocco della Consegna B troverà 27 letture `daApplicare` e 29 campi
-   espliciti. Applicarli solo passando dai cancelli di sistema, dal confronto
-   campo per campo e dalla procedura di commit prevista; nessun campo è stato
-   applicato durante questa migrazione.
+**La Fase 5 è chiusa.** La catena esiste, ha girato per intero, e non c'è più un
+solo partner che possa lavorare: 479 `fatto`, e i 134 restanti sono tutti fuori
+dalla sua portata per costruzione. Le cose aperte sono cinque, in ordine di
+valore.
+
+1. **I 9 `requisitoLingua` in coda d'arbitrato.** È l'ultima coda rimasta, ed è
+   piccola: una pagina come quella dei 77 e mezz'ora del tuo tempo. Attenzione
+   al difetto noto del campo, che nessun cancello vede: da una tabella
+   appiattita («ENGLISH B2 / TURKISH B2») il modello deduce `ANY`, cioè «basta
+   una delle due», mentre la lingua dipende dal dipartimento. È il motivo per
+   cui il campo fu bocciato il 31/08 e non si applica da solo.
+2. **Le 11 voci in riesame.** `verifica-riesame.mjs` le ha già misurate: quattro
+   sono risolte dai fatti e aspettano solo un verdetto (ENTPE e Başkent non sono
+   cataloghi; Lione 2 e Rennes 2 lo sono con ogni evidenza). Restano davvero
+   aperti Gonesse e Cluj — PDF illeggibili ma **del 2025** — e i quattro «non si
+   capisce se è un elenco», dove serve leggere.
+3. **La riserva L4 per i 23 fuori portata**: 17 partner senza alcun indirizzo
+   nell'accordo e 6 con siti costruiti in JavaScript, il cui testo non sta
+   nell'HTML. È la Fase 6 del `DISEGNO_PIPELINE_DATI`, e vuole una ricerca con
+   grounding, non un crawler.
+4. **I 1.433 `nonTrovabile`** calcolati e mai scritti: decisione a sé, mai presa.
+   Scriverli direbbe allo studente «cercato, non pubblicato dall'ateneo» invece
+   di lasciargli un campo vuoto.
+5. **~335 PDF a font con codifica propria (classe E8).** Restano il guadagno
+   potenziale più grande e il limite più duro: l'estrattore torna `null` invece
+   di produrre testo sporco, ed è una scelta giusta. Superarlo vuol dire un
+   estrattore diverso, non una toppa.
+
+**Una deriva nota, benigna, da non scambiare per un difetto.** Gli avvisi non
+bloccanti di `valida-stato.mjs` sono passati da 2 a 4: quattro dipartimenti
+hanno `completate` sfasato **di uno** rispetto alle righe davvero complete. È il
+contatore dentro `mappatura-stato.json`, file che il `DISEGNO_PIPELINE_DATI` ha
+dichiarato **superato** e che nessuno aggiorna dal 30/08. Continuerà a scostarsi
+a ogni passata. Tre opzioni, tutte di Nicola: lasciarlo derivare sapendolo,
+ritirare quel solo controllo, o riallineare i contatori una volta.
 
 ### ⇢ Cantiere DATI — riavvio della mappatura (aggiornato 2026-08-30)
 
