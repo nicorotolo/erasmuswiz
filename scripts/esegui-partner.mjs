@@ -381,7 +381,7 @@ export function annota(radice, voce) {
 // i dati del sito, e l'unica che puo' fare danno.
 export async function applicaEControlla({
   radice = RADICE, proposte, campi = CAMPI_AUTOMATICI, etichetta, idTransazione,
-  prova = false, git = gitVero, applica, avanzamento = null,
+  prova = false, git = gitVero, applica, avanzamento = null, spingi = false,
 } = {}) {
   // CANCELLO, non promemoria. Il 01/09 tre ipotesi di cancello automatico per
   // linkCatalogo sono state misurate sui casi etichettati a mano e bocciate
@@ -453,7 +453,26 @@ export async function applicaEControlla({
   scriviAtomico(path.join(dir(radice), ".transazione.json"),
     JSON.stringify({ ...manifesto, stato: "commesso", commit }, null, 2) + "\n");
   chiudiTransazione(radice);
-  return { scritti: esito.scritti, confronto, commit, disaccordi: esito.disaccordi.length, annullato: false };
+
+  // Il push per blocco e' cio' che rende il run davvero interrompibile: chiuso
+  // il portatile, il lavoro fatto e' gia' su GitHub e non su un disco spento.
+  // Se il push non riesce - rete assente, oppure `origin` e' andato avanti - la
+  // catena SI FERMA e lo dice. Nessun merge automatico: un merge deciso da uno
+  // script su dati del sito e' esattamente cio' che questa cartella e' separata
+  // da `C:\erasmuswiz` per evitare.
+  let push = null;
+  if (commit && spingi) {
+    try {
+      git.esegui(radice, ["fetch", "origin"]);
+      git.esegui(radice, ["push", "origin", "HEAD:main"]);
+      push = "fatto";
+    } catch (errore) {
+      return { scritti: esito.scritti, confronto, commit, disaccordi: esito.disaccordi.length,
+        annullato: false, push: "fallito",
+        fermato: `push non riuscito dopo il commit ${commit}: ${String(errore.message).slice(0, 300)}` };
+    }
+  }
+  return { scritti: esito.scritti, confronto, commit, disaccordi: esito.disaccordi.length, annullato: false, push };
 }
 
 // Il blocco zero: i campi gia' approvati dai cancelli e mai scritti. Vanno per
@@ -516,7 +535,7 @@ export const raccoltaVera = (radice, codici, paralleli) => execFileSync(
 // il testo dei PDF, e la lettura viene dopo il PDF perche' altrimenti legge
 // pagine svuotate.
 export async function eseguiBlocco({
-  radice = RADICE, codici, paralleli = 6, prova = false, passi = null,
+  radice = RADICE, codici, paralleli = 6, prova = false, passi = null, spingi = false,
   raccogli = raccoltaVera, riscarica, leggi, cancelli, applica, git = gitVero,
   limitatore = null,
 } = {}) {
@@ -590,7 +609,8 @@ export async function eseguiBlocco({
     for (const c of codici) { const k = codiceCanonico(c); if (nuovo[k]) nuovo[k] = { ...nuovo[k], applicato: true, campiDaApplicare: [] }; }
     esito.applicazione = await applicaEControlla({ radice, proposte: approvati, campi: CAMPI_AUTOMATICI,
       etichetta: `blocco ${codici.length} partner`, idTransazione: `bl-${improntaValore(codici).slice(0, 12)}`,
-      prova, git, applica, avanzamento: prova ? null : nuovo });
+      prova, git, applica, spingi, avanzamento: prova ? null : nuovo });
+    if (esito.applicazione.fermato) esito.fermato = esito.applicazione.fermato;
   } else if (!prova) {
     scriviAtomico(avanzFile, JSON.stringify(avanzamento, null, 2) + "\n");
   }
@@ -601,7 +621,7 @@ export async function eseguiBlocco({
 
 export async function eseguiPartner({
   radice = RADICE, limite = Infinity, blocco = 25, paralleli = 6, prova = false,
-  passi = null, codiciChiesti = null, git = gitVero, ...iniezioni
+  passi = null, codiciChiesti = null, spingi = false, git = gitVero, ...iniezioni
 } = {}) {
   const recupero = recuperaTransazione({ radice, git });
   if (recupero.azione === "fermato") return { fermato: recupero.motivo, recupero };
@@ -625,7 +645,7 @@ export async function eseguiPartner({
     const blocchi = [];
     for (let i = 0; i < scelti.length; i += blocco) {
       const codici = scelti.slice(i, i + blocco).map(({ p }) => p.codiceNorm);
-      const esito = await eseguiBlocco({ radice, codici, paralleli, prova, passi, git, ...iniezioni });
+      const esito = await eseguiBlocco({ radice, codici, paralleli, prova, passi, spingi, git, ...iniezioni });
       blocchi.push(esito);
       if (esito.quotaGiornaliera) break;
       if (esito.applicazione?.annullato) { esito.fermato = "confronto fallito: blocco annullato"; break; }

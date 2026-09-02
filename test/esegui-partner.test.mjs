@@ -298,6 +298,52 @@ test("catena: il commit arriva DOPO il confronto, e con percorsi espliciti", asy
   assert.ok(iCommit > iAdd, "il commit viene dopo l'add");
 });
 
+test("catena: il push per blocco arriva dopo il commit, con fetch davanti", async (t) => {
+  const radice = radiceFinta(t, { campi: { linkSito: "" } });
+  const git = gitFinto();
+  const esito = await applicaEControlla({ radice, proposte: [], campi: CAMPI_AUTOMATICI,
+    etichetta: "b", idTransazione: "tx4", git, spingi: true,
+    applica: async () => {
+      fs.writeFileSync(path.join(radice, "js", "atenei", "test", "dati-mete-1.js"), sorgente("TEST 01", { linkSito: "nuovo" }));
+      return { scritti: 1, disaccordi: [] };
+    } });
+  assert.equal(esito.push, "fatto");
+  const ordine = git.registro.map((a) => a[0]);
+  assert.ok(ordine.indexOf("fetch") > ordine.indexOf("commit"), "il fetch viene dopo il commit");
+  assert.ok(ordine.indexOf("push") > ordine.indexOf("fetch"), "e il push dopo il fetch");
+});
+
+test("catena: se il push fallisce ci si FERMA, senza merge automatico", async (t) => {
+  // Un merge deciso da uno script sui dati del sito e' esattamente cio' che
+  // questa cartella e' separata da C:\\erasmuswiz per evitare.
+  const radice = radiceFinta(t, { campi: { linkSito: "" } });
+  const git = gitFinto();
+  const esegui = git.esegui.bind(git);
+  git.esegui = (r, a) => { if (a[0] === "push") throw new Error("rejected: non-fast-forward"); return esegui(r, a); };
+  const esito = await applicaEControlla({ radice, proposte: [], campi: CAMPI_AUTOMATICI,
+    etichetta: "b", idTransazione: "tx5", git, spingi: true,
+    applica: async () => {
+      fs.writeFileSync(path.join(radice, "js", "atenei", "test", "dati-mete-1.js"), sorgente("TEST 01", { linkSito: "nuovo" }));
+      return { scritti: 1, disaccordi: [] };
+    } });
+  assert.equal(esito.push, "fallito");
+  assert.match(esito.fermato, /push non riuscito/);
+  assert.ok(esito.commit, "il commit resta: non si torna indietro su un commit riuscito");
+  assert.ok(!git.registro.some((a) => a[0] === "merge" || a[0] === "pull"), "nessun merge automatico");
+});
+
+test("catena: senza spingi non si tocca il remoto", async (t) => {
+  const radice = radiceFinta(t, { campi: { linkSito: "" } });
+  const git = gitFinto();
+  await applicaEControlla({ radice, proposte: [], campi: CAMPI_AUTOMATICI,
+    etichetta: "b", idTransazione: "tx6", git,
+    applica: async () => {
+      fs.writeFileSync(path.join(radice, "js", "atenei", "test", "dati-mete-1.js"), sorgente("TEST 01", { linkSito: "nuovo" }));
+      return { scritti: 1, disaccordi: [] };
+    } });
+  assert.ok(!git.registro.some((a) => a[0] === "push"), "il push e' una scelta esplicita, non il default");
+});
+
 test("catena: HEAD avanzata ma non nostra -> si ferma, non pubblica", (t) => {
   const radice = radiceFinta(t);
   scriviJson(radice, ".transazione.json", { stato: "preparato", baseHead: "vecchio", idTransazione: "tx9",
