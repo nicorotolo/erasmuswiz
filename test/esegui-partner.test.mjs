@@ -416,6 +416,38 @@ test("catena: la coda esclude tutto cio' che il registro ha gia' giudicato", (t)
   assert.equal(dopo.linkCatalogo.length, 0, "un valore gia' giudicato non torna in coda");
 });
 
+test("catena: un 'non so' esce dalla coda ma finisce in quella da riesaminare", (t) => {
+  // "Non so" non e' "no": e' l'unico esito che descrive un lavoro invece di
+  // chiuderlo. Tenerlo fuori dalla coda e' giusto - o si rivedrebbero ogni
+  // volta le stesse voci - ma tenerlo fuori non deve voler dire perderlo.
+  const radice = radiceFinta(t, { campi: { linkCatalogo: "" } });
+  const valore = "https://esempio.test/piano-2022.pdf";
+  const approvati = [{ codiceNorm: "TEST 01", campo: "linkCatalogo", valore, fonte: FONTE }];
+  scriviJson(radice, "approvati.json", approvati);
+  scriviJson(radice, "partner.json", [{ codiceNorm: "TEST 01", ateneo: "Ateneo di prova" }]);
+  appendiEventi(radice, [{ codiceCanonico: "TEST01", campo: "linkCatalogo",
+    improntaProposta: improntaValore(valore), esito: "nonSo", quando: "2026-09-02" }]);
+
+  const code = costruisciCode({ radice });
+  assert.equal(code.linkCatalogo.length, 0, "un non so non resta nella coda d'arbitrato");
+  const riesame = JSON.parse(fs.readFileSync(path.join(radice, "raccolta", "da-riesaminare.json"), "utf8"));
+  assert.equal(riesame.length, 1, "ma deve comparire fra quelle da riesaminare");
+  assert.equal(riesame[0].codiceCanonico, "TEST01");
+  assert.deepEqual(riesame[0].motivi, ["pdf", "annoVecchio:2022"], "col motivo per cui e' difficile");
+});
+
+test("catena: un 'no' non finisce fra quelle da riesaminare", (t) => {
+  const radice = radiceFinta(t, { campi: { linkCatalogo: "" } });
+  const valore = "https://esempio.test/bocciato";
+  scriviJson(radice, "approvati.json", [{ codiceNorm: "TEST 01", campo: "linkCatalogo", valore, fonte: FONTE }]);
+  scriviJson(radice, "partner.json", [{ codiceNorm: "TEST 01", ateneo: "x" }]);
+  appendiEventi(radice, [{ codiceCanonico: "TEST01", campo: "linkCatalogo",
+    improntaProposta: improntaValore(valore), esito: "no", quando: "2026-09-02" }]);
+  costruisciCode({ radice });
+  const riesame = JSON.parse(fs.readFileSync(path.join(radice, "raccolta", "da-riesaminare.json"), "utf8"));
+  assert.equal(riesame.length, 0, "un no e' chiuso: non torna sotto gli occhi di nessuno");
+});
+
 // ------------------------------------------------------------ blocco zero
 
 test("catena: il blocco zero applica solo i campi elencati in campiDaApplicare", async (t) => {

@@ -154,7 +154,40 @@ export function costruisciCode({ radice = RADICE, approvati, partner } = {}) {
     code[campo] = voci;
     scriviAtomico(path.join(dir(radice), `arbitrato-${campo}.json`), JSON.stringify(voci, null, 2) + "\n");
   }
+  scriviAtomico(path.join(dir(radice), "da-riesaminare.json"),
+    JSON.stringify(codaRiesame({ radice, approvati: proposte, partner: elenco, registro }), null, 2) + "\n");
   return code;
+}
+
+// "Non so" NON e' "no", ed e' l'unico esito che descrive un lavoro invece di
+// chiuderlo. Il registro lo tiene fuori dalla coda - giusto, o Nicola
+// rivedrebbe ogni volta le stesse voci su cui si era gia' fermato - ma tenerlo
+// fuori non deve voler dire perderlo. Qui torna a galla, con il motivo per cui
+// e' difficile: il 02/09, sugli 11 "non so", 6 erano PDF e 4 portavano un anno
+// vecchio nel testo, mentre fra i 15 "no" i PDF erano ZERO. Un PDF non e' un
+// valore sbagliato: e' un valore che a colpo d'occhio non si puo' verificare.
+export function codaRiesame({ radice = RADICE, approvati, partner, registro } = {}) {
+  const reg = registro || leggiRegistro(radice);
+  const proposte = approvati || leggiJson(path.join(dir(radice), "approvati.json"), []) || [];
+  const elenco = partner || leggiJson(path.join(dir(radice), "partner.json"), []) || [];
+  const ateneoDi = new Map(elenco.map((p) => [codiceCanonico(p.codiceNorm), p.ateneo || ""]));
+  const voci = [];
+  for (const p of proposte) {
+    if (!CAMPI_ARBITRATO.includes(p.campo)) continue;
+    const codice = codiceCanonico(p.codiceNorm);
+    const impronta = improntaValore(p.valore);
+    if (reg.get(chiaveGiudizio(codice, p.campo, impronta))?.esito !== "nonSo") continue;
+    const testo = `${p.valore} ${p.fonte?.citazione || ""}`;
+    const anno = testo.match(/20(?:1[0-9]|2[0-4])/);
+    const motivi = [];
+    if (/\.pdf(?:$|\?)/i.test(String(p.valore)) || /dumpFile/i.test(String(p.valore))) motivi.push("pdf");
+    if (anno) motivi.push(`annoVecchio:${anno[0]}`);
+    if (!motivi.length) motivi.push("nonSiCapisceSeElencoDiCorsi");
+    voci.push({ codiceCanonico: codice, ateneo: ateneoDi.get(codice) || "", campo: p.campo,
+      valore: p.valore, citazione: p.fonte?.citazione || "", fonte: p.fonte?.url || "",
+      improntaProposta: impronta, motivi });
+  }
+  return voci;
 }
 
 // ------------------------------------------------------- STATO PARTNER
