@@ -101,7 +101,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Bewerbungsfristen: Wintersemester 2026/27", periodo: "15. Mai 2026" },
+        { cosa: "Bewerbungsfristen: Sommersemester 2027", periodo: "15. November 2026" }
+      ],
     linkSito: "https://www.th-nuernberg.de/",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
@@ -122,7 +125,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Bewerbungsfristen: Wintersemester 2026/27", periodo: "15. Mai 2026" },
+        { cosa: "Bewerbungsfristen: Sommersemester 2027", periodo: "15. November 2026" }
+      ],
     linkSito: "https://www.th-nuernberg.de/",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 

@@ -1039,6 +1039,7 @@ var METE = [
       ],
     linkSito: "https://www.uni-kassel.de/uni/en/study/before-the-application/study-guide-for-international-students/exchange-studies-at-the-university-of-kassel.html",
 
+    notaDisponibilita: "Austauschstudierende können Kurse außerhalb ihrer Fakultät belegen.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Ulteriore accordo distinto con lo stesso ateneo (promotore Roberto Cherubini). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -1091,6 +1092,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "1 marzo - 30 giugno" },
         { cosa: "Application (primavera)", periodo: "1 novembre - 31 gennaio" }
       ],
+    linkSito: "https://www.hs-bremen.de/informationen-fuer/internationale-studierende/austauschstudierende/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Scadenze: basate su 2025/26"
   },
   {
@@ -1116,6 +1118,7 @@ var METE = [
 
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    notaDisponibilita: "Austauschstudierende können Kurse außerhalb ihrer Fakultät belegen.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. Ulteriore accordo distinto con lo stesso ateneo (promotore Federica Dal Falco). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -1293,6 +1296,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 1 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
       ],
+    linkSito: "https://www.frankfurt-university.de/de/studium/dezernat-internationales/incomings/austauschstudium/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {

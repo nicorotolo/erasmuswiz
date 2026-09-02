@@ -221,6 +221,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254409",
     linkSito: "http://www.uni-erlangen.de",
+    notaDisponibilita: "Programm- und Austauschstudierende können nahezu alle Kurse an der FAU besuchen.",
     notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 4; mesi: 5. Periodo vincolato: SI - Solo 1� semestre/YES - First semester only || Scadenze: fact sheet FAU per studenti UE/SEE/Svizzera || Lingua: WiSo richiede/recomanda B1 in tedesco o inglese"
   },
   {

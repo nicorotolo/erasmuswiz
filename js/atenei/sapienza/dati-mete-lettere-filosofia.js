@@ -3114,6 +3114,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
     linkSito: "http://www.uni-erlangen.de",
+    notaDisponibilita: "Programm- und Austauschstudierende können nahezu alle Kurse an der FAU besuchen.",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Accordo ERA70921. || Scadenze: fact sheet FAU per studenti UE/SEE/Svizzera || Lingua: WiSo richiede/recomanda B1 in tedesco o inglese"
   },
   {

@@ -977,6 +977,7 @@ var METE = [
         { cosa: "Documenti firmati (autunno)", periodo: "entro 15 giugno" },
         { cosa: "Documenti firmati (primavera)", periodo: "entro 15 dicembre" }
       ],
+    linkSito: "https://www.uni-hildesheim.de/studium/international/wege-an-die-universitaet/austausch/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
