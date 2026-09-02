@@ -594,7 +594,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination deadlines: First semester and full academic year", periodo: "15 May" },
+        { cosa: "Nomination deadlines: Second semester", periodo: "15 October" }
+      ],
     linkSito: "https://www.upct.es/",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
@@ -720,7 +723,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination deadlines: First semester and full academic year", periodo: "15 May" },
+        { cosa: "Nomination deadlines: Second semester", periodo: "15 October" }
+      ],
     linkSito: "https://www.upct.es/",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 

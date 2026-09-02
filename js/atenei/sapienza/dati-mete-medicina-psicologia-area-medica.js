@@ -217,6 +217,7 @@ var METE = [
 
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    notaDisponibilita: "Asignaturas disponibles: como norma general, los Centros no comparten asignaturas entre sí. Se debería restringir la selección de cursos a la oferta de cada Centro.",
     notePratiche: "Posti totali dell'accordo: 1. Solo livello triennale. Secondo accordo distinto con lo stesso ateneo (promotore Maria Chiara Vulpiani, vedi anche sap-medic2-comillas-b con promotore Flavia Pantaleo). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -241,6 +242,7 @@ var METE = [
         { cosa: "Learning Agreement (autunno)", periodo: "entro 1 luglio 2026" },
         { cosa: "Learning Agreement (primavera)", periodo: "entro 1 luglio 2026; non e' prevista una seconda scadenza" }
       ],
+    linkSito: "https://cursosinternacionales.usal.es/es",
     notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale."
   },
   {
@@ -320,6 +322,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "18 settembre - 30 settembre" },
         { cosa: "Application (primavera)", periodo: "1 ottobre - 31 ottobre" }
       ],
+    linkSito: "https://www.uax.com/programas-movilidad-incoming",
     notePratiche: "Posti totali dell'accordo: 4. Solo livello triennale. || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -394,6 +397,7 @@ var METE = [
 
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    notaDisponibilita: "Asignaturas disponibles: como norma general, los Centros no comparten asignaturas entre sí. Se debería restringir la selección de cursos a la oferta de cada Centro.",
     notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale. Secondo accordo distinto con lo stesso ateneo (promotore Flavia Pantaleo, vedi anche sap-medic2-comillas-a con promotore Maria Chiara Vulpiani). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   }
 ];

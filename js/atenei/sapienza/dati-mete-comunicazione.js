@@ -1036,6 +1036,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "dal 23 settembre al 23 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 16 dicembre" }
       ],
+    linkSito: "https://www.urjc.es/internacional/erasmus-y-movilidad/252-gestweb",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1218,6 +1219,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "18 settembre - 30 settembre" },
         { cosa: "Application (primavera)", periodo: "1 ottobre - 31 ottobre" }
       ],
+    linkSito: "https://www.uax.com/programas-movilidad-incoming",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1295,6 +1297,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "18 settembre - 30 settembre" },
         { cosa: "Application (primavera)", periodo: "1 ottobre - 31 ottobre" }
       ],
+    linkSito: "https://www.uax.com/programas-movilidad-incoming",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {

@@ -2128,6 +2128,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 12 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 10 novembre" }
       ],
+    linkSito: "https://www.ucam.edu/servicios/oficina-relaciones-internacionales/incoming-students",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli)."
   },
   {
@@ -2509,6 +2510,8 @@ var METE = [
         { cosa: "Nomination (anno intero)", periodo: "da meta aprile a meta giugno" },
         { cosa: "Nomination (primavera)", periodo: "da meta aprile a fine ottobre" }
       ],
+    linkSito: "https://www.uma.es/relaciones-internacionales/cms/menu/erasmus/incoming-students/",
+    notaDisponibilita: "50% de tus asignaturas deben ser del centro en el que te nominaron",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -2557,6 +2560,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "dal 18 settembre al 30 settembre" },
         { cosa: "Application (primavera)", periodo: "dal 1 ottobre al 31 ottobre" }
       ],
+    linkSito: "https://www.uax.com/programas-movilidad-incoming",
     notePratiche: "Posti totali dell'accordo: 2. Solo livello Magistrale."
   },
   {

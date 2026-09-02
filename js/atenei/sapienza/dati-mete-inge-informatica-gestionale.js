@@ -1201,6 +1201,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "selezione insegnamenti da meta dicembre a meta febbraio" }
       ],
     linkSito: "http://www.uma.es",
+    notaDisponibilita: "50% de tus asignaturas deben ser del centro en el que te nominaron",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA68203. || Scadenze: UMA fact sheet 2025/26, nomination via Algoria; application operativa tramite selezione insegnamenti in Algoria || Lingua: spagnolo B1 raccomandato, certificato non richiesto || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -1226,6 +1227,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "selezione insegnamenti da meta dicembre a meta febbraio" }
       ],
     linkSito: "http://www.uma.es",
+    notaDisponibilita: "50% de tus asignaturas deben ser del centro en el que te nominaron",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA68205. || Scadenze: UMA fact sheet 2025/26, nomination via Algoria; application operativa tramite selezione insegnamenti in Algoria || Lingua: spagnolo B1 raccomandato, certificato non richiesto || Lingua: CEFR non pubblicato ufficialmente"
   },
   {

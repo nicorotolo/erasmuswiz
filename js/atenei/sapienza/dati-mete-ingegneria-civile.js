@@ -2753,6 +2753,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "selezione insegnamenti da meta dicembre a meta febbraio" }
       ],
     linkSito: "http://www.uma.es",
+    notaDisponibilita: "50% de tus asignaturas deben ser del centro en el que te nominaron",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69203. || Scadenze: UMA fact sheet 2025/26, nomination via Algoria; application operativa tramite selezione insegnamenti in Algoria || Lingua: spagnolo B1 raccomandato, certificato non richiesto || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -2850,6 +2851,7 @@ var METE = [
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://www.comillas.edu/",
+    notaDisponibilita: "Asignaturas disponibles: como norma general, los Centros no comparten asignaturas entre sí. Se debería restringir la selección de cursos a la oferta de cada Centro.",
     notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA69185."
   },
   {

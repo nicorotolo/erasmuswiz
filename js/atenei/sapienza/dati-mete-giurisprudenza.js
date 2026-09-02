@@ -1353,6 +1353,8 @@ var METE = [
         { cosa: "Nomination (autunno / anno intero)", periodo: "da metà aprile a metà giugno" },
         { cosa: "Nomination (primavera)", periodo: "da metà aprile a fine ottobre" }
       ],
+    linkSito: "https://www.uma.es/relaciones-internacionales/cms/menu/erasmus/incoming-students/",
+    notaDisponibilita: "50% de tus asignaturas deben ser del centro en el que te nominaron",
     notePratiche: "Posti totali dell'accordo: 3. Solo livello triennale."
   },
   {
@@ -1375,6 +1377,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "dal 15 aprile al 5 luglio 2026" },
         { cosa: "Application (primavera)", periodo: "dal 15 aprile al 5 luglio 2026" }
       ],
+    linkSito: "https://cursosinternacionales.usal.es/es",
     notePratiche: "Posti totali dell'accordo: 3. Solo livello triennale."
   },
   {

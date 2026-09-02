@@ -1298,6 +1298,7 @@ var METE = [
         { cosa: "Learning Agreement (autunno)", periodo: "entro 1 luglio 2026" },
         { cosa: "Learning Agreement (primavera)", periodo: "entro 1 luglio 2026" }
       ],
+    linkSito: "https://cursosinternacionales.usal.es/es",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1483,6 +1484,7 @@ var METE = [
       ],
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    notaDisponibilita: "Entre 3 y 12 meses, según el acuerdo bilateral con la universidad de destino.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {

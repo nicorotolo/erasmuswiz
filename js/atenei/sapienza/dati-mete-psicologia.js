@@ -1835,6 +1835,8 @@ var METE = [
         { cosa: "Selezione insegnamenti (autunno/anno intero)", periodo: "da meta luglio a meta settembre" },
         { cosa: "Selezione insegnamenti (primavera/anno intero)", periodo: "da meta dicembre a meta febbraio" }
       ],
+    linkSito: "https://www.uma.es/relaciones-internacionales/cms/menu/erasmus/incoming-students/",
+    notaDisponibilita: "50% de tus asignaturas deben ser del centro en el que te nominaron",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -2016,6 +2018,7 @@ var METE = [
         { cosa: "Application (autunno/anno)", periodo: "entro 12 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 10 novembre" }
       ],
+    linkSito: "https://www.ucam.edu/servicios/oficina-relaciones-internacionales/incoming-students",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -2230,6 +2233,8 @@ var METE = [
         { cosa: "Selezione insegnamenti (autunno/anno intero)", periodo: "da meta luglio a meta settembre" },
         { cosa: "Selezione insegnamenti (primavera/anno intero)", periodo: "da meta dicembre a meta febbraio" }
       ],
+    linkSito: "https://www.uma.es/relaciones-internacionales/cms/menu/erasmus/incoming-students/",
+    notaDisponibilita: "50% de tus asignaturas deben ser del centro en el que te nominaron",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
