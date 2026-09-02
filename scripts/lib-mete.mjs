@@ -216,8 +216,13 @@ export function impostaCampo(blocco, campo, valore, { soloSeVuoto = false } = {}
     const m = re.exec(blocco);
     if (!m) return { blocco, modificato: false };
     const from = m.index + m[0].length;
+    // `aCapo` va passato anche QUI. Era l'unico dei tre rami che lo dimenticava,
+    // e il difetto restava invisibile finche' si scrivevano solo valori di una
+    // riga: un valore multi-riga (una lista di scadenze) inseriva a-capo nudi in
+    // un file CRLF. Misurato il 01/09 sul blocco zero: 15 LF nudi in 3 file su
+    // 23, visti dal cancello fine-riga della catena, non da una prova.
     return {
-      blocco: blocco.slice(0, from) + serializza(valore) + blocco.slice(from + raw.length),
+      blocco: blocco.slice(0, from) + serializza(valore, "      ", aCapo) + blocco.slice(from + raw.length),
       modificato: true,
     };
   }

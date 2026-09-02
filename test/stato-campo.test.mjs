@@ -114,6 +114,25 @@ test("nei dati pubblicati nessuna meta dichiara insieme il dato e il non trovabi
 // Il 01/09, applicando 147 cataloghi, il diff sembrava pulito e conteneva 147
 // righe a fine-riga misto: impostaCampo inseriva un a-capo nudo dentro file che
 // usano CRLF. E' il difetto §8.5 di STATO_DEL_SITO, misurato e chiuso qui.
+// Il 01/09 la prova qui sotto copriva solo il ramo che INSERISCE un campo
+// assente, e solo con un valore di una riga. Il difetto stava nell'altro ramo:
+// quando il campo c'e' gia' con un valore vuoto (`scadenzeOspitante: []`) si
+// SOSTITUISCE, e quella chiamata dimenticava di passare il fine-riga. Con un
+// valore multi-riga - una lista di scadenze - nascevano a-capo nudi dentro un
+// file CRLF. Misurato sul blocco zero: 15 in 3 file su 23, visti dal cancello
+// della catena e da nessuna prova.
+test("impostaCampo: anche SOSTITUENDO un valore multi-riga rispetta il CRLF", () => {
+  const CR = String.fromCharCode(13, 10);
+  const LF = String.fromCharCode(10);
+  const blocco = ["{", "    id: 1,", "    scadenzeOspitante: [],", "    notePratiche: 'x',", "}"].join(CR);
+  const valore = [{ cosa: "Apertura", periodo: "25 marzo" }, { cosa: "Chiusura", periodo: "13 aprile" }];
+  const esito = impostaCampo(blocco, "scadenzeOspitante", valore, { soloSeVuoto: true });
+  assert.ok(esito.modificato, "un array vuoto e' un campo vuoto: va sostituito");
+  assert.ok(esito.blocco.includes("Apertura"), "il valore deve entrare davvero");
+  const nudi = esito.blocco.split(CR).join("").split(LF).length - 1;
+  assert.equal(nudi, 0, "sostituendo un valore multi-riga non devono restare a-capo nudi");
+});
+
 test("impostaCampo inserisce con il fine-riga che il blocco gia' usa", () => {
   const CR = String.fromCharCode(13, 10);
   const blocco = ["{", "    id: 1,", "    notePratiche: 'x',", "}"].join(CR);
