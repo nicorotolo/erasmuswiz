@@ -875,7 +875,12 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination deadline for 1st semester and full academic year", periodo: "30 April" },
+        { cosa: "Nomination deadline for 2nd semester", periodo: "31 October" },
+        { cosa: "Application deadline for 1st semester and full academic year", periodo: "15 May" },
+        { cosa: "Application deadline for 2nd semester", periodo: "15 November" }
+      ],
     linkSito: "http://www.univ-nantes.fr/foreignstudents",
     notaDisponibilita: "Almeno il 70% dei corsi selezionati deve appartenere all'area di studio coperta dall'accordo bilaterale.",
 

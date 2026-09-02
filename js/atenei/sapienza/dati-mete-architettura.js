@@ -360,6 +360,7 @@ var METE = [
       ],
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkSito: "https://www.lille.archi.fr/etudiants-en-echange/",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
@@ -535,6 +536,8 @@ var METE = [
         { cosa: "Application (autunno o anno intero)", periodo: "entro 15 giugno" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    linkSito: "https://www.lyon.archi.fr/ecole-0/international/venir-etudier-lensal",
+    notaDisponibilita: "Incoming exchange students are enrolled at the master level.",
     notePratiche: "Posti totali dell'accordo: 1. Solo livello Magistrale. Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -817,6 +820,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 16 novembre 2026" },
         { cosa: "Application (primavera)", periodo: "entro 7 dicembre 2026" }
       ],
+    linkSito: "https://www.marseille.archi.fr/international/venir-lensamarseille",
+    notaDisponibilita: "Certains enseignements ne sont pas ouverts aux étudiants en mobilité entrante/IN : S5 UE2 : Rapport d’études / méthodologie S6 UE3 : Rapport d’études Vous ne pouvez choisir qu’un seul studio de projet et un seul séminaire par semestre",
     notePratiche: "Posti totali dell'accordo: 5 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {

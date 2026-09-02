@@ -631,6 +631,7 @@ var METE = [
         { cosa: "Application (autunno / anno accademico)", periodo: "entro 15 gennaio 2026" },
         { cosa: "Application (primavera)", periodo: "entro 15 settembre 2026" }
       ],
+    linkSito: "https://www.univ-lehavre.fr/fr/international/venir-au-havre/etudiants-internationaux/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {

@@ -323,6 +323,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 30 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
+    linkSito: "https://www.univ-lehavre.fr/fr/international/venir-au-havre/etudiants-internationaux/",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). || Scadenze: basate su 2024/25"
   },
   {
