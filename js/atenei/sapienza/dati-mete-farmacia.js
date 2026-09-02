@@ -1062,6 +1062,7 @@ var METE = [
         { cosa: "Nomination (autunno/anno)", periodo: "entro 30 aprile" },
         { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" }
       ],
+    notaDisponibilita: "Curricular units taught in Portuguese Language (under the tab Graduations). Many have tutorial support in English given by the Professor. Curricular units entirely taught in English language (under the tab International Options).",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {

@@ -5779,7 +5779,12 @@ var METE = [
         { lingua: "Inglese", livello: "B2" }
       ], fonte: "https://bwm.uken.krakow.pl/incoming/exchange-student-application-procedure/", verificatoIl: "2026-07-29" },
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination deadline for winter semester", periodo: "April 30, 2026" },
+        { cosa: "Nomination deadline for summer semester", periodo: "October 15, 2026" },
+        { cosa: "Application deadline for winter semester", periodo: "May 31, 2026" },
+        { cosa: "Application deadline for summer semester", periodo: "November 31, 2026" }
+      ],
     linkSito: "https://www.uken.krakow.pl/",
     notaDisponibilita: "I moduli partono a condizione che vi siano almeno 3 studenti iscritti. Gli studenti incoming devono scegliere un modulo completo da 30 ECTS.",
 

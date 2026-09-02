@@ -1734,6 +1734,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
+    notaDisponibilita: "Curricular units taught in Portuguese Language (under the tab Graduations). Many have tutorial support in English given by the Professor. Curricular units entirely taught in English language (under the tab International Options).",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1878,6 +1879,7 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "31 maggio - 30 giugno" },
         { cosa: "Application (primavera)", periodo: "31 ottobre - 30 novembre" }
       ],
+    linkSito: "https://mobilidade.lis.ulusiada.pt/mobilidade/erasmus43;/incomingstudents.aspx",
     notePratiche: "Posti totali dell'accordo: 5 (condivisi tra i livelli)."
   },
   {

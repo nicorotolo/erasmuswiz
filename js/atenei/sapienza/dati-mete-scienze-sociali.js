@@ -846,6 +846,7 @@ var METE = [
         { cosa: "Application (anno intero)", periodo: "entro 31 maggio 2026" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre 2026" }
       ],
+    linkSito: "https://erasmus.uj.edu.pl/en_GB/incoming",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {

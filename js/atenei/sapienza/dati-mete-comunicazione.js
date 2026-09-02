@@ -464,6 +464,7 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "1 maggio - 31 maggio" },
         { cosa: "Application (primavera)", periodo: "1 novembre - 30 novembre" }
       ],
+    linkSito: "https://erasmus.uj.edu.pl/en_GB/incoming",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -539,6 +540,7 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "entro 31 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
+    notaDisponibilita: "Curricular units taught in Portuguese Language (under the tab Graduations). Many have tutorial support in English given by the Professor. Curricular units entirely taught in English language (under the tab International Options).",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -666,6 +668,7 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "entro 31 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
+    notaDisponibilita: "Curricular units taught in Portuguese Language (under the tab Graduations). Many have tutorial support in English given by the Professor. Curricular units entirely taught in English language (under the tab International Options).",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -719,6 +722,7 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "entro 31 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
+    notaDisponibilita: "Curricular units taught in Portuguese Language (under the tab Graduations). Many have tutorial support in English given by the Professor. Curricular units entirely taught in English language (under the tab International Options).",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {

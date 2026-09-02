@@ -1286,6 +1286,7 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "entro 15 luglio" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
+    notaDisponibilita: "Erasmus+ students are allowed to choose courses from the whole offer presented in the Course Catalogue, from different fields of study and levels of study.",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). || Scadenze: basate su 2025/26"
   },
   {
@@ -1418,6 +1419,7 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "entro 31 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre" }
       ],
+    notaDisponibilita: "Curricular units taught in Portuguese Language (under the tab Graduations). Many have tutorial support in English given by the Professor. Curricular units entirely taught in English language (under the tab International Options).",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -1441,6 +1443,7 @@ var METE = [
         { cosa: "Application (autunno/anno intero)", periodo: "entro fine luglio" },
         { cosa: "Application (primavera)", periodo: "entro fine novembre" }
       ],
+    linkSito: "https://international.ispa.pt/pagina/course-catalogue",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1493,6 +1496,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 novembre" },
         { cosa: "Application (primavera)", periodo: "entro 20 novembre" }
       ],
+    notaDisponibilita: "Os estudantes que estejam numa fase de pré-matrícula ou a frequentar Unidades Curriculares Isoladas não se consideram elegíveis para participar no programa de mobilidade.",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {

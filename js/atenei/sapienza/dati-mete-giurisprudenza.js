@@ -1061,6 +1061,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 ottobre 2026" },
         { cosa: "Application (primavera)", periodo: "entro 30 novembre 2026" }
       ],
+    linkSito: "https://erasmus.uj.edu.pl/en_GB/incoming",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
