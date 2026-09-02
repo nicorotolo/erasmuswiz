@@ -460,6 +460,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 gennaio" }
       ],
     linkSito: "https://www.uni-wuerzburg.de/",
+    notaDisponibilita: "Das Freemover Studium ist in den Fächern Medizin, Pharmazie und Zahnmedizin leider nicht möglich.",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). Accordo ERA68437."
   },
   {
@@ -1525,7 +1526,14 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Nomination for clinical rotations in Medicine", periodo: "03/31" },
+        { cosa: "Nomination for 1st semester exchanges, annual exchanges and for the Master's in Arts and Cultural Management", periodo: "05/31" },
+        { cosa: "Nomination for 2nd semester exchanges", periodo: "10/31" },
+        { cosa: "Application for clinical rotations in Medicine", periodo: "04/15" },
+        { cosa: "Application for 1st semester exchanges, annual exchanges and for the Master's in Arts and Cultural Management", periodo: "15/06" },
+        { cosa: "Application for 2nd semester exchanges", periodo: "15/11" }
+      ],
     linkSito: "https://www.uic.es/ca",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA69365."
   },
@@ -1543,7 +1551,9 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Solicitud de plazas", periodo: "Del 27 de enero de 2026 al 6 de febrero de 2026" }
+      ],
     linkSito: "https://www.ufpcanarias.es/",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA69374."
   },
@@ -1652,7 +1662,9 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Solicitud de plazas", periodo: "Del 27 de enero de 2026 al 6 de febrero de 2026" }
+      ],
     linkSito: "https://www.ufpcanarias.es/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69372."
   },
@@ -1737,7 +1749,9 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Solicitud de plazas", periodo: "Del 27 de enero de 2026 al 6 de febrero de 2026" }
+      ],
     linkSito: "https://www.ufpcanarias.es/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69373."
   },
@@ -1781,7 +1795,9 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Solicitud de plazas", periodo: "Del 27 de enero de 2026 al 6 de febrero de 2026" }
+      ],
     linkSito: "https://www.ufpcanarias.es/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69371."
   },

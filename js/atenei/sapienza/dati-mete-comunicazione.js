@@ -293,6 +293,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "1 ottobre - 15 novembre 2025" },
         { cosa: "Application (primavera)", periodo: "1 ottobre - 30 novembre 2025" }
       ],
+    linkSito: "https://uni-tuebingen.de/international/studierende-aus-dem-ausland/erasmus-und-austausch-nach-tuebingen/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {

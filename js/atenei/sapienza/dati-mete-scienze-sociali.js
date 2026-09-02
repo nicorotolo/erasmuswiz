@@ -763,6 +763,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "1 ottobre - 15 novembre 2026" },
         { cosa: "Application (primavera)", periodo: "1 ottobre - 30 novembre 2026" }
       ],
+    linkSito: "https://uni-tuebingen.de/international/studierende-aus-dem-ausland/erasmus-und-austausch-nach-tuebingen/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1106,6 +1107,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 31 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
       ],
+    linkSito: "https://internacional.uca.es/movilidad-entrante/estudiantes/erasmus-ka103-incoming/",
+    notaDisponibilita: "Movilidad de estudiantes para estudios del programa Erasmus+ para permanecer en la Universidad de Cádiz durante 1 ó 2 semestres.",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli)."
   },
   {
@@ -1398,6 +1401,7 @@ var METE = [
       ],
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkSito: "https://internacional.ulpgc.es/movilidad-incoming/estudiantes-incoming/estudia-en-la-ulpgc-incoming/estudiantes-de-intercambio/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {

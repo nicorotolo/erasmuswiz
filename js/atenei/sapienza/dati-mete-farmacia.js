@@ -811,6 +811,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 dicembre dell'anno precedente" },
         { cosa: "Application (primavera)", periodo: "entro 31 dicembre dell'anno precedente" }
       ],
+    linkSito: "https://www.uni-saarland.de/global/welcome-center/austausch-freemover/erasmus-programm.html",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {

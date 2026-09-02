@@ -1143,6 +1143,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 1 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
       ],
+    notaDisponibilita: "Aufgrund der Innenstadtlage gibt es keine Unterkunft auf dem Campus der HFT Stuttgart.",
     notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale. Ulteriore accordo distinto con lo stesso ateneo (promotore Federica Dal Falco). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {
@@ -1352,6 +1353,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 1 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 1 novembre" }
       ],
+    notaDisponibilita: "Aufgrund der Innenstadtlage gibt es keine Unterkunft auf dem Campus der HFT Stuttgart.",
     notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale. Ulteriore accordo distinto con lo stesso ateneo (promotore Alfonso Ippolito). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {

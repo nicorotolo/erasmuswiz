@@ -2736,6 +2736,7 @@ var METE = [
         { cosa: "Application (semestre estivo)", periodo: "1-15 novembre" }
       ],
     linkSito: "http://www.uni-ulm.de",
+    notaDisponibilita: "Courses from career-integrated programmes or the continuing professional education programmes offered by the School of Advanced Professional Studies (SAPS) are not open to non-degree temporary students.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70731."
   },
   {
@@ -2758,6 +2759,7 @@ var METE = [
         { cosa: "Application (semestre estivo)", periodo: "1-15 novembre" }
       ],
     linkSito: "http://www.uni-ulm.de",
+    notaDisponibilita: "Courses from career-integrated programmes or the continuing professional education programmes offered by the School of Advanced Professional Studies (SAPS) are not open to non-degree temporary students.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA70730."
   },
   {
@@ -4591,6 +4593,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 25 ottobre" }
       ],
     linkSito: "HTTP://WWW.UCA.ES",
+    notaDisponibilita: "Movilidad de estudiantes para estudios del programa Erasmus+ para permanecer en la Universidad de Cádiz durante 1 ó 2 semestres.",
     notePratiche: "Posti totali dell'accordo: 3 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70746."
   },
   {

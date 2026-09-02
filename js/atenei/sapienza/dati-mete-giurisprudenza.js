@@ -298,6 +298,7 @@ var METE = [
         { cosa: "Nomination/Application (autunno)", periodo: "aprile - maggio" },
         { cosa: "Nomination/Application (primavera)", periodo: "ottobre - novembre" }
       ],
+    linkSito: "https://uni-tuebingen.de/international/studierende-aus-dem-ausland/erasmus-und-austausch-nach-tuebingen/",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli)."
   },
   {
@@ -840,6 +841,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 15 dicembre" },
         { cosa: "Application (primavera)", periodo: "entro 31 dicembre" }
       ],
+    linkSito: "https://www.uni-saarland.de/global/welcome-center/austausch-freemover/erasmus-programm.html",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -1456,6 +1458,7 @@ var METE = [
         { cosa: "Application/documenti (autunno)", periodo: "entro 31 luglio" },
         { cosa: "Application/documenti (primavera)", periodo: "entro 30 gennaio" }
       ],
+    linkSito: "https://internacional.ulpgc.es/movilidad-incoming/estudiantes-incoming/estudia-en-la-ulpgc-incoming/estudiantes-de-intercambio/",
     notePratiche: "Posti totali dell'accordo: 5 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi."
   },
   {
@@ -1480,6 +1483,8 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 31 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
       ],
+    linkSito: "https://internacional.uca.es/movilidad-entrante/estudiantes/erasmus-ka103-incoming/",
+    notaDisponibilita: "Movilidad de estudiantes para estudios del programa Erasmus+ para permanecer en la Universidad de Cádiz durante 1 ó 2 semestres.",
     notePratiche: "Posti totali dell'accordo: 2. Solo livello triennale."
   }
 ];

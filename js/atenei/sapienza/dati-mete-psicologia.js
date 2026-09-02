@@ -637,6 +637,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "1 ottobre - 15 novembre 2026" },
         { cosa: "Application (primavera)", periodo: "1 ottobre - 30 novembre 2026" }
       ],
+    linkSito: "https://uni-tuebingen.de/international/studierende-aus-dem-ausland/erasmus-und-austausch-nach-tuebingen/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -714,6 +715,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "1 ottobre - 15 novembre 2026" },
         { cosa: "Application (primavera)", periodo: "1 ottobre - 30 novembre 2026" }
       ],
+    linkSito: "https://uni-tuebingen.de/international/studierende-aus-dem-ausland/erasmus-und-austausch-nach-tuebingen/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
@@ -741,6 +743,7 @@ var METE = [
         { cosa: "Application/enrolment documents (autunno)", periodo: "entro 1 settembre" },
         { cosa: "Application/enrolment documents (primavera)", periodo: "entro 1 marzo" }
       ],
+    linkSito: "https://www.uni-wh.de/studium/international/austauschprogramme-exchange-students",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli)."
   },
   {
@@ -795,6 +798,7 @@ var METE = [
       ],
     linkSito: "https://www.uni-wuerzburg.de/",
 
+    notaDisponibilita: "Das Freemover Studium ist in den Fächern Medizin, Pharmazie und Zahnmedizin leider nicht möglich.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
@@ -1908,6 +1912,8 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 25 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 31 ottobre" }
       ],
+    linkSito: "https://internacional.uca.es/movilidad-entrante/estudiantes/erasmus-ka103-incoming/",
+    notaDisponibilita: "Movilidad de estudiantes para estudios del programa Erasmus+ para permanecer en la Universidad de Cádiz durante 1 ó 2 semestres.",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {

@@ -2287,6 +2287,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 25 ottobre" }
       ],
     linkSito: "HTTP://WWW.UCA.ES",
+    notaDisponibilita: "Movilidad de estudiantes para estudios del programa Erasmus+ para permanecer en la Universidad de Cádiz durante 1 ó 2 semestres.",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69175."
   },
   {
@@ -2312,6 +2313,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 25 ottobre" }
       ],
     linkSito: "HTTP://WWW.UCA.ES",
+    notaDisponibilita: "Movilidad de estudiantes para estudios del programa Erasmus+ para permanecer en la Universidad de Cádiz durante 1 ó 2 semestres.",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69176."
   },
   {
@@ -2799,6 +2801,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 25 ottobre" }
       ],
     linkSito: "HTTP://WWW.UCA.ES",
+    notaDisponibilita: "Movilidad de estudiantes para estudios del programa Erasmus+ para permanecer en la Universidad de Cádiz durante 1 ó 2 semestres.",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA69177."
   },
   {
