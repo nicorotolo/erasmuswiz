@@ -1573,6 +1573,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 1 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 1 ottobre" }
       ],
+    linkSito: "https://www.um.edu.mt/studentlife/internationalopportunities/erasmus/incoming/",
     notePratiche: "Posti totali dell'accordo: 4. Solo livello triennale."
   },
   {

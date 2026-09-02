@@ -1902,7 +1902,7 @@ var METE = [
     visto: "Cittadini UE: nessun visto. Cittadini extra-UE: visto obbligatorio (verificare).",
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/23270754",
-    linkSito: "",
+    linkSito: "https://student.uva.nl/en/categories/study-abroad",
     notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM; studenti: 4; mesi: 5. || Scadenze e lingua: UvA Economics and Business exchange; application 22 aprile/8 ottobre; inglese equivalente almeno B2 da punteggi IELTS/TOEFL/Cambridge, Erasmus+ esonerati dal caricamento della prova"
   },
   {

@@ -294,7 +294,9 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Students submit the application to the Erasmus+ coordinator of UTMS", periodo: "15/03/2026" }
+      ],
     linkSito: "http://www.utms.edu.mk/en/",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 

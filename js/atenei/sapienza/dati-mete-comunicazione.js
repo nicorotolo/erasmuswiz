@@ -440,6 +440,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 7 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
       ],
+    linkSito: "https://www.kristiania.no/en/study-at-kristiania/exchange-student/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). || Lingua: CEFR non pubblicato ufficialmente"
   },
   {

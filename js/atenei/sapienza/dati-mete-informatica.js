@@ -642,7 +642,12 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Semester 1/ Full Academic Year Nomination Deadline", periodo: "15 April" },
+        { cosa: "Semester 1/ Full Academic Year Application Deadline", periodo: "15 May" },
+        { cosa: "Semester 2 Nomination Deadline", periodo: "2 October" },
+        { cosa: "Semester 2 Application Deadline", periodo: "16 October" }
+      ],
     linkSito: "https://www.setu.ie/",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA68383."
   },

@@ -1234,6 +1234,7 @@ var METE = [
         { cosa: "Application (autunno)", periodo: "entro 31 maggio" },
         { cosa: "Application (primavera)", periodo: "entro 30 ottobre" }
       ],
+    linkSito: "https://www.um.edu.mt/studentlife/internationalopportunities/erasmus/incoming/",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli)."
   },
   {
