@@ -193,13 +193,50 @@ test("catena: il confronto vede il campo gia' pieno modificato e quello non amme
 
 // -------------------------------------------------- il cancello sui campi
 
-test("catena: linkCatalogo e requisitoLingua NON si applicano, mai", async (t) => {
+test("catena: un campo d'arbitrato senza un 'si' nel registro viene RIFIUTATO", async (t) => {
+  // Il cancello non e' "mai": e' "solo con un si' umano dimostrato". La prova
+  // si porta per VALORE - l'impronta - non per intenzione del chiamante.
   const radice = radiceFinta(t);
   for (const campo of ["linkCatalogo", "requisitoLingua"]) {
-    await assert.rejects(() => applicaEControlla({ radice, proposte: [], campi: [campo],
+    const proposta = { codiceNorm: "TEST 01", campo, valore: "https://qualcosa.test/", fonte: FONTE };
+    await assert.rejects(() => applicaEControlla({ radice, proposte: [proposta], campi: [campo],
       etichetta: "x", idTransazione: "x", git: gitFinto(), applica: async () => ({ scritti: 0, disaccordi: [] }) }),
-      /senza arbitrato umano/, `${campo} deve essere rifiutato`);
+      /senza un "si" nel registro/, `${campo} deve essere rifiutato senza giudizio`);
   }
+});
+
+test("catena: con il 'si' nel registro il campo d'arbitrato passa", async (t) => {
+  const radice = radiceFinta(t, { campi: { linkCatalogo: "" } });
+  const valore = "https://giudicato.test/";
+  const proposta = { codiceNorm: "TEST 01", campo: "linkCatalogo", valore, fonte: FONTE };
+  appendiEventi(radice, [{ codiceCanonico: "TEST01", campo: "linkCatalogo",
+    improntaProposta: improntaValore(valore), esito: "si", quando: "2026-09-02" }]);
+  const esito = await applicaEControlla({ radice, proposte: [proposta], campi: ["linkCatalogo"],
+    etichetta: "x", idTransazione: "x", git: gitFinto(), applica: async () => ({ scritti: 1, disaccordi: [] }) });
+  assert.equal(esito.annullato, false);
+});
+
+test("catena: un 'si' su un valore DIVERSO non autorizza la proposta", async (t) => {
+  // Se il valore e' cambiato dopo il giudizio, quel giudizio non vale piu':
+  // e' il motivo per cui la chiave del registro contiene l'impronta.
+  const radice = radiceFinta(t);
+  appendiEventi(radice, [{ codiceCanonico: "TEST01", campo: "linkCatalogo",
+    improntaProposta: improntaValore("https://vecchio.test/"), esito: "si", quando: "2026-09-02" }]);
+  await assert.rejects(() => applicaEControlla({ radice,
+    proposte: [{ codiceNorm: "TEST 01", campo: "linkCatalogo", valore: "https://cambiato.test/", fonte: FONTE }],
+    campi: ["linkCatalogo"], etichetta: "x", idTransazione: "x", git: gitFinto(),
+    applica: async () => ({ scritti: 1, disaccordi: [] }) }), /senza un "si" nel registro/);
+});
+
+test("catena: un 'no' nel registro non autorizza niente", async (t) => {
+  const radice = radiceFinta(t);
+  const valore = "https://bocciato.test/";
+  appendiEventi(radice, [{ codiceCanonico: "TEST01", campo: "linkCatalogo",
+    improntaProposta: improntaValore(valore), esito: "no", quando: "2026-09-02" }]);
+  await assert.rejects(() => applicaEControlla({ radice,
+    proposte: [{ codiceNorm: "TEST 01", campo: "linkCatalogo", valore, fonte: FONTE }],
+    campi: ["linkCatalogo"], etichetta: "x", idTransazione: "x", git: gitFinto(),
+    applica: async () => ({ scritti: 1, disaccordi: [] }) }), /senza un "si" nel registro/);
 });
 
 test("catena: nessun nonTrovabile viene scritto (letture sempre vuote)", async (t) => {

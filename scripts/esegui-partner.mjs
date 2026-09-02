@@ -105,7 +105,7 @@ export const rilasciaLock = (radice) => fs.rmSync(path.join(dir(radice), ".esegu
 
 // ------------------------------------------------- REGISTRO DEI GIUDIZI
 
-const chiaveGiudizio = (codice, campo, impronta) => `${codiceCanonico(codice)}\u0000${campo}\u0000${impronta}`;
+export const chiaveGiudizio = (codice, campo, impronta) => `${codiceCanonico(codice)}\u0000${campo}\u0000${impronta}`;
 
 // Registro di EVENTI, non di voci mutabili: "si" -> "applicato" sono due righe,
 // e la storia del giudizio resta leggibile. Lo stato corrente e' l'ultimo evento
@@ -388,8 +388,25 @@ export async function applicaEControlla({
   // tutte e tre; requisitoLingua fu bocciato il 31/08 e il suo difetto - una
   // tabella appiattita letta come "basta una delle due lingue" - nessun cancello
   // lo vede. Passarli di qui e' un errore di programmazione, non una scelta.
+  // Un campo d'arbitrato passa SOLO se ogni singola proposta dimostra di avere
+  // un "si" umano nel registro. Non e' un permesso dato al chiamante - quello
+  // sarebbe un bypass - ma un cancello diverso: la prova si porta per valore,
+  // non per intenzione. Un'impronta che non combacia significa che il valore e'
+  // cambiato dopo il giudizio, e allora quel giudizio non vale piu'.
   const vietati = [...campi].filter((c) => !CAMPI_AUTOMATICI.includes(c));
-  if (vietati.length) throw new Error(`campi non applicabili senza arbitrato umano: ${vietati.join(", ")}`);
+  if (vietati.length) {
+    const fuoriArbitrato = vietati.filter((c) => !CAMPI_ARBITRATO.includes(c));
+    if (fuoriArbitrato.length) throw new Error(`campi che non esistono in questo schema: ${fuoriArbitrato.join(", ")}`);
+    const registro = leggiRegistro(radice);
+    const senzaSi = proposte.filter((p) => vietati.includes(p.campo)).filter((p) => {
+      const e = registro.get(chiaveGiudizio(p.codiceNorm, p.campo, improntaValore(p.valore)));
+      return !e || (e.esito !== "si" && e.esito !== "applicato");
+    });
+    if (senzaSi.length) {
+      throw new Error(`${senzaSi.length} proposte su campi d'arbitrato senza un "si" nel registro: `
+        + senzaSi.slice(0, 5).map((p) => `${codiceCanonico(p.codiceNorm)}/${p.campo}`).join(", "));
+    }
+  }
   const prima = fotografiaMete(radice);
   if (prova) {
     // In anteprima il confronto gira DAVVERO, sugli stessi testi che il run
