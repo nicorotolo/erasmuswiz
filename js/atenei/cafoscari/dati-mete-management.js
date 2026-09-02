@@ -2170,6 +2170,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29139624",
     linkSito: "https://www.kozminski.edu.pl/en/community/incoming-students",
+    notaDisponibilita: "Full-time programs Part-time programs Programs offered in English Bachelor in Finance and Accounting Bachelor in Management Bachelor in Management & Artificial Intelligence Master in Finance and Accounting Master in Management Master in Big Data Science",
     notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L, LM, PhD; studenti: 3; mesi: 5."
   },
   {

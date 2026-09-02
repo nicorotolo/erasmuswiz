@@ -5495,6 +5495,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
     linkSito: "http://www.bwz.uw.edu.pl",
+    notaDisponibilita: "Bachelor level (3 years) Master level (2 years; 5 years - only in case of Psychology and Law) Doctoral level (3 or 4 years)",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71126."
   },
   {
@@ -5988,6 +5989,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
     linkSito: "http://www.bwz.uw.edu.pl",
+    notaDisponibilita: "Bachelor level (3 years) Master level (2 years; 5 years - only in case of Psychology and Law) Doctoral level (3 or 4 years)",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA71012."
   },
   {
@@ -7070,6 +7072,7 @@ var METE = [
     linkSito: "http://unitbv.ro",
     linkCatalogo: "https://www.unitbv.ro/en/prospective-students/academic-programmes.html",
 
+    notaDisponibilita: "Mobilitatea de practică proaspăt absolvent nu sunt eligibile în cadrul proiectelor KA107.",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA71015."
   },
   {
@@ -7303,7 +7306,10 @@ var METE = [
     ],
     requisitoLingua: [],
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
-    scadenzeOspitante: [],
+    scadenzeOspitante: [
+        { cosa: "Winter semester application", periodo: "15 June" },
+        { cosa: "Summer semester application", periodo: "15 November" }
+      ],
     linkSito: "https://www.um.si/",
     linkCatalogo: "https://www.erasmusplus.um.si/international-students/application/course-catalogue/",
 

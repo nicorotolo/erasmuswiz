@@ -348,6 +348,7 @@ var METE = [
         { cosa: "Nomination (primavera)", periodo: "entro 31 ottobre" },
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
+    notaDisponibilita: "Bachelor level (3 years) Master level (2 years; 5 years - only in case of Psychology and Law) Doctoral level (3 or 4 years)",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Disponibile anche per PhD/Specializzandi. || Scadenze: basate su 2025/26"
   },
   {

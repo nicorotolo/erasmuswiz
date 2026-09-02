@@ -476,6 +476,7 @@ var METE = [
 
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    notaDisponibilita: "Mobilitatea de practică proaspăt absolvent nu sunt eligibile în cadrul proiectelor KA107.",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA69667. || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {

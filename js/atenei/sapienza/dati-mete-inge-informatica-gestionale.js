@@ -975,6 +975,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 novembre" }
       ],
     linkSito: "http://www.bwz.uw.edu.pl",
+    notaDisponibilita: "Bachelor level (3 years) Master level (2 years; 5 years - only in case of Psychology and Law) Doctoral level (3 or 4 years)",
     notePratiche: "Posti dell'accordo: 1. Accordo ERA68342."
   },
   {

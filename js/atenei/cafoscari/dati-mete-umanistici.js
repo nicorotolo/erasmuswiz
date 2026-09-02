@@ -578,6 +578,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254724",
     linkSito: "http://www.uw.edu.pl",
+    notaDisponibilita: "Bachelor level (3 years) Master level (2 years; 5 years - only in case of Psychology and Law) Doctoral level (3 or 4 years)",
     notePratiche: "Aperta a: Dipartimento di Studi Umanistici [Dati ufficiali bando 2026/27] ciclo/posti: 1 x 5 LM. Lingua e scadenze ospitante da completare nei batch successivi."
   }
 ];
