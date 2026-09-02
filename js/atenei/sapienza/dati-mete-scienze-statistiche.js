@@ -62,6 +62,7 @@ var METE = [
     linkSito: "https://www.aau.at/",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkCatalogo: "https://www.aau.at/en/study/courses/",
     notePratiche: "Posti dell'accordo: 2. L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA68108. || Scadenze: fact sheet AAU 2026/27 || Lingua: CEFR generale non pubblicato ufficialmente per exchange; verificare requisiti dei singoli corsi || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato in mappature precedenti"
   },
   {

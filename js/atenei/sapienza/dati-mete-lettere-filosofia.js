@@ -307,6 +307,7 @@ var METE = [
     linkSito: "https://www.phdl.at/",
     notaDisponibilita: "Elementary Teacher Education: solo per studenti germanofoni, livello minimo B2. Per Primary Teacher Education e Secondary Teacher Education sono benvenuti gli studenti non germanofoni.",
 
+    linkCatalogo: "https://www.phdl.at/index.php?eID=dumpFile&t=f&f=11644&token=d0db8824f78f472d6404850249906751f083628f",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). Accordo ERA71133."
   },
   {

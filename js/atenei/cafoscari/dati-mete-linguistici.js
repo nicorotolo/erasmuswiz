@@ -1197,6 +1197,7 @@ var METE = [
     linkPdf: "",
     linkSito: "https://www.uibk.ac.at/en/international-relations-office/student-mobility/incoming/mobility-programmes/erasmus-studmob/",
     notaDisponibilita: "Please note that the UIBK does not have a Faculty of Medicine because there is a separate Medical University of Innsbruck in the city.",
+    linkCatalogo: "https://lfuonline.uibk.ac.at/public/lfuonline_lv.home",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 2X5. Lingua e scadenze ospitante da completare nei batch successivi."
   },
   {
@@ -2001,6 +2002,7 @@ var METE = [
     linkSito: "https://www.aau.at/en/",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkCatalogo: "https://www.aau.at/en/study/courses/",
     notePratiche: "Aperta a: Dipartimento di Studi Linguistici e Culturali Comparati [Dati ufficiali bando 2026/27] ciclo/posti: 5 x 5, solo 1° sem.. Lingua e scadenze ospitante da completare nei batch successivi. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {

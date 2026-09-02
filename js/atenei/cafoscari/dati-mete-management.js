@@ -34,6 +34,7 @@ var METE = [
     linkSito: "https://www.aau.at/en/international/studying-in-klagenfurt/students-in-mobility-programmes/",
     nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
 
+    linkCatalogo: "https://www.aau.at/en/study/courses/",
     notePratiche: "Aperta a: CdS della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: LM; studenti: 3; mesi: 5. Periodo vincolato: SI - Solo 1� semestre/YES - First semester only || Scadenze: fact sheet AAU 2026/27 || Lingua: CEFR generale non pubblicato ufficialmente per exchange; verificare requisiti dei singoli corsi || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato dopo ricerca approfondita"
   },
   {
