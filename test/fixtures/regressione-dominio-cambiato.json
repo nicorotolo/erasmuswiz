@@ -1,0 +1,229 @@
+{
+  "descrizione": "Campione di regressione del Passo 0 (PLAN_FASE7). Partner RAGGIUNTI passando dal ramo dominioCambiato di raccogli-partner.mjs:348. Dopo la validazione degli indirizzi e il passaggio a redirect manuale, tutti questi devono restare raggiungibili: la validazione non deve rifiutare nessuno di questi salti. Estratto il 2026-09-03 da raccolta/pagine/**.",
+  "estrattoIl": "2026-09-03",
+  "totale": 37,
+  "casi": [
+    {
+      "codice": "AKLAGENF02",
+      "partenza": "https://www.ph-kaernten.ac.at/",
+      "dominioArrivo": "https://www.phk.ac.at",
+      "pagineRaccolte": 10
+    },
+    {
+      "codice": "BGPLOVDIV02",
+      "partenza": "http://www.mu-plovdiv.bg/",
+      "dominioArrivo": "https://erasmus.mu-plovdiv.bg",
+      "pagineRaccolte": 25
+    },
+    {
+      "codice": "DDARMSTA01",
+      "partenza": "http://www.th-darmstadt.de/",
+      "dominioArrivo": "https://www.tu-darmstadt.de",
+      "pagineRaccolte": 25
+    },
+    {
+      "codice": "DDUSSELD01",
+      "partenza": "http://www.uni-duesseldorf.de/",
+      "dominioArrivo": "https://www.hhu.de",
+      "pagineRaccolte": 25
+    },
+    {
+      "codice": "DERLANGE01",
+      "partenza": "http://www.uni-erlangen.de/",
+      "dominioArrivo": "https://www.fau.de",
+      "pagineRaccolte": 25
+    },
+    {
+      "codice": "DFREIBUR01",
+      "partenza": "https://www.uni-freiburg.de/go/erasmus",
+      "dominioArrivo": "https://uni-freiburg.de",
+      "pagineRaccolte": 25
+    },
+    {
+      "codice": "DHALLE01",
+      "partenza": "http://www.verwaltung.uni-halle.de/",
+      "dominioArrivo": "https://www.international.uni-halle.de",
+      "pagineRaccolte": 25
+    },
+    {
+      "codice": "DKARHUS01",
+      "partenza": "http://www.au.dk/en/exchange/welcome/",
+      "dominioArrivo": "https://international.au.dk",
+      "pagineRaccolte": 25
+    },
+    {
+      "codice": "DKOBLENZ01",
+      "partenza": "https://www.hs-koblenz.de/en/rmc/international-office/study-in-koblenz/exchange-program",
+      "dominioArrivo": "https://www.hs-koblenz.com",
+      "pagineRaccolte": 25
+    },
+    {
+      "codice": "DRAVENSB01",
+      "partenza": "http://www.hs-weingarten.de/",
+      "dominioArrivo": "https://www.rwu.de",
+      "pagineRaccolte": 25
+    },
+    {
+      "codice": "ELAS-PAL43",
+      "partenza": "https://www.ufpcanarias.es/",
+      "dominioArrivo": "https://ufpcanarias.com",
+      "pagineRaccolte": 25
+    },
+    {
+      "codice": "EMADRID17",
+      "partenza": "http://www.uax.es/",
+      "dominioArrivo": "https://www.uax.com",
+      "pagineRaccolte": 25
+    },
+    {
+      "codice": "EPALMA01",
+      "partenza": "http://sri.uib.es/",
+      "dominioArrivo": "https://internacional.uib.es",
+      "pagineRaccolte": 25
+    },
+    {
+      "codice": "ESALAMAN02",
+      "partenza": "https://www.usal.es/",
+      "dominioArrivo": "https://cursosinternacionales.usal.es",
+      "pagineRaccolte": 25
+    },
+    {
+      "codice": "ESANTIAG01",
+      "partenza": "http://www.usc.es/",
+      "dominioArrivo": "https://www.usc.gal",
+      "pagineRaccolte": 25
+    },
+    {
+      "codice": "EVALLADO03",
+      "partenza": "http://www.uemc.edu/",
+      "dominioArrivo": "https://www.uemc.es",
+      "pagineRaccolte": 25
+    },
+    {
+      "codice": "FCORTE01",
+      "partenza": "http://www.univ-corse.fr/",
+      "dominioArrivo": "https://www.universita.corsica",
+      "pagineRaccolte": 13
+    },
+    {
+      "codice": "FGRENOBL22",
+      "partenza": "http://www.inpg.fr/",
+      "dominioArrivo": "https://www.grenoble-inp.fr",
+      "pagineRaccolte": 25
+    },
+    {
+      "codice": "FRENNES02",
+      "partenza": "http://www.uhb.fr/",
+      "dominioArrivo": "https://www.univ-rennes2.fr",
+      "pagineRaccolte": 25
+    },
+    {
+      "codice": "GKOMOTIN01",
+      "partenza": "http://www.duth.gr/",
+      "dominioArrivo": "https://erasmus.duth.gr",
+      "pagineRaccolte": 25
+    },
+    {
+      "codice": "LTVILNIUS02",
+      "partenza": "http://www.vgtu.lt/",
+      "dominioArrivo": "https://vilniustech.lt",
+      "pagineRaccolte": 25
+    },
+    {
+      "codice": "LVJURMALA03",
+      "partenza": "https://www.psk.lu.lv/",
+      "dominioArrivo": "https://psk.lu.lv",
+      "pagineRaccolte": 11
+    },
+    {
+      "codice": "NLLEIDEN01",
+      "partenza": "http://www.leidenuniv.nl/",
+      "dominioArrivo": "https://www.organisatiegids.universiteitleiden.nl",
+      "pagineRaccolte": 25
+    },
+    {
+      "codice": "PLLUBLIN02",
+      "partenza": "http://www.kul.lublin.pl/",
+      "dominioArrivo": "https://www.kul.pl",
+      "pagineRaccolte": 25
+    },
+    {
+      "codice": "PLLUBLIN04",
+      "partenza": "http://www.up.lublin.pl/",
+      "dominioArrivo": "https://up.lublin.pl",
+      "pagineRaccolte": 25
+    },
+    {
+      "codice": "PLPOZNAN02",
+      "partenza": "http://www.put.poznan.pl/",
+      "dominioArrivo": "https://put.poznan.pl",
+      "pagineRaccolte": 10
+    },
+    {
+      "codice": "PLWARSZAW01",
+      "partenza": "http://www.bwz.uw.edu.pl/",
+      "dominioArrivo": "https://bwz.uw.edu.pl",
+      "pagineRaccolte": 25
+    },
+    {
+      "codice": "PLWROCLAW01",
+      "partenza": "http://www.uni.wroc.pl/",
+      "dominioArrivo": "https://uwr.edu.pl",
+      "pagineRaccolte": 1
+    },
+    {
+      "codice": "ROBRASOV01",
+      "partenza": "http://unitbv.ro/",
+      "dominioArrivo": "https://erasmus.unitbv.ro",
+      "pagineRaccolte": 25
+    },
+    {
+      "codice": "ROBUCURES09",
+      "partenza": "http://www.unibuc.ro/",
+      "dominioArrivo": "https://unibuc.ro",
+      "pagineRaccolte": 25
+    },
+    {
+      "codice": "ROBUCURES43",
+      "partenza": "http://www.upb.ro/",
+      "dominioArrivo": "https://erasmus.upb.ro",
+      "pagineRaccolte": 25
+    },
+    {
+      "codice": "ROCLUJNAP05",
+      "partenza": "http://www.utcluj.ro/",
+      "dominioArrivo": "https://utcluj.ro",
+      "pagineRaccolte": 20
+    },
+    {
+      "codice": "ROTIMISOA01",
+      "partenza": "http://www.uvt.ro/",
+      "dominioArrivo": "https://ri.uvt.ro",
+      "pagineRaccolte": 25
+    },
+    {
+      "codice": "TRCORUM01",
+      "partenza": "https://www.hitit.edu.tr/",
+      "dominioArrivo": "https://hitit.edu.tr",
+      "pagineRaccolte": 25
+    },
+    {
+      "codice": "TRISTANBU07",
+      "partenza": "http://www.erasmus.yildiz.edu.tr/page/27/1",
+      "dominioArrivo": "https://erasmus.yildiz.edu.tr",
+      "pagineRaccolte": 25
+    },
+    {
+      "codice": "TRISTANBU10",
+      "partenza": "http://www.iticu.edu.tr/english/eng_index.htm",
+      "dominioArrivo": "http://internationaloffice.ticaret.edu.tr",
+      "pagineRaccolte": 1
+    },
+    {
+      "codice": "TRIZMIR02",
+      "partenza": "http://www.ege.edu.tr/",
+      "dominioArrivo": "https://ebp.ege.edu.tr",
+      "pagineRaccolte": 25
+    }
+  ]
+}
