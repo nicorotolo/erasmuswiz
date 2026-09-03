@@ -817,7 +817,9 @@ var METE = [
       { numero: 2, mesi: 6, livello: "L", note: "" },
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: { op: "ALL", figli: [
+        { lingua: "Inglese", livello: "B2" }
+      ], fonte: "https://www.erasmus.tibiscus.ro/documente-mobilitate-studenti/", verificatoIl: "2026-09-02" },
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://tibiscus.ro/",
