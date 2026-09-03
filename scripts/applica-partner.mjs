@@ -147,6 +147,18 @@ function aggiungiNonTrovabile(blocco, campo, lettura) {
   return impostaCampo(blocco, "nonTrovabile", nonTrovabile);
 }
 
+// Il gemello di aggiungiNonTrovabile: quando il dato arriva, "cercato senza
+// esito" ha smesso di essere vero e va tolto. Non tocca gli altri campi.
+export function togliNonTrovabile(blocco, campo) {
+  let meta;
+  try { meta = Function(`"use strict"; return (${blocco});`)(); }
+  catch { return { blocco, modificato: false }; }
+  if (!meta?.nonTrovabile?.[campo]) return { blocco, modificato: false };
+  const resto = { ...meta.nonTrovabile };
+  delete resto[campo];
+  return impostaCampo(blocco, "nonTrovabile", resto);
+}
+
 // Funzione pura 0f: riceve testi e decisioni gia' caricati e prepara l'intera
 // applicazione senza leggere o scrivere il disco. Prima --prova restituiva 0
 // contenuti prospettici; ora anteprima e scrittura vera consumano la stessa
@@ -174,6 +186,12 @@ export function preparaApplicazione({ originali, proposte, letture }) {
           if (esito.modificato) {
             scritti++;
             ((fontiNuove[codiceNorm] ||= {})[proposta.campo] = proposta.fonte?.url);
+            // Scrivere il dato e lasciare il marcatore farebbe dire alla meta due
+            // cose incompatibili: "ecco il valore" e "cercato senza esito". E' un
+            // invariante dei dati pubblicati (test/stato-campo.test.mjs), e il
+            // 03/09 si e' rotto per davvero riempiendo PL KATOWIC01 e
+            // RO TIMISOA01, che erano `daRiconfermare` con un marcatore V1.
+            return togliNonTrovabile(esito.blocco, proposta.campo).blocco;
           }
           return esito.blocco;
         }));

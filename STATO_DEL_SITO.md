@@ -21,15 +21,19 @@
 
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-09-03 — Claude (**Fase 6: Atto 0 chiuso, Atto 1
-fatto per 15 verdetti su 20; gli altri 5 sono fermi su un difetto vero**).
-L'Atto 0 è committato (`50b1d6d`): il registro dei giudizi è versionato, ha una
-sola macchina a stati, un recupero riavviabile e lo stesso lock della catena —
-24 prove nuove, **393 verdi**. Poi l'arbitrato dei venti: **11 sì, 9 no, zero
-non so**, e `linkCatalogo` **574 → 580**, `requisitoLingua` **1.529 → 1.534**.
-Le 1.987 mete restano 1.987 e nessun altro campo è stato toccato.
-**Ma cinque «sì» non sono entrati**, e la ragione vale più dei numeri: sono
-DUE definizioni di «campo vuoto» che non concordano (vedi §6).
+**Ultimo aggiornamento:** 2026-09-03 — Claude (**Fase 6: Atti 0 e 1 chiusi, e un
+difetto trovato applicando**). L'Atto 0 (`50b1d6d`) ha reso il registro dei
+giudizi versionato, con una sola macchina a stati, un recupero riavviabile e lo
+stesso lock della catena. Poi l'arbitrato dei venti: **11 sì, 9 no, zero non
+so** — `linkCatalogo` **574 → 580**, `requisitoLingua` **1.529 → 1.538**, le
+1.987 mete invariate e nessun altro campo toccato.
+**Cinque «sì» non sono entrati al primo colpo**, e la ragione valeva più dei
+numeri: **due definizioni di «campo vuoto» in due posti**, con la guardia che
+rifiutava i campi `daRiconfermare` che chi scrive considera — giustamente —
+riempibili. Corretto, con la sua seconda metà (il marcatore `nonTrovabile` che
+smette di essere vero) e quattro rotture di controllo verificate a mano.
+**398 prove verdi.** Restano tre conflitti veri, che sono una decisione di
+Nicola e non un difetto.
 `esegui-partner.mjs` ha lavorato **256 partner in 120 minuti**, 11 blocchi, 10
 commit tutti spinti; **210 raggiunti su 256 (82%)**, sopra il criterio del 75%.
 Poi l'arbitrato umano sui **77 cataloghi in coda**: 51 sì, 15 no, 11 non so —
@@ -4561,19 +4565,37 @@ su questo disco.
 | `D SIEGEN01`, `D GREIFS01`, `PL WARSZAW01` | `conflittoValoreDiverso`: la meta ha già un valore **diverso** | di Nicola: quale dei due vince |
 | `PL KATOWIC01`, `RO TIMISOA01` | `applicazioneNonRiuscita` | **è un difetto** |
 
-I secondi due sono la cosa da sistemare, ed è la famiglia di errore che questo
-progetto continua a pagare. `sap-polit-katowic` ha `requisitoLingua: []`.
-`statoCampo()` dice giustamente che **`[]` non è un dato**: campo vuoto, si può
-riempire — e infatti `preparaApplicazione` lo scrive. Ma il confronto
-strutturale che fa da rete di sicurezza vede che la chiave *c'era* e che il testo
-*è cambiato*, e blocca con `campoGiaPienoModificato`. **Sono due definizioni di
-«campo vuoto» in due posti**, cioè il non negoziabile «una sola definizione di
-campo vuoto: `statoCampo()`» violato dalla guardia invece che dallo scrittore.
+I secondi due erano un difetto, ed è **corretto il 03/09**. La descrizione che
+avevo dato per prima era imprecisa in un punto che conta: la guardia
+`statoCampo()` **lo chiamava già**. Il difetto era quale risposta accettava.
 
-Non è un difetto nuovo dell'Atto 0: è **pre-esistente**, ed è emerso ora perché
+`sap-polit-katowic` ha `requisitoLingua: []` più un marcatore V1 «cercato senza
+esito, fonte e data non registrate»: quindi `statoCampo()` non dice `vuoto`,
+dice **`daRiconfermare`**. Chi scrive chiede «il valore è vuoto?»
+(`campoVuoto(grezzo)`) e scrive; la guardia chiedeva `statoCampo === "vuoto"` e
+rifiutava. **Due definizioni di «campo vuoto» in due posti**, divergenti proprio
+sui due stati — `nonTrovabile` e `daRiconfermare` — che **non portano nessun
+dato**. La domanda giusta è una sola: *c'era un dato?* Ora la guardia chiede
+`statoCampo(...) === "dato"`, e nient'altro cambia: un campo che un dato ce
+l'aveva davvero resta intoccabile.
+
+Non era un difetto dell'Atto 0: è **pre-esistente**, ed è emerso ora perché
 `requisitoLingua` è il primo campo applicato dove i segnaposto `[]` sono comuni —
-`linkCatalogo` di solito era **assente**, non vuoto. La rete di sicurezza non va
-allargata a forza: va fatta chiedere a `statoCampo()`.
+`linkCatalogo` di solito era **assente**, non vuoto.
+
+**La correzione ha avuto una seconda metà, e l'ha trovata la suite.** Riempire un
+campo `daRiconfermare` lasciava in piedi il suo marcatore, e la meta diceva
+insieme «ecco il valore» e «cercato senza esito» — una contraddizione che i dati
+pubblicati vietano per prova (`test/stato-campo.test.mjs`). Ora chi scrive toglie
+il marcatore del campo riempito (`togliNonTrovabile`, gemello di
+`aggiungiNonTrovabile`) e il confronto ammette **solo** quella rimozione: un
+marcatore aggiunto, o tolto senza che il dato sia arrivato, resta un problema
+(`nonTrovabileAlterato`). Tre righe già scritte sono state riparate con la stessa
+funzione.
+
+**Esito: 8 verdetti applicati su 11 sì**, `requisitoLingua` **1.534 → 1.538**,
+1.987 mete invariate, **398 prove verdi**. Restano i tre conflitti veri, che sono
+una decisione di Nicola e non un difetto.
 
 ### Fase 5A — fotografia del 2026-09-01
 
@@ -5213,19 +5235,25 @@ poi aprire **http://localhost:8001**. (Dettagli e alternative nel `README.md`.)
 
 ### ⇢ Cantiere DATI — cosa resta dopo la Fase 5 (aggiornato 2026-09-03)
 
-**Prima azione: il difetto delle due definizioni di «campo vuoto».** Il confronto
-strutturale rifiuta `[]` → valore come `campoGiaPienoModificato`, mentre
-`statoCampo()` dice — giustamente — che `[]` è vuoto. Finché non è chiuso,
-**ogni futura applicazione di `requisitoLingua` su una meta con `[]` fallirà**, e
-i segnaposto `[]` sono comuni proprio in quel campo. Ferma `PL KATOWIC01` e
-`RO TIMISOA01`, già giudicati sì. La correzione è far chiedere alla guardia
-`statoCampo()` invece di «la chiave c'era»; serve una prova che rompa la guardia
-di proposito, perché una rete di sicurezza troppo larga è peggio di nessuna rete.
-
-**Seconda:** i tre `conflittoValoreDiverso` (`D SIEGEN01`, `D GREIFS01`,
+**Prima azione: i tre `conflittoValoreDiverso`** (`D SIEGEN01`, `D GREIFS01`,
 `PL WARSZAW01`), dove il sito ha già un valore diverso da quello approvato. Non è
-un difetto: è una decisione di Nicola su quale dei due vince, e oggi non esiste
-un modo di dirlo se non a mano.
+un difetto: è una decisione su quale dei due vince, e oggi non esiste un modo di
+dirlo se non a mano. Sono l'unico residuo dell'arbitrato dei venti.
+
+**Seconda: il riepilogo di `applica-arbitrato` mente per omissione.** Dopo dodici
+commit e due push stampa «0 eventi nuovi, campi scritti 0, commit: nessuno»,
+perché i numeri del **recupero** (`applicati`, `chiusiSenzaDati`, `falliti`) non
+li stampa nessuno: `recuperaArbitrati` li restituisce e il chiamante li butta.
+Non è un difetto di correttezza — lo stato su disco è giusto — ma il 03/09 ha
+fatto credere che il run non avesse fatto niente, e la verità è emersa solo
+misurando il registro a mano. Un resoconto che nessuno guarda è una prova verde
+che non vede niente.
+
+**Terza: tre partner restano in `pendingLingua` pur avendo la lingua**
+(`G IOANNIN01`, `IRL SETU01`, `RO TIMISOA07`), fra gli avvisi non bloccanti di
+`valida-stato.mjs`. Benigno, ma è una lista che andrebbe ripulita quando un campo
+si riempie — lo stesso genere di cosa che il marcatore `nonTrovabile` ha appena
+insegnato.
 
 **La Fase 5 è chiusa.** La catena esiste, ha girato per intero, e non c'è più un
 solo partner che possa lavorare: 479 `fatto`, e i 134 restanti sono tutti fuori

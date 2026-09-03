@@ -252,3 +252,44 @@ test("prova scrive solo l anteprima e lascia i file dati identici", async (t) =>
   assert.doesNotMatch(testoAnteprima, /const METE/);
   assert.ok(fs.statSync(anteprimaFile).size < 100_000, "l'anteprima deve restare sotto 100 KB");
 });
+
+// ------------------------- il marcatore che smette di essere vero (03/09)
+
+test("riempire un daRiconfermare toglie il suo nonTrovabile e lascia stare gli altri", async (t) => {
+  // Il caso vero di PL KATOWIC01: valore vuoto piu' un marcatore V1. Scrivere il
+  // dato e lasciare il marcatore farebbe dire alla meta due cose incompatibili,
+  // e i dati pubblicati non lo ammettono (test/stato-campo.test.mjs).
+  const radice = fs.mkdtempSync(path.join(os.tmpdir(), "erasmuswiz-nt-"));
+  t.after(() => fs.rmSync(radice, { recursive: true, force: true }));
+  const dir = path.join(radice, "js", "atenei", "test");
+  fs.mkdirSync(dir, { recursive: true });
+  const percorso = path.join(dir, "dati-mete-1.js");
+  fs.writeFileSync(percorso, 'const METE = [\n{\n  id: "x-1",\n'
+    + '  codiceErasmus: "TEST 01",\n  linkCatalogo: "",\n'
+    + '  nonTrovabile: { linkCatalogo: { origine: "pipeline V1" }, linkSito: { origine: "pipeline V1" } },\n'
+    + "  notePratiche: []\n}\n];\n");
+
+  await applicaPartner({ radice, approvati: [proposta()], letture: [] });
+  const testo = fs.readFileSync(percorso, "utf8");
+  assert.match(testo, /linkCatalogo: "https:\/\/esempio\.test\/catalogo"/, "il dato deve entrare");
+  assert.doesNotMatch(testo, /nonTrovabile:[^\n]*linkCatalogo/,
+    "il marcatore del campo riempito non e' piu' vero e va tolto");
+  // E CIO' CHE NON C'ENTRA DEVE RESTARE: il marcatore di un ALTRO campo, che
+  // nessuno ha riempito, e' ancora vero. Toglierli tutti sarebbe "butta via",
+  // e passerebbe la prova qui sopra esattamente come la correzione giusta.
+  assert.match(testo, /linkSito: \{ origine: "pipeline V1" \}/,
+    "il marcatore di un campo non toccato deve sopravvivere");
+});
+
+test("un campo riempito senza marcatore non inventa un nonTrovabile vuoto", async (t) => {
+  const radice = fs.mkdtempSync(path.join(os.tmpdir(), "erasmuswiz-nt2-"));
+  t.after(() => fs.rmSync(radice, { recursive: true, force: true }));
+  const dir = path.join(radice, "js", "atenei", "test");
+  fs.mkdirSync(dir, { recursive: true });
+  const percorso = path.join(dir, "dati-mete-1.js");
+  fs.writeFileSync(percorso, sorgente("TEST 01"));
+  await applicaPartner({ radice, approvati: [proposta()], letture: [] });
+  const testo = fs.readFileSync(percorso, "utf8");
+  assert.match(testo, /linkCatalogo: "https:\/\/esempio\.test\/catalogo"/);
+  assert.doesNotMatch(testo, /nonTrovabile/, "senza marcatore non se ne crea uno");
+});

@@ -382,7 +382,7 @@ var METE = [
         { cosa: "Application (semestre estivo)", periodo: "entro 30 novembre" }
       ],
     linkSito: "https://www.us.edu.pl/en/",
-    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+    nonTrovabile: {  },
 
     linkCatalogo: "https://informator.us.edu.pl/modules",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). Accordo ERA70124. || Lingua: CEFR non trovato dopo ricerca approfondita"

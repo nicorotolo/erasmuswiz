@@ -394,6 +394,20 @@ export function fineRigaMista(testo) {
   return /\r\n/.test(testo) && /(^|[^\r])\n/.test(testo);
 }
 
+// Vero solo se `nonTrovabile` e' cambiato TOGLIENDO marcatori di campi che ora
+// portano davvero un dato, e nient'altro. Un marcatore aggiunto, o tolto mentre
+// il campo resta vuoto, non e' un riscatto: e' una perdita di informazione.
+function soloMarcatoriRiscattati(prima, dopo, metaDopo, ammessi) {
+  const a = prima || {}, b = dopo || {};
+  for (const campo of new Set([...Object.keys(a), ...Object.keys(b)])) {
+    if (isDeepStrictEqual(a[campo], b[campo])) continue;
+    if (b[campo] !== undefined) return false;          // aggiunto o modificato
+    if (!ammessi.has(campo)) return false;             // fuori dai campi del lotto
+    if (statoCampo(metaDopo, campo) !== "dato") return false;  // tolto senza il dato
+  }
+  return true;
+}
+
 // Il confronto che le prove verdi non fanno. Torna SEMPRE un resoconto: chi lo
 // chiama deve stamparlo, perche' un confronto che nessuno guarda e' una prova
 // verde che non vede niente.
@@ -407,9 +421,32 @@ export function confrontaMete(prima, dopo, { campiAmmessi = CAMPI_AUTOMATICI } =
     if (!nuovo) { problemi.push({ causa: "metaSparita", chiave }); continue; }
     for (const campo of new Set([...Object.keys(meta), ...Object.keys(nuovo)])) {
       if (isDeepStrictEqual(meta[campo], nuovo[campo])) continue;
-      const eraVuoto = statoCampo(meta, campo) === "vuoto";
+      // Riempire un campo che si diceva "cercato senza esito" obbliga a togliere
+      // il suo marcatore, o la meta direbbe insieme il dato e il non trovabile.
+      // E' l'UNICA modifica di `nonTrovabile` che passa di qui: aggiungerne uno,
+      // o toglierne uno senza aver scritto il dato, resta un problema.
+      if (campo === "nonTrovabile") {
+        if (!soloMarcatoriRiscattati(meta[campo], nuovo[campo], nuovo, ammessi)) {
+          problemi.push({ causa: "nonTrovabileAlterato", chiave, campo });
+        }
+        continue;
+      }
+      // LA DOMANDA E' "c'era un DATO?", non "lo stato era esattamente vuoto".
+      // statoCampo() ha quattro stati e solo `dato` porta un valore: `vuoto`,
+      // `nonTrovabile` e `daRiconfermare` significano tutti e tre "qui non c'e'
+      // niente da distruggere". Chiedendo `=== "vuoto"` questa guardia rifiutava
+      // proprio i campi che chi scrive considera - giustamente - riempibili:
+      // `campoVuoto(grezzo)` in applica-partner guarda il solo valore. Erano DUE
+      // definizioni di campo vuoto in due posti, col non negoziabile violato
+      // dalla guardia invece che dallo scrittore. Misurato il 03/09: due sì
+      // umani, PL KATOWIC01 e RO TIMISOA01, respinti con campoGiaPienoModificato
+      // su mete che avevano `requisitoLingua: []` piu' un marcatore V1 "cercato
+      // senza esito, fonte e data non registrate" - cioe' stato
+      // `daRiconfermare`. Riempire un daRiconfermare con un valore arbitrato da
+      // un umano e' lo scopo del campo, non una sovrascrittura.
+      const portavaUnDato = statoCampo(meta, campo) === "dato";
       if (!ammessi.has(campo)) problemi.push({ causa: "campoNonAmmesso", chiave, campo });
-      else if (!eraVuoto) problemi.push({ causa: "campoGiaPienoModificato", chiave, campo });
+      else if (portavaUnDato) problemi.push({ causa: "campoGiaPienoModificato", chiave, campo });
       else scritti[campo] = (scritti[campo] || 0) + 1;
     }
   }

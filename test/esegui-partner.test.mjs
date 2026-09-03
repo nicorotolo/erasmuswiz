@@ -482,3 +482,59 @@ test("catena: il blocco zero applica solo i campi elencati in campiDaApplicare",
   const avanz = JSON.parse(fs.readFileSync(path.join(radice, "raccolta", "avanzamento.json"), "utf8"));
   assert.equal(avanz.TEST01.applicato, true, "a fine blocco zero la voce diventa applicata");
 });
+
+// ---------------------------------- due definizioni di "campo vuoto" (03/09)
+
+test("confronto: un daRiconfermare si riempie, e cio' che porta un dato resta protetto", () => {
+  // Il caso vero: `requisitoLingua: []` piu' un marcatore V1 "cercato senza
+  // esito, fonte e data non registrate". Il valore e' vuoto, ma statoCampo dice
+  // `daRiconfermare`, non `vuoto`. Chiedendo `=== "vuoto"` la guardia respingeva
+  // due si' umani, PL KATOWIC01 e RO TIMISOA01.
+  const marcatoreV1 = { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito" } };
+  const prima = new Map([
+    ["f\u00001", { codiceErasmus: "T 1", requisitoLingua: [], nonTrovabile: marcatoreV1 }],
+    ["f\u00002", { codiceErasmus: "T 2", requisitoLingua: { op: "ANY", figli: [{ lingua: "Inglese", livello: "B1" }] } }],
+  ]);
+  const albero = { op: "ANY", figli: [{ lingua: "Polacco", livello: "B1" }] };
+  const dopo = new Map([
+    ["f\u00001", { codiceErasmus: "T 1", requisitoLingua: albero, nonTrovabile: marcatoreV1 }],
+    ["f\u00002", { codiceErasmus: "T 2", requisitoLingua: { op: "ANY", figli: [{ lingua: "Inglese", livello: "B1" }] } }],
+  ]);
+  const esito = confrontaMete(prima, dopo, { campiAmmessi: ["requisitoLingua"] });
+  assert.equal(esito.ok, true, "un daRiconfermare non porta nessun dato: riempirlo e' lo scopo del campo");
+  assert.equal(esito.scritti.requisitoLingua, 1);
+
+  // E QUELLO CHE NON C'ENTRA DEVE RESTARE PROTETTO: la meta che un dato ce
+  // l'aveva davvero non si tocca, o la correzione sarebbe "butta via la rete".
+  const dopoRotto = new Map(dopo);
+  dopoRotto.set("f\u00002", { codiceErasmus: "T 2", requisitoLingua: albero });
+  const rotto = confrontaMete(prima, dopoRotto, { campiAmmessi: ["requisitoLingua"] });
+  assert.equal(rotto.ok, false, "un campo che portava un dato resta intoccabile");
+  assert.equal(rotto.problemi[0].causa, "campoGiaPienoModificato");
+  assert.equal(rotto.problemi[0].chiave, "f\u00002");
+});
+
+test("confronto: anche un nonTrovabile completo di fonte e data si puo' riempire", () => {
+  const nt = { linkCatalogo: { fonte: "https://esempio.test/x", cercatoIl: "2026-09-01" } };
+  const prima = new Map([["f\u00001", { codiceErasmus: "T 1", linkCatalogo: "", nonTrovabile: nt }]]);
+  const dopo = new Map([["f\u00001", { codiceErasmus: "T 1", linkCatalogo: "https://esempio.test/corsi", nonTrovabile: nt }]]);
+  const esito = confrontaMete(prima, dopo, { campiAmmessi: ["linkCatalogo"] });
+  assert.equal(esito.ok, true, "'cercato e non trovato' non e' un dato da proteggere");
+  assert.equal(esito.scritti.linkCatalogo, 1);
+});
+
+test("catena: applicaEControlla lascia passare un daRiconfermare riempito", async (t) => {
+  // Colpisce CHI CHIAMA: e' applicaEControlla a rifiutare il lotto, non
+  // confrontaMete, ed e' li' che i due si' umani si sono fermati.
+  const radice = radiceFinta(t, { campi: { requisitoLingua: [], nonTrovabile: { requisitoLingua: { origine: "pipeline V1" } } } });
+  const file = path.join(radice, "js", "atenei", "test", "dati-mete-1.js");
+  const riempito = sorgente("TEST 01", {
+    requisitoLingua: { op: "ANY", figli: [{ lingua: "Polacco", livello: "B1" }] },
+    nonTrovabile: { requisitoLingua: { origine: "pipeline V1" } },
+  });
+  const esito = await applicaEControlla({ radice, proposte: [], campi: ["requisitoLingua"],
+    etichetta: "x", idTransazione: "vuoto1", prova: true, git: gitFinto(),
+    applica: async () => ({ scritti: 1, disaccordi: [], contenutoProspettico: new Map([[file, riempito]]) }) });
+  assert.equal(esito.confronto.ok, true, "il lotto non deve fermarsi su un campo che non portava un dato");
+  assert.equal(esito.confronto.scritti.requisitoLingua, 1);
+});

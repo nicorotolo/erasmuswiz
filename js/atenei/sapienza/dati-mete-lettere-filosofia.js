@@ -7004,7 +7004,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 1 dicembre" }
       ],
     linkSito: "http://www.uvt.ro",
-    nonTrovabile: { requisitoLingua: { origine: "pipeline V1", nota: "cercato senza esito, fonte e data non registrate" } },
+    nonTrovabile: {  },
 
     linkCatalogo: "http://ri.uvt.ro/en/erasmus-incoming-students/ects-info-packs-courses-at-wut/",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA71462. || Lingua: CEFR non pubblicato ufficialmente || Lingua: CEFR non trovato in mappature precedenti"

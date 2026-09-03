@@ -259,8 +259,18 @@ test("V5.5: inglese B2 dichiarato e non certificato produce i verdi misurati sui
   };
   // La spec congelata misura 184/643 sul dataset del 29 luglio. I file mete
   // presenti ora (riscritti dall'automazione e vietati a V5) producono
-  // 182/600: il report dichiara lo scostamento invece di falsare la prova.
-  const attesi = { cafoscari: 182, sapienza: 600 };
+  // 183/608: il report dichiara lo scostamento invece di falsare la prova.
+  // 03/09, in due passi, ed e' tutto l'arbitrato dei venti.
+  //  - sapienza 600 -> 605: quattro partner (G IOANNIN01, IRL SETU01,
+  //    PL OPOLE02, RO TIMISOA07) hanno ricevuto un requisitoLingua approvato a
+  //    mano, cinque mete, tutti inglese B2 e quindi verdi per questo profilo.
+  //    Ca' Foscari non si muove, ed e' la conferma che l'aumento e' quello.
+  //  - poi +3 sapienza e +1 cafoscari: PL KATOWIC01 e RO TIMISOA01, che erano
+  //    rimasti fuori perche' la guardia del confronto chiedeva stato `vuoto`
+  //    mentre quelle mete erano `daRiconfermare`. Quattro campi, quattro verdi.
+  // Questa soglia va rialzata solo quando si sa DA COSA: un numero che cresce da
+  // solo e' una prova che ha smesso di guardare.
+  const attesi = { cafoscari: 183, sapienza: 608 };
   ATENEI.forEach((ateneo) => {
     const verdi = meteAteneo(ateneo)
       .filter((meta) => compatibilitaPresentata(meta, profilo).icona === "✅")
