@@ -1841,6 +1841,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
       ],
     linkSito: "http:/www.uhb.fr",
+    linkCatalogo: "https://international.univ-rennes2.fr/system/files/UHB/STUDYING/english-courses-2024-V2w.pdf",
     notePratiche: "Posti totali dell'accordo: 4 (condivisi tra i livelli). Accordo ERA71356."
   },
   {
@@ -2098,6 +2099,7 @@ var METE = [
         { cosa: "Application (primavera)", periodo: "entro 15 ottobre" }
       ],
     linkSito: "http:/www.uhb.fr",
+    linkCatalogo: "https://international.univ-rennes2.fr/system/files/UHB/STUDYING/english-courses-2024-V2w.pdf",
     notePratiche: "Posti totali dell'accordo: 1 (condivisi tra i livelli). L'accordo include anche posti Phd/Specializzandi (non gestiti dal sito). Accordo ERA70973."
   },
   {

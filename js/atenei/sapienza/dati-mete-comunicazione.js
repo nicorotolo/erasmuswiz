@@ -187,6 +187,7 @@ var METE = [
       ],
     linkSito: "http:/www.uhb.fr",
 
+    linkCatalogo: "https://international.univ-rennes2.fr/system/files/UHB/STUDYING/english-courses-2024-V2w.pdf",
     notePratiche: "Posti totali dell'accordo: 2 (condivisi tra i livelli)."
   },
   {
