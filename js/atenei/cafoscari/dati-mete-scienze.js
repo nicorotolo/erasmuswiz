@@ -688,7 +688,9 @@ var METE = [
     posti: [
       { numero: 2, mesi: 6, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: { op: "ALL", figli: [
+        { lingua: "Inglese", livello: "B1" }
+      ], fonte: "https://ri.uvt.ro/en/erasmus-mobility-programme/erasmus-incoming-students/i-was-selected-by-my-university-what-now/", verificatoIl: "2026-03-31" },
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Nomination (autunno)", periodo: "entro 1 giugno" },
