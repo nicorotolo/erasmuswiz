@@ -372,7 +372,10 @@ var METE = [
       { numero: 1, mesi: 5, livello: "L", note: "" },
       { numero: 1, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: { op: "ANY", figli: [
+        { lingua: "Inglese", livello: "B1" },
+        { lingua: "Polacco", livello: "B1" }
+      ], fonte: "https://erasmus.us.edu.pl/language-requirements/", verificatoIl: "2026-09-02" },
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Application (semestre invernale)", periodo: "entro 15 giugno" },
