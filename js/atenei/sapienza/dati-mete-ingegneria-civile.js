@@ -1471,7 +1471,9 @@ var METE = [
       { numero: 2, mesi: 5, livello: "L", note: "" },
       { numero: 2, mesi: 5, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: { op: "ALL", figli: [
+        { lingua: "Inglese", livello: "B2" }
+      ], fonte: "https://dwm.po.edu.pl/incoming-students/?lang=en", verificatoIl: "2026-09-02" },
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [],
     linkSito: "https://po.edu.pl/",
