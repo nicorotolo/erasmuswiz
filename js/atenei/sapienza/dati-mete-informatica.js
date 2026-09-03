@@ -500,6 +500,7 @@ var METE = [
         { cosa: "Documenti (primavera)", periodo: "entro 30 novembre" }
       ],
     linkSito: "https://www.aueb.gr/",
+    linkCatalogo: "https://www.aueb.gr/el/content/idrymatikos-katalogos-mathimaton",
     notePratiche: "Posti dell'accordo: 2. Accordo ERA68283."
   },
   {

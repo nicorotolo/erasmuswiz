@@ -1244,6 +1244,7 @@ var METE = [
     crediti: "30 ECTS/semestre (carico tipico); 3 settimane dall'inizio delle lezioni per cambiare corsi.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/29537248",
     linkSito: "https://www.aueb.gr",
+    linkCatalogo: "https://www.aueb.gr/el/content/idrymatikos-katalogos-mathimaton",
     notePratiche: "Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, PhD; studenti: 2; mesi: 5. || [Fonte: scheda destinazione] || Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L; studenti: 2; mesi: 5. || Aperta a: Cds del Dipartimento di Economia - [Dati ufficiali bando 2026/27] ciclo: L, LM, PhD; studenti: 2; mesi: 5."
   },
   {

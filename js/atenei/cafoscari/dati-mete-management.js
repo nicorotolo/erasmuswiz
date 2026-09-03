@@ -1641,6 +1641,7 @@ var METE = [
     crediti: "Tipicamente 30 ECTS/semestre (standard Erasmus) - da confermare.",
     linkPdf: "https://apps.unive.it/dati/web/attach/destinazioni_erasmus/3254640",
     linkSito: "https://www.aueb.gr/en/erasmus/mobility/content/erasmus-program-information",
+    linkCatalogo: "https://www.aueb.gr/el/content/idrymatikos-katalogos-mathimaton",
     notePratiche: "Aperta a: Cds della Venice School of Management [Dati ufficiali bando 2026/27] ciclo: L; studenti: 4; mesi: 5. || Scadenze e lingua: AUEB fact sheet 2025/26; corsi disponibili in inglese"
   },
   {
