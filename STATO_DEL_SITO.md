@@ -21,8 +21,11 @@
 
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-09-02 — Claude (**Fase 5 chiusa: la catena
-esiste, ha girato per intero, e il catalogo dei corsi è quasi triplicato**).
+**Ultimo aggiornamento:** 2026-09-03 — Codex (**Fase 6, Atto 0 implementato e
+coperto da 24 nuove prove; diff ancora da revisionare e committare da Claude**).
+Il registro dei giudizi è ora allowlistato per Git, ha una sola macchina a stati,
+un recupero tecnico riavviabile e lo stesso lock della catena. Nessun dato del
+sito è stato modificato.
 `esegui-partner.mjs` ha lavorato **256 partner in 120 minuti**, 11 blocchi, 10
 commit tutti spinti; **210 raggiunti su 256 (82%)**, sopra il criterio del 75%.
 Poi l'arbitrato umano sui **77 cataloghi in coda**: 51 sì, 15 no, 11 non so —
@@ -4318,6 +4321,7 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **Pipeline dati — Fase 5A: sette correzioni preliminari** | Codice canonico unico e collisioni isolate; guardie sui veri invarianti; fonti e disaccordi fusi e ricostruiti; partner ricostruibili; tentativi strutturati; anteprima prospettica compatta; migrazione dello stato storico | ✅ **Chiusa con 321/321 unit verdi (01/09)**. `avanzamento.json`: 231 letture applicate, 27 `daApplicare` con 29 campi espliciti, 1 collisione isolata e zero ambigui veri. Consegna B non iniziata |
 | **Pipeline dati — Fase 5B: la catena `esegui-partner.mjs`** | Raccolta → riestrazione PDF → lettura → cancelli → applicazione → commit/push, a blocchi e ripartibile. Lock atomico, transazione con manifesto e `baseHead`, confronto delle mete campo per campo, push per blocco che si ferma senza mai fare merge | ✅ **Chiusa il 02/09.** 256 partner in 120 minuti, 82% raggiunti, 197 campi scritti. Due difetti trovati ESEGUENDO: l'argomento del fine-riga dimenticato in `impostaCampo` (15 a-capo nudi in 3 file, il §8.5 chiuso solo a metà il 01/09) e la chiave del registro costruita in due file con separatori diversi |
 | **Pipeline dati — Fase 5B: arbitrato e riesame** | `applica-arbitrato.mjs` è l'unica porta per cui un `linkCatalogo` entra nei dati, e il suo cancello è l'**impronta del valore**, che deve avere un «sì» nel registro `giudizi.jsonl`. `verifica-riesame.mjs` misura le voci «non so» separando «è vecchio?» da «è un elenco di corsi?» | ✅ **Chiuse il 02/09.** 81 valori applicati in due tornate (`linkCatalogo` 380 → 574). Coda a zero, **11 voci da riesaminare** con il motivo accanto. Il «non so» ha una coda sua: descrive un lavoro, non lo chiude |
+| **Pipeline dati — Fase 6, Atto 0: registro durevole e recupero** | Allowlist dei soli fatti non ricostruibili; `statoGiudizio()` unico per arbitrato e code; `da-recuperare.json` con esecutore; barriera commit/push del registro; lock condiviso | ✅ **Implementato e provato il 03/09, in attesa di review/commit umano.** 24 nuove prove (393 totali) coprono le 22 transizioni/casi, `.gitignore` e lock; sei rotture di controllo viste rosse e ripristinate. Nessun dato del sito toccato |
 | **REDESIGN v2 — F0: Preparazione** | Spec versionata in `design/redesign-2026-07/` (canvas + baseline invarianti/touch, vedi §4). Nessun file di produzione toccato. Commit `ac7c1c9`, pushato | ✅ Fatta (2026-07-25) |
 | **REDESIGN v2 — F1: Token, ritmo, gutter, griglia** | Token §2.1–2.3 (`--bg-app #FAF8F3`, `--night-bg #211E42`, `--space-*`/`--fs-*`/`--gutter`/`--stack`/`--container:1140px`/`--shadow-gold`, due `@media :root`); ritmo verticale con `> * + *` e i tre antidoti; **gutter a un solo proprietario** (`.main-content`): 18 margini legacy in 3 misure + 5 padding-gutter + blocco ≤480px + `#banner-wiz` inline, tutto in un diff; `.griglia-mete-v2` 1→2→auto-fill; creato `/*__PROD_END__*/`. Solo `css/style.css` (+238/−48), `index.html` e `js/app.js` intatti. **Due correzioni al canvas, misurate:** `.percorso-wrap` conserva `grid-row: 1/6` (senza, 337px di buco e sticky a corsa zero) e il hero torna full-bleed sotto i 768px | ✅ Fatta e verificata (2026-07-25) — commit `ce0d5a8`, **pushato il 25/07 insieme a F2** (decisione di Nicola: il piano lo collocava a F4). 4/4 controlli gutter, controllo browser 13 esecuzioni tutte vuote, invarianti F0 verdi ai 3 viewport |
 | **REDESIGN v2 — 🚦 GATE 1** | Nicola conferma le tre default: **P-A** su `modo-benvenuto` (R3), **`!important`** su `#banner-wiz` (R38, `index.html` non si tocca), **full-bleed conservato** per il hero. In più: **F2 riassegnata a Claude Code** invece di Codex (D4 rivista) | ✅ Passato (2026-07-25) |
@@ -4516,6 +4520,14 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
   accessibile ora (<40), con spiegazione di cosa manca.
 
 ## 6. ⚠️ STATO DEI CONTENUTI (il vero lavoro che resta)
+
+### Fase 6 — Atto 0, fotografia del 2026-09-03
+
+L'infrastruttura dell'arbitrato è stata resa durevole senza cambiare contenuti:
+un `nonSo` può essere rivisto in entrambe le direzioni, un `si` non applicato
+resta visibile nella coda tecnica e un riavvio completa registro e applicazione.
+Il registro reale non è stato modificato; le 196 chiavi esistenti restano tutte
+classificabili. Il diff attende revisione e commit umano prima dell'uso reale.
 
 ### Fase 5A — fotografia del 2026-09-01
 
@@ -5153,7 +5165,11 @@ poi aprire **http://localhost:8001**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
 
-### ⇢ Cantiere DATI — cosa resta dopo la Fase 5 (aggiornato 2026-09-02)
+### ⇢ Cantiere DATI — cosa resta dopo la Fase 5 (aggiornato 2026-09-03)
+
+**Prima azione:** revisione umana del diff dell'Atto 0, aggiunta esplicita a Git
+di `raccolta/giudizi.jsonl` e `raccolta/collisioni.json`, commit e push. Solo dopo
+si passa all'Atto 1; nessuno script va eseguito sui dati reali prima della review.
 
 **La Fase 5 è chiusa.** La catena esiste, ha girato per intero, e non c'è più un
 solo partner che possa lavorare: 479 `fatto`, e i 134 restanti sono tutti fuori

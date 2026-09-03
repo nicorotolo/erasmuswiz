@@ -866,3 +866,85 @@ dati **prima** di essere accettate; tre sono state accettate ridimensionate o
 ricollocate con motivo scritto.
 
 **Nessuna riga di codice scritta.** Il piano è pronto per l'Atto 3.
+
+---
+
+## Act 3 — Build (Codex costruisce, Claude verifica)
+
+**Portata:** solo l'Atto 0 (0a + 0b + 0c), come il piano stesso ordina. Atti 1, 2
+e 3 restano fuori, e nessuno stub e' stato creato per loro.
+**Builder:** `gpt-5.6-sol`, codex-cli 0.144.5, `-s workspace-write`.
+**Baseline misurato prima di toccare niente:** 369 pass, 0 fail.
+
+### Due tentativi a vuoto, e la causa vera
+
+Il primo e il secondo lancio si sono fermati con
+`CreateProcessAsUserW failed: 5 (Accesso negato)`. Causa: `~/.codex/config.toml`
+ha `[windows] sandbox = "elevated"` e `sandbox_mode = "danger-full-access"`.
+Finche' Codex gira sul default non usa il sandbox; appena riceve `-s read-only`
+o `-s workspace-write` attiva il sandbox Windows "elevated", che su questa
+macchina non riesce a lanciare processi. Spiega retroattivamente perche' dal
+round 2 della revisione Codex diceva di non poter leggere `PLAN_FASE6.md`.
+
+**Un controllo passato per la ragione sbagliata, e vale la pena annotarlo.** Il
+probe di verifica ("scrivi un file") era passato, e mi aveva convinto che il
+sandbox funzionasse. Codex l'aveva fatto con uno strumento interno, senza shell.
+Il build invece la shell la usa. La lezione e' quella gia' scritta il 02/09:
+*una prova puo' passare per la ragione sbagliata* — un probe che scrive un file
+non dimostra che si possano eseguire comandi.
+
+**Rimedio:** `-c windows.sandbox="unelevated"` insieme a `-s workspace-write`.
+Si resta DENTRO il sandbox: Codex scrive solo nel workspace. Il `--yolo` che la
+skill prevedeva e' stato bloccato dal classificatore di auto mode, e non e'
+stato aggirato — si e' trovato il modo di usare meno permessi, non di piu'.
+
+### Round 1 — Codex build
+
+Terzo lancio: exit 4 a meta', ma il lavoro e' rimasto sul disco. Quattro file,
+371 righe: `.gitignore` (allowlist), `statoGiudizio()` + quarantena +
+`codaRecupero()` in `esegui-partner.mjs`, `preflightRegistro` +
+`recuperaArbitrati` + `--solo-recupero` + lock + commit del registro come atto
+proprio in `applica-arbitrato.mjs`, `statoApplicazioneProposta` in
+`applica-partner.mjs`. **Zero test.** Suite ferma a 369: codice senza prova.
+
+### Claude's verdict — round 1
+
+Codice buono, proof mancante. La verifica che valeva di piu' l'ho fatta sui dati
+veri invece che sulle fixture: `statoGiudizio()` sul registro reale — 254
+eventi, 196 chiavi — restituisce **zero `statoSconosciuto`**, con 130
+`applicato`, 39 `legacyGiudicato`, 16 `no`, 11 `nonSo`. E' esattamente il quadro
+del §6. La macchina a stati che nella revisione 4 sbagliava 115 chiavi su 196
+adesso le prende tutte. Resume della STESSA sessione per le sole prove.
+
+### Round 2 — Codex, le 22 prove
+
+24 prove nuove: **393 pass, 0 fail** (da 369). Le 22 dell'Atto 0b piu' quella
+del `.gitignore` (0a) e quella del lock (0c). Codex dichiara sei rotture di
+controllo verificate.
+
+### Claude's verdict — round 2: verificato di persona
+
+Le affermazioni di Codex valgono come indizio. Ho rifatto io le due rotture che
+contano:
+
+| rottura | esito |
+|---|---|
+| filtro anti-doppione rimesso a `!registro.has(chiave)` | **5 rosse**: prove 1, 2, 5, 6, 8 — esattamente quelle che proteggono il riesame |
+| `.gitignore` rimesso a `raccolta/` | **1 rossa**: `Atto 0a - gitignore: versiona solo i tre fatti non ricostruibili` |
+
+Entrambe ripristinate, suite di nuovo verde a 393.
+
+**Il registro vero non e' stato toccato:** 254 righe, 61.596 byte, mtime del
+02/09 15:31, identico a prima del build. Le prove girano su alberi temporanei.
+
+**Controllo di qualita' su una prova a campione** (prova 1): due partner, uno con
+`si` e uno con `no`, e l'asserzione che *il secondo arrivi al suo esito* —
+la regola del 02/09 sulla prova che passa per la ragione sbagliata e' rispettata,
+non solo citata. Verifica anche che il valore finisca davvero nel file mete e che
+la voce sparisca da **entrambe** le code.
+
+**Fuori portata ma corretto:** Codex ha aggiornato anche `STATO_DEL_SITO.md`, che
+non era nel contratto. Il contenuto e' accurato e onesto ("in attesa di
+review/commit umano"), quindi resta.
+
+**Nessun commit e' stato fatto da Codex.** Il gate umano viene adesso.

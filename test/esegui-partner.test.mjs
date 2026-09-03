@@ -9,6 +9,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
+import { fileURLToPath } from "node:url";
 import {
   CAMPI_AUTOMATICI, applicaEControlla, apriLock, bloccoZero, confrontaMete, costruisciCode,
   eseguiBlocco, fondiEsiti, fotografiaMete, improntaValore, leggiRegistro, pdfCompleto,
@@ -16,6 +17,7 @@ import {
 } from "../scripts/esegui-partner.mjs";
 
 const FONTE = { url: "https://esempio.test/p1", citazione: "Una citazione lunga abbastanza.", verificataIl: "2026-09-01" };
+const RADICE_PROGETTO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 function sorgente(codice, campi = {}) {
   const righe = Object.entries(campi).map(([k, v]) => `  ${k}: ${JSON.stringify(v)},`).join("\n");
@@ -55,6 +57,20 @@ function gitFinto(testa = "aaa") {
 const pagina = (extra = {}) => ({ url: "https://esempio.test/p1", tipo: "pdf", testo: "contenuto", ...extra });
 
 // ------------------------------------------------------------- impronta
+
+test("Atto 0a - gitignore: versiona solo i tre fatti non ricostruibili", () => {
+  const righe = fs.readFileSync(path.join(RADICE_PROGETTO, ".gitignore"), "utf8")
+    .split(/\r?\n/).map((riga) => riga.trim()).filter(Boolean);
+  assert.ok(righe.includes("raccolta/*"), "Git deve poter scendere nella cartella raccolta");
+  assert.ok(!righe.includes("raccolta/"), "la vecchia regola renderebbe inefficaci le eccezioni");
+  assert.deepEqual(righe.filter((riga) => riga.startsWith("!raccolta/")).sort(), [
+    "!raccolta/collisioni.json",
+    "!raccolta/giudizi.jsonl",
+    "!raccolta/indirizzi-l4.json",
+  ], "si versionano per nome solo i fatti non ricostruibili");
+  assert.ok(!righe.some((riga) => /^!raccolta\/(?:pagine|letture)(?:\/|$)/.test(riga)),
+    "le copie di terzi e le letture devono restare escluse");
+});
 
 test("catena: l'impronta non dipende dall'ordine delle chiavi", () => {
   assert.equal(improntaValore({ a: 1, b: { c: 2, d: 3 } }), improntaValore({ b: { d: 3, c: 2 }, a: 1 }));

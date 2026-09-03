@@ -1,0 +1,46 @@
+[
+  {
+    "codiceCanonico": "DAACHEN01",
+    "record": [
+      {
+        "codice": "D AACHEN 01",
+        "codiceNorm": "D AACHEN 01",
+        "ateneo": "RWTH Aachen University (Rheinisch-Westfaelische Technische Hochschule Aachen) - Department of Chemistry",
+        "citta": "Aachen",
+        "paese": "Germania",
+        "siti": [
+          "https://www.rwth-aachen.de/",
+          "https://www.elektrotechnik.rwth-aachen.de/"
+        ],
+        "areeIsced": [],
+        "mete": 2,
+        "campiMancanti": [
+          "linkCatalogo",
+          "notaDisponibilita"
+        ]
+      },
+      {
+        "codice": "D  AACHEN01",
+        "codiceNorm": "D AACHEN01",
+        "ateneo": "RWTH Aachen University [RHEINISCH-WESTFÄLISCHE TECHNISCHE HOCHSCHULE AACHEN]",
+        "citta": "Aquisgrana",
+        "paese": "Germania",
+        "siti": [
+          "http://www.rwth-aachen.de/"
+        ],
+        "areeIsced": [
+          "Architecture and town planning (0731)",
+          "Engineering and engineering trades, not further defined (0710)",
+          "Business and administration, not further defined (0410)",
+          "Physics (0533)",
+          "Sociology and cultural studies (0314)"
+        ],
+        "mete": 5,
+        "campiMancanti": [
+          "linkCatalogo",
+          "notaDisponibilita"
+        ]
+      }
+    ]
+  }
+]

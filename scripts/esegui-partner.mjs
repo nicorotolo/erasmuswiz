@@ -109,19 +109,63 @@ export const rilasciaLock = (radice) => fs.rmSync(path.join(dir(radice), ".esegu
 export const chiaveGiudizio = (codice, campo, impronta) => `${codiceCanonico(codice)}\u0000${campo}\u0000${impronta}`;
 
 // Registro di EVENTI, non di voci mutabili: "si" -> "applicato" sono due righe,
-// e la storia del giudizio resta leggibile. Lo stato corrente e' l'ultimo evento
-// per chiave.
+// e la storia del giudizio resta leggibile. Dal 02/09 sappiamo che guardare solo
+// l'ultima riga nasconde sia `no -> si` sia un esito ignoto chiuso da applicato:
+// ogni ultimo evento porta quindi con se' tutta la sequenza della propria chiave.
 export function leggiRegistro(radice) {
   const file = path.join(dir(radice), "giudizi.jsonl");
-  const stato = new Map();
-  if (!fs.existsSync(file)) return stato;
-  for (const riga of fs.readFileSync(file, "utf8").split(/\r?\n/)) {
+  const quarantenaFile = path.join(dir(radice), "giudizi-quarantena.json");
+  const gruppi = new Map();
+  if (!fs.existsSync(file)) return gruppi;
+  const quarantena = [];
+  const righe = fs.readFileSync(file, "utf8").split(/\r?\n/);
+  for (let indice = 0; indice < righe.length; indice++) {
+    const riga = righe[indice];
     if (!riga.trim()) continue;
-    let e; try { e = JSON.parse(riga); } catch { continue; }
-    if (!e?.campo || !e?.improntaProposta) continue;
-    stato.set(chiaveGiudizio(e.codiceCanonico, e.campo, e.improntaProposta), e);
+    let e;
+    try { e = JSON.parse(riga); }
+    catch { quarantena.push({ riga: indice + 1, causa: "jsonNonValido", contenuto: riga }); continue; }
+    if (!e?.codiceCanonico || !e?.campo || !e?.improntaProposta) {
+      quarantena.push({ riga: indice + 1, causa: "chiaveIncompleta", contenuto: riga });
+      continue;
+    }
+    const chiave = chiaveGiudizio(e.codiceCanonico, e.campo, e.improntaProposta);
+    (gruppi.get(chiave) || gruppi.set(chiave, []).get(chiave)).push(e);
+  }
+  if (quarantena.length) {
+    scriviAtomico(quarantenaFile, JSON.stringify(quarantena, null, 2) + "\n");
+    throw new Error(`registro giudizi non valido: ${quarantena.length} righe in quarantena (${quarantenaFile})`);
+  }
+  fs.rmSync(quarantenaFile, { force: true });
+  const stato = new Map();
+  for (const [chiave, eventi] of gruppi) {
+    const ultimo = { ...eventi[eventi.length - 1] };
+    Object.defineProperty(ultimo, "eventi", { value: eventi, enumerable: false });
+    stato.set(chiave, ultimo);
   }
   return stato;
+}
+
+// Unica grammatica dello storico. Gli ingressi diretti `applicato` e
+// `legacyGiudicato` vengono dalla semina; i doppioni identici esistono nelle
+// 254 righe vere e sono idempotenti. Ogni altra regressione resta visibile.
+export function statoGiudizio(voce) {
+  const eventi = Array.isArray(voce) ? voce : (voce?.eventi || (voce ? [voce] : []));
+  let corrente = null;
+  const noti = new Set(["si", "no", "nonSo", "applicato", "legacyGiudicato"]);
+  for (const evento of eventi) {
+    const esito = evento?.esito;
+    if (!noti.has(esito)) return "statoSconosciuto";
+    if (esito === corrente) continue;
+    if (corrente === null) { corrente = esito; continue; }
+    if (corrente === "nonSo" && (esito === "si" || esito === "no")) { corrente = esito; continue; }
+    if (corrente === "si" && esito === "applicato") { corrente = esito; continue; }
+    return "statoSconosciuto";
+  }
+  return ({
+    null: "daGiudicare", nonSo: "nonSo", no: "no", si: "siNonApplicato",
+    applicato: "applicato", legacyGiudicato: "legacyGiudicato",
+  })[corrente === null ? "null" : corrente];
 }
 
 export function appendiEventi(radice, eventi) {
@@ -132,9 +176,6 @@ export function appendiEventi(radice, eventi) {
   return eventi.length;
 }
 
-// La coda esclude tutto cio' che ha un evento nel registro, QUALUNQUE sia
-// l'esito: i 23 bocciati del 01/09 non devono tornare sotto gli occhi di
-// nessuno una seconda volta.
 export function costruisciCode({ radice = RADICE, approvati, partner } = {}) {
   const registro = leggiRegistro(radice);
   const proposte = approvati || leggiJson(path.join(dir(radice), "approvati.json"), []) || [];
@@ -146,7 +187,9 @@ export function costruisciCode({ radice = RADICE, approvati, partner } = {}) {
     for (const p of proposte.filter((x) => x.campo === campo)) {
       const codice = codiceCanonico(p.codiceNorm);
       const impronta = improntaValore(p.valore);
-      if (registro.has(chiaveGiudizio(codice, campo, impronta))) continue;
+      const stato = statoGiudizio(registro.get(chiaveGiudizio(codice, campo, impronta)));
+      if (stato === "statoSconosciuto") throw new Error(`stato giudizio sconosciuto: ${codice}/${campo}`);
+      if (stato !== "daGiudicare") continue;
       voci.push({ codiceCanonico: codice, codiceNorm: p.codiceNorm, ateneo: ateneoDi.get(codice) || "",
         campo, valore: p.valore, citazione: p.fonte?.citazione || "", fonte: p.fonte?.url || "",
         paginaCitata: p.paginaCitata ?? null, improntaProposta: impronta });
@@ -156,7 +199,29 @@ export function costruisciCode({ radice = RADICE, approvati, partner } = {}) {
   }
   scriviAtomico(path.join(dir(radice), "da-riesaminare.json"),
     JSON.stringify(codaRiesame({ radice, approvati: proposte, partner: elenco, registro }), null, 2) + "\n");
+  scriviAtomico(path.join(dir(radice), "da-recuperare.json"),
+    JSON.stringify(codaRecupero({ radice, approvati: proposte, partner: elenco, registro }), null, 2) + "\n");
   return code;
+}
+
+function indiceProposte(proposte) {
+  const indice = new Map();
+  for (const p of proposte) {
+    if (!CAMPI_ARBITRATO.includes(p.campo)) continue;
+    const chiave = chiaveGiudizio(p.codiceNorm, p.campo, improntaValore(p.valore));
+    (indice.get(chiave) || indice.set(chiave, []).get(chiave)).push(p);
+  }
+  const ambigue = [...indice].filter(([, v]) => v.length > 1).map(([chiave]) => chiave);
+  if (ambigue.length) throw new Error(`propostaAmbigua: ${ambigue.length} chiavi hanno piu' proposte`);
+  return new Map([...indice].map(([chiave, v]) => [chiave, v[0]]));
+}
+
+function voceCoda(p, ateneoDi, extra = {}) {
+  const codice = codiceCanonico(p.codiceNorm || p.codiceCanonico);
+  const impronta = p.improntaProposta || improntaValore(p.valore);
+  return { codiceCanonico: codice, ateneo: ateneoDi.get(codice) || "", campo: p.campo,
+    ...(Object.hasOwn(p, "valore") ? { valore: p.valore, citazione: p.fonte?.citazione || "",
+      fonte: p.fonte?.url || "" } : {}), improntaProposta: impronta, ...extra };
 }
 
 // "Non so" NON e' "no", ed e' l'unico esito che descrive un lavoro invece di
@@ -171,21 +236,49 @@ export function codaRiesame({ radice = RADICE, approvati, partner, registro } = 
   const proposte = approvati || leggiJson(path.join(dir(radice), "approvati.json"), []) || [];
   const elenco = partner || leggiJson(path.join(dir(radice), "partner.json"), []) || [];
   const ateneoDi = new Map(elenco.map((p) => [codiceCanonico(p.codiceNorm), p.ateneo || ""]));
+  const perChiave = indiceProposte(proposte);
+  const visitate = new Set();
   const voci = [];
-  for (const p of proposte) {
-    if (!CAMPI_ARBITRATO.includes(p.campo)) continue;
-    const codice = codiceCanonico(p.codiceNorm);
-    const impronta = improntaValore(p.valore);
-    if (reg.get(chiaveGiudizio(codice, p.campo, impronta))?.esito !== "nonSo") continue;
+  for (const [chiave, p] of perChiave) {
+    const stato = statoGiudizio(reg.get(chiave));
+    if (stato === "statoSconosciuto") throw new Error(`stato giudizio sconosciuto: ${chiave}`);
+    if (stato !== "nonSo") continue;
+    visitate.add(chiave);
     const testo = `${p.valore} ${p.fonte?.citazione || ""}`;
     const anno = testo.match(/20(?:1[0-9]|2[0-4])/);
     const motivi = [];
     if (/\.pdf(?:$|\?)/i.test(String(p.valore)) || /dumpFile/i.test(String(p.valore))) motivi.push("pdf");
     if (anno) motivi.push(`annoVecchio:${anno[0]}`);
     if (!motivi.length) motivi.push("nonSiCapisceSeElencoDiCorsi");
-    voci.push({ codiceCanonico: codice, ateneo: ateneoDi.get(codice) || "", campo: p.campo,
-      valore: p.valore, citazione: p.fonte?.citazione || "", fonte: p.fonte?.url || "",
-      improntaProposta: impronta, motivi });
+    voci.push(voceCoda(p, ateneoDi, { motivi }));
+  }
+  for (const [chiave, evento] of reg) {
+    if (visitate.has(chiave) || statoGiudizio(evento) !== "nonSo" || perChiave.has(chiave)) continue;
+    voci.push(voceCoda(evento, ateneoDi, { causa: "propostaAssente", quando: evento.quando || "" }));
+  }
+  return voci;
+}
+
+// Il si' gia' dato non torna sotto gli occhi di Nicola: ha una coda tecnica
+// propria, costruita anche dagli eventi per non perdere proposte poi rifuse.
+export function codaRecupero({ radice = RADICE, approvati, partner, registro, motivi = new Map() } = {}) {
+  const reg = registro || leggiRegistro(radice);
+  const proposte = approvati || leggiJson(path.join(dir(radice), "approvati.json"), []) || [];
+  const elenco = partner || leggiJson(path.join(dir(radice), "partner.json"), []) || [];
+  const ateneoDi = new Map(elenco.map((p) => [codiceCanonico(p.codiceNorm), p.ateneo || ""]));
+  const perChiave = indiceProposte(proposte);
+  const voci = [];
+  for (const [chiave, evento] of reg) {
+    const stato = statoGiudizio(evento);
+    if (stato === "statoSconosciuto") throw new Error(`stato giudizio sconosciuto: ${chiave}`);
+    if (stato !== "siNonApplicato") continue;
+    const proposta = perChiave.get(chiave);
+    if (!proposta) {
+      voci.push(voceCoda(evento, ateneoDi, { causa: "propostaAssente", quando: evento.quando || "" }));
+      continue;
+    }
+    voci.push(voceCoda(proposta, ateneoDi, { causa: motivi.get(chiave) || "daRecuperare",
+      quando: evento.quando || "" }));
   }
   return voci;
 }
@@ -444,7 +537,9 @@ export async function applicaEControlla({
     const registro = leggiRegistro(radice);
     const senzaSi = proposte.filter((p) => vietati.includes(p.campo)).filter((p) => {
       const e = registro.get(chiaveGiudizio(p.codiceNorm, p.campo, improntaValore(p.valore)));
-      return !e || (e.esito !== "si" && e.esito !== "applicato");
+      const stato = statoGiudizio(e);
+      if (stato === "statoSconosciuto") throw new Error(`stato giudizio sconosciuto: ${codiceCanonico(p.codiceNorm)}/${p.campo}`);
+      return stato !== "siNonApplicato" && stato !== "applicato";
     });
     if (senzaSi.length) {
       throw new Error(`${senzaSi.length} proposte su campi d'arbitrato senza un "si" nel registro: `

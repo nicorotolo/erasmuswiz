@@ -210,6 +210,21 @@ export function preparaApplicazione({ originali, proposte, letture }) {
     nonTrovabileSaltatiPieni, disaccordi, fontiNuove, fileToccati };
 }
 
+// Il recupero dell'arbitrato non deve inventare una seconda uguaglianza. Passa
+// una proposta alla STESSA preparazione che applica a tutte le occorrenze del
+// codice (anche su file diversi) e ne legge il risultato senza scrivere nulla.
+export function statoApplicazioneProposta({ radice = RADICE, proposta } = {}) {
+  const originali = new Map(fileMete(radice).map((file) => [file, fs.readFileSync(file, "utf8")]));
+  const esito = preparaApplicazione({ originali, proposte: [proposta], letture: [] });
+  const diverse = esito.disaccordi.length;
+  const occorrenze = esito.scritti + esito.uguali + diverse;
+  if (!occorrenze) return { stato: "metaAssente", ...esito };
+  if (diverse) return { stato: "conflitto", ...esito };
+  if (esito.scritti && esito.uguali) return { stato: "misto", ...esito };
+  if (esito.scritti) return { stato: "vuoto", ...esito };
+  return { stato: "uguale", ...esito };
+}
+
 // `campi` limita l'applicazione ad alcuni campi soltanto, e non e' un dettaglio
 // tecnico: il 31/08 l'arbitrato umano dei 30 campi ha promosso linkSito,
 // scadenzeOspitante e notaDisponibilita (16 su 16) e bocciato linkCatalogo

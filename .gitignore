@@ -9,7 +9,12 @@ fonti/*
 !fonti/INDICE.md
 
 # Raccolta locale della pipeline: contiene copie di pagine dei partner.
-raccolta/
+# Come per fonti/*, la stella permette a Git di scendere nella cartella e
+# applicare le sole eccezioni ai fatti non ricostruibili.
+raccolta/*
+!raccolta/giudizi.jsonl
+!raccolta/collisioni.json
+!raccolta/indirizzi-l4.json
 
 # File di lavoro locali
 .claude/
