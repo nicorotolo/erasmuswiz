@@ -619,7 +619,10 @@ var METE = [
       { numero: 2, mesi: 6, livello: "L", note: "" },
       { numero: 2, mesi: 6, livello: "LM", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: { op: "ANY", figli: [
+        { lingua: "Inglese", livello: "B2" },
+        { lingua: "Greco", livello: "B1" }
+      ], fonte: "https://piro.uoi.gr/erasmus/foitites/eiserchomeni-kinitikotita/", verificatoIl: "2026-09-02" },
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Autumn Semester or Full Year nomination", periodo: "15 June" },
