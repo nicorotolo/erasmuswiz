@@ -647,7 +647,9 @@ var METE = [
     posti: [
       { numero: 2, mesi: 5, livello: "L", note: "" }
     ],
-    requisitoLingua: [],
+    requisitoLingua: { op: "ALL", figli: [
+        { lingua: "Inglese", livello: "B2" }
+      ], fonte: "https://www.setu.ie/global/global-mobility/erasmus-and-non-eu-exchange/erasmus-incoming-students/general-information", verificatoIl: "2026-03-30" },
     prerequisiti: "Da verificare sulla scheda ufficiale della destinazione.",
     scadenzeOspitante: [
         { cosa: "Semester 1/ Full Academic Year Nomination Deadline", periodo: "15 April" },
