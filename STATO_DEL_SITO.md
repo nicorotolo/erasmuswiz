@@ -21,11 +21,15 @@
 
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-09-03 — Codex (**Fase 6, Atto 0 implementato e
-coperto da 24 nuove prove; diff ancora da revisionare e committare da Claude**).
-Il registro dei giudizi è ora allowlistato per Git, ha una sola macchina a stati,
-un recupero tecnico riavviabile e lo stesso lock della catena. Nessun dato del
-sito è stato modificato.
+**Ultimo aggiornamento:** 2026-09-03 — Claude (**Fase 6: Atto 0 chiuso, Atto 1
+fatto per 15 verdetti su 20; gli altri 5 sono fermi su un difetto vero**).
+L'Atto 0 è committato (`50b1d6d`): il registro dei giudizi è versionato, ha una
+sola macchina a stati, un recupero riavviabile e lo stesso lock della catena —
+24 prove nuove, **393 verdi**. Poi l'arbitrato dei venti: **11 sì, 9 no, zero
+non so**, e `linkCatalogo` **574 → 580**, `requisitoLingua` **1.529 → 1.534**.
+Le 1.987 mete restano 1.987 e nessun altro campo è stato toccato.
+**Ma cinque «sì» non sono entrati**, e la ragione vale più dei numeri: sono
+DUE definizioni di «campo vuoto» che non concordano (vedi §6).
 `esegui-partner.mjs` ha lavorato **256 partner in 120 minuti**, 11 blocchi, 10
 commit tutti spinti; **210 raggiunti su 256 (82%)**, sopra il criterio del 75%.
 Poi l'arbitrato umano sui **77 cataloghi in coda**: 51 sì, 15 no, 11 non so —
@@ -4527,7 +4531,49 @@ L'infrastruttura dell'arbitrato è stata resa durevole senza cambiare contenuti:
 un `nonSo` può essere rivisto in entrambe le direzioni, un `si` non applicato
 resta visibile nella coda tecnica e un riavvio completa registro e applicazione.
 Il registro reale non è stato modificato; le 196 chiavi esistenti restano tutte
-classificabili. Il diff attende revisione e commit umano prima dell'uso reale.
+classificabili. **Chiuso e committato il 03/09 (`50b1d6d`)**, 393 prove verdi,
+con le due rotture di controllo rifatte a mano: rimettendo il filtro vecchio
+cadono cinque prove, rimettendo `raccolta/` ne cade una.
+
+### Fase 6 — Atto 1: l'arbitrato dei venti, e i cinque che non sono entrati
+
+**I verdetti di Nicola: 11 sì, 9 no, zero «non so».** Sui nove requisiti di
+lingua otto sì e un no (`F NANTES01`); sugli undici cataloghi in riesame tre sì
+(Siegen, Rennes 2, AUEB Atene) e otto no — fra cui i quattro che lo strumento
+aveva già risolto: ENTPE è una scheda del 2022, Başkent un opuscolo
+istituzionale, EIVP un documento Canva, e **Lione 2 è stato bocciato benché
+leggibile**, perché è il catalogo di un solo semestre.
+
+**Cosa è entrato:** `linkCatalogo` 574 → **580**, `requisitoLingua` 1.529 →
+**1.534**. Undici campi in tutto, 1.987 mete prima e dopo, nessun altro campo
+toccato. La coda di riesame è a **zero**.
+
+**L'Atto 0 ha fatto esattamente il suo mestiere, e si è visto.** L'anteprima
+(`--prova`) ha committato e spinto il registro **senza applicare** i dati
+(`27bacb8`), lasciando gli undici sì in `da-recuperare.json`; il run vero li ha
+ripresi da lì e chiusi uno per uno. Prima di oggi quei giudizi sarebbero rimasti
+su questo disco.
+
+**Ma cinque «sì» non sono entrati, e sono due problemi diversi.**
+
+| partner | causa | di chi è la decisione |
+|---|---|---|
+| `D SIEGEN01`, `D GREIFS01`, `PL WARSZAW01` | `conflittoValoreDiverso`: la meta ha già un valore **diverso** | di Nicola: quale dei due vince |
+| `PL KATOWIC01`, `RO TIMISOA01` | `applicazioneNonRiuscita` | **è un difetto** |
+
+I secondi due sono la cosa da sistemare, ed è la famiglia di errore che questo
+progetto continua a pagare. `sap-polit-katowic` ha `requisitoLingua: []`.
+`statoCampo()` dice giustamente che **`[]` non è un dato**: campo vuoto, si può
+riempire — e infatti `preparaApplicazione` lo scrive. Ma il confronto
+strutturale che fa da rete di sicurezza vede che la chiave *c'era* e che il testo
+*è cambiato*, e blocca con `campoGiaPienoModificato`. **Sono due definizioni di
+«campo vuoto» in due posti**, cioè il non negoziabile «una sola definizione di
+campo vuoto: `statoCampo()`» violato dalla guardia invece che dallo scrittore.
+
+Non è un difetto nuovo dell'Atto 0: è **pre-esistente**, ed è emerso ora perché
+`requisitoLingua` è il primo campo applicato dove i segnaposto `[]` sono comuni —
+`linkCatalogo` di solito era **assente**, non vuoto. La rete di sicurezza non va
+allargata a forza: va fatta chiedere a `statoCampo()`.
 
 ### Fase 5A — fotografia del 2026-09-01
 
@@ -5167,9 +5213,19 @@ poi aprire **http://localhost:8001**. (Dettagli e alternative nel `README.md`.)
 
 ### ⇢ Cantiere DATI — cosa resta dopo la Fase 5 (aggiornato 2026-09-03)
 
-**Prima azione:** revisione umana del diff dell'Atto 0, aggiunta esplicita a Git
-di `raccolta/giudizi.jsonl` e `raccolta/collisioni.json`, commit e push. Solo dopo
-si passa all'Atto 1; nessuno script va eseguito sui dati reali prima della review.
+**Prima azione: il difetto delle due definizioni di «campo vuoto».** Il confronto
+strutturale rifiuta `[]` → valore come `campoGiaPienoModificato`, mentre
+`statoCampo()` dice — giustamente — che `[]` è vuoto. Finché non è chiuso,
+**ogni futura applicazione di `requisitoLingua` su una meta con `[]` fallirà**, e
+i segnaposto `[]` sono comuni proprio in quel campo. Ferma `PL KATOWIC01` e
+`RO TIMISOA01`, già giudicati sì. La correzione è far chiedere alla guardia
+`statoCampo()` invece di «la chiave c'era»; serve una prova che rompa la guardia
+di proposito, perché una rete di sicurezza troppo larga è peggio di nessuna rete.
+
+**Seconda:** i tre `conflittoValoreDiverso` (`D SIEGEN01`, `D GREIFS01`,
+`PL WARSZAW01`), dove il sito ha già un valore diverso da quello approvato. Non è
+un difetto: è una decisione di Nicola su quale dei due vince, e oggi non esiste
+un modo di dirlo se non a mano.
 
 **La Fase 5 è chiusa.** La catena esiste, ha girato per intero, e non c'è più un
 solo partner che possa lavorare: 479 `fatto`, e i 134 restanti sono tutti fuori
