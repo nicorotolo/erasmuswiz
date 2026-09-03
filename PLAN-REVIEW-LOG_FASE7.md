@@ -287,3 +287,76 @@ VERDICT: APPROVED
 ---
 
 **Convergenza al round 5 di 5.** 4 giri di REVISE, 36 rilievi (12+13+6+5), 35 accolti (due in forma diversa da quella proposta, uno in forma ridotta), 1 respinto con ragione a verbale (l'elenco chiuso di domini ammessi).
+
+---
+
+## Act 3 — Build (Passo 0: la validazione degli indirizzi)
+
+Builder: Codex `gpt-5.6-sol` (`-s workspace-write`, thread `01a066e9-be8f`).
+Revisore: Claude. Baseline 398 prove verdi → **411 verdi**.
+
+### Round 1 — Codex build
+
+Costruito `scripts/lib-rete.mjs`, un solo confine HTTP per la pipeline, e migrati
+tutti e nove i chiamanti di `fetch`. Scelte che reggono alla lettura del diff:
+- **la regola e' davvero positiva**: per IPv6 solo prefissi ALLOCATED IANA; per
+  IPv4 lo spazio unicast meno gli special-purpose non globali, con riaggiunte le
+  due eccezioni globalmente raggiungibili (`192.0.0.9`, `192.0.0.10`);
+- **il fissaggio dell'IP e' reale**: `lookup` passato a `modulo.request`, che Node
+  inoltra a `net.connect`; una prova verifica che si risolve **una volta sola**;
+- **`robots.txt` non controlla se stesso** — altrimenti servirebbero le regole per
+  poter leggere le regole;
+- `accept-encoding: identity`, cosi' il limite vale sui byte veri e non su quelli
+  compressi. Non era stato chiesto;
+- distingue **decisioni da guasti**: un divieto robots o un indirizzo rifiutato
+  non si ritentano, un errore di rete si'.
+
+### Claude's verdict — Round 1
+
+Prova rifatta fuori dal sandbox: **407/407**. Il `spawn EPERM` di Codex era
+davvero solo l'isolamento, e ha fatto bene a non dichiarare verde.
+
+**Tre rilievi:**
+1. **`STATO_DEL_SITO.md` fuori scopo — ripristinato dal revisore.** Ci aveva
+   scritto «398 pass / 9 fail»: sarebbe finita un'affermazione falsa nel
+   documento-bussola, visto che fuori dal sandbox erano 407/407.
+2. **Il timeout aveva cambiato natura.** Prima `AbortSignal.timeout(20_000)` era
+   una scadenza TOTALE sull'intera richiesta; `req.setTimeout` e' un timeout di
+   INATTIVITA', per giunta riarmato a ogni salto. Un server che manda un byte
+   ogni 19 secondi restava attaccato per sempre, e il crawler non aveva piu'
+   alcuna scadenza totale: con `paralleli: 6`, sei host lenti fermano la
+   raccolta — lo stesso stallo che il commento sul Limitatore racconta gia' per
+   il 30/08.
+3. **Il troncamento era silenzioso.** `troncato` veniva calcolato e nessuno lo
+   guardava: una pagina tagliata si salvava identica a una intera, e allora una
+   citazione poteva risultare «verificata» contro un frammento — il cancello
+   dell'impronta SHA-256 vero a meta' senza dirlo.
+
+### Round 2 — Codex fix
+
+Entrambe le correzioni applicate e corrette alla lettura: `scadenzaTotaleMs` con
+`AbortController` + `AbortSignal.any`, `entroScadenza()` che copre **anche
+l'attesa in coda al limitatore**, `clearTimeout` in `finally`; `troncato`
+propagato in `paginaSalvata`, nell'indice e nei tentativi, e
+`erroreSeRispostaTroncata()` sulle due chiamate Gemini — con `fetchHttp`
+iniettabile per poterle provare senza rete. Gemini resta esentato dalla scadenza
+totale (`scadenzaTotaleMs: null`): quelle chiamate durano minuti per progetto.
+**Ma il round e' finito senza messaggio finale e senza le 4 prove richieste.**
+
+### Claude's verdict — Round 2, e presa in carico
+
+Le prove le ha scritte il revisore, non il builder: la prova di un difetto non la
+scrive chi l'ha commesso. Quattro prove nuove in `test/lib-rete.test.mjs`, e
+**tutte e tre le rotture di controllo viste rosse e ripristinate**:
+- tolta la scadenza totale → prove 10 e 11 rosse (`fail 2`);
+- `paginaSalvata` che non dichiara il troncamento → prova 12 rossa;
+- Gemini senza il controllo del troncamento → prova 13 rossa.
+
+Una quarta correzione e' nata dalla verifica stessa: la prima versione della
+prova 10 usava un trasporto che non si concludeva mai, e **si appendeva invece
+di fallire**, cancellando le tre prove successive. Un tentativo con `unref()` ha
+peggiorato le cose (senza nulla che tenga vivo il ciclo, Node esce e cancella le
+prove in attesa). Versione finale: ritardo reale di 300 ms contro una scadenza di
+60 ms, cosi' senza la correzione la prova fallisce **per asserzione**.
+
+**Esito: 411/411 verdi.** Nessuna deviazione residua dalla specifica del Passo 0.

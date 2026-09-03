@@ -37,6 +37,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import vm from "node:vm";
+import { fetchSicuro } from "./lib-rete.mjs";
 import { caricaMete } from "./lib-mete.mjs";
 
 const APPLICA = process.argv.includes("--applica");
@@ -101,7 +102,7 @@ async function scaricaExport(amb) {
   fs.mkdirSync(CARTELLA_FONTI, { recursive: true });
   const file = path.join(CARTELLA_FONTI, `${amb}.csv`);
   if (fs.existsSync(file)) return fs.readFileSync(file, "utf8");
-  const risposta = await fetch(url(amb), { headers: { "user-agent": "ErasmusWiz/1.0" } });
+  const risposta = await fetchSicuro(url(amb), { headers: { "user-agent": "ErasmusWiz/1.0" } });
   if (!risposta.ok) throw new Error(`export ${amb}: HTTP ${risposta.status}`);
   const testo = await risposta.text();
   if (!/Codice erasmus/i.test(testo)) throw new Error(`export ${amb}: risposta inattesa`);

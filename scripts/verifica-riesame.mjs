@@ -25,6 +25,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { Limitatore } from "./raccogli-partner.mjs";
 import { testoDaPdf } from "./lib-pdf.mjs";
+import { fetchSicuro } from "./lib-rete.mjs";
 
 const RADICE = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const UA = "ErasmusWizBot/1.0 (+mappatura Erasmus)";
@@ -89,11 +90,9 @@ export function dataHttp(valore, oggi = new Date()) {
 }
 
 export async function scaricaConIntestazioni(url, limitatore) {
-  return limitatore.esegui(url, async () => {
-    const r = await fetch(url, { headers: { "user-agent": UA }, signal: AbortSignal.timeout(30_000), redirect: "follow" });
-    return { stato: r.status, ok: r.ok, urlFinale: r.url,
-      lastModified: r.headers.get("last-modified"), corpo: Buffer.from(await r.arrayBuffer()) };
-  });
+  const r = await fetchSicuro(url, { headers: { "user-agent": UA }, timeoutMs: 30_000, limitatore });
+  return { stato: r.status, ok: r.ok, urlFinale: r.url,
+    lastModified: r.headers.get("last-modified"), corpo: r.corpo, troncato: r.troncato };
 }
 
 export async function verificaVoce({ voce, scarica, estrai = testoDaPdf }) {

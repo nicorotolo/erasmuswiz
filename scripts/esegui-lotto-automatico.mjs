@@ -9,6 +9,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { fetchSicuro } from "./lib-rete.mjs";
 
 const ROOT = process.cwd();
 const SCRIPT_CORRENTE = fileURLToPath(import.meta.url);
@@ -180,9 +181,9 @@ async function preflight() {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 20_000);
     try {
-      const risposta = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}`, {
+      const risposta = await fetchSicuro(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}`, {
         headers: { "x-goog-api-key": process.env.GEMINI_API_KEY },
-        signal: controller.signal,
+        signal: controller.signal, timeoutMs: 20_000,
       });
       if (!risposta.ok) throw new Error(`Probe Gemini HTTP ${risposta.status}`);
       const dati = await risposta.json();

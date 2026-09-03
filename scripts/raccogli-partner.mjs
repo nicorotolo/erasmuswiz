@@ -7,6 +7,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { CAMPI_RIEMPIBILI, caricaMete, codiceCanonico, statoCampo } from "./lib-mete.mjs";
+import { fetchSicuro, Limitatore } from "./lib-rete.mjs";
+export { Limitatore } from "./lib-rete.mjs";
 
 const RADICE = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const RACCOLTA = path.join(RADICE, "raccolta");
@@ -88,54 +90,32 @@ export const linkSalvati = (html, base) => {
   return [...visti].slice(0, 400).map(([url, testo]) => ({ testo, url }));
 };
 const locSitemap = (xml) => [...xml.matchAll(/<loc>([\s\S]*?)<\/loc>/gi)].map((m) => pulisciUrl(m[1].trim())).filter(Boolean);
-const pausa = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-export class Limitatore {
-  constructor(paralleli) { this.paralleli = paralleli; this.attivi = 0; this.attese = []; this.ultime = new Map(); this.catene = new Map(); this.richieste = 0; this.minimo = Infinity; }
-  async esegui(url, fn) {
-    await new Promise((resolve) => { const entra = () => this.attivi < this.paralleli ? (this.attivi++, resolve()) : this.attese.push(entra); entra(); });
-    // Il posto preso qui sopra va restituito QUALUNQUE cosa succeda sotto.
-    // Prima non era cosi': un indirizzo malformato faceva fallire la lettura
-    // dell'URL fuori da ogni try, e il posto restava occupato per sempre. Dopo
-    // tanti errori quanti sono i posti il limitatore si blocca, e non resta in
-    // coda niente che possa svegliarlo: e' l'uscita con codice 13 ("unsettled
-    // top-level await") vista nella raccolta del 30/08.
-    let libera;
-    try {
-      const dominio = new URL(url).hostname.toLowerCase();
-      const precedente = this.catene.get(dominio) || Promise.resolve();
-      const miaCoda = new Promise((resolve) => { libera = resolve; }); this.catene.set(dominio, miaCoda);
-      await precedente;
-      const ultima = this.ultime.get(dominio);
-      // Una sola attesa non basta: setTimeout puo' svegliarsi qualche millesimo
-      // in anticipo, e infatti l'intervallo minimo misurato risultava 996-1004 ms
-      // contro il secondo pieno che ci siamo imposti. Si riprova finche' il tempo
-      // trascorso e' davvero passato: e' un vincolo verso siti altrui, e "quasi"
-      // non e' la stessa cosa.
-      if (ultima) {
-        let intervallo = Date.now() - ultima;
-        while (intervallo < 1000) { await pausa(1000 - intervallo); intervallo = Date.now() - ultima; }
-        this.minimo = Math.min(this.minimo, intervallo);
-      }
-      this.ultime.set(dominio, Date.now()); this.richieste++;
-      return await fn();
-    } finally { libera?.(); this.attivi--; this.attese.shift()?.(); }
-  }
-}
-
 // Un solo ritentativo sugli errori di rete, come consente la specifica ("non si
 // ritenta piu' di una volta"): l'implementazione non ne faceva nessuno, e i
 // guasti visti sul campo sono in parte INTERMITTENTI - www.ceu.edu risultava
 // "fetch failed" durante la raccolta e rispondeva 200 pochi minuti dopo.
 // Non si ritenta su una risposta HTTP valida (403, 404): quelle sono risposte,
 // non guasti, e insistere sarebbe maleducato.
-async function scaricaUnaVolta(url, limitatore) {
+async function scaricaUnaVolta(url, limitatore, { controllaRobots = true, rete = {} } = {}) {
   try {
-    return await limitatore.esegui(url, async () => {
-      const risposta = await fetch(url, { headers: { "user-agent": USER_AGENT }, signal: AbortSignal.timeout(20_000), redirect: "follow" });
-      const corpo = Buffer.from(await risposta.arrayBuffer());
-      return { stato: risposta.status, ok: risposta.ok, urlFinale: risposta.url, tipo: risposta.headers.get("content-type") || "", corpo };
+    const risposta = await fetchSicuro(url, {
+      ...rete, headers: { "user-agent": USER_AGENT, ...(rete.headers || {}) }, limitatore,
+      // Il controllo vive dentro la catena manuale: prima di OGNI salto si
+      // leggono le regole dell'origine di arrivo. Cosi' un redirect non puo'
+      // anticipare ne' robots.txt ne' il turno del nuovo hostname.
+      primaDellaRichiesta: controllaRobots ? async (destinazione, { signal }) => {
+        const { regole } = await regoleRobots(destinazione, limitatore, undefined,
+          { rete: { ...rete, signal } });
+        if (!consentitoDaRobots(destinazione, regole)) {
+          const errore = new Error(`robots.txt vieta: ${destinazione}`);
+          errore.name = "ErroreRobots";
+          throw errore;
+        }
+      } : null,
     });
+    return { stato: risposta.status, ok: risposta.ok, urlFinale: risposta.url,
+      tipo: risposta.headers.get("content-type") || "", corpo: risposta.corpo,
+      troncato: risposta.troncato };
   } catch (errore) { return { errore: errore.name === "TimeoutError" ? "timeout" : errore.message }; }
 }
 
@@ -144,10 +124,12 @@ export function registraTentativo(tentativi, url, risposta, extra = {}) {
   let causa = null;
   if (extra.causa) causa = extra.causa;
   else if (risposta?.errore === "timeout") causa = "timeout";
+  else if (/^robots\.txt vieta:/.test(risposta?.errore || "")) causa = "robots";
   else if (risposta?.stato >= 500) causa = "http5xx";
   else if (risposta?.stato >= 400) causa = "http4xx";
   else if (!risposta?.ok) causa = "sconosciuta";
-  const voce = { url: String(url || ""), esito: extra.esito || (causa ? "fallito" : "riuscito"), causa, stato: risposta?.stato ?? null };
+  const voce = { url: String(url || ""), esito: extra.esito || (causa ? "fallito" : "riuscito"),
+    causa, stato: risposta?.stato ?? null, troncato: risposta?.troncato === true };
   // Un contenuto vuoto o un cambio dominio qualificano lo STESSO tentativo
   // HTTP appena registrato: non si aggiunge una seconda riga, altrimenti il
   // resoconto conterebbe due tentativi dove la rete ne ha eseguito uno.
@@ -156,9 +138,13 @@ export function registraTentativo(tentativi, url, risposta, extra = {}) {
   else tentativi.push(voce);
 }
 
-export async function scarica(url, limitatore, tentativi) {
-  const primo = await scaricaUnaVolta(url, limitatore);
-  const risposta = primo.errore ? await scaricaUnaVolta(url, limitatore) : primo;
+export async function scarica(url, limitatore, tentativi, opzioni) {
+  const primo = await scaricaUnaVolta(url, limitatore, opzioni);
+  // Un divieto robots e una validazione negativa sono decisioni, non guasti di
+  // rete intermittenti: ripeterli costerebbe una richiesta inutile.
+  const nonRitentare = primo.errore && (/^robots\.txt vieta:/.test(primo.errore)
+    || /non ammesso|global unicast|Credenziali|mDNS|URL non valido/.test(primo.errore));
+  const risposta = primo.errore && !nonRitentare ? await scaricaUnaVolta(url, limitatore, opzioni) : primo;
   registraTentativo(tentativi, url, risposta);
   return risposta;
 }
@@ -169,10 +155,12 @@ export async function scarica(url, limitatore, tentativi) {
 // dominio. La cache per host evita di richiederlo a ogni partner che lo
 // condivide e per ogni sottodominio gia' visto.
 const robotsPerHost = new Map();
-export async function regoleRobots(base, limitatore, tentativi) {
+export async function regoleRobots(base, limitatore, tentativi, { rete = {} } = {}) {
   const host = new URL(base).origin;
   if (robotsPerHost.has(host)) return robotsPerHost.get(host);
-  const robots = await scarica(new URL("/robots.txt", base).href, limitatore, tentativi);
+  // robots.txt non controlla se stesso, altrimenti la domanda sulle regole
+  // richiederebbe le regole prima ancora di poterle leggere.
+  const robots = await scarica(new URL("/robots.txt", base).href, limitatore, tentativi, { controllaRobots: false, rete });
   let esito = { regole: [], testo: "" };
   if (robots.ok) {
     const testo = robots.corpo.toString("utf8");
@@ -206,7 +194,7 @@ async function caricaCsvSapienza() {
     let testo;
     if (fs.existsSync(file)) testo = fs.readFileSync(file, "utf8");
     else {
-      const risposta = await fetch(`https://accordi-didattica.web.uniroma1.it/goerasmus/export?ambito=${ambito}`, { headers: { "user-agent": USER_AGENT }, signal: AbortSignal.timeout(20_000) });
+      const risposta = await fetchSicuro(`https://accordi-didattica.web.uniroma1.it/goerasmus/export?ambito=${ambito}`, { headers: { "user-agent": USER_AGENT } });
       if (!risposta.ok) throw new Error(`${ambito}: HTTP ${risposta.status}`);
       testo = await risposta.text();
       if (!/Codice erasmus/i.test(testo)) throw new Error(`${ambito}: risposta inattesa`);
@@ -416,6 +404,7 @@ export const paginaSalvata = (pagina, risposta, html, pdf, quando) => ({
   titolo: pdf ? "" : titoloPagina(html),
   testo: pdf ? null : testoVisibile(html),
   link: pdf ? [] : linkSalvati(html, risposta.urlFinale),
+  troncato: risposta.troncato === true,
   scaricataIl: quando,
 });
 
@@ -442,7 +431,8 @@ async function raccogliUnPartner(partner, limitatore, riprendiTutto) {
     const html = pdf ? "" : risposta.corpo.toString("utf8");
     if (!pdf && !testoVisibile(html)) registraTentativo(indice.tentativi, pagina.url, risposta, { esito: "fallito", causa: "paginaVuota" });
     fs.writeFileSync(path.join(cartella, file), JSON.stringify(paginaSalvata(pagina, risposta, html, pdf, new Date().toISOString()), null, 2) + "\n");
-    indice.pagine.push({ file, url: pagina.url, punteggio: pagina.punteggio, profondita: pagina.profondita });
+    indice.pagine.push({ file, url: pagina.url, punteggio: pagina.punteggio,
+      profondita: pagina.profondita, troncato: risposta.troncato === true });
     if (!pdf && pagina.profondita < 3) for (const l of linkHtml(html, risposta.urlFinale)) { const punti = punteggioLink(l.testo, l.url); if (punti > 0 && stessoAteneo(pagina.url, l.url)) coda.push({ url: l.url, punteggio: punti, profondita: pagina.profondita + 1 }); }
   }
   indice.esito = indice.pagine.length ? "raggiunto" : "nonRaggiunto";

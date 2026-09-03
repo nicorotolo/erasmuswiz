@@ -26,6 +26,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import vm from "node:vm";
+import { fetchSicuro } from "./lib-rete.mjs";
 
 const USA_CACHE = process.argv.includes("--cache");
 // Tutte e tre le differenze bloccano, perche' al 30/08/2026 il controllo parte
@@ -81,7 +82,7 @@ async function export_(ambito) {
   fs.mkdirSync(CARTELLA, { recursive: true });
   const file = path.join(CARTELLA, `${ambito}.csv`);
   if (USA_CACHE && fs.existsSync(file)) return fs.readFileSync(file, "utf8");
-  const risposta = await fetch(
+  const risposta = await fetchSicuro(
     `https://accordi-didattica.web.uniroma1.it/goerasmus/export?ambito=${ambito}`,
     { headers: { "user-agent": "ErasmusWiz/1.0" } }
   );

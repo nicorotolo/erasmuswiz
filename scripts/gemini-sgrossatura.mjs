@@ -19,6 +19,7 @@
 // Uso:  node scripts/gemini-sgrossatura.mjs
 
 import fs from "node:fs";
+import { fetchSicuro } from "./lib-rete.mjs";
 
 const API_KEY = process.env.GEMINI_API_KEY;
 if (!API_KEY) {
@@ -117,13 +118,13 @@ async function chiamaGemini(prompt, tentativo = 1) {
   const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS);
   let res;
   try {
-    res = await fetch(ENDPOINT, {
+    res = await fetchSicuro(ENDPOINT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "x-goog-api-key": API_KEY,
       },
-      signal: controller.signal,
+      signal: controller.signal, timeoutMs: TIMEOUT_MS,
       body: JSON.stringify({
         contents: [{ parts: [{ text: prompt }] }],
         tools: [{ google_search: {} }],

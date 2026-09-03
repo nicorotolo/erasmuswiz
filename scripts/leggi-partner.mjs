@@ -3,6 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { codiceCanonico } from "./lib-mete.mjs";
+import { fetchSicuro } from "./lib-rete.mjs";
 
 const RADICE = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const hash = (s) => createHash("sha256").update(s, "utf8").digest("hex");
@@ -146,19 +147,25 @@ REGOLE GENERALI
   return `${regole}\n\nPAGINE ALLEGATE:\n${allegate}`;
 }
 
-export async function elencaModelliVeri() {
+const erroreSeRispostaTroncata = (res) => {
+  if (res.troncato) throw new Error(`Risposta Gemini troncata a ${res.corpo?.length || 0} byte`);
+};
+
+export async function elencaModelliVeri({ fetchHttp = fetchSicuro } = {}) {
   if (!process.env.GEMINI_API_KEY) throw new Error("Manca GEMINI_API_KEY.");
-  const res = await fetch("https://generativelanguage.googleapis.com/v1beta/models", { headers: { "x-goog-api-key": process.env.GEMINI_API_KEY } });
+  const res = await fetchHttp("https://generativelanguage.googleapis.com/v1beta/models", { headers: { "x-goog-api-key": process.env.GEMINI_API_KEY } });
+  erroreSeRispostaTroncata(res);
   if (!res.ok) throw new Error(`Gemini API errore ${res.status}: ${await res.text()}`);
   return (await res.json()).models?.map((m) => m.name.replace(/^models\//, "")) || [];
 }
 
 // Senza scadenza una sola connessione appesa blocca una passata di ore:
 // fetch di Node non ha un timeout suo. Come in gemini-sgrossatura.mjs, 300s.
-export async function chiamaGeminiVero(prompt, modello) {
+export async function chiamaGeminiVero(prompt, modello, { fetchHttp = fetchSicuro } = {}) {
   if (!process.env.GEMINI_API_KEY) throw new Error("Manca GEMINI_API_KEY.");
   const taglia = AbortSignal.timeout(Number(process.env.GEMINI_TIMEOUT_MS || 300000));
-  const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modello}:generateContent`, { method: "POST", headers: { "Content-Type": "application/json", "x-goog-api-key": process.env.GEMINI_API_KEY }, signal: taglia, body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { responseMimeType: "application/json", thinkingConfig: { thinkingLevel: (process.env.GEMINI_THINKING_LEVEL || "LOW").toUpperCase() } } }) });
+  const res = await fetchHttp(`https://generativelanguage.googleapis.com/v1beta/models/${modello}:generateContent`, { method: "POST", headers: { "Content-Type": "application/json", "x-goog-api-key": process.env.GEMINI_API_KEY }, signal: taglia, timeoutMs: Number(process.env.GEMINI_TIMEOUT_MS || 300000), scadenzaTotaleMs: null, body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { responseMimeType: "application/json", thinkingConfig: { thinkingLevel: (process.env.GEMINI_THINKING_LEVEL || "LOW").toUpperCase() } } }) });
+  erroreSeRispostaTroncata(res);
   if (!res.ok) { const e = new Error(`Gemini API errore ${res.status}: ${await res.text()}`); e.status = res.status; throw e; }
   const testo = (await res.json()).candidates?.[0]?.content?.parts?.map((p) => p.text).join("");
   if (!testo) throw new Error("Risposta Gemini vuota.");
