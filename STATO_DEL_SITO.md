@@ -21,7 +21,72 @@
 
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-09-03 — Claude (**Fase 6: Atti 0 e 1 chiusi, e un
+**Ultimo aggiornamento:** 2026-09-03 (sera) — Claude (**Fase 7: il piano
+completo della mappatura, e i Passi 0, 1a e 1b costruiti**). 398 → **447 prove
+verdi**. Nessun dato delle mete toccato: il recupero non e' ancora stato eseguito.
+
+**Il piano e' cambiato di bersaglio, per una misura.** Fase 6 metteva come
+prossimo passo le 134 universita' mai raggiunte (264 mete). Misurando, e' emerso
+che **1.353 delle 1.407 mete senza `linkCatalogo` appartengono a partner gia'
+chiusi come `fatto`**: la catena non ha lavoro arretrato, ha finito, e il campo
+e' al 29%. E che **128 partner a cui il catalogo manca hanno un link chiamato
+"catalogo" in pagine gia' sul nostro disco, mai aperto — 583 mete**. Il crawler
+si fermava a 25 pagine in 380 partner su 585. `PLAN_FASE7.md` assorbe gli Atti 2
+e 3 di Fase 6 e li sposta al quarto e quinto posto.
+
+**Il piano ha retto cinque giri di revisione avversariale con Codex** (36
+rilievi, 35 accolti). Tre hanno cambiato la forma: la frase prudente scritta nei
+dati avrebbe **chiuso** la ricerca su 1.186 mete (`campiMancanti` esclude i
+`nonTrovabile`); il campione di controllo non aveva una soglia raggiungibile; il
+registro nuovo sarebbe finito fuori da git — il difetto dell'Atto 0a ripetuto.
+
+**Passo 0 — una sola porta HTTP** (`d93c368`). Non resta un solo `fetch` diretto
+in `scripts/`: `lib-rete.mjs` valida ogni indirizzo prima di chiederlo, ammette
+**solo global unicast secondo IANA** (regola positiva, non un elenco di divieti),
+**fissa l'IP** contro il DNS rebinding, segue redirect manuali validando ogni
+salto, rilegge `robots.txt` a ogni cambio di origine e limita i corpi a flusso.
+I 37 casi del campione di regressione restano ammessi. Costruito da Codex,
+rivisto da Claude: due difetti trovati in revisione, non dalle prove — il
+timeout passato da scadenza TOTALE a inattivita' (un server che manda un byte
+ogni 19 secondi restava attaccato per sempre) e il troncamento silenzioso (una
+citazione poteva risultare "verificata" contro un frammento).
+
+**Passo 1a — il testo del link e' il segnale** (`1d460a3`). Quattro
+classificatori, compresa la famiglia per `notaDisponibilita` che **non esisteva
+affatto**. Difetto trovato misurando: cercando le radici anche nell'indirizzo,
+`studienangebot` scattava **9.344 volte** perche' sta nel percorso di ogni pagina
+di corso di laurea austriaca; un partner arrivava a 744 falsi positivi. Tre
+varianti misurate, tenuto il solo testo. E un secondo filtro che nessuno aveva
+contato: un link entrava in coda solo se valeva punti E stava sullo stesso host —
+il catalogo di Cork si chiama "Book of Modules" e vive su courseleaf.com, era
+escluso due volte.
+
+**Passo 1b — l'assenza impara a dire DOVE** (`f182a44`). `nonTrovati` guadagna
+`livello` e `ambito` (senza, nessuna assenza potra' mai diventare la frase forte
+del Passo 3); `improntaMateriale` versiona le letture; `invalidaLettura` archivia
+e azzera lo stato derivato; `recupera-motivi.mjs` apre i link **aggiungendoli**
+all'indice, senza riraccogliere. Costruito da Claude, revisionato da Codex in due
+giri: **sedici difetti**, fra cui che il nome del file nuovo avrebbe
+**distrutto sei pagine vere** (ESEVILLA01, NOSLO72, PLBIALYST04, SILJUBLJA01,
+SLINKOPI01, TRANKARA15) e che l'intero impianto delle impronte era **codice
+morto** (torna `null` se anche una pagina e' senza impronta, e gli indici veri ne
+hanno zero su 10.442).
+
+> ⚠️ **Due difetti li hanno trovati le prove scritte per le correzioni, e la
+> lezione vale piu' dei difetti.** Una prova usava
+> `assert.rejects(...).catch(() => {})`, che **annulla l'asserzione**, e
+> controllava solo lo stato finale — identico nei due ordini: non provava niente.
+> Un'altra si autoassolveva chiamando la funzione direttamente invece di passare
+> dal percorso vero; rifacendola sul percorso reale ha scoperto un difetto nella
+> correzione stessa. **Ventitre' rotture di controllo** in giornata, e due `sed`
+> su sette non avevano agganciato: una rottura va verificata applicata prima di
+> crederle.
+
+---
+
+### Stato precedente — Fase 6
+
+**2026-09-03 — Claude (**Fase 6: Atti 0 e 1 chiusi, e un
 difetto trovato applicando**). L'Atto 0 (`50b1d6d`) ha reso il registro dei
 giudizi versionato, con una sola macchina a stati, un recupero riavviabile e lo
 stesso lock della catena. Poi l'arbitrato dei venti: **11 sì, 9 no, zero non
@@ -4487,6 +4552,10 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 | `scripts/esegui-lotto-automatico.mjs` | automazione | Orchestratore indurito: preflight, lock atomico, pulizia output, setup seed esistenti, validazione, staging ristretto, push e verifica pubblicazione |
 | `scripts/esegui-lotto-pianificato.ps1` | automazione | Wrapper per Task Scheduler; esegue un lotto e salva i log fuori dal repository in `%LOCALAPPDATA%\ErasmusWiz\logs` |
 | `scripts/gemini-sgrossatura.mjs` · `scripts/verifica-link.mjs` | automazione | Sgrossatura T1 via Gemini API con Google Search + controllo HTTP preliminare delle fonti |
+| `scripts/lib-rete.mjs` | Fase 7, Passo 0 | L'unica porta HTTP della pipeline: valida URL, porta e IP, ammette solo global unicast IANA, fissa l'IP con `lookup` contro il DNS rebinding, segue redirect manuali e tronca a flusso. Nessun `fetch` diretto resta negli script |
+| `scripts/lib-motivi.mjs` | Fase 7, Passo 1a | I quattro classificatori che decidono se una pagina va APERTA (diverso dal punteggio, che decide solo l'ordine). Guardano il TESTO del link, non l'indirizzo: cercandolo anche nell'URL, `studienangebot` scattava 9.344 volte |
+| `scripts/recupera-motivi.mjs` | Fase 7, Passo 1b | Apre i link motivati mai visitati AGGIUNGENDOLI all'indice: una riraccolta azzererebbe il testo dei PDF gia' estratti. Archivia la lettura prima di annunciare il materiale nuovo, adotta gli orfani, non riprova i no definitivi |
+| `scripts/conta-link-motivati.mjs` | Fase 7, misura | Sola lettura: quanti link che valgono sono gia' sul disco e non abbiamo mai aperto. E' il criterio d'uscita del Passo 1a |
 | `scripts/cancelli.mjs` · `scripts/lib-link.mjs` · `scripts/lib-pdf.mjs` · `scripts/riscarica-pdf.mjs` | pipeline dati Fase 4b | Cancellano le proposte non verificabili e recuperano i PDF: il riscarico usa le regole condivise della raccolta, salva solo il testo estratto e non ritenta i fallimenti |
 | `test/fixtures/pdf/*.pdf` | prove pipeline Fase 4b | Tre PDF universitari **veri** (648 KB): una factsheet che deve uscire integra, un file sporco di operatori, uno a font proprietario che deve tornare `null`. Sono nel repo apposta: una prova che dipende dalla rete non è ripetibile, ed è la prova finta e pulita che aveva lasciato passare il difetto |
 | `scripts/leggi-partner.mjs` | pipeline dati Fase 4b | La lettura: una chiamata al modello per partner sulle pagine in cache, con impronta e titolo di ogni brano inviato. ⚠︎ consegnata, non ancora riletta |
