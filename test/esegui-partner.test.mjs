@@ -12,7 +12,7 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 import {
   CAMPI_AUTOMATICI, applicaEControlla, apriLock, bloccoZero, confrontaMete, costruisciCode,
-  eseguiBlocco, fondiEsiti, fotografiaMete, improntaValore, leggiRegistro, pdfCompleto,
+  eseguiBlocco, eseguiPartner, fondiEsiti, fotografiaMete, improntaValore, leggiRegistro, pdfCompleto,
   appendiEventi, recuperaTransazione, rilasciaLock, statoPartner,
 } from "../scripts/esegui-partner.mjs";
 
@@ -143,6 +143,68 @@ test("catena: il CHIAMANTE rifiuta di leggere se il passo PDF non e' completo", 
   assert.equal(lettoChiamato, false, "la lettura non deve partire su PDF svuotati");
   assert.match(esito.fermato, /PDF non completato/);
   assert.equal(esito.pdf.stato, "iniziato");
+});
+
+test("catena: un servizio del modello giu' ferma il blocco, e non si spaccia per quota", async (t) => {
+  // Il 04/09 questa uscita non c'era: la lettura si arrendeva a ogni 503 e la
+  // catena tirava dritto sui blocchi successivi, consumando 198 partner per
+  // leggerne 23. Ora il segnale sale fino al chiamante, che si ferma.
+  const radice = radiceFinta(t);
+  const cart = path.join(radice, "raccolta", "pagine", "TEST01");
+  fs.mkdirSync(cart, { recursive: true });
+  fs.writeFileSync(path.join(cart, "001.json"), JSON.stringify({
+    url: "https://x.test/", tipo: "html", titolo: "", testo: "parole ".repeat(400), link: [] }));
+  scriviJson(radice, path.join("pagine", "TEST01", "indice.json"),
+    { esito: "raggiunto", pagine: [{ file: "001.json", url: "https://x.test/" }] });
+  let cancelliChiamati = false;
+  const esito = await eseguiBlocco({
+    radice, codici: ["TEST 01"], passi: ["lettura", "cancelli"],
+    riscarica: async () => ({ letti: 0, falliti: {} }),
+    leggi: async () => ({ partnerLetti: 0, chiamateFallite: { "HTTP 503": 8 },
+      servizioNonDisponibile: true, messaggio5xx: "The model is overloaded." }),
+    cancelli: async () => { cancelliChiamati = true; return { approvati: [], scartati: [], facolta: [] }; },
+    applica: async () => ({ scritti: 0, disaccordi: [] }), git: gitFinto(),
+  });
+  assert.equal(esito.servizioGiu, true);
+  assert.match(esito.fermato, /servizio del modello non disponibile/);
+  assert.match(esito.fermato, /overloaded/, "il resoconto deve riportare cosa ha detto il servizio");
+  assert.ok(!esito.quotaGiornaliera, "un servizio giu' non e' una quota esaurita: domani si riprova subito");
+  assert.equal(cancelliChiamati, false, "fermarsi vuol dire fermarsi, non proseguire ai cancelli");
+  assert.equal(esito.lettura.servizioNonDisponibile, true, "il diario deve conservare la ragione");
+});
+
+test("catena: il servizio giu' ferma anche i BLOCCHI SUCCESSIVI, non solo quello in corso", async (t) => {
+  // La lezione del 04/09 nella sua forma piu' cara: fermare il blocco non
+  // basta. Quel giorno la catena ha attraversato otto blocchi da venticinque
+  // con il servizio saturo, arrivando in fondo alla coda per leggere 23
+  // partner su 198. Chi si ferma deve fermare anche chi viene dopo.
+  const radice = radiceFinta(t);
+  const partner = Array.from({ length: 6 }, (_, i) => ({
+    codiceNorm: `TEST 0${i + 1}`, campiMancanti: ["linkSito"], siti: ["https://x.test/"],
+  }));
+  scriviJson(radice, "partner.json", partner);
+  for (const p of partner) {
+    const c = p.codiceNorm.replace(/\s+/g, "");
+    const cart = path.join(radice, "raccolta", "pagine", c);
+    fs.mkdirSync(cart, { recursive: true });
+    fs.writeFileSync(path.join(cart, "001.json"), JSON.stringify({
+      url: "https://x.test/", tipo: "html", titolo: "", testo: "parole ".repeat(400), link: [] }));
+    scriviJson(radice, path.join("pagine", c, "indice.json"),
+      { esito: "raggiunto", pagine: [{ file: "001.json", url: "https://x.test/" }] });
+  }
+  let blocchiLetti = 0;
+  const esito = await eseguiPartner({
+    radice, passi: ["lettura"], blocco: 2,
+    riscarica: async () => ({ letti: 0, falliti: {} }),
+    leggi: async () => { blocchiLetti++; return { partnerLetti: 0, chiamateFallite: { "HTTP 503": 2 },
+      servizioNonDisponibile: true, messaggio5xx: "The model is overloaded." }; },
+    cancelli: async () => ({ approvati: [], scartati: [], facolta: [] }),
+    applica: async () => ({ scritti: 0, disaccordi: [] }), git: gitFinto(),
+  });
+  assert.equal(esito.partnerDaFare, 6, "sei partner in coda, tre blocchi da due");
+  assert.equal(blocchiLetti, 1, "il primo blocco scopre il servizio giu': gli altri due non partono");
+  assert.equal(esito.blocchi.length, 1);
+  assert.equal(esito.blocchi[0].servizioGiu, true);
 });
 
 // ------------------------------------------------------------ stato partner

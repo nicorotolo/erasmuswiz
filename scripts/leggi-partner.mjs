@@ -355,9 +355,32 @@ export function attesaDa429(messaggio = "") {
   return { giornaliero, attesaMs: Number.isFinite(secondi) ? Math.round(secondi * 1000) + 5000 : 60000 };
 }
 
+// Il 5xx non e' un rifiuto, e' un "adesso non ce la faccio". Fino al 04/09
+// veniva trattato come un errore qualunque: contato e via, il partner saltato
+// all'istante senza un secondo tentativo. Misurato quel giorno sulla passata
+// vera: 175 partner su 198 persi in un giro solo per `HTTP 503`, e una sonda
+// successiva 119 su 122 - mentre le chiamate riuscite dimostravano che la
+// richiesta era valida e il modello raggiungibile. Era saturazione, cioe'
+// esattamente la cosa che passa se si aspetta.
+//
+// L'attesa CRESCE (5s, 15s, 45s) e non e' un vezzo: un sovraccarico non si
+// scioglie in mezzo secondo, e ritentare subito e' il modo migliore per
+// contribuire al sovraccarico. Se il corpo dichiara un `retryDelay` si crede a
+// quello, con lo stesso margine che si usa per il 429.
+const ATTESE_5XX = [5000, 15000, 45000];
+export function attesaDa5xx(tentativo = 0, messaggio = "") {
+  const secondi = Number((/"?retryDelay"?:\s*"?(\d+(?:\.\d+)?)s/i.exec(messaggio) || [])[1]);
+  if (Number.isFinite(secondi)) return Math.round(secondi * 1000) + 5000;
+  return ATTESE_5XX[tentativo] ?? ATTESE_5XX.at(-1);
+}
+
 const insieme = (filtro) => new Set(String(filtro).split(",").map(codiceCanonico).filter(Boolean));
 
-export async function leggiPartner({ radice = RADICE, limite = Infinity, partner: filtro, chiamaModello = chiamaGeminiVero, elencaModelli = elencaModelliVeri, attendi = (ms) => new Promise((r) => setTimeout(r, ms)), maxAttese = 3 } = {}) {
+export async function leggiPartner({ radice = RADICE, limite = Infinity, partner: filtro, chiamaModello = chiamaGeminiVero, elencaModelli = elencaModelliVeri, attendi = (ms) => new Promise((r) => setTimeout(r, ms)), maxAttese = 3, maxAttese5xx = 3, maxConsecutivi5xx = 8 } = {}) {
+  // Consecutivi, non totali: un 503 ogni tanto in mezzo a letture riuscite e'
+  // rumore normale e non deve fermare niente. Otto di fila senza un successo
+  // in mezzo sono un'altra cosa.
+  let consecutivi5xx = 0;
   const raccolta = path.join(radice, "raccolta"), letture = path.join(raccolta, "letture"); fs.mkdirSync(letture, { recursive: true });
   const modelli = await elencaModelli(); const modello = process.env.GEMINI_MODEL || scegliFlashLite(modelli);
   if (!modello || !modelli.includes(modello) || !/flash-lite/i.test(modello)) throw new Error("Nessun modello Flash-Lite disponibile: non avvio la lettura.");
@@ -385,22 +408,47 @@ export async function leggiPartner({ radice = RADICE, limite = Infinity, partner
     }
     const pagine = scegliPagine(indice, dir); if (!pagine.length) continue;
     // Sullo stesso partner: se il 429 e' quello al minuto si aspetta e si
-    // riprova, se e' quello del giorno ci si ferma pulito (§3.2).
-    let risposta, fermati = false;
-    for (let tentativo = 0; ; tentativo++) {
+    // riprova, se e' quello del giorno ci si ferma pulito (§3.2). Il 5xx ha la
+    // sua attesa e il SUO contatore: con un contatore solo, un partner che
+    // incontra due 429 e due 503 esaurirebbe il bilancio a meta' di entrambi, e
+    // il numero di tentativi dipenderebbe da quale guasto capita prima.
+    let risposta, fermati = false, tentativi429 = 0, tentativi5xx = 0;
+    for (;;) {
       try { risposta = await chiamaModello(costruisciPrompt(p, pagine), modello); break; }
       catch (e) {
         if (e.status === 429) {
           const { giornaliero, attesaMs } = attesaDa429(e.message);
           esito.messaggio429 = e.message.slice(0, 1500);
-          if (!giornaliero && tentativo < maxAttese) {
+          if (!giornaliero && tentativi429 < maxAttese) {
+            tentativi429++;
             esito.attese429 = (esito.attese429 || 0) + 1; esito.msAttesi = (esito.msAttesi || 0) + attesaMs;
             await attendi(attesaMs); continue;
           }
           esito.quota429 = true; esito.quota429Giornaliera = giornaliero; fermati = true; break;
         }
+        const cinquecento = Number.isInteger(e.status) && e.status >= 500 && e.status <= 599;
+        if (cinquecento && tentativi5xx < maxAttese5xx) {
+          const attesaMs = attesaDa5xx(tentativi5xx, e.message);
+          tentativi5xx++;
+          esito.attese5xx = (esito.attese5xx || 0) + 1; esito.msAttesi = (esito.msAttesi || 0) + attesaMs;
+          await attendi(attesaMs); continue;
+        }
         const motivo = e.status ? `HTTP ${e.status}` : e.name || "errore";
-        esito.chiamateFallite[motivo] = (esito.chiamateFallite[motivo] || 0) + 1; risposta = null; break;
+        esito.chiamateFallite[motivo] = (esito.chiamateFallite[motivo] || 0) + 1; risposta = null;
+        // Il salvagente: se il servizio e' giu' davvero, ritentare partner dopo
+        // partner li brucia tutti e li lascia comunque da leggere. Dopo N
+        // partner CONSECUTIVI che esauriscono le attese ci si ferma pulito,
+        // come per il tetto giornaliero. Il 04/09 questa uscita non c'era, e la
+        // coda e' stata consumata per intero senza leggere quasi niente.
+        if (cinquecento) {
+          consecutivi5xx++;
+          if (consecutivi5xx >= maxConsecutivi5xx) {
+            esito.servizioNonDisponibile = true;
+            esito.messaggio5xx = String(e.message || "").slice(0, 500);
+            fermati = true;
+          }
+        }
+        break;
       }
     }
     if (fermati) break;
@@ -415,7 +463,7 @@ export async function leggiPartner({ radice = RADICE, limite = Infinity, partner
       // sapere che e' invecchiata quando le pagine cambiano.
       improntaMateriale: improntaMateriale(indice),
       pagineInviate: pagine.map(({ testo, ...meta }) => meta), campi: risposta.campi || {}, nonTrovati: assenze.nonTrovati, note };
-    fs.writeFileSync(fuori, JSON.stringify(lettura, null, 2) + "\n"); esito.partnerLetti++; esito.chiamateRiuscite++; dimensioni.push(pagine.reduce((a, x) => a + x.caratteri, 0));
+    fs.writeFileSync(fuori, JSON.stringify(lettura, null, 2) + "\n"); esito.partnerLetti++; esito.chiamateRiuscite++; consecutivi5xx = 0; dimensioni.push(pagine.reduce((a, x) => a + x.caratteri, 0));
     for (const c of Object.keys(lettura.campi)) esito.campiProposti[c] = (esito.campiProposti[c] || 0) + 1;
     for (const c of Object.keys(lettura.nonTrovati)) esito.nonTrovati[c] = (esito.nonTrovati[c] || 0) + 1;
   }

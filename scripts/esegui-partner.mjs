@@ -765,8 +765,17 @@ export async function eseguiBlocco({
   if (fa("lettura")) {
     const r = await leggi({ radice, partner: codici.join(",") });
     esito.lettura = { letti: r.partnerLetti, falliti: r.chiamateFallite, attese429: r.attese429 || 0,
-      msAttesi: r.msAttesi || 0, quota429: !!r.quota429, giornaliera: !!r.quota429Giornaliera };
+      attese5xx: r.attese5xx || 0,
+      msAttesi: r.msAttesi || 0, quota429: !!r.quota429, giornaliera: !!r.quota429Giornaliera,
+      servizioNonDisponibile: !!r.servizioNonDisponibile };
     if (r.quota429Giornaliera) { esito.fermato = "quota giornaliera esaurita"; esito.quotaGiornaliera = true; return esito; }
+    // Un servizio giu' non e' una quota esaurita, e confonderli avrebbe due
+    // costi: il diario direbbe la cosa sbagliata, e domani non si saprebbe se
+    // aspettare il rinnovo della quota o riprovare fra dieci minuti.
+    if (r.servizioNonDisponibile) {
+      esito.fermato = `servizio del modello non disponibile (5xx ripetuti): mi fermo invece di bruciare la coda${r.messaggio5xx ? ` — ${r.messaggio5xx.slice(0, 200)}` : ""}`;
+      esito.servizioGiu = true; return esito;
+    }
   }
 
   const avanzFile = path.join(dir(radice), "avanzamento.json");
@@ -839,7 +848,7 @@ export async function eseguiPartner({
       const codici = scelti.slice(i, i + blocco).map(({ p }) => p.codiceNorm);
       const esito = await eseguiBlocco({ radice, codici, paralleli, prova, passi, spingi, git, ...iniezioni });
       blocchi.push(esito);
-      if (esito.quotaGiornaliera) break;
+      if (esito.quotaGiornaliera || esito.servizioGiu) break;
       if (esito.applicazione?.annullato) { esito.fermato = "confronto fallito: blocco annullato"; break; }
     }
     const code = prova ? null : costruisciCode({ radice });

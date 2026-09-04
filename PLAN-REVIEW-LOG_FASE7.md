@@ -521,3 +521,132 @@ correzioni:**
 **Esito: 447/447 verdi. Dodici rotture di controllo** viste rosse e ripristinate
 su questo passo. Due `sed` su sette, in giornata, non avevano agganciato: da qui
 in avanti ogni rottura si verifica applicata prima di crederle.
+
+
+---
+
+## Act 3 — Esecuzione (Passo 1c: il recupero eseguito, e la lettura fermata)
+
+2026-09-04. Il primo passo di questa fase che non costruisce niente: esegue. E il
+primo che **non raggiunge il suo criterio d'uscita**.
+
+### La disciplina prima del lancio
+
+Backup di `raccolta/` (11.594 file, 280 MB) fuori da git — `raccolta/` e'
+gitignorata, quindi un branch non avrebbe protetto niente. Fotografia di sola
+lettura dello stato, da rieseguire identica dopo. Campione di **5 partner**
+ispezionato a mano prima dei 489.
+
+**Il campione ha detto due cose.** Due dei cinque (i primi per mete) non avevano
+alcun candidato: `--limite` conta i partner da visitare, non quelli con qualcosa
+da aprire. Dei tre restanti, BBRUXEL04 e ROBUCURES09 hanno dato cataloghi veri;
+EMADRID04 ha dato «Oferta academica complementaria» della UAM, che **non e' il
+catalogo** — sono i crediti opzionali presi da altri corsi. Il classificatore ha
+visto «oferta academica» e non ha visto che «complementaria» cambia il senso. Un
+falso positivo su tre e' il tasso che l'arbitrato esiste per assorbire, non un
+motivo per fermarsi.
+
+**Una correzione alla scala, detta prima e non dopo.** L'ordine stimava ~204
+pagine: `--campo` sceglie *quali partner visitare*, non quali link aprire, quindi
+visitato un partner si scaricano tutti i suoi candidati per tutti e quattro i
+campi deboli. La prova a vuoto diceva **541**, 2,6 volte l'attesa.
+
+### La raccolta: riuscita, e verificata dove faceva paura
+
+458 pagine su 541 candidati. I tre sospetti indicati prima del lancio, tutti e
+tre smentiti nel senso giusto:
+
+- **I 6 partner con collisioni di numerazione sono intatti**, e anzi recuperati:
+  nessun file sovrascritto (i conteggi su disco crescono o restano), e ESEVILLA01
+  e' passato da 1 pagina a 25 adottando 24 orfani — con loro **5 PDF e 13.704
+  caratteri** che erano sul disco ma invisibili all'indice.
+- **Nessuna invalidazione di massa**: 198 letture archiviate, 198 partner
+  riaperti, gli insiemi coincidono esattamente.
+- **Il testo dei PDF non e' stato azzerato**: e' cresciuto, 734 → 780 pagine e
+  21,3 → 25,5 milioni di caratteri.
+
+Su tutti e 585 i partner: **zero con meno pagine, zero con meno testo, zero con
+meno testo di PDF, zero con meno file su disco.** `report-copertura-mappatura.mjs`
+identico prima e dopo.
+
+**Falliti, 83 su 83 riconciliati:** robots 23 · HTTP 403 24 · HTTP 404 15 ·
+rete/TLS 20 · HTTP 401 1 · **Passo 0: 1** (classe `dns`). Un indirizzo respinto su
+541: dentro le pagine degli atenei ci sono http/https pubblici ordinari, e il
+guardiano costruito nel Passo 0 ha avuto quasi niente da fare.
+
+Arretrato dei link mai aperti: `linkCatalogo` **128/583 → 89/394**,
+`notaDisponibilita` 53/214 → 28/121, `scadenzeOspitante` 37/75 → 22/47,
+`requisitoLingua` 24/81 → 18/53.
+
+### Il muro: 175 letture su 198 in `HTTP 503`
+
+Il criterio d'uscita chiede **≥ 60 proposte nuove di `linkCatalogo`**. Ce ne sono
+**3**. Non per colpa della raccolta: il materiale e' sul disco e non e' arrivato
+al modello.
+
+**Il difetto che ha trasformato un intoppo in un disastro.** `leggi-partner.mjs`
+ritentava **solo** il 429; ogni altro stato HTTP contava il partner come perso e
+passava oltre, senza attesa e senza secondo tentativo. Il 503 e' il «modello
+sovraccarico», cioe' il guasto transitorio per eccellenza — esattamente la cosa
+che passa se si aspetta. E la catena, non avendo un'uscita per «il servizio e'
+giu'», ha attraversato **otto blocchi da venticinque** col servizio saturo,
+arrivando in fondo alla coda per leggerne 23.
+
+### La correzione, e il suo collaudo sul campo
+
+Tre pezzi: il 5xx ha **attesa crescente** (5s, 15s, 45s, o il `retryDelay`
+dichiarato) e un **contatore proprio** — con un contatore solo, un partner che
+incontra due 429 e due 503 esaurirebbe il bilancio a meta' di entrambi e il numero
+di tentativi dipenderebbe da quale guasto capita prima; e dopo **8 partner
+consecutivi** che esauriscono le attese la catena si ferma pulita **fino al ciclo
+esterno**. Consecutivi, non totali: un 503 in mezzo a letture riuscite e' rumore.
+Un servizio giu' non viene spacciato per quota esaurita: cambia se aspettare il
+rinnovo o riprovare fra dieci minuti.
+
+**8 prove nuove, 447 → 455 verdi** in tre corse. **Nove rotture di controllo**
+viste rosse e ripristinate.
+
+**Collaudato lo stesso giorno sul guasto vero:** il rilancio ha consumato **8
+partner invece di 198**, si e' fermato dichiarando il motivo, e i 172 restanti
+sono rimasti `daLeggere` intatti.
+
+> ⚠️ **Due lezioni dalle rotture, e valgono piu' della correzione.**
+> **(1) Una rottura era malformata** e mandava il codice in ciclo infinito:
+> controllava un contatore che quel ramo non incrementa mai. Non era un difetto
+> del codice — era la rottura scritta male, e per dieci minuti e' sembrato il
+> contrario. Da li' ogni rottura gira con un tetto di tempo.
+> **(2) La rottura sulla guardia del ciclo esterno restava VERDE.** La guardia
+> esisteva ma nessuna prova la copriva — ed era proprio quella che avrebbe salvato
+> 175 partner. E' la stessa lezione dell'intestazione di
+> `test/esegui-partner.test.mjs`: la prova va messa sul CHIAMANTE. Aggiunta.
+
+### Due difetti trovati eseguendo, non corretti (materiale per un Passo 1d)
+
+1. **`adottaOrfani` cambia il materiale senza invalidare la lettura.**
+   `invalidaLettura` sta dentro il ciclo dei candidati, quindi scatta solo se si
+   scarica davvero; l'adozione avviene prima. Tre partner (ESEVILLA01,
+   PLBIALYST04, SILJUBLJA01) sono rimasti `fatto` con materiale nuovo — ESEVILLA01
+   passando da 1 pagina a 25. E la rete di sicurezza non li prende:
+   `letturaDaRifare` su un'impronta assente risponde «non si puo' dire», non «e'
+   cambiato». Rimessi in coda a mano con `invalidaLettura`, senza toccare il
+   codice.
+2. **Il rifiuto robots non lascia traccia per candidato.** Il recupero conta
+   `falliti.robots` ma registra un `tentativo` solo per la richiesta di
+   `robots.txt`, non per l'indirizzo rifiutato. **54 falliti su 83 non erano
+   ricostruibili dai dati salvati**: e' servito rileggere i `robots.txt` e
+   riapplicare `consentitoDaRobots`. La tabella che il criterio d'uscita pretende
+   non si puo' costruire da cio' che il recupero scrive.
+3. Terzo, noto e lasciato stare perche' vuole un ragionamento suo:
+   `invalidaLettura` viene chiamata **prima** della chiamata al modello, quindi un
+   fallimento definitivo archivia la lettura vecchia e lascia il partner senza.
+   Il 04/09 non ha fatto danni (quei partner erano gia' stati invalidati dal
+   recupero, verificato sui conteggi) e col 503 ritentato l'esposizione si riduce.
+
+### Dove si riprende
+
+Sondati a fine giornata, senza scrivere niente: `gemini-3.5-flash-lite` → **503
+503 503**, `gemini-3.1-flash-lite` → **200 200 200**, `gemini-2.5-flash-lite` →
+404. La via alternativa esiste, ma `scegliFlashLite()` preferisce apposta la
+versione piu' alta: scendere al 3.1 e' una decisione di Nicola, non un ripiego
+automatico, e implica un'infornata mista (26 letture col 3.5, il resto col 3.1).
+Rimandata.
