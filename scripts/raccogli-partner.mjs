@@ -9,6 +9,7 @@ import { fileURLToPath } from "node:url";
 import { CAMPI_RIEMPIBILI, caricaMete, codiceCanonico, statoCampo } from "./lib-mete.mjs";
 import { fetchSicuro, Limitatore } from "./lib-rete.mjs";
 import { forzaMotivo, motiviDelLink, unisciMotivi } from "./lib-motivi.mjs";
+import { improntaMateriale, improntaPagina } from "./leggi-partner.mjs";
 export { Limitatore } from "./lib-rete.mjs";
 
 const RADICE = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -90,7 +91,7 @@ const dominioRegistrabile = (hostname) => {
   return /^(ac|co|com|edu|gov|net|org)$/.test(parti.at(-2)) && parti.at(-1).length === 2 ? parti.slice(-3).join(".") : parti.slice(-2).join(".");
 };
 const stessoAteneo = (a, b) => dominioRegistrabile(new URL(a).hostname) === dominioRegistrabile(new URL(b).hostname);
-const testoVisibile = (html) => senzaAccenti(html) && html
+export const testoVisibile = (html) => senzaAccenti(html) && html
   .replace(/<\s*(script|style|nav|footer)\b[^>]*>[\s\S]*?<\s*\/\s*\1\s*>/gi, " ")
   .replace(/<!--([\s\S]*?)-->/g, " ").replace(/<[^>]+>/g, " ")
   .replace(/&nbsp;/gi, " ").replace(/&amp;/gi, "&").replace(/&quot;/gi, '"')
@@ -513,10 +514,11 @@ async function raccogliUnPartner(partner, limitatore, riprendiTutto) {
     const file = `${String(indice.pagine.length + 1).padStart(3, "0")}.json`;
     const html = pdf ? "" : risposta.corpo.toString("utf8");
     if (!pdf && !testoVisibile(html)) registraTentativo(indice.tentativi, pagina.url, risposta, { esito: "fallito", causa: "paginaVuota" });
-    fs.writeFileSync(path.join(cartella, file), JSON.stringify(paginaSalvata(pagina, risposta, html, pdf, new Date().toISOString()), null, 2) + "\n");
+    const salvata = paginaSalvata(pagina, risposta, html, pdf, new Date().toISOString());
+    fs.writeFileSync(path.join(cartella, file), JSON.stringify(salvata, null, 2) + "\n");
     indice.pagine.push({ file, url: pagina.url, punteggio: pagina.punteggio,
       profondita: pagina.profondita, troncato: risposta.troncato === true,
-      motivi: pagina.motivi || [] });
+      motivi: pagina.motivi || [], improntaContenuto: improntaPagina(salvata) });
     if (comeMotivata) { motivate++; for (const c of campiLiberi) usiPerCampo[c] = (usiPerCampo[c] || 0) + 1; }
     else ordinarie++;
     if (!pdf && pagina.profondita < 3) for (const l of linkHtml(html, risposta.urlFinale)) {
@@ -536,7 +538,11 @@ async function raccogliUnPartner(partner, limitatore, riprendiTutto) {
   }
   indice.esito = indice.pagine.length ? "raggiunto" : "nonRaggiunto";
   if (!indice.pagine.length && !indice.note.length) indice.note.push("nessun candidato dai tre punti d'ingresso");
-  indice.raccoltoIl = new Date().toISOString(); fs.writeFileSync(indiceFile, JSON.stringify(indice, null, 2) + "\n");
+  indice.raccoltoIl = new Date().toISOString();
+  // L'impronta del materiale si scrive insieme all'indice: chi cambia le
+  // pagine aggiorna anche il modo di accorgersene.
+  indice.improntaMateriale = improntaMateriale(indice);
+  fs.writeFileSync(indiceFile, JSON.stringify(indice, null, 2) + "\n");
   return { esito: indice.esito };
 }
 

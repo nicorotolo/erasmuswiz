@@ -5,6 +5,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { testoDaPdf } from "./lib-pdf.mjs";
+import { aggiornaImprontaIndice } from "./leggi-partner.mjs";
+import { apriLock, rilasciaLock } from "./esegui-partner.mjs";
 import {
   Limitatore,
   scarica as scaricaVera,
@@ -21,6 +23,7 @@ const cartellaCodice = (codice) => normalizzaCodice(codice).replace(/\s+/g, "");
 function aggiungiFallimento(file, pagina, motivo) {
   const aggiornata = { ...pagina, testo: null, estrazioneFallita: motivo };
   fs.writeFileSync(file, JSON.stringify(aggiornata, null, 2) + "\n");
+  aggiornaImprontaIndice(file, aggiornata);
 }
 
 function elencoPdf(radice, partner) {
@@ -100,6 +103,9 @@ export async function riscaricaPdf({
     const aggiornata = { ...pagina, testo, estrattoIl: new Date().toISOString() };
     delete aggiornata.estrazioneFallita;
     fs.writeFileSync(file, JSON.stringify(aggiornata, null, 2) + "\n");
+    // Il testo del PDF e' materiale nuovo: senza questa riga la lettura
+    // continuerebbe a credere di aver gia' visto tutto.
+    aggiornaImprontaIndice(file, aggiornata);
     conti.letti++;
   }
   // Il Limitatore conta anche robots.txt; con lo scaricatore finto dei test
@@ -108,7 +114,19 @@ export async function riscaricaPdf({
   return conti;
 }
 
+// Il LOCK sta qui, non dentro `riscaricaPdf`: dentro la catena il padre lo ha
+// gia' preso, e prenderlo due volte fermerebbe la catena con se stessa. Da solo
+// invece serve davvero: dal 03/09 questo script scrive anche `indice.json` (per
+// tenere aggiornata l'impronta del contenuto), e potrebbe correre insieme a
+// `recupera-motivi`, rileggere un indice prima dell'aggiunta e riscriverlo
+// dopo - perdendo le pagine appena aggiunte.
 async function main() {
+  const lock = apriLock(RADICE, { pid: process.pid, quando: "" });
+  if (!lock.preso) { console.error(`Fermato: ${lock.motivo}`); process.exitCode = 1; return; }
+  try { await eseguiDaSolo(); } finally { rilasciaLock(RADICE); }
+}
+
+async function eseguiDaSolo() {
   const argomento = (nome) => process.argv.find((arg) => arg.startsWith(`--${nome}=`))?.slice(nome.length + 3);
   const limiteGrezz = argomento("limite");
   const limite = limiteGrezz == null ? Infinity : Number(limiteGrezz);

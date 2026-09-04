@@ -266,3 +266,43 @@ export function serializza(val, indent = "      ", aCapo = "\n") {
   }
   return JSON.stringify(val);
 }
+
+// --------------------------------------------- L'ASSENZA, E IL SUO AMBITO
+//
+// Fino al 03/09 una assenza era un numero: `nonTrovati: { linkSito: 3 }`, cioe'
+// "non l'ho trovato, la pagina piu' pertinente era la 3". Non diceva a QUALE
+// AMBITO si riferisse, e senza quello un'assenza non puo' diventare la frase
+// forte del Passo 3: `cancelli.mjs` classifica come STRETTI quattro campi su
+// cinque, perche' l'arbitrato del 31/08 ha deciso che il catalogo di un
+// dipartimento non e' il catalogo dell'ateneo. Un'assenza dedotta su una
+// facolta' non puo' essere scritta su tutte le mete di quel codice.
+//
+// La forma nuova e' { paginaCitata, livello, ambito }. La vecchia si continua a
+// leggere e vale come "ambito ignoto": le 479 letture gia' fatte restano valide
+// per quello che sanno dire, e non possono generare la frase forte - che e'
+// esattamente la conseguenza voluta, non un ripiego.
+export function normalizzaNonTrovato(valore) {
+  if (valore == null) return null;
+  if (typeof valore === "number") return Number.isInteger(valore) ? { paginaCitata: valore, livello: null, ambito: null } : null;
+  if (typeof valore !== "object" || Array.isArray(valore)) return null;
+  const paginaCitata = Number.isInteger(valore.paginaCitata) ? valore.paginaCitata : null;
+  if (paginaCitata == null) return null;
+  const livello = valore.livello === "ateneo" || valore.livello === "facolta" ? valore.livello : null;
+  // Un'assenza "di facolta'" senza dire QUALE facolta' non e' interpretabile:
+  // vale meno di un'assenza senza livello, perche' promette una precisione che
+  // non ha. Si degrada ad ambito ignoto invece di essere buttata: la pagina
+  // citata resta un'informazione vera.
+  const ambito = livello === "facolta" && typeof valore.ambito === "string" && valore.ambito.trim() ? valore.ambito.trim() : null;
+  return { paginaCitata, livello: livello === "facolta" && !ambito ? null : livello, ambito };
+}
+
+// Tutte le assenze di una lettura, normalizzate; le voci che non si lasciano
+// interpretare spariscono e vengono elencate, invece di entrare storte.
+export function normalizzaNonTrovati(oggetto = {}) {
+  const nonTrovati = {}; const scartati = [];
+  for (const [campo, valore] of Object.entries(oggetto || {})) {
+    const voce = normalizzaNonTrovato(valore);
+    if (voce) nonTrovati[campo] = voce; else scartati.push(campo);
+  }
+  return { nonTrovati, scartati };
+}

@@ -444,3 +444,80 @@ scadenza totale avevano `{ timeout: 5000 }` e sotto carico andavano in scadenza.
 Una prova che diventa rossa quando la macchina e' occupata insegna a non fidarsi
 della suite. Margini allargati (scadenza 260 ms contro salti da 40 ms, tetto per
 prova 20 s) e stabilita' verificata su tre corse.
+
+---
+
+## Act 3 — Build (Passo 1b: lo schema dell'assenza, e la rilettura che riparte)
+
+Ruoli invertiti rispetto al Passo 0: **Claude costruisce, Codex revisiona in sola
+lettura** (thread `01a06bd5`). Scelta di Nicola dopo l'esaurimento del credito
+Codex a meta' pomeriggio. Baseline 435 → **447 prove verdi**.
+
+Il Passo 1 e' stato spezzato in tre: 1a riconoscere (committato `1d460a3`),
+**1b ripartire** (questo), 1c eseguire.
+
+### Round 1 — Codex: 10 rilievi, VERDICT: REVISE
+
+Due li ha verificati sui dati veri, e li ho ricontrollati io: esatti.
+
+- **Avrei distrutto sei pagine vere.** `pagine.length + 1` come nome del file
+  nuovo: su **sei partner reali** quel nome e' gia' occupato da orfani di
+  interruzioni passate — `ESEVILLA01`, `NOSLO72`, `PLBIALYST04`, `SILJUBLJA01`,
+  `SLINKOPI01`, `TRANKARA15`. Ora cerca il primo nome libero e scrive in
+  creazione esclusiva (`wx`).
+- **Tutto l'impianto era codice morto.** `improntaMateriale` torna `null` se
+  ANCHE UNA pagina e' senza impronta, e gli indici veri ne hanno **zero su
+  10.442**. L'impronta sarebbe rimasta `null` per sempre e il versionamento non
+  sarebbe mai entrato in funzione. Ora il recupero **migra** l'indice.
+- **Un ordine che perdeva materiale per sempre.** Scrivevo l'indice PRIMA di
+  archiviare la lettura: una caduta fra le due lasciava un indice con pagine
+  nuove e una lettura vecchia ancora valida, e quel materiale non sarebbe stato
+  letto mai piu'. Invertito.
+
+Piu': `campiDaApplicare` che sopravviveva all'invalidazione, il capolinea
+`daLeggere` senza uscita, l'impronta che ignorava il punteggio, il checkpoint
+che non salvava i fallimenti, il lock mancante in `riscarica-pdf` autonomo,
+`--limite=0` che significava «tutti», e la lacuna di prova.
+
+### Claude's response — Round 1
+
+Accolti tutti e dieci. **E un difetto nelle mie stesse prove:** quella
+sull'ordine usava `assert.rejects(...).catch(() => {})` — il `.catch` **annulla
+l'asserzione** — e controllava solo lo stato finale, identico nei due ordini:
+non provava niente. Riscritta iniettando la scrittura dell'indice, cosi' osserva
+il MOMENTO invece del risultato.
+
+### Round 2 — Codex: 6 rilievi nuovi, 4 dei 10 chiusi, VERDICT: REVISE
+
+- **Una caduta poteva ancora applicare proposte vecchie**: invalidavo in memoria
+  e salvavo a fine partner; nella finestra il disco conservava i
+  `campiDaApplicare` superati, e `bloccoZero()` gira PRIMA della rilettura.
+- **Due porte per invalidare, e una perdeva lo storico**: `leggiPartner`
+  riconosceva la lettura obsoleta e poi la **sovrascriveva**, saltando
+  `invalidaLettura`. Ora la porta e' una sola, e vive con il ciclo di vita della
+  lettura invece che con il ciclo della catena.
+- **Impronta e selezione non ordinavano allo stesso modo**: le pagine recuperate
+  hanno tutte punteggio zero, quindi finivano a pari merito e decideva l'ordine
+  dell'indice — che l'impronta non guarda. Riordinare cambiava cio' che il
+  modello riceve lasciando l'impronta identica, **e la mia prova verificava
+  proprio l'assunzione sbagliata**.
+- Piu': pagina PDF e impronta come transazione spezzata (ora riconciliata),
+  orfani e fallimenti ripetuti (ora adottati e filtrati), provenienza e testo
+  del link che potevano venire da pagine diverse.
+
+### Claude's response — Round 2
+
+Accolti tutti e sei. **Due difetti trovati dalle prove scritte per le
+correzioni:**
+1. la prova sull'adozione degli orfani **si autoassolveva** — chiamava
+   `adottaOrfani` direttamente, quindi rompere il punto in cui viene invocata non
+   la faceva diventare rossa. Era il sospetto che avevo chiesto a Codex di
+   verificare, ed era fondato;
+2. rifacendola sul percorso vero, ha trovato un difetto nella correzione stessa:
+   adottavo gli orfani **dopo** aver calcolato i candidati, quindi l'orfano
+   entrava nell'indice e il suo indirizzo veniva riscaricato lo stesso.
+   L'adozione non serviva a niente. Spostata prima.
+
+**Esito: 447/447 verdi. Dodici rotture di controllo** viste rosse e ripristinate
+su questo passo. Due `sed` su sette, in giornata, non avevano agganciato: da qui
+in avanti ogni rottura si verifica applicata prima di crederle.

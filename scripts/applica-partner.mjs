@@ -7,7 +7,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { isDeepStrictEqual } from "node:util";
 import { fileMete } from "./cancelli.mjs";
-import { campoVuoto, caricaMete, codiceCanonico, impostaCampo, serializza, spanTutteMete, statoCampo, valoreCampo } from "./lib-mete.mjs";
+import { campoVuoto, caricaMete, codiceCanonico, impostaCampo, normalizzaNonTrovato, serializza, spanTutteMete, statoCampo, valoreCampo } from "./lib-mete.mjs";
 
 const RADICE = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const leggiJson = (file) => JSON.parse(fs.readFileSync(file, "utf8"));
@@ -141,9 +141,16 @@ function aggiungiNonTrovabile(blocco, campo, lettura) {
   // giorno la guardia del chiamante cambia, il dato esistente e' comunque
   // protetto. Chi cerca la regola vera la trova nel secondo ciclo, non qui.
   if (meta?.nonTrovabile?.[campo]) return { blocco, modificato: false };
-  const pagina = new Map((lettura.pagineInviate || []).map((p) => [p.n, p])).get(lettura.nonTrovati?.[campo]);
+  // La forma vecchia era un numero nudo, la nuova un oggetto con ambito: si
+  // legge una sola definizione, cosi' le 479 letture gia' fatte continuano a
+  // valere e non serve una migrazione di massa.
+  const assenza = normalizzaNonTrovato(lettura.nonTrovati?.[campo]);
+  const pagina = new Map((lettura.pagineInviate || []).map((p) => [p.n, p])).get(assenza?.paginaCitata);
   if (!pagina?.url) return { blocco, modificato: false, saltato: true };
-  const nonTrovabile = { ...(meta.nonTrovabile || {}), [campo]: { cercatoIl: dataLettura(lettura), fonte: pagina.url } };
+  const nonTrovabile = { ...(meta.nonTrovabile || {}), [campo]: { cercatoIl: dataLettura(lettura), fonte: pagina.url,
+    // L'ambito viaggia col marcatore: il Passo 3 ne ha bisogno per decidere se
+    // l'assenza vale su tutte le mete del codice o solo su una facolta'.
+    livello: assenza.livello, ambito: assenza.ambito } };
   return impostaCampo(blocco, "nonTrovabile", nonTrovabile);
 }
 

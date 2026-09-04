@@ -18,7 +18,9 @@ import { fileURLToPath } from "node:url";
 import { isDeepStrictEqual } from "node:util";
 import { caricaMete, codiceCanonico, statoCampo } from "./lib-mete.mjs";
 import { fileMete } from "./cancelli.mjs";
-import { scegliPagine } from "./leggi-partner.mjs";
+import { improntaMateriale, invalidaLettura, letturaDaRifare, scegliPagine } from "./leggi-partner.mjs";
+// Ri-esportata: vive con il ciclo di vita della lettura, non con il ciclo.
+export { invalidaLettura } from "./leggi-partner.mjs";
 
 const RADICE = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -315,7 +317,21 @@ export function statoPartner({ radice = RADICE, partner, avanzamento = {}, colli
   if (!indice) return "daRaccogliere";
   if (indice.esito !== "raggiunto") return "nonRaggiunto";
   if (!pdfCompleto(radice, codice)) return "daPdf";
-  if (!fs.existsSync(path.join(dir(radice), "letture", `${codice}.json`))) {
+  // Il materiale e' cambiato sotto una lettura gia' fatta? Allora il partner
+  // torna in coda. Senza questo, aggiungere pagine non produce alcun effetto:
+  // `applicato` lo tiene `fatto` per sempre. La regola e' la stessa che usa la
+  // lettura (`letturaDaRifare`), e devono restare una sola: se divergessero, il
+  // partner resterebbe "da leggere" senza che nessuno lo rilegga mai.
+  const fileLettura = path.join(dir(radice), "letture", `${codice}.json`);
+  if (fs.existsSync(fileLettura) && letturaDaRifare(indice, leggiJson(fileLettura))) {
+    // Stesso capolinea del ramo senza lettura: se il materiale aggiornato non ha
+    // piu' testo utile, la lettura salterebbe il partner senza scrivere niente e
+    // lui resterebbe `daLeggere` per sempre - ripreso a ogni giro senza che
+    // succeda nulla. E' il difetto che `senzaTestoUtile` era nato per chiudere.
+    if (!scegliPagine(indice, cartella).length) return "senzaTestoUtile";
+    return "daLeggere";
+  }
+  if (!fs.existsSync(fileLettura)) {
     // "raggiunto" e' un criterio largo: basta UNA pagina, anche vuota. Sei
     // partner sono stati raggiunti con pagine da 32-173 caratteri - sono siti
     // costruiti in JavaScript, il testo non sta nell'HTML - e `scegliPagine`

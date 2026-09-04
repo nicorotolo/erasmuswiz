@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { codiceCanonico } from "./lib-mete.mjs";
+import { codiceCanonico, normalizzaNonTrovati } from "./lib-mete.mjs";
 import { fetchSicuro } from "./lib-rete.mjs";
 
 const RADICE = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -48,6 +48,146 @@ export function branoPagina(testo, link) {
   return elenco ? `${testo}\n\n${INTESTAZIONE_LINK}\n${elenco}` : testo;
 }
 
+// La versione del PROMPT entra nell'impronta del materiale: cambiare le regole
+// che il modello legge e' una ragione legittima per rileggere, e fino a oggi non
+// era esprimibile. Si alza a mano quando il prompt cambia in modo sostanziale.
+export const VERSIONE_PROMPT = "2026-09-03-nonTrovati-ambito";
+
+// L'impronta dell'INGRESSO, da non confondere con `impronteLettura` in
+// esegui-partner.mjs, che e' l'impronta dell'USCITA e serve ai cancelli.
+// Qui la domanda e' un'altra: il materiale che manderemmo AL MODELLO e' ancora
+// quello su cui la lettura si basa? Si calcola dal solo `indice.json`, non
+// riaprendo le pagine: 585 partner per 25 pagine sarebbero quindicimila letture
+// a ogni avvio.
+//
+// L'ordine e' per nome di file, non quello dell'indice: una ricostruzione che
+// riordina le voci senza cambiare una pagina non deve invalidare nulla. Ed e'
+// una LISTA, non un insieme: due pagine con lo stesso testo e indirizzi diversi
+// non sono la stessa selezione.
+//
+// Torna `null` quando l'indice non porta ancora le impronte di contenuto: non
+// sapere non e' come sapere che e' cambiato, e un `null` scambiato per
+// "diverso" rimanderebbe alla lettura tutti i 479 partner gia' fatti.
+// L'impronta del CONTENUTO di una pagina. Solo i campi che il modello legge:
+// una nuova data di scaricamento non e' materiale nuovo, un testo diverso si'.
+export function improntaPagina(pagina) {
+  return hash(JSON.stringify({ tipo: pagina?.tipo ?? null, titolo: pagina?.titolo ?? null,
+    testo: pagina?.testo ?? null, link: pagina?.link ?? [] }));
+}
+
+export const VERSIONE_SELEZIONE = "2026-09-03-motivate-per-prime";
+
+export function improntaMateriale(indice) {
+  const voci = [...(indice?.pagine || [])].map((r) => ({
+    url: r.url, file: r.file, contenuto: r.improntaContenuto || null,
+    motivi: r.motivi || [],
+    // Il PUNTEGGIO entra nell'impronta perche' entra nella selezione: e' lui a
+    // decidere l'ordine fra pagine non motivate, e quindi quali cadono fuori dal
+    // taglio dei 250.000 caratteri. Senza, cambiare i punteggi cambierebbe cio'
+    // che il modello vede lasciando l'impronta identica.
+    punteggio: r.punteggio ?? null,
+  })).sort((a, b) => String(a.file).localeCompare(String(b.file)));
+  if (!voci.length || voci.some((v) => !v.contenuto)) return null;
+  // Anche la VERSIONE DELL'ALGORITMO di selezione: il 03/09 le pagine motivate
+  // sono passate davanti a tutte, e quel cambiamento vale una rilettura tanto
+  // quanto una pagina nuova.
+  return hash(JSON.stringify({ voci, prompt: VERSIONE_PROMPT, selezione: VERSIONE_SELEZIONE }));
+}
+
+// Migra un indice: calcola le impronte di contenuto mancanti aprendo le pagine.
+// Serve una volta sola per indice, ed e' il prezzo di non aver avuto le impronte
+// dal principio. Senza questo passo `improntaMateriale` resta `null` per sempre
+// su tutti i 585 indici esistenti, e l'intero versionamento delle letture e'
+// codice morto: torna `null`, `letturaDaRifare` risponde "non si puo' dire", e
+// nessuno si accorge mai che il materiale e' cambiato.
+export function migraImpronteIndice(indice, cartella, { leggi = null, riconcilia = false } = {}) {
+  let migrate = 0;
+  for (const riga of indice?.pagine || []) {
+    if (riga.improntaContenuto && !riconcilia) continue;
+    const pagina = leggi ? leggi(riga.file) : (() => {
+      try { return JSON.parse(fs.readFileSync(path.join(cartella, riga.file), "utf8")); } catch { return null; }
+    })();
+    if (!pagina) continue;
+    const nuova = improntaPagina(pagina);
+    if (riga.improntaContenuto === nuova) continue;
+    riga.improntaContenuto = nuova;
+    migrate++;
+  }
+  return migrate;
+}
+
+// Una sola regola per due posti: `statoPartner` la usa per decidere se il
+// partner torna in coda, e la lettura per decidere se rifare la chiamata. Se le
+// due divergessero, il partner resterebbe "da leggere" per sempre senza che
+// nessuno lo rilegga - un capolinea mancante come quello di `senzaTestoUtile`.
+export function letturaDaRifare(indice, lettura) {
+  if (!lettura) return true;
+  const attuale = improntaMateriale(indice);
+  if (!attuale || !lettura.improntaMateriale) return false;
+  return lettura.improntaMateriale !== attuale;
+}
+
+// Chi cambia una pagina aggiorna l'indice, altrimenti il materiale cambia di
+// nascosto e l'impronta continua a giurare che sia lo stesso. Il caso vero e'
+// `riscarica-pdf.mjs`, che riempie il testo dei PDF DOPO la raccolta e non ha
+// mai avuto ragione di toccare l'indice: da oggi ce l'ha.
+export function aggiornaImprontaIndice(filePagina, paginaAggiornata) {
+  const cartella = path.dirname(filePagina);
+  const indiceFile = path.join(cartella, "indice.json");
+  if (!fs.existsSync(indiceFile)) return false;
+  let indice; try { indice = JSON.parse(fs.readFileSync(indiceFile, "utf8")); } catch { return false; }
+  const nome = path.basename(filePagina);
+  const riga = (indice.pagine || []).find((r) => r.file === nome);
+  if (!riga) return false;
+  riga.improntaContenuto = improntaPagina(paginaAggiornata);
+  indice.improntaMateriale = improntaMateriale(indice);
+  const tmp = indiceFile + ".tmp";
+  fs.writeFileSync(tmp, JSON.stringify(indice, null, 2) + "\n");
+  fs.renameSync(tmp, indiceFile);
+  return true;
+}
+
+// Invalidare una lettura non e' cancellarla: e' archiviarla E dichiarare che
+// tutto cio' che ne discendeva non vale piu'. Senza azzerare `applicato` e
+// `campiDaApplicare`, `bloccoZero()` - che gira PRIMA della rilettura -
+// applicherebbe proposte nate da materiale che abbiamo appena superato.
+//
+// `avanzamento` puo' essere un oggetto in memoria (lo muta e lascia al chiamante
+// il compito di salvarlo) oppure `undefined`: in quel caso legge e riscrive lui
+// `avanzamento.json`, atomicamente. La seconda forma esiste perche' anche la
+// LETTURA deve poter invalidare, e la lettura non possiede l'avanzamento: senza,
+// una lettura invecchiata per un PDF riscaricato o per un prompt cambiato
+// verrebbe sovrascritta in silenzio, perdendo lo storico e lasciando in piedi lo
+// stato derivato.
+export function invalidaLettura(radice, codice, avanzamento) {
+  const c = codiceCanonico(codice);
+  const cartellaLetture = path.join(radice, "raccolta", "letture");
+  const file = path.join(cartellaLetture, `${c}.json`);
+  if (!fs.existsSync(file)) return { archiviata: false };
+  const storico = path.join(cartellaLetture, "storico");
+  fs.mkdirSync(storico, { recursive: true });
+  const quando = new Date().toISOString().replace(/[:.]/g, "-");
+  const destinazione = path.join(storico, `${c}-${quando}.json`);
+  fs.renameSync(file, destinazione);
+
+  const azzera = (voce) => {
+    const { improntaLettura, fuso, applicato, campiDaApplicare, ...resto } = voce;
+    return { ...resto, fuso: false, applicato: false, campiDaApplicare: [] };
+  };
+  if (avanzamento && avanzamento[c]) { avanzamento[c] = azzera(avanzamento[c]); return { archiviata: true, destinazione }; }
+  if (avanzamento === undefined) {
+    const fileAvanz = path.join(radice, "raccolta", "avanzamento.json");
+    let stato = {}; try { stato = JSON.parse(fs.readFileSync(fileAvanz, "utf8")); } catch { stato = null; }
+    if (stato && stato[c]) {
+      stato[c] = azzera(stato[c]);
+      const tmp = fileAvanz + ".tmp";
+      fs.writeFileSync(tmp, JSON.stringify(stato, null, 2) + "\n");
+      fs.renameSync(tmp, fileAvanz);
+    }
+  }
+  return { archiviata: true, destinazione };
+}
+
 export function scegliPagine(indice, cartella) {
   let resto = 250000, restoLink = 30000, n = 0; const scelte = [];
   // Le pagine MOTIVATE vanno per prime, fuori concorso: sono state scaricate
@@ -57,7 +197,13 @@ export function scegliPagine(indice, cartella) {
   // pagina appena aggiunta finirebbe in fondo alla fila e al modello non
   // arriverebbe lo stesso. Fra motivate, e fra non motivate, decide il punteggio.
   const motivata = (r) => ((r.motivi || []).length > 0 ? 1 : 0);
-  for (const riga of [...(indice.pagine || [])].sort((a, b) => (motivata(b) - motivata(a)) || (b.punteggio - a.punteggio))) {
+  // Lo SPAREGGIO sul nome del file non e' un dettaglio: le pagine recuperate
+  // hanno tutte punteggio zero, quindi finivano a pari merito e a decidere
+  // restava l'ordine dell'indice - che l'impronta del materiale non guarda,
+  // perche' ordina per file. Senza questa riga, riordinare l'indice cambiava
+  // cosa il modello riceve lasciando l'impronta identica.
+  for (const riga of [...(indice.pagine || [])].sort((a, b) => (motivata(b) - motivata(a))
+    || (b.punteggio - a.punteggio) || String(a.file).localeCompare(String(b.file)))) {
     if (resto < 200) break;
     const pagina = JSON.parse(fs.readFileSync(path.join(cartella, riga.file), "utf8"));
     if (typeof pagina.testo !== "string" || pagina.testo.length < 200) continue;
@@ -113,7 +259,7 @@ FORMA ESATTA DELLA RISPOSTA. Usa queste chiavi in italiano, alla lettera: "level
       "fonte": { "url": "https://esempio/pagina-23", "citazione": "IL-TESTO-DEL-LINK-COPIATO", "verificataIl": "${oggi}" }
     }
   },
-  "nonTrovati": { "linkSito": 1 },
+  "nonTrovati": { "linkSito": { "paginaCitata": 1, "livello": "ateneo", "ambito": null } },
   "note": []
 }
 
@@ -148,7 +294,7 @@ LIVELLO E AMBITO
 REGOLE GENERALI
 - Non confondere i requisiti per i DEGREE STUDENTS con quelli per gli studenti Erasmus/exchange: se la pagina non distingue, ometti il campo.
 - OMETTI il campo se non sei sicuro. Non dedurre, non stimare, non indovinare.
-- Ogni campo richiesto che non riesci a trovare va in "nonTrovati", nella forma {"nomeCampo": <numero della pagina piu' pertinente che hai letto>}.
+- Ogni campo richiesto che non riesci a trovare va in "nonTrovati", nella forma {"nomeCampo": {"paginaCitata": <numero della pagina piu' pertinente che hai letto>, "livello": "ateneo" oppure "facolta", "ambito": null oppure il nome della facolta'}}. Il livello dice DOVE hai cercato: "ateneo" se la pagina parla di tutto l'ateneo, "facolta" se parla di una sola facolta' - e in quel caso "ambito" e' il nome della facolta' come e' scritto sulla pagina. Se non sei sicuro del livello, scrivi "livello": null: un ambito sbagliato e' peggio di un ambito mancante.
 - Rispondi SOLO con l'oggetto JSON, senza testo attorno e senza blocchi markdown.`;
   const allegate = pagine.map((p) => `[PAGINA ${p.n}] URL: ${p.url}${p.titolo ? `\nTITOLO: ${p.titolo}` : ""}\n${p.testo}`).join("\n\n");
   return `${regole}\n\nPAGINE ALLEGATE:\n${allegate}`;
@@ -222,8 +368,21 @@ export async function leggiPartner({ radice = RADICE, limite = Infinity, partner
     // campione nuovo a ogni giro.
     if (esito.partnerLetti >= limite || (filtro && !insieme(filtro).has(codiceCanonico(p.codiceNorm))) || !(p.campiMancanti || []).length) continue;
     const dir = path.join(raccolta, "pagine", codiceCanonico(p.codiceNorm)), indiceFile = path.join(dir, "indice.json"), fuori = path.join(letture, `${codiceCanonico(p.codiceNorm)}.json`);
-    if (fs.existsSync(fuori) || !fs.existsSync(indiceFile)) continue;
+    if (!fs.existsSync(indiceFile)) continue;
     const indice = JSON.parse(fs.readFileSync(indiceFile, "utf8")); if (indice.esito !== "raggiunto") continue;
+    // Fino al 03/09 questa riga scartava INCONDIZIONATAMENTE ogni partner che
+    // avesse gia' una lettura: aggiungere pagine non bastava a farlo rileggere,
+    // e il recupero dei link avrebbe scaricato migliaia di pagine che nessuno
+    // leggeva. Ora si rilegge quando il materiale e' cambiato davvero.
+    if (fs.existsSync(fuori)) {
+      let vecchia = null; try { vecchia = JSON.parse(fs.readFileSync(fuori, "utf8")); } catch { vecchia = null; }
+      if (vecchia && !letturaDaRifare(indice, vecchia)) continue;
+      // Non si sovrascrive: si INVALIDA. Sovrascrivere perderebbe lo storico e
+      // lascerebbe in piedi `fuso`/`applicato`/`campiDaApplicare` della lettura
+      // vecchia. Questa e' la sola porta, e ci passano tutti i motivi di
+      // invecchiamento: pagine aggiunte, PDF riscaricato, prompt cambiato.
+      invalidaLettura(radice, p.codiceNorm);
+    }
     const pagine = scegliPagine(indice, dir); if (!pagine.length) continue;
     // Sullo stesso partner: se il 429 e' quello al minuto si aspetta e si
     // riprova, se e' quello del giorno ci si ferma pulito (§3.2).
@@ -246,7 +405,16 @@ export async function leggiPartner({ radice = RADICE, limite = Infinity, partner
     }
     if (fermati) break;
     if (!risposta) continue;
-    const lettura = { codiceNorm: p.codiceNorm, lettoIl: new Date().toISOString(), modello, pagineInviate: pagine.map(({ testo, ...meta }) => meta), campi: risposta.campi || {}, nonTrovati: risposta.nonTrovati || {}, note: risposta.note || [] };
+    // Le assenze si normalizzano PRIMA di finire su disco: una voce storta
+    // entrata qui diventerebbe una frase mostrata allo studente.
+    const assenze = normalizzaNonTrovati(risposta.nonTrovati);
+    const note = [...(risposta.note || [])];
+    if (assenze.scartati.length) note.push(`nonTrovati non interpretabili: ${assenze.scartati.join(", ")}`);
+    const lettura = { codiceNorm: p.codiceNorm, lettoIl: new Date().toISOString(), modello,
+      // Su quale materiale si basa questa lettura: senza, non c'e' modo di
+      // sapere che e' invecchiata quando le pagine cambiano.
+      improntaMateriale: improntaMateriale(indice),
+      pagineInviate: pagine.map(({ testo, ...meta }) => meta), campi: risposta.campi || {}, nonTrovati: assenze.nonTrovati, note };
     fs.writeFileSync(fuori, JSON.stringify(lettura, null, 2) + "\n"); esito.partnerLetti++; esito.chiamateRiuscite++; dimensioni.push(pagine.reduce((a, x) => a + x.caratteri, 0));
     for (const c of Object.keys(lettura.campi)) esito.campiProposti[c] = (esito.campiProposti[c] || 0) + 1;
     for (const c of Object.keys(lettura.nonTrovati)) esito.nonTrovati[c] = (esito.nonTrovati[c] || 0) + 1;

@@ -18,6 +18,7 @@ import path from "node:path";
 import test from "node:test";
 import { applicaCancelli } from "../scripts/cancelli.mjs";
 import { branoPagina, costruisciPrompt, scegliFlashLite } from "../scripts/leggi-partner.mjs";
+import { normalizzaNonTrovato } from "../scripts/lib-mete.mjs";
 
 const PARTNER = {
   codiceNorm: "TEST 01", ateneo: "UNIVERSITA DI PROVA", citta: "Graz", paese: "Austria",
@@ -107,9 +108,22 @@ test("ogni campo dell'esempio ha le chiavi esatte, in italiano, coi tipi giusti"
   }
   assert.ok(Array.isArray(e.campi.scadenzeOspitante.valore), "l'array delle scadenze deve stare DENTRO 'valore'");
   assert.equal(typeof e.campi.linkCatalogo.valore, "string");
-  // nonTrovati: nome del campo -> NUMERO di pagina.
-  for (const [c, n] of Object.entries(e.nonTrovati)) {
-    assert.equal(typeof n, "number", `nonTrovati.${c} dev'essere un numero`);
+  // nonTrovati: nome del campo -> { paginaCitata, livello, ambito }.
+  // Fino al 03/09 era un NUMERO nudo, e questa prova pretendeva un numero. Il
+  // contratto e' cambiato di proposito: senza l'ambito un'assenza non puo'
+  // diventare la frase forte del Passo 3, perche' `cancelli.mjs` classifica
+  // quattro campi su cinque come STRETTI - l'arbitrato del 31/08 ha deciso che
+  // il catalogo di un dipartimento non e' il catalogo dell'ateneo. La prova
+  // resta la guardia dell'accordo prompt/cancelli: cambia cio' che pretende,
+  // non il fatto che pretenda.
+  for (const [c, voce] of Object.entries(e.nonTrovati)) {
+    assert.equal(typeof voce, "object", `nonTrovati.${c} dev'essere un oggetto`);
+    assert.equal(typeof voce.paginaCitata, "number", `nonTrovati.${c}.paginaCitata dev'essere un numero`);
+    assert.ok(["ateneo", "facolta", null].includes(voce.livello), `nonTrovati.${c}.livello non valido`);
+    assert.ok(voce.ambito === null || typeof voce.ambito === "string", `nonTrovati.${c}.ambito non valido`);
+    // La forma dell'esempio dev'essere quella che il normalizzatore accetta:
+    // se le due divergessero, il modello copierebbe una forma che poi buttiamo.
+    assert.deepEqual(normalizzaNonTrovato(voce), voce, `l'esempio di nonTrovati.${c} non sopravvive alla normalizzazione`);
   }
 });
 
