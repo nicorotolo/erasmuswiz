@@ -168,7 +168,7 @@ test("crawler: rilegge robots.txt prima della pagina a ogni cambio di origine", 
 // Prima della correzione il crawler usava AbortSignal.timeout(20_000), che
 // vale sull'intera richiesta: un server che manda un byte ogni 19 secondi
 // restava attaccato per sempre e teneva occupato un posto del limitatore.
-test("rete: la scadenza totale interrompe una risposta che arriva a goccia", { timeout: 5000 }, async () => {
+test("rete: la scadenza totale interrompe una risposta che arriva a goccia", { timeout: 20_000 }, async () => {
   const tentativi = [];
   // Il socket resta vivo e risponde solo dopo 300 ms, cinque volte la scadenza:
   // e' il caso che il timeout d'inattivita' da solo non chiuderebbe. Senza la
@@ -185,7 +185,13 @@ test("rete: la scadenza totale interrompe una risposta che arriva a goccia", { t
 // Difetto 1, seconda meta': la scadenza vale sulla CATENA, non sul singolo
 // salto. Nessun salto qui e' inattivo - ognuno risponde in fretta - ma la
 // somma supera il tetto, ed e' la somma che il crawler deve rispettare.
-test("rete: la scadenza totale vale sulla catena, non sul singolo salto", { timeout: 5000 }, async () => {
+// I margini sono larghi apposta: una prova che diventa rossa quando la macchina
+// e' occupata insegna a non fidarsi della suite. La scadenza (260 ms) sta a
+// sei volte il singolo salto (40 ms), cosi' anche con la macchina tre volte piu'
+// lenta restano almeno due salti; e il tetto per prova e' 20 s, non 5, perche'
+// serve solo da rete di sicurezza — senza la correzione questa prova fallisce
+// per asserzione dopo mezzo secondo, non per scadenza.
+test("rete: la scadenza totale vale sulla catena, non sul singolo salto", { timeout: 20_000 }, async () => {
   let salti = 0;
   const trasporto = async (destinazione) => {
     salti++;
@@ -194,7 +200,7 @@ test("rete: la scadenza totale vale sulla catena, non sul singolo salto", { time
   };
   await assert.rejects(
     fetchSicuro("https://uno.test/", {
-      risolvi: dnsPubblico, trasporto, limitatore: false, scadenzaTotaleMs: 100,
+      risolvi: dnsPubblico, trasporto, limitatore: false, scadenzaTotaleMs: 260,
     }),
     (errore) => errore.name === "TimeoutError",
   );

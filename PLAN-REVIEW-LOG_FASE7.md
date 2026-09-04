@@ -360,3 +360,87 @@ prove in attesa). Versione finale: ritardo reale di 300 ms contro una scadenza d
 60 ms, cosi' senza la correzione la prova fallisce **per asserzione**.
 
 **Esito: 411/411 verdi.** Nessuna deviazione residua dalla specifica del Passo 0.
+
+---
+
+## Act 3 — Build (Passo 1a: riconoscere e seguire i link giusti)
+
+Costruttore: **Claude**, non Codex — credito ChatGPT esaurito a meta' pomeriggio
+(riprende alle 15:24). Scelta di Nicola: andare avanti perdendo il controllo
+incrociato sul build. Compensato con sette rotture di controllo invece delle tre
+del Passo 0, e con la misura sui dati veri come criterio d'uscita.
+
+Il Passo 1 e' stato **spezzato in tre**: 1a riconoscere (questo), 1b ripartire
+(schema `nonTrovati`, raccolta riavviabile, riletture versionate), 1c eseguire.
+Il Passo 0 era il piu' piccolo del piano e ha comunque prodotto due difetti al
+primo giro: darlo tutto insieme sarebbe stato il "mescolare" che il piano vieta.
+
+### Cosa e' stato costruito
+
+- `scripts/lib-motivi.mjs` — quattro classificatori, uno per campo debole,
+  compresa **la famiglia per `notaDisponibilita` che non esisteva affatto**;
+  `motiviDelLink`, `unisciMotivi`, `forzaMotivo`.
+- `raccogli-partner.mjs` — `motivi: []` al plurale e uniti sulla voce d'indice;
+  budget proprio per le motivate (8 per partner, 2 per campo) oltre il tetto di
+  25; provenienza `scopertaDa` + `testoLink` + `catenaRedirect`; `posteggia()` e
+  `daAccodare()` estratte come funzioni pure per essere provabili da sole.
+- `lib-rete.mjs` — la catena dei redirect ora e' esposta (serviva alla provenienza).
+- `leggi-partner.mjs` — in `scegliPagine()` le motivate vanno per prime.
+- `scripts/conta-link-motivati.mjs` — misura di sola lettura.
+- `test/lib-motivi.test.mjs` — 12 prove nuove.
+
+### Il difetto trovato misurando, non leggendo
+
+La prima versione cercava le radici **nel testo del link E nell'indirizzo**.
+Misurato sui dati veri: `studienangebot` scattava **9.344 volte**, perche' sta nel
+PERCORSO di ogni pagina di corso di laurea austriaca — `fh-ooe.at/studienangebot/
+digital-energy-solutions-master` e' *un corso*, non il catalogo. Un partner
+arrivava a **744 falsi positivi**. Tre varianti misurate:
+
+| variante | partner | link |
+|---|---:|---:|
+| testo + indirizzo (prima) | 242 | 9.051 |
+| **solo testo (scelta)** | **175** | **2.742** |
+| testo + ultimo segmento del percorso | 176 | 3.212 |
+
+I 67 partner persi col solo testo sono esattamente quelli dove l'unico segnale
+era l'indirizzo. La terza variante recupera **un partner**: non vale la regola in
+piu'. Conseguenza secondaria: restano ~15,7 candidati per partner e i posti sono
+2, quindi a decidere e' l'ordine — di qui `forzaMotivo()`, che preferisce un link
+il cui testo E' "Vorlesungsverzeichnis" a uno che lo nomina dentro una frase.
+
+### Il secondo filtro, che nessuno aveva contato
+
+Un link entrava in coda solo se `punteggio > 0` E `stessoAteneo`. Il catalogo di
+Cork si chiama "Book of Modules" (zero parole del punteggio) e vive su
+courseleaf.com (altro host): era **escluso due volte**. Il commento di
+`linkSalvati` lo diceva gia' dal 01/09, e nessuno aveva tirato la conseguenza.
+Ora un link motivato entra comunque; il tetto di otto pagine limita quanto
+lontano si puo' finire, e il Passo 0 valida ogni indirizzo.
+
+### La misura, che e' il criterio d'uscita
+
+| Campo | Partner | Link | **A cui il campo MANCA** | **Mete** |
+|---|---:|---:|---:|---:|
+| linkCatalogo | 175 | 2.742 | **128** | **583** |
+| notaDisponibilita | 57 | 617 | 53 | 214 |
+| scadenzeOspitante | 191 | 2.001 | 37 | 75 |
+| requisitoLingua | 66 | 299 | 24 | 81 |
+
+Il piano stimava **93 partner e 410 mete** sul catalogo, da regex provvisorie:
+sono **128 e 583**. Il traguardo del 45% non va rinegoziato al ribasso.
+
+### Verifica
+
+**423/423 prove verdi**, in tre corse consecutive (4,0s · 3,4s · 3,8s).
+**Sette rotture di controllo viste rosse e ripristinate:** classificatori che
+tornano a guardare l'URL · unione dei motivi che sovrascrive · forza costante ·
+tetto per campo ignorato · `daAccodare` che richiude i motivati fuori dominio ·
+`scegliPagine` che ordina solo per punteggio · `paginaSalvata` che perde i motivi.
+
+**Un difetto nelle mie stesse prove, trovato eseguendo.** Una corsa della suite ha
+dato `fail 2` con durata **45,7 s** contro i 3,9 abituali: le due prove sulla
+scadenza totale avevano `{ timeout: 5000 }` e sotto carico andavano in scadenza.
+Una prova che diventa rossa quando la macchina e' occupata insegna a non fidarsi
+della suite. Margini allargati (scadenza 260 ms contro salti da 40 ms, tetto per
+prova 20 s) e stabilita' verificata su tre corse.

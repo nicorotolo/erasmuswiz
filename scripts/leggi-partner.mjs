@@ -50,7 +50,14 @@ export function branoPagina(testo, link) {
 
 export function scegliPagine(indice, cartella) {
   let resto = 250000, restoLink = 30000, n = 0; const scelte = [];
-  for (const riga of [...(indice.pagine || [])].sort((a, b) => b.punteggio - a.punteggio)) {
+  // Le pagine MOTIVATE vanno per prime, fuori concorso: sono state scaricate
+  // perche' il loro link si chiamava "catalogo", "scadenze", "lingua" o "posti".
+  // Senza questa riga il lavoro della raccolta non arriva a destinazione: il
+  // budget di 250.000 caratteri taglia gia' oggi in 3 partner su 4, quindi una
+  // pagina appena aggiunta finirebbe in fondo alla fila e al modello non
+  // arriverebbe lo stesso. Fra motivate, e fra non motivate, decide il punteggio.
+  const motivata = (r) => ((r.motivi || []).length > 0 ? 1 : 0);
+  for (const riga of [...(indice.pagine || [])].sort((a, b) => (motivata(b) - motivata(a)) || (b.punteggio - a.punteggio))) {
     if (resto < 200) break;
     const pagina = JSON.parse(fs.readFileSync(path.join(cartella, riga.file), "utf8"));
     if (typeof pagina.testo !== "string" || pagina.testo.length < 200) continue;

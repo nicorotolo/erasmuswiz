@@ -8,6 +8,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { CAMPI_RIEMPIBILI, caricaMete, codiceCanonico, statoCampo } from "./lib-mete.mjs";
 import { fetchSicuro, Limitatore } from "./lib-rete.mjs";
+import { forzaMotivo, motiviDelLink, unisciMotivi } from "./lib-motivi.mjs";
 export { Limitatore } from "./lib-rete.mjs";
 
 const RADICE = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -26,6 +27,38 @@ const PAROLE = [
   [1, ["internation", "internazional", "internacional", "nemzetkozi", "mezinarodni", "uluslararasi", "mobilit", "movilidad"]],
   [-3, ["news", "notizie", "alumni", "press", "vacancies", "research", "phd", "doctoral", "outgoing", "staff mobility", "summer school"]],
 ];
+// Il tetto ordinario resta 25: e' quello che ha raccolto 585 partner. Le
+// pagine MOTIVATE hanno un budget a parte, perche' altrimenti non
+// competerebbero ad armi pari: la pagina che parla dell'Erasmus vale 4 punti,
+// il catalogo vero ne vale 3, e la ventesima pagina di notizie vince sempre.
+// Otto in piu' e' anche il tetto dell'esposizione: un sito ostile puo' farci
+// aprire al piu' otto indirizzi in piu', tutti passati dal Passo 0.
+export const TETTO_PAGINE = 25;
+export const TETTO_MOTIVATE = 8;
+export const MOTIVATE_PER_CAMPO = 2;
+
+// La regola dei posti, isolata dal ciclo perche' sia provabile da sola.
+// `usiPerCampo` dice quante pagine sono gia' state aperte per ciascun motivo.
+// Una pagina motivata prende prima un posto del budget motivato; se quello e'
+// esaurito puo' ancora entrare fra le 25 ordinarie, ma non le sottrae mai un
+// posto quando un posto motivato c'e'.
+// I due filtri che tenevano fuori proprio le pagine che cerchiamo: un link
+// entrava in coda solo se valeva punti E stava sullo stesso host. Il catalogo di
+// Cork si chiama "Book of Modules" (zero parole del punteggio) e vive su
+// courseleaf.com (altro host): era escluso due volte. Un link MOTIVATO entra
+// comunque; il tetto di otto pagine limita quanto lontano si puo' finire, e il
+// Passo 0 valida ogni indirizzo prima di chiederlo.
+export function daAccodare(motivi, punti, urlPagina, urlLink) {
+  if (motivi.length) return true;
+  return punti > 0 && stessoAteneo(urlPagina, urlLink);
+}
+
+export function posteggia(motivi = [], { ordinarie = 0, motivate = 0, usiPerCampo = {} } = {}) {
+  const campiLiberi = motivi.filter((c) => (usiPerCampo[c] || 0) < MOTIVATE_PER_CAMPO);
+  const comeMotivata = campiLiberi.length > 0 && motivate < TETTO_MOTIVATE;
+  const ammessa = comeMotivata || ordinarie < TETTO_PAGINE;
+  return { ammessa, comeMotivata, campiLiberi };
+}
 const NON_TESTUALI = /\.(?:avif|bmp|css|csv|docx?|gif|ico|jpe?g|m4a|mov|mp3|mp4|odp|ods|odt|png|pptx?|rar|svg|tar|webm|webp|xlsx?|zip)$/i;
 const AMBITI = ["ARCHI", "ECON", "FARM", "IUS", "INGE", "IIIS", "IIIS1", "IIIS2", "STATIS", "LETFIL", "MEDPROFSANIT", "PSICO1", "MEDIC2", "POLAT", "MATEM", "COMM", "SOCIO", "POLIT"];
 
@@ -115,7 +148,7 @@ async function scaricaUnaVolta(url, limitatore, { controllaRobots = true, rete =
     });
     return { stato: risposta.status, ok: risposta.ok, urlFinale: risposta.url,
       tipo: risposta.headers.get("content-type") || "", corpo: risposta.corpo,
-      troncato: risposta.troncato };
+      troncato: risposta.troncato, catena: risposta.catena || [] };
   } catch (errore) { return { errore: errore.name === "TimeoutError" ? "timeout" : errore.message }; }
 }
 
@@ -405,6 +438,14 @@ export const paginaSalvata = (pagina, risposta, html, pdf, quando) => ({
   testo: pdf ? null : testoVisibile(html),
   link: pdf ? [] : linkSalvati(html, risposta.urlFinale),
   troncato: risposta.troncato === true,
+  // La provenienza, non solo il capolinea. Un catalogo vive spesso su un
+  // dominio diverso da quello dell'ateneo (Cork sta su courseleaf.com): senza
+  // sapere da QUALE pagina dell'ateneo ci si e' arrivati, e con quale
+  // etichetta, non si puo' sostenere che sia l'ateneo a indicarlo.
+  motivi: pagina.motivi || [],
+  scopertaDa: pagina.scopertaDa || null,
+  testoLink: pagina.testoLink || null,
+  catenaRedirect: risposta.catena || [],
   scaricataIl: quando,
 });
 
@@ -415,9 +456,51 @@ async function raccogliUnPartner(partner, limitatore, riprendiTutto) {
   fs.mkdirSync(cartella, { recursive: true });
   const ingresso = await candidatiPartner(partner, limitatore);
   const indice = { codice: partner.codice, esito: "nonRaggiunto", raccoltoIl: new Date().toISOString(), candidati: ingresso.candidati.map(([url]) => url), pagine: [], note: ingresso.note, tentativi: ingresso.tentativi };
-  const coda = ingresso.candidati.map(([url, punteggio]) => ({ url, punteggio, profondita: 0 })); const visti = new Set();
-  while (coda.length && indice.pagine.length < 25) {
-    coda.sort((a, b) => b.punteggio - a.punteggio); const pagina = coda.shift(); if (visti.has(pagina.url)) continue; visti.add(pagina.url);
+  const coda = ingresso.candidati.map(([url, punteggio]) => ({ url, punteggio, profondita: 0, motivi: [], forza: 0 }));
+  const visti = new Set();
+  // Due contatori, non uno: le motivate non devono rubare posti alle ordinarie
+  // ne' esserne escluse. E al piu' due per campo, cosi' un sito che ripete
+  // venti volte "Course catalogue" non consuma da solo tutto il budget.
+  let ordinarie = 0, motivate = 0; const usiPerCampo = {};
+  const inCoda = new Map(coda.map((v) => [v.url, v]));
+  const accoda = (voce) => {
+    const gia = inCoda.get(voce.url);
+    // I motivi si UNISCONO: lo stesso indirizzo compare nel menu, nel corpo e
+    // nel pie' di pagina, ogni volta con un'etichetta diversa. Tenere solo
+    // l'ultima perderebbe meta' dell'informazione.
+    if (gia) {
+      gia.motivi = unisciMotivi(gia.motivi, voce.motivi);
+      gia.punteggio = Math.max(gia.punteggio, voce.punteggio);
+      // Anche la forza si tiene la migliore: lo stesso indirizzo puo' comparire
+      // una volta con l'etichetta piena e una dentro una frase.
+      if ((voce.forza || 0) > (gia.forza || 0)) { gia.forza = voce.forza; gia.testoLink = voce.testoLink; }
+      return;
+    }
+    inCoda.set(voce.url, voce); coda.push(voce);
+  };
+  while (coda.length) {
+    if (ordinarie >= TETTO_PAGINE && motivate >= TETTO_MOTIVATE) break;
+    // Prima le motivate, e fra loro la piu' "titolata": un partner ha in media
+    // quindici link che parlano di catalogo e i posti sono due, quindi a
+    // decidere e' l'ordine, non il classificatore. "Vorlesungsverzeichnis"
+    // batte "An overview of all courses offered in English is available here".
+    // Fra le non motivate resta il punteggio di sempre.
+    coda.sort((a, b) => (b.motivi.length > 0) - (a.motivi.length > 0)
+      || (b.forza || 0) - (a.forza || 0) || b.punteggio - a.punteggio);
+    const pagina = coda.shift();
+    if (visti.has(pagina.url)) {
+      // Gia' scaricata, ma con motivi che allora non conoscevamo: si aggiornano
+      // sulla voce d'indice, altrimenti la precedenza nell'invio al modello
+      // (scegliPagine) non la vedrebbe mai.
+      const riga = indice.pagine.find((r) => r.url === pagina.url);
+      if (riga) riga.motivi = unisciMotivi(riga.motivi, pagina.motivi);
+      continue;
+    }
+    // Quali motivi hanno ancora posto: se nessuno, la pagina puo' passare solo
+    // come ordinaria, e solo se restano posti fra le 25.
+    const { ammessa, comeMotivata, campiLiberi } = posteggia(pagina.motivi || [], { ordinarie, motivate, usiPerCampo });
+    if (!ammessa) continue;
+    visti.add(pagina.url);
     // Anche durante la discesa: prima il controllo valeva solo per i candidati
     // di partenza, quindi i link scoperti strada facendo venivano scaricati
     // senza guardare robots.txt. Le regole valgono per tutte le richieste, non
@@ -432,8 +515,24 @@ async function raccogliUnPartner(partner, limitatore, riprendiTutto) {
     if (!pdf && !testoVisibile(html)) registraTentativo(indice.tentativi, pagina.url, risposta, { esito: "fallito", causa: "paginaVuota" });
     fs.writeFileSync(path.join(cartella, file), JSON.stringify(paginaSalvata(pagina, risposta, html, pdf, new Date().toISOString()), null, 2) + "\n");
     indice.pagine.push({ file, url: pagina.url, punteggio: pagina.punteggio,
-      profondita: pagina.profondita, troncato: risposta.troncato === true });
-    if (!pdf && pagina.profondita < 3) for (const l of linkHtml(html, risposta.urlFinale)) { const punti = punteggioLink(l.testo, l.url); if (punti > 0 && stessoAteneo(pagina.url, l.url)) coda.push({ url: l.url, punteggio: punti, profondita: pagina.profondita + 1 }); }
+      profondita: pagina.profondita, troncato: risposta.troncato === true,
+      motivi: pagina.motivi || [] });
+    if (comeMotivata) { motivate++; for (const c of campiLiberi) usiPerCampo[c] = (usiPerCampo[c] || 0) + 1; }
+    else ordinarie++;
+    if (!pdf && pagina.profondita < 3) for (const l of linkHtml(html, risposta.urlFinale)) {
+      const motivi = motiviDelLink(l.testo);
+      const punti = punteggioLink(l.testo, l.url);
+      // Un link motivato entra ANCHE se vale zero punti e ANCHE se sta su un
+      // altro host. Sono i due filtri che tenevano fuori proprio le pagine che
+      // cerchiamo, e il commento di linkSalvati lo diceva gia': il catalogo di
+      // Cork sta su courseleaf.com e si chiama "Book of Modules", che non
+      // contiene nessuna parola del punteggio. Il tetto di otto pagine limita
+      // quanto lontano si puo' finire; il Passo 0 valida ogni indirizzo.
+      if (!daAccodare(motivi, punti, pagina.url, l.url)) continue;
+      accoda({ url: l.url, punteggio: punti, profondita: pagina.profondita + 1,
+        motivi, forza: motivi.length ? forzaMotivo(l.testo) : 0,
+        scopertaDa: risposta.urlFinale, testoLink: l.testo });
+    }
   }
   indice.esito = indice.pagine.length ? "raggiunto" : "nonRaggiunto";
   if (!indice.pagine.length && !indice.note.length) indice.note.push("nessun candidato dai tre punti d'ingresso");

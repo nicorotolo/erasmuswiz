@@ -267,6 +267,11 @@ export async function fetchSicuro(valore, {
   const segnali = [signal, timerTotale ? controllerTotale.signal : null].filter(Boolean);
   const segnaleEffettivo = segnali.length > 1 ? AbortSignal.any(segnali) : segnali[0];
   let corrente = new URL(valore).href;
+  // La catena percorsa, non solo il capolinea. Serve al Passo 1: una fonte su
+  // dominio esterno si puo' sostenere come "indicata dall'ateneo" solo se si sa
+  // da dove ci si e' arrivati. `urlFinale` da solo dice dove si finisce, non
+  // per quali mani si e' passati.
+  const catena = [];
   let metodo = method.toUpperCase();
   let contenuto = body;
   let intestazioniRichiesta = Object.fromEntries(Object.entries(headers));
@@ -280,6 +285,7 @@ export async function fetchSicuro(valore, {
       const destinazione = await entroScadenza(
         validaDestinazione(corrente, { risolvi, consentiIp, porteAmmesse }), segnaleEffettivo,
       );
+      catena.push(destinazione.url.href);
       if (primaDellaRichiesta) await entroScadenza(
         primaDellaRichiesta(destinazione.url.href, { salto, signal: segnaleEffettivo }), segnaleEffettivo,
       );
@@ -287,9 +293,9 @@ export async function fetchSicuro(valore, {
         body: contenuto, signal: segnaleEffettivo, timeoutMs, limiteHtml, limitePdf });
       const richiesta = limitatore ? limitatore.esegui(destinazione.url.href, esegui) : esegui();
       const risposta = await entroScadenza(richiesta, segnaleEffettivo);
-      if (!eRedirect(risposta.status)) return risposta;
+      if (!eRedirect(risposta.status)) return Object.assign(risposta, { catena: [...catena] });
       const posizione = risposta.headers.get("location");
-      if (!posizione) return risposta;
+      if (!posizione) return Object.assign(risposta, { catena: [...catena] });
       if (salto === massimoRedirect) throw new ErroreIndirizzo(`Troppi redirect (massimo ${massimoRedirect})`, "troppiRedirect");
       const successiva = new URL(posizione, destinazione.url);
       if (successiva.origin !== destinazione.url.origin) {
