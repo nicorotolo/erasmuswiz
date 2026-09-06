@@ -301,7 +301,42 @@ raccolta**, non la copertura pubblicata:
 - **Rimisura dei quattro conteggi** dei link mai aperti con i classificatori veri
   invece delle regex di misura.
 
-### Passo 1d — I quattro difetti che l'esecuzione ha trovato *(nessun tempo di Nicola)*
+> ✅ **PASSO 1 CHIUSO il 2026-09-06, con il criterio d'uscita NON raggiunto e la
+> ragione misurata.** Consuntivo: coda d'arbitrato `linkCatalogo` **31 proposte
+> per 116 mete** (28 nate dopo il 03/09), contro le ≥ 60 proposte / ≥ 250 mete
+> richieste. Tre cose, tutte misurate, spiegano la distanza e nessuna e' un
+> guasto della macchina:
+> 1. **Il denominatore non e' mai esistito.** I «93 partner prioritari» furono
+>    scelti tramite `campiMancanti`, di cui **54 voci `linkCatalogo` erano gia'
+>    piene su tutte le mete**. La previsione del 65% era su un insieme finto.
+> 2. **Il criterio contava le proposte come se fossero tutte da giudicare.** Il
+>    registro ne chiude subito piu' della meta': delle 185 approvate dai cancelli,
+>    117 sono `applicato`, 21 sono «no» di Nicola, 19 `legacyGiudicato`. La resa
+>    vera su bacino pulito e' **23%**, non 65%.
+> 3. **Il bacino era piu' piccolo di come lo si era contato.** I 150 partner
+>    `fatto` e i 121 `daApplicare` con il campo vuoto sono fuori dalla portata
+>    della catena per costruzione: raggiungerli e' un passo nuovo, non un altro
+>    giro di questo.
+>
+> **Il recupero del gia' pagato e' stato fatto** (06/09, dettaglio in
+> `PLAN-REVIEW-LOG_FASE7.md`): ripassate dai cancelli le 51 proposte bocciate e le
+> 4 mai controllate, senza una sola chiamata al modello — 5 approvate, **4 entrate
+> in coda** (17 mete). Copertura identica byte per byte, `giudizi.jsonl` non
+> toccato, 455 prove verdi.
+>
+> **Cosa resta fermo, e non e' materiale libero:**
+> - **19 `legacyGiudicato`** — verdetti di Nicola del 31/08 di cui si e' persa la
+>   distinzione fra «no» e «non so» (vedi `semina-giudizi.mjs`). Riaprirli e' una
+>   sua decisione, non un recupero.
+> - **19 mandate a riconciliazione facolta'** — esclusione di policy del 31/08
+>   (il catalogo di un dipartimento non e' quello dell'ateneo). Cambiarla e' una
+>   sua decisione.
+> - **16 `urlInconcludente`** — vedi il difetto (5) del Passo 1d.
+> - **35 `daLeggere` + 9 `daFondere`** — non letti: la quota giornaliera fermo' la
+>   catena il 04/09. Valgono ~8 proposte alla resa vera. Restano lavorabili quando
+>   si vorra', ma **non cambiano l'esito del criterio**.
+
+### Passo 1d — I cinque difetti che l'esecuzione ha trovato *(nessun tempo di Nicola)*
 
 Non erano nel piano: li ha trovati il Passo 1c eseguendo, e la sera del 04/09 il quarto —
 il più costoso — è emerso misurando perché la resa fosse così bassa. Sono in
@@ -355,7 +390,21 @@ ordine di danno, non di scoperta.
    ma resta. **Vuole un ragionamento suo, non un innesto**: invalidare dopo il
    successo cambia l'ordine delle scritture sotto il lock.
 
-**Criterio d'uscita del Passo 1d.** Le quattro correzioni con le loro prove, la
+5. **`urlInconcludente` boccia in modo definitivo, ma descrive il controllo e non
+   il dato.** Trovato il 06/09 ripassando i cancelli. `statoLink` chiama
+   «inconcludente» tutto cio' che non e' 2xx e non e' 404/410: un 403 al robot, un
+   timeout, un catalogo dietro una sessione JSF (`D GOTTING01`,
+   `showCourseCatalog.xhtml`) e un indirizzo sbagliato sono indistinguibili. Il
+   cancello ritenta una volta dopo 2s; il ripasso del 06/09 ne ha recuperate 3 su
+   19 col solo passare del tempo, e **16 restano fuori**.
+   **Correzione:** per un campo che passa comunque dall'arbitrato umano
+   (`CAMPI_ARBITRATO`), un controllo inconcludente deve diventare un **avviso
+   sulla voce in coda**, non una bocciatura — e' l'umano che apre il link nel
+   browser. Resta bocciatura per `urlMorto` (404/410), che e' un fatto sul dato.
+   **Prova:** una proposta il cui link risponde 403 entra in coda con l'avviso;
+   una il cui link risponde 404 non entra.
+
+**Criterio d'uscita del Passo 1d.** Le cinque correzioni con le loro prove, la
 suite verde, e — per la prima — la **rimisura delle coppie scadute a zero**:
 `campiMancanti` ricalcolato non deve elencare nessun campo pieno su tutte le mete,
 e non deve perdere nessuno dei 105 parziali.

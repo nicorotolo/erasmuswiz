@@ -21,6 +21,72 @@
 
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
+**Ultimo aggiornamento:** 2026-09-06 — Claude (**Fase 7: il recupero del già pagato,
+e la chiusura del Passo 1**). **455 prove verdi**, invariate: nessuna riga di codice
+toccata. **Nessun dato delle mete toccato**: `report-copertura-mappatura.mjs` dà
+output byte per byte identico alla fotografia di stamattina, e `giudizi.jsonl` — il
+registro dei giudizi di Nicola, l'unico file di `raccolta/` che sta in git — **non è
+stato toccato**: nessun giudizio inventato.
+
+**Nicola ha scelto: recuperare le proposte già pagate, poi chiudere il Passo 1.**
+Delle tre strade messe sul tavolo (chiudere sulla resa misurata · allargare il
+bacino · recuperare ciò che era già stato raccolto e non era mai arrivato in coda),
+la terza e poi la chiusura.
+
+**Il recupero: 55 bersagli, zero chiamate al modello, 4 proposte in più.** Ripassate
+dai cancelli le 51 proposte di catalogo bocciate e le 4 mai controllate — solo
+traffico HTTP, 212 secondi, **nessuna quota consumata**. Cinque sono passate (tre
+`urlInconcludente` che al secondo giro rispondono: `D BERLIN01`, `F TOURS01`,
+`G THESSAL01`; due mai controllate: `P LISBOA52`, `PL POZNAN02`), una è finita in
+riconciliazione facoltà, 49 restano bocciate. Di quelle cinque una era già
+`applicato`: **in coda ne entrano 4**.
+
+**Coda d'arbitrato `linkCatalogo`: 27 → 31 proposte, 116 mete.** Zero voci perse
+(verificato per chiave, non a occhio). `requisitoLingua` resta a 4 proposte, 11 mete.
+Il ripasso è stato **mirato e non totale di proposito**: rifare i cancelli su tutte
+le 433 letture avrebbe ricontrollato anche i 164 link già approvati, e un ateneo
+momentaneamente giù avrebbe **tolto** voci dalla coda. Un recupero non deve poter
+perdere.
+
+> ⚠️ **Una correzione a quanto Claude aveva detto presentando la strada, e conta
+> più del numero.** I 19 `legacyGiudicato` erano stati descritti come verdetti «del
+> vecchio sistema V1», quindi forse riapribili gratis. **È falso.** Il commento in
+> testa a `semina-giudizi.mjs` dice che sono verdetti **di Nicola**, dati a mano il
+> 31/08 su 103 cataloghi (68 sì, 12 non so, 23 no): di metà si è persa la traccia —
+> chi aveva il valore pubblicato fu un sì ed è `applicato`, **per gli altri non si
+> sa se fu «no» o «non so»**. Non sono materiale libero: sono cose già guardate e
+> non approvate. Riaprirle è una decisione di Nicola.
+
+> ⚠️ **E la stima della strada 3 era sbagliata di un ordine di grandezza.** Claude
+> aveva detto «forse 40-50 proposte invece di 32»: la misura dice **4 proposte e 17
+> mete**. L'errore era trattare le 67 proposte «fuori coda» come materiale fermo,
+> mentre 117 sono `applicato` e 21 sono «no» di Nicola — lavoro chiuso, non lavoro
+> in attesa.
+
+**Il PASSO 1 È CHIUSO**, con il criterio d'uscita non raggiunto e la ragione
+misurata in tre punti, nessuno dei quali è un guasto della macchina:
+1. **Il denominatore non è mai esistito.** I «93 partner prioritari» furono scelti
+   tramite `campiMancanti`, di cui **54 voci `linkCatalogo` erano già piene su tutte
+   le mete**. La previsione del 65% era su un insieme finto.
+2. **Il criterio contava le proposte come se fossero tutte da giudicare.** Delle 185
+   approvate dai cancelli, 117 sono `applicato`, 21 «no» di Nicola, 19
+   `legacyGiudicato`. La resa vera su bacino pulito è **23%**.
+3. **Il bacino vero è fuori dalla portata della catena**: i 150 partner `fatto` e i
+   121 `daApplicare` col campo vuoto si raggiungono con un passo nuovo, non con un
+   altro giro di questo.
+
+**Un quinto difetto per il Passo 1d, trovato ripassando.** `urlInconcludente` boccia
+in modo definitivo ma **descrive il controllo, non il dato**: `statoLink` chiama
+«inconcludente» tutto ciò che non è 2xx e non è 404/410, quindi un 403 al robot, un
+timeout e un catalogo dietro una sessione JSF (`D GOTTING01`) sono indistinguibili da
+un indirizzo sbagliato. **16 proposte restano fuori per questa causa.** Per un campo
+che passa comunque dall'arbitrato umano dovrebbe essere un avviso sulla voce in coda,
+non una bocciatura: è l'umano che apre il link nel browser.
+
+---
+
+### Stato precedente — Fase 7, Passo 1c seconda metà (2026-09-04, tarda serata)
+
 **Ultimo aggiornamento:** 2026-09-04 (tarda serata) — Claude (**Fase 7 Passo 1c: la lettura
 eseguita, e il criterio d'uscita che non si raggiunge**). **455 prove verdi**,
 invariate: questa sessione non ha toccato una riga di codice. **Nessun dato delle
@@ -4464,9 +4530,9 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **Pipeline dati — Fase 7, Passo 0: una sola porta HTTP** | `lib-rete.mjs` valida ogni indirizzo prima di chiederlo: solo global unicast IANA (regola positiva, non un elenco di divieti), IP fissato contro il DNS rebinding, redirect seguiti a mano validando ogni salto, `robots.txt` riletto a ogni cambio di origine, corpi troncati a flusso. Nessun `fetch` diretto resta in `scripts/` | ✅ **Chiuso il 03/09** (`d93c368`). Costruito da Codex, rivisto da Claude: due difetti trovati in revisione e non dalle prove — il timeout da scadenza TOTALE a inattività, e il troncamento silenzioso che poteva far risultare "verificata" una citazione contro un frammento. I 37 casi del campione di regressione restano ammessi. **Sul campo il 04/09: 1 indirizzo respinto su 541** (classe `dns`) |
 | **Pipeline dati — Fase 7, Passo 1a: il testo del link è il segnale** | Quattro classificatori che decidono se una pagina va APERTA, compresa la famiglia per `notaDisponibilita` che non esisteva; budget proprio per le motivate (8 per partner, 2 per campo) oltre il tetto di 25; provenienza `scopertaDa` + `testoLink` + catena dei redirect; le motivate vanno per prime al modello | ✅ **Chiuso il 03/09** (`1d460a3`). Difetto trovato misurando: cercando le radici anche nell'indirizzo, `studienangebot` scattava **9.344 volte** perché sta nel percorso di ogni pagina di corso austriaca. E un secondo filtro che nessuno aveva contato: il catalogo di Cork si chiama "Book of Modules" e vive su courseleaf.com — era escluso due volte |
 | **Pipeline dati — Fase 7, Passo 1b: l'assenza dice DOVE, la rilettura riparte** | `nonTrovati` guadagna `livello` e `ambito`; `improntaMateriale` versiona le letture; `invalidaLettura` archivia e azzera lo stato derivato; `recupera-motivi.mjs` AGGIUNGE all'indice invece di riraccogliere | ✅ **Chiuso il 03/09** (`f182a44`). Claude costruisce, Codex revisiona: **sedici difetti in due giri**, fra cui il nome del file nuovo che avrebbe **distrutto sei pagine vere** e l'intero impianto delle impronte che era **codice morto** (zero impronte su 10.442 pagine reali) |
-| **Pipeline dati — Fase 7, Passo 1c: l'esecuzione vera** | Il recupero eseguito sui dati veri, poi riletture e cancelli. Backup di `raccolta/` prima di partire; campione di 5 partner ispezionato a mano prima dei 489 | ⚠️ **ESEGUITO PER INTERO (04/09 pomeriggio la raccolta, 04/09 sera la lettura), criterio d'uscita NON raggiunto e NON raggiungibile.** Raccolta: 458 pagine nuove su 541 candidati, **zero perdite** su 585 partner, PDF **cresciuti** (734 → 780 pagine), 83 falliti riconciliati. Lettura: **137 partner, zero `HTTP 503`**, fermata pulita su **quota giornaliera**. Coda `linkCatalogo` **3 → 27 proposte (99 mete)**, di cui **24 nuove (85 mete)** contro le ≥ 60 / ≥ 250 del criterio. Restano 35 `daLeggere` + 9 `daFondere`: alla resa vera del **23%** valgono ~8 proposte, quindi il traguardo **non esce da questa coda**. Nessun dato delle mete toccato, `HEAD` invariato durante il giro |
+| **Pipeline dati — Fase 7, Passo 1: l'esecuzione vera e la chiusura** | Il recupero eseguito sui dati veri, poi riletture e cancelli; il 06/09 il ripasso delle bocciate senza consumare quota | ✅ **PASSO 1 CHIUSO il 06/09, criterio d'uscita NON raggiunto e ragione misurata.** Raccolta (04/09): 458 pagine nuove su 541 candidati, **zero perdite** su 585 partner, PDF **cresciuti** (734 → 780 pagine), 83 falliti riconciliati. Lettura (04/09 sera): **137 partner, zero `HTTP 503`**, fermata pulita su **quota giornaliera**. Recupero (06/09): 55 bersagli ripassati dai cancelli, **zero chiamate al modello**, 5 approvate e **4 entrate in coda**. Consuntivo: coda `linkCatalogo` **31 proposte / 116 mete** contro le ≥ 60 / ≥ 250 del criterio. Le tre ragioni, tutte misurate: il denominatore dei «93 prioritari» **non è mai esistito** (54 voci `linkCatalogo` di `campiMancanti` già piene); il criterio contava proposte che il registro chiude subito (resa vera **23%**, non 65%); il bacino vero è **fuori dalla portata della catena** per costruzione. Nessun dato delle mete toccato in nessuno dei tre giri |
 | **Pipeline dati — Fase 7: il 5xx si ritenta** | `leggi-partner.mjs` ritentava SOLO il 429: ogni altro stato HTTP bruciava il partner all'istante, senza attesa. Ora il 5xx ha attesa crescente (5s/15s/45s o il `retryDelay` dichiarato) e contatore proprio; dopo 8 partner consecutivi falliti la catena si ferma pulita fino al ciclo esterno | ✅ **Chiuso il 04/09.** 8 prove nuove (447 → **455**), **nove rotture di controllo** viste rosse. Provato sul campo lo stesso giorno: il rilancio ha consumato **8 partner invece di 198**. Un servizio giù non viene spacciato per quota esaurita |
-| **Pipeline dati — Fase 7, Passo 1d: i quattro difetti trovati eseguendo** | (1) **`campiMancanti` scaduto** in `partner.json`: 165 coppie (partner, campo) elencate come mancanti sono già piene su tutte le mete, su 127 partner (`linkCatalogo` 54 · `notaDisponibilita` 48 · `linkSito` 38 · `scadenzeOspitante` 19 · `requisitoLingua` 6). (2) `adottaOrfani` cambia il materiale senza invalidare la lettura. (3) Il rifiuto robots non lascia traccia per candidato. (4) `invalidaLettura` è chiamata PRIMA della chiamata al modello | 📋 **Piano scritto il 04/09 sera** (`PLAN_FASE7.md`, §Passo 1d), nessun codice iniziato. Il primo è il più costoso e **non sbaglia un dato: brucia quota** — 17 proposte su 55 tornate «già applicato», 8 letture su 137 interamente inutili, e la quota è ciò che ha fermato la catena quella sera. ⚠️ La correzione deve togliere solo i «pieni su tutte»: **105 coppie sono *parziali*** (piene su alcune mete e vuote su altre) e vanno ancora cercate |
+| **Pipeline dati — Fase 7, Passo 1d: i cinque difetti trovati eseguendo** | (1) **`campiMancanti` scaduto** in `partner.json`: 165 coppie (partner, campo) elencate come mancanti sono già piene su tutte le mete, su 127 partner (`linkCatalogo` 54 · `notaDisponibilita` 48 · `linkSito` 38 · `scadenzeOspitante` 19 · `requisitoLingua` 6). (2) `adottaOrfani` cambia il materiale senza invalidare la lettura. (3) Il rifiuto robots non lascia traccia per candidato. (4) `invalidaLettura` è chiamata PRIMA della chiamata al modello. (5) **`urlInconcludente` boccia in modo definitivo ma descrive il controllo, non il dato**: `statoLink` chiama «inconcludente» tutto ciò che non è 2xx e non è 404/410, quindi un 403 al robot, un timeout e un catalogo dietro una sessione JSF sono indistinguibili da un indirizzo sbagliato — **16 proposte restano fuori per questa causa** | 📋 **Piano scritto il 04/09 sera, quinto difetto aggiunto il 06/09** (`PLAN_FASE7.md`, §Passo 1d), nessun codice iniziato. Il primo è il più costoso e **non sbaglia un dato: brucia quota** — 17 proposte su 55 tornate «già applicato», 8 letture su 137 interamente inutili, e la quota è ciò che ha fermato la catena quella sera. ⚠️ La correzione deve togliere solo i «pieni su tutte»: **105 coppie sono *parziali*** (piene su alcune mete e vuote su altre) e vanno ancora cercate |
 | **REDESIGN v2 — F0: Preparazione** | Spec versionata in `design/redesign-2026-07/` (canvas + baseline invarianti/touch, vedi §4). Nessun file di produzione toccato. Commit `ac7c1c9`, pushato | ✅ Fatta (2026-07-25) |
 | **REDESIGN v2 — F1: Token, ritmo, gutter, griglia** | Token §2.1–2.3 (`--bg-app #FAF8F3`, `--night-bg #211E42`, `--space-*`/`--fs-*`/`--gutter`/`--stack`/`--container:1140px`/`--shadow-gold`, due `@media :root`); ritmo verticale con `> * + *` e i tre antidoti; **gutter a un solo proprietario** (`.main-content`): 18 margini legacy in 3 misure + 5 padding-gutter + blocco ≤480px + `#banner-wiz` inline, tutto in un diff; `.griglia-mete-v2` 1→2→auto-fill; creato `/*__PROD_END__*/`. Solo `css/style.css` (+238/−48), `index.html` e `js/app.js` intatti. **Due correzioni al canvas, misurate:** `.percorso-wrap` conserva `grid-row: 1/6` (senza, 337px di buco e sticky a corsa zero) e il hero torna full-bleed sotto i 768px | ✅ Fatta e verificata (2026-07-25) — commit `ce0d5a8`, **pushato il 25/07 insieme a F2** (decisione di Nicola: il piano lo collocava a F4). 4/4 controlli gutter, controllo browser 13 esecuzioni tutte vuote, invarianti F0 verdi ai 3 viewport |
 | **REDESIGN v2 — 🚦 GATE 1** | Nicola conferma le tre default: **P-A** su `modo-benvenuto` (R3), **`!important`** su `#banner-wiz` (R38, `index.html` non si tocca), **full-bleed conservato** per il hero. In più: **F2 riassegnata a Claude Code** invece di Codex (D4 rivista) | ✅ Passato (2026-07-25) |
@@ -4671,12 +4737,13 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 
 ## 6. ⚠️ STATO DEI CONTENUTI (il vero lavoro che resta)
 
-### Copertura della mappatura — misurata il 2026-09-04 (tarda serata)
+### Copertura della mappatura — misurata il 2026-09-06
 
-**Invariata rispetto al 03/09, e volutamente:** le due sessioni del 04/09
-hanno raccolto e letto, ma non hanno applicato niente. 1.987 mete. Il confronto
-`report-copertura-mappatura.mjs` prima/dopo il giro della sera del 04/09 è **byte per byte
-identico**: nessun campo già pieno ha cambiato valore, nessuno si è perso.
+**Invariata dal 03/09, e volutamente:** le due sessioni del 04/09 hanno raccolto e
+letto, quella del 06/09 ha recuperato proposte bocciate, ma **nessuna ha applicato
+niente**. 1.987 mete. Il confronto `report-copertura-mappatura.mjs` prima/dopo ogni
+giro è **byte per byte identico**: nessun campo già pieno ha cambiato valore, nessuno
+si è perso. La copertura si muove solo con l'arbitrato (Passo 2), mai con la raccolta.
 
 | Campo | Ha il dato | Da riconfermare | Mai cercato | Copertura |
 |---|---:|---:|---:|---:|
@@ -4686,11 +4753,36 @@ identico**: nessun campo già pieno ha cambiato valore, nessuno si è perso.
 | **`linkCatalogo`** | **580** | 0 | **1.407** | **29%** |
 | `notaDisponibilita` | 359 | 0 | 1.628 | 18% |
 
-**Il materiale è stato letto, e ha reso meno del previsto.** In coda d'arbitrato
-ci sono ora **27 `linkCatalogo`** (erano 3) e **4 `requisitoLingua`** (era 1).
-Le 24 proposte nuove rappresentano **85 mete**: il criterio d'uscita del Passo 1
-ne chiedeva ≥ 60 per ≥ 250 mete, e con 36 partner lavorabili rimasti (120 mete)
-alla resa vera del 23% il traguardo **non esce da questa coda**.
+**Il materiale è stato letto e poi rispulciato, e ha reso meno del previsto.** In
+coda d'arbitrato ci sono ora **31 `linkCatalogo` (116 mete)** — erano 3 il 03/09, 27
+dopo la lettura del 04/09, 31 dopo il recupero del 06/09 — e **4 `requisitoLingua`
+(11 mete)**, era 1. Il criterio d'uscita del Passo 1 ne chiedeva ≥ 60 per ≥ 250 mete:
+**il Passo 1 è stato chiuso il 06/09 senza raggiungerlo**, per tre ragioni misurate
+(denominatore mai esistito, criterio che contava proposte che il registro chiude
+subito, bacino fuori portata) — vedi l'intestazione e §2.
+
+**Le 238 proposte di `linkCatalogo` esistenti su disco, per stato ai cancelli**
+(censimento del 06/09, una riga per partner):
+
+| stato ai cancelli | proposte |
+|---|---:|
+| approvate | 164 |
+| `urlInconcludente` | 19 |
+| mandate a riconciliazione facoltà | 19 |
+| `citazioneFuoriMisura` | 9 |
+| `citazioneAssente` | 7 |
+| `indirizzoInventato` | 6 |
+| `fonteNonInviata` | 6 |
+| mai passate dai cancelli | 4 |
+| `urlMorto` | 3 |
+| `formaNonValida` | 1 |
+
+**E le 185 voci `linkCatalogo` di `approvati.json` (cumulativo), per stato nel
+registro:** 117 `applicato` · **31 `daGiudicare`** (la coda) · 21 `no` di Nicola ·
+19 `legacyGiudicato` · 1 `siNonApplicato` (D SIEGEN01, il `conflittoValoreDiverso`
+già noto). ⚠️ **I 19 `legacyGiudicato` NON sono materiale libero:** sono verdetti di
+Nicola del 31/08 di cui si è persa la distinzione fra «no» e «non so»
+(vedi `semina-giudizi.mjs`). Riaprirli è una sua decisione, non un recupero.
 
 **La tabella dei falliti per causa** che il criterio d'uscita pretendeva, e che
 al 04/09 mancava perché le letture non c'erano — `linkCatalogo`, 137 partner
@@ -5441,50 +5533,60 @@ poi aprire **http://localhost:8001**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
 
-### ⇢ La prossima cosa da fare (aggiornato 2026-09-04, tarda serata)
+### ⇢ La prossima cosa da fare (aggiornato 2026-09-06)
 
-**Il Passo 1c è eseguito per intero. Il criterio d'uscita del Passo 1 non è
-raggiunto, e serve una decisione di Nicola prima di andare avanti.**
+**Il Passo 1 è CHIUSO.** La decisione che serviva è stata presa il 06/09: recuperare
+le proposte già pagate, poi chiudere. Il recupero ha reso 4 proposte (17 mete) e il
+criterio d'uscita non è stato raggiunto, con la ragione misurata (vedi intestazione).
+**Da qui in avanti il lavoro è l'arbitrato, non la raccolta.**
 
-1. **Decidere cosa fare del criterio d'uscita, che è una decisione, non un
-   lavoro.** Chiede ≥ 60 proposte nuove di `linkCatalogo` per ≥ 250 mete; ce ne
-   sono **24 per 85 mete**, e i 36 partner lavorabili rimasti ne valgono ~8 alla
-   resa vera del 23%. Le strade:
-   - **chiudere il Passo 1** dichiarando la resa misurata (23%) al posto della
-     previsione (65%), e portare le 24 proposte all'arbitrato del Passo 2;
-   - **tenerlo aperto e allargare il bacino** — ma il bacino vero sono i **150
-     partner `fatto` e i 121 `daApplicare` con `linkCatalogo` ancora vuoto**, che
-     sono fuori dalla portata della catena per costruzione: allargare lì vuol dire
-     un passo nuovo, non un altro giro di questo.
+1. **Il Passo 2, l'arbitrato — è la prossima cosa, ed è dove la copertura si muove
+   davvero.** Oggi la coda è di **31 `linkCatalogo` (116 mete)** e **4
+   `requisitoLingua` (11 mete)**. Senza un «sì» nel registro non entra niente nel
+   sito: il 45% di copertura è questo, non il numero delle proposte raccolte. Serve
+   la pagina di giudizio già usata per i venti e per i 77. Ritmo noto: ~85 giudizi in
+   una giornata piena, quindi 35 voci sono meno di mezza giornata.
 
-2. **Finire i 44 rimasti** quando la quota giornaliera si rinnova: 35 `daLeggere`
-   + 9 `daFondere` (questi ultimi sono già letti, aspettano solo i cancelli).
-   Vale ~8 proposte in più e chiude il giro. Il comando è la stessa catena coi
-   soli passi che non toccano i dati: `passi: ["pdf", "lettura", "cancelli"]`,
-   che salta `bloccoZero` e salta `applica`. `esegui-partner.mjs` **non ha una
-   CLI**: è una libreria, va invocata da uno script che importa `eseguiPartner` e
-   le inietta `riscaricaPdf`, `leggiPartner` e `applicaCancelli`.
+2. **Due decisioni di Nicola che allargherebbero la coda PRIMA che cominci a
+   giudicare.** Nessuna delle due è un recupero automatico: sono due sue scelte
+   passate da rivedere o confermare.
+   - **I 19 `legacyGiudicato`.** Sono verdetti suoi del 31/08 di cui si è persa la
+     distinzione fra «no» e «non so» (`semina-giudizi.mjs`): dei 103 cataloghi
+     giudicati allora, 68 furono sì (oggi `applicato`), 12 non so e 23 no — ma quali
+     fossero quali non è più ricostruibile. Riaprirli significa rivedere ~19 voci di
+     cui forse due terzi erano già un «no». Fra i valori ci sono cataloghi che oggi
+     sembrano buoni (RWTH Aachen `Lehrveranstaltungen`, ELTE `courses`, Antwerpen
+     `ECTS course catalogue`, Tilburg Osiris).
+   - **I 19 mandati a riconciliazione facoltà.** Esclusi da una regola decisa il
+     31/08: il catalogo di un dipartimento non è il catalogo dell'ateneo. Cambiarla
+     è una scelta di policy, non una correzione.
 
-3. **Il Passo 1d**, ora quattro difetti e non tre — il piano è scritto in
-   `PLAN_FASE7.md`. In ordine di danno:
-   **(1) `campiMancanti` scaduto** (165 coppie già piene su 127 partner): non
-   sbaglia un dato, **brucia la quota**, che è ciò che ha fermato la catena il
-   04/09. Va ricalcolato dai dati veri — attenzione a non perdere le **105
-   coppie *parziali***, che vanno ancora cercate.
+3. **Il Passo 1d, ora cinque difetti** — il piano è in `PLAN_FASE7.md`. In ordine di
+   danno:
+   **(1) `campiMancanti` scaduto** (165 coppie già piene su 127 partner): non sbaglia
+   un dato, **brucia la quota**, che è ciò che ha fermato la catena il 04/09. Va
+   ricalcolato dai dati veri — attenzione a non perdere le **105 coppie *parziali***,
+   che vanno ancora cercate.
    **(2)** `adottaOrfani` cambia il materiale senza invalidare la lettura.
-   **(3)** Il rifiuto robots non registra un `tentativo` per l'indirizzo
-   rifiutato, e senza quello metà della tabella dei falliti non è ricostruibile.
-   **(4)** `invalidaLettura` è chiamata **prima** della chiamata al modello:
-   vuole un ragionamento suo, non un innesto.
+   **(3)** Il rifiuto robots non registra un `tentativo` per l'indirizzo rifiutato.
+   **(4)** `invalidaLettura` è chiamata **prima** della chiamata al modello.
+   **(5)** `urlInconcludente` boccia in modo definitivo ma descrive il **controllo**,
+   non il dato: per un campo che passa comunque dall'arbitrato umano dovrebbe essere
+   un avviso sulla voce in coda. **16 proposte restano fuori per questa causa.**
 
-4. **Poi il Passo 2, l'arbitrato**, che è dove `linkCatalogo` entra davvero nel
-   sito: senza un «sì» nel registro non entra niente, e il 45% di copertura è
-   quello, non il numero delle proposte raccolte. Oggi la coda è di **27
-   `linkCatalogo` e 4 `requisitoLingua`**.
+4. **I 44 rimasti (35 `daLeggere` + 9 `daFondere`), quando la quota si rinnova.**
+   Non è più un passaggio obbligato: il Passo 1 è chiuso e questi valgono ~8 proposte
+   alla resa vera del 23%. Se si lanciano, il comando è la stessa catena coi soli
+   passi che non toccano i dati: `passi: ["pdf", "lettura", "cancelli"]`, che salta
+   `bloccoZero` e salta `applica`. `esegui-partner.mjs` **non ha una CLI**: è una
+   libreria, va invocata da uno script che importa `eseguiPartner` e le inietta
+   `riscaricaPdf`, `leggiPartner` e `applicaCancelli`, con un `git` che esplode se
+   chiamato. ⚠️ Conviene farlo **dopo** il difetto (1) del Passo 1d, o si ribrucia
+   quota sugli stessi campi già pieni.
 
-5. **Cancellare `_backup-fase7-1c/`** (280 MB) quando il Passo 1c sarà dichiarato
-   chiuso — cioè dopo la decisione del punto 1.
-
+5. **`_backup-fase7-1c/` (280 MB, fuori da git) è pronto per essere cancellato**: il
+   Passo 1c è dentro il Passo 1, che è chiuso. Serve solo un «sì» esplicito di
+   Nicola, perché è irreversibile.
 
 ### ⇢ Cantiere DATI — cosa resta dopo la Fase 5 (aggiornato 2026-09-03)
 

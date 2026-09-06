@@ -752,3 +752,103 @@ sola cosa che sia davvero finita. Promosso a **primo punto del Passo
 > ritrova per la seconda volta e' lavoro giusto e resa zero. La previsione era
 > «≥ 60 su 93 partner prioritari (65%)»: la resa vera e' **23%**, e la differenza
 > non e' errore del modello, e' il registro che fa il suo mestiere.
+
+---
+
+## Act 3 — Esecuzione (Passo 1, chiusura: la strada 3, e il giacimento che era piccolo)
+
+2026-09-06. Messe davanti a Nicola tre strade — chiudere sulla resa misurata,
+allargare il bacino, o **recuperare le proposte gia' pagate e mai arrivate in
+coda** — ha scelto la terza, poi la chiusura del Passo 1. La terza ha reso molto
+meno di quanto Claude aveva stimato presentandola, ed e' la seconda previsione
+di questo passo smentita dalla misura.
+
+### La misura, prima di toccare qualunque cosa
+
+Fotografia di sola lettura (copertura, code, registro, `avanzamento.json`,
+`approvati`/`scartati`/`facolta`) nello scratchpad. Poi il censimento di **tutte**
+le proposte di `linkCatalogo` esistenti su disco — 238, una per partner:
+
+| stato ai cancelli | proposte |
+|---|---:|
+| approvate | 164 |
+| `urlInconcludente` | 19 |
+| mandate a riconciliazione facolta' | 19 |
+| `citazioneFuoriMisura` | 9 |
+| `citazioneAssente` | 7 |
+| `indirizzoInventato` | 6 |
+| `fonteNonInviata` | 6 |
+| mai passate dai cancelli | 4 |
+| `urlMorto` | 3 |
+| `formaNonValida` | 1 |
+
+E delle **185** voci `linkCatalogo` in `approvati.json` (che e' cumulativo), lo
+stato nel registro: **117 `applicato` · 27 `daGiudicare` · 21 `no` · 19
+`legacyGiudicato` · 1 `siNonApplicato`** (D SIEGEN01, gia' noto come
+`conflittoValoreDiverso`). La replica in memoria di `costruisciCode` ha ridato
+esattamente i 27 della coda: la selezione e' fedele, quindi ci si puo' scrivere.
+
+### La correzione che conta, e non e' un numero
+
+Presentando la strada 3 Claude aveva scritto che i `legacyGiudicato` erano
+verdetti «del vecchio sistema V1», quindi forse riapribili gratis. **E' falso**,
+e lo dice il commento in testa a `semina-giudizi.mjs`: quei verdetti sono di
+**Nicola**, dati a mano il 31/08 su 103 cataloghi (68 si', 12 non so, 23 no).
+Della meta' si e' persa la traccia — chi aveva il valore pubblicato fu un si' ed
+e' `applicato`; **per gli altri non si sa se fu «no» o «non so»**, e fonderli in
+«no» cancellerebbe la differenza fra bocciato e da riesaminare.
+Quindi i 19 `legacyGiudicato` non sono materiale libero: sono cose che Nicola ha
+gia' guardato e **non** ha approvato. Riaprirli e' una sua decisione, non un
+recupero.
+
+### Il ripasso: 55 bersagli, zero chiamate al modello
+
+Ripassati dai cancelli i **51 scartati + i 4 mai passati**, lasciando fuori i 19
+di facolta' (quella e' una decisione di policy del 31/08, non un difetto).
+Solo `linkCatalogo`: gli altri campi non passano dall'arbitrato
+(`CAMPI_ARBITRATO` sono due) e recuperarli li scriverebbe **dritti nel sito**.
+
+Il ripasso mirato invece del giro completo e' deliberato: rieseguire i cancelli
+su tutte le 433 letture avrebbe rifatto il controllo del link anche sulle 164
+gia' approvate, e un ateneo momentaneamente giu' avrebbe **tolto** voci dalla
+coda. Un recupero non deve poter perdere.
+
+212 secondi, solo traffico HTTP. **5 approvate** (3 `urlInconcludente` che al
+secondo giro rispondono — `D BERLIN01` il Vorlesungsverzeichnis della FU,
+`F TOURS01`, `G THESSAL01` — e 2 delle 4 mai passate: `P LISBOA52`,
+`PL POZNAN02`), 1 a facolta' (`PL KRAKOW02`), 49 ancora bocciate.
+Delle 5, `G THESSAL01` era gia' `applicato`: **in coda ne entrano 4**.
+
+### Il risultato, e la stima che era sbagliata
+
+**Coda `linkCatalogo` 27 → 31 proposte, 116 mete.** Zero voci perse.
+Claude presentando la strada aveva detto «forse 40-50 proposte invece di 32»:
+la misura dice **4 proposte e 17 mete**. La stima era costruita sui 67 «fuori
+coda» trattandoli come materiale libero, mentre 117 sono `applicato` e 21 sono
+«no» di Nicola — cioe' lavoro chiuso, non lavoro fermo.
+
+**Verifiche:** `report-copertura-mappatura.mjs` **byte per byte identico** prima e
+dopo (nessun dato entrato nel sito); `da-recuperare.json`, `da-riesaminare.json` e
+`arbitrato-requisitoLingua.json` invariati; guardia in fondi.mjs che rifiuta di
+scrivere se un campo diverso da `linkCatalogo` cambia conteggio; `giudizi.jsonl`
+**non toccato** — nessun giudizio inventato; 455 prove verdi.
+
+### Il quinto difetto, per il Passo 1d
+
+`urlInconcludente` boccia in modo definitivo, ma **descrive il controllo, non il
+dato**: `statoLink` chiama «inconcludente» tutto cio' che non e' 2xx e non e'
+404/410, quindi un 403 al robot, un timeout, un catalogo dietro una sessione JSF
+(`D GOTTING01`, `showCourseCatalog.xhtml`) sono indistinguibili da un indirizzo
+sbagliato. Restano fuori **16 proposte** per questa causa. Per un campo che passa
+comunque dall'arbitrato umano, un controllo inconcludente dovrebbe essere un
+**avviso in coda**, non una bocciatura: e' l'umano che apre il link nel browser.
+
+### Chiusura del Passo 1
+
+Il criterio d'uscita chiedeva **≥ 60 proposte nuove per ≥ 250 mete**. Il Passo 1
+si chiude con **31 proposte in coda per 116 mete**, di cui 28 nate dopo il 03/09.
+Non e' un guasto ed e' documentato in tre punti: la previsione era su 93 partner
+scelti tramite un `campiMancanti` scaduto (54 voci `linkCatalogo` gia' piene, cioe'
+**il denominatore non e' mai esistito**); la resa vera su bacino pulito e' 23%; e
+il criterio contava le proposte come se fossero tutte da giudicare, mentre il
+registro ne chiude subito piu' della meta'.
