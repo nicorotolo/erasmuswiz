@@ -21,6 +21,45 @@
 
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
+**Ultimo aggiornamento:** 2026-09-06 (sera) — Claude (**Fase 7: la pagina di
+giudizio del Passo 2**). **469 prove verdi** (erano 455: 14 nuove). **Nessun dato
+delle mete toccato** e `giudizi.jsonl` non toccato: la pagina non scrive niente nei
+dati, produce un file di verdetti che decide Nicola.
+
+**Lo strumento del Passo 2 esiste.** `scripts/pagina-arbitrato.mjs` costruisce
+`raccolta/arbitrato.html` dalle code vere: **35 proposte** (31 `linkCatalogo` + 4
+`requisitoLingua`), **127 mete**, 20 con avvisi. Si apre con `apri-arbitrato.bat`,
+che la **rigenera ogni volta** — la coda cambia a ogni verdetto applicato, e una
+pagina vecchia farebbe rigiudicare cose già chiuse.
+
+**La cosa che la pagina NON fa, ed è il punto.** `improntaProposta` viene
+**copiata** dalla coda e mai ricalcolata: è la chiave del registro dei giudizi, e
+un carattere diverso renderebbe il verdetto irriconoscibile. La prova che lo
+blocca cambia il valore e verifica che l'impronta **non si muova**: se si
+muovesse, vorrebbe dire che qualcuno la sta derivando invece di copiarla.
+
+**Il giro completo è verificato senza scrivere niente:** le 35 voci prodotte dalla
+pagina passano tutte da `abbinaVerdetti` di `applica-arbitrato.mjs` — **35
+riconosciute, 0 orfane** — usando la sola funzione di lettura.
+
+**Gli avvisi vengono dai difetti già pagati, non dall'immaginazione:** PDF (sei
+«non so» su undici il 02/09 erano PDF), anno vecchio nell'indirizzo, catalogo su un
+dominio diverso da quello che lo cita (il caso Cork/courseleaf), citazione corta,
+e **«ANY» con più lingue** — il difetto per cui `requisitoLingua` fu bocciato il
+31/08. Due delle quattro proposte di lingua in coda ce l'hanno.
+
+> ⚠️ **Un difetto trovato provando la pagina, non leggendola.** Il salvataggio
+> locale falliva **in silenzio**: in un contesto dove `localStorage` rifiuta di
+> scrivere, un'ora di giudizi sarebbe sparita chiudendo la scheda senza un avviso.
+> Ora la pagina **prova davvero a scrivere** all'avvio e, se non ci riesce, mette
+> un allarme rosso in cima a ogni schermata; e chiede conferma alla chiusura se ci
+> sono giudizi non ancora scaricati. Verificato sul campo: nel contesto
+> d'anteprima `localStorage` è disabilitato e l'allarme compare.
+
+---
+
+### Stato precedente — Fase 7, chiusura del Passo 1 (2026-09-06)
+
 **Ultimo aggiornamento:** 2026-09-06 — Claude (**Fase 7: il recupero del già pagato,
 e la chiusura del Passo 1**). **455 prove verdi**, invariate: nessuna riga di codice
 toccata. **Nessun dato delle mete toccato**: `report-copertura-mappatura.mjs` dà
@@ -4533,6 +4572,7 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **Pipeline dati — Fase 7, Passo 1: l'esecuzione vera e la chiusura** | Il recupero eseguito sui dati veri, poi riletture e cancelli; il 06/09 il ripasso delle bocciate senza consumare quota | ✅ **PASSO 1 CHIUSO il 06/09, criterio d'uscita NON raggiunto e ragione misurata.** Raccolta (04/09): 458 pagine nuove su 541 candidati, **zero perdite** su 585 partner, PDF **cresciuti** (734 → 780 pagine), 83 falliti riconciliati. Lettura (04/09 sera): **137 partner, zero `HTTP 503`**, fermata pulita su **quota giornaliera**. Recupero (06/09): 55 bersagli ripassati dai cancelli, **zero chiamate al modello**, 5 approvate e **4 entrate in coda**. Consuntivo: coda `linkCatalogo` **31 proposte / 116 mete** contro le ≥ 60 / ≥ 250 del criterio. Le tre ragioni, tutte misurate: il denominatore dei «93 prioritari» **non è mai esistito** (54 voci `linkCatalogo` di `campiMancanti` già piene); il criterio contava proposte che il registro chiude subito (resa vera **23%**, non 65%); il bacino vero è **fuori dalla portata della catena** per costruzione. Nessun dato delle mete toccato in nessuno dei tre giri |
 | **Pipeline dati — Fase 7: il 5xx si ritenta** | `leggi-partner.mjs` ritentava SOLO il 429: ogni altro stato HTTP bruciava il partner all'istante, senza attesa. Ora il 5xx ha attesa crescente (5s/15s/45s o il `retryDelay` dichiarato) e contatore proprio; dopo 8 partner consecutivi falliti la catena si ferma pulita fino al ciclo esterno | ✅ **Chiuso il 04/09.** 8 prove nuove (447 → **455**), **nove rotture di controllo** viste rosse. Provato sul campo lo stesso giorno: il rilancio ha consumato **8 partner invece di 198**. Un servizio giù non viene spacciato per quota esaurita |
 | **Pipeline dati — Fase 7, Passo 1d: i cinque difetti trovati eseguendo** | (1) **`campiMancanti` scaduto** in `partner.json`: 165 coppie (partner, campo) elencate come mancanti sono già piene su tutte le mete, su 127 partner (`linkCatalogo` 54 · `notaDisponibilita` 48 · `linkSito` 38 · `scadenzeOspitante` 19 · `requisitoLingua` 6). (2) `adottaOrfani` cambia il materiale senza invalidare la lettura. (3) Il rifiuto robots non lascia traccia per candidato. (4) `invalidaLettura` è chiamata PRIMA della chiamata al modello. (5) **`urlInconcludente` boccia in modo definitivo ma descrive il controllo, non il dato**: `statoLink` chiama «inconcludente» tutto ciò che non è 2xx e non è 404/410, quindi un 403 al robot, un timeout e un catalogo dietro una sessione JSF sono indistinguibili da un indirizzo sbagliato — **16 proposte restano fuori per questa causa** | 📋 **Piano scritto il 04/09 sera, quinto difetto aggiunto il 06/09** (`PLAN_FASE7.md`, §Passo 1d), nessun codice iniziato. Il primo è il più costoso e **non sbaglia un dato: brucia quota** — 17 proposte su 55 tornate «già applicato», 8 letture su 137 interamente inutili, e la quota è ciò che ha fermato la catena quella sera. ⚠️ La correzione deve togliere solo i «pieni su tutte»: **105 coppie sono *parziali*** (piene su alcune mete e vuote su altre) e vanno ancora cercate |
+| **Pipeline dati — Fase 7, Passo 2: la pagina di giudizio** | `scripts/pagina-arbitrato.mjs` costruisce `raccolta/arbitrato.html` dalle code vere: una proposta per schermata con quanto vale (mete, posti, dipartimenti), il valore da aprire, la citazione, la fonte e gli avvisi che vengono dai difetti gia' pagati (PDF, anno vecchio, dominio diverso, citazione corta, «ANY» con piu' lingue). Tasti 1/2/3, ripresa da dove si e' rimasti, uscita nel formato che `applica-arbitrato.mjs` accetta | ✅ **Fatta e provata il 06/09 sera.** 469 prove verdi (erano 455). `improntaProposta` **copiata e mai ricalcolata** — la prova cambia il valore e verifica che l'impronta non si muova. Giro completo verificato **senza scrivere niente**: 35 voci prodotte, **35 riconosciute da `abbinaVerdetti`, 0 orfane**. ⚠️ Difetto trovato provandola: il salvataggio locale falliva **in silenzio** — ora la pagina prova davvero a scrivere all'avvio, mette un allarme rosso se non ci riesce, e chiede conferma alla chiusura se ci sono giudizi non scaricati |
 | **REDESIGN v2 — F0: Preparazione** | Spec versionata in `design/redesign-2026-07/` (canvas + baseline invarianti/touch, vedi §4). Nessun file di produzione toccato. Commit `ac7c1c9`, pushato | ✅ Fatta (2026-07-25) |
 | **REDESIGN v2 — F1: Token, ritmo, gutter, griglia** | Token §2.1–2.3 (`--bg-app #FAF8F3`, `--night-bg #211E42`, `--space-*`/`--fs-*`/`--gutter`/`--stack`/`--container:1140px`/`--shadow-gold`, due `@media :root`); ritmo verticale con `> * + *` e i tre antidoti; **gutter a un solo proprietario** (`.main-content`): 18 margini legacy in 3 misure + 5 padding-gutter + blocco ≤480px + `#banner-wiz` inline, tutto in un diff; `.griglia-mete-v2` 1→2→auto-fill; creato `/*__PROD_END__*/`. Solo `css/style.css` (+238/−48), `index.html` e `js/app.js` intatti. **Due correzioni al canvas, misurate:** `.percorso-wrap` conserva `grid-row: 1/6` (senza, 337px di buco e sticky a corsa zero) e il hero torna full-bleed sotto i 768px | ✅ Fatta e verificata (2026-07-25) — commit `ce0d5a8`, **pushato il 25/07 insieme a F2** (decisione di Nicola: il piano lo collocava a F4). 4/4 controlli gutter, controllo browser 13 esecuzioni tutte vuote, invarianti F0 verdi ai 3 viewport |
 | **REDESIGN v2 — 🚦 GATE 1** | Nicola conferma le tre default: **P-A** su `modo-benvenuto` (R3), **`!important`** su `#banner-wiz` (R38, `index.html` non si tocca), **full-bleed conservato** per il hero. In più: **F2 riassegnata a Claude Code** invece di Codex (D4 rivista) | ✅ Passato (2026-07-25) |
@@ -4702,6 +4742,8 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 | `scripts/esegui-partner.mjs` | pipeline dati Fase 5B | **La catena.** Incatena i cinque passi a blocchi, ripartibile dopo un blackout: lock preso in `wx`, manifesto di transazione con `baseHead`, confronto delle mete campo per campo prima di ogni commit, push per blocco che si ferma senza mai fare merge. Applica da sola SOLO i tre campi promossi dall'arbitrato |
 | `scripts/semina-giudizi.mjs` | pipeline dati Fase 5B | Migrazione una-tantum dell'arbitrato del 01/09, che su disco non esisteva più. Esclude i partner già lavorati dalla catena leggendoli dal diario: seminare una proposta NUOVA la seppellirebbe senza che nessuno l'abbia vista |
 | `scripts/applica-arbitrato.mjs` | pipeline dati Fase 5B | L'unica porta per cui `linkCatalogo` e `requisitoLingua` entrano nei dati. Abbina i verdetti alle proposte per impronta, si ferma se anche uno solo non si abbina, e scrive l'evento `applicato` col commit come fonte solo DOPO che la scrittura è passata |
+| `scripts/pagina-arbitrato.mjs` | Fase 7, Passo 2 | Costruisce la pagina privata con cui Nicola giudica la coda (`raccolta/arbitrato.html`, fuori da git perche' derivata). Legge le code vere e le mete, e per ogni proposta mostra quanto vale (mete, posti, dipartimenti), il valore da aprire, la citazione e gli avvisi: PDF, anno vecchio nell'indirizzo, catalogo su un altro dominio, citazione corta, e il difetto noto «ANY con piu' lingue». ⚠️ `improntaProposta` viene **copiata** dalla coda e mai ricalcolata: e' la chiave del registro, e ricalcolarla renderebbe irriconoscibili i giudizi. Il file di verdetti che produce e' esattamente quello che `applica-arbitrato.mjs` accetta |
+| `apri-arbitrato.bat` | Fase 7, Passo 2 | Rigenera la pagina e la apre. Rigenerarla ogni volta e' voluto: la coda cambia a ogni verdetto applicato, e una pagina vecchia farebbe rigiudicare cose gia' chiuse |
 | `scripts/verifica-riesame.mjs` | pipeline dati Fase 5B | Misura le voci «non so» separando le due domande: la data si legge dai metadati anche sui PDF illeggibili, i segnali da elenco richiedono il testo. Una `Last-Modified` pari a oggi è dichiarata **non attendibile** invece di essere spacciata per data del documento |
 | `test/cancelli-integrazione.test.mjs` · `test/cancello-citazione.test.mjs` · `test/cancello-livello.test.mjs` · `test/lib-pdf.test.mjs` · `test/leggi-partner.test.mjs` · `test/raccogli-partner.test.mjs` · `test/riscarica-pdf.test.mjs` · `test/migra-avanzamento.test.mjs` | test pipeline Fase 4b/5A | Regressioni su citazione, pagina cambiata, livello, codice canonico, collisioni, guardie partner, tentativi, migrazione storica, PDF e riscarico permanente |
 | `scripts/lib-mete.mjs` | automazione | Utilità condivise: scanner/serializzazione + inserimento sicuro dei nuovi campi mappabili |
@@ -5541,11 +5583,27 @@ criterio d'uscita non è stato raggiunto, con la ragione misurata (vedi intestaz
 **Da qui in avanti il lavoro è l'arbitrato, non la raccolta.**
 
 1. **Il Passo 2, l'arbitrato — è la prossima cosa, ed è dove la copertura si muove
-   davvero.** Oggi la coda è di **31 `linkCatalogo` (116 mete)** e **4
-   `requisitoLingua` (11 mete)**. Senza un «sì» nel registro non entra niente nel
-   sito: il 45% di copertura è questo, non il numero delle proposte raccolte. Serve
-   la pagina di giudizio già usata per i venti e per i 77. Ritmo noto: ~85 giudizi in
-   una giornata piena, quindi 35 voci sono meno di mezza giornata.
+   davvero. ✅ Lo strumento è pronto.** Oggi la coda è di **31 `linkCatalogo` (116
+   mete)** e **4 `requisitoLingua` (11 mete)**: 35 voci, 127 mete. Senza un «sì» nel
+   registro non entra niente nel sito: il 45% di copertura è questo, non il numero
+   delle proposte raccolte. Ritmo noto: ~85 giudizi in una giornata piena, quindi
+   **35 voci sono meno di mezza giornata**.
+
+   **Come si fa, in tre passi:**
+   1. doppio clic su **`apri-arbitrato.bat`** (rigenera la pagina e la apre);
+   2. giudicare con i tasti `1` sì · `2` no · `3` non so, poi **Scarica
+      verdetti.json** e salvarlo nella cartella del progetto;
+   3. `node scripts/applica-arbitrato.mjs verdetti.json --prova` per vedere cosa
+      farebbe — **la prova pubblica i giudizi nel registro ma non scrive niente
+      nelle mete** — e poi lo stesso comando **senza** `--prova` per far entrare i
+      «sì» nel sito.
+
+   ⚠️ **Se compare l'allarme rosso in cima alla pagina**, quel browser non sta
+   salvando le risposte: scaricare il file spesso, o servire la pagina in locale
+   (`npx serve raccolta`) invece di aprirla con un doppio clic.
+
+   ⚠️ **Non tenere aperta una pagina vecchia.** Dopo ogni `applica-arbitrato` la
+   coda cambia: rigenerare sempre, che è quello che fa il `.bat`.
 
 2. **Due decisioni di Nicola che allargherebbero la coda PRIMA che cominci a
    giudicare.** Nessuna delle due è un recupero automatico: sono due sue scelte
