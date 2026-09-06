@@ -21,78 +21,73 @@
 
 ### Cantiere SITO — sessioni 49→61 (+ sessioni brief 2026-07-24, piano 2026-07-25, F0, F1, F2, F3 e F4 2026-07-25)
 
-**Ultimo aggiornamento:** 2026-09-04 — Claude (**Fase 7 Passo 1c: il recupero
-eseguito davvero, e la lettura fermata da un servizio saturo**). 447 → **455
-prove verdi**. **Nessun dato delle mete toccato**: `report-copertura-mappatura.mjs`
-da' output identico a prima della sessione, e `bloccoZero`/`applica` non sono mai
-stati eseguiti.
+**Ultimo aggiornamento:** 2026-09-04 (tarda serata) — Claude (**Fase 7 Passo 1c: la lettura
+eseguita, e il criterio d'uscita che non si raggiunge**). **455 prove verdi**,
+invariate: questa sessione non ha toccato una riga di codice. **Nessun dato delle
+mete toccato**: `report-copertura-mappatura.mjs` dà output byte per byte identico
+alla baseline del 03/09, `bloccoZero` e `applica` non sono mai stati eseguiti, e
+`HEAD` è rimasto su `acaf006` per tutta la corsa.
 
-**La raccolta ha funzionato: 458 pagine nuove su 541 candidati**, in 489 partner
-esaminati. Nessuna perdita, su nessuno dei 585 partner: zero con meno pagine,
-zero con meno testo, zero con meno testo di PDF, zero con meno file su disco.
-Il testo dei PDF e' **cresciuto** (734 → 780 pagine, 21,3 → 25,5 milioni di
-caratteri), che era il sospetto numero uno. I **sei partner con collisioni di
-numerazione** sono intatti e anzi recuperati: ESEVILLA01 e' passato da 1 pagina a
-25 adottando 24 orfani, e con loro 5 PDF che erano sul disco ma invisibili
-all'indice. **L'invalidazione non e' stata di massa**: 198 letture archiviate,
-198 partner riaperti, gli insiemi coincidono.
+**Il modello è tornato, e la decisione non è servita.** Sonda di sola lettura
+prima di qualunque scrittura, nove chiamate a vuoto: `gemini-3.5-flash-lite`
+**200 200 200** (e più veloce del 3.1), `gemini-3.1-flash-lite` 200 200 200,
+`gemini-2.5-flash-lite` **404** — che non è un guasto: il corpo dice *«no longer
+available to new users»*, il modello è **ritirato**. Quindi si è usato il 3.5,
+`scegliFlashLite()` intoccato, nessuna infornata mista.
 
-L'arretrato dei link mai aperti si e' ridotto di un terzo: `linkCatalogo` da
-**128 partner / 583 mete a 89 / 394**, `notaDisponibilita` da 53/214 a 28/121,
-`scadenzeOspitante` da 37/75 a 22/47, `requisitoLingua` da 24/81 a 18/53.
+**La lettura è andata a fondo: 137 partner, zero `HTTP 503`.** In 1953s e 7
+blocchi. La correzione del 04/09 non ha dovuto lavorare: le uniche attese sono
+state 28 da `429`, il tetto al minuto, quello normale. La catena si è fermata al
+settimo blocco dichiarando **«quota giornaliera esaurita»** — l'altro salvagente,
+§3.2 — e l'ottavo non è partito. I tre sospetti dichiarati prima del lancio, tutti
+e tre negativi: **`daLeggere` 172 → 35**, esattamente −137, il numero dei letti
+(niente invalidato di troppo, storico fermo a 198); **PDF identici** (780 pagine,
+25.481.497 caratteri); copertura identica.
 
-**I falliti, 83 su 83 riconciliati:** robots.txt 23 · HTTP 403 24 · HTTP 404 15 ·
-rete/TLS 20 · HTTP 401 1 · **rifiutati dal Passo 0: 1** (classe `dns`). Il
-guardiano degli indirizzi ha respinto un link su 541: dentro le pagine degli
-atenei ci sono http/https pubblici ordinari.
+> ⚠️ **Il criterio d'uscita del Passo 1 non è raggiunto, e non lo diventa finendo
+> la coda.** Coda d'arbitrato `linkCatalogo` **3 → 27 proposte (99 mete)**, di cui
+> **24 nuove (85 mete)**, contro le **≥ 60 proposte / ≥ 250 mete** richieste.
+> Restano 36 partner lavorabili col campo davvero vuoto (120 mete): alla resa
+> osservata — 24 nuove su 106 partner col campo davvero vuoto, cioè **23%** —
+> finire la coda porta a **~32 proposte / ~115 mete**. Non è un guasto: è la
+> previsione del piano (65%) smentita dai fatti, che era lì apposta per poterlo
+> essere.
 
-> ⚠️ **Il criterio d'uscita del Passo 1 NON e' raggiunto, e non per colpa della
-> raccolta.** Servono ≥ 60 proposte nuove di `linkCatalogo`: ce ne sono **3**
-> (FPARIS482, NLBREDA01, ROBUCURES43). Il materiale e' sul disco, ma non e'
-> arrivato al modello: **`gemini-3.5-flash-lite` e' saturo**. Prima passata: 175
-> letture su 198 fallite con `HTTP 503`. Sonda successiva: 119 su 122. Il 04/09 a
-> fine giornata il 3.5 rispondeva 503 a ogni chiamata mentre
-> **`gemini-3.1-flash-lite` rispondeva 200** — la via alternativa esiste, ma
-> scegliere un flash-lite di versione piu' bassa va contro `scegliFlashLite()` ed
-> e' una decisione di Nicola, non presa.
+**Perché, misurato.** Il modello ha prodotto **84 proposte** di catalogo sui 137
+letti. Ma **31 delle 55 approvate dai cancelli avevano già una risposta nel
+registro**: 17 `applicato`, 7 `legacyGiudicato`, 7 `no` di Nicola. Il registro fa
+il suo mestiere — non richiede un giudizio già dato — ma un catalogo ritrovato per
+la seconda volta è lavoro giusto a resa zero. Le altre 24 proposte sono state
+**bocciate dai cancelli** (`urlInconcludente` 14 · `indirizzoInventato` 3 ·
+`fonteNonInviata` 2 · `citazioneFuoriMisura` 2 · `citazioneAssente` 1 ·
+`formaNonValida` 1 · `urlMorto` 1), e **53 partner (261 mete) non hanno proposto
+nulla** — 52 dei quali dichiarando l'assenza con livello e ambito, che è il Passo
+1b che funziona. Approvati nuovi sugli altri campi: `linkSito` 34 ·
+`notaDisponibilita` 23 · `scadenzeOspitante` 19 · `requisitoLingua` 4.
 
-**La correzione della giornata: il 5xx non si ritentava.** `leggi-partner.mjs`
-ritentava **solo** il 429; ogni altro stato HTTP contava il partner come perso e
-passava oltre, senza attesa. E' cosi' che un sovraccarico passeggero di Google si
-e' trasformato in 175 partner bruciati in un giro solo — la catena ha attraversato
-otto blocchi da venticinque col servizio saturo, arrivando in fondo alla coda per
-leggerne 23. Ora: il 5xx ha **attesa crescente** (5s, 15s, 45s, o il `retryDelay`
-dichiarato) e un **contatore proprio**, separato da quello del 429; e dopo **8
-partner consecutivi** che esauriscono le attese la catena si **ferma pulita**,
-fino al ciclo esterno, invece di consumare la coda. Un servizio giu' non viene
-spacciato per quota esaurita: sono cose diverse, e cambia se aspettare il rinnovo
-o riprovare fra dieci minuti. **Provato sul campo il giorno stesso**: il rilancio
-ha consumato **8 partner invece di 198**, e i 172 restano `daLeggere`, intatti.
+> ⚠️ **Il difetto trovato chiedendosi perché la resa fosse bassa, ed è il più
+> costoso finora: `campiMancanti` in `partner.json` è SCADUTO.** Confrontandolo
+> con i dati veri del sito, **165 coppie (partner, campo) sono elencate come
+> mancanti ma sono già piene su tutte le mete** di quel partner, su **127
+> partner**: `linkCatalogo` 54 · `notaDisponibilita` 48 · `linkSito` 38 ·
+> `scadenzeOspitante` 19 · `requisitoLingua` 6. Sessantasei erano in `daLeggere`.
+> **Non sbaglia un dato: brucia la quota**, cioè la sola risorsa che sia
+> davvero finita — da lì escono i 17 «già applicato», e **8 letture su 137 erano
+> interamente inutili**. Promosso a **primo punto del Passo 1d**, davanti ai tre
+> difetti del 04/09. ⚠️ La correzione deve togliere solo i «pieni su tutte»:
+> **105 coppie sono *parziali*** (piene su alcune mete, vuote su altre) e vanno
+> ancora cercate.
 
-> ⚠️ **Due difetti trovati eseguendo, non ancora corretti** (materiale per un
-> Passo 1d): **(1)** `adottaOrfani` cambia il materiale ma **non invalida la
-> lettura** — `invalidaLettura` sta dentro il ciclo dei candidati, quindi scatta
-> solo se si scarica; tre partner (ESEVILLA01, PLBIALYST04, SILJUBLJA01) sono
-> rimasti `fatto` con materiale nuovo, e la rete di sicurezza non li prende
-> perche' `letturaDaRifare` su un'impronta assente risponde «non si puo' dire».
-> Rimessi in coda a mano con `invalidaLettura`. **(2)** Il rifiuto robots **non
-> lascia traccia per candidato**: 54 falliti su 83 non erano ricostruibili dai
-> dati salvati, ed e' servito rileggere i `robots.txt` per completare la tabella
-> che il criterio d'uscita pretende. Piu' un terzo, noto e lasciato stare:
-> `invalidaLettura` viene chiamata **prima** della chiamata al modello, quindi un
-> fallimento definitivo archivia la lettura vecchia lasciando il partner senza.
-
-> ⚠️ **Nove rotture di controllo sulla correzione del 5xx**, tutte viste rosse e
-> ripristinate. Due lezioni: **una rottura era malformata** e mandava il codice in
-> ciclo infinito (controllava un contatore che quel ramo non incrementa mai) — non
-> era un difetto del codice, era la rottura scritta male, e da li' ogni rottura
-> gira con un tetto di tempo; **e la rottura sulla guardia del ciclo esterno
-> restava verde**, perche' la guardia esisteva ma nessuna prova la copriva —
-> proprio quella che avrebbe salvato 175 partner. Aggiunta la prova che la copre.
+**Coda della catena a fine giornata:** 154 `daApplicare` · 281 `fatto` · 111
+`nonRaggiunto` · **35 `daLeggere`** · 17 `daRaccogliere` · **9 `daFondere`** (i
+letti nel blocco 7, che la quota ha fermato prima dei cancelli) · 6
+`senzaTestoUtile`. Coda d'arbitrato: **27 `linkCatalogo`** e **4
+`requisitoLingua`**, nessuno dei quali è entrato nel sito e nessuno dei quali ci
+entra senza un «sì» di Nicola.
 
 ---
 
-### Stato precedente — Fase 7, Passi 0/1a/1b (2026-09-03 sera)
+### Stato precedente — Fase 7, Passo 1c prima metà (2026-09-04) e Passi 0/1a/1b (2026-09-03 sera)
 
 447 prove verdi, nessun dato delle mete toccato, recupero non ancora eseguito.
 
@@ -4469,8 +4464,9 @@ database o login. Pubblicabile trascinando la cartella su Netlify Drop.
 | **Pipeline dati — Fase 7, Passo 0: una sola porta HTTP** | `lib-rete.mjs` valida ogni indirizzo prima di chiederlo: solo global unicast IANA (regola positiva, non un elenco di divieti), IP fissato contro il DNS rebinding, redirect seguiti a mano validando ogni salto, `robots.txt` riletto a ogni cambio di origine, corpi troncati a flusso. Nessun `fetch` diretto resta in `scripts/` | ✅ **Chiuso il 03/09** (`d93c368`). Costruito da Codex, rivisto da Claude: due difetti trovati in revisione e non dalle prove — il timeout da scadenza TOTALE a inattività, e il troncamento silenzioso che poteva far risultare "verificata" una citazione contro un frammento. I 37 casi del campione di regressione restano ammessi. **Sul campo il 04/09: 1 indirizzo respinto su 541** (classe `dns`) |
 | **Pipeline dati — Fase 7, Passo 1a: il testo del link è il segnale** | Quattro classificatori che decidono se una pagina va APERTA, compresa la famiglia per `notaDisponibilita` che non esisteva; budget proprio per le motivate (8 per partner, 2 per campo) oltre il tetto di 25; provenienza `scopertaDa` + `testoLink` + catena dei redirect; le motivate vanno per prime al modello | ✅ **Chiuso il 03/09** (`1d460a3`). Difetto trovato misurando: cercando le radici anche nell'indirizzo, `studienangebot` scattava **9.344 volte** perché sta nel percorso di ogni pagina di corso austriaca. E un secondo filtro che nessuno aveva contato: il catalogo di Cork si chiama "Book of Modules" e vive su courseleaf.com — era escluso due volte |
 | **Pipeline dati — Fase 7, Passo 1b: l'assenza dice DOVE, la rilettura riparte** | `nonTrovati` guadagna `livello` e `ambito`; `improntaMateriale` versiona le letture; `invalidaLettura` archivia e azzera lo stato derivato; `recupera-motivi.mjs` AGGIUNGE all'indice invece di riraccogliere | ✅ **Chiuso il 03/09** (`f182a44`). Claude costruisce, Codex revisiona: **sedici difetti in due giri**, fra cui il nome del file nuovo che avrebbe **distrutto sei pagine vere** e l'intero impianto delle impronte che era **codice morto** (zero impronte su 10.442 pagine reali) |
-| **Pipeline dati — Fase 7, Passo 1c: l'esecuzione vera** | Il recupero eseguito sui dati veri, poi riletture e cancelli. Backup di `raccolta/` prima di partire; campione di 5 partner ispezionato a mano prima dei 489 | ⚠️ **A METÀ (04/09). La raccolta è riuscita, la lettura no.** 458 pagine nuove su 541 candidati, **zero perdite** su 585 partner, testo dei PDF **cresciuto** (734 → 780 pagine), 83 falliti riconciliati per causa. Ma **`gemini-3.5-flash-lite` è saturo** (175 letture su 198 in `HTTP 503`): **3 proposte nuove di `linkCatalogo` contro le ≥ 60 del criterio d'uscita**. 172 partner restano `daLeggere`, intatti. Nessun dato delle mete toccato |
+| **Pipeline dati — Fase 7, Passo 1c: l'esecuzione vera** | Il recupero eseguito sui dati veri, poi riletture e cancelli. Backup di `raccolta/` prima di partire; campione di 5 partner ispezionato a mano prima dei 489 | ⚠️ **ESEGUITO PER INTERO (04/09 pomeriggio la raccolta, 04/09 sera la lettura), criterio d'uscita NON raggiunto e NON raggiungibile.** Raccolta: 458 pagine nuove su 541 candidati, **zero perdite** su 585 partner, PDF **cresciuti** (734 → 780 pagine), 83 falliti riconciliati. Lettura: **137 partner, zero `HTTP 503`**, fermata pulita su **quota giornaliera**. Coda `linkCatalogo` **3 → 27 proposte (99 mete)**, di cui **24 nuove (85 mete)** contro le ≥ 60 / ≥ 250 del criterio. Restano 35 `daLeggere` + 9 `daFondere`: alla resa vera del **23%** valgono ~8 proposte, quindi il traguardo **non esce da questa coda**. Nessun dato delle mete toccato, `HEAD` invariato durante il giro |
 | **Pipeline dati — Fase 7: il 5xx si ritenta** | `leggi-partner.mjs` ritentava SOLO il 429: ogni altro stato HTTP bruciava il partner all'istante, senza attesa. Ora il 5xx ha attesa crescente (5s/15s/45s o il `retryDelay` dichiarato) e contatore proprio; dopo 8 partner consecutivi falliti la catena si ferma pulita fino al ciclo esterno | ✅ **Chiuso il 04/09.** 8 prove nuove (447 → **455**), **nove rotture di controllo** viste rosse. Provato sul campo lo stesso giorno: il rilancio ha consumato **8 partner invece di 198**. Un servizio giù non viene spacciato per quota esaurita |
+| **Pipeline dati — Fase 7, Passo 1d: i quattro difetti trovati eseguendo** | (1) **`campiMancanti` scaduto** in `partner.json`: 165 coppie (partner, campo) elencate come mancanti sono già piene su tutte le mete, su 127 partner (`linkCatalogo` 54 · `notaDisponibilita` 48 · `linkSito` 38 · `scadenzeOspitante` 19 · `requisitoLingua` 6). (2) `adottaOrfani` cambia il materiale senza invalidare la lettura. (3) Il rifiuto robots non lascia traccia per candidato. (4) `invalidaLettura` è chiamata PRIMA della chiamata al modello | 📋 **Piano scritto il 04/09 sera** (`PLAN_FASE7.md`, §Passo 1d), nessun codice iniziato. Il primo è il più costoso e **non sbaglia un dato: brucia quota** — 17 proposte su 55 tornate «già applicato», 8 letture su 137 interamente inutili, e la quota è ciò che ha fermato la catena quella sera. ⚠️ La correzione deve togliere solo i «pieni su tutte»: **105 coppie sono *parziali*** (piene su alcune mete e vuote su altre) e vanno ancora cercate |
 | **REDESIGN v2 — F0: Preparazione** | Spec versionata in `design/redesign-2026-07/` (canvas + baseline invarianti/touch, vedi §4). Nessun file di produzione toccato. Commit `ac7c1c9`, pushato | ✅ Fatta (2026-07-25) |
 | **REDESIGN v2 — F1: Token, ritmo, gutter, griglia** | Token §2.1–2.3 (`--bg-app #FAF8F3`, `--night-bg #211E42`, `--space-*`/`--fs-*`/`--gutter`/`--stack`/`--container:1140px`/`--shadow-gold`, due `@media :root`); ritmo verticale con `> * + *` e i tre antidoti; **gutter a un solo proprietario** (`.main-content`): 18 margini legacy in 3 misure + 5 padding-gutter + blocco ≤480px + `#banner-wiz` inline, tutto in un diff; `.griglia-mete-v2` 1→2→auto-fill; creato `/*__PROD_END__*/`. Solo `css/style.css` (+238/−48), `index.html` e `js/app.js` intatti. **Due correzioni al canvas, misurate:** `.percorso-wrap` conserva `grid-row: 1/6` (senza, 337px di buco e sticky a corsa zero) e il hero torna full-bleed sotto i 768px | ✅ Fatta e verificata (2026-07-25) — commit `ce0d5a8`, **pushato il 25/07 insieme a F2** (decisione di Nicola: il piano lo collocava a F4). 4/4 controlli gutter, controllo browser 13 esecuzioni tutte vuote, invarianti F0 verdi ai 3 viewport |
 | **REDESIGN v2 — 🚦 GATE 1** | Nicola conferma le tre default: **P-A** su `modo-benvenuto` (R3), **`!important`** su `#banner-wiz` (R38, `index.html` non si tocca), **full-bleed conservato** per il hero. In più: **F2 riassegnata a Claude Code** invece di Codex (D4 rivista) | ✅ Passato (2026-07-25) |
@@ -4675,10 +4671,12 @@ aggiunge o rinomina un tab aggiorna `TAB_VALIDI` in `js/app.js`.
 
 ## 6. ⚠️ STATO DEI CONTENUTI (il vero lavoro che resta)
 
-### Copertura della mappatura — misurata il 2026-09-04
+### Copertura della mappatura — misurata il 2026-09-04 (tarda serata)
 
-**Invariata rispetto al 03/09, e volutamente:** la sessione del 04/09 ha
-raccolto materiale ma non ha applicato niente. 1.987 mete.
+**Invariata rispetto al 03/09, e volutamente:** le due sessioni del 04/09
+hanno raccolto e letto, ma non hanno applicato niente. 1.987 mete. Il confronto
+`report-copertura-mappatura.mjs` prima/dopo il giro della sera del 04/09 è **byte per byte
+identico**: nessun campo già pieno ha cambiato valore, nessuno si è perso.
 
 | Campo | Ha il dato | Da riconfermare | Mai cercato | Copertura |
 |---|---:|---:|---:|---:|
@@ -4688,17 +4686,55 @@ raccolto materiale ma non ha applicato niente. 1.987 mete.
 | **`linkCatalogo`** | **580** | 0 | **1.407** | **29%** |
 | `notaDisponibilita` | 359 | 0 | 1.628 | 18% |
 
-**Il materiale per alzare `linkCatalogo` è sul disco, non ancora letto.** Il
-recupero del 04/09 ha aperto 458 link mai visitati (159 con motivo
-`linkCatalogo`) e ha ridotto l'arretrato da **128 partner / 583 mete a 89 / 394**.
-Ma le riletture sono ferme: `gemini-3.5-flash-lite` è saturo, e senza lettura non
-nascono proposte. In coda d'arbitrato ci sono **3 `linkCatalogo`** (FPARIS482,
-NLBREDA01, ROBUCURES43) e **1 `requisitoLingua`** (PLKRAKOW03).
+**Il materiale è stato letto, e ha reso meno del previsto.** In coda d'arbitrato
+ci sono ora **27 `linkCatalogo`** (erano 3) e **4 `requisitoLingua`** (era 1).
+Le 24 proposte nuove rappresentano **85 mete**: il criterio d'uscita del Passo 1
+ne chiedeva ≥ 60 per ≥ 250 mete, e con 36 partner lavorabili rimasti (120 mete)
+alla resa vera del 23% il traguardo **non esce da questa coda**.
 
-**Stato della coda della catena al 04/09:** 172 `daLeggere` · 23 `daApplicare` ·
-3 `daFondere` · 281 `fatto` · 111 `nonRaggiunto` · 17 `daRaccogliere` ·
+**La tabella dei falliti per causa** che il criterio d'uscita pretendeva, e che
+al 04/09 mancava perché le letture non c'erano — `linkCatalogo`, 137 partner
+letti la sera del 04/09:
+
+| esito della proposta | proposte | mete |
+|---|---:|---:|
+| **nuove, in coda d'arbitrato** | **24** | **85** |
+| già applicate (stesso valore, stessa impronta) | 17 | 92 |
+| già giudicate «no» da Nicola | 7 | 60 |
+| `legacyGiudicato` (era V1) | 7 | 28 |
+| bocciate dai cancelli | 24 | 108 |
+| non ancora passate ai cancelli (blocco 7) | 5 | — |
+| **pagina raggiunta, catalogo non trovato** | **53 partner** | **261** |
+
+| bocciatura dei cancelli | proposte | mete |
+|---|---:|---:|
+| `urlInconcludente` | 14 | 47 |
+| `indirizzoInventato` | 3 | 24 |
+| `fonteNonInviata` | 2 | 7 |
+| `citazioneFuoriMisura` | 2 | 13 |
+| `citazioneAssente` | 1 | 6 |
+| `formaNonValida` | 1 | 5 |
+| `urlMorto` (link morto) | 1 | 6 |
+
+I **candidati mai aperti** restano gli 83 riconciliati il 04/09 (robots 23 ·
+HTTP 403 24 · HTTP 404 15 · rete/TLS 20 · HTTP 401 1 · Passo 0 `dns` 1): la sera del 04/09
+non si è scaricato niente, quindi quella metà della tabella non è cambiata.
+
+**Arretrato dei link mai aperti, rimisurato coi classificatori veri il 04/09 sera:**
+`linkCatalogo` 89 partner / 394 mete · `notaDisponibilita` 28 / 121 ·
+`scadenzeOspitante` 22 / 47 · `requisitoLingua` 18 / 53.
+
+**Stato della coda della catena a fine 04/09:** 154 `daApplicare` · 281 `fatto` ·
+111 `nonRaggiunto` · 35 `daLeggere` · 17 `daRaccogliere` · 9 `daFondere` ·
 6 `senzaTestoUtile`. Backup di `raccolta/` in `_backup-fase7-1c/` (280 MB, fuori
-da git): da cancellare quando il Passo 1c sarà chiuso.
+da git): da cancellare quando il Passo 1c sarà dichiarato chiuso.
+
+⚠️ **Un numero di questa tabella non è affidabile come sembra, ed è il
+denominatore.** `campiMancanti` in `partner.json` elenca 165 coppie (partner,
+campo) già piene su tutte le mete: i conteggi «mai cercato» che vengono dai dati
+veri (la tabella qui sopra) sono giusti, ma ogni scelta della catena su *chi
+leggere* passa da `campiMancanti` ed è quindi sporca finché il Passo 1d non lo
+ricalcola.
 
 
 ### Fase 6 — Atto 0, fotografia del 2026-09-03
@@ -5405,38 +5441,49 @@ poi aprire **http://localhost:8001**. (Dettagli e alternative nel `README.md`.)
 
 ## 8. PROSSIMI PASSI
 
-### ⇢ La prossima cosa da fare (aggiornato 2026-09-04)
+### ⇢ La prossima cosa da fare (aggiornato 2026-09-04, tarda serata)
 
-**Il Passo 1c è a metà e va finito.** La raccolta ha consegnato: 458 pagine
-nuove, verificate, senza perdite. Manca la lettura, e serve un modello che
-risponda.
+**Il Passo 1c è eseguito per intero. Il criterio d'uscita del Passo 1 non è
+raggiunto, e serve una decisione di Nicola prima di andare avanti.**
 
-1. **Riprendere le riletture, con una decisione da prendere prima.**
-   `gemini-3.5-flash-lite` il 04/09 rispondeva `503` a ogni chiamata mentre
-   **`gemini-3.1-flash-lite` rispondeva `200`** (`gemini-2.5-flash-lite` dà 404
-   su questa chiave). Il codice sceglie apposta il flash-lite di versione più
-   alta, quindi usare il 3.1 va contro `scegliFlashLite()` ed è una **decisione
-   di Nicola**, non un ripiego automatico. Le tre strade: aspettare che il 3.5
-   torni; passare al 3.1 accettando un'infornata mista (26 letture col 3.5, il
-   resto col 3.1 — ogni lettura registra il proprio `modello`); oppure passare
-   al 3.1 e rifare anche le 26, per avere tutto dallo stesso modello.
-   Il comando è la catena con i soli passi che non toccano i dati:
-   `passi: ["pdf", "lettura", "cancelli"]` — salta `bloccoZero` e salta `applica`.
+1. **Decidere cosa fare del criterio d'uscita, che è una decisione, non un
+   lavoro.** Chiede ≥ 60 proposte nuove di `linkCatalogo` per ≥ 250 mete; ce ne
+   sono **24 per 85 mete**, e i 36 partner lavorabili rimasti ne valgono ~8 alla
+   resa vera del 23%. Le strade:
+   - **chiudere il Passo 1** dichiarando la resa misurata (23%) al posto della
+     previsione (65%), e portare le 24 proposte all'arbitrato del Passo 2;
+   - **tenerlo aperto e allargare il bacino** — ma il bacino vero sono i **150
+     partner `fatto` e i 121 `daApplicare` con `linkCatalogo` ancora vuoto**, che
+     sono fuori dalla portata della catena per costruzione: allargare lì vuol dire
+     un passo nuovo, non un altro giro di questo.
 
-2. **Il Passo 1d, cioè i due difetti che il 1c ha scoperto e non ha corretto.**
-   (a) `adottaOrfani` cambia il materiale senza invalidare la lettura: va spostata
-   l'invalidazione fuori dal ciclo dei candidati, con la sua prova. (b) Il rifiuto
-   robots non registra un `tentativo` per l'indirizzo rifiutato, e senza quello la
-   tabella dei falliti del criterio d'uscita non è ricostruibile dai dati.
-   (c) Terzo, noto e più delicato: `invalidaLettura` viene chiamata **prima**
-   della chiamata al modello, quindi un fallimento definitivo archivia la lettura
-   vecchia e lascia il partner senza — vuole un ragionamento suo.
+2. **Finire i 44 rimasti** quando la quota giornaliera si rinnova: 35 `daLeggere`
+   + 9 `daFondere` (questi ultimi sono già letti, aspettano solo i cancelli).
+   Vale ~8 proposte in più e chiude il giro. Il comando è la stessa catena coi
+   soli passi che non toccano i dati: `passi: ["pdf", "lettura", "cancelli"]`,
+   che salta `bloccoZero` e salta `applica`. `esegui-partner.mjs` **non ha una
+   CLI**: è una libreria, va invocata da uno script che importa `eseguiPartner` e
+   le inietta `riscaricaPdf`, `leggiPartner` e `applicaCancelli`.
 
-3. **Poi il Passo 2, l'arbitrato**, che è dove `linkCatalogo` entra davvero nel
-   sito: senza un «si» nel registro non entra niente, e il 45% di copertura è
-   quello, non il numero delle proposte raccolte.
+3. **Il Passo 1d**, ora quattro difetti e non tre — il piano è scritto in
+   `PLAN_FASE7.md`. In ordine di danno:
+   **(1) `campiMancanti` scaduto** (165 coppie già piene su 127 partner): non
+   sbaglia un dato, **brucia la quota**, che è ciò che ha fermato la catena il
+   04/09. Va ricalcolato dai dati veri — attenzione a non perdere le **105
+   coppie *parziali***, che vanno ancora cercate.
+   **(2)** `adottaOrfani` cambia il materiale senza invalidare la lettura.
+   **(3)** Il rifiuto robots non registra un `tentativo` per l'indirizzo
+   rifiutato, e senza quello metà della tabella dei falliti non è ricostruibile.
+   **(4)** `invalidaLettura` è chiamata **prima** della chiamata al modello:
+   vuole un ragionamento suo, non un innesto.
 
-4. **Cancellare `_backup-fase7-1c/`** (280 MB) quando il Passo 1c sarà chiuso.
+4. **Poi il Passo 2, l'arbitrato**, che è dove `linkCatalogo` entra davvero nel
+   sito: senza un «sì» nel registro non entra niente, e il 45% di copertura è
+   quello, non il numero delle proposte raccolte. Oggi la coda è di **27
+   `linkCatalogo` e 4 `requisitoLingua`**.
+
+5. **Cancellare `_backup-fase7-1c/`** (280 MB) quando il Passo 1c sarà dichiarato
+   chiuso — cioè dopo la decisione del punto 1.
 
 
 ### ⇢ Cantiere DATI — cosa resta dopo la Fase 5 (aggiornato 2026-09-03)

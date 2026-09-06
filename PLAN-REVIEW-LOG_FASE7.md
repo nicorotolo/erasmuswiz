@@ -650,3 +650,105 @@ Sondati a fine giornata, senza scrivere niente: `gemini-3.5-flash-lite` → **50
 versione piu' alta: scendere al 3.1 e' una decisione di Nicola, non un ripiego
 automatico, e implica un'infornata mista (26 letture col 3.5, il resto col 3.1).
 Rimandata.
+
+---
+
+## Act 3 — Esecuzione (Passo 1c bis: la lettura, e il criterio che non si raggiunge)
+
+2026-09-04, tarda serata. La seconda meta' del Passo 1c: la lettura che poche ore prima il servizio
+saturo aveva impedito. E' andata a fondo, e ha detto una cosa che il piano non
+prevedeva.
+
+### La sonda, e la decisione che non e' servito prendere
+
+Prima di qualunque scrittura, nove chiamate a vuoto sui tre modelli:
+`gemini-3.5-flash-lite` **200 200 200** (1315/841/1032 ms),
+`gemini-3.1-flash-lite` 200 200 200 (1696/1693/2483 ms),
+`gemini-2.5-flash-lite` **404 404 404**. Il 3.5 e' tornato ed e' anche il piu'
+veloce: nessuna infornata mista, nessuna rilettura da rifare, `scegliFlashLite()`
+intoccato. Il 404 del 2.5 non e' un guasto: il corpo dice *«no longer available to
+new users»*, il modello e' **ritirato**, e quel 404 non tornera' indietro.
+
+### La disciplina, e la cintura in piu'
+
+`esegui-partner.mjs` non ha una CLI: e' una libreria. Il lanciatore importa
+`eseguiPartner` e gli inietta i tre passi veri (`riscaricaPdf`, `leggiPartner`,
+`applicaCancelli`) con `passi: ["pdf", "lettura", "cancelli"]`, saltando
+`bloccoZero` e `applica`. In piu': il `git` iniettato e' un oggetto che **esplode
+se chiamato**. Non e' stato chiamato — che e' una prova, non una speranza.
+Fotografia di sola lettura prima, pilota su 5 partner, verifica, poi il resto.
+
+### Il giro: pulito
+
+**137 partner letti** in 1953s, 7 blocchi. **Zero `HTTP 503`**: la correzione del
+04/09 non ha dovuto lavorare. 28 attese da 429, il tetto al minuto, quello
+normale. La catena si e' fermata al settimo blocco su **«quota giornaliera
+esaurita»** — l'altro salvagente, §3.2 — e il blocco 8 non e' partito.
+
+I tre sospetti dichiarati prima del lancio, tutti negativi:
+`daLeggere` **172 → 35**, esattamente −137, il numero dei letti: **niente
+invalidato di troppo**, storico fermo a 198. PDF **identici** (780 pagine,
+25.481.497 caratteri). `report-copertura-mappatura.mjs` **byte per byte identico**
+prima e dopo, `git status` pulito, `HEAD` ancora `acaf006`.
+Coda dopo: 154 `daApplicare` · 281 `fatto` · 111 `nonRaggiunto` · 35 `daLeggere` ·
+17 `daRaccogliere` · 9 `daFondere` (i letti nel blocco 7, che la quota ha fermato
+prima dei cancelli) · 6 `senzaTestoUtile`.
+
+### Il criterio d'uscita: 24 su 60, e non ci arriva
+
+Coda d'arbitrato `linkCatalogo` **3 → 27 proposte (99 mete)**, di cui **24 nuove
+(85 mete)**. Il criterio chiede ≥ 60 proposte e ≥ 250 mete.
+Restano **36 partner lavorabili** col campo davvero vuoto (120 mete): alla resa
+osservata — 24 nuove su 106 partner col campo davvero vuoto, **23%** — finire la
+coda porta a **~32 proposte / ~115 mete**. **Il traguardo non e' raggiungibile da
+questa coda**, e non per un guasto.
+
+**Dove vanno le 84 proposte prodotte dal modello:**
+
+| esito | proposte | mete |
+|---|---:|---:|
+| **nuove, in coda d'arbitrato** | **24** | 85 |
+| gia' applicate (stesso valore, stessa impronta) | 17 | 92 |
+| gia' giudicate «no» da Nicola | 7 | 60 |
+| `legacyGiudicato` (era V1) | 7 | 28 |
+| bocciate dai cancelli | 24 | 108 |
+| non ancora passate ai cancelli (blocco 7) | 5 | — |
+
+E **53 partner (261 mete) non hanno prodotto niente**: 52 dichiarano l'assenza con
+livello e ambito — che e' il Passo 1b che funziona — 1 nemmeno quello.
+
+**La tabella dei falliti per causa che il criterio pretende, `linkCatalogo`:**
+
+| causa | proposte | mete |
+|---|---:|---:|
+| `urlInconcludente` | 14 | 47 |
+| `indirizzoInventato` | 3 | 24 |
+| `fonteNonInviata` | 2 | 7 |
+| `citazioneFuoriMisura` | 2 | 13 |
+| `citazioneAssente` | 1 | 6 |
+| `formaNonValida` | 1 | 5 |
+| `urlMorto` (link morto) | 1 | 6 |
+| pagina raggiunta, catalogo non trovato | 53 | 261 |
+
+Sugli altri campi, bocciature di oggi: `requisitoLingua` 14 · `scadenzeOspitante`
+9 · `linkSito` 8 · `notaDisponibilita` 5. Approvati nuovi: `linkSito` 34 ·
+`notaDisponibilita` 23 · `scadenzeOspitante` 19 · `requisitoLingua` 4.
+I candidati mai aperti restano quelli riconciliati il 04/09 (83): questa giornata
+non ha scaricato niente.
+
+### Il difetto trovato chiedendosi perche' la resa fosse bassa
+
+**`campiMancanti` in `partner.json` e' scaduto**: 165 coppie (partner, campo)
+elencate come mancanti sono **gia' piene su tutte le mete**, su 127 partner. E'
+da li' che escono i 17 «gia' applicato», ed e' per questo che **8 letture su 137
+erano interamente inutili**. Non sbaglia un dato: **brucia la quota**, cioe' la
+sola cosa che sia davvero finita. Promosso a **primo punto del Passo
+1d** — davanti ai tre difetti trovati il 04/09, che sbagliano meno e costano meno.
+
+> ⚠️ **La lezione, e non e' sul codice.** Il criterio d'uscita contava le
+> **proposte**, dando per scontato che una proposta trovata fosse una proposta da
+> giudicare. Il registro dice di no: **31 delle 55 approvate avevano gia' una
+> risposta** — applicata, legacy, o un «no» di Nicola. Un catalogo che il modello
+> ritrova per la seconda volta e' lavoro giusto e resa zero. La previsione era
+> «≥ 60 su 93 partner prioritari (65%)»: la resa vera e' **23%**, e la differenza
+> non e' errore del modello, e' il registro che fa il suo mestiere.

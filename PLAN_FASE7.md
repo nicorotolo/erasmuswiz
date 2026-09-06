@@ -301,6 +301,65 @@ raccolta**, non la copertura pubblicata:
 - **Rimisura dei quattro conteggi** dei link mai aperti con i classificatori veri
   invece delle regex di misura.
 
+### Passo 1d — I quattro difetti che l'esecuzione ha trovato *(nessun tempo di Nicola)*
+
+Non erano nel piano: li ha trovati il Passo 1c eseguendo, e la sera del 04/09 il quarto —
+il più costoso — è emerso misurando perché la resa fosse così bassa. Sono in
+ordine di danno, non di scoperta.
+
+1. **`campiMancanti` in `partner.json` è scaduto, e spreca la risorsa scarsa.**
+   Misurato la sera del 04/09 confrontando `partner.json` con i dati veri del sito:
+   **165 coppie (partner, campo) sono elencate come mancanti ma sono già piene su
+   tutte le mete di quel partner**, distribuite su **127 partner** —
+   `linkCatalogo` 54 · `notaDisponibilita` 48 · `linkSito` 38 ·
+   `scadenzeOspitante` 19 · `requisitoLingua` 6. Sessantasei di quei partner erano
+   in `daLeggere`.
+   **Non sbaglia un dato: brucia quota.** La lettura chiede al modello un campo
+   che il sito ha già; il modello lo ritrova identico; la proposta muore nel
+   registro come `applicato` senza contare nulla. Quella sera sono **17 proposte di
+   `linkCatalogo` su 55 approvate**, e **8 partner su 137 letti non avevano più
+   nemmeno un campo davvero mancante** — letture intere buttate. E la quota
+   giornaliera è ciò che ha fermato la catena quel giorno.
+   **Correzione:** `campiMancanti` va **ricalcolato dai dati veri** (`statoCampo`
+   sulle mete, non un'istantanea salvata), o rigenerato prima di ogni giro.
+   Attenzione a un caso che il conteggio distingue e la correzione non deve
+   perdere: **46 `linkSito`, 42 `requisitoLingua`, 15 `scadenzeOspitante` e 2
+   `notaDisponibilita` sono *parziali*** — pieni su alcune mete del partner e vuoti
+   su altre. Quelli vanno ancora cercati. Solo i «pieni su tutte» vanno tolti.
+   **Prova:** un partner con il campo pieno su tutte le mete non viene letto per
+   quel campo; un partner con il campo pieno a metà sì.
+
+2. **`adottaOrfani` cambia il materiale senza invalidare la lettura.**
+   `invalidaLettura` sta dentro il ciclo dei candidati, quindi scatta solo se si
+   scarica davvero; l'adozione avviene prima. Il 04/09 tre partner (ESEVILLA01,
+   PLBIALYST04, SILJUBLJA01) sono rimasti `fatto` con materiale nuovo —
+   ESEVILLA01 passando da 1 pagina a 25. La rete di sicurezza non li prende:
+   `letturaDaRifare` su un'impronta assente risponde «non si può dire», non «è
+   cambiato». Rimessi in coda a mano.
+   **Correzione:** spostare l'invalidazione **fuori** dal ciclo dei candidati, con
+   la sua prova.
+
+3. **Il rifiuto robots non lascia traccia per candidato.** Il recupero conta
+   `falliti.robots` ma registra un `tentativo` solo per la richiesta di
+   `robots.txt`, non per l'indirizzo rifiutato. Il 04/09 **54 falliti su 83 non
+   erano ricostruibili dai dati salvati**: è servito rileggere i `robots.txt` e
+   riapplicare `consentitoDaRobots`. La tabella che il criterio d'uscita pretende
+   non si può costruire da ciò che il recupero scrive.
+   **Correzione:** un `tentativo` per l'indirizzo rifiutato, con causa `robots` e
+   l'origine che l'ha negato.
+
+4. **`invalidaLettura` viene chiamata PRIMA della chiamata al modello**, quindi un
+   fallimento definitivo archivia la lettura vecchia e lascia il partner senza.
+   Il 04/09 non ha fatto danni (quei partner erano già stati invalidati dal
+   recupero, verificato sui conteggi) e col 503 ritentato l'esposizione si riduce,
+   ma resta. **Vuole un ragionamento suo, non un innesto**: invalidare dopo il
+   successo cambia l'ordine delle scritture sotto il lock.
+
+**Criterio d'uscita del Passo 1d.** Le quattro correzioni con le loro prove, la
+suite verde, e — per la prima — la **rimisura delle coppie scadute a zero**:
+`campiMancanti` ricalcolato non deve elencare nessun campo pieno su tutte le mete,
+e non deve perdere nessuno dei 105 parziali.
+
 ### Passo 2 — L'arbitrato del raccolto *(1-2 giornate di Nicola)*
 
 1. Nicola arbitra le proposte nuove con lo strumento già usato per i venti e per
