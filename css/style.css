@@ -14,7 +14,9 @@
 
 :root {
   /* ── Font (confermati dalla direzione C: già "seri ma umani") ── */
-  --font-display: 'Bricolage Grotesque', Georgia, serif;
+  /* V4.2: Plus Jakarta anche nei titoli; Bricolage resta solo nel wordmark. */
+  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-wordmark: 'Bricolage Grotesque', Georgia, serif;
   --font-body:    'Plus Jakarta Sans', system-ui, sans-serif;
   --font-mono:    'Space Mono', 'Courier New', monospace;
 
@@ -358,7 +360,7 @@ body {
 .nav-brand { display: none; align-items: center; gap: 8px; margin-right: auto; }
 .nav-logo { height: 26px; width: auto; display: block; }
 .nav-wordmark {
-  font-family: var(--font-display); font-weight: 800; font-size: 20px; color: var(--night-text);
+  font-family: var(--font-wordmark); font-weight: 800; font-size: 20px; color: var(--night-text);
 }
 
 @media (min-width: 768px) {
@@ -2863,7 +2865,7 @@ body.modo-entrata .modo-scena .mappa svg {
 .guida-body { background: var(--bg-app); color: var(--text-dark); font-family: var(--font-body); line-height: 1.6; margin: 0; }
 .guida-nav { display: flex; align-items: center; gap: 8px; padding: 16px 20px; background: var(--night-bg); color: var(--night-text); }
 .guida-nav img { width: 28px; height: 28px; }
-.guida-nav a { color: var(--night-text); text-decoration: none; font-family: var(--font-display); font-weight: 800; }
+.guida-nav a { color: var(--night-text); text-decoration: none; font-family: var(--font-wordmark); font-weight: 800; }
 .guida-wrap { max-width: 720px; margin: 0 auto; padding: 32px 20px 64px; }
 .guida-meta { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; }
 .guida-wrap h1 { font-family: var(--font-display); font-weight: 800; font-size: 1.9rem; line-height: 1.15; color: var(--text-dark); margin: 0 0 12px; }
