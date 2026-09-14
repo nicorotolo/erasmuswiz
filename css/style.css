@@ -982,6 +982,38 @@ body {
 ================================================================ */
 /* Redesign v4: l'intestazione non ha più il filetto sotto (V4.1). */
 .sezione-header { margin: 20px 0 16px; }
+
+/* ================================================================
+   «i» INFORMATIVA (V4.8) — bottone 44×44 (icona 18px --text-hint),
+   suggerimento al passaggio E al fuoco. Testo bianco su --text-dark
+   16,78:1. `:where()` tiene la regola di comparsa a una classe.
+================================================================ */
+.info {
+  position: relative; flex: none;
+  display: inline-grid; place-items: center;
+  width: 44px; height: 44px; margin: -6px 0;
+  padding: 0; border: 0; border-radius: 50%;
+  background: transparent; color: var(--text-hint);
+  cursor: help; vertical-align: middle;
+}
+.info > .icona { font-size: 18px; }
+.info:hover { color: var(--text-muted); }
+.info-tip {
+  display: none;
+  position: absolute; top: calc(100% + 2px); left: 50%; z-index: 30;
+  transform: translateX(-50%);
+  width: max-content; min-width: 220px; max-width: min(320px, 80vw);
+  padding: 10px 12px; border-radius: var(--radius-sm);
+  background: var(--text-dark); color: var(--night-text);
+  font-family: var(--font-body); font-size: 13px; font-weight: 500; line-height: 1.45;
+  letter-spacing: 0; text-transform: none; text-align: left;
+  box-shadow: 0 8px 24px rgba(30,27,46,.22);
+  cursor: auto;
+}
+:where(.info:hover, .info:focus-visible, .info:focus) > .info-tip { display: block; }
+/* Titolo + «i» sulla stessa riga, il sottotitolo va a capo. */
+#tab-percorso > .sezione-header { display: flex; flex-wrap: wrap; align-items: center; column-gap: 2px; }
+#tab-percorso > .sezione-header > .sezione-sottotitolo { flex-basis: 100%; }
 /* --fs-h1 esiste da F1 §2.2 e dichiara `.sezione-titolo` come suo consumatore:
    è qui che il token entra in servizio (V4.2: 22 / 25 / 28px per banda). Prima era
    1.35rem con un override a 1.6rem a ≥1024, cioè una scala parallela a quella
@@ -1102,17 +1134,17 @@ body {
 ================================================================ */
 .stazioni {
   list-style: none; margin: 0; padding: 0;
-  display: flex; flex-direction: column; gap: var(--space-4);
+  display: flex; flex-direction: column; gap: var(--space-2);
 }
 /* La geometria della corsia sta in un posto solo: il blocco desktop in
    fondo cambia UN numero (--marker) e binario, corsia e offset si
    ricalcolano da sé. */
 .stazione {
   --marker:     30px;          /* diametro del punto, bordo incluso */
-  --marker-top: 14px;          /* allineato alla prima riga del titolo */
-  --lane:       var(--space-4);/* = gap dell'ol: il binario deve scavalcarlo */
+  --marker-top: 2px;           /* redesign v4: la testa non ha più padding */
+  --lane:       var(--space-2);/* = gap dell'ol: il binario deve scavalcarlo */
   position: relative;          /* containing block del marker — GUARDIA 1 */
-  padding-left: calc(var(--marker) + 8px);
+  padding-left: calc(var(--marker) + 14px);
 }
 /* Binario continuo PER-STAZIONE: parte sotto il proprio marker e arriva
    fino al BORDO SUPERIORE del marker successivo. Non al bordo della <li>
@@ -1127,71 +1159,75 @@ body {
   top:    calc(var(--marker-top) + var(--marker));
   bottom: calc(-1 * (var(--lane) + var(--marker-top)));
   width: 2px; border-radius: 1px;
-  background: var(--border-strong);
+  background: var(--border);
 }
 .stazione:last-child::before { display: none; }
 /* Il tratto che ESCE da una stazione completata è verde: il binario si
    riempie mano a mano, come una barra di progresso verticale. */
-.stazione-fatta::before { background: var(--green); }
+.stazione-fatta::before { background: var(--green-border); }
 /* Il ponte verso le Mete non è una stazione: è l'unica <li> senza marker
    e senza <details> (index.html:260). Il suo binario parte da 0, o la
    linea si spezza proprio lì. */
 .stazione-ponte::before { top: 0; }
-.stazione-fatta + .stazione-ponte::before { background: var(--green); }
+.stazione-fatta + .stazione-ponte::before { background: var(--green-border); }
 .stazione-punto {
   position: absolute; left: 0; top: var(--marker-top);
   box-sizing: border-box;                  /* GUARDIA 2 */
   width: var(--marker); height: var(--marker);
   display: flex; align-items: center; justify-content: center;
-  border-radius: 50%; border: 2px solid var(--border-strong);
-  /* il marker sta sulla PAGINA, non sulla card: il fondo è quello dell'app,
-     o il binario gli si vedrebbe attraverso */
-  background: var(--bg-app); color: var(--text-hint);
+  border-radius: 50%; border: 0;
+  /* Futura: numero su binario (--text-muted su --bg-track 7,61:1). */
+  background: var(--bg-track); color: var(--text-muted);
   /* misura legata al diametro del cerchio, non alla scala di testo */
-  font-family: var(--font-mono); font-weight: 700; font-size: 13.5px;
+  font-family: var(--font-mono); font-weight: 700; font-size: 13px;
   z-index: 1;                              /* sopra il binario */
 }
+.stazione-punto .icona { font-size: 15px; }
 /* Il canvas propone #10B981 per il verde e un alone indaco fisso sotto
    il marker attivo. Entrambi corretti qui: bianco su #10B981 sta a
    2,6:1 (--green, #0f7a3a, sta a 5,5:1), e un anello colorato sempre
    acceso sarebbe indistinguibile dall'anello di focus di F2. */
-.stazione-fatta  .stazione-punto { background: var(--green);        border-color: var(--green);        color: var(--text-on-fill); }
-.stazione-attiva .stazione-punto { background: var(--primary-fill); border-color: var(--primary-fill); color: var(--text-on-fill); }
+/* Segni (redesign v4, come la Home): spunta --green su --green-bg 4,85:1
+   (icona); numero bianco su --night-bg 15,8:1; lucchetto --text-hint su
+   bianco con anello --border-strong. */
+.stazione-fatta  .stazione-punto { background: var(--green-bg); color: var(--green); }
+.stazione-attiva .stazione-punto { background: var(--night-bg); color: var(--night-text); }
+.stazione-bloccata .stazione-punto { background: var(--bg-card); color: var(--text-hint); box-shadow: inset 0 0 0 1.5px var(--border-strong); }
+.stazione-bloccata .stazione-punto .icona { font-size: 13px; }
+/* La testa non è più una card: la superficie (V4.3) è solo il corpo aperto. */
 .stazione-dettagli {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius-lg); box-shadow: var(--shadow-card);
+  background: none; border: 0;
+  border-radius: 0; box-shadow: none;
   overflow: hidden;                        /* serve all'apertura del corpo */
 }
-.stazione-attiva .stazione-dettagli {
-  border: 1.5px solid var(--primary); box-shadow: var(--shadow-card-hover);
-}
 .stazione-testa {
-  display: flex; align-items: center; gap: var(--space-3);
-  padding: var(--space-4); min-height: 48px;
+  display: flex; align-items: flex-start; gap: var(--space-2);
+  padding: 3px 0 var(--space-4); min-height: 44px;
   cursor: pointer; list-style: none; user-select: none;
+  border-radius: var(--radius-sm);
 }
 .stazione-testa::-webkit-details-marker { display: none; }
-.stazione-testa:hover { background: var(--bg-card-hover); }
-.stazione-testi { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+.stazione-testi { display: flex; flex-direction: column; gap: 3px; min-width: 0; flex: 1; }
 .stazione-titolo {
   font-family: var(--font-display); font-weight: 700;
-  font-size: var(--fs-h3); letter-spacing: -.015em; color: var(--text-dark);
+  font-size: var(--fs-h3); letter-spacing: -.005em; color: var(--text-dark);
 }
-.stazione-futura .stazione-titolo { color: var(--text-muted); }
-.stazione-sub { font-size: var(--fs-sm); color: var(--text-hint); line-height: 1.35; }
+.stazione-testa:hover .stazione-titolo { color: var(--primary); }
+.stazione-bloccata .stazione-titolo { color: var(--text-muted); }
+/* --text-hint su --bg-app 5,48:1. */
+.stazione-sub { font-size: 13px; color: var(--text-hint); line-height: 1.45; }
+/* Stato come testo (V4.1: niente pillole), mono. Su --bg-app:
+   --text-muted 8,53; --green 5,12; --primary-active 9,36. */
 .stazione-stato {
-  flex: none; font-family: var(--font-mono); font-size: var(--fs-xs); font-weight: 700;
-  color: var(--text-muted); background: var(--bg-track);
-  padding: 2px 9px; border-radius: var(--radius-pill);
+  flex: none; padding-top: 3px;
+  font-family: var(--font-mono); font-size: var(--fs-xs); font-weight: 700;
+  color: var(--text-muted);
 }
 .stazione-stato:empty { display: none; }
-.stazione-fatta  .stazione-stato { color: var(--green); background: var(--green-bg); }
-/* La pillola segue il marker: se la tappa corrente è indaco, "tappa
-   corrente" non può restare oro. È la stessa grammatica che F2 ha dato
-   alla voce di checklist corrente (.voce-checklist-v2.attiva, ~894). */
-.stazione-attiva .stazione-stato { color: var(--primary-active); background: var(--primary-soft); }
-.stazione-chevron { flex: none; font-size: 0.8rem; color: var(--text-hint); transition: transform var(--dur-fast) var(--ease-out); }
-.stazione-dettagli:not([open]) .stazione-chevron { transform: rotate(-90deg); }
+.stazione-fatta  .stazione-stato { color: var(--green); }
+.stazione-attiva .stazione-stato { color: var(--primary-active); }
+.stazione-chevron { flex: none; display: inline-flex; padding-top: 2px; font-size: 18px; color: var(--text-hint); transition: transform var(--dur-fast) var(--ease-out); }
+.stazione-dettagli[open] .stazione-chevron { transform: rotate(180deg); }
 /* Niente più filetto tratteggiato fra testa e corpo: quando la stazione è
    aperta il confine lo disegna già l'hover della testa.
    Lo stacco dalla testa lo dà il CORPO, non il primo figlio: i quattro nodi
@@ -1199,7 +1235,11 @@ body {
    #banner-verifica-checklist, #prossimi-passi-v2) nascono display:none e
    resterebbero loro il :first-child, lasciando il contenuto vero
    appiccicato alla testa — misurato a 0px, stessa trappola di R39. */
-.stazione-corpo { padding: var(--space-3) var(--space-4) var(--space-4); }
+.stazione-corpo {
+  margin: 0 0 var(--space-5); padding: var(--space-4);
+  background: var(--bg-card); border-radius: var(--radius-lg);
+  box-shadow: 0 1px 2px rgba(30,27,46,.04);
+}
 .stazione-corpo > :first-child { margin-top: 0; }
 /* margine solo in basso: in alto ci pensa il padding del corpo, o si somma */
 .stazione-testo { font-size: var(--fs-sm); color: var(--text-muted); margin: 0 0 var(--space-3); line-height: 1.5; }
@@ -1216,15 +1256,17 @@ body {
 .stazione-corpo .lista-checklist-v2,
 .stazione-corpo .griglia-requisiti-v2 { padding-left: 0; padding-right: 0; }
 /* Il ponte verso le Mete: compare solo quando la tappa corrente è "mete". */
+/* Il ponte verso le Mete ha l'aspetto di una tappa (numero, titolo, sotto,
+   freccia): è un bottone, non un <details>. Il suo punto usa la stessa
+   corsia delle altre (position: absolute sulla <li>). */
 .stazione-ponte-btn {
-  display: block; width: 100%; text-align: left;
-  padding: 13px 16px; border-radius: var(--radius-lg);
-  border: 1.5px dashed var(--gold); background: var(--gold-bg);
-  color: var(--gold-dark); font-family: var(--font-body); font-size: 0.9rem; font-weight: 700;
-  cursor: pointer; transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+  display: flex; align-items: flex-start; gap: var(--space-2);
+  width: 100%; min-height: 44px; text-align: left;
+  padding: 3px 0 var(--space-4); border: 0; border-radius: var(--radius-sm);
+  background: none; color: inherit; font-family: var(--font-body);
+  cursor: pointer;
 }
-.stazione-ponte-btn:hover { box-shadow: var(--shadow-card); }
-.stazione-ponte-btn:active { transform: translateY(1px) scale(.995); }
+.stazione-ponte-btn:hover .stazione-titolo { color: var(--primary); }
 .stazione-ponte[hidden] { display: none; }
 /* Desktop: la corsia si allarga e il marker cresce. Basta --marker: il
    binario (left, top, bottom) e il padding della corsia sono espressi
@@ -1232,8 +1274,7 @@ body {
 @media (min-width: 1024px) {
   .stazione { --marker: 36px; }
   .stazione-punto { font-size: 15px; }
-  .stazione-testa { padding: var(--space-5); }
-  .stazione-corpo { padding: var(--space-4) var(--space-5) var(--space-5); }
+  .stazione-corpo { padding: var(--space-5); }
 }
 
 /* ================================================================

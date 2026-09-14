@@ -1429,8 +1429,16 @@ function renderPercorso(opzioni = {}) {
     li.classList.toggle("stazione-fatta",  s.stato === "fatto");
     li.classList.toggle("stazione-attiva", s.stato === "attivo");
     li.classList.toggle("stazione-futura", s.stato === "futuro");
+    // Lucchetto solo sulle tappe che dipendono da un passo precedente
+    // (Esito, LA, Partenza), come nella Home; restano apribili.
+    const bloccata = s.stato !== "fatto" && s.stato !== "attivo" && ["esito", "la", "partenza"].includes(nome);
+    li.classList.toggle("stazione-bloccata", bloccata);
     const punto = li.querySelector(".stazione-punto");
-    if (punto) punto.textContent = s.stato === "fatto" ? "✓" : s.numero;
+    if (punto) {
+      punto.textContent = s.stato === "fatto" || bloccata ? "" : s.numero;
+      if (s.stato === "fatto") punto.appendChild(icona("spunta"));
+      if (bloccata) punto.appendChild(icona("lucchetto"));
+    }
     const statoEl = li.querySelector(".stazione-stato");
     if (statoEl) statoEl.textContent = (s.stato === "attivo" && !s.conta) ? "tappa corrente" : s.conta;
     if (apri) {
@@ -1443,12 +1451,18 @@ function renderPercorso(opzioni = {}) {
   const sub = document.getElementById("stazione-esito-sub");
   if (sub) {
     sub.textContent = selezionato
-      ? "Hai indicato di essere stato selezionato 🎉"
+      ? "Hai indicato di essere stato selezionato."
       : inAttesa
         ? "Hai inviato la domanda e stai aspettando l'esito."
       : (tappa === "esiti" && !inPreBando() && candidatureChiuse())
         ? "Le candidature sono chiuse: quando conosci l'esito, dichiaralo qui."
         : "Quando conosci l'esito della selezione, dichiaralo qui.";
+  }
+  // Riepilogo sotto il titolo (artboard SceltaPercorso): «6 tappe · sei alla N».
+  const riepilogo = document.getElementById("percorso-riepilogo");
+  if (riepilogo) {
+    const corrente = Object.values(stazioni).find(s => s.stato === "attivo");
+    riepilogo.textContent = corrente ? `6 tappe · sei alla ${corrente.numero}` : "6 tappe";
   }
   renderAttesaInfo();
 }

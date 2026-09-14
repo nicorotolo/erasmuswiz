@@ -240,8 +240,14 @@
     <section id="tab-percorso" class="tab-pane nascosto" tabindex="-1"
              aria-labelledby="titolo-tab-percorso">
       <div class="sezione-header">
-        <h2 class="sezione-titolo">🧭 Il tuo percorso</h2>
-        <p class="sezione-sottotitolo">Le tappe burocratiche del tuo Erasmus, in ordine. Quello che spunti resta salvato sul tuo dispositivo.</p>
+        <h2 class="sezione-titolo">Il tuo percorso</h2>
+        <!-- «i» informativa (V4.8): la spiegazione al bisogno, fuori dall'h2
+             così non entra nel nome accessibile della sezione. -->
+        <button class="info" type="button" aria-label="Informazioni sul percorso" aria-describedby="info-percorso">
+          <svg class="icona" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 7.5v.5"/></svg>
+          <span class="info-tip" role="tooltip" id="info-percorso">Le tappe burocratiche del tuo Erasmus, in ordine. Quello che spunti resta salvato su questo dispositivo.</span>
+        </button>
+        <p class="sezione-sottotitolo" id="percorso-riepilogo">6 tappe</p>
       </div>
       <div id="banner-wiz" class="banner-celebrazione" style="display:none; margin: 0 20px 14px;"></div>
       <ol class="stazioni">
@@ -259,7 +265,7 @@
                 <span class="stazione-sub">Verifica i requisiti del bando: sono uguali per tutte le mete.</span>
               </span>
               <span class="stazione-stato"></span>
-              <span class="stazione-chevron" aria-hidden="true">▾</span>
+              <span class="stazione-chevron" aria-hidden="true"><svg class="icona" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6"/></svg></span>
             </summary>
             <div class="stazione-corpo">
               <div id="banner-verifica-idoneita" class="banner-in-verifica" style="display:none;"></div>
@@ -273,7 +279,12 @@
              visibile: lo stepper non cambia lunghezza durante il viaggio. -->
         <li class="stazione stazione-ponte" id="stazione-mete-ponte">
           <button class="stazione-ponte-btn" type="button" data-goto="mete">
-            2. 🗺️ Mete e le 5 scelte — esplora e salva le tue preferite →
+            <span class="stazione-punto" aria-hidden="true">2</span>
+            <span class="stazione-testi">
+              <span class="stazione-titolo">Mete e le 5 scelte</span>
+              <span class="stazione-sub">Esplora e salva le tue preferite.</span>
+            </span>
+            <span class="stazione-chevron" aria-hidden="true"><svg class="icona" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
           </button>
         </li>
 
@@ -286,7 +297,7 @@
                 <span class="stazione-sub">I passi da fare, capitolo per capitolo, con le date del bando.</span>
               </span>
               <span class="stazione-stato"></span>
-              <span class="stazione-chevron" aria-hidden="true">▾</span>
+              <span class="stazione-chevron" aria-hidden="true"><svg class="icona" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6"/></svg></span>
             </summary>
             <div class="stazione-corpo">
               <div id="banner-verifica-checklist" class="banner-in-verifica" style="display:none;"></div>
@@ -311,7 +322,7 @@
                 <span class="stazione-sub" id="stazione-esito-sub">Quando conosci l'esito della selezione, dichiaralo qui.</span>
               </span>
               <span class="stazione-stato"></span>
-              <span class="stazione-chevron" aria-hidden="true">▾</span>
+              <span class="stazione-chevron" aria-hidden="true"><svg class="icona" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6"/></svg></span>
             </summary>
             <div class="stazione-corpo">
               <p class="stazione-testo">ErasmusWiz non conosce le graduatorie: l'esito lo dichiari tu, e il percorso si adatta.</p>
@@ -338,12 +349,12 @@
                 <span class="stazione-sub">Prepara la bozza: esami di casa, corsi host e corrispondenze.</span>
               </span>
               <span class="stazione-stato"></span>
-              <span class="stazione-chevron" aria-hidden="true">▾</span>
+              <span class="stazione-chevron" aria-hidden="true"><svg class="icona" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6"/></svg></span>
             </summary>
             <div class="stazione-corpo">
               <p class="stazione-testo">Il Learning Agreement ufficiale si compila nei sistemi del tuo ateneo (OLA/EWP o piattaforma interna), dopo la selezione. Qui prepari la <strong>bozza di lavoro</strong>: gli esami di casa da riconoscere, i corsi dell'ospitante e le corrispondenze — con le versioni, così quando un corso salta non perdi il lavoro fatto.</p>
               <a class="btn-primary la-apri-dossier" data-la-route
-                 href="#learning-agreement/cafoscari">Apri il dossier Learning Agreement →</a>
+                 href="#learning-agreement/cafoscari">Apri il dossier Learning Agreement</a>
             </div>
           </details>
         </li>
@@ -357,7 +368,7 @@
                 <span class="stazione-sub">Prima, durante e dopo la partenza.</span>
               </span>
               <span class="stazione-stato"></span>
-              <span class="stazione-chevron" aria-hidden="true">▾</span>
+              <span class="stazione-chevron" aria-hidden="true"><svg class="icona" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 9l6 6 6-6"/></svg></span>
             </summary>
             <div class="stazione-corpo">
               <div id="lista-checklist-post" class="lista-checklist-v2"></div>
