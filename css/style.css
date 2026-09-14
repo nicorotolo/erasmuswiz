@@ -43,12 +43,18 @@
   --night-text:     #ffffff;
   --night-muted:    #A5B4FC;
   --night-border:   rgba(255,255,255,0.10);
+  /* v4 Fase 3: centro del bagliore della celebrazione; testo secondario su
+     inchiostro (9,3:1 su --night-bg, 8,2:1 sul bagliore). Il kicker del LA
+     riusa --gold-border (12,7:1): nessun token apposta per un solo uso. */
+  --night-bg-glow:   #2A2652;
+  --night-text-soft: #C7C3E0;
 
   /* ── Ambra (accent caldo: stelle, evidenze, momenti chiave) ── */
   --gold:           #FBBF24;
   --gold-dark:      #B45309;
   --gold-bg:        #FEF3C7;
   --gold-border:    #FDE68A;
+  --gold-hover:     #FCD34D;
 
   /* ── Primario indigo (bottoni, link, percorso) ── */
   --primary:        #4F46E5;
@@ -59,6 +65,12 @@
      coincide: separa "colore del testo" da "colore della campitura". */
   --primary-fill:       #4F46E5;
   --primary-fill-hover: #4338CA;
+  /* v4 Fase 3: testo/icona su campitura piena (indigo, verde, rosso).
+     Stesso valore di --night-text, ruolo diverso: restano separati. */
+  --text-on-fill:   #ffffff;
+  --primary-soft:   #EEF2FF;   /* tinta indigo soffice (hover, stato attivo) */
+  --primary-light:  #6366F1;   /* fine gradiente delle barre */
+  --primary-tint:   #C7D2FE;   /* terra "casa" della mappa */
   --primary-shadow: rgba(79,70,229,0.30);
   --ring:           rgba(79,70,229,0.35);
   --shadow-focus:   0 0 0 4px var(--ring);
@@ -85,6 +97,8 @@
   --red:            #b42318;
   --red-bg:         #fdecec;
   --red-border:     #f6cdcd;
+  --red-hover:      #9c1f14;
+  --red-bg-hover:   #fbdada;
 
   /* ── Raggio (direzione C: più asciutto del claymorphism) ── */
   --radius-xl:   20px;

@@ -135,4 +135,15 @@
   --border-focus:  var(--indigo-400);
 
   --ring: rgba(79,70,229,0.35); /* = --indigo-600 al 35% */
+
+  /* ---- REDESIGN V4 Fase 3: token runtime nuovi (fonte: css/style.css) ---- */
+  --text-on-fill:    #ffffff; /* testo su campitura piena */
+  --primary-soft:    #EEF2FF; /* = --indigo-50 */
+  --primary-light:   #6366F1; /* = --indigo-500 */
+  --primary-tint:    #C7D2FE; /* = --indigo-200 */
+  --red-hover:       #9c1f14;
+  --red-bg-hover:    #fbdada;
+  --gold-hover:      #FCD34D; /* = --amber-300 */
+  --night-bg-glow:   #2A2652;
+  --night-text-soft: #C7C3E0;
 }
