@@ -9,6 +9,44 @@
    con un soffio di viola. Semantici onesti invariati.
    I valori applicati vivono in css/style.css (:root e
    body.tema-notte) con i nomi storici delle variabili.
+
+   REDESIGN V4 (2026-09-14) — FONTE DI VERITÀ
+   Il runtime è SOLO `:root` di css/style.css. Questi file sono
+   copia documentale: dove un nome esiste in entrambi il valore
+   deve essere identico (controllo: node scripts/confronta-token.mjs
+   --design-tokens, esce 1 su divergenza). Nuovi token si scrivono
+   prima in style.css, poi qui.
+
+   ALIAS STORICI  (nome runtime in style.css → nome di palette qui)
+     --text-dark      #1E1B2E  → --ink-900 / --text-strong
+     --text-muted     #4B4560  → --ink-700 (stesso nome)
+     --text-hint      #686180  → --ink-500 / --text-faint
+     --border         #E5E2F0  → --ink-100 / --border-subtle
+     --border-strong  #D6D1EA  → --ink-200 (stesso nome)
+     --bg-card        #ffffff  → --paper / --surface-card
+     --bg-card-hover  #F3F1FA  → --ink-50 / --surface-soft
+     --bg-track       #ECEAF5  → --ink-75
+     --bg-app         #FAF8F3  → --bg-page (qui #FAFAF7: valore
+                                 storico, il runtime vince)
+     --night-bg       #211E42  → --bg-deep / --indigo-900 (qui
+                                 #232046: storico, il runtime vince)
+     --night-bg-2     #1C1A38  → --bg-deep-2
+     --night-border   rgba(255,255,255,.10) → bordo su inchiostro;
+                                 il vecchio #2E3150 del tema notte
+                                 è ora --night-border-notte
+     --night-muted    #A5B4FC  → --indigo-300
+     --primary(-fill) #4F46E5  → --indigo-600 / --color-primary
+     --primary-hover  #4338CA  → --indigo-700
+     --primary-active #3730A3  → --indigo-800
+     --gold           #FBBF24  → --amber-400 / --color-accent
+     --gold-dark      #B45309  → --amber-600 / --color-accent-text
+     --gold-bg        #FEF3C7  → --amber-100
+     --gold-border    #FDE68A  → --amber-200
+     --green / -bg / -border   → --ok-text / --ok-bg / --ok-line
+     --amber / -bg / -border   → --warn-text / --warn-bg / --warn-line
+     --red / -bg / -border     → --lock-text / --lock-bg / --lock-line
+   Attenzione: --amber runtime è il testo "attenzione" (#9a5b08),
+   NON la scala --amber-50…600 della palette.
    ============================================================ */
 
 :root {
