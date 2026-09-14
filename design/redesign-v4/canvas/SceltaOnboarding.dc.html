@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Space+Mono:wght@400;700&amp;display=swap">
+  <style>
+/* token-runtime:inizio */
+:root {
+  --font-display: 'Bricolage Grotesque', Georgia, serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono: 'Space Mono', 'Courier New', monospace;
+  --bg-app: #FAF8F3;
+  --bg-card: #ffffff;
+  --bg-card-hover: #F3F1FA;
+  --bg-track: #ECEAF5;
+  --text-dark: #1E1B2E;
+  --text-muted: #4B4560;
+  --text-hint: #686180;
+  --border: #E5E2F0;
+  --border-strong: #D6D1EA;
+  --night-bg: #211E42;
+  --night-bg-2: #1C1A38;
+  --night-text: #ffffff;
+  --night-muted: #A5B4FC;
+  --night-border: rgba(255,255,255,0.10);
+  --gold: #FBBF24;
+  --gold-dark: #B45309;
+  --gold-bg: #FEF3C7;
+  --gold-border: #FDE68A;
+  --primary: #4F46E5;
+  --primary-hover: #4338CA;
+  --primary-active: #3730A3;
+  --primary-fill: #4F46E5;
+  --primary-fill-hover: #4338CA;
+  --primary-shadow: rgba(79,70,229,0.30);
+  --ring: rgba(79,70,229,0.35);
+  --shadow-focus: 0 0 0 4px var(--ring);
+  --shadow-card: 0 1px 3px rgba(30,27,46,0.06), 0 4px 14px rgba(30,27,46,0.05);
+  --shadow-card-hover: 0 2px 6px rgba(30,27,46,0.08), 0 8px 24px rgba(67,56,202,0.14);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --dur-slow: 360ms;
+  --mission-glow: rgba(251,191,36,0.35);
+  --green: #0f7a3a;
+  --green-bg: #e6f6ec;
+  --green-border: #bce6cb;
+  --amber: #9a5b08;
+  --amber-bg: #fff3df;
+  --amber-border: #ffe0a6;
+  --red: #b42318;
+  --red-bg: #fdecec;
+  --red-border: #f6cdcd;
+  --radius-xl: 20px;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-sm: 9px;
+  --radius-pill: 999px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --fs-hero: 30px;
+  --fs-h1: 25px;
+  --fs-h2: 20px;
+  --fs-h3: 17px;
+  --fs-body: 15.5px;
+  --fs-sm: 13.5px;
+  --fs-xs: 12px;
+  --fs-mono: 14px;
+  --gutter: 16px;
+  --stack: 16px;
+  --container: 1140px;
+  --shadow-gold: 0 2px 6px rgba(180,83,9,.10), 0 10px 28px rgba(251,191,36,.24);
+}
+/* token-runtime:fine */
+    body { margin: 0; background: var(--bg-app); font-family: var(--font-body); color: var(--text-dark); -webkit-font-smoothing: antialiased; }
+    a { color: var(--primary); } a:hover { color: var(--primary-hover); }
+    button { font: inherit; }
+    .info:hover .info-tip, .info:focus-visible .info-tip { display: block !important; }
+    .info:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
+  </style>
+</helmet>
+<div style="width: 390px; min-height: 980px; box-sizing: border-box; display: flex; flex-direction: column; background: var(--bg-app)">
+  <header style="display: flex; align-items: center; justify-content: space-between; padding: 10px 8px 0 16px">
+    <img src="logo-mark.svg" alt="ErasmusWiz" style="width: 30px; height: 30px">
+    <span style="display: grid; place-items: center; width: 44px; height: 44px; color: var(--text-dark)" aria-label="Menu"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M4 7h16"></path><path d="M4 12h16"></path><path d="M4 17h16"></path></svg></span>
+  </header>
+  <main style="flex: 1; padding: 12px 16px 32px; display: flex; flex-direction: column; gap: 28px">
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <h1 style="margin: 0; font-family: var(--font-body); font-weight: 800; font-size: 28px; line-height: 1.15; letter-spacing: -.025em; color: var(--text-dark); text-wrap: balance">Scopri dove può portarti il tuo Erasmus.</h1>
+      <p style="margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--text-muted)">Capisci il bando, scegli mete davvero accessibili e non perdere i passaggi importanti. Gratis, senza account.</p>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 14px">
+      <div style="display: flex; align-items: center; justify-content: space-between">
+        <span style="font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-hint)">Passo 2 di 4 · Ateneo</span>
+        <span style="display: flex; gap: 6px"><span style="width: 8px; height: 8px; border-radius: 99px; background: var(--night-bg)"></span><span style="width: 22px; height: 8px; border-radius: 99px; background: var(--night-bg)"></span><span style="width: 8px; height: 8px; border-radius: 99px; background: var(--bg-track)"></span><span style="width: 8px; height: 8px; border-radius: 99px; background: var(--bg-track)"></span></span>
+      </div>
+      <div style="display: flex; align-items: flex-end; gap: 12px">
+        <img src="mascot-wiz.svg" alt="" style="width: 58px; height: 74px; flex: none; display: block">
+        <div style="position: relative; margin-bottom: 18px; padding: 12px 14px; background: var(--bg-card); border-radius: var(--radius-lg); box-shadow: 0 1px 2px rgba(30,27,46,.04); border-radius: 16px 16px 16px 4px; font-size: 15px; font-weight: 600; color: var(--text-dark)">Ciao! Sono Wiz. Dove studi?</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; align-items: center; gap: 12px; min-height: 60px; padding: 10px 14px; background: var(--bg-card); border-radius: var(--radius-lg); box-shadow: 0 1px 2px rgba(30,27,46,.04); box-shadow: inset 0 0 0 1.5px var(--primary);">
+    <span style="width: 20px; height: 20px; border-radius: 50%; flex: none; box-sizing: border-box; border: 6px solid var(--primary);"></span>
+    <span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 700; color: var(--text-dark)">Sapienza Università di Roma</span><span style="font-size: 13px; color: var(--text-hint)">Bando unico Erasmus+ per studio</span></span>
+  </div>
+        <div style="display: flex; align-items: center; gap: 12px; min-height: 60px; padding: 10px 14px; background: var(--bg-card); border-radius: var(--radius-lg); box-shadow: 0 1px 2px rgba(30,27,46,.04); ">
+    <span style="width: 20px; height: 20px; border-radius: 50%; flex: none; box-sizing: border-box; border: 1.5px solid var(--border-strong);"></span>
+    <span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 700; color: var(--text-dark)">Università Ca' Foscari Venezia</span><span style="font-size: 13px; color: var(--text-hint)">Bando Erasmus+ studio</span></span>
+  </div>
+      </div>
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
+        <a href="#" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 8px; font-size: 14px; font-weight: 700; color: var(--primary); text-decoration: none; flex: none"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M19 12H5"></path><path d="M11 18l-6-6 6-6"></path></svg>Indietro</a>
+        <span style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: var(--radius-md); min-height: 44px; padding: 0 18px; font-weight: 700; font-family: var(--font-body); font-size: 14.5px; white-space: nowrap; background: var(--night-bg); color: #fff;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>Continua</span>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <div style="position: relative; height: 220px; border-radius: var(--radius-lg); overflow: hidden; background: var(--bg-card-hover)">
+        <svg viewBox="0 0 360 220" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="position: absolute; inset: 0"><path d="M40 170 C70 120 60 80 110 70 C150 60 150 30 200 40 C250 50 260 20 300 45 C330 65 320 110 290 130 C260 150 280 190 230 195 C180 200 170 175 130 185 C90 195 60 200 40 170 Z" fill="var(--bg-track)"></path></svg>
+        <span style="position: absolute; left: 30%; top: 60%; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 1px 3px rgba(30,27,46,.25); background: var(--green)"></span><span style="position: absolute; left: 46%; top: 38%; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 1px 3px rgba(30,27,46,.25); background: var(--green)"></span><span style="position: absolute; left: 58%; top: 55%; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 1px 3px rgba(30,27,46,.25); background: var(--amber)"></span><span style="position: absolute; left: 70%; top: 30%; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 1px 3px rgba(30,27,46,.25); background: var(--green)"></span><span style="position: absolute; left: 52%; top: 72%; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 1px 3px rgba(30,27,46,.25); background: var(--red)"></span><span style="position: absolute; left: 40%; top: 48%; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 1px 3px rgba(30,27,46,.25); background: var(--amber)"></span>
+        <span style="position: absolute; left: 12px; bottom: 10px; font-size: 11.5px; font-weight: 600; color: var(--text-hint)">Mappa reale del sito · segnaposto</span>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 14px"><span style="display: inline-flex; align-items: center; gap: 5px; color: var(--green); font-size: 12.5px; font-weight: 700; white-space: nowrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M20 6L9 17l-5-5"></path></svg>Compatibile</span><span style="display: inline-flex; align-items: center; gap: 5px; color: var(--amber); font-size: 12.5px; font-weight: 700; white-space: nowrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M12 4l9 16H3z"></path><path d="M12 10v4"></path><path d="M12 17.5v.5"></path></svg>Da verificare</span><span style="display: inline-flex; align-items: center; gap: 5px; color: var(--red); font-size: 12.5px; font-weight: 700; white-space: nowrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>Non accessibile ora</span></div>
+    </div>
+
+    <p style="margin: 0; font-size: 13px; line-height: 1.5; color: var(--text-hint)">I dati restano su questo dispositivo. Se cancelli i dati del browser o cambi dispositivo, il percorso non viene recuperato.</p></main>
+  
+</div>
+</x-dc>
+</body>
+</html>

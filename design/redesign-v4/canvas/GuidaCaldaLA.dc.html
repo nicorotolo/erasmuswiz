@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Space+Mono:wght@400;700&amp;display=swap">
+  <style>
+/* token-runtime:inizio */
+:root {
+  --font-display: 'Bricolage Grotesque', Georgia, serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono: 'Space Mono', 'Courier New', monospace;
+  --bg-app: #FAF8F3;
+  --bg-card: #ffffff;
+  --bg-card-hover: #F3F1FA;
+  --bg-track: #ECEAF5;
+  --text-dark: #1E1B2E;
+  --text-muted: #4B4560;
+  --text-hint: #686180;
+  --border: #E5E2F0;
+  --border-strong: #D6D1EA;
+  --night-bg: #211E42;
+  --night-bg-2: #1C1A38;
+  --night-text: #ffffff;
+  --night-muted: #A5B4FC;
+  --night-border: rgba(255,255,255,0.10);
+  --gold: #FBBF24;
+  --gold-dark: #B45309;
+  --gold-bg: #FEF3C7;
+  --gold-border: #FDE68A;
+  --primary: #4F46E5;
+  --primary-hover: #4338CA;
+  --primary-active: #3730A3;
+  --primary-fill: #4F46E5;
+  --primary-fill-hover: #4338CA;
+  --primary-shadow: rgba(79,70,229,0.30);
+  --ring: rgba(79,70,229,0.35);
+  --shadow-focus: 0 0 0 4px var(--ring);
+  --shadow-card: 0 1px 3px rgba(30,27,46,0.06), 0 4px 14px rgba(30,27,46,0.05);
+  --shadow-card-hover: 0 2px 6px rgba(30,27,46,0.08), 0 8px 24px rgba(67,56,202,0.14);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --dur-slow: 360ms;
+  --mission-glow: rgba(251,191,36,0.35);
+  --green: #0f7a3a;
+  --green-bg: #e6f6ec;
+  --green-border: #bce6cb;
+  --amber: #9a5b08;
+  --amber-bg: #fff3df;
+  --amber-border: #ffe0a6;
+  --red: #b42318;
+  --red-bg: #fdecec;
+  --red-border: #f6cdcd;
+  --radius-xl: 20px;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-sm: 9px;
+  --radius-pill: 999px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --fs-hero: 30px;
+  --fs-h1: 25px;
+  --fs-h2: 20px;
+  --fs-h3: 17px;
+  --fs-body: 15.5px;
+  --fs-sm: 13.5px;
+  --fs-xs: 12px;
+  --fs-mono: 14px;
+  --gutter: 16px;
+  --stack: 16px;
+  --container: 1140px;
+  --shadow-gold: 0 2px 6px rgba(180,83,9,.10), 0 10px 28px rgba(251,191,36,.24);
+}
+/* token-runtime:fine */
+    body { margin: 0; background: var(--bg-app); font-family: var(--font-body); color: var(--text-dark); -webkit-font-smoothing: antialiased; }
+    a { color: var(--primary); } a:hover { color: var(--primary-hover); }
+    button { font: inherit; }
+  </style>
+</helmet>
+<div style="width: 1280px; min-height: 940px; box-sizing: border-box; background: var(--bg-app); display: flex; flex-direction: column">
+  <nav style="display: flex; align-items: center; gap: 8px; height: 64px; padding: 0 70px; background: var(--night-bg); color: var(--night-text)">
+    <img src="logo-mark.svg" alt="" style="width: 30px; height: 30px"><span style="font-family: var(--font-display); font-weight: 800; font-size: 18px; margin-right: 24px">ErasmusWiz</span>
+    <span style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: var(--radius-md); font-size: 14px; font-weight: 700; color: var(--night-muted); background: transparent">Oggi</span><span style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: var(--radius-md); font-size: 14px; font-weight: 700; color: var(--night-muted); background: transparent">Mete</span><span style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: var(--radius-md); font-size: 14px; font-weight: 700; color: var(--night-muted); background: transparent">Percorso</span><span style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: var(--radius-md); font-size: 14px; font-weight: 800; color: var(--gold); background: rgba(251,191,36,0.12)">Learning Agreement</span>
+  </nav>
+  <main style="width: 1140px; margin: 0 auto; padding: 24px 0 48px; display: flex; flex-direction: column; gap: 20px">
+    <header style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; border-radius: var(--radius-lg); background: var(--night-bg); color: #fff; padding: 40px 36px 28px">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <span style="font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #E8D992">Dossier personale · solo su questo dispositivo</span>
+        <h1 style="margin: 0; font-family: var(--font-display); font-weight: 800; font-size: 44px; letter-spacing: -.03em; line-height: 1.05">Learning Agreement</h1>
+        <a href="#" style="color: #fff; font-size: 14px; margin-top: 4px">← Torna al percorso</a>
+      </div>
+      <img src="mascot-wiz.svg" alt="" style="width: 70px; height: 89px; flex: none; display: block">
+    </header>
+    <ol style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none"><li style="display: flex; align-items: center; gap: 8px; min-width: 0; padding: 12px 12px; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--bg-card); color: var(--text-dark); font-size: 13px; font-weight: 700; ">
+      <span style="display: grid; place-items: center; width: 24px; height: 24px; flex: none; border-radius: 50%; background: var(--green-bg); color: var(--green); font-family: var(--font-mono); font-size: 12px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M20 6L9 17l-5-5"></path></svg></span>
+      <span>Il mio piano</span></li><li style="display: flex; align-items: center; gap: 8px; min-width: 0; padding: 12px 12px; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--bg-card); color: var(--text-dark); font-size: 13px; font-weight: 700; ">
+      <span style="display: grid; place-items: center; width: 24px; height: 24px; flex: none; border-radius: 50%; background: var(--green-bg); color: var(--green); font-family: var(--font-mono); font-size: 12px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M20 6L9 17l-5-5"></path></svg></span>
+      <span>Confronta le mete</span></li><li style="display: flex; align-items: center; gap: 8px; min-width: 0; padding: 12px 12px; border: 1px solid var(--primary); border-radius: var(--radius-md); background: var(--bg-card); color: var(--primary); font-size: 13px; font-weight: 700; box-shadow: var(--shadow-focus);">
+      <span style="display: grid; place-items: center; width: 24px; height: 24px; flex: none; border-radius: 50%; background: var(--primary-fill); color: #fff; font-family: var(--font-mono); font-size: 12px">3</span>
+      <span>Prepara la proposta</span></li><li style="display: flex; align-items: center; gap: 8px; min-width: 0; padding: 12px 12px; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--bg-card); color: var(--text-muted); font-size: 13px; font-weight: 700; ">
+      <span style="display: grid; place-items: center; width: 24px; height: 24px; flex: none; border-radius: 50%; background: var(--bg-card-hover); color: var(--text-muted); font-family: var(--font-mono); font-size: 12px">4</span>
+      <span>Approva e modifica</span></li><li style="display: flex; align-items: center; gap: 8px; min-width: 0; padding: 12px 12px; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--bg-card); color: var(--text-muted); font-size: 13px; font-weight: 700; ">
+      <span style="display: grid; place-items: center; width: 24px; height: 24px; flex: none; border-radius: 50%; background: var(--bg-card-hover); color: var(--text-muted); font-family: var(--font-mono); font-size: 12px">5</span>
+      <span>Convalida</span></li></ol>
+    <div style="display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 20px; align-items: start">
+      <section style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 24px; box-shadow: var(--shadow-card); display: flex; flex-direction: column; gap: 16px">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 16px">
+          <div style="display: flex; flex-direction: column; gap: 4px">
+            <h2 style="margin: 0; font-family: var(--font-display); font-weight: 800; font-size: 21px; line-height: 1.2; letter-spacing: -.02em; color: var(--text-dark)">Universidad de Zaragoza · versione 2</h2>
+            <span style="font-size: var(--fs-sm); color: var(--text-hint)">Saragozza (Spagna) · E ZARAGOZ01 · esami d'esempio</span>
+          </div>
+          <div style="display: flex; gap: 8px; flex: none"><span style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 20px; border-radius: 14px; font-family: var(--font-body); font-size: var(--fs-body); font-weight: 700; border: 1.5px solid var(--border-strong); background: var(--bg-card-hover); color: var(--primary-active);">Stampa</span><span style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 20px; border-radius: 14px; font-family: var(--font-body); font-size: var(--fs-body); font-weight: 700; background: var(--primary-fill); color: #fff; box-shadow: 0 2px 5px rgba(79,70,229,.18), 0 10px 24px var(--primary-shadow);">Salva versione</span></div>
+        </div>
+        <div style="display: flex; gap: 24px; flex-wrap: wrap">
+          <div style="display: flex; flex-direction: column; gap: 2px"><div style="font-size: 11.5px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--text-hint)">ECTS all'estero</div><span style="font-family: var(--font-mono); font-weight: 700; font-size: 24px; color: var(--text-dark)">22,5</span></div><div style="display: flex; flex-direction: column; gap: 2px"><div style="font-size: 11.5px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--text-hint)">CFU riconosciuti</div><span style="font-family: var(--font-mono); font-weight: 700; font-size: 24px; color: var(--text-dark)">30</span></div><div style="display: flex; flex-direction: column; gap: 2px"><div style="font-size: 11.5px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--text-hint)">Righe da controllare</div><span style="font-family: var(--font-mono); font-weight: 700; font-size: 24px; color: var(--amber)">1</span></div>
+        </div>
+        <div style="border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden">
+    <div style="display: grid; grid-template-columns: minmax(0, 1.3fr) 70px minmax(0, 1.3fr) 70px 150px; gap: 12px; padding: 16px 18px; background: var(--bg-app); border-bottom: 1px solid var(--border)">
+      <span style="font-size: 11.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-hint)">Esame all'estero</span><span style="font-size: 11.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-hint)">ECTS</span><span style="font-size: 11.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-hint)">Esame Sapienza</span><span style="font-size: 11.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-hint)">CFU</span><span style="font-size: 11.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-hint)">Stato</span>
+    </div>
+    <div style="display: grid; grid-template-columns: minmax(0, 1.3fr) 70px minmax(0, 1.3fr) 70px 150px; gap: 12px; align-items: center; padding: 16px 18px; border-bottom: 1px solid var(--border); background: var(--bg-card)">
+      <span style="font-size: 14.5px; font-weight: 600; color: var(--text-dark)">Derecho Civil I</span>
+      <span style="font-family: var(--font-mono); font-size: 14px; font-weight: 700; color: var(--text-dark)">6</span>
+      <span style="font-size: 14.5px; color: var(--text-muted)">Diritto privato</span>
+      <span style="font-family: var(--font-mono); font-size: 14px; font-weight: 700; color: var(--text-dark)">9</span>
+      <span style="display: inline-flex; align-items: center; gap: 5px; background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); border-radius: var(--radius-pill); padding: 4px 10px; font-size: var(--fs-xs); font-weight: 700; white-space: nowrap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M20 6L9 17l-5-5"></path></svg>Coerente</span>
+    </div><div style="display: grid; grid-template-columns: minmax(0, 1.3fr) 70px minmax(0, 1.3fr) 70px 150px; gap: 12px; align-items: center; padding: 16px 18px; border-bottom: 1px solid var(--border); background: var(--bg-card)">
+      <span style="font-size: 14.5px; font-weight: 600; color: var(--text-dark)">Derecho de la Unión Europea</span>
+      <span style="font-family: var(--font-mono); font-size: 14px; font-weight: 700; color: var(--text-dark)">6</span>
+      <span style="font-size: 14.5px; color: var(--text-muted)">Diritto dell'Unione europea</span>
+      <span style="font-family: var(--font-mono); font-size: 14px; font-weight: 700; color: var(--text-dark)">6</span>
+      <span style="display: inline-flex; align-items: center; gap: 5px; background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); border-radius: var(--radius-pill); padding: 4px 10px; font-size: var(--fs-xs); font-weight: 700; white-space: nowrap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M20 6L9 17l-5-5"></path></svg>Coerente</span>
+    </div><div style="display: grid; grid-template-columns: minmax(0, 1.3fr) 70px minmax(0, 1.3fr) 70px 150px; gap: 12px; align-items: center; padding: 16px 18px; border-bottom: 1px solid var(--border); background: var(--bg-card)">
+      <span style="font-size: 14.5px; font-weight: 600; color: var(--text-dark)">Derecho Internacional Público</span>
+      <span style="font-family: var(--font-mono); font-size: 14px; font-weight: 700; color: var(--text-dark)">6</span>
+      <span style="font-size: 14.5px; color: var(--text-muted)">Diritto internazionale</span>
+      <span style="font-family: var(--font-mono); font-size: 14px; font-weight: 700; color: var(--text-dark)">6</span>
+      <span style="display: inline-flex; align-items: center; gap: 5px; background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); border-radius: var(--radius-pill); padding: 4px 10px; font-size: var(--fs-xs); font-weight: 700; white-space: nowrap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M20 6L9 17l-5-5"></path></svg>Coerente</span>
+    </div><div style="display: grid; grid-template-columns: minmax(0, 1.3fr) 70px minmax(0, 1.3fr) 70px 150px; gap: 12px; align-items: center; padding: 16px 18px;  background: var(--bg-card)">
+      <span style="font-size: 14.5px; font-weight: 600; color: var(--text-dark)">Historia del Derecho</span>
+      <span style="font-family: var(--font-mono); font-size: 14px; font-weight: 700; color: var(--text-dark)">4,5</span>
+      <span style="font-size: 14.5px; color: var(--text-muted)">Storia del diritto medievale e moderno</span>
+      <span style="font-family: var(--font-mono); font-size: 14px; font-weight: 700; color: var(--amber)">9</span>
+      <span style="display: inline-flex; align-items: center; gap: 5px; background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); border-radius: var(--radius-pill); padding: 4px 10px; font-size: var(--fs-xs); font-weight: 700; white-space: nowrap"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M12 4l9 16H3z"></path><path d="M12 10v4"></path><path d="M12 17.5v.5"></path></svg>Crediti diversi</span>
+    </div>
+  </div>
+      </section>
+      <section style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 24px; box-shadow: var(--shadow-card); display: flex; flex-direction: column; gap: 16px">
+    <h2 style="margin: 0; font-family: var(--font-display); font-weight: 800; font-size: 21px; line-height: 1.2; letter-spacing: -.02em; color: var(--text-dark)">Procedura Sapienza</h2>
+    <div style="display: flex; gap: 12px; align-items: flex-start"><img src="mascot-wiz.svg" alt="" style="width: 44px; height: 56px; flex: none; display: block"><p style="margin: 0; font-size: var(--fs-sm); line-height: 1.55; color: var(--text-muted)">ErasmusWiz prepara e conserva il lavoro. Invio, firma e approvazione restano nei sistemi ufficiali dell'ateneo.</p></div>
+    <div style="display: flex; gap: 10px; align-items: flex-start; background: var(--amber-bg); border: 1px solid var(--amber-border); border-radius: var(--radius-md); padding: 12px 14px; color: var(--amber)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M12 4l9 16H3z"></path><path d="M12 10v4"></path><path d="M12 17.5v.5"></path></svg><p style="margin: 0; font-size: var(--fs-sm); line-height: 1.5; font-weight: 600">Procedura da verificare per il ciclo 2027/28. Non riutilizziamo regole di un ciclo precedente.</p>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <div style="font-size: 11.5px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--text-hint)">Prima di inviare</div>
+      <div style="display: flex; align-items: center; gap: 10px; min-height: 36px; font-size: var(--fs-sm); color: var(--text-dark)"><span style="display: grid; place-items: center; width: 22px; height: 22px; flex: none; border-radius: 6px; border: 1.5px solid var(--green); background: var(--green-bg)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M20 6L9 17l-5-5"></path></svg></span>Tutti gli esami hanno un abbinamento</div><div style="display: flex; align-items: center; gap: 10px; min-height: 36px; font-size: var(--fs-sm); color: var(--text-dark)"><span style="display: grid; place-items: center; width: 22px; height: 22px; flex: none; border-radius: 6px; border: 1.5px solid var(--border-strong); background: var(--bg-card)"></span>Crediti coerenti su ogni riga</div><div style="display: flex; align-items: center; gap: 10px; min-height: 36px; font-size: var(--fs-sm); color: var(--text-dark)"><span style="display: grid; place-items: center; width: 22px; height: 22px; flex: none; border-radius: 6px; border: 1.5px solid var(--border-strong); background: var(--bg-card)"></span>Proposta salvata come versione</div>
+    </div>
+  </section>
+    </div>
+  </main>
+</div>
+</x-dc>
+</body>
+</html>

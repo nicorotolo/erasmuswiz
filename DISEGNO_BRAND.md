@@ -13,6 +13,120 @@
 > §2-bis budget asset ≤100 KB, tono di voce) restano valide.
 > Il resto del documento è STORICO.
 
+---
+
+## ★ REDESIGN V4 — SCHEDA COMPONENTI (vincolante, 2026-09-14)
+
+> Rifinitura dentro la Direzione C, scelta da Nicola sulla canvas
+> «ErasmusWiz Redesign v4» (pagina *Scelta*). Piano: `PLAN_REDESIGN_V4.md`.
+> Generatore delle artboard: `design/redesign-v4/genera-canvas.mjs --scelta`.
+> Stato: **in revisione** finché Nicola non approva le schermate del blocco 1.
+> Prevale sulle regole visive storiche sotto; palette, raggi e tono restano.
+
+### V4.1 Principi
+- **Base V3 Equilibrio** (densità media) + **tipografia V2** (Plus Jakarta
+  anche nei titoli; Bricolage solo nel wordmark) + **bottoni C «Inchiostro»**.
+- **Solo tema giorno.** Nessun colore fuori da `:root` di `css/style.css`.
+- **Minimale**: niente bordi grigi intorno alle superfici, niente pillole
+  per dati e stati, niente box colorati per gli stati. La gerarchia la danno
+  dimensione, peso e spazio.
+- **Informazioni in ordine di utilità** per chi sceglie (es. nella card meta:
+  compatibilità → chi/dove → lingua → durata → posti).
+- **Spiegazioni al bisogno**: testi di contesto nelle «i», non in etichette fisse.
+
+### V4.2 Tipografia (font: `--font-body` salvo indicato)
+| Ruolo | Misura / peso / interlinea | Note |
+|---|---|---|
+| H1 schermata | 22px / 800 / 1.2, spaziatura −.02em | desktop 28px |
+| H2 sezione | 16px / 700 / 1.3, −.01em | titoli di card missione: 20px / 800 |
+| H3 card | 15.5px / 700 / 1.3 | nome università: max 2 righe, spazio sempre per 2 |
+| Corpo | 14.5px / 400 / 1.55 | `text-wrap: pretty` |
+| Secondario | 13–13.5px, `--text-hint` o `--text-muted` | città, sottotitoli |
+| Micro-etichetta | 11–11.5px / 700 / MAIUSCOLO, +.08em, `--text-hint` | etichette dei dati |
+| Numeri | `--font-mono` 700 | compatibilità card 34px; totali 16px; conteggi 12px |
+
+### V4.3 Superfici e spazi
+- **Superficie**: `--bg-card`, raggio `--radius-lg` (card) o `--radius-md`
+  (righe), ombra `0 1px 2px rgba(30,27,46,.04)`, **nessun bordo**.
+- **Separatori interni**: 1px `--border`; riga dei totali: 1px `--border-strong`
+  su `--bg-app`.
+- **Ritmo mobile (390)**: margine 16px; 28–32px tra blocchi di pagina;
+  12px dentro i gruppi; 16px tra card; padding card 20px.
+- **Superficie inchiostro** (`--night-bg`): barra di navigazione, countdown,
+  intestazione LA, numero di posizione nelle preferite, bottone primario.
+
+### V4.4 Bottoni e azioni
+- **Primario (C)**: `--night-bg`, testo bianco, icona 17px in `--gold`;
+  raggio `--radius-md`; altezza ≥44px; padding 0 18px; 14.5px/700.
+  Hover `--night-bg-2`; focus `--shadow-focus`; disabilitato `--bg-track` +
+  `--text-hint` (icona senza oro). **Uno solo per vista.**
+- **Azione secondaria = link**: `--primary` 14px/700, icona 16px prima
+  (Stampa, Modifica) o freccia dopo (Vai alla riga); area ≥44px.
+- Non esistono più bottoni secondari pieni o con contorno nelle schermate
+  nuove. I chip filtro restano come oggi.
+
+### V4.5 Semaforo di compatibilità
+- **Solo icona + testo colorato**, mai pillola: ✓ `--green` Compatibile,
+  △ `--amber` da verificare / con riserve, lucchetto `--red` non accessibile.
+  12.5px/700, icona 14px. Mai solo colore.
+- Nella card meta la percentuale (mono 34px, stesso colore) precede lo stato;
+  senza percentuale si mostra «—» in `--text-hint`.
+
+### V4.6 Card meta
+1. riga alta: percentuale + stato a sinistra, stella a destra (44×44, blu
+   `--primary` piena se preferita, `--text-hint` vuota se no);
+2. nome università (max 2 righe, spazio riservato) + città (13.5px hint);
+3. separatore, poi griglia etichettata `Lingua richiesta | Durata | Posti`
+   (colonne 1.6fr/1fr/1fr); «Lingua da verificare» in `--amber`.
+Altezza uguale per tutte le card; nessuna freccia.
+
+### V4.7 Preferite (schedina)
+Riga compatta su superficie senza bordo: numero di posizione 28px su
+`--night-bg`, nome troncato su una riga, `percentuale · stato` mono 12px,
+freccia su (disattiva sulla prima) e X in `--red`. Intestazione `Le tue
+preferite` + contatore mono `N di 5`.
+
+### V4.8 «i» informativa
+Cerchio 32px con icona 18px `--text-hint` (su inchiostro `--night-muted`),
+accanto al testo a cui si riferisce. Suggerimento al passaggio **e** al focus
+da tastiera (`tabindex="0"`, `role="tooltip"`): sfondo `--text-dark`, testo
+bianco 13px/1.45, raggio `--radius-sm`, larghezza 220–320px.
+Usi approvati: titolo LA (sostituisce «Dossier personale · solo su questo
+dispositivo»), intestazioni ECTS/CFU, «abbinamento da controllare»,
+Procedura d'ateneo, titolo Percorso, «Le tue lingue» nel Profilo.
+
+### V4.9 Learning Agreement
+- Titolo «Costruisci il tuo Learning Agreement» + «i», nessun kicker.
+- Barra del dossier: link «Stampa» + primario «Salva versione».
+- **Da controllare** in una fascia propria tra titolo e tabella (icona
+  avviso su cerchio `--amber-bg`, titolo + «i», motivo in una riga,
+  link «Vai alla riga»): non sta mai accanto ai crediti.
+- Tabella: colonne testo a sinistra, numeri e stato centrati; intestazione
+  «Stato della scelta»; **ECTS e CFU totali nella riga finale** sotto le
+  rispettive colonne.
+
+### V4.10 Profilo in Mete
+Sotto l'H1: `Ateneo · Area` (13.5px muted) e sotto `Livello · Lingua`
+(600 dark), link «Modifica» con matita allineato a destra. Nessun box.
+
+### V4.11 Wiz e ambra
+- **Wiz**: solo onboarding (con fumetto). Mai in Home, Mete, Percorso,
+  Profilo, LA; mai negli stati vuoti (icona neutra al suo posto).
+- **Ambra/oro**: icona del bottone primario, voce attiva della navigazione,
+  countdown, etichetta «La tua prossima mossa». Non come sfondo di sezioni.
+
+### V4.12 Navigazione
+Invariata nell'architettura: **Mete · Home · Learning Agreement** (Home al
+centro su mobile), Menu in alto a destra; Percorso e Profilo da Home/Menu.
+Voce attiva `--gold` su `rgba(251,191,36,.12)`; icone SVG a tratto (non emoji)
+nelle schermate nuove.
+
+### V4.13 Aperti (da decidere in implementazione)
+- Icone SVG al posto delle emoji anche nei testi dinamici di `app.js`
+  (es. «Fatto ✨», stazioni 🧭): richiede toccare copy, non solo CSS.
+- Percorso: stato «in corso» della tappa senza colore (oggi solo numero
+  su inchiostro) — confermare dopo il test con persone.
+
 > Specifica decisa il 04/07/2026 con Nicola. È il documento di riferimento
 > per le sessioni BR0–BR7. Claude Code deve leggerlo PRIMA di toccare il
 > codice in quelle sessioni, insieme a `design/readme.md` (il design system).

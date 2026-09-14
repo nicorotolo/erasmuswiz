@@ -1,0 +1,206 @@
+{
+  "pages": [
+    {
+      "id": "scelta",
+      "name": "Scelta"
+    },
+    {
+      "id": "esplorazione",
+      "name": "Esplorazione (3 varianti)"
+    }
+  ],
+  "artboards": [
+    {
+      "file": "GuidaCaldaTile.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 820,
+      "h": 1780,
+      "title": "V1 · Guida calda — Style tile",
+      "page": "esplorazione"
+    },
+    {
+      "file": "GuidaCaldaMete.dc.html",
+      "x": 920,
+      "y": 0,
+      "w": 390,
+      "h": 1780,
+      "title": "V1 · Guida calda — Mete · 390",
+      "page": "esplorazione"
+    },
+    {
+      "file": "GuidaCaldaLA.dc.html",
+      "x": 1410,
+      "y": 0,
+      "w": 1280,
+      "h": 940,
+      "title": "V1 · Guida calda — Learning Agreement · 1280",
+      "page": "esplorazione"
+    },
+    {
+      "file": "StrumentoTile.dc.html",
+      "x": 0,
+      "y": 1980,
+      "w": 820,
+      "h": 1780,
+      "title": "V2 · Strumento chiaro — Style tile",
+      "page": "esplorazione"
+    },
+    {
+      "file": "StrumentoMete.dc.html",
+      "x": 920,
+      "y": 1980,
+      "w": 390,
+      "h": 1780,
+      "title": "V2 · Strumento chiaro — Mete · 390",
+      "page": "esplorazione"
+    },
+    {
+      "file": "StrumentoLA.dc.html",
+      "x": 1410,
+      "y": 1980,
+      "w": 1280,
+      "h": 940,
+      "title": "V2 · Strumento chiaro — Learning Agreement · 1280",
+      "page": "esplorazione"
+    },
+    {
+      "file": "Main.dc.html",
+      "x": 0,
+      "y": 3960,
+      "w": 820,
+      "h": 1780,
+      "title": "V3 · Equilibrio — Style tile",
+      "page": "esplorazione"
+    },
+    {
+      "file": "EquilibrioMete.dc.html",
+      "x": 920,
+      "y": 3960,
+      "w": 390,
+      "h": 1780,
+      "title": "V3 · Equilibrio — Mete · 390",
+      "page": "esplorazione"
+    },
+    {
+      "file": "EquilibrioLA.dc.html",
+      "x": 1410,
+      "y": 3960,
+      "w": 1280,
+      "h": 940,
+      "title": "V3 · Equilibrio — Learning Agreement · 1280",
+      "page": "esplorazione"
+    },
+    {
+      "file": "SceltaTile.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 820,
+      "h": 1780,
+      "title": "Scelta · V3 + tipografia V2 — Style tile",
+      "page": "scelta"
+    },
+    {
+      "file": "SceltaMete.dc.html",
+      "x": 920,
+      "y": 0,
+      "w": 390,
+      "h": 2000,
+      "title": "Scelta · V3 + tipografia V2 — Mete · 390",
+      "page": "scelta"
+    },
+    {
+      "file": "SceltaLA.dc.html",
+      "x": 1410,
+      "y": 0,
+      "w": 1280,
+      "h": 940,
+      "title": "Scelta · V3 + tipografia V2 — Learning Agreement · 1280",
+      "page": "scelta"
+    },
+    {
+      "file": "Bottoni.dc.html",
+      "x": 1410,
+      "y": 1060,
+      "w": 1400,
+      "h": 1560,
+      "title": "Redesign v4 — Bottoni — alternative",
+      "page": "scelta"
+    },
+    {
+      "file": "SceltaOnboarding.dc.html",
+      "x": 0,
+      "y": 2800,
+      "w": 390,
+      "h": 980,
+      "title": "Scelta · V3 + tipografia V2 — Onboarding · 390",
+      "page": "scelta"
+    },
+    {
+      "file": "SceltaHome.dc.html",
+      "x": 490,
+      "y": 2800,
+      "w": 390,
+      "h": 1130,
+      "title": "Scelta · V3 + tipografia V2 — Home · 390",
+      "page": "scelta"
+    },
+    {
+      "file": "SceltaPercorso.dc.html",
+      "x": 980,
+      "y": 2800,
+      "w": 390,
+      "h": 1120,
+      "title": "Scelta · V3 + tipografia V2 — Percorso · 390",
+      "page": "scelta"
+    },
+    {
+      "file": "SceltaProfilo.dc.html",
+      "x": 1470,
+      "y": 2800,
+      "w": 390,
+      "h": 1180,
+      "title": "Scelta · V3 + tipografia V2 — Profilo · 390",
+      "page": "scelta"
+    },
+    {
+      "file": "SceltaMeteDesktop.dc.html",
+      "x": 1960,
+      "y": 2800,
+      "w": 1280,
+      "h": 820,
+      "title": "Scelta · V3 + tipografia V2 — Mete · 1280",
+      "page": "scelta"
+    }
+  ],
+  "annotations": [
+    {
+      "id": "brief",
+      "x": -420,
+      "y": 0,
+      "w": 340,
+      "text": "Redesign v4 — esplorazione (PLAN_REDESIGN_V4.md, Fase 1).\n\nStessa palette, stessi raggi, stessi token di css/style.css. Cambiano solo densità, tipografia e uso di Wiz/ambra.\n\nV1 Guida calda: ariosa, Bricolage protagonista, Wiz presente, ambra generosa.\nV2 Strumento chiaro: compatta, titoli in Plus Jakarta, dati e semafori protagonisti, niente Wiz nelle schermate di lavoro.\nV3 Equilibrio: densità media, Wiz solo in onboarding e stati vuoti.\n\nMete reali Sapienza Giurisprudenza; percentuali, esami del LA e countdown sono d'esempio.\nIbridi ammessi asse per asse: densità / tipografia / Wiz+ambra.",
+      "page": "esplorazione"
+    },
+    {
+      "id": "scelta-note",
+      "page": "scelta",
+      "x": -420,
+      "y": 0,
+      "w": 340,
+      "text": "Scelta di Nicola, 14/09.\n\nBase V3 Equilibrio (densità, card, raggi).\nDa V2: tipografia (Plus Jakarta anche nei titoli), semaforo con sola icona e testo, stato vuoto senza Wiz, stelle blu.\nMete: profilo in riga sotto il titolo con «Modifica»; card senza bordo, compatibilità grande, dettagli per utilità.\nLA: tolto «Dossier personale · solo su questo dispositivo»; al suo posto le «i» con spiegazione al passaggio (quella del titolo è mostrata aperta). Tabella centrata, stato senza pillole.\nBottoni: scelta C «Inchiostro» (primario blu notte con icona ambra); azioni secondarie come link."
+    },
+    {
+      "id": "blocco1-note",
+      "page": "scelta",
+      "x": -420,
+      "y": 2800,
+      "w": 340,
+      "text": "Blocco 1, 14/09: le schermate mancanti nella direzione scelta.\n\nNavigazione come nel sito reale (tranche pre-Bruno): Mete · Home · Learning Agreement; Percorso e Profilo si aprono da Home e Menu.\nHome e Percorso usano i testi reali di oggi (bando 2027/28 non ancora uscito, date 2026/27 solo come riferimento).\nOnboarding: la mappa vera del sito resta, qui è un segnaposto.\nPercentuali ed esami restano d'esempio."
+    }
+  ],
+  "launch": {
+    "view": "canvas",
+    "page": "scelta"
+  }
+}
