@@ -86,61 +86,53 @@
   --shadow-gold: 0 2px 6px rgba(180,83,9,.10), 0 10px 28px rgba(251,191,36,.24);
 }
 /* token-runtime:fine */
-    body { margin: 0; background: var(--bg-app); font-family: var(--font-body); color: var(--text-dark); -webkit-font-smoothing: antialiased; }
+    body { margin: 0; background: var(--night-bg); font-family: var(--font-body); color: var(--text-dark); -webkit-font-smoothing: antialiased; }
     a { color: var(--primary); } a:hover { color: var(--primary-hover); }
     button { font: inherit; }
+    html, body { overflow-x: hidden; }
     .info:hover .info-tip, .info:focus-visible .info-tip { display: block !important; }
     .info:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
   </style>
 </helmet>
-<div style="width: 390px; min-height: 980px; box-sizing: border-box; display: flex; flex-direction: column; background: var(--bg-app)">
-  <header style="display: flex; align-items: center; justify-content: space-between; padding: 10px 8px 0 16px">
-    <img src="logo-mark.svg" alt="ErasmusWiz" style="width: 30px; height: 30px">
-    <span style="display: grid; place-items: center; width: 44px; height: 44px; color: var(--text-dark)" aria-label="Menu"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M4 7h16"></path><path d="M4 12h16"></path><path d="M4 17h16"></path></svg></span>
-  </header>
-  <main style="flex: 1; padding: 12px 16px 32px; display: flex; flex-direction: column; gap: 28px">
-    <div style="display: flex; flex-direction: column; gap: 10px">
-      <h1 style="margin: 0; font-family: var(--font-body); font-weight: 800; font-size: 28px; line-height: 1.15; letter-spacing: -.025em; color: var(--text-dark); text-wrap: balance">Scopri dove può portarti il tuo Erasmus.</h1>
-      <p style="margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--text-muted)">Capisci il bando, scegli mete davvero accessibili e non perdere i passaggi importanti. Gratis, senza account.</p>
+<div style="position: relative; width: 390px; height: 844px; background: var(--night-bg); overflow: hidden">
+      <div style="position: absolute; inset: 0"><div style="position: relative; height: 844px; overflow: hidden">
+    <svg viewBox="0 0 390 844" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="position: absolute; inset: 0">
+      <g fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.14)" stroke-width="1">
+        <path d="M-10 523.28 C40 422 30 303.84 80 270.08 C120 236.32000000000002 110 118.16000000000001 160 101.28 C200 84.4 215 168.8 250 135.04 C300 84.4 330 33.76 400 67.52 L400 590.8 C360 557.0400000000001 350 675.2 300 658.32 C260 641.44 250 759.6 210 725.84 C170 692.0799999999999 160 590.8 120 624.56 C80 658.32 50 759.6 -10 708.9599999999999 Z"></path>
+        <path d="M150 658.32 C165 692.0799999999999 175 801.8 190 827.12 L180 860.88 C165 801.8 150 742.72 145 675.2 Z"></path>
+        <path d="M60 168.8 C70 101.28 95 84.4 100 168.8 C98 227.88000000000002 75 236.32000000000002 60 168.8 Z"></path>
+      </g>
+    </svg>
+    <span style="position: absolute; left: 22%; top: 58%; width: 11px; height: 11px; margin: -5px 0 0 -5px; border-radius: 50%; border: 2px solid var(--night-bg); box-shadow: 0 0 0 3px rgba(34,197,94,.25); background: #4ADE80"></span><span style="position: absolute; left: 34%; top: 40%; width: 11px; height: 11px; margin: -5px 0 0 -5px; border-radius: 50%; border: 2px solid var(--night-bg); box-shadow: 0 0 0 3px rgba(34,197,94,.25); background: #4ADE80"></span><span style="position: absolute; left: 47%; top: 55%; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; border: 2px solid var(--night-bg); box-shadow: 0 0 0 6px rgba(34,197,94,.25); background: #4ADE80"></span><span style="position: absolute; left: 58%; top: 34%; width: 11px; height: 11px; margin: -5px 0 0 -5px; border-radius: 50%; border: 2px solid var(--night-bg); box-shadow: 0 0 0 3px rgba(251,191,36,.25); background: var(--gold)"></span><span style="position: absolute; left: 66%; top: 62%; width: 11px; height: 11px; margin: -5px 0 0 -5px; border-radius: 50%; border: 2px solid var(--night-bg); box-shadow: 0 0 0 3px rgba(34,197,94,.25); background: #4ADE80"></span><span style="position: absolute; left: 76%; top: 44%; width: 11px; height: 11px; margin: -5px 0 0 -5px; border-radius: 50%; border: 2px solid var(--night-bg); box-shadow: 0 0 0 3px rgba(239,68,68,.22); background: #F87171"></span><span style="position: absolute; left: 41%; top: 70%; width: 11px; height: 11px; margin: -5px 0 0 -5px; border-radius: 50%; border: 2px solid var(--night-bg); box-shadow: 0 0 0 3px rgba(251,191,36,.25); background: var(--gold)"></span><span style="position: absolute; left: 84%; top: 28%; width: 11px; height: 11px; margin: -5px 0 0 -5px; border-radius: 50%; border: 2px solid var(--night-bg); box-shadow: 0 0 0 3px rgba(34,197,94,.25); background: #4ADE80"></span><span style="position: absolute; left: 28%; top: 76%; width: 11px; height: 11px; margin: -5px 0 0 -5px; border-radius: 50%; border: 2px solid var(--night-bg); box-shadow: 0 0 0 3px rgba(34,197,94,.25); background: #4ADE80"></span><span style="position: absolute; left: 52%; top: 22%; width: 11px; height: 11px; margin: -5px 0 0 -5px; border-radius: 50%; border: 2px solid var(--night-bg); box-shadow: 0 0 0 3px rgba(251,191,36,.25); background: var(--gold)"></span>
+    <span style="position: absolute; left: 47%; top: 55%; transform: translate(-50%, -150%); white-space: nowrap; padding: 6px 10px; border-radius: 99px; background: #fff; color: var(--night-bg); font-size: 12.5px; font-weight: 700; box-shadow: 0 6px 18px rgba(0,0,0,.25)">Lubiana</span>
+    
+  </div></div>
+      <span style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(33,30,66,.85) 0%, rgba(33,30,66,0) 28%, rgba(33,30,66,0) 45%, rgba(33,30,66,.92) 70%)"></span>
+      <div style="position: absolute; inset: 0; display: flex; flex-direction: column">
+        <header style="display: flex; align-items: center; justify-content: space-between; padding: 10px 8px 0 16px; position: relative; z-index: 2">
+    <span style="display: inline-flex; align-items: center; gap: 8px; flex: none">
+    <img src="logo-mark.svg" alt="" style="width: 28px; height: 28px">
+    <span style="font-family: var(--font-display); font-weight: 800; font-size: 17px; letter-spacing: -.01em; line-height: 1; color: #fff">ErasmusWiz</span>
+  </span>
+    <span style="display: grid; place-items: center; width: 44px; height: 44px; color: #fff"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M4 7h16"></path><path d="M4 12h16"></path><path d="M4 17h16"></path></svg></span></header>
+        <div style="padding: 8px 16px 0; display: flex; flex-direction: column; gap: 12px"><h1 style="margin: 0; font-family: var(--font-body); font-weight: 800; font-size: 30px; line-height: 1.12; letter-spacing: -.025em; color: #fff; text-wrap: balance">Scopri dove può portarti il tuo Erasmus.</h1><div style="display: flex; flex-wrap: wrap; gap: 14px; font-size: 12.5px; font-weight: 700">
+    <span style="display: inline-flex; align-items: center; gap: 6px; color: #fff"><span style="width: 9px; height: 9px; border-radius: 50%; background: #4ADE80"></span>Compatibile</span>
+    <span style="display: inline-flex; align-items: center; gap: 6px; color: #fff"><span style="width: 9px; height: 9px; border-radius: 50%; background: var(--gold)"></span>Da verificare</span>
+    <span style="display: inline-flex; align-items: center; gap: 6px; color: #fff"><span style="width: 9px; height: 9px; border-radius: 50%; background: #F87171"></span>Non accessibile ora</span></div></div>
+        <div style="margin-top: auto; padding: 0 12px 16px">
+          <div style="border-radius: 24px; padding: 18px 14px 12px; background: rgba(28,26,56,.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: inset 0 0 0 1px rgba(255,255,255,.12); display: flex; flex-direction: column; gap: 12px">
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 0 2px"><span style="display: flex; align-items: center; gap: 10px"><img src="mascot-wiz.svg" alt="" style="width: 34px; height: 43px; flex: none; display: block"><span style="font-size: 16px; font-weight: 700; color: #fff">Ciao! Dove studi?</span></span><span style="display: flex; gap: 6px"><span style="width: 8px; height: 8px; border-radius: 99px; background: var(--gold)"></span><span style="width: 22px; height: 8px; border-radius: 99px; background: var(--gold)"></span><span style="width: 8px; height: 8px; border-radius: 99px; background: rgba(255,255,255,.18)"></span><span style="width: 8px; height: 8px; border-radius: 99px; background: rgba(255,255,255,.18)"></span></span></div>
+            <div style="display: flex; align-items: center; gap: 12px; min-height: 58px; padding: 10px 14px; border-radius: var(--radius-md); background: rgba(255,255,255,.14); box-shadow: inset 0 0 0 1.5px var(--gold)">
+    <span style="width: 20px; height: 20px; border-radius: 50%; flex: none; box-sizing: border-box; border: 6px solid var(--gold);"></span>
+    <span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 700; color: #fff">Sapienza Università di Roma</span><span style="font-size: 13px; color: var(--night-muted)">Bando unico Erasmus+ per studio</span></span></div>
+            <div style="display: flex; align-items: center; gap: 12px; min-height: 58px; padding: 10px 14px; border-radius: var(--radius-md); background: rgba(255,255,255,.06); box-shadow: inset 0 0 0 1px rgba(255,255,255,.12)">
+    <span style="width: 20px; height: 20px; border-radius: 50%; flex: none; box-sizing: border-box; border: 1.5px solid rgba(255,255,255,.4);"></span>
+    <span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 700; color: #fff">Università Ca' Foscari Venezia</span><span style="font-size: 13px; color: var(--night-muted)">Bando Erasmus+ studio</span></span></div>
+            <span style="display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 20px; border-radius: var(--radius-md); background: #fff; color: var(--night-bg); font-size: 15px; font-weight: 700">Continua<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--night-bg)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></span>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <div style="display: flex; flex-direction: column; gap: 14px">
-      <div style="display: flex; align-items: center; justify-content: space-between">
-        <span style="font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-hint)">Passo 2 di 4 · Ateneo</span>
-        <span style="display: flex; gap: 6px"><span style="width: 8px; height: 8px; border-radius: 99px; background: var(--night-bg)"></span><span style="width: 22px; height: 8px; border-radius: 99px; background: var(--night-bg)"></span><span style="width: 8px; height: 8px; border-radius: 99px; background: var(--bg-track)"></span><span style="width: 8px; height: 8px; border-radius: 99px; background: var(--bg-track)"></span></span>
-      </div>
-      <div style="display: flex; align-items: flex-end; gap: 12px">
-        <img src="mascot-wiz.svg" alt="" style="width: 58px; height: 74px; flex: none; display: block">
-        <div style="position: relative; margin-bottom: 18px; padding: 12px 14px; background: var(--bg-card); border-radius: var(--radius-lg); box-shadow: 0 1px 2px rgba(30,27,46,.04); border-radius: 16px 16px 16px 4px; font-size: 15px; font-weight: 600; color: var(--text-dark)">Ciao! Sono Wiz. Dove studi?</div>
-      </div>
-      <div style="display: flex; flex-direction: column; gap: 10px">
-        <div style="display: flex; align-items: center; gap: 12px; min-height: 60px; padding: 10px 14px; background: var(--bg-card); border-radius: var(--radius-lg); box-shadow: 0 1px 2px rgba(30,27,46,.04); box-shadow: inset 0 0 0 1.5px var(--primary);">
-    <span style="width: 20px; height: 20px; border-radius: 50%; flex: none; box-sizing: border-box; border: 6px solid var(--primary);"></span>
-    <span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 700; color: var(--text-dark)">Sapienza Università di Roma</span><span style="font-size: 13px; color: var(--text-hint)">Bando unico Erasmus+ per studio</span></span>
-  </div>
-        <div style="display: flex; align-items: center; gap: 12px; min-height: 60px; padding: 10px 14px; background: var(--bg-card); border-radius: var(--radius-lg); box-shadow: 0 1px 2px rgba(30,27,46,.04); ">
-    <span style="width: 20px; height: 20px; border-radius: 50%; flex: none; box-sizing: border-box; border: 1.5px solid var(--border-strong);"></span>
-    <span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 700; color: var(--text-dark)">Università Ca' Foscari Venezia</span><span style="font-size: 13px; color: var(--text-hint)">Bando Erasmus+ studio</span></span>
-  </div>
-      </div>
-      <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
-        <a href="#" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 8px; font-size: 14px; font-weight: 700; color: var(--primary); text-decoration: none; flex: none"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M19 12H5"></path><path d="M11 18l-6-6 6-6"></path></svg>Indietro</a>
-        <span style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: var(--radius-md); min-height: 44px; padding: 0 18px; font-weight: 700; font-family: var(--font-body); font-size: 14.5px; white-space: nowrap; background: var(--night-bg); color: #fff;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>Continua</span>
-      </div>
-    </div>
-
-    <div style="display: flex; flex-direction: column; gap: 10px">
-      <div style="position: relative; height: 220px; border-radius: var(--radius-lg); overflow: hidden; background: var(--bg-card-hover)">
-        <svg viewBox="0 0 360 220" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="position: absolute; inset: 0"><path d="M40 170 C70 120 60 80 110 70 C150 60 150 30 200 40 C250 50 260 20 300 45 C330 65 320 110 290 130 C260 150 280 190 230 195 C180 200 170 175 130 185 C90 195 60 200 40 170 Z" fill="var(--bg-track)"></path></svg>
-        <span style="position: absolute; left: 30%; top: 60%; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 1px 3px rgba(30,27,46,.25); background: var(--green)"></span><span style="position: absolute; left: 46%; top: 38%; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 1px 3px rgba(30,27,46,.25); background: var(--green)"></span><span style="position: absolute; left: 58%; top: 55%; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 1px 3px rgba(30,27,46,.25); background: var(--amber)"></span><span style="position: absolute; left: 70%; top: 30%; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 1px 3px rgba(30,27,46,.25); background: var(--green)"></span><span style="position: absolute; left: 52%; top: 72%; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 1px 3px rgba(30,27,46,.25); background: var(--red)"></span><span style="position: absolute; left: 40%; top: 48%; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 1px 3px rgba(30,27,46,.25); background: var(--amber)"></span>
-        <span style="position: absolute; left: 12px; bottom: 10px; font-size: 11.5px; font-weight: 600; color: var(--text-hint)">Mappa reale del sito · segnaposto</span>
-      </div>
-      <div style="display: flex; flex-wrap: wrap; gap: 14px"><span style="display: inline-flex; align-items: center; gap: 5px; color: var(--green); font-size: 12.5px; font-weight: 700; white-space: nowrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M20 6L9 17l-5-5"></path></svg>Compatibile</span><span style="display: inline-flex; align-items: center; gap: 5px; color: var(--amber); font-size: 12.5px; font-weight: 700; white-space: nowrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M12 4l9 16H3z"></path><path d="M12 10v4"></path><path d="M12 17.5v.5"></path></svg>Da verificare</span><span style="display: inline-flex; align-items: center; gap: 5px; color: var(--red); font-size: 12.5px; font-weight: 700; white-space: nowrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>Non accessibile ora</span></div>
-    </div>
-
-    <p style="margin: 0; font-size: 13px; line-height: 1.5; color: var(--text-hint)">I dati restano su questo dispositivo. Se cancelli i dati del browser o cambi dispositivo, il percorso non viene recuperato.</p></main>
-  
-</div>
 </x-dc>
 </body>
 </html>

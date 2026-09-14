@@ -121,6 +121,27 @@ centro su mobile), Menu in alto a destra; Percorso e Profilo da Home/Menu.
 Voce attiva `--gold` su `rgba(251,191,36,.12)`; icone SVG a tratto (non emoji)
 nelle schermate nuove.
 
+### V4.12-bis Onboarding (scelta 14/09: opzione C) — DESIDERATA DA IMPLEMENTARE
+- Layout: mappa a tutto sfondo su `--night-bg`, titolo + legenda dei pallini
+  (Compatibile / Da verificare / Non accessibile ora) in alto, scheda di vetro
+  in basso con Wiz, passo, scelte e «Continua» bianco. Etichetta sul pin: solo
+  il nome della destinazione.
+- **Rotte che si irradiano dall'ateneo (non ancora nel codice).** Oggi esiste
+  solo la scena decorativa (`mappaRotteScena()` in `js/app.js`, `.rotta-oro`
+  in `css/style.css`): 6 rotte fisse dalle due città-ateneo, rimosse all'avvio
+  del flusso. Da costruire:
+  1. alla scelta dell'ateneo, le rotte tratteggiate in movimento partono
+     **dalla città di quell'ateneo** verso le sue mete reali (coordinate dai
+     dati, mai inventate), comparendo in sequenza;
+  2. a ogni risposta successiva (cosa studi, livello, lingue) le rotte e i pin
+     **si restringono** alle mete coerenti; quelle escluse sfumano, quelle
+     rimaste prendono il colore del semaforo;
+  3. vincoli: tetto al numero di rotte animate insieme (prestazioni su
+     telefono, dataset Sapienza ~1.600 mete), `prefers-reduced-motion` →
+     niente animazione, solo stato finale; pausa con Page Visibility come oggi.
+- Colori dei pin su blu: servono token nuovi (verde e rosso chiari) con
+  contrasto verificato; oggi i pallini dell'artboard usano valori provvisori.
+
 ### V4.13 Aperti (da decidere in implementazione)
 - Icone SVG al posto delle emoji anche nei testi dinamici di `app.js`
   (es. «Fatto ✨», stazioni 🧭): richiede toccare copy, non solo CSS.

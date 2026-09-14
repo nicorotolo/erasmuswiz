@@ -89,13 +89,17 @@
     body { margin: 0; background: var(--bg-app); font-family: var(--font-body); color: var(--text-dark); -webkit-font-smoothing: antialiased; }
     a { color: var(--primary); } a:hover { color: var(--primary-hover); }
     button { font: inherit; }
+    html, body { overflow-x: hidden; }
     .info:hover .info-tip, .info:focus-visible .info-tip { display: block !important; }
     .info:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
   </style>
 </helmet>
-<div style="width: 1280px; min-height: 820px; box-sizing: border-box; background: var(--bg-app); display: flex; flex-direction: column">
+<div style="width: 1280px; min-height: 870px; box-sizing: border-box; background: var(--bg-app); display: flex; flex-direction: column">
   <nav style="display: flex; align-items: center; gap: 8px; height: 64px; padding: 0 70px; background: var(--night-bg); color: var(--night-text)">
-    <img src="logo-mark.svg" alt="" style="width: 30px; height: 30px"><span style="font-family: var(--font-display); font-weight: 800; font-size: 18px; margin-right: 24px">ErasmusWiz</span>
+    <span style="margin-right: 24px"><span style="display: inline-flex; align-items: center; gap: 8px; flex: none">
+    <img src="logo-mark.svg" alt="" style="width: 29px; height: 29px">
+    <span style="font-family: var(--font-display); font-weight: 800; font-size: 18px; letter-spacing: -.01em; line-height: 1; color: #fff">ErasmusWiz</span>
+  </span></span>
     <span style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: var(--radius-md); font-size: 14px; font-weight: 800; color: var(--gold); background: rgba(251,191,36,0.12)">Mete</span><span style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: var(--radius-md); font-size: 14px; font-weight: 700; color: var(--night-muted); background: transparent">Home</span><span style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: var(--radius-md); font-size: 14px; font-weight: 700; color: var(--night-muted); background: transparent">Learning Agreement</span>
     <span style="margin-left: auto; display: grid; place-items: center; width: 44px; height: 44px; color: var(--night-muted)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M4 7h16"></path><path d="M4 12h16"></path><path d="M4 17h16"></path></svg></span>
   </nav>

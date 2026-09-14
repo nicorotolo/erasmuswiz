@@ -132,8 +132,8 @@
       "x": 0,
       "y": 2800,
       "w": 390,
-      "h": 980,
-      "title": "Scelta · V3 + tipografia V2 — Onboarding · 390",
+      "h": 844,
+      "title": "Scelta · V3 + tipografia V2 — Onboarding · 390 (opzione C scelta)",
       "page": "scelta"
     },
     {
@@ -141,7 +141,7 @@
       "x": 490,
       "y": 2800,
       "w": 390,
-      "h": 1130,
+      "h": 1070,
       "title": "Scelta · V3 + tipografia V2 — Home · 390",
       "page": "scelta"
     },
@@ -150,7 +150,7 @@
       "x": 980,
       "y": 2800,
       "w": 390,
-      "h": 1120,
+      "h": 1240,
       "title": "Scelta · V3 + tipografia V2 — Percorso · 390",
       "page": "scelta"
     },
@@ -159,7 +159,7 @@
       "x": 1470,
       "y": 2800,
       "w": 390,
-      "h": 1180,
+      "h": 1250,
       "title": "Scelta · V3 + tipografia V2 — Profilo · 390",
       "page": "scelta"
     },
@@ -168,7 +168,7 @@
       "x": 1960,
       "y": 2800,
       "w": 1280,
-      "h": 820,
+      "h": 870,
       "title": "Scelta · V3 + tipografia V2 — Mete · 1280",
       "page": "scelta"
     }
@@ -196,7 +196,7 @@
       "x": -420,
       "y": 2800,
       "w": 340,
-      "text": "Blocco 1, 14/09: le schermate mancanti nella direzione scelta.\n\nNavigazione come nel sito reale (tranche pre-Bruno): Mete · Home · Learning Agreement; Percorso e Profilo si aprono da Home e Menu.\nHome e Percorso usano i testi reali di oggi (bando 2027/28 non ancora uscito, date 2026/27 solo come riferimento).\nOnboarding: la mappa vera del sito resta, qui è un segnaposto.\nPercentuali ed esami restano d'esempio."
+      "text": "Blocco 1, 14/09: le schermate mancanti nella direzione scelta.\n\nNavigazione come nel sito reale (tranche pre-Bruno): Mete · Home · Learning Agreement; Percorso e Profilo si aprono da Home e Menu.\nHome e Percorso usano i testi reali di oggi (bando 2027/28 non ancora uscito, date 2026/27 solo come riferimento).\nOnboarding: scelta l'opzione C su blu (mappa di sfondo, scheda di vetro); la mappa vera del sito resta, qui è un segnaposto.\nPercentuali ed esami restano d'esempio."
     }
   ],
   "launch": {

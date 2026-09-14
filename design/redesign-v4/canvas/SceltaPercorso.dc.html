@@ -89,13 +89,17 @@
     body { margin: 0; background: var(--bg-app); font-family: var(--font-body); color: var(--text-dark); -webkit-font-smoothing: antialiased; }
     a { color: var(--primary); } a:hover { color: var(--primary-hover); }
     button { font: inherit; }
+    html, body { overflow-x: hidden; }
     .info:hover .info-tip, .info:focus-visible .info-tip { display: block !important; }
     .info:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
   </style>
 </helmet>
-<div style="width: 390px; min-height: 1120px; box-sizing: border-box; display: flex; flex-direction: column; background: var(--bg-app)">
+<div style="width: 390px; min-height: 1240px; box-sizing: border-box; display: flex; flex-direction: column; background: var(--bg-app)">
   <header style="display: flex; align-items: center; justify-content: space-between; padding: 10px 8px 0 16px">
-    <img src="logo-mark.svg" alt="ErasmusWiz" style="width: 30px; height: 30px">
+    <span style="display: inline-flex; align-items: center; gap: 8px; flex: none">
+    <img src="logo-mark.svg" alt="" style="width: 28px; height: 28px">
+    <span style="font-family: var(--font-display); font-weight: 800; font-size: 17px; letter-spacing: -.01em; line-height: 1; color: var(--night-bg)">ErasmusWiz</span>
+  </span>
     <span style="display: grid; place-items: center; width: 44px; height: 44px; color: var(--text-dark)" aria-label="Menu"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M4 7h16"></path><path d="M4 12h16"></path><path d="M4 17h16"></path></svg></span>
   </header>
   <main style="flex: 1; padding: 12px 16px 32px; display: flex; flex-direction: column; gap: 28px">
@@ -111,6 +115,7 @@
               <div style="display: flex; flex-direction: column; gap: 3px; min-width: 0">
                 <span style="font-size: 15.5px; font-weight: 700; color: var(--text-dark)">Requisiti</span>
                 <span style="font-size: 13px; line-height: 1.45; color: var(--text-hint)">Verifica i requisiti del bando: sono uguali per tutte le mete.</span>
+                
               </div>
               <span style="padding-top: 2px"><span style="display: inline-flex; align-items: center; gap: 5px; color: var(--green); font-size: 12.5px; font-weight: 700; white-space: nowrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M20 6L9 17l-5-5"></path></svg>Fatto</span></span>
             </div>
@@ -123,6 +128,7 @@
               <div style="display: flex; flex-direction: column; gap: 3px; min-width: 0">
                 <span style="font-size: 15.5px; font-weight: 700; color: var(--text-dark)">Mete e le 5 scelte</span>
                 <span style="font-size: 13px; line-height: 1.45; color: var(--text-hint)">Esplora e salva le tue preferite: ne hai 2.</span>
+                
               </div>
               <span style="color: var(--text-hint); padding-top: 2px; "><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M6 9l6 6 6-6"></path></svg></span>
             </div>
@@ -135,6 +141,7 @@
               <div style="display: flex; flex-direction: column; gap: 3px; min-width: 0">
                 <span style="font-size: 15.5px; font-weight: 700; color: var(--text-dark)">Candidatura e scadenze</span>
                 <span style="font-size: 13px; line-height: 1.45; color: var(--text-hint)">I passi da fare, capitolo per capitolo, con le date del bando.</span>
+                
               </div>
               <span style="color: var(--text-hint); padding-top: 2px; transform: rotate(180deg);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M6 9l6 6 6-6"></path></svg></span>
             </div>
@@ -152,49 +159,52 @@
               </label><label style="display: flex; align-items: flex-start; gap: 12px; min-height: 44px; font-size: 14px; line-height: 1.45; color: var(--text-dark)">
                 <span style="display: grid; place-items: center; width: 22px; height: 22px; margin-top: 1px; flex: none; border-radius: 6px; box-sizing: border-box; border: 1.5px solid var(--border-strong); background: var(--bg-card);"></span>
                 <span style="">Verificare il livello di lingua richiesto da ogni destinazione che ti interessa.</span>
-              </label><label style="display: flex; align-items: flex-start; gap: 12px; min-height: 44px; font-size: 14px; line-height: 1.45; color: var(--text-dark)">
-                <span style="display: grid; place-items: center; width: 22px; height: 22px; margin-top: 1px; flex: none; border-radius: 6px; box-sizing: border-box; border: 1.5px solid var(--border-strong); background: var(--bg-card);"></span>
-                <span style="">Compilare la domanda online entro la scadenza, indicando le destinazioni in ordine di preferenza.</span>
-              </label>
+              </label><div style="display: flex; align-items: flex-start; gap: 12px; min-height: 44px; font-size: 14px; line-height: 1.45; color: var(--text-muted)">
+                <span style="display: grid; place-items: center; width: 22px; height: 22px; margin-top: 1px; flex: none; border-radius: 6px; background: var(--bg-track)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--text-hint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></span>
+                <span style="display: flex; flex-direction: column; gap: 2px"><span>Compilare la domanda online entro la scadenza, indicando le destinazioni in ordine di preferenza.</span><span style="font-size: 12.5px; font-weight: 700; color: var(--text-muted)">Si apre con il bando 2027/28</span></span>
+              </div>
               <div style="display: flex; align-items: center; gap: 10px; padding-top: 12px; border-top: 1px solid var(--border)">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-hint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><rect x="4" y="5" width="16" height="15" rx="2"></rect><path d="M8 3v4M16 3v4M4 10h16"></path></svg>
-                <span style="font-size: 13px; line-height: 1.45; color: var(--text-muted)">Date del ciclo 2026/27, solo come riferimento: chiusura candidature 27 febbraio e 27 maggio 2026.</span>
+                <span style="font-size: 13px; line-height: 1.45; color: var(--text-muted)">Bando 2026/27: candidature chiuse il 27 febbraio e il 27 maggio 2026.</span>
               </div>
             </div>
           </div>
         </li><li style="display: grid; grid-template-columns: 30px minmax(0, 1fr); column-gap: 14px">
-          <div style="display: flex; flex-direction: column; align-items: center"><span style="display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; flex: none; font-family: var(--font-mono); font-size: 13px; font-weight: 700; background: var(--bg-track); color: var(--text-muted);">4</span><span style="flex: 1; width: 2px; min-height: 18px; background: var(--border)"></span></div>
+          <div style="display: flex; flex-direction: column; align-items: center"><span style="display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; flex: none; background: var(--bg-card); box-shadow: inset 0 0 0 1.5px var(--border-strong)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-hint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></span><span style="flex: 1; width: 2px; min-height: 18px; background: var(--border)"></span></div>
           <div style="display: flex; flex-direction: column; gap: 10px; padding: 3px 0 22px">
             <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px">
               <div style="display: flex; flex-direction: column; gap: 3px; min-width: 0">
                 <span style="font-size: 15.5px; font-weight: 700; color: var(--text-muted)">L'esito</span>
                 <span style="font-size: 13px; line-height: 1.45; color: var(--text-hint)">Quando conosci l'esito della selezione, dichiaralo qui.</span>
+                <span style="display: inline-flex; align-items: center; gap: 5px; margin-top: 2px; font-size: 12.5px; font-weight: 700; color: var(--text-muted)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>Dopo la candidatura</span>
               </div>
-              <span style="color: var(--text-hint); padding-top: 2px; "><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M6 9l6 6 6-6"></path></svg></span>
+              <span style="color: var(--text-hint); padding-top: 2px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M6 9l6 6 6-6"></path></svg></span>
             </div>
             
           </div>
         </li><li style="display: grid; grid-template-columns: 30px minmax(0, 1fr); column-gap: 14px">
-          <div style="display: flex; flex-direction: column; align-items: center"><span style="display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; flex: none; font-family: var(--font-mono); font-size: 13px; font-weight: 700; background: var(--bg-track); color: var(--text-muted);">5</span><span style="flex: 1; width: 2px; min-height: 18px; background: var(--border)"></span></div>
+          <div style="display: flex; flex-direction: column; align-items: center"><span style="display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; flex: none; background: var(--bg-card); box-shadow: inset 0 0 0 1.5px var(--border-strong)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-hint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></span><span style="flex: 1; width: 2px; min-height: 18px; background: var(--border)"></span></div>
           <div style="display: flex; flex-direction: column; gap: 10px; padding: 3px 0 22px">
             <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px">
               <div style="display: flex; flex-direction: column; gap: 3px; min-width: 0">
                 <span style="font-size: 15.5px; font-weight: 700; color: var(--text-muted)">Learning Agreement</span>
                 <span style="font-size: 13px; line-height: 1.45; color: var(--text-hint)">Prepara la bozza: esami di casa, corsi host e corrispondenze.</span>
+                <span style="display: inline-flex; align-items: center; gap: 5px; margin-top: 2px; font-size: 12.5px; font-weight: 700; color: var(--text-muted)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>Dopo l'esito</span>
               </div>
-              <span style="color: var(--text-hint); padding-top: 2px; "><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M6 9l6 6 6-6"></path></svg></span>
+              <span style="color: var(--text-hint); padding-top: 2px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M6 9l6 6 6-6"></path></svg></span>
             </div>
             
           </div>
         </li><li style="display: grid; grid-template-columns: 30px minmax(0, 1fr); column-gap: 14px">
-          <div style="display: flex; flex-direction: column; align-items: center"><span style="display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; flex: none; font-family: var(--font-mono); font-size: 13px; font-weight: 700; background: var(--bg-track); color: var(--text-muted);">6</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center"><span style="display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; flex: none; background: var(--bg-card); box-shadow: inset 0 0 0 1.5px var(--border-strong)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-hint)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></span></div>
           <div style="display: flex; flex-direction: column; gap: 10px; padding: 3px 0 0px">
             <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 8px">
               <div style="display: flex; flex-direction: column; gap: 3px; min-width: 0">
                 <span style="font-size: 15.5px; font-weight: 700; color: var(--text-muted)">Parti: lo zaino</span>
                 <span style="font-size: 13px; line-height: 1.45; color: var(--text-hint)">Prima, durante e dopo la partenza.</span>
+                <span style="display: inline-flex; align-items: center; gap: 5px; margin-top: 2px; font-size: 12.5px; font-weight: 700; color: var(--text-muted)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>Dopo l'esito</span>
               </div>
-              <span style="color: var(--text-hint); padding-top: 2px; "><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M6 9l6 6 6-6"></path></svg></span>
+              <span style="color: var(--text-hint); padding-top: 2px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; display: block"><path d="M6 9l6 6 6-6"></path></svg></span>
             </div>
             
           </div>

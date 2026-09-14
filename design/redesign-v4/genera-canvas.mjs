@@ -230,6 +230,7 @@ ${TOKEN}
     body { margin: 0; background: ${sfondo}; font-family: var(--font-body); color: var(--text-dark); -webkit-font-smoothing: antialiased; }
     a { color: var(--primary); } a:hover { color: var(--primary-hover); }
     button { font: inherit; }
+    html, body { overflow-x: hidden; }
     .info:hover .info-tip, .info:focus-visible .info-tip { display: block !important; }
     .info:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
   </style>
@@ -324,7 +325,7 @@ function mete(T) {
 
   const corpo = `<div style="width: 390px; min-height: 1600px; box-sizing: border-box; display: flex; flex-direction: column; background: var(--bg-app)">
   <header style="display: flex; align-items: center; justify-content: space-between; padding: 10px 8px 0 16px">
-    <img src="logo-mark.svg" alt="ErasmusWiz" style="width: 30px; height: 30px">
+    ${T.bottoniC ? marchio() : `<img src="logo-mark.svg" alt="ErasmusWiz" style="width: 30px; height: 30px">`}
     <span style="display: grid; place-items: center; width: 44px; height: 44px; color: var(--text-dark)" aria-label="Menu">${ico(I.menu, 22)}</span>
   </header>
   <main style="flex: 1; padding: ${T.cardOrdinata ? "12px 16px 32px" : "8px 16px 24px"}; display: flex; flex-direction: column; gap: ${T.cardOrdinata ? 32 : T.secGap}px">
@@ -420,7 +421,7 @@ function la(T) {
 
   const corpo = `<div style="width: 1280px; min-height: 940px; box-sizing: border-box; background: var(--bg-app); display: flex; flex-direction: column">
   <nav style="display: flex; align-items: center; gap: 8px; height: 64px; padding: 0 70px; background: var(--night-bg); color: var(--night-text)">
-    <img src="logo-mark.svg" alt="" style="width: 30px; height: 30px"><span style="font-family: var(--font-display); font-weight: 800; font-size: 18px; margin-right: 24px">ErasmusWiz</span>
+    ${T.bottoniC ? `<span style="margin-right: 24px">${marchio(true, 18)}</span>` : `<img src="logo-mark.svg" alt="" style="width: 30px; height: 30px"><span style="font-family: var(--font-display); font-weight: 800; font-size: 18px; margin-right: 24px">ErasmusWiz</span>`}
     ${(T.bottoniC ? VOCI_NAV("learning-agreement").map(([l, , a]) => [l, a]) : [["Oggi", false], ["Mete", false], ["Percorso", false], ["Learning Agreement", true]]).map(([l, a]) => `<span style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: var(--radius-md); font-size: 14px; font-weight: ${a ? 800 : 700}; color: ${a ? "var(--gold)" : "var(--night-muted)"}; background: ${a ? "rgba(251,191,36,0.12)" : "transparent"}">${l}</span>`).join("")}
   </nav>
   <main style="width: 1140px; margin: 0 auto; padding: 24px 0 48px; display: flex; flex-direction: column; gap: ${T.gap + 4}px">
@@ -559,6 +560,15 @@ function bottoni() {
 // Blocco 1 (Fase 2): schermate mancanti nella direzione scelta.
 // Contenuti dal sito reale: copy di index.html/app.js, dati Sapienza.
 // ════════════════════════════════════════════════════════════════════════
+// Marchio (scelta di Nicola, 14/09): cappellino + «ErasmusWiz», come nella
+// barra scura; bianco su inchiostro, --night-bg su fondo chiaro.
+function marchio(scuro = false, dimensione = 17) {
+  return `<span style="display: inline-flex; align-items: center; gap: 8px; flex: none">
+    <img src="logo-mark.svg" alt="" style="width: ${dimensione + 11}px; height: ${dimensione + 11}px">
+    <span style="font-family: var(--font-display); font-weight: 800; font-size: ${dimensione}px; letter-spacing: -.01em; line-height: 1; color: ${scuro ? "#fff" : "var(--night-bg)"}">ErasmusWiz</span>
+  </span>`;
+}
+
 function VOCI_NAV(attiva) {
   return [["Mete", I.map, attiva === "mete"], ["Home", I.home, attiva === "oggi"], ["Learning Agreement", I.doc, attiva === "learning-agreement"]];
 }
@@ -569,7 +579,7 @@ function navMobile(attiva) {
 
 function testataMobile() {
   return `<header style="display: flex; align-items: center; justify-content: space-between; padding: 10px 8px 0 16px">
-    <img src="logo-mark.svg" alt="ErasmusWiz" style="width: 30px; height: 30px">
+    ${marchio()}
     <span style="display: grid; place-items: center; width: 44px; height: 44px; color: var(--text-dark)" aria-label="Menu">${ico(I.menu, 22)}</span>
   </header>`;
 }
@@ -589,12 +599,14 @@ function home(T) {
   const tappe = [
     ["Requisiti", "Profilo compilato: requisiti verificati.", "fatto"],
     ["Mete e le 5 scelte", "2 mete salvate tra le preferite.", "corso"],
-    ["Candidatura e scadenze", "Si apre con il bando 2027/28.", "dopo"],
-    ["Esito", "Quando conosci l'esito, dichiaralo qui.", "dopo"],
-    ["Learning Agreement", "Dopo accettazione, nomination e application.", "dopo"],
-    ["Parti: lo zaino", "Prima, durante e dopo la partenza.", "dopo"],
+    ["Candidatura e scadenze", "Puoi già prepararti; la domanda si apre con il bando.", "dopo"],
+    ["Esito", "Dopo la candidatura.", "bloccata"],
+    ["Learning Agreement", "Dopo l'esito.", "bloccata"],
+    ["Parti: lo zaino", "Dopo l'esito.", "bloccata"],
   ];
-  const puntoTappa = (stato, n) => stato === "fatto"
+  const puntoTappa = (stato, n) => stato === "bloccata"
+    ? `<span style="display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; flex: none; background: var(--bg-card); box-shadow: inset 0 0 0 1.5px var(--border-strong)">${ico(I.lock, 13, "var(--text-hint)")}</span>`
+    : stato === "fatto"
     ? `<span style="display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--green-bg); color: var(--green); flex: none">${ico(I.check, 15, "var(--green)")}</span>`
     : `<span style="display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; flex: none; font-family: var(--font-mono); font-size: 12px; font-weight: 700; ${stato === "corso" ? "background: var(--night-bg); color: #fff;" : "background: var(--bg-track); color: var(--text-muted);"}">${n}</span>`;
   const contenuto = `
@@ -603,22 +615,16 @@ function home(T) {
       <h1 style="margin: 0; ${T.h1} color: var(--text-dark)">Il tuo percorso Erasmus</h1>
     </div>
 
-    <section style="${SUPERFICIE} padding: 20px; display: flex; flex-direction: column; gap: 14px">
-      <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-dark)">${ico('<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"></path>', 14, "var(--gold-dark)")}La tua prossima mossa</span>
-      <div style="display: flex; flex-direction: column; gap: 8px">
-        <h2 style="margin: 0; font-family: var(--font-body); font-weight: 800; font-size: 20px; line-height: 1.25; letter-spacing: -.015em; color: var(--text-dark)">Il bando 2027/28 non è ancora uscito</h2>
-        <p style="margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--text-muted); text-wrap: pretty">Il bando precedente è uscito il 16 dicembre 2025: quello nuovo è atteso in un periodo simile. Intanto puoi esplorare le mete e salvare le tue preferite.</p>
+    <section style="background: var(--night-bg); border-radius: var(--radius-lg); padding: 22px 20px 12px; display: flex; flex-direction: column; gap: 18px; color: #fff">
+      <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gold)">${ico('<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"></path>', 14, "var(--gold)")}La tua prossima mossa</span>
+      <div style="display: flex; flex-direction: column; gap: 4px">
+        <span style="font-size: 15px; font-weight: 600; color: #fff">Il bando 2027/28 esce tra circa</span>
+        <span style="font-family: var(--font-mono); font-weight: 700; font-size: 52px; line-height: 1; letter-spacing: -.04em; color: var(--gold)">93 giorni</span>
+        <span style="font-size: 12.5px; color: var(--night-muted)">stima riferita al bando 2026/27</span>
       </div>
-      <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--night-bg); border-radius: var(--radius-md); padding: 12px 14px">
-        <div style="display: flex; flex-direction: column; gap: 2px">
-          <span style="font-size: 13.5px; font-weight: 700; color: #fff">Bando 2027/28 atteso</span>
-          <span style="font-size: 12.5px; color: var(--night-muted)">stima dal bando precedente, non confermata</span>
-        </div>
-        <span style="font-family: var(--font-mono); font-weight: 700; font-size: 16px; color: var(--gold); white-space: nowrap">~93 giorni</span>
-      </div>
-      <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap">
-        ${bottoneC("primario", "Esplora le mete", "", I.map)}
-        ${LINK_AZIONE("Avvisami quando esce", '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"></path>')}
+      <div style="display: flex; flex-direction: column; align-items: stretch; gap: 4px">
+        <span style="display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; border-radius: var(--radius-md); background: #fff; color: var(--night-bg); font-size: 15px; font-weight: 700">${ico(I.map, 17, "var(--night-bg)")}Esplora le mete</span>
+        <span style="display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; font-size: 14px; font-weight: 700; color: var(--night-muted)">${ico('<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"></path>', 16, "var(--night-muted)")}Avvisami quando esce</span>
       </div>
     </section>
 
@@ -631,7 +637,7 @@ function home(T) {
         ${tappe.map(([t, sub, stato], i) => `<div style="display: flex; align-items: center; gap: 12px; padding: 12px 0; ${i < tappe.length - 1 ? "border-bottom: 1px solid var(--border);" : ""}">
           ${puntoTappa(stato, i + 1)}
           <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
-            <span style="font-size: 14.5px; font-weight: 700; color: ${stato === "dopo" ? "var(--text-muted)" : "var(--text-dark)"}">${t}</span>
+            <span style="font-size: 14.5px; font-weight: 700; color: ${stato === "bloccata" ? "var(--text-muted)" : "var(--text-dark)"}">${t}</span>
             <span style="font-size: 13px; color: var(--text-hint)">${sub}</span>
           </div>
           ${stato === "corso" ? `<span style="color: var(--primary)">${ico(I.arrow, 18, "var(--primary)")}</span>` : ""}
@@ -639,7 +645,7 @@ function home(T) {
       </div>
       <div style="display: flex; gap: 4px; margin-left: -8px">${LINK_AZIONE("Apri il Percorso", I.route)}${LINK_AZIONE("Learning Agreement", I.doc)}</div>
     </section>`;
-  return schermoMobile(T, "oggi", contenuto, 1130);
+  return schermoMobile(T, "oggi", contenuto, 1070);
 }
 
 // Onboarding (benvenuto sulla mappa) ─────────────────────────────────
@@ -653,7 +659,6 @@ function onboarding(T) {
   const contenuto = `
     <div style="display: flex; flex-direction: column; gap: 10px">
       <h1 style="margin: 0; font-family: var(--font-body); font-weight: 800; font-size: 28px; line-height: 1.15; letter-spacing: -.025em; color: var(--text-dark); text-wrap: balance">Scopri dove può portarti il tuo Erasmus.</h1>
-      <p style="margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--text-muted)">Capisci il bando, scegli mete davvero accessibili e non perdere i passaggi importanti. Gratis, senza account.</p>
     </div>
 
     <div style="display: flex; flex-direction: column; gap: 14px">
@@ -682,10 +687,96 @@ function onboarding(T) {
         <span style="position: absolute; left: 12px; bottom: 10px; font-size: 11.5px; font-weight: 600; color: var(--text-hint)">Mappa reale del sito · segnaposto</span>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 14px">${semaforo(T, "ok", "Compatibile")}${semaforo(T, "medio", "Da verificare")}${semaforo(T, "basso", "Non accessibile ora")}</div>
-    </div>
-
-    <p style="margin: 0; font-size: 13px; line-height: 1.5; color: var(--text-hint)">I dati restano su questo dispositivo. Se cancelli i dati del browser o cambi dispositivo, il percorso non viene recuperato.</p>`;
+    </div>`;
   return schermoMobile(T, null, contenuto, 980);
+}
+
+// Onboarding su blu: tre opzioni (commento di Nicola, 14/09) ───────────
+// A · mappa a tutto schermo in alto + foglio chiaro con la domanda
+// B · tutto su blu: mappa grande al centro, scelte traslucide
+// C · la mappa è lo sfondo dell'intera schermata, scheda di vetro in basso
+function mappaBlu(altezza, { sfumaSotto = false } = {}) {
+  const pin = (x, y, cat, grande = false) => `<span style="position: absolute; left: ${x}%; top: ${y}%; width: ${grande ? 16 : 11}px; height: ${grande ? 16 : 11}px; margin: -${grande ? 8 : 5}px 0 0 -${grande ? 8 : 5}px; border-radius: 50%; border: 2px solid var(--night-bg); box-shadow: 0 0 0 ${grande ? 6 : 3}px ${cat === "ok" ? "rgba(34,197,94,.25)" : cat === "medio" ? "rgba(251,191,36,.25)" : "rgba(239,68,68,.22)"}; background: ${cat === "ok" ? "#4ADE80" : cat === "medio" ? "var(--gold)" : "#F87171"}"></span>`;
+  return `<div style="position: relative; height: ${altezza}px; overflow: hidden">
+    <svg viewBox="0 0 390 ${altezza}" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="position: absolute; inset: 0">
+      <g fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.14)" stroke-width="1">
+        <path d="M-10 ${altezza * .62} C40 ${altezza * .5} 30 ${altezza * .36} 80 ${altezza * .32} C120 ${altezza * .28} 110 ${altezza * .14} 160 ${altezza * .12} C200 ${altezza * .1} 215 ${altezza * .2} 250 ${altezza * .16} C300 ${altezza * .1} 330 ${altezza * .04} 400 ${altezza * .08} L400 ${altezza * .7} C360 ${altezza * .66} 350 ${altezza * .8} 300 ${altezza * .78} C260 ${altezza * .76} 250 ${altezza * .9} 210 ${altezza * .86} C170 ${altezza * .82} 160 ${altezza * .7} 120 ${altezza * .74} C80 ${altezza * .78} 50 ${altezza * .9} -10 ${altezza * .84} Z"></path>
+        <path d="M150 ${altezza * .78} C165 ${altezza * .82} 175 ${altezza * .95} 190 ${altezza * .98} L180 ${altezza * 1.02} C165 ${altezza * .95} 150 ${altezza * .88} 145 ${altezza * .8} Z"></path>
+        <path d="M60 ${altezza * .2} C70 ${altezza * .12} 95 ${altezza * .1} 100 ${altezza * .2} C98 ${altezza * .27} 75 ${altezza * .28} 60 ${altezza * .2} Z"></path>
+      </g>
+    </svg>
+    ${pin(22, 58, "ok")}${pin(34, 40, "ok")}${pin(47, 55, "ok", true)}${pin(58, 34, "medio")}${pin(66, 62, "ok")}${pin(76, 44, "basso")}${pin(41, 70, "medio")}${pin(84, 28, "ok")}${pin(28, 76, "ok")}${pin(52, 22, "medio")}
+    <span style="position: absolute; left: 47%; top: 55%; transform: translate(-50%, -150%); white-space: nowrap; padding: 6px 10px; border-radius: 99px; background: #fff; color: var(--night-bg); font-size: 12.5px; font-weight: 700; box-shadow: 0 6px 18px rgba(0,0,0,.25)">Lubiana</span>
+    ${sfumaSotto ? `<span style="position: absolute; left: 0; right: 0; bottom: 0; height: 45%; background: linear-gradient(to bottom, rgba(33,30,66,0), var(--night-bg))"></span>` : ""}
+  </div>`;
+}
+
+function onboardingBlu(T, variante) {
+  const passiDots = (chiaro) => `<span style="display: flex; gap: 6px">${[0, 1, 2, 3].map(i => `<span style="width: ${i === 1 ? 22 : 8}px; height: 8px; border-radius: 99px; background: ${i <= 1 ? (chiaro ? "var(--night-bg)" : "var(--gold)") : (chiaro ? "var(--bg-track)" : "rgba(255,255,255,.18)")}"></span>`).join("")}</span>`;
+  const sceltaChiara = (nome, sub, attiva) => `<div style="display: flex; align-items: center; gap: 12px; min-height: 58px; padding: 10px 14px; background: var(--bg-card); border-radius: var(--radius-md); box-shadow: ${attiva ? "inset 0 0 0 1.5px var(--night-bg)" : "inset 0 0 0 1px var(--border)"}">
+    <span style="width: 20px; height: 20px; border-radius: 50%; flex: none; box-sizing: border-box; ${attiva ? "border: 6px solid var(--night-bg);" : "border: 1.5px solid var(--border-strong);"}"></span>
+    <span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 700; color: var(--text-dark)">${nome}</span><span style="font-size: 13px; color: var(--text-hint)">${sub}</span></span></div>`;
+  const sceltaBlu = (nome, sub, attiva) => `<div style="display: flex; align-items: center; gap: 12px; min-height: 58px; padding: 10px 14px; border-radius: var(--radius-md); background: ${attiva ? "rgba(255,255,255,.14)" : "rgba(255,255,255,.06)"}; box-shadow: ${attiva ? "inset 0 0 0 1.5px var(--gold)" : "inset 0 0 0 1px rgba(255,255,255,.12)"}">
+    <span style="width: 20px; height: 20px; border-radius: 50%; flex: none; box-sizing: border-box; ${attiva ? "border: 6px solid var(--gold);" : "border: 1.5px solid rgba(255,255,255,.4);"}"></span>
+    <span style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 700; color: #fff">${nome}</span><span style="font-size: 13px; color: var(--night-muted)">${sub}</span></span></div>`;
+  const bianco = (testo) => `<span style="display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 20px; border-radius: var(--radius-md); background: #fff; color: var(--night-bg); font-size: 15px; font-weight: 700">${testo}${ico(I.arrow, 17, "var(--night-bg)")}</span>`;
+  const testata = `<header style="display: flex; align-items: center; justify-content: space-between; padding: 10px 8px 0 16px; position: relative; z-index: 2">
+    ${marchio(true)}
+    <span style="display: grid; place-items: center; width: 44px; height: 44px; color: #fff">${ico(I.menu, 22, "#fff")}</span></header>`;
+  const titolo = `<h1 style="margin: 0; font-family: var(--font-body); font-weight: 800; font-size: 30px; line-height: 1.12; letter-spacing: -.025em; color: #fff; text-wrap: balance">Scopri dove può portarti il tuo Erasmus.</h1>`;
+  const legenda = `<div style="display: flex; flex-wrap: wrap; gap: 14px; font-size: 12.5px; font-weight: 700">
+    <span style="display: inline-flex; align-items: center; gap: 6px; color: #fff"><span style="width: 9px; height: 9px; border-radius: 50%; background: #4ADE80"></span>Compatibile</span>
+    <span style="display: inline-flex; align-items: center; gap: 6px; color: #fff"><span style="width: 9px; height: 9px; border-radius: 50%; background: var(--gold)"></span>Da verificare</span>
+    <span style="display: inline-flex; align-items: center; gap: 6px; color: #fff"><span style="width: 9px; height: 9px; border-radius: 50%; background: #F87171"></span>Non accessibile ora</span></div>`;
+  const nota = `<span style="font-size: 11.5px; color: var(--night-muted)">Colori dei pin su blu: da validare sul contrasto · mappa segnaposto</span>`;
+  let corpo;
+  if (variante === "A") {
+    corpo = `<div style="width: 390px; height: 844px; display: flex; flex-direction: column; background: var(--night-bg); overflow: hidden">
+      ${testata}
+      <div style="padding: 8px 16px 0">${titolo}</div>
+      ${mappaBlu(330)}
+      <div style="flex: 1; margin-top: -24px; position: relative; background: var(--bg-app); border-radius: 24px 24px 0 0; padding: 20px 16px 24px; display: flex; flex-direction: column; gap: 14px">
+        <div style="display: flex; align-items: center; justify-content: space-between"><span style="font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-hint)">Passo 2 di 4 · Ateneo</span>${passiDots(true)}</div>
+        <div style="display: flex; align-items: center; gap: 10px">${wiz(40)}<span style="font-size: 17px; font-weight: 700; color: var(--text-dark)">Ciao! Sono Wiz. Dove studi?</span></div>
+        ${sceltaChiara("Sapienza Università di Roma", "Bando unico Erasmus+ per studio", true)}
+        ${sceltaChiara("Università Ca' Foscari Venezia", "Bando Erasmus+ studio", false)}
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 2px">${LINK_AZIONE("Indietro", '<path d="M19 12H5"></path><path d="M11 18l-6-6 6-6"></path>')}${bottoneC("primario", "Continua", "", I.arrow)}</div>
+      </div>
+    </div>`;
+  } else if (variante === "B") {
+    corpo = `<div style="width: 390px; height: 844px; display: flex; flex-direction: column; background: var(--night-bg); overflow: hidden">
+      ${testata}
+      <div style="padding: 8px 16px 0; display: flex; flex-direction: column; gap: 12px">${titolo}${legenda}</div>
+      ${mappaBlu(300, { sfumaSotto: true })}
+      <div style="flex: 1; padding: 0 16px 24px; display: flex; flex-direction: column; gap: 12px; margin-top: -30px; position: relative">
+        <div style="display: flex; align-items: center; justify-content: space-between"><span style="display: flex; align-items: center; gap: 10px">${wiz(36)}<span style="font-size: 17px; font-weight: 700; color: #fff">Dove studi?</span></span>${passiDots(false)}</div>
+        ${sceltaBlu("Sapienza Università di Roma", "Bando unico Erasmus+ per studio", true)}
+        ${sceltaBlu("Università Ca' Foscari Venezia", "Bando Erasmus+ studio", false)}
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto">
+          <span style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 8px; font-size: 14px; font-weight: 700; color: var(--night-muted)">${ico('<path d="M19 12H5"></path><path d="M11 18l-6-6 6-6"></path>', 16, "var(--night-muted)")}Indietro</span>
+          ${bianco("Continua")}
+        </div>
+      </div>
+    </div>`;
+  } else {
+    corpo = `<div style="position: relative; width: 390px; height: 844px; background: var(--night-bg); overflow: hidden">
+      <div style="position: absolute; inset: 0">${mappaBlu(844)}</div>
+      <span style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(33,30,66,.85) 0%, rgba(33,30,66,0) 28%, rgba(33,30,66,0) 45%, rgba(33,30,66,.92) 70%)"></span>
+      <div style="position: absolute; inset: 0; display: flex; flex-direction: column">
+        ${testata}
+        <div style="padding: 8px 16px 0; display: flex; flex-direction: column; gap: 12px">${titolo}${legenda}</div>
+        <div style="margin-top: auto; padding: 0 12px 16px">
+          <div style="border-radius: 24px; padding: 18px 14px 12px; background: rgba(28,26,56,.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: inset 0 0 0 1px rgba(255,255,255,.12); display: flex; flex-direction: column; gap: 12px">
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 0 2px"><span style="display: flex; align-items: center; gap: 10px">${wiz(34)}<span style="font-size: 16px; font-weight: 700; color: #fff">Ciao! Dove studi?</span></span>${passiDots(false)}</div>
+            ${sceltaBlu("Sapienza Università di Roma", "Bando unico Erasmus+ per studio", true)}
+            ${sceltaBlu("Università Ca' Foscari Venezia", "Bando Erasmus+ studio", false)}
+            ${bianco("Continua")}
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }
+  return documento(T, corpo, "var(--night-bg)");
 }
 
 // Percorso ───────────────────────────────────────────────────────────
@@ -694,15 +785,16 @@ function percorso(T) {
     ["Requisiti", "Verifica i requisiti del bando: sono uguali per tutte le mete.", "ok", "Fatto"],
     ["Mete e le 5 scelte", "Esplora e salva le tue preferite: ne hai 2.", null, ""],
     ["Candidatura e scadenze", "I passi da fare, capitolo per capitolo, con le date del bando.", null, "Aperta qui sotto"],
-    ["L'esito", "Quando conosci l'esito della selezione, dichiaralo qui.", null, ""],
-    ["Learning Agreement", "Prepara la bozza: esami di casa, corsi host e corrispondenze.", null, ""],
-    ["Parti: lo zaino", "Prima, durante e dopo la partenza.", null, ""],
+    ["L'esito", "Quando conosci l'esito della selezione, dichiaralo qui.", "bloccata", "Dopo la candidatura"],
+    ["Learning Agreement", "Prepara la bozza: esami di casa, corsi host e corrispondenze.", "bloccata", "Dopo l'esito"],
+    ["Parti: lo zaino", "Prima, durante e dopo la partenza.", "bloccata", "Dopo l'esito"],
   ];
+  const lucchetto = (size, col) => ico(I.lock, size, col);
   const passi = [
     ["Verificare di avere i requisiti del bando (iscrizione attiva, eventuali CFU/media).", true],
     ["Esplorare le destinazioni della tua Facoltà nel database Go Erasmus+.", true],
     ["Verificare il livello di lingua richiesto da ogni destinazione che ti interessa.", false],
-    ["Compilare la domanda online entro la scadenza, indicando le destinazioni in ordine di preferenza.", false],
+    ["Compilare la domanda online entro la scadenza, indicando le destinazioni in ordine di preferenza.", "bloccato"],
   ];
   const aperta = 2;
   const contenuto = `
@@ -715,6 +807,8 @@ function percorso(T) {
         const ultima = i === stazioni.length - 1;
         const punto = cat === "ok"
           ? `<span style="display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--green-bg); flex: none">${ico(I.check, 16, "var(--green)")}</span>`
+          : cat === "bloccata"
+          ? `<span style="display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; flex: none; background: var(--bg-card); box-shadow: inset 0 0 0 1.5px var(--border-strong)">${lucchetto(14, "var(--text-hint)")}</span>`
           : `<span style="display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; flex: none; font-family: var(--font-mono); font-size: 13px; font-weight: 700; ${i === 1 || i === aperta ? "background: var(--night-bg); color: #fff;" : "background: var(--bg-track); color: var(--text-muted);"}">${i + 1}</span>`;
         return `<li style="display: grid; grid-template-columns: 30px minmax(0, 1fr); column-gap: 14px">
           <div style="display: flex; flex-direction: column; align-items: center">${punto}${ultima ? "" : `<span style="flex: 1; width: 2px; min-height: 18px; background: ${cat === "ok" ? "var(--green-border)" : "var(--border)"}"></span>`}</div>
@@ -723,28 +817,34 @@ function percorso(T) {
               <div style="display: flex; flex-direction: column; gap: 3px; min-width: 0">
                 <span style="font-size: 15.5px; font-weight: 700; color: ${i > aperta ? "var(--text-muted)" : "var(--text-dark)"}">${t}</span>
                 <span style="font-size: 13px; line-height: 1.45; color: var(--text-hint)">${sub}</span>
+                ${cat === "bloccata" ? `<span style="display: inline-flex; align-items: center; gap: 5px; margin-top: 2px; font-size: 12.5px; font-weight: 700; color: var(--text-muted)">${lucchetto(13, "var(--text-muted)")}${stato}</span>` : ""}
               </div>
-              ${cat ? `<span style="padding-top: 2px">${semaforo(T, cat, stato)}</span>` : `<span style="color: var(--text-hint); padding-top: 2px; ${i === aperta ? "transform: rotate(180deg);" : ""}">${ico('<path d="M6 9l6 6 6-6"></path>', 18)}</span>`}
+              ${cat === "ok" ? `<span style="padding-top: 2px">${semaforo(T, cat, stato)}</span>` : cat === "bloccata" ? `<span style="color: var(--text-hint); padding-top: 2px">${ico('<path d="M6 9l6 6 6-6"></path>', 18)}</span>` : `<span style="color: var(--text-hint); padding-top: 2px; ${i === aperta ? "transform: rotate(180deg);" : ""}">${ico('<path d="M6 9l6 6 6-6"></path>', 18)}</span>`}
             </div>
             ${i === aperta ? `<div style="${SUPERFICIE} padding: 16px; display: flex; flex-direction: column; gap: 14px">
               <div style="display: flex; flex-direction: column; gap: 6px">
                 <div style="display: flex; justify-content: space-between; font-size: 13px"><span style="font-weight: 700; color: var(--text-dark)">Preparazione</span><span style="font-family: var(--font-mono); font-weight: 700; color: var(--text-muted)">2/4</span></div>
                 <span style="display: block; height: 6px; border-radius: 99px; background: var(--bg-track)"><span style="display: block; width: 50%; height: 100%; border-radius: 99px; background: var(--night-bg)"></span></span>
               </div>
-              ${passi.map(([testo, fatto]) => `<label style="display: flex; align-items: flex-start; gap: 12px; min-height: 44px; font-size: 14px; line-height: 1.45; color: ${fatto ? "var(--text-muted)" : "var(--text-dark)"}">
+              ${passi.map(([testo, fatto]) => fatto === "bloccato"
+                ? `<div style="display: flex; align-items: flex-start; gap: 12px; min-height: 44px; font-size: 14px; line-height: 1.45; color: var(--text-muted)">
+                <span style="display: grid; place-items: center; width: 22px; height: 22px; margin-top: 1px; flex: none; border-radius: 6px; background: var(--bg-track)">${lucchetto(13, "var(--text-hint)")}</span>
+                <span style="display: flex; flex-direction: column; gap: 2px"><span>${testo}</span><span style="font-size: 12.5px; font-weight: 700; color: var(--text-muted)">Si apre con il bando 2027/28</span></span>
+              </div>`
+                : `<label style="display: flex; align-items: flex-start; gap: 12px; min-height: 44px; font-size: 14px; line-height: 1.45; color: ${fatto ? "var(--text-muted)" : "var(--text-dark)"}">
                 <span style="display: grid; place-items: center; width: 22px; height: 22px; margin-top: 1px; flex: none; border-radius: 6px; box-sizing: border-box; ${fatto ? "background: var(--night-bg);" : "border: 1.5px solid var(--border-strong); background: var(--bg-card);"}">${fatto ? ico(I.check, 14, "#fff") : ""}</span>
                 <span style="${fatto ? "text-decoration: line-through; text-decoration-color: var(--border-strong);" : ""}">${testo}</span>
               </label>`).join("")}
               <div style="display: flex; align-items: center; gap: 10px; padding-top: 12px; border-top: 1px solid var(--border)">
                 ${ico('<rect x="4" y="5" width="16" height="15" rx="2"></rect><path d="M8 3v4M16 3v4M4 10h16"></path>', 18, "var(--text-hint)")}
-                <span style="font-size: 13px; line-height: 1.45; color: var(--text-muted)">Date del ciclo 2026/27, solo come riferimento: chiusura candidature 27 febbraio e 27 maggio 2026.</span>
+                <span style="font-size: 13px; line-height: 1.45; color: var(--text-muted)">Bando 2026/27: candidature chiuse il 27 febbraio e il 27 maggio 2026.</span>
               </div>
             </div>` : ""}
           </div>
         </li>`;
       }).join("")}
     </ol>`;
-  return schermoMobile(T, "percorso", contenuto, 1120);
+  return schermoMobile(T, "percorso", contenuto, 1240);
 }
 
 // Profilo ────────────────────────────────────────────────────────────
@@ -755,9 +855,10 @@ function profilo(T) {
       <span style="font-size: 15px; color: ${valore.startsWith("—") ? "var(--text-hint)" : "var(--text-dark)"}">${valore}</span>${ico('<path d="M6 9l6 6 6-6"></path>', 18, "var(--text-hint)")}
     </div>
   </div>`;
-  const lingua = (nome, livello, cert) => `<div style="display: grid; grid-template-columns: minmax(0, 1fr) 78px; gap: 8px">
+  const lingua = (nome, livello, cert) => `<div style="display: grid; grid-template-columns: minmax(0, 1fr) 78px 36px; gap: 8px; align-items: center">
     <div style="display: flex; align-items: center; justify-content: space-between; min-height: 48px; padding: 0 12px; background: var(--bg-card); border-radius: var(--radius-md); box-shadow: inset 0 0 0 1px var(--border-strong)"><span style="font-size: 15px; color: ${nome.startsWith("—") ? "var(--text-hint)" : "var(--text-dark)"}">${nome}</span>${ico('<path d="M6 9l6 6 6-6"></path>', 18, "var(--text-hint)")}</div>
     <div style="display: flex; align-items: center; justify-content: space-between; min-height: 48px; padding: 0 10px; background: var(--bg-card); border-radius: var(--radius-md); box-shadow: inset 0 0 0 1px var(--border-strong)"><span style="font-family: var(--font-mono); font-size: 15px; font-weight: 700; color: var(--text-dark)">${livello}</span>${ico('<path d="M6 9l6 6 6-6"></path>', 16, "var(--text-hint)")}</div>
+    <span aria-label="Rimuovi questa lingua" style="display: grid; place-items: center; width: 36px; height: 44px; color: var(--text-hint)">${ico(I.x, 17)}</span>
     <label style="grid-column: 1 / -1; display: flex; align-items: center; gap: 10px; min-height: 36px; font-size: 14px; color: var(--text-dark)"><span style="display: grid; place-items: center; width: 22px; height: 22px; flex: none; border-radius: 6px; box-sizing: border-box; ${cert ? "background: var(--night-bg);" : "border: 1.5px solid var(--border-strong); background: var(--bg-card);"}">${cert ? ico(I.check, 14, "#fff") : ""}</span>Ho un certificato</label>
   </div>`;
   const gruppo = (titolo, corpo) => `<section style="display: flex; flex-direction: column; gap: 16px">
@@ -767,21 +868,22 @@ function profilo(T) {
       <h1 style="margin: 0; ${T.h1} color: var(--text-dark)">Il tuo profilo</h1>
       <p style="margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--text-muted)">Inserisci i tuoi dati una volta: le mete si ordinano per compatibilità. I dati restano solo sul tuo dispositivo.</p>
     </div>
+    <div style="display: flex; flex-direction: column; gap: 6px"><label style="font-size: 13.5px; font-weight: 700; color: var(--text-dark)">Il tuo nome <span style="font-weight: 500; color: var(--text-hint); margin-left: 4px">facoltativo</span></label><div style="display: flex; align-items: center; min-height: 48px; padding: 0 14px; background: var(--bg-card); border-radius: var(--radius-md); box-shadow: inset 0 0 0 1px var(--border-strong)"><span style="font-size: 15px; color: var(--text-hint)">es. Marco</span></div></div>
     ${gruppo("I tuoi studi", campo("Università", "Sapienza Università di Roma") + campo("Cosa studi", "Giurisprudenza") + campo("Livello di studi", "Triennale (L)"))}
-    ${gruppo(`<span style="display: flex; align-items: center; margin: -6px 0">Le tue lingue${info("Servono a calcolare la compatibilità: confrontiamo il tuo livello con quello richiesto da ogni meta. Un certificato conta di più di un livello dichiarato.", { larghezza: 240 })}</span>`, lingua("Inglese", "B2", true) + lingua("— nessuna —", "A1", false))}
-    ${gruppo("Situazioni particolari", campo("Hai cittadinanza extra-UE?", "No") + campo("Il tuo Erasmus è (anche) per ricerca tesi?", "— non ho ancora risposto —") + `<div style="display: flex; flex-direction: column; gap: 6px"><label style="font-size: 13.5px; font-weight: 700; color: var(--text-dark)">Il tuo nome <span style="font-weight: 500; color: var(--text-hint); margin-left: 4px">facoltativo</span></label><div style="display: flex; align-items: center; min-height: 48px; padding: 0 14px; background: var(--bg-card); border-radius: var(--radius-md); box-shadow: inset 0 0 0 1px var(--border-strong)"><span style="font-size: 15px; color: var(--text-hint)">es. Marco</span></div></div>`)}
+    ${gruppo(`<span style="display: flex; align-items: center; margin: -6px 0">Le tue lingue${info("Servono a calcolare la compatibilità: confrontiamo il tuo livello con quello richiesto da ogni meta. Un certificato conta di più di un livello dichiarato.", { larghezza: 240 })}</span>`, lingua("Inglese", "B2", true) + lingua("Spagnolo", "B1", false) + `<span style="margin: -8px 0 0 -8px">${LINK_AZIONE("Aggiungi un'altra lingua", '<path d="M12 5v14M5 12h14"></path>')}</span>`)}
+    ${gruppo("Situazioni particolari", campo("Hai cittadinanza extra-UE?", "No") + campo("Il tuo Erasmus è (anche) per ricerca tesi?", "— non ho ancora risposto —"))}
     <div style="display: flex; flex-direction: column; gap: 10px">
       ${bottoneC("primario", "Salva e calcola la compatibilità", "", I.check).replace("display: inline-flex;", "display: flex;")}
       <span style="font-size: 13px; color: var(--text-hint); text-align: center">Puoi cambiarli quando vuoi dal Menu.</span>
     </div>`;
-  return schermoMobile(T, null, contenuto, 1180);
+  return schermoMobile(T, null, contenuto, 1250);
 }
 
 // Mete a 1280 ────────────────────────────────────────────────────────
 function meteDesktop(T) {
-  const corpo = `<div style="width: 1280px; min-height: 820px; box-sizing: border-box; background: var(--bg-app); display: flex; flex-direction: column">
+  const corpo = `<div style="width: 1280px; min-height: 870px; box-sizing: border-box; background: var(--bg-app); display: flex; flex-direction: column">
   <nav style="display: flex; align-items: center; gap: 8px; height: 64px; padding: 0 70px; background: var(--night-bg); color: var(--night-text)">
-    <img src="logo-mark.svg" alt="" style="width: 30px; height: 30px"><span style="font-family: var(--font-display); font-weight: 800; font-size: 18px; margin-right: 24px">ErasmusWiz</span>
+    <span style="margin-right: 24px">${marchio(true, 18)}</span>
     ${VOCI_NAV("mete").map(([l, , a]) => `<span style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: var(--radius-md); font-size: 14px; font-weight: ${a ? 800 : 700}; color: ${a ? "var(--gold)" : "var(--night-muted)"}; background: ${a ? "rgba(251,191,36,0.12)" : "transparent"}">${l}</span>`).join("")}
     <span style="margin-left: auto; display: grid; place-items: center; width: 44px; height: 44px; color: var(--night-muted)">${ico(I.menu, 22)}</span>
   </nav>
@@ -828,14 +930,15 @@ if (process.argv[2] === "--scelta") {
     ["SceltaMete.dc.html", mete(T), 390, 2000, "Mete · 390", 920, 0],
     ["SceltaLA.dc.html", la(T), 1280, 940, "Learning Agreement · 1280", 1410, 0],
     ["Bottoni.dc.html", bottoni(), 1400, 1560, "Bottoni — alternative", 1410, 1060],
-    ["SceltaOnboarding.dc.html", onboarding(T), 390, 980, "Onboarding · 390", 0, 2800],
-    ["SceltaHome.dc.html", home(T), 390, 1130, "Home · 390", 490, 2800],
-    ["SceltaPercorso.dc.html", percorso(T), 390, 1120, "Percorso · 390", 980, 2800],
-    ["SceltaProfilo.dc.html", profilo(T), 390, 1180, "Profilo · 390", 1470, 2800],
-    ["SceltaMeteDesktop.dc.html", meteDesktop(T), 1280, 820, "Mete · 1280", 1960, 2800],
+    ["SceltaOnboarding.dc.html", onboardingBlu(T, "C"), 390, 844, "Onboarding · 390 (opzione C scelta)", 0, 2800],
+    ["SceltaHome.dc.html", home(T), 390, 1070, "Home · 390", 490, 2800],
+    ["SceltaPercorso.dc.html", percorso(T), 390, 1240, "Percorso · 390", 980, 2800],
+    ["SceltaProfilo.dc.html", profilo(T), 390, 1250, "Profilo · 390", 1470, 2800],
+    ["SceltaMeteDesktop.dc.html", meteDesktop(T), 1280, 870, "Mete · 1280", 1960, 2800],
   ];
   const pages = [{ id: "scelta", name: "Scelta" }, { id: "esplorazione", name: "Esplorazione (3 varianti)" }];
-  const artboards = esistente.artboards.filter(a => !nuove.some(([n]) => n === a.file)).map(a => ({ ...a, page: "esplorazione" }));
+  for (const scartata of ["OnboardingBluA.dc.html", "OnboardingBluB.dc.html", "OnboardingBluC.dc.html"]) fs.rmSync(path.join(OUT, scartata), { force: true });
+  const artboards = esistente.artboards.filter(a => !nuove.some(([n]) => n === a.file) && !a.file.startsWith("OnboardingBlu")).map(a => ({ ...a, page: "esplorazione" }));
   for (const [nome, html, w, h, titolo, x, y] of nuove) {
     fs.writeFileSync(path.join(OUT, nome), html);
     artboards.push({ file: nome, x, y, w, h, title: `${nome === "Bottoni.dc.html" ? "Redesign v4" : T.nome} — ${titolo}`, page: "scelta" });
@@ -843,7 +946,7 @@ if (process.argv[2] === "--scelta") {
   const annotations = (esistente.annotations || []).map(a => ({ ...a, page: a.page || "esplorazione" }))
     .filter(a => a.id !== "scelta-note" && a.id !== "blocco1-note");
   annotations.push({ id: "scelta-note", page: "scelta", x: -420, y: 0, w: 340, text: "Scelta di Nicola, 14/09.\n\nBase V3 Equilibrio (densità, card, raggi).\nDa V2: tipografia (Plus Jakarta anche nei titoli), semaforo con sola icona e testo, stato vuoto senza Wiz, stelle blu.\nMete: profilo in riga sotto il titolo con «Modifica»; card senza bordo, compatibilità grande, dettagli per utilità.\nLA: tolto «Dossier personale · solo su questo dispositivo»; al suo posto le «i» con spiegazione al passaggio (quella del titolo è mostrata aperta). Tabella centrata, stato senza pillole.\nBottoni: scelta C «Inchiostro» (primario blu notte con icona ambra); azioni secondarie come link." });
-  annotations.push({ id: "blocco1-note", page: "scelta", x: -420, y: 2800, w: 340, text: "Blocco 1, 14/09: le schermate mancanti nella direzione scelta.\n\nNavigazione come nel sito reale (tranche pre-Bruno): Mete · Home · Learning Agreement; Percorso e Profilo si aprono da Home e Menu.\nHome e Percorso usano i testi reali di oggi (bando 2027/28 non ancora uscito, date 2026/27 solo come riferimento).\nOnboarding: la mappa vera del sito resta, qui è un segnaposto.\nPercentuali ed esami restano d'esempio." });
+  annotations.push({ id: "blocco1-note", page: "scelta", x: -420, y: 2800, w: 340, text: "Blocco 1, 14/09: le schermate mancanti nella direzione scelta.\n\nNavigazione come nel sito reale (tranche pre-Bruno): Mete · Home · Learning Agreement; Percorso e Profilo si aprono da Home e Menu.\nHome e Percorso usano i testi reali di oggi (bando 2027/28 non ancora uscito, date 2026/27 solo come riferimento).\nOnboarding: scelta l\'opzione C su blu (mappa di sfondo, scheda di vetro); la mappa vera del sito resta, qui è un segnaposto.\nPercentuali ed esami restano d'esempio." });
   fs.writeFileSync(path.join(OUT, "canvas.json"), JSON.stringify({ pages, artboards, annotations: annotations.filter((a, i, arr) => arr.findIndex(b => b.id === a.id) === i), launch: { view: "canvas", page: "scelta" } }, null, 2));
   console.log(`riga Scelta + bottoni scritte in ${OUT}`);
   process.exit(0);
