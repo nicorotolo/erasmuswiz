@@ -1015,6 +1015,7 @@ body {
 /* Titolo + «i» sulla stessa riga, il sottotitolo va a capo. */
 #tab-percorso > .sezione-header { display: flex; flex-wrap: wrap; align-items: center; column-gap: 2px; }
 #tab-percorso > .sezione-header > .sezione-sottotitolo { flex-basis: 100%; }
+.info-tip { white-space: normal; }
 /* --fs-h1 esiste da F1 §2.2 e dichiara `.sezione-titolo` come suo consumatore:
    è qui che il token entra in servizio (V4.2: 22 / 25 / 28px per banda). Prima era
    1.35rem con un override a 1.6rem a ≥1024, cioè una scala parallela a quella
@@ -1786,9 +1787,17 @@ body {
 .form-profilo-v2 { display: flex; flex-direction: column; gap: var(--space-5); }
 .campo-form { display: flex; flex-direction: column; gap: var(--space-2); }
 .campo-form > label { font-size: var(--fs-sm); font-weight: 700; color: var(--text-dark); }
+/* --text-hint su --bg-app 5,48:1. */
+.campo-facoltativo { margin-left: 4px; font-weight: 500; color: var(--text-hint); }
+/* Titoli di gruppo del form (artboard SceltaProfilo): H2 V4.2. */
+.form-sezione {
+  margin: var(--space-3) 0 calc(-1 * var(--space-2));
+  font-family: var(--font-body); font-size: 16px; font-weight: 700;
+  line-height: 1.3; letter-spacing: -.01em; color: var(--text-dark);
+}
 .campo-form select, .campo-form input, .riga-lingua select {
   width: 100%; min-height: 48px; padding: 0 var(--space-4);
-  border: 1.5px solid var(--border-strong); border-radius: 14px;
+  border: 1.5px solid var(--border-strong); border-radius: var(--radius-md);
   background: var(--bg-card);
   color: var(--text-dark); font-family: var(--font-body); font-size: var(--fs-body);
   transition: border-color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
@@ -1796,15 +1805,22 @@ body {
 .campo-form input[type="number"] { font-family: var(--font-mono); }
 .campo-form select:focus, .campo-form input:focus, .riga-lingua select:focus { outline: none; border-color: var(--primary); box-shadow: var(--shadow-focus); }
 .campo-form .aiuto { font-size: var(--fs-xs); line-height: 1.5; color: var(--text-hint); }
-.gruppo-lingue-v2 { border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-5); margin: 0; }
-.gruppo-lingue-v2 legend { font-size: var(--fs-sm); font-weight: 700; color: var(--text-dark); padding: 0 var(--space-2); }
+/* Il gruppo lingue perde la cornice (V4.3): la legenda è un H2 con la «i»
+   (V4.8) accanto. */
+.gruppo-lingue-v2 { border: 0; border-radius: 0; padding: 0; margin: var(--space-3) 0 0; min-width: 0; }
+.gruppo-lingue-v2 legend {
+  float: left; padding: 0; margin: 0;
+  font-size: 16px; font-weight: 700; line-height: 32px; letter-spacing: -.01em; color: var(--text-dark);
+}
+.gruppo-lingue-v2 > .info { margin: -6px 0 -6px 2px; }
+.gruppo-lingue-v2 > .riga-lingua:first-of-type { clear: left; margin-top: var(--space-3); }
 .riga-lingua { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); margin-bottom: var(--space-3); }
 /* F2.0 — la casella "madrelingua" era alta 19.9px */
 .checkbox-lingua {
   display: flex; align-items: center; gap: var(--space-2);
   min-height: 44px; font-size: var(--fs-sm); color: var(--text-muted); cursor: pointer;
 }
-.checkbox-lingua input { accent-color: var(--primary); }
+.checkbox-lingua input { width: 22px; height: 22px; margin: 0; accent-color: var(--night-bg); }
 /* il corpo del bottone è quello condiviso con .btn-primary (§4.1). Qui solo
    il comportamento nel form: `flex: 1` è per la barra della missione, in una
    colonna verticale non deve allungarsi. */
@@ -1816,6 +1832,7 @@ body {
     align-items: start;
   }
   .gruppo-lingue-v2,
+  .form-sezione,
   .form-profilo-v2 > .btn-primario { grid-column: 1 / -1; }
   /* `justify-self: start` e non stretch: su due colonne il submit occuperebbe
      720px, cioè un bottone lungo quanto tutto il form. A mobile resta invece
@@ -1828,10 +1845,13 @@ body {
   /* niente filetto a sinistra qui: il canvas non lo chiede e il fondo verde
      dice già "salvato". Il filetto è il vocabolario degli STATI (§4.4/§4.7),
      e allargarlo a ogni superficie verde lo svuota. */
-  margin-top: var(--space-4); background: var(--green-bg); border: 1px solid var(--green-border);
-  border-radius: 14px; padding: var(--space-4); font-size: var(--fs-sm);
+  margin-top: var(--space-4); background: none; border: 0;
+  border-radius: 0; padding: 0; font-size: var(--fs-sm); font-weight: 700;
   color: var(--green); max-width: 540px;
 }
+/* Redesign v4: conferma come testo verde con spunta (5,12:1 su --bg-app). */
+.profilo-salvato > p { display: flex; align-items: center; gap: 6px; }
+.profilo-salvato .icona { font-size: 16px; }
 .profilo-salvato a { color: var(--primary); }
 /* variante compatta: resta inline-flex, o con min-height:48 il testo si
    appoggerebbe in cima al bottone invece di stare al centro */
