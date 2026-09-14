@@ -244,7 +244,9 @@ test("il form profilo e un successivo onboarding conservano extraUE e ricercaTes
   expect(risposte).toEqual({ extraUE: true, ricercaTesi: false });
 });
 
-test("a 390×844 la Home pre-bando mostra progresso e mossa principale nel primo schermo", async ({ page }) => {
+// Redesign v4 (decisione di Nicola 14/09): la mossa principale sta SOPRA il
+// progresso, che mostra le sei tappe per intero. Prima era il contrario.
+test("a 390×844 la Home pre-bando mostra la mossa principale nel primo schermo, sopra il progresso", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await preparaZaino(page, "cafoscari", {}, {
     area: "0311",
@@ -272,12 +274,12 @@ test("a 390×844 la Home pre-bando mostra progresso e mossa principale nel primo
     const titolo = document.getElementById("missione-titolo").getBoundingClientRect();
     const azione = document.getElementById("btn-fatto").getBoundingClientRect();
     return {
-      progressoPrima: progresso.top < missione.top,
+      missionePrima: missione.top < progresso.top,
       titoloNelPrimoSchermo: titolo.bottom <= innerHeight,
       azioneNelPrimoSchermo: azione.bottom <= innerHeight,
     };
   });
-  expect(posizione.progressoPrima).toBe(true);
+  expect(posizione.missionePrima).toBe(true);
   expect(posizione.titoloNelPrimoSchermo).toBe(true);
   expect(posizione.azioneNelPrimoSchermo).toBe(true);
 

@@ -214,9 +214,10 @@ html { scroll-behavior: smooth; }
   box-shadow: 0 0 0 6px rgba(79,70,229,.22);
 }
 /* Superfici a inchiostro: nav, hero, testa del drawer, footer, celebrazione,
-   onboarding (scena e passi: da V4.12-bis è tutto su --night-bg). Stessa
+   onboarding (scena e passi: da V4.12-bis è tutto su --night-bg), la mossa
+   della Home (redesign v4; .home-header non è più a inchiostro). Stessa
    specificità della regola sopra, ma viene dopo: vince. */
-:is(.nav-bottom, .home-header, .drawer-testa, .footer-v2, .celebrazione-overlay, .benvenuto)
+:is(.nav-bottom, .missione-card, .drawer-testa, .footer-v2, .celebrazione-overlay, .benvenuto)
   :is(a, button, summary, input, select, [tabindex]):focus-visible {
   outline-color: var(--gold);
   box-shadow: 0 0 0 6px rgba(251,191,36,.26);
@@ -243,6 +244,16 @@ body {
   filter: drop-shadow(0 6px 14px rgba(30,27,46,.22));
 }
 .wiz-mascot.flip { transform: scaleX(-1); }
+
+/* ================================================================
+   ICONE A TRATTO (redesign v4) — sostituiscono le emoji. Il colore è
+   quello del testo (currentColor), la misura la dà chi le ospita.
+================================================================ */
+.icona {
+  width: 1em; height: 1em; flex: none;
+  fill: none; stroke: currentColor; stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round;
+}
 
 /* ================================================================
    NAVIGAZIONE — bottom mobile, top desktop
@@ -550,19 +561,19 @@ body {
    coincide comunque (--stack = 24px a desktop = il gap del canvas). */
 
 /* ================================================================
-   HOME HEADER — hero a inchiostro profondo (BR2)
+   HOME HEADER — redesign v4 (artboard SceltaHome): niente più hero a
+   inchiostro. Data e stato del bando in una riga secondaria, sotto l'H1;
+   l'unica superficie blu della Home è «La tua prossima mossa». Wiz non
+   compare in Home (V4.11).
 ================================================================ */
 .home-header {
-  padding: 18px 20px 22px;
-  /* Le 4 "stelline" oro da 1,5px sono state rimosse (sessione 58): su un
-     hero largo ~670px non si leggevano come stelle ma come pixel spuri,
-     e quella a 85%/15% finiva accanto al badge bianco. Resta l'inchiostro. */
-  background: linear-gradient(160deg, var(--night-bg) 0%, var(--night-bg-2) 100%);
-  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
-  border: 1px solid var(--night-border);
-  border-top: none;
-  box-shadow: 0 8px 20px rgba(30,27,46,.18);
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
+.home-header .wiz-mascot { display: none; }
 /* Sotto i 768 il hero è a filo: tutta la larghezza e attaccato al bordo alto
    della pagina. Non è un dettaglio — è ciò che rende leggibili le due
    proprietà qui sopra, `border-radius: 0 0 xl xl` e `border-top: none`: un
@@ -572,33 +583,25 @@ body {
    (F1.13) va restituito con margini negativi. Sopra i 768 il hero era già
    rientrato anche prima, e a ≥1024 è una card a tutti gli effetti
    (border-radius pieno + border-top): questa regola si ferma a 767. */
-@media (max-width: 767px) {
-  #tab-oggi > .home-header { margin-inline: calc(-1 * var(--gutter)); }
-  /* stessa specificità dell'antidoto (b) di F1.12, e viene dopo: vince */
-  #tab-oggi:not(.modo-benvenuto) > .home-header { margin-top: calc(-1 * var(--space-5)); }
-}
-.home-hero-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+/* Il vecchio full-bleed a telefono (margini negativi) serviva al hero a
+   inchiostro: senza superficie, l'intestazione sta nel gutter come il resto. */
+.home-hero-top { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 12px; margin-bottom: 4px; }
+/* Lo stato del bando è testo secondario, non una pillola (V4.1); il testo
+   resta quello verificato dalle prove. --text-hint su --bg-app 5,48:1. */
 .home-hero-badge {
-  font-size: 11.5px; font-weight: 800;
-  background: var(--gold); color: var(--night-bg);
-  border-radius: var(--radius-pill); padding: 4px 11px;
-  white-space: nowrap;
+  font-size: 13px; font-weight: 600; color: var(--text-hint);
 }
-/* Stati non "aperto" del bando (R2.5): notizia vera ma senza l'oro della festa */
-.home-hero-badge.badge-neutro {
-  background: var(--bg-card); color: var(--night-muted);
-  border: 1px solid var(--border);
-}
+.home-hero-badge.badge-neutro { color: var(--text-hint); }
 .home-hero-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
 .home-header-text { flex: 1; }
-.home-data { font-size: 13px; color: var(--night-muted); margin-bottom: 2px; }
+.home-data { font-size: 13px; font-weight: 600; color: var(--text-hint); }
 .home-saluto {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(22px, 5vw, 28px);
+  font-size: var(--fs-h1);
+  line-height: 1.2;
   letter-spacing: -.02em;
-  color: var(--night-text);
-  margin-top: 2px;
+  color: var(--text-dark);
 }
 /* Selettore d'ateneo */
 .ateneo-selettore {
@@ -627,62 +630,71 @@ body {
 .ateneo-selettore select:focus-visible { outline: 2px solid var(--primary); border-radius: 4px; }
 
 /* ================================================================
-   PERCORSO A 4 FASI (DISEGNO_UX.md §2.1) — home-percorso UX2
+   IL TUO PROGRESSO — redesign v4 (artboard SceltaHome): le sei tappe in
+   elenco su UNA superficie senza bordo (V4.3), righe separate da 1px.
+   .percorso-wrap non è più una card: la superficie è .fase-stepper.
 ================================================================ */
 .percorso-wrap {
   margin-top: 12px;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+}
+.percorso-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: var(--space-3); }
+/* H2 di sezione V4.2: 16px / 700 / 1.3. */
+.percorso-label { font-size: 16px; font-weight: 700; line-height: 1.3; letter-spacing: -.01em; color: var(--text-dark); }
+.fase-stepper {
+  display: flex; flex-direction: column;
+  padding: 6px 16px;
   background: var(--bg-card);
-  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 12px 16px 10px;
-  box-shadow: var(--shadow-card);
+  box-shadow: 0 1px 2px rgba(30,27,46,.04);
 }
-.percorso-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-.percorso-label { font-size: 11px; font-weight: 800; color: var(--text-hint); letter-spacing: .06em; text-transform: uppercase; }
-.fase-stepper { display: flex; flex-direction: column; gap: 8px; }
+/* La riga intera è il bersaglio: .fase-cta (il bottone, con il suo nome
+   accessibile) si stende sopra la riga. Il testo del bottone resta nel DOM
+   per lettori di schermo e prove, ma non si vede: la riga lo dice già. */
 .fase-card {
-  display: flex; align-items: center; gap: 10px;
-  flex-wrap: wrap;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 10px 12px;
-  background: var(--bg-card);
+  position: relative;
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
 }
-.fase-card.fase-attivo {
-  border: 2px solid var(--gold);
-  box-shadow: 0 4px 10px var(--mission-glow);
-}
-.fase-card.fase-fatto { opacity: .75; }
-.fase-card.fase-futuro { opacity: .6; }
+.fase-card:last-child { border-bottom: 0; }
+/* Segno della tappa: spunta (fatta), numero su inchiostro (in corso),
+   numero su binario (futura), lucchetto (dipende da un passo precedente).
+   Numero bianco su --night-bg 15,8:1; --text-muted su --bg-track 7,61:1;
+   --green su --green-bg 4,9:1 (icona, soglia 3:1). */
 .fase-stato-icona {
-  font-size: 13px; flex: 0 0 auto;
-  width: 28px; height: 28px; line-height: 28px; text-align: center;
-  border-radius: 50%;
-  background: var(--border);
+  display: grid; place-items: center; flex: none;
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--bg-track); color: var(--text-muted);
+  font-family: var(--font-mono); font-size: var(--fs-xs); font-weight: 700;
 }
-.fase-card.fase-fatto  .fase-stato-icona { background: var(--green-bg); }
-.fase-card.fase-attivo .fase-stato-icona { background: var(--gold); }
-.fase-card.fase-futuro .fase-stato-icona { background: var(--border); opacity: .8; }
-.fase-testi { flex: 1; min-width: 0; }
-.fase-domanda { font-size: 13.5px; font-weight: 800; color: var(--text-dark); }
-.fase-riassunto { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
+.fase-stato-icona .icona { font-size: 15px; }
+.fase-fatto .fase-stato-icona { background: var(--green-bg); color: var(--green); }
+.fase-attivo .fase-stato-icona { background: var(--night-bg); color: var(--night-text); }
+.fase-bloccata .fase-stato-icona { background: var(--bg-card); color: var(--text-hint); box-shadow: inset 0 0 0 1.5px var(--border-strong); }
+.fase-bloccata .fase-stato-icona .icona { font-size: 13px; }
+.fase-testi { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.fase-attivo .fase-testi { padding-right: 28px; }
+.fase-domanda { font-size: var(--fs-body); font-weight: 700; color: var(--text-dark); }
+.fase-bloccata .fase-domanda { color: var(--text-muted); }
+/* --text-hint su bianco 5,82:1. */
+.fase-riassunto { font-size: 13px; line-height: 1.45; color: var(--text-hint); }
 .fase-cta {
-  flex: 1 1 100%;
-  margin-left: 38px;
-  align-self: stretch;
-  /* F2.0 — bersaglio da 29px a 44 (inventario touch F0.5 / R34) */
-  display: inline-flex; align-items: center;
-  min-height: 44px;
-  border: 1.5px solid var(--border-strong);
-  background: var(--bg-card);
-  border-radius: var(--radius-pill);
-  padding: 0 var(--space-3);
-  font-size: 11.5px; font-weight: 700; color: var(--primary);
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: flex-end;
+  min-height: 44px; padding: 0;
+  border: 0; border-radius: var(--radius-sm);
+  background: transparent;
+  font-size: 0; color: var(--primary);
   cursor: pointer;
-  transition: border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
 }
-.fase-cta:hover { border-color: var(--primary); background: var(--bg-card-hover); }
-.fase-cta:active { transform: translateY(1px) scale(.985); }
+.fase-cta .icona { font-size: 18px; }
+.fase-cta:hover { background: color-mix(in srgb, var(--bg-card-hover) 55%, transparent); }
+.fase-cta:focus-visible { outline-offset: 0; }
 
 /* ================================================================
    REDESIGN v2 §4.2 — SUPERFICI: la card come unità
@@ -703,6 +715,14 @@ body {
   padding: var(--space-5);
   box-shadow: var(--shadow-card);
 }
+/* Redesign v4, V4.3 — superfici senza bordo, schermata per schermata: qui
+   la Home. .card-meta-v2 passa con le Mete. */
+.missione-card,
+.settimana-card {
+  border: 0;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 1px 2px rgba(30,27,46,.04);
+}
 @media (min-width: 768px) {
   .missione-card,
   .settimana-card,
@@ -710,7 +730,9 @@ body {
 }
 
 /* ================================================================
-   CARD MISSIONE DI OGGI
+   CARD MISSIONE DI OGGI — redesign v4: l'unica superficie a inchiostro
+   della Home (artboard SceltaHome). Etichetta oro, conto alla rovescia
+   grande in oro, primario bianco, azione secondaria come link.
 ================================================================ */
 /* La missione è l'unica superficie che deve staccarsi dalle altre: è la
    ragione per cui si torna sul sito. Il segnale resta l'oro, ma detto con
@@ -721,34 +743,59 @@ body {
    ritagliano .missione-wiz-desktop, che è in posizione assoluta. Il corpo
    condiviso del canvas non li contiene: si preservano (Regola 1).
    Il margine verticale non è più qui: da F1 lo dà `.tab-pane.attivo > * + *`. */
+/* L'ordine visivo dentro la card: etichetta → titolo → conto alla rovescia
+   → dettaglio → azioni. Nel DOM il countdown sta in fondo: `order`, nessun
+   nodo spostato. Le variabili --btn-* e --btn2-* ricolorano i bottoni
+   condivisi solo qui dentro (.btn-primary/.btn-secondary restano a una
+   classe). Contrasti su --night-bg: bianco 15,8:1; --night-text-soft
+   9,26:1; --night-muted 7,93:1; oro 9,47:1; --night-bg su bianco 15,8:1. */
 .missione-card {
-  border-color: var(--gold);
-  box-shadow: var(--shadow-gold);
+  display: flex; flex-direction: column;
+  padding: 22px 20px 12px;
+  background: var(--night-bg);
+  color: var(--night-text);
+  box-shadow: none;
   position: relative;
   overflow: hidden;
+  --btn-fondo: var(--bg-card);
+  --btn-fondo-hover: var(--primary-soft);
+  --btn-testo: var(--night-bg);
+  --btn-ombra: none;
+  --btn2-fondo: transparent;
+  --btn2-fondo-hover: rgba(255,255,255,.06);
+  --btn2-bordo: transparent;
+  --btn2-testo: var(--night-muted);
 }
 .missione-top {
+  order: 0;
   display: flex; align-items: center; justify-content: space-between;
   gap: var(--space-3); flex-wrap: wrap; margin-bottom: var(--space-3);
 }
+/* Micro-etichetta V4.2 in oro (V4.11: «La tua prossima mossa»), senza pillola. */
 .missione-tag {
-  display: inline-flex; align-items: center; gap: var(--space-2);
-  font-size: 11.5px; font-weight: 700; letter-spacing: .11em;
-  text-transform: uppercase;                /* micro-etichetta: maiuscolo ok */
-  color: var(--primary); background: var(--primary-soft);
-  border-radius: var(--radius-pill); padding: 5px 11px;
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11.5px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--gold);
 }
-.missione-scadenza { font-size: var(--fs-sm); font-weight: 600; color: var(--gold-dark); flex: none; }
+.missione-tag .icona { font-size: 14px; }
+.missione-scadenza { font-size: var(--fs-sm); font-weight: 600; color: var(--gold); flex: none; }
 .missione-titolo {
+  order: 1;
   font-family: var(--font-display); font-weight: 800;
   font-size: var(--fs-h2); line-height: 1.2;
-  letter-spacing: -.025em; color: var(--text-dark); margin: 0 0 var(--space-2);
+  letter-spacing: -.025em; color: var(--night-text); margin: 0 0 var(--space-2);
 }
 .missione-dettaglio {
-  font-size: var(--fs-body); line-height: 1.6;
-  color: var(--text-muted); text-wrap: pretty;
+  order: 3;
+  font-size: var(--fs-sm); line-height: 1.55;
+  color: var(--night-text-soft); text-wrap: pretty;
 }
-.missione-bottoni { display: flex; gap: var(--space-3); flex-wrap: wrap; margin-top: var(--space-5); }
+.missione-bottoni { order: 4; display: flex; gap: 4px; flex-wrap: wrap; margin-top: var(--space-5); }
+/* Offerte aggiunte dal JS in coda alla card (sveglia, installazione): restano
+   in coda anche con l'ordine visivo qui sopra. */
+:where(.missione-card) > .banner-stato { order: 5; margin: var(--space-3) 0 var(--space-2); }
+.missione-bottoni .icona { font-size: 17px; }
 
 /* ── REDESIGN v2 §4.1 — I DUE bottoni primari, insieme ──────────────
    .btn-primary  = missione, banner, "vedi le mete" · .btn-primario = submit
@@ -766,24 +813,24 @@ body {
   padding: 0 18px;
   border: 0; border-radius: var(--radius-md);
   /* V4.4 «Inchiostro» (C): bianco su --night-bg 15,8:1, hover 16,7:1. */
-  background: var(--night-bg); color: var(--text-on-fill);
+  background: var(--btn-fondo, var(--night-bg)); color: var(--btn-testo, var(--text-on-fill));
   font-family: var(--font-body); font-size: 14.5px; font-weight: 700;
   letter-spacing: -.005em;
   cursor: pointer;
-  box-shadow: 0 1px 2px rgba(30,27,46,.10), 0 6px 16px rgba(30,27,46,.14);
+  box-shadow: var(--btn-ombra, 0 1px 2px rgba(30,27,46,.10), 0 6px 16px rgba(30,27,46,.14));
   transition: background var(--dur-fast) var(--ease-out),
               box-shadow var(--dur-fast) var(--ease-out),
               transform var(--dur-fast) var(--ease-out);
 }
 .btn-primary:hover,
 .btn-primario:hover {
-  background: var(--night-bg-2);
+  background: var(--btn-fondo-hover, var(--night-bg-2));
   transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(30,27,46,.12), 0 10px 24px rgba(30,27,46,.18);
+  box-shadow: var(--btn-ombra, 0 2px 4px rgba(30,27,46,.12), 0 10px 24px rgba(30,27,46,.18));
 }
 .btn-primary:active,
 .btn-primario:active {
-  background: var(--night-bg-2);
+  background: var(--btn-fondo-hover, var(--night-bg-2));
   transform: translateY(1px) scale(.985);
   box-shadow: 0 1px 2px rgba(30,27,46,.12);
 }
@@ -801,13 +848,13 @@ body {
   gap: var(--space-2);
   min-height: 48px;
   padding: 0 var(--space-5);
-  border: 1.5px solid var(--border-strong); border-radius: 14px;
-  background: var(--bg-card-hover); color: var(--primary-active);
+  border: 1.5px solid var(--btn2-bordo, var(--border-strong)); border-radius: 14px;
+  background: var(--btn2-fondo, var(--bg-card-hover)); color: var(--btn2-testo, var(--primary-active));
   font-family: var(--font-body); font-size: var(--fs-body); font-weight: 700;
   cursor: pointer;
   transition: border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
 }
-.btn-secondary:hover { border-color: var(--primary); background: var(--primary-soft); }
+.btn-secondary:hover { border-color: var(--btn2-bordo, var(--primary)); background: var(--btn2-fondo-hover, var(--primary-soft)); }
 .btn-secondary:active { transform: translateY(1px) scale(.985); }
 
 /* Missione urgente: cambia il registro dell'intera card, non un dettaglio. */
@@ -816,7 +863,9 @@ body {
 .missione-urgente .missione-scadenza { color: var(--red); font-weight: 700; }
 .missione-urgente .btn-primary { background: var(--red); box-shadow: 0 2px 5px rgba(180,35,24,.20), 0 10px 24px rgba(180,35,24,.32); }
 .missione-urgente .btn-primary:hover { background: var(--red-hover); box-shadow: 0 3px 7px rgba(180,35,24,.26), 0 14px 32px rgba(180,35,24,.36); }
+/* V4.11: Wiz non compare in Home. L'immagine resta nel DOM, spenta. */
 .missione-wiz-desktop {
+  display: none;
   position: absolute; right: 22px; bottom: 0;
   height: 160px; width: auto; transform: scaleX(-1);
   filter: drop-shadow(0 10px 22px rgba(30,27,46,.22)); pointer-events: none;
@@ -830,27 +879,30 @@ body {
    40px/250px, quindi su una pill che cambia larghezza cadevano ogni volta in
    un punto diverso e a quella scala non si leggevano come stelle ma come
    pixel spuri. Stesso motivo per cui erano già state tolte dal hero. */
+/* Redesign v4: la card è già a inchiostro, quindi la pill perde fondo e
+   diventa il numero grande (mono 700, oro) con la sua etichetta sopra e la
+   nota sotto. Il pallino resta solo per l'urgenza. */
 .countdown-pill {
-  margin: var(--space-5) 0 0;
-  background: var(--night-bg);
-  border-radius: var(--radius-lg);
-  padding: var(--space-3) var(--space-4);
-  display: flex; align-items: center; justify-content: space-between;
-  gap: var(--space-4); flex-wrap: wrap;
+  order: 2;
+  margin: var(--space-3) 0 var(--space-3);
+  display: flex; flex-direction: column; gap: 4px;
 }
-.countdown-sinistra { display: flex; align-items: center; gap: var(--space-3); }
+.countdown-sinistra { display: contents; }
+.countdown-sinistra > div { display: contents; }
 /* R19 — il canvas anima `.countdown-pill.urgente .countdown-dot` con
    `@keyframes pulsa`: entrambi inesistenti. La classe che il JS scrive è
    `missione-urgente` e sta sulla CARD (app.js), e il keyframes si chiama
    `pulsa-dot`. Da qui il pallino è fermo per default e pulsa solo quando la
    missione è urgente: un pallino che pulsa sempre non segnala più niente. */
 .countdown-dot {
+  display: none;
   width: 9px; height: 9px; border-radius: 50%;
   background: var(--gold); flex: none;
   box-shadow: 0 0 0 4px var(--mission-glow);
   animation: none;
 }
 .missione-urgente .countdown-dot {
+  display: block;
   background: #ff7a6e;
   box-shadow: 0 0 0 4px rgba(255,122,110,.30);
   animation: pulsa-dot 1.8s ease-in-out infinite alternate;
@@ -861,14 +913,15 @@ body {
   from { opacity: .55; transform: scale(.82); }
   to   { opacity: 1;   transform: scale(1); }
 }
-.countdown-titolo { font-size: var(--fs-sm); font-weight: 700; color: var(--night-text); }
-.countdown-sub    { font-size: var(--fs-xs); color: var(--night-muted); margin-top: 2px; }
+.countdown-titolo { order: 1; font-size: 15px; font-weight: 600; color: var(--night-text); }
+/* --night-muted su --night-bg 7,93:1. */
+.countdown-sub    { order: 3; font-size: 12.5px; color: var(--night-muted); }
 .countdown-timer  {
-  font-family: var(--font-mono); font-size: 17px; font-weight: 700;
-  color: var(--gold); letter-spacing: -.01em;
+  order: 2;
+  font-family: var(--font-mono); font-size: 52px; line-height: 1; font-weight: 700;
+  color: var(--gold); letter-spacing: -.04em;
   font-variant-numeric: tabular-nums;   /* le cifre non ballano a ogni secondo */
 }
-@media (min-width: 1024px) { .countdown-timer { font-size: 20px; } }
 
 /* ================================================================
    "QUESTA SETTIMANA" (R2, §5.3 modulo 2) — max 2-3 azioni pertinenti
@@ -878,7 +931,7 @@ body {
 .settimana-item {
   display: flex; align-items: baseline; justify-content: space-between; gap: 10px;
   width: 100%; text-align: left; padding: 10px 12px; min-height: 44px;
-  background: var(--bg-card-hover); border: 1px solid var(--border);
+  background: var(--bg-card-hover); border: 1px solid transparent;
   border-radius: var(--radius-md); cursor: pointer;
   font-family: var(--font-body); font-size: .9rem; font-weight: 600; color: var(--text-dark);
 }
@@ -892,8 +945,8 @@ body {
    CARD PREPARAZIONE — vive dentro "Il tuo progresso" (R2, §5.3)
 ================================================================ */
 .preparazione-card {
-  margin: 14px 0 0; background: transparent;
-  border: 0; border-top: 1px solid var(--border); border-radius: 0; padding: 12px 2px 0;
+  margin: var(--space-4) 0 0; background: transparent;
+  border: 0; border-radius: 0; padding: 0 2px;
   box-shadow: none;
 }
 .preparazione-header { display: flex; justify-content: space-between; align-items: center; }
@@ -1632,7 +1685,7 @@ body {
   font-size: var(--fs-body); line-height: 1.55;
 }
 .banner-stato-titolo { font-weight: 700; display: block; margin-bottom: 2px; }
-.banner-stato-icona  { flex: none; font-size: 17px; line-height: 1.4; }
+.banner-stato-icona  { flex: none; display: inline-flex; font-size: 17px; line-height: 1.4; padding-top: 2px; }
 .banner-stato.stato-ok {
   background: var(--green-bg); border-color: var(--green-border);
   border-left-color: var(--green); color: var(--green);
@@ -1970,18 +2023,14 @@ body {
 }
 .profilo-post-invito p { margin: var(--space-1) 0 0; color: var(--text-muted); }
 
-/* In Home resta il viaggio, ma le tappe non correnti non ripetono i riassunti
-   delle altre sezioni. Questo mantiene la mossa principale nel primo schermo
-   anche a 390×844, conservando i sei comandi raggiungibili da tastiera. */
-#tab-oggi .fase-card:not(.fase-attivo) .fase-riassunto { display: none; }
+/* Redesign v4 (decisione di Nicola 14/09): in Home la mossa principale sta
+   SOPRA il progresso, quindi le sei tappe si mostrano per intero, riassunti
+   compresi. Tolte le due regole che le riducevano alla sola tappa corrente. */
 
 @media (max-width: 767px) {
   .profilo-post-invito { align-items: stretch; flex-direction: column; }
   .missione-bottoni { flex-direction: column; }
   .missione-bottoni > * { width: 100%; }
-  /* La Home "Adesso" mostra la tappa corrente, non sei riassunti. Le sei
-     tappe complete restano nella schermata Percorso e nel DOM desktop. */
-  #tab-oggi .fase-card:not(.fase-attivo) { display: none; }
 }
 
 @media (max-width: 1023px) {
@@ -1989,10 +2038,12 @@ body {
     display: flex;
     flex-direction: column;
   }
+  /* Ordine del DOM, ora anche visivo: intestazione → mossa → settimana →
+     progresso (redesign v4). Le regole restano esplicite per chi legge. */
   #tab-oggi:not(.modo-benvenuto) > .home-header { order: 1; }
-  #tab-oggi:not(.modo-benvenuto) > .percorso-wrap { order: 2; }
-  #tab-oggi:not(.modo-benvenuto) > .missione-card { order: 3; }
-  #tab-oggi:not(.modo-benvenuto) > .settimana-card { order: 4; }
+  #tab-oggi:not(.modo-benvenuto) > .missione-card { order: 2; }
+  #tab-oggi:not(.modo-benvenuto) > .settimana-card { order: 3; }
+  #tab-oggi:not(.modo-benvenuto) > .percorso-wrap { order: 4; }
 }
 .mappa-legenda { display: flex; gap: 14px; font-size: .75rem; color: var(--text-hint); margin-top: 8px; flex-wrap: wrap; }
 .mappa-legenda .pin-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--primary-fill); margin-right: 5px; }
@@ -2320,14 +2371,7 @@ body.no-scroll { overflow: hidden; }
   }
   #tab-oggi.nascosto { display: none; }
   #tab-oggi > .benvenuto { grid-column: 1 / -1; }
-  .home-header {
-    grid-column: 1;
-    border-radius: var(--radius-xl); border-top: 1px solid var(--night-border);
-    padding: 30px 34px 34px;
-  }
-  .home-header .wiz-mascot { display: none; } /* sul desktop c'è già il Wiz nella card missione */
-  .home-saluto { font-size: 34px; }
-  .home-data { font-size: 14px; }
+  .home-header { grid-column: 1; }
   /* La sidebar è l'UNICO elemento che conserva una grid-row, e non è una
      dimenticanza: deve ATTRAVERSARE la colonna 1, non affiancarne una riga.
      ⚠️ Il canvas sostiene che l'auto-placement «la mette accanto al primo
@@ -2343,7 +2387,7 @@ body.no-scroll { overflow: hidden; }
      alte 0 — invisibili solo perché il row-gap è 0 (vedi #tab-oggi). */
   #tab-oggi > .percorso-wrap {
     grid-column: 2; grid-row: 1 / 6;
-    margin: 0; align-self: start; padding: 16px 18px 14px;
+    margin: 0; align-self: start; padding: 0;
     /* R13: il canvas scrive `top: var(--space-6)` assumendo che a ≥768 la
        nav non sia più fissa. È falso — .nav-bottom resta `fixed; top: 0;
        height: 64px` a ogni breakpoint (misurato in F0). Senza sommare i
@@ -2351,11 +2395,10 @@ body.no-scroll { overflow: hidden; }
     position: sticky;
     top: calc(64px + var(--space-6));
   }
-  .missione-card  { grid-column: 1; margin: 20px 0 0; padding: 24px; padding-right: 190px; }
+  .missione-card  { grid-column: 1; margin: 20px 0 0; padding: 26px 28px 16px; }
   .settimana-card { grid-column: 1; margin: 20px 0 0; }
   /* pill e barra preparazione non sono più figli diretti della griglia:
      vivono dentro Prossima mossa e Il tuo progresso (R2, §5.3) */
-  .missione-wiz-desktop { display: block; }
   /* niente override di font-size qui: la banda la dà --fs-h1 (28px a ≥1024) */
   .sezione-header { margin-top: 28px; }
 
@@ -2364,7 +2407,6 @@ body.no-scroll { overflow: hidden; }
      Sostituisce la vecchia griglia a 2 colonne del tab Candidatura. */
   #tab-percorso { max-width: 820px; margin: 0 auto; }
 }
-@media (max-width: 1023px) { .missione-wiz-desktop { display: none; } }
 
 /* ================================================================
    METE PREFERITE
@@ -2982,7 +3024,7 @@ body.modo-entrata .modo-scena .mappa svg {
      gutter legacy a 14px, riapplicato per-figlio su 8 gruppi: ora il gutter
      orizzontale lo dà --gutter su .main-content, e riscriverlo qui lo
      raddoppierebbe. */
-  .home-header { padding: 14px 14px 18px; }
+  /* .home-header non ha più padding: senza superficie non c'è un interno. */
 }
 
 /* ================================================================
@@ -3034,12 +3076,17 @@ body.modo-entrata .modo-scena .mappa svg {
   font-size: .84rem; font-weight: 700; text-align: center;
 }
 .storage-failure-banner[hidden] { display: none; }
-.la-link-rapido { display: inline-flex; margin-top: 10px; color: var(--primary); font-weight: 700; font-size: .86rem; }
-/* Le due scorciatoie della Home su una riga sola: il modulo del progresso sta
-   SOPRA la mossa principale sul telefono, quindi ogni riga in più qui spinge
-   l'azione fuori dal primo schermo (contratto misurato a 390×844). */
-.scorciatoie-home { display: flex; flex-wrap: wrap; gap: var(--space-4); }
-.scorciatoie-home .la-link-rapido { margin-top: 10px; }
+/* Azione secondaria = link (V4.4): --primary 14px/700, icona 16px prima,
+   area ≥44px. --primary su --bg-app 5,92:1. */
+.la-link-rapido {
+  display: inline-flex; align-items: center; gap: 6px;
+  min-height: 44px; margin-top: 10px;
+  color: var(--primary); font-weight: 700; font-size: 14px; text-decoration: none;
+}
+.la-link-rapido .icona { font-size: 16px; }
+.la-link-rapido:hover { color: var(--primary-hover); }
+.scorciatoie-home { display: flex; flex-wrap: wrap; gap: 4px; margin: var(--space-2) 0 0 -8px; }
+.scorciatoie-home .la-link-rapido { margin-top: 0; padding: 0 8px; }
 .la-apri-dossier { display: inline-flex; margin-top: 10px; text-decoration: none; }
 .la-page { min-width: 0; }
 .la-page-header {

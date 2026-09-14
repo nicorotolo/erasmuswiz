@@ -415,6 +415,33 @@ function crea(tag, cls, txt) {
   return el;
 }
 
+// ---- Icone a tratto (redesign v4, decisione di Nicola 14/09) ----
+// Sostituiscono le emoji: stesso disegno su ogni telefono. Tracciati 24×24
+// dello stesso set delle artboard (design/redesign-v4/genera-canvas.mjs).
+// Sempre decorative (aria-hidden): il nome accessibile resta il testo.
+const ICONE = {
+  mappa: '<path d="M9 4L3 6.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5z"/><path d="M9 4v13.5M15 6.5V20"/>',
+  percorso: '<circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.5"/>',
+  documento: '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/>',
+  spunta: '<path d="M20 6L9 17l-5-5"/>',
+  lucchetto: '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+  freccia: '<path d="M5 12h14"/><path d="M13 6l6 6-6 6"/>',
+  scintilla: '<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/>',
+  campana: '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/>',
+  avviso: '<path d="M12 4l9 16H3z"/><path d="M12 10v4"/><path d="M12 17.5v.5"/>',
+  utente: '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+  calendario: '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/>',
+};
+function icona(nome, classe) {
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("viewBox", "0 0 24 24");
+  svg.setAttribute("aria-hidden", "true");
+  svg.setAttribute("focusable", "false");
+  svg.setAttribute("class", "icona" + (classe ? " " + classe : ""));
+  svg.innerHTML = ICONE[nome] || "";
+  return svg;
+}
+
 // ---- Utilità date ----
 function formattaData(dataTecnica) {
   return new Date(dataTecnica).toLocaleString("it-IT", {
@@ -1265,9 +1292,15 @@ function renderFaseStepper() {
   wrap.innerHTML = "";
 
   calcolaFasi().forEach(f => {
-    const card   = crea("div", `fase-card fase-${f.stato}`);
-    const icona  = f.stato === "fatto" ? "✅" : f.stato === "attivo" ? "▶" : "🔒";
-    card.appendChild(crea("div", "fase-stato-icona", icona));
+    // Lucchetto solo sulle tappe che dipendono da un passo precedente
+    // (Esito, LA, Partenza — decisione di Nicola sulla canvas v4); le altre
+    // tappe future mostrano il loro numero. Restano tutte consultabili.
+    const bloccata = f.stato === "futuro" && f.id >= 4;
+    const card   = crea("div", `fase-card fase-${f.stato}` + (bloccata ? " fase-bloccata" : ""));
+    const segno  = crea("div", "fase-stato-icona", f.stato === "fatto" || bloccata ? null : String(f.id));
+    if (f.stato === "fatto") segno.appendChild(icona("spunta"));
+    if (bloccata) segno.appendChild(icona("lucchetto"));
+    card.appendChild(segno);
 
     const testi = crea("div", "fase-testi");
     testi.appendChild(crea("div", "fase-domanda", f.domanda));
@@ -1276,6 +1309,7 @@ function renderFaseStepper() {
 
     const btn = crea("button", "fase-cta", f.cta);
     btn.type = "button";
+    if (f.stato === "attivo") btn.appendChild(icona("freccia"));
     btn.addEventListener("click", () => f.stazione ? vaiAStazione(f.stazione) : vaiA(f.tab));
     card.appendChild(btn);
 
@@ -1609,7 +1643,7 @@ function apriOffertaSvegliaHome() {
   offerta.dataset.offertaSvegliaHome = "true";
   offerta.setAttribute("role", "region");
   offerta.setAttribute("aria-label", "Promemoria per il nuovo bando");
-  offerta.appendChild(crea("span", "banner-stato-icona", "⏰"));
+  offerta.appendChild(crea("span", "banner-stato-icona")).appendChild(icona("campana"));
   const contenuto = crea("div");
   contenuto.appendChild(crea("strong", "banner-stato-titolo", "Ti avviso quando esce il bando?"));
   contenuto.appendChild(crea(
@@ -1701,6 +1735,7 @@ function renderMissione() {
     if (!btn) return;
     btn.style.display = "";
     btn.textContent = testo;
+    btn.prepend(icona(tab === "mete" ? "mappa" : tab === "profilo" ? "utente" : "percorso"));
     btn.onclick = e => { e.preventDefault(); stazione ? vaiAStazione(stazione) : vaiA(tab); };
   }
 
@@ -1724,6 +1759,7 @@ function renderMissione() {
         if (finestraAttesaDisponibile()) {
           btnCome.style.display = "";
           btnCome.textContent = "Avvisami quando esce";
+          btnCome.prepend(icona("campana"));
           btnCome.onclick = e => {
             e.preventDefault();
             apriOffertaSvegliaHome();
@@ -1744,7 +1780,8 @@ function renderMissione() {
         "Sei stato selezionato? Preparati alla partenza. " +
         "Non hai fatto domanda? Il prossimo bando esce in genere tra dicembre e gennaio: intanto puoi esplorare le mete e verificare i requisiti.";
       if (btnFatto) {
-        btnFatto.textContent = "Sono stato selezionato 🎒";
+        btnFatto.textContent = "Sono stato selezionato";
+        btnFatto.prepend(icona("spunta"));
         btnFatto.onclick = e => {
           e.preventDefault();
           impostaFaseViaggio("selezionato");
@@ -1767,20 +1804,20 @@ function renderMissione() {
       if (dett)   dett.textContent   = m.prossima
         ? `Preparazione alla partenza — ${m.prossima.cosa} tra ${m.giorni} ${m.giorni === 1 ? "giorno" : "giorni"}.`
         : "Preparazione alla partenza: spunta i passi man mano che li completi.";
-      setBtn(btnFatto, "Fatto 🎒",           "percorso", m.stazione);
+      setBtn(btnFatto, "Fatto",              "percorso", m.stazione);
       setBtn(btnCome,  "Vedi tutti i passi", "percorso", m.stazione);
       break;
     case "urgente":
       card.classList.add("missione-urgente");
-      if (titolo) titolo.textContent = `⚠️ Scadenza tra ${m.giorni} ${m.giorni === 1 ? "giorno" : "giorni"}!`;
+      if (titolo) titolo.textContent = `Scadenza tra ${m.giorni} ${m.giorni === 1 ? "giorno" : "giorni"}!`;
       if (dett)   dett.textContent   = `${m.prossima.cosa} — ${formattaData(m.prossima.data)}. ${m.prossima.descrizione}`;
-      setBtn(btnFatto, "Vedi scadenze ⏳", "percorso", "candidatura");
+      setBtn(btnFatto, "Vedi scadenze", "percorso", "candidatura");
       setBtn(btnCome,  "Cosa devo fare?", "percorso", "candidatura");
       break;
     case "profilo":
       if (titolo) titolo.textContent = "Compila il tuo profilo";
       if (dett)   dett.textContent   = "Inserisci area disciplinare, livello e lingue per scoprire le mete compatibili e ricevere una guida personalizzata.";
-      setBtn(btnFatto, "Vai al profilo ✨", "profilo");
+      setBtn(btnFatto, "Vai al profilo", "profilo");
       setBtn(btnCome,  "Vedi i requisiti",  "percorso", "requisiti");
       break;
     case "checklist":
@@ -1788,19 +1825,19 @@ function renderMissione() {
       if (dett)   dett.textContent   = m.prossima
         ? `Prossima scadenza: ${m.prossima.cosa} tra ${m.giorni} giorni.`
         : "Completa i passi della checklist per essere pronto in tempo.";
-      setBtn(btnFatto, "Fatto ✨",     "percorso", "candidatura");
+      setBtn(btnFatto, "Fatto",       "percorso", "candidatura");
       setBtn(btnCome,  "Come si fa?", "percorso", "candidatura");
       break;
     case "attendi":
       if (titolo) titolo.textContent = m.prossima.cosa;
       if (dett)   dett.textContent   = `Prossima scadenza tra ${m.giorni} giorni. ${m.prossima.descrizione}`;
-      setBtn(btnFatto, "Vedi scadenze ✨", "percorso", "candidatura");
+      setBtn(btnFatto, "Vedi scadenze",   "percorso", "candidatura");
       setBtn(btnCome,  "Esplora mete",     "mete");
       break;
     default:
-      if (titolo) titolo.textContent = "Sei in ottima posizione! 🎉";
+      if (titolo) titolo.textContent = "Sei in ottima posizione!";
       if (dett)   dett.textContent   = "Checklist completata e nessuna scadenza imminente. Tieni d'occhio le mete disponibili.";
-      setBtn(btnFatto, "Esplora le mete ✨", "mete");
+      setBtn(btnFatto, "Esplora le mete", "mete");
       setBtn(btnCome,  "La tua candidatura", "percorso", "candidatura");
   }
 
