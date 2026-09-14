@@ -5,9 +5,9 @@
 
 :root {
   /* ---- FAMIGLIE ---- */
-  --font-display: 'Bricolage Grotesque', 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-display: 'Bricolage Grotesque', Georgia, serif;
   --font-sans:    'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-mono:    'Space Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --font-mono: 'Space Mono', 'Courier New', monospace;
 
   /* ---- PESI ---- */
   --w-regular:  400; /* @kind font */
@@ -17,8 +17,8 @@
   --w-extra:    800; /* @kind font */
 
   /* ---- SCALA TIPOGRAFICA (rem, base 16px) ---- */
-  --fs-xs:   0.75rem;   /* 12 — micro etichette */
-  --fs-sm:   0.875rem;  /* 14 — note, didascalie */
+  --fs-xs:   12px;      /* micro etichette */
+  --fs-sm:   13.5px;    /* note, didascalie — storico 14 */
   --fs-base: 1rem;      /* 16 — testo */
   --fs-md:   1.125rem;  /* 18 — testo enfatico / intro */
   --fs-lg:   1.375rem;  /* 22 — titolo card */

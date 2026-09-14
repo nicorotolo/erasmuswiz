@@ -60,7 +60,7 @@
   --night-ink:     #EDEBF7; /* testo forte */
   --night-ink-2:   #BEB9D6; /* testo tenue */
   --night-ink-3:   #A29CC4; /* hint */
-  --night-border:  #2E3150;
+  --night-border-notte: #2E3150; /* storico tema notte (rimosso in R1.1) */
   --night-border-2:#3A3D63;
   /* primario in notte: tinte CHIARE per testi/link (818CF8/A5B4FC),
      fill saturo (4F46E5) per bottoni con testo bianco */
@@ -82,7 +82,7 @@
 
   --text-strong:   var(--ink-900);
   --text-body:     var(--ink-700);
-  --text-muted:    var(--ink-700);
+  --text-muted:    #4B4560; /* = --ink-700 */
   --text-faint:    var(--ink-500);
   --text-on-primary: #ffffff;
   --text-link:     var(--indigo-600);
@@ -93,8 +93,8 @@
   --surface-soft:   var(--ink-50);
 
   --border-subtle: var(--ink-100);
-  --border-strong: var(--ink-200);
+  --border-strong: #D6D1EA; /* = --ink-200 */
   --border-focus:  var(--indigo-400);
 
-  --ring: color-mix(in srgb, var(--indigo-600) 35%, transparent);
+  --ring: rgba(79,70,229,0.35); /* = --indigo-600 al 35% */
 }
