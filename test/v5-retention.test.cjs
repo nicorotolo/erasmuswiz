@@ -467,3 +467,28 @@ test("V5.3: nessuna riga supera i 75 ottetti e il testo si ricompone srotolando"
   assert.equal(srotolato.includes("�"), false);
   assert.ok(srotolato.includes("è uscito il bando"));
 });
+
+test("Redesign v4 Home: la stima dei giorni al nuovo bando conta giorni di calendario e tace quando non può", () => {
+  // Sapienza: bando precedente 16/12/2025, atteso dal 16/12/2026.
+  const sapienza = datiBando("sapienza");
+  assert.deepEqual(puro.stimaUscitaBando(sapienza, "2026-09-14"), {
+    giorni: 93,
+    cicloRiferimento: "2026/2027",
+  });
+  assert.equal(puro.stimaUscitaBando(sapienza, "2026-12-15").giorni, 1);
+  // Il cambio d'ora di fine ottobre non sposta il conto.
+  assert.equal(puro.stimaUscitaBando(sapienza, "2026-10-24").giorni, 53);
+  assert.equal(puro.stimaUscitaBando(sapienza, "2026-10-26").giorni, 51);
+  // Data raggiunta o superata: niente «tra 0 giorni», niente negativi.
+  assert.equal(puro.stimaUscitaBando(sapienza, "2026-12-16"), null);
+  assert.equal(puro.stimaUscitaBando(sapienza, "2027-01-02"), null);
+  // Ca' Foscari: stesso schema, altra data.
+  assert.equal(puro.stimaUscitaBando(datiBando("cafoscari"), "2026-09-14").giorni, 122);
+  // Assenza = silenzio: finestra mancante, incompleta o data non valida.
+  assert.equal(puro.stimaUscitaBando({ titolo: "Bando di prova" }, "2026-09-14"), null);
+  assert.equal(puro.stimaUscitaBando({
+    finestraAttesa: { inizio: "2026-12-16", precedente: { data: "2025-12-16" }, stato: "atteso" },
+  }, "2026-09-14"), null);
+  assert.equal(puro.stimaUscitaBando(sapienza, "14/09/2026"), null);
+  assert.equal(puro.stimaUscitaBando(sapienza, undefined), null);
+});

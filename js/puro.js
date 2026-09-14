@@ -924,6 +924,25 @@
       ": quello nuovo è atteso in un periodo simile.";
   }
 
+  // Redesign v4 (Home, decisione di Nicola 14/09): quanti giorni mancano al
+  // giorno in cui il nuovo bando è ATTESO. È una STIMA — `inizio` è la data
+  // dell'anno prima spostata di un anno, non una data confermata — e chi la
+  // mostra deve dirlo («stima riferita al bando …»). Stesse regole della
+  // frase: finestra incompleta = silenzio. Silenzio anche a data raggiunta o
+  // superata: «tra 0 giorni» o un numero negativo sarebbero urgenza finta.
+  // `oggi` è la data locale "AAAA-MM-GG": si contano giorni di calendario.
+  function stimaUscitaBando(bandoInfo, oggi) {
+    var finestra = finestraAttesaValida(bandoInfo);
+    if (!finestra || !/^\d{4}-\d{2}-\d{2}$/.test(testo(oggi))) return null;
+    var giorno = function (s) {
+      var p = s.split("-").map(Number);
+      return Date.UTC(p[0], p[1] - 1, p[2]);
+    };
+    var giorni = Math.round((giorno(finestra.inizio) - giorno(oggi)) / 86400000);
+    if (!(giorni > 0)) return null;
+    return { giorni: giorni, cicloRiferimento: finestra.precedente.ciclo };
+  }
+
   var TESTO_INSTALLAZIONE =
     "Niente iscrizione: i tuoi dati restano su questo telefono. " +
     "Aggiungi ErasmusWiz alla schermata home per ritrovarli.";
@@ -3324,6 +3343,7 @@
     certificatoDaRicordare: certificatoDaRicordare,
     finestraAttesaValida: finestraAttesaValida,
     fraseFinestraAttesaBando: fraseFinestraAttesaBando,
+    stimaUscitaBando: stimaUscitaBando,
     massimoDestinazioniBando: massimoDestinazioniBando,
     frasePassatoMassimo: frasePassatoMassimo,
     normalizzaListeScelte: normalizzaListeScelte,

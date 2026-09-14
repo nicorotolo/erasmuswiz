@@ -1635,6 +1635,43 @@ function apriOffertaSvegliaHome() {
   si.focus();
 }
 
+// Redesign v4 (Home, decisione di Nicola 14/09): prima del bando la pill del
+// countdown mostra i giorni al periodo in cui il nuovo bando è ATTESO, detto
+// come stima («tra circa», «stima riferita al bando …»). Solo se non c'è una
+// scadenza vera su cui agire: quella, se esiste, resta a initCountdownPill().
+// Senza finestra valida o a data raggiunta la pill torna com'era (silenzio).
+function aggiornaStimaBando(card, preBando) {
+  const pill = document.getElementById("countdown-pill");
+  if (!pill) return;
+  const adesso = new Date();
+  const oggi = [
+    adesso.getFullYear(),
+    String(adesso.getMonth() + 1).padStart(2, "0"),
+    String(adesso.getDate()).padStart(2, "0"),
+  ].join("-");
+  const stima = preBando && !prossimaScadenzaAzionabile()
+    ? ErasmusWizPuro.stimaUscitaBando(window.BANDO_INFO, oggi)
+    : null;
+  card.classList.toggle("missione-stima", !!stima);
+  if (!stima) {
+    if (pill.dataset.stimaBando) {
+      delete pill.dataset.stimaBando;
+      pill.style.display = "none";
+    }
+    return;
+  }
+  const ciclo = cicloPercorsoBreve();
+  document.getElementById("countdown-titolo").textContent = ciclo
+    ? `Il bando ${ciclo} esce tra circa`
+    : "Il nuovo bando esce tra circa";
+  document.getElementById("countdown-timer").textContent =
+    `${stima.giorni} ${stima.giorni === 1 ? "giorno" : "giorni"}`;
+  document.getElementById("countdown-sub").textContent =
+    `stima riferita al bando ${cicloBreve(stima.cicloRiferimento)}`;
+  pill.dataset.stimaBando = "true";
+  pill.style.display = "";
+}
+
 function renderMissione() {
   const m        = calcolaMissione();
   const card     = document.getElementById("missione-card");
@@ -1647,6 +1684,7 @@ function renderMissione() {
 
   card.querySelector("[data-offerta-sveglia-home]")?.remove();
   card.classList.remove("missione-urgente");
+  aggiornaStimaBando(card, m.tipo === "pre-bando");
 
   if (scad) {
     if (m.prossima && m.giorni !== Infinity) {
