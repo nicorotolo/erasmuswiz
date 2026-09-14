@@ -3197,32 +3197,119 @@ body.modo-entrata .modo-scena .mappa svg {
 .scorciatoie-home { display: flex; flex-wrap: wrap; gap: 4px; margin: var(--space-2) 0 0 -8px; }
 .scorciatoie-home .la-link-rapido { margin-top: 0; padding: 0 8px; }
 .la-apri-dossier { display: inline-flex; margin-top: 10px; text-decoration: none; }
-.la-page { min-width: 0; }
+/* V4.4 nel LA: niente bottoni secondari pieni o con contorno. Le variabili
+   del bottone condiviso li rendono azioni-link (--primary su bianco 6,29:1,
+   su --primary-soft al passaggio 5,62:1) senza alzare la specificità. */
+.la-page {
+  min-width: 0;
+  --btn2-fondo: transparent; --btn2-bordo: transparent;
+  --btn2-testo: var(--primary); --btn2-fondo-hover: var(--primary-soft);
+}
 .la-page-header {
   padding: clamp(24px, 5vw, 48px) var(--gutter) 20px;
   border-radius: var(--radius-lg); background: var(--night-bg); color: var(--night-text);
 }
-.la-page-kicker { margin: 0 0 6px; color: var(--gold-border); font-size: .75rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
-.la-page-header h1 { margin: 0; font-family: var(--font-display); font-size: clamp(1.8rem, 5vw, 3rem); }
-.la-page-header > p:not(.la-page-kicker) { max-width: 720px; margin: 10px 0; color: var(--night-text-soft); }
-.la-back-link { color: var(--night-text); font-size: .84rem; }
+/* V4.9: titolo + «i» sulla stessa riga; la «i» resta sempre sul bordo destro
+   (h1 flessibile), così il suggerimento ancorato a destra non esce mai dallo
+   schermo. Su inchiostro la «i» è --night-muted: 7,93:1 su --night-bg. */
+.la-titolo-riga { display: flex; align-items: flex-start; gap: 4px; }
+.la-page-header h1 { flex: 1; min-width: 0; margin: 0; font-family: var(--font-body); font-weight: 800; font-size: clamp(1.75rem, 5vw, 2.25rem); line-height: 1.1; letter-spacing: -.03em; text-wrap: balance; }
+:where(.la-page-header) .info { color: var(--night-muted); margin: 0 -8px 0 0; }
+:where(.la-page-header) .info-tip { left: auto; right: 0; transform: none; }
+.la-back-link { display: inline-flex; align-items: center; min-height: 44px; margin-top: 4px; color: var(--night-text); font-size: 14px; }
 .la-v2-app { display: grid; gap: var(--space-4); padding: var(--space-4) 0 calc(96px + env(safe-area-inset-bottom)); min-width: 0; }
 .la-stage-list {
   display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 6px; padding: 0; margin: 0; list-style: none;
 }
-.la-stage { display: flex; align-items: center; gap: 7px; min-width: 0; padding: 10px 8px; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--bg-card); color: var(--text-muted); font-size: .76rem; font-weight: 700; }
-.la-stage.attiva { border-color: var(--primary); color: var(--primary); box-shadow: var(--shadow-focus); }
-.la-stage-num { display: grid; place-items: center; width: 24px; height: 24px; flex: none; border-radius: 50%; background: var(--bg-card-hover); font-family: var(--font-mono); }
-.la-panel { min-width: 0; padding: clamp(16px, 3vw, 24px); border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--bg-card); box-shadow: var(--shadow-card); }
-.la-panel-title { margin: 0 0 8px; font-family: var(--font-display); font-size: 1.22rem; color: var(--text-dark); }
-.la-muted { color: var(--text-muted); font-size: .84rem; line-height: 1.5; }
+/* V4.3: superfici senza bordo. La fase corrente la dice il colore del testo
+   (--primary su bianco 6,29:1) e il numero pieno, non un anello di focus
+   finto che si confondeva con il fuoco vero. */
+.la-stage { display: flex; align-items: center; gap: 8px; min-width: 0; padding: 10px 12px; border-radius: var(--radius-md); background: var(--bg-card); box-shadow: 0 1px 2px rgba(30,27,46,.04); color: var(--text-muted); font-size: 13px; font-weight: 700; }
+.la-stage.attiva { color: var(--primary); }
+.la-stage-num { display: grid; place-items: center; width: 24px; height: 24px; flex: none; border-radius: 50%; background: var(--bg-track); font-family: var(--font-mono); font-size: 12px; }
+:where(.la-stage.attiva) > .la-stage-num { background: var(--primary-fill); color: var(--text-on-fill); }
+.la-panel { min-width: 0; padding: clamp(16px, 3vw, 20px); border-radius: var(--radius-lg); background: var(--bg-card); box-shadow: 0 1px 2px rgba(30,27,46,.04); }
+.la-panel-title { margin: 0 0 8px; font-family: var(--font-body); font-weight: 700; font-size: 16px; line-height: 1.3; letter-spacing: -.01em; color: var(--text-dark); }
+.la-muted { color: var(--text-muted); font-size: 13.5px; line-height: 1.5; }
+/* V4.1: niente box colorati per gli stati. Icona + testo colorato; l'icona
+   (maschera sul colore del testo) fa sì che lo stato non sia mai solo colore.
+   Su bianco: --amber 5,42:1, --red 6,57:1, --green 5,43:1; su --bg-app
+   5,11 / 6,19 / 5,12. */
 .la-warning, .la-error, .la-message, .la-ready, .la-locked, .la-confirmed, .la-verified {
-  padding: 10px 12px; border-radius: var(--radius-md); font-size: .82rem; line-height: 1.45;
+  position: relative; margin: 10px 0; padding: 0 0 0 24px;
+  font-size: 13.5px; font-weight: 600; line-height: 1.5;
 }
-.la-warning, .la-locked { background: var(--amber-bg); border: 1px solid var(--amber-border); color: var(--amber); }
-.la-error { background: var(--red-bg); border: 1px solid var(--red-border); color: var(--red); font-weight: 700; }
-.la-message, .la-ready, .la-confirmed, .la-verified { background: var(--green-bg); border: 1px solid var(--green-border); color: var(--green); }
+.la-warning::before, .la-error::before, .la-message::before, .la-ready::before, .la-locked::before, .la-confirmed::before, .la-verified::before {
+  content: ""; position: absolute; left: 0; top: .15em; width: 16px; height: 16px;
+  background: currentColor;
+  -webkit-mask: var(--la-segno) center / contain no-repeat; mask: var(--la-segno) center / contain no-repeat;
+}
+.la-warning, .la-locked, .la-error {
+  --la-segno: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 4l9 16H3z'/%3E%3Cpath d='M12 10v4'/%3E%3Cpath d='M12 17.5v.5'/%3E%3C/svg%3E");
+}
+.la-message, .la-ready, .la-confirmed, .la-verified {
+  --la-segno: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E");
+}
+.la-warning, .la-locked { color: var(--amber); }
+.la-error { color: var(--red); font-weight: 700; }
+.la-message, .la-ready, .la-confirmed, .la-verified { color: var(--green); }
+
+/* ---- V4.9 dossier: barra, fascia «Da controllare», tabella ---- */
+.la-dossier-testa { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 8px 16px; }
+.la-dossier-nome { min-width: 0; flex: 1 1 260px; }
+.la-dossier-nome > .la-panel-title { margin-bottom: 2px; }
+.la-dossier-nome > .la-muted { margin: 0; color: var(--text-hint); }
+.la-dossier-barra { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; }
+:where(.la-dossier-barra) > .btn-primary { flex: none; min-height: 44px; box-shadow: none; }
+:where(.la-dossier-barra > .btn-primary) .icona { font-size: 17px; color: var(--gold); }
+/* Azione secondaria = link (V4.4): --primary 14px/700, area ≥44px.
+   --primary su bianco 6,29:1. */
+.la-azione-link { display: inline-flex; align-items: center; gap: 6px; padding: 0 8px; font-size: 14px; text-align: left; }
+.la-azione-link > .icona { font-size: 16px; }
+.la-azione-link:hover { color: var(--primary-hover); }
+.la-prossimo-passo { margin: 8px 0 0 -8px; }
+.la-da-controllare {
+  position: relative;
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 4px 12px;
+  margin: 16px 0 0; padding: 12px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+}
+/* Il suggerimento si ancora alla fascia, non alla «i» a metà riga: così a
+   320px resta dentro lo schermo. */
+:where(.la-da-controllare) .info { position: static; }
+:where(.la-da-controllare) .info-tip { top: 100%; left: 0; transform: none; }
+.la-da-controllare-segno { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--amber-bg); color: var(--amber); }
+.la-da-controllare-segno > .icona { font-size: 17px; }
+.la-da-controllare-testi { min-width: 0; }
+.la-da-controllare-titolo { display: flex; align-items: center; gap: 2px; margin: 0; font-size: 14.5px; font-weight: 700; color: var(--text-dark); }
+.la-da-controllare-motivo { margin: 0; font-size: 13px; line-height: 1.45; color: var(--text-muted); }
+.la-tabella-wrap { margin: 16px 0 0; }
+.la-tabella { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.la-tabella-didascalia { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+:where(.la-tabella) :is(th, td) { padding: 12px 8px; vertical-align: middle; overflow-wrap: anywhere; }
+:where(.la-tabella thead) th { background: var(--bg-app); border-bottom: 1px solid var(--border); font-size: 11.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--text-hint); }
+:where(.la-tabella thead) th:first-child { border-top-left-radius: var(--radius-md); }
+:where(.la-tabella thead) th:last-child { border-top-right-radius: var(--radius-md); }
+:where(.la-tabella tbody) td { border-bottom: 1px solid var(--border); font-size: 14px; color: var(--text-muted); }
+:where(.la-tabella tbody tr:last-child) td { border-bottom: 0; }
+.la-col-testo { text-align: left; }
+:where(.la-tabella) .la-col-host { font-weight: 600; color: var(--text-dark); }
+.la-col-numero { width: 96px; text-align: center; white-space: nowrap; }
+td.la-col-numero { font-family: var(--font-mono); font-weight: 700; color: var(--text-dark); }
+.la-col-stato { width: 176px; text-align: center; }
+:where(.la-tabella) :is(th, td):first-child { padding-left: 16px; }
+:where(.la-tabella) :is(th, td):last-child { padding-right: 16px; }
+:where(.la-tabella) .info { margin: -12px -8px; }
+:where(.la-tabella tfoot) :is(th, td) { background: var(--bg-app); border-top: 1px solid var(--border-strong); }
+:where(.la-tabella tfoot) th { font-size: 13px; font-weight: 700; color: var(--text-muted); }
+:where(.la-tabella tfoot) td.la-col-numero { font-size: 16px; }
+:where(.la-tabella tfoot tr) > :first-child { border-bottom-left-radius: var(--radius-md); }
+:where(.la-tabella tfoot tr) > :last-child { border-bottom-right-radius: var(--radius-md); }
+.la-tabella-vuota { text-align: left; }
+.la-stato { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 700; white-space: nowrap; }
+.la-stato > .icona { font-size: 14px; }
+.la-stato-ok { color: var(--green); }
+.la-stato-attenzione { color: var(--amber); }
 .la-empty-primary { font-family: var(--font-display); font-size: 1.12rem; font-weight: 800; color: var(--primary); }
 .la-rule-list { display: grid; gap: 8px; padding-left: 22px; }
 .la-rule { padding-left: 2px; color: var(--text-dark); font-size: .84rem; line-height: 1.5; }
@@ -3253,16 +3340,17 @@ body.modo-entrata .modo-scena .mappa svg {
 /* L'avviso sulla destinazione manuale è un giallo di ATTENZIONE, non un
    errore: la destinazione è valida, sono i dati dell'ospitante a non essere
    verificati (PLAN.md §7). */
-.la-avviso-manuale {
-  padding: 10px 12px; border-radius: var(--radius-md);
-  background: var(--amber-bg); border: 1px solid var(--amber-border);
-  color: var(--amber); font-size: .82rem; font-weight: 700; line-height: 1.45;
-  margin: 8px 0;
+/* V4.1: come gli altri stati, icona + testo ambra, senza box. */
+.la-avviso-manuale, .la-avviso-ambito {
+  position: relative; margin: 10px 0; padding: 0 0 0 24px;
+  color: var(--amber); font-size: 13.5px; font-weight: 700; line-height: 1.5;
+  --la-segno: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 4l9 16H3z'/%3E%3Cpath d='M12 10v4'/%3E%3Cpath d='M12 17.5v.5'/%3E%3C/svg%3E");
 }
-.la-avviso-ambito {
-  padding: 10px 12px; border-radius: var(--radius-md);
-  background: var(--amber-bg); border: 1px solid var(--amber-border);
-  color: var(--amber); font-size: .82rem; line-height: 1.45; margin: 8px 0;
+.la-avviso-ambito { font-weight: 600; }
+.la-avviso-manuale::before, .la-avviso-ambito::before {
+  content: ""; position: absolute; left: 0; top: .15em; width: 16px; height: 16px;
+  background: currentColor;
+  -webkit-mask: var(--la-segno) center / contain no-repeat; mask: var(--la-segno) center / contain no-repeat;
 }
 .la-scelta-meta { margin-top: 16px; }
 .la-scelta-meta h3 { margin: 0 0 6px; font-family: var(--font-display); font-size: 1rem; }
@@ -3271,7 +3359,7 @@ body.modo-entrata .modo-scena .mappa svg {
   margin-top: 14px; padding: 12px 14px;
   border: 1px dashed var(--border-strong); border-radius: var(--radius-md);
 }
-.la-meta-manuale > summary { cursor: pointer; font-weight: 700; font-size: .9rem; min-height: 24px; }
+.la-meta-manuale > summary { display: flex; align-items: center; min-height: 44px; cursor: pointer; font-weight: 700; font-size: .9rem; }
 .la-meta-manuale input[type="text"] { display: block; width: 100%; margin: 8px 0; }
 /* A 375px la griglia a tre colonne della creazione dossier non ci sta:
    diventa una colonna sola, con i bersagli interi. */
@@ -3279,8 +3367,8 @@ body.modo-entrata .modo-scena .mappa svg {
   .la-create-dossier { grid-template-columns: 1fr; }
 }
 .la-dossier-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; }
-.la-dossier-card { padding: 14px; border: 1px solid var(--border); border-radius: var(--radius-md); min-width: 0; }
-.la-dossier-card.assigned { border-color: var(--primary); background: var(--bg-card-hover); }
+.la-dossier-card { padding: 14px; border-radius: var(--radius-md); background: var(--bg-app); min-width: 0; }
+.la-dossier-card.assigned { background: var(--primary-soft); }
 .la-dossier-card h3 { margin: 0; font-family: var(--font-display); font-size: .98rem; overflow-wrap: anywhere; }
 .la-status-line { font-size: .76rem; font-weight: 700; color: var(--primary); }
 .la-primary-cta { margin: 8px 0 10px; }
@@ -3302,7 +3390,7 @@ body.modo-entrata .modo-scena .mappa svg {
 .la-suggestion-card .btn-secondary, .la-suggestion-card .la-text-button { margin-right: 8px; }
 .la-mismatch-list { margin: 6px 0 12px; color: var(--amber); }
 .la-export-v2 { margin-top: 18px; border-top: 1px solid var(--border); padding-top: 14px; }
-.la-export-v2 summary { cursor: pointer; color: var(--primary); font-weight: 800; }
+.la-export-v2 summary { display: flex; align-items: center; min-height: 44px; cursor: pointer; color: var(--primary); font-weight: 800; }
 .la-copy-fields { display: grid; gap: 6px; margin: 10px 0; }
 .la-copy-field { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 7px 9px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: .78rem; overflow-wrap: anywhere; }
 .la-secondary-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
@@ -3332,6 +3420,25 @@ body.modo-entrata .modo-scena .mappa svg {
   .la-fatto-riga { grid-template-columns: minmax(0, 1fr); }
   .la-mapping-cols { grid-template-columns: 1fr; }
   .la-page-header { border-radius: 0; }
+  /* Fascia: il link va sotto il motivo, allineato al testo. */
+  :where(.la-da-controllare) > .la-azione-link { grid-column: 2 / -1; justify-self: start; margin-left: -8px; }
+  /* Tabella a 390: ogni abbinamento diventa un blocco a due righe (estero,
+     casa) con l'unità accanto al numero, poi lo stato. Le intestazioni
+     restano leggibili agli screen reader. */
+  .la-tabella, :where(.la-tabella) :is(tbody, tfoot) { display: block; }
+  /* La «i» delle intestazioni nascoste non deve ricevere il fuoco. */
+  :where(.la-tabella thead) .info { display: none; }
+  :where(.la-tabella) thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  :where(.la-tabella) tr { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; column-gap: 12px; padding: 10px 16px; }
+  :where(.la-tabella tbody) tr + tr { border-top: 1px solid var(--border); }
+  :where(.la-tabella) :is(th, td), :where(.la-tabella) :is(th, td):is(:first-child, :last-child) { display: block; width: auto; padding: 2px 0; border: 0; text-align: left; }
+  :where(.la-tabella) td.la-col-numero { width: auto; text-align: right; white-space: nowrap; }
+  :where(.la-tabella) td.la-col-numero::after { content: " " attr(data-unita); font-family: var(--font-body); font-size: 12px; font-weight: 700; color: var(--text-hint); }
+  :where(.la-tabella) td.la-col-stato { grid-column: 1 / -1; width: auto; padding-top: 6px; }
+  :where(.la-tabella) td.la-tabella-vuota { grid-column: 1 / -1; }
+  :where(.la-tabella) tfoot tr { background: var(--bg-app); border-top: 1px solid var(--border-strong); border-radius: 0 0 var(--radius-md) var(--radius-md); }
+  :where(.la-tabella tfoot) :is(th, td) { border: 0; background: transparent; }
+  :where(.la-tabella tfoot) td.la-col-stato { display: none; }
 }
 
 /*__PROD_END__*/

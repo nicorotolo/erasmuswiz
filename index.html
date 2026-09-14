@@ -383,9 +383,15 @@
     <section id="tab-learning-agreement" class="tab-pane nascosto la-page"
              tabindex="-1" aria-labelledby="la-page-title">
       <header class="la-page-header">
-        <p class="la-page-kicker">Dossier personale · solo su questo dispositivo</p>
-        <h1 id="la-page-title">Learning Agreement</h1>
-        <p id="la-page-intro"></p>
+        <!-- V4.9: titolo + «i» al posto del kicker; la spiegazione che stava
+             nel kicker e nell'introduzione vive nel suggerimento. -->
+        <div class="la-titolo-riga">
+          <h1 id="la-page-title">Costruisci il tuo Learning Agreement</h1>
+          <button class="info" type="button" aria-label="Informazioni sul Learning Agreement" aria-describedby="info-la">
+            <svg class="icona" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 7.5v.5"/></svg>
+            <span class="info-tip" role="tooltip" id="info-la">Qui prepari, confronti e conservi il dossier degli esami da sostenere all'estero. Non è il portale ufficiale e non invia nulla. Il dossier resta solo su questo dispositivo: per non perderlo, scarica una copia di sicurezza.</span>
+          </button>
+        </div>
         <a class="la-back-link" href="#percorso" data-goto="percorso">← Torna al percorso</a>
       </header>
       <div id="la-v2-app" class="la-v2-app" aria-live="polite"></div>

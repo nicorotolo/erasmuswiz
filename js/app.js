@@ -437,6 +437,9 @@ const ICONE = {
   matita: '<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/>',
   telefono: '<rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18h2"/>',
   calendario: '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/>',
+  stampa: '<path d="M7 9V4h10v5"/><rect x="4" y="9" width="16" height="8" rx="2"/><path d="M7 14h10v6H7z"/>',
+  salva: '<path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4"/><path d="M8 20v-6h8v6"/>',
+  info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 7.5v.5"/>',
 };
 function icona(nome, classe) {
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -4567,8 +4570,124 @@ function laRenderExportV2(sezione, dossier, versione) {
     aggiungiCampo(`URL corso host ${indice + 1}`, corso.officialUrl);
   });
   details.appendChild(campi);
-  details.appendChild(laBottone("Stampa / salva PDF", "btn-secondary", () => laStampaV2(dossier, versione)));
+  // «Stampa» sta nella barra del dossier (V4.9): qui non si ripete.
   sezione.appendChild(details);
+}
+
+// V4.9 «Da controllare»: fascia propria fra la barra del dossier e la
+// tabella. Il motivo è lo stesso testo di prima («Primo punto da
+// completare: …»); il link porta dove portava il vecchio primario.
+function laFasciaDaControllare(prontezza, vaiA) {
+  const n = prontezza.missingCodes.length;
+  const fascia = laElemento("div", "la-da-controllare");
+  const segno = laElemento("span", "la-da-controllare-segno");
+  segno.appendChild(icona("avviso"));
+  const testi = laElemento("div", "la-da-controllare-testi");
+  const titolo = laElemento("p", "la-da-controllare-titolo", `${n} ${n === 1 ? "punto" : "punti"} da controllare`);
+  const info = laElemento("button", "info");
+  info.type = "button";
+  info.setAttribute("aria-label", "Informazioni sui punti da controllare");
+  info.setAttribute("aria-describedby", "info-la-controllare");
+  info.appendChild(icona("info"));
+  const tip = laElemento("span", "info-tip", "Sono i controlli del sito sul dossier: dati mancanti, collegamenti fra esami e regole del tuo ateneo. Non è un giudizio dell'università, ma conviene sistemarli prima di presentare la proposta.");
+  tip.id = "info-la-controllare";
+  tip.setAttribute("role", "tooltip");
+  info.appendChild(tip);
+  titolo.appendChild(info);
+  testi.append(titolo, laElemento("p", "la-da-controllare-motivo", `Primo punto da completare: ${laEtichettaBlocco(prontezza.missingCodes[0])}.`));
+  const vai = laBottone("Vai al punto", "la-text-button la-azione-link", vaiA);
+  vai.appendChild(icona("freccia"));
+  fascia.append(segno, testi, vai);
+  return fascia;
+}
+
+// V4.9 tabella, adattata ai dati veri (Nicola, 14/09): una riga per
+// abbinamento, crediti affiancati SENZA giudizio (il controllo pre-invio dice
+// di non presumere che ECTS e CFU coincidano), stato «Completo» o «Manca un
+// lato». Totali dalla stessa fotografia riepilogativa usata altrove.
+function laRenderRiepilogoAbbinamenti(sezione, versione) {
+  const numero = n => Number(n || 0).toLocaleString("it-IT", { maximumFractionDigits: 1 });
+  const tabella = laElemento("table", "la-tabella");
+  const didascalia = laElemento("caption", "la-tabella-didascalia", "Riepilogo degli abbinamenti");
+  tabella.appendChild(didascalia);
+  const thead = laElemento("thead");
+  const intestazione = laElemento("tr");
+  const th = (testo, classe, spiegazione) => {
+    const cella = laElemento("th", classe, testo);
+    cella.scope = "col";
+    if (spiegazione) {
+      const info = laElemento("button", "info");
+      info.type = "button";
+      info.setAttribute("aria-label", `Informazioni su ${testo}`);
+      info.setAttribute("aria-describedby", `info-la-${testo.toLowerCase()}`);
+      info.appendChild(icona("info"));
+      const tip = laElemento("span", "info-tip", spiegazione);
+      tip.id = `info-la-${testo.toLowerCase()}`;
+      tip.setAttribute("role", "tooltip");
+      info.appendChild(tip);
+      cella.appendChild(info);
+    }
+    return cella;
+  };
+  intestazione.append(
+    th("Esame all'estero", "la-col-testo"),
+    th("ECTS", "la-col-numero", "Crediti europei dei corsi che sosterrai nell'università ospitante."),
+    th(`Esame ${laNomeAteneo()}`, "la-col-testo"),
+    th("CFU", "la-col-numero", `Crediti degli esami ${laNomeAteneo()} che l'abbinamento copre. Non devono per forza coincidere con gli ECTS.`),
+    th("Stato della scelta", "la-col-stato"),
+  );
+  thead.appendChild(intestazione);
+  tabella.appendChild(thead);
+  const tbody = laElemento("tbody");
+  const hostPerId = new Map(versione.hostCourseSnapshots.filter(ErasmusWizPuro.corsoHostAttivoLA).map(c => [c.snapshotId, c]));
+  const casaPerId = new Map(versione.homeExamSnapshots.map(e => [e.snapshotId, e]));
+  const cella = (tag, classe, testo, unita) => {
+    const c = laElemento(tag, classe, testo);
+    if (unita) c.dataset.unita = unita;
+    return c;
+  };
+  versione.mappings.forEach(mapping => {
+    const host = mapping.hostCourseSnapshotIds.map(id => hostPerId.get(id)).filter(Boolean);
+    const casa = mapping.homeExamSnapshotIds.map(id => casaPerId.get(id)).filter(Boolean);
+    const completo = host.length > 0 && casa.length > 0;
+    const riga = laElemento("tr");
+    const stato = laElemento("span", `la-stato ${completo ? "la-stato-ok" : "la-stato-attenzione"}`);
+    stato.append(icona(completo ? "spunta" : "avviso"), document.createTextNode(completo ? "Completo" : "Manca un lato"));
+    const cellaStato = laElemento("td", "la-col-stato");
+    cellaStato.appendChild(stato);
+    riga.append(
+      cella("td", "la-col-testo la-col-host", host.map(c => c.nome || "Senza nome").join(" + ") || "—"),
+      cella("td", "la-col-numero", host.length ? numero(host.reduce((t, c) => t + (Number(c.ects) || 0), 0)) : "—", "ECTS"),
+      cella("td", "la-col-testo la-col-casa", casa.map(e => e.nome || "Senza nome").join(" + ") || "—"),
+      cella("td", "la-col-numero", casa.length ? numero(casa.reduce((t, e) => t + (Number(e.cfu) || 0), 0)) : "—", "CFU"),
+      cellaStato,
+    );
+    tbody.appendChild(riga);
+  });
+  if (!versione.mappings.length) {
+    const riga = laElemento("tr");
+    const vuota = laElemento("td", "la-tabella-vuota", "Nessun abbinamento ancora: lo crei più sotto, in «Corrispondenze».");
+    vuota.colSpan = 5;
+    riga.appendChild(vuota);
+    tbody.appendChild(riga);
+  }
+  tabella.appendChild(tbody);
+  const riepilogo = ErasmusWizPuro.riepilogoVersioneLA(versione);
+  const tfoot = laElemento("tfoot");
+  const totali = laElemento("tr");
+  const etichetta = (testo) => { const c = laElemento("th", "la-col-testo", testo); c.scope = "row"; return c; };
+  totali.append(
+    etichetta("Totale all'estero"),
+    cella("td", "la-col-numero", numero(riepilogo.hostCredits), "ECTS"),
+    etichetta("Totale riconosciuto"),
+    cella("td", "la-col-numero", numero(riepilogo.homeCredits), "CFU"),
+    laElemento("td", "la-col-stato"),
+  );
+  tfoot.appendChild(totali);
+  tabella.appendChild(tfoot);
+  const contenitore = laElemento("div", "la-tabella-wrap");
+  contenitore.appendChild(tabella);
+  sezione.appendChild(contenitore);
 }
 
 function laConfermaFattoReale(prontezza, azione) {
@@ -5114,8 +5233,27 @@ function laRenderDossier(contenitore, dossier, ciclo) {
   const regole = laRegoleAttive(dossier.cycle, fase);
   const prontezza = ErasmusWizPuro.valutaProntezzaLA(dossier, versione, regole.rules);
   if (prontezza.state === "ready") laAnalyticsUnaVolta("la-ready");
-  sezione.appendChild(laElemento("h2", "la-panel-title", `${nomeUniversita(dossier.meta.universita)} · versione ${versione.number}`));
-  sezione.appendChild(laElemento("p", "la-muted", `${dossier.meta.citta || dossier.meta.paese || ""} · ciclo ${dossier.cycle} · ${operativo ? `fase ${fase}` : "dossier esplorativo, non ancora operativo"}`));
+  // V4.9: barra del dossier. A sinistra nome e contesto, a destra «Stampa»
+  // (link) e l'unico primario della vista. Nicola (14/09): il primario è
+  // «Crea nuova versione» col suo nome di sempre, non «Salva versione»: il
+  // dossier si salva già a ogni modifica e il nome nuovo lo farebbe dubitare.
+  const testa = laElemento("div", "la-dossier-testa");
+  const intestazione = laElemento("div", "la-dossier-nome");
+  intestazione.appendChild(laElemento("h2", "la-panel-title", `${nomeUniversita(dossier.meta.universita)} · versione ${versione.number}`));
+  intestazione.appendChild(laElemento("p", "la-muted", `${dossier.meta.citta || dossier.meta.paese || ""} · ciclo ${dossier.cycle} · ${operativo ? `fase ${fase}` : "dossier esplorativo, non ancora operativo"}`));
+  const barra = laElemento("div", "la-dossier-barra");
+  const stampa = laBottone("Stampa", "la-text-button la-azione-link", () => laStampaV2(dossier, versione));
+  stampa.prepend(icona("stampa"));
+  const nuovaVersione = laBottone("Crea nuova versione", "btn-primary", () => laTransazione("nuova versione", la => {
+    la.dossiersById[dossier.id] = ErasmusWizPuro.clonaNuovaVersioneLA(la.dossiersById[dossier.id], {
+      reason: "manual", at: new Date().toISOString(),
+    });
+    la.backupReminder = { reason: "new-version", dueAt: new Date().toISOString() };
+  }, "la-version-created"));
+  nuovaVersione.prepend(icona("salva"));
+  barra.append(stampa, nuovaVersione);
+  testa.append(intestazione, barra);
+  sezione.appendChild(testa);
   // Avviso che viaggia con il dossier (PLAN.md §7): compare nel dossier, in
   // ogni versione storica, nel testo copiato, in stampa, nel backup e
   // nell'anteprima di ripristino. Lo stato manuale si deriva dal namespace
@@ -5136,7 +5274,7 @@ function laRenderDossier(contenitore, dossier, ciclo) {
       !dossier.confirmationsByVersion?.[versione.versionId]?.["sent-home"] &&
       !dossier.confirmationsByVersion?.[versione.versionId]?.["entered-portal"],
   });
-  const primary = laBottone(cta.label.replace(/^Completa: /, "Completa: ").replace(cta.code.startsWith("fix:") ? cta.code.slice(4) : "\0", cta.code.startsWith("fix:") ? laEtichettaBlocco(cta.code.slice(4)) : ""), "btn-primary la-primary-cta", () => {
+  const vaiA = () => {
     if (cta.code === "recover-unsaved") laScaricaRecuperoVolatile();
     else if (cta.code === "backup-due") laScaricaBackup();
     else {
@@ -5146,10 +5284,17 @@ function laRenderDossier(contenitore, dossier, ciclo) {
         : "la-workflow";
       document.getElementById(bersaglio)?.scrollIntoView({ behavior: "smooth" });
     }
-  });
-  sezione.appendChild(primary);
+  };
+  // Il prossimo passo diventa un'azione-link (V4.4): il primario è uno solo.
+  // Quando il passo è «completa un punto» lo porta la fascia qui sotto.
+  if (!cta.code.startsWith("fix:")) {
+    const passo = laBottone(cta.label, "la-text-button la-azione-link la-prossimo-passo", vaiA);
+    passo.appendChild(icona("freccia"));
+    sezione.appendChild(passo);
+  }
   if (prontezza.state === "ready") sezione.appendChild(laElemento("p", "la-ready", "Proposta pronta secondo i controlli inseriti. Non equivale ad approvazione ufficiale."));
-  else sezione.appendChild(laElemento("p", "la-warning", `Primo punto da completare: ${laEtichettaBlocco(prontezza.missingCodes[0])}.`));
+  else sezione.appendChild(laFasciaDaControllare(prontezza, vaiA));
+  laRenderRiepilogoAbbinamenti(sezione, versione);
 
   if (!assegnatoId) {
     sezione.appendChild(laBottone("Assegna questa meta al ciclo", "btn-secondary", () => laTransazione("assegnazione della meta", la => {
@@ -5187,12 +5332,6 @@ function laRenderDossier(contenitore, dossier, ciclo) {
   }
   laRenderExportV2(sezione, dossier, versione);
   const secondarie = laElemento("div", "la-secondary-actions");
-  secondarie.appendChild(laBottone("Crea nuova versione", "btn-secondary", () => laTransazione("nuova versione", la => {
-    la.dossiersById[dossier.id] = ErasmusWizPuro.clonaNuovaVersioneLA(la.dossiersById[dossier.id], {
-      reason: "manual", at: new Date().toISOString(),
-    });
-    la.backupReminder = { reason: "new-version", dueAt: new Date().toISOString() };
-  }, "la-version-created")));
   const nuovoCiclo = ErasmusWizPuro.cicloSuccessivo(dossier.cycle);
   if (nuovoCiclo) {
     secondarie.appendChild(laBottone(`Duplica nel ciclo ${nuovoCiclo}`, "btn-secondary", () => laTransazione("duplicazione nel nuovo ciclo", la => {
@@ -5309,8 +5448,6 @@ function renderLAV2() {
   document.querySelectorAll("[data-la-route]").forEach(link => {
     link.href = `#learning-agreement/${ateneoAttivo()}`;
   });
-  const intro = document.getElementById("la-page-intro");
-  if (intro) intro.textContent = `Prepara, confronta e conserva il dossier per ${laNomeAteneo()}. Non è il portale ufficiale e non invia nulla.`;
   aggiornaBannerPersistenza();
   if (_laSaveErrorMessage) {
     cont.appendChild(laElemento("div", _laVolatileRecovery ? "la-error" : "la-message", _laSaveErrorMessage));
