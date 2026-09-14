@@ -214,9 +214,9 @@ html { scroll-behavior: smooth; }
   box-shadow: 0 0 0 6px rgba(79,70,229,.22);
 }
 /* Superfici a inchiostro: nav, hero, testa del drawer, footer, celebrazione,
-   scena d'ingresso dell'onboarding. Stessa specificità della regola sopra,
-   ma viene dopo: vince. */
-:is(.nav-bottom, .home-header, .drawer-testa, .footer-v2, .celebrazione-overlay, .modo-scena)
+   onboarding (scena e passi: da V4.12-bis è tutto su --night-bg). Stessa
+   specificità della regola sopra, ma viene dopo: vince. */
+:is(.nav-bottom, .home-header, .drawer-testa, .footer-v2, .celebrazione-overlay, .benvenuto)
   :is(a, button, summary, input, select, [tabindex]):focus-visible {
   outline-color: var(--gold);
   box-shadow: 0 0 0 6px rgba(251,191,36,.26);
@@ -1848,10 +1848,13 @@ body {
    Pin = <button> in overlay HTML sopra l'SVG (accessibili, ≥44px).
 ================================================================ */
 .mappa-wrap { position: relative; margin-top: 6px; }
-.mappa { position: relative; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border); background: var(--bg-card); }
+/* V4.12-bis: le variabili --mappa-* e --pin-* le imposta solo chi ospita la
+   mappa su inchiostro (.benvenuto). Senza, valgono i valori di sempre: la mappa
+   delle Mete non cambia. Così la regola resta a una classe. */
+.mappa { position: relative; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--mappa-bordo, var(--border)); background: var(--mappa-fondo, var(--bg-card)); }
 .mappa svg { display: block; width: 100%; height: auto; }
-.mappa-terra { fill: var(--bg-card-hover); stroke: var(--border-strong); stroke-width: .8; stroke-linejoin: round; }
-.mappa-terra-casa { fill: var(--primary-tint); }
+.mappa-terra { fill: var(--mappa-terra, var(--bg-card-hover)); stroke: var(--mappa-confine, var(--border-strong)); stroke-width: .8; stroke-linejoin: round; }
+.mappa-terra-casa { fill: var(--mappa-casa, var(--primary-tint)); }
 .mappa-pin-layer { position: absolute; inset: 0; }
 .mappa-pin {
   position: absolute; width: 44px; height: 44px; transform: translate(-50%,-50%);
@@ -1864,7 +1867,7 @@ body {
    Stessa alfa, stesso peso percepito: cambia solo la tinta. */
 .mappa-pin .punto {
   width: 13px; height: 13px; border-radius: 50%; background: var(--primary-fill);
-  border: 2.5px solid var(--bg-card); box-shadow: 0 2px 6px rgba(30,27,46,.30);
+  border: 2.5px solid var(--pin-anello, var(--bg-card)); box-shadow: 0 2px 6px rgba(30,27,46,.30);
   transition: transform var(--dur-fast) var(--ease-out);
 }
 .mappa-pin:hover .punto, .mappa-pin:focus-visible .punto { transform: scale(1.5); }
@@ -1872,20 +1875,20 @@ body {
 @keyframes mappa-pin-pop { from { transform: scale(0); } to { transform: scale(1); } }
 .mappa-pin-cluster .punto {
   width: 28px; height: 28px; display: grid; place-items: center;
-  font-size: .7rem; font-weight: 800; color: var(--text-on-fill); font-family: var(--font-body);
+  font-size: .7rem; font-weight: 800; color: var(--pin-numero, var(--text-on-fill)); font-family: var(--font-body);
 }
 .mappa-pin-stella .punto { background: var(--gold); }
 .mappa-pin-stella::after { content: "★"; position: absolute; top: 0; right: 2px; font-size: .78rem; color: var(--gold); text-shadow: 0 1px 2px rgba(30,27,46,.30); }
 .mappa-pin-ateneo { width: 56px; height: 56px; }
-.mappa-pin-ateneo .punto { width: 24px; height: 24px; background: var(--primary-fill); display: grid; place-items: center; }
-.mappa-pin-ateneo .punto::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--text-on-fill); }
-.mappa-pin-ateneo .anello { position: absolute; inset: 7px; border-radius: 50%; border: 2px dashed var(--primary); opacity: .55; animation: mappa-ruota 16s linear infinite; }
+.mappa-pin-ateneo .punto { width: 24px; height: 24px; background: var(--pin-ateneo, var(--primary-fill)); display: grid; place-items: center; }
+.mappa-pin-ateneo .punto::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--pin-numero, var(--text-on-fill)); }
+.mappa-pin-ateneo .anello { position: absolute; inset: 7px; border-radius: 50%; border: 2px dashed var(--pin-ateneo, var(--primary)); opacity: .55; animation: mappa-ruota 16s linear infinite; }
 @keyframes mappa-ruota { to { transform: rotate(360deg); } }
 .mappa-pin-etichetta {
   position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
   white-space: nowrap; font-size: .71rem; font-weight: 800;
   background: var(--bg-card); color: var(--text-dark);
-  padding: 2px 9px; border-radius: var(--radius-pill); border: 1px solid var(--border);
+  padding: 2px 9px; border-radius: var(--radius-pill); border: 1px solid var(--pin-etichetta-bordo, var(--border));
 }
 .mappa-tooltip {
   position: absolute; z-index: 30; max-width: 295px; min-width: 220px;
@@ -1898,7 +1901,7 @@ body {
 .mappa-tooltip-titolo { font-weight: 800; font-size: .9rem; line-height: 1.3; color: var(--text-dark); }
 .mappa-tooltip-dove { font-size: .77rem; color: var(--text-hint); margin: 2px 0 6px; }
 .mappa-tooltip-chips { font-size: .78rem; font-weight: 600; color: var(--text-muted); }
-.mappa-nota { font-size: .78rem; color: var(--text-hint); margin-top: 8px; }
+.mappa-nota { font-size: .78rem; color: var(--mappa-nota, var(--text-hint)); margin-top: 8px; }
 .mappa-cluster-lista { list-style: none; margin-top: 12px; padding: 0; }
 .mappa-cluster-voce {
   width: 100%; text-align: left; padding: 12px; min-height: 44px;
@@ -2001,86 +2004,115 @@ body {
    Con l'overlay sparisce il bug P0.1 (centratura + overflow).
 ================================================================ */
 #tab-oggi.modo-benvenuto > *:not(#home-benvenuto) { display: none; }
+/* V4.12-bis (opzione C): tutto l'onboarding sta su inchiostro, non solo la
+   scena. La mappa e i pallini prendono i colori da qui (vedi .mappa):
+   pallini tutti oro, lo stato lo dice la FORMA (tondo / quadrato / quadrato
+   vuoto) — scelta di Nicola 14/09, nessun token nuovo.
+   Contrasti su --night-bg: oro 9,47:1; numero --night-bg su oro 9,47:1. */
 .benvenuto {
   margin-top: 12px; padding: 22px 18px 24px;
-  background: linear-gradient(175deg, var(--bg-card) 0%, var(--bg-card-hover) 100%);
-  border: 1px solid var(--border); border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-card);
+  background: var(--night-bg); color: var(--night-text);
+  border: 0; border-radius: var(--radius-xl);
+  --mappa-fondo: transparent;
+  --mappa-bordo: transparent;
+  --mappa-terra: rgba(255,255,255,.07);
+  --mappa-confine: rgba(255,255,255,.14);
+  --mappa-casa: rgba(255,255,255,.16);
+  --mappa-nota: var(--night-muted);
+  --pin-anello: var(--night-bg);
+  --pin-numero: var(--night-bg);
+  --pin-ok: var(--gold);
+  --pin-medio: var(--gold);
+  --pin-no: var(--gold);
+  --pin-no-fondo: var(--night-bg);
+  --pin-ateneo: var(--gold);
+  --pin-etichetta-bordo: transparent;
+  /* Scelte come righe di vetro (artboard SceltaOnboarding): bianco su
+     bianco 8% sopra la scheda 11,6:1 (9,4:1 al passaggio); al passaggio il bordo va in oro. */
+  --scelta-fondo: rgba(255,255,255,.08);
+  --scelta-fondo-hover: rgba(255,255,255,.14);
+  --scelta-bordo: rgba(255,255,255,.14);
+  --scelta-bordo-hover: var(--gold);
+  --scelta-ombra-hover: none;
+  --scelta-testo: var(--night-text);
 }
 .benvenuto-testa { display: flex; gap: 16px; align-items: flex-start; }
 .benvenuto-testi { flex: 1; min-width: 0; }
 .benvenuto-titolo {
   font-family: var(--font-display); font-weight: 800;
   font-size: clamp(1.45rem, 5vw, 2.1rem); letter-spacing: -.02em; line-height: 1.18;
-  color: var(--text-dark); max-width: 24ch;
+  color: var(--night-text); max-width: 24ch; text-wrap: balance;
 }
-.benvenuto-titolo em { font-style: normal; color: var(--primary); }
-.benvenuto-claim { color: var(--text-muted); margin-top: 8px; font-size: .93rem; max-width: 56ch; }
+/* L'artboard lo vuole tutto bianco; l'indaco su inchiostro scendeva a 2,4:1. */
+.benvenuto-titolo em { font-style: normal; color: inherit; }
+.benvenuto-claim { color: var(--night-text-soft); margin-top: 8px; font-size: .93rem; max-width: 56ch; }
 .benvenuto-wiz { height: 84px; width: auto; flex: none; }
+/* Wiz parla in testo semplice, senza fumetto a riquadro (V4.3). */
 .benvenuto-fumetto {
   position: relative; display: inline-block; margin-top: 12px;
-  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md);
-  padding: 9px 13px; font-weight: 700; font-size: .87rem; color: var(--text-dark);
-  box-shadow: var(--shadow-card);
+  font-weight: 700; font-size: 16px; line-height: 1.35; color: var(--night-text);
 }
-.benvenuto-passi { display: flex; gap: 8px; margin: 16px 0 10px; flex-wrap: wrap; }
+/* Passi = pallini (V4.12-bis): il testo resta nel DOM, che è già aria-hidden;
+   la domanda la dice Wiz. Attivo allungato in oro, fatti in oro. */
+.benvenuto-passi { display: flex; align-items: center; gap: 6px; margin: 16px 0 10px; }
 .benvenuto-passo {
-  display: inline-flex; align-items: center; gap: 7px; padding: 7px 13px;
-  border-radius: var(--radius-pill); background: var(--bg-card); border: 1px solid var(--border);
-  font-size: .8rem; font-weight: 700; color: var(--text-hint);
+  display: block; width: 8px; height: 8px; overflow: hidden;
+  border-radius: var(--radius-pill); background: rgba(255,255,255,.18);
+  font-size: 0; color: transparent;
+  transition: width var(--dur-base) var(--ease-out);
 }
-.benvenuto-passo .n {
-  width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center;
-  background: var(--bg-card-hover); font-size: .7rem; font-weight: 800;
-}
-.benvenuto-passo[data-attivo="true"] { color: var(--text-dark); border-color: var(--primary); }
-.benvenuto-passo[data-attivo="true"] .n { background: var(--primary-fill); color: var(--text-on-fill); }
-.benvenuto-passo[data-fatto="true"] .n { background: var(--green); color: var(--text-on-fill); }
+.benvenuto-passo .n { display: none; }
+.benvenuto-passo[data-fatto="true"] { background: var(--gold); }
+.benvenuto-passo[data-attivo="true"] { width: 22px; background: var(--gold); }
 .benvenuto-scelte { margin-top: 14px; }
 .benvenuto-scelte-riga { display: flex; flex-wrap: wrap; gap: 10px; }
+/* .benvenuto-scelta vive anche fuori dall'onboarding (offerte della Home, su
+   chiaro): i colori su inchiostro arrivano dalle variabili di .benvenuto. */
 .benvenuto-scelta {
   display: inline-flex; align-items: center; margin: 0 10px 10px 0;
   padding: 12px 18px; min-height: 50px;
-  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md);
-  font-family: var(--font-body); font-size: .95rem; font-weight: 700; color: var(--text-dark);
-  cursor: pointer;
-  transition: border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+  background: var(--scelta-fondo, var(--bg-card)); border: 1px solid var(--scelta-bordo, var(--border)); border-radius: var(--radius-md);
+  font-family: var(--font-body); font-size: .95rem; font-weight: 700; color: var(--scelta-testo, var(--text-dark));
+  text-align: left; cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
 }
 .benvenuto-scelte-riga .benvenuto-scelta { margin: 0; }
-.benvenuto-scelta:hover { border-color: var(--primary); transform: translateY(-1px); box-shadow: var(--shadow-card-hover); }
+.benvenuto-scelta:hover { border-color: var(--scelta-bordo-hover, var(--primary)); background: var(--scelta-fondo-hover, var(--bg-card)); transform: translateY(-1px); box-shadow: var(--scelta-ombra-hover, var(--shadow-card-hover)); }
 .benvenuto-scelta:active { transform: scale(.97); }
-.benvenuto-sotto-domanda { font-weight: 700; font-size: .92rem; color: var(--text-muted); margin-bottom: 10px; }
+.benvenuto-sotto-domanda { font-weight: 700; font-size: .92rem; color: var(--night-text-soft); margin-bottom: 10px; }
 
 /* Fallback manuale del corso/facoltà di partenza (tranche 1 pre-Bruno,
    PLAN.md §4). È deliberatamente una via secondaria: si apre solo se le
    opzioni del catalogo non bastano. */
 .benvenuto-manuale {
   margin-top: 14px; padding: 12px 14px;
-  background: var(--bg-card); border: 1px dashed var(--border);
+  background: rgba(255,255,255,.06); border: 0;
   border-radius: var(--radius-md); max-width: 46ch;
 }
 .benvenuto-manuale > summary {
-  cursor: pointer; font-weight: 700; font-size: .9rem; color: var(--text-dark);
+  cursor: pointer; font-weight: 700; font-size: .9rem; color: var(--night-text);
   min-height: 24px;
 }
 .benvenuto-manuale .benvenuto-sotto-domanda { margin: 10px 0; font-weight: 500; }
 .benvenuto-manuale input[type="text"] {
   width: 100%; min-height: 44px; padding: 10px 12px; margin-bottom: 10px;
-  border: 1px solid var(--border); border-radius: var(--radius-md);
+  border: 0; border-radius: var(--radius-md);
   font-family: var(--font-body); font-size: .95rem; color: var(--text-dark);
-  background: var(--bg-page);
+  background: var(--bg-card); /* era --bg-page, mai definito: campo trasparente */
 }
+/* Su inchiostro il --red scende a 2,4:1: l'errore usa il rosa chiaro della
+   palette (--red-border, 10,9:1; 10,2:1 sulla scheda di vetro nel caso peggiore), l'avviso resta role="alert" e in grassetto. */
 .benvenuto-errore-manuale {
-  font-size: .85rem; font-weight: 700; color: var(--red);
+  font-size: .85rem; font-weight: 700; color: var(--red-border);
   margin: 0 0 10px; max-width: 52ch;
 }
 
 /* Onboarding = personalizzazione locale onesta (PLAN §5.2) */
 .benvenuto-kicker {
   font-size: .78rem; font-weight: 800; letter-spacing: .07em;
-  text-transform: uppercase; color: var(--text-hint); margin-top: 16px;
+  text-transform: uppercase; color: var(--night-muted); margin-top: 16px;
 }
-.benvenuto-privacy { font-size: .78rem; color: var(--text-hint); margin-top: 12px; max-width: 60ch; }
+.benvenuto-privacy { font-size: .78rem; color: var(--night-muted); margin-top: 12px; max-width: 60ch; }
 /* ---- Scena d'ingresso (R2.1, PLAN §5.1): inchiostro profondo + rotte
    d'oro lente, zero pin. Attiva con .modo-scena sul #home-benvenuto;
    il clic sul CTA la toglie e fa partire il flusso a 3 domande. ---- */
@@ -2111,15 +2143,15 @@ body {
 .benvenuto-riga-lingua { display: flex; gap: 10px; }
 .benvenuto-riga-lingua select {
   padding: 10px 12px; min-height: 44px; border-radius: var(--radius-md);
-  background: var(--bg-card); border: 1px solid var(--border);
+  background: var(--bg-card); border: 0;
   font-family: var(--font-body); font-size: .92rem; font-weight: 600; color: var(--text-dark);
 }
 .benvenuto-riga-lingua select:first-child { flex: 1; min-width: 0; }
 .benvenuto-landing-titolo {
   font-family: var(--font-display); font-weight: 800; font-size: 1.3rem;
-  letter-spacing: -.01em; color: var(--text-dark); margin-bottom: 6px;
+  letter-spacing: -.01em; color: var(--night-text); margin-bottom: 6px;
 }
-.benvenuto-landing-dettaglio { font-size: .92rem; color: var(--text-muted); margin-bottom: 14px; }
+.benvenuto-landing-dettaglio { font-size: .92rem; color: var(--night-text-soft); margin-bottom: 14px; }
 .benvenuto-btn-inizia { width: 100%; max-width: 320px; padding: 16px; font-size: 16px; }
 /* Il CTA vive solo sulla scena a inchiostro (benvScena lo nasconde all'uscita):
    lì il primario inchiostro sparirebbe, quindi è bianco (V4.12-bis).
@@ -2652,7 +2684,9 @@ body.modo-entrata .benvenuto {
   border: 0;
   border-radius: 0;
   box-shadow: none;
-  padding: 20px 16px 88px;
+  /* In alto lo spazio del Menu che galleggia (44px + 8px); in basso quello
+     della nav, più il bordo della scheda di vetro. */
+  padding: 68px 16px 100px;
 }
 
 /* La prima scena mobile è un solo piano: mappa sotto, velo sopra, poi il
@@ -2729,7 +2763,7 @@ body.modo-entrata .modo-scena .mappa svg {
 
 .benvenuto-conseguenza-salto {
   margin: 10px 0 14px;
-  color: var(--text-muted);
+  color: var(--night-text-soft);
   font-size: .84rem;
   line-height: 1.5;
 }
@@ -2742,13 +2776,15 @@ body.modo-entrata .modo-scena .mappa svg {
   bottom: 10px;
   z-index: 3;
   justify-content: center;
+  gap: 14px;
   padding: 7px 9px;
   margin: 0;
-  border: 1px solid var(--border);
+  border: 0;
   border-radius: var(--radius-md);
-  background: rgba(255,255,255,.92);
-  color: var(--text-muted);
-  backdrop-filter: blur(8px);
+  background: transparent;
+  color: var(--night-text);
+  font-size: 12.5px;
+  font-weight: 700;
 }
 .benvenuto-mappa-legenda > span {
   display: inline-flex;
@@ -2764,23 +2800,120 @@ body.modo-entrata .modo-scena .mappa svg {
 .pin-forma.compatibile,
 .mappa-pin-compatibile .punto {
   border-radius: 50%;
-  background: var(--green);
+  background: var(--pin-ok, var(--green));
 }
 .pin-forma.da-verificare,
 .mappa-pin-da-verificare .punto {
   border-radius: 2px;
-  background: var(--amber);
+  background: var(--pin-medio, var(--amber));
 }
 .pin-forma.non-accessibile {
-  border: 2px solid var(--red);
+  border: 2px solid var(--pin-no, var(--red));
   border-radius: 2px;
   background: transparent;
 }
 .mappa-pin-non-accessibile .punto {
-  border-color: var(--red);
+  border-color: var(--pin-no, var(--red));
   border-radius: 2px;
-  background: var(--bg-card);
-  color: var(--red);
+  background: var(--pin-no-fondo, var(--bg-card));
+  color: var(--pin-no, var(--red));
+}
+
+/* ---- Onboarding a telefono, opzione C (V4.12-bis) ----------------------
+   Mappa ferma a tutto sfondo, titolo e legenda in alto, scheda di vetro in
+   basso con Wiz, pallini dei passi e scelte. NESSUN wrapper nuovo: la testa e
+   il contenitore della mappa diventano `display: contents`, così i loro figli
+   entrano nella griglia di .benvenuto; la scheda è il suo ::after, il velo
+   sfumato il suo ::before. Solo nei passi: la scena (.modo-scena) resta com'è.
+   `:where()` tiene ogni regola a UNA classe di specificità. */
+@media (max-width: 767px) {
+  .benvenuto:where(:not(.modo-scena)) {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    /* La riga vuota tiene almeno 32px fra titolo e scheda anche quando le
+       scelte sono tante e la pagina scorre (es. 8 dipartimenti). */
+    grid-template-rows: auto auto minmax(32px, 1fr) auto auto auto auto;
+    grid-template-areas:
+      "titolo  titolo  titolo"
+      "legenda legenda legenda"
+      ".       .       ."
+      "wiz     fumetto passi"
+      "scelte  scelte  scelte"
+      "privacy privacy privacy"
+      "nota    nota    nota";
+    column-gap: 10px;
+    isolation: isolate;
+  }
+  .benvenuto:where(:not(.modo-scena))::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(to bottom,
+      color-mix(in srgb, var(--night-bg) 85%, transparent) 0%,
+      transparent 26%, transparent 42%,
+      color-mix(in srgb, var(--night-bg) 92%, transparent) 68%);
+  }
+  .benvenuto:where(:not(.modo-scena))::after {
+    content: "";
+    grid-row: 4 / -1;
+    grid-column: 1 / -1;
+    margin: -18px -4px -16px;
+    z-index: 1;
+    border-radius: 24px;
+    background: color-mix(in srgb, var(--night-bg-2) 72%, transparent);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    box-shadow: inset 0 0 0 1px var(--night-border);
+  }
+  :where(.benvenuto:not(.modo-scena)) :is(.benvenuto-testa, .benvenuto-testi, .mappa-wrap) {
+    display: contents;
+  }
+  :where(.benvenuto:not(.modo-scena)) :is(.benvenuto-claim, .benvenuto-kicker) { display: none; }
+  :where(.benvenuto:not(.modo-scena)) :is(.benvenuto-titolo, .benvenuto-mappa-legenda, .benvenuto-wiz, .benvenuto-fumetto, .benvenuto-passi, .benvenuto-scelte, .benvenuto-privacy, .mappa-nota) {
+    position: relative;
+    z-index: 2;
+    margin: 0;
+  }
+  :where(.benvenuto:not(.modo-scena)) .benvenuto-titolo {
+    grid-area: titolo;
+    max-width: 16ch;
+    font-size: var(--fs-hero);
+    line-height: 1.12;
+    letter-spacing: -.025em;
+  }
+  :where(.benvenuto:not(.modo-scena)) .benvenuto-mappa-legenda {
+    grid-area: legenda;
+    position: relative;
+    inset: auto;
+    justify-content: flex-start;
+    margin-top: 12px;
+    padding: 0;
+  }
+  :where(.benvenuto:not(.modo-scena)) .mappa {
+    position: fixed;
+    top: 40px;
+    left: 50%;
+    z-index: 0;
+    width: 140vw;
+    transform: translateX(-50%);
+    border: 0;
+    border-radius: 0;
+  }
+  /* Dentro la scheda il contenuto rientra di 10px dal vetro (artboard: 14). */
+  :where(.benvenuto:not(.modo-scena)) .benvenuto-wiz {
+    grid-area: wiz;
+    align-self: center;
+    height: 44px;
+    margin-left: 10px;
+  }
+  :where(.benvenuto:not(.modo-scena)) .benvenuto-fumetto { grid-area: fumetto; align-self: center; }
+  :where(.benvenuto:not(.modo-scena)) .benvenuto-passi { grid-area: passi; align-self: center; margin-right: 10px; }
+  :where(.benvenuto:not(.modo-scena)) .benvenuto-scelte { grid-area: scelte; margin: 14px 10px 0; }
+  :where(.benvenuto:not(.modo-scena)) .benvenuto-scelte-riga { flex-direction: column; }
+  :where(.benvenuto:not(.modo-scena)) .benvenuto-privacy { grid-area: privacy; margin: 12px 10px 0; }
+  :where(.benvenuto:not(.modo-scena)) .mappa-nota { grid-area: nota; margin: 6px 10px 0; }
 }
 
 @media (min-width: 768px) {
@@ -2806,7 +2939,9 @@ body.modo-entrata .modo-scena .mappa svg {
   /* Dopo il velo: domande a sinistra, mappa reattiva a destra. */
   body.modo-entrata .benvenuto:not(.modo-scena) {
     display: grid;
-    grid-template-columns: minmax(300px, .85fr) minmax(420px, 1.15fr);
+    /* Era minmax(300px) + minmax(420px): con gap e padding facevano 812px e a
+       768 la pagina scorreva di lato di 21px (misurato prima di V4.12-bis). */
+    grid-template-columns: minmax(280px, .85fr) minmax(0, 1.15fr);
     grid-template-areas:
       "testa mappa"
       "kicker mappa"
@@ -2815,13 +2950,17 @@ body.modo-entrata .modo-scena .mappa svg {
       "privacy nota";
     align-content: center;
     gap: 12px clamp(28px, 4vw, 64px);
-    padding: 48px clamp(32px, 5vw, 80px);
+    /* In alto la barra da 64px + 32px: a 768 il titolo ci finiva sotto. */
+    padding: 96px clamp(32px, 5vw, 80px) 48px;
   }
   .benvenuto:not(.modo-scena) > .benvenuto-testa { grid-area: testa; }
   .benvenuto:not(.modo-scena) > .benvenuto-kicker { grid-area: kicker; }
   .benvenuto:not(.modo-scena) > .benvenuto-passi { grid-area: passi; }
   .benvenuto:not(.modo-scena) > .mappa-wrap {
     grid-area: mappa;
+    /* In cima alla colonna: la legenda (in basso nel contenitore) resta
+       attaccata alla mappa invece di scivolare in fondo alla griglia. */
+    align-self: start;
     width: 100%;
     max-width: none;
     margin: 0;
