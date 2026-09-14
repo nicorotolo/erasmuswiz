@@ -431,6 +431,9 @@ const ICONE = {
   avviso: '<path d="M12 4l9 16H3z"/><path d="M12 10v4"/><path d="M12 17.5v.5"/>',
   utente: '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
   stella: '<path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/>',
+  su: '<path d="M6 15l6-6 6 6"/>',
+  giu: '<path d="M6 9l6 6 6-6"/>',
+  chiudi: '<path d="M6 6l12 12M18 6L6 18"/>',
   calendario: '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/>',
 };
 function icona(nome, classe) {
@@ -2845,7 +2848,7 @@ function creaCardMeta(meta, comp) {
 const COPY_SCELTE = Object.freeze({
   titoloElenco: "Le tue preferite, in ordine di priorità",
   rigaSottile: n => `${n} ${n === 1 ? "preferita" : "preferite"}, in ordine di priorità`,
-  vuoto: "☆ Tocca la stellina su una meta per aggiungerla qui. L'ordine è tuo: lo cambi quando vuoi.",
+  vuoto: "Tocca la stellina su una meta per aggiungerla qui. L'ordine è tuo: lo cambi quando vuoi.",
   rimuovi: "Rimuovi dalle tue preferite",
   rimossa: nome => `${nome} — rimossa dalle tue preferite`,
   annulla: "Annulla",
@@ -2988,21 +2991,25 @@ function renderPreferite(msg) {
       corpo.appendChild(crea("span", "schedina-stato", COPY_SCELTE.orfanaNota));
     } else if (ZAINO.profilo) {
       const comp = calcolaCompatibilita(meta, ZAINO.profilo);
+      // V4.7: «percentuale · stato» in mono, senza emoji.
       corpo.appendChild(crea("span", "schedina-stato",
-        `${comp.icona} ${comp.totale !== null ? comp.totale + "%" : comp.stato}`));
+        comp.totale !== null ? `${comp.totale}% · ${comp.stato}` : comp.stato));
     }
     slot.appendChild(corpo);
 
     const azioni = crea("div", "schedina-azioni");
-    const su = crea("button", "schedina-freccia", "▲");
+    const su = crea("button", "schedina-freccia");
+    su.appendChild(icona("su"));
     su.type = "button"; su.title = "Sposta su";
     su.setAttribute("aria-disabled", riga.indice === 0 ? "true" : "false");
     su.addEventListener("click", () => spostaSchedina(riga.indice, -1));
-    const giu = crea("button", "schedina-freccia", "▼");
+    const giu = crea("button", "schedina-freccia");
+    giu.appendChild(icona("giu"));
     giu.type = "button"; giu.title = "Sposta giù";
     giu.setAttribute("aria-disabled", riga.indice === ids.length - 1 ? "true" : "false");
     giu.addEventListener("click", () => spostaSchedina(riga.indice, 1));
-    const rimuovi = crea("button", "schedina-rimuovi", "✕");
+    const rimuovi = crea("button", "schedina-rimuovi");
+    rimuovi.appendChild(icona("chiudi"));
     rimuovi.type = "button"; rimuovi.title = COPY_SCELTE.rimuovi;
     rimuovi.addEventListener("click", () => togglePreferita(id));
     azioni.appendChild(su); azioni.appendChild(giu); azioni.appendChild(rimuovi);
@@ -6354,7 +6361,8 @@ function benvPassoLingue(livello) {
       aggiornaCompatibilita();
     });
     selLivello.addEventListener("change", () => aggiornaCompatibilita());
-    const rimuovi = crea("button", "schedina-rimuovi", "✕");
+    const rimuovi = crea("button", "schedina-rimuovi");
+    rimuovi.appendChild(icona("chiudi"));
     rimuovi.type = "button";
     rimuovi.setAttribute("aria-label", `Rimuovi lingua ${i + 1}`);
     rimuovi.addEventListener("click", () => {

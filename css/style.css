@@ -1541,46 +1541,52 @@ body {
    schermate prima della lista mete). Si allinea solo lo stile, e diventa
    un invito d'oro invece di una riga grigia — è un suggerimento, non un
    errore. --gold-dark su --gold-bg sta a 4,5:1. */
+/* Redesign v4: invito come testo secondario, senza box colorato (V4.1).
+   --text-muted su --bg-app 8,53:1. */
 .schedina-invito-vuota {
   display: block; margin: 0;
-  padding: var(--space-4);
-  background: var(--gold-bg);
-  border: 1px solid var(--gold-border);
-  border-radius: var(--radius-md);
-  font-size: var(--fs-sm); line-height: 1.6;
-  color: var(--gold-dark);
+  font-size: var(--fs-sm); line-height: 1.55;
+  color: var(--text-muted);
   text-wrap: pretty;
 }
 /* REDESIGN v2 §4.8 — gli slot smettono di essere tutti bordati d'oro. La
    schedina ha già una sua sezione con titolo: ripetere l'accento su ogni riga
    lo consuma e lo toglie a dove serve davvero (missione, preferiti,
    celebrazione). Il numero d'ordine resta il segno, in indaco monospaziato. */
+/* V4.7: riga compatta su superficie senza bordo; numero su inchiostro. */
 .schedina-lista { display: flex; flex-direction: column; gap: var(--space-2); }
 .schedina-slot {
-  display: flex; align-items: center; gap: var(--space-3);
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: 14px; padding: var(--space-3);
+  display: flex; align-items: center; gap: 10px;
+  background: var(--bg-card); border: 0;
+  box-shadow: 0 1px 2px rgba(30,27,46,.04);
+  border-radius: var(--radius-md); padding: 6px 4px 6px 10px;
 }
+/* Bianco su --night-bg 15,8:1. */
 .schedina-numero {
-  flex: none; width: 22px; text-align: center;
-  font-family: var(--font-mono); font-size: 15px; font-weight: 700;
-  color: var(--primary);
+  flex: none; display: grid; place-items: center;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--night-bg); color: var(--night-text);
+  font-family: var(--font-mono); font-size: 13px; font-weight: 700;
 }
 /* min-width:0 è ciò che fa funzionare l'ellissi sul nome: senza, il flex item
    non scende sotto la larghezza del contenuto e la riga sfonda. */
 .schedina-corpo { flex: 1; min-width: 0; }
 .schedina-nome { display: block; font-size: var(--fs-sm); font-weight: 700; color: var(--text-dark); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .schedina-stato { display: block; font-family: var(--font-mono); font-size: var(--fs-xs); font-weight: 700; color: var(--text-muted); margin-top: 2px; }
-.schedina-azioni { display: flex; gap: var(--space-1); flex: none; }
+.schedina-azioni { display: flex; gap: 0; flex: none; }
 /* F2.0 — da 40px a 44 (inventario touch F0.5). Il canvas ne propone 40:
    il criterio d'uscita di F4 è lista VUOTA, quindi 44 a tutte le larghezze. */
+/* Frecce e X come icone senza fondo (V4.7): --text-muted 9,05:1 su bianco,
+   X --red 6,57:1; freccia inattiva --border-strong (decorativa, disattivata). */
 .schedina-freccia, .schedina-rimuovi {
   width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
-  background: var(--bg-card-hover); border: 0; border-radius: var(--radius-sm);
-  cursor: pointer; color: var(--text-muted); font-size: var(--fs-sm);
+  background: transparent; border: 0; border-radius: var(--radius-sm);
+  cursor: pointer; color: var(--text-muted); font-size: 18px;
   transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
 }
-.schedina-rimuovi { background: var(--red-bg); color: var(--red); }
+/* Nell'onboarding (vetro scuro) il --red da solo scende a 2,4:1: lì la X
+   conserva il fondo --red-bg (5,76:1), impostato da .benvenuto. */
+.schedina-rimuovi { background: var(--rimuovi-fondo, transparent); color: var(--red); }
 .schedina-freccia[aria-disabled="true"] { color: var(--border-strong); cursor: not-allowed; }
 .schedina-freccia:hover:not([aria-disabled="true"]) { background: var(--border); color: var(--text-dark); }
 .schedina-rimuovi:hover { background: var(--red-bg-hover); }
@@ -1590,9 +1596,9 @@ body {
   background: var(--bg-card); color: var(--gold-dark);
   font: 700 var(--fs-sm) var(--font-body); cursor: pointer;
 }
-.schedina-slot-rimosso { border-style: dashed; }
+.schedina-slot-rimosso { box-shadow: inset 0 0 0 1px var(--border-strong); }
 .schedina-rimossa { color: var(--text-muted); font-size: var(--fs-sm); }
-.schedina-slot-orfano { border-style: dashed; }
+.schedina-slot-orfano { box-shadow: inset 0 0 0 1px var(--border-strong); }
 .preferite-fatto-storico {
   margin: 0 0 var(--space-3);
   color: var(--text-muted); font-size: var(--fs-xs);
@@ -1604,10 +1610,8 @@ body {
   overflow: hidden !important; clip: rect(0, 0, 0, 0) !important;
   white-space: nowrap !important; border: 0 !important;
 }
-@media (max-width: 480px) {
-  .schedina-slot { flex-wrap: wrap; }
-  .schedina-azioni { width: 100%; justify-content: flex-end; margin-top: 4px; }
-}
+/* V4.7: azioni sulla stessa riga del nome anche a telefono (il nome si
+   accorcia con l'ellissi, già prevista); tolto l'a-capo a ≤480. */
 
 /* V6a — sul telefono l'esplorazione viene prima della mappa: ricerca,
    filtri, elenco salvato e card; la mappa scende in fondo senza introdurre
@@ -2097,6 +2101,7 @@ body {
   --pin-no-fondo: var(--night-bg);
   --pin-ateneo: var(--gold);
   --pin-etichetta-bordo: transparent;
+  --rimuovi-fondo: var(--red-bg);
   /* Scelte come righe di vetro (artboard SceltaOnboarding): bianco su
      bianco 8% sopra la scheda 11,6:1 (9,4:1 al passaggio); al passaggio il bordo va in oro. */
   --scelta-fondo: rgba(255,255,255,.08);
@@ -2430,22 +2435,22 @@ body.no-scroll { overflow: hidden; }
 /* ================================================================
    METE PREFERITE
 ================================================================ */
+/* V4.7: niente box d'oro intorno all'elenco; intestazione come H2 V4.2.
+   --text-dark su --bg-app 15,8:1. */
 #sezione-preferite:not(:empty) {
   margin: 0 0 16px;
-  background: var(--gold-bg);
-  border: 1px solid var(--gold-border);
-  border-radius: var(--radius-lg);
-  padding: 14px 16px;
 }
 .preferite-header {
   display: flex;
-  align-items: center;
-  margin-bottom: 10px;
+  align-items: baseline;
+  margin-bottom: var(--space-3);
 }
 .preferite-label {
   font-weight: 700;
-  font-size: 14px;
-  color: var(--gold-dark);
+  font-size: 16px;
+  line-height: 1.3;
+  letter-spacing: -.01em;
+  color: var(--text-dark);
 }
 .preferite-hint {
   font-size: 12.5px;
