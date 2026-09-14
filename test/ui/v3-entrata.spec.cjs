@@ -104,7 +104,8 @@ test("V3 §8.1: la tastiera completa P1→P4→E senza attraversare i pin", asyn
   await page.locator("#benvenuto-inizia").focus();
   await page.keyboard.press("Enter");
 
-  await tabFinoAlTesto(page, "🧭 Sto esplorando");
+  // Redesign v4: l'emoji è diventata un'icona SVG, il testo resta.
+  await tabFinoAlTesto(page, "Sto esplorando");
   await page.keyboard.press("Enter");
   await expect(entrata.locator(".mappa-pin[tabindex='-1']")).toHaveCount(2);
 

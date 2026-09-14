@@ -1058,7 +1058,7 @@ body {
 .toggle-fase-btn {
   flex: 1; min-width: 140px;
   /* F2.0 — da 39px a 44 (inventario touch F0.5) */
-  display: inline-flex; align-items: center; justify-content: center;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   min-height: 44px;
   padding: 0 var(--space-4); border-radius: var(--radius-pill);
   border: 1.5px solid var(--border); background: var(--bg-card);
@@ -2120,7 +2120,7 @@ body {
 /* .benvenuto-scelta vive anche fuori dall'onboarding (offerte della Home, su
    chiaro): i colori su inchiostro arrivano dalle variabili di .benvenuto. */
 .benvenuto-scelta {
-  display: inline-flex; align-items: center; margin: 0 10px 10px 0;
+  display: inline-flex; align-items: center; gap: 10px; margin: 0 10px 10px 0;
   padding: 12px 18px; min-height: 50px;
   background: var(--scelta-fondo, var(--bg-card)); border: 1px solid var(--scelta-bordo, var(--border)); border-radius: var(--radius-md);
   font-family: var(--font-body); font-size: .95rem; font-weight: 700; color: var(--scelta-testo, var(--text-dark));

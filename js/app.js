@@ -5934,6 +5934,9 @@ function benvPassoPorta() {
     const btn = crea("button", "benvenuto-scelta", testo);
     btn.type = "button";
     btn.dataset.fase = fase;
+    // L'icona è la stessa della porta del Percorso: una sola fonte anche qui.
+    const iconaPorta = document.querySelector(`.toggle-fase-btn[data-fase="${fase}"] .icona`);
+    if (iconaPorta) btn.prepend(iconaPorta.cloneNode(true));
     btn.addEventListener("click", () => {
       window._onboardingPorta = fase;
       // Tranche 1 pre-Bruno (PLAN.md §2): la risposta smista DAVVERO. Da qui
@@ -6360,8 +6363,9 @@ function benvPassoLingue(livello) {
   ));
 
   const bottoni = crea("div", "benvenuto-scelte-riga");
-  const btnOk = crea("button", "benvenuto-scelta", "Fatto ✓");
+  const btnOk = crea("button", "benvenuto-scelta", "Fatto");
   btnOk.type = "button";
+  btnOk.prepend(icona("spunta"));
   btnOk.addEventListener("click", () => {
     const scelte = righe
       .filter(r => r.selLingua.value)
