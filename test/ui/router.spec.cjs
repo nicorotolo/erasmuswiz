@@ -25,6 +25,33 @@ async function preparaAvvioFreddo(page) {
   });
 }
 
+// Nicola (14/09): durante l'onboarding Menu e navigazione non ci sono. Le
+// prove che navigano dall'interfaccia partono quindi da un utente che ha già
+// concluso l'onboarding; gli avvii a freddo restano sul visitatore nuovo.
+async function preparaUtenteFatto(page) {
+  await page.addInitScript(() => {
+    try {
+      if (sessionStorage.getItem("__router_pronto")) return;
+      localStorage.clear();
+      sessionStorage.clear();
+      sessionStorage.setItem("__router_pronto", "1");
+      localStorage.setItem("erasmuswiz_ateneo", "cafoscari");
+      localStorage.setItem("erasmuswiz-zaino", JSON.stringify({
+        v: 3,
+        zaini: {
+          cafoscari: {
+            profilo: { nome: "Ada", area: "0311", dipartimento: "Dipartimento di prova", livello: "L", lingue: [], extraUE: false, ricercaTesi: false },
+            checklist: {}, metePreferite: [], schedina: [], fase: "esplorando", checklistPost: {},
+            onboardingFatto: true, autoverifica: {}, zainoCelebrato: false, wizardMete: true,
+            la: { metaAperta: null, bozzePerMeta: {} }, cicloPercorso: "2027/28", cicloDati: "2026/27",
+            storico: {}, schedinaCiclo: {},
+          },
+        },
+      }));
+    } catch (errore) {}
+  });
+}
+
 async function attendiSezione(page, tab, hashAtteso) {
   const sezione = page.locator(`#tab-${tab}`);
   await expect(sezione).toBeVisible();
@@ -111,7 +138,7 @@ async function navigaDallInterfaccia(page, tab) {
 
 test("10 navigazioni, 10 Indietro e 10 Avanti conservano URL, schermata e fuoco", async ({ page }) => {
   const errori = raccogliErrori(page);
-  await preparaAvvioFreddo(page);
+  await preparaUtenteFatto(page);
   await page.goto(PAGINA, { waitUntil: "domcontentloaded" });
   await attendiSezione(page, "oggi", "");
 
@@ -149,7 +176,7 @@ test("ri-cliccare la voce attiva non muove ne' il fuoco ne' la pagina (F6)", asy
       return scrollToNativo.apply(this, argomenti);
     };
   });
-  await preparaAvvioFreddo(page);
+  await preparaUtenteFatto(page);
   await page.goto(PAGINA, { waitUntil: "domcontentloaded" });
   await navigaDallInterfaccia(page, "mete");
 
@@ -204,7 +231,7 @@ test("ri-cliccare la voce attiva non muove ne' il fuoco ne' la pagina (F6)", asy
 });
 
 test("il drawer restituisce il fuoco, poi la destinazione o la tendina prevalgono", async ({ page }) => {
-  await preparaAvvioFreddo(page);
+  await preparaUtenteFatto(page);
   await page.goto(PAGINA, { waitUntil: "domcontentloaded" });
 
   await page.locator("#btn-drawer").click();
@@ -222,7 +249,7 @@ test("il drawer restituisce il fuoco, poi la destinazione o la tendina prevalgon
 });
 
 test("il mouse non mostra l'anello sulla sezione; il Tab lo mostra alla prima fermata", async ({ page }) => {
-  await preparaAvvioFreddo(page);
+  await preparaUtenteFatto(page);
   await page.goto(PAGINA, { waitUntil: "domcontentloaded" });
   await page.locator('.nav-item[data-tab="mete"]').click();
   await attendiSezione(page, "mete", "#mete");
@@ -267,7 +294,7 @@ test("prefers-reduced-motion elimina lo scorrimento animato, anche in Cambia ate
       return scrollIntoViewNativo.apply(this, argomenti);
     };
   });
-  await preparaAvvioFreddo(page);
+  await preparaUtenteFatto(page);
   await page.goto(PAGINA, { waitUntil: "domcontentloaded" });
 
   await page.locator('.nav-item[data-tab="mete"]').click();

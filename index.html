@@ -83,10 +83,8 @@
           </div>
         </div>
         <div class="benvenuto-scelte" id="benvenuto-scelte" aria-live="polite"></div>
-        <!-- Personalizzazione locale onesta (PLAN §5.2): niente account,
-             e la verità sui dati detta sempre, in ogni passo. -->
-        <p class="benvenuto-privacy">I dati restano su questo dispositivo. Se cancelli
-          i dati del browser o cambi dispositivo, il percorso non viene recuperato.</p>
+        <!-- Nicola (14/09): il messaggio «i dati restano su questo dispositivo»
+             non sta più nell'onboarding; resta nel Menu e nel Profilo. -->
         <p class="mappa-nota" id="mappa-nota-benvenuto" hidden></p>
       </div>
 
@@ -509,10 +507,11 @@
        principale resta di tre voci e il menu ha un posto suo, sempre lo
        stesso. L'id resta #btn-drawer: è il contratto di initDrawer(). -->
   <div class="barra-alto" id="barra-alto">
-    <button class="menu-trigger" id="btn-drawer" type="button"
+    <!-- Nicola (14/09): solo l'icona; il nome «Menu» resta per chi usa un
+         lettore di schermo. -->
+    <button class="menu-trigger" id="btn-drawer" type="button" aria-label="Menu"
             aria-controls="drawer" aria-expanded="false" aria-haspopup="dialog">
       <span class="menu-trigger-icona" aria-hidden="true"><svg class="icona" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg></span>
-      <span class="menu-trigger-label">Menu</span>
     </button>
   </div>
 

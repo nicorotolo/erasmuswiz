@@ -58,14 +58,13 @@ test("in pre-bando la mossa completa prima il profilo, poi esplora le mete", asy
   await preparaHomePreBando(page, null);
   await page.goto("/index.html#oggi", { waitUntil: "domcontentloaded" });
 
+  // Nicola (14/09): card ridotta a «esce tra circa N giorni» + stima; senza
+  // profilo resta solo l'invito, in una riga.
   await expect(page.locator("#missione-titolo")).toHaveText(
-    "Il bando 2027/28 non è ancora uscito"
+    /^Il bando 2027\/28 (esce tra circa|non è ancora uscito)$/
   );
-  await expect(page.locator("#missione-dettaglio")).toContainText(
-    "quelle date restano qui come riferimento storico"
-  );
-  await expect(page.locator("#missione-dettaglio")).toContainText(
-    "Completa il profilo per filtrare le mete compatibili"
+  await expect(page.locator("#missione-dettaglio")).toHaveText(
+    "Completa il profilo per vedere le mete compatibili."
   );
   await expect(page.locator("#btn-fatto")).toHaveText("Completa il profilo");
 
@@ -88,7 +87,7 @@ test("in pre-bando la mossa completa prima il profilo, poi esplora le mete", asy
   });
 
   await expect(page.locator("#missione-titolo")).toHaveText(
-    "Il bando 2027/28 non è ancora uscito"
+    /^Il bando 2027\/28 (esce tra circa|non è ancora uscito)$/
   );
   await expect(page.locator("#btn-fatto")).toHaveText("Esplora le mete");
 });

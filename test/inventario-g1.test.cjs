@@ -255,36 +255,47 @@ test("G1/T5: in pre-bando ciascuno dei 19 punti dichiara il ciclo o resta invari
         })
     );
 
-    // 2 — badge in cima.
+    // 2 — badge in cima. Nicola (14/09): prima del bando il badge ripeteva la
+    // card della mossa e sparisce; i due cicli li dichiara la card (3-5).
     w.renderHome();
     assert.ok(
-      w.document.getElementById("badge-bando").textContent ===
-        `Bando ${cicloPercorso} non ancora uscito · dati ${cicloDati}`,
-      "#2 il badge deve dichiarare ciclo percorso e ciclo dati"
+      w.document.getElementById("badge-bando").style.display === "none",
+      "#2 in pre-bando il badge non ripete la notizia della card"
     );
 
-    // 3 — titolo missione.
+    // 3 — titolo missione: parla del bando a cui punta lo studente.
     w.renderMissione();
+    const cardMissione = w.document.getElementById("missione-card");
+    const conStima = cardMissione.classList.contains("missione-stima");
+    const titoloMissione = w.document.getElementById("missione-titolo").textContent;
     assert.ok(
-      w.document.getElementById("missione-titolo").textContent ===
-        `Il bando ${cicloPercorso} non è ancora uscito`,
-      "#3 la missione deve parlare del bando a cui punta lo studente"
+      titoloMissione === (conStima
+        ? `Il bando ${cicloPercorso} esce tra circa`
+        : `Il bando ${cicloPercorso} non è ancora uscito`),
+      "#3 la missione deve parlare del bando a cui punta lo studente: " + titoloMissione
     );
 
-    // 4 — chiusura candidature resa al passato e attribuita al vecchio ciclo.
+    // 4 — il ciclo dei dati è dichiarato: nella stima («stima riferita al
+    // bando …») o, senza stima, nella frase della finestra attesa.
     const dettaglioPreBando = w.document.getElementById("missione-dettaglio").textContent;
-    assert.ok(
-      dettaglioPreBando.includes(`Le candidature del ${cicloDati} si sono chiuse`),
-      "#4 la chiusura deve essere storica e attribuita al ciclo dati"
-    );
-
-    // 5 — nessuna falsa prossima scadenza.
-    assert.ok(
-      dettaglioPreBando.includes(
-        "Il bando precedente è uscito il 14 gennaio 2026: quello nuovo è atteso in un periodo simile"
-      ),
-      "#5 la finestra attesa deve derivare dal dato documentato dell'ateneo"
-    );
+    if (conStima) {
+      assert.ok(
+        w.document.getElementById("countdown-sub").textContent === `stima riferita al bando ${cicloDati}`,
+        "#4 la stima deve dichiarare il ciclo dei dati"
+      );
+      assert.ok(
+        ["", "Completa il profilo per vedere le mete compatibili."].includes(dettaglioPreBando),
+        "#4 con la stima la card aggiunge al più l'invito al profilo: " + dettaglioPreBando
+      );
+    } else {
+      // 5 — nessuna falsa prossima scadenza.
+      assert.ok(
+        dettaglioPreBando.includes(
+          "Il bando precedente è uscito il 14 gennaio 2026: quello nuovo è atteso in un periodo simile"
+        ),
+        "#5 la finestra attesa deve derivare dal dato documentato dell'ateneo"
+      );
+    }
 
     // 6 — la porta in-attesa non dipende dal ciclo e resta intatta.
     w.eval('ZAINO.fase = "in-attesa"');
@@ -376,12 +387,14 @@ test("G1/T5: in pre-bando ciascuno dei 19 punti dichiara il ciclo o resta invari
       "#15 i requisiti devono essere attribuiti al vecchio ciclo"
     );
 
-    // 16 — conteggio requisiti nello stepper, coerente col cartellino di 15.
+    // 16 — stepper. Nicola (14/09): il riassunto è una riga senza ciclo; il
+    // ciclo lo dichiara il cartellino dei requisiti (15). Lo stepper non deve
+    // però attribuire i requisiti al bando che non è ancora uscito.
     w.renderFaseStepper();
     const faseRequisiti = w.document.querySelector("#fase-stepper .fase-card")?.textContent || "";
     assert.ok(
-      faseRequisiti.includes(`Requisiti del bando ${cicloDati}`),
-      "#16 lo stepper deve attribuire al ciclo il conteggio requisiti"
+      faseRequisiti.length > 0 && !faseRequisiti.includes(`bando ${cicloPercorso}`),
+      "#16 lo stepper non deve attribuire i requisiti al bando non uscito: " + faseRequisiti
     );
 
     // 17 — scadenze dell'università ospitante.

@@ -230,6 +230,9 @@ test("V3 §8.4: un nuovo ateneo prepara l'entrata senza impilarla sulle Mete", a
   await completaEntrataConClick(page);
   await page.locator("[data-esito-mete='salta']").click();
 
+  // Nicola (14/09): nell'onboarding non c'è la nav; si esce dalla coda con
+  // il bottone della sveglia, poi si va alle Mete dalla barra tornata visibile.
+  await page.locator("[data-sveglia='no']").click();
   await page.locator(".nav-item[data-tab='mete']").click();
 
   await page.evaluate(() => {
@@ -260,9 +263,11 @@ test("V3 §8.4-bis: chi abbandona la schermata di esito non rivede la domanda", 
   await completaEntrataConClick(page);
   await expect(page.locator("[data-esito-mete='si']")).toBeVisible();
 
-  // Nessun esito scelto: si va alle Mete dalla nav, come farebbe uno studente
-  // che si stanca della domanda.
-  await page.locator(".nav-item[data-tab='mete']").click();
+  // Nessun esito scelto: si va alle Mete. Nicola (14/09): la nav non c'è
+  // durante l'onboarding, quindi lo studente che si stanca esce cambiando
+  // indirizzo (link, segnalibro, Indietro).
+  await page.evaluate(() => { location.hash = "#mete"; });
+  await expect(page.locator("#tab-mete")).toBeVisible();
   expect(await page.evaluate(() => window.eval("ZAINO.wizardMete"))).toBe(true);
 });
 

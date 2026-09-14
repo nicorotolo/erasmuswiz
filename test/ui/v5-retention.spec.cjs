@@ -115,11 +115,14 @@ test("V5 review: l'esito sì attraversa la coda e arriva alla ricerca Mete", asy
   await expect(page.locator("#cerca-mete")).toBeFocused();
 });
 
-test("V5 §8.10: la nav abbandona la coda e #mete a freddo non impila l'entrata", async ({ page }) => {
+test("V5 §8.10: cambiare indirizzo abbandona la coda e #mete a freddo non impila l'entrata", async ({ page }) => {
   await preparaNuovo(page);
   await page.goto("/index.html#oggi", { waitUntil: "domcontentloaded" });
   await arrivaAllaCodaSveglia(page);
-  await page.locator(".nav-item[data-tab='mete']").click();
+  // Nicola (14/09): durante l'onboarding la nav non c'è.
+  await expect(page.locator(".nav-bottom")).toBeHidden();
+  await expect(page.locator("#btn-drawer")).toBeHidden();
+  await page.evaluate(() => { location.hash = "#mete"; });
 
   await expect(page.locator("body")).not.toHaveClass(/modo-entrata/);
   await expect(page.locator("#tab-mete")).toBeVisible();
@@ -170,11 +173,11 @@ test("V5 §8.12: la home offre la sveglia solo nel ramo pre-bando", async ({ pag
 
   const btn = page.locator("#btn-come");
   await expect(btn).toHaveText("Avvisami quando esce");
+  // Nicola (14/09): niente conferma intermedia, il clic scarica il calendario.
+  const download = page.waitForEvent("download");
   await btn.click();
-  await expect(page.locator("[data-offerta-sveglia-home='true']")).toBeVisible();
-  await expect(page.locator("[data-offerta-sveglia-home='true']")).toContainText(
-    "Sì, mettimelo in calendario"
-  );
+  expect((await download).suggestedFilename()).toBe("erasmuswiz-date.ics");
+  await expect(page.locator("[data-offerta-sveglia-home='true']")).toHaveCount(0);
 
   await page.evaluate(() => {
     window.eval("ZAINO.cicloPercorso = ZAINO.cicloDati");

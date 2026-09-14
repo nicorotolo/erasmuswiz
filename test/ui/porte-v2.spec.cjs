@@ -257,11 +257,11 @@ test("a 390×844 la Home pre-bando mostra la mossa principale nel primo schermo,
   }, { percorso: "2027/28", dati: "2026/27" });
   await page.goto("/index.html#oggi", { waitUntil: "domcontentloaded" });
 
-  await expect(page.locator("#badge-bando")).toHaveText(
-    "Bando 2027/28 non ancora uscito · dati 2026/27"
-  );
+  // Nicola (14/09): la card dice solo «Il bando … esce tra circa N giorni»
+  // (con la stima) e il badge non ripete la notizia.
+  await expect(page.locator("#badge-bando")).toBeHidden();
   await expect(page.locator("#missione-titolo")).toHaveText(
-    "Il bando 2027/28 non è ancora uscito"
+    /^Il bando 2027\/28 (esce tra circa|non è ancora uscito)$/
   );
   await expect(page.locator("#btn-fatto")).toHaveText("Esplora le mete");
   await expect(page.locator(".home-hero-claim")).toHaveCount(0);
@@ -330,7 +330,8 @@ test("le tre fasi per modo corrente e pre-bando producono sei Home coerenti", as
   expect(viste["corrente/esplorando"].modoPreBando).toBe(false);
   expect(viste["corrente/esplorando"].titolo).toContain("Il bando 2026/2027 è chiuso");
   expect(viste["pre-bando/esplorando"].modoPreBando).toBe(true);
-  expect(viste["pre-bando/esplorando"].titolo).toBe("Il bando 2027/28 non è ancora uscito");
+  expect(viste["pre-bando/esplorando"].titolo).toMatch(/^Il bando 2027\/28 (esce tra circa|non è ancora uscito)$/);
+  expect(viste["pre-bando/esplorando"].badgeVisibile).toBe(false);
   for (const modo of ["corrente", "pre-bando"]) {
     expect(viste[`${modo}/in-attesa`].titolo).toContain("Hai inviato la domanda");
     expect(viste[`${modo}/selezionato`].titolo).toContain("Accetta il posto");

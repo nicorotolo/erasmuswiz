@@ -341,8 +341,9 @@ body {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  min-height: 44px;                         /* touch — F2.0 */
-  padding: 0 var(--space-3);
+  justify-content: center;
+  min-width: 44px; min-height: 44px;        /* touch — F2.0 */
+  padding: 0;
   border: 1px solid var(--night-border);
   border-radius: var(--radius-md);
   background: var(--night-bg);
@@ -356,17 +357,15 @@ body {
 }
 .menu-trigger:hover { color: var(--gold); }
 .menu-trigger[aria-expanded="true"] { color: var(--gold); }
-.menu-trigger-icona { display: inline-flex; font-size: 18px; line-height: 1; }
+.menu-trigger-icona { display: inline-flex; font-size: 20px; line-height: 1; }
 
 /* Lo spazio che il Menu si prende in cima NON si aggiunge qui con un
    padding-top sparso: la banda mobile di .main-content è uno shorthand
    completo e vincerebbe comunque (vedi il commento su .main-content).
    Si scrive quindi là. Qui resta solo la regola del primo velo. */
-@media (max-width: 767px) {
-  /* Stessa scelta già fatta per la nav: il primo velo dell'entrata è a
-     tutta pagina e non ospita comandi. */
-  body.modo-scena-entrata .barra-alto { display: none; }
-}
+/* Nicola (14/09): durante TUTTO l'onboarding (non solo il primo velo) né
+   Menu né navigazione: compaiono quando l'onboarding è concluso. */
+body.modo-entrata .barra-alto { display: none; }
 
 .nav-brand { display: none; align-items: center; gap: 8px; margin-right: auto; }
 .nav-logo { height: 26px; width: auto; display: block; }
@@ -916,6 +915,8 @@ body {
   from { opacity: .55; transform: scale(.82); }
   to   { opacity: 1;   transform: scale(1); }
 }
+/* Con la stima il titolo della card è già questa frase (Nicola, 14/09). */
+:where(.missione-stima) .countdown-titolo { display: none; }
 .countdown-titolo { order: 1; font-size: 15px; font-weight: 600; color: var(--night-text); }
 /* --night-muted su --night-bg 7,93:1. */
 .countdown-sub    { order: 3; font-size: 12.5px; color: var(--night-muted); }
@@ -1689,45 +1690,53 @@ body {
 /* Redesign v4: i requisiti sono righe dentro il corpo della tappa (V4.3:
    niente card nella card, niente filetti colorati). Lo stato lo dice il
    semaforo V4.5: icona + testo, --green 5,43 / --amber 5,42 su bianco. */
+/* Nicola (14/09): una riga da spuntare per requisito, dettagli chiusi. */
+.requisiti-avanzamento { margin: 0 0 var(--space-2); }
+.requisiti-conta { margin: 0 0 6px; font-size: var(--fs-sm); color: var(--text-muted); }
+.requisiti-conta strong { font-family: var(--font-mono); font-weight: 700; color: var(--text-dark); }
+.requisiti-barra { height: 8px; border-radius: var(--radius-pill); background: var(--bg-track); overflow: hidden; }
+.requisiti-barra-pieno { display: block; height: 100%; border-radius: inherit; background: var(--green); transition: width var(--dur-slow) var(--ease-out); }
 .requisito-v2 {
   background: none; border: 0; border-top: 1px solid var(--border);
-  border-radius: 0; padding: var(--space-4) 0; box-shadow: none;
+  border-radius: 0; padding: var(--space-2) 0; box-shadow: none;
 }
-.requisito-v2:first-child { border-top: 0; padding-top: 0; }
-.requisito-v2-testa { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-2); margin-bottom: var(--space-1); }
-.requisito-v2-semaforo {
-  flex-shrink: 0; display: inline-flex; align-items: center; gap: 5px;
-  padding-top: 2px; font-size: 12.5px; font-weight: 700; white-space: nowrap;
-  color: var(--amber);
+.requisito-v2-autoverifica {
+  position: relative; display: flex; align-items: center; gap: var(--space-3);
+  min-height: 56px; cursor: pointer;
 }
-.requisito-v2--ok .requisito-v2-semaforo { color: var(--green); }
-.requisito-v2-semaforo .icona { font-size: 14px; }
+/* La casella vera resta (tastiera, lettori di schermo) ma invisibile: il
+   segno disegnato la rappresenta. L'anello di fuoco va sul segno. */
+.requisito-v2-autoverifica input { position: absolute; left: 0; top: 50%; width: 32px; height: 32px; margin: -16px 0 0; opacity: 0; cursor: pointer; }
+.requisito-v2-segno {
+  display: grid; place-items: center; flex: none; width: 32px; height: 32px;
+  border-radius: 50%; box-shadow: inset 0 0 0 2px var(--border-strong);
+  color: transparent; background: var(--bg-card);
+  transition: background var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
+}
+.requisito-v2-segno .icona { font-size: 18px; stroke-width: 3; }
+:where(.requisito-v2--ok) .requisito-v2-segno { background: var(--green); box-shadow: none; color: var(--text-on-fill); }
+:where(.requisito-v2--appena) .requisito-v2-segno { animation: requisito-scatto var(--dur-slow) var(--ease-bounce); }
+@keyframes requisito-scatto { 0% { transform: scale(.6); } 60% { transform: scale(1.15); } 100% { transform: scale(1); } }
+.requisito-v2-autoverifica:hover .requisito-v2-segno { box-shadow: inset 0 0 0 2px var(--primary); }
+.requisito-v2-autoverifica input:focus-visible + .requisito-v2-segno { outline: 2px solid var(--primary); outline-offset: 3px; }
+.requisito-v2-testi { display: flex; flex-direction: column; min-width: 0; }
 .requisito-v2-titolo {
-  font-family: var(--font-display); font-weight: 700;
+  font-family: var(--font-body); font-weight: 700;
   font-size: var(--fs-h3); letter-spacing: -.015em; color: var(--text-dark);
 }
-.requisito-v2-valore {
-  font-family: var(--font-mono); font-size: var(--fs-mono); font-weight: 700;
-  color: var(--primary-active); margin: 0 0 var(--space-2);
-}
-.requisito-v2-desc   { color: var(--text-muted); font-size: var(--fs-sm); line-height: 1.6; text-wrap: pretty; }
-.requisito-v2-azione { color: var(--text-dark); font-size: var(--fs-sm); font-weight: 600; margin-top: var(--space-2); }
-.requisito-v2-bando  { margin-top: var(--space-2); font-size: var(--fs-sm); }
-/* F2.0 — la riga "cosa dice il bando" era alta 19px (inventario touch F0.5) */
+.requisito-v2-valore { font-size: var(--fs-sm); color: var(--text-muted); }
+.requisito-v2-desc   { margin: 0 0 var(--space-2); color: var(--text-muted); font-size: var(--fs-sm); line-height: 1.6; text-wrap: pretty; }
+.requisito-v2-azione { margin: 0 0 var(--space-2); color: var(--text-dark); font-size: var(--fs-sm); font-weight: 600; line-height: 1.55; }
+.requisito-v2-bando  { margin: 0 0 var(--space-1) 44px; font-size: var(--fs-sm); }
 .requisito-v2-bando summary {
-  display: flex; align-items: center; min-height: 44px;
-  cursor: pointer; color: var(--primary); font-weight: 600;
+  display: inline-flex; align-items: center; gap: 4px; min-height: 44px;
+  cursor: pointer; color: var(--primary); font-weight: 700; list-style: none;
 }
+.requisito-v2-bando summary::-webkit-details-marker { display: none; }
+.requisito-v2-bando summary .icona { font-size: 16px; transition: transform var(--dur-fast) var(--ease-out); }
+.requisito-v2-bando[open] summary .icona { transform: rotate(180deg); }
 .requisito-v2-citazione { margin: var(--space-2) 0 var(--space-1); padding-left: var(--space-3); border-left: 3px solid var(--border); color: var(--text-muted); font-style: italic; }
 .requisito-v2-fonte  { color: var(--text-hint); font-size: var(--fs-xs); }
-/* F2.0 — l'autoverifica era alta 19.9px ed è una casella da spuntare */
-.requisito-v2-autoverifica {
-  display: flex; align-items: center; gap: var(--space-3);
-  margin-top: var(--space-1);
-  min-height: 44px;
-  font-size: 14px; font-weight: 600; cursor: pointer;
-}
-.requisito-v2-autoverifica input { width: 22px; height: 22px; margin: 0; flex: none; accent-color: var(--night-bg); cursor: pointer; }
 
 /* REDESIGN v2 §4.4 — i due banner di stato reali adottano il corpo di
    .banner-stato senza cambiare markup: sono già nodi di solo testo, scritti
@@ -2309,6 +2318,13 @@ body {
   font-family: var(--font-body); font-size: .92rem; font-weight: 600; color: var(--text-dark);
 }
 .benvenuto-riga-lingua select:first-child { flex: 1; min-width: 0; }
+/* Azione secondaria = link su inchiostro: --gold 9,47:1 su --night-bg. */
+.benvenuto-aggiungi-lingua {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 44px; margin: -6px 0 6px; padding: 0 2px;
+  border: 0; background: transparent; color: var(--gold);
+  font-family: var(--font-body); font-size: 14px; font-weight: 700; cursor: pointer;
+}
+.benvenuto-aggiungi-lingua > .icona { font-size: 16px; }
 .benvenuto-landing-titolo {
   font-family: var(--font-display); font-weight: 800; font-size: 1.3rem;
   letter-spacing: -.01em; color: var(--night-text); margin-bottom: 6px;
@@ -2810,10 +2826,8 @@ body.no-scroll { overflow: hidden; }
 body.modo-entrata { background: var(--night-bg); }
 /* Solo il primo velo nasconde la navigazione: da P1 in poi il contratto del
    router V1 torna disponibile anche se l'onboarding non è ancora concluso. */
-@media (max-width: 767px) {
-  body.modo-scena-entrata .nav-bottom,
-  body.modo-scena-entrata .footer-v2 { display: none; }
-}
+body.modo-entrata .nav-bottom,
+body.modo-entrata .footer-v2 { display: none; }
 body.modo-entrata .main-content {
   width: 100%;
   max-width: none;
@@ -2837,9 +2851,9 @@ body.modo-entrata .benvenuto {
   border: 0;
   border-radius: 0;
   box-shadow: none;
-  /* In alto lo spazio del Menu che galleggia (44px + 8px); in basso quello
-     della nav, più il bordo della scheda di vetro. */
-  padding: 68px 16px 100px;
+  /* Menu e nav non ci sono durante l'onboarding (Nicola, 14/09): in alto e in
+     basso resta solo l'aria, più il bordo della scheda di vetro. */
+  padding: 32px 16px 40px;
 }
 
 /* La prima scena mobile è un solo piano: mappa sotto, velo sopra, poi il

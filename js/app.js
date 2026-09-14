@@ -436,6 +436,7 @@ const ICONE = {
   chiudi: '<path d="M6 6l12 12M18 6L6 18"/>',
   matita: '<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/>',
   telefono: '<rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18h2"/>',
+  piu: '<path d="M12 5v14M5 12h14"/>',
   calendario: '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/>',
   stampa: '<path d="M7 9V4h10v5"/><rect x="4" y="9" width="16" height="8" rx="2"/><path d="M7 14h10v6H7z"/>',
   salva: '<path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4"/><path d="M8 20v-6h8v6"/>',
@@ -1067,8 +1068,12 @@ function renderHome() {
       "dati-scaduti":        annoBreve ? `Bando ${annoBreve} concluso` : "",
       "non-pubblicato":      "Nuovo bando non ancora pubblicato",
     };
+    // Nicola (14/09): quando la mossa è l'attesa del bando, la card dice già
+    // «Il bando … esce tra circa»: il badge ripeteva la stessa notizia. Chi
+    // ha già fatto domanda non vede quella card, quindi il badge resta.
+    const mossaPreBando = inPreBando() && !["in-attesa", "selezionato"].includes(ZAINO.fase);
     const testo = inPreBando()
-      ? `Bando ${cicloPercorsoBreve()} non ancora uscito · dati ${cartellinoCicloDati()}`
+      ? (mossaPreBando ? "" : `Bando ${cicloPercorsoBreve()} non ancora uscito · dati ${cartellinoCicloDati()}`)
       : (testi[stato] || "");
     const mostraBadge = !!testo && ZAINO.fase !== "selezionato";
     badge.style.display = mostraBadge ? "" : "none";
@@ -1208,17 +1213,15 @@ function calcolaFasi() {
   const laFatto        = vociLA.length > 0 &&
     vociLA.every(v => ZAINO.checklistPost && ZAINO.checklistPost[v.id]);
   const postFatto      = post.length > 0 && postFatti === post.length;
-  const notaRequisitiCiclo = inPreBando()
-    ? ` Requisiti del bando ${cartellinoCicloDati()}.`
-    : "";
 
   const fasi = [
     {
       id: 1, tappa: "requisiti", tab: "percorso", stazione: "requisiti",
       domanda: "Requisiti", fatto: requisitiOk,
+      // Nicola (14/09): riassunti di una riga, senza ripetere il ciclo.
       riassunto: requisitiOk
-        ? `Profilo compilato — hai verificato tutti i requisiti.${notaRequisitiCiclo}`
-        : `Verifica i requisiti del bando prima di iniziare.${notaRequisitiCiclo}`,
+        ? "Tutti i requisiti verificati."
+        : "Controlla di poterti candidare.",
       cta: requisitiOk ? "Rivedi i requisiti" : "Controlla se sei idoneo",
     },
     {
@@ -1226,7 +1229,7 @@ function calcolaFasi() {
       domanda: "Mete e le 5 scelte", fatto: meteOk,
       riassunto: meteOk
         ? `${nPreferite} ${nPreferite === 1 ? "meta salvata" : "mete salvate"} tra i preferiti.`
-        : "Esplora le mete compatibili con il tuo profilo.",
+        : "Scegli fino a 5 mete.",
       cta: meteOk ? "Vedi le tue mete" : "Esplora le mete",
     },
     {
@@ -1241,14 +1244,12 @@ function calcolaFasi() {
       id: 4, tappa: "esito", tab: "percorso", stazione: "esito",
       domanda: "Esito", fatto: selezionato,
       riassunto: selezionato
-        ? "Selezione dichiarata: il percorso continua dalle azioni ancora da fare."
+        ? "Sei stato selezionato."
         : inAttesa
-          ? "Domanda inviata: qui trovi cosa succede e cosa fare nell'attesa."
+          ? "Domanda inviata: si aspetta l'esito."
         : attesaEsiti
-          ? (candidatureChiuse()
-              ? "Le candidature sono chiuse: quando conosci l'esito, dichiaralo qui."
-              : "Candidatura completata: quando arriva l'esito, dichiaralo qui.")
-          : "Quando sarai selezionato, qui trovi la preparazione alla partenza.",
+          ? "Quando arriva l'esito, dichiaralo qui."
+          : "Dopo la candidatura.",
       cta: inAttesa ? "Vedi cosa succede"
         : selezionato ? "Rivedi l'esito"
           : attesaEsiti ? "Dichiara l'esito" : "Vai alla candidatura",
@@ -1257,16 +1258,16 @@ function calcolaFasi() {
       id: 5, tappa: "la", tab: "percorso", stazione: "la",
       domanda: "Learning Agreement", fatto: laFatto,
       riassunto: laFatto
-        ? "Le azioni del Learning Agreement risultano completate."
-        : "Prepara la bozza dopo accettazione, nomination e application.",
+        ? "Completato."
+        : "Dopo la selezione.",
       cta: "Apri il Learning Agreement",
     },
     {
       id: 6, tappa: "partenza", tab: "percorso", stazione: "partenza",
       domanda: "Zaino e partenza", fatto: postFatto,
       riassunto: selezionato
-        ? `${postFatti}/${post.length} azioni post-selezione completate.`
-        : "Si apre dopo la selezione e parte dalla prima azione incompleta.",
+        ? `${postFatti}/${post.length} azioni fatte.`
+        : "Dopo la selezione.",
       cta: selezionato ? "Continua dallo zaino" : "Vedi cosa ti aspetta",
     },
   ];
@@ -1657,41 +1658,6 @@ function calcolaMissione() {
   return                                    { tipo: "completo",  fatti, totale };
 }
 
-function apriOffertaSvegliaHome() {
-  const card = document.getElementById("missione-card");
-  if (!card || !finestraAttesaDisponibile()) return;
-  card.querySelector("[data-offerta-sveglia-home]")?.remove();
-
-  const offerta = crea("div", "banner-stato stato-riserve");
-  offerta.dataset.offertaSvegliaHome = "true";
-  offerta.setAttribute("role", "region");
-  offerta.setAttribute("aria-label", "Promemoria per il nuovo bando");
-  offerta.appendChild(crea("span", "banner-stato-icona")).appendChild(icona("campana"));
-  const contenuto = crea("div");
-  contenuto.appendChild(crea("strong", "banner-stato-titolo", "Ti avviso quando esce il bando?"));
-  contenuto.appendChild(crea(
-    "p",
-    null,
-    "Il tuo telefono ti avvisa da solo: noi non ti chiediamo né mail né iscrizione."
-  ));
-  const riga = crea("div", "benvenuto-scelte-riga");
-  const si = crea("button", "benvenuto-scelta", "Sì, mettimelo in calendario");
-  si.type = "button";
-  si.addEventListener("click", () => {
-    scaricaCalendarioCompleto(card);
-    offerta.remove();
-  });
-  const no = crea("button", "benvenuto-scelta", "No, grazie");
-  no.type = "button";
-  no.addEventListener("click", () => offerta.remove());
-  riga.appendChild(si);
-  riga.appendChild(no);
-  contenuto.appendChild(riga);
-  offerta.appendChild(contenuto);
-  card.appendChild(offerta);
-  si.focus();
-}
-
 // Redesign v4 (Home, decisione di Nicola 14/09): prima del bando la pill del
 // countdown mostra i giorni al periodo in cui il nuovo bando è ATTESO, detto
 // come stima («tra circa», «stima riferita al bando …»). Solo se non c'è una
@@ -1764,15 +1730,16 @@ function renderMissione() {
 
   switch (m.tipo) {
     case "pre-bando": {
-      const quando = dataChiusuraCandidature();
-      if (titolo) titolo.textContent = titoloPreBando();
-      if (dett) dett.textContent =
-        `${finestraAttesaBando()} ` +
-        `Le candidature del ${cartellinoCicloDati()} si sono chiuse${quando ? ` il ${quando}` : ""}; ` +
-        "quelle date restano qui come riferimento storico." +
-        (m.profiloMancante
-          ? " Completa il profilo per filtrare le mete compatibili con il tuo percorso."
-          : "");
+      // Nicola (14/09): con la stima la card dice SOLO «Il bando … esce tra
+      // circa N giorni» + «stima riferita al bando …»; il titolo è la frase
+      // del conto alla rovescia. Senza stima resta la frase della finestra.
+      const conStima = card.classList.contains("missione-stima");
+      if (titolo) titolo.textContent = conStima
+        ? document.getElementById("countdown-titolo").textContent
+        : titoloPreBando();
+      if (dett) dett.textContent = m.profiloMancante
+        ? "Completa il profilo per vedere le mete compatibili."
+        : conStima ? "" : finestraAttesaBando();
       if (m.profiloMancante) {
         setBtn(btnFatto, "Completa il profilo", "profilo");
       } else {
@@ -1783,9 +1750,10 @@ function renderMissione() {
           btnCome.style.display = "";
           btnCome.textContent = "Avvisami quando esce";
           btnCome.prepend(icona("campana"));
+          // Nicola (14/09): niente passaggio di conferma, scarica subito.
           btnCome.onclick = e => {
             e.preventDefault();
-            apriOffertaSvegliaHome();
+            scaricaCalendarioCompleto(card);
           };
         } else {
           btnCome.style.display = "none";
@@ -1864,6 +1832,8 @@ function renderMissione() {
       setBtn(btnCome,  "La tua candidatura", "percorso", "candidatura");
   }
 
+  if (dett) dett.hidden = !dett.textContent;
+
   renderPreparazione();
   renderFaseStepper();
   renderSettimana();
@@ -1891,7 +1861,7 @@ function aggiornaCountdownV2() {
 function mostraBannerWiz() {
   const banner = document.getElementById("banner-wiz");
   if (!banner) return;
-  banner.innerHTML = '<img src="img/mascotte/wiz-esulta.webp" alt="Wiz"><span class="banner-testo">Ottimo lavoro! Un passo in meno 🎉</span>';
+  banner.innerHTML = '<img src="img/mascotte/wiz-esulta.webp" alt="Wiz"><span class="banner-testo">Ottimo lavoro! Un passo in meno.</span>';
   banner.style.display = "flex";
   clearTimeout(banner._t);
   banner._t = setTimeout(() => { banner.style.display = "none"; }, 3500);
@@ -3230,7 +3200,7 @@ function apriDettaglioMeta(meta) {
       box.appendChild(crea("div", null, testoInteg));
     }
     box.appendChild(crea("span", "dett-compat-detail",
-      `Stima, non una promessa — verifica sempre sul bando ufficiale. Fonte: ${BORSE_INFO.fonte} (dati aggiornati al ${BORSE_INFO.aggiornatoAl}).`));
+      `Stima. Fonte: ${BORSE_INFO.fonte}, aggiornata al ${BORSE_INFO.aggiornatoAl}.`));
     corpo.appendChild(rigaDettaglio("Borsa Erasmus", box));
   }
 
@@ -3285,9 +3255,8 @@ function apriDettaglioMeta(meta) {
   boxLink.appendChild(laLink);
   corpo.appendChild(boxLink);
 
-  // --- Nota onestà ---
-  corpo.appendChild(crea("p", "dett-nota",
-    "Dati dalla lista ufficiale del bando 2026/27. Per la candidatura fa sempre fede la scheda ufficiale."));
+  // Nicola (14/09): la nota «fa sempre fede…» non si ripete in ogni meta:
+  // la dice una volta il piè di pagina.
 
   overlay.style.display = "flex";
   document.body.classList.add("no-scroll");
@@ -5581,6 +5550,13 @@ function renderBannerVerifica() {
 // Retrocompatibile: se spiegazione/azione/citazione/fonte mancano, si mostra
 // il testo attuale (descrizione) senza rompere i dati esistenti.
 // ============================================================
+// Nicola (14/09): requisiti più semplici e quasi un gioco. Ogni requisito è
+// UNA riga da spuntare (nome + valore); spiegazione, cosa fare e testo del
+// bando stanno in «Perché e cosa fare», chiuso. In cima il contatore con la
+// barra; la spunta appena data fa un piccolo scatto (niente con
+// prefers-reduced-motion). Il messaggio finale non ripete «fa fede il
+// bando»: lo dice già il piè di pagina, una volta sola.
+let _requisitoAppenaSpuntato = null;
 function renderIdoneita() {
   const cont = document.getElementById("lista-requisiti-v2");
   if (!cont) return;
@@ -5592,74 +5568,84 @@ function renderIdoneita() {
     cont.appendChild(crea(
       "div",
       "cartellino-ciclo cartellino-ciclo-sezione",
-      `Requisiti del bando ${cartellinoCicloDati()}. ` +
-      `Il bando ${cicloPercorsoBreve()} può cambiarli: qui per farti un’idea, non per candidarti.`
+      `Requisiti del bando ${cartellinoCicloDati()}. Il bando ${cicloPercorsoBreve()} può cambiarli.`
     ));
   }
 
+  const fatti = requisiti.filter(r => ZAINO.autoverifica[r.id]).length;
+  const tuttiVerificati = requisiti.length > 0 && fatti === requisiti.length;
   const esitoEl = document.getElementById("idoneita-esito");
   if (esitoEl) {
-    const tuttiVerificati = requisiti.length > 0 && requisiti.every(r => ZAINO.autoverifica[r.id]);
-    if (tuttiVerificati) {
-      esitoEl.textContent = "Sembri idoneo — fa sempre fede il bando ufficiale.";
-      esitoEl.style.display = "";
-    } else {
-      esitoEl.style.display = "none";
-    }
+    esitoEl.textContent = tuttiVerificati ? "Rispetti tutti i requisiti." : "";
+    esitoEl.style.display = tuttiVerificati ? "" : "none";
+  }
+
+  if (requisiti.length) {
+    const avanzamento = crea("div", "requisiti-avanzamento");
+    const conta = crea("p", "requisiti-conta");
+    conta.appendChild(crea("strong", null, `${fatti} di ${requisiti.length}`));
+    conta.appendChild(document.createTextNode(" requisiti spuntati"));
+    const barra = crea("div", "requisiti-barra");
+    barra.setAttribute("role", "progressbar");
+    barra.setAttribute("aria-label", "Requisiti spuntati");
+    barra.setAttribute("aria-valuemin", "0");
+    barra.setAttribute("aria-valuemax", String(requisiti.length));
+    barra.setAttribute("aria-valuenow", String(fatti));
+    const riempimento = crea("span", "requisiti-barra-pieno");
+    riempimento.style.width = `${Math.round(100 * fatti / requisiti.length)}%`;
+    barra.appendChild(riempimento);
+    avanzamento.append(conta, barra);
+    cont.appendChild(avanzamento);
   }
 
   requisiti.forEach(req => {
     const verificato = !!ZAINO.autoverifica[req.id];
-    const card = crea("div", `requisito-v2 ${verificato ? "requisito-v2--ok" : "requisito-v2--daverificare"}`);
+    const riga = crea("div", `requisito-v2 ${verificato ? "requisito-v2--ok" : "requisito-v2--daverificare"}`);
+    if (verificato && _requisitoAppenaSpuntato === req.id) riga.classList.add("requisito-v2--appena");
 
-    const testa = crea("div", "requisito-v2-testa");
-    testa.appendChild(crea("div", "requisito-v2-titolo", req.titolo));
-    // Semaforo V4.5: icona + testo, mai solo colore.
-    const semaforo = crea("span", "requisito-v2-semaforo", verificato ? "Verificato" : "Da verificare");
-    semaforo.prepend(icona(verificato ? "spunta" : "avviso"));
-    testa.appendChild(semaforo);
-    card.appendChild(testa);
+    const label = document.createElement("label");
+    label.className = "requisito-v2-autoverifica";
+    const cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.checked = verificato;
+    cb.disabled = !req.id;
+    cb.addEventListener("change", () => {
+      ZAINO.autoverifica[req.id] = cb.checked;
+      _requisitoAppenaSpuntato = cb.checked ? req.id : null;
+      salvaZaino(ZAINO);
+      renderIdoneita();
+      renderMissione(); // stepper, missione, settimana e stazioni derivano tutti da qui
+      // Il render ricostruisce le righe: il fuoco torna sulla stessa casella.
+      document.querySelector(`#lista-requisiti-v2 input[data-requisito="${CSS.escape(req.id)}"]`)?.focus();
+    });
+    if (req.id) cb.dataset.requisito = req.id;
+    const segno = crea("span", "requisito-v2-segno");
+    segno.setAttribute("aria-hidden", "true");
+    segno.appendChild(icona("spunta"));
+    const testi = crea("span", "requisito-v2-testi");
+    testi.appendChild(crea("span", "requisito-v2-titolo", req.titolo));
+    testi.appendChild(crea("span", "requisito-v2-valore", req.valore));
+    label.append(cb, segno, testi);
+    riga.appendChild(label);
 
-    card.appendChild(crea("div", "requisito-v2-valore", req.valore));
-
-    // Registro 1 — "in chiaro": spiegazione umana (fallback: descrizione attuale)
-    card.appendChild(crea("div", "requisito-v2-desc", req.spiegazione || req.descrizione));
-    if (req.azione) {
-      card.appendChild(crea("div", "requisito-v2-azione", `→ ${req.azione}`));
-    }
-
-    // Registro 2 — "Cosa dice il bando" (espandibile), solo se c'è una citazione/fonte
-    if (req.citazione || req.fonte) {
+    const spiegazione = req.spiegazione || req.descrizione;
+    if (spiegazione || req.azione || req.citazione || req.fonte) {
       const dettagli = document.createElement("details");
       dettagli.className = "requisito-v2-bando";
       const sommario = document.createElement("summary");
-      sommario.textContent = "Cosa dice il bando ▸";
+      sommario.textContent = "Perché e cosa fare";
+      sommario.appendChild(icona("giu"));
       dettagli.appendChild(sommario);
+      if (spiegazione) dettagli.appendChild(crea("p", "requisito-v2-desc", spiegazione));
+      if (req.azione) dettagli.appendChild(crea("p", "requisito-v2-azione", req.azione));
       if (req.citazione) dettagli.appendChild(crea("blockquote", "requisito-v2-citazione", req.citazione));
       if (req.fonte) dettagli.appendChild(crea("div", "requisito-v2-fonte", req.fonte));
-      card.appendChild(dettagli);
+      riga.appendChild(dettagli);
     }
 
-    // Registro 3 — auto-verifica: "✓ Lo rispetto"
-    if (req.id) {
-      const label = document.createElement("label");
-      label.className = "requisito-v2-autoverifica";
-      const cb = document.createElement("input");
-      cb.type = "checkbox";
-      cb.checked = !!ZAINO.autoverifica[req.id];
-      cb.addEventListener("change", () => {
-        ZAINO.autoverifica[req.id] = cb.checked;
-        salvaZaino(ZAINO);
-        renderIdoneita();
-        renderMissione(); // stepper, missione, settimana e stazioni derivano tutti da qui
-      });
-      label.appendChild(cb);
-      label.appendChild(document.createTextNode(" Lo rispetto"));
-      card.appendChild(label);
-    }
-
-    cont.appendChild(card);
+    cont.appendChild(riga);
   });
+  _requisitoAppenaSpuntato = null;
 }
 
 // ============================================================
@@ -6392,7 +6378,8 @@ function benvPassoLivello(dip) {
       _mappaBenv.opts = { evidenzia: true, fuoriTab: true };
       mappaRenderPins(_mappaBenv.layer, mete, _mappaBenv.opts);
     }
-    mappaNotaCopertura(document.getElementById("mappa-nota-benvenuto"), mete);
+    // Nicola (14/09): nell'onboarding la nota «N mete non sono sulla mappa»
+    // distrae; resta nel tab Mete, dove l'elenco è a portata di mano.
     zona.appendChild(crea("p", "benvenuto-sotto-domanda",
       `${mete.length} mete accese per ${dip}. Tocca un puntino per l’anteprima, poi scegli il livello.`));
   }
@@ -6493,7 +6480,10 @@ function benvPassoLingue(livello) {
   const lingue = lingueDaiDati();
   const righe  = [];
   const wrap   = crea("div", "benvenuto-lingue");
-  for (let i = 0; i < 2; i++) {
+  // Nicola (14/09): si parte da due righe e se ne aggiungono altre col
+  // bottone, fino a MAX_LINGUE_ONBOARDING.
+  const MAX_LINGUE_ONBOARDING = 4;
+  const aggiungiRiga = i => {
     const riga = crea("div", "benvenuto-riga-lingua");
     const selLingua = document.createElement("select");
     selLingua.setAttribute("aria-label", `Lingua ${i + 1}`);
@@ -6542,13 +6532,19 @@ function benvPassoLingue(livello) {
     riga.appendChild(rimuovi);
     wrap.appendChild(riga);
     righe.push({ selLingua, selLivello });
-  }
+    return selLingua;
+  };
+  for (let i = 0; i < 2; i++) aggiungiRiga(i);
   zona.appendChild(wrap);
-  zona.appendChild(crea(
-    "p",
-    "benvenuto-conseguenza-salto",
-    "Se salti, le mete non si ordinano per compatibilità: puoi aggiungere le lingue quando vuoi dal Profilo."
-  ));
+  const btnAggiungi = crea("button", "benvenuto-aggiungi-lingua", "Aggiungi un'altra lingua");
+  btnAggiungi.type = "button";
+  btnAggiungi.prepend(icona("piu"));
+  btnAggiungi.addEventListener("click", () => {
+    const nuova = aggiungiRiga(righe.length);
+    if (righe.length >= MAX_LINGUE_ONBOARDING) btnAggiungi.hidden = true;
+    nuova.focus();
+  });
+  zona.appendChild(btnAggiungi);
 
   const bottoni = crea("div", "benvenuto-scelte-riga");
   const btnOk = crea("button", "benvenuto-scelta", "Fatto");
@@ -6590,13 +6586,8 @@ function benvPassoLingue(livello) {
       livello,
       lingue: scelte,
     };
-    const categorie = mete.map(meta => categoriaCompat(
-      calcolaCompatibilita(meta, profilo)
-    ));
-    const quanti = categoria => categorie.filter(c => c === categoria).length;
-    stato.textContent =
-      `${mete.length} mete per ${dip}: ${quanti("ok")} compatibili, ` +
-      `${quanti("medio")} da verificare, ${quanti("basso")} non accessibili ora.`;
+    // Nicola (14/09): niente conteggi qui, anticiperebbero l'esito. Lo
+    // dice la mappa, puntino per puntino, mentre si scelgono le lingue.
     if (_mappaBenv && _mappaBenv.layer) {
       _mappaBenv.mete = mete;
       _mappaBenv.opts = {
