@@ -1,5 +1,5 @@
 const fs = require("node:fs");
-const { test, expect } = require("@playwright/test");
+const { test, expect } = require("./aiuti/guardia.cjs");
 
 async function preparaNuovo(page) {
   await page.addInitScript(() => {

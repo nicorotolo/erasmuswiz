@@ -4,7 +4,7 @@
 // omonimo fuori ambito, facoltà manuale, pendingIntent per ateneo/ciclo,
 // reload/ripresa/annullamento, salvataggio fallito, utente esistente,
 // output/backup/ripristino manuale, separazione atenei, analytics.
-const { test, expect } = require("@playwright/test");
+const { test, expect } = require("./aiuti/guardia.cjs");
 
 const PAGINA = "/index.html";
 

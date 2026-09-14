@@ -1,5 +1,5 @@
 const path = require("node:path");
-const { test, expect } = require("@playwright/test");
+const { test, expect } = require("./aiuti/guardia.cjs");
 
 const PAGINA = "/index.html";
 

@@ -1,4 +1,4 @@
-const { test, expect } = require("@playwright/test");
+const { test, expect } = require("./aiuti/guardia.cjs");
 
 const PAGINA = "/index.html";
 
@@ -501,7 +501,9 @@ test("LA mobile/tastiera/tema: niente overflow a 390px e controlli raggiungibili
   expect(await page.evaluate(() => document.activeElement !== document.body)).toBe(true);
 });
 
-test("LA offline: dopo il primo caricamento la schermata resta disponibile senza rete", async ({ page, context }) => {
+test("LA offline: dopo il primo caricamento la schermata resta disponibile senza rete", async ({ page, context, ammettiErrori }) => {
+  // Senza rete le risorse fuori cache (font CDN, analytics) falliscono: è la condizione provata.
+  ammettiErrori(/Failed to load resource: net::ERR_(FAILED|INTERNET_DISCONNECTED)/);
   await preparaZaino(page, "cafoscari", laCompleto("cafoscari"));
   await page.goto(`${PAGINA}#learning-agreement/cafoscari`, { waitUntil: "networkidle" });
   await page.evaluate(() => navigator.serviceWorker?.ready);
@@ -512,7 +514,10 @@ test("LA offline: dopo il primo caricamento la schermata resta disponibile senza
   await expect(page.locator("#la-dossier")).toContainText("Université Test");
 });
 
-test("LA analytics browser: il payload contiene soltanto nome fisso ed event", async ({ page }) => {
+test("LA analytics browser: il payload contiene soltanto nome fisso ed event", async ({ page, ammettiErrori }) => {
+  // La prova blocca `window.goatcounter` in sola lettura: lo script reale che
+  // prova a riassegnarlo lancia, ed è voluto.
+  ammettiErrori(/Cannot assign to read only property 'goatcounter'/);
   await page.addInitScript(() => {
     window.__laEvents = [];
     Object.defineProperty(window, "goatcounter", {

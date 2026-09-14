@@ -1,4 +1,4 @@
-const { test, expect } = require("@playwright/test");
+const { test, expect } = require("./aiuti/guardia.cjs");
 
 async function preparaHomePreBando(page, profilo) {
   await page.addInitScript(({ profilo }) => {

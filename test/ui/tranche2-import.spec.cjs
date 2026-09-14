@@ -5,7 +5,7 @@
 // spariti, dieci sostituti trovati sul posto. Qui si prova che la fotografia
 // vecchia non si perde, che l'import non inventa corrispondenze e che i fatti
 // dichiarati bloccano una versione sola.
-const { test, expect } = require("@playwright/test");
+const { test, expect } = require("./aiuti/guardia.cjs");
 
 const PAGINA = "/index.html";
 
