@@ -733,7 +733,7 @@ body {
   display: inline-flex; align-items: center; gap: var(--space-2);
   font-size: 11.5px; font-weight: 700; letter-spacing: .11em;
   text-transform: uppercase;                /* micro-etichetta: maiuscolo ok */
-  color: var(--primary); background: #EEF2FF;
+  color: var(--primary); background: var(--primary-soft);
   border-radius: var(--radius-pill); padding: 5px 11px;
 }
 .missione-scadenza { font-size: var(--fs-sm); font-weight: 600; color: var(--gold-dark); flex: none; }
@@ -763,7 +763,7 @@ body {
   min-height: 48px;
   padding: 0 var(--space-5);
   border: 0; border-radius: 14px;
-  background: var(--primary-fill); color: #fff;
+  background: var(--primary-fill); color: var(--text-on-fill);
   font-family: var(--font-body); font-size: var(--fs-body); font-weight: 700;
   letter-spacing: -.005em;
   cursor: pointer;
@@ -803,7 +803,7 @@ body {
   cursor: pointer;
   transition: border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
 }
-.btn-secondary:hover { border-color: var(--primary); background: #EEF2FF; }
+.btn-secondary:hover { border-color: var(--primary); background: var(--primary-soft); }
 .btn-secondary:active { transform: translateY(1px) scale(.985); }
 
 /* Missione urgente: cambia il registro dell'intera card, non un dettaglio. */
@@ -811,7 +811,7 @@ body {
 .missione-urgente .missione-tag { color: var(--red); background: var(--red-bg); }
 .missione-urgente .missione-scadenza { color: var(--red); font-weight: 700; }
 .missione-urgente .btn-primary { background: var(--red); box-shadow: 0 2px 5px rgba(180,35,24,.20), 0 10px 24px rgba(180,35,24,.32); }
-.missione-urgente .btn-primary:hover { background: #9c1f14; box-shadow: 0 3px 7px rgba(180,35,24,.26), 0 14px 32px rgba(180,35,24,.36); }
+.missione-urgente .btn-primary:hover { background: var(--red-hover); box-shadow: 0 3px 7px rgba(180,35,24,.26), 0 14px 32px rgba(180,35,24,.36); }
 .missione-wiz-desktop {
   position: absolute; right: 22px; bottom: 0;
   height: 160px; width: auto; transform: scaleX(-1);
@@ -915,7 +915,7 @@ body {
 .prep-barra-fill,
 .barra-riempimento {
   height: 100%; border-radius: var(--radius-pill);
-  background: linear-gradient(90deg, var(--primary) 0%, #6366F1 100%);
+  background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
   transition: width var(--dur-slow) var(--ease-out);
 }
 
@@ -967,13 +967,13 @@ body {
   cursor: pointer;
   transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
 }
-.voce-checklist-v2:hover { background: #EEF2FF; border-color: var(--border-strong); }
+.voce-checklist-v2:hover { background: var(--primary-soft); border-color: var(--border-strong); }
 /* ⛔ via `opacity: .65` dalla voce fatta: velava anche il testo, che su
    --green-bg scendeva sotto 4.5:1. Il "fatto" lo dicono già fondo verde e
    barratura, senza sbiadire ciò che resta da leggere. */
 .voce-checklist-v2.fatta { background: var(--green-bg); border-color: var(--green-border); }
 .voce-checklist-v2.attiva {
-  background: #EEF2FF;
+  background: var(--primary-soft);
   border-color: var(--primary);
   border-left: 3px solid var(--primary);
   padding-left: calc(var(--space-4) - 2px);
@@ -1012,7 +1012,7 @@ body {
 .toggle-fase-btn:active { transform: translateY(1px) scale(.985); }
 .toggle-fase-btn.fase-attiva {
   background: var(--primary-fill); border-color: var(--primary-fill);
-  color: #fff;
+  color: var(--text-on-fill);
 }
 
 /* ================================================================
@@ -1096,8 +1096,8 @@ body {
    il marker attivo. Entrambi corretti qui: bianco su #10B981 sta a
    2,6:1 (--green, #0f7a3a, sta a 5,5:1), e un anello colorato sempre
    acceso sarebbe indistinguibile dall'anello di focus di F2. */
-.stazione-fatta  .stazione-punto { background: var(--green);        border-color: var(--green);        color: #fff; }
-.stazione-attiva .stazione-punto { background: var(--primary-fill); border-color: var(--primary-fill); color: #fff; }
+.stazione-fatta  .stazione-punto { background: var(--green);        border-color: var(--green);        color: var(--text-on-fill); }
+.stazione-attiva .stazione-punto { background: var(--primary-fill); border-color: var(--primary-fill); color: var(--text-on-fill); }
 .stazione-dettagli {
   background: var(--bg-card); border: 1px solid var(--border);
   border-radius: var(--radius-lg); box-shadow: var(--shadow-card);
@@ -1130,7 +1130,7 @@ body {
 /* La pillola segue il marker: se la tappa corrente è indaco, "tappa
    corrente" non può restare oro. È la stessa grammatica che F2 ha dato
    alla voce di checklist corrente (.voce-checklist-v2.attiva, ~894). */
-.stazione-attiva .stazione-stato { color: var(--primary-active); background: #EEF2FF; }
+.stazione-attiva .stazione-stato { color: var(--primary-active); background: var(--primary-soft); }
 .stazione-chevron { flex: none; font-size: 0.8rem; color: var(--text-hint); transition: transform var(--dur-fast) var(--ease-out); }
 .stazione-dettagli:not([open]) .stazione-chevron { transform: rotate(-90deg); }
 /* Niente più filetto tratteggiato fra testa e corpo: quando la stazione è
@@ -1428,7 +1428,7 @@ body {
 /* il chip attivo è pieno e porta l'ombra del primario: si legge come lo stato
    corrente anche in una riga che scorre in orizzontale */
 .chip-filtro.attivo {
-  background: var(--primary-fill); border-color: var(--primary-fill); color: #fff;
+  background: var(--primary-fill); border-color: var(--primary-fill); color: var(--text-on-fill);
   font-weight: 700; box-shadow: 0 6px 16px var(--primary-shadow);
 }
 
@@ -1507,7 +1507,7 @@ body {
 .schedina-rimuovi { background: var(--red-bg); color: var(--red); }
 .schedina-freccia[aria-disabled="true"] { color: var(--border-strong); cursor: not-allowed; }
 .schedina-freccia:hover:not([aria-disabled="true"]) { background: var(--border); color: var(--text-dark); }
-.schedina-rimuovi:hover { background: #fbdada; }
+.schedina-rimuovi:hover { background: var(--red-bg-hover); }
 .schedina-annulla {
   min-height: 44px; padding: 0 var(--space-3);
   border: 1px solid var(--gold-border); border-radius: var(--radius-pill);
@@ -1764,7 +1764,7 @@ body {
    sulla mascotte e sul titolo invece di scivolare uniforme dall'alto in basso. */
 .celebrazione-overlay {
   position: fixed; inset: 0; z-index: 500;
-  background: radial-gradient(120% 90% at 50% 0%, #2A2652 0%, var(--night-bg) 55%, var(--night-bg-2) 100%);
+  background: radial-gradient(120% 90% at 50% 0%, var(--night-bg-glow) 0%, var(--night-bg) 55%, var(--night-bg-2) 100%);
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   gap: var(--space-4);
@@ -1780,9 +1780,9 @@ body {
 .celebrazione-titolo {
   font-family: var(--font-display); font-weight: 800;
   font-size: var(--fs-hero); line-height: 1.1;
-  letter-spacing: -.03em; color: #fff; margin: 0;
+  letter-spacing: -.03em; color: var(--night-text); margin: 0;
 }
-.celebrazione-sub { font-size: var(--fs-body); line-height: 1.55; color: #C7C3E0; margin: 0; max-width: 34ch; }
+.celebrazione-sub { font-size: var(--fs-body); line-height: 1.55; color: var(--night-text-soft); margin: 0; max-width: 34ch; }
 /* il bottone resta a piena larghezza fino a 320px: è l'unica azione della
    schermata, e a contenuto libero diventerebbe un bersaglio piccolo al centro
    di uno schermo vuoto */
@@ -1796,7 +1796,7 @@ body {
   box-shadow: var(--shadow-gold); cursor: pointer;
   transition: background var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
 }
-.celebrazione-btn:hover { background: #fcd34d; box-shadow: 0 4px 10px rgba(180,83,9,.14), 0 14px 34px rgba(251,191,36,.32); }
+.celebrazione-btn:hover { background: var(--gold-hover); box-shadow: 0 4px 10px rgba(180,83,9,.14), 0 14px 34px rgba(251,191,36,.32); }
 .celebrazione-btn:active { transform: translateY(1px) scale(.985); }
 
 /* ================================================================
@@ -1826,7 +1826,7 @@ body {
 .scelta-percorso-testo { font-size: 15px; color: var(--text-muted); margin: 0 0 18px; }
 .scelta-percorso-scelte { display: flex; flex-direction: column; gap: 10px; }
 .scelta-percorso-btn {
-  width: 100%; background: var(--primary-fill); color: #fff;
+  width: 100%; background: var(--primary-fill); color: var(--text-on-fill);
   border: none; border-radius: var(--radius-md); padding: 15px 16px;
   font-family: var(--font-body); font-size: 16px; font-weight: 700;
   min-height: 44px; cursor: pointer;
@@ -1847,7 +1847,7 @@ body {
 .mappa { position: relative; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border); background: var(--bg-card); }
 .mappa svg { display: block; width: 100%; height: auto; }
 .mappa-terra { fill: var(--bg-card-hover); stroke: var(--border-strong); stroke-width: .8; stroke-linejoin: round; }
-.mappa-terra-casa { fill: #C7D2FE; }
+.mappa-terra-casa { fill: var(--primary-tint); }
 .mappa-pin-layer { position: absolute; inset: 0; }
 .mappa-pin {
   position: absolute; width: 44px; height: 44px; transform: translate(-50%,-50%);
@@ -1868,13 +1868,13 @@ body {
 @keyframes mappa-pin-pop { from { transform: scale(0); } to { transform: scale(1); } }
 .mappa-pin-cluster .punto {
   width: 28px; height: 28px; display: grid; place-items: center;
-  font-size: .7rem; font-weight: 800; color: #fff; font-family: var(--font-body);
+  font-size: .7rem; font-weight: 800; color: var(--text-on-fill); font-family: var(--font-body);
 }
 .mappa-pin-stella .punto { background: var(--gold); }
 .mappa-pin-stella::after { content: "★"; position: absolute; top: 0; right: 2px; font-size: .78rem; color: var(--gold); text-shadow: 0 1px 2px rgba(30,27,46,.30); }
 .mappa-pin-ateneo { width: 56px; height: 56px; }
 .mappa-pin-ateneo .punto { width: 24px; height: 24px; background: var(--primary-fill); display: grid; place-items: center; }
-.mappa-pin-ateneo .punto::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #fff; }
+.mappa-pin-ateneo .punto::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--text-on-fill); }
 .mappa-pin-ateneo .anello { position: absolute; inset: 7px; border-radius: 50%; border: 2px dashed var(--primary); opacity: .55; animation: mappa-ruota 16s linear infinite; }
 @keyframes mappa-ruota { to { transform: rotate(360deg); } }
 .mappa-pin-etichetta {
@@ -2030,8 +2030,8 @@ body {
   background: var(--bg-card-hover); font-size: .7rem; font-weight: 800;
 }
 .benvenuto-passo[data-attivo="true"] { color: var(--text-dark); border-color: var(--primary); }
-.benvenuto-passo[data-attivo="true"] .n { background: var(--primary-fill); color: #fff; }
-.benvenuto-passo[data-fatto="true"] .n { background: var(--green); color: #fff; }
+.benvenuto-passo[data-attivo="true"] .n { background: var(--primary-fill); color: var(--text-on-fill); }
+.benvenuto-passo[data-fatto="true"] .n { background: var(--green); color: var(--text-on-fill); }
 .benvenuto-scelte { margin-top: 14px; }
 .benvenuto-scelte-riga { display: flex; flex-wrap: wrap; gap: 10px; }
 .benvenuto-scelta {
@@ -2084,7 +2084,7 @@ body {
   background: linear-gradient(160deg, var(--night-bg) 0%, var(--night-bg-2) 100%);
   border-color: var(--night-border);
 }
-.modo-scena .benvenuto-titolo { color: #fff; }
+.modo-scena .benvenuto-titolo { color: var(--night-text); }
 .modo-scena .benvenuto-titolo em { color: var(--gold); }
 .modo-scena .benvenuto-claim { color: rgba(255,255,255,.8); }
 .modo-scena .benvenuto-privacy { color: rgba(255,255,255,.55); }
@@ -2230,8 +2230,8 @@ body {
   background: var(--bg-card-hover); color: var(--primary-active);
   transition: border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
 }
-.dett-link:hover { border-color: var(--primary); background: #EEF2FF; }
-.dett-link.primario { background: var(--primary-fill); border-color: var(--primary-fill); color: #fff; }
+.dett-link:hover { border-color: var(--primary); background: var(--primary-soft); }
+.dett-link.primario { background: var(--primary-fill); border-color: var(--primary-fill); color: var(--text-on-fill); }
 .dett-link.primario:hover { background: var(--primary-fill-hover); border-color: var(--primary-fill-hover); }
 .dett-nota { margin-top: var(--space-4); font-size: var(--fs-xs); line-height: 1.55; color: var(--text-hint); }
 
@@ -2697,7 +2697,7 @@ body.modo-entrata .modo-scena .mappa svg {
 .modo-scena .benvenuto-claim {
   max-width: 22ch;
   margin: 0;
-  color: #fff;
+  color: var(--night-text);
   font-family: var(--font-display);
   font-size: clamp(26px, 7.5vw, 38px);
   font-weight: 800;
@@ -2853,9 +2853,9 @@ body.modo-entrata .modo-scena .mappa svg {
    Stesso design system del sito (font/colori/radius), niente app JS.
 ================================================================ */
 .guida-body { background: var(--bg-app); color: var(--text-dark); font-family: var(--font-body); line-height: 1.6; margin: 0; }
-.guida-nav { display: flex; align-items: center; gap: 8px; padding: 16px 20px; background: var(--night-bg); color: #fff; }
+.guida-nav { display: flex; align-items: center; gap: 8px; padding: 16px 20px; background: var(--night-bg); color: var(--night-text); }
 .guida-nav img { width: 28px; height: 28px; }
-.guida-nav a { color: #fff; text-decoration: none; font-family: var(--font-display); font-weight: 800; }
+.guida-nav a { color: var(--night-text); text-decoration: none; font-family: var(--font-display); font-weight: 800; }
 .guida-wrap { max-width: 720px; margin: 0 auto; padding: 32px 20px 64px; }
 .guida-meta { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; }
 .guida-wrap h1 { font-family: var(--font-display); font-weight: 800; font-size: 1.9rem; line-height: 1.15; color: var(--text-dark); margin: 0 0 12px; }
@@ -2864,7 +2864,7 @@ body.modo-entrata .modo-scena .mappa svg {
 .guida-wrap p, .guida-wrap li { font-size: 0.98rem; color: var(--text-dark); }
 .guida-wrap ul, .guida-wrap ol { padding-left: 22px; }
 .guida-wrap a { color: var(--primary); }
-.guida-wrap a.btn-primary { color: #fff; }
+.guida-wrap a.btn-primary { color: var(--text-on-fill); }
 .guida-disclaimer { background: var(--gold-bg); border: 1px solid var(--gold-border); border-radius: var(--radius-md); padding: 14px 16px; font-size: 0.85rem; color: var(--text-dark); margin: 24px 0; }
 .guida-cta { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); padding: 20px; margin: 28px 0; text-align: center; }
 /* inline-FLEX e non inline-block: da §4.1 il bottone ha min-height 48 e centra
@@ -2895,12 +2895,12 @@ body.modo-entrata .modo-scena .mappa svg {
 .la-page { min-width: 0; }
 .la-page-header {
   padding: clamp(24px, 5vw, 48px) var(--gutter) 20px;
-  border-radius: var(--radius-lg); background: var(--night-bg); color: #fff;
+  border-radius: var(--radius-lg); background: var(--night-bg); color: var(--night-text);
 }
 .la-page-kicker { margin: 0 0 6px; color: #E8D992; font-size: .75rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 .la-page-header h1 { margin: 0; font-family: var(--font-display); font-size: clamp(1.8rem, 5vw, 3rem); }
 .la-page-header > p:not(.la-page-kicker) { max-width: 720px; margin: 10px 0; color: #E9E7F4; }
-.la-back-link { color: #fff; font-size: .84rem; }
+.la-back-link { color: var(--night-text); font-size: .84rem; }
 .la-v2-app { display: grid; gap: var(--space-4); padding: var(--space-4) 0 calc(96px + env(safe-area-inset-bottom)); min-width: 0; }
 .la-stage-list {
   display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
