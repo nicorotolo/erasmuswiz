@@ -1890,13 +1890,28 @@ function creaVoceChecklist(voce, prossimaVoceId) {
   const cb = document.createElement("input");
   cb.type    = "checkbox";
   cb.checked = spuntato;
+  cb.dataset.voceId = voce.id;
   cb.addEventListener("change", () => {
     if (cb.checked) { mostraBannerWiz(); segnalaChecklistUsata(); }
     ZAINO.checklist[voce.id] = cb.checked;
     salvaZaino(ZAINO);
+    // Nicola (14/09): spuntare un passo richiudeva gli elenchi aperti e
+    // riportava la pagina in cima. Il ridisegno ora conserva cosa era aperto,
+    // la posizione e il fuoco sulla stessa spunta.
+    const cont = document.getElementById("lista-checklist-v2");
+    const aperti = cont
+      ? [...cont.querySelectorAll("details")].map(d => d.open)
+      : [];
+    const y = window.scrollY;
     renderChecklist();
+    if (cont) {
+      cont.querySelectorAll("details").forEach((d, i) => { if (aperti[i]) d.open = true; });
+      const stessa = cont.querySelector(`input[data-voce-id="${CSS.escape(voce.id)}"]`);
+      if (stessa) stessa.focus({ preventScroll: true });
+    }
     aggiornaProgressoV2();
     renderMissione();
+    window.scrollTo(window.scrollX, y);
   });
 
   label.appendChild(cb);
@@ -3855,7 +3870,11 @@ function laRenderFasi(contenitore, fase) {
     ["recognition", "Convalida"],
   ];
   const nav = laElemento("ol", "la-stage-list");
-  const attiva = fase === "exploration" ? 1 : fase === "preparation" ? 2
+  // Nicola (14/09): «Il mio piano» è stato aggiunto in testa senza spostare il
+  // conteggio, e chi arrivava senza piano vedeva acceso il punto 2. In
+  // esplorazione si parte dall'1 finché non c'è un piano (o già un dossier).
+  const haPiano = Object.keys(ZAINO.la?.examLibrary || {}).length > 0 || !!laDossierAperto();
+  const attiva = fase === "exploration" ? (haPiano ? 1 : 0) : fase === "preparation" ? 2
     : ["approval", "mobility"].includes(fase) ? 3 : 4;
   nomi.forEach(([id, nome], indice) => {
     const li = laElemento("li", `la-stage ${indice === attiva ? "attiva" : ""}`);

@@ -24,7 +24,7 @@ Stato: [x] fatto · [ ] da fare · [~] rimandato
 
 ## Candidature e scadenze
 - [ ] Razionalizzare la sezione
-- [ ] Bug: cliccando una voce la schermata si chiude e riparte da capo
+- [x] Bug: spuntando un passo gli elenchi si richiudevano e la pagina tornava in cima
 - [ ] Testi più diretti
 - [ ] Tappa corrente più evidente
 - [ ] Esito graduatorie sotto il bottone cliccato, messaggio riformulato
@@ -35,7 +35,7 @@ Stato: [x] fatto · [ ] da fare · [~] rimandato
 - [ ] Rinuncia come ultima voce, non in evidenza
 - [ ] Ogni spunta: titolino + spiegazione breve
 - [ ] Accettazione divisa in prima / durante / dopo
-- [ ] LA: bug, si parte dal punto 2 invece che dall'1
+- [x] LA: si partiva dal punto 2 invece che dall'1
 - [ ] Procedura Ca' Foscari da chiarire completamente
 - [ ] Ridondanze «fonti verificate» / «fonte ufficiale»
 - [ ] «Il mio piano» e «copia di sicurezza e ripristino»: rivedere o mettere in secondo piano
