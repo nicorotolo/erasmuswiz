@@ -127,12 +127,12 @@
   --space-12: 48px;
   --space-16: 64px;
 
-  /* ── Tipografia (valori mobile, rif. 390) ── */
+  /* ── Tipografia (valori mobile, rif. 390; scala V4.2) ── */
   --fs-hero:  30px;   /* .celebrazione-titolo */
-  --fs-h1:    25px;   /* .sezione-titolo */
+  --fs-h1:    22px;   /* .sezione-titolo */
   --fs-h2:    20px;   /* .missione-titolo, .dett-titolo */
-  --fs-h3:    17px;   /* .card-meta-v2 h3, .stazione-titolo */
-  --fs-body:  15.5px;
+  --fs-h3:    15.5px; /* .card-meta-v2 h3, .stazione-titolo */
+  --fs-body:  14.5px;
   --fs-sm:    13.5px;
   --fs-xs:    12px;   /* micro-label MAIUSCOLE */
   --fs-mono:  14px;   /* countdown, punteggi, livelli lingua */
@@ -155,11 +155,11 @@
 @media (min-width: 768px) {
   :root {
     --fs-hero: 34px;
-    --fs-h1:   27px;
-    --fs-h2:   21px;
-    --fs-h3:   17.5px;
-    --fs-body: 16px;
-    --fs-sm:   14px;
+    --fs-h1:   25px;
+    --fs-h2:   20px;
+    --fs-h3:   15.5px;
+    --fs-body: 14.5px;
+    --fs-sm:   13.5px;
     --gutter:  24px;
     --stack:   20px;
   }
@@ -167,11 +167,11 @@
 @media (min-width: 1024px) {
   :root {
     --fs-hero: 40px;
-    --fs-h1:   30px;
-    --fs-h2:   23px;
-    --fs-h3:   18px;
-    --fs-body: 16px;
-    --fs-sm:   14px;
+    --fs-h1:   28px;
+    --fs-h2:   20px;
+    --fs-h3:   15.5px;
+    --fs-body: 14.5px;
+    --fs-sm:   13.5px;
     --fs-xs:   12.5px;
     --fs-mono: 15px;
     --gutter:  32px;
@@ -928,12 +928,12 @@ body {
 ================================================================ */
 .sezione-header { margin: 20px 0 16px; padding-bottom: var(--space-4); border-bottom: 1px solid var(--border); }
 /* --fs-h1 esiste da F1 §2.2 e dichiara `.sezione-titolo` come suo consumatore:
-   è qui che il token entra in servizio (25 / 27 / 30px per banda). Prima era
+   è qui che il token entra in servizio (V4.2: 22 / 25 / 28px per banda). Prima era
    1.35rem con un override a 1.6rem a ≥1024, cioè una scala parallela a quella
    dei token — ed è esattamente il disallineamento che il GATE 2 giudicherà. */
 .sezione-titolo {
   font-family: var(--font-display); font-size: var(--fs-h1); font-weight: 800;
-  line-height: 1.15; letter-spacing: -.025em;
+  line-height: 1.2; letter-spacing: -.02em;
   color: var(--text-dark); margin-bottom: var(--space-1);
 }
 .sezione-sottotitolo { color: var(--text-muted); font-size: var(--fs-sm); line-height: 1.55; text-wrap: pretty; }
@@ -2324,7 +2324,7 @@ body.no-scroll { overflow: hidden; }
   /* pill e barra preparazione non sono più figli diretti della griglia:
      vivono dentro Prossima mossa e Il tuo progresso (R2, §5.3) */
   .missione-wiz-desktop { display: block; }
-  /* niente override di font-size qui: la banda la dà --fs-h1 (30px a ≥1024) */
+  /* niente override di font-size qui: la banda la dà --fs-h1 (28px a ≥1024) */
   .sezione-header { margin-top: 28px; }
 
   /* Percorso a stazioni (R3): UNA colonna anche sul desktop — è un
