@@ -430,6 +430,7 @@ const ICONE = {
   campana: '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/>',
   avviso: '<path d="M12 4l9 16H3z"/><path d="M12 10v4"/><path d="M12 17.5v.5"/>',
   utente: '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+  stella: '<path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/>',
   calendario: '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/>',
 };
 function icona(nome, classe) {
@@ -2487,7 +2488,16 @@ function trovaGruppoBorsa(meta) {
 // Chip compatta per la card (bussola §3: "stima", mai una promessa).
 function borsaSintesi(meta) {
   const gruppo = trovaGruppoBorsa(meta);
-  return gruppo ? `💶 ~€${gruppo.importoMensile}/mese` : null;
+  return gruppo ? `~€${gruppo.importoMensile}/mese` : null;
+}
+
+// Durata dai posti della meta: un valore o l'intervallo, mai inventata.
+function durataSintesi(meta) {
+  const mesi = [...new Set((meta.posti || []).map(p => Number(p.mesi)).filter(m => m > 0))]
+    .sort((a, b) => a - b);
+  if (!mesi.length) return "—";
+  const primo = mesi[0], ultimo = mesi[mesi.length - 1];
+  return primo === ultimo ? `${primo} ${primo === 1 ? "mese" : "mesi"}` : `${primo}–${ultimo} mesi`;
 }
 
 function chiudiWizardMete() {
@@ -2763,32 +2773,29 @@ function renderMete() {
 function creaCardMeta(meta, comp) {
     const card = crea("article", "card-meta-v2");
 
-    // Stellina preferiti: in alto a destra della card (feedback UX6 — prima
-    // era in fondo, poco visibile). Icona sola + aria-label, posizionata
-    // via CSS (position:absolute su .btn-preferita).
+    // Stellina (V4.6): 44×44 in alto a destra, piena in --primary se
+    // preferita, vuota in --text-hint se no. Icona a tratto, nome in aria-label.
     const ePreferita = ZAINO.metePreferite.includes(meta.id);
-    const btnPref = crea("button",
-      "btn-preferita" + (ePreferita ? " preferita" : ""),
-      ePreferita ? "⭐" : "☆");
+    const btnPref = crea("button", "btn-preferita" + (ePreferita ? " preferita" : ""));
+    btnPref.appendChild(icona("stella"));
     btnPref.type = "button";
     btnPref.title = ePreferita ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti";
     btnPref.setAttribute("aria-label", btnPref.title);
     btnPref.addEventListener("click", e => { e.stopPropagation(); togglePreferita(meta.id); });
     card.appendChild(btnPref);
 
+    // Riga alta (V4.5/V4.6): percentuale grande nel colore del semaforo, poi
+    // icona + testo dello stato. Mai solo colore, mai pillola. Senza
+    // percentuale un «—» neutro.
     if (comp) {
       const categoria = categoriaCompat(comp);
       const classeMono = categoria === "ok" ? "verde" : categoria === "medio" ? "amber" : "locked";
-
-      // Un'icona di stato sola (P1.6): il punteggio è solo il numero, l'icona
-      // vive nel badge di stato — prima, senza punteggio, l'emoji compariva
-      // due volte sulla stessa card.
       const riga = crea("div", "card-meta-v2-punteggio");
-      if (comp.totale !== null) {
-        riga.appendChild(crea("span", "meta-punteggio " + classeMono, `${comp.totale}%`));
-      }
-      riga.appendChild(crea("span", "card-meta-v2-stato stato-" + categoria,
-        `${comp.icona} ${comp.stato}`));
+      riga.appendChild(crea("span", "meta-punteggio " + (comp.totale !== null ? classeMono : "assente"),
+        comp.totale !== null ? `${comp.totale}%` : "—"));
+      const stato = crea("span", "card-meta-v2-stato stato-" + categoria, comp.stato);
+      stato.prepend(icona(categoria === "ok" ? "spunta" : categoria === "medio" ? "avviso" : "lucchetto"));
+      riga.appendChild(stato);
       card.appendChild(riga);
     }
 
@@ -2796,12 +2803,23 @@ function creaCardMeta(meta, comp) {
     card.appendChild(crea("div", "card-luogo-v2",
       meta.citta ? `${meta.citta} (${meta.paese})` : meta.paese));
 
-    const chipRiga = crea("div", "chip-meta-riga");
-    chipRiga.appendChild(crea("span", "chip-meta", postiSintesi(meta)));
-    chipRiga.appendChild(crea("span", "chip-meta", linguaSintesi(meta)));
-    const borsaChip = borsaSintesi(meta);
-    if (borsaChip) chipRiga.appendChild(crea("span", "chip-meta", borsaChip));
-    card.appendChild(chipRiga);
+    // Dati etichettati (V4.6): Lingua richiesta | Durata | Posti, poi la borsa
+    // stimata su una riga propria (decisione di Nicola 14/09).
+    const dati = crea("dl", "card-meta-dati");
+    const dato = (etichetta, valore, classe) => {
+      const d = crea("div", "card-meta-dato" + (classe ? " " + classe : ""));
+      d.appendChild(crea("dt", null, etichetta));
+      d.appendChild(crea("dd", null, valore));
+      dati.appendChild(d);
+      return d;
+    };
+    const lingua = linguaSintesi(meta);
+    dato("Lingua richiesta", lingua, lingua === "Lingua da verificare" ? "da-verificare" : "");
+    dato("Durata", durataSintesi(meta));
+    dato("Posti", postiSintesi(meta));
+    const borsa = borsaSintesi(meta);
+    if (borsa) dato("Borsa stimata", borsa, "borsa");
+    card.appendChild(dati);
 
     // Niente testi ripetuti su ogni card (P1.8): il link al portale vive nel
     // pannello di dettaglio, e l'affordance di tap la dà il design della card
@@ -2810,9 +2828,6 @@ function creaCardMeta(meta, comp) {
     card.setAttribute("role", "button");
     card.setAttribute("tabindex", "0");
     card.setAttribute("aria-label", nomeUniversita(meta.universita) + " — apri il dettaglio");
-    const freccia = crea("span", "card-freccia", "→");
-    freccia.setAttribute("aria-hidden", "true");
-    card.appendChild(freccia);
     card.addEventListener("click", () => apriDettaglioMeta(meta));
     card.addEventListener("keydown", e => {
       if (e.key === "Enter" || e.key === " ") { e.preventDefault(); apriDettaglioMeta(meta); }

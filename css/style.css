@@ -716,9 +716,10 @@ body {
   box-shadow: var(--shadow-card);
 }
 /* Redesign v4, V4.3 — superfici senza bordo, schermata per schermata: qui
-   la Home. .card-meta-v2 passa con le Mete. */
+   la Home e le card delle Mete. */
 .missione-card,
-.settimana-card {
+.settimana-card,
+.card-meta-v2 {
   border: 0;
   border-radius: var(--radius-lg);
   box-shadow: 0 1px 2px rgba(30,27,46,.04);
@@ -1442,33 +1443,51 @@ body {
    posizionamento per stellina e freccia, e lo spazio in basso che la freccia
    occupa. L'hover NON è più descritto qui: lo governa .card-cliccabile, una
    volta sola per tutte le card cliccabili del sito. */
+/* Redesign v4, V4.6: percentuale + stato → nome (spazio per 2 righe, mai
+   tagliato: il probe delle invarianti vieta il testo troncato) + città →
+   separatore e dati etichettati. Niente freccia; il dl scende in fondo così
+   le card di una stessa riga allineano i dati. */
 .card-meta-v2 {
   position: relative;
-  padding-bottom: var(--space-10);
+  display: flex; flex-direction: column;
 }
 .card-meta-v2 h3 {
   font-family: var(--font-display); font-weight: 700;
-  font-size: var(--fs-h3); line-height: 1.25; letter-spacing: -.015em;
-  color: var(--text-dark);
+  font-size: var(--fs-h3); line-height: 1.3; letter-spacing: -.005em;
+  color: var(--text-dark); text-wrap: pretty;
+  min-height: 2.6em;
   margin: 0 0 var(--space-1);
-  padding-right: 44px;                     /* non finisce sotto la stellina */
 }
-.card-luogo-v2 { color: var(--text-hint); font-size: var(--fs-sm); margin-bottom: var(--space-4); }
+/* --text-hint su bianco 5,82:1. */
+.card-luogo-v2 { color: var(--text-hint); font-size: var(--fs-sm); margin-bottom: var(--space-3); }
+.card-meta-dati {
+  margin: auto 0 0; padding-top: var(--space-3);
+  border-top: 1px solid var(--border);
+  display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-3);
+}
+.card-meta-dato { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.card-meta-dato.borsa { grid-column: 1 / -1; }
+/* Micro-etichetta V4.2. */
+.card-meta-dato dt {
+  font-size: 11px; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--text-hint);
+}
+.card-meta-dato dd { margin: 0; font-size: 14px; font-weight: 600; color: var(--text-dark); overflow-wrap: anywhere; }
+/* --amber su bianco 5,42:1. */
+.card-meta-dato.da-verificare dd { color: var(--amber); }
 /* Il punteggio conserva la famiglia semaforo (--green / --amber / --red) invece
    dei letterali del canvas: #059669 sul bianco sta a 3.4:1 e non passa il 4.5:1
    richiesto a un testo che È il dato della card. --green (#0f7a3a) sta a 5.3:1.
    Del canvas si prende il registro del "locked": rosso, non grigio — una meta
    fuori portata è un'informazione, non un dato assente. */
-.meta-punteggio { font-family: var(--font-mono); font-size: 19px; font-weight: 700; letter-spacing: -.02em; }
-.meta-punteggio.verde  { color: var(--green); }
-.meta-punteggio.amber  { color: var(--amber); }
-.meta-punteggio.locked { color: var(--red); }
-.card-freccia {
-  position: absolute; bottom: var(--space-5); right: var(--space-5);
-  color: var(--primary); font-weight: 700; font-size: 17px;
-  transition: transform var(--dur-base) var(--ease-out);
-}
-.card-cliccabile:hover .card-freccia { transform: translateX(4px); }
+/* Numero V4.2: mono 34px. Contrasti su bianco: --green 5,43; --amber 5,42;
+   --red 6,57; «—» in --text-hint 5,82. */
+.meta-punteggio { font-family: var(--font-mono); font-size: 34px; line-height: 1; font-weight: 700; letter-spacing: -.04em; }
+.meta-punteggio.verde   { color: var(--green); }
+.meta-punteggio.amber   { color: var(--amber); }
+.meta-punteggio.locked  { color: var(--red); }
+.meta-punteggio.assente { color: var(--text-hint); }
 
 /* Filtri a chip — tab Mete (BR4, 4a) */
 .filtri-mete-chip { display: flex; flex-wrap: wrap; gap: var(--space-2); padding: 0 0 var(--space-2); }
@@ -1491,22 +1510,22 @@ body {
 
 /* Card meta compatta (BR4, 4a) — badge di stato a pillola (direzione C):
    un'icona SOLA per card (P1.6), colore semantico dal semaforo esistente. */
+/* Semaforo V4.5: solo icona + testo colorato, 12.5px/700, icona 14px. */
 .card-meta-v2-punteggio {
-  display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap;
-  margin-bottom: var(--space-3);
+  display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap;
+  min-height: 36px; margin-bottom: var(--space-3);
   padding-right: 44px;                     /* la riga non passa sotto la stellina */
 }
 .card-meta-v2-stato {
-  display: inline-flex; align-items: center; gap: var(--space-1);
-  font-size: var(--fs-xs); font-weight: 700;
-  border-radius: var(--radius-pill); padding: 4px 10px;
-  border: 1px solid; white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12.5px; font-weight: 700;
 }
-.card-meta-v2-stato.stato-ok    { background: var(--green-bg); color: var(--green); border-color: var(--green-border); }
-.card-meta-v2-stato.stato-medio { background: var(--amber-bg); color: var(--amber); border-color: var(--amber-border); }
-/* il canvas porta "basso" nel registro rosso: prima era grigio-neutro, cioè
-   indistinguibile da un dato mancante */
-.card-meta-v2-stato.stato-basso { background: var(--red-bg);   color: var(--red);   border-color: var(--red-border); }
+.card-meta-v2-stato .icona { font-size: 14px; }
+.card-meta-v2-stato.stato-ok    { color: var(--green); }
+.card-meta-v2-stato.stato-medio { color: var(--amber); }
+/* "basso" resta nel registro rosso: una meta fuori portata è
+   un'informazione, non un dato assente */
+.card-meta-v2-stato.stato-basso { color: var(--red); }
 .chip-meta-riga { display: flex; flex-wrap: wrap; gap: var(--space-2); }
 .chip-meta {
   display: inline-block; background: var(--bg-app); border: 1px solid var(--border);
@@ -2467,12 +2486,12 @@ body.no-scroll { overflow: hidden; }
   font-family: var(--font-body);
   transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
 }
+.btn-preferita .icona { font-size: 20px; }
 .btn-preferita:hover { background: var(--bg-card-hover); color: var(--text-muted); transform: scale(1.08); }
 .btn-preferita:active { transform: translateY(1px) scale(.98); }
-.btn-preferita.preferita {
-  background: var(--gold-bg);
-  color: var(--gold-dark);
-}
+/* V4.6: preferita = stella piena in --primary (6,29:1 su bianco). */
+.btn-preferita.preferita { color: var(--primary); }
+.btn-preferita.preferita .icona { fill: currentColor; }
 
 /* ================================================================
    TAB METE — wizard prima visita, mappa sincronizzata, render a lotti (R3)
