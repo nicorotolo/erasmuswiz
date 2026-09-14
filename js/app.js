@@ -434,6 +434,7 @@ const ICONE = {
   su: '<path d="M6 15l6-6 6 6"/>',
   giu: '<path d="M6 9l6 6 6-6"/>',
   chiudi: '<path d="M6 6l12 12M18 6L6 18"/>',
+  matita: '<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/>',
   calendario: '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/>',
 };
 function icona(nome, classe) {
@@ -2596,16 +2597,23 @@ function renderMete() {
   if (strip) {
     strip.innerHTML = "";
     if (profilo) {
+      // V4.10: «Ateneo · Area» sopra, «Livello · Lingua» sotto, «Modifica»
+      // con matita a destra. Nessun box.
       const lingua1 = (profilo.lingue || [])[0];
       const linguaTesto = lingua1 ? ` · ${lingua1.lingua} ${lingua1.livello}` : "";
-      strip.appendChild(crea("span", "profilo-strip-testo",
-        `${nomeAreaProfilo(profilo)} · ${livelloInParole(profilo.livello)}${linguaTesto}  `));
-      const lnk = crea("a", "profilo-strip-link", "Modifica profilo →");
+      const testo = crea("span", "profilo-strip-testo", `${laNomeAteneo()} · ${nomeAreaProfilo(profilo)}`);
+      testo.appendChild(crea("strong", "profilo-strip-dettaglio",
+        `${livelloInParole(profilo.livello)}${linguaTesto}`));
+      strip.appendChild(testo);
+      const lnk = crea("a", "profilo-strip-link", "Modifica");
+      lnk.prepend(icona("matita"));
+      lnk.setAttribute("aria-label", "Modifica il profilo");
       lnk.href = "#";
       lnk.addEventListener("click", e => { e.preventDefault(); vaiA("profilo"); });
       strip.appendChild(lnk);
     } else {
-      const lnk = crea("a", "profilo-strip-link", "Compila il profilo per vedere le mete compatibili →");
+      const lnk = crea("a", "profilo-strip-link", "Compila il profilo per vedere le mete compatibili");
+      lnk.prepend(icona("utente"));
       lnk.href = "#";
       lnk.addEventListener("click", e => { e.preventDefault(); vaiA("profilo"); });
       strip.appendChild(lnk);
@@ -2662,10 +2670,10 @@ function renderMete() {
       if (filtroMeteAttivo === "lingua" && lingueMancanti) filtroMeteAttivo = "tutte";
       [
         { valore: "tutte", testo: "Tutte" },
-        { valore: "ok",    testo: "✅ Compatibili" },
-        { valore: "medio", testo: "⚠️ Con riserve" },
-        { valore: "basso", testo: "🔒 Non accessibili" },
-        { valore: "lingua", testo: "🗣️ Per la mia lingua" },
+        { valore: "ok",    testo: "Compatibili" },
+        { valore: "medio", testo: "Con riserve" },
+        { valore: "basso", testo: "Non accessibili" },
+        { valore: "lingua", testo: "Per la mia lingua" },
       ].forEach(opz => {
         const chip = crea("button", "chip-filtro" + (filtroMeteAttivo === opz.valore ? " attivo" : ""), opz.testo);
         chip.type = "button";
