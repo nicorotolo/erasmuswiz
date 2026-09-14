@@ -145,13 +145,13 @@ test("dettaglio V0 — il verde condizionato mostra l'avviso sui corsi e la ling
 
     w.apriDettaglioMeta(meta);
     const stato = w.document.querySelector("#meta-modal-corpo .dett-compat-stato");
+    // Nicola 14/09: niente spunta, colore sullo stato; l'avviso è un segnale
+    // di attenzione con il testo nel suggerimento.
     const avviso = w.document.querySelector(
-      "#meta-modal-corpo .banner-stato.stato-riserve[role='note']"
+      "#meta-modal-corpo .dett-attenzione .info-tip[role='note']"
     );
-    assert.match(stato.textContent, /✅/);
-    assert.ok(avviso, "manca l'avviso visibile sui corsi");
-    assert.equal(avviso.tagName, "DIV");
-    assert.equal(avviso.classList.contains("dett-vuoto"), false);
+    assert.equal(stato.closest(".dett-compat").dataset.categoria, "ok");
+    assert.ok(avviso, "manca l'avviso sui corsi");
     assert.match(avviso.textContent, /corsi tenuti in inglese/i);
     assert.match(avviso.textContent, /offerta di corsi in inglese.*piano di studi/i);
   } finally {

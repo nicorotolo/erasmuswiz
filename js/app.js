@@ -2904,19 +2904,19 @@ function renderPreferite(msg) {
   const titolo = crea("h3", "solo-lettori", COPY_SCELTE.titoloElenco);
   titolo.id = "titolo-elenco-preferite";
   header.appendChild(titolo);
-  const etichetta = crea("span", "preferite-label", COPY_SCELTE.rigaSottile(ids.length));
+  // Nicola (14/09): il massimo si dice nella riga stessa, con l'anno del bando
+  // da cui viene. Solo dove il bando lo scrive (oggi Ca' Foscari): per
+  // Sapienza non c'è un numero da citare e la riga resta com'era.
+  const massimo = ErasmusWizPuro.massimoDestinazioniBando(window.BANDO_INFO);
+  const testoEtichetta = massimo.presente
+    ? `${ids.length} ${ids.length === 1 ? "preferita" : "preferite"} · max ${massimo.valore} in ordine di priorità (bando ${cicloBreve(massimo.ciclo)})`
+    : COPY_SCELTE.rigaSottile(ids.length);
+  const etichetta = crea("span", "preferite-label", testoEtichetta);
   etichetta.setAttribute("aria-hidden", "true");
   header.appendChild(etichetta);
   cont.appendChild(header);
 
   annunciaScelte(msg?.annuncio || "");
-
-  const fattoStorico = ErasmusWizPuro.frasePassatoMassimo(
-    ErasmusWizPuro.massimoDestinazioniBando(window.BANDO_INFO)
-  );
-  if (fattoStorico) {
-    cont.appendChild(crea("p", "preferite-fatto-storico", fattoStorico));
-  }
 
   if (ids.length === 0 && !_rimozionePreferita) {
     cont.appendChild(crea("p", "schedina-invito-vuota", COPY_SCELTE.vuoto));
@@ -3130,18 +3130,28 @@ function apriDettaglioMeta(meta) {
   corpo.innerHTML = "";
 
   // --- Intestazione: università, luogo, codice ---
-  corpo.appendChild(crea("h2", "dett-titolo", nomeUniversita(meta.universita)));
+  // Nicola (14/09): nei dati il nome arriva spesso con facoltà e dipartimento
+  // attaccati da « - » («Aix-Marseille University (AMU) - Faculty of …»):
+  // il titolo è solo l'università, il resto va su righe proprie.
+  let [nomeUni, ...partiUni] = String(meta.universita || "").split(/\s+[-–]\s+/);
+  // «UL - University of Limerick»: la sigla davanti non è il nome.
+  if (partiUni.length && /^\S{1,6}$/.test(nomeUni)) {
+    nomeUni = `${partiUni.shift()} (${nomeUni})`;
+  }
+  corpo.appendChild(crea("h2", "dett-titolo", nomeUniversita(nomeUni)));
+  partiUni.forEach(parte => corpo.appendChild(crea("p", "dett-sottotitolo", nomeUniversita(parte))));
   corpo.appendChild(crea("p", "dett-luogo",
     meta.citta ? `${meta.citta} (${meta.paese})` : (meta.paese || "")));
 
   // --- Compatibilità (solo se ho un profilo) ---
+  // Nicola (14/09): la percentuale è la notizia; niente spunta, il colore dice
+  // lo stato e sotto c'è la spiegazione in chiaro.
   if (ZAINO.profilo) {
     const comp = calcolaCompatibilita(meta, ZAINO.profilo);
-    const etichetta = comp.totale === null
-      ? `${comp.icona} ${comp.stato}`
-      : `${comp.icona} ${comp.totale}% — ${comp.stato}`;
     const box = crea("div", "dett-compat");
-    box.appendChild(crea("span", "dett-compat-stato", etichetta));
+    box.dataset.categoria = categoriaCompat(comp);
+    if (comp.totale !== null) box.appendChild(crea("span", "dett-compat-numero", `${comp.totale}%`));
+    box.appendChild(crea("span", "dett-compat-stato", comp.stato));
     if (comp.dettaglio) box.appendChild(crea("span", "dett-compat-detail", comp.dettaglio));
     corpo.appendChild(box);
   }
@@ -3177,30 +3187,43 @@ function apriDettaglioMeta(meta) {
     ulL.appendChild(crea("li", "dett-vuoto", "Non indicato nella lista ufficiale: controlla la scheda PDF."));
   }
   contenutoLingua.appendChild(ulL);
+  // Nicola (14/09): l'avviso non è più un riquadro di testo ma un segnale di
+  // attenzione accanto all'etichetta; il testo compare al passaggio o al tocco.
+  const rigaLingua = rigaDettaglio("Requisiti linguistici", contenutoLingua);
   avvisiRequisitoLingua(requisitoLingua, meta, ZAINO.profilo).forEach(avviso => {
-    const banner = crea("div", avviso.classe);
-    banner.setAttribute("role", "note");
-    banner.appendChild(crea("span", "banner-stato-icona")).appendChild(icona("avviso"));
-    banner.appendChild(crea("span", null, avviso.testo));
-    contenutoLingua.appendChild(banner);
+    const attenzione = crea("button", "info dett-attenzione");
+    attenzione.type = "button";
+    attenzione.setAttribute("aria-label", `Attenzione: ${avviso.testo}`);
+    attenzione.appendChild(icona("avviso"));
+    const tip = crea("span", "info-tip", avviso.testo);
+    tip.setAttribute("role", "note");
+    attenzione.appendChild(tip);
+    rigaLingua.querySelector(".dett-label").appendChild(attenzione);
   });
-  corpo.appendChild(rigaDettaglio("Requisiti linguistici", contenutoLingua));
+  corpo.appendChild(rigaLingua);
 
   // --- Borsa Erasmus stimata per gruppo-paese (OP4) ---
   const gruppoBorsa = trovaGruppoBorsa(meta);
   if (gruppoBorsa && BORSE_INFO) {
+    // Nicola (14/09): la cifra in evidenza, il resto (integrazione, fonte)
+    // dentro «Dettagli».
     const box = crea("div", null);
-    box.appendChild(crea("div", null,
-      `Borsa UE stimata: ~€${gruppoBorsa.importoMensile}/mese (${gruppoBorsa.nome}).`));
+    const cifra = crea("p", "dett-borsa-cifra", `~€${gruppoBorsa.importoMensile}`);
+    cifra.appendChild(crea("span", "dett-borsa-unita", "/mese, stima UE"));
+    box.appendChild(cifra);
+    const dettagli = crea("details", "dett-borsa-dettagli");
+    dettagli.appendChild(crea("summary", null, "Dettagli"));
+    dettagli.appendChild(crea("p", null, `Fascia: ${gruppoBorsa.nome}.`));
     if (BORSE_INFO.integrazioneMinoriOpportunita) {
       const integ = BORSE_INFO.integrazioneMinoriOpportunita;
       const testoInteg = integ.tipo === "isee_a_fasce"
         ? `${integ.etichetta}: da €${integ.fasce[integ.fasce.length - 1].importoMensile} a €${integ.fasce[0].importoMensile}/mese in base all'ISEE.`
         : `${integ.etichetta}: +€${integ.importoMensile}/mese per chi rientra nelle categorie del bando.`;
-      box.appendChild(crea("div", null, testoInteg));
+      dettagli.appendChild(crea("p", null, testoInteg));
     }
-    box.appendChild(crea("span", "dett-compat-detail",
-      `Stima. Fonte: ${BORSE_INFO.fonte}, aggiornata al ${BORSE_INFO.aggiornatoAl}.`));
+    dettagli.appendChild(crea("p", "dett-compat-detail",
+      `Fonte: ${BORSE_INFO.fonte}, aggiornata al ${BORSE_INFO.aggiornatoAl}.`));
+    box.appendChild(dettagli);
     corpo.appendChild(rigaDettaglio("Borsa Erasmus", box));
   }
 
@@ -3229,31 +3252,33 @@ function apriDettaglioMeta(meta) {
   if (valoreReale(meta.notePratiche)) corpo.appendChild(rigaDettaglio("Note pratiche", meta.notePratiche));
 
   // --- Link ---
+  // Nicola (14/09): gerarchia — 1° scheda ufficiale, 2° catalogo dei corsi
+  // (il campo era nei dati dal principio ma fino al 01/09 nessuno lo leggeva),
+  // il sito come semplice link; il Learning Agreement in un blocco a sé.
   const boxLink = crea("div", "dett-link-wrap");
   const lp = crea("a", "dett-link primario", "Scheda ufficiale (PDF) ↗");
   lp.href = meta.linkPdf || window.ATENEO_PORTALE_URL || "https://www.unive.it/data/11631/";
   lp.target = "_blank"; lp.rel = "noopener";
   boxLink.appendChild(lp);
-  if (valoreReale(meta.linkSito)) {
-    const ls = crea("a", "dett-link", "Sito dell'università ↗");
-    ls.href = meta.linkSito; ls.target = "_blank"; ls.rel = "noopener";
-    boxLink.appendChild(ls);
-  }
-  // Il catalogo sta subito prima del bottone del Learning Agreement perche' e'
-  // il documento da cui si scelgono i corsi da metterci dentro. Il campo era nei
-  // dati dal principio ma nessuna riga di codice lo leggeva: il 01/09, con 380
-  // mete coperte, era ancora invisibile allo studente.
   if (valoreReale(meta.linkCatalogo)) {
     const lc = crea("a", "dett-link", "Catalogo dei corsi ↗");
     lc.href = meta.linkCatalogo; lc.target = "_blank"; lc.rel = "noopener";
     boxLink.appendChild(lc);
   }
+  if (valoreReale(meta.linkSito)) {
+    const ls = crea("a", "dett-link-testo", "Sito dell'università ↗");
+    ls.href = meta.linkSito; ls.target = "_blank"; ls.rel = "noopener";
+    boxLink.appendChild(ls);
+  }
+  corpo.appendChild(boxLink);
+  const boxLA = crea("div", "dett-la");
+  boxLA.appendChild(crea("p", "dett-la-testo", "Hai scelto i corsi? Mettili nel Learning Agreement."));
   const laLink = crea("button", "dett-link la-destination-action", "Prepara il Learning Agreement per questa meta →");
   laLink.type = "button";
   laLink.dataset.laDestinationId = meta.id;
   laLink.addEventListener("click", () => apriLAContestualeMeta(meta));
-  boxLink.appendChild(laLink);
-  corpo.appendChild(boxLink);
+  boxLA.appendChild(laLink);
+  corpo.appendChild(boxLA);
 
   // Nicola (14/09): la nota «fa sempre fede…» non si ripete in ogni meta:
   // la dice una volta il piè di pagina.
