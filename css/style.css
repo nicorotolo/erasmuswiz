@@ -967,13 +967,14 @@ body {
 .prep-barra { margin-top: var(--space-2); }
 .prep-barra,
 .barra-progresso {
-  height: 10px; background: var(--bg-track);
+  height: 6px; background: var(--bg-track);
   border-radius: var(--radius-pill); overflow: hidden;
 }
 .prep-barra-fill,
 .barra-riempimento {
   height: 100%; border-radius: var(--radius-pill);
-  background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+  /* Redesign v4: riempimento a inchiostro, come nell'artboard Percorso. */
+  background: var(--night-bg);
   transition: width var(--dur-slow) var(--ease-out);
 }
 
@@ -1049,28 +1050,25 @@ body {
    Del canvas si prende ciò che vale in entrambe le forme: bersaglio da 48px
    (misurato 41.1 in F0.5), spaziatura a token, e la voce attiva segnata da
    un filetto indaco invece che da un anello da 2px con alone. */
+/* Redesign v4 (artboard SceltaPercorso): la voce è una riga, non una card —
+   casella 22px, testo 14px; niente fondi colorati per gli stati (V4.1). */
 .voce-checklist-v2 {
-  display: flex; align-items: center; gap: var(--space-3);
-  min-height: 48px;
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius-md); padding: var(--space-3) var(--space-4);
-  font-size: var(--fs-body); color: var(--text-dark);
+  display: flex; align-items: flex-start; gap: var(--space-3);
+  min-height: 44px;
+  background: none; border: 0;
+  border-radius: var(--radius-sm); padding: var(--space-2) 0;
+  font-size: 14px; line-height: 1.45; color: var(--text-dark);
   cursor: pointer;
-  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
 }
-.voce-checklist-v2:hover { background: var(--primary-soft); border-color: var(--border-strong); }
+.voce-checklist-v2:hover { color: var(--primary-active); }
 /* ⛔ via `opacity: .65` dalla voce fatta: velava anche il testo, che su
    --green-bg scendeva sotto 4.5:1. Il "fatto" lo dicono già fondo verde e
    barratura, senza sbiadire ciò che resta da leggere. */
-.voce-checklist-v2.fatta { background: var(--green-bg); border-color: var(--green-border); }
-.voce-checklist-v2.attiva {
-  background: var(--primary-soft);
-  border-color: var(--primary);
-  border-left: 3px solid var(--primary);
-  padding-left: calc(var(--space-4) - 2px);
-  font-weight: 700;
-}
-.voce-checklist-v2 input { width: 18px; height: 18px; flex-shrink: 0; cursor: pointer; accent-color: var(--green); }
+.voce-checklist-v2.fatta { color: var(--text-muted); }
+/* La voce corrente si distingue per peso, non per un box. */
+.voce-checklist-v2.attiva { font-weight: 700; }
+/* Casella nativa 22px con accento inchiostro (spunta bianca del browser). */
+.voce-checklist-v2 input { width: 22px; height: 22px; margin: 0; flex-shrink: 0; cursor: pointer; accent-color: var(--night-bg); }
 .voce-checklist-v2 input:checked { animation: check-pop var(--dur-slow) var(--ease-bounce); }
 @keyframes check-pop {
   0%   { transform: scale(1); }
@@ -1078,7 +1076,8 @@ body {
   100% { transform: scale(1); }
 }
 .voce-checklist-v2 span { font-size: inherit; color: inherit; }
-.voce-checklist-v2.fatta span { text-decoration: line-through; color: var(--text-hint); }
+/* --text-muted su bianco 9,05:1 anche barrato. */
+.voce-checklist-v2.fatta span { text-decoration: line-through; text-decoration-color: var(--border-strong); color: var(--text-muted); }
 /* Traduttore a 3 registri sotto la voce di checklist (DISEGNO_UX §6) */
 .voce-checklist-wrap  { display: flex; flex-direction: column; }
 .voce-checklist-trad  { padding: 4px 16px 2px 46px; }
@@ -1087,23 +1086,27 @@ body {
    TOGGLE FASE (candidatura / selezionato)
 ================================================================ */
 .toggle-fase-wrap {
-  display: flex; gap: 8px; margin: 0 0 16px; flex-wrap: wrap;
+  display: flex; flex-direction: column; gap: 8px; margin: 0 0 16px;
 }
 .toggle-fase-btn {
   flex: 1; min-width: 140px;
   /* F2.0 — da 39px a 44 (inventario touch F0.5) */
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  min-height: 44px;
-  padding: 0 var(--space-4); border-radius: var(--radius-pill);
-  border: 1.5px solid var(--border); background: var(--bg-card);
-  color: var(--text-muted); font-size: 0.88rem; font-weight: 500;
+  min-height: 48px;
+  /* Redesign v4: righe di scelta (come l'onboarding), non pillole. */
+  justify-content: flex-start;
+  padding: 0 var(--space-4); border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-strong); background: var(--bg-card);
+  color: var(--text-dark); font-size: 14.5px; font-weight: 700;
   cursor: pointer; transition: border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
 }
 .toggle-fase-btn:hover { border-color: var(--border-strong); color: var(--text-dark); }
 .toggle-fase-btn:active { transform: translateY(1px) scale(.985); }
+/* Scelta corrente a inchiostro: bianco su --night-bg 15,8:1; il nome
+   accessibile lo dà aria-pressed. */
 .toggle-fase-btn.fase-attiva {
-  background: var(--primary-fill); border-color: var(--primary-fill);
-  color: var(--text-on-fill);
+  background: var(--night-bg); border-color: var(--night-bg);
+  color: var(--night-text);
 }
 
 /* ================================================================
@@ -1280,29 +1283,29 @@ body {
 /* ================================================================
    "ORA TOCCA A TE" — prossimi 3 passi (BR5)
 ================================================================ */
+/* Dentro il corpo della tappa (già una superficie): nessuna cornice. */
 .prossimi-passi-v2 {
-  margin: 0 0 22px; padding: 16px;
-  background: var(--bg-card); border: 1.5px solid var(--primary);
-  border-radius: var(--radius-lg); box-shadow: var(--shadow-card);
+  margin: 0 0 var(--space-5); padding: 0 0 var(--space-4);
+  border-bottom: 1px solid var(--border);
 }
 .prossimi-passi-titolo {
-  font-family: var(--font-display); font-weight: 800; font-size: 1.05rem;
-  color: var(--text-dark); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 6px;
+  font-family: var(--font-display); font-weight: 700; font-size: 16px;
+  color: var(--text-dark); margin-bottom: var(--space-2);
 }
-.prossimi-passi-lista { display: flex; flex-direction: column; gap: 10px; }
+.prossimi-passi-titolo .icona { font-size: 16px; color: var(--gold-dark); }
+.prossimi-passi-lista { display: flex; flex-direction: column; gap: 2px; }
 .prossimo-passo-item { display: flex; flex-direction: column; }
-.prossimi-passi-lista .voce-checklist-v2 { padding: 16px 18px; }
-.prossimi-passi-lista .voce-checklist-v2 span { font-size: 1rem; font-weight: 600; }
 /* Scadenza collegata al passo (OP2): il prossimo passo si vede sempre
    insieme a QUANDO va fatto, senza dover aprire il capitolo sotto.
    Pillola con sfondo proprio (stesso pattern di .cand-scadenza-countdown):
    il fondo dedicato garantisce contrasto anche sulle superfici a
    inchiostro (--night-bg), non solo sulle card chiare. */
+/* Testo mono in --red, senza pillola (6,57:1 su bianco). */
 .prossimo-passo-scadenza {
-  display: inline-block; margin: 4px 0 0 46px;
-  font-family: var(--font-mono); font-size: 0.78rem; font-weight: 700;
-  color: var(--red); background: var(--red-bg);
-  padding: 2px 9px; border-radius: var(--radius-pill);
+  display: block; margin: 0 0 var(--space-1) 34px;
+  font-family: var(--font-mono); font-size: var(--fs-xs); font-weight: 700;
+  color: var(--red);
 }
 
 /* ================================================================
@@ -1324,47 +1327,42 @@ body {
 /* Il blocco-scadenza deve leggersi come UN capitolo distinto (OP2: "una
    scadenza = un blocco visivamente distinto"): più peso di ogni voce
    sotto, mai la stessa cornice. */
+/* Capitolo = titolo, data e conto alla rovescia; niente card nella card
+   (V4.3) e niente filetto d'oro: il blocco lo separa il filetto sopra. */
 .cand-scadenza-card {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-left: 4px solid var(--gold); border-radius: var(--radius-lg);
-  padding: 16px 18px; margin-bottom: 10px;
-  box-shadow: var(--shadow-card);
+  background: none; border: 0; border-top: 1px solid var(--border);
+  border-radius: 0; padding: var(--space-4) 0 var(--space-2); margin: 0;
+  box-shadow: none;
 }
-.cand-capitolo.passata .cand-scadenza-card { border-left-color: var(--border-strong); }
 .cand-scadenza-titolo {
-  font-family: var(--font-display); font-weight: 800; font-size: 1.05rem;
-  color: var(--text-dark); margin-bottom: 4px;
+  font-family: var(--font-display); font-weight: 700; font-size: var(--fs-h3);
+  color: var(--text-dark); margin-bottom: 2px;
 }
 .cand-scadenza-data    { font-family: var(--font-mono); color: var(--primary); font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; }
+/* Conto alla rovescia come testo mono (--red 6,57; passato --text-muted). */
 .cand-scadenza-countdown {
-  display: inline-block; margin-bottom: 10px;
-  font-family: var(--font-mono); font-size: 0.82rem; font-weight: 700;
-  color: var(--red); background: var(--red-bg); padding: 3px 10px; border-radius: var(--radius-pill);
+  display: block; margin-bottom: var(--space-1);
+  font-family: var(--font-mono); font-size: var(--fs-xs); font-weight: 700;
+  color: var(--red);
 }
-.cand-capitolo.passata .cand-scadenza-countdown { color: var(--text-muted); background: var(--bg-card-hover); }
+.cand-capitolo.passata .cand-scadenza-countdown { color: var(--text-muted); }
+/* Azione secondaria = link con icona (V4.4), area 44px. */
 .cand-btn-ics {
-  display: block; margin-top: 4px;
-  padding: 7px 12px; border-radius: var(--radius-pill);
-  border: 1.5px solid var(--border); background: var(--bg-card);
-  color: var(--text-dark); font-size: 0.82rem; font-weight: 600;
-  cursor: pointer; transition: border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+  display: inline-flex; align-items: center; gap: 6px;
+  min-height: 44px; margin: 0 0 0 -2px; padding: 0 2px;
+  border: 0; border-radius: var(--radius-sm); background: none;
+  color: var(--primary); font-family: var(--font-body); font-size: 14px; font-weight: 700;
+  cursor: pointer;
 }
-.cand-btn-ics:hover { border-color: var(--primary); color: var(--primary); }
-.cand-btn-ics:active { transform: translateY(1px) scale(.985); }
+.cand-btn-ics .icona { font-size: 16px; }
+.cand-btn-ics:hover { color: var(--primary-hover); }
 .cand-checklist-sotto {
-  display: flex; flex-direction: column; gap: 6px;
-  padding-left: 16px; border-left: 2px dashed var(--border);
+  display: flex; flex-direction: column; gap: 0;
 }
 .cand-capitolo-quando-puoi .cand-checklist-sotto { padding-left: 0; border-left: none; }
 /* Voci subordinate alla scadenza: peso ridotto rispetto al blocco sopra
    (niente cornice/ombra propria), solo indentazione + separatore leggero. */
-.cand-checklist-sotto .voce-checklist-v2:not(.attiva) {
-  background: transparent; border-color: transparent;
-  padding: 9px 10px; border-radius: var(--radius-sm);
-}
-.cand-checklist-sotto .voce-checklist-v2:not(.attiva):hover { background: var(--bg-card-hover); }
-.cand-checklist-sotto .voce-checklist-v2.fatta { background: var(--green-bg); }
-.cand-checklist-sotto .voce-checklist-v2 span { font-size: 0.88rem; }
+
 .cand-capitolo-titolo {
   font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
   letter-spacing: 0.06em; color: var(--text-muted);
@@ -1379,25 +1377,24 @@ body {
 ================================================================ */
 .zaino-capitolo { margin-bottom: 22px; }
 .zaino-capitolo:last-child { margin-bottom: 0; }
+/* Redesign v4: testa del capitolo come intestazione di riga (filetto sopra),
+   conteggio mono senza pillola (--text-muted 9,05:1 su bianco). */
 .zaino-capitolo-testa {
-  display: flex; align-items: center; justify-content: space-between; gap: 10px;
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-left: 4px solid var(--gold); border-radius: var(--radius-lg);
-  padding: 14px 18px; margin-bottom: 10px;
-  box-shadow: var(--shadow-card);
+  display: flex; align-items: baseline; justify-content: space-between; gap: 10px;
+  background: none; border: 0; border-top: 1px solid var(--border);
+  border-radius: 0; padding: var(--space-4) 0 var(--space-1); margin: 0;
+  box-shadow: none;
 }
+.zaino-capitolo:first-child .zaino-capitolo-testa { border-top: 0; padding-top: 0; }
 .zaino-capitolo-titolo {
-  font-family: var(--font-display); font-weight: 800;
-  font-size: 1.05rem; color: var(--text-dark); margin: 0;
+  font-family: var(--font-display); font-weight: 700;
+  font-size: var(--fs-h3); color: var(--text-dark); margin: 0;
 }
 .zaino-capitolo-count {
-  font-family: var(--font-mono); font-size: 0.78rem; font-weight: 700;
-  color: var(--gold-dark); background: var(--gold-bg);
-  padding: 3px 10px; border-radius: var(--radius-pill); white-space: nowrap;
+  font-family: var(--font-mono); font-size: var(--fs-xs); font-weight: 700;
+  color: var(--text-muted); white-space: nowrap;
 }
-.zaino-capitolo-corpo {
-  padding-left: 16px; border-left: 2px dashed var(--border);
-}
+.zaino-capitolo-corpo { padding: 0; }
 .gruppo-post { margin-bottom: 8px; }
 .gruppo-post-titolo {
   font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
@@ -1406,13 +1403,7 @@ body {
 }
 /* Voci subordinate alla testa-capitolo: stesso peso ridotto delle voci
    sotto una scadenza in candidatura (niente cornice/ombra propria). */
-.gruppo-post .voce-checklist-v2 {
-  background: transparent; border-color: transparent;
-  padding: 9px 10px; border-radius: var(--radius-sm);
-}
-.gruppo-post .voce-checklist-v2:hover { background: var(--bg-card-hover); }
-.gruppo-post .voce-checklist-v2.fatta { background: var(--green-bg); }
-.gruppo-post .voce-checklist-v2 span { font-size: 0.88rem; }
+
 
 /* ================================================================
    METE v2
@@ -1687,25 +1678,27 @@ body {
 /* ================================================================
    IDONEITÀ v2
 ================================================================ */
-.griglia-requisiti-v2 { display: grid; grid-template-columns: 1fr; gap: 12px; }
-@media (min-width: 768px) { .griglia-requisiti-v2 { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); } }
+.griglia-requisiti-v2 { display: grid; grid-template-columns: 1fr; gap: 0; }
 /* REDESIGN v2 §4.7 — il requisito parla a tre registri, e il registro lo dice
    il filetto a sinistra: neutro finché non c'è un esito, oro se va verificato,
    verde se è soddisfatto. Prima il filetto stava in alto ed era oro SEMPRE:
    una card che nasce allarmata anche quando il requisito è a posto. */
+/* Redesign v4: i requisiti sono righe dentro il corpo della tappa (V4.3:
+   niente card nella card, niente filetti colorati). Lo stato lo dice il
+   semaforo V4.5: icona + testo, --green 5,43 / --amber 5,42 su bianco. */
 .requisito-v2 {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--border-strong);
-  border-radius: var(--radius-lg);
-  padding: var(--space-5);
-  box-shadow: var(--shadow-card);
-  transition: border-color var(--dur-base) var(--ease-out);
+  background: none; border: 0; border-top: 1px solid var(--border);
+  border-radius: 0; padding: var(--space-4) 0; box-shadow: none;
 }
-.requisito-v2--ok { border-color: var(--green-border); border-left-color: var(--green); }
-.requisito-v2--daverificare { border-left-color: var(--gold); }
-.requisito-v2-testa { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); margin-bottom: var(--space-2); }
-.requisito-v2-semaforo { font-size: 1rem; line-height: 1; flex-shrink: 0; }
+.requisito-v2:first-child { border-top: 0; padding-top: 0; }
+.requisito-v2-testa { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-2); margin-bottom: var(--space-1); }
+.requisito-v2-semaforo {
+  flex-shrink: 0; display: inline-flex; align-items: center; gap: 5px;
+  padding-top: 2px; font-size: 12.5px; font-weight: 700; white-space: nowrap;
+  color: var(--amber);
+}
+.requisito-v2--ok .requisito-v2-semaforo { color: var(--green); }
+.requisito-v2-semaforo .icona { font-size: 14px; }
 .requisito-v2-titolo {
   font-family: var(--font-display); font-weight: 700;
   font-size: var(--fs-h3); letter-spacing: -.015em; color: var(--text-dark);
@@ -1726,29 +1719,31 @@ body {
 .requisito-v2-fonte  { color: var(--text-hint); font-size: var(--fs-xs); }
 /* F2.0 — l'autoverifica era alta 19.9px ed è una casella da spuntare */
 .requisito-v2-autoverifica {
-  display: flex; align-items: center; gap: var(--space-2);
-  margin-top: var(--space-3); padding-top: var(--space-3);
-  border-top: 1px solid var(--border);
+  display: flex; align-items: center; gap: var(--space-3);
+  margin-top: var(--space-1);
   min-height: 44px;
-  font-size: var(--fs-sm); font-weight: 600; cursor: pointer;
+  font-size: 14px; font-weight: 600; cursor: pointer;
 }
+.requisito-v2-autoverifica input { width: 22px; height: 22px; margin: 0; flex: none; accent-color: var(--night-bg); cursor: pointer; }
 
 /* REDESIGN v2 §4.4 — i due banner di stato reali adottano il corpo di
    .banner-stato senza cambiare markup: sono già nodi di solo testo, scritti
    con textContent da renderIdoneita() e renderBannerVerifica(). */
+/* Redesign v4 (V4.1: niente box colorati per gli stati): i due messaggi
+   restano nodi di solo testo scritti dal JS, quindi il loro colore è il
+   segnale, con un filetto a sinistra per non affidarsi al solo colore.
+   --green 5,43 e --amber 5,42 su bianco; su --bg-app 5,12 e 5,10. */
 .idoneita-esito {
-  display: flex; align-items: flex-start; gap: var(--space-3);
-  margin: 0 0 var(--space-3); padding: var(--space-4); border-radius: 14px;
-  background: var(--green-bg); border: 1px solid var(--green-border);
-  border-left: 3px solid var(--green); color: var(--green);
-  font-size: var(--fs-body); font-weight: 600; line-height: 1.55;
+  display: block;
+  margin: 0 0 var(--space-3); padding: 2px 0 2px var(--space-3); border-radius: 0;
+  background: none; border: 0; border-left: 3px solid var(--green); color: var(--green);
+  font-size: var(--fs-sm); font-weight: 700; line-height: 1.5;
 }
 .banner-in-verifica {
-  display: flex; align-items: flex-start; gap: var(--space-3);
-  margin: 0 0 var(--space-4); padding: var(--space-4); border-radius: 14px;
-  background: var(--gold-bg); border: 1px solid var(--gold-border);
-  border-left: 3px solid var(--gold); color: var(--gold-dark);
-  font-size: var(--fs-sm); font-weight: 600; line-height: 1.55;
+  display: block;
+  margin: 0 0 var(--space-4); padding: 2px 0 2px var(--space-3); border-radius: 0;
+  background: none; border: 0; border-left: 3px solid var(--amber); color: var(--amber);
+  font-size: var(--fs-sm); font-weight: 600; line-height: 1.5;
 }
 
 /* REDESIGN v2 §4.4 — .banner-stato: la classe generica, additiva. Nessun nodo
@@ -1775,8 +1770,9 @@ body {
 }
 
 /* Riga fonte + data di verifica sopra le scadenze (R2.6) */
+/* Era --night-muted su carta chiara (1,9:1): --text-hint 5,82:1. */
 .cand-fonte-riga {
-  margin: 0 0 14px; font-size: 0.8rem; color: var(--night-muted);
+  margin: 0 0 14px; font-size: 13px; color: var(--text-hint);
 }
 .cand-fonte-riga a { color: inherit; text-decoration: underline; }
 
@@ -2056,10 +2052,11 @@ body {
    sembrare attuali. Il cartellino usa i token già presenti nel sistema. */
 .cartellino-ciclo {
   margin: 0 0 var(--space-3);
-  padding: var(--space-3) var(--space-4);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-md);
-  background: var(--bg-card-hover);
+  /* Redesign v4: nota con filetto, non un box (V4.1). --text-muted 9,05:1. */
+  padding: 2px 0 2px var(--space-3);
+  border: 0; border-left: 3px solid var(--border-strong);
+  border-radius: 0;
+  background: none;
   color: var(--text-muted);
   font-size: var(--fs-sm);
   font-weight: 700;
@@ -2073,9 +2070,11 @@ body {
   font-size: var(--fs-sm);
   line-height: 1.4;
 }
+/* Disabilitato: --text-hint 5,82:1 su bianco invece dell'opacità (che
+   portava il link sotto 4,5:1). */
 .cand-btn-ics:disabled {
   cursor: not-allowed;
-  opacity: .58;
+  color: var(--text-hint);
 }
 
 /* Le regole importanti non sono compiti: niente casella, superficie distinta.
@@ -2087,13 +2086,15 @@ body {
   padding: var(--space-4);
   border-radius: var(--radius-lg);
 }
+/* Redesign v4 (V4.1/V4.3): superfici distinte ma neutre, senza bordi né
+   fondi colorati. Testi --text-dark/--text-muted su --bg-app ≥ 8,5:1. */
 .zaino-da-sapere {
-  border: 1px solid var(--amber-border);
-  background: var(--amber-bg);
+  border: 0;
+  background: var(--bg-app);
 }
 .zaino-opzioni {
-  border: 1px dashed var(--border-strong);
-  background: var(--bg-card-hover);
+  border: 0;
+  background: var(--bg-app);
 }
 .zaino-avvertenza {
   margin: var(--space-2) 0 0;

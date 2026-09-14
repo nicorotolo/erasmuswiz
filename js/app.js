@@ -435,6 +435,7 @@ const ICONE = {
   giu: '<path d="M6 9l6 6 6-6"/>',
   chiudi: '<path d="M6 6l12 12M18 6L6 18"/>',
   matita: '<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/>',
+  telefono: '<rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18h2"/>',
   calendario: '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/>',
 };
 function icona(nome, classe) {
@@ -1877,7 +1878,7 @@ function aggiornaCountdownV2() {
   document.querySelectorAll(".prossimo-passo-scadenza[data-scadenza-id]").forEach(el => {
     const scad = scadenzaPerId(el.getAttribute("data-scadenza-id"));
     if (!scad) return;
-    el.textContent = `📅 ${scad.cosa} — ${countdownConCiclo(scad.data)}`;
+    el.textContent = `${scad.cosa} — ${countdownConCiclo(scad.data)}`;
   });
 }
 
@@ -2004,7 +2005,7 @@ function offriInstallazione(contenitore, alTermine) {
   banner.dataset.invitoInstallazione = invito.tipo;
   banner.setAttribute("role", "region");
   banner.setAttribute("aria-label", "Installa ErasmusWiz");
-  banner.appendChild(crea("span", "banner-stato-icona", "📲"));
+  banner.appendChild(crea("span", "banner-stato-icona")).appendChild(icona("telefono"));
   const contenuto = crea("div");
   contenuto.appendChild(crea(
     "strong",
@@ -2128,14 +2129,14 @@ function renderProssimiPassi(vociInOrdine, prossimaVoceId) {
   if (!daFare.length) { cont.style.display = "none"; return; }
 
   cont.style.display = "";
-  cont.appendChild(crea("div", "prossimi-passi-titolo", "✨ Ora tocca a te"));
+  cont.appendChild(crea("div", "prossimi-passi-titolo", "Ora tocca a te")).prepend(icona("scintilla"));
   const lista = crea("div", "prossimi-passi-lista");
   daFare.forEach(voce => {
     const item = crea("div", "prossimo-passo-item");
     item.appendChild(creaVoceChecklist(voce, prossimaVoceId));
     const scad = voce.scadenzaId ? scadenzaPerId(voce.scadenzaId) : null;
     if (scad) {
-      const badge = crea("div", "prossimo-passo-scadenza", `📅 ${scad.cosa} — ${countdownConCiclo(scad.data)}`);
+      const badge = crea("div", "prossimo-passo-scadenza", `${scad.cosa} — ${countdownConCiclo(scad.data)}`);
       badge.setAttribute("data-scadenza-id", scad.id);
       item.appendChild(badge);
     }
@@ -2175,8 +2176,9 @@ function renderChecklist() {
     const btnTutte = crea(
       "button",
       "cand-btn-ics cand-btn-ics-tutte",
-      "🗓 Aggiungi tutte le date"
+      "Aggiungi tutte le date"
     );
+    btnTutte.prepend(icona("calendario"));
     btnTutte.type = "button";
     btnTutte.addEventListener("click", () => scaricaCalendarioCompleto(cont));
     cont.appendChild(btnTutte);
@@ -2191,8 +2193,8 @@ function renderChecklist() {
     const riga  = crea("div", "cand-fonte-riga");
     const stato = statoBando();
     const prefisso =
-      preBando                  ? `⚠️ Date del bando ${cartellinoCicloDati()}: sono dati storici, non scadenze per candidarti al ${cicloPercorsoBreve()}. ` :
-      stato === "dati-scaduti"   ? "⚠️ Queste date appartengono a un ciclo concluso: il nuovo bando potrebbe essere già uscito. " :
+      preBando                  ? `Date del bando ${cartellinoCicloDati()}: sono dati storici, non scadenze per candidarti al ${cicloPercorsoBreve()}. ` :
+      stato === "dati-scaduti"   ? "Queste date appartengono a un ciclo concluso: il nuovo bando potrebbe essere già uscito. " :
       stato === "non-pubblicato" ? "Il nuovo bando non è ancora stato pubblicato: nessuna data da mostrare. " : "";
     const verificata = infoBando.dataVerificaDati
       ? `Dati verificati il ${new Date(infoBando.dataVerificaDati).toLocaleDateString("it-IT", { day: "numeric", month: "long", year: "numeric" })}. `
@@ -2243,7 +2245,8 @@ function renderChecklist() {
     // inutile: la disattivazione spiega il perché. Fuori dal pre-bando resta
     // il comportamento precedente.
     if (!c.passata || preBando) {
-      const btnIcs = crea("button", "cand-btn-ics", "🗓 Aggiungi al calendario");
+      const btnIcs = crea("button", "cand-btn-ics", "Aggiungi al calendario");
+      btnIcs.prepend(icona("calendario"));
       btnIcs.type = "button";
       if (c.passata && preBando) {
         btnIcs.disabled = true;
@@ -3204,7 +3207,7 @@ function apriDettaglioMeta(meta) {
   avvisiRequisitoLingua(requisitoLingua, meta, ZAINO.profilo).forEach(avviso => {
     const banner = crea("div", avviso.classe);
     banner.setAttribute("role", "note");
-    banner.appendChild(crea("span", "banner-stato-icona", "⚠️"));
+    banner.appendChild(crea("span", "banner-stato-icona")).appendChild(icona("avviso"));
     banner.appendChild(crea("span", null, avviso.testo));
     contenutoLingua.appendChild(banner);
   });
@@ -5420,7 +5423,7 @@ function initLAV2() {
 // Pilotato da BANDO_INFO.inVerifica (flag nei dati, niente hardcoding).
 // ============================================================
 function renderBannerVerifica() {
-  const testo = "⚠️ Dati in corso di verifica sul bando ufficiale — usali come traccia, non come fonte.";
+  const testo = "Dati in corso di verifica sul bando ufficiale — usali come traccia, non come fonte.";
   const inVerifica = !!(window.BANDO_INFO && window.BANDO_INFO.inVerifica);
   ["banner-verifica-idoneita", "banner-verifica-checklist"].forEach(id => {
     const el = document.getElementById(id);
@@ -5461,7 +5464,7 @@ function renderIdoneita() {
   if (esitoEl) {
     const tuttiVerificati = requisiti.length > 0 && requisiti.every(r => ZAINO.autoverifica[r.id]);
     if (tuttiVerificati) {
-      esitoEl.textContent = "Sembri idoneo ✅ — fa sempre fede il bando ufficiale.";
+      esitoEl.textContent = "Sembri idoneo — fa sempre fede il bando ufficiale.";
       esitoEl.style.display = "";
     } else {
       esitoEl.style.display = "none";
@@ -5474,7 +5477,10 @@ function renderIdoneita() {
 
     const testa = crea("div", "requisito-v2-testa");
     testa.appendChild(crea("div", "requisito-v2-titolo", req.titolo));
-    testa.appendChild(crea("span", "requisito-v2-semaforo", verificato ? "✅" : "🟡"));
+    // Semaforo V4.5: icona + testo, mai solo colore.
+    const semaforo = crea("span", "requisito-v2-semaforo", verificato ? "Verificato" : "Da verificare");
+    semaforo.prepend(icona(verificato ? "spunta" : "avviso"));
+    testa.appendChild(semaforo);
     card.appendChild(testa);
 
     card.appendChild(crea("div", "requisito-v2-valore", req.valore));

@@ -190,7 +190,7 @@ test("V5 §8.13: Aggiungi tutte le date scarica un file con un evento e conserva
 
   const singoli = page.locator(".cand-btn-ics:not(.cand-btn-ics-tutte)");
   await expect(singoli).toHaveCount(4);
-  await expect(singoli.first()).toHaveText("🗓 Aggiungi al calendario");
+  await expect(singoli.first()).toHaveText("Aggiungi al calendario"); // redesign v4: icona SVG al posto di 🗓
 
   // Il calendario vive dentro la stazione 3, che è un `<details>` chiuso
   // finché non è la tappa corrente: senza aprirla il bottone esiste nel DOM
