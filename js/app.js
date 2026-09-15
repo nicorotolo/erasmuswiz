@@ -1915,24 +1915,30 @@ function creaVoceChecklist(voce, prossimaVoceId) {
   });
 
   label.appendChild(cb);
-  label.appendChild(crea("span", null, voce.testo));
+  // Nicola (15/09): testi più diretti. Con `titolo` la spunta porta una frase
+  // breve; il testo lungo scende sotto come spiegazione (se non ce n'è una).
+  label.appendChild(crea("span", voce.titolo ? "voce-checklist-titolo" : null, voce.titolo || voce.testo));
+  const spiegazioneVoce = voce.spiegazione || (voce.titolo ? voce.testo : "");
 
   // Traduttore a 3 registri (DISEGNO_UX.md §6): mostrato solo se la voce ha
   // i campi nuovi (spiegazione/azione/citazione/fonte). Senza di essi la voce
   // resta identica a prima (retrocompatibile). Il blocco sta FUORI dal <label>
-  // così cliccare "Cosa dice il bando" non spunta la checkbox.
-  if (voce.spiegazione || voce.azione || voce.citazione || voce.fonte) {
+  // così cliccare "Il testo del bando" non spunta la checkbox.
+  if (spiegazioneVoce || voce.azione || voce.citazione || voce.fonte) {
     const wrap = crea("div", "voce-checklist-wrap");
     wrap.appendChild(label);
     const trad = crea("div", "voce-checklist-trad");
-    if (voce.spiegazione) trad.appendChild(crea("div", "requisito-v2-desc", voce.spiegazione));
-    if (voce.azione)      trad.appendChild(crea("div", "requisito-v2-azione", `→ ${voce.azione}`));
+    if (spiegazioneVoce) trad.appendChild(crea("div", "requisito-v2-desc", spiegazioneVoce));
+    if (voce.azione) {
+      const azione = crea("div", "requisito-v2-azione");
+      azione.appendChild(crea("strong", null, "Cosa fare: "));
+      azione.appendChild(document.createTextNode(voce.azione));
+      trad.appendChild(azione);
+    }
     if (voce.citazione || voce.fonte) {
       const dettagli = document.createElement("details");
-      dettagli.className = "requisito-v2-bando";
-      const sommario = document.createElement("summary");
-      sommario.textContent = "Cosa dice il bando ▸";
-      dettagli.appendChild(sommario);
+      dettagli.className = "requisito-v2-testo-bando";
+      dettagli.appendChild(crea("summary", null, "Il testo del bando"));
       if (voce.citazione) dettagli.appendChild(crea("blockquote", "requisito-v2-citazione", voce.citazione));
       if (voce.fonte)     dettagli.appendChild(crea("div", "requisito-v2-fonte", voce.fonte));
       trad.appendChild(dettagli);
@@ -2181,7 +2187,7 @@ function renderChecklist() {
     const riga  = crea("div", "cand-fonte-riga");
     const stato = statoBando();
     const prefisso =
-      preBando                  ? `Date del bando ${cartellinoCicloDati()}: sono dati storici, non scadenze per candidarti al ${cicloPercorsoBreve()}. ` :
+      preBando                  ? `Date del bando ${cartellinoCicloDati()}, per farti un'idea dei tempi del ${cicloPercorsoBreve()}. ` :
       stato === "dati-scaduti"   ? "Queste date appartengono a un ciclo concluso: il nuovo bando potrebbe essere già uscito. " :
       stato === "non-pubblicato" ? "Il nuovo bando non è ancora stato pubblicato: nessuna data da mostrare. " : "";
     const verificata = infoBando.dataVerificaDati
@@ -2229,29 +2235,15 @@ function renderChecklist() {
     card.appendChild(crea("div", "cand-scadenza-data", formattaData(scad.data)));
     card.appendChild(crea("div", "cand-scadenza-countdown", countdownConCiclo(scad.data)));
 
-    // In pre-bando l'export storico resta visibile ma non produce un evento
-    // inutile: la disattivazione spiega il perché. Fuori dal pre-bando resta
-    // il comportamento precedente.
-    if (!c.passata || preBando) {
+    // Nicola (15/09): una data passata non si mette in calendario, e il
+    // bottone spento con la sua spiegazione ripeteva il countdown. Il
+    // bottone c'è solo per le date future.
+    if (!c.passata) {
       const btnIcs = crea("button", "cand-btn-ics", "Aggiungi al calendario");
       btnIcs.prepend(icona("calendario"));
       btnIcs.type = "button";
-      if (c.passata && preBando) {
-        btnIcs.disabled = true;
-        const motivoId = `ics-motivo-${scad.id}`;
-        btnIcs.setAttribute("aria-describedby", motivoId);
-        card.appendChild(btnIcs);
-        const motivo = crea(
-          "span",
-          "cand-ics-motivo",
-          `Scadenza del bando ${cartellinoCicloDati()}, già passata`
-        );
-        motivo.id = motivoId;
-        card.appendChild(motivo);
-      } else {
-        btnIcs.addEventListener("click", () => scaricaICSScadenza(scad, card));
-        card.appendChild(btnIcs);
-      }
+      btnIcs.addEventListener("click", () => scaricaICSScadenza(scad, card));
+      card.appendChild(btnIcs);
     }
 
     capitolo.appendChild(card);
@@ -3473,15 +3465,11 @@ function renderAttesaInfo() {
   const info = window.ATTESA_INFO || {};
   cont.innerHTML = "";
 
-  const introduzione = crea("div", "banner-stato stato-verifica");
-  const corpoIntroduzione = crea("div");
-  corpoIntroduzione.appendChild(crea("h3", "stazione-titolo", info.titolo || "In attesa dell'esito"));
-  if (info.sottotitolo) corpoIntroduzione.appendChild(crea("p", "stazione-testo", info.sottotitolo));
-  if (info.quantoDura) {
-    corpoIntroduzione.appendChild(crea("p", "stazione-testo", "Quanto dura: " + info.quantoDura));
-  }
-  introduzione.appendChild(corpoIntroduzione);
-  cont.appendChild(introduzione);
+  // Nicola (15/09): un solo riquadro giallo, sotto il bottone scelto, fatto
+  // come delle domande frequenti: tre domande che si aprono una alla volta.
+  const box = crea("div", "attesa-faq");
+  box.appendChild(crea("h3", "attesa-faq-titolo", info.titolo || "In attesa dell'esito"));
+  if (info.quantoDura) box.appendChild(crea("p", "attesa-faq-testo", info.quantoDura));
 
   [
     ["Cosa succede adesso", info.tappe],
@@ -3489,25 +3477,25 @@ function renderAttesaInfo() {
     ["A cosa fare attenzione", info.attenzione],
   ].forEach(([titolo, voci]) => {
     if (!Array.isArray(voci) || voci.length === 0) return;
-    const capitolo = crea("div", "zaino-capitolo");
-    const testa = crea("div", "zaino-capitolo-testa");
-    testa.appendChild(crea("h4", "zaino-capitolo-titolo", titolo));
-    capitolo.appendChild(testa);
-    const corpo = crea("div", "zaino-capitolo-corpo");
+    const domanda = document.createElement("details");
+    domanda.className = "attesa-faq-domanda";
+    const sommario = crea("summary", null, titolo + "?");
+    sommario.appendChild(icona("giu"));
+    domanda.appendChild(sommario);
     voci.forEach(voce => {
       const gruppo = crea("div", "gruppo-post");
-      gruppo.appendChild(crea("h5", "gruppo-post-titolo", voce.titolo));
-      gruppo.appendChild(crea("p", "stazione-testo", voce.testo));
-      corpo.appendChild(gruppo);
+      gruppo.appendChild(crea("h4", "gruppo-post-titolo", voce.titolo));
+      gruppo.appendChild(crea("p", "attesa-faq-testo", voce.testo));
+      domanda.appendChild(gruppo);
     });
-    capitolo.appendChild(corpo);
-    cont.appendChild(capitolo);
+    box.appendChild(domanda);
   });
+  cont.appendChild(box);
 
   if (info.inVerifica) {
-    cont.appendChild(crea(
-      "div",
-      "banner-stato stato-riserve",
+    box.appendChild(crea(
+      "p",
+      "attesa-faq-nota",
       "La procedura generale è verificata; i dettagli di assegnazione della sede possono cambiare fra le Facoltà."
     ));
   }
@@ -3516,7 +3504,7 @@ function renderAttesaInfo() {
     fonte.href = info.fonteUrl;
     fonte.target = "_blank";
     fonte.rel = "noopener";
-    cont.appendChild(fonte);
+    box.appendChild(fonte);
   }
 }
 

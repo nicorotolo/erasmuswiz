@@ -8,9 +8,9 @@
 // ============================================================
 
 var CHECKLIST = [
-  { id: "sap-chk-requisiti", scadenzaId: "sap-chiusura1", testo: "Verificare di avere i requisiti del bando (iscrizione attiva, eventuali CFU/media): controlla il testo ufficiale del bando Sapienza 2026/2027." },
-  { id: "sap-chk-mete",      scadenzaId: "sap-chiusura1", testo: "Esplorare le destinazioni della tua Facoltà nel database Go Erasmus+ (accordi-didattica.web.uniroma1.it/goerasmus): area, docente referente, requisiti linguistici." },
-  { id: "sap-chk-lingua",    scadenzaId: "sap-chiusura1", testo: "Verificare il livello di lingua richiesto da ogni destinazione che ti interessa." },
-  { id: "sap-chk-domanda",   scadenzaId: "sap-chiusura1", testo: "Compilare la domanda di candidatura online entro la scadenza (1ª finestra: 27/02/2026 ore 13:00) indicando le destinazioni in ordine di preferenza." },
-  { id: "sap-chk-graduatoria", testo: "Controllare la graduatoria e, se assegnato, accettare la sede entro i termini comunicati dalla Sapienza." }
+  { id: "sap-chk-requisiti", scadenzaId: "sap-chiusura1", titolo: "Controlla di avere i requisiti", testo: "Verificare di avere i requisiti del bando (iscrizione attiva, eventuali CFU/media): controlla il testo ufficiale del bando Sapienza 2026/2027." },
+  { id: "sap-chk-mete",      scadenzaId: "sap-chiusura1", titolo: "Studia le destinazioni della tua Facoltà", testo: "Esplorare le destinazioni della tua Facoltà nel database Go Erasmus+ (accordi-didattica.web.uniroma1.it/goerasmus): area, docente referente, requisiti linguistici." },
+  { id: "sap-chk-lingua",    scadenzaId: "sap-chiusura1", titolo: "Controlla la lingua richiesta", testo: "Verificare il livello di lingua richiesto da ogni destinazione che ti interessa." },
+  { id: "sap-chk-domanda",   scadenzaId: "sap-chiusura1", titolo: "Compila la domanda online", testo: "Compilare la domanda di candidatura online entro la scadenza (1ª finestra: 27/02/2026 ore 13:00) indicando le destinazioni in ordine di preferenza." },
+  { id: "sap-chk-graduatoria", titolo: "Controlla la graduatoria e accetta la sede", testo: "Controllare la graduatoria e, se assegnato, accettare la sede entro i termini comunicati dalla Sapienza." }
 ];

@@ -24,7 +24,7 @@
 
 var CHECKLIST = [
   {
-    id: "chk-requisiti", scadenzaId: "cf-chiusura",
+    id: "chk-requisiti", scadenzaId: "cf-chiusura", titolo: "Controlla di avere i requisiti",
     testo: "Verificare di avere i requisiti: iscrizione attiva e CFU minimi verbalizzati nel libretto (6/24/42 per la triennale, 6/24 per la magistrale) entro le 23:59 del 25/02/2026.",
     spiegazione: "Prima di tutto controlla di poter partecipare: iscrizione a Ca' Foscari nel 2025/2026 in regola e i CFU minimi già registrati sul libretto.",
     azione: "Apri il libretto, conta i CFU registrati e controlla che l'iscrizione sia a posto.",
@@ -32,7 +32,7 @@ var CHECKLIST = [
     fonte: "Art. 2, c. 1–2 — Bando Erasmus+ studio 2026/2027, Ca' Foscari (DR 13/2026)."
   },
   {
-    id: "chk-mete", scadenzaId: "cf-chiusura",
+    id: "chk-mete", scadenzaId: "cf-chiusura", titolo: "Studia le destinazioni",
     testo: "Studiare le destinazioni su unive.it/erasmus-studio: area disciplinare, offerta formativa, requisiti linguistici e restrizioni di ogni meta.",
     spiegazione: "Usa il tempo prima dell'apertura per studiarti le destinazioni con calma: ogni meta ha aree, requisiti e limiti diversi. Lo consiglia il bando stesso.",
     azione: "Sfoglia le mete su unive.it/erasmus-studio e segna quelle adatte al tuo corso.",
@@ -40,7 +40,7 @@ var CHECKLIST = [
     fonte: "Art. 7, c. 1 — Bando Erasmus+ studio 2026/2027, Ca' Foscari (DR 13/2026)."
   },
   {
-    id: "chk-pdf", scadenzaId: "cf-chiusura",
+    id: "chk-pdf", scadenzaId: "cf-chiusura", titolo: "Scegli fino a 5 mete, in ordine",
     testo: "Leggere le schede delle mete scelte (scadenze dell'ateneo ospitante e prerequisiti) e sceglierne fino a 5 in ordine di priorità.",
     spiegazione: "Puoi scegliere fino a 5 destinazioni, in ordine dalla preferita all'ultima (anche meno di 5). Leggi bene le schede: ognuna ha scadenze e requisiti suoi.",
     azione: "Scegli fino a 5 mete e mettile in ordine di preferenza prima di compilare la domanda.",
@@ -48,7 +48,7 @@ var CHECKLIST = [
     fonte: "Art. 7, c. 4 — Bando Erasmus+ studio 2026/2027, Ca' Foscari (DR 13/2026)."
   },
   {
-    id: "chk-lingua", scadenzaId: "cf-chiusura",
+    id: "chk-lingua", scadenzaId: "cf-chiusura", titolo: "Controlla la lingua richiesta",
     testo: "Verificare il livello di lingua richiesto da ogni destinazione (l'eventuale prova si presenta solo dopo la selezione).",
     spiegazione: "Ti serve il livello di lingua richiesto dall'università estera. Per candidarti non carichi certificati: se serve, la prova arriva solo dopo la selezione.",
     azione: "Controlla il livello richiesto nella scheda di ogni meta che ti interessa.",
@@ -56,7 +56,7 @@ var CHECKLIST = [
     fonte: "Art. 2, c. 9 — Bando Erasmus+ studio 2026/2027, Ca' Foscari (DR 13/2026)."
   },
   {
-    id: "chk-verbalizzati", scadenzaId: "cf-chiusura",
+    id: "chk-verbalizzati", scadenzaId: "cf-chiusura", titolo: "Fai registrare tutti gli esami",
     testo: "Controllare che tutti gli esami sostenuti risultino verbalizzati nel libretto: niente autocertificazioni, contattare Campus e docenti se manca qualcosa.",
     spiegazione: "Contano solo gli esami già registrati sul libretto entro il 25/02/2026. Le autocertificazioni non valgono: se hai dato un esame ma il voto non è ancora sul libretto, sistemalo per tempo.",
     azione: "Se un voto non compare sul libretto, scrivi subito al Campus e al docente per farlo registrare entro il 25/02.",
@@ -64,7 +64,7 @@ var CHECKLIST = [
     fonte: "Art. 2, c. 5–6 — Bando Erasmus+ studio 2026/2027, Ca' Foscari (DR 13/2026)."
   },
   {
-    id: "chk-spm", scadenzaId: "cf-chiusura",
+    id: "chk-spm", scadenzaId: "cf-chiusura", titolo: "Compila la domanda su Esse3",
     testo: "Compilare la candidatura online in Esse3 (questionario + iscrizione al bando) tra il 02/02 e il 25/02/2026 ore 12:00. Nessun allegato va caricato.",
     spiegazione: "La domanda si fa online su Esse3 (l'area riservata dello studente) e ha due parti obbligatorie: il questionario e l'iscrizione con la scelta delle mete. Occhio: non devi allegare nessun documento.",
     azione: "Compila tutte e due le parti su Esse3 entro le 12:00 del 25/02/2026, senza caricare allegati.",
@@ -72,7 +72,7 @@ var CHECKLIST = [
     fonte: "Art. 7, c. 1 e c. 3 — Bando Erasmus+ studio 2026/2027, Ca' Foscari (DR 13/2026)."
   },
   {
-    id: "chk-isee", scadenzaId: "cf-isee",
+    id: "chk-isee", scadenzaId: "cf-isee", titolo: "ISEE basso? Chiedi la borsa in più",
     testo: "Se rientri nelle categorie 'minori opportunità' (es. ISEE fino a 27.948,60 €): dare il consenso ISEE in candidatura e richiedere l'attestazione 2026 entro il 31/03/2026.",
     spiegazione: "Se la tua famiglia ha un reddito basso (ISEE fino a ~27.900 €) prendi più soldi di borsa. Per averli fai due cose: quando compili la domanda dici \"sì, usate il mio ISEE\", e ti fai fare l'ISEE 2026 entro il 31 marzo.",
     azione: "Nella domanda spunta il consenso all'ISEE. Poi vai al CAF (o su INPS) e chiedi l'ISEE 2026 entro il 31/03/2026.",
@@ -80,7 +80,7 @@ var CHECKLIST = [
     fonte: "Art. 6 — Bando Erasmus+ studio 2026/2027, Ca' Foscari (DR 13/2026)."
   },
   {
-    id: "chk-graduatoria", scadenzaId: "cf-graduatoria",
+    id: "chk-graduatoria", scadenzaId: "cf-graduatoria", titolo: "Controlla la graduatoria",
     testo: "Controllare la graduatoria nell'area riservata (pubblicazione entro il 25/03/2026).",
     spiegazione: "La classifica esce nell'area riservata del sito entro il 25/03/2026. Non ti arriva nessuna mail: devi controllarla tu.",
     azione: "Dal 25/03 vai nell'area riservata di unive.it, sezione \"Mobilità Internazionale\", e cerca la graduatoria.",
@@ -88,7 +88,7 @@ var CHECKLIST = [
     fonte: "Art. 8, c. 4 — Bando Erasmus+ studio 2026/2027, Ca' Foscari (DR 13/2026)."
   },
   {
-    id: "chk-accettazione", scadenzaId: "cf-accettazione",
+    id: "chk-accettazione", scadenzaId: "cf-accettazione", titolo: "Accetta il posto in tempo",
     testo: "Se vincitore: accettare il posto entro le 12:00 del 27/03/2026 col modulo indicato dal bando, poi verificare subito le scadenze di application dell'ateneo ospitante.",
     spiegazione: "Essere in graduatoria non basta: devi accettare il posto compilando il modulo entro le 12:00 del 27/03/2026. Se non lo fai in tempo, perdi il posto.",
     azione: "Accetta il posto col modulo entro le 12:00 del 27/03/2026, poi controlla subito le scadenze dell'università che ti ospita.",

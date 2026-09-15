@@ -187,13 +187,14 @@ test("V5 §8.12: la home offre la sveglia solo nel ramo pre-bando", async ({ pag
   await expect(page.locator("[data-offerta-sveglia-home='true']")).not.toBeVisible();
 });
 
-test("V5 §8.13: Aggiungi tutte le date scarica un file con un evento e conserva i singoli", async ({ page }) => {
+test("V5 §8.13: Aggiungi tutte le date scarica un file con un evento; le date passate non offrono export", async ({ page }) => {
   await preparaCompletato(page);
   await page.goto("/index.html#percorso", { waitUntil: "domcontentloaded" });
 
+  // Revisione di Nicola (2), 15/09: il bottone singolo spento sulle date
+  // storiche ripeteva il countdown ed è stato tolto.
   const singoli = page.locator(".cand-btn-ics:not(.cand-btn-ics-tutte)");
-  await expect(singoli).toHaveCount(4);
-  await expect(singoli.first()).toHaveText("Aggiungi al calendario"); // redesign v4: icona SVG al posto di 🗓
+  await expect(singoli).toHaveCount(0);
 
   // Il calendario vive dentro la stazione 3, che è un `<details>` chiuso
   // finché non è la tappa corrente: senza aprirla il bottone esiste nel DOM

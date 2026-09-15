@@ -360,14 +360,12 @@ test("G1/T5: in pre-bando ciascuno dei 19 punti dichiara il ciclo o resta invari
     );
     badgeSintetico.remove();
 
-    // 13 — export .ics visibile, disabilitato e motivato.
+    // 13 — nessun export .ics per date storiche (Nicola 15/09: il bottone
+    // spento ripeteva il countdown; le date passate non si offrono).
     const bottoniIcs = [...w.document.querySelectorAll(".cand-btn-ics:not(.cand-btn-ics-tutte)")];
-    const motiviIcs = [...w.document.querySelectorAll(".cand-ics-motivo")];
     assert.ok(
-      bottoniIcs.length > 0 &&
-        bottoniIcs.every(btn => btn.disabled) &&
-        motiviIcs.every(el => el.textContent.includes(`bando ${cicloDati}`)),
-      "#13 gli export storici devono essere disabilitati con spiegazione"
+      bottoniIcs.length === 0,
+      "#13 in pre-bando le date storiche non devono offrire l'export"
     );
 
     // 14 — riga fonte.

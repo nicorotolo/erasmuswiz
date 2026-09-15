@@ -23,12 +23,12 @@ Stato: [x] fatto · [ ] da fare · [~] rimandato
 - [x] Togliere la dicitura «spunta salvata solo sul dispositivo»
 
 ## Candidature e scadenze
-- [ ] Razionalizzare la sezione
+- [x] Razionalizzare la sezione (tolti bottoni calendario spenti e frase ripetuta sulle date passate)
 - [x] Bug: spuntando un passo gli elenchi si richiudevano e la pagina tornava in cima
-- [ ] Testi più diretti
-- [ ] Tappa corrente più evidente
-- [ ] Esito graduatorie sotto il bottone cliccato, messaggio riformulato
-- [ ] Box giallo come FAQ: cosa succede adesso / cosa puoi fare intanto / a cosa fare attenzione
+- [x] Testi più diretti (titolo breve per ogni passo, dettagli sotto)
+- [x] Tappa corrente più evidente
+- [x] Esito graduatorie sotto il bottone cliccato, messaggio riformulato
+- [x] Box giallo come FAQ: cosa succede adesso / cosa puoi fare intanto / a cosa fare attenzione
 
 ## Parti (zaino) e Learning Agreement
 - [ ] «Parti»: chiarire subito cosa si fa; 24 punti sono troppi
