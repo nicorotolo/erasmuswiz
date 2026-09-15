@@ -2603,7 +2603,17 @@ function renderMappaMete(mete) {
     _mappaMete = { layer };
   }
   _mappaMete.mete = mete;
-  _mappaMete.opts = { stellate: ZAINO.metePreferite || [] };
+  // Revisione 3: come nell'onboarding, con un profilo la forma del pallino
+  // dice la compatibilità (tondo / quadrato / quadrato vuoto).
+  const profilo = ZAINO.profilo;
+  _mappaMete.opts = {
+    stellate: ZAINO.metePreferite || [],
+    compatibilita: profilo
+      ? meta => categoriaCompat(calcolaCompatibilita(meta, profilo))
+      : undefined,
+  };
+  const legenda = document.getElementById("legenda-mappa-mete");
+  if (legenda) legenda.hidden = !profilo;
   mappaRenderPins(_mappaMete.layer, mete, _mappaMete.opts);
   mappaNotaCopertura(document.getElementById("mappa-nota-mete"), mete);
 }

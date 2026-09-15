@@ -2678,10 +2678,32 @@ body.no-scroll { overflow: hidden; }
 }
 .wizard-mete-salta:hover { color: var(--text-dark); }
 
+/* Revisione 3 (Nicola, 15/09): la mappa delle mete come quella
+   dell'onboarding — inchiostro, pallini oro, lo stato lo dice la forma. */
 .card-mappa-mete {
-  margin: 0 0 16px; background: var(--bg-card); border-radius: var(--radius-lg);
+  margin: 0 0 16px; background: var(--night-bg); color: var(--night-text);
+  border-radius: var(--radius-lg);
   padding: 12px 16px 14px; box-shadow: var(--shadow-card);
+  --mappa-fondo: transparent;
+  --mappa-bordo: transparent;
+  --mappa-terra: rgba(255,255,255,.07);
+  --mappa-confine: rgba(255,255,255,.14);
+  --mappa-casa: rgba(255,255,255,.16);
+  --mappa-nota: var(--night-muted);
+  --pin-anello: var(--night-bg);
+  --pin-numero: var(--night-bg);
+  --pin-ok: var(--gold);
+  --pin-medio: var(--gold);
+  --pin-no: var(--gold);
+  --pin-no-fondo: var(--night-bg);
 }
+.card-mappa-mete .mappa-pin .punto { background: var(--gold); }
+.card-mappa-mete .mappa-pin-non-accessibile .punto { background: var(--night-bg); border: 2px solid var(--gold); }
+.card-mappa-mete .benvenuto-mappa-legenda {
+  position: static; flex-wrap: wrap; justify-content: flex-start;
+  gap: 6px 14px; padding: 0; margin: 0 0 8px;
+}
+.card-mappa-mete .benvenuto-mappa-legenda[hidden] { display: none; }
 .card-mappa-mete .mappa-compatta { width: fit-content; max-width: 100%; margin: 0 auto; }
 .card-mappa-mete .mappa-compatta svg { width: min(88vw, 460px); height: auto; }
 

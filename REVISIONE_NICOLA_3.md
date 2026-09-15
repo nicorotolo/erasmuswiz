@@ -11,6 +11,7 @@ Stato: [x] fatto · [ ] da fare · [~] rimandato
 
 ## Appunti della revisione
 - [x] Onboarding full immersion: la pagina non scorre né in orizzontale né in verticale, niente barre in alto o in basso. Con tante scelte (17 dipartimenti Sapienza) scorre solo l'elenco dentro la scheda. Verificato a 375px su tutti i passi, fino all'uscita.
+- [x] Mappa delle mete (tab Mete) come quella dell'onboarding: fondo inchiostro, pallini oro, lo stato lo dice la forma (tondo compatibile, quadrato da verificare, quadrato vuoto non accessibile), legenda sopra la mappa quando c'è un profilo.
 
 ## Da guardare in revisione
 - [ ] Rotte: al passo «cosa studi» la scheda di vetro copre quasi tutta la mappa (17 dipartimenti Sapienza), le rotte si vedono poco
