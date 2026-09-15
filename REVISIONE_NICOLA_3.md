@@ -10,7 +10,7 @@ Stato: [x] fatto · [ ] da fare · [~] rimandato
 - [x] Pipeline: rotte animate nell'onboarding (§V4.12-bis). Scelto l'ateneo, partono dalla sua città verso le città delle sue mete (massimo 24, quelle con più mete) e compaiono in sequenza; scelto il dipartimento restano solo le sue, le altre sfumano; al passo lingue prendono il colore del semaforo. Con «riduci movimento» niente animazione, solo lo stato finale; pausa a scheda nascosta. Nuova prova Playwright.
 
 ## Appunti della revisione
-_(in attesa degli appunti di Nicola)_
+- [x] Onboarding full immersion: la pagina non scorre né in orizzontale né in verticale, niente barre in alto o in basso. Con tante scelte (17 dipartimenti Sapienza) scorre solo l'elenco dentro la scheda. Verificato a 375px su tutti i passi, fino all'uscita.
 
 ## Da guardare in revisione
 - [ ] Rotte: al passo «cosa studi» la scheda di vetro copre quasi tutta la mappa (17 dipartimenti Sapienza), le rotte si vedono poco

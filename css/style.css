@@ -3129,7 +3129,18 @@ body.modo-entrata .modo-scena .mappa svg {
   }
   :where(.benvenuto:not(.modo-scena)) .benvenuto-fumetto { grid-area: fumetto; align-self: center; }
   :where(.benvenuto:not(.modo-scena)) .benvenuto-passi { grid-area: passi; align-self: center; margin-right: 10px; }
-  :where(.benvenuto:not(.modo-scena)) .benvenuto-scelte { grid-area: scelte; margin: 14px 10px 0; }
+  /* Revisione 3 (Nicola, 15/09): full immersion, la pagina non scorre mai.
+     L'onboarding è alto quanto lo schermo; se le scelte sono tante (17
+     dipartimenti Sapienza) scorre solo l'elenco dentro la scheda. */
+  body.modo-entrata { overflow: hidden; overscroll-behavior: none; }
+  body.modo-entrata .benvenuto:where(:not(.modo-scena)) {
+    height: 100vh; height: 100dvh; min-height: 0; overflow: hidden;
+    grid-template-rows: auto auto minmax(32px, 1fr) auto minmax(0, max-content) auto auto;
+  }
+  :where(.benvenuto:not(.modo-scena)) .benvenuto-scelte {
+    grid-area: scelte; margin: 14px 10px 0; min-height: 0;
+    overflow-y: auto; overscroll-behavior: contain;
+  }
   :where(.benvenuto:not(.modo-scena)) .benvenuto-scelte-riga { flex-direction: column; }
   :where(.benvenuto:not(.modo-scena)) .benvenuto-privacy { grid-area: privacy; margin: 12px 10px 0; }
   :where(.benvenuto:not(.modo-scena)) .mappa-nota { grid-area: nota; margin: 6px 10px 0; }
