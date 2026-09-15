@@ -1621,6 +1621,27 @@ body.modo-entrata .barra-alto { display: none; }
 }
 /* min-width:0 è ciò che fa funzionare l'ellissi sul nome: senza, il flex item
    non scende sotto la larghezza del contenuto e la riga sfonda. */
+/* Revisione 3 (Nicola, 15/09): prime N in oro (inchiostro su oro), le altre
+   in blu (bianco su --primary 6,29:1); separatore sopra la prima di riserva. */
+.schedina-slot-prima .schedina-numero { background: var(--gold); color: var(--night-bg); }
+.schedina-slot-riserva .schedina-numero { background: var(--primary); color: #fff; }
+.schedina-slot[data-separatore] { position: relative; margin-top: 30px; }
+.schedina-slot[data-separatore]::before {
+  content: attr(data-separatore);
+  position: absolute; left: 0; right: 0; top: -24px;
+  padding-top: 6px; border-top: 1px dashed var(--border);
+  font-size: var(--fs-xs); font-weight: 700; color: var(--text-muted);
+}
+.preferite-link-la { margin-top: var(--space-3); }
+.home-stato { display: flex; gap: 6px; margin: 0 0 var(--space-4); }
+.home-stato-btn {
+  flex: 1 1 0; min-width: 0; min-height: 44px; padding: 8px 6px;
+  border: 1px solid var(--border); border-radius: var(--radius-pill);
+  background: var(--bg-card); color: var(--text-dark);
+  font: 700 var(--fs-sm) var(--font-body); cursor: pointer;
+}
+.home-stato-btn.attivo { background: var(--night-bg); border-color: var(--night-bg); color: var(--night-text); }
+.home-stato-btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
 .schedina-corpo { flex: 1; min-width: 0; }
 .schedina-nome { display: block; font-size: var(--fs-sm); font-weight: 700; color: var(--text-dark); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .schedina-stato { display: block; font-family: var(--font-mono); font-size: var(--fs-xs); font-weight: 700; color: var(--text-muted); margin-top: 2px; }
@@ -2156,11 +2177,14 @@ body.modo-entrata .barra-alto { display: none; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-4);
-  border: 1px solid var(--primary);
-  background: rgba(79,70,229,.08);
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+  padding: var(--space-2) 0;
+  border: 0;
+  background: none;
+  font-size: var(--fs-sm);
 }
-.profilo-post-invito p { margin: var(--space-1) 0 0; color: var(--text-muted); }
+.profilo-post-invito p { margin: 0; color: var(--text-muted); }
 
 /* Redesign v4 (decisione di Nicola 14/09): in Home la mossa principale sta
    SOPRA il progresso, quindi le sei tappe si mostrano per intero, riassunti
@@ -2180,6 +2204,7 @@ body.modo-entrata .barra-alto { display: none; }
   /* Ordine del DOM, ora anche visivo: intestazione → mossa → settimana →
      progresso (redesign v4). Le regole restano esplicite per chi legge. */
   #tab-oggi:not(.modo-benvenuto) > .home-header { order: 1; }
+  #tab-oggi:not(.modo-benvenuto) > .home-stato { order: 1; }
   #tab-oggi:not(.modo-benvenuto) > .missione-card { order: 2; }
   #tab-oggi:not(.modo-benvenuto) > .settimana-card { order: 3; }
   #tab-oggi:not(.modo-benvenuto) > .percorso-wrap { order: 4; }

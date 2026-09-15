@@ -365,6 +365,8 @@ test("diff visivo nullo sulle sei invarianti DOM della baseline", async ({ page 
     // mentre restano intestazione, mossa e progresso.
     oggi: [
       "div.home-header",
+      // Revisione 3 (Nicola, 15/09): lo stato cambiabile al volo dalla Home.
+      "div.home-stato",
       "div#missione-card.missione-card",
       "div.percorso-wrap",
     ],

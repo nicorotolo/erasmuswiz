@@ -3006,6 +3006,12 @@ function renderPreferite(msg) {
 
   righe.forEach((riga, i) => {
     const slot = crea("div", "schedina-slot");
+    // Revisione 3 (Nicola, 15/09): le prime N (quelle che entrano nella
+    // domanda) in oro, le altre in blu; sopra la prima «di riserva» un
+    // separatore. Classi sulla riga, non elementi in più: gli indici restano.
+    const primeN = massimo.presente ? massimo.valore : 5;
+    slot.classList.add(i < primeN ? "schedina-slot-prima" : "schedina-slot-riserva");
+    if (i === primeN) slot.dataset.separatore = `Oltre le ${primeN} della domanda`;
     slot.appendChild(crea("span", "schedina-numero", String(i + 1)));
 
     if (riga.rimozione) {
@@ -3097,6 +3103,16 @@ function renderPreferite(msg) {
     lista.appendChild(slot);
   });
   cont.appendChild(lista);
+  // Revisione 3 (Nicola, 15/09): il confronto nel LA si offre qui, quando le
+  // mete sono state scelte, non in cima alla pagina.
+  if (ids.length) {
+    const link = crea("a", "la-link-rapido preferite-link-la");
+    link.dataset.laRoute = "";
+    link.href = `#learning-agreement/${ateneoAttivo()}`;
+    link.appendChild(icona("documento"));
+    link.appendChild(document.createTextNode("Confronta queste mete nel Learning Agreement"));
+    cont.appendChild(link);
+  }
 
   if (msg?.fuocoAnnulla) {
     lista.querySelector(".schedina-annulla")?.focus({ preventScroll: true });
@@ -3493,21 +3509,17 @@ function renderChecklistPost(opzioni = {}) {
   const applicabili = vociPostApplicabili();
   const idApplicabili = new Set(applicabili.map(voce => voce.id));
 
+  // Revisione 3 (Nicola, 15/09): riguarda pochissimi, quindi non sta più in
+  // primo piano: una riga discreta in fondo, dopo i capitoli.
+  let invito = null;
   if (ZAINO.fase === "selezionato" && risposteProfiloPostMancanti().length) {
-    const invito = crea("div", "profilo-post-invito");
-    const testi = crea("div");
-    testi.appendChild(crea("strong", null, "Completa due risposte per personalizzare lo zaino"));
-    testi.appendChild(crea(
-      "p",
-      null,
-      "Cittadinanza extra-UE e ricerca tesi decidono quali passaggi riguardano davvero te."
-    ));
-    invito.appendChild(testi);
-    const btn = crea("button", "btn-secondary btn-primary-sm", "Completa il profilo");
+    invito = crea("div", "profilo-post-invito");
+    invito.appendChild(crea("p", null,
+      "Sei cittadino extra-UE o fai ricerca tesi all'estero? Dillo nel profilo: aggiungiamo i passaggi che ti riguardano."));
+    const btn = crea("button", "la-text-button", "Vai al profilo");
     btn.type = "button";
     btn.addEventListener("click", () => vaiA("profilo"));
     invito.appendChild(btn);
-    cont.appendChild(invito);
   }
 
   // Nicola (15/09): prima una frase che dice cosa si fa qui.
@@ -3642,6 +3654,7 @@ function renderChecklistPost(opzioni = {}) {
 
     cont.appendChild(capitoloEl);
   });
+  if (invito) cont.appendChild(invito);
 
   // Il conteggio dello zaino vive nella testa della SUA stazione
   // (renderPercorso), non nella barra della candidatura (R3.5).
@@ -3712,6 +3725,20 @@ function aggiornaBottoniFase() {
     const attivo = ZAINO.fase === btn.dataset.fase;
     btn.classList.toggle("fase-attiva", attivo);
     btn.setAttribute("aria-pressed", attivo ? "true" : "false");
+  });
+  // Revisione 3 (Nicola, 15/09): lo stato si vede e si cambia anche dalla
+  // Home, al volo. Classe e attributo propri: le porte del Percorso restano
+  // l'unica fonte dei testi dell'onboarding.
+  document.querySelectorAll(".home-stato-btn[data-fase-home]").forEach(btn => {
+    const attivo = ZAINO.fase === btn.dataset.faseHome;
+    btn.classList.toggle("attivo", attivo);
+    btn.setAttribute("aria-pressed", attivo ? "true" : "false");
+    if (!btn.dataset.pronto) {
+      btn.dataset.pronto = "1";
+      btn.addEventListener("click", () => {
+        if (ZAINO.fase !== btn.dataset.faseHome) impostaFaseViaggio(btn.dataset.faseHome, { naviga: false });
+      });
+    }
   });
 }
 
@@ -6706,6 +6733,15 @@ function nuovoUuidManuale() {
   }
 }
 
+// Revisione 3 (Nicola, 15/09): il numero delle mete ha senso solo dopo il
+// livello, perché gli accordi di un altro livello sono preclusi. Una meta
+// senza posti dichiarati resta dentro: non la escludiamo per deduzione.
+function benvMeteDelLivello(dip, livello) {
+  return (METE || []).filter(m => m.dipartimentoCf === dip &&
+    (!livello || !Array.isArray(m.posti) || !m.posti.length ||
+      m.posti.some(p => p.livello === livello)));
+}
+
 function benvPassoLivello(dip) {
   // Facoltà e livello sono lo stesso P3 ("Cosa studi").
   benvSetPasso(3);
@@ -6727,7 +6763,7 @@ function benvPassoLivello(dip) {
       `Hai scritto “${dip}”. Non conosco gli accordi di questo corso, quindi ` +
       "non ordino le mete per compatibilità: la destinazione la indicherai tu."));
   } else {
-    benvFumetto(`Ci sono ${mete.length} mete possibili per te! Triennale o magistrale?`, "esulta");
+    benvFumetto("Fai la triennale o la magistrale?", "pensieroso");
     if (_mappaBenv && _mappaBenv.layer) {
       _mappaBenv.mete = mete;
       _mappaBenv.opts = { evidenzia: true, fuoriTab: true };
@@ -6822,7 +6858,10 @@ function benvPassoLingue(livello) {
   benvSetPasso(4);
   benvMostraLegenda(true);
   window._onboardingLivello = livello;
-  benvFumetto("Ultima cosa: che lingue parli? Puoi anche saltare.", "pensieroso");
+  const nLivello = benvMeteDelLivello(window._onboardingDipartimento, livello).length;
+  benvFumetto(nLivello
+    ? `Ci sono ${nLivello} ${nLivello === 1 ? "meta possibile" : "mete possibili"} per te! Che lingue parli?`
+    : "Ultima cosa: che lingue parli? Puoi anche saltare.", "esulta");
   const zona = document.getElementById("benvenuto-scelte");
   zona.innerHTML = "";
   const stato = crea(
@@ -6934,7 +6973,7 @@ function benvPassoLingue(livello) {
   function aggiornaCompatibilita(forzate) {
     const scelte = Array.isArray(forzate) ? forzate : lingueCorrenti();
     const dip = window._onboardingDipartimento;
-    const mete = (METE || []).filter(m => m.dipartimentoCf === dip);
+    const mete = benvMeteDelLivello(dip, livello);
     const profilo = {
       area: window._onboardingArea,
       dipartimento: dip,
@@ -7089,7 +7128,7 @@ function completaOnboarding(livello, lingue) {
     return;
   }
   const dip = window._onboardingDipartimento;
-  const nMete = (METE || []).filter(m => m.dipartimentoCf === dip).length;
+  const nMete = benvMeteDelLivello(dip, livello).length;
   const prossima = prossimaScadenzaInfo();
   benvSetPasso(5); // E non è un quinto passo: i quattro risultano conclusi.
   benvFumetto("Fatto! Il tuo percorso è pronto.", "saluto");

@@ -380,12 +380,14 @@ test("V5.5: l'avviso certificato si spegne quando la lingua soddisfacente è cer
   assert.match(app, /Questa destinazione parla di un certificato: leggi la condizione qui sopra/);
 });
 
-test("V5.6: entrambi i conteggi dell'entrata usano il dipartimento", () => {
+// Revisione 3 (Nicola, 15/09): i conteggi usano dipartimento E livello, il
+// numero ha senso solo dopo triennale/magistrale.
+test("V5.6: entrambi i conteggi dell'entrata usano il dipartimento e il livello", () => {
   const app = fs.readFileSync(path.join(RADICE, "js", "app.js"), "utf8");
-  const conteggioPasso4 =
-    "const mete = (METE || []).filter(m => m.dipartimentoCf === dip);";
-  const conteggioEsito =
-    "const nMete = (METE || []).filter(m => m.dipartimentoCf === dip).length;";
+  assert.ok(app.includes("(METE || []).filter(m => m.dipartimentoCf === dip &&"),
+    "il filtro delle mete dell'entrata non usa il dipartimento");
+  const conteggioPasso4 = "const mete = benvMeteDelLivello(dip, livello);";
+  const conteggioEsito = "const nMete = benvMeteDelLivello(dip, livello).length;";
   assert.ok(app.includes(conteggioPasso4), "il conteggio prima dell'esito non usa il dipartimento");
   assert.ok(app.includes(conteggioEsito), "il conteggio dell'esito non usa il dipartimento");
 });

@@ -28,7 +28,8 @@ Decisioni del 15/09: bug LA per primi, poi pubblicare; poi correzioni veloci in 
 - [x] Pallini gialli da subito
 - [x] «Ci sono N mete possibili per te!» al passo del livello e nella schermata finale (testo del bando accorciato)
 - [x] Domanda e risposta in coppia: la domanda la fa sempre Wiz, subito sopra le risposte (es. «Ci sono 59 mete possibili per te! Triennale o magistrale?»)
-- [ ] «Le cerco, le metto in ordine» / «Aiutami a esplorare»: valutare se dare alle due strade un valore diverso; altrimenti togliere la scelta
+- [~] «Le cerco, le metto in ordine» / «Aiutami a esplorare»: oggi fanno quasi la stessa cosa (cursore nella ricerca / scorre alla mappa). Decisione di Nicola: dare al «No» un valore vero (es. le 5 mete più adatte per lingua), dentro il ripensamento della mappa
+- [x] Il numero delle mete arriva dopo triennale/magistrale e conta solo gli accordi di quel livello (es. Economia Ca' Foscari: 58 in tutto, 51 triennale, 46 magistrale); le mete senza posti dichiarati restano contate. Aggiornata la prova V5.6
 - [ ] Mappa da ripensare in stile Airbnb/Booking: si apre come pagina a sé, si scorrono le schede
 
 ### Percorso e Home
@@ -37,15 +38,15 @@ Decisioni del 15/09: bug LA per primi, poi pubblicare; poi correzioni veloci in 
 - [ ] Pagina del percorso: si clicca, si allarga, mostra dove si va
 - [ ] Passi 1-2-3-4 in orizzontale, dettagli in verticale sotto ogni passo, si scorre verso destra
 - [ ] Home: sezione «mete scelte» cliccabile, riordinabile, con link «torna alle mete»
-- [ ] Elenco mete: prime 5 in oro, le altre in blu, con un separatore
-- [ ] «Confronta queste mete nel Learning Agreement»: spostarlo al momento della scelta, non in alto
+- [x] Preferite: prime 5 (o il massimo del bando) con il numero in oro, le altre in blu, separatore «Oltre le 5 della domanda»
+- [x] «Confronta queste mete nel Learning Agreement»: tolto dalla testa di Mete, ora sotto l'elenco delle preferite (compare solo se ce n'è almeno una)
 
 ### Zaino e dopo la selezione
 - [ ] Il nome «Zaino» non si capisce: rinominare
 - [ ] 24 cose da fare: raggruppare e chiarire, non un elenco sparso
 - [ ] Informazioni ripetute troppe volte: tenerle una volta sola, nella descrizione
-- [ ] «Completa 2 risposte per personalizzare lo zaino»: marginale, spostarlo di lato
-- [ ] Home: stato sempre visibile e cambiabile al volo (sto esplorando / ho fatto domanda / sono stato selezionato)
+- [x] «Completa 2 risposte per personalizzare lo zaino»: ora una riga discreta in fondo allo zaino («Sei cittadino extra-UE o fai ricerca tesi all'estero? … Vai al profilo»)
+- [x] Home: stato sempre visibile e cambiabile al volo, sotto il saluto (Esploro · In attesa · Selezionato); si resta in Home. Aggiornato l'ordine dei blocchi nella prova router
 - [ ] Da selezionato: portare al punto giusto, non al passo 5 se è solo una notifica
 - [ ] Fasi separate: prima di accettare · quando accetti (conto alla rovescia, notifica, mail istituzionale) · prima di partire · durante l'Erasmus (restare di più, viaggi ecologici) · al rientro
 

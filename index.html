@@ -105,6 +105,15 @@
         </div>
       </div>
 
+      <!-- Revisione 3 (Nicola, 15/09): lo stato sempre visibile e
+           cambiabile al volo dalla Home. -->
+      <div class="home-stato" role="group" aria-label="A che punto sei">
+        <button class="home-stato-btn" data-fase-home="esplorando" type="button" aria-pressed="false">Esploro</button>
+        <button class="home-stato-btn" data-fase-home="in-attesa" type="button" aria-pressed="false">In attesa</button>
+        <button class="home-stato-btn" data-fase-home="selezionato" type="button" aria-pressed="false">Selezionato</button>
+      </div>
+
+
       <!-- ================================================
            HOME A 4 MODULI (R2, PLAN.md §5.3): 1 Prossima mossa,
            2 Questa settimana, 3 Il tuo progresso, 4 Le tue rotte.
@@ -193,10 +202,6 @@
       <div class="sezione-header">
         <h2 class="sezione-titolo">Mete disponibili</h2>
         <p class="sezione-sottotitolo" id="intro-mete-v2">Compila il profilo per vedere le mete ordinate per compatibilità.</p>
-        <a class="la-link-rapido" data-la-route href="#learning-agreement/cafoscari">
-          <svg class="icona" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg>
-          Confronta queste mete nel Learning Agreement
-        </a>
       </div>
       <div id="profilo-strip"></div>
       <div id="banner-lingue-mete"></div>
