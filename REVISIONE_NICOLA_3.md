@@ -18,15 +18,16 @@ Stato: [x] fatto · [ ] da fare · [~] rimandato
 Decisioni del 15/09: bug LA per primi, poi pubblicare; poi correzioni veloci in 2 blocchi; ripensamenti nell'ordine LA → Zaino → Percorso → Mappa, ognuno con /grill-me; nuovo nome dello Zaino da proporre nella sua sessione.
 
 ### Prima schermata
-- [ ] Testo troppo denso: meno parole, più incisivo, qualche evidenza in giallo
-- [ ] Dare più peso alla domanda «a che punto sei?» prima di partire
-- [ ] «Scegli il momento in cui scrivi il tuo percorso»: togliere o ridurre a informazione secondaria
+- [x] Testo troppo denso: ora «Le mete *giuste per te*, senza perdere una scadenza. Gratis.» con le parole chiave in oro
+- [x] Dare più peso alla domanda «a che punto sei?»: ora «A che punto sei con l'Erasmus?», più grande, da sola accanto alle risposte
+- [x] «Scegli il momento…»: tolta (tolte anche «2 atenei disponibili…» e «17 dipartimenti disponibili…», che ripetevano la domanda)
 
 ### Mappa e mete
-- [ ] Nelle schermate dopo la prima la mappa è sempre troppo piccola
-- [ ] Pallini già gialli dalla prima volta che si vedono, non spenti
-- [ ] Messaggio più diretto: «Ci sono 58 mete possibili per te!»
-- [ ] Domanda e risposta sempre in coppia: prima la domanda, poi l'utente agisce
+
+- [x] Mappa troppo piccola nell'onboarding: a telefono tolto il titolo fisso in alto e l'elenco delle scelte non supera metà schermo (la mappa resta visibile anche coi 17 dipartimenti). Nel tab Mete si rivede col ripensamento stile Airbnb
+- [x] Pallini gialli da subito
+- [x] «Ci sono N mete possibili per te!» al passo del livello e nella schermata finale (testo del bando accorciato)
+- [x] Domanda e risposta in coppia: la domanda la fa sempre Wiz, subito sopra le risposte (es. «Ci sono 59 mete possibili per te! Triennale o magistrale?»)
 - [ ] «Le cerco, le metto in ordine» / «Aiutami a esplorare»: valutare se dare alle due strade un valore diverso; altrimenti togliere la scelta
 - [ ] Mappa da ripensare in stile Airbnb/Booking: si apre come pagina a sé, si scorrono le schede
 

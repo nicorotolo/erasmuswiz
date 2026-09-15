@@ -2698,6 +2698,9 @@ body.no-scroll { overflow: hidden; }
   --pin-no-fondo: var(--night-bg);
 }
 .card-mappa-mete .mappa-pin .punto { background: var(--gold); }
+/* Revisione 3 (Nicola, 15/09): nell'onboarding i pallini delle mete sono
+   gialli da subito, non indaco finché non si scelgono le lingue. */
+.benvenuto .mappa-pin:not(.mappa-pin-ateneo, .mappa-pin-non-accessibile) .punto { background: var(--gold); }
 .card-mappa-mete .mappa-pin-non-accessibile .punto { background: var(--night-bg); border: 2px solid var(--gold); }
 .card-mappa-mete .benvenuto-mappa-legenda {
   position: static; flex-wrap: wrap; justify-content: flex-start;
@@ -2979,6 +2982,7 @@ body.modo-entrata .modo-scena .mappa svg {
 .modo-scena .benvenuto-privacy,
 .modo-scena .mappa-nota,
 .modo-scena .benvenuto-mappa-legenda { display: none; }
+.modo-scena .benvenuto-claim em { font-style: normal; color: var(--gold); }
 .modo-scena .benvenuto-claim {
   max-width: 22ch;
   margin: 0;
@@ -3117,6 +3121,11 @@ body.modo-entrata .modo-scena .mappa svg {
     z-index: 2;
     margin: 0;
   }
+  /* Revisione 3 (Nicola, 15/09): nei passi il titolo fisso toglieva spazio
+     alla mappa; la domanda la fa Wiz, accanto alle risposte. */
+  :where(.benvenuto:not(.modo-scena)) .benvenuto-titolo { display: none; }
+  :where(.benvenuto:not(.modo-scena)) .benvenuto-mappa-legenda { margin-top: 20px; }
+  :where(.benvenuto:not(.modo-scena)) .benvenuto-fumetto { font-size: 19px; line-height: 1.25; }
   :where(.benvenuto:not(.modo-scena)) .benvenuto-titolo {
     grid-area: titolo;
     max-width: 16ch;
@@ -3161,6 +3170,8 @@ body.modo-entrata .modo-scena .mappa svg {
   }
   :where(.benvenuto:not(.modo-scena)) .benvenuto-scelte {
     grid-area: scelte; margin: 14px 10px 0; min-height: 0;
+    /* Revisione 3: con tante scelte la scheda non copre più tutta la mappa. */
+    max-height: 46vh; max-height: 46dvh;
     overflow-y: auto; overscroll-behavior: contain;
   }
   :where(.benvenuto:not(.modo-scena)) .benvenuto-scelte-riga { flex-direction: column; }

@@ -6451,7 +6451,7 @@ function benvTestoPorta(fase) {
 function benvPassoPorta() {
   benvSetPasso(1);
   benvMostraLegenda(false);
-  benvFumetto("Prima di partire: a che punto sei?", "pensieroso");
+  benvFumetto("A che punto sei con l'Erasmus?", "pensieroso");
   benvAggiornaRotte(null);
   if (_mappaBenv && _mappaBenv.layer) {
     _mappaBenv.layer.innerHTML = "";
@@ -6460,11 +6460,7 @@ function benvPassoPorta() {
   }
   const zona = document.getElementById("benvenuto-scelte");
   zona.innerHTML = "";
-  zona.appendChild(crea(
-    "p",
-    "benvenuto-sotto-domanda",
-    "Scegli il momento che descrive il tuo percorso."
-  ));
+  // Revisione 3 (Nicola, 15/09): tolta «Scegli il momento…», la domanda basta.
   const riga = crea("div", "benvenuto-scelte-riga");
   ErasmusWizPuro.FASI_VIAGGIO.forEach(fase => {
     const testo = benvTestoPorta(fase);
@@ -6528,11 +6524,6 @@ function benvPassoAteneo() {
   zona.innerHTML = "";
   const disponibili = Object.keys(ATENEI_REGISTRO)
     .filter(k => ATENEI_REGISTRO[k].disponibile);
-  zona.appendChild(crea(
-    "p",
-    "benvenuto-sotto-domanda",
-    `${disponibili.length} atenei disponibili. Scegli dove studi.`
-  ));
   const riga = crea("div", "benvenuto-scelte-riga");
   disponibili.forEach(k => {
     const a = ATENEI_REGISTRO[k];
@@ -6634,11 +6625,6 @@ function benvPassoFacolta() {
   (METE || []).forEach(m => {
     if (m.dipartimentoCf && !visti.includes(m.dipartimentoCf)) visti.push(m.dipartimentoCf);
   });
-  zona.appendChild(crea(
-    "p",
-    "benvenuto-sotto-domanda",
-    `${visti.length} dipartimenti disponibili: scegli il tuo.`
-  ));
   const riga = crea("div", "benvenuto-scelte-riga");
   visti.forEach(dip => {
     const btn = crea("button", "benvenuto-scelta", dip);
@@ -6741,7 +6727,7 @@ function benvPassoLivello(dip) {
       `Hai scritto “${dip}”. Non conosco gli accordi di questo corso, quindi ` +
       "non ordino le mete per compatibilità: la destinazione la indicherai tu."));
   } else {
-    benvFumetto(`${mete.length} mete ti aspettano. Guarda la mappa!`, "esulta");
+    benvFumetto(`Ci sono ${mete.length} mete possibili per te! Triennale o magistrale?`, "esulta");
     if (_mappaBenv && _mappaBenv.layer) {
       _mappaBenv.mete = mete;
       _mappaBenv.opts = { evidenzia: true, fuoriTab: true };
@@ -6750,7 +6736,7 @@ function benvPassoLivello(dip) {
     // Nicola (14/09): nell'onboarding la nota «N mete non sono sulla mappa»
     // distrae; resta nel tab Mete, dove l'elenco è a portata di mano.
     zona.appendChild(crea("p", "benvenuto-sotto-domanda",
-      `${mete.length} mete accese per ${dip}. Tocca un puntino per l’anteprima, poi scegli il livello.`));
+      "Tocca un puntino per vedere la meta."));
   }
   const wrap = crea("div", "benvenuto-scelte-riga");
   [["L", "Triennale"], ["LM", "Magistrale"]].forEach(([liv, label]) => {
@@ -7110,13 +7096,14 @@ function completaOnboarding(livello, lingue) {
   const zona = document.getElementById("benvenuto-scelte");
   zona.innerHTML = "";
   zona.appendChild(crea("h2", "benvenuto-landing-titolo",
-    `Per te ci sono ${nMete} ${nMete === 1 ? "meta" : "mete"} a ${dip}`));
+    nMete === 1 ? "C'è 1 meta possibile per te!" : `Ci sono ${nMete} mete possibili per te!`));
   let dett = "";
   if (prossima) {
     const giorni = Math.ceil((new Date(prossima.data) - new Date()) / 86400000);
     dett = `La prossima scadenza è ${prossima.cosa}, tra ${giorni} ${giorni === 1 ? "giorno" : "giorni"}.`;
   } else if (inPreBando()) {
-    dett = `${titoloPreBando()}. ${finestraAttesaBando()} Intanto puoi esplorare le mete con calma.`;
+    // Revisione 3 (Nicola, 15/09): meno parole.
+    dett = `${titoloPreBando()}. ${finestraAttesaBando()}`;
   } else if (candidatureChiuse()) {
     const anno = (window.BANDO_INFO && BANDO_INFO.annoAccademico) || "";
     dett = `Il bando ${anno} è chiuso. Il prossimo esce in genere tra dicembre e gennaio. Intanto puoi esplorare le mete con calma.`;
