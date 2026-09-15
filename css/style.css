@@ -1647,6 +1647,20 @@ body.modo-entrata .barra-alto { display: none; }
   background: var(--bg-card); color: var(--gold-dark);
   font: 700 var(--fs-sm) var(--font-body); cursor: pointer;
 }
+/* Revisione 3: maniglia di trascinamento. touch-action:none perché il dito
+   sulla maniglia muova la riga e non scorra la pagina. */
+.schedina-maniglia {
+  flex: none; width: 24px; height: 44px; margin-left: -6px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted); cursor: grab; touch-action: none;
+}
+.schedina-maniglia .icona { width: 18px; height: 18px; fill: currentColor; stroke: none; }
+.schedina-slot { transition: transform var(--dur-fast) var(--ease-out); }
+.schedina-slot-trascinata {
+  position: relative; z-index: 2; transition: none; cursor: grabbing;
+  box-shadow: 0 8px 24px rgba(30,27,46,.18);
+}
+@media (prefers-reduced-motion: reduce) { .schedina-slot { transition: none; } }
 .schedina-slot-rimosso { box-shadow: inset 0 0 0 1px var(--border-strong); }
 .schedina-rimossa { color: var(--text-muted); font-size: var(--fs-sm); }
 .schedina-slot-orfano { box-shadow: inset 0 0 0 1px var(--border-strong); }

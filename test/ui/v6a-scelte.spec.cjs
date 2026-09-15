@@ -162,6 +162,32 @@ test("V6a riordino da tastiera: fuoco, annuncio e bordi restano coerenti", async
     .toEqual(ordinePrimaBordi);
 });
 
+test("Revisione 3: trascinando la maniglia la preferita cambia posto e l'ordine si salva", async ({ page }) => {
+  await preparaZaino(page, { preferite: IDS.slice(0, 3) });
+  await page.goto(`${PAGINA}#mete/scelte/cafoscari`, {
+    waitUntil: "domcontentloaded",
+  });
+  const nomiPrima = await page.locator(".schedina-nome").allTextContents();
+  const maniglie = page.locator(".schedina-maniglia");
+  await expect(maniglie).toHaveCount(3);
+  await page.locator(".schedina-lista").evaluate(el => el.scrollIntoView({ block: "center" }));
+  const da = await maniglie.first().boundingBox();
+  const a = await maniglie.last().boundingBox();
+  await page.mouse.move(da.x + da.width / 2, da.y + da.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(a.x + a.width / 2, a.y + a.height / 2, { steps: 8 });
+  await page.mouse.up();
+
+  await expect(page.locator(".schedina-nome"))
+    .toHaveText([nomiPrima[1], nomiPrima[2], nomiPrima[0]]);
+  await expect(page.locator("#annunci-scelte")).toContainText(
+    `${nomiPrima[0]} spostata in posizione 3 di 3.`
+  );
+  await page.reload({ waitUntil: "domcontentloaded" });
+  await expect(page.locator(".schedina-nome"))
+    .toHaveText([nomiPrima[1], nomiPrima[2], nomiPrima[0]]);
+});
+
 test("V6a rimozione: Annulla ripristina lo slot; navigare rende definitiva la rimozione", async ({ page }) => {
   await preparaZaino(page, { preferite: IDS.slice(0, 3) });
   await page.goto(`${PAGINA}#mete`, { waitUntil: "domcontentloaded" });

@@ -42,5 +42,5 @@ Stato: [x] fatto · [ ] da fare · [~] rimandato
 - [x] Home: indicatore di completamento profilo (es. «6 su 8»)
 
 ## In pipeline
-- [ ] Riordino delle preferite trascinando (per ora frecce su/giù fluide, scelta di Nicola 15/09)
+- [x] Riordino delle preferite trascinando (fatto nella terza tornata, 15/09)
 - [ ] Rotte animate dall'ateneo nell'onboarding (DISEGNO_BRAND §V4.12-bis)

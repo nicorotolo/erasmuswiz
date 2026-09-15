@@ -433,6 +433,7 @@ const ICONE = {
   stella: '<path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/>',
   su: '<path d="M6 15l6-6 6 6"/>',
   giu: '<path d="M6 9l6 6 6-6"/>',
+  maniglia: '<circle cx="9" cy="6" r="1.2"/><circle cx="15" cy="6" r="1.2"/><circle cx="9" cy="12" r="1.2"/><circle cx="15" cy="12" r="1.2"/><circle cx="9" cy="18" r="1.2"/><circle cx="15" cy="18" r="1.2"/>',
   chiudi: '<path d="M6 6l12 12M18 6L6 18"/>',
   matita: '<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/>',
   telefono: '<rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18h2"/>',
@@ -3039,6 +3040,16 @@ function renderPreferite(msg) {
     }
 
     const { id, meta } = riga;
+    // Revisione 3 (pipeline): la maniglia per trascinare. Solo col dito o
+    // col mouse; da tastiera restano le frecce, che dicono anche la posizione.
+    if (!_rimozionePreferita && ids.length > 1) {
+      const maniglia = crea("span", "schedina-maniglia");
+      maniglia.appendChild(icona("maniglia"));
+      maniglia.title = "Trascina per riordinare";
+      maniglia.setAttribute("aria-hidden", "true");
+      maniglia.addEventListener("pointerdown", ev => iniziaTrascinamento(ev, slot, riga.indice));
+      slot.appendChild(maniglia);
+    }
     const corpo = crea("div", "schedina-corpo");
     const nome = meta
       ? nomeUniversita(meta.universita)
@@ -3126,6 +3137,57 @@ function spostaSchedina(indice, direzione) {
       { duration: 220, easing: "cubic-bezier(.2,.8,.2,1)" }
     );
   });
+}
+
+// Trascinamento delle preferite (Pointer Events: dito, mouse, penna). La riga
+// segue il puntatore, le altre scorrono per farle posto; al rilascio l'ordine
+// si salva come con le frecce, con lo stesso annuncio per i lettori di schermo.
+function iniziaTrascinamento(ev, slot, indice) {
+  if (ev.button !== undefined && ev.button !== 0) return;
+  const lista = slot.parentElement;
+  const righe = Array.from(lista.children);
+  if (righe.length < 2) return;
+  ev.preventDefault();
+  const passo = righe.length > 1
+    ? righe[1].getBoundingClientRect().top - righe[0].getBoundingClientRect().top
+    : slot.getBoundingClientRect().height;
+  const yInizio = ev.clientY;
+  let arrivo = indice;
+  const maniglia = ev.currentTarget;
+  try { maniglia.setPointerCapture(ev.pointerId); } catch (_) {}
+  slot.classList.add("schedina-slot-trascinata");
+
+  const muovi = e => {
+    const dy = Math.max(-indice * passo, Math.min((righe.length - 1 - indice) * passo, e.clientY - yInizio));
+    slot.style.transform = `translateY(${dy}px)`;
+    arrivo = Math.max(0, Math.min(righe.length - 1, indice + Math.round(dy / passo)));
+    righe.forEach((r, i) => {
+      if (r === slot) return;
+      let sposta = 0;
+      if (arrivo > indice && i > indice && i <= arrivo) sposta = -passo;
+      if (arrivo < indice && i < indice && i >= arrivo) sposta = passo;
+      r.style.transform = sposta ? `translateY(${sposta}px)` : "";
+    });
+  };
+  const fine = () => {
+    maniglia.removeEventListener("pointermove", muovi);
+    maniglia.removeEventListener("pointerup", fine);
+    maniglia.removeEventListener("pointercancel", fine);
+    righe.forEach(r => { r.style.transform = ""; });
+    slot.classList.remove("schedina-slot-trascinata");
+    if (arrivo === indice) return;
+    const ids = ZAINO.schedina;
+    const [spostato] = ids.splice(indice, 1);
+    ids.splice(arrivo, 0, spostato);
+    salvaZaino(ZAINO);
+    const meta = (METE || []).find(m => m.id === spostato);
+    const nome = meta ? nomeUniversita(meta.universita) : COPY_SCELTE.orfanaNome(spostato);
+    renderPreferite({ annuncio: COPY_SCELTE.spostata(nome, arrivo + 1, ids.length) });
+    renderMissione();
+  };
+  maniglia.addEventListener("pointermove", muovi);
+  maniglia.addEventListener("pointerup", fine);
+  maniglia.addEventListener("pointercancel", fine);
 }
 
 function togglePreferita(id) {
