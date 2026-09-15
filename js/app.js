@@ -1172,7 +1172,7 @@ function tappaCorrente() {
   // nuovo dello studente: non può spedirlo artificialmente agli esiti.
   if (!inPreBando() && candidatureChiuse()) return "esiti";
 
-  const requisiti = REQUISITI_BANDO || [];
+  const requisiti = requisitiPertinenti();
   const checklist = CHECKLIST || [];
   if (requisiti.length === 0 && checklist.length === 0) return "mete";
 
@@ -1196,7 +1196,7 @@ function tappaCorrente() {
 function calcolaFasi() {
   const tappa = tappaCorrente();
 
-  const requisiti     = REQUISITI_BANDO || [];
+  const requisiti     = requisitiPertinenti();
   const requisitiOk   = !!ZAINO.profilo && requisiti.length > 0 &&
     requisiti.every(r => ZAINO.autoverifica && ZAINO.autoverifica[r.id]);
   const nPreferite    = (ZAINO.metePreferite || []).length;
@@ -1364,7 +1364,7 @@ function renderPercorso(opzioni = {}) {
   const apri  = !!opzioni.apri;
   const tappa = tappaCorrente();
 
-  const requisiti   = REQUISITI_BANDO || [];
+  const requisiti   = requisitiPertinenti();
   const reqFatti    = requisiti.filter(r => ZAINO.autoverifica && ZAINO.autoverifica[r.id]).length;
   const requisitiOk = !!ZAINO.profilo && requisiti.length > 0 && reqFatti === requisiti.length;
 
@@ -3051,6 +3051,12 @@ function spostaSchedina(indice, direzione) {
   const controlloFuoco = azioni
     ? Array.prototype.indexOf.call(azioni.children, attivo)
     : 0;
+  // Nicola (15/09): lo scambio si vede scorrere (tecnica FLIP). Il
+  // trascinamento resta in pipeline; qui solo le frecce, rese fluide.
+  const slotPrima = azioni?.closest(".schedina-slot")?.parentElement?.children;
+  const topPrima = slotPrima
+    ? [slotPrima[indice]?.getBoundingClientRect().top, slotPrima[nuovo]?.getBoundingClientRect().top]
+    : null;
   [ids[indice], ids[nuovo]] = [ids[nuovo], ids[indice]];
   salvaZaino(ZAINO);
   const meta = (METE || []).find(m => m.id === ids[nuovo]);
@@ -3061,6 +3067,19 @@ function spostaSchedina(indice, direzione) {
     indiceFuoco: nuovo,
     controlloFuoco,
     annuncio: COPY_SCELTE.spostata(nome, nuovo + 1, ids.length)
+  });
+  const lista = document.activeElement?.closest(".schedina-slot")?.parentElement;
+  const calmo = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+  if (!lista || !topPrima || calmo) return;
+  [[nuovo, topPrima[0]], [indice, topPrima[1]]].forEach(([i, prima]) => {
+    const el = lista.children[i];
+    if (!el || typeof prima !== "number" || !el.animate) return;
+    const delta = prima - el.getBoundingClientRect().top;
+    if (!delta) return;
+    el.animate(
+      [{ transform: `translateY(${delta}px)` }, { transform: "translateY(0)" }],
+      { duration: 220, easing: "cubic-bezier(.2,.8,.2,1)" }
+    );
   });
 }
 
@@ -5601,13 +5620,24 @@ function renderBannerVerifica() {
 // prefers-reduced-motion). Il messaggio finale non ripete «fa fede il
 // bando»: lo dice già il piè di pagina, una volta sola.
 let _requisitoAppenaSpuntato = null;
+
+// Nicola (15/09): solo i requisiti del proprio livello. Un requisito col campo
+// `livello` ("L"/"LM") si mostra solo a chi ha quel livello nel profilo; senza
+// profilo si vedono tutti, per non nascondere nulla a chi non l'ha ancora detto.
+function requisitiPertinenti() {
+  const tutti = (typeof REQUISITI_BANDO !== "undefined" && REQUISITI_BANDO) || [];
+  const livello = ZAINO?.profilo?.livello;
+  if (livello !== "L" && livello !== "LM") return tutti;
+  return tutti.filter(r => !r.livello || r.livello === livello);
+}
+
 function renderIdoneita() {
   const cont = document.getElementById("lista-requisiti-v2");
   if (!cont) return;
   cont.innerHTML = "";
   if (!ZAINO.autoverifica) ZAINO.autoverifica = {};
 
-  const requisiti = REQUISITI_BANDO || [];
+  const requisiti = requisitiPertinenti();
   if (inPreBando() && requisiti.length) {
     cont.appendChild(crea(
       "div",
@@ -5681,9 +5711,29 @@ function renderIdoneita() {
       sommario.appendChild(icona("giu"));
       dettagli.appendChild(sommario);
       if (spiegazione) dettagli.appendChild(crea("p", "requisito-v2-desc", spiegazione));
-      if (req.azione) dettagli.appendChild(crea("p", "requisito-v2-azione", req.azione));
-      if (req.citazione) dettagli.appendChild(crea("blockquote", "requisito-v2-citazione", req.citazione));
-      if (req.fonte) dettagli.appendChild(crea("div", "requisito-v2-fonte", req.fonte));
+      if (req.azione) {
+        const azione = crea("p", "requisito-v2-azione");
+        azione.appendChild(crea("strong", null, "Cosa fare: "));
+        azione.appendChild(document.createTextNode(req.azione));
+        dettagli.appendChild(azione);
+      }
+      // Nicola (15/09): il testo del bando in secondo piano, chiuso, col link.
+      if (req.citazione || req.fonte) {
+        const bando = document.createElement("details");
+        bando.className = "requisito-v2-testo-bando";
+        bando.appendChild(crea("summary", null, "Il testo del bando"));
+        if (req.citazione) bando.appendChild(crea("blockquote", "requisito-v2-citazione", req.citazione));
+        const piede = crea("div", "requisito-v2-fonte");
+        if (req.fonte) piede.appendChild(document.createTextNode(req.fonte + " "));
+        const link = typeof BANDO_INFO !== "undefined" && BANDO_INFO?.linkUfficiale;
+        if (link) {
+          const a = crea("a", null, "Apri il bando");
+          a.href = link; a.target = "_blank"; a.rel = "noopener";
+          piede.appendChild(a);
+        }
+        bando.appendChild(piede);
+        dettagli.appendChild(bando);
+      }
       riga.appendChild(dettagli);
     }
 

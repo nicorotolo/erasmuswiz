@@ -63,7 +63,7 @@ const PUNTI_DI_RENDER = [
   { n: 13, dove: "calendario .ics",            ancora: "function scaricaICSScadenza" },
   { n: 14, dove: "riga fonte / disclaimer",    ancora: "infoBando.dataVerificaDati" },
   { n: 15, dove: "stazione requisiti",         ancora: "ZAINO.autoverifica[r.id]" },
-  { n: 16, dove: "stepper tappa requisiti",    ancora: "const requisiti     = REQUISITI_BANDO" },
+  { n: 16, dove: "stepper tappa requisiti",    ancora: "const requisiti     = requisitiPertinenti()" },
   { n: 17, dove: "dettaglio meta",             ancora: "meta.scadenzeOspitante" },
   { n: 18, dove: "pannello attesa",            ancora: "const info = window.ATTESA_INFO" },
   { n: 19, dove: "banner provvisorieta'",      ancora: "window.BANDO_INFO.inVerifica" },

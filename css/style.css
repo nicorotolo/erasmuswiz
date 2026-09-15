@@ -1726,7 +1726,13 @@ body.modo-entrata .barra-alto { display: none; }
 }
 .requisito-v2-valore { font-size: var(--fs-sm); color: var(--text-muted); }
 .requisito-v2-desc   { margin: 0 0 var(--space-2); color: var(--text-muted); font-size: var(--fs-sm); line-height: 1.6; text-wrap: pretty; }
-.requisito-v2-azione { margin: 0 0 var(--space-2); color: var(--text-dark); font-size: var(--fs-sm); font-weight: 600; line-height: 1.55; }
+.requisito-v2-azione { margin: 0 0 var(--space-2); color: var(--text-dark); font-size: var(--fs-sm); line-height: 1.55; }
+.requisito-v2-testo-bando summary {
+  display: inline-flex; align-items: center; min-height: 44px;
+  cursor: pointer; color: var(--text-muted); font-size: var(--fs-xs); font-weight: 600; text-decoration: underline;
+}
+.requisito-v2-testo-bando .requisito-v2-citazione { font-size: var(--fs-xs); }
+.requisito-v2-fonte a { color: var(--primary); font-weight: 600; }
 .requisito-v2-bando  { margin: 0 0 var(--space-1) 44px; font-size: var(--fs-sm); }
 .requisito-v2-bando summary {
   display: inline-flex; align-items: center; gap: 4px; min-height: 44px;

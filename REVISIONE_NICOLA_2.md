@@ -13,14 +13,14 @@ Stato: [x] fatto · [ ] da fare · [~] rimandato
 - [~] Scadenze più in evidenza (prossima sessione)
 - [x] Bottoni: 1° scheda ufficiale, 2° catalogo, LA separato
 - [x] Preferite: «max 5 in ordine di priorità (bando 2026/27)» (solo dove il bando lo dice: Ca' Foscari)
-- [ ] Animazione riordino preferite più fluida (trascinamento), se non troppo complessa
+- [x] Riordino preferite fluido con le frecce su/giù (scelta di Nicola 15/09; trascinamento in pipeline)
 
 ## Requisiti del bando
-- [ ] Togliere «sono uguali per tutte le mete» (al massimo nella «i»)
-- [ ] Citazione del bando meno in evidenza, più spiegazione, link al bando
-- [ ] CFU minimi spiegati meglio
-- [ ] Scelta triennale/magistrale: mostrare solo il bando pertinente
-- [ ] Togliere la dicitura «spunta salvata solo sul dispositivo»
+- [x] Togliere «sono uguali per tutte le mete» (al massimo nella «i»)
+- [x] Citazione del bando meno in evidenza, più spiegazione, link al bando
+- [x] CFU minimi spiegati meglio
+- [x] Scelta triennale/magistrale: mostrare solo il bando pertinente
+- [x] Togliere la dicitura «spunta salvata solo sul dispositivo»
 
 ## Candidature e scadenze
 - [ ] Razionalizzare la sezione

@@ -60,20 +60,22 @@ var REQUISITI_BANDO = [
   },
   {
     id: "cf-cfu-triennale",
-    titolo: "CFU minimi — Triennale",
-    valore: "6 / 24 / 42 CFU",
+    livello: "L",
+    titolo: "Crediti (CFU) già registrati",
+    valore: "6 al 1° anno · 24 al 2° · 42 dal 3°",
     descrizione: "Crediti verbalizzati nel libretto entro le 23:59 del 25/02/2026: almeno 6 CFU se iscritto al 1° anno, 24 CFU al 2° anno, 42 CFU dal 3° anno in poi. Anche le matricole possono candidarsi. Niente autocertificazioni per esami non verbalizzati. (Art. 2)",
-    spiegazione: "Per la triennale ti serve un minimo di esami già registrati sul libretto: 6 CFU al 1° anno, 24 al 2°, 42 dal 3° in poi. Conta solo ciò che è già a libretto, non gli esami che hai dato ma non ancora registrati.",
+    spiegazione: "I CFU sono i crediti che ogni esame vale (di solito 6 o 12). Per candidarti devi averne già un certo numero registrati sul libretto online, e il minimo dipende dall'anno a cui sei iscritto: 6 se sei al 1° anno (quindi basta un esame), 24 al 2° anno, 42 dal 3° in poi. Conta solo quello che è già registrato: un esame superato ma non ancora verbalizzato dal docente non vale.",
     azione: "Apri il libretto e conta i CFU registrati: devi arrivare al minimo entro le 23:59 del 25/02/2026.",
     citazione: "…le iscritte e gli iscritti ad un Corso di Laurea dovranno aver registrato nel proprio libretto telematico, entro le ore 23:59 del 25 febbraio 2026: a) almeno 6 CFU, se iscritti al 1° anno; b) almeno 24 CFU, se iscritti al 2° anno; c) almeno 42 CFU, se iscritto ad anni successivi al secondo.",
     fonte: "Art. 2, c. 2 — Bando Erasmus+ studio 2026/2027, Ca' Foscari (DR 13/2026)."
   },
   {
     id: "cf-cfu-magistrale",
-    titolo: "CFU minimi — Magistrale",
-    valore: "6 / 24 CFU",
+    livello: "LM",
+    titolo: "Crediti (CFU) già registrati",
+    valore: "6 al 1° anno · 24 dal 2°",
     descrizione: "Crediti verbalizzati entro le 23:59 del 25/02/2026: almeno 6 CFU se iscritto al 1° anno, 24 CFU dal 2° anno in poi. (Art. 2)",
-    spiegazione: "Per la magistrale il minimo è 6 CFU registrati sul libretto al 1° anno e 24 dal 2° in poi.",
+    spiegazione: "I CFU sono i crediti che ogni esame vale (di solito 6 o 12). Per candidarti devi averne già un certo numero registrati sul libretto online della magistrale: 6 se sei al 1° anno (quindi basta un esame), 24 dal 2° anno in poi. Conta solo quello che è già registrato: un esame superato ma non ancora verbalizzato dal docente non vale.",
     azione: "Controlla i CFU già a libretto entro il 25/02/2026.",
     citazione: "Le iscritte e gli iscritti ad un Corso di Laurea Magistrale dovranno aver registrato nel proprio libretto telematico, entro le ore 23:59 del 25 febbraio 2026: a) almeno 6 CFU, se iscritti al 1° anno; b) almeno 24 CFU, se iscritti al 2° anno o ad anni successivi.",
     fonte: "Art. 2, c. 3 — Bando Erasmus+ studio 2026/2027, Ca' Foscari (DR 13/2026)."
