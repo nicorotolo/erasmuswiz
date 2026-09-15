@@ -43,4 +43,4 @@ Stato: [x] fatto · [ ] da fare · [~] rimandato
 
 ## In pipeline
 - [x] Riordino delle preferite trascinando (fatto nella terza tornata, 15/09)
-- [ ] Rotte animate dall'ateneo nell'onboarding (DISEGNO_BRAND §V4.12-bis)
+- [x] Rotte animate dall'ateneo nell'onboarding (fatto nella terza tornata, 15/09)

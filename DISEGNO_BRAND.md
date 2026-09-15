@@ -121,7 +121,7 @@ centro su mobile), Menu in alto a destra; Percorso e Profilo da Home/Menu.
 Voce attiva `--gold` su `rgba(251,191,36,.12)`; icone SVG a tratto (non emoji)
 nelle schermate nuove.
 
-### V4.12-bis Onboarding (scelta 14/09: opzione C) — DESIDERATA DA IMPLEMENTARE
+### V4.12-bis Onboarding (scelta 14/09: opzione C) — ROTTE IMPLEMENTATE 15/09 (`benvAggiornaRotte`, tetto 24 città)
 - Layout: mappa a tutto sfondo su `--night-bg`, titolo + legenda dei pallini
   (Compatibile / Da verificare / Non accessibile ora) in alto, scheda di vetro
   in basso con Wiz, passo, scelte e «Continua» bianco. Etichetta sul pin: solo

@@ -95,6 +95,38 @@ async function completaEntrataConClick(page) {
   }).click();
 }
 
+test("V4.12-bis: le rotte partono dall'ateneo, si restringono al dipartimento e prendono il semaforo", async ({ page }) => {
+  await preparaNuovo(page);
+  await page.goto("/index.html#oggi", { waitUntil: "domcontentloaded" });
+  const rotte = page.locator("#mappa-benvenuto .rotta-benv:not(.rotta-benv-esce)");
+
+  await page.locator("#benvenuto-inizia").click();
+  await page.locator("#benvenuto-scelte .benvenuto-scelta[data-fase='esplorando']").click();
+  await expect(rotte).toHaveCount(0);
+  await page.locator("#benvenuto-scelte .benvenuto-scelta", { hasText: "Ca' Foscari" }).click();
+
+  await expect.poll(() => rotte.count()).toBeGreaterThan(0);
+  expect(await rotte.count()).toBeLessThanOrEqual(24);
+  // Tutte le rotte partono dallo stesso punto: la città dell'ateneo.
+  const partenze = await rotte.evaluateAll(ps =>
+    [...new Set(ps.map(p => p.getAttribute("d").split(" Q")[0]))]);
+  expect(partenze).toHaveLength(1);
+
+  await page.locator("#benvenuto-scelte .benvenuto-scelte-riga .benvenuto-scelta").first().click();
+  await expect.poll(() => rotte.count()).toBeGreaterThan(0);
+  // Restano solo rotte verso città del dipartimento scelto.
+  expect(await page.evaluate(() => {
+    const dip = window._onboardingDipartimento;
+    const valide = new Set(METE.filter(m => m.dipartimentoCf === dip).map(m => m.citta + "|" + m.paese));
+    return [...document.querySelectorAll("#mappa-benvenuto .rotta-benv:not(.rotta-benv-esce)")]
+      .every(p => valide.has(p.dataset.citta));
+  })).toBe(true);
+
+  await page.locator("#benvenuto-scelte .benvenuto-scelta", { hasText: "Triennale" }).click();
+  expect(await rotte.evaluateAll(ps =>
+    ps.every(p => /rotta-benv-(ok|medio|no)/.test(p.getAttribute("class"))))).toBe(true);
+});
+
 test("V3 §8.1: la tastiera completa P1→P4→E senza attraversare i pin", async ({ page }) => {
   await preparaNuovo(page);
   await page.goto("/index.html#oggi", { waitUntil: "domcontentloaded" });

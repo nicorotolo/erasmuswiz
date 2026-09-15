@@ -6421,6 +6421,7 @@ function benvPassoPorta() {
   benvSetPasso(1);
   benvMostraLegenda(false);
   benvFumetto("Prima di partire: a che punto sei?", "pensieroso");
+  benvAggiornaRotte(null);
   if (_mappaBenv && _mappaBenv.layer) {
     _mappaBenv.layer.innerHTML = "";
     _mappaBenv.layer.setAttribute("aria-hidden", "true");
@@ -6487,6 +6488,7 @@ function benvPassoAteneo() {
   benvSetPasso(2);
   benvMostraLegenda(false);
   benvFumetto("Ciao! Sono Wiz. Dove studi?", "saluto");
+  benvAggiornaRotte(null);
   // Dal REGISTRO, non da ATENEI: qui si sceglie DOVE si studia, quindi vanno
   // mostrati anche gli atenei che R1.5 non ha caricato.
   benvDisegnaAtenei(null);
@@ -6561,6 +6563,7 @@ function benvPassoLavoro() {
   benvMostraLegenda(false);
   benvFumetto("Bene! Cosa devi fare adesso?", "pensieroso");
   benvDisegnaAtenei(window.ATENEO_ATTIVO);
+  benvAggiornaRotte(METE);
   const zona = document.getElementById("benvenuto-scelte");
   zona.innerHTML = "";
   zona.appendChild(crea(
@@ -6593,6 +6596,7 @@ function benvPassoFacolta() {
   // Dopo la risposta P2 resta acceso il solo ateneo scelto: la mappa ha
   // reagito alla risposta senza fingere di conoscere già il dipartimento.
   benvDisegnaAtenei(window.ATENEO_ATTIVO);
+  benvAggiornaRotte(METE);
   const zona = document.getElementById("benvenuto-scelte");
   zona.innerHTML = "";
   const visti = [];
@@ -6696,6 +6700,7 @@ function benvPassoLivello(dip) {
   if (!manuale) window._onboardingArea = areaDominanteDipartimento(dip);
   // Le mete della facoltà si ACCENDONO sulla mappa (il momento-firma).
   const mete = manuale ? [] : (METE || []).filter(m => m.dipartimentoCf === dip);
+  benvAggiornaRotte(mete);
   const zona = document.getElementById("benvenuto-scelte");
   zona.innerHTML = "";
   if (manuale) {
@@ -6921,11 +6926,13 @@ function benvPassoLingue(livello) {
     };
     // Nicola (14/09): niente conteggi qui, anticiperebbero l'esito. Lo
     // dice la mappa, puntino per puntino, mentre si scelgono le lingue.
+    const categoriaDi = meta => categoriaCompat(calcolaCompatibilita(meta, profilo));
+    benvAggiornaRotte(mete, categoriaDi);
     if (_mappaBenv && _mappaBenv.layer) {
       _mappaBenv.mete = mete;
       _mappaBenv.opts = {
         fuoriTab: true,
-        compatibilita: meta => categoriaCompat(calcolaCompatibilita(meta, profilo)),
+        compatibilita: categoriaDi,
       };
       mappaRenderPins(_mappaBenv.layer, mete, _mappaBenv.opts);
     }
@@ -7246,6 +7253,72 @@ function mappaRimuoviRotte() {
   document.querySelectorAll("#mappa-benvenuto .rotta-oro").forEach(p => p.remove());
 }
 
+// ------------------------------------------------------------
+// ROTTE DELL'ONBOARDING (DISEGNO_BRAND §V4.12-bis). Dopo la scelta
+// dell'ateneo le rotte partono dalla sua città verso le città delle sue mete
+// (coordinate precalcolate nei DATI, mai inventate) e compaiono in sequenza.
+// A ogni risposta si restringono: le rotte escluse sfumano, quelle rimaste
+// prendono il colore del semaforo quando si conoscono le lingue.
+// Vincoli: al massimo ROTTE_BENV_MAX rotte insieme (Sapienza ha ~1.600 mete:
+// si tengono le città con più mete); con prefers-reduced-motion niente
+// sequenza né scorrimento, solo lo stato finale; pausa a scheda nascosta.
+// ------------------------------------------------------------
+const ROTTE_BENV_MAX = 24;
+const _rotteBenv = new Map(); // "città|paese" -> <path>
+
+function benvAggiornaRotte(mete, categoriaDi) {
+  const svg = document.querySelector("#mappa-benvenuto svg");
+  const origine = CITTA_ATENEO[window.ATENEO_ATTIVO];
+  const calmo = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+  const gruppi = (svg && origine && window.COORDINATE_CITTA && mete?.length)
+    ? [...mappaGruppiPerCitta(mete).entries()]
+    : [];
+  const [x1, y1] = origine ? proiettaXY(origine.lat, origine.lon) : [0, 0];
+  const scelti = gruppi
+    .filter(([, g]) => Math.hypot(g.x - x1, g.y - y1) > 4)
+    .sort((a, b) => b[1].items.length - a[1].items.length)
+    .slice(0, ROTTE_BENV_MAX);
+  const chiavi = new Set(scelti.map(([k]) => k));
+
+  _rotteBenv.forEach((path, k) => {
+    if (chiavi.has(k)) return;
+    _rotteBenv.delete(k);
+    if (calmo) { path.remove(); return; }
+    path.classList.add("rotta-benv-esce");
+    setTimeout(() => path.remove(), 450);
+  });
+
+  const NS = "http://www.w3.org/2000/svg";
+  let nuove = 0;
+  scelti.forEach(([k, g]) => {
+    let path = _rotteBenv.get(k);
+    if (!path) {
+      const cx = (x1 + g.x) / 2;
+      const cy = Math.min(y1, g.y) - Math.hypot(g.x - x1, g.y - y1) * 0.18;
+      path = document.createElementNS(NS, "path");
+      path.setAttribute("d", `M ${x1.toFixed(1)} ${y1.toFixed(1)} Q ${cx.toFixed(1)} ${cy.toFixed(1)} ${g.x} ${g.y}`);
+      path.dataset.citta = k;
+      const ritardo = calmo ? 0 : nuove * 0.07;
+      path.style.animationDelay = `${ritardo}s, ${ritardo}s`;
+      nuove++;
+      svg.appendChild(path);
+      _rotteBenv.set(k, path);
+    }
+    let classe = "rotta-benv";
+    if (categoriaDi) {
+      const cat = g.items.map(categoriaDi);
+      classe += cat.includes("ok") ? " rotta-benv-ok"
+        : cat.includes("medio") ? " rotta-benv-medio" : " rotta-benv-no";
+    }
+    path.setAttribute("class", classe);
+  });
+}
+
+function aggiornaPausaRotteBenv() {
+  document.getElementById("mappa-benvenuto")
+    ?.classList.toggle("rotte-pausa", document.hidden);
+}
+
 function aggiornaPausaScena() {
   document.getElementById("mappa-benvenuto")
     ?.classList.toggle("scena-pausa", document.hidden);
@@ -7331,6 +7404,7 @@ function initOnboarding() {
   const layer = mappaCostruisci(document.getElementById("mappa-benvenuto"));
   if (!layer) return; // dati mappa assenti: restano le scelte testuali
   _mappaBenv = { layer };
+  document.addEventListener("visibilitychange", aggiornaPausaRotteBenv);
 
   const bozza = leggiBozzaOnboarding();
   const automatica = consumaRipresaAutomatica();
