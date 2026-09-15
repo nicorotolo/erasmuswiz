@@ -132,6 +132,8 @@ test("LA piano: anteprima obbligatoria, riga ambigua esplicita e importazione pe
   expect(await page.evaluate(() => Object.keys(window.eval("ZAINO.la.examLibrary")).length)).toBe(1);
   await page.reload({ waitUntil: "domcontentloaded" });
   const nomeInLibreria = page.locator('.la-exam-row input[aria-label="Nome dell\'esame in libreria"]');
+  // Revisione di Nicola (2), 15/09: col piano pieno la sezione è ripiegata.
+  await page.locator("#la-plan > summary").click();
   await expect(nomeInLibreria).toHaveValue("Diritto privato");
   await nomeInLibreria.fill("Diritto privato modificato");
   await nomeInLibreria.press("Tab");

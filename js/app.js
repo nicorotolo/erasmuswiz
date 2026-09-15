@@ -1025,6 +1025,57 @@ function initDrawer() {
 // ============================================================
 // HOME — saluto + data
 // ============================================================
+// Revisione di Nicola (2), 15/09: in Home un indicatore «N su 6» del profilo,
+// che sparisce quando il profilo è completo. Contano solo le risposte che
+// cambiano qualcosa nel sito; l'ateneo è sempre scelto e non si conta.
+function risposteProfilo(profilo = ZAINO.profilo || {}) {
+  const date = [
+    !!String(profilo.nome || "").trim(),
+    !!(profilo.dipartimento || profilo.area),
+    profilo.livello === "L" || profilo.livello === "LM",
+    Array.isArray(profilo.lingue) && profilo.lingue.length > 0,
+    profilo.extraUE === true || profilo.extraUE === false,
+    profilo.ricercaTesi === true || profilo.ricercaTesi === false,
+  ];
+  return { date: date.filter(Boolean).length, totale: date.length };
+}
+
+function renderCompletamentoProfilo() {
+  // Vive dentro «Il tuo progresso»: la mossa principale resta la prima cosa.
+  const progresso = document.querySelector("#tab-oggi .percorso-wrap");
+  if (!progresso) return;
+  let box = document.getElementById("home-profilo-completo");
+  const { date, totale } = risposteProfilo();
+  if (!ZAINO.onboardingFatto || date >= totale) {
+    if (box) box.hidden = true;
+    return;
+  }
+  if (!box) {
+    box = document.createElement("button");
+    box.type = "button";
+    box.id = "home-profilo-completo";
+    box.className = "home-profilo-completo";
+    box.addEventListener("click", () => vaiA("profilo"));
+    const testa = progresso.querySelector(".percorso-header");
+    if (testa) testa.insertAdjacentElement("afterend", box); else progresso.prepend(box);
+  }
+  box.hidden = false;
+  box.innerHTML = "";
+  const testi = crea("span", "home-profilo-testi");
+  const riga = crea("span", "home-profilo-riga");
+  riga.appendChild(crea("strong", null, `Profilo: ${date} su ${totale}`));
+  riga.appendChild(document.createTextNode(" · completalo"));
+  testi.appendChild(riga);
+  const barra = crea("span", "home-profilo-barra");
+  barra.setAttribute("aria-hidden", "true");
+  const pieno = crea("span", "home-profilo-pieno");
+  pieno.style.width = `${Math.round(100 * date / totale)}%`;
+  barra.appendChild(pieno);
+  testi.appendChild(barra);
+  box.appendChild(testi);
+  box.appendChild(icona("freccia"));
+}
+
 function renderHome() {
   // Fase C2: primo contatto = benvenuto con mappa-hero al posto della home;
   // dopo l'onboarding la home normale torna padrona (mappa compattata sotto).
@@ -1053,6 +1104,8 @@ function renderHome() {
       ? `Ciao, ${ZAINO.profilo.nome}`
       : "Il tuo percorso Erasmus";
   }
+
+  renderCompletamentoProfilo();
 
   // Badge del bando — dice sempre la verità sui QUATTRO stati (R2.5):
   // aperto / candidature chiuse ma ciclo attivo / dati scaduti / non
@@ -3182,6 +3235,32 @@ function apriDettaglioMeta(meta) {
     corpo.appendChild(box);
   }
 
+  // --- Scadenze università ospitante ---
+  // Revisione di Nicola (2), 15/09: le scadenze salgono subito sotto la
+  // compatibilità, in un riquadro ambra (l'ambra è riservata alle scadenze).
+  if (meta.scadenzeOspitante && meta.scadenzeOspitante.length) {
+    const boxScadenze = crea("section", "dett-scadenze-ospitante");
+    const testa = crea("h3", "dett-scadenze-titolo", "Scadenze dell'università ospitante");
+    testa.prepend(icona("calendario"));
+    boxScadenze.appendChild(testa);
+    const ulS = crea("ul", "dett-scadenze-lista");
+    meta.scadenzeOspitante.forEach(s => {
+      const li = crea("li", "dett-scadenza");
+      li.appendChild(crea("span", "dett-scadenza-cosa", s.cosa));
+      li.appendChild(crea("strong", "dett-scadenza-quando", s.periodo));
+      ulS.appendChild(li);
+    });
+    boxScadenze.appendChild(ulS);
+    if (inPreBando()) {
+      boxScadenze.appendChild(crea(
+        "p",
+        "cartellino-ciclo",
+        `Date del ciclo ${cartellinoCicloDati()} — l’università ospitante le ripubblica ogni anno.`
+      ));
+    }
+    corpo.appendChild(boxScadenze);
+  }
+
   // --- Area disciplinare + dipartimento + coordinatore + codice ---
   const aree = (meta.areeDisciplinari || []).map(a => `${a.nome} (${a.codice})`).join(", ");
   if (aree) corpo.appendChild(rigaDettaglio("Area disciplinare", aree));
@@ -3251,23 +3330,6 @@ function apriDettaglioMeta(meta) {
       `Fonte: ${BORSE_INFO.fonte}, aggiornata al ${BORSE_INFO.aggiornatoAl}.`));
     box.appendChild(dettagli);
     corpo.appendChild(rigaDettaglio("Borsa Erasmus", box));
-  }
-
-  // --- Scadenze università ospitante (dato reale, prima invisibile) ---
-  if (meta.scadenzeOspitante && meta.scadenzeOspitante.length) {
-    const boxScadenze = crea("div", "dett-scadenze-ospitante");
-    if (inPreBando()) {
-      boxScadenze.appendChild(crea(
-        "p",
-        "cartellino-ciclo",
-        `Date del ciclo ${cartellinoCicloDati()} — l’università ospitante le ripubblica ogni anno.`
-      ));
-    }
-    const ulS = document.createElement("ul");
-    meta.scadenzeOspitante.forEach(s =>
-      ulS.appendChild(crea("li", null, `${s.cosa}: ${s.periodo}`)));
-    boxScadenze.appendChild(ulS);
-    corpo.appendChild(rigaDettaglio("Scadenze dell'università ospitante", boxScadenze));
   }
 
   // --- Campi descrittivi: solo se REALI (niente segnaposto) ---
@@ -3958,29 +4020,68 @@ function laRenderGuida(contenitore, ciclo, fase) {
   const filtro = laRegoleAttive(ciclo, fase);
   const sezione = laElemento("section", "la-panel la-guide");
   sezione.id = "la-guide";
-  sezione.appendChild(laElemento("h2", "la-panel-title", `Procedura ${laNomeAteneo()}`));
+  sezione.appendChild(laElemento("h2", "la-panel-title", `Come funziona a ${laNomeAteneo()}`));
   sezione.appendChild(laElemento("p", "la-muted",
-    "ErasmusWiz prepara e conserva il lavoro. Invio, firma e approvazione restano nei sistemi ufficiali dell'ateneo."));
-  if (filtro.state !== "verified") {
-    sezione.appendChild(laElemento("p", "la-warning", `Procedura da verificare per il ciclo ${ciclo}. Non riutilizziamo regole di un ciclo precedente.`));
-  } else {
+    "Qui prepari e conservi il lavoro. Invio, firme e approvazione si fanno nei sistemi ufficiali dell'ateneo."));
+  // Revisione di Nicola (2), 15/09: prima i passi in ordine, poi le regole
+  // in un riquadro chiuso, e le fonti UNA volta sola in fondo. Se il ciclo
+  // non è ancora verificato, i passi dell'ultimo ciclo noto si mostrano come
+  // riferimento dichiarato; regole e controlli restano spenti.
+  const verificato = filtro.state === "verified";
+  const passiAteneo = (window.ERASMUSWIZ_LA_PASSI || []).filter(p => p.university === ateneoAttivo());
+  const passi = verificato
+    ? passiAteneo.find(p => p.cycle === ciclo)
+    : passiAteneo.slice().sort((x, y) => String(y.cycle).localeCompare(String(x.cycle)))[0];
+  if (!verificato) {
+    sezione.appendChild(laElemento("p", "la-warning", passi
+      ? `La procedura ${ciclo} non è ancora uscita: qui sotto trovi come funzionava nel ${passi.cycle}.`
+      : `Procedura da verificare per il ciclo ${ciclo}. Non riutilizziamo regole di un ciclo precedente.`));
+    if (!passi) { contenitore.appendChild(sezione); return; }
+  }
+  if (passi) {
+    const lista = laElemento("ol", "la-passi");
+    passi.steps.forEach((passo, i) => {
+      const li = laElemento("li", "la-passo");
+      if (!i || passi.steps[i - 1].quando !== passo.quando) {
+        li.appendChild(laElemento("span", "la-passo-quando", passo.quando));
+      }
+      li.appendChild(laElemento("span", "la-passo-testo", passo.testo));
+      lista.appendChild(li);
+    });
+    sezione.appendChild(lista);
+  }
+  const fonti = new Map();
+  (passi?.sources || []).forEach(f => fonti.set(f.url, f));
+  if (verificato && filtro.rules.length) {
+    const regole = document.createElement("details");
+    regole.className = "la-regole";
+    regole.open = !passi;
+    regole.appendChild(laElemento("summary", null, `Regole da ricordare (${filtro.rules.length})`));
     const lista = laElemento("ul", "la-rule-list");
     filtro.rules.forEach(regola => {
       const li = laElemento("li", `la-rule la-rule-${regola.severity}`);
       li.appendChild(laElemento("strong", null, regola.title + ". "));
       li.appendChild(document.createTextNode(regola.message));
-      const fonti = laElemento("span", "la-rule-sources", " ");
-      regola.sources.forEach((fonte, i) => {
-        const a = laElemento("a", null, i ? `fonte ${i + 1} ↗` : "fonte ufficiale ↗");
-        a.href = fonte.url; a.target = "_blank"; a.rel = "noopener";
-        fonti.appendChild(a);
-        if (i < regola.sources.length - 1) fonti.appendChild(document.createTextNode(" · "));
-      });
-      li.appendChild(fonti);
+      (regola.sources || []).forEach(f => fonti.set(f.url, f));
       lista.appendChild(li);
     });
-    sezione.appendChild(lista);
-    sezione.appendChild(laElemento("p", "la-verified", "Fonti verificate il 2 agosto 2026. Verifica sempre eventuali aggiornamenti sulla fonte ufficiale."));
+    regole.appendChild(lista);
+    sezione.appendChild(regole);
+  }
+  if (fonti.size) {
+    const verificata = passi?.verifiedAt || (filtro.rules || []).map(r => r.verifiedAt).filter(Boolean).sort().pop();
+    const riga = laElemento("p", "la-verified");
+    const data = verificata
+      ? new Date(verificata).toLocaleDateString("it-IT", { day: "numeric", month: "long", year: "numeric" })
+      : "";
+    riga.appendChild(document.createTextNode(data ? `Fonti ufficiali, controllate il ${data}: ` : "Fonti ufficiali: "));
+    [...fonti.values()].forEach((f, i) => {
+      if (i) riga.appendChild(document.createTextNode(" · "));
+      const link = laElemento("a", null, `${f.title} ↗`);
+      link.href = f.url; link.target = "_blank"; link.rel = "noopener";
+      riga.appendChild(link);
+    });
+    sezione.appendChild(riga);
   }
   contenitore.appendChild(sezione);
 }
@@ -4072,12 +4173,37 @@ function laRenderImportPreview(sezione) {
   sezione.appendChild(box);
 }
 
+// Revisione di Nicola (2), 15/09: «Il mio piano» e la copia di sicurezza in
+// secondo piano. Il piano resta aperto finché è vuoto (è il punto di
+// partenza); poi si richiude in una riga. Lo stato aperto sopravvive ai
+// ridisegni del LA, che avvengono a ogni modifica.
+let _laPianoAperto = false;
+let _laBackupAperto = false;
+function laSezioneRipiegabile(id, classe, titolo, aperto, ricorda) {
+  const sezione = document.createElement("details");
+  sezione.className = `la-panel la-ripiegabile ${classe}`.trim();
+  if (id) sezione.id = id;
+  sezione.open = aperto;
+  const sommario = document.createElement("summary");
+  sommario.appendChild(laElemento("h2", "la-panel-title", titolo));
+  sommario.appendChild(icona("giu"));
+  sezione.appendChild(sommario);
+  sezione.addEventListener("toggle", () => ricorda(sezione.open));
+  return sezione;
+}
+
 function laRenderPiano(contenitore) {
-  const sezione = laElemento("section", "la-panel");
-  sezione.id = "la-plan";
-  sezione.appendChild(laElemento("h2", "la-panel-title", "1. Il mio piano"));
-  sezione.appendChild(laElemento("p", "la-muted", "Incolla una riga per esame nel formato codice; nome; CFU. Accettiamo anche tab, intestazione, decimali con virgola o punto e righe vuote."));
   const esami = Object.values(ZAINO.la.examLibrary || {});
+  let sezione;
+  if (esami.length) {
+    sezione = laSezioneRipiegabile("la-plan", "", `1. Il mio piano · ${esami.length} ${esami.length === 1 ? "esame" : "esami"}`,
+      _laPianoAperto, v => { _laPianoAperto = v; });
+  } else {
+    sezione = laElemento("section", "la-panel");
+    sezione.id = "la-plan";
+    sezione.appendChild(laElemento("h2", "la-panel-title", "1. Il mio piano"));
+  }
+  sezione.appendChild(laElemento("p", "la-muted", "Incolla una riga per esame nel formato codice; nome; CFU. Accettiamo anche tab, intestazione, decimali con virgola o punto e righe vuote."));
   if (!esami.length) {
     sezione.appendChild(laElemento("p", "la-empty-primary", "Parti dal tuo piano di studi italiano"));
   }
@@ -5494,8 +5620,10 @@ function laRenderRestorePreview(sezione) {
 }
 
 function laRenderBackupRestore(contenitore) {
-  const sezione = laElemento("section", "la-panel la-backup");
-  sezione.appendChild(laElemento("h2", "la-panel-title", "Copia di sicurezza e ripristino"));
+  const corrottiPresenti = Object.keys(ZAINO.la.recovery?.legacyCorrupt || {}).length > 0;
+  const urgente = !!(ZAINO.la.backupReminder || _laVolatileRecovery || _laRestorePreview || corrottiPresenti);
+  const sezione = laSezioneRipiegabile(null, "la-backup", "Salva una copia o recupera il lavoro",
+    urgente || _laBackupAperto, v => { _laBackupAperto = v; });
   sezione.appendChild(laElemento("p", "la-muted", "Non c'è sincronizzazione tra dispositivi. Se cancelli i dati del browser puoi perdere il dossier. Il file contiene dati accademici: conservalo in privato."));
   if (ZAINO.la.backupReminder) {
     sezione.appendChild(laElemento("p", "la-warning", "È consigliata una nuova copia di sicurezza dopo questo passaggio importante."));

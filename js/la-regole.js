@@ -98,4 +98,33 @@
       sources: [CAFOSCARI_FAQ]
     }
   ]);
+
+  // Revisione di Nicola (2), 15/09: la procedura detta in passi, nell'ordine
+  // in cui si fanno. Riprende solo fatti già verificati (queste regole e le
+  // checklist post-selezione dello stesso ciclo), senza aggiungerne.
+  radice.ERASMUSWIZ_LA_PASSI = Object.freeze([
+    {
+      university: "cafoscari", cycle: "2026/27", verifiedAt: "2026-08-02",
+      sources: [CAFOSCARI_PROCEDURA, CAFOSCARI_FAQ],
+      steps: [
+        { quando: "Prima di partire", testo: "Cerca sul sito dell'università ospitante i corsi compatibili con il tuo piano di studi, restando dentro l'accordo per cui sei stato selezionato." },
+        { quando: "Prima di partire", testo: "Prepara qui la proposta: ogni esame di Ca' Foscari (col suo codice) accanto ai corsi che lo sostituiscono. ECTS e CFU non devono coincidere per forza." },
+        { quando: "Prima di partire", testo: "Mostra la proposta al coordinatore dello scambio e concordala con lui. Prima di questo passaggio non inserirla nell'OLA." },
+        { quando: "Prima di partire", testo: "Inserisci la proposta concordata nell'Online Learning Agreement (OLA), la piattaforma ufficiale, per raccogliere le firme. Leggi prima guida e FAQ." },
+        { quando: "Durante", testo: "Se cambi qualcosa, presenta le variazioni all'OLA entro 30 giorni dall'inizio dei corsi all'estero." },
+        { quando: "Al rientro", testo: "Per la convalida devi aver superato almeno un'attività dell'OLA; il riconoscimento dei crediti lo avvia il Settore Mobilità." }
+      ]
+    },
+    {
+      university: "sapienza", cycle: "2026/27", verifiedAt: "2026-08-02",
+      sources: [SAPIENZA_GUIDA],
+      steps: [
+        { quando: "Prima di partire", testo: "Cerca sul sito dell'ateneo ospitante i corsi compatibili: puoi inserire solo esami del tuo piano di studi non ancora sostenuti." },
+        { quando: "Prima di partire", testo: "Prepara qui la proposta, poi compila il Learning Agreement dalla pagina personale Sapienza («PROCEDURE ONLINE») e fallo approvare dal RAM." },
+        { quando: "Prima di partire", testo: "Le firme seguono EWP (tutto digitale) oppure il percorso tradizionale col PDF: segna quale vale per la tua sede." },
+        { quando: "Durante", testo: "Ogni modifica passa dalla pagina personale (Change Form): quello che non è registrato lì non viene riconosciuto." },
+        { quando: "Al rientro", testo: "Controlla che i nomi delle attività coincidano con quelli del Transcript of Records, poi segui la convalida fino a Infostud." }
+      ]
+    }
+  ]);
 })(typeof globalThis !== "undefined" ? globalThis : this);

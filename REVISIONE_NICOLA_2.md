@@ -10,7 +10,7 @@ Stato: [x] fatto · [ ] da fare · [~] rimandato
 - [x] Compatibilità: percentuale grande, niente spunta, colore + spiegazione
 - [x] Requisiti linguistici: icona di attenzione + testo al passaggio/tocco
 - [x] Borsa: cifra in evidenza, dettagli espandibili, fonte solo nei dettagli
-- [~] Scadenze più in evidenza (prossima sessione)
+- [x] Scadenze più in evidenza (riquadro ambra subito sotto la compatibilità)
 - [x] Bottoni: 1° scheda ufficiale, 2° catalogo, LA separato
 - [x] Preferite: «max 5 in ordine di priorità (bando 2026/27)» (solo dove il bando lo dice: Ca' Foscari)
 - [x] Riordino preferite fluido con le frecce su/giù (scelta di Nicola 15/09; trascinamento in pipeline)
@@ -36,7 +36,11 @@ Stato: [x] fatto · [ ] da fare · [~] rimandato
 - [x] Ogni spunta: titolino + spiegazione breve
 - [x] Accettazione divisa in prima / durante / dopo
 - [x] LA: si partiva dal punto 2 invece che dall'1
-- [ ] Procedura Ca' Foscari da chiarire completamente
-- [ ] Ridondanze «fonti verificate» / «fonte ufficiale»
-- [ ] «Il mio piano» e «copia di sicurezza e ripristino»: rivedere o mettere in secondo piano
-- [ ] Home: indicatore di completamento profilo (es. «6 su 8»)
+- [x] Procedura Ca' Foscari da chiarire completamente
+- [x] Ridondanze «fonti verificate» / «fonte ufficiale»
+- [x] «Il mio piano» e «copia di sicurezza e ripristino»: rivedere o mettere in secondo piano
+- [x] Home: indicatore di completamento profilo (es. «6 su 8»)
+
+## In pipeline
+- [ ] Riordino delle preferite trascinando (per ora frecce su/giù fluide, scelta di Nicola 15/09)
+- [ ] Rotte animate dall'ateneo nell'onboarding (DISEGNO_BRAND §V4.12-bis)

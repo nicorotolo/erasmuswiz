@@ -3535,6 +3535,47 @@ summary.zaino-capitolo-testa .icona { transition: transform var(--dur-fast) var(
 .zaino-ultima summary { display: inline-flex; align-items: center; min-height: 44px; cursor: pointer; color: var(--text-muted); text-decoration: underline; }
 .zaino-ultima .zaino-avvertenza { color: var(--text-muted); font-size: var(--fs-sm); }
 
+/* LA: procedura in passi, regole chiuse, fonti una volta; piano e copia
+   di sicurezza ripiegabili. */
+.la-passi { margin: var(--space-3) 0; padding-left: 1.4em; display: flex; flex-direction: column; gap: var(--space-2); }
+.la-passo { color: var(--text-dark); font-size: var(--fs-sm); line-height: 1.55; }
+.la-passo-quando { display: block; font-size: var(--fs-xs); font-weight: 700; color: var(--text-muted); }
+.la-regole summary { display: inline-flex; align-items: center; min-height: 44px; cursor: pointer; font-weight: 700; color: var(--primary); }
+.la-ripiegabile > summary { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); min-height: 44px; cursor: pointer; list-style: none; }
+.la-ripiegabile > summary::-webkit-details-marker { display: none; }
+.la-ripiegabile > summary .la-panel-title { margin: 0; }
+.la-ripiegabile > summary .icona { transition: transform var(--dur-fast) var(--ease-out); }
+.la-ripiegabile[open] > summary .icona { transform: rotate(180deg); }
+.la-backup:not([open]) { background: transparent; box-shadow: none; }
+.la-backup:not([open]) .la-panel-title { font-size: var(--fs-sm); color: var(--text-muted); }
+
+/* Home: completamento del profilo (--text-dark su --bg-card, barra indaco). */
+.home-profilo-completo {
+  display: flex; align-items: center; gap: var(--space-3); width: 100%;
+  min-height: 48px; padding: var(--space-2) var(--space-4); margin: 0 0 var(--space-3);
+  border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--bg-card);
+  color: var(--text-dark); font: inherit; font-size: var(--fs-sm); text-align: left; cursor: pointer;
+}
+.home-profilo-completo:hover { border-color: var(--border-strong); }
+.home-profilo-testi { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.home-profilo-riga { color: var(--text-muted); }
+.home-profilo-riga strong { color: var(--text-dark); }
+.home-profilo-barra { display: block; height: 6px; border-radius: 3px; background: var(--bg-track); overflow: hidden; }
+.home-profilo-pieno { display: block; height: 100%; background: var(--primary); border-radius: 3px; }
+
+/* Scheda meta: scadenze dell'ospitante in evidenza (--amber su --amber-bg
+   4,94:1; testo --text-dark). */
+.dett-scadenze-ospitante {
+  margin: var(--space-3) 0; padding: var(--space-3) var(--space-4);
+  background: var(--amber-bg); border: 1px solid var(--amber-border); border-radius: var(--radius-md);
+}
+.dett-scadenze-titolo { display: flex; align-items: center; gap: 6px; margin: 0 0 var(--space-2); font-size: var(--fs-sm); font-weight: 700; color: var(--amber); }
+.dett-scadenze-lista { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+.dett-scadenza { display: flex; flex-direction: column; gap: 1px; }
+.dett-scadenza-cosa { font-size: var(--fs-xs); color: var(--text-muted); }
+.dett-scadenza-quando { font-size: var(--fs-body); color: var(--text-dark); }
+.dett-scadenze-ospitante .cartellino-ciclo { margin: var(--space-2) 0 0; font-size: var(--fs-xs); }
+
 /*__PROD_END__*/
 /* ================================================================
    Tutto ciò che sta SOTTO questo marcatore è vocabolario di design non
