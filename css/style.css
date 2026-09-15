@@ -3515,6 +3515,26 @@ td.la-col-numero { font-family: var(--font-mono); font-weight: 700; color: var(-
 .attesa-faq-domanda .gruppo-post { padding: 0 0 var(--space-3); }
 .attesa-faq-domanda .gruppo-post-titolo { margin: 0 0 4px; font-size: var(--fs-sm); text-transform: none; letter-spacing: normal; color: var(--text-dark); }
 
+/* Parti (zaino): capitoli apribili, titolino + spiegazione, momenti
+   dell'accettazione, rinuncia in fondo e chiusa. */
+.zaino-intro { margin: 0 0 var(--space-4); color: var(--text-dark); font-size: var(--fs-sm); line-height: 1.55; }
+summary.zaino-capitolo-testa { cursor: pointer; list-style: none; align-items: center; min-height: 44px; }
+summary.zaino-capitolo-testa::-webkit-details-marker { display: none; }
+summary.zaino-capitolo-testa .zaino-capitolo-titolo { flex: 1; }
+summary.zaino-capitolo-testa .icona { transition: transform var(--dur-fast) var(--ease-out); }
+.zaino-capitolo[open] > summary.zaino-capitolo-testa .icona { transform: rotate(180deg); }
+.zaino-capitolo:first-of-type .zaino-capitolo-testa { border-top: 0; }
+.voce-post-testi { display: flex; flex-direction: column; gap: 2px; }
+.voce-post-spiegazione { color: var(--text-muted); font-size: var(--fs-sm); font-weight: 400; line-height: 1.5; }
+.zaino-momento { margin: 0 0 var(--space-2); }
+.zaino-momento-titolo { margin: var(--space-2) 0 2px; font-size: var(--fs-sm); font-weight: 700; color: var(--text-dark); }
+.zaino-opzioni-etichetta { display: block; font-size: var(--fs-xs); font-weight: 700; color: var(--text-muted); }
+.gruppo-post .zaino-opzioni, .gruppo-post .zaino-da-sapere { margin-bottom: var(--space-3); padding: var(--space-3); }
+.zaino-da-sapere .zaino-avvertenza:first-child { margin-top: 0; }
+.zaino-ultima { margin-top: var(--space-3); font-size: var(--fs-sm); }
+.zaino-ultima summary { display: inline-flex; align-items: center; min-height: 44px; cursor: pointer; color: var(--text-muted); text-decoration: underline; }
+.zaino-ultima .zaino-avvertenza { color: var(--text-muted); font-size: var(--fs-sm); }
+
 /*__PROD_END__*/
 /* ================================================================
    Tutto ciò che sta SOTTO questo marcatore è vocabolario di design non

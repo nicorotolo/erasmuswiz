@@ -31,10 +31,10 @@ Stato: [x] fatto · [ ] da fare · [~] rimandato
 - [x] Box giallo come FAQ: cosa succede adesso / cosa puoi fare intanto / a cosa fare attenzione
 
 ## Parti (zaino) e Learning Agreement
-- [ ] «Parti»: chiarire subito cosa si fa; 24 punti sono troppi
-- [ ] Rinuncia come ultima voce, non in evidenza
-- [ ] Ogni spunta: titolino + spiegazione breve
-- [ ] Accettazione divisa in prima / durante / dopo
+- [x] «Parti»: frase iniziale; capitoli apribili (aperto solo il primo da fare), così i 24 punti non si vedono tutti insieme
+- [x] Rinuncia come ultima voce, non in evidenza
+- [x] Ogni spunta: titolino + spiegazione breve
+- [x] Accettazione divisa in prima / durante / dopo
 - [x] LA: si partiva dal punto 2 invece che dall'1
 - [ ] Procedura Ca' Foscari da chiarire completamente
 - [ ] Ridondanze «fonti verificate» / «fonte ufficiale»

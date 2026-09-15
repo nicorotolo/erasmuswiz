@@ -3348,7 +3348,7 @@ function initDettaglioMeta() {
 // ============================================================
 const CAPITOLI_ZAINO = ["Prima", "Durante", "Dopo"];
 
-function renderChecklistPost() {
+function renderChecklistPost(opzioni = {}) {
   const cont = document.getElementById("lista-checklist-post");
   if (!cont) return;
   cont.innerHTML = "";
@@ -3376,73 +3376,134 @@ function renderChecklistPost() {
     cont.appendChild(invito);
   }
 
+  // Nicola (15/09): prima una frase che dice cosa si fa qui.
+  cont.prepend(crea(
+    "p",
+    "zaino-intro",
+    "Hai il posto: qui c'è quello che resta da fare, prima di partire, durante e al rientro. Apri un capitolo, spunta quello che hai fatto."
+  ));
+
+  // Spuntare ridisegna: si conservano i capitoli aperti, la posizione e il
+  // fuoco (stesso difetto già corretto nelle Candidature).
   function creaVocePost(voce) {
     const spuntato = !!spunte[voce.id];
     const label = document.createElement("label");
-    label.className = ["voce-checklist-v2", spuntato ? "fatta" : ""].join(" ").trim();
+    label.className = ["voce-checklist-v2", "voce-post", spuntato ? "fatta" : ""].join(" ").trim();
 
     const cb = document.createElement("input");
     cb.type    = "checkbox";
     cb.checked = spuntato;
+    cb.dataset.vocePost = voce.id;
     cb.addEventListener("change", () => {
       if (cb.checked) { mostraBannerWiz(); segnalaChecklistUsata(); }
       ZAINO.checklistPost[voce.id] = cb.checked;
       salvaZaino(ZAINO);
-      renderChecklistPost();
+      const aperti = [...cont.querySelectorAll("details")].map(d => d.open);
+      const y = window.scrollY;
+      renderChecklistPost({ aperti });
+      cont.querySelector(`input[data-voce-post="${CSS.escape(voce.id)}"]`)?.focus({ preventScroll: true });
       renderMissione(); // aggiorna anche conteggio stazione e "Questa settimana"
+      window.scrollTo(window.scrollX, y);
     });
 
     label.appendChild(cb);
-    label.appendChild(crea("span", null, voce.testo));
+    // Titolino + spiegazione breve (Nicola 15/09).
+    const testi = crea("span", "voce-post-testi");
+    if (voce.titolo) testi.appendChild(crea("span", "voce-checklist-titolo", voce.titolo));
+    testi.appendChild(crea("span", voce.titolo ? "voce-post-spiegazione" : null, voce.testo));
+    label.appendChild(testi);
     return label;
   }
+
+  function creaAvvertenza(voce) {
+    const p = crea("p", "zaino-avvertenza");
+    if (voce.titolo) p.appendChild(crea("strong", null, voce.titolo + ". "));
+    p.appendChild(document.createTextNode(voce.testo));
+    return p;
+  }
+
+  // L'Accettazione si divide in tre momenti (Nicola 15/09).
+  const MOMENTI = ["prima di accettare", "quando accetti", "dopo aver accettato"];
+  const primoCapitoloAperto = CAPITOLI_ZAINO.find(capitolo =>
+    lista.some(v => (v.gruppoZaino || "Prima") === capitolo && idApplicabili.has(v.id) && !spunte[v.id])
+  ) || CAPITOLI_ZAINO[0];
+  let indiceDetails = 0;
+  const statoAperto = predefinito => {
+    const salvato = opzioni.aperti?.[indiceDetails++];
+    return typeof salvato === "boolean" ? salvato : predefinito;
+  };
 
   CAPITOLI_ZAINO.forEach(capitolo => {
     const vociCapitolo = lista.filter(v => (v.gruppoZaino || "Prima") === capitolo);
     if (vociCapitolo.length === 0) return; // niente contenuti per questo capitolo: si nasconde
     const compitiCapitolo = vociCapitolo.filter(voce => idApplicabili.has(voce.id));
+    const ultime = vociCapitolo.filter(voce => voce.ultima);
     const opzioniCapitolo = vociCapitolo.filter(voce => voce.tipo === "opzione");
-    const avvertenzeCapitolo = vociCapitolo.filter(voce => voce.tipo === "avvertenza");
+    const avvertenzeCapitolo = vociCapitolo.filter(voce => voce.tipo === "avvertenza" && !voce.ultima);
 
-    const capitoloEl = crea("div", "zaino-capitolo");
-    // Testa-capitolo come blocco distinto (Fase C4): stesso linguaggio dei
-    // capitoli-scadenza della candidatura, con il conteggio del capitolo al
-    // posto del countdown (qui non c'è urgenza: è un percorso, non una corsa).
-    const testa = crea("div", "zaino-capitolo-testa");
-    testa.appendChild(crea("h2", "zaino-capitolo-titolo", capitolo));
+    // Capitolo apribile: aperto solo il primo con qualcosa da fare, così
+    // i passi non si vedono tutti insieme.
+    const capitoloEl = document.createElement("details");
+    capitoloEl.className = "zaino-capitolo";
+    capitoloEl.open = statoAperto(capitolo === primoCapitoloAperto);
+    const testa = crea("summary", "zaino-capitolo-testa");
+    const etichette = { Prima: "Prima di partire", Durante: "Durante l'Erasmus", Dopo: "Al rientro" };
+    testa.appendChild(crea("h2", "zaino-capitolo-titolo", etichette[capitolo] || capitolo));
     const fattiCapitolo = compitiCapitolo.filter(v => spunte[v.id]).length;
     testa.appendChild(crea("span", "zaino-capitolo-count", `${fattiCapitolo} di ${compitiCapitolo.length}`));
+    testa.appendChild(icona("giu"));
     capitoloEl.appendChild(testa);
 
     const fasi = [];
-    compitiCapitolo.forEach(voce => {
+    vociCapitolo.forEach(voce => {
+      if (voce.ultima) return;
       if (!fasi.includes(voce.fase)) fasi.push(voce.fase);
     });
 
     const corpo = crea("div", "zaino-capitolo-corpo");
-    if (avvertenzeCapitolo.length) {
-      const avvertenze = crea("section", "zaino-da-sapere");
-      avvertenze.appendChild(crea("h3", "gruppo-post-titolo", "Da sapere prima"));
-      avvertenzeCapitolo.forEach(voce =>
-        avvertenze.appendChild(crea("p", "zaino-avvertenza", voce.testo))
-      );
-      corpo.appendChild(avvertenze);
-    }
-
     fasi.forEach(fase => {
-      const voci = compitiCapitolo.filter(v => v.fase === fase);
+      const compiti = compitiCapitolo.filter(v => v.fase === fase);
+      const opz = opzioniCapitolo.filter(v => v.fase === fase);
+      const avv = avvertenzeCapitolo.filter(v => v.fase === fase);
+      if (!compiti.length && !opz.length && !avv.length) return;
       const gruppo = crea("div", "gruppo-post");
       gruppo.appendChild(crea("h3", "gruppo-post-titolo", fase));
-      voci.forEach(voce => gruppo.appendChild(creaVocePost(voce)));
+
+      const conMomento = [...compiti, ...opz, ...avv].some(v => v.momento);
+      const blocchi = conMomento
+        ? MOMENTI.map(m => [m, v => v.momento === m])
+        : [[null, () => true]];
+      blocchi.forEach(([momento, filtro]) => {
+        const c = compiti.filter(filtro), o = opz.filter(filtro), a = avv.filter(filtro);
+        if (!c.length && !o.length && !a.length) return;
+        const dest = momento ? crea("div", "zaino-momento") : gruppo;
+        if (momento) dest.appendChild(crea("h4", "zaino-momento-titolo", momento[0].toUpperCase() + momento.slice(1)));
+        c.forEach(voce => dest.appendChild(creaVocePost(voce)));
+        if (o.length) {
+          const box = crea("div", "zaino-opzioni");
+          box.appendChild(crea("span", "zaino-opzioni-etichetta", "Se ti riguarda"));
+          o.forEach(voce => box.appendChild(creaVocePost(voce)));
+          dest.appendChild(box);
+        }
+        if (a.length) {
+          const box = crea("div", "zaino-da-sapere");
+          a.forEach(voce => box.appendChild(creaAvvertenza(voce)));
+          dest.appendChild(box);
+        }
+        if (momento) gruppo.appendChild(dest);
+      });
       corpo.appendChild(gruppo);
     });
 
-    if (opzioniCapitolo.length) {
-      const opzioni = crea("section", "zaino-opzioni");
-      opzioni.appendChild(crea("h3", "gruppo-post-titolo", "Se ti riguarda"));
-      opzioniCapitolo.forEach(voce => opzioni.appendChild(creaVocePost(voce)));
-      corpo.appendChild(opzioni);
-    }
+    // La rinuncia sta in fondo e chiusa: non è la strada da suggerire.
+    ultime.forEach(voce => {
+      const d = document.createElement("details");
+      d.className = "zaino-ultima";
+      d.open = statoAperto(false);
+      d.appendChild(crea("summary", null, voce.titolo || "Altro"));
+      d.appendChild(crea("p", "zaino-avvertenza", voce.testo));
+      corpo.appendChild(d);
+    });
     capitoloEl.appendChild(corpo);
 
     cont.appendChild(capitoloEl);
