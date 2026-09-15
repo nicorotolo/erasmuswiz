@@ -4239,7 +4239,9 @@ function laRenderImportPreview(sezione) {
       renderLAV2();
       return;
     }
-    if (laAggiungiEsami(finale)) _laImportPreview = null;
+    // Revisione di Nicola (3), 15/09: dopo la conferma il piano si
+    // richiudeva in una riga e sembrava cancellato. Resta aperto.
+    if (laAggiungiEsami(finale)) { _laImportPreview = null; _laPianoAperto = true; renderLAV2(); }
   });
   box.appendChild(conferma);
   sezione.appendChild(box);
@@ -4483,6 +4485,25 @@ function laRenderIntento(contenitore, contesto) {
   contenitore.appendChild(box);
 }
 
+// Revisione di Nicola (3), 15/09: «Parigi 1 compare 3 volte». Non è un
+// doppione: sono accordi diversi con la stessa università (area, livelli,
+// coordinatore). Solo quando il nome si ripete aggiungiamo ciò che li distingue.
+function laEtichettaMeta(meta, tutte) {
+  const base = `${nomeUniversita(meta.universita)} — ${meta.citta || meta.paese || ""}`;
+  const omonime = tutte.filter(m => m !== meta &&
+    nomeUniversita(m.universita) === nomeUniversita(meta.universita) && m.citta === meta.citta);
+  if (!omonime.length) return base;
+  const area = (meta.areeDisciplinari || []).map(a => a.nome).filter(Boolean).join(", ");
+  const livelli = [...new Set((meta.posti || []).map(p => p.livello).filter(Boolean))].join("/");
+  const dettagli = [area, livelli];
+  const stessi = omonime.some(m =>
+    (m.areeDisciplinari || []).map(a => a.nome).filter(Boolean).join(", ") === area &&
+    [...new Set((m.posti || []).map(p => p.livello).filter(Boolean))].join("/") === livelli);
+  if (stessi && meta.coordinatoreCf) dettagli.push(`coord. ${meta.coordinatoreCf}`);
+  const extra = dettagli.filter(Boolean).join(" · ");
+  return extra ? `${base} (${extra})` : base;
+}
+
 function laRenderSceltaMeta(sezione, ciclo) {
   const ambito = laAmbitoAttivo();
   const mete = laMeteCandidabili();
@@ -4521,7 +4542,7 @@ function laRenderSceltaMeta(sezione, ciclo) {
       visibili.forEach(meta => {
         const o = document.createElement("option");
         o.value = meta.id;
-        o.textContent = `${nomeUniversita(meta.universita)} — ${meta.citta || meta.paese || ""}`;
+        o.textContent = laEtichettaMeta(meta, mete);
         select.appendChild(o);
       });
       if (!visibili.length) {

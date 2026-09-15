@@ -129,6 +129,9 @@ test("LA piano: anteprima obbligatoria, riga ambigua esplicita e importazione pe
   await page.locator(".la-import-row.ambigua select").selectOption("exclude");
   await page.getByRole("button", { name: "Conferma il piano" }).click();
   await expect(page.locator(".la-exam-row")).toHaveCount(1);
+  // Revisione di Nicola (3), 15/09: dopo «Conferma il piano» gli esami restano
+  // in vista, il piano non si richiude come se fosse stato cancellato.
+  await expect(page.locator(".la-exam-row").first()).toBeVisible();
   expect(await page.evaluate(() => Object.keys(window.eval("ZAINO.la.examLibrary")).length)).toBe(1);
   await page.reload({ waitUntil: "domcontentloaded" });
   const nomeInLibreria = page.locator('.la-exam-row input[aria-label="Nome dell\'esame in libreria"]');
