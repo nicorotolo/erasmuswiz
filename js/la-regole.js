@@ -64,7 +64,7 @@
       id: "cf-draft-before-ola", university: "cafoscari", cycle: "2026/27",
       scope: "all", verifiedAt: "2026-08-02", severity: "info",
       title: "Prima la proposta al coordinatore, poi OLA",
-      message: "Condividi la proposta con l'Academic Coordinator prima di inserirla nell'Online Learning Agreement.",
+      message: "Condividi la proposta col Departmental Coordinator (il docente referente dello scambio) prima di inserirla nell'Online Learning Agreement.",
       sources: [CAFOSCARI_PROCEDURA, CAFOSCARI_FAQ]
     },
     {
@@ -109,7 +109,7 @@
       steps: [
         { quando: "Prima di partire", testo: "Cerca sul sito dell'università ospitante i corsi compatibili con il tuo piano di studi, restando dentro l'accordo per cui sei stato selezionato." },
         { quando: "Prima di partire", testo: "Prepara qui la proposta: ogni esame di Ca' Foscari (col suo codice) accanto ai corsi che lo sostituiscono. ECTS e CFU non devono coincidere per forza." },
-        { quando: "Prima di partire", testo: "Mostra la proposta al coordinatore dello scambio e concordala con lui. Prima di questo passaggio non inserirla nell'OLA." },
+        { quando: "Prima di partire", testo: "Mostra la proposta al Departmental Coordinator (il docente referente dello scambio a Ca' Foscari) e concordala con lui. Prima di questo passaggio non inserirla nell'OLA." },
         { quando: "Prima di partire", testo: "Inserisci la proposta concordata nell'Online Learning Agreement (OLA), la piattaforma ufficiale, per raccogliere le firme. Leggi prima guida e FAQ." },
         { quando: "Durante", testo: "Se cambi qualcosa, presenta le variazioni all'OLA entro 30 giorni dall'inizio dei corsi all'estero." },
         { quando: "Al rientro", testo: "Per la convalida devi aver superato almeno un'attività dell'OLA; il riconoscimento dei crediti lo avvia il Settore Mobilità." }
